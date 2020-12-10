@@ -1,0 +1,24 @@
+// Copyright Epic Games, Inc. All Rights Reserved.
+
+using UnrealBuildTool;
+
+public class LootLockerClient : ModuleRules
+{
+	public LootLockerClient(ReadOnlyTargetRules Target) : base(Target)
+	{
+		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+	
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" , "LootLockerSDK" });
+
+		PrivateDependencyModuleNames.AddRange(new string[] { "Http", "Json", "JsonUtilities" });
+
+		// Uncomment if you are using Slate UI
+		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
+		
+		// Uncomment if you are using online features
+		 PrivateDependencyModuleNames.Add("OnlineSubsystem");
+		// DynamicallyLoadedModuleNames.Add("OnlineSubsystemSteam");
+
+		// To include OnlineSubsystemSteam, add it to the plugins section in your uproject file with the Enabled attribute set to true
+	}
+}
