@@ -4,6 +4,7 @@
 
 #include "Serialization/JsonSerializer.h"
 #include "Serialization/JsonWriter.h"
+#include "LootLockerGameEndpoints.h"
 
 FResponseCallback UPersistentStorageRequestHandler::sessionResponse = nullptr;
 UHttpClient* UPersistentStorageRequestHandler::HttpClient = nullptr;
@@ -34,7 +35,7 @@ void UPersistentStorageRequestHandler::GetEntirePersistentStorage(const FPersist
 
     FString ContentString;
     const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = config->GetEntirePersistentStorageEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::GetEntirePersistentStorageEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
@@ -60,7 +61,7 @@ void UPersistentStorageRequestHandler::GetItemFromPersistentStorage(const FStrin
 
     FString ContentString;
     const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = config->GetItemFromPersistentStorageEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::GetItemFromPersistentStorageEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(Endpoint.endpoint + "?key=" + Key, requestMethod, ContentString, sessionResponse, true);
 }
@@ -99,7 +100,7 @@ void UPersistentStorageRequestHandler::AddItemsToPersistentStorage(const TArray<
     FJsonSerializer::Serialize(ItemsJsonArray, Writer);
     
     const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = config->AddItemsToPersistentStorageEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::AddItemsToPersistentStorageEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
@@ -125,7 +126,7 @@ void UPersistentStorageRequestHandler::DeleteItemFromPersistentStorage(const FSt
 
     FString ContentString;
     const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = config->DeleteItemFromPersistentStorageEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::DeleteItemFromPersistentStorageEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(Endpoint.endpoint + "?key=" + Key, requestMethod, ContentString, sessionResponse, true);
 }
@@ -151,7 +152,7 @@ void UPersistentStorageRequestHandler::GetPlayerPersistentStorage(const FString&
 
     FString ContentString;
     const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = config->GetPlayerPersistentStorageEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::GetPlayerPersistentStorageEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     FString endpoint = FString::Format(*(Endpoint.endpoint), { PlayerId });
     UE_LOG(LogTemp, Verbose, TEXT("endpoint: %s"), *endpoint);

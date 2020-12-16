@@ -2,6 +2,7 @@
 
 #include "MissionsRequestHandler.h"
 #include "Utils/LootLockerUtilities.h"
+#include "LootLockerGameEndpoints.h"
 
 FResponseCallback UMissionsRequestHandler::sessionResponse = nullptr;
 UHttpClient* UMissionsRequestHandler::HttpClient = nullptr;
@@ -44,7 +45,7 @@ void UMissionsRequestHandler::GetAllMissions(const FMissionsResponseDelegateBP& 
 
     FString ContentString;
     const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = config->GetAllMissionsEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::GetAllMissionsEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
@@ -76,7 +77,7 @@ void UMissionsRequestHandler::GetMission(int MissionId, const FMissionResponseDe
 
     FString ContentString;
     const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = config->GetMissionEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::GetMissionEndpoint;
     FString endpoint = FString::Format(*(Endpoint.endpoint), { MissionId });
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponse, true);
@@ -103,7 +104,7 @@ void UMissionsRequestHandler::StartMission(int MissionId, const FStartMissionRes
 
     FString ContentString;
     const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = config->StartMissionEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::StartMissionEndpoint;
     FString endpoint = FString::Format(*(Endpoint.endpoint), { MissionId });
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponse, true);
@@ -131,7 +132,7 @@ void UMissionsRequestHandler::FinishMission(int MissionId, const FFinishMissionD
     FString ContentString;
     FJsonObjectConverter::UStructToJsonObjectString(FFinishMissionData::StaticStruct(), &MissionData, ContentString, 0, 0);
     const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = config->FinishMissionEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::FinishMissionEndpoint;
     FString endpoint = FString::Format(*(Endpoint.endpoint), { MissionId });
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponse, true);

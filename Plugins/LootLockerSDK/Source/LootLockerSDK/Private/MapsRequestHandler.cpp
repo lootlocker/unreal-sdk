@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "MapsRequestHandler.h"
+#include "LootLockerGameEndpoints.h"
 
 FResponseCallback UMapsRequestHandler::sessionResponse = nullptr;
 UHttpClient* UMapsRequestHandler::HttpClient = nullptr;
@@ -31,7 +32,7 @@ void UMapsRequestHandler::GetMaps(const FGetMapsResponseDelegateBP& OnCompletedR
 
     FString ContentString;
     const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = config->GetAllMapsEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::GetAllMapsEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }

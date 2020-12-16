@@ -6,6 +6,7 @@
 #include "Serialization/JsonWriter.h"
 #include "JsonObjectConverter.h"
 #include "Utils/LootLockerUtilities.h"
+#include "LootLockerGameEndpoints.h"
 
 FResponseCallback UAssetsRequestHandler::sessionResponse = nullptr;
 UHttpClient* UAssetsRequestHandler::HttpClient = nullptr;
@@ -35,8 +36,7 @@ void UAssetsRequestHandler::GetContexts(const FContextDelegateBP& OnCompletedReq
         });
 
     FString ContentString;
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = config->GetContextsEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::GetContextsEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
@@ -61,8 +61,7 @@ void UAssetsRequestHandler::GetAssets(int StartFromIndex, int ItemsCount, EAsset
         });
 
     FString ContentString;
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = config->GetAssetsEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::GetAssetsEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     FString EndpointUrl = Endpoint.endpoint;
     if (StartFromIndex != 0)
@@ -127,8 +126,7 @@ void UAssetsRequestHandler::GetAssetsByIds(const TArray<int> AssetIds, const FAs
         });
 
     FString ContentString;
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = config->GetAssetsByIdsEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::GetAssetsByIdsEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     FString EndpointUrl = Endpoint.endpoint;
     if (AssetIds.Num() > 0)
@@ -165,8 +163,7 @@ void UAssetsRequestHandler::GetAssetBones(const FAssetBonesResponseDelegateBP& O
         });
 
     FString ContentString;
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = config->GetAssetBonesEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::GetAssetBonesEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
@@ -191,8 +188,7 @@ void UAssetsRequestHandler::GetFavouriteAssetIndices(const FGetFavouriteAssetInd
         });
 
     FString ContentString;
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = config->GetFavouriteAssetIndicesEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::GetFavouriteAssetIndicesEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
@@ -217,8 +213,7 @@ void UAssetsRequestHandler::AddAssetToFavourites(int AssetId, const FGetFavourit
         });
 
     FString ContentString;
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = config->AddAssetToFavouritesEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::AddAssetToFavouritesEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     FString endpoint = FString::Format(*(Endpoint.endpoint), { AssetId });
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponse, true);
@@ -243,8 +238,7 @@ void UAssetsRequestHandler::RemoveAssetFromFavourites(int AssetId, const FGetFav
         });
 
     FString ContentString;
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = config->RemoveAssetFromFavouritesEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::RemoveAssetFromFavouritesEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     FString endpoint = FString::Format(*(Endpoint.endpoint), { AssetId });
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponse, true);

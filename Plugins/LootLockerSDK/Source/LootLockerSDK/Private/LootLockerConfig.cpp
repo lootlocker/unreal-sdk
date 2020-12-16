@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "LootLockerConfig.h"
 
 FString ULootLockerConfig::GetEnum(const TCHAR* Enum, int32 EnumValue)

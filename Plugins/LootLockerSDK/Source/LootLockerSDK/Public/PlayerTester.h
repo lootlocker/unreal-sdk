@@ -6,7 +6,6 @@
 #include "GameFramework/Actor.h"
 #include "PlayerRequestHandler.h"
 #include "LootLockerSDKManager.h"
-#include "LootLockerEndpoint.h"
 #include "AuthenticationRequestHandler.h"
 #include "PlayerTester.generated.h"
 

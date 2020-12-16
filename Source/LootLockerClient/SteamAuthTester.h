@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerSDKManager.h"
-#include "LootLockerEndpoint.h"
 #include "Online.h"
 #include "AuthenticationRequestHandler.h"
 #include "SteamAuthTester.generated.h"

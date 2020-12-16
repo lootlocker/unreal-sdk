@@ -17,6 +17,10 @@
 #include "MissionsRequestHandler.h"
 #include "MapsRequestHandler.h"
 #include "PurchasesRequestHandler.h"
+#include "TriggerEventsRequestHandler.h"
+#include "CollectablesRequestHandler.h"
+#include "MessagesRequestHandler.h"
+
 #include "LootLockerSDKManager.generated.h"
 
 
@@ -157,6 +161,22 @@ public:
     FPurchaseStatusResponseDelegateBP OnPollPurchaseStatusCompleted;
     UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
     FActivateRentalAssetResponseDelegateBP OnActivateRentalAssetCompleted;
+    
+    //Trigger Events
+    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
+    FTriggerEventResponseDelegateBP OnTriggerEventCompleted;
+    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
+    FTriggersResponseDelegateBP OnGetTriggeredEventsCompleted;
+    
+    //Collectables
+    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
+    FCollectablesResponseDelegateBP OnGetAllCollectablesCompleted;
+    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
+    FCollectablesResponseDelegateBP OnCollectItemCompleted;
+    
+    //Messages
+    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
+    FMessagesResponseDelegateBP OnGetMessagesCompleted;
 
 public:
 	void StartSession(const FString& PlayerId, const FLootLockerSessionResponse& OnCompletedRequest);
@@ -223,6 +243,14 @@ public:
     void VerifyPurchaseIos(const TArray<FVerifyPurchaseIosData>& PurchaseData, const FPurchaseResponseDelegate& OnCompletedRequest);
     void PollPurchaseStatus(int PurchaseId, const FPurchaseStatusResponseDelegate& OnCompletedRequest);
     void ActivateRentalAsset(int AssetId, const FActivateRentalAssetResponseDelegate& OnCompletedRequest);
+    //Trigger Events
+    void TriggerEvent(const FTriggerEvent& Event, const FTriggerEventResponseDelegate& OnCompletedRequest);
+    void GetTriggeredEvents(const FTriggersResponseDelegate& OnCompletedRequest);
+    //Collectables
+    void GetAllCollectables(const FCollectablesResponseDelegate& OnCompletedRequest);
+    void CollectItem(const FCollectItemPayload& Item, const FCollectablesResponseDelegate& OnCompletedRequest);
+    //Messages
+    void GetMessages(const FMessagesResponseDelegate& OnCompletedRequest);
 
 	//For Blueprints
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods")
@@ -344,4 +372,17 @@ public:
     void BPPollPurchaseStatus(int PurchaseId);
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
     void BPActivateRentalAsset(int AssetId);
+    //Trigger Events
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Trigger Events")
+    void BPTriggerEvent(const FTriggerEvent& Event);
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Trigger Events")
+    void BPGetTriggeredEvents();
+    //Collectables
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Collectables")
+    void BPGetAllCollectables();
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Collectables")
+    void BPCollectItem(const FCollectItemPayload& Item);
+    //Messages
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Messages")
+    void BPGetMessages();
 };

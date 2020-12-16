@@ -7,11 +7,7 @@
 #include "LootLockerConfig.h"
 #include "HttpClient.h"
 #include "JsonObjectConverter.h"
-#include "LootLockerPersitentDataHolder.h"
 #include "AuthenticationRequestHandler.generated.h"
-
-
-
 
 USTRUCT(BlueprintType)
 struct FAuthenticationRequest

@@ -28,7 +28,7 @@ struct FLootLockerMissionGoal
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
     FString points;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
-    TArray<FLootLockerMissionGoalAsset> asssets;
+    TArray<FLootLockerMissionGoalAsset> assets;
 };
 
 USTRUCT(BlueprintType)

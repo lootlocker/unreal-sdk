@@ -5,29 +5,28 @@
 #include "JsonObjectConverter.h"
 #include "Interfaces/IHttpResponse.h"
 #include "AuthenticationRequestHandler.h"
-
+#include "LootLockerSDK.h"
+#include "LootLockerPersitentDataHolder.h"
 
 UHttpClient::UHttpClient()
 {
 
 }
 
-void UHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, const bool& useHeader)
+void UHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, const bool& useHeader, bool useAdmin)
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
-	ULootLockerConfig* config = GetMutableDefault<ULootLockerConfig>();
+    ULootLockerConfig* config = FLootLockerSDKModule::Get().GetSettings();
 	TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
-	FString Endpoint = FPaths::Combine(config->ApiBaseUrl, endPoint);
 
-	UE_LOG(LogTemp, Warning, TEXT("Full url is: %s"), *Endpoint);
+	UE_LOG(LogTemp, Warning, TEXT("Full url is: %s"), *endPoint);
 	UE_LOG(LogTemp, Warning, TEXT("Data is: %s"), *data);
-	Request->SetURL(Endpoint);
+	Request->SetURL(endPoint);
 
 	ULootLockerPersitentDataHolder::CachedLastEndpointUsed = endPoint;
 	ULootLockerPersitentDataHolder::CachedLastRequestTypeUsed = requestType;
 	ULootLockerPersitentDataHolder::CachedLastDataSentToServer = data;
 	savedOnCompleteRequest = onCompleteRequest;
-	config->SaveConfig();
 
 	Request->SetHeader(TEXT("User-Agent"), TEXT("X-UnrealEngine-Agent"));
     Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
@@ -35,7 +34,11 @@ void UHttpClient::SendApi(const FString& endPoint, const FString& requestType, c
 
 	if (useHeader)
 	{
-		Request->SetHeader(TEXT("x-session-token"), ULootLockerPersitentDataHolder::Token);
+        if (!useAdmin) {
+            Request->SetHeader(TEXT("x-session-token"), ULootLockerPersitentDataHolder::Token);
+        } else {
+            Request->SetHeader(TEXT("x-auth-token"), ULootLockerPersitentDataHolder::AdminToken);
+        }
 	}
     
 	Request->SetVerb(requestType);
@@ -76,7 +79,8 @@ void UHttpClient::TokenRefresh(const FResponseCallback onCompleteRequest)
 
 	TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
 
-	FString Endpoint = FPaths::Combine(config->ApiBaseUrl, config->StartSessionEndpoint.endpoint);
+    FEndPoints endpoint = LootLockerGameEndpoints::StartSessionEndpoint;
+	FString Endpoint = endpoint.endpoint;
 
 	UE_LOG(LogTemp, Warning, TEXT("refresh Full url is: %s"), *Endpoint);
 
@@ -84,14 +88,14 @@ void UHttpClient::TokenRefresh(const FResponseCallback onCompleteRequest)
 	Request->SetHeader(TEXT("User-Agent"), TEXT("X-UnrealEngine-Agent"));
 	Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
 	Request->SetHeader(TEXT("Accepts"), TEXT("application/json"));
-	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(config->StartSessionEndpoint.requestMethod));
+	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
 	Request->SetVerb(requestMethod);
 	FAuthenticationRequest authRequest;
 	authRequest.development_mode = config->OnDevelopmentMode;
 	authRequest.game_key = config->LootLockerGameKey;
 	authRequest.game_version = config->GameVersion;
 
-	authRequest.player_identifier = config->PlayerIdentifier;
+	authRequest.player_identifier = ULootLockerPersitentDataHolder::CachedPlayerIdentifier;
 	FString platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(config->Platform));
 
 	authRequest.platform = platform;
@@ -140,12 +144,13 @@ void UHttpClient::VerifyRefresh(const FResponseCallback onCompleteRequest)
 
 	TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
 
-	FString Endpoint = FPaths::Combine(config->ApiBaseUrl, config->VerifyPlayerIdEndPoint.endpoint);
+    FEndPoints endpoint = LootLockerGameEndpoints::VerifyPlayerIdEndPoint;
+	FString Endpoint = endpoint.endpoint;
 	Request->SetURL(Endpoint);
 	Request->SetHeader(TEXT("User-Agent"), TEXT("X-UnrealEngine-Agent"));
 	Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
 	Request->SetHeader(TEXT("Accepts"), TEXT("application/json"));
-	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(config->StartSessionEndpoint.requestMethod));
+	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
 	Request->SetVerb(requestMethod);
 	FVerificationRequest authRequest;
 	authRequest.key = config->LootLockerGameKey;
@@ -286,54 +291,89 @@ bool UHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, const bool
 	}
 }
 
-void UHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& Boundary, const TArray<uint8>& data, const FResponseCallback& onCompleteRequest, const bool& useHeader)
+void UHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString> AdditionalFields, const FResponseCallback& onCompleteRequest, bool useHeader, bool useAdmin)
 {
     FHttpModule* HttpModule = &FHttpModule::Get();
-    ULootLockerConfig* config = GetMutableDefault<ULootLockerConfig>();
     TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
-    FString Endpoint = FPaths::Combine(config->ApiBaseUrl, endPoint);
 
-    UE_LOG(LogTemp, Warning, TEXT("Full url is: %s"), *Endpoint);
-    Request->SetURL(Endpoint);
+    UE_LOG(LogTemp, Warning, TEXT("Full url is: %s"), *endPoint);
+    Request->SetURL(endPoint);
 
     ULootLockerPersitentDataHolder::CachedLastEndpointUsed = endPoint;
     ULootLockerPersitentDataHolder::CachedLastRequestTypeUsed = requestType;
     savedOnCompleteRequest = onCompleteRequest;
-    config->SaveConfig();
+    
+    FString Boundary = "lootlockerboundary";
 
     Request->SetHeader(TEXT("User-Agent"), TEXT("X-UnrealEngine-Agent"));
-    Request->SetHeader(TEXT("Content-Type"), TEXT("multipart/form-data; boundary =" + Boundary));
+    Request->SetHeader(TEXT("Content-Type"), TEXT("multipart/form-data; boundary=" + Boundary));
 
     if (useHeader)
     {
-        Request->SetHeader(TEXT("x-session-token"), ULootLockerPersitentDataHolder::Token);
+        if (!useAdmin) {
+            Request->SetHeader(TEXT("x-session-token"), ULootLockerPersitentDataHolder::Token);
+        } else {
+            Request->SetHeader(TEXT("x-auth-token"), ULootLockerPersitentDataHolder::AdminToken);
+        }
     }
     
     Request->SetVerb(requestType);
-    Request->SetContent(data);
+    
+    TArray<uint8> UpFileRawData;
+    if (!FFileHelper::LoadFileToArray(UpFileRawData, *FilePath)) {
+        UE_LOG(LogTemp, Error, TEXT("FILE NOT READ!"));
+        return;
+    }
+    
+    TArray<uint8> Data;
+    
+    const FString BeginBoundary = TEXT("\r\n--" + Boundary + "\r\n");
+    const FString EndBoundary = TEXT("\r\n--" + Boundary + "--\r\n");
+    
+    for (auto KeyValuePair : AdditionalFields) {
+        Data.Append((uint8*)TCHAR_TO_ANSI(*BeginBoundary), BeginBoundary.Len());
+        
+        FString ParameterEntry = "Content-Type: text/plain; charset=\"utf-8\"\r\n";
+        ParameterEntry.Append(TEXT("Content-Disposition: form-data; name=\""));
+        ParameterEntry.Append(KeyValuePair.Key);
+        ParameterEntry.Append(TEXT("\"\r\n\r\n"));
+        ParameterEntry.Append(KeyValuePair.Value);
+        
+        Data.Append((uint8*)TCHAR_TO_ANSI(*ParameterEntry), ParameterEntry.Len());
+    }
+    
+    Data.Append((uint8*)TCHAR_TO_ANSI(*BeginBoundary), BeginBoundary.Len());
+
+    FString FileHeader = (TEXT("Content-Type: application/octet-stream\r\n"));
+    FileHeader.Append(TEXT("Content-disposition: form-data; name=\"file\"; filename=\""));
+    
+    int32 LastSlashPos;
+    FilePath.FindLastChar('/', LastSlashPos);
+    FString FileName = FilePath.RightChop(LastSlashPos + 1);
+    
+    FileHeader.Append(FileName + "\"\r\n\r\n");
+    
+    Data.Append((uint8*)TCHAR_TO_ANSI(*FileHeader), FileHeader.Len());
+    Data.Append(UpFileRawData);
+    Data.Append((uint8*)TCHAR_TO_ANSI(*EndBoundary), EndBoundary.Len());
+    
+    Request->SetContent(Data);
 
     Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
         {
             const FString ResponseString = Response->GetContentAsString();
             FLootLockerResponse response;
-
-            if (!ResponseIsValid(Response, bWasSuccessful))
-            {
-                response.success = false;
-                response.FullTextFromServer = Response->GetContentAsString();
-                response.ServerCallHasError = true;
-                response.ServerCallStatusCode = Response->GetResponseCode();
-                response.ServerError = Response->GetContentAsString();
-                onCompleteRequest.ExecuteIfBound(response);
-                return;
-            }
-
-            UE_LOG(LogTemp, Warning, TEXT("Response code: %d; Response content:\n%s"), Response->GetResponseCode(), *ResponseString);
-            response.success = true;
+        
             response.FullTextFromServer = Response->GetContentAsString();
-            response.ServerCallHasError = false;
             response.ServerCallStatusCode = Response->GetResponseCode();
             response.ServerError = Response->GetContentAsString();
+        
+            UE_LOG(LogTemp, Warning, TEXT("Response code: %d; Response content:\n%s"), Response->GetResponseCode(), *ResponseString);
+            bool success = ResponseIsValid(Response, bWasSuccessful);
+        
+            response.success = success;
+            response.ServerCallHasError = !success;
+        
             onCompleteRequest.ExecuteIfBound(response);
         });
     Request->ProcessRequest();

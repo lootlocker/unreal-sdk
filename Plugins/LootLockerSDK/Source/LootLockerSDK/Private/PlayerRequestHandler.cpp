@@ -2,6 +2,7 @@
 
 
 #include "PlayerRequestHandler.h"
+#include "LootLockerGameEndpoints.h"
 
 FResponseCallback UPlayerRequestHandler::sessionResponse = nullptr;
 UHttpClient* UPlayerRequestHandler::HttpClient = nullptr;
@@ -14,7 +15,6 @@ UPlayerRequestHandler::UPlayerRequestHandler()
 void UPlayerRequestHandler::GetPlayerInfo(const FPInfoResponseBP& OnCompletedRequestBP, const FLootLockerPlayerInformationResponse& OnCompletedRequest)
 {
 	FString data;
-	ULootLockerConfig* config = GetMutableDefault<ULootLockerConfig>();
 	sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP,OnCompletedRequest](FLootLockerResponse response)
 		{
 			FPlayerInfoResponse ResponseStruct;
@@ -31,14 +31,14 @@ void UPlayerRequestHandler::GetPlayerInfo(const FPInfoResponseBP& OnCompletedReq
 			OnCompletedRequestBP.Broadcast(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
-	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(config->GetPlayerInfoEndPoint.requestMethod));
-	HttpClient->SendApi(config->GetPlayerInfoEndPoint.endpoint, requestMethod, data, sessionResponse, true);
+    FEndPoints Endpoint = LootLockerGameEndpoints::GetPlayerInfoEndPoint;
+	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+	HttpClient->SendApi(Endpoint.endpoint, requestMethod, data, sessionResponse, true);
 }
 
 void UPlayerRequestHandler::GetInventory(const FPInventoryResponseBP& OnCompletedRequestBP, const FLootLockerInventoryResponse& OnCompletedRequest)
 {
 	FString data;
-	ULootLockerConfig* config = GetMutableDefault<ULootLockerConfig>();
 	sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
 			FInventoryResponse ResponseStruct;
@@ -56,13 +56,13 @@ void UPlayerRequestHandler::GetInventory(const FPInventoryResponseBP& OnComplete
 			OnCompletedRequestBP.Broadcast(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
-	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(config->GetPlayerInventoryEndPoint.requestMethod));
-	HttpClient->SendApi(config->GetPlayerInventoryEndPoint.endpoint, requestMethod, data, sessionResponse, true);
+    FEndPoints Endpoint = LootLockerGameEndpoints::GetPlayerInventoryEndPoint;
+	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+	HttpClient->SendApi(Endpoint.endpoint, requestMethod, data, sessionResponse, true);
 }
 
 void UPlayerRequestHandler::SubmitXp(const int32& points,const FPSubmitResponseBP& OnCompletedRequestBP, const FLootLockerSubmitXpResponse& OnCompletedRequest)
 {
-	ULootLockerConfig* config = GetMutableDefault<ULootLockerConfig>();
 	FSubmitXpRequest authRequest;
 	authRequest.points = points;
 	FString AuthContentString;
@@ -85,8 +85,9 @@ void UPlayerRequestHandler::SubmitXp(const int32& points,const FPSubmitResponseB
 			OnCompletedRequestBP.Broadcast(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
-	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(config->SubmitXpEndpoint.requestMethod));
-	HttpClient->SendApi(config->SubmitXpEndpoint.endpoint, requestMethod, AuthContentString, sessionResponse, true);
+    FEndPoints Endpoint = LootLockerGameEndpoints::SubmitXpEndpoint;
+	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+	HttpClient->SendApi(Endpoint.endpoint, requestMethod, AuthContentString, sessionResponse, true);
 }
 
 void UPlayerRequestHandler::GetOtherPlayerInfo(FLootLockerGetRequests getRequests,const FPInfoResponseBP& OnCompletedRequestBP, const FLootLockerPlayerInformationResponse& OnCompletedRequest)
@@ -112,16 +113,15 @@ void UPlayerRequestHandler::GetOtherPlayerInfo(FLootLockerGetRequests getRequest
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
 
-
-	FString newEndpoint = FString::Format(*config->GetOtherPlayerInfoEndpoint.endpoint, getRequests.args);
-	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(config->GetOtherPlayerInfoEndpoint.requestMethod));
+    FEndPoints Endpoint = LootLockerGameEndpoints::GetOtherPlayerInfoEndpoint;
+	FString newEndpoint = FString::Format(*Endpoint.endpoint, getRequests.args);
+	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
 	HttpClient->SendApi(newEndpoint, requestMethod, data, sessionResponse, true);
 }
 
 void UPlayerRequestHandler::CheckPlayerAssetNotification(const FPAssetNotificationResponseBP& OnCompletedRequestBP, const FLootLockerAssetNotificationResponse& OnCompletedRequest)
 {
 	FString data;
-	ULootLockerConfig* config = GetMutableDefault<ULootLockerConfig>();
 
 	sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
@@ -140,13 +140,13 @@ void UPlayerRequestHandler::CheckPlayerAssetNotification(const FPAssetNotificati
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
 	
-	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(config->CheckPlayerAssetActivationEndpoint.requestMethod));
-	HttpClient->SendApi(config->CheckPlayerAssetActivationEndpoint.endpoint, requestMethod, data, sessionResponse, true);
+    FEndPoints Endpoint = LootLockerGameEndpoints::CheckPlayerAssetActivationEndpoint;
+	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+	HttpClient->SendApi(Endpoint.endpoint, requestMethod, data, sessionResponse, true);
 }
 void UPlayerRequestHandler::CheckPlayerAssetDeactivationNotification(const FPAssetNotificationResponseBP& OnCompletedRequestBP, const FLootLockerAssetNotificationResponse& OnCompletedRequest)
 {
 	FString data;
-	ULootLockerConfig* config = GetMutableDefault<ULootLockerConfig>();
 
 	sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
@@ -165,7 +165,8 @@ void UPlayerRequestHandler::CheckPlayerAssetDeactivationNotification(const FPAss
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
 
-	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(config->CheckPlayerAssetDeactivatonEndpoint.requestMethod));
-	HttpClient->SendApi(config->CheckPlayerAssetDeactivatonEndpoint.endpoint, requestMethod, data, sessionResponse, true);
+    FEndPoints Endpoint = LootLockerGameEndpoints::CheckPlayerAssetDeactivatonEndpoint;
+	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+	HttpClient->SendApi(Endpoint.endpoint, requestMethod, data, sessionResponse, true);
 }
 

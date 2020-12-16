@@ -390,6 +390,41 @@ void ULootLockerSDKManager::ActivateRentalAsset(int AssetId, const FActivateRent
     UPurchasesRequestHandler::ActivateRentalAsset(AssetId, OnActivateRentalAssetCompleted, OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::TriggerEvent(const FTriggerEvent& Event, const FTriggerEventResponseDelegate& OnCompletedRequest)
+{
+    OnTriggerEventCompleted.Clear();
+    
+    UTriggerEventsRequestHandler::TriggerEvent(Event, OnTriggerEventCompleted, OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::GetTriggeredEvents(const FTriggersResponseDelegate& OnCompletedRequest)
+{
+    OnGetTriggeredEventsCompleted.Clear();
+    
+    UTriggerEventsRequestHandler::GetTriggeredEvents(OnGetTriggeredEventsCompleted, OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::GetAllCollectables(const FCollectablesResponseDelegate& OnCompletedRequest)
+{
+    OnGetAllCollectablesCompleted.Clear();
+    
+    UCollectablesRequestHandler::GetAllCollectables(OnGetAllCollectablesCompleted, OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::CollectItem(const FCollectItemPayload& Item, const FCollectablesResponseDelegate& OnCompletedRequest)
+{
+    OnCollectItemCompleted.Clear();
+    
+    UCollectablesRequestHandler::CollectItem(Item, OnCollectItemCompleted, OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::GetMessages(const FMessagesResponseDelegate& OnCompletedRequest)
+{
+    OnGetMessagesCompleted.Clear();
+    
+    UMessagesRequestHandler::GetMessages(OnGetMessagesCompleted, OnCompletedRequest);
+}
+
 //BluePrints
 
 void ULootLockerSDKManager::BPStartSession(const FString& PlayerId)
@@ -673,4 +708,29 @@ void ULootLockerSDKManager::BPPollPurchaseStatus(int PurchaseId)
 void ULootLockerSDKManager::BPActivateRentalAsset(int AssetId)
 {
     UPurchasesRequestHandler::ActivateRentalAsset(AssetId, OnActivateRentalAssetCompleted);
+}
+
+void ULootLockerSDKManager::BPTriggerEvent(const FTriggerEvent& Event)
+{
+    UTriggerEventsRequestHandler::TriggerEvent(Event, OnTriggerEventCompleted);
+}
+
+void ULootLockerSDKManager::BPGetTriggeredEvents()
+{
+    UTriggerEventsRequestHandler::GetTriggeredEvents(OnGetTriggeredEventsCompleted);
+}
+
+void ULootLockerSDKManager::BPGetAllCollectables()
+{
+    UCollectablesRequestHandler::GetAllCollectables(OnGetAllCollectablesCompleted);
+}
+
+void ULootLockerSDKManager::BPCollectItem(const FCollectItemPayload& Item)
+{
+    UCollectablesRequestHandler::CollectItem(Item, OnCollectItemCompleted);
+}
+
+void ULootLockerSDKManager::BPGetMessages()
+{
+    UMessagesRequestHandler::GetMessages(OnGetMessagesCompleted);
 }
