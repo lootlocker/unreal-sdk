@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright (c) 2020 LootLocker
 
 #pragma once
 
@@ -392,7 +392,7 @@ public:
     static void GetAssets(int GameId, const FAAssetsResponseDelegate& OnComplete, const FString& SearchQuery = "", int Page = 0);
     
     UFUNCTION(BlueprintCallable, Category = "LootLocker Admin | Assets", meta = (AutoCreateRefTerm = "OnComplete"))
-    static void GetAssetsByIds(const TArray<int> AssetIds, int GameId, const FAAssetsResponseDelegate& OnComplete);
+    static void GetAssetsByIds(const TArray<int>& AssetIds, int GameId, const FAAssetsResponseDelegate& OnComplete);
     
     UFUNCTION(BlueprintCallable, Category = "LootLocker Admin | Assets", meta = (AutoCreateRefTerm = "OnComplete"))
     static void GetDetailedAssetInfo(int GameId, int AssetId, const FADetailedAssetResponseDelegate& OnComplete);

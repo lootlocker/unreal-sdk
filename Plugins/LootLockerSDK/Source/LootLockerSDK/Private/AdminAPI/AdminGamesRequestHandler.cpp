@@ -1,6 +1,7 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright (c) 2020 LootLocker
 
 #include "AdminAPI/AdminGamesRequestHandler.h"
+#include "LootLockerSDK.h"
 
 #include "AdminAPI/LootLockerAdminEndpoints.h"
 
@@ -53,14 +54,22 @@ void UAdminGamesRequestHandler::CreateGame(const FACreateGamePayload& GameData, 
                 FJsonObjectConverter::JsonObjectStringToUStruct<FAFullGameResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("CreateGame failed from lootlocker"));
+                UE_LOG(LogTemp, Error, TEXT("CreateGame failed from lootlocker: %s"), *response.FullTextFromServer);
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnComplete.ExecuteIfBound(ResponseStruct);
         });
 
     FString ContentString;
-    FJsonObjectConverter::UStructToJsonObjectString(GameData, ContentString);
+    
+    TSharedPtr<FJsonObject> GameDataJson = FJsonObjectConverter::UStructToJsonObject(GameData);
+    if (GameData.steam_app_id <= 0) {
+        GameDataJson->RemoveField("steam_app_id");
+    }
+    
+    TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&ContentString);
+    FJsonSerializer::Serialize(GameDataJson.ToSharedRef(), Writer);
+    
     FEndPoints Endpoint = LootLockerAdminEndpoints::CreateGameEndpoint;
     FString requestMethod = ULootLockerConfig::GetRequestMethodString(Endpoint.requestMethod);
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true, true);
@@ -147,5 +156,15 @@ void UAdminGamesRequestHandler::DeleteGame(int GameId, const FLootLockerResponse
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponse, true, true);
 #else
     UE_LOG(LogTemp, Warning, TEXT("DeleteGame: Admin API calls are only allowed in Editor"));
+#endif
+}
+
+void UAdminGamesRequestHandler::SaveGameKey(const FString& Key)
+{
+#if WITH_EDITOR
+    ULootLockerConfig* config = FLootLockerSDKModule::Get().GetSettings();
+    config->LootLockerGameKey = Key;
+#else
+    UE_LOG(LogTemp, Warning, TEXT("SaveGameKey: Admin API calls are only allowed in Editor"));
 #endif
 }

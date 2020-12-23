@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright (c) 2020 LootLocker
 
 #pragma once
 
@@ -7,7 +7,7 @@
 #include "LootLockerConfig.h"
 #include "JsonObjectConverter.h"
 #include "HttpClient.h"
-#include "MissionsRequestHandler.h"
+#include "GameAPI/MissionsRequestHandler.h"
 #include "AdminMissionsRequestHandler.generated.h"
 
 USTRUCT(BlueprintType)

@@ -1,8 +1,8 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright (c) 2020 LootLocker
 
 #pragma once
 
-#include "MissionsRequestHandler.h"
+#include "GameAPI/MissionsRequestHandler.h"
 #include "AdminAPI/AdminMissionsRequestHandler.h"
 #include "AdminAPI/AdminTriggersRequestHandler.h"
 

@@ -1,9 +1,14 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright (c) 2020 LootLocker
 
 #include "AdminAPI/AdminFilesRequestHandler.h"
 
 #include "AdminAPI/LootLockerAdminEndpoints.h"
 #include "Utils/LootLockerUtilities.h"
+
+#include "Developer/DesktopPlatform/Public/IDesktopPlatform.h"
+#include "Developer/DesktopPlatform/Public/DesktopPlatformModule.h"
+#include "EditorDirectories.h"
+#include "Framework/Application/SlateApplication.h"
 
 FResponseCallback UAdminFilesRequestHandler::sessionResponse = nullptr;
 UHttpClient* UAdminFilesRequestHandler::HttpClient = NewObject<UHttpClient>();
@@ -150,4 +155,16 @@ void UAdminFilesRequestHandler::DeleteFile(int GameId, int FileId, const FLootLo
 #else
     UE_LOG(LogTemp, Warning, TEXT("DeleteFile: Admin API calls are only allowed in Editor"));
 #endif
+}
+
+void UAdminFilesRequestHandler::ShowFilePicker(const FString& DialogTitle, TArray<FString>& OutFileNames)
+{
+    const void* ParentWindowHandle = FSlateApplication::Get().FindBestParentWindowHandleForDialogs(nullptr);
+    IDesktopPlatform* DesktopPlatform = FDesktopPlatformModule::Get();
+    if (DesktopPlatform)
+    {
+        //Opening the file picker!
+        uint32 SelectionFlag = 0; //A value of 0 represents single file selection while a value of 1 represents multiple file selection
+        DesktopPlatform->OpenFileDialog(ParentWindowHandle, DialogTitle, FEditorDirectories::Get().GetLastDirectory(ELastDirectory::GENERIC_IMPORT), FString(""), FString(""), SelectionFlag, OutFileNames);
+    }
 }

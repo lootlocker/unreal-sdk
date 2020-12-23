@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright (c) 2020 LootLocker
 
 #pragma once
 
@@ -91,6 +91,9 @@ public:
     
     UFUNCTION(BlueprintCallable, Category = "LootLocker Admin | Files", meta = (AutoCreateRefTerm = "OnComplete"))
     static void DeleteFile(int GameId, int FileId, const FLootLockerResponseCallback& OnComplete);
+    
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Admin | Files")
+    static void ShowFilePicker(const FString& DialogTitle, TArray<FString>& OutFileNames);
     
 private:
     static FResponseCallback sessionResponse;

@@ -1,29 +1,27 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright (c) 2020 LootLocker
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "AuthenticationRequestHandler.h"
+#include "GameAPI/AuthenticationRequestHandler.h"
 #include "HttpClient.h"
 #include "LootLockerConfig.h"
 #include "Engine/DataAsset.h"
-#include "PlayerRequestHandler.h"
-#include "CharacterRequestHandler.h"
-#include "PersistentStorageRequestHandler.h"
-#include "AssetsRequestHandler.h"
-#include "AssetInstancesRequestHandler.h"
-#include "UserGeneratedContentRequestHandler.h"
-#include "MissionsRequestHandler.h"
-#include "MapsRequestHandler.h"
-#include "PurchasesRequestHandler.h"
-#include "TriggerEventsRequestHandler.h"
-#include "CollectablesRequestHandler.h"
-#include "MessagesRequestHandler.h"
+#include "GameAPI/PlayerRequestHandler.h"
+#include "GameAPI/CharacterRequestHandler.h"
+#include "GameAPI/PersistentStorageRequestHandler.h"
+#include "GameAPI/AssetsRequestHandler.h"
+#include "GameAPI/AssetInstancesRequestHandler.h"
+#include "GameAPI/UserGeneratedContentRequestHandler.h"
+#include "GameAPI/MissionsRequestHandler.h"
+#include "GameAPI/MapsRequestHandler.h"
+#include "GameAPI/PurchasesRequestHandler.h"
+#include "GameAPI/TriggerEventsRequestHandler.h"
+#include "GameAPI/CollectablesRequestHandler.h"
+#include "GameAPI/MessagesRequestHandler.h"
 
 #include "LootLockerSDKManager.generated.h"
-
-
 
 UCLASS(Blueprintable)
 class LOOTLOCKERSDK_API ULootLockerSDKManager : public UObject
@@ -31,358 +29,604 @@ class LOOTLOCKERSDK_API ULootLockerSDKManager : public UObject
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this component's properties
-	ULootLockerSDKManager();
-	UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-	FAuthResponseBP OnStartedSessionRequestCompleted;
-	UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-	FAuthDefaultResponseBP OnVerifyPlayerRequestCompleted;
-	UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-	FAuthDefaultResponseBP OnEndSessionRequestCompleted;
-
-	//Players
-	UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-	FPInfoResponseBP OnGetPlayerInfoRequestCompleted;
-	UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-	FPInventoryResponseBP OnGetInventoryRequestCompleted;
-	UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-	FPSubmitResponseBP OnSubmitXPRequestCompleted;
-	UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-	FPInfoResponseBP OnGetOtherPlayerInfoRequestCompleted;
-	UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-	FPAssetNotificationResponseBP OnCheckPlayerAssetActivationNotificationRequestCompleted;
-	UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-	FPAssetNotificationResponseBP OnCheckPlayerAssetDeactivationNotificationRequestCompleted;
-	//Characters
-
-	UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-	FPCharacterLoadoutResponseBP OnGetCharacterLoadoutRequestCompleted;
-	UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-	FPCharacterDefaultResponseBP OnEquipAssetToDefaultCharacterRequestCompleted;
-	UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-	FPCharacterDefaultResponseBP OnEquipAssetToCharacterByIdRequestCompleted;
-	UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-	FPCharacterDefaultResponseBP OnUnEquipAssetToDefaultCharacterRequestCompleted;
-	UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-	FPCharacterDefaultResponseBP OnUnEquipAssetToCharacterByIdRequestCompleted;
-	UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-	FPCharacterLoadoutResponseBP OnGetCurrentLoadoutToDefaultCharacterRequestCompleted;
-	UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-	FPCharacterLoadoutResponseBP OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted;
-	UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-	FContextDelegateBP OnGetEquipableContextsToDefaultCharacterRequestCompleted;
-	UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-	FContextDelegateBP OnGetEquipableContextsByCharacterIdRequestCompleted;
     
-    //Persistent Storage
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FPersistentStorageItemsResponseDelegateBP OnPersistentStorageItemsRequestCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FPersistentStorageItemResponseDelegateBP OnPersistentStorageItemRequestCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FPersistentStorageItemsResponseDelegateBP OnPersistentStorageItemsAddRequestCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FPersistentStorageItemsResponseDelegateBP OnPersistentStorageItemDeleteRequestCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FPersistentStorageItemsResponseDelegateBP OnGetPlayerPersistentStorageRequestCompleted;
+    //==================================================
+    //Authentication
+    //==================================================
     
-    //Assets
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FContextDelegateBP OnGetContextsRequestCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FAssetsResponseDelegateBP OnGetAssetsRequestCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FAssetsResponseDelegateBP OnGetAssetsByIdsRequestCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FAssetBonesResponseDelegateBP OnGetAssetBonesRequestCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FGetFavouriteAssetIndicesResponseDelegateBP OnGetFavouriteAssetIndicesRequestCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FGetFavouriteAssetIndicesResponseDelegateBP OnAddAssetToFavouritesRequestCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FGetFavouriteAssetIndicesResponseDelegateBP OnRemoveAssetFromFavouritesRequestCompleted;
-    
-    //Asset Instances
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FAssetInstanceStorageItemsResponseDelegateBP OnGetKeyValuePairsForAssetInstanceCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FAssetInstanceStorageItemsResponseDelegateBP OnGetKeyValuePairForAssetInstanceCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FAssetInstanceStorageItemsResponseDelegateBP OnCreateStorageItemForAssetInstanceCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FAssetInstanceStorageItemsResponseDelegateBP OnUpdateStorageItemsForAssetInstanceCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FAssetInstanceStorageItemsResponseDelegateBP OnUpdateStorageItemForAssetInstanceCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FAssetInstanceStorageItemsResponseDelegateBP OnDeleteStorageItemForAssetInstanceCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FLootBoxContentResponseDelegateBP OnInspectLootBoxCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FOpenLootBoxResponseDelegateBP OnOpenLootBoxCompleted;
-    
-    //User Generated Content
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FCreateAssetCandidateResponseDelegateBP OnCreateAssetCandidateCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FAssetCandidateResponseDelegateBP OnUpdateAssetCandidateCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FResponseCallbackBP OnDeleteAssetCandidateCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FAssetCandidatesResponseDelegateBP OnGetAllAssetCandidatesCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FAssetCandidateResponseDelegateBP OnGetAssetCandidateCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FResponseCallbackBP OnAddFileToAssetCandidateCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FResponseCallbackBP OnDeleteFileFromAssetCandidateCompleted;
-    
-    //Missions
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FMissionsResponseDelegateBP OnGetAllMissionsCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FMissionResponseDelegateBP OnGetMissionCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FStartMissionResponseDelegateBP OnStartMissionCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FFinishMissionResponseDelegateBP OnFinishMissionCompleted;
-    
-    //Maps
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FGetMapsResponseDelegateBP OnGetMapsCompleted;
-    
-    //Purchases
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FPurchaseResponseDelegateBP OnPurchaseAssetsCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FPurchaseResponseDelegateBP OnPurchaseAssetsAndroidCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FPurchaseResponseDelegateBP OnVerifyPurchaseIosCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FPurchaseStatusResponseDelegateBP OnPollPurchaseStatusCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FActivateRentalAssetResponseDelegateBP OnActivateRentalAssetCompleted;
-    
-    //Trigger Events
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FTriggerEventResponseDelegateBP OnTriggerEventCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FTriggersResponseDelegateBP OnGetTriggeredEventsCompleted;
-    
-    //Collectables
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FCollectablesResponseDelegateBP OnGetAllCollectablesCompleted;
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FCollectablesResponseDelegateBP OnCollectItemCompleted;
-    
-    //Messages
-    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks")
-    FMessagesResponseDelegateBP OnGetMessagesCompleted;
-
-public:
+    /**
+     * https://docs.lootlocker.io/game-api/#authentication-request
+     * Register a session.
+     *
+     * @param PlayerId - the ID of the player on the platform the game is currently running on.
+     * @param OnCompletedRequest - callback to be invoked with the server response.
+     */
 	void StartSession(const FString& PlayerId, const FLootLockerSessionResponse& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#player-verification
+    * If your game uses Player Verification, you need to call this endpoint before you can register a session.
+    *
+    * @param CachedSteamToken - platform-specific token.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
 	void VerifyPlayer(const FString& CachedSteamToken, const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#ending-a-session
+    * Terminate the session on the LootLocker servers. Any further requests with this session's token will be rejected with an 401 Unauthroized error.
+    *
+    * @param PlayerId - the ID of the player on the platform the game is currently running on.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
 	void EndSession(const FString& PlayerId, const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest);
+    
+    //==================================================
 	//Player calls
+    //==================================================
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#get-player-info
+    * Get general information about the player, such as the XP, Level information and their account balance.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
 	void GetPlayerInfo(const FLootLockerPlayerInformationResponse& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#get-inventory-list
+    * Get a paginated list of the players inventory.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
 	void GetInventory(const FLootLockerInventoryResponse& OnCompletedRequest);
-	void SubmitXP(const int32& Points, const FLootLockerSubmitXpResponse& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#submit-xp
+    * Receive xp, and award it to the player.
+    *
+    * @param Points - number of XP points to grant to the player.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
+	void SubmitXP(int Points, const FLootLockerSubmitXpResponse& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#get-other-players-xp-and-level
+    * Get other players XP and level.
+    *
+    * @param GetRequests - request data.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
 	void GetOtherPlayerInfo(FLootLockerGetRequests& GetRequests, const FLootLockerPlayerInformationResponse& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#player-asset-notifications
+    * Get assets that have been granted (given to) the player since the last time this endpoint was called.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
 	void CheckPlayerAssetActivationNotification(const FLootLockerAssetNotificationResponse& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#player-asset-deactivation-notifications
+    * Get asset deactivations since the last time it's been checked.
+    * Do not expect both replacement_asset_id and reason to have values at the same time. They can have, but it is not required.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
 	void CheckPlayerAssetDeactivationNotification(const FLootLockerAssetNotificationResponse& OnCompletedRequest);
-	//character calls
+    
+    //==================================================
+	//Characters
+    //==================================================
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#character-loadouts
+    * This call will return all characters loadouts for a game, and have some additional information on the characters.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
 	void GetCharacterLoadout(const FLootLockerCharacterLoadoutResponse& OnCompletedRequest);
-	void EquipAssetToDefaultCharacter(const int32& InstanceId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest);
-	void EquipAssetToCharacterById(const int32& CharacterId,const  int32& AssetId,const  int32& AssetVariationId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest);
-	void UnEquipAssetToDefaultCharacter(const int32& InstanceId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest);
-	void UnEquipAssetToCharacterById(const int32& CharacterId,const int32& AssetId,const int32& AssetVariationId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#equip-asset-to-default-character
+    * Equip an asset to the default character.
+    *
+    * @param InstanceId - the asset's instance_id that is returned from the inventory and loadout calls.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
+	void EquipAssetToDefaultCharacter(int InstanceId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#equip-asset-to-character-by-id
+    * Equip an asset to the specified character.
+    *
+    * @param CharacterId - ID of the character to equip an asset to.
+    * @param InstanceId - the asset's instance_id that is returned from the inventory and loadout calls.
+    * @param AssetVariationId - the asset_variation_id.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
+	void EquipAssetToCharacterById(int CharacterId, int AssetId, int AssetVariationId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#unequip-asset-to-default-character
+    * Unequip an asset from the default character.
+    *
+    * @param InstanceId - the asset's instance_id that is returned from the inventory and loadout calls.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
+	void UnEquipAssetToDefaultCharacter(int InstanceId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#unequip-asset-to-character-by-id
+    * Unequip an asset from the specified character.
+    *
+    * @param CharacterId - ID of the character to unequip an asset from.
+    * @param InstanceId - the asset's instance_id that is returned from the inventory and loadout calls.
+    * @param AssetVariationId - the asset_variation_id.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
+	void UnEquipAssetToCharacterById(int CharacterId, int AssetId, int AssetVariationId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#get-current-loadout-to-default-character
+    * Getting the current loadout will return an array of assets that the user currently has equipped.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
 	void GetCurrentLoadoutToDefaultCharacter(const FLootLockerCharacterLoadoutResponse& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#get-other-players-loadout-to-default-character
+    * This method will return the exact same response as the GetCharacterLoadout, except that it will be for another player.
+    *
+    * @param OtherPlayerId - other player's ID.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
 	void GetOtherPlayersCurrentLoadoutToDefaultCharacter(const FString& OtherPlayerId, const FLootLockerCharacterLoadoutResponse& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#get-equippable-contexts-to-default-character
+    * Get the contexts that the player's default character can equip.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
 	void GetEquipableContextsToDefaultCharacter(const FContextDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#get-equippable-contexts-by-character-id
+    * Get the contexts that the specified player's default character can equip.
+    *
+    * @param OtherPlayerId - other player's ID.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
 	void GetEquipableContextsByCharacterId(const FString& OtherCharacterId, const FContextDelegate& OnCompletedRequest);
+    
+    //==================================================
     //Persistent Storage
+    //==================================================
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#get-entire-persistent-storage
+    * This call returns all key/value pairs on record for the current player, and can thus be slow if you create many.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void GetEntirePersistentStorage(const FPersistentStorageItemsResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#get-a-single-key-from-persistent-storage
+    * Get Key/Value pair from the player's persistent storage.
+    *
+    * @param Key - key of the key/value pair.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void GetItemFromPersistentStorage(const FString& Key, const FPersistentStorageItemResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#updating-creating-key-value-pairs
+    * Create/Update key/value pair(s).
+    *
+    * @param Items - array of items to be created/updated.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void AddItemsToPersistentStorage(const TArray<FPersistentStorageItem>& Items, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#deleting-a-key-value-pair
+    * Delete a key/value pair.
+    *
+    * @param Key - key of a key/value pair.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void DeleteItemFromPersistentStorage(const FString& Key, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#getting-other-players-public-key-value-pairs
+    * Read another players public key/value storage.
+    *
+    * @param PlayerId - players id or their public UID.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void GetPlayerPersistentStorage(const FString& PlayerId, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest);
+    
+    //==================================================
     //Assets
+    //==================================================
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#getting-contexts
+    * Get all the contexts the game has.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void GetContexts(const FContextDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#getting-asset-list
+    * Get all assets in a paginated form.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    * @param StartFromIndex - index of the item to start from.
+    * @param ItemsCount - number of items to receive (50-200).
+    * @param AssetFilter - optional filter.
+    * @param IncludeUGC - whether to include UGC Assets.
+    */
     void GetAssets(const FAssetsResponseDelegate& OnCompletedRequest, int StartFromIndex = 0, int ItemsCount = 50, EAssetFilter AssetFilter = EAssetFilter::None, bool IncludeUGC = false);
-    void GetAssetsByIds(const TArray<int> AssetIds, const FAssetsResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#getting-assets-by-ids
+    * Retrieve only specific Assets by their ID's.
+    *
+    * @param AssetIds - array of the asset ID's to be fetched.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
+    void GetAssetsByIds(const TArray<int>& AssetIds, const FAssetsResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#getting-asset-bone-information
+    * This call will return you all the default bones.
+    * If a binding overrides anything on a bone, it will be returned along with the binding.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void GetAssetBones(const FAssetBonesResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#listing-favourite-assets
+    * This call will simply list the current players favourite assets.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void GetFavouriteAssetIndices(const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#adding-favourite-assets
+    * Add an asset to the list of favourites.
+    *
+    * @param AssetId - asset ID to be added.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void AddAssetToFavourites(int AssetId, const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#removing-favourite-assets
+    * Remove an asset from the list of favourites.
+    *
+    * @param AssetId - asset ID to be removed.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void RemoveAssetFromFavourites(int AssetId, const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest);
+    
+    //==================================================
     //Asset Instances
+    //==================================================
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#getting-all-key-value-pairs-to-an-instance
+    * Get all key/value pairs for an asset instance.
+    *
+    * @param AssetInstanceId - asset instance ID.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void GetKeyValuePairsForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#getting-a-key-value-pair-by-id
+    * Get a key/value pair for an asset instance.
+    *
+    * @param AssetInstanceId - asset instance ID.
+    * @param StorageItemId - ID of the key/value pair.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void GetKeyValuePairForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#creating-a-key-value-pair
+    * Create a key/value pair for an asset instance.
+    *
+    * @param AssetInstanceId - asset instance ID.
+    * @param Item - key/value pair.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void CreateStorageItemForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItem& Item, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#updating-one-or-more-key-value-pairs
+    * Update key/value pairs for an asset instance.
+    *
+    * @param AssetInstanceId - asset instance ID.
+    * @param Items - key/value pairs.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void UpdateStorageItemsForAssetInstance(int AssetInstanceId, const TArray<FAssetInstanceStorageItem>& Items, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#updating-a-key-value-pair-by-id
+    * Update a key/value pair for an asset instance.
+    *
+    * @param AssetInstanceId - asset instance ID.
+    * @param StorageItemId - key/value pair ID.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void UpdateStorageItemForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItem Item, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#delete-a-key-value-pair
+    * Delete a key/value pair for an asset instance.
+    *
+    * @param AssetInstanceId - asset instance ID.
+    * @param StorageItemId - key/value pair ID.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void DeleteStorageItemForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#inspect-a-loot-box
+    * Asset instances with the type set to loot box can be inspected, to see what assets the player might possibly get when opening them.
+    *
+    * @param AssetInstanceId - asset instance ID.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void InspectLootBox(int AssetInstanceId, const FLootBoxContentResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#open-a-loot-box
+    * Asset instances with the type set to loot box can be opened, using this endpoint.
+    * Once you call this endpoint, the Loot Box will be removed from the players inventory, and a new asset will be added to the inventory,
+    * with the acquisition_source set to grant_loot_box. You will be asked to check the grant notifications to see which asset was granted.
+    *
+    * @param AssetInstanceId - asset instance ID.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void OpenLootBox(int AssetInstanceId, const FOpenLootBoxResponseDelegate& OnCompletedRequest);
+    
+    //==================================================
     //User Generated Content
+    //==================================================
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#creating-an-asset-candidate
+    * Create an asset candidate.
+    *
+    * @param AsssetCandidate - asset candidate data.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void CreateAssetCandidate(const FAssetCandidate& AsssetCandidate, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#updating-an-asset-candidate
+    * Update an asset candidate.
+    *
+    * @param AssetCandidateId - ID of the asset candidate.
+    * @param AsssetCandidate - asset candidate data.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void UpdateAssetCandidate(int AssetCandidateId, const FAssetCandidate& AsssetCandidate, const FAssetCandidateResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#deleting-an-asset-candidate
+    * Delete an asset candidate.
+    *
+    * @param AssetCandidateId - ID of the asset candidate.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void DeleteAssetCandidate(int AssetCandidateId, const FResponseCallback& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#listing-asset-candidates
+    * Get all asset candidates.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void GetAllAssetCandidates(const FAssetCandidatesResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#getting-a-single-asset-candidate
+    * Get an asset candidate.
+    *
+    * @param AssetCandidateId - ID of the asset candidate.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void GetAssetCandidate(int AssetCandidateId, const FAssetCandidateResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#adding-files-to-asset-candidates
+    * Add a file to an asset candidate.
+    *
+    * @param AssetCandidateId - ID of the asset candidate.
+    * @param FilePath - full absolute path to a file.
+    * @param FilePurpose - purpose of the file.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void AddFileToAssetCandidate(int AssetCandidateId, const FString& FilePath, EAssetFilePurpose FilePurpose, const FResponseCallback& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#removing-files-from-an-asset-candidate
+    * Remove a file from an asset candidate.
+    *
+    * @param AssetCandidateId - ID of the asset candidate.
+    * @param FileId - ID of the file.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void DeleteFileFromAssetCandidate(int AssetCandidateId, int FileId, const FResponseCallback& OnCompletedRequest);
+    
+    //==================================================
     //Missions
+    //==================================================
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#getting-all-missions
+    * Get all missions.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void GetAllMissions(const FMissionsResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#getting-a-single-mission
+    * Get a mission.
+    *
+    * @param MissionId - mission ID.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void GetMission(int MissionId, const FMissionResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#starting-mission
+    * Start a mission.
+    *
+    * @param MissionId - mission ID.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void StartMission(int MissionId, const FStartMissionResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#finishing-mission
+    * Finish a mission.
+    *
+    * @param MissionId - mission ID.
+    * @param MissionData - mission completion data.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void FinishMission(int MissionId, const FFinishMissionData& MissionData, const FFinishMissionResponseDelegate& OnCompletedRequest);
+    
+    //==================================================
     //Maps
+    //==================================================
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#getting-all-maps
+    * Get maps data.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void GetMaps(const FGetMapsResponseDelegate& OnCompletedRequest);
+    
+    //==================================================
     //Purchases
+    //==================================================
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#purchase-call
+    * Sending a request to this endpoint with asset information, will facilitate a purchase.
+    * If your game uses soft currency, it will check the players account balance and grant the assets to the player if there is coverage.
+    * If there is no coverage, an error will be returned.
+    *
+    * @param PurchaseData - data about the assets to be purchased.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void PurchaseAssets(const TArray<FAssetPurchaseData>& PurchaseData, const FPurchaseResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#android-in-app-purchases
+    * Platform-specific purchase call for Android.
+    *
+    * @param PurchaseData - data about the assets to be purchased.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void PurchaseAssetsAndroid(const TArray<FAndroidAssetPurchaseData>& PurchaseData, const FPurchaseResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#ios-in-app-purchases
+    * Platform-specific purchase call for iOS.
+    *
+    * @param PurchaseData - data about the assets to be purchased.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void VerifyPurchaseIos(const TArray<FVerifyPurchaseIosData>& PurchaseData, const FPurchaseResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#polling-order-status
+    * This call will let you know the current status of an order.
+    * If you get a response that is considered final, you should issue a call to the player inventory endpoint if you're in a context where the inventory might change.
+    *
+    * @param PurchaseId - ID of the purchase order.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void PollPurchaseStatus(int PurchaseId, const FPurchaseStatusResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#activating-a-rental-asset
+    * Once you have purchased a rental asset, you need to activate the rental for it to become available for the player. This endpoint achieves that.
+    *
+    * @param AssetId - ID of the asset.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void ActivateRentalAsset(int AssetId, const FActivateRentalAssetResponseDelegate& OnCompletedRequest);
+    
+    //==================================================
     //Trigger Events
+    //==================================================
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#triggering-an-event
+    * Trigger an event.
+    *
+    * @param Event - data of the event to be triggered.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void TriggerEvent(const FTriggerEvent& Event, const FTriggerEventResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#listing-triggered-trigger-events
+    * This endpoint lists the triggers that a player have already completed.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void GetTriggeredEvents(const FTriggersResponseDelegate& OnCompletedRequest);
+    
+    //==================================================
     //Collectables
+    //==================================================
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#getting-collectables
+    * This endpoint will return all the collectables a game has set up. It will hold a set of Collectables, with Groups inside which in turn contain Items.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void GetAllCollectables(const FCollectablesResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#collecting-an-item
+    * Collecting an Item is done by calling this endpoint with a payload equal to the slug of the Item.
+    * The slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
+    *
+    * @param Item - the slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void CollectItem(const FCollectItemPayload& Item, const FCollectablesResponseDelegate& OnCompletedRequest);
+    
+    //==================================================
     //Messages
+    //==================================================
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#get-messages
+    * Get all messages for a player.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
     void GetMessages(const FMessagesResponseDelegate& OnCompletedRequest);
-
-	//For Blueprints
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods")
-	void BPStartSession(const FString& playerId);
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods")
-	void BPVerifyPlayer(const FString& CachedSteamToken);
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods")
-	void BPEndSession(const FString& playerId);
-	//Player calls
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods")
-	void BPGetPlayerInfo();
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods")
-	void BPGetInventory();
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods")
-	void BPSubmitXP(const int32& points);
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods")
-	void BPGetOtherPlayerInfo(FLootLockerGetRequests& getRequests);
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods")
-	void BPCheckPlayerAssetActivationNotification();
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods")
-	void BPCheckPlayerAssetDeactivationNotification();
-	//character calls
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods")
-	void BPGetCharacterLoadout();
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods")
-	void BPEquipAssetToDefaultCharacter(const int32& instance_id);
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods")
-	void BPEquipAssetToCharacterById(const int32& characterId, const int32& asset_id, const int32& asset_variation_id);
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods")
-	void BPUnEquipAssetToDefaultCharacter(const int32& instance_id);
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods")
-	void BPUnEquipAssetToCharacterById(const int32& characterId, const int32& asset_id,const int32& asset_variation_id);
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods")
-	void BPGetCurrentLoadoutToDefaultCharacter();
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods")
-	void BPGetOtherPlayersCurrentLoadoutToDefaultCharacter(const FString& otherPlayerId);
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods")
-	void BPGetEquipableContextsToDefaultCharacter();
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods")
-	void BPGetEquipableContextsByCharacterId(const FString& otherCharacterId);
-    //Persistent Storage
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage")
-    void BPGetEntirePersistentStorage();
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage")
-    void BPGetItemFromPersistentStorage(const FString& Key);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage")
-    void BPAddItemsToPersistentStorage(const TArray<FPersistentStorageItem>& Items);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage")
-    void BPDeleteItemFromPersistentStorage(const FString& Key);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage")
-    void BPGetPlayerPersistentStorage(const FString& PlayerId);
-    //Assets
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
-    void BPGetContexts();
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
-    void BPGetAssets(int StartFromIndex = 0, int ItemsCount = 50, EAssetFilter AssetFilter = EAssetFilter::None, bool IncludeUGC = false);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
-    void BPGetAssetsByIds(const TArray<int> AssetIds);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
-    void BPGetAssetBones();
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
-    void BPGetFavouriteAssetIndices();
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
-    void BPAddAssetToFavourites(int AssetId);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
-    void BPRemoveAssetFromFavourites(int AssetId);
-    //Asset Instances
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
-    void BPGetKeyValuePairsForAssetInstance(int AssetInstanceId);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
-    void BPGetKeyValuePairForAssetInstance(int AssetInstanceId, int StorageItemId);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
-    void BPCreateStorageItemForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItem& Item);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
-    void BPUpdateStorageItemsForAssetInstance(int AssetInstanceId, const TArray<FAssetInstanceStorageItem>& Items);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
-    void BPUpdateStorageItemForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItem Item);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
-    void BPDeleteStorageItemForAssetInstance(int AssetInstanceId, int StorageItemId);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
-    void BPInspectLootBox(int AssetInstanceId);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
-    void BPOpenLootBox(int AssetInstanceId);
-    //User Generated Content
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
-    void BPCreateAssetCandidate(const FAssetCandidate& AsssetCandidate);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
-    void BPUpdateAssetCandidate(int AssetCandidateId, const FAssetCandidate& AsssetCandidate);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
-    void BPDeleteAssetCandidate(int AssetCandidateId);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
-    void BPGetAllAssetCandidates();
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
-    void BPGetAssetCandidate(int AssetCandidateId);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
-    void BPAddFileToAssetCandidate(int AssetCandidateId, const FString& FilePath, EAssetFilePurpose FilePurpose);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
-    void BPDeleteFileFromAssetCandidate(int AssetCandidateId, int FileId);
-    //Missions
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions")
-    void BPGetAllMissions();
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions")
-    void BPGetMission(int MissionId);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions")
-    void BPStartMission(int MissionId);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions")
-    void BPFinishMission(int MissionId, const FFinishMissionData& MissionData);
-    //Maps
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Maps")
-    void BPGetMaps();
-    //Purchases
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
-    void BPPurchaseAssets(const TArray<FAssetPurchaseData>& PurchaseData);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
-    void BPPurchaseAssetsAndroid(const TArray<FAndroidAssetPurchaseData>& PurchaseData);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
-    void BPVerifyPurchaseIos(const TArray<FVerifyPurchaseIosData>& PurchaseData);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
-    void BPPollPurchaseStatus(int PurchaseId);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
-    void BPActivateRentalAsset(int AssetId);
-    //Trigger Events
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Trigger Events")
-    void BPTriggerEvent(const FTriggerEvent& Event);
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Trigger Events")
-    void BPGetTriggeredEvents();
-    //Collectables
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Collectables")
-    void BPGetAllCollectables();
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Collectables")
-    void BPCollectItem(const FCollectItemPayload& Item);
-    //Messages
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Messages")
-    void BPGetMessages();
 };

@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright (c) 2020 LootLocker
 
 #include "AdminAPI/AdminAssetsRequestHandler.h"
 
@@ -43,7 +43,7 @@ void UAdminAssetsRequestHandler::GetAssets(int GameId, const FAAssetsResponseDel
 #endif
 }
 
-void UAdminAssetsRequestHandler::GetAssetsByIds(const TArray<int> AssetIds, int GameId, const FAAssetsResponseDelegate& OnComplete)
+void UAdminAssetsRequestHandler::GetAssetsByIds(const TArray<int>& AssetIds, int GameId, const FAAssetsResponseDelegate& OnComplete)
 {
 #if WITH_EDITOR
     sessionResponse = FResponseCallback::CreateLambda([OnComplete](FLootLockerResponse response)

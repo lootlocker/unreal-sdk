@@ -1,10 +1,19 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// Copyright (c) 2020 LootLocker
 
 #include "LootLockerSDK.h"
 #include "ISettingsModule.h"
 #include "ISettingsSection.h"
 #include "LootLockerConfig.h"
+#include "LevelEditor.h"
+#include "UObject/ConstructorHelpers.h"
+#include "Framework/MultiBox/MultiBoxBuilder.h"
+#include "LootLockerCommands.h"
+#include "LootLockerStyle.h"
 
+#include "Editor/Blutility/Classes/EditorUtilityWidgetBlueprint.h"
+#include "Editor/Blutility/Classes/EditorUtilityWidget.h"
+#include "Editor/Blutility/Public/EditorUtilitySubsystem.h"
+#include "Editor/UMGEditor/Public/WidgetBlueprint.h"
 
 #define LOCTEXT_NAMESPACE "FLootLockerSDKModule"
 
@@ -26,6 +35,8 @@ void FLootLockerSDKModule::StartupModule()
 			LootLockerSettings
 		);
 	}
+    
+    AddEditorShortcut();
 
 #endif
 }
@@ -47,6 +58,76 @@ void FLootLockerSDKModule::ShutdownModule()
     else
     {
       LootLockerSettings = nullptr;
+    }
+    
+    LootLockerStyle::Shutdown();
+
+    LootLockerCommands::Unregister();
+}
+
+void FLootLockerSDKModule::AddEditorShortcut()
+{
+    LootLockerStyle::Initialize();
+    LootLockerStyle::ReloadTextures();
+
+    LootLockerCommands::Register();
+    
+    PluginCommands = MakeShareable(new FUICommandList);
+    
+    PluginCommands->MapAction(
+        LootLockerCommands::Get().PluginAction,
+        FExecuteAction::CreateRaw(this, &FLootLockerSDKModule::OpenAdminDemo),
+        FCanExecuteAction());
+        
+    FLevelEditorModule& LevelEditorModule = FModuleManager::LoadModuleChecked<FLevelEditorModule>("LevelEditor");
+    
+    {
+        TSharedPtr<FExtender> MenuExtender = MakeShareable(new FExtender());
+        MenuExtender->AddMenuExtension("WindowLayout", EExtensionHook::After, PluginCommands, FMenuExtensionDelegate::CreateRaw(this, &FLootLockerSDKModule::AddMenuExtension));
+
+        LevelEditorModule.GetMenuExtensibilityManager()->AddExtender(MenuExtender);
+    }
+    
+    {
+        TSharedPtr<FExtender> ToolbarExtender = MakeShareable(new FExtender);
+        ToolbarExtender->AddToolBarExtension("Settings", EExtensionHook::After, PluginCommands, FToolBarExtensionDelegate::CreateRaw(this, &FLootLockerSDKModule::AddToolbarExtension));
+        
+        LevelEditorModule.GetToolBarExtensibilityManager()->AddExtender(ToolbarExtender);
+    }
+}
+
+void FLootLockerSDKModule::AddMenuExtension(FMenuBuilder& Builder)
+{
+    Builder.AddMenuEntry(LootLockerCommands::Get().PluginAction);
+}
+
+void FLootLockerSDKModule::AddToolbarExtension(FToolBarBuilder& Builder)
+{
+    Builder.AddToolBarButton(LootLockerCommands::Get().PluginAction);
+}
+
+void FLootLockerSDKModule::OpenAdminDemo()
+{
+    const FString BlueprintRef = "EditorUtilityWidgetBlueprint'/LootLockerSDK/Demo/AdminUI/AdminAPIControlPanel'";
+    FSoftObjectPath BlueprintPath = FSoftObjectPath(BlueprintRef);
+    UObject* BlueprintObject = BlueprintPath.TryLoad();
+    UWidgetBlueprint* Blueprint = Cast<UWidgetBlueprint>(BlueprintObject);
+     
+    if (!Blueprint || Blueprint->IsPendingKillOrUnreachable())
+    {
+        return;
+    }
+     
+    if (!Blueprint->GeneratedClass->IsChildOf(UEditorUtilityWidget::StaticClass()))
+    {
+        return;
+    }
+     
+    UEditorUtilityWidgetBlueprint* EditorWidget = (UEditorUtilityWidgetBlueprint*)Blueprint;
+    if (EditorWidget)
+    {
+        UEditorUtilitySubsystem* EditorUtilitySubsystem = GEditor->GetEditorSubsystem<UEditorUtilitySubsystem>();
+        EditorUtilitySubsystem->SpawnAndRegisterTab(EditorWidget);
     }
 }
 

@@ -1,3 +1,4 @@
+// Copyright (c) 2020 LootLocker
 
 #include "LootLockerUtilities.h"
 

@@ -1,19 +1,20 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright (c) 2020 LootLocker
 
 
 #include "HttpClient.h"
 #include "JsonObjectConverter.h"
 #include "Interfaces/IHttpResponse.h"
-#include "AuthenticationRequestHandler.h"
+#include "GameAPI/AuthenticationRequestHandler.h"
 #include "LootLockerSDK.h"
 #include "LootLockerPersitentDataHolder.h"
+#include "Misc/FileHelper.h"
 
 UHttpClient::UHttpClient()
 {
 
 }
 
-void UHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, const bool& useHeader, bool useAdmin)
+void UHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, bool useHeader, bool useAdmin)
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
     ULootLockerConfig* config = FLootLockerSDKModule::Get().GetSettings();
@@ -197,7 +198,7 @@ void UHttpClient::VerifyRefresh(const FResponseCallback onCompleteRequest)
 
 }
 
-bool UHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, const bool& bWasSuccessful)
+bool UHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, bool bWasSuccessful)
 {
 	if (!bWasSuccessful || !InResponse.IsValid())
 		return false;

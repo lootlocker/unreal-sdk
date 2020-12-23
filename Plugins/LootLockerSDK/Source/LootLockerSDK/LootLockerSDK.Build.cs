@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// Copyright (c) 2020 LootLocker
 
 using UnrealBuildTool;
 
@@ -34,14 +34,23 @@ public class LootLockerSDK : ModuleRules
 		PrivateDependencyModuleNames.AddRange(
 			new string[]
 			{
+                "Core",
 				"CoreUObject",
 				"Engine",
 				"Slate",
 				"SlateCore",
 				"Http", 
 				"Json", 
-				"JsonUtilities" 
-				// ... add private dependencies that you statically link with here ...	
+				"JsonUtilities",
+                "UnrealEd",
+                "Blutility",
+                "UMG",
+                "UMGEditor",
+                "InputCore",
+                "Projects",
+                "HeadMountedDisplay",
+                "DesktopPlatform"
+				// ... add private dependencies that you statically link with here ...
 			}
 			);
 

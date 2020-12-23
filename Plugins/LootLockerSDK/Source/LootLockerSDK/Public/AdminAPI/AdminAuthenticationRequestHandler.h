@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright (c) 2020 LootLocker
 
 #pragma once
 
@@ -77,6 +77,8 @@ struct FAAuthenticationResponse : public FLootLockerResponse {
     FAUser user;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
     FString mfa_key;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    FString error;
 };
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FAAuthenticationResponseDelegate, FAAuthenticationResponse, Response);

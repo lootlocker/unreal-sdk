@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright (c) 2020 LootLocker
 
 #pragma once
 
@@ -64,7 +64,7 @@ struct FACreateGamePayload {
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
     bool sandbox_mode;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
-    int steam_app_id;
+    int steam_app_id = -1;
 };
 
 USTRUCT(BlueprintType)
@@ -118,6 +118,9 @@ public:
     
     UFUNCTION(BlueprintCallable, Category = "LootLocker Admin | Games", meta = (AutoCreateRefTerm = "OnComplete"))
     static void DeleteGame(int GameId, const FLootLockerResponseCallback& OnComplete);
+    
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Admin | Games")
+    static void SaveGameKey(const FString& Key);
     
     UAdminGamesRequestHandler();
 private:

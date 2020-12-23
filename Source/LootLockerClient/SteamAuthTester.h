@@ -1,11 +1,11 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright (c) 2020 LootLocker
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "LootLockerSDKManager.h"
 #include "Online.h"
-#include "AuthenticationRequestHandler.h"
+#include "GameAPI/AuthenticationRequestHandler.h"
 #include "SteamAuthTester.generated.h"
 
 class IOnlineSubsystem;
