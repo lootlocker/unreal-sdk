@@ -26,8 +26,6 @@ public:
     void OnTriggerEventCompleted(FTriggerEventResponse Response);
     void OnGetTriggeredEventsCompleted(FTriggersResponse Response);
     
-public:
-    ADemoTriggerEvents();
     
 private:
     ULootLockerSDKManager* LootLockerManager;

@@ -54,9 +54,6 @@ public:
     void OnAddFileToAssetCandidateCompleted(FLootLockerResponse Response);
     void OnDeleteFileFromAssetCandidateCompleted(FLootLockerResponse Response);
     
-public:
-    ADemoUserGeneratedContent();
-    
 private:
     ULootLockerSDKManager* LootLockerManager;
 };

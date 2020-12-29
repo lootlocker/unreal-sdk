@@ -2,49 +2,44 @@
 
 #include "Demo/DemoAssetInstances.h"
 
-ADemoAssetInstances::ADemoAssetInstances()
-{
-    LootLockerManager = NewObject<ULootLockerSDKManager>();
-}
-
 void ADemoAssetInstances::DemoGetKeyValuePairsForAssetInstance()
 {
-    LootLockerManager->GetKeyValuePairsForAssetInstance(AssetInstanceId, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnGetKeyValuePairsForAssetInstanceCompleted));
+    ULootLockerSDKManager::GetKeyValuePairsForAssetInstance(AssetInstanceId, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnGetKeyValuePairsForAssetInstanceCompleted));
 }
 
 void ADemoAssetInstances::DemoGetKeyValuePairForAssetInstance()
 {
-    LootLockerManager->GetKeyValuePairForAssetInstance(AssetInstanceId, StorageItemId, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnGetKeyValuePairForAssetInstanceCompleted));
+    ULootLockerSDKManager::GetKeyValuePairForAssetInstance(AssetInstanceId, StorageItemId, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnGetKeyValuePairForAssetInstanceCompleted));
 }
 
 void ADemoAssetInstances::DemoCreateStorageItemForAssetInstance()
 {
-    LootLockerManager->CreateStorageItemForAssetInstance(AssetInstanceId, Item, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnCreateStorageItemForAssetInstanceCompleted));
+    ULootLockerSDKManager::CreateStorageItemForAssetInstance(AssetInstanceId, Item, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnCreateStorageItemForAssetInstanceCompleted));
 }
 
 void ADemoAssetInstances::DemoUpdateStorageItemsForAssetInstance()
 {
-    LootLockerManager->UpdateStorageItemsForAssetInstance(AssetInstanceId, Items, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnUpdateStorageItemsForAssetInstanceCompleted));
+    ULootLockerSDKManager::UpdateStorageItemsForAssetInstance(AssetInstanceId, Items, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnUpdateStorageItemsForAssetInstanceCompleted));
 }
 
 void ADemoAssetInstances::DemoUpdateStorageItemForAssetInstance()
 {
-    LootLockerManager->UpdateStorageItemForAssetInstance(AssetInstanceId, StorageItemId, Item, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnUpdateStorageItemForAssetInstanceCompleted));
+    ULootLockerSDKManager::UpdateStorageItemForAssetInstance(AssetInstanceId, StorageItemId, Item, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnUpdateStorageItemForAssetInstanceCompleted));
 }
 
 void ADemoAssetInstances::DemoDeleteStorageItemForAssetInstance()
 {
-    LootLockerManager->DeleteStorageItemForAssetInstance(AssetInstanceId, StorageItemId, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnDeleteStorageItemForAssetInstanceCompleted));
+    ULootLockerSDKManager::DeleteStorageItemForAssetInstance(AssetInstanceId, StorageItemId, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnDeleteStorageItemForAssetInstanceCompleted));
 }
 
 void ADemoAssetInstances::DemoInspectLootBox()
 {
-    LootLockerManager->InspectLootBox(AssetInstanceId, FLootBoxContentResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnInspectLootBoxCompleted));
+    ULootLockerSDKManager::InspectLootBox(AssetInstanceId, FLootBoxContentResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnInspectLootBoxCompleted));
 }
 
 void ADemoAssetInstances::DemoOpenLootBox()
 {
-    LootLockerManager->OpenLootBox(AssetInstanceId, FOpenLootBoxResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnOpenLootBoxCompleted));
+    ULootLockerSDKManager::OpenLootBox(AssetInstanceId, FOpenLootBoxResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnOpenLootBoxCompleted));
 }
 
 void ADemoAssetInstances::OnGetKeyValuePairsForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)

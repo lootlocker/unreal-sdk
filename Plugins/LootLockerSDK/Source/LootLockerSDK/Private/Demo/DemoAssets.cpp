@@ -2,44 +2,39 @@
 
 #include "Demo/DemoAssets.h"
 
-ADemoAssets::ADemoAssets()
-{
-    LootLockerManager = NewObject<ULootLockerSDKManager>();
-}
-
 void ADemoAssets::DemoGetContexts()
 {
-    LootLockerManager->GetContexts(FContextDelegate::CreateUObject(this, &ADemoAssets::OnGetContextsCompleted));
+   ULootLockerSDKManager::GetContexts(FContextDelegate::CreateUObject(this, &ADemoAssets::OnGetContextsCompleted));
 }
 
 void ADemoAssets::DemoGetAssets()
 {
-    LootLockerManager->GetAssets(FAssetsResponseDelegate::CreateUObject(this, &ADemoAssets::OnGetAssetsCompleted), StartFromIndex, ItemsCount, AssetFilter, IncludeUGC);
+   ULootLockerSDKManager::GetAssets(FAssetsResponseDelegate::CreateUObject(this, &ADemoAssets::OnGetAssetsCompleted), StartFromIndex, ItemsCount, AssetFilter, IncludeUGC);
 }
 
 void ADemoAssets::DemoGetAssetsByIds()
 {
-    LootLockerManager->GetAssetsByIds(AssetIds, FAssetsResponseDelegate::CreateUObject(this, &ADemoAssets::OnGetAssetsByIdsCompleted));
+   ULootLockerSDKManager::GetAssetsByIds(AssetIds, FAssetsResponseDelegate::CreateUObject(this, &ADemoAssets::OnGetAssetsByIdsCompleted));
 }
 
 void ADemoAssets::DemoGetAssetBones()
 {
-    LootLockerManager->GetAssetBones(FAssetBonesResponseDelegate::CreateUObject(this, &ADemoAssets::OnGetAssetBonesCompleted));
+   ULootLockerSDKManager::GetAssetBones(FAssetBonesResponseDelegate::CreateUObject(this, &ADemoAssets::OnGetAssetBonesCompleted));
 }
 
 void ADemoAssets::DemoGetFavouriteAssetIndices()
 {
-    LootLockerManager->GetFavouriteAssetIndices(FGetFavouriteAssetIndicesResponseDelegate::CreateUObject(this, &ADemoAssets::OnGetFavouriteAssetIndicesCompleted));
+   ULootLockerSDKManager::GetFavouriteAssetIndices(FGetFavouriteAssetIndicesResponseDelegate::CreateUObject(this, &ADemoAssets::OnGetFavouriteAssetIndicesCompleted));
 }
 
 void ADemoAssets::DemoAddAssetToFavourites()
 {
-    LootLockerManager->AddAssetToFavourites(AssetId, FGetFavouriteAssetIndicesResponseDelegate::CreateUObject(this, &ADemoAssets::OnAddAssetToFavouritesCompleted));
+   ULootLockerSDKManager::AddAssetToFavourites(AssetId, FGetFavouriteAssetIndicesResponseDelegate::CreateUObject(this, &ADemoAssets::OnAddAssetToFavouritesCompleted));
 }
 
 void ADemoAssets::DemoRemoveAssetFromFavourites()
 {
-    LootLockerManager->RemoveAssetFromFavourites(AssetId, FGetFavouriteAssetIndicesResponseDelegate::CreateUObject(this, &ADemoAssets::OnRemoveAssetFromFavouritesCompleted));
+   ULootLockerSDKManager::RemoveAssetFromFavourites(AssetId, FGetFavouriteAssetIndicesResponseDelegate::CreateUObject(this, &ADemoAssets::OnRemoveAssetFromFavouritesCompleted));
 }
 
 void ADemoAssets::OnGetContextsCompleted(FGetContextResponse Response)

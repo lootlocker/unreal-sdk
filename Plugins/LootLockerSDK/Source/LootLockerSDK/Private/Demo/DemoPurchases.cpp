@@ -2,34 +2,29 @@
 
 #include "Demo/DemoPurchases.h"
 
-ADemoPurchases::ADemoPurchases()
-{
-    LootLockerManager = NewObject<ULootLockerSDKManager>();
-}
-
 void ADemoPurchases::DemoPurchaseAssets()
 {
-    LootLockerManager->PurchaseAssets(PurchaseData, FPurchaseResponseDelegate::CreateUObject(this, &ADemoPurchases::OnPurchaseAssetsCompleted));
+   ULootLockerSDKManager::PurchaseAssets(PurchaseData, FPurchaseResponseDelegate::CreateUObject(this, &ADemoPurchases::OnPurchaseAssetsCompleted));
 }
 
 void ADemoPurchases::DemoPurchaseAssetsAndroid()
 {
-    LootLockerManager->PurchaseAssetsAndroid(AndroidPurchaseData, FPurchaseResponseDelegate::CreateUObject(this, &ADemoPurchases::OnPurchaseAssetsAndroidCompleted));
+   ULootLockerSDKManager::PurchaseAssetsAndroid(AndroidPurchaseData, FPurchaseResponseDelegate::CreateUObject(this, &ADemoPurchases::OnPurchaseAssetsAndroidCompleted));
 }
 
 void ADemoPurchases::DemoVerifyPurchaseIos()
 {
-    LootLockerManager->VerifyPurchaseIos(IosPurchaseData, FPurchaseResponseDelegate::CreateUObject(this, &ADemoPurchases::OnVerifyPurchaseIosCompleted));
+   ULootLockerSDKManager::VerifyPurchaseIos(IosPurchaseData, FPurchaseResponseDelegate::CreateUObject(this, &ADemoPurchases::OnVerifyPurchaseIosCompleted));
 }
 
 void ADemoPurchases::DemoPollPurchaseStatus()
 {
-    LootLockerManager->PollPurchaseStatus(PurchaseId, FPurchaseStatusResponseDelegate::CreateUObject(this, &ADemoPurchases::OnPollPurchaseStatusCompleted));
+   ULootLockerSDKManager::PollPurchaseStatus(PurchaseId, FPurchaseStatusResponseDelegate::CreateUObject(this, &ADemoPurchases::OnPollPurchaseStatusCompleted));
 }
 
 void ADemoPurchases::DemoActivateRentalAsset()
 {
-    LootLockerManager->ActivateRentalAsset(AssetId, FActivateRentalAssetResponseDelegate::CreateUObject(this, &ADemoPurchases::OnActivateRentalAssetCompleted));
+   ULootLockerSDKManager::ActivateRentalAsset(AssetId, FActivateRentalAssetResponseDelegate::CreateUObject(this, &ADemoPurchases::OnActivateRentalAssetCompleted));
 }
 
 void ADemoPurchases::OnPurchaseAssetsCompleted(FPurchaseResponse Response)

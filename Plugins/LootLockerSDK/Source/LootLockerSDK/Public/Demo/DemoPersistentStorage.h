@@ -42,8 +42,6 @@ public:
     void OnDeleteItemFromPersistentStorageCompleted(FPersistentStorageItemsResponse Response);
     void OnGetPlayerPersistentStorageCompleted(FPersistentStorageItemsResponse Response);
     
-public:
-    ADemoPersistentStorage();
     
 private:
     ULootLockerSDKManager* LootLockerManager;

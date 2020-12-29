@@ -2,34 +2,30 @@
 
 #include "Demo/DemoPersistentStorage.h"
 
-ADemoPersistentStorage::ADemoPersistentStorage()
-{
-    LootLockerManager = NewObject<ULootLockerSDKManager>();
-}
 
 void ADemoPersistentStorage::DemoGetEntirePersistentStorage()
 {
-    LootLockerManager->GetEntirePersistentStorage(FPersistentStorageItemsResponseDelegate::CreateUObject(this, &ADemoPersistentStorage::OnGetEntirePersistentStorageCompleted));
+   ULootLockerSDKManager::GetEntirePersistentStorage(FPersistentStorageItemsResponseDelegate::CreateUObject(this, &ADemoPersistentStorage::OnGetEntirePersistentStorageCompleted));
 }
 
 void ADemoPersistentStorage::DemoGetItemFromPersistentStorage()
 {
-    LootLockerManager->GetItemFromPersistentStorage(Key, FPersistentStorageItemResponseDelegate::CreateUObject(this, &ADemoPersistentStorage::OnGetItemFromPersistentStorageCompleted));
+   ULootLockerSDKManager::GetItemFromPersistentStorage(Key, FPersistentStorageItemResponseDelegate::CreateUObject(this, &ADemoPersistentStorage::OnGetItemFromPersistentStorageCompleted));
 }
 
 void ADemoPersistentStorage::DemoAddItemsToPersistentStorage()
 {
-    LootLockerManager->AddItemsToPersistentStorage(Items, FPersistentStorageItemsResponseDelegate::CreateUObject(this, &ADemoPersistentStorage::OnAddItemsToPersistentStorageCompleted));
+   ULootLockerSDKManager::AddItemsToPersistentStorage(Items, FPersistentStorageItemsResponseDelegate::CreateUObject(this, &ADemoPersistentStorage::OnAddItemsToPersistentStorageCompleted));
 }
 
 void ADemoPersistentStorage::DemoDeleteItemFromPersistentStorage()
 {
-    LootLockerManager->DeleteItemFromPersistentStorage(Key, FPersistentStorageItemsResponseDelegate::CreateUObject(this, &ADemoPersistentStorage::OnDeleteItemFromPersistentStorageCompleted));
+   ULootLockerSDKManager::DeleteItemFromPersistentStorage(Key, FPersistentStorageItemsResponseDelegate::CreateUObject(this, &ADemoPersistentStorage::OnDeleteItemFromPersistentStorageCompleted));
 }
 
 void ADemoPersistentStorage::DemoGetPlayerPersistentStorage()
 {
-    LootLockerManager->GetPlayerPersistentStorage(PlayerId, FPersistentStorageItemsResponseDelegate::CreateUObject(this, &ADemoPersistentStorage::OnGetPlayerPersistentStorageCompleted));
+   ULootLockerSDKManager::GetPlayerPersistentStorage(PlayerId, FPersistentStorageItemsResponseDelegate::CreateUObject(this, &ADemoPersistentStorage::OnGetPlayerPersistentStorageCompleted));
 }
 
 void ADemoPersistentStorage::OnGetEntirePersistentStorageCompleted(FPersistentStorageItemsResponse Response)

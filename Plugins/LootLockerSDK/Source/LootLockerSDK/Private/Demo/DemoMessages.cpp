@@ -2,14 +2,10 @@
 
 #include "Demo/DemoMessages.h"
 
-ADemoMessages::ADemoMessages()
-{
-    LootLockerManager = NewObject<ULootLockerSDKManager>();
-}
 
 void ADemoMessages::DemoGetMessages()
 {
-    LootLockerManager->GetMessages(FMessagesResponseDelegate::CreateUObject(this, &ADemoMessages::OnGetMessagesCompleted));
+   ULootLockerSDKManager::GetMessages(FMessagesResponseDelegate::CreateUObject(this, &ADemoMessages::OnGetMessagesCompleted));
 }
 
 void ADemoMessages::OnGetMessagesCompleted(FMessagesResponse Response)

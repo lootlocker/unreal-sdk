@@ -2,54 +2,49 @@
 
 #include "Demo/DemoCharacters.h"
 
-ADemoCharacters::ADemoCharacters()
-{
-    LootLockerManager = NewObject<ULootLockerSDKManager>();
-}
-
 void ADemoCharacters::GetCharacterLoadout()
 {
-    LootLockerManager->GetCharacterLoadout(FLootLockerCharacterLoadoutResponse::CreateUObject(this, &ADemoCharacters::OnGetCharacterLoadoutCompleted));
+   ULootLockerSDKManager::GetCharacterLoadout(FLootLockerCharacterLoadoutResponse::CreateUObject(this, &ADemoCharacters::OnGetCharacterLoadoutCompleted));
 }
 
 void ADemoCharacters::EquipAssetToDefaultCharacter()
 {
-    LootLockerManager->EquipAssetToDefaultCharacter(InstanceId, FLootLockerCharacterDefaultResponse::CreateUObject(this, &ADemoCharacters::OnEquipAssetToDefaultCharacterCompleted));
+   ULootLockerSDKManager::EquipAssetToDefaultCharacter(InstanceId, FLootLockerCharacterDefaultResponse::CreateUObject(this, &ADemoCharacters::OnEquipAssetToDefaultCharacterCompleted));
 }
 
 void ADemoCharacters::EquipAssetToCharacterById()
 {
-    LootLockerManager->EquipAssetToCharacterById(CharacterId, AssetId, AssetVariationId, FLootLockerCharacterDefaultResponse::CreateUObject(this, &ADemoCharacters::OnEquipAssetToCharacterByIdCompleted));
+   ULootLockerSDKManager::EquipAssetToCharacterById(CharacterId, AssetId, AssetVariationId, FLootLockerCharacterDefaultResponse::CreateUObject(this, &ADemoCharacters::OnEquipAssetToCharacterByIdCompleted));
 }
 
 void ADemoCharacters::UnEquipAssetToDefaultCharacter()
 {
-    LootLockerManager->UnEquipAssetToDefaultCharacter(InstanceId, FLootLockerCharacterDefaultResponse::CreateUObject(this, &ADemoCharacters::OnUnEquipAssetToDefaultCharacterCompleted));
+   ULootLockerSDKManager::UnEquipAssetToDefaultCharacter(InstanceId, FLootLockerCharacterDefaultResponse::CreateUObject(this, &ADemoCharacters::OnUnEquipAssetToDefaultCharacterCompleted));
 }
 
 void ADemoCharacters::UnEquipAssetToCharacterById()
 {
-    LootLockerManager->UnEquipAssetToCharacterById(CharacterId, AssetId, AssetVariationId, FLootLockerCharacterDefaultResponse::CreateUObject(this, &ADemoCharacters::OnUnEquipAssetToCharacterByIdCompleted));
+   ULootLockerSDKManager::UnEquipAssetToCharacterById(CharacterId, AssetId, AssetVariationId, FLootLockerCharacterDefaultResponse::CreateUObject(this, &ADemoCharacters::OnUnEquipAssetToCharacterByIdCompleted));
 }
 
 void ADemoCharacters::GetCurrentLoadoutToDefaultCharacter()
 {
-    LootLockerManager->GetCurrentLoadoutToDefaultCharacter(FLootLockerCharacterLoadoutResponse::CreateUObject(this, &ADemoCharacters::OnGetCurrentLoadoutToDefaultCharacterCompleted));
+   ULootLockerSDKManager::GetCurrentLoadoutToDefaultCharacter(FLootLockerCharacterLoadoutResponse::CreateUObject(this, &ADemoCharacters::OnGetCurrentLoadoutToDefaultCharacterCompleted));
 }
 
 void ADemoCharacters::GetOtherPlayersCurrentLoadoutToDefaultCharacter()
 {
-    LootLockerManager->GetOtherPlayersCurrentLoadoutToDefaultCharacter(OtherPlayerId, FLootLockerCharacterLoadoutResponse::CreateUObject(this, &ADemoCharacters::OnGetOtherPlayersCurrentLoadoutToDefaultCharacterCompleted));
+   ULootLockerSDKManager::GetOtherPlayersCurrentLoadoutToDefaultCharacter(OtherPlayerId, FLootLockerCharacterLoadoutResponse::CreateUObject(this, &ADemoCharacters::OnGetOtherPlayersCurrentLoadoutToDefaultCharacterCompleted));
 }
 
 void ADemoCharacters::GetEquipableContextsToDefaultCharacter()
 {
-    LootLockerManager->GetEquipableContextsToDefaultCharacter(FContextDelegate::CreateUObject(this, &ADemoCharacters::OnGetEquipableContextsToDefaultCharacterCompleted));
+   ULootLockerSDKManager::GetEquipableContextsToDefaultCharacter(FContextDelegate::CreateUObject(this, &ADemoCharacters::OnGetEquipableContextsToDefaultCharacterCompleted));
 }
 
 void ADemoCharacters::GetEquipableContextsByCharacterId()
 {
-    LootLockerManager->GetEquipableContextsByCharacterId(OtherPlayerId, FContextDelegate::CreateUObject(this, &ADemoCharacters::OnGetEquipableContextsByCharacterIdCompleted));
+   ULootLockerSDKManager::GetEquipableContextsByCharacterId(OtherPlayerId, FContextDelegate::CreateUObject(this, &ADemoCharacters::OnGetEquipableContextsByCharacterIdCompleted));
 }
 
 void ADemoCharacters::OnGetCharacterLoadoutCompleted(FCharacterLoadoutResponse Response)

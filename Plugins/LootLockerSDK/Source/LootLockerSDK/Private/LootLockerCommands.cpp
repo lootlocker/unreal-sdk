@@ -1,7 +1,6 @@
 // Copyright (c) 2020 LootLocker
-
-#include "LootLockerSDK.h"
 #include "LootLockerCommands.h"
+#include "LootLockerSDK.h"
 #include "InputCoreTypes.h"
 
 #define LOCTEXT_NAMESPACE "FLootLockerSDKModule"

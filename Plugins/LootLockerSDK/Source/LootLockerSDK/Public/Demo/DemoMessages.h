@@ -19,9 +19,6 @@ public:
     
     void OnGetMessagesCompleted(FMessagesResponse Response);
     
-public:
-    ADemoMessages();
-    
 private:
     ULootLockerSDKManager* LootLockerManager;
 };

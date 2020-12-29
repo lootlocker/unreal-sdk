@@ -56,8 +56,6 @@ public:
     void OnInspectLootBoxCompleted(FLootBoxContentResponse Response);
     void OnOpenLootBoxCompleted(FOpenLootBoxResponse Response);
     
-public:
-    ADemoAssetInstances();
     
 private:
     ULootLockerSDKManager* LootLockerManager;

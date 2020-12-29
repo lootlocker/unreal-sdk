@@ -2,19 +2,15 @@
 
 #include "Demo/DemoTriggerEvents.h"
 
-ADemoTriggerEvents::ADemoTriggerEvents()
-{
-    LootLockerManager = NewObject<ULootLockerSDKManager>();
-}
 
 void ADemoTriggerEvents::DemoTriggerEvent()
 {
-    LootLockerManager->TriggerEvent(Event, FTriggerEventResponseDelegate::CreateUObject(this, &ADemoTriggerEvents::OnTriggerEventCompleted));
+   ULootLockerSDKManager::TriggerEvent(Event, FTriggerEventResponseDelegate::CreateUObject(this, &ADemoTriggerEvents::OnTriggerEventCompleted));
 }
 
 void ADemoTriggerEvents::DemoGetTriggeredEvents()
 {
-    LootLockerManager->GetTriggeredEvents(FTriggersResponseDelegate::CreateUObject(this, &ADemoTriggerEvents::OnGetTriggeredEventsCompleted));
+   ULootLockerSDKManager::GetTriggeredEvents(FTriggersResponseDelegate::CreateUObject(this, &ADemoTriggerEvents::OnGetTriggeredEventsCompleted));
 }
 
 void ADemoTriggerEvents::OnTriggerEventCompleted(FTriggerEventResponse Response)

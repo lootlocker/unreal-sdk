@@ -26,8 +26,6 @@ public:
     void OnGetAllCollectablesCompleted(FCollectablesResponse Response);
     void OnCollectItemCompleted(FCollectablesResponse Response);
     
-public:
-    ADemoCollectables();
     
 private:
     ULootLockerSDKManager* LootLockerManager;

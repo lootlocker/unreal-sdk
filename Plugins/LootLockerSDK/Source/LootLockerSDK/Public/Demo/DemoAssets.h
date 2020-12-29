@@ -56,8 +56,6 @@ public:
     void OnAddAssetToFavouritesCompleted(FGetFavouriteAssetIndicesResponse Response);
     void OnRemoveAssetFromFavouritesCompleted(FGetFavouriteAssetIndicesResponse Response);
     
-public:
-    ADemoAssets();
     
 private:
     ULootLockerSDKManager* LootLockerManager;

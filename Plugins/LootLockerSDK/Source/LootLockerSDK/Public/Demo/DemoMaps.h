@@ -19,8 +19,6 @@ public:
     
     void OnGetMapsCompleted(FGetMapsResponse Response);
     
-public:
-    ADemoMaps();
     
 private:
     ULootLockerSDKManager* LootLockerManager;

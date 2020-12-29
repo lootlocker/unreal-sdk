@@ -44,8 +44,6 @@ public:
     void OnCheckPlayerAssetNotificationCompleted(FPlayerAssetNotificationResponse Response);
     void OnCheckPlayerAssetDeactivationNotificationCompleted(FPlayerAssetNotificationResponse Response);
     
-public:
-    ADemoPlayers();
     
 private:
     ULootLockerSDKManager* LootLockerManager;

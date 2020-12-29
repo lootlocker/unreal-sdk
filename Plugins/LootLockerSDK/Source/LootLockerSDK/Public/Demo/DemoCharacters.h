@@ -62,8 +62,6 @@ public:
     void OnGetEquipableContextsToDefaultCharacterCompleted(FGetContextResponse Response);
     void OnGetEquipableContextsByCharacterIdCompleted(FGetContextResponse Response);
     
-public:
-    ADemoCharacters();
     
 private:
     ULootLockerSDKManager* LootLockerManager;

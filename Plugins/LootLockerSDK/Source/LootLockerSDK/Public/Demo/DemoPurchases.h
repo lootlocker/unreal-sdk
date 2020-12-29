@@ -46,9 +46,6 @@ public:
     void OnPollPurchaseStatusCompleted(FPurchaseStatusResponse Response);
     void OnActivateRentalAssetCompleted(FActivateRentalAssetResponse Response);
     
-public:
-    ADemoPurchases();
-    
 private:
     ULootLockerSDKManager* LootLockerManager;
 };

@@ -36,9 +36,6 @@ public:
     void OnStartMissionCompleted(FStartMissionResponse Response);
     void OnFinishMissionCompleted(FFinishMissionResponse Response);
     
-public:
-    ADemoMissions();
-    
 private:
     ULootLockerSDKManager* LootLockerManager;
 };

@@ -2,24 +2,20 @@
 
 #include "Demo/DemoAuthentication.h"
 
-ADemoAuthentication::ADemoAuthentication()
-{
-    LootLockerManager = NewObject<ULootLockerSDKManager>();
-}
 
 void ADemoAuthentication::DemoStartSession()
 {
-    LootLockerManager->StartSession(PlayerId, FLootLockerSessionResponse::CreateUObject(this, &ADemoAuthentication::OnStartSessionCompleted));
+   ULootLockerSDKManager::StartSession(PlayerId, FLootLockerSessionResponse::CreateUObject(this, &ADemoAuthentication::OnStartSessionCompleted));
 }
 
 void ADemoAuthentication::DemoVerifyPlayer()
 {
-    LootLockerManager->VerifyPlayer(SteamToken, FLootLockerDefaultAuthenticationResponse::CreateUObject(this, &ADemoAuthentication::OnVerifyPlayerCompleted));
+   ULootLockerSDKManager::VerifyPlayer(SteamToken, FLootLockerDefaultAuthenticationResponse::CreateUObject(this, &ADemoAuthentication::OnVerifyPlayerCompleted));
 }
 
 void ADemoAuthentication::DemoEndSession()
 {
-    LootLockerManager->EndSession(PlayerId, FLootLockerDefaultAuthenticationResponse::CreateUObject(this, &ADemoAuthentication::OnEndSessionCompleted));
+   ULootLockerSDKManager::EndSession(PlayerId, FLootLockerDefaultAuthenticationResponse::CreateUObject(this, &ADemoAuthentication::OnEndSessionCompleted));
 }
 
 void ADemoAuthentication::OnStartSessionCompleted(FAuthenticationResponse Response)

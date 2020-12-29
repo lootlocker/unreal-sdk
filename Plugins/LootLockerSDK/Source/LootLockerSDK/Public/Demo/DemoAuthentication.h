@@ -32,8 +32,6 @@ public:
     void OnVerifyPlayerCompleted(FAuthenticationDefaultResponse Response);
     void OnEndSessionCompleted(FAuthenticationDefaultResponse Response);
     
-public:
-    ADemoAuthentication();
     
 private:
     ULootLockerSDKManager* LootLockerManager;

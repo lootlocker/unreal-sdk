@@ -2,14 +2,10 @@
 
 #include "Demo/DemoMaps.h"
 
-ADemoMaps::ADemoMaps()
-{
-    LootLockerManager = NewObject<ULootLockerSDKManager>();
-}
 
 void ADemoMaps::GetMaps()
 {
-    LootLockerManager->GetMaps(FGetMapsResponseDelegate::CreateUObject(this, &ADemoMaps::OnGetMapsCompleted));
+   ULootLockerSDKManager::GetMaps(FGetMapsResponseDelegate::CreateUObject(this, &ADemoMaps::OnGetMapsCompleted));
 }
 
 void ADemoMaps::OnGetMapsCompleted(FGetMapsResponse Response)

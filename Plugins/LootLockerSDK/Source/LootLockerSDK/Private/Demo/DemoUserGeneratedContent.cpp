@@ -2,44 +2,39 @@
 
 #include "Demo/DemoUserGeneratedContent.h"
 
-ADemoUserGeneratedContent::ADemoUserGeneratedContent()
-{
-    LootLockerManager = NewObject<ULootLockerSDKManager>();
-}
-
 void ADemoUserGeneratedContent::DemoCreateAssetCandidate()
 {
-    LootLockerManager->CreateAssetCandidate(AsssetCandidate, FCreateAssetCandidateResponseDelegate::CreateUObject(this, &ADemoUserGeneratedContent::OnCreateAssetCandidateCompleted));
+   ULootLockerSDKManager::CreateAssetCandidate(AsssetCandidate, FCreateAssetCandidateResponseDelegate::CreateUObject(this, &ADemoUserGeneratedContent::OnCreateAssetCandidateCompleted));
 }
 
 void ADemoUserGeneratedContent::DemoUpdateAssetCandidate()
 {
-    LootLockerManager->UpdateAssetCandidate(AssetCandidateId, AsssetCandidate, FAssetCandidateResponseDelegate::CreateUObject(this, &ADemoUserGeneratedContent::OnUpdateAssetCandidateCompleted));
+   ULootLockerSDKManager::UpdateAssetCandidate(AssetCandidateId, AsssetCandidate, FAssetCandidateResponseDelegate::CreateUObject(this, &ADemoUserGeneratedContent::OnUpdateAssetCandidateCompleted));
 }
 
 void ADemoUserGeneratedContent::DemoDeleteAssetCandidate()
 {
-    LootLockerManager->DeleteAssetCandidate(AssetCandidateId, FResponseCallback::CreateUObject(this, &ADemoUserGeneratedContent::OnDeleteAssetCandidateCompleted));
+   ULootLockerSDKManager::DeleteAssetCandidate(AssetCandidateId, FResponseCallback::CreateUObject(this, &ADemoUserGeneratedContent::OnDeleteAssetCandidateCompleted));
 }
 
 void ADemoUserGeneratedContent::DemoGetAllAssetCandidates()
 {
-    LootLockerManager->GetAllAssetCandidates(FAssetCandidatesResponseDelegate::CreateUObject(this, &ADemoUserGeneratedContent::OnGetAllAssetCandidatesCompleted));
+   ULootLockerSDKManager::GetAllAssetCandidates(FAssetCandidatesResponseDelegate::CreateUObject(this, &ADemoUserGeneratedContent::OnGetAllAssetCandidatesCompleted));
 }
 
 void ADemoUserGeneratedContent::DemoGetAssetCandidate()
 {
-    LootLockerManager->GetAssetCandidate(AssetCandidateId, FAssetCandidateResponseDelegate::CreateUObject(this, &ADemoUserGeneratedContent::OnGetAssetCandidateCompleted));
+   ULootLockerSDKManager::GetAssetCandidate(AssetCandidateId, FAssetCandidateResponseDelegate::CreateUObject(this, &ADemoUserGeneratedContent::OnGetAssetCandidateCompleted));
 }
 
 void ADemoUserGeneratedContent::DemoAddFileToAssetCandidate()
 {
-    LootLockerManager->AddFileToAssetCandidate(AssetCandidateId, FilePath, FilePurpose, FResponseCallback::CreateUObject(this, &ADemoUserGeneratedContent::OnAddFileToAssetCandidateCompleted));
+   ULootLockerSDKManager::AddFileToAssetCandidate(AssetCandidateId, FilePath, FilePurpose, FResponseCallback::CreateUObject(this, &ADemoUserGeneratedContent::OnAddFileToAssetCandidateCompleted));
 }
 
 void ADemoUserGeneratedContent::DemoDeleteFileFromAssetCandidate()
 {
-    LootLockerManager->DeleteFileFromAssetCandidate(AssetCandidateId, FileId, FResponseCallback::CreateUObject(this, &ADemoUserGeneratedContent::OnDeleteFileFromAssetCandidateCompleted));
+   ULootLockerSDKManager::DeleteFileFromAssetCandidate(AssetCandidateId, FileId, FResponseCallback::CreateUObject(this, &ADemoUserGeneratedContent::OnDeleteFileFromAssetCandidateCompleted));
 }
 
 void ADemoUserGeneratedContent::OnCreateAssetCandidateCompleted(FCreateAssetCandidateResponse Response)

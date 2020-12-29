@@ -2,29 +2,24 @@
 
 #include "Demo/DemoMissions.h"
 
-ADemoMissions::ADemoMissions()
-{
-    LootLockerManager = NewObject<ULootLockerSDKManager>();
-}
-
 void ADemoMissions::DemoGetAllMissions()
 {
-    LootLockerManager->GetAllMissions(FMissionsResponseDelegate::CreateUObject(this, &ADemoMissions::OnGetAllMissionsCompleted));
+   ULootLockerSDKManager::GetAllMissions(FMissionsResponseDelegate::CreateUObject(this, &ADemoMissions::OnGetAllMissionsCompleted));
 }
 
 void ADemoMissions::DemoGetMission()
 {
-    LootLockerManager->GetMission(MissionId, FMissionResponseDelegate::CreateUObject(this, &ADemoMissions::OnGetMissionCompleted));
+   ULootLockerSDKManager::GetMission(MissionId, FMissionResponseDelegate::CreateUObject(this, &ADemoMissions::OnGetMissionCompleted));
 }
 
 void ADemoMissions::DemoStartMission()
 {
-    LootLockerManager->StartMission(MissionId, FStartMissionResponseDelegate::CreateUObject(this, &ADemoMissions::OnStartMissionCompleted));
+   ULootLockerSDKManager::StartMission(MissionId, FStartMissionResponseDelegate::CreateUObject(this, &ADemoMissions::OnStartMissionCompleted));
 }
 
 void ADemoMissions::DemoFinishMission()
 {
-    LootLockerManager->FinishMission(MissionId, MissionData, FFinishMissionResponseDelegate::CreateUObject(this, &ADemoMissions::OnFinishMissionCompleted));
+   ULootLockerSDKManager::FinishMission(MissionId, MissionData, FFinishMissionResponseDelegate::CreateUObject(this, &ADemoMissions::OnFinishMissionCompleted));
 }
 
 void ADemoMissions::OnGetAllMissionsCompleted(FMissionsResponse Response)

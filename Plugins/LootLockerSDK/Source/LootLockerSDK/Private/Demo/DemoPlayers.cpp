@@ -2,39 +2,35 @@
 
 #include "Demo/DemoPlayers.h"
 
-ADemoPlayers::ADemoPlayers()
-{
-    LootLockerManager = NewObject<ULootLockerSDKManager>();
-}
 
 void ADemoPlayers::DemoGetPlayerInfo()
 {
-    LootLockerManager->GetPlayerInfo(FLootLockerPlayerInformationResponse::CreateUObject(this, &ADemoPlayers::OnGetPlayerInfoCompleted));
+   ULootLockerSDKManager::GetPlayerInfo(FLootLockerPlayerInformationResponse::CreateUObject(this, &ADemoPlayers::OnGetPlayerInfoCompleted));
 }
 
 void ADemoPlayers::DemoGetInventory()
 {
-    LootLockerManager->GetInventory(FLootLockerInventoryResponse::CreateUObject(this, &ADemoPlayers::OnGetInventoryCompleted));
+   ULootLockerSDKManager::GetInventory(FLootLockerInventoryResponse::CreateUObject(this, &ADemoPlayers::OnGetInventoryCompleted));
 }
 
 void ADemoPlayers::DemoSubmitXp()
 {
-    LootLockerManager->SubmitXP(points, FLootLockerSubmitXpResponse::CreateUObject(this, &ADemoPlayers::OnSubmitXpCompleted));
+   ULootLockerSDKManager::SubmitXP(points, FLootLockerSubmitXpResponse::CreateUObject(this, &ADemoPlayers::OnSubmitXpCompleted));
 }
 
 void ADemoPlayers::DemoGetOtherPlayerInfo()
 {
-    LootLockerManager->GetOtherPlayerInfo(getRequests, FLootLockerPlayerInformationResponse::CreateUObject(this, &ADemoPlayers::OnGetOtherPlayerInfoCompleted));
+   ULootLockerSDKManager::GetOtherPlayerInfo(getRequests, FLootLockerPlayerInformationResponse::CreateUObject(this, &ADemoPlayers::OnGetOtherPlayerInfoCompleted));
 }
 
 void ADemoPlayers::DemoCheckPlayerAssetNotification()
 {
-    LootLockerManager->CheckPlayerAssetActivationNotification(FLootLockerAssetNotificationResponse::CreateUObject(this, &ADemoPlayers::OnCheckPlayerAssetNotificationCompleted));
+   ULootLockerSDKManager::CheckPlayerAssetActivationNotification(FLootLockerAssetNotificationResponse::CreateUObject(this, &ADemoPlayers::OnCheckPlayerAssetNotificationCompleted));
 }
 
 void ADemoPlayers::DemoCheckPlayerAssetDeactivationNotification()
 {
-    LootLockerManager->CheckPlayerAssetDeactivationNotification(FLootLockerAssetNotificationResponse::CreateUObject(this, &ADemoPlayers::OnCheckPlayerAssetDeactivationNotificationCompleted));
+   ULootLockerSDKManager::CheckPlayerAssetDeactivationNotification(FLootLockerAssetNotificationResponse::CreateUObject(this, &ADemoPlayers::OnCheckPlayerAssetDeactivationNotificationCompleted));
 }
 
 void ADemoPlayers::OnGetPlayerInfoCompleted(FPlayerInfoResponse Response)
