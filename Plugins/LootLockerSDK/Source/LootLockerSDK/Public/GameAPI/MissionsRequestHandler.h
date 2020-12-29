@@ -164,6 +164,5 @@ public:
     static void FinishMission(int MissionId, const FFinishMissionData& MissionData, const FFinishMissionResponseDelegateBP& OnCompletedRequestBP = FFinishMissionResponseDelegateBP(), const FFinishMissionResponseDelegate& OnCompletedRequest = FFinishMissionResponseDelegate());
 
 public:
-    static FResponseCallback sessionResponse;
     static UHttpClient* HttpClient;
 };

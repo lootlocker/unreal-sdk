@@ -8,7 +8,6 @@
 #include "Utils/LootLockerUtilities.h"
 #include "LootLockerGameEndpoints.h"
 
-FResponseCallback UAssetsRequestHandler::sessionResponse = nullptr;
 UHttpClient* UAssetsRequestHandler::HttpClient = nullptr;
 // Sets default values for this component's properties
 UAssetsRequestHandler::UAssetsRequestHandler()
@@ -18,7 +17,7 @@ UAssetsRequestHandler::UAssetsRequestHandler()
 
 void UAssetsRequestHandler::GetContexts(const FContextDelegateBP& OnCompletedRequestBP, const FContextDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FGetContextResponse ResponseStruct;
             if (response.success)
@@ -43,7 +42,7 @@ void UAssetsRequestHandler::GetContexts(const FContextDelegateBP& OnCompletedReq
 
 void UAssetsRequestHandler::GetAssets(int StartFromIndex, int ItemsCount, EAssetFilter AssetFilter, bool IncludeUGC, const FAssetsResponseDelegateBP& OnCompletedRequestBP, const FAssetsResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FGetAssetsResponse ResponseStruct;
             if (response.success)
@@ -108,7 +107,7 @@ void UAssetsRequestHandler::GetAssets(int StartFromIndex, int ItemsCount, EAsset
 
 void UAssetsRequestHandler::GetAssetsByIds(const TArray<int>& AssetIds, const FAssetsResponseDelegateBP& OnCompletedRequestBP, const FAssetsResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FGetAssetsResponse ResponseStruct;
             if (response.success)
@@ -146,7 +145,7 @@ void UAssetsRequestHandler::GetAssetsByIds(const TArray<int>& AssetIds, const FA
 
 void UAssetsRequestHandler::GetAssetBones(const FAssetBonesResponseDelegateBP& OnCompletedRequestBP, const FAssetBonesResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FGetAssetBonesResponse ResponseStruct;
             ResponseStruct.success = response.success;
@@ -171,7 +170,7 @@ void UAssetsRequestHandler::GetAssetBones(const FAssetBonesResponseDelegateBP& O
 
 void UAssetsRequestHandler::GetFavouriteAssetIndices(const FGetFavouriteAssetIndicesResponseDelegateBP& OnCompletedRequestBP, const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FGetFavouriteAssetIndicesResponse ResponseStruct;
             ResponseStruct.success = response.success;
@@ -196,7 +195,7 @@ void UAssetsRequestHandler::GetFavouriteAssetIndices(const FGetFavouriteAssetInd
 
 void UAssetsRequestHandler::AddAssetToFavourites(int AssetId, const FGetFavouriteAssetIndicesResponseDelegateBP& OnCompletedRequestBP, const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FGetFavouriteAssetIndicesResponse ResponseStruct;
             ResponseStruct.success = response.success;
@@ -221,7 +220,7 @@ void UAssetsRequestHandler::AddAssetToFavourites(int AssetId, const FGetFavourit
 
 void UAssetsRequestHandler::RemoveAssetFromFavourites(int AssetId, const FGetFavouriteAssetIndicesResponseDelegateBP& OnCompletedRequestBP, const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FGetFavouriteAssetIndicesResponse ResponseStruct;
             ResponseStruct.success = response.success;

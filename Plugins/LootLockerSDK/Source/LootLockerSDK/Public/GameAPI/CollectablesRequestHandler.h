@@ -95,6 +95,5 @@ public:
 public:
     UCollectablesRequestHandler();
     
-    static FResponseCallback sessionResponse;
     static UHttpClient* HttpClient;
 };

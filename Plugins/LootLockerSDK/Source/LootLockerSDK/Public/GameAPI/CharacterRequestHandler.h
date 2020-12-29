@@ -118,7 +118,6 @@ public:
 	static void GetEquipableContextsToDefaultCharacter(const FContextDelegateBP& OnCompletedRequestBP = FContextDelegateBP(), const FContextDelegate& OnCompletedRequest = FContextDelegate());
 	static void GetEquipableContextsByCharacterId(const FLootLockerGetRequests& GetRequests, const FContextDelegateBP& OnCompletedRequestBP = FContextDelegateBP(), const FContextDelegate& OnCompletedRequest = FContextDelegate());
 public:
-	static FResponseCallback sessionResponse;
 	static UHttpClient* HttpClient;
 };
 

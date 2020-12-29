@@ -3,6 +3,14 @@
 #include "GameAPI/AssetInstancesRequestHandler.h"
 #include "LootLockerGameEndpoints.h"
 
+//FResponseCallback UAssetInstancesRequestHandler::sessionResponseGetKeyValuePairsForAssetInstance = nullptr;
+//FResponseCallback UAssetInstancesRequestHandler::sessionResponseGetKeyValuePairForAssetInstance = nullptr;
+//FResponseCallback UAssetInstancesRequestHandler::sessionResponseCreateStorageItemForAssetInstance = nullptr;
+//FResponseCallback UAssetInstancesRequestHandler::sessionResponseUpdateStorageItemsForAssetInstance = nullptr;
+//FResponseCallback UAssetInstancesRequestHandler::sessionResponseUpdateStorageItemForAssetInstance = nullptr;
+//FResponseCallback UAssetInstancesRequestHandler::sessionResponseDeleteStorageItemForAssetInstance = nullptr;
+//FResponseCallback UAssetInstancesRequestHandler::sessionResponseInspectLootBox = nullptr;
+//FResponseCallback UAssetInstancesRequestHandler::sessionResponseOpenLootBox = nullptr;
 UHttpClient* UAssetInstancesRequestHandler::HttpClient = nullptr;
 
 UAssetInstancesRequestHandler::UAssetInstancesRequestHandler()

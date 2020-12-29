@@ -6,7 +6,6 @@
 #include "Misc/Base64.h"
 #include "LootLockerGameEndpoints.h"
 
-FResponseCallback UUserGeneratedContentRequestHandler::sessionResponse = nullptr;
 UHttpClient* UUserGeneratedContentRequestHandler::HttpClient = nullptr;
 
 UUserGeneratedContentRequestHandler::UUserGeneratedContentRequestHandler()
@@ -16,7 +15,7 @@ UUserGeneratedContentRequestHandler::UUserGeneratedContentRequestHandler()
 
 void UUserGeneratedContentRequestHandler::CreateAssetCandidate(const FAssetCandidate& AsssetCandidate, const FCreateAssetCandidateResponseDelegateBP& OnCompletedRequestBP, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FCreateAssetCandidateResponse ResponseStruct;
 
@@ -43,7 +42,7 @@ void UUserGeneratedContentRequestHandler::CreateAssetCandidate(const FAssetCandi
 
 void UUserGeneratedContentRequestHandler::UpdateAssetCandidate(int AssetCandidateId, const FAssetCandidate& AsssetCandidate, const FAssetCandidateResponseDelegateBP& OnCompletedRequestBP, const FAssetCandidateResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FAssetCandidateResponse ResponseStruct;
 
@@ -71,7 +70,7 @@ void UUserGeneratedContentRequestHandler::UpdateAssetCandidate(int AssetCandidat
 
 void UUserGeneratedContentRequestHandler::DeleteAssetCandidate(int AssetCandidateId, const FResponseCallbackBP& OnCompletedRequestBP, const FResponseCallback& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback  sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FLootLockerResponse ResponseStruct;
 
@@ -98,7 +97,7 @@ void UUserGeneratedContentRequestHandler::DeleteAssetCandidate(int AssetCandidat
 
 void UUserGeneratedContentRequestHandler::GetAllAssetCandidates(const FAssetCandidatesResponseDelegateBP& OnCompletedRequestBP, const FAssetCandidatesResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FAssetCandidatesResponse ResponseStruct;
 
@@ -124,7 +123,7 @@ void UUserGeneratedContentRequestHandler::GetAllAssetCandidates(const FAssetCand
 
 void UUserGeneratedContentRequestHandler::GetAssetCandidate(int AssetCandidateId, const FAssetCandidateResponseDelegateBP& OnCompletedRequestBP, const FAssetCandidateResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FAssetCandidateResponse ResponseStruct;
 
@@ -151,7 +150,7 @@ void UUserGeneratedContentRequestHandler::GetAssetCandidate(int AssetCandidateId
 
 void UUserGeneratedContentRequestHandler::AddFileToAssetCandidate(int AssetCandidateId, const FString& FilePath, EAssetFilePurpose FilePurpose, const FResponseCallbackBP& OnCompletedRequestBP, const FResponseCallback& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback  sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
     {
         FLootLockerResponse ResponseStruct;
 
@@ -181,7 +180,7 @@ void UUserGeneratedContentRequestHandler::AddFileToAssetCandidate(int AssetCandi
 
 void UUserGeneratedContentRequestHandler::DeleteFileFromAssetCandidate(int AssetCandidateId, int FileId, const FResponseCallbackBP& OnCompletedRequestBP, const FResponseCallback& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FLootLockerResponse ResponseStruct;
 

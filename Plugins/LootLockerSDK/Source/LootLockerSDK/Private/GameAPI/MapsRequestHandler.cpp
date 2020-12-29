@@ -3,7 +3,6 @@
 #include "GameAPI/MapsRequestHandler.h"
 #include "LootLockerGameEndpoints.h"
 
-FResponseCallback UMapsRequestHandler::sessionResponse = nullptr;
 UHttpClient* UMapsRequestHandler::HttpClient = nullptr;
 
 UMapsRequestHandler::UMapsRequestHandler()
@@ -13,7 +12,7 @@ UMapsRequestHandler::UMapsRequestHandler()
 
 void UMapsRequestHandler::GetMaps(const FGetMapsResponseDelegateBP& OnCompletedRequestBP, const FGetMapsResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FGetMapsResponse ResponseStruct;
 

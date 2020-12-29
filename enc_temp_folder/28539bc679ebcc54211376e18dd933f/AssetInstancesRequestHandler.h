@@ -100,6 +100,15 @@ public:
     
 public:
     UAssetInstancesRequestHandler();
+    
+    //static FResponseCallback sessionResponseGetKeyValuePairsForAssetInstance;
+    //static FResponseCallback sessionResponseGetKeyValuePairForAssetInstance;
+    //static FResponseCallback sessionResponseCreateStorageItemForAssetInstance;
+    //static FResponseCallback sessionResponseUpdateStorageItemsForAssetInstance;
+    //static FResponseCallback sessionResponseUpdateStorageItemForAssetInstance;
+    //static FResponseCallback sessionResponseDeleteStorageItemForAssetInstance;
+    //static FResponseCallback sessionResponseInspectLootBox;
+    //static FResponseCallback sessionResponseOpenLootBox;
 
     static UHttpClient* HttpClient;
 };

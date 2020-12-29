@@ -4,7 +4,6 @@
 #include "GameAPI/PlayerRequestHandler.h"
 #include "LootLockerGameEndpoints.h"
 
-FResponseCallback UPlayerRequestHandler::sessionResponse = nullptr;
 UHttpClient* UPlayerRequestHandler::HttpClient = nullptr;
 
 UPlayerRequestHandler::UPlayerRequestHandler()
@@ -15,7 +14,7 @@ UPlayerRequestHandler::UPlayerRequestHandler()
 void UPlayerRequestHandler::GetPlayerInfo(const FPInfoResponseBP& OnCompletedRequestBP, const FLootLockerPlayerInformationResponse& OnCompletedRequest)
 {
 	FString data;
-	sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP,OnCompletedRequest](FLootLockerResponse response)
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP,OnCompletedRequest](FLootLockerResponse response)
 		{
 			FPlayerInfoResponse ResponseStruct;
 			if (response.success)
@@ -39,7 +38,7 @@ void UPlayerRequestHandler::GetPlayerInfo(const FPInfoResponseBP& OnCompletedReq
 void UPlayerRequestHandler::GetInventory(const FPInventoryResponseBP& OnCompletedRequestBP, const FLootLockerInventoryResponse& OnCompletedRequest)
 {
 	FString data;
-	sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
 			FInventoryResponse ResponseStruct;
 			if (response.success)
@@ -69,7 +68,7 @@ void UPlayerRequestHandler::SubmitXp(int points,const FPSubmitResponseBP& OnComp
 	FJsonObjectConverter::UStructToJsonObjectString(FSubmitXpRequest::StaticStruct(), &authRequest, AuthContentString, 0, 0);
 
 
-	sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
 			FSubmitXpResponse ResponseStruct;
 			if (response.success)
@@ -96,7 +95,7 @@ void UPlayerRequestHandler::GetOtherPlayerInfo(FLootLockerGetRequests getRequest
 	ULootLockerConfig* config = GetMutableDefault<ULootLockerConfig>();
 	FString platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(config->Platform));
 	getRequests.args.Add(platform);
-	sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
 			FPlayerInfoResponse ResponseStruct;
 			if (response.success)
@@ -123,7 +122,7 @@ void UPlayerRequestHandler::CheckPlayerAssetNotification(const FPAssetNotificati
 {
 	FString data;
 
-	sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
 			FPlayerAssetNotificationResponse ResponseStruct;
 			if (response.success)
@@ -148,7 +147,7 @@ void UPlayerRequestHandler::CheckPlayerAssetDeactivationNotification(const FPAss
 {
 	FString data;
 
-	sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
 			FPlayerAssetNotificationResponse ResponseStruct;
 			if (response.success)

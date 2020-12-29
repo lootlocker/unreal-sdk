@@ -75,6 +75,5 @@ public:
     
     static void GetPlayerPersistentStorage(const FString& PlayerId, const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP = FPersistentStorageItemsResponseDelegateBP(), const FPersistentStorageItemsResponseDelegate& OnCompletedRequest = FPersistentStorageItemsResponseDelegate());
     
-    static FResponseCallback sessionResponse;
     static UHttpClient* HttpClient;
 };

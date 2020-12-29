@@ -3,7 +3,6 @@
 #include "GameAPI/CharacterRequestHandler.h"
 #include "LootLockerGameEndpoints.h"
 
-FResponseCallback UCharacterRequestHandler::sessionResponse = nullptr;
 UHttpClient* UCharacterRequestHandler::HttpClient = nullptr;
 
 UCharacterRequestHandler::UCharacterRequestHandler()
@@ -14,7 +13,7 @@ UCharacterRequestHandler::UCharacterRequestHandler()
 void UCharacterRequestHandler::GetCharacterLoadout(const FPCharacterLoadoutResponseBP& OnCompletedRequestBP, const FLootLockerCharacterLoadoutResponse& OnCompletedRequest)
 {
 	FString data;
-	sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
 			FCharacterLoadoutResponse ResponseStruct;
 			if (response.success)
@@ -43,7 +42,7 @@ void UCharacterRequestHandler::UpdateCharacter(bool IsDefault, const FString& Na
 	FString ContentString;
 	FJsonObjectConverter::UStructToJsonObjectString(FUpdateCharacterRequest::StaticStruct(), &characterRequest, ContentString, 0, 0);
 
-	sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
 			FCharacterLoadoutResponse ResponseStruct;
 			if (response.success)
@@ -73,7 +72,7 @@ void UCharacterRequestHandler::EquipAssetToDefaultCharacter(int InstanceId,const
 	FString ContentString;
 	FJsonObjectConverter::UStructToJsonObjectString(FUpdateCharacterRequest::StaticStruct(), &characterRequest, ContentString, 0, 0);
 
-	sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
 			FCharacterLoadoutResponse ResponseStruct;
 			if (response.success)
@@ -103,7 +102,7 @@ void UCharacterRequestHandler::EquipAssetToCharacterById(const FLootLockerGetReq
 	FString ContentString;
 	FJsonObjectConverter::UStructToJsonObjectString(FEquipUniversalAssetToCharacterRequest::StaticStruct(), &characterRequest, ContentString, 0, 0);
 
-	sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
 			FCharacterLoadoutResponse ResponseStruct;
 			if (response.success)
@@ -135,7 +134,7 @@ void UCharacterRequestHandler::UnEquipAssetToDefaultCharacter(int InstanceId, co
 	FString ContentString;
 	FJsonObjectConverter::UStructToJsonObjectString(FUpdateCharacterRequest::StaticStruct(), &characterRequest, ContentString, 0, 0);
 
-	sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
 			FCharacterLoadoutResponse ResponseStruct;
 			if (response.success)
@@ -164,7 +163,7 @@ void UCharacterRequestHandler::UnEquipAssetToCharacterById(const FLootLockerGetR
 	FString ContentString;
 	FJsonObjectConverter::UStructToJsonObjectString(FEquipUniversalAssetToCharacterRequest::StaticStruct(), &characterRequest, ContentString, 0, 0);
 
-	sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
 			FCharacterLoadoutResponse ResponseStruct;
 			if (response.success)
@@ -191,7 +190,7 @@ void UCharacterRequestHandler::GetCurrentLoadoutToDefaultCharacter(const FPChara
 {
 	FString ContentString;
 
-	sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
 			FCharacterLoadoutResponse ResponseStruct;
 			if (response.success)
@@ -217,7 +216,7 @@ void UCharacterRequestHandler::GetOtherPlayersCurrentLoadoutToDefaultCharacter(c
 {
 	FString ContentString;
 
-	sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
 			FCharacterLoadoutResponse ResponseStruct;
 			if (response.success)
@@ -242,7 +241,7 @@ void UCharacterRequestHandler::GetOtherPlayersCurrentLoadoutToDefaultCharacter(c
 void UCharacterRequestHandler::GetEquipableContextsToDefaultCharacter(const FContextDelegateBP& OnCompletedRequestBP, const FContextDelegate& OnCompletedRequest)
 {
 	FString ContentString;
-	sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
 			FGetContextResponse ResponseStruct;
 			if (response.success)
@@ -268,7 +267,7 @@ void UCharacterRequestHandler::GetEquipableContextsByCharacterId(const FLootLock
 {
 	FString ContentString;
 
-	sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
 			FGetContextResponse ResponseStruct;
 			if (response.success)

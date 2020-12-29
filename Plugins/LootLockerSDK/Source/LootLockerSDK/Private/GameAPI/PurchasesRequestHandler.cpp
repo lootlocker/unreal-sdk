@@ -6,7 +6,6 @@
 #include "Serialization/JsonWriter.h"
 #include "LootLockerGameEndpoints.h"
 
-FResponseCallback UPurchasesRequestHandler::sessionResponse = nullptr;
 UHttpClient* UPurchasesRequestHandler::HttpClient = nullptr;
 
 UPurchasesRequestHandler::UPurchasesRequestHandler()
@@ -16,7 +15,7 @@ UPurchasesRequestHandler::UPurchasesRequestHandler()
 
 void UPurchasesRequestHandler::PurchaseAssets(const TArray<FAssetPurchaseData>& PurchaseData, const FPurchaseResponseDelegateBP& OnCompletedRequestBP, const FPurchaseResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FPurchaseResponse ResponseStruct;
 
@@ -55,7 +54,7 @@ void UPurchasesRequestHandler::PurchaseAssets(const TArray<FAssetPurchaseData>& 
 
 void UPurchasesRequestHandler::PurchaseAssetsAndroid(const TArray<FAndroidAssetPurchaseData>& PurchaseData, const FPurchaseResponseDelegateBP& OnCompletedRequestBP, const FPurchaseResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FPurchaseResponse ResponseStruct;
 
@@ -94,7 +93,7 @@ void UPurchasesRequestHandler::PurchaseAssetsAndroid(const TArray<FAndroidAssetP
 
 void UPurchasesRequestHandler::VerifyPurchaseIos(const TArray<FVerifyPurchaseIosData>& PurchaseData, const FPurchaseResponseDelegateBP& OnCompletedRequestBP, const FPurchaseResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FPurchaseResponse ResponseStruct;
 
@@ -133,7 +132,7 @@ void UPurchasesRequestHandler::VerifyPurchaseIos(const TArray<FVerifyPurchaseIos
 
 void UPurchasesRequestHandler::PollPurchaseStatus(int PurchaseId, const FPurchaseStatusResponseDelegateBP& OnCompletedRequestBP, const FPurchaseStatusResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FPurchaseStatusResponse ResponseStruct;
 
@@ -160,7 +159,7 @@ void UPurchasesRequestHandler::PollPurchaseStatus(int PurchaseId, const FPurchas
 
 void UPurchasesRequestHandler::ActivateRentalAsset(int AssetId, const FActivateRentalAssetResponseDelegateBP& OnCompletedRequestBP, const FActivateRentalAssetResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FActivateRentalAssetResponse ResponseStruct;
 

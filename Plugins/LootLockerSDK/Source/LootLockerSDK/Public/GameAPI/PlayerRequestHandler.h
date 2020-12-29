@@ -145,6 +145,5 @@ public:
 	static void CheckPlayerAssetDeactivationNotification(const FPAssetNotificationResponseBP& onCompletedRequestBP= FPAssetNotificationResponseBP(), const FLootLockerAssetNotificationResponse& onCompletedRequest = FLootLockerAssetNotificationResponse());
 
 public:
-	static FResponseCallback sessionResponse;
 	static UHttpClient* HttpClient;
 };

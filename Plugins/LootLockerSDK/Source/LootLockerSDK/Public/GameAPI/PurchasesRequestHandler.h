@@ -84,6 +84,5 @@ public:
 public:
     UPurchasesRequestHandler();
     
-    static FResponseCallback sessionResponse;
     static UHttpClient* HttpClient;
 };

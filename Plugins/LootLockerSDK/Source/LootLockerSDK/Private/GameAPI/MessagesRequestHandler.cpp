@@ -3,7 +3,6 @@
 #include "GameAPI/MessagesRequestHandler.h"
 #include "LootLockerGameEndpoints.h"
 
-FResponseCallback UMessagesRequestHandler::sessionResponse = nullptr;
 UHttpClient* UMessagesRequestHandler::HttpClient = nullptr;
 
 UMessagesRequestHandler::UMessagesRequestHandler()
@@ -13,7 +12,7 @@ UMessagesRequestHandler::UMessagesRequestHandler()
 
 void UMessagesRequestHandler::GetMessages(const FMessagesResponseDelegateBP& OnCompletedRequestBP, const FMessagesResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FMessagesResponse ResponseStruct;
 

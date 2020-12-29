@@ -46,6 +46,5 @@ public:
 public:
     UTriggerEventsRequestHandler();
     
-    static FResponseCallback sessionResponse;
     static UHttpClient* HttpClient;
 };

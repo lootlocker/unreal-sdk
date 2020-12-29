@@ -52,6 +52,5 @@ public:
 public:
     UMessagesRequestHandler();
     
-    static FResponseCallback sessionResponse;
     static UHttpClient* HttpClient;
 };

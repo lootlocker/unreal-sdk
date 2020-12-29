@@ -315,7 +315,6 @@ public:
     
 public:
     UAssetsRequestHandler();
-    
-    static FResponseCallback sessionResponse;
+
     static UHttpClient* HttpClient;
 };

@@ -3,7 +3,6 @@
 #include "GameAPI/TriggerEventsRequestHandler.h"
 #include "LootLockerGameEndpoints.h"
 
-FResponseCallback UTriggerEventsRequestHandler::sessionResponse = nullptr;
 UHttpClient* UTriggerEventsRequestHandler::HttpClient = nullptr;
 
 UTriggerEventsRequestHandler::UTriggerEventsRequestHandler()
@@ -13,7 +12,7 @@ UTriggerEventsRequestHandler::UTriggerEventsRequestHandler()
 
 void UTriggerEventsRequestHandler::TriggerEvent(const FTriggerEvent& Event, const FTriggerEventResponseDelegateBP& OnCompletedRequestBP, const FTriggerEventResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FTriggerEventResponse ResponseStruct;
 
@@ -40,7 +39,7 @@ void UTriggerEventsRequestHandler::TriggerEvent(const FTriggerEvent& Event, cons
 
 void UTriggerEventsRequestHandler::GetTriggeredEvents(const FTriggersResponseDelegateBP& OnCompletedRequestBP, const FTriggersResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FTriggersResponse ResponseStruct;
 

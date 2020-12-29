@@ -56,7 +56,7 @@ struct FResponseAssetCandidate {
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
     FAssetCandidate data;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
-    TArray<FString> files; 
+    TArray<FString> files; //TODO: verify type
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
     FString created_at;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)

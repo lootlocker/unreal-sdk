@@ -4,7 +4,6 @@
 #include "Utils/LootLockerUtilities.h"
 #include "LootLockerGameEndpoints.h"
 
-FResponseCallback UMissionsRequestHandler::sessionResponse = nullptr;
 UHttpClient* UMissionsRequestHandler::HttpClient = nullptr;
 
 UMissionsRequestHandler::UMissionsRequestHandler()
@@ -14,7 +13,7 @@ UMissionsRequestHandler::UMissionsRequestHandler()
 
 void UMissionsRequestHandler::GetAllMissions(const FMissionsResponseDelegateBP& OnCompletedRequestBP, const FMissionsResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FMissionsResponse ResponseStruct;
 
@@ -52,7 +51,7 @@ void UMissionsRequestHandler::GetAllMissions(const FMissionsResponseDelegateBP& 
 
 void UMissionsRequestHandler::GetMission(int MissionId, const FMissionResponseDelegateBP& OnCompletedRequestBP, const FMissionResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FMissionResponse ResponseStruct;
 
@@ -85,7 +84,7 @@ void UMissionsRequestHandler::GetMission(int MissionId, const FMissionResponseDe
 
 void UMissionsRequestHandler::StartMission(int MissionId, const FStartMissionResponseDelegateBP& OnCompletedRequestBP, const FStartMissionResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FStartMissionResponse ResponseStruct;
 
@@ -112,7 +111,7 @@ void UMissionsRequestHandler::StartMission(int MissionId, const FStartMissionRes
 
 void UMissionsRequestHandler::FinishMission(int MissionId, const FFinishMissionData& MissionData, const FFinishMissionResponseDelegateBP& OnCompletedRequestBP, const FFinishMissionResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FFinishMissionResponse ResponseStruct;
 

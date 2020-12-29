@@ -66,6 +66,5 @@ public:
 public:
     UMapsRequestHandler();
     
-    static FResponseCallback sessionResponse;
     static UHttpClient* HttpClient;
 };

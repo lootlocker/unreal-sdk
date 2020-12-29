@@ -3,7 +3,6 @@
 #include "GameAPI/CollectablesRequestHandler.h"
 #include "LootLockerGameEndpoints.h"
 
-FResponseCallback UCollectablesRequestHandler::sessionResponse = nullptr;
 UHttpClient* UCollectablesRequestHandler::HttpClient = nullptr;
 
 UCollectablesRequestHandler::UCollectablesRequestHandler()
@@ -13,7 +12,7 @@ UCollectablesRequestHandler::UCollectablesRequestHandler()
 
 void UCollectablesRequestHandler::GetAllCollectables(const FCollectablesResponseDelegateBP& OnCompletedRequestBP, const FCollectablesResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FCollectablesResponse ResponseStruct;
 
@@ -39,7 +38,7 @@ void UCollectablesRequestHandler::GetAllCollectables(const FCollectablesResponse
 
 void UCollectablesRequestHandler::CollectItem(const FCollectItemPayload& Item, const FCollectablesResponseDelegateBP& OnCompletedRequestBP, const FCollectablesResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FCollectablesResponse ResponseStruct;
 

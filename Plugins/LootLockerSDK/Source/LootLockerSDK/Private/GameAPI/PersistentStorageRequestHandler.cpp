@@ -6,7 +6,6 @@
 #include "Serialization/JsonWriter.h"
 #include "LootLockerGameEndpoints.h"
 
-FResponseCallback UPersistentStorageRequestHandler::sessionResponse = nullptr;
 UHttpClient* UPersistentStorageRequestHandler::HttpClient = nullptr;
 // Sets default values for this component's properties
 UPersistentStorageRequestHandler::UPersistentStorageRequestHandler()
@@ -16,7 +15,7 @@ UPersistentStorageRequestHandler::UPersistentStorageRequestHandler()
 
 void UPersistentStorageRequestHandler::GetEntirePersistentStorage(const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FPersistentStorageItemsResponse ResponseStruct;
             if (response.success)
@@ -42,7 +41,7 @@ void UPersistentStorageRequestHandler::GetEntirePersistentStorage(const FPersist
 
 void UPersistentStorageRequestHandler::GetItemFromPersistentStorage(const FString& Key, const FPersistentStorageItemResponseDelegateBP& OnCompletedRequestBP, const FPersistentStorageItemResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FPersistentStorageItemResponse ResponseStruct;
             if (response.success)
@@ -68,7 +67,7 @@ void UPersistentStorageRequestHandler::GetItemFromPersistentStorage(const FStrin
 
 void UPersistentStorageRequestHandler::AddItemsToPersistentStorage(const TArray<FPersistentStorageItem>& Items, const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FPersistentStorageItemsResponse ResponseStruct;
             if (response.success)
@@ -107,7 +106,7 @@ void UPersistentStorageRequestHandler::AddItemsToPersistentStorage(const TArray<
 
 void UPersistentStorageRequestHandler::DeleteItemFromPersistentStorage(const FString& Key, const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FPersistentStorageItemsResponse ResponseStruct;
             if (response.success)
@@ -133,7 +132,7 @@ void UPersistentStorageRequestHandler::DeleteItemFromPersistentStorage(const FSt
 
 void UPersistentStorageRequestHandler::GetPlayerPersistentStorage(const FString& PlayerId, const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest)
 {
-    sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+    FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             FPersistentStorageItemsResponse ResponseStruct;
             if (response.success)

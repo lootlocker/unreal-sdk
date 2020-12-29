@@ -67,13 +67,6 @@ struct FAuthenticationResponse : public FLootLockerResponse
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	bool check_deactivation_notifications;
 
-	// TODO: This warning property. I`m dont know what type in Array
-	//UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	//TArray<?> check_dlcs;
-
-	// TODO: "public" is not valid property name. "public" is C++ key word 
-	//UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	//bool public;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	int32 xp;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
