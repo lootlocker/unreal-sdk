@@ -39,35 +39,84 @@ void ADemoAssets::DemoRemoveAssetFromFavourites()
 
 void ADemoAssets::OnGetContextsCompleted(FGetContextResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetContextsCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetContexts Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetContexts Failed"));
+    }
 }
 
 void ADemoAssets::OnGetAssetsCompleted(FGetAssetsResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetAssetsCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetAssets Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetAssets Failed"));
+    }
 }
 
 void ADemoAssets::OnGetAssetsByIdsCompleted(FGetAssetsResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetAssetsByIdsCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetAssetsByIds Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetAssetsByIds Failed"));
+    }
 }
 
 void ADemoAssets::OnGetAssetBonesCompleted(FGetAssetBonesResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetAssetBonesCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetAssetBones Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetAssetBones Failed"));
+    }
 }
 
 void ADemoAssets::OnGetFavouriteAssetIndicesCompleted(FGetFavouriteAssetIndicesResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetFavouriteAssetIndicesCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetFavouriteAssetIndices Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetFavouriteAssetIndices Failed"));
+    }
 }
 
 void ADemoAssets::OnAddAssetToFavouritesCompleted(FGetFavouriteAssetIndicesResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnAddAssetToFavouritesCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnAddAssetToFavourites Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnAddAssetToFavourites Failed"));
+    }
 }
 
 void ADemoAssets::OnRemoveAssetFromFavouritesCompleted(FGetFavouriteAssetIndicesResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnRemoveAssetFromFavouritesCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnRemoveAssetFromFavourites Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnRemoveAssetFromFavourites Failed"));
+    }
 }

@@ -29,25 +29,60 @@ void ADemoPurchases::DemoActivateRentalAsset()
 
 void ADemoPurchases::OnPurchaseAssetsCompleted(FPurchaseResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnPurchaseAssetsCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnPurchaseAssets Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnPurchaseAssets Failed"));
+    }
 }
 
 void ADemoPurchases::OnPurchaseAssetsAndroidCompleted(FPurchaseResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnPurchaseAssetsAndroidCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnPurchaseAssetsAndroid Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnPurchaseAssetsAndroid Failed"));
+    }
 }
 
 void ADemoPurchases::OnVerifyPurchaseIosCompleted(FPurchaseResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnVerifyPurchaseIosCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnVerifyPurchaseIos Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnVerifyPurchaseIos Failed"));
+    }
 }
 
 void ADemoPurchases::OnPollPurchaseStatusCompleted(FPurchaseStatusResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnPollPurchaseStatusCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnPollPurchaseStatus Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnPollPurchaseStatus Failed"));
+    }
 }
 
 void ADemoPurchases::OnActivateRentalAssetCompleted(FActivateRentalAssetResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnActivateRentalAssetCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnActivateRentalAsset Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnActivateRentalAsset Failed"));
+    }
 }

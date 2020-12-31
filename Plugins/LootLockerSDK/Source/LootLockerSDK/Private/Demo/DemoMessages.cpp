@@ -10,5 +10,12 @@ void ADemoMessages::DemoGetMessages()
 
 void ADemoMessages::OnGetMessagesCompleted(FMessagesResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetMessagesCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetMessages Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetMessages Failed"));
+    }
 }

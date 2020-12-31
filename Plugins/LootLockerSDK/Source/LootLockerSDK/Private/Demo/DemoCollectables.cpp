@@ -15,10 +15,24 @@ void ADemoCollectables::DemoCollectItem()
 
 void ADemoCollectables::OnGetAllCollectablesCompleted(FCollectablesResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetAllCollectablesCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetAllCollectables Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetAllCollectables Failed"));
+    }
 }
 
 void ADemoCollectables::OnCollectItemCompleted(FCollectablesResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnCollectItemCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnCollectItem Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnCollectItem Failed"));
+    }
 }

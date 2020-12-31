@@ -39,35 +39,84 @@ void ADemoUserGeneratedContent::DemoDeleteFileFromAssetCandidate()
 
 void ADemoUserGeneratedContent::OnCreateAssetCandidateCompleted(FCreateAssetCandidateResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnCreateAssetCandidateCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnCreateAssetCandidate Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnCreateAssetCandidate Failed"));
+    }
 }
 
 void ADemoUserGeneratedContent::OnUpdateAssetCandidateCompleted(FAssetCandidateResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnUpdateAssetCandidateCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnUpdateAssetCandidate Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnUpdateAssetCandidate Failed"));
+    }
 }
 
 void ADemoUserGeneratedContent::OnDeleteAssetCandidateCompleted(FLootLockerResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnDeleteAssetCandidateCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnDeleteAssetCandidate Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnDeleteAssetCandidate Failed"));
+    }
 }
 
 void ADemoUserGeneratedContent::OnGetAllAssetCandidatesCompleted(FAssetCandidatesResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetAllAssetCandidatesCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetAllAssetCandidates Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetAllAssetCandidates Failed"));
+    }
 }
 
 void ADemoUserGeneratedContent::OnGetAssetCandidateCompleted(FAssetCandidateResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetAssetCandidateCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetAssetCandidate Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetAssetCandidate Failed"));
+    }
 }
 
 void ADemoUserGeneratedContent::OnAddFileToAssetCandidateCompleted(FLootLockerResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnAddFileToAssetCandidateCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnAddFileToAssetCandidate Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnAddFileToAssetCandidate Failed"));
+    }
 }
 
 void ADemoUserGeneratedContent::OnDeleteFileFromAssetCandidateCompleted(FLootLockerResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnDeleteFileFromAssetCandidateCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnDeleteFileFromAssetCandidate Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnDeleteFileFromAssetCandidate Failed"));
+    }
 }

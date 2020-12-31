@@ -20,15 +20,36 @@ void ADemoAuthentication::DemoEndSession()
 
 void ADemoAuthentication::OnStartSessionCompleted(FAuthenticationResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnStartSessionCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnStartSession Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnStartSession Failed"));
+    }
 }
 
 void ADemoAuthentication::OnVerifyPlayerCompleted(FAuthenticationDefaultResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnVerifyPlayerCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnVerifyPlayer Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnVerifyPlayer Failed"));
+    }
 }
 
 void ADemoAuthentication::OnEndSessionCompleted(FAuthenticationDefaultResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnEndSessionCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnEndSession Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnEndSession Failed"));
+    }
 }

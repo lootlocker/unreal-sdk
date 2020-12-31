@@ -24,20 +24,48 @@ void ADemoMissions::DemoFinishMission()
 
 void ADemoMissions::OnGetAllMissionsCompleted(FMissionsResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetAllMissionsCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetAllMissions Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetAllMissions Failed"));
+    }
 }
 
 void ADemoMissions::OnGetMissionCompleted(FMissionResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetMissionCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetMission Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetMission Failed"));
+    }
 }
 
 void ADemoMissions::OnStartMissionCompleted(FStartMissionResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnStartMissionCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnStartMission Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnStartMission Failed"));
+    }
 }
 
 void ADemoMissions::OnFinishMissionCompleted(FFinishMissionResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnFinishMissionCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnFinishMission Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnFinishMission Failed"));
+    }
 }

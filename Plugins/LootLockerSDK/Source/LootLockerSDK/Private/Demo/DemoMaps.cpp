@@ -10,5 +10,12 @@ void ADemoMaps::GetMaps()
 
 void ADemoMaps::OnGetMapsCompleted(FGetMapsResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetMapsCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetMaps Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetMaps Failed"));
+    }
 }

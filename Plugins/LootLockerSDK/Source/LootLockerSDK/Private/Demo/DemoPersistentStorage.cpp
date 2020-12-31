@@ -30,25 +30,60 @@ void ADemoPersistentStorage::DemoGetPlayerPersistentStorage()
 
 void ADemoPersistentStorage::OnGetEntirePersistentStorageCompleted(FPersistentStorageItemsResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetEntirePersistentStorageCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetEntirePersistentStorage Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetEntirePersistentStorage Failed"));
+    }
 }
 
 void ADemoPersistentStorage::OnGetItemFromPersistentStorageCompleted(FPersistentStorageItemResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetItemFromPersistentStorageCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetItemFromPersistentStorage Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetItemFromPersistentStorage Failed"));
+    }
 }
 
 void ADemoPersistentStorage::OnAddItemsToPersistentStorageCompleted(FPersistentStorageItemsResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnAddItemsToPersistentStorageCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnAddItemsToPersistentStorage Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnAddItemsToPersistentStorage Failed"));
+    }
 }
 
 void ADemoPersistentStorage::OnDeleteItemFromPersistentStorageCompleted(FPersistentStorageItemsResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnDeleteItemFromPersistentStorageCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnDeleteItemFromPersistentStorage Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnDeleteItemFromPersistentStorage Failed"));
+    }
 }
 
 void ADemoPersistentStorage::OnGetPlayerPersistentStorageCompleted(FPersistentStorageItemsResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetPlayerPersistentStorageCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetPlayerPersistentStorage Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetPlayerPersistentStorage Failed"));
+    }
 }

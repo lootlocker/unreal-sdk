@@ -44,40 +44,97 @@ void ADemoAssetInstances::DemoOpenLootBox()
 
 void ADemoAssetInstances::OnGetKeyValuePairsForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetKeyValuePairsForAssetInstanceCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetKeyValuePairsForAssetInstance Success"));
+    }
+    else 
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetKeyValuePairsForAssetInstance Failed"));
+    }
 }
 
 void ADemoAssetInstances::OnGetKeyValuePairForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetKeyValuePairForAssetInstanceCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetKeyValuePairForAssetInstance Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetKeyValuePairForAssetInstance Failed"));
+    }
+    
 }
 
 void ADemoAssetInstances::OnCreateStorageItemForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnCreateStorageItemForAssetInstanceCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnCreateStorageItemForAssetInstance Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnCreateStorageItemForAssetInstance Failed"));
+    }
 }
 
 void ADemoAssetInstances::OnUpdateStorageItemsForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnUpdateStorageItemsForAssetInstanceCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnUpdateStorageItemsForAssetInstance Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnUpdateStorageItemsForAssetInstance Failed"));
+    }
 }
 
 void ADemoAssetInstances::OnUpdateStorageItemForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnUpdateStorageItemForAssetInstanceCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnUpdateStorageItemForAssetInstance Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnUpdateStorageItemForAssetInstance Failed"));
+    }
 }
 
 void ADemoAssetInstances::OnDeleteStorageItemForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnDeleteStorageItemForAssetInstanceCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnDeleteStorageItemForAssetInstance Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnDeleteStorageItemForAssetInstance Failed"));
+    }
 }
 
 void ADemoAssetInstances::OnInspectLootBoxCompleted(FLootBoxContentResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnInspectLootBoxCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnInspectLootBox Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnInspectLootBox Failed"));
+    }
 }
 
 void ADemoAssetInstances::OnOpenLootBoxCompleted(FOpenLootBoxResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnOpenLootBoxCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnOpenLootBox Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnOpenLootBox Failed"));
+    }
 }

@@ -49,45 +49,108 @@ void ADemoCharacters::GetEquipableContextsByCharacterId()
 
 void ADemoCharacters::OnGetCharacterLoadoutCompleted(FCharacterLoadoutResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetCharacterLoadoutCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetCharacterLoadout Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetCharacterLoadout Failed"));
+    }
 }
 
 void ADemoCharacters::OnEquipAssetToDefaultCharacterCompleted(FLootLockerResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnEquipAssetToDefaultCharacterCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnEquipAssetToDefaultCharacter Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnEquipAssetToDefaultCharacter Failed"));
+    }
 }
 
 void ADemoCharacters::OnEquipAssetToCharacterByIdCompleted(FLootLockerResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnEquipAssetToCharacterByIdCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnEquipAssetToCharacterById Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnEquipAssetToCharacterById Failed"));
+    }
 }
 
 void ADemoCharacters::OnUnEquipAssetToDefaultCharacterCompleted(FLootLockerResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnUnEquipAssetToDefaultCharacterCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnUnEquipAssetToDefaultCharacterCompleted Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnUnEquipAssetToDefaultCharacter Failed"));
+    }
 }
 
 void ADemoCharacters::OnUnEquipAssetToCharacterByIdCompleted(FLootLockerResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnUnEquipAssetToCharacterByIdCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnUnEquipAssetToCharacterById Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnUnEquipAssetToCharacterById Failed"));
+    }
 }
 
 void ADemoCharacters::OnGetCurrentLoadoutToDefaultCharacterCompleted(FCharacterLoadoutResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetCurrentLoadoutToDefaultCharacterCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetCurrentLoadoutToDefaultCharacter Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetCurrentLoadoutToDefaultCharacter Failed"));
+    }
 }
 
 void ADemoCharacters::OnGetOtherPlayersCurrentLoadoutToDefaultCharacterCompleted(FCharacterLoadoutResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetOtherPlayersCurrentLoadoutToDefaultCharacterCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetOtherPlayersCurrentLoadoutToDefaultCharacter Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetOtherPlayersCurrentLoadoutToDefaultCharacter Failed"));
+    }
 }
 
 void ADemoCharacters::OnGetEquipableContextsToDefaultCharacterCompleted(FGetContextResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetEquipableContextsToDefaultCharacterCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetEquipableContextsToDefaultCharacter Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetEquipableContextsToDefaultCharacter Failed"));
+    }
 }
 
 void ADemoCharacters::OnGetEquipableContextsByCharacterIdCompleted(FGetContextResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetEquipableContextsByCharacterIdCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetEquipableContextsByCharacterId Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetEquipableContextsByCharacterId Failed"));
+    }
 }

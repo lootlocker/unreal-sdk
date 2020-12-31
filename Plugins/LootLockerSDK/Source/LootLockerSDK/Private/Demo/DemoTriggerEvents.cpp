@@ -15,10 +15,24 @@ void ADemoTriggerEvents::DemoGetTriggeredEvents()
 
 void ADemoTriggerEvents::OnTriggerEventCompleted(FTriggerEventResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnTriggerEventCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnTriggerEvent Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnTriggerEvent Failed"));
+    }
 }
 
 void ADemoTriggerEvents::OnGetTriggeredEventsCompleted(FTriggersResponse Response)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("OnGetTriggeredEventsCompleted Response: \nSuccess: %b\nFull text from server: %s"), Response.success, *Response.FullTextFromServer);
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetTriggeredEvents Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetTriggeredEvents Failed"));
+    }
 }
