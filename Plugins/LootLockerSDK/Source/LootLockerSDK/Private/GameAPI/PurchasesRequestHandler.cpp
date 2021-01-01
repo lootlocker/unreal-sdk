@@ -47,7 +47,7 @@ void UPurchasesRequestHandler::PurchaseAssets(const TArray<FAssetPurchaseData>& 
     FJsonSerializer::Serialize(ItemsJsonArray, Writer);
     
     const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = LootLockerGameEndpoints::PurchaseAssetsEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::PurchaseEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
@@ -86,12 +86,12 @@ void UPurchasesRequestHandler::PurchaseAssetsAndroid(const TArray<FAndroidAssetP
     FJsonSerializer::Serialize(ItemsJsonArray, Writer);
     
     const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = LootLockerGameEndpoints::PurchaseAssetsEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::PurchaseEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
 
-void UPurchasesRequestHandler::VerifyPurchaseIos(const TArray<FVerifyPurchaseIosData>& PurchaseData, const FPurchaseResponseDelegateBP& OnCompletedRequestBP, const FPurchaseResponseDelegate& OnCompletedRequest)
+void UPurchasesRequestHandler::PurchaseAssetsIOS(const TArray<FVerifyPurchaseIosData>& PurchaseData, const FPurchaseResponseDelegateBP& OnCompletedRequestBP, const FPurchaseResponseDelegate& OnCompletedRequest)
 {
     FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
@@ -125,12 +125,12 @@ void UPurchasesRequestHandler::VerifyPurchaseIos(const TArray<FVerifyPurchaseIos
     FJsonSerializer::Serialize(ItemsJsonArray, Writer);
     
     const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = LootLockerGameEndpoints::VerifyPurchaseIosEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::IOSPurchaseEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
 
-void UPurchasesRequestHandler::PollPurchaseStatus(int PurchaseId, const FPurchaseStatusResponseDelegateBP& OnCompletedRequestBP, const FPurchaseStatusResponseDelegate& OnCompletedRequest)
+void UPurchasesRequestHandler::PollingOrderStatus(int PurchaseId, const FPurchaseStatusResponseDelegateBP& OnCompletedRequestBP, const FPurchaseStatusResponseDelegate& OnCompletedRequest)
 {
     FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
@@ -151,7 +151,7 @@ void UPurchasesRequestHandler::PollPurchaseStatus(int PurchaseId, const FPurchas
 
     FString ContentString;
     const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = LootLockerGameEndpoints::PollPurchaseStatusEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::PollingOrderStatusEndpoint;
     FString endpoint = FString::Format(*(Endpoint.endpoint), { PurchaseId });
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponse, true);

@@ -19,6 +19,10 @@ public:
     static FEndPoints GetOtherPlayerInfoEndpoint;
     static FEndPoints CheckPlayerAssetActivationEndpoint;
     static FEndPoints CheckPlayerAssetDeactivatonEndpoint;
+    static FEndPoints InitiateDLCMigration;
+    static FEndPoints GetDLCsMigrated;
+    static FEndPoints SetProfilePrivate;
+    static FEndPoints SetProfilePublic;
 
     //Character
     static FEndPoints GetCharacterLoadoutEndpoint;
@@ -34,10 +38,10 @@ public:
     
     //Persistent Storage
     static FEndPoints GetEntirePersistentStorageEndpoint;
-    static FEndPoints GetItemFromPersistentStorageEndpoint;
-    static FEndPoints AddItemsToPersistentStorageEndpoint;
-    static FEndPoints DeleteItemFromPersistentStorageEndpoint;
-    static FEndPoints GetPlayerPersistentStorageEndpoint;
+    static FEndPoints GetASingleKeyFromPersistentStorageEndpoint;
+    static FEndPoints UpdateOrCreateKeyValuePairToPersistentStorageEndpoint;
+    static FEndPoints DeleteAKeyValuePairFromPersistentStorageEndpoint;
+    static FEndPoints GetOtherPlayersPublicKeyValuePairs;
     
     //Assets
     static FEndPoints GetContextsEndpoint;
@@ -49,12 +53,13 @@ public:
     static FEndPoints RemoveAssetFromFavouritesEndpoint;
     
     //Asset Instances
-    static FEndPoints GetKeyValuePairsForAssetInstanceEndpoint;
-    static FEndPoints GetKeyValuePairForAssetInstanceEndpoint;
-    static FEndPoints CreateStorageItemForAssetInstanceEndpoint;
-    static FEndPoints UpdateStorageItemsForAssetInstanceEndpoint;
-    static FEndPoints UpdateStorageItemForAssetInstanceEndpoint;
-    static FEndPoints DeleteStorageItemForAssetInstanceEndpoint;
+    static FEndPoints GetAllKeyValuePairsForAssetInstance;
+    static FEndPoints GetAllKeyValuePairsToAnInstanceForAssetInstance;
+    static FEndPoints GetAKeyValuePairByIdForAssetInstanceEndpoint;
+    static FEndPoints CreateAKeyValuePairForAssetInstanceEndpoint;
+    static FEndPoints UpdateOneOrMoreKeyValuePairForAssetInstanceEndpoint;
+    static FEndPoints UpdateAKeyValuePairByIdForAssetInstanceEndpoint;
+    static FEndPoints DeleteAKeyValuePairByIdForAssetInstanceEndpoint;
     static FEndPoints InspectLootBoxEndpoint;
     static FEndPoints OpenLootBoxEndpoint;
     
@@ -77,9 +82,10 @@ public:
     static FEndPoints GetAllMapsEndpoint;
     
     //Purchases
-    static FEndPoints PurchaseAssetsEndpoint;
-    static FEndPoints VerifyPurchaseIosEndpoint;
-    static FEndPoints PollPurchaseStatusEndpoint;
+    static FEndPoints PurchaseEndpoint;
+    static FEndPoints IOSPurchaseEndpoint;
+    static FEndPoints AndroidPurchaseEndpoint;
+    static FEndPoints PollingOrderStatusEndpoint;
     static FEndPoints ActivateRentalAssetEndpoint;
     
     //Trigger Events

@@ -10,7 +10,7 @@ UAssetInstancesRequestHandler::UAssetInstancesRequestHandler()
     HttpClient = NewObject<UHttpClient>();
 }
 
-void UAssetInstancesRequestHandler::GetKeyValuePairsForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
+void UAssetInstancesRequestHandler::GetAllKeyValuePairsForAssetInstance(const FAssetInstanceStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
 {
     FResponseCallback sessionResponseGetKeyValuePairsForAssetInstance = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
@@ -22,7 +22,7 @@ void UAssetInstancesRequestHandler::GetKeyValuePairsForAssetInstance(int AssetIn
                 FJsonObjectConverter::JsonObjectStringToUStruct<FAssetInstanceStorageItemsResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("GetKeyValuePairsForAssetInstance failed from lootlocker"));
+                UE_LOG(LogTemp, Error, TEXT("GetAllKeyValuePairsForAssetInstance failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.Broadcast(ResponseStruct);
@@ -30,13 +30,36 @@ void UAssetInstancesRequestHandler::GetKeyValuePairsForAssetInstance(int AssetIn
         });
 
     FString ContentString;
-    FEndPoints Endpoint = LootLockerGameEndpoints::GetKeyValuePairsForAssetInstanceEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::GetAllKeyValuePairsForAssetInstance;
+    FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+    HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponseGetKeyValuePairsForAssetInstance, true);
+}
+void UAssetInstancesRequestHandler::GetAllKeyValuePairsToAnInstanceForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
+{
+    FResponseCallback sessionResponseGetKeyValuePairsForAssetInstance = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+        {
+            FAssetInstanceStorageItemsResponse ResponseStruct;
+
+            ResponseStruct.success = response.success;
+            if (response.success)
+            {
+                FJsonObjectConverter::JsonObjectStringToUStruct<FAssetInstanceStorageItemsResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
+            }
+            else {
+                UE_LOG(LogTemp, Error, TEXT("GetAllKeyValuePairsToAnInstanceForAssetInstance failed from lootlocker"));
+            }
+            ResponseStruct.FullTextFromServer = response.FullTextFromServer;
+            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequest.ExecuteIfBound(ResponseStruct);
+        });
+
+    FString ContentString;
+    FEndPoints Endpoint = LootLockerGameEndpoints::GetAllKeyValuePairsToAnInstanceForAssetInstance;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     FString endpoint = FString::Format(*(Endpoint.endpoint), { AssetInstanceId });
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponseGetKeyValuePairsForAssetInstance, true);
 }
-
-void UAssetInstancesRequestHandler::GetKeyValuePairForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
+void UAssetInstancesRequestHandler::GetAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
 {
     FResponseCallback sessionResponseGetKeyValuePairForAssetInstance = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
@@ -56,13 +79,13 @@ void UAssetInstancesRequestHandler::GetKeyValuePairForAssetInstance(int AssetIns
         });
 
     FString ContentString;
-    FEndPoints Endpoint = LootLockerGameEndpoints::GetKeyValuePairForAssetInstanceEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::GetAKeyValuePairByIdForAssetInstanceEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     FString endpoint = FString::Format(*(Endpoint.endpoint), { AssetInstanceId, StorageItemId });
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponseGetKeyValuePairForAssetInstance, true);
 }
 
-void UAssetInstancesRequestHandler::CreateStorageItemForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItem& Item, const FAssetInstanceStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
+void UAssetInstancesRequestHandler::CreateAKeyValuePairForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItem& Item, const FAssetInstanceStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
 {
     FResponseCallback sessionResponseCreateStorageItemForAssetInstance = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
@@ -83,13 +106,13 @@ void UAssetInstancesRequestHandler::CreateStorageItemForAssetInstance(int AssetI
 
     FString ContentString;
     FJsonObjectConverter::UStructToJsonObjectString(FAssetInstanceStorageItem::StaticStruct(), &Item, ContentString, 0, 0);
-    FEndPoints Endpoint = LootLockerGameEndpoints::CreateStorageItemForAssetInstanceEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::CreateAKeyValuePairForAssetInstanceEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     FString endpoint = FString::Format(*(Endpoint.endpoint), { AssetInstanceId });
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponseCreateStorageItemForAssetInstance, true);
 }
 
-void UAssetInstancesRequestHandler::UpdateStorageItemsForAssetInstance(int AssetInstanceId, const TArray<FAssetInstanceStorageItem>& Items, const FAssetInstanceStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
+void UAssetInstancesRequestHandler::UpdateOneOrMoreKeyValuePairForAssetInstance(int AssetInstanceId, const TArray<FAssetInstanceStorageItem>& Items, const FAssetInstanceStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
 {
     FResponseCallback sessionResponseUpdateStorageItemsForAssetInstance = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
@@ -101,7 +124,7 @@ void UAssetInstancesRequestHandler::UpdateStorageItemsForAssetInstance(int Asset
                 FJsonObjectConverter::JsonObjectStringToUStruct<FAssetInstanceStorageItemsResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("UpdateStorageItemsForAssetInstance failed from lootlocker"));
+                UE_LOG(LogTemp, Error, TEXT("UpdateOneOrMoreKeyValuePairForAssetInstance failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.Broadcast(ResponseStruct);
@@ -112,13 +135,13 @@ void UAssetInstancesRequestHandler::UpdateStorageItemsForAssetInstance(int Asset
     FAssetInstanceStorageItems StorageItems;
     StorageItems.storage = Items;
     FJsonObjectConverter::UStructToJsonObjectString(FAssetInstanceStorageItems::StaticStruct(), &StorageItems, ContentString, 0, 0);
-    FEndPoints Endpoint = LootLockerGameEndpoints::UpdateStorageItemsForAssetInstanceEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::UpdateOneOrMoreKeyValuePairForAssetInstanceEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     FString endpoint = FString::Format(*(Endpoint.endpoint), { AssetInstanceId });
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponseUpdateStorageItemsForAssetInstance, true);
 }
 
-void UAssetInstancesRequestHandler::UpdateStorageItemForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItem Item, const FAssetInstanceStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
+void UAssetInstancesRequestHandler::UpdateAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItem Item, const FAssetInstanceStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
 {
     FResponseCallback sessionResponseUpdateStorageItemForAssetInstance = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
@@ -130,7 +153,7 @@ void UAssetInstancesRequestHandler::UpdateStorageItemForAssetInstance(int AssetI
                 FJsonObjectConverter::JsonObjectStringToUStruct<FAssetInstanceStorageItemsResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("UpdateStorageItemForAssetInstance failed from lootlocker"));
+                UE_LOG(LogTemp, Error, TEXT("UpdateAKeyValuePairByIdForAssetInstance failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.Broadcast(ResponseStruct);
@@ -139,13 +162,13 @@ void UAssetInstancesRequestHandler::UpdateStorageItemForAssetInstance(int AssetI
 
     FString ContentString;
     FJsonObjectConverter::UStructToJsonObjectString(FAssetInstanceStorageItem::StaticStruct(), &Item, ContentString, 0, 0);
-    FEndPoints Endpoint = LootLockerGameEndpoints::UpdateStorageItemForAssetInstanceEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::UpdateAKeyValuePairByIdForAssetInstanceEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     FString endpoint = FString::Format(*(Endpoint.endpoint), { AssetInstanceId, StorageItemId });
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponseUpdateStorageItemForAssetInstance, true);
 }
 
-void UAssetInstancesRequestHandler::DeleteStorageItemForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
+void UAssetInstancesRequestHandler::DeleteAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
 {
     FResponseCallback sessionResponseDeleteStorageItemForAssetInstance = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
@@ -165,7 +188,7 @@ void UAssetInstancesRequestHandler::DeleteStorageItemForAssetInstance(int AssetI
         });
 
     FString ContentString;
-    FEndPoints Endpoint = LootLockerGameEndpoints::DeleteStorageItemForAssetInstanceEndpoint;
+    FEndPoints Endpoint = LootLockerGameEndpoints::DeleteAKeyValuePairByIdForAssetInstanceEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     FString endpoint = FString::Format(*(Endpoint.endpoint), { AssetInstanceId, StorageItemId });
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponseDeleteStorageItemForAssetInstance, true);

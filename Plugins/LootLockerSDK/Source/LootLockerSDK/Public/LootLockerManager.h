@@ -431,29 +431,33 @@ public:
     //Asset Instances
     //==================================================
     
-    /**Invoked after GetKeyValuePairsForAssetInstance call.*/
+    /**Invoked after GetAllKeyValuePairsForAssetInstance call.*/
     UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks | Assets Instances")
-    FAssetInstanceStorageItemsResponseDelegateBP OnGetKeyValuePairsForAssetInstanceCompleted;
+    FAssetInstanceStorageItemsResponseDelegateBP OnGetAllKeyValuePairsForAssetInstanceCompleted;
     
-    /**Invoked after GetKeyValuePairForAssetInstance call.*/
+    /**Invoked after GetAllKeyValuePairsToAnInstanceForAssetInstance call.*/
     UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks | Assets Instances")
-    FAssetInstanceStorageItemsResponseDelegateBP OnGetKeyValuePairForAssetInstanceCompleted;
+    FAssetInstanceStorageItemsResponseDelegateBP OnGetAllKeyValuePairsToAnInstanceForAssetInstanceCompleted;
     
-    /**Invoked after CreateStorageItemForAssetInstance call.*/
+    /**Invoked after GetAKeyValuePairByIdForAssetInstance call.*/
     UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks | Assets Instances")
-    FAssetInstanceStorageItemsResponseDelegateBP OnCreateStorageItemForAssetInstanceCompleted;
-    
-    /**Invoked after UpdateStorageItemsForAssetInstance call.*/
+    FAssetInstanceStorageItemsResponseDelegateBP OnGetAKeyValuePairByIdForAssetInstanceCompleted;
+
+    /**Invoked after CreateAKeyValuePairForAssetInstance call.*/
     UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks | Assets Instances")
-    FAssetInstanceStorageItemsResponseDelegateBP OnUpdateStorageItemsForAssetInstanceCompleted;
+    FAssetInstanceStorageItemsResponseDelegateBP OnCreateAKeyValuePairForAssetInstanceCompleted;
+
+    /**Invoked after UpdateOneOrMoreKeyValuePairForAssetInstance call.*/
+    UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks | Assets Instances")
+    FAssetInstanceStorageItemsResponseDelegateBP OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted;
     
     /**Invoked after UpdateStorageItemForAssetInstance call.*/
     UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks | Assets Instances")
-    FAssetInstanceStorageItemsResponseDelegateBP OnUpdateStorageItemForAssetInstanceCompleted;
+    FAssetInstanceStorageItemsResponseDelegateBP OnUpdateAKeyValuePairByIdForAssetInstanceCompleted;
     
-    /**Invoked after DeleteStorageItemForAssetInstance call.*/
+    /**Invoked after UpdateAKeyValuePairByIdForAssetInstance call.*/
     UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks | Assets Instances")
-    FAssetInstanceStorageItemsResponseDelegateBP OnDeleteStorageItemForAssetInstanceCompleted;
+    FAssetInstanceStorageItemsResponseDelegateBP OnDeleteAKeyValuePairByIdForAssetInstanceCompleted;
     
     /**Invoked after InspectLootBox call.*/
     UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks | Assets Instances")
@@ -464,14 +468,23 @@ public:
     FOpenLootBoxResponseDelegateBP OnOpenLootBoxCompleted;
     
     /**
+    * https://docs.lootlocker.io/game-api/#getting-all-key-value-pairs
+    * Get all key/value pairs for an asset instance.
+    *
+    * @param AssetInstanceId - asset instance ID.
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
+    void GetAllKeyValuePairsForAssetInstance();
+
+    /**
     * https://docs.lootlocker.io/game-api/#getting-all-key-value-pairs-to-an-instance
     * Get all key/value pairs for an asset instance.
     *
     * @param AssetInstanceId - asset instance ID.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
-    void GetKeyValuePairsForAssetInstance(int AssetInstanceId);
-    
+    void GetAllKeyValuePairsToAnInstanceForAssetInstance(int AssetInstanceId);
+
     /**
     * https://docs.lootlocker.io/game-api/#getting-a-key-value-pair-by-id
     * Get a key/value pair for an asset instance.
@@ -480,7 +493,7 @@ public:
     * @param StorageItemId - ID of the key/value pair.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
-    void GetKeyValuePairForAssetInstance(int AssetInstanceId, int StorageItemId);
+    void GetAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId);
     
     /**
     * https://docs.lootlocker.io/game-api/#creating-a-key-value-pair
@@ -490,7 +503,7 @@ public:
     * @param Item - key/value pair.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
-    void CreateStorageItemForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItem& Item);
+    void CreateAKeyValuePairForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItem& Item);
     
     /**
     * https://docs.lootlocker.io/game-api/#updating-one-or-more-key-value-pairs
@@ -500,7 +513,7 @@ public:
     * @param Items - key/value pairs.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
-    void UpdateStorageItemsForAssetInstance(int AssetInstanceId, const TArray<FAssetInstanceStorageItem>& Items);
+    void UpdateOneOrMoreKeyValuePairForAssetInstance(int AssetInstanceId, const TArray<FAssetInstanceStorageItem>& Items);
     
     /**
     * https://docs.lootlocker.io/game-api/#updating-a-key-value-pair-by-id
@@ -510,7 +523,7 @@ public:
     * @param StorageItemId - key/value pair ID.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
-    void UpdateStorageItemForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItem Item);
+    void UpdateAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItem Item);
     
     /**
     * https://docs.lootlocker.io/game-api/#delete-a-key-value-pair
@@ -520,7 +533,7 @@ public:
     * @param StorageItemId - key/value pair ID.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
-    void DeleteStorageItemForAssetInstance(int AssetInstanceId, int StorageItemId);
+    void DeleteAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId);
     
     /**
     * https://docs.lootlocker.io/game-api/#inspect-a-loot-box
@@ -723,11 +736,11 @@ public:
     
     /**Invoked after VerifyPurchaseIos call.*/
     UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks | Purchases")
-    FPurchaseResponseDelegateBP OnVerifyPurchaseIosCompleted;
+    FPurchaseResponseDelegateBP OnPurchaseAssetsIOSCompleted;
     
     /**Invoked after PollPurchaseStatus call.*/
     UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks | Purchases")
-    FPurchaseStatusResponseDelegateBP OnPollPurchaseStatusCompleted;
+    FPurchaseStatusResponseDelegateBP OnPollingStatusCompleted;
     
     /**Invoked after ActivateRentalAsset call.*/
     UPROPERTY(BlueprintAssignable, Category = "LootLocker Callbacks | Purchases")
@@ -760,7 +773,7 @@ public:
     * @param PurchaseData - data about the assets to be purchased.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
-    void VerifyPurchaseIos(const TArray<FVerifyPurchaseIosData>& PurchaseData);
+    void PurchaseAssetsIOS(const TArray<FVerifyPurchaseIosData>& PurchaseData);
     
     /**
     * https://docs.lootlocker.io/game-api/#polling-order-status
@@ -770,7 +783,7 @@ public:
     * @param PurchaseId - ID of the purchase order.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
-    void PollPurchaseStatus(int PurchaseId);
+    void PollingOrderStatus(int PurchaseId);
     
     /**
     * https://docs.lootlocker.io/game-api/#activating-a-rental-asset

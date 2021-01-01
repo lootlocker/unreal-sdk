@@ -3,6 +3,7 @@
 
 #include "LootLockerSDKManager.h"
 
+//Authentication
 void ULootLockerSDKManager::StartSession(const FString& PlayerId, const FLootLockerSessionResponse& OnCompleteRequest)
 {
 	UAuthenticationRequestHandler::StartSession(PlayerId, FAuthResponseBP(), OnCompleteRequest);
@@ -17,7 +18,7 @@ void ULootLockerSDKManager::EndSession(const FString& PlayerId, const FLootLocke
 {
 	UAuthenticationRequestHandler::EndSession(FAuthDefaultResponseBP(), OnCompleteRequest);
 }
-
+//Player
 void ULootLockerSDKManager::GetPlayerInfo(const FLootLockerPlayerInformationResponse& OnCompletedRequest)
 {
 	UPlayerRequestHandler::GetPlayerInfo(FPInfoResponseBP(), OnCompletedRequest);
@@ -48,6 +49,7 @@ void ULootLockerSDKManager::CheckPlayerAssetDeactivationNotification(const FLoot
 	UPlayerRequestHandler::CheckPlayerAssetDeactivationNotification(FPAssetNotificationResponseBP(), OnCompletedRequest);
 }
 
+//Character
 void ULootLockerSDKManager::GetCharacterLoadout(const FLootLockerCharacterLoadoutResponse& OnCompletedRequest)
 {
 	UCharacterRequestHandler::GetCharacterLoadout(FPCharacterLoadoutResponseBP(), OnCompletedRequest);
@@ -101,6 +103,7 @@ void ULootLockerSDKManager::GetEquipableContextsByCharacterId(const FString& Oth
 	UCharacterRequestHandler::GetEquipableContextsByCharacterId(GetRequests, FContextDelegateBP(), OnCompletedRequest);
 }
 
+//Persisitent Storage
 void ULootLockerSDKManager::GetEntirePersistentStorage(const FPersistentStorageItemsResponseDelegate& OnCompletedRequest)
 {
     UPersistentStorageRequestHandler::GetEntirePersistentStorage(FPersistentStorageItemsResponseDelegateBP(), OnCompletedRequest);
@@ -126,6 +129,7 @@ void ULootLockerSDKManager::GetPlayerPersistentStorage(const FString& PlayerId, 
     UPersistentStorageRequestHandler::GetPlayerPersistentStorage(PlayerId, FPersistentStorageItemsResponseDelegateBP(), OnCompletedRequest);
 }
 
+//Assets
 void ULootLockerSDKManager::GetContexts(const FContextDelegate& OnCompletedRequest)
 {
     UAssetsRequestHandler::GetContexts(FContextDelegateBP(), OnCompletedRequest);
@@ -161,34 +165,41 @@ void ULootLockerSDKManager::RemoveAssetFromFavourites(int AssetId, const FGetFav
     UAssetsRequestHandler::RemoveAssetFromFavourites(AssetId, FGetFavouriteAssetIndicesResponseDelegateBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::GetKeyValuePairsForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
+//Asset Instance
+
+void ULootLockerSDKManager::GetAllKeyValuePairsForAssetInstance(const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
 {
-    UAssetInstancesRequestHandler::GetKeyValuePairsForAssetInstance(AssetInstanceId, FAssetInstanceStorageItemsResponseDelegateBP(), OnCompletedRequest);
+    UAssetInstancesRequestHandler::GetAllKeyValuePairsForAssetInstance(FAssetInstanceStorageItemsResponseDelegateBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::GetKeyValuePairForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
+void ULootLockerSDKManager::GetAllKeyValuePairsToAnInstanceForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
 {
-    UAssetInstancesRequestHandler::GetKeyValuePairForAssetInstance(AssetInstanceId, StorageItemId, FAssetInstanceStorageItemsResponseDelegateBP(), OnCompletedRequest);
+    UAssetInstancesRequestHandler::GetAllKeyValuePairsToAnInstanceForAssetInstance(AssetInstanceId, FAssetInstanceStorageItemsResponseDelegateBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::CreateStorageItemForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItem& Item, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
+void ULootLockerSDKManager::GetAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
 {
-    UAssetInstancesRequestHandler::CreateStorageItemForAssetInstance(AssetInstanceId, Item, FAssetInstanceStorageItemsResponseDelegateBP(), OnCompletedRequest);
+    UAssetInstancesRequestHandler::GetAKeyValuePairByIdForAssetInstance(AssetInstanceId, StorageItemId, FAssetInstanceStorageItemsResponseDelegateBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::UpdateStorageItemsForAssetInstance(int AssetInstanceId, const TArray<FAssetInstanceStorageItem>& Items, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
+void ULootLockerSDKManager::CreateAKeyValuePairForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItem& Item, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
 {
-    UAssetInstancesRequestHandler::UpdateStorageItemsForAssetInstance(AssetInstanceId, Items, FAssetInstanceStorageItemsResponseDelegateBP(), OnCompletedRequest);
+    UAssetInstancesRequestHandler::CreateAKeyValuePairForAssetInstance(AssetInstanceId, Item, FAssetInstanceStorageItemsResponseDelegateBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::UpdateStorageItemForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItem Item, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
+void ULootLockerSDKManager::UpdateOneOrMoreKeyValuePairForAssetInstance(int AssetInstanceId, const TArray<FAssetInstanceStorageItem>& Items, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
 {
-    UAssetInstancesRequestHandler::UpdateStorageItemForAssetInstance(AssetInstanceId, StorageItemId, Item, FAssetInstanceStorageItemsResponseDelegateBP(), OnCompletedRequest);
+    UAssetInstancesRequestHandler::UpdateOneOrMoreKeyValuePairForAssetInstance(AssetInstanceId, Items, FAssetInstanceStorageItemsResponseDelegateBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::DeleteStorageItemForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
+void ULootLockerSDKManager::UpdateAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItem Item, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
 {
-    UAssetInstancesRequestHandler::DeleteStorageItemForAssetInstance(AssetInstanceId, StorageItemId, FAssetInstanceStorageItemsResponseDelegateBP(), OnCompletedRequest);
+    UAssetInstancesRequestHandler::UpdateAKeyValuePairByIdForAssetInstance(AssetInstanceId, StorageItemId, Item, FAssetInstanceStorageItemsResponseDelegateBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::DeleteAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
+{
+    UAssetInstancesRequestHandler::DeleteAKeyValuePairByIdForAssetInstance(AssetInstanceId, StorageItemId, FAssetInstanceStorageItemsResponseDelegateBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::InspectLootBox(int AssetInstanceId, const FLootBoxContentResponseDelegate& OnCompletedRequest)
@@ -201,6 +212,7 @@ void ULootLockerSDKManager::OpenLootBox(int AssetInstanceId, const FOpenLootBoxR
     UAssetInstancesRequestHandler::OpenLootBox(AssetInstanceId, FOpenLootBoxResponseDelegateBP(), OnCompletedRequest);
 }
 
+//User Generated Candidate
 void ULootLockerSDKManager::CreateAssetCandidate(const FAssetCandidate& AsssetCandidate, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest)
 {
     UUserGeneratedContentRequestHandler::CreateAssetCandidate(AsssetCandidate, FCreateAssetCandidateResponseDelegateBP(), OnCompletedRequest);
@@ -236,6 +248,7 @@ void ULootLockerSDKManager::DeleteFileFromAssetCandidate(int AssetCandidateId, i
     UUserGeneratedContentRequestHandler::DeleteFileFromAssetCandidate(AssetCandidateId, FileId, FResponseCallbackBP(), OnCompletedRequest);
 }
 
+//Missions
 void ULootLockerSDKManager::GetAllMissions(const FMissionsResponseDelegate& OnCompletedRequest)
 {
     UMissionsRequestHandler::GetAllMissions(FMissionsResponseDelegateBP(), OnCompletedRequest);
@@ -256,11 +269,13 @@ void ULootLockerSDKManager::FinishMission(int MissionId, const FFinishMissionDat
     UMissionsRequestHandler::FinishMission(MissionId, MissionData, FFinishMissionResponseDelegateBP(), OnCompletedRequest);
 }
 
+//Maps
 void ULootLockerSDKManager::GetMaps(const FGetMapsResponseDelegate& OnCompletedRequest)
 {
     UMapsRequestHandler::GetMaps(FGetMapsResponseDelegateBP(), OnCompletedRequest);
 }
 
+//Purchasing
 void ULootLockerSDKManager::PurchaseAssets(const TArray<FAssetPurchaseData>& PurchaseData, const FPurchaseResponseDelegate& OnCompletedRequest)
 {
     UPurchasesRequestHandler::PurchaseAssets(PurchaseData, FPurchaseResponseDelegateBP(), OnCompletedRequest);
@@ -271,14 +286,14 @@ void ULootLockerSDKManager::PurchaseAssetsAndroid(const TArray<FAndroidAssetPurc
     UPurchasesRequestHandler::PurchaseAssetsAndroid(PurchaseData, FPurchaseResponseDelegateBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::VerifyPurchaseIos(const TArray<FVerifyPurchaseIosData>& PurchaseData, const FPurchaseResponseDelegate& OnCompletedRequest)
+void ULootLockerSDKManager::PurchaseAssetsIOS(const TArray<FVerifyPurchaseIosData>& PurchaseData, const FPurchaseResponseDelegate& OnCompletedRequest)
 {
-    UPurchasesRequestHandler::VerifyPurchaseIos(PurchaseData, FPurchaseResponseDelegateBP(), OnCompletedRequest);
+    UPurchasesRequestHandler::PurchaseAssetsIOS(PurchaseData, FPurchaseResponseDelegateBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::PollPurchaseStatus(int PurchaseId, const FPurchaseStatusResponseDelegate& OnCompletedRequest)
+void ULootLockerSDKManager::PollingOrderStatus(int PurchaseId, const FPurchaseStatusResponseDelegate& OnCompletedRequest)
 {
-    UPurchasesRequestHandler::PollPurchaseStatus(PurchaseId, FPurchaseStatusResponseDelegateBP(), OnCompletedRequest);
+    UPurchasesRequestHandler::PollingOrderStatus(PurchaseId, FPurchaseStatusResponseDelegateBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::ActivateRentalAsset(int AssetId, const FActivateRentalAssetResponseDelegate& OnCompletedRequest)
@@ -286,6 +301,7 @@ void ULootLockerSDKManager::ActivateRentalAsset(int AssetId, const FActivateRent
     UPurchasesRequestHandler::ActivateRentalAsset(AssetId, FActivateRentalAssetResponseDelegateBP(), OnCompletedRequest);
 }
 
+//Trigger
 void ULootLockerSDKManager::TriggerEvent(const FTriggerEvent& Event, const FTriggerEventResponseDelegate& OnCompletedRequest)
 {
     UTriggerEventsRequestHandler::TriggerEvent(Event, FTriggerEventResponseDelegateBP(), OnCompletedRequest);
@@ -296,6 +312,7 @@ void ULootLockerSDKManager::GetTriggeredEvents(const FTriggersResponseDelegate& 
     UTriggerEventsRequestHandler::GetTriggeredEvents(FTriggersResponseDelegateBP(), OnCompletedRequest);
 }
 
+//Collectables
 void ULootLockerSDKManager::GetAllCollectables(const FCollectablesResponseDelegate& OnCompletedRequest)
 {
     UCollectablesRequestHandler::GetAllCollectables(FCollectablesResponseDelegateBP(), OnCompletedRequest);
@@ -306,6 +323,7 @@ void ULootLockerSDKManager::CollectItem(const FCollectItemPayload& Item, const F
     UCollectablesRequestHandler::CollectItem(Item, FCollectablesResponseDelegateBP(), OnCompletedRequest);
 }
 
+//Messages
 void ULootLockerSDKManager::GetMessages(const FMessagesResponseDelegate& OnCompletedRequest)
 {
     UMessagesRequestHandler::GetMessages(FMessagesResponseDelegateBP(), OnCompletedRequest);

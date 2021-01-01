@@ -160,34 +160,39 @@ void ULootLockerManager::RemoveAssetFromFavourites(int AssetId)
     UAssetsRequestHandler::RemoveAssetFromFavourites(AssetId, OnRemoveAssetFromFavouritesRequestCompleted);
 }
 
-void ULootLockerManager::GetKeyValuePairsForAssetInstance(int AssetInstanceId)
+void ULootLockerManager::GetAllKeyValuePairsForAssetInstance()
 {
-    UAssetInstancesRequestHandler::GetKeyValuePairsForAssetInstance(AssetInstanceId, OnGetKeyValuePairsForAssetInstanceCompleted);
+    UAssetInstancesRequestHandler::GetAllKeyValuePairsForAssetInstance(OnGetAllKeyValuePairsForAssetInstanceCompleted);
 }
 
-void ULootLockerManager::GetKeyValuePairForAssetInstance(int AssetInstanceId, int StorageItemId)
+void ULootLockerManager::GetAllKeyValuePairsToAnInstanceForAssetInstance(int AssetInstanceId)
 {
-    UAssetInstancesRequestHandler::GetKeyValuePairForAssetInstance(AssetInstanceId, StorageItemId, OnGetKeyValuePairForAssetInstanceCompleted);
+    UAssetInstancesRequestHandler::GetAllKeyValuePairsToAnInstanceForAssetInstance(AssetInstanceId, OnGetAllKeyValuePairsToAnInstanceForAssetInstanceCompleted);
 }
 
-void ULootLockerManager::CreateStorageItemForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItem& Item)
+void ULootLockerManager::GetAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId)
 {
-    UAssetInstancesRequestHandler::CreateStorageItemForAssetInstance(AssetInstanceId, Item, OnCreateStorageItemForAssetInstanceCompleted);
+    UAssetInstancesRequestHandler::GetAKeyValuePairByIdForAssetInstance(AssetInstanceId, StorageItemId, OnGetAKeyValuePairByIdForAssetInstanceCompleted);
 }
 
-void ULootLockerManager::UpdateStorageItemsForAssetInstance(int AssetInstanceId, const TArray<FAssetInstanceStorageItem>& Items)
+void ULootLockerManager::CreateAKeyValuePairForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItem& Item)
 {
-    UAssetInstancesRequestHandler::UpdateStorageItemsForAssetInstance(AssetInstanceId, Items, OnUpdateStorageItemsForAssetInstanceCompleted);
+    UAssetInstancesRequestHandler::CreateAKeyValuePairForAssetInstance(AssetInstanceId, Item, OnCreateAKeyValuePairForAssetInstanceCompleted);
 }
 
-void ULootLockerManager::UpdateStorageItemForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItem Item)
+void ULootLockerManager::UpdateOneOrMoreKeyValuePairForAssetInstance(int AssetInstanceId, const TArray<FAssetInstanceStorageItem>& Items)
 {
-    UAssetInstancesRequestHandler::UpdateStorageItemForAssetInstance(AssetInstanceId, StorageItemId, Item, OnUpdateStorageItemForAssetInstanceCompleted);
+    UAssetInstancesRequestHandler::UpdateOneOrMoreKeyValuePairForAssetInstance(AssetInstanceId, Items, OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted);
 }
 
-void ULootLockerManager::DeleteStorageItemForAssetInstance(int AssetInstanceId, int StorageItemId)
+void ULootLockerManager::UpdateAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItem Item)
 {
-    UAssetInstancesRequestHandler::DeleteStorageItemForAssetInstance(AssetInstanceId, StorageItemId, OnDeleteStorageItemForAssetInstanceCompleted);
+    UAssetInstancesRequestHandler::UpdateAKeyValuePairByIdForAssetInstance(AssetInstanceId, StorageItemId, Item, OnUpdateAKeyValuePairByIdForAssetInstanceCompleted);
+}
+
+void ULootLockerManager::DeleteAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId)
+{
+    UAssetInstancesRequestHandler::DeleteAKeyValuePairByIdForAssetInstance(AssetInstanceId, StorageItemId, OnDeleteAKeyValuePairByIdForAssetInstanceCompleted);
 }
 
 void ULootLockerManager::InspectLootBox(int AssetInstanceId)
@@ -270,14 +275,14 @@ void ULootLockerManager::PurchaseAssetsAndroid(const TArray<FAndroidAssetPurchas
     UPurchasesRequestHandler::PurchaseAssetsAndroid(PurchaseData, OnPurchaseAssetsAndroidCompleted);
 }
 
-void ULootLockerManager::VerifyPurchaseIos(const TArray<FVerifyPurchaseIosData>& PurchaseData)
+void ULootLockerManager::PurchaseAssetsIOS(const TArray<FVerifyPurchaseIosData>& PurchaseData)
 {
-    UPurchasesRequestHandler::VerifyPurchaseIos(PurchaseData, OnVerifyPurchaseIosCompleted);
+    UPurchasesRequestHandler::PurchaseAssetsIOS(PurchaseData, OnPurchaseAssetsIOSCompleted);
 }
 
-void ULootLockerManager::PollPurchaseStatus(int PurchaseId)
+void ULootLockerManager::PollingOrderStatus(int PurchaseId)
 {
-    UPurchasesRequestHandler::PollPurchaseStatus(PurchaseId, OnPollPurchaseStatusCompleted);
+    UPurchasesRequestHandler::PollingOrderStatus(PurchaseId, OnPollingStatusCompleted);
 }
 
 void ULootLockerManager::ActivateRentalAsset(int AssetId)

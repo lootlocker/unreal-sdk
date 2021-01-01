@@ -2,34 +2,39 @@
 
 #include "Demo/DemoAssetInstances.h"
 
-void ADemoAssetInstances::DemoGetKeyValuePairsForAssetInstance()
+void ADemoAssetInstances::DemoGetAllKeyValuePairsForAssetInstance()
 {
-    ULootLockerSDKManager::GetKeyValuePairsForAssetInstance(AssetInstanceId, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnGetKeyValuePairsForAssetInstanceCompleted));
+    ULootLockerSDKManager::GetAllKeyValuePairsForAssetInstance(FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnGetAllKeyValuePairsForAssetInstanceCompleted));
 }
 
-void ADemoAssetInstances::DemoGetKeyValuePairForAssetInstance()
+void ADemoAssetInstances::DemoGetAllKeyValuePairsToAnInstanceForAssetInstance()
 {
-    ULootLockerSDKManager::GetKeyValuePairForAssetInstance(AssetInstanceId, StorageItemId, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnGetKeyValuePairForAssetInstanceCompleted));
+    ULootLockerSDKManager::GetAllKeyValuePairsToAnInstanceForAssetInstance(AssetInstanceId, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnGetAllKeyValuePairsToAnInstanceForAssetInstanceCompleted));
 }
 
-void ADemoAssetInstances::DemoCreateStorageItemForAssetInstance()
+void ADemoAssetInstances::DemoGetAKeyValuePairByIdForAssetInstance()
 {
-    ULootLockerSDKManager::CreateStorageItemForAssetInstance(AssetInstanceId, Item, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnCreateStorageItemForAssetInstanceCompleted));
+    ULootLockerSDKManager::GetAKeyValuePairByIdForAssetInstance(AssetInstanceId, StorageItemId, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnGetAKeyValuePairByIdForAssetInstanceCompleted));
 }
 
-void ADemoAssetInstances::DemoUpdateStorageItemsForAssetInstance()
+void ADemoAssetInstances::DemoCreateAKeyValuePairForAssetInstance()
 {
-    ULootLockerSDKManager::UpdateStorageItemsForAssetInstance(AssetInstanceId, Items, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnUpdateStorageItemsForAssetInstanceCompleted));
+    ULootLockerSDKManager::CreateAKeyValuePairForAssetInstance(AssetInstanceId, Item, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnCreateAKeyValuePairForAssetInstanceCompleted));
 }
 
-void ADemoAssetInstances::DemoUpdateStorageItemForAssetInstance()
+void ADemoAssetInstances::DemoUpdateOneOrMoreKeyValuePairForAssetInstance()
 {
-    ULootLockerSDKManager::UpdateStorageItemForAssetInstance(AssetInstanceId, StorageItemId, Item, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnUpdateStorageItemForAssetInstanceCompleted));
+    ULootLockerSDKManager::UpdateOneOrMoreKeyValuePairForAssetInstance(AssetInstanceId, Items, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted));
 }
 
-void ADemoAssetInstances::DemoDeleteStorageItemForAssetInstance()
+void ADemoAssetInstances::DemoUpdateAKeyValuePairByIdForAssetInstance()
 {
-    ULootLockerSDKManager::DeleteStorageItemForAssetInstance(AssetInstanceId, StorageItemId, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnDeleteStorageItemForAssetInstanceCompleted));
+    ULootLockerSDKManager::UpdateAKeyValuePairByIdForAssetInstance(AssetInstanceId, StorageItemId, Item, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnUpdateAKeyValuePairByIdForAssetInstanceCompleted));
+}
+
+void ADemoAssetInstances::DemoDeleteAKeyValuePairByIdForAssetInstance()
+{
+    ULootLockerSDKManager::DeleteAKeyValuePairByIdForAssetInstance(AssetInstanceId, StorageItemId, FAssetInstanceStorageItemsResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnDeleteAKeyValuePairByIdForAssetInstanceCompleted));
 }
 
 void ADemoAssetInstances::DemoInspectLootBox()
@@ -42,76 +47,88 @@ void ADemoAssetInstances::DemoOpenLootBox()
     ULootLockerSDKManager::OpenLootBox(AssetInstanceId, FOpenLootBoxResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnOpenLootBoxCompleted));
 }
 
-void ADemoAssetInstances::OnGetKeyValuePairsForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
+void ADemoAssetInstances::OnGetAllKeyValuePairsForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
 {
     if (Response.success)
     {
-        UE_LOG(LogTemp, Verbose, TEXT("OnGetKeyValuePairsForAssetInstance Success"));
+        UE_LOG(LogTemp, Verbose, TEXT("GetAllKeyValuePairsForAssetInstance Success"));
     }
     else 
     {
-        UE_LOG(LogTemp, Verbose, TEXT("OnGetKeyValuePairsForAssetInstance Failed"));
+        UE_LOG(LogTemp, Verbose, TEXT("GetAllKeyValuePairsForAssetInstance Failed"));
     }
 }
 
-void ADemoAssetInstances::OnGetKeyValuePairForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
+void ADemoAssetInstances::OnGetAllKeyValuePairsToAnInstanceForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
 {
     if (Response.success)
     {
-        UE_LOG(LogTemp, Verbose, TEXT("OnGetKeyValuePairForAssetInstance Success"));
+        UE_LOG(LogTemp, Verbose, TEXT("GetAllKeyValuePairsToAnInstanceForAssetInstance Success"));
     }
     else
     {
-        UE_LOG(LogTemp, Verbose, TEXT("OnGetKeyValuePairForAssetInstance Failed"));
+        UE_LOG(LogTemp, Verbose, TEXT("GetAllKeyValuePairsToAnInstanceForAssetInstance Failed"));
     }
     
 }
 
-void ADemoAssetInstances::OnCreateStorageItemForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
+void ADemoAssetInstances::OnGetAKeyValuePairByIdForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
 {
     if (Response.success)
     {
-        UE_LOG(LogTemp, Verbose, TEXT("OnCreateStorageItemForAssetInstance Success"));
+        UE_LOG(LogTemp, Verbose, TEXT("GetAKeyValuePairByIdForAssetInstance Success"));
     }
     else
     {
-        UE_LOG(LogTemp, Verbose, TEXT("OnCreateStorageItemForAssetInstance Failed"));
+        UE_LOG(LogTemp, Verbose, TEXT("GetAKeyValuePairByIdForAssetInstance Failed"));
     }
 }
 
-void ADemoAssetInstances::OnUpdateStorageItemsForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
+void ADemoAssetInstances::OnCreateAKeyValuePairForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
 {
     if (Response.success)
     {
-        UE_LOG(LogTemp, Verbose, TEXT("OnUpdateStorageItemsForAssetInstance Success"));
+        UE_LOG(LogTemp, Verbose, TEXT("CreateAKeyValuePairForAssetInstance Success"));
     }
     else
     {
-        UE_LOG(LogTemp, Verbose, TEXT("OnUpdateStorageItemsForAssetInstance Failed"));
+        UE_LOG(LogTemp, Verbose, TEXT("CreateAKeyValuePairForAssetInstance Failed"));
     }
 }
 
-void ADemoAssetInstances::OnUpdateStorageItemForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
+void ADemoAssetInstances::OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
 {
     if (Response.success)
     {
-        UE_LOG(LogTemp, Verbose, TEXT("OnUpdateStorageItemForAssetInstance Success"));
+        UE_LOG(LogTemp, Verbose, TEXT("UpdateOneOrMoreKeyValuePairForAssetInstance Success"));
     }
     else
     {
-        UE_LOG(LogTemp, Verbose, TEXT("OnUpdateStorageItemForAssetInstance Failed"));
+        UE_LOG(LogTemp, Verbose, TEXT("UpdateOneOrMoreKeyValuePairForAssetInstance Failed"));
     }
 }
 
-void ADemoAssetInstances::OnDeleteStorageItemForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
+void ADemoAssetInstances::OnUpdateAKeyValuePairByIdForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
 {
     if (Response.success)
     {
-        UE_LOG(LogTemp, Verbose, TEXT("OnDeleteStorageItemForAssetInstance Success"));
+        UE_LOG(LogTemp, Verbose, TEXT("UpdateAKeyValuePairByIdForAssetInstance Success"));
     }
     else
     {
-        UE_LOG(LogTemp, Verbose, TEXT("OnDeleteStorageItemForAssetInstance Failed"));
+        UE_LOG(LogTemp, Verbose, TEXT("UpdateAKeyValuePairByIdForAssetInstance Failed"));
+    }
+}
+
+void ADemoAssetInstances::OnDeleteAKeyValuePairByIdForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
+{
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("DeleteAKeyValuePairByIdForAssetInstance Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("DeleteAKeyValuePairByIdForAssetInstance Failed"));
     }
 }
 

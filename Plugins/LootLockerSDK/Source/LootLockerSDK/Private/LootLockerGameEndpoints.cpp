@@ -13,9 +13,13 @@ FEndPoints LootLockerGameEndpoints::EndSessionEndpoint = InitEndpoint("v1/sessio
 FEndPoints LootLockerGameEndpoints::GetPlayerInfoEndPoint = InitEndpoint("v1/player/info", ELootLockerHTTPMethod::GET);
 FEndPoints LootLockerGameEndpoints::GetPlayerInventoryEndPoint = InitEndpoint("v1/player/inventory/list", ELootLockerHTTPMethod::GET);
 FEndPoints LootLockerGameEndpoints::SubmitXpEndpoint = InitEndpoint("v1/player/xp", ELootLockerHTTPMethod::POST);
-FEndPoints LootLockerGameEndpoints::GetOtherPlayerInfoEndpoint = InitEndpoint("v1/player/score/", ELootLockerHTTPMethod::GET);
+FEndPoints LootLockerGameEndpoints::GetOtherPlayerInfoEndpoint = InitEndpoint("v1/player/score", ELootLockerHTTPMethod::GET);
 FEndPoints LootLockerGameEndpoints::CheckPlayerAssetActivationEndpoint = InitEndpoint("v1/player/notification/assets", ELootLockerHTTPMethod::GET);
 FEndPoints LootLockerGameEndpoints::CheckPlayerAssetDeactivatonEndpoint = InitEndpoint("v1/player/notification/deactivations", ELootLockerHTTPMethod::GET);
+FEndPoints LootLockerGameEndpoints::InitiateDLCMigration = InitEndpoint("v1/player/dlcs", ELootLockerHTTPMethod::POST);
+FEndPoints LootLockerGameEndpoints::GetDLCsMigrated = InitEndpoint("vv1/player/dlcs", ELootLockerHTTPMethod::GET);
+FEndPoints LootLockerGameEndpoints::SetProfilePrivate = InitEndpoint("v1/player/profile/public", ELootLockerHTTPMethod::DELETE);
+FEndPoints LootLockerGameEndpoints::SetProfilePublic = InitEndpoint("v1/player/profile/public", ELootLockerHTTPMethod::POST);
 
 //Character
 FEndPoints LootLockerGameEndpoints::GetCharacterLoadoutEndpoint = InitEndpoint("v1/player/character/loadout", ELootLockerHTTPMethod::GET);
@@ -31,10 +35,10 @@ FEndPoints LootLockerGameEndpoints::GetEquippableContextsByCharacterIDEndpoint =
 
 //Persistent Storage
 FEndPoints LootLockerGameEndpoints::GetEntirePersistentStorageEndpoint = InitEndpoint("v1/player/storage", ELootLockerHTTPMethod::GET);
-FEndPoints LootLockerGameEndpoints::GetItemFromPersistentStorageEndpoint = InitEndpoint("v1/player/storage", ELootLockerHTTPMethod::GET);
-FEndPoints LootLockerGameEndpoints::AddItemsToPersistentStorageEndpoint = InitEndpoint("v1/player/storage", ELootLockerHTTPMethod::POST);
-FEndPoints LootLockerGameEndpoints::DeleteItemFromPersistentStorageEndpoint = InitEndpoint("v1/player/storage", ELootLockerHTTPMethod::DELETE);
-FEndPoints LootLockerGameEndpoints::GetPlayerPersistentStorageEndpoint = InitEndpoint("v1/player/{0}/storage", ELootLockerHTTPMethod::GET);
+FEndPoints LootLockerGameEndpoints::GetASingleKeyFromPersistentStorageEndpoint = InitEndpoint("v1/player/storage", ELootLockerHTTPMethod::GET);
+FEndPoints LootLockerGameEndpoints::UpdateOrCreateKeyValuePairToPersistentStorageEndpoint = InitEndpoint("v1/player/storage", ELootLockerHTTPMethod::POST);
+FEndPoints LootLockerGameEndpoints::DeleteAKeyValuePairFromPersistentStorageEndpoint = InitEndpoint("v1/player/storage", ELootLockerHTTPMethod::DELETE);
+FEndPoints LootLockerGameEndpoints::GetOtherPlayersPublicKeyValuePairs = InitEndpoint("v1/player/{0}/storage", ELootLockerHTTPMethod::GET);
 
 //Assets
 FEndPoints LootLockerGameEndpoints::GetContextsEndpoint = InitEndpoint("v1/contexts", ELootLockerHTTPMethod::GET);
@@ -46,12 +50,13 @@ FEndPoints LootLockerGameEndpoints::AddAssetToFavouritesEndpoint = InitEndpoint(
 FEndPoints LootLockerGameEndpoints::RemoveAssetFromFavouritesEndpoint = InitEndpoint("v1/asset/{0}/favourite", ELootLockerHTTPMethod::DELETE);
 
 //Asset Instances
-FEndPoints LootLockerGameEndpoints::GetKeyValuePairsForAssetInstanceEndpoint = InitEndpoint("v1/asset/instance/{0}/storage", ELootLockerHTTPMethod::GET);
-FEndPoints LootLockerGameEndpoints::GetKeyValuePairForAssetInstanceEndpoint = InitEndpoint("v1/asset/instance/{0}/storage/{1}", ELootLockerHTTPMethod::GET);
-FEndPoints LootLockerGameEndpoints::CreateStorageItemForAssetInstanceEndpoint = InitEndpoint("v1/asset/instance/{0}/storage", ELootLockerHTTPMethod::POST);
-FEndPoints LootLockerGameEndpoints::UpdateStorageItemsForAssetInstanceEndpoint = InitEndpoint("v1/asset/instance/{0}/storage", ELootLockerHTTPMethod::PUT);
-FEndPoints LootLockerGameEndpoints::UpdateStorageItemForAssetInstanceEndpoint = InitEndpoint("v1/asset/instance/{0}/storage/{1}", ELootLockerHTTPMethod::PUT);
-FEndPoints LootLockerGameEndpoints::DeleteStorageItemForAssetInstanceEndpoint = InitEndpoint("v1/asset/instance/{0}/storage/{1}", ELootLockerHTTPMethod::DELETE);
+FEndPoints LootLockerGameEndpoints::GetAllKeyValuePairsForAssetInstance = InitEndpoint("v1/asset/instance/{0}/storage", ELootLockerHTTPMethod::GET);
+FEndPoints LootLockerGameEndpoints::GetAllKeyValuePairsToAnInstanceForAssetInstance = InitEndpoint("v1/asset/instance/{0}/storage", ELootLockerHTTPMethod::GET);
+FEndPoints LootLockerGameEndpoints::GetAKeyValuePairByIdForAssetInstanceEndpoint = InitEndpoint("v1/asset/instance/{0}/storage/{1}", ELootLockerHTTPMethod::GET);
+FEndPoints LootLockerGameEndpoints::CreateAKeyValuePairForAssetInstanceEndpoint = InitEndpoint("v1/asset/instance/{0}/storage", ELootLockerHTTPMethod::POST);
+FEndPoints LootLockerGameEndpoints::UpdateOneOrMoreKeyValuePairForAssetInstanceEndpoint = InitEndpoint("v1/asset/instance/{0}/storage", ELootLockerHTTPMethod::PUT);
+FEndPoints LootLockerGameEndpoints::UpdateAKeyValuePairByIdForAssetInstanceEndpoint = InitEndpoint("v1/asset/instance/{0}/storage/{1}", ELootLockerHTTPMethod::PUT);
+FEndPoints LootLockerGameEndpoints::DeleteAKeyValuePairByIdForAssetInstanceEndpoint = InitEndpoint("v1/asset/instance/{0}/storage/{1}", ELootLockerHTTPMethod::DELETE);
 FEndPoints LootLockerGameEndpoints::InspectLootBoxEndpoint = InitEndpoint("v1/asset/instance/{0}/inspect", ELootLockerHTTPMethod::GET);
 FEndPoints LootLockerGameEndpoints::OpenLootBoxEndpoint = InitEndpoint("v1/asset/instance/{0}/open", ELootLockerHTTPMethod::PUT);
 
@@ -74,9 +79,10 @@ FEndPoints LootLockerGameEndpoints::FinishMissionEndpoint = InitEndpoint("v1/mis
 FEndPoints LootLockerGameEndpoints::GetAllMapsEndpoint = InitEndpoint("v1/maps", ELootLockerHTTPMethod::GET);
 
 //Purchases
-FEndPoints LootLockerGameEndpoints::PurchaseAssetsEndpoint = InitEndpoint("v1/purchase", ELootLockerHTTPMethod::POST);
-FEndPoints LootLockerGameEndpoints::VerifyPurchaseIosEndpoint = InitEndpoint("v1/purchase", ELootLockerHTTPMethod::POST);
-FEndPoints LootLockerGameEndpoints::PollPurchaseStatusEndpoint = InitEndpoint("v1/purchase/{0}", ELootLockerHTTPMethod::GET);
+FEndPoints LootLockerGameEndpoints::PurchaseEndpoint = InitEndpoint("v1/purchase", ELootLockerHTTPMethod::POST);
+FEndPoints LootLockerGameEndpoints::IOSPurchaseEndpoint = InitEndpoint("v1/purchase", ELootLockerHTTPMethod::POST);
+FEndPoints LootLockerGameEndpoints::AndroidPurchaseEndpoint = InitEndpoint("v1/purchase", ELootLockerHTTPMethod::POST);
+FEndPoints LootLockerGameEndpoints::PollingOrderStatusEndpoint = InitEndpoint("v1/purchase/{0}", ELootLockerHTTPMethod::GET);
 FEndPoints LootLockerGameEndpoints::ActivateRentalAssetEndpoint = InitEndpoint("v1/asset/instance/{0}/activate", ELootLockerHTTPMethod::POST);
 
 //Trigger Events
@@ -92,8 +98,8 @@ FEndPoints LootLockerGameEndpoints::GetMessagesEndpoint = InitEndpoint("v1/messa
 
 FEndPoints LootLockerGameEndpoints::InitEndpoint(const FString& Endpoint, ELootLockerHTTPMethod Method)
 {
-    FEndPoints Result;
-    Result.endpoint = GameBaseUrl + Endpoint;
-    Result.requestMethod = Method;
-    return Result;
+	FEndPoints Result;
+	Result.endpoint = GameBaseUrl + Endpoint;
+	Result.requestMethod = Method;
+	return Result;
 }

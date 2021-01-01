@@ -24,22 +24,25 @@ public:
     TArray<FAssetInstanceStorageItem> Items;
     
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Asset Instances")
-    void DemoGetKeyValuePairsForAssetInstance();
+    void DemoGetAllKeyValuePairsForAssetInstance();
     
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Asset Instances")
-    void DemoGetKeyValuePairForAssetInstance();
+    void DemoGetAllKeyValuePairsToAnInstanceForAssetInstance();
+
+    UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Asset Instances")
+    void DemoGetAKeyValuePairByIdForAssetInstance();
     
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Asset Instances")
-    void DemoCreateStorageItemForAssetInstance();
+    void DemoCreateAKeyValuePairForAssetInstance();
     
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Asset Instances")
-    void DemoUpdateStorageItemsForAssetInstance();
+    void DemoUpdateOneOrMoreKeyValuePairForAssetInstance();
     
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Asset Instances")
-    void DemoUpdateStorageItemForAssetInstance();
+    void DemoUpdateAKeyValuePairByIdForAssetInstance();
     
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Asset Instances")
-    void DemoDeleteStorageItemForAssetInstance();
+    void DemoDeleteAKeyValuePairByIdForAssetInstance();
     
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Asset Instances")
     void DemoInspectLootBox();
@@ -47,12 +50,13 @@ public:
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Asset Instances")
     void DemoOpenLootBox();
     
-    void OnGetKeyValuePairsForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response);
-    void OnGetKeyValuePairForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response);
-    void OnCreateStorageItemForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response);
-    void OnUpdateStorageItemsForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response);
-    void OnUpdateStorageItemForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response);
-    void OnDeleteStorageItemForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response);
+    void OnGetAllKeyValuePairsForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response);
+    void OnGetAllKeyValuePairsToAnInstanceForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response);
+    void OnGetAKeyValuePairByIdForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response);
+    void OnCreateAKeyValuePairForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response);
+    void OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response);
+    void OnUpdateAKeyValuePairByIdForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response);
+    void OnDeleteAKeyValuePairByIdForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response);
     void OnInspectLootBoxCompleted(FLootBoxContentResponse Response);
     void OnOpenLootBoxCompleted(FOpenLootBoxResponse Response);
     

@@ -32,18 +32,18 @@ public:
     void DemoPurchaseAssetsAndroid();
     
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Purchases")
-    void DemoVerifyPurchaseIos();
+    void DemoPurchaseAssetsIOS();
     
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Purchases")
-    void DemoPollPurchaseStatus();
+    void DemoPollingOrderStatus();
     
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Purchases")
     void DemoActivateRentalAsset();
     
     void OnPurchaseAssetsCompleted(FPurchaseResponse Response);
     void OnPurchaseAssetsAndroidCompleted(FPurchaseResponse Response);
-    void OnVerifyPurchaseIosCompleted(FPurchaseResponse Response);
-    void OnPollPurchaseStatusCompleted(FPurchaseStatusResponse Response);
+    void OnPurchaseAssetsIOSCompleted(FPurchaseResponse Response);
+    void OnPollingStatusCompleted(FPurchaseStatusResponse Response);
     void OnActivateRentalAssetCompleted(FActivateRentalAssetResponse Response);
     
 private:

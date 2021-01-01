@@ -12,14 +12,14 @@ void ADemoPurchases::DemoPurchaseAssetsAndroid()
    ULootLockerSDKManager::PurchaseAssetsAndroid(AndroidPurchaseData, FPurchaseResponseDelegate::CreateUObject(this, &ADemoPurchases::OnPurchaseAssetsAndroidCompleted));
 }
 
-void ADemoPurchases::DemoVerifyPurchaseIos()
+void ADemoPurchases::DemoPurchaseAssetsIOS()
 {
-   ULootLockerSDKManager::VerifyPurchaseIos(IosPurchaseData, FPurchaseResponseDelegate::CreateUObject(this, &ADemoPurchases::OnVerifyPurchaseIosCompleted));
+   ULootLockerSDKManager::PurchaseAssetsIOS(IosPurchaseData, FPurchaseResponseDelegate::CreateUObject(this, &ADemoPurchases::OnPurchaseAssetsIOSCompleted));
 }
 
-void ADemoPurchases::DemoPollPurchaseStatus()
+void ADemoPurchases::DemoPollingOrderStatus()
 {
-   ULootLockerSDKManager::PollPurchaseStatus(PurchaseId, FPurchaseStatusResponseDelegate::CreateUObject(this, &ADemoPurchases::OnPollPurchaseStatusCompleted));
+   ULootLockerSDKManager::PollingOrderStatus(PurchaseId, FPurchaseStatusResponseDelegate::CreateUObject(this, &ADemoPurchases::OnPollingStatusCompleted));
 }
 
 void ADemoPurchases::DemoActivateRentalAsset()
@@ -51,7 +51,7 @@ void ADemoPurchases::OnPurchaseAssetsAndroidCompleted(FPurchaseResponse Response
     }
 }
 
-void ADemoPurchases::OnVerifyPurchaseIosCompleted(FPurchaseResponse Response)
+void ADemoPurchases::OnPurchaseAssetsIOSCompleted(FPurchaseResponse Response)
 {
     if (Response.success)
     {
@@ -63,7 +63,7 @@ void ADemoPurchases::OnVerifyPurchaseIosCompleted(FPurchaseResponse Response)
     }
 }
 
-void ADemoPurchases::OnPollPurchaseStatusCompleted(FPurchaseStatusResponse Response)
+void ADemoPurchases::OnPollingStatusCompleted(FPurchaseStatusResponse Response)
 {
     if (Response.success)
     {

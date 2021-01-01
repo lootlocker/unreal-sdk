@@ -326,11 +326,19 @@ public:
     * https://docs.lootlocker.io/game-api/#getting-all-key-value-pairs-to-an-instance
     * Get all key/value pairs for an asset instance.
     *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    */
+    static void GetAllKeyValuePairsForAssetInstance(const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * https://docs.lootlocker.io/game-api/#getting-all-key-value-pairs-to-an-instance
+    * Get all key/value pairs for an asset instance.
+    *
     * @param AssetInstanceId - asset instance ID.
     * @param OnCompletedRequest - callback to be invoked with the server response.
     */
-    static void GetKeyValuePairsForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
-    
+    static void GetAllKeyValuePairsToAnInstanceForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+
     /**
     * https://docs.lootlocker.io/game-api/#getting-a-key-value-pair-by-id
     * Get a key/value pair for an asset instance.
@@ -339,7 +347,7 @@ public:
     * @param StorageItemId - ID of the key/value pair.
     * @param OnCompletedRequest - callback to be invoked with the server response.
     */
-    static void GetKeyValuePairForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+    static void GetAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
     
     /**
     * https://docs.lootlocker.io/game-api/#creating-a-key-value-pair
@@ -349,7 +357,7 @@ public:
     * @param Item - key/value pair.
     * @param OnCompletedRequest - callback to be invoked with the server response.
     */
-    static void CreateStorageItemForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItem& Item, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+    static void CreateAKeyValuePairForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItem& Item, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
     
     /**
     * https://docs.lootlocker.io/game-api/#updating-one-or-more-key-value-pairs
@@ -359,7 +367,7 @@ public:
     * @param Items - key/value pairs.
     * @param OnCompletedRequest - callback to be invoked with the server response.
     */
-    static void UpdateStorageItemsForAssetInstance(int AssetInstanceId, const TArray<FAssetInstanceStorageItem>& Items, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+    static void UpdateOneOrMoreKeyValuePairForAssetInstance(int AssetInstanceId, const TArray<FAssetInstanceStorageItem>& Items, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
     
     /**
     * https://docs.lootlocker.io/game-api/#updating-a-key-value-pair-by-id
@@ -369,7 +377,7 @@ public:
     * @param StorageItemId - key/value pair ID.
     * @param OnCompletedRequest - callback to be invoked with the server response.
     */
-    static void UpdateStorageItemForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItem Item, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+    static void UpdateAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItem Item, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
     
     /**
     * https://docs.lootlocker.io/game-api/#delete-a-key-value-pair
@@ -379,7 +387,7 @@ public:
     * @param StorageItemId - key/value pair ID.
     * @param OnCompletedRequest - callback to be invoked with the server response.
     */
-    static void DeleteStorageItemForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+    static void DeleteAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
     
     /**
     * https://docs.lootlocker.io/game-api/#inspect-a-loot-box
@@ -554,7 +562,7 @@ public:
     * @param PurchaseData - data about the assets to be purchased.
     * @param OnCompletedRequest - callback to be invoked with the server response.
     */
-    static void VerifyPurchaseIos(const TArray<FVerifyPurchaseIosData>& PurchaseData, const FPurchaseResponseDelegate& OnCompletedRequest);
+    static void PurchaseAssetsIOS(const TArray<FVerifyPurchaseIosData>& PurchaseData, const FPurchaseResponseDelegate& OnCompletedRequest);
     
     /**
     * https://docs.lootlocker.io/game-api/#polling-order-status
@@ -564,7 +572,7 @@ public:
     * @param PurchaseId - ID of the purchase order.
     * @param OnCompletedRequest - callback to be invoked with the server response.
     */
-    static void PollPurchaseStatus(int PurchaseId, const FPurchaseStatusResponseDelegate& OnCompletedRequest);
+    static void PollingOrderStatus(int PurchaseId, const FPurchaseStatusResponseDelegate& OnCompletedRequest);
     
     /**
     * https://docs.lootlocker.io/game-api/#activating-a-rental-asset
