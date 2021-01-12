@@ -1,0 +1,195 @@
+﻿Log file open, 01/12/21 14:27:32
+LogInit: LLM is enabled
+LogInit: LLM CsvWriter: off TraceWriter: off
+LogInit: Display: Running engine for game: DemoProject
+LogPlatformFile: Not using cached read wrapper
+LogTaskGraph: Started task graph with 5 named threads and 47 total threads with 3 sets of task threads.
+LogStats: Stats thread started at 0.166221
+LogD3D11RHI: Loaded GFSDK_Aftermath_Lib.x64.dll
+LogICUInternationalization: ICU TimeZone Detection - Raw Offset: +1:00, Platform Override: ''
+LogPluginManager: Mounting plugin MeshPainting
+LogPluginManager: Mounting plugin XGEController
+LogPluginManager: Mounting plugin Paper2D
+LogPluginManager: Mounting plugin AISupport
+LogPluginManager: Mounting plugin EnvironmentQueryEditor
+LogPluginManager: Mounting plugin CameraShakePreviewer
+LogPluginManager: Mounting plugin LightPropagationVolume
+LogPluginManager: Mounting plugin AssetManagerEditor
+LogPluginManager: Mounting plugin CurveEditorTools
+LogPluginManager: Mounting plugin CryptoKeys
+LogPluginManager: Mounting plugin FacialAnimation
+LogPluginManager: Mounting plugin GeometryMode
+LogPluginManager: Mounting plugin DataValidation
+LogPluginManager: Mounting plugin GameplayTagsEditor
+LogPluginManager: Mounting plugin MacGraphicsSwitching
+LogPluginManager: Mounting plugin MaterialAnalyzer
+LogPluginManager: Mounting plugin PluginBrowser
+LogPluginManager: Mounting plugin AnimationSharing
+LogPluginManager: Mounting plugin MobileLauncherProfileWizard
+LogPluginManager: Mounting plugin SpeedTreeImporter
+LogPluginManager: Mounting plugin GitSourceControl
+LogPluginManager: Mounting plugin CodeLiteSourceCodeAccess
+LogPluginManager: Mounting plugin KDevelopSourceCodeAccess
+LogPluginManager: Mounting plugin CLionSourceCodeAccess
+LogPluginManager: Mounting plugin NullSourceCodeAccess
+LogPluginManager: Mounting plugin PerforceSourceControl
+LogPluginManager: Mounting plugin PlasticSourceControl
+LogPluginManager: Mounting plugin PropertyAccessNode
+LogPluginManager: Mounting plugin PluginUtils
+LogPluginManager: Mounting plugin RiderSourceCodeAccess
+LogPluginManager: Mounting plugin SubversionSourceControl
+LogPluginManager: Mounting plugin AlembicImporter
+LogPluginManager: Mounting plugin UObjectPlugin
+LogPluginManager: Mounting plugin AutomationUtils
+LogPluginManager: Mounting plugin BackChannel
+LogPluginManager: Mounting plugin ChaosCloth
+LogPluginManager: Mounting plugin ChaosClothEditor
+LogPluginManager: Mounting plugin ChaosEditor
+LogPluginManager: Mounting plugin ChaosSolverPlugin
+LogPluginManager: Mounting plugin CharacterAI
+LogPluginManager: Mounting plugin ChaosNiagara
+LogPluginManager: Mounting plugin DatasmithContent
+LogPluginManager: Mounting plugin VisualStudioCodeSourceCodeAccess
+LogPluginManager: Mounting plugin VisualStudioSourceCodeAccess
+LogPluginManager: Mounting plugin XCodeSourceCodeAccess
+LogPluginManager: Mounting plugin VariantManagerContent
+LogPluginManager: Mounting plugin GeometryCache
+LogPluginManager: Mounting plugin GeometryCollectionPlugin
+LogPluginManager: Mounting plugin GeometryProcessing
+LogPluginManager: Mounting plugin Niagara
+LogPluginManager: Mounting plugin MotoSynth
+LogPluginManager: Mounting plugin PlatformCrypto
+LogPluginManager: Mounting plugin PlanarCut
+LogPluginManager: Mounting plugin ProxyLODPlugin
+LogPluginManager: Mounting plugin SkeletalReduction
+LogPluginManager: Mounting plugin LuminPlatformFeatures
+LogPluginManager: Mounting plugin MagicLeap
+LogPluginManager: Mounting plugin MagicLeapLightEstimation
+LogPluginManager: Mounting plugin MagicLeapMedia
+LogPluginManager: Mounting plugin MagicLeapPassableWorld
+LogPluginManager: Mounting plugin MLSDK
+LogPluginManager: Mounting plugin ActorSequence
+LogPluginManager: Mounting plugin AndroidMedia
+LogPluginManager: Mounting plugin LevelSequenceEditor
+LogPluginManager: Mounting plugin AvfMedia
+LogPluginManager: Mounting plugin MatineeToLevelSequence
+LogPluginManager: Mounting plugin ImgMedia
+LogPluginManager: Mounting plugin TemplateSequence
+LogPluginManager: Mounting plugin MediaPlayerEditor
+LogPluginManager: Mounting plugin MediaCompositing
+LogPluginManager: Mounting plugin WebMMedia
+LogPluginManager: Mounting plugin WmfMedia
+LogPluginManager: Mounting plugin OnlineSubsystemUtils
+LogPluginManager: Mounting plugin OnlineSubsystem
+LogPluginManager: Mounting plugin OnlineSubsystemNull
+LogPluginManager: Mounting plugin LauncherChunkInstaller
+LogPluginManager: Mounting plugin ActorLayerUtilities
+LogPluginManager: Mounting plugin ScreenshotTools
+LogPluginManager: Mounting plugin AndroidDeviceProfileSelector
+LogPluginManager: Mounting plugin AndroidMoviePlayer
+LogPluginManager: Mounting plugin AndroidPermission
+LogPluginManager: Mounting plugin AppleImageUtils
+LogPluginManager: Mounting plugin AppleMoviePlayer
+LogPluginManager: Mounting plugin AssetTags
+LogPluginManager: Mounting plugin ArchVisCharacter
+LogPluginManager: Mounting plugin AudioCapture
+LogPluginManager: Mounting plugin CableComponent
+LogPluginManager: Mounting plugin AudioSynesthesia
+LogPluginManager: Mounting plugin ChunkDownloader
+LogPluginManager: Mounting plugin CustomMeshComponent
+LogPluginManager: Mounting plugin EditableMesh
+LogPluginManager: Mounting plugin ExampleDeviceProfileSelector
+LogPluginManager: Mounting plugin GoogleCloudMessaging
+LogPluginManager: Mounting plugin GooglePAD
+LogPluginManager: Mounting plugin IOSDeviceProfileSelector
+LogPluginManager: Mounting plugin LinuxDeviceProfileSelector
+LogPluginManager: Mounting plugin LocationServicesBPLibrary
+LogPluginManager: Mounting plugin MobilePatchingUtils
+LogPluginManager: Mounting plugin PhysXVehicles
+LogPluginManager: Mounting plugin PostSplashScreen
+LogPluginManager: Mounting plugin ProceduralMeshComponent
+LogPluginManager: Mounting plugin PropertyAccessEditor
+LogPluginManager: Mounting plugin RuntimePhysXCooking
+LogPluginManager: Mounting plugin SignificanceManager
+LogPluginManager: Mounting plugin SoundFields
+LogPluginManager: Mounting plugin Synthesis
+LogPluginManager: Mounting plugin WebMMoviePlayer
+LogPluginManager: Mounting plugin WindowsMoviePlayer
+LogPluginManager: Mounting plugin TcpMessaging
+LogPluginManager: Mounting plugin UdpMessaging
+LogPluginManager: Mounting plugin ContentBrowserClassDataSource
+LogPluginManager: Mounting plugin ContentBrowserAssetDataSource
+LogPluginManager: Mounting plugin OnlineSubsystemIOS
+LogPluginManager: Mounting plugin OnlineSubsystemGooglePlay
+LogPluginManager: Mounting plugin OculusVR
+LogPluginManager: Mounting plugin SteamVR
+LogPluginManager: Mounting plugin LootLockerSDK
+LogXGEController: Cleaning working directory: C:/Users/donim/AppData/Local/Temp/UnrealXGEWorkingDir/
+LogXGEController: Cannot use XGE Controller as Incredibuild is not installed on this machine.
+LogInit: Warning: Incompatible or missing module: LootLockerSDK
+Running C:/Program Files/Epic Games/UE_4.26/Engine/Binaries/DotNET/UnrealBuildTool.exe Development Win64 -Project="C:/Users/donim/Documents/Repos/unreal-sdk/4.26/DemoProject/DemoProject.uproject" -TargetType=Editor -Progress -NoEngineChanges -NoHotReloadFromIDE
+Creating makefile for DemoProjectEditor (no existing makefile)
+@progress push 5%
+Parsing headers for DemoProjectEditor
+  Running UnrealHeaderTool "C:\Users\donim\Documents\Repos\unreal-sdk\4.26\DemoProject\DemoProject.uproject" "C:\Users\donim\Documents\Repos\unreal-sdk\4.26\DemoProject\Intermediate\Build\Win64\DemoProjectEditor\Development\DemoProjectEditor.uhtmanifest" -LogCmds="loginit warning, logexit warning, logdatabase error" -Unattended -WarningsAsErrors -abslog="C:\Users\donim\AppData\Local\UnrealBuildTool\Log_UHT.txt" -installed
+Reflection code generated for DemoProjectEditor in 2.9393606 seconds
+@progress pop
+C:\Users\donim\Documents\Repos\unreal-sdk\4.26\DemoProject\Plugins\LootLockerSDK\Source\LootLockerSDK\Private\LootLockerStyle.cpp(1): error: Expected LootLockerStyle.h to be first header included.
+Building DemoProjectEditor...
+Using Visual Studio 2019 14.28.29333 toolchain (C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333) and Windows 10.0.18362.0 SDK (C:\Program Files (x86)\Windows Kits\10).
+Building 11 actions with 16 processes...
+  @progress 'Compiling C++ source code...' 0%
+  @progress 'Compiling C++ source code...' 9%
+  [1/11] Default.rc2
+  @progress 'Compiling C++ source code...' 18%
+  [2/11] SharedPCH.UnrealEd.ShadowErrors.cpp
+  @progress 'Compiling C++ source code...' 27%
+  [3/11] Module.LootLockerSDK.gen.4_of_5.cpp
+  @progress 'Compiling C++ source code...' 36%
+  [4/11] Module.LootLockerSDK.gen.1_of_5.cpp
+  @progress 'Compiling C++ source code...' 45%
+  [5/11] Module.LootLockerSDK.gen.3_of_5.cpp
+  @progress 'Compiling C++ source code...' 55%
+  [6/11] Module.LootLockerSDK.gen.2_of_5.cpp
+  @progress 'Compiling C++ source code...' 64%
+  [7/11] Module.LootLockerSDK.gen.5_of_5.cpp
+  @progress 'Compiling C++ source code...' 73%
+  [8/11] Module.LootLockerSDK.cpp
+  C:/Users/donim/Documents/Repos/unreal-sdk/4.26/DemoProject/Plugins/LootLockerSDK/Source/LootLockerSDK/Private/HttpClient.cpp(21): error C2440: 'initializing': cannot convert from 'TSharedRef<IHttpRequest,ESPMode::ThreadSafe>' to 'TSharedRef<IHttpRequest,ESPMode::NotThreadSafe>'
+  C:/Users/donim/Documents/Repos/unreal-sdk/4.26/DemoProject/Plugins/LootLockerSDK/Source/LootLockerSDK/Private/HttpClient.cpp(21): note: No constructor could take the source type, or constructor overload resolution was ambiguous
+  C:/Users/donim/Documents/Repos/unreal-sdk/4.26/DemoProject/Plugins/LootLockerSDK/Source/LootLockerSDK/Private/HttpClient.cpp(81): error C2440: 'initializing': cannot convert from 'TSharedRef<IHttpRequest,ESPMode::ThreadSafe>' to 'TSharedRef<IHttpRequest,ESPMode::NotThreadSafe>'
+  C:/Users/donim/Documents/Repos/unreal-sdk/4.26/DemoProject/Plugins/LootLockerSDK/Source/LootLockerSDK/Private/HttpClient.cpp(81): note: No constructor could take the source type, or constructor overload resolution was ambiguous
+  C:/Users/donim/Documents/Repos/unreal-sdk/4.26/DemoProject/Plugins/LootLockerSDK/Source/LootLockerSDK/Private/HttpClient.cpp(146): error C2440: 'initializing': cannot convert from 'TSharedRef<IHttpRequest,ESPMode::ThreadSafe>' to 'TSharedRef<IHttpRequest,ESPMode::NotThreadSafe>'
+  C:/Users/donim/Documents/Repos/unreal-sdk/4.26/DemoProject/Plugins/LootLockerSDK/Source/LootLockerSDK/Private/HttpClient.cpp(146): note: No constructor could take the source type, or constructor overload resolution was ambiguous
+  C:/Users/donim/Documents/Repos/unreal-sdk/4.26/DemoProject/Plugins/LootLockerSDK/Source/LootLockerSDK/Private/HttpClient.cpp(298): error C2440: 'initializing': cannot convert from 'TSharedRef<IHttpRequest,ESPMode::ThreadSafe>' to 'TSharedRef<IHttpRequest,ESPMode::NotThreadSafe>'
+  C:/Users/donim/Documents/Repos/unreal-sdk/4.26/DemoProject/Plugins/LootLockerSDK/Source/LootLockerSDK/Private/HttpClient.cpp(298): note: No constructor could take the source type, or constructor overload resolution was ambiguous
+LogInit: Warning: Still incompatible or missing module: LootLockerSDK
+LogCore: Engine exit requested (reason: EngineExit() was called)
+LogExit: Preparing to exit.
+LogModuleManager: Shutting down and abandoning module DesktopPlatform (48)
+LogModuleManager: Shutting down and abandoning module PlatformCryptoOpenSSL (46)
+LogModuleManager: Shutting down and abandoning module PlatformCryptoTypes (44)
+LogModuleManager: Shutting down and abandoning module PlatformCrypto (42)
+LogModuleManager: Shutting down and abandoning module XGEController (40)
+LogXGEController: Cleaning working directory: C:/Users/donim/AppData/Local/Temp/UnrealXGEWorkingDir/
+LogModuleManager: Shutting down and abandoning module AnimationModifiers (38)
+LogModuleManager: Shutting down and abandoning module AudioEditor (36)
+LogModuleManager: Shutting down and abandoning module PropertyEditor (35)
+LogModuleManager: Shutting down and abandoning module TextureCompressor (32)
+LogModuleManager: Shutting down and abandoning module RenderCore (30)
+LogModuleManager: Shutting down and abandoning module Landscape (28)
+LogModuleManager: Shutting down and abandoning module SlateRHIRenderer (26)
+LogModuleManager: Shutting down and abandoning module OpenGLDrv (24)
+LogModuleManager: Shutting down and abandoning module D3D11RHI (22)
+LogModuleManager: Shutting down and abandoning module AnimGraphRuntime (20)
+LogModuleManager: Shutting down and abandoning module Renderer (18)
+LogModuleManager: Shutting down and abandoning module Engine (16)
+LogModuleManager: Shutting down and abandoning module CoreUObject (14)
+LogModuleManager: Shutting down and abandoning module NetworkFile (12)
+LogModuleManager: Shutting down and abandoning module CookedIterativeFile (10)
+LogModuleManager: Shutting down and abandoning module StreamingFile (8)
+LogModuleManager: Shutting down and abandoning module SandboxFile (6)
+LogModuleManager: Shutting down and abandoning module PakFile (4)
+LogModuleManager: Shutting down and abandoning module RSA (3)
+LogExit: Exiting.
+Log file closed, 01/12/21 14:28:26
