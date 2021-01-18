@@ -17,11 +17,11 @@ void UAuthenticationRequestHandler::StartSession(const FString& PlayerId, const 
     ULootLockerPersitentDataHolder::CachedPlayerIdentifier = PlayerId;
 	FAuthenticationRequest authRequest;
 	ULootLockerConfig* config = GetMutableDefault<ULootLockerConfig>();
-	authRequest.development_mode = config->OnDevelopmentMode;
-	authRequest.game_key = config->LootLockerGameKey;
-	authRequest.game_version = config->GameVersion;
+	authRequest.development_mode = ULootLockerConfig::OnDevelopmentMode;
+	authRequest.game_key = ULootLockerConfig::LootLockerGameKey;
+	authRequest.game_version = ULootLockerConfig::GameVersion;
 	authRequest.player_identifier = PlayerId;
-	FString platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(config->Platform));
+	FString platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(ULootLockerConfig::Platform));
 	authRequest.platform = platform;
 	FString AuthContentString;
 	FJsonObjectConverter::UStructToJsonObjectString(FAuthenticationRequest::StaticStruct(), &authRequest, AuthContentString, 0, 0);
@@ -54,18 +54,16 @@ void UAuthenticationRequestHandler::StartSession(const FString& PlayerId, const 
 void UAuthenticationRequestHandler::VerifyPlayer(const FString& SteamToken, const FAuthDefaultResponseBP& OnCompletedRequestBP , const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest )
 {
 	FVerificationRequest authRequest;
-	ULootLockerConfig* config = GetMutableDefault<ULootLockerConfig>();
-
 	authRequest.token = SteamToken;
-	authRequest.key = config->LootLockerGameKey;
-	FString platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(config->Platform));
+	authRequest.key = ULootLockerConfig::LootLockerGameKey;
+	FString platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(ULootLockerConfig::Platform));
 	authRequest.platform = platform;
 	ULootLockerPersitentDataHolder::CachedSteamToken = SteamToken;
 	FString AuthContentString;
 
 	FJsonObjectConverter::UStructToJsonObjectString(FVerificationRequest::StaticStruct(), &authRequest, AuthContentString, 0, 0);
 
-	FResponseCallback verifyResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest, config](FLootLockerResponse response)
+	FResponseCallback verifyResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
 			FAuthenticationDefaultResponse ResponseStruct;
 			if (response.success)

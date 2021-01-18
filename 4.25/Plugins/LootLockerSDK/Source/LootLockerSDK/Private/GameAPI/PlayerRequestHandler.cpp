@@ -93,7 +93,7 @@ void UPlayerRequestHandler::GetOtherPlayerInfo(FLootLockerGetRequests getRequest
 {
 	FString data;
 	ULootLockerConfig* config = GetMutableDefault<ULootLockerConfig>();
-	FString platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(config->Platform));
+	FString platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(ULootLockerConfig::Platform));
 	getRequests.args.Add(platform);
 	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{

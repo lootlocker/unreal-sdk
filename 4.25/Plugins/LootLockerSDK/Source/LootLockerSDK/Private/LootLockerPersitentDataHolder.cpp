@@ -9,5 +9,7 @@ FString ULootLockerPersitentDataHolder::CachedLastRequestTypeUsed = "";
 FString ULootLockerPersitentDataHolder::CachedLastDataSentToServer = "";
 FString ULootLockerPersitentDataHolder::CachedSteamToken = "";
 FString ULootLockerPersitentDataHolder::CachedPlayerIdentifier = "";
-
 FString ULootLockerPersitentDataHolder::AdminToken = "";
+
+
+

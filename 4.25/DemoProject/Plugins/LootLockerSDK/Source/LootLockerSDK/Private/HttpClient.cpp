@@ -17,11 +17,8 @@ UHttpClient::UHttpClient()
 void UHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, bool useHeader, bool useAdmin)
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
-    ULootLockerConfig* config = FLootLockerSDKModule::Get().GetSettings();
 	TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
 
-	UE_LOG(LogTemp, Warning, TEXT("Full url is: %s"), *endPoint);
-	UE_LOG(LogTemp, Warning, TEXT("Data is: %s"), *data);
 	Request->SetURL(endPoint);
 
 	ULootLockerPersitentDataHolder::CachedLastEndpointUsed = endPoint;
@@ -76,8 +73,6 @@ void UHttpClient::TokenRefresh(const FResponseCallback onCompleteRequest)
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
 
-	ULootLockerConfig* config = GetMutableDefault<ULootLockerConfig>();
-
 	TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
 
     FEndPoints endpoint = LootLockerGameEndpoints::StartSessionEndpoint;
@@ -92,12 +87,12 @@ void UHttpClient::TokenRefresh(const FResponseCallback onCompleteRequest)
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
 	Request->SetVerb(requestMethod);
 	FAuthenticationRequest authRequest;
-	authRequest.development_mode = config->OnDevelopmentMode;
-	authRequest.game_key = config->LootLockerGameKey;
-	authRequest.game_version = config->GameVersion;
+	authRequest.development_mode = ULootLockerConfig::OnDevelopmentMode;
+	authRequest.game_key = ULootLockerConfig::LootLockerGameKey;
+	authRequest.game_version = ULootLockerConfig::GameVersion;
 
 	authRequest.player_identifier = ULootLockerPersitentDataHolder::CachedPlayerIdentifier;
-	FString platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(config->Platform));
+	FString platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(ULootLockerConfig::Platform));
 
 	authRequest.platform = platform;
 
@@ -107,7 +102,7 @@ void UHttpClient::TokenRefresh(const FResponseCallback onCompleteRequest)
 
 	Request->SetContentAsString(AuthContentString);
 
-	Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, config, this](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
+	Request->OnProcessRequestComplete().BindLambda([onCompleteRequest,  this](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
 		{
 			const FString ResponseString = Response->GetContentAsString();
 			FLootLockerResponse response;
@@ -130,7 +125,6 @@ void UHttpClient::TokenRefresh(const FResponseCallback onCompleteRequest)
 			response.ServerError = Response->GetContentAsString();
 			response.success = true;
 			ULootLockerPersitentDataHolder::Token = ResponseStruct.session_token;
-			config->SaveConfig();
 			onCompleteRequest.ExecuteIfBound(response);
 		});
 	Request->ProcessRequest();
@@ -140,8 +134,6 @@ void UHttpClient::TokenRefresh(const FResponseCallback onCompleteRequest)
 void UHttpClient::VerifyRefresh(const FResponseCallback onCompleteRequest)
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
-
-	ULootLockerConfig* config = GetMutableDefault<ULootLockerConfig>();
 
 	TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
 
@@ -154,9 +146,9 @@ void UHttpClient::VerifyRefresh(const FResponseCallback onCompleteRequest)
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
 	Request->SetVerb(requestMethod);
 	FVerificationRequest authRequest;
-	authRequest.key = config->LootLockerGameKey;
+	authRequest.key = ULootLockerConfig::LootLockerGameKey;
 
-	FString platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(config->Platform));
+	FString platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(ULootLockerConfig::Platform));
 
 	authRequest.platform = platform;
 
@@ -168,7 +160,7 @@ void UHttpClient::VerifyRefresh(const FResponseCallback onCompleteRequest)
 
 	Request->SetContentAsString(AuthContentString);
 
-	Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, config, this](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
+	Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
 		{
 			const FString ResponseString = Response->GetContentAsString();
 			FLootLockerResponse response;
@@ -191,7 +183,6 @@ void UHttpClient::VerifyRefresh(const FResponseCallback onCompleteRequest)
 			response.ServerError = Response->GetContentAsString();
 			response.success = true;
 			ULootLockerPersitentDataHolder::Token = ResponseStruct.session_token;
-			config->SaveConfig();
 			onCompleteRequest.ExecuteIfBound(response);
 		});
 	Request->ProcessRequest();
@@ -209,9 +200,7 @@ bool UHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, bool bWasS
 	}
 	else
 	{
-		ULootLockerConfig* config = GetMutableDefault<ULootLockerConfig>();
-
-		if (!config->AllowTokenRefresh)
+		if (!ULootLockerConfig::AllowTokenRefresh)
 		{
 			return false;
 		}
@@ -219,9 +208,9 @@ bool UHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, bool bWasS
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Call failed, trying to get a new token"));
 	
-			if (config->Platform != ELootLockerPlatformType::Steam)
+			if (ULootLockerConfig::Platform != ELootLockerPlatformType::Steam)
 			{
-				refreshCompleteRequest = FResponseCallback::CreateLambda([this, config](FLootLockerResponse response)
+				refreshCompleteRequest = FResponseCallback::CreateLambda([this](FLootLockerResponse response)
 					{
 						if (response.success)
 						{
@@ -243,14 +232,14 @@ bool UHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, bool bWasS
 			}
 			else
 			{
-				verifyRefreshCompleteRequest = FResponseCallback::CreateLambda([this, config](FLootLockerResponse response)
+				verifyRefreshCompleteRequest = FResponseCallback::CreateLambda([this](FLootLockerResponse VerifyResponse)
 					{
-						if (response.success)
+						if (VerifyResponse.success)
 						{
 							//On succesfful token refresh
-							refreshCompleteRequest = FResponseCallback::CreateLambda([this, config](FLootLockerResponse response)
+							refreshCompleteRequest = FResponseCallback::CreateLambda([this](FLootLockerResponse RefreshResponse)
 								{
-									if (response.success)
+									if (RefreshResponse.success)
 									{
 										SendApi(ULootLockerPersitentDataHolder::CachedLastEndpointUsed, ULootLockerPersitentDataHolder::CachedLastRequestTypeUsed, ULootLockerPersitentDataHolder::CachedLastDataSentToServer, savedOnCompleteRequest, true);
 									}
@@ -297,7 +286,6 @@ void UHttpClient::UploadFile(const FString& endPoint, const FString& requestType
     FHttpModule* HttpModule = &FHttpModule::Get();
     TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
 
-    UE_LOG(LogTemp, Warning, TEXT("Full url is: %s"), *endPoint);
     Request->SetURL(endPoint);
 
     ULootLockerPersitentDataHolder::CachedLastEndpointUsed = endPoint;

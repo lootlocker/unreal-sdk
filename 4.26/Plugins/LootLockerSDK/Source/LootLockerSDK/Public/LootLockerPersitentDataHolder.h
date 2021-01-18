@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "LootLockerConfig.h"
 #include "LootLockerPersitentDataHolder.generated.h"
+
 
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerPersitentDataHolder : public UObject
@@ -17,6 +19,6 @@ public:
 	static FString CachedLastDataSentToServer;
 	static FString CachedSteamToken;
     static FString CachedPlayerIdentifier;
-
     static FString AdminToken;
+
 };

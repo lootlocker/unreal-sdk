@@ -4,12 +4,12 @@
 
 #include "AdminAPI/LootLockerAdminEndpoints.h"
 #include "Utils/LootLockerUtilities.h"
-
+#if WITH_EDITOR
 #include "Developer/DesktopPlatform/Public/IDesktopPlatform.h"
 #include "Developer/DesktopPlatform/Public/DesktopPlatformModule.h"
 #include "EditorDirectories.h"
 #include "Framework/Application/SlateApplication.h"
-
+#endif
 FResponseCallback UAdminFilesRequestHandler::sessionResponse = nullptr;
 UHttpClient* UAdminFilesRequestHandler::HttpClient = NewObject<UHttpClient>();
 
@@ -159,12 +159,14 @@ void UAdminFilesRequestHandler::DeleteFile(int GameId, int FileId, const FLootLo
 
 void UAdminFilesRequestHandler::ShowFilePicker(const FString& DialogTitle, TArray<FString>& OutFileNames)
 {
-    const void* ParentWindowHandle = FSlateApplication::Get().FindBestParentWindowHandleForDialogs(nullptr);
-    IDesktopPlatform* DesktopPlatform = FDesktopPlatformModule::Get();
-    if (DesktopPlatform)
-    {
-        //Opening the file picker!
-        uint32 SelectionFlag = 0; //A value of 0 represents single file selection while a value of 1 represents multiple file selection
-        DesktopPlatform->OpenFileDialog(ParentWindowHandle, DialogTitle, FEditorDirectories::Get().GetLastDirectory(ELastDirectory::GENERIC_IMPORT), FString(""), FString(""), SelectionFlag, OutFileNames);
-    }
+#if WITH_EDITOR
+    //const void* ParentWindowHandle = FSlateApplication::Get().FindBestParentWindowHandleForDialogs(nullptr);
+    //IDesktopPlatform* DesktopPlatform = FDesktopPlatformModule::Get();
+    //if (DesktopPlatform)
+    //{
+    //    //Opening the file picker!
+    //    uint32 SelectionFlag = 0; //A value of 0 represents single file selection while a value of 1 represents multiple file selection
+    //    DesktopPlatform->OpenFileDialog(ParentWindowHandle, DialogTitle, FEditorDirectories::Get().GetLastDirectory(ELastDirectory::GENERIC_IMPORT), FString(""), FString(""), SelectionFlag, OutFileNames);
+    //}
+#endif
 }

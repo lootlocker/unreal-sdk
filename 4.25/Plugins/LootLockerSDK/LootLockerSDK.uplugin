@@ -6,12 +6,12 @@
     "VersionName": "1.0.0",
     "CreatedBy": "LootLocker",
     "CreatedByURL": "https://www.lootlocker.io/",
-    "DocsURL": "https://www.lootlocker.io/documentation/",
+    "DocsURL": "https://docs.lootlocker.io/",
     "SupportURL": "https://discord.lootlocker.io/",
     "Category": "LootLocker",
     "Description": "LootLocker Marketplace plugin for Unreal Engine 4.25 Current API version: 1.0.0",
     "MarketplaceURL": "",
-    "Installed": false,
+    "Installed": true,
     "IsExperimentalVersion": false,
     "CanContainContent": true,
     "Modules": [
@@ -19,7 +19,7 @@
         "Name": "LootLockerSDK",
         "Type": "Runtime",
         "LoadingPhase": "Default",
-        "WhitelistPlatforms": [ "Win64", "Win32", "Mac", "IOS", "Android", "PS4", "XboxOne", "Switch" ]
+        "WhitelistPlatforms": [ "Win64", "Win32", "Mac", "Android", "PS4",IOS ,"XboxOne", "Switch" ]
       }
     ]
 }

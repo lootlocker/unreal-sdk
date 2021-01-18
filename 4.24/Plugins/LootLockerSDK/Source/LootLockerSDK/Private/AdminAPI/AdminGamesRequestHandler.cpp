@@ -162,8 +162,7 @@ void UAdminGamesRequestHandler::DeleteGame(int GameId, const FLootLockerResponse
 void UAdminGamesRequestHandler::SaveGameKey(const FString& Key)
 {
 #if WITH_EDITOR
-    ULootLockerConfig* config = FLootLockerSDKModule::Get().GetSettings();
-    config->LootLockerGameKey = Key;
+    ULootLockerConfig::LootLockerGameKey = Key;
 #else
     UE_LOG(LogTemp, Warning, TEXT("SaveGameKey: Admin API calls are only allowed in Editor"));
 #endif

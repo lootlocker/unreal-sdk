@@ -7,7 +7,16 @@
 		{
 			"Name": "DemoProject",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine"
+			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "LootLockerSDK",
+			"Enabled": true
 		}
 	]
 }
