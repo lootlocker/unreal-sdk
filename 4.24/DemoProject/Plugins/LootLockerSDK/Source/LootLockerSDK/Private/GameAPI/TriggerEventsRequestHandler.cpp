@@ -1,4 +1,4 @@
-// Copyright (c) 2020 LootLocker
+// Copyright (c) 2021 LootLocker
 
 #include "GameAPI/TriggerEventsRequestHandler.h"
 #include "LootLockerGameEndpoints.h"

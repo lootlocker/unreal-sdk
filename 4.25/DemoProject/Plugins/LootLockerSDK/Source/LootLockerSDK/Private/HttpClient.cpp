@@ -1,4 +1,4 @@
-// Copyright (c) 2020 LootLocker
+// Copyright (c) 2021 LootLocker
 
 
 #include "HttpClient.h"
@@ -17,7 +17,7 @@ UHttpClient::UHttpClient()
 void UHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, bool useHeader, bool useAdmin)
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
-	TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
+	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = HttpModule->CreateRequest();
 
 	Request->SetURL(endPoint);
 
@@ -73,7 +73,7 @@ void UHttpClient::TokenRefresh(const FResponseCallback onCompleteRequest)
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
 
-	TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
+	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = HttpModule->CreateRequest();
 
     FEndPoints endpoint = LootLockerGameEndpoints::StartSessionEndpoint;
 	FString Endpoint = endpoint.endpoint;
@@ -135,7 +135,7 @@ void UHttpClient::VerifyRefresh(const FResponseCallback onCompleteRequest)
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
 
-	TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
+	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = HttpModule->CreateRequest();
 
     FEndPoints endpoint = LootLockerGameEndpoints::VerifyPlayerIdEndPoint;
 	FString Endpoint = endpoint.endpoint;
@@ -284,7 +284,7 @@ bool UHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, bool bWasS
 void UHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString> AdditionalFields, const FResponseCallback& onCompleteRequest, bool useHeader, bool useAdmin)
 {
     FHttpModule* HttpModule = &FHttpModule::Get();
-    TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
+	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = HttpModule->CreateRequest();
 
     Request->SetURL(endPoint);
 

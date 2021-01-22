@@ -10,7 +10,7 @@
     "SupportURL": "https://discord.lootlocker.io/",
     "Category": "LootLocker",
     "Description": "LootLocker Marketplace plugin for Unreal Engine 4.26 Current API version: 1.0.0",
-    "MarketplaceURL": "",
+    "MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/cebab7d09d1c4721bd90375068beb750",
     "Installed": false,
     "IsExperimentalVersion": false,
     "CanContainContent": false,
@@ -19,7 +19,7 @@
         "Name": "LootLockerSDK",
         "Type": "Runtime",
         "LoadingPhase": "Default",
-        "WhitelistPlatforms": [ "Win64", "Win32", "Mac", "Android",IOS ,"PS4", "XboxOne", "Switch" ]
+        "WhitelistPlatforms": [ "Win64", "Win32", "Mac", "Android","IOS" ,"PS4", "XboxOne", "Switch" ]
       }
     ]
 }

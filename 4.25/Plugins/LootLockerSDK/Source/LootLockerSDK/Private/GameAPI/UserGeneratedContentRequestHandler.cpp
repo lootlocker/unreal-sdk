@@ -1,4 +1,4 @@
-// Copyright (c) 2020 LootLocker
+// Copyright (c) 2021 LootLocker
 
 #include "GameAPI/UserGeneratedContentRequestHandler.h"
 #include "Misc/FileHelper.h"
