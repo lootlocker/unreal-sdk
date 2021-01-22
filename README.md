@@ -26,8 +26,6 @@ Full Documentation can be found on https://docs.lootlocker.io/
 
 Every response inherits from the LootLockerResponse.
 
-
-
 ``` cpp
     struct FLootLockerResponse
     {
@@ -103,13 +101,34 @@ From the example above you can get the data from the JSON without worrying about
 
 #### Authentication With Steam
 
-Please read over the quickstart guide for how to use the verify calls
+If you are working with steam, you need some extra setup to have access with steam.
+Please follow the instructions found here 
+https://docs.unrealengine.com/en-US/ProgrammingAndScripting/Online/Steam/index.html
 
+Once you have completed this, you should be able to access the online subsystem to get access to SteamIdentityToken with the example code below
+
+```cpp
+
+FString IdentityToken = OnlineSub->GetIdentityInterface()->GetAuthToken(0);
+ULootLockerSDKManager::VerifyPlayer(IdentityToken, FLootLockerDefaultAuthenticationResponse::CreateUObject(this, &ADemoAuthentication::OnVerifyPlayerCompleted));
+   
+   void ADemoAuthentication::OnVerifyPlayerCompleted(FAuthenticationDefaultResponse Response)
+{
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnVerifyPlayer Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnVerifyPlayer Failed"));
+    }
+}
+```
 
 ```cpp
 void ADemoAuthentication::DemoVerifyPlayer()
 {
-    ULootLockerSDKManager::VerifyPlayer(SteamToken, FLootLockerDefaultAuthenticationResponse::CreateUObject(this, &ADemoAuthentication::OnVerifyPlayerCompleted));
+    ULootLockerSDKManager::VerifyPlayer(IdentityToken, FLootLockerDefaultAuthenticationResponse::CreateUObject(this, &ADemoAuthentication::OnVerifyPlayerCompleted));
 }
 
 void ADemoAuthentication::OnVerifyPlayerCompleted(FAuthenticationDefaultResponse Response)
