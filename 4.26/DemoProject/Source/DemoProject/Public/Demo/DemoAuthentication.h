@@ -8,6 +8,7 @@
 
 #include "DemoAuthentication.generated.h"
 
+
 UCLASS()
 class DEMOPROJECT_API ADemoAuthentication : public AActor
 {
@@ -31,7 +32,8 @@ public:
     void OnStartSessionCompleted(FAuthenticationResponse Response);
     void OnVerifyPlayerCompleted(FAuthenticationDefaultResponse Response);
     void OnEndSessionCompleted(FAuthenticationDefaultResponse Response);
-    
+    static FString GetSteamIdentityToken();
+
     
 private:
     ULootLockerSDKManager* LootLockerManager;

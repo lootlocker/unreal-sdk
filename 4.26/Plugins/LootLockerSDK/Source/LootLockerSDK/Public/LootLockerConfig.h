@@ -1,4 +1,4 @@
-// Copyright (c) 2020 LootLocker
+// Copyright (c) 2021 LootLocker
 
 #pragma once
 
@@ -69,7 +69,7 @@ struct FLootLockerGetRequests
 	TArray<FStringFormatArg> args;
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FResponseCallbackBP, FLootLockerResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FResponseCallbackBP, FLootLockerResponse, Response);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerResponseCallback, FLootLockerResponse, Response);
 DECLARE_DELEGATE_OneParam(FResponseCallback, FLootLockerResponse);
 

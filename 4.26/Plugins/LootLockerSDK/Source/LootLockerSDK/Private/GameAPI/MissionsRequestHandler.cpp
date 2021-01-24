@@ -1,4 +1,4 @@
-// Copyright (c) 2020 LootLocker
+// Copyright (c) 2021 LootLocker
 
 #include "GameAPI/MissionsRequestHandler.h"
 #include "Utils/LootLockerUtilities.h"
@@ -38,7 +38,7 @@ void UMissionsRequestHandler::GetAllMissions(const FMissionsResponseDelegateBP& 
                 UE_LOG(LogTemp, Error, TEXT("GetAllMissions failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -70,7 +70,7 @@ void UMissionsRequestHandler::GetMission(int MissionId, const FMissionResponseDe
                 UE_LOG(LogTemp, Error, TEXT("GetMission failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -97,7 +97,7 @@ void UMissionsRequestHandler::StartMission(int MissionId, const FStartMissionRes
                 UE_LOG(LogTemp, Error, TEXT("StartMission failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -124,7 +124,7 @@ void UMissionsRequestHandler::FinishMission(int MissionId, const FFinishMissionD
                 UE_LOG(LogTemp, Error, TEXT("FinishMission failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 

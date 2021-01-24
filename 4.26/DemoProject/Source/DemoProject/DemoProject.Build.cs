@@ -12,7 +12,6 @@ public class DemoProject : ModuleRules
 
 		PrivateDependencyModuleNames.AddRange(new string[] { "Http", "Json", "JsonUtilities" });
 
-
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
 		// Uncomment if you are using Slate UI

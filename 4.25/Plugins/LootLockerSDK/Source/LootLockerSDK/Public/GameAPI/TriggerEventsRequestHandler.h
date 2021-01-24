@@ -29,8 +29,8 @@ struct FTriggersResponse : public FLootLockerResponse {
     TArray<FString> triggers;
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTriggerEventResponseDelegateBP, FTriggerEventResponse, Value);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTriggersResponseDelegateBP, FTriggersResponse, Value);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FTriggerEventResponseDelegateBP, FTriggerEventResponse, Value);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FTriggersResponseDelegateBP, FTriggersResponse, Value);
 DECLARE_DELEGATE_OneParam(FTriggerEventResponseDelegate, FTriggerEventResponse);
 DECLARE_DELEGATE_OneParam(FTriggersResponseDelegate, FTriggersResponse);
 

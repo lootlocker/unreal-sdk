@@ -25,7 +25,7 @@ void UMapsRequestHandler::GetMaps(const FGetMapsResponseDelegateBP& OnCompletedR
                 UE_LOG(LogTemp, Error, TEXT("GetMaps failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 

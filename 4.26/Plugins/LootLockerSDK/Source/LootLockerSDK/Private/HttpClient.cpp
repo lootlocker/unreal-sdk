@@ -1,4 +1,4 @@
-// Copyright (c) 2020 LootLocker
+// Copyright (c) 2021 LootLocker
 
 
 #include "HttpClient.h"
@@ -17,8 +17,11 @@ UHttpClient::UHttpClient()
 void UHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, bool useHeader, bool useAdmin)
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
+#if ENGINE_MINOR_VERSION < 26
+	TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
+#else
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = HttpModule->CreateRequest();
-
+#endif
 	Request->SetURL(endPoint);
 
 	ULootLockerPersitentDataHolder::CachedLastEndpointUsed = endPoint;
@@ -73,7 +76,11 @@ void UHttpClient::TokenRefresh(const FResponseCallback onCompleteRequest)
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
 
+#if ENGINE_MINOR_VERSION < 26
+	TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
+#else
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = HttpModule->CreateRequest();
+#endif
 
     FEndPoints endpoint = LootLockerGameEndpoints::StartSessionEndpoint;
 	FString Endpoint = endpoint.endpoint;
@@ -135,7 +142,11 @@ void UHttpClient::VerifyRefresh(const FResponseCallback onCompleteRequest)
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
 
+#if ENGINE_MINOR_VERSION < 26
+	TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
+#else
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = HttpModule->CreateRequest();
+#endif
 
     FEndPoints endpoint = LootLockerGameEndpoints::VerifyPlayerIdEndPoint;
 	FString Endpoint = endpoint.endpoint;
@@ -284,7 +295,11 @@ bool UHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, bool bWasS
 void UHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString> AdditionalFields, const FResponseCallback& onCompleteRequest, bool useHeader, bool useAdmin)
 {
     FHttpModule* HttpModule = &FHttpModule::Get();
+#if ENGINE_MINOR_VERSION < 26
+	TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
+#else
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = HttpModule->CreateRequest();
+#endif
 
     Request->SetURL(endPoint);
 

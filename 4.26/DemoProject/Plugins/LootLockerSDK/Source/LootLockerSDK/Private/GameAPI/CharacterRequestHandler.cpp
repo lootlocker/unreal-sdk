@@ -26,7 +26,7 @@ void UCharacterRequestHandler::GetCharacterLoadout(const FPCharacterLoadoutRespo
 				UE_LOG(LogTemp, Error, TEXT("Get character failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-			OnCompletedRequestBP.Broadcast(ResponseStruct);
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(LootLockerGameEndpoints::GetCharacterLoadoutEndpoint.requestMethod));
@@ -55,7 +55,7 @@ void UCharacterRequestHandler::UpdateCharacter(bool IsDefault, const FString& Na
 				UE_LOG(LogTemp, Error, TEXT("Update character failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-			OnCompletedRequestBP.Broadcast(ResponseStruct);
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
     FEndPoints endpoint = LootLockerGameEndpoints::UpdateCharacterEndpoint;
@@ -85,7 +85,7 @@ void UCharacterRequestHandler::EquipAssetToDefaultCharacter(int InstanceId,const
 				UE_LOG(LogTemp, Error, TEXT("Equip character failed for lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-			OnCompletedRequestBP.Broadcast(ResponseStruct);
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
     FEndPoints endpoint = LootLockerGameEndpoints::EquipAssetToDefaultCharacterEndpoint;
@@ -115,7 +115,7 @@ void UCharacterRequestHandler::EquipAssetToCharacterById(const FLootLockerGetReq
 				UE_LOG(LogTemp, Error, TEXT("equip asset to default character failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-			OnCompletedRequestBP.Broadcast(ResponseStruct);
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
 	TArray<FStringFormatArg> args;
@@ -147,7 +147,7 @@ void UCharacterRequestHandler::UnEquipAssetToDefaultCharacter(int InstanceId, co
 				UE_LOG(LogTemp, Error, TEXT("Equip character failed for lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-			OnCompletedRequestBP.Broadcast(ResponseStruct);
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
     FEndPoints endpoint = LootLockerGameEndpoints::UnEquipAssetToDefaultCharacterEndpoint;
@@ -176,7 +176,7 @@ void UCharacterRequestHandler::UnEquipAssetToCharacterById(const FLootLockerGetR
 				UE_LOG(LogTemp, Error, TEXT("equip asset to default character failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-			OnCompletedRequestBP.Broadcast(ResponseStruct);
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
 
@@ -203,7 +203,7 @@ void UCharacterRequestHandler::GetCurrentLoadoutToDefaultCharacter(const FPChara
 				UE_LOG(LogTemp, Error, TEXT("equip asset to default character failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-			OnCompletedRequestBP.Broadcast(ResponseStruct);
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
 
@@ -229,7 +229,7 @@ void UCharacterRequestHandler::GetOtherPlayersCurrentLoadoutToDefaultCharacter(c
 				UE_LOG(LogTemp, Error, TEXT("equip asset to default character failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-			OnCompletedRequestBP.Broadcast(ResponseStruct);
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
     FEndPoints endpoint = LootLockerGameEndpoints::GetOtherPlayersLoadoutToDefaultCharacterEndpoint;
@@ -254,7 +254,7 @@ void UCharacterRequestHandler::GetEquipableContextsToDefaultCharacter(const FCon
 				UE_LOG(LogTemp, Error, TEXT("equip asset to default character failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-			OnCompletedRequestBP.Broadcast(ResponseStruct);
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
 
@@ -280,7 +280,7 @@ void UCharacterRequestHandler::GetEquipableContextsByCharacterId(const FLootLock
 				UE_LOG(LogTemp, Error, TEXT("equip asset to default character failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-			OnCompletedRequestBP.Broadcast(ResponseStruct);
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
     FEndPoints endpoint = LootLockerGameEndpoints::GetEquippableContextsByCharacterIDEndpoint;

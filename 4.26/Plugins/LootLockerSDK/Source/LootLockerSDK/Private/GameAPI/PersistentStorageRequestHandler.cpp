@@ -1,4 +1,4 @@
-// Copyright (c) 2020 LootLocker
+// Copyright (c) 2021 LootLocker
 
 #include "GameAPI/PersistentStorageRequestHandler.h"
 
@@ -28,7 +28,7 @@ void UPersistentStorageRequestHandler::GetEntirePersistentStorage(const FPersist
                 UE_LOG(LogTemp, Error, TEXT("GetEntirePersistentStorage failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -54,7 +54,7 @@ void UPersistentStorageRequestHandler::GetItemFromPersistentStorage(const FStrin
                 UE_LOG(LogTemp, Error, TEXT("GetItemFromPersistentStorage failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -80,7 +80,7 @@ void UPersistentStorageRequestHandler::AddItemsToPersistentStorage(const TArray<
                 UE_LOG(LogTemp, Error, TEXT("AddItemsToPersistentStorage failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
     
@@ -119,7 +119,7 @@ void UPersistentStorageRequestHandler::DeleteItemFromPersistentStorage(const FSt
                 UE_LOG(LogTemp, Error, TEXT("DeleteItemFromPersistentStorage failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -145,7 +145,7 @@ void UPersistentStorageRequestHandler::GetPlayerPersistentStorage(const FString&
                 UE_LOG(LogTemp, Error, TEXT("DeleteItemFromPersistentStorage failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 

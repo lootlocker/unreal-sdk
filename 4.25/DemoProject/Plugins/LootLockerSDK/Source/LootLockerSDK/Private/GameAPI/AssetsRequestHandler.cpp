@@ -30,7 +30,7 @@ void UAssetsRequestHandler::GetContexts(const FContextDelegateBP& OnCompletedReq
                 UE_LOG(LogTemp, Error, TEXT("GetContexts failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -55,7 +55,7 @@ void UAssetsRequestHandler::GetAssets(int StartFromIndex, int ItemsCount, EAsset
                 UE_LOG(LogTemp, Error, TEXT("GetAssets failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -120,7 +120,7 @@ void UAssetsRequestHandler::GetAssetsByIds(const TArray<int>& AssetIds, const FA
                 UE_LOG(LogTemp, Error, TEXT("GetAssetsByIds failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -157,7 +157,7 @@ void UAssetsRequestHandler::GetAssetBones(const FAssetBonesResponseDelegateBP& O
                 UE_LOG(LogTemp, Error, TEXT("GetAssetBones failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -182,7 +182,7 @@ void UAssetsRequestHandler::GetFavouriteAssetIndices(const FGetFavouriteAssetInd
                 UE_LOG(LogTemp, Error, TEXT("GetAssetBones failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -207,7 +207,7 @@ void UAssetsRequestHandler::AddAssetToFavourites(int AssetId, const FGetFavourit
                 UE_LOG(LogTemp, Error, TEXT("GetAssetBones failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -232,7 +232,7 @@ void UAssetsRequestHandler::RemoveAssetFromFavourites(int AssetId, const FGetFav
                 UE_LOG(LogTemp, Error, TEXT("GetAssetBones failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 

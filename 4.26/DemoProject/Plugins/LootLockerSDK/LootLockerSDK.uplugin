@@ -13,13 +13,13 @@
     "MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/cebab7d09d1c4721bd90375068beb750",
     "Installed": false,
     "IsExperimentalVersion": false,
-    "CanContainContent": false,
+    "CanContainContent": true,
     "Modules": [
       {
         "Name": "LootLockerSDK",
         "Type": "Runtime",
         "LoadingPhase": "Default",
-        "WhitelistPlatforms": [ "Win64", "Win32", "Mac", "Android","IOS" ,"PS4", "XboxOne", "Switch" ]
+        "WhitelistPlatforms": [ "Win64", "Win32", "Mac", "Android","PS4","IOS", "XboxOne", "Switch" ]
       }
     ]
 }

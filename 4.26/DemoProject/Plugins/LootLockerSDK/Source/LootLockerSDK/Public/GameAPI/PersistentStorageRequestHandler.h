@@ -48,8 +48,8 @@ public:
     }
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPersistentStorageItemsResponseDelegateBP, FPersistentStorageItemsResponse, Response);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPersistentStorageItemResponseDelegateBP, FPersistentStorageItemResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FPersistentStorageItemsResponseDelegateBP, FPersistentStorageItemsResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FPersistentStorageItemResponseDelegateBP, FPersistentStorageItemResponse, Response);
 DECLARE_DELEGATE_OneParam(FPersistentStorageItemsResponseDelegate, FPersistentStorageItemsResponse);
 DECLARE_DELEGATE_OneParam(FPersistentStorageItemResponseDelegate, FPersistentStorageItemResponse);
 

@@ -94,8 +94,8 @@ struct FEquipUniversalAssetToCharacterRequest {
 	int32 asset_variation_id;
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPCharacterLoadoutResponseBP, FCharacterLoadoutResponse, Var);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPCharacterDefaultResponseBP, FLootLockerResponse, Var);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FPCharacterLoadoutResponseBP, FCharacterLoadoutResponse, Var);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FPCharacterDefaultResponseBP, FLootLockerResponse, Var);
 
 DECLARE_DELEGATE_OneParam(FLootLockerCharacterLoadoutResponse, FCharacterLoadoutResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerCharacterDefaultResponse, FLootLockerResponse);

@@ -13,16 +13,16 @@ USTRUCT(BlueprintType)
 struct FAuthenticationRequest
 {
 	GENERATED_BODY()
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
+		FString game_key;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	FString game_key;
+		FString platform;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	FString platform;
+		FString player_identifier;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	FString player_identifier;
+		FString game_version;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	FString game_version;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	bool development_mode;
+		bool development_mode;
 	FAuthenticationRequest() {}
 };
 
@@ -30,12 +30,12 @@ USTRUCT(BlueprintType)
 struct FVerificationRequest
 {
 	GENERATED_BODY()
+		UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		FString key;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	FString key;
+		FString platform;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	FString platform;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	FString token;
+		FString token;
 	FVerificationRequest() {}
 };
 
@@ -43,14 +43,14 @@ USTRUCT(BlueprintType)
 struct FLevelThresholds
 {
 	GENERATED_BODY()
+		UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		int32 current;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	int32 current;
+		bool current_is_prestige;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	bool current_is_prestige;
+		int32 next;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	int32 next;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	bool next_is_prestige;
+		bool next_is_prestige;
 };
 
 
@@ -58,25 +58,25 @@ USTRUCT(BlueprintType)
 struct FAuthenticationResponse : public FLootLockerResponse
 {
 	GENERATED_BODY()
+		UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		int32 player_id;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	int32 player_id;
+		bool seen_before;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	bool seen_before;
+		bool check_grant_notifications;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	bool check_grant_notifications;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	bool check_deactivation_notifications;
+		bool check_deactivation_notifications;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	int32 xp;
+		int32 xp;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	int32 level;
+		int32 level;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	FLevelThresholds level_thresholds;
+		FLevelThresholds level_thresholds;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	int32 account_balance;
+		int32 account_balance;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	FString session_token;
+		FString session_token;
 public:
 	FAuthenticationResponse()
 	{
@@ -98,8 +98,8 @@ public:
 };
 
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAuthResponseBP, FAuthenticationResponse, AuthVar);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAuthDefaultResponseBP, FAuthenticationDefaultResponse, AuthVar);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FAuthResponseBP, FAuthenticationResponse, Var);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FAuthDefaultResponseBP, FAuthenticationDefaultResponse, AuthVar);
 DECLARE_DELEGATE_OneParam(FLootLockerSessionResponse, FAuthenticationResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerDefaultAuthenticationResponse, FAuthenticationDefaultResponse);
 

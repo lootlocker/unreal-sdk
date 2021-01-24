@@ -25,7 +25,7 @@ void UCollectablesRequestHandler::GetAllCollectables(const FCollectablesResponse
                 UE_LOG(LogTemp, Error, TEXT("GetAllCollectables failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -51,7 +51,7 @@ void UCollectablesRequestHandler::CollectItem(const FCollectItemPayload& Item, c
                 UE_LOG(LogTemp, Error, TEXT("TriggerEvent failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 

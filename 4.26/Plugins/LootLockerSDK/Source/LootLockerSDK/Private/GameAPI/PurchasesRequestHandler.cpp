@@ -1,4 +1,4 @@
-// Copyright (c) 2020 LootLocker
+// Copyright (c) 2021 LootLocker
 
 #include "GameAPI/PurchasesRequestHandler.h"
 
@@ -28,7 +28,7 @@ void UPurchasesRequestHandler::PurchaseAssets(const TArray<FAssetPurchaseData>& 
                 UE_LOG(LogTemp, Error, TEXT("PurchaseAssets failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -67,7 +67,7 @@ void UPurchasesRequestHandler::PurchaseAssetsAndroid(const TArray<FAndroidAssetP
                 UE_LOG(LogTemp, Error, TEXT("PurchaseAssets failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -106,7 +106,7 @@ void UPurchasesRequestHandler::PurchaseAssetsIOS(const TArray<FVerifyPurchaseIos
                 UE_LOG(LogTemp, Error, TEXT("VerifyPurchaseIos failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -145,7 +145,7 @@ void UPurchasesRequestHandler::PollingOrderStatus(int PurchaseId, const FPurchas
                 UE_LOG(LogTemp, Error, TEXT("PollPurchaseStatus failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -172,7 +172,7 @@ void UPurchasesRequestHandler::ActivateRentalAsset(int AssetId, const FActivateR
                 UE_LOG(LogTemp, Error, TEXT("ActivateRentalAsset failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 

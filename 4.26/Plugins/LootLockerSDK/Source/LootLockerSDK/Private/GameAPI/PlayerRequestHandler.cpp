@@ -1,4 +1,4 @@
-// Copyright (c) 2020 LootLocker
+// Copyright (c) 2021 LootLocker
 
 
 #include "GameAPI/PlayerRequestHandler.h"
@@ -27,7 +27,7 @@ void UPlayerRequestHandler::GetPlayerInfo(const FPInfoResponseBP& OnCompletedReq
 				UE_LOG(LogTemp, Error, TEXT("Getting player failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-			OnCompletedRequestBP.Broadcast(ResponseStruct);
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
     FEndPoints Endpoint = LootLockerGameEndpoints::GetPlayerInfoEndPoint;
@@ -52,7 +52,7 @@ void UPlayerRequestHandler::GetInventory(const FPInventoryResponseBP& OnComplete
 				UE_LOG(LogTemp, Error, TEXT("Getting player failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-			OnCompletedRequestBP.Broadcast(ResponseStruct);
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
     FEndPoints Endpoint = LootLockerGameEndpoints::GetPlayerInventoryEndPoint;
@@ -81,7 +81,7 @@ void UPlayerRequestHandler::SubmitXp(int points,const FPSubmitResponseBP& OnComp
 				UE_LOG(LogTemp, Error, TEXT("Getting player failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-			OnCompletedRequestBP.Broadcast(ResponseStruct);
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
     FEndPoints Endpoint = LootLockerGameEndpoints::SubmitXpEndpoint;
@@ -108,7 +108,7 @@ void UPlayerRequestHandler::GetOtherPlayerInfo(FLootLockerGetRequests getRequest
 				UE_LOG(LogTemp, Error, TEXT("Getting player failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-			OnCompletedRequestBP.Broadcast(ResponseStruct);
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
 
@@ -135,7 +135,7 @@ void UPlayerRequestHandler::CheckPlayerAssetNotification(const FPAssetNotificati
 				UE_LOG(LogTemp, Error, TEXT("Getting player failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-			OnCompletedRequestBP.Broadcast(ResponseStruct);
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
 	
@@ -160,7 +160,7 @@ void UPlayerRequestHandler::CheckPlayerAssetDeactivationNotification(const FPAss
 				UE_LOG(LogTemp, Error, TEXT("Getting player failed from lootlocker"));
 			}		
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-			OnCompletedRequestBP.Broadcast(ResponseStruct);
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
 

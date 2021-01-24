@@ -1,4 +1,4 @@
-// Copyright (c) 2020 LootLocker
+// Copyright (c) 2021 LootLocker
 
 #pragma once
 
@@ -69,9 +69,9 @@ struct FOpenLootBoxResponse : public FLootLockerResponse
     bool check_grant_notifications;
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAssetInstanceStorageItemsResponseDelegateBP, FAssetInstanceStorageItemsResponse, Response);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLootBoxContentResponseDelegateBP, FLootBoxContentResponse, Response);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOpenLootBoxResponseDelegateBP, FOpenLootBoxResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FAssetInstanceStorageItemsResponseDelegateBP, FAssetInstanceStorageItemsResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootBoxContentResponseDelegateBP, FLootBoxContentResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FOpenLootBoxResponseDelegateBP, FOpenLootBoxResponse, Response);
 DECLARE_DELEGATE_OneParam(FAssetInstanceStorageItemsResponseDelegate, FAssetInstanceStorageItemsResponse);
 DECLARE_DELEGATE_OneParam(FLootBoxContentResponseDelegate, FLootBoxContentResponse);
 DECLARE_DELEGATE_OneParam(FOpenLootBoxResponseDelegate, FOpenLootBoxResponse);

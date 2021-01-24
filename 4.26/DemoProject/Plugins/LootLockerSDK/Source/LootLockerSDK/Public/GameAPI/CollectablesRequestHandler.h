@@ -80,7 +80,7 @@ struct FCollectablesResponse : public FLootLockerResponse {
     TArray<FLootLockerCollectable> collectables;
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCollectablesResponseDelegateBP, FCollectablesResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FCollectablesResponseDelegateBP, FCollectablesResponse, Response);
 DECLARE_DELEGATE_OneParam(FCollectablesResponseDelegate, FCollectablesResponse);
 
 UCLASS()

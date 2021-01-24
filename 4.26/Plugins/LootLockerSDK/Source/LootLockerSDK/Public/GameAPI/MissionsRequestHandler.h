@@ -1,4 +1,4 @@
-// Copyright (c) 2020 LootLocker
+// Copyright (c) 2021 LootLocker
 
 #pragma once
 
@@ -139,10 +139,10 @@ struct FFinishMissionResponse : public FLootLockerResponse
     bool check_grant_notifications;
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMissionsResponseDelegateBP, FMissionsResponse, Response);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMissionResponseDelegateBP, FMissionResponse, Response);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FStartMissionResponseDelegateBP, FStartMissionResponse, Response);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FFinishMissionResponseDelegateBP, FFinishMissionResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FMissionsResponseDelegateBP, FMissionsResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FMissionResponseDelegateBP, FMissionResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FStartMissionResponseDelegateBP, FStartMissionResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FFinishMissionResponseDelegateBP, FFinishMissionResponse, Response);
 DECLARE_DELEGATE_OneParam(FMissionsResponseDelegate, FMissionsResponse);
 DECLARE_DELEGATE_OneParam(FMissionResponseDelegate, FMissionResponse);
 DECLARE_DELEGATE_OneParam(FStartMissionResponseDelegate, FStartMissionResponse);

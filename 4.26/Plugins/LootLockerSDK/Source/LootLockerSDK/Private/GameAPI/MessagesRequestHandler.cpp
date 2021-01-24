@@ -1,4 +1,4 @@
-// Copyright (c) 2020 LootLocker
+// Copyright (c) 2021 LootLocker
 
 #include "GameAPI/MessagesRequestHandler.h"
 #include "LootLockerGameEndpoints.h"
@@ -25,7 +25,7 @@ void UMessagesRequestHandler::GetMessages(const FMessagesResponseDelegateBP& OnC
                 UE_LOG(LogTemp, Error, TEXT("GetMessages failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 

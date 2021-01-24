@@ -1,4 +1,4 @@
-// Copyright (c) 2020 LootLocker
+// Copyright (c) 2021 LootLocker
 
 #pragma once
 
@@ -60,9 +60,9 @@ struct FActivateRentalAssetResponse : public FLootLockerResponse
     int time_left;
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPurchaseResponseDelegateBP, FPurchaseResponse, Response);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPurchaseStatusResponseDelegateBP, FPurchaseStatusResponse, Response);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FActivateRentalAssetResponseDelegateBP, FActivateRentalAssetResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FPurchaseResponseDelegateBP, FPurchaseResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FPurchaseStatusResponseDelegateBP, FPurchaseStatusResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FActivateRentalAssetResponseDelegateBP, FActivateRentalAssetResponse, Response);
 DECLARE_DELEGATE_OneParam(FPurchaseResponseDelegate, FPurchaseResponse);
 DECLARE_DELEGATE_OneParam(FPurchaseStatusResponseDelegate, FPurchaseStatusResponse);
 DECLARE_DELEGATE_OneParam(FActivateRentalAssetResponseDelegate, FActivateRentalAssetResponse);

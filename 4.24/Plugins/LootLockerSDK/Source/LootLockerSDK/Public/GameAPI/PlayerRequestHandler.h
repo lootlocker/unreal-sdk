@@ -114,13 +114,13 @@ struct FPlayerAssetNotificationResponse : public FLootLockerResponse
 };
 
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPInfoResponseBP, FPlayerInfoResponse, Value);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FPInfoResponseBP, FPlayerInfoResponse, Value);
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPInventoryResponseBP, FInventoryResponse, Value);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FPInventoryResponseBP, FInventoryResponse, Value);
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPSubmitResponseBP, FSubmitXpResponse, Value);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FPSubmitResponseBP, FSubmitXpResponse, Value);
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPAssetNotificationResponseBP, FPlayerAssetNotificationResponse, Value);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FPAssetNotificationResponseBP, FPlayerAssetNotificationResponse, Value);
 
 
 DECLARE_DELEGATE_OneParam(FLootLockerPlayerInformationResponse, FPlayerInfoResponse);

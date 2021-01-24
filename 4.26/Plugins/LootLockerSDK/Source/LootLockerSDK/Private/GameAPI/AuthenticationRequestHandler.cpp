@@ -1,4 +1,4 @@
-// Copyright (c) 2020 LootLocker
+// Copyright (c) 2021 LootLocker
 
 #include "GameAPI/AuthenticationRequestHandler.h"
 #include "LootLockerGameEndpoints.h"
@@ -43,7 +43,7 @@ void UAuthenticationRequestHandler::StartSession(const FString& PlayerId, const 
 			}
 
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-			OnCompletedRequestBP.Broadcast(ResponseStruct);
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
     FEndPoints endpoint = LootLockerGameEndpoints::StartSessionEndpoint;
@@ -76,7 +76,7 @@ void UAuthenticationRequestHandler::VerifyPlayer(const FString& SteamToken, cons
 				UE_LOG(LogTemp, Error, TEXT("Verification failed"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-			OnCompletedRequestBP.Broadcast(ResponseStruct);
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
     FEndPoints endpoint = LootLockerGameEndpoints::VerifyPlayerIdEndPoint;
@@ -101,7 +101,7 @@ void UAuthenticationRequestHandler::EndSession(const FAuthDefaultResponseBP& OnC
 				UE_LOG(LogTemp, Error, TEXT("Session ending failed"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-			OnCompletedRequestBP.Broadcast(ResponseStruct);
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
     FEndPoints endpoint = LootLockerGameEndpoints::EndSessionEndpoint;

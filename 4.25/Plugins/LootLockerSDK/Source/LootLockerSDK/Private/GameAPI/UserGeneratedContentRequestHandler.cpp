@@ -28,7 +28,7 @@ void UUserGeneratedContentRequestHandler::CreateAssetCandidate(const FAssetCandi
                 UE_LOG(LogTemp, Error, TEXT("CreateAssetCandidate failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -55,7 +55,7 @@ void UUserGeneratedContentRequestHandler::UpdateAssetCandidate(int AssetCandidat
                 UE_LOG(LogTemp, Error, TEXT("UpdateAssetCandidate failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -83,7 +83,7 @@ void UUserGeneratedContentRequestHandler::DeleteAssetCandidate(int AssetCandidat
                 UE_LOG(LogTemp, Error, TEXT("DeleteAssetCandidate failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -110,7 +110,7 @@ void UUserGeneratedContentRequestHandler::GetAllAssetCandidates(const FAssetCand
                 UE_LOG(LogTemp, Error, TEXT("GetAllAssetCandidates failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -136,7 +136,7 @@ void UUserGeneratedContentRequestHandler::GetAssetCandidate(int AssetCandidateId
                 UE_LOG(LogTemp, Error, TEXT("GetAssetCandidate failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -163,7 +163,7 @@ void UUserGeneratedContentRequestHandler::AddFileToAssetCandidate(int AssetCandi
             UE_LOG(LogTemp, Error, TEXT("AddFileToAssetCandidate failed from lootlocker"));
         }
         ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-        OnCompletedRequestBP.Broadcast(ResponseStruct);
+        OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
         OnCompletedRequest.ExecuteIfBound(ResponseStruct);
     });
     
@@ -193,7 +193,7 @@ void UUserGeneratedContentRequestHandler::DeleteFileFromAssetCandidate(int Asset
                 UE_LOG(LogTemp, Error, TEXT("DeleteFileFromAssetCandidate failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 

@@ -8,6 +8,7 @@
 #include "UObject/NoExportTypes.h"
 #include "HttpModule.h"
 #include "LootLockerConfig.h"
+#include "Runtime/Launch/Resources/Version.h"
 #include "HttpClient.generated.h"
 
 UCLASS()

@@ -1,4 +1,4 @@
-// Copyright (c) 2020 LootLocker
+// Copyright (c) 2021 LootLocker
 
 #pragma once
 
@@ -97,9 +97,9 @@ enum class EAssetFilePurpose : uint8
     FILE = 2
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCreateAssetCandidateResponseDelegateBP, FCreateAssetCandidateResponse, Response);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAssetCandidateResponseDelegateBP, FAssetCandidateResponse, Response);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAssetCandidatesResponseDelegateBP, FAssetCandidatesResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FCreateAssetCandidateResponseDelegateBP, FCreateAssetCandidateResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FAssetCandidateResponseDelegateBP, FAssetCandidateResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FAssetCandidatesResponseDelegateBP, FAssetCandidatesResponse, Response);
 DECLARE_DELEGATE_OneParam(FCreateAssetCandidateResponseDelegate, FCreateAssetCandidateResponse);
 DECLARE_DELEGATE_OneParam(FAssetCandidateResponseDelegate, FAssetCandidateResponse);
 DECLARE_DELEGATE_OneParam(FAssetCandidatesResponseDelegate, FAssetCandidatesResponse);

@@ -1,4 +1,4 @@
-// Copyright (c) 2020 LootLocker
+// Copyright (c) 2021 LootLocker
 
 #pragma once
 
@@ -54,7 +54,7 @@ struct FGetMapsResponse : public FLootLockerResponse
     TArray<FLootLockerMap> maps;
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FGetMapsResponseDelegateBP, FGetMapsResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FGetMapsResponseDelegateBP, FGetMapsResponse, Response);
 DECLARE_DELEGATE_OneParam(FGetMapsResponseDelegate, FGetMapsResponse);
 
 UCLASS()

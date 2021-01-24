@@ -1,4 +1,4 @@
-// Copyright (c) 2020 LootLocker
+// Copyright (c) 2021 LootLocker
 
 #pragma once
 
@@ -39,7 +39,7 @@ struct FMessagesResponse : public FLootLockerResponse {
     TArray<FLootLockerMessage> messages;
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessagesResponseDelegateBP, FMessagesResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FMessagesResponseDelegateBP, FMessagesResponse, Response);
 DECLARE_DELEGATE_OneParam(FMessagesResponseDelegate, FMessagesResponse);
 
 UCLASS()

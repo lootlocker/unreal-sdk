@@ -25,7 +25,7 @@ void UTriggerEventsRequestHandler::TriggerEvent(const FTriggerEvent& Event, cons
                 UE_LOG(LogTemp, Error, TEXT("TriggerEvent failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -52,7 +52,7 @@ void UTriggerEventsRequestHandler::GetTriggeredEvents(const FTriggersResponseDel
                 UE_LOG(LogTemp, Error, TEXT("GetTriggeredEvents failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 

@@ -25,7 +25,7 @@ void UAssetInstancesRequestHandler::GetAllKeyValuePairsForAssetInstance(const FA
                 UE_LOG(LogTemp, Error, TEXT("GetAllKeyValuePairsForAssetInstance failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -49,7 +49,7 @@ void UAssetInstancesRequestHandler::GetAllKeyValuePairsToAnInstanceForAssetInsta
                 UE_LOG(LogTemp, Error, TEXT("GetAllKeyValuePairsToAnInstanceForAssetInstance failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -74,7 +74,7 @@ void UAssetInstancesRequestHandler::GetAKeyValuePairByIdForAssetInstance(int Ass
                 UE_LOG(LogTemp, Error, TEXT("GetKeyValuePairForAssetInstance failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -100,7 +100,7 @@ void UAssetInstancesRequestHandler::CreateAKeyValuePairForAssetInstance(int Asse
                 UE_LOG(LogTemp, Error, TEXT("CreateStorageItemForAssetInstance failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -127,7 +127,7 @@ void UAssetInstancesRequestHandler::UpdateOneOrMoreKeyValuePairForAssetInstance(
                 UE_LOG(LogTemp, Error, TEXT("UpdateOneOrMoreKeyValuePairForAssetInstance failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -156,7 +156,7 @@ void UAssetInstancesRequestHandler::UpdateAKeyValuePairByIdForAssetInstance(int 
                 UE_LOG(LogTemp, Error, TEXT("UpdateAKeyValuePairByIdForAssetInstance failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -183,7 +183,7 @@ void UAssetInstancesRequestHandler::DeleteAKeyValuePairByIdForAssetInstance(int 
                 UE_LOG(LogTemp, Error, TEXT("DeleteStorageItemForAssetInstance failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -209,7 +209,7 @@ void UAssetInstancesRequestHandler::InspectLootBox(int AssetInstanceId, const FL
                 UE_LOG(LogTemp, Error, TEXT("InspectLootBox failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
@@ -235,7 +235,7 @@ void UAssetInstancesRequestHandler::OpenLootBox(int AssetInstanceId, const FOpen
                 UE_LOG(LogTemp, Error, TEXT("OpenLootBox failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            OnCompletedRequestBP.Broadcast(ResponseStruct);
+            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
 
