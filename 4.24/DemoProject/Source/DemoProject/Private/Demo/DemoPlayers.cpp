@@ -33,6 +33,94 @@ void ADemoPlayers::DemoCheckPlayerAssetDeactivationNotification()
    ULootLockerSDKManager::CheckPlayerAssetDeactivationNotification(FLootLockerAssetNotificationResponse::CreateUObject(this, &ADemoPlayers::OnCheckPlayerAssetDeactivationNotificationCompleted));
 }
 
+void ADemoPlayers::GetCurrencyBalance()
+{
+    ULootLockerSDKManager::GetCurrencyBalance(FPBalanceResponse::CreateUObject(this, &ADemoPlayers::OnGetCurrencyBalance));
+}
+
+void ADemoPlayers::InitiateDLCMigration()
+{
+    ULootLockerSDKManager::InitiateDLCMigration(FResponseCallback::CreateUObject(this, &ADemoPlayers::OnInitiateDlcMigration));
+}
+
+
+void ADemoPlayers::GetDLCsMigration()
+{
+    ULootLockerSDKManager::GetDLCsMigration(FPDlcResponse::CreateUObject(this, &ADemoPlayers::OnGotDlcMigration));
+}
+
+
+void ADemoPlayers::SetProfilePrivate()
+{
+    ULootLockerSDKManager::SetProfilePrivate(FResponseCallback::CreateUObject(this, &ADemoPlayers::OnProfileSetPrivate));
+}
+
+void ADemoPlayers::SetProfilePublic()
+{
+    ULootLockerSDKManager::SetProfilePublic(FResponseCallback::CreateUObject(this, &ADemoPlayers::OnProfileSetPublic));
+}
+
+
+void ADemoPlayers::OnGetCurrencyBalance(FBalanceResponse Response)
+{
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetPlayerInfo Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetPlayerInfo Failed"));
+    }
+}
+
+void ADemoPlayers::OnInitiateDlcMigration(FLootLockerResponse Response)
+{
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetPlayerInfo Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetPlayerInfo Failed"));
+    }
+}
+
+void ADemoPlayers::OnGotDlcMigration(FDlcResponse Response)
+{
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetPlayerInfo Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetPlayerInfo Failed"));
+    }
+}
+
+void ADemoPlayers::OnProfileSetPrivate(FLootLockerResponse Response)
+{
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetPlayerInfo Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetPlayerInfo Failed"));
+    }
+}
+
+void ADemoPlayers::OnProfileSetPublic(FLootLockerResponse Response)
+{
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetPlayerInfo Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetPlayerInfo Failed"));
+    }
+}
+
 void ADemoPlayers::OnGetPlayerInfoCompleted(FPlayerInfoResponse Response)
 {
     if (Response.success)

@@ -47,6 +47,24 @@ void ADemoCharacters::GetEquipableContextsByCharacterId()
    ULootLockerSDKManager::GetEquipableContextsByCharacterId(OtherPlayerId, FContextDelegate::CreateUObject(this, &ADemoCharacters::OnGetEquipableContextsByCharacterIdCompleted));
 }
 
+void ADemoCharacters::UpdateCharacter()
+{
+    ULootLockerSDKManager::UpdateCharacter(IsDefault,CharacterName,FLootLockerCharacterLoadoutResponse::CreateUObject(this, &ADemoCharacters::OnUpdatedCharacterLoadoutCompleted));
+}
+
+
+void ADemoCharacters::OnUpdatedCharacterLoadoutCompleted(FCharacterLoadoutResponse Response)
+{
+    if (Response.success)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetCharacterLoadout Success"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("OnGetCharacterLoadout Failed"));
+    }
+}
+
 void ADemoCharacters::OnGetCharacterLoadoutCompleted(FCharacterLoadoutResponse Response)
 {
     if (Response.success)
