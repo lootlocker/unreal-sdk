@@ -3,26 +3,26 @@ Full Documentation can be found on https://docs.lootlocker.io/
 
 ## Quick Start Guide for Installing from repository
 
-1. Download Repository as Zip or Clone project
-2. Copy the LootLockerSDK folder from the plugins folder for the Unreal Version you intend to use. For example, if you are using Unreal Version 4.26, Navigate to 4.26/Plugins to 
-   find the LootLockerSDK folder.
-3. Create a plugins folder on your Unreal project if it doesnt already exist.
-4. Paste the folder in the plugins folder created.
-5. Return to root project folder.
-6. Right-Click the Unreal Engine Project Launch file and click generate Visual Studio project files or whatever code editor you use
-7. Launch project with the Launch File.
-8. Open Project Build.cs file.
-9. Add "LootLockerSDK" to PublicDependencyModuleNames
-   Example: PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "LootLockerSDK" });
-10. Add "Http", "Json", "JsonUtilities" to the PrivateDependencyModuleNames
-   Example: PrivateDependencyModuleNames.AddRange(new string[] { "Http", "Json", "JsonUtilities" });
-11.You should now have access to the sdk in both your C++ and Blueprint projects.
+ 1. Download the latest Unreal Package Release from the [Github](https://github.com/LootLocker/unreal-sdk/releases) repository.
+ 2. Download Repository as Zip or Clone project
+ 3. Copy the LootLockerSDK folder from the plugins folder equivalent to the Unreal Version you intend to use. For example, if you are using Unreal Version 4.26, Navigate to      4.26/Plugins to find the LootLockerSDK folder.
+ 4. Create a plugins folder in your Unreal project folder if it doesnt already exist.
+ 5. Paste the LootLockerSDK folder into the plugins folder created.
+ 6. Return to root project folder.
+ 7. Right-click the "Unreal Engine Project Launch" file and click "Generate Visual Studio Project Files". 
+ 8. Open .sln of project.
+ 9. Open Project Build.cs file.
+10. Add "LootLockerSDK" to PublicDependencyModuleNames
+    Example: PublicDependencyModuleNames.AddRange(new string\[\] { "Core", "CoreUObject", "Engine", "InputCore", "LootLockerSDK" });
+11. Add "Http", "Json", "JsonUtilities" to the PrivateDependencyModuleNames
+    Example: PrivateDependencyModuleNames.AddRange(new string\[\] { "Http", "Json", "JsonUtilities" });
+12. Open the LootLockerConfig.CPP file located in the plugins folder
+13. Modify the LootLockerGameKey, Platform, Game Version, Development mode and AllowTokenRefresh (set to true if you want the LootLockerSDK to attempt to refresh the token if it expires).
+14. You should now have access to the SDK in both your C++ and Blueprint projects.
 
 
 ## Connecting to the SDK
 ### Using C++
-
-#### Standard Response
 
 Every response inherits from the LootLockerResponse.
 
@@ -45,14 +45,11 @@ Every response inherits from the LootLockerResponse.
 ```
 
 
+In any response coming from the callback of all LootLocker methods, you get the response above. You can get the raw text from “FullTextFromServer”.
 
-In any response coming from the callback of all LootLocker methods, you get the response above. You can get the raw text “FullTextFromServer” and deserialize into any JSON structure that you want.
+#### Example Response
 
-#### Example GetPersistentStorageResponse Response
-
-We also have a class for each response. The response class contains all the variables from any JSON response from all methods. You can see this when checking out the Sample App that comes with the SDK. You can also check the API responses for the JSON response expected.
-
-
+We have a class for each response. The response class contains all the variables from any JSON response from all methods. You can see this when checking out the examples that come with the SDK and comparing them with the API JSON response expected.
 
 ```json
     // Example json
@@ -66,7 +63,6 @@ We also have a class for each response. The response class contains all the vari
         ]
     }
 ```
-
 
 ```cpp
 //Response Class
@@ -96,16 +92,16 @@ struct FPersistentStorageItemsResponse : public FLootLockerResponse
 };
 ```
 
-
-From the example above you can get the data from the JSON without worrying about deserializing yourself.
+#### SDK Configuration
 
 #### Authentication With Steam
 
-If you are working with Steam, you need some extra setup to have access with Steam.
-Please follow the instructions found here 
-https://docs.unrealengine.com/en-US/ProgrammingAndScripting/Online/Steam/index.html
+Using LootLocker with Steam requires "ULootLockerSDKManager::VerifyPlayer" to be the very first call made. After a successful response from this call, you can follow up with the "ULootLockerSDKManager::StartSession". 
 
-Once you have completed this, you should be able to access the online subsystem to get access to SteamIdentityToken with the example code below
+One of the variables required by ULootLockerSDKManager::VerifyPlayer call is the "SteamIdentityToken". You can retrieve this using the sample code found below, but first you have to follow the instructions found [here](https://docs.unrealengine.com/en-US/ProgrammingAndScripting/Online/Steam/index.html).
+
+If you prefer videos, you can follow the guide found [here](https://www.youtube.com/watch?v=4CgeAxiS19s&ab_channel=VictorBurgosGames "here").
+
 
 ```cpp
 
@@ -147,39 +143,7 @@ void ADemoAuthentication::OnVerifyPlayerCompleted(FAuthenticationDefaultResponse
 
 #### Session/Authentication Request
 
-For non-Steam users, first call should be the Session call. You do not need to drag anything into the scene or init the SDK as it does this for you. In order for you to make your very first call, you only need to send the Device ID. You can do the following:
-
-1. Create a new C++ Class.
-2. Copy the script below and paste it there.
-3. The syntax is pretty basic
-   1. ULootLockerSDKManager:  Our sdk manager class, you can view this yourself to see all the functions we support
-   2. StartSession: Function in the sdk you need to call
-   3. DeviceId:  data to send to the sdk to make a session call, this should be unique to the Player. It allows for really fast authentication without the need for a username or password. You can generate a Unique ID for your players and save this somewhere on the device or you can decide to use a device identifier to make sure they can easily retrieve their data anytime the user downloads your app.
-   4. Response: This is a class with all the data from the json
-
-```json
-      {
-
-          "success": true,
-
-          "session_token": "e6fa44946f077dd9fe67311ab3f188c596df9969",
-
-          "player_id": 3,
-
-          "public_uid": "TSEYDXD8",
-
-          "check_grant_notifications": true,
-
-          "check_deactivation_notifications": false,
-
-          "seen_before": true
-
-      }
-```
-
-      This means you can easily do response.success to get the success value from the json response from the server
-4. You need to pass a function that will be called when the response returns back from the server, You will find an example below
-
+For non-steam games, your first call should be "ULootLockerSDKManager::StartSession". This call only requires you to send a "PlayerId". This can be any string you use to identify your players. You should note that you are responsible for keeping this persistent since this is the only way LockerLocker can identify your players. 
 
 ```cpp
 //Example Method
@@ -202,28 +166,28 @@ void ADemoAuthentication::OnStartSessionCompleted(FAuthenticationResponse Respon
 }
 ```
 
-
-Remember you need to have your appropriate header file with the method declared
+Remember you need to have your appropriate header files with the methods declared.
 
 ### Using Blueprint
 #### Connecting to LootLocker
 
 ##### Setting Config
 
-It is important that in your first ever Blueprint class you set the LootLocker configurations. You can skip this step if you completed the set-up documentation. But doing this again has no downsides and gives you more control.
+It is important that in your first ever Blueprint class that your game would run, you set the LootLocker configurations. You can skip this step if you completed the set up documentation, but doing this again has no downsides and gives you more control.
 
-Right click on Blueprint and locate LootLocker Setings. Select Set LootLocker Settings.
+1. Right click on anywhere in the Event Graph and locate LootLocker Settings.
+2. Select "Set LootLocker Settings".
+3. Fill in the info from the LootLocker dashboard. You should already have an account from [https://my.lootlocker.io/login](https://my.lootlocker.io/login "https://my.lootlocker.io/login")
+4. You can now continue with connecting with LootLocker APIs.
 
-Fill in the info from the LootLocker dashboard.
+#### Standard Calls
 
-You can now continue with connecting with LootLocker.
+Every LootLocker Method is static, meaning that you can right click and search for any LootLocker method you wish to use in all Blueprint Event graphs.
 
-##### Standard Calls
+Calls are also put in categories for you to easily access.
 
-Every LootLocker Method is Static that means, in any blueprint. You can right click and search for any method you wish to use. Calls are also put in categories for you to easily access.
+### Subsequent Requests
 
-Please download the demo project available on
+Please download the Sample Project available here https://github.com/LootLocker/unreal-sdk/releases.
 
-https://github.com/LootLocker/unreal-sdk/releases
-
-You can check out sample blueprints examples
+You can check out sample Blueprint examples
