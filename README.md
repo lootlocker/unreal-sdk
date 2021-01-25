@@ -101,7 +101,7 @@ From the example above you can get the data from the JSON without worrying about
 
 #### Authentication With Steam
 
-If you are working with steam, you need some extra setup to have access with steam.
+If you are working with Steam, you need some extra setup to have access with Steam.
 Please follow the instructions found here 
 https://docs.unrealengine.com/en-US/ProgrammingAndScripting/Online/Steam/index.html
 
@@ -147,14 +147,14 @@ void ADemoAuthentication::OnVerifyPlayerCompleted(FAuthenticationDefaultResponse
 
 #### Session/Authentication Request
 
-For non steam users, Making your first call should be the session call, You do not need to drag anything into the scene or init the sdk. It does this for you. In order for you to make your very first call.  You only need to send the device id. You can do the following:
+For non-Steam users, first call should be the Session call. You do not need to drag anything into the scene or init the SDK as it does this for you. In order for you to make your very first call, you only need to send the Device ID. You can do the following:
 
 1. Create a new C++ Class.
 2. Copy the script below and paste it there.
 3. The syntax is pretty basic
    1. ULootLockerSDKManager:  Our sdk manager class, you can view this yourself to see all the functions we support
    2. StartSession: Function in the sdk you need to call
-   3. DeviceId:  data to send to the sdk to make a session call, this should be unique to the player. It allows for really fast authentication without the need for a username or password. You could generate a Unique ID for your players and save this somewhere on the device or you can decide to use a device identifier to make sure anytime the user downloads your app. They can easily retrieve their data.
+   3. DeviceId:  data to send to the sdk to make a session call, this should be unique to the Player. It allows for really fast authentication without the need for a username or password. You can generate a Unique ID for your players and save this somewhere on the device or you can decide to use a device identifier to make sure they can easily retrieve their data anytime the user downloads your app.
    4. Response: This is a class with all the data from the json
 
 ```json
@@ -178,7 +178,7 @@ For non steam users, Making your first call should be the session call, You do n
 ```
 
       This means you can easily do response.success to get the success value from the json response from the server
-4. You need to pass a function that will be called when the response returns back from the server, You will find an example below also
+4. You need to pass a function that will be called when the response returns back from the server, You will find an example below
 
 
 ```cpp
@@ -206,3 +206,24 @@ void ADemoAuthentication::OnStartSessionCompleted(FAuthenticationResponse Respon
 Remember you need to have your appropriate header file with the method declared
 
 ### Using Blueprint
+#### Connecting to LootLocker
+
+##### Setting Config
+
+It is important that in your first ever Blueprint class you set the LootLocker configurations. You can skip this step if you completed the set-up documentation. But doing this again has no downsides and gives you more control.
+
+Right click on Blueprint and locate LootLocker Setings. Select Set LootLocker Settings.
+
+Fill in the info from the LootLocker dashboard.
+
+You can now continue with connecting with LootLocker.
+
+##### Standard Calls
+
+Every LootLocker Method is Static that means, in any blueprint. You can right click and search for any method you wish to use. Calls are also put in categories for you to easily access.
+
+Please download the demo project available on
+
+https://github.com/LootLocker/unreal-sdk/releases
+
+You can check out sample blueprints examples
