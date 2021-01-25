@@ -206,3 +206,24 @@ void ADemoAuthentication::OnStartSessionCompleted(FAuthenticationResponse Respon
 Remember you need to have your appropriate header file with the method declared
 
 ### Using Blueprint
+#### Connecting to LootLocker
+
+##### Setting Config
+
+It is important that in your first ever blueprint class. You set the lootlocker configurations. You can skip this step if you completed the set up documentation. But doing this again has not down sides and gives you more control.
+
+Right click on bluprint and locate LootLocker Setings. Select Set LootLocker Settings.
+
+Fill in the info gotten from the lootlocker dashboard
+
+You can now continue with connecting with lootlocker.
+
+##### Standard Calls
+
+Every LootLocker Method is Static that means, in any blueprint. You can right click and search for any method you wish to use. Calls are also put in categories for you to easily access.
+
+Please download the demo project available on
+
+https://github.com/LootLocker/unreal-sdk/releases
+
+You can check out sample blueprints examples
