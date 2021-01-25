@@ -36,6 +36,21 @@ public:
     
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Authentication")
     void DemoCheckPlayerAssetDeactivationNotification();
+
+    UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Authentication")
+    void GetCurrencyBalance();
+
+    UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Authentication")
+    void InitiateDLCMigration();
+
+    UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Authentication")
+    void GetDLCsMigration();
+
+    UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Authentication")
+    void SetProfilePrivate();
+
+    UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Authentication")
+    void SetProfilePublic();
     
     void OnGetPlayerInfoCompleted(FPlayerInfoResponse Response);
     void OnGetInventoryCompleted(FInventoryResponse Response);
@@ -43,6 +58,12 @@ public:
     void OnGetOtherPlayerInfoCompleted(FPlayerInfoResponse Response);
     void OnCheckPlayerAssetNotificationCompleted(FPlayerAssetNotificationResponse Response);
     void OnCheckPlayerAssetDeactivationNotificationCompleted(FPlayerAssetNotificationResponse Response);
+    void OnGetCurrencyBalance(FBalanceResponse Response);
+    void OnInitiateDlcMigration(FLootLockerResponse Response);
+    void OnGotDlcMigration(FDlcResponse Response);
+    void OnProfileSetPrivate(FLootLockerResponse Response);
+    void OnProfileSetPublic(FLootLockerResponse Response);
+
     
     
 private:

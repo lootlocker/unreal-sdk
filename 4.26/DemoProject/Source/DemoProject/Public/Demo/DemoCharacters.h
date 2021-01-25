@@ -24,6 +24,10 @@ public:
     int AssetVariationId;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
     FString OtherPlayerId;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    bool IsDefault;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    FString CharacterName;
     
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Characters")
     void GetCharacterLoadout();
@@ -51,6 +55,9 @@ public:
     
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Characters")
     void GetEquipableContextsByCharacterId();
+
+    UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Characters")
+    void UpdateCharacter();
     
     void OnGetCharacterLoadoutCompleted(FCharacterLoadoutResponse Response);
     void OnEquipAssetToDefaultCharacterCompleted(FLootLockerResponse Response);
@@ -61,7 +68,8 @@ public:
     void OnGetOtherPlayersCurrentLoadoutToDefaultCharacterCompleted(FCharacterLoadoutResponse Response);
     void OnGetEquipableContextsToDefaultCharacterCompleted(FGetContextResponse Response);
     void OnGetEquipableContextsByCharacterIdCompleted(FGetContextResponse Response);
-    
+    void OnUpdatedCharacterLoadoutCompleted(FCharacterLoadoutResponse Response);
+
     
 private:
     ULootLockerSDKManager* LootLockerManager;

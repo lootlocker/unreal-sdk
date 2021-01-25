@@ -13,6 +13,7 @@ FEndPoints LootLockerGameEndpoints::EndSessionEndpoint = InitEndpoint("v1/sessio
 FEndPoints LootLockerGameEndpoints::GetPlayerInfoEndPoint = InitEndpoint("v1/player/info", ELootLockerHTTPMethod::GET);
 FEndPoints LootLockerGameEndpoints::GetPlayerInventoryEndPoint = InitEndpoint("v1/player/inventory/list", ELootLockerHTTPMethod::GET);
 FEndPoints LootLockerGameEndpoints::SubmitXpEndpoint = InitEndpoint("v1/player/xp", ELootLockerHTTPMethod::POST);
+FEndPoints LootLockerGameEndpoints::GetCurrencyBalance = InitEndpoint("v1/player/balance", ELootLockerHTTPMethod::GET);
 FEndPoints LootLockerGameEndpoints::GetOtherPlayerInfoEndpoint = InitEndpoint("v1/player/score", ELootLockerHTTPMethod::GET);
 FEndPoints LootLockerGameEndpoints::CheckPlayerAssetActivationEndpoint = InitEndpoint("v1/player/notification/assets", ELootLockerHTTPMethod::GET);
 FEndPoints LootLockerGameEndpoints::CheckPlayerAssetDeactivatonEndpoint = InitEndpoint("v1/player/notification/deactivations", ELootLockerHTTPMethod::GET);

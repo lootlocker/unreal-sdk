@@ -60,6 +60,11 @@ void UPlayerRequestHandler::GetInventory(const FPInventoryResponseBP& OnComplete
 	HttpClient->SendApi(Endpoint.endpoint, requestMethod, data, sessionResponse, true);
 }
 
+void UPlayerRequestHandler::GetCurrencyBalance(const FPBalanceResponseBP& onCompletedRequestBP, const FPBalanceResponse& onCompletedRequest )
+{
+
+}
+
 void UPlayerRequestHandler::SubmitXp(int points,const FPSubmitResponseBP& OnCompletedRequestBP, const FLootLockerSubmitXpResponse& OnCompletedRequest)
 {
 	FSubmitXpRequest authRequest;
@@ -169,3 +174,106 @@ void UPlayerRequestHandler::CheckPlayerAssetDeactivationNotification(const FPAss
 	HttpClient->SendApi(Endpoint.endpoint, requestMethod, data, sessionResponse, true);
 }
 
+void UPlayerRequestHandler::InitiateDLCMigration(const FResponseCallbackBP& OnCompletedRequestBP, const FResponseCallback& OnCompletedRequest)
+{
+	FString data;
+
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+		{
+			FLootLockerResponse ResponseStruct;
+			if (response.success)
+			{
+				response.success = true;
+				FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
+			}
+			else {
+				response.success = false;
+				UE_LOG(LogTemp, Error, TEXT("Getting player failed from lootlocker"));
+			}
+			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
+			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
+		});
+
+	FEndPoints Endpoint = LootLockerGameEndpoints::InitiateDLCMigration;
+	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+	HttpClient->SendApi(Endpoint.endpoint, requestMethod, data, sessionResponse, true);
+}
+
+void UPlayerRequestHandler::GetDLCsMigration(const FPDlcResponseBP& OnCompletedRequestBP, const FPDlcResponse& OnCompletedRequest)
+{
+	FString data;
+
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+		{
+			FDlcResponse ResponseStruct;
+			if (response.success)
+			{
+				response.success = true;
+				FJsonObjectConverter::JsonObjectStringToUStruct<FDlcResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
+			}
+			else {
+				response.success = false;
+				UE_LOG(LogTemp, Error, TEXT("Getting player failed from lootlocker"));
+			}
+			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
+			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
+		});
+
+	FEndPoints Endpoint = LootLockerGameEndpoints::InitiateDLCMigration;
+	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+	HttpClient->SendApi(Endpoint.endpoint, requestMethod, data, sessionResponse, true);
+}
+
+void UPlayerRequestHandler::SetProfilePrivate(const FResponseCallbackBP& OnCompletedRequestBP, const FResponseCallback& OnCompletedRequest)
+{
+	FString data;
+
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+		{
+			FLootLockerResponse ResponseStruct;
+			if (response.success)
+			{
+				response.success = true;
+				FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
+			}
+			else {
+				response.success = false;
+				UE_LOG(LogTemp, Error, TEXT("Getting player failed from lootlocker"));
+			}
+			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
+			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
+		});
+
+	FEndPoints Endpoint = LootLockerGameEndpoints::SetProfilePrivate;
+	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+	HttpClient->SendApi(Endpoint.endpoint, requestMethod, data, sessionResponse, true);
+}
+
+void UPlayerRequestHandler::SetProfilePublic(const FResponseCallbackBP& OnCompletedRequestBP, const FResponseCallback& OnCompletedRequest)
+{
+	FString data;
+
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+		{
+			FLootLockerResponse ResponseStruct;
+			if (response.success)
+			{
+				response.success = true;
+				FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
+			}
+			else {
+				response.success = false;
+				UE_LOG(LogTemp, Error, TEXT("Getting player failed from lootlocker"));
+			}
+			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
+			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
+		});
+
+	FEndPoints Endpoint = LootLockerGameEndpoints::SetProfilePublic;
+	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+	HttpClient->SendApi(Endpoint.endpoint, requestMethod, data, sessionResponse, true);
+}

@@ -17,6 +17,7 @@ public:
     static FEndPoints GetPlayerInventoryEndPoint;
     static FEndPoints SubmitXpEndpoint;
     static FEndPoints GetOtherPlayerInfoEndpoint;
+    static FEndPoints GetCurrencyBalance;
     static FEndPoints CheckPlayerAssetActivationEndpoint;
     static FEndPoints CheckPlayerAssetDeactivatonEndpoint;
     static FEndPoints InitiateDLCMigration;

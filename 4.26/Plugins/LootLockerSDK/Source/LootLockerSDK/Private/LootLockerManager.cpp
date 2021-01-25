@@ -47,9 +47,43 @@ void ULootLockerManager::CheckPlayerAssetDeactivationNotification(const FPAssetN
     UPlayerRequestHandler::CheckPlayerAssetDeactivationNotification(OnCheckPlayerAssetDeactivationNotificationRequestCompleted);
 }
 
+void ULootLockerManager::GetCurrencyBalance(const FPBalanceResponseBP& OnGetCurrencyBalance)
+{
+    UPlayerRequestHandler::GetCurrencyBalance(OnGetCurrencyBalance);
+}
+
+
+void ULootLockerManager::InitiateDLCMigration(const FResponseCallbackBP& OnInitiateDlcMigration)
+{
+    UPlayerRequestHandler::InitiateDLCMigration(OnInitiateDlcMigration);
+}
+
+
+void ULootLockerManager::GetDLCsMigration(const FPDlcResponseBP& OnGotDlcMigration)
+{
+    UPlayerRequestHandler::GetDLCsMigration(OnGotDlcMigration);
+}
+
+
+void ULootLockerManager::SetProfilePrivate(const FResponseCallbackBP& OnProfileSetPrivate)
+{
+    UPlayerRequestHandler::SetProfilePrivate(OnProfileSetPrivate);
+}
+
+void ULootLockerManager::SetProfilePublic(const FResponseCallbackBP& OnProfileSetPublic)
+{
+    UPlayerRequestHandler::SetProfilePublic(OnProfileSetPublic);
+}
+
+
 void ULootLockerManager::GetCharacterLoadout(const FPCharacterLoadoutResponseBP& OnGetCharacterLoadoutRequestCompleted)
 {
     UCharacterRequestHandler::GetCharacterLoadout(OnGetCharacterLoadoutRequestCompleted);
+}
+
+void ULootLockerManager::UpdateCharacter(bool isDefault, FString& Name, const FPCharacterLoadoutResponseBP& OnCompletedRequest)
+{
+    UCharacterRequestHandler::UpdateCharacter(isDefault, Name, OnCompletedRequest);
 }
 
 void ULootLockerManager::EquipAssetToDefaultCharacter(int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToDefaultCharacterRequestCompleted)

@@ -111,6 +111,49 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
      static void CheckPlayerAssetDeactivationNotification(const FPAssetNotificationResponseBP& OnCheckPlayerAssetDeactivationNotificationRequestCompleted);
+
+    /**
+    * This endpoint will return the amount of credits the current player have on their account.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    * https://docs.lootlocker.io/game-api/#get-currency-balance
+    */
+    static void GetCurrencyBalance(const FPBalanceResponseBP& OnGetCurrencyBalance);
+
+    /**
+    * This endpoint will initiate a DLC migration for the current player. 5 minutes after calling this endpoint you should issue 
+    * a call to the Player Asset Notifications call, to get the results of the migration, if any.
+    *
+    * https://docs.lootlocker.io/game-api/#initiate-dlc-migration
+    */
+    static void InitiateDLCMigration(const FResponseCallbackBP& OnInitiateDlcMigration);
+
+    /**
+    * This endpoint will return a list of DLC's migrated for the player. The DLC identifiers returned 
+    * will be the ones of the platform the DLC belongs to. The identifier will always be a string, even if the identifier is numeric.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    * https://docs.lootlocker.io/game-api/#get-dlcs-migrated
+    */
+    static void GetDLCsMigration(const FPDlcResponseBP& OnGotDlcMigration);
+
+    /**
+    * This endpoint will set the players profile to private. This means that their 
+    * inventory will not be displayed publicly on Steam and other places.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    * https://docs.lootlocker.io/game-api/#set-profile-private
+    */
+    static void SetProfilePrivate(const FResponseCallbackBP& OnProfileSetPrivate);
+
+    /**
+    * This endpoint will set the players profile to public. This means that their inventory will be 
+    * displayed publicly on Steam and other places.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    * https://docs.lootlocker.io/game-api/#set-profile-public
+    */
+    static void SetProfilePublic(const FResponseCallbackBP& OnProfileSetPublic);
     
     //==================================================
     //Characters
@@ -123,6 +166,14 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
     static void GetCharacterLoadout(const FPCharacterLoadoutResponseBP& OnGetCharacterLoadoutRequestCompleted);
     
+    /**
+    * This endpoint lets you set a character as default, and set the name of the character. None of the parameters are required.
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    * https://docs.lootlocker.io/game-api/#update-character
+    */
+    static void UpdateCharacter(bool isDefault, FString& Name, const FPCharacterLoadoutResponseBP& OnCompletedRequest);
+
     /**
     * Equip an asset to the default character.
     *

@@ -49,10 +49,43 @@ void ULootLockerSDKManager::CheckPlayerAssetDeactivationNotification(const FLoot
 	UPlayerRequestHandler::CheckPlayerAssetDeactivationNotification(FPAssetNotificationResponseBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::GetCurrencyBalance(const FPBalanceResponse& onCompletedRequest)
+{
+    UPlayerRequestHandler::GetCurrencyBalance(FPBalanceResponseBP(), onCompletedRequest);
+}
+
+
+void ULootLockerSDKManager::InitiateDLCMigration(const FResponseCallback& OnCompletedRequest) 
+{
+    UPlayerRequestHandler::InitiateDLCMigration(FResponseCallbackBP(), OnCompletedRequest);
+}
+
+
+void ULootLockerSDKManager::GetDLCsMigration(const FPDlcResponse& OnCompletedRequest) 
+{
+    UPlayerRequestHandler::GetDLCsMigration(FPDlcResponseBP(), OnCompletedRequest);
+}
+
+
+void ULootLockerSDKManager::SetProfilePrivate(const FResponseCallback& OnCompletedRequest) 
+{
+    UPlayerRequestHandler::SetProfilePrivate(FResponseCallbackBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::SetProfilePublic(const FResponseCallback& OnCompletedRequest) 
+{
+    UPlayerRequestHandler::SetProfilePublic(FResponseCallbackBP(), OnCompletedRequest);
+}
+
 //Character
 void ULootLockerSDKManager::GetCharacterLoadout(const FLootLockerCharacterLoadoutResponse& OnCompletedRequest)
 {
 	UCharacterRequestHandler::GetCharacterLoadout(FPCharacterLoadoutResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::UpdateCharacter(bool isDefault, FString& Name, const FLootLockerCharacterLoadoutResponse& OnCompletedRequest)
+{
+    UCharacterRequestHandler::UpdateCharacter(isDefault, Name, FPCharacterLoadoutResponseBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::EquipAssetToDefaultCharacter(int InstanceId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest)
