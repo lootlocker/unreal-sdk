@@ -49,11 +49,11 @@ Every response inherits from the LootLockerResponse class.
 ```
 
 
-In any response coming from the callback of all LootLocker methods, you get the response above. You can get the raw text from “FullTextFromServer”.
+In any response coming from the callbacks of all LootLocker methods, you get the response above. You can get the raw text from “FullTextFromServer”.
 
 #### Example Response
 
-We have a class for each response. The response class contains all the variables from any JSON response from all methods. You can see this when checking out the examples that come with the SDK and comparing them with the API JSON response expected.
+We have a class for each response. The response class contains all the variables from the JSON response of the API request. You can see this when checking out the examples that come with the SDK and comparing them with the API JSON response expected.
 
 ```json
     // Example json
@@ -98,11 +98,14 @@ struct FPersistentStorageItemsResponse : public FLootLockerResponse
 
 #### SDK Configuration
 
+If you want to modify the LootLockerConfig by code, you can do this by calling "ULootLockerConfig::SetLootLockerSettings". This method requires you to pass in your LootLockerGameKey, Platform, Game Version, Development mode and AllowTokenRefresh.
 #### Authentication With Steam
 
-Using LootLocker with Steam requires "ULootLockerSDKManager::VerifyPlayer" to be the very first call made. After a successful response from this call, you can follow up with the "ULootLockerSDKManager::StartSession". 
+API Reference: [https://docs.lootlocker.io/game-api/#player-verification](https://docs.lootlocker.io/game-api/#player-verification "https://docs.lootlocker.io/game-api/#player-verification")
 
-One of the variables required by ULootLockerSDKManager::VerifyPlayer call is the "SteamIdentityToken". You can retrieve this using the sample code found below, but first you have to follow the instructions found [here](https://docs.unrealengine.com/en-US/ProgrammingAndScripting/Online/Steam/index.html).
+Using LootLocker with Steam requires "ULootLockerSDKManager::VerifyPlayer" to be the very first call made. After a successful response from this call, you can follow up with the "ULootLockerSDKManager::StartSession" call.
+
+One of the variables required by ULootLockerSDKManager::VerifyPlayer call is the "SteamIdentityToken". You can retrieve this using the sample code found below, but first you have to follow the instructions found [here](https://docs.unrealengine.com/en-US/ProgrammingAndScripting/Online/Steam/index.html). These instructions tell you how to enable the online subsystems of the Unreal Engine.
 
 If you prefer videos, you can follow the guide found [here](https://www.youtube.com/watch?v=4CgeAxiS19s&ab_channel=VictorBurgosGames "here").
 
@@ -146,6 +149,8 @@ void ADemoAuthentication::OnVerifyPlayerCompleted(FAuthenticationDefaultResponse
 
 
 #### Session/Authentication Request
+
+API Reference: [https://docs.lootlocker.io/game-api/#authentication-request](https://docs.lootlocker.io/game-api/#authentication-request "https://docs.lootlocker.io/game-api/#authentication-request")
 
 For non-steam games, your first call should be "ULootLockerSDKManager::StartSession". This call only requires you to send a "PlayerId". This can be any string you use to identify your players. You should note that you are responsible for keeping this persistent since this is the only way LockerLocker can identify your players. 
 
