@@ -3,28 +3,32 @@ Full Documentation can be found on https://docs.lootlocker.io/
 
 ## Quick Start Guide for Installing from repository
 
- 1. Download the latest Unreal Package Release from the [Github](https://github.com/LootLocker/unreal-sdk/releases) repository.
- 2. Download Repository as Zip or Clone project
- 3. Copy the LootLockerSDK folder from the plugins folder equivalent to the Unreal Version you intend to use. For example, if you are using Unreal Version 4.26, Navigate to      4.26/Plugins to find the LootLockerSDK folder.
- 4. Create a plugins folder in your Unreal project folder if it doesnt already exist.
+ 1. Download the latest Unreal Package release from the [Github](https://github.com/LootLocker/unreal-sdk/releases) repository.
+ 2. Download Repository as a Zip or Clone the project.
+ 3. Copy the LootLockerSDK folder from the plugins folder equivalent to the Unreal Version you intend to use. For example, if you are using Unreal Version 4.26, Navigate to 4.26/Plugins to find the appropriate LootLockerSDK folder.
+ 4. Create a plugins folder in your Unreal project root folder if it doesnt already exist.
  5. Paste the LootLockerSDK folder into the plugins folder created.
- 6. Return to root project folder.
- 7. Right-click the "Unreal Engine Project Launch" file and click "Generate Visual Studio Project Files". 
- 8. Open .sln of project.
- 9. Open Project Build.cs file.
-10. Add "LootLockerSDK" to PublicDependencyModuleNames
+ 6. Return to the root project folder.
+ 7. Right-click on the "Unreal Engine Project Launch" file and click on "Generate Visual Studio Project Files".
+ 8. Open the .sln file of your project.
+ 9. Open your project's Build.cs file.
+10. Add {"LootLockerSDK"} to the PublicDependencyModuleNames list.
+
     Example: PublicDependencyModuleNames.AddRange(new string\[\] { "Core", "CoreUObject", "Engine", "InputCore", "LootLockerSDK" });
-11. Add "Http", "Json", "JsonUtilities" to the PrivateDependencyModuleNames
+11. Add {"Http", "Json", "JsonUtilities"} to the PrivateDependencyModuleNames list.
+
     Example: PrivateDependencyModuleNames.AddRange(new string\[\] { "Http", "Json", "JsonUtilities" });
-12. Open the LootLockerConfig.CPP file located in the plugins folder
-13. Modify the LootLockerGameKey, Platform, Game Version, Development mode and AllowTokenRefresh (set to true if you want the LootLockerSDK to attempt to refresh the token if it expires).
+12. Open the LootLockerConfig.CPP file located in the plugins folder.
+
+13. Modify the LootLockerGameKey, Platform, Game Version, Development mode and AllowTokenRefresh (Set to true if you want the LootLockerSDK to attempt to refresh the token if it expires).
+
 14. You should now have access to the SDK in both your C++ and Blueprint projects.
 
 
 ## Connecting to the SDK
 ### Using C++
 
-Every response inherits from the LootLockerResponse.
+Every response inherits from the LootLockerResponse class.
 
 ``` cpp
     struct FLootLockerResponse
@@ -170,21 +174,21 @@ Remember you need to have your appropriate header files with the methods declare
 
 ### Using Blueprint
 #### Connecting to LootLocker
+#### Setting Config
 
-##### Setting Config
+It is important that in your first ever Blueprint class you set the LootLocker configurations.
 
-It is important that in your first ever Blueprint class that your game would run, you set the LootLocker configurations. You can skip this step if you completed the set up documentation, but doing this again has no downsides and gives you more control.
-
-1. Right click on anywhere in the Event Graph and locate LootLocker Settings.
-2. Select "Set LootLocker Settings".
-3. Fill in the info from the LootLocker dashboard. You should already have an account from [https://my.lootlocker.io/login](https://my.lootlocker.io/login "https://my.lootlocker.io/login")
-4. You can now continue with connecting with LootLocker APIs.
+1. Right click within the Event Graph of your blueprint class and locate "LootLocker Settings" category.
+2. Select "Set LootLocker Settings" in that category.
+3. Fill in the info from the LootLocker dashboard (LootLockerGameKey, Platform, Game Version, Development mode and AllowTokenRefresh). You should already have an account from [https://my.lootlocker.io/login](https://my.lootlocker.io/login "https://my.lootlocker.io/login").
+4. You can now continue with connecting with LootLocker APIs via blueprint.
 
 #### Standard Calls
 
-Every LootLocker Method is static, meaning that you can right click and search for any LootLocker method you wish to use in all Blueprint Event graphs. These methods are also 
-put into categories for you to easily access.
+Every LootLocker Method is static, meaning that you can right click and search for any LootLocker method you wish to use in all Blueprint event graphs. These methods are also put into categories for you to easily access.
 
-### Subsequent Requests
+#### Session/Authentication Request
 
-Please download the Sample Project available here https://github.com/LootLocker/unreal-sdk/releases. There you can check out sample Blueprint examples
+#### Subsequent Requests
+
+Please download the Sample Project available [here](https://github.com/LootLocker/unreal-sdk/releases). There you can check out sample Blueprint examples
