@@ -182,9 +182,8 @@ It is important that in your first ever Blueprint class that your game would run
 
 #### Standard Calls
 
-Every LootLocker Method is static, meaning that you can right click and search for any LootLocker method you wish to use in all Blueprint Event graphs.
-
-Calls are also put in categories for you to easily access.
+Every LootLocker Method is static, meaning that you can right click and search for any LootLocker method you wish to use in all Blueprint Event graphs. These methods are also 
+put into categories for you to easily access.
 
 ### Subsequent Requests
 
