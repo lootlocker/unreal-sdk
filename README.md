@@ -188,6 +188,4 @@ Calls are also put in categories for you to easily access.
 
 ### Subsequent Requests
 
-Please download the Sample Project available here https://github.com/LootLocker/unreal-sdk/releases.
-
-You can check out sample Blueprint examples
+Please download the Sample Project available here https://github.com/LootLocker/unreal-sdk/releases. There you can check out sample Blueprint examples
