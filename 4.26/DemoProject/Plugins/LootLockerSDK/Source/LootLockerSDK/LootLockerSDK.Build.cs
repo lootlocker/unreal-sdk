@@ -37,41 +37,11 @@ public class LootLockerSDK : ModuleRules
                 "Core",
                 "CoreUObject",
                 "Engine",
-                "Slate",
-                "SlateCore",
                 "Http",
                 "Json",
                 "JsonUtilities"
-				//,
-    //            "UnrealEd",
-    //            "Blutility",
-    //            "UMG",
-    //            "UMGEditor",
-    //            "InputCore",
-    //            "Projects",
-    //            "HeadMountedDisplay",
-    //            "DesktopPlatform"
-				// ... add private dependencies that you statically link with here ...
 			}
             );
-
-#if WITH_EDITOR
-		PrivateDependencyModuleNames.AddRange(
-	new string[]
-	{
-		            "UnrealEd",
-                    "Blutility",
-                    "UMG",
-                    "UMGEditor",
-                    "InputCore",
-                    "Projects",
-                    "HeadMountedDisplay",
-                    "DesktopPlatform"
-		// ... add private dependencies that you statically link with here ...
-	}
-
-    );
-#endif
         DynamicallyLoadedModuleNames.AddRange(
             new string[]
             {

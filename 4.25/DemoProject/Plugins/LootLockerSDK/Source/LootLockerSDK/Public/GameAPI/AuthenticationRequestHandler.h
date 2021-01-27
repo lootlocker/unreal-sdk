@@ -13,44 +13,42 @@ USTRUCT(BlueprintType)
 struct FAuthenticationRequest
 {
 	GENERATED_BODY()
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-		FString game_key;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-		FString platform;
+	FString game_key;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-		FString player_identifier;
+	FString platform;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-		FString game_version;
+	FString player_identifier;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-		bool development_mode;
-	FAuthenticationRequest() {}
+	FString game_version;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
+	bool development_mode;
 };
 
 USTRUCT(BlueprintType)
 struct FVerificationRequest
 {
 	GENERATED_BODY()
-		UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		FString key;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		FString platform;
+	FString key;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		FString token;
-	FVerificationRequest() {}
+	FString platform;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FString token;
 };
 
 USTRUCT(BlueprintType)
 struct FLevelThresholds
 {
 	GENERATED_BODY()
-		UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		int32 current;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		bool current_is_prestige;
+	int32 current;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		int32 next;
+	bool current_is_prestige;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		bool next_is_prestige;
+	int32 next;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	bool next_is_prestige;
 };
 
 
@@ -58,30 +56,24 @@ USTRUCT(BlueprintType)
 struct FAuthenticationResponse : public FLootLockerResponse
 {
 	GENERATED_BODY()
-		UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		int32 player_id;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		bool seen_before;
+	int32 player_id;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		bool check_grant_notifications;
+	bool seen_before;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		bool check_deactivation_notifications;
-
+	bool check_grant_notifications;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		int32 xp;
+	bool check_deactivation_notifications;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		int32 level;
+	int32 xp;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		FLevelThresholds level_thresholds;
+	int32 level;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		int32 account_balance;
+	FLevelThresholds level_thresholds;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		FString session_token;
-public:
-	FAuthenticationResponse()
-	{
-
-	}
+	int32 account_balance;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FString session_token;
 };
 
 
@@ -90,11 +82,6 @@ USTRUCT(BlueprintType)
 struct FAuthenticationDefaultResponse : public FLootLockerResponse
 {
 	GENERATED_BODY()
-public:
-	FAuthenticationDefaultResponse()
-	{
-
-	}
 };
 
 

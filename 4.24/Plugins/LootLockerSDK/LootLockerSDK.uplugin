@@ -13,7 +13,7 @@
     "MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/cebab7d09d1c4721bd90375068beb750",
     "Installed": false,
     "IsExperimentalVersion": false,
-    "CanContainContent": true,
+    "CanContainContent": false,
     "Modules": [
       {
         "Name": "LootLockerSDK",
