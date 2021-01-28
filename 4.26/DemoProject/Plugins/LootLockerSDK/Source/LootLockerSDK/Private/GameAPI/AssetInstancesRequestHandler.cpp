@@ -30,7 +30,7 @@ void UAssetInstancesRequestHandler::GetAllKeyValuePairsForAssetInstance(const FA
         });
 
     FString ContentString;
-    FEndPoints Endpoint = LootLockerGameEndpoints::GetAllKeyValuePairsForAssetInstance;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::GetAllKeyValuePairsForAssetInstance;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponseGetKeyValuePairsForAssetInstance, true);
 }
@@ -54,7 +54,7 @@ void UAssetInstancesRequestHandler::GetAllKeyValuePairsToAnInstanceForAssetInsta
         });
 
     FString ContentString;
-    FEndPoints Endpoint = LootLockerGameEndpoints::GetAllKeyValuePairsToAnInstanceForAssetInstance;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::GetAllKeyValuePairsToAnInstanceForAssetInstance;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     FString endpoint = FString::Format(*(Endpoint.endpoint), { AssetInstanceId });
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponseGetKeyValuePairsForAssetInstance, true);
@@ -79,7 +79,7 @@ void UAssetInstancesRequestHandler::GetAKeyValuePairByIdForAssetInstance(int Ass
         });
 
     FString ContentString;
-    FEndPoints Endpoint = LootLockerGameEndpoints::GetAKeyValuePairByIdForAssetInstanceEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::GetAKeyValuePairByIdForAssetInstanceEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     FString endpoint = FString::Format(*(Endpoint.endpoint), { AssetInstanceId, StorageItemId });
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponseGetKeyValuePairForAssetInstance, true);
@@ -106,7 +106,7 @@ void UAssetInstancesRequestHandler::CreateAKeyValuePairForAssetInstance(int Asse
 
     FString ContentString;
     FJsonObjectConverter::UStructToJsonObjectString(FAssetInstanceStorageItem::StaticStruct(), &Item, ContentString, 0, 0);
-    FEndPoints Endpoint = LootLockerGameEndpoints::CreateAKeyValuePairForAssetInstanceEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::CreateAKeyValuePairForAssetInstanceEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     FString endpoint = FString::Format(*(Endpoint.endpoint), { AssetInstanceId });
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponseCreateStorageItemForAssetInstance, true);
@@ -135,7 +135,7 @@ void UAssetInstancesRequestHandler::UpdateOneOrMoreKeyValuePairForAssetInstance(
     FAssetInstanceStorageItems StorageItems;
     StorageItems.storage = Items;
     FJsonObjectConverter::UStructToJsonObjectString(FAssetInstanceStorageItems::StaticStruct(), &StorageItems, ContentString, 0, 0);
-    FEndPoints Endpoint = LootLockerGameEndpoints::UpdateOneOrMoreKeyValuePairForAssetInstanceEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::UpdateOneOrMoreKeyValuePairForAssetInstanceEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     FString endpoint = FString::Format(*(Endpoint.endpoint), { AssetInstanceId });
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponseUpdateStorageItemsForAssetInstance, true);
@@ -162,7 +162,7 @@ void UAssetInstancesRequestHandler::UpdateAKeyValuePairByIdForAssetInstance(int 
 
     FString ContentString;
     FJsonObjectConverter::UStructToJsonObjectString(FAssetInstanceStorageItem::StaticStruct(), &Item, ContentString, 0, 0);
-    FEndPoints Endpoint = LootLockerGameEndpoints::UpdateAKeyValuePairByIdForAssetInstanceEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::UpdateAKeyValuePairByIdForAssetInstanceEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     FString endpoint = FString::Format(*(Endpoint.endpoint), { AssetInstanceId, StorageItemId });
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponseUpdateStorageItemForAssetInstance, true);
@@ -188,7 +188,7 @@ void UAssetInstancesRequestHandler::DeleteAKeyValuePairByIdForAssetInstance(int 
         });
 
     FString ContentString;
-    FEndPoints Endpoint = LootLockerGameEndpoints::DeleteAKeyValuePairByIdForAssetInstanceEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::DeleteAKeyValuePairByIdForAssetInstanceEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     FString endpoint = FString::Format(*(Endpoint.endpoint), { AssetInstanceId, StorageItemId });
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponseDeleteStorageItemForAssetInstance, true);
@@ -214,7 +214,7 @@ void UAssetInstancesRequestHandler::InspectLootBox(int AssetInstanceId, const FL
         });
 
     FString ContentString;
-    FEndPoints Endpoint = LootLockerGameEndpoints::InspectLootBoxEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::InspectLootBoxEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     FString endpoint = FString::Format(*(Endpoint.endpoint), { AssetInstanceId });
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponseInspectLootBox, true);
@@ -240,7 +240,7 @@ void UAssetInstancesRequestHandler::OpenLootBox(int AssetInstanceId, const FOpen
         });
 
     FString ContentString;
-    FEndPoints Endpoint = LootLockerGameEndpoints::OpenLootBoxEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::OpenLootBoxEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     FString endpoint = FString::Format(*(Endpoint.endpoint), { AssetInstanceId });
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponseOpenLootBox, true);

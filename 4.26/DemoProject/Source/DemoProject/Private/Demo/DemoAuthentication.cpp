@@ -4,7 +4,8 @@
 
 FString ADemoAuthentication::GetSteamIdentityToken()
 {
-    FString IdentityToken = "";//OnlineSub->GetIdentityInterface()->GetAuthToken(0);
+    IOnlineSubsystem* OnlineSub = IOnlineSubsystem::Get();
+    FString IdentityToken = OnlineSub->GetIdentityInterface()->GetAuthToken(0);
 	return IdentityToken;
 }
 

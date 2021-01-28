@@ -3,9 +3,12 @@
 #pragma once
 
 #include "LootLockerConfig.h"
+#include "LootLockerGameEndpoints.generated.h"
 
-class LootLockerGameEndpoints
+UCLASS()
+class LOOTLOCKERSDK_API ULootLockerGameEndpoints : public UObject
 {
+    GENERATED_BODY()
 public:
     //Auth
     static FEndPoints StartSessionEndpoint;

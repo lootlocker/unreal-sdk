@@ -30,8 +30,7 @@ void UMapsRequestHandler::GetMaps(const FGetMapsResponseDelegateBP& OnCompletedR
         });
 
     FString ContentString;
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = LootLockerGameEndpoints::GetAllMapsEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::GetAllMapsEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }

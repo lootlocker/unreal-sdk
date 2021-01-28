@@ -84,12 +84,15 @@ public:
         return GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(RequestMethod));
     }
 public:
-	static FString LootLockerGameKey;
-	static ELootLockerPlatformType Platform;
-	static FString GameVersion;
-	static bool OnDevelopmentMode;
-	static bool AllowTokenRefresh;
-public:
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Settings")
-		static void SetLootLockerSettings(FString Key, ELootLockerPlatformType CurrentPlatform, FString Version, bool DevelopmentMode, bool AllowRefresh);
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FString LootLockerGameKey;
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	ELootLockerPlatformType Platform;
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FString GameVersion;
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	bool OnDevelopmentMode;
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	bool AllowTokenRefresh;
+
 };

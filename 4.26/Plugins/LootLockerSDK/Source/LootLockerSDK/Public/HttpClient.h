@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
+#include "LootLockerGameEndpoints.h"
 #include "Interfaces/IHttpRequest.h"
 #include "UObject/NoExportTypes.h"
 #include "HttpModule.h"

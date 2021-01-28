@@ -82,7 +82,9 @@ void UHttpClient::TokenRefresh(const FResponseCallback onCompleteRequest)
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = HttpModule->CreateRequest();
 #endif
 
-    FEndPoints endpoint = LootLockerGameEndpoints::StartSessionEndpoint;
+    
+	
+	FEndPoints endpoint = ULootLockerGameEndpoints::StartSessionEndpoint;
 	FString Endpoint = endpoint.endpoint;
 
 	UE_LOG(LogTemp, Warning, TEXT("refresh Full url is: %s"), *Endpoint);
@@ -94,12 +96,13 @@ void UHttpClient::TokenRefresh(const FResponseCallback onCompleteRequest)
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
 	Request->SetVerb(requestMethod);
 	FAuthenticationRequest authRequest;
-	authRequest.development_mode = ULootLockerConfig::OnDevelopmentMode;
-	authRequest.game_key = ULootLockerConfig::LootLockerGameKey;
-	authRequest.game_version = ULootLockerConfig::GameVersion;
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+	authRequest.development_mode = config->OnDevelopmentMode;
+	authRequest.game_key = config->LootLockerGameKey;
+	authRequest.game_version = config->GameVersion;
 
 	authRequest.player_identifier = ULootLockerPersitentDataHolder::CachedPlayerIdentifier;
-	FString platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(ULootLockerConfig::Platform));
+	FString platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(config->Platform));
 
 	authRequest.platform = platform;
 
@@ -148,7 +151,8 @@ void UHttpClient::VerifyRefresh(const FResponseCallback onCompleteRequest)
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = HttpModule->CreateRequest();
 #endif
 
-    FEndPoints endpoint = LootLockerGameEndpoints::VerifyPlayerIdEndPoint;
+    FEndPoints endpoint = ULootLockerGameEndpoints::VerifyPlayerIdEndPoint;
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	FString Endpoint = endpoint.endpoint;
 	Request->SetURL(Endpoint);
 	Request->SetHeader(TEXT("User-Agent"), TEXT("X-UnrealEngine-Agent"));
@@ -157,9 +161,9 @@ void UHttpClient::VerifyRefresh(const FResponseCallback onCompleteRequest)
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
 	Request->SetVerb(requestMethod);
 	FVerificationRequest authRequest;
-	authRequest.key = ULootLockerConfig::LootLockerGameKey;
+	authRequest.key = config->LootLockerGameKey;
 
-	FString platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(ULootLockerConfig::Platform));
+	FString platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(config->Platform));
 
 	authRequest.platform = platform;
 
@@ -211,7 +215,8 @@ bool UHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, bool bWasS
 	}
 	else
 	{
-		if (!ULootLockerConfig::AllowTokenRefresh)
+		const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+		if (!config->AllowTokenRefresh)
 		{
 			return false;
 		}
@@ -219,7 +224,7 @@ bool UHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, bool bWasS
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Call failed, trying to get a new token"));
 	
-			if (ULootLockerConfig::Platform != ELootLockerPlatformType::Steam)
+			if (config->Platform != ELootLockerPlatformType::Steam)
 			{
 				refreshCompleteRequest = FResponseCallback::CreateLambda([this](FLootLockerResponse response)
 					{

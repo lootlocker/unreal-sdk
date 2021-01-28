@@ -30,8 +30,7 @@ void UMessagesRequestHandler::GetMessages(const FMessagesResponseDelegateBP& OnC
         });
 
     FString ContentString;
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = LootLockerGameEndpoints::GetMessagesEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::GetMessagesEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }

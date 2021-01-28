@@ -34,8 +34,7 @@ void UUserGeneratedContentRequestHandler::CreateAssetCandidate(const FAssetCandi
 
     FString ContentString;
     FJsonObjectConverter::UStructToJsonObjectString(FAssetCandidate::StaticStruct(), &AsssetCandidate, ContentString, 0, 0);
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = LootLockerGameEndpoints::CreateAssetCandidateEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::CreateAssetCandidateEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
@@ -61,8 +60,7 @@ void UUserGeneratedContentRequestHandler::UpdateAssetCandidate(int AssetCandidat
 
     FString ContentString;
     FJsonObjectConverter::UStructToJsonObjectString(FAssetCandidate::StaticStruct(), &AsssetCandidate, ContentString, 0, 0);
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = LootLockerGameEndpoints::UpdateAssetCandidateEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::UpdateAssetCandidateEndpoint;
     FString endpoint = FString::Format(*(Endpoint.endpoint), { AssetCandidateId });
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponse, true);
@@ -88,8 +86,7 @@ void UUserGeneratedContentRequestHandler::DeleteAssetCandidate(int AssetCandidat
         });
 
     FString ContentString;
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = LootLockerGameEndpoints::DeleteAssetCandidateEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::DeleteAssetCandidateEndpoint;
     FString endpoint = FString::Format(*(Endpoint.endpoint), { AssetCandidateId });
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponse, true);
@@ -115,8 +112,7 @@ void UUserGeneratedContentRequestHandler::GetAllAssetCandidates(const FAssetCand
         });
 
     FString ContentString;
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = LootLockerGameEndpoints::GetAllAssetCandidatesEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::GetAllAssetCandidatesEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
@@ -141,8 +137,7 @@ void UUserGeneratedContentRequestHandler::GetAssetCandidate(int AssetCandidateId
         });
 
     FString ContentString;
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = LootLockerGameEndpoints::GetAssetCandidateEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::GetAssetCandidateEndpoint;
     FString endpoint = FString::Format(*(Endpoint.endpoint), { AssetCandidateId });
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponse, true);
@@ -172,7 +167,7 @@ void UUserGeneratedContentRequestHandler::AddFileToAssetCandidate(int AssetCandi
     TMap<FString, FString> AdditionalData;
     AdditionalData.Add("purpose", purpose);
     
-    FEndPoints Endpoint = LootLockerGameEndpoints::AddFileToAssetCandidateEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::AddFileToAssetCandidateEndpoint;
     FString endpoint = FString::Format(*(Endpoint.endpoint), { AssetCandidateId });
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->UploadFile(endpoint, requestMethod, FilePath, AdditionalData, sessionResponse, true);
@@ -198,8 +193,7 @@ void UUserGeneratedContentRequestHandler::DeleteFileFromAssetCandidate(int Asset
         });
 
     FString ContentString;
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = LootLockerGameEndpoints::DeleteFileFromAssetCandidateEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::DeleteFileFromAssetCandidateEndpoint;
     FString endpoint = FString::Format(*(Endpoint.endpoint), { AssetCandidateId, FileId });
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponse, true);

@@ -16,12 +16,12 @@ void UAuthenticationRequestHandler::StartSession(const FString& PlayerId, const 
 {
     ULootLockerPersitentDataHolder::CachedPlayerIdentifier = PlayerId;
 	FAuthenticationRequest authRequest;
-	ULootLockerConfig* config = GetMutableDefault<ULootLockerConfig>();
-	authRequest.development_mode = ULootLockerConfig::OnDevelopmentMode;
-	authRequest.game_key = ULootLockerConfig::LootLockerGameKey;
-	authRequest.game_version = ULootLockerConfig::GameVersion;
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+	authRequest.development_mode = config->OnDevelopmentMode;
+	authRequest.game_key = config->LootLockerGameKey;
+	authRequest.game_version = config->GameVersion;
 	authRequest.player_identifier = PlayerId;
-	FString platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(ULootLockerConfig::Platform));
+	FString platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(config->Platform));
 	authRequest.platform = platform;
 	FString AuthContentString;
 	FJsonObjectConverter::UStructToJsonObjectString(FAuthenticationRequest::StaticStruct(), &authRequest, AuthContentString, 0, 0);
@@ -33,7 +33,6 @@ void UAuthenticationRequestHandler::StartSession(const FString& PlayerId, const 
 			{
 				FJsonObjectConverter::JsonObjectStringToUStruct<FAuthenticationResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
 				ULootLockerPersitentDataHolder::Token = ResponseStruct.session_token;
-				config->SaveConfig();
 				ResponseStruct.success = true;
 			}
 			else
@@ -46,7 +45,7 @@ void UAuthenticationRequestHandler::StartSession(const FString& PlayerId, const 
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
-    FEndPoints endpoint = LootLockerGameEndpoints::StartSessionEndpoint;
+    FEndPoints endpoint = ULootLockerGameEndpoints::StartSessionEndpoint;
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
 	HttpClient->SendApi(endpoint.endpoint, requestMethod, AuthContentString, sessionResponse);
 }
@@ -55,8 +54,9 @@ void UAuthenticationRequestHandler::VerifyPlayer(const FString& SteamToken, cons
 {
 	FVerificationRequest authRequest;
 	authRequest.token = SteamToken;
-	authRequest.key = ULootLockerConfig::LootLockerGameKey;
-	FString platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(ULootLockerConfig::Platform));
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+	authRequest.key = config->LootLockerGameKey;
+	FString platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(config->Platform));
 	authRequest.platform = platform;
 	ULootLockerPersitentDataHolder::CachedSteamToken = SteamToken;
 	FString AuthContentString;
@@ -79,7 +79,7 @@ void UAuthenticationRequestHandler::VerifyPlayer(const FString& SteamToken, cons
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
-    FEndPoints endpoint = LootLockerGameEndpoints::VerifyPlayerIdEndPoint;
+    FEndPoints endpoint = ULootLockerGameEndpoints::VerifyPlayerIdEndPoint;
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
 	HttpClient->SendApi(endpoint.endpoint, requestMethod, AuthContentString, verifyResponse);
 }
@@ -104,7 +104,7 @@ void UAuthenticationRequestHandler::EndSession(const FAuthDefaultResponseBP& OnC
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
-    FEndPoints endpoint = LootLockerGameEndpoints::EndSessionEndpoint;
+    FEndPoints endpoint = ULootLockerGameEndpoints::EndSessionEndpoint;
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
 	HttpClient->SendApi(endpoint.endpoint, requestMethod, AuthContentString, endSessionResponse);
 }

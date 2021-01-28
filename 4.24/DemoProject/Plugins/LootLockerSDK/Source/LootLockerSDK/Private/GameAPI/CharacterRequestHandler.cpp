@@ -29,8 +29,8 @@ void UCharacterRequestHandler::GetCharacterLoadout(const FPCharacterLoadoutRespo
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
-	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(LootLockerGameEndpoints::GetCharacterLoadoutEndpoint.requestMethod));
-	HttpClient->SendApi(LootLockerGameEndpoints::GetCharacterLoadoutEndpoint.endpoint, requestMethod, data, sessionResponse, true);
+	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(ULootLockerGameEndpoints::GetCharacterLoadoutEndpoint.requestMethod));
+	HttpClient->SendApi(ULootLockerGameEndpoints::GetCharacterLoadoutEndpoint.endpoint, requestMethod, data, sessionResponse, true);
 }
 
 void UCharacterRequestHandler::UpdateCharacter(bool IsDefault, const FString& Name, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP, const FLootLockerCharacterLoadoutResponse& OnCompletedRequest)
@@ -58,7 +58,7 @@ void UCharacterRequestHandler::UpdateCharacter(bool IsDefault, const FString& Na
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
-    FEndPoints endpoint = LootLockerGameEndpoints::UpdateCharacterEndpoint;
+    FEndPoints endpoint = ULootLockerGameEndpoints::UpdateCharacterEndpoint;
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
 	HttpClient->SendApi(endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
@@ -88,7 +88,7 @@ void UCharacterRequestHandler::EquipAssetToDefaultCharacter(int InstanceId,const
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
-    FEndPoints endpoint = LootLockerGameEndpoints::EquipAssetToDefaultCharacterEndpoint;
+    FEndPoints endpoint = ULootLockerGameEndpoints::EquipAssetToDefaultCharacterEndpoint;
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
 	HttpClient->SendApi(endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
@@ -119,7 +119,7 @@ void UCharacterRequestHandler::EquipAssetToCharacterById(const FLootLockerGetReq
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
 	TArray<FStringFormatArg> args;
-    FEndPoints endpoint = LootLockerGameEndpoints::EquipAssetToDefaultCharacterEndpoint;
+    FEndPoints endpoint = ULootLockerGameEndpoints::EquipAssetToDefaultCharacterEndpoint;
 	FString newEndpoint = FString::Format(*endpoint.endpoint, GetRequests.args);
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
 	HttpClient->SendApi(newEndpoint, requestMethod, ContentString, sessionResponse, true);
@@ -150,7 +150,7 @@ void UCharacterRequestHandler::UnEquipAssetToDefaultCharacter(int InstanceId, co
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
-    FEndPoints endpoint = LootLockerGameEndpoints::UnEquipAssetToDefaultCharacterEndpoint;
+    FEndPoints endpoint = ULootLockerGameEndpoints::UnEquipAssetToDefaultCharacterEndpoint;
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
 	HttpClient->SendApi(endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
@@ -180,7 +180,7 @@ void UCharacterRequestHandler::UnEquipAssetToCharacterById(const FLootLockerGetR
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
 
-    FEndPoints endpoint = LootLockerGameEndpoints::UnEquipAssetToCharacterByIdEndpoint;
+    FEndPoints endpoint = ULootLockerGameEndpoints::UnEquipAssetToCharacterByIdEndpoint;
 	FString newEndpoint = FString::Format(*endpoint.endpoint, GetRequests.args);
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
 	HttpClient->SendApi(newEndpoint, requestMethod, ContentString, sessionResponse, true);
@@ -207,7 +207,7 @@ void UCharacterRequestHandler::GetCurrentLoadoutToDefaultCharacter(const FPChara
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
 
-    FEndPoints endpoint = LootLockerGameEndpoints::GetCurrentLoadoutToDefaultCharacterEndpoint;
+    FEndPoints endpoint = ULootLockerGameEndpoints::GetCurrentLoadoutToDefaultCharacterEndpoint;
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
 	HttpClient->SendApi(endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
@@ -232,7 +232,7 @@ void UCharacterRequestHandler::GetOtherPlayersCurrentLoadoutToDefaultCharacter(c
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
-    FEndPoints endpoint = LootLockerGameEndpoints::GetOtherPlayersLoadoutToDefaultCharacterEndpoint;
+    FEndPoints endpoint = ULootLockerGameEndpoints::GetOtherPlayersLoadoutToDefaultCharacterEndpoint;
 	FString newEndpoint = FString::Format(*endpoint.endpoint, GetRequests.args);
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
 	HttpClient->SendApi(newEndpoint, requestMethod, ContentString, sessionResponse, true);
@@ -258,7 +258,7 @@ void UCharacterRequestHandler::GetEquipableContextsToDefaultCharacter(const FCon
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
 
-    FEndPoints endpoint = LootLockerGameEndpoints::GetEquippableContextstoDefaultCharacterEndpoint;
+    FEndPoints endpoint = ULootLockerGameEndpoints::GetEquippableContextstoDefaultCharacterEndpoint;
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
 	HttpClient->SendApi(endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
@@ -283,7 +283,7 @@ void UCharacterRequestHandler::GetEquipableContextsByCharacterId(const FLootLock
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
-    FEndPoints endpoint = LootLockerGameEndpoints::GetEquippableContextsByCharacterIDEndpoint;
+    FEndPoints endpoint = ULootLockerGameEndpoints::GetEquippableContextsByCharacterIDEndpoint;
 	FString newEndpoint = FString::Format(*endpoint.endpoint, GetRequests.args);
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
 	HttpClient->SendApi(newEndpoint, requestMethod, ContentString, sessionResponse, true);

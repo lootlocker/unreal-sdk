@@ -45,9 +45,7 @@ void UPurchasesRequestHandler::PurchaseAssets(const TArray<FAssetPurchaseData>& 
     FString ContentString;
     TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&ContentString);
     FJsonSerializer::Serialize(ItemsJsonArray, Writer);
-    
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = LootLockerGameEndpoints::PurchaseEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::PurchaseEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
@@ -84,9 +82,7 @@ void UPurchasesRequestHandler::PurchaseAssetsAndroid(const TArray<FAndroidAssetP
     FString ContentString;
     TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&ContentString);
     FJsonSerializer::Serialize(ItemsJsonArray, Writer);
-    
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = LootLockerGameEndpoints::PurchaseEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::PurchaseEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
@@ -123,9 +119,7 @@ void UPurchasesRequestHandler::PurchaseAssetsIOS(const TArray<FVerifyPurchaseIos
     FString ContentString;
     TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&ContentString);
     FJsonSerializer::Serialize(ItemsJsonArray, Writer);
-    
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = LootLockerGameEndpoints::IOSPurchaseEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::IOSPurchaseEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
@@ -150,8 +144,7 @@ void UPurchasesRequestHandler::PollingOrderStatus(int PurchaseId, const FPurchas
         });
 
     FString ContentString;
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = LootLockerGameEndpoints::PollingOrderStatusEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::PollingOrderStatusEndpoint;
     FString endpoint = FString::Format(*(Endpoint.endpoint), { PurchaseId });
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponse, true);
@@ -177,8 +170,7 @@ void UPurchasesRequestHandler::ActivateRentalAsset(int AssetId, const FActivateR
         });
 
     FString ContentString;
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = LootLockerGameEndpoints::ActivateRentalAssetEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::ActivateRentalAssetEndpoint;
     FString endpoint = FString::Format(*(Endpoint.endpoint), { AssetId });
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponse, true);

@@ -15,6 +15,10 @@
 			"Name": "LootLockerSDK",
 			"Enabled": true,
 			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/cebab7d09d1c4721bd90375068beb750"
+		},
+		{
+			"Name": "OnlineSubsystemSteam",
+			"Enabled": true
 		}
 	]
 }

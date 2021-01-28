@@ -30,8 +30,7 @@ void UCollectablesRequestHandler::GetAllCollectables(const FCollectablesResponse
         });
 
     FString ContentString;
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = LootLockerGameEndpoints::GetAllCollectablesEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::GetAllCollectablesEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
@@ -57,8 +56,7 @@ void UCollectablesRequestHandler::CollectItem(const FCollectItemPayload& Item, c
 
     FString ContentString;
     FJsonObjectConverter::UStructToJsonObjectString(FCollectItemPayload::StaticStruct(), &Item, ContentString, 0, 0);
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = LootLockerGameEndpoints::CollectItemEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::CollectItemEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }

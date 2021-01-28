@@ -5,9 +5,10 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "LootLockerSDKManager.h"
-
+#include "Online.h"
 #include "DemoAuthentication.generated.h"
 
+class IOnlineSubsystem;
 
 UCLASS()
 class DEMOPROJECT_API ADemoAuthentication : public AActor
@@ -32,6 +33,7 @@ public:
     void OnStartSessionCompleted(FAuthenticationResponse Response);
     void OnVerifyPlayerCompleted(FAuthenticationDefaultResponse Response);
     void OnEndSessionCompleted(FAuthenticationDefaultResponse Response);
+    UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Authentication")
     static FString GetSteamIdentityToken();
 
     

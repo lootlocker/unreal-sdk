@@ -31,8 +31,7 @@ void UTriggerEventsRequestHandler::TriggerEvent(const FTriggerEvent& Event, cons
 
     FString ContentString;
     FJsonObjectConverter::UStructToJsonObjectString(FTriggerEvent::StaticStruct(), &Event, ContentString, 0, 0);
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = LootLockerGameEndpoints::TriggerEventEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::TriggerEventEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
@@ -57,8 +56,7 @@ void UTriggerEventsRequestHandler::GetTriggeredEvents(const FTriggersResponseDel
         });
 
     FString ContentString;
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-    FEndPoints Endpoint = LootLockerGameEndpoints::GetTriggeredEventsEndpoint;
+    FEndPoints Endpoint = ULootLockerGameEndpoints::GetTriggeredEventsEndpoint;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
