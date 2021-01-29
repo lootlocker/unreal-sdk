@@ -12,30 +12,30 @@
 USTRUCT(BlueprintType)
 struct FLootLockerMessage {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString title;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString published_at;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString body;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString summary;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString category;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool alert;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool New;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString action;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString image;
 };
 
 USTRUCT(BlueprintType)
 struct FMessagesResponse : public FLootLockerResponse {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerMessage> messages;
 };
 
