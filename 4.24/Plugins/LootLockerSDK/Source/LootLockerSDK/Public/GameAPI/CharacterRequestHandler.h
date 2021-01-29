@@ -14,83 +14,83 @@
 USTRUCT(BlueprintType)
 struct FLootLockerCharacter {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 id;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString type;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString name;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	bool is_default;
 };
 USTRUCT(BlueprintType)
 struct FCharacterAsset 
 {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FLootLockerAsset asset;
 };
 USTRUCT(BlueprintType)
 struct FCharacterRental {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	bool is_rental;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString time_left;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString duration;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString is_active;
 };
 USTRUCT(BlueprintType)
 struct FCharacterLoadout {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 variation_id;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 instance_id;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString mounted_at;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FCharacterAsset asset;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FCharacterRental rental;
 };
 USTRUCT(BlueprintType)
 struct FCharacterLoadoutArray {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FLootLockerCharacter character;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	TArray<FCharacterLoadout> loadout;
 };
 USTRUCT(BlueprintType)
 struct FCharacterLoadoutResponse : public FLootLockerResponse {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	TArray<FCharacterLoadoutArray> loadouts;
 };
 
 USTRUCT(BlueprintType)
 struct FUpdateCharacterRequest {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	bool is_default;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString name;
 };
 USTRUCT(BlueprintType)
 struct FEquipAssetToCharacterWithInstanceRequest {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 instance_id;
 };
 USTRUCT(BlueprintType)
 struct FEquipUniversalAssetToCharacterRequest {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 asset_id;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 asset_variation_id;
 };
 

@@ -12,37 +12,37 @@
 USTRUCT(BlueprintType)
 struct FMapCamera {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     float position;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     float rotation;
 };
 
 USTRUCT(BlueprintType)
 struct FMapSpawnPoint {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int asset_id;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     float position;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     float rotation;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FMapCamera> cameras;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool player_access;
 };
 
 USTRUCT(BlueprintType)
 struct FLootLockerMap {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int map_id;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int asset_id;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FMapSpawnPoint> spawn_points;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool player_access;
 };
 
@@ -50,7 +50,7 @@ USTRUCT(BlueprintType)
 struct FGetMapsResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerMap> maps;
 };
 

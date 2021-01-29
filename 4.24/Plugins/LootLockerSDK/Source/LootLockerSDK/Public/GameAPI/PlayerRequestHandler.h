@@ -15,7 +15,7 @@ USTRUCT(BlueprintType)
 struct FBalanceResponse : public FLootLockerResponse
 {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	float balance;
 };
 
@@ -23,7 +23,7 @@ USTRUCT(BlueprintType)
 struct FDlcResponse : public FLootLockerResponse
 {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	TArray<FString> dlcs;
 };
 
@@ -31,102 +31,102 @@ USTRUCT(BlueprintType)
 struct FPlayerInfoResponse : public FLootLockerResponse
 {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 account_balance;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 xp;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 level;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FLevelThresholds level_thresholds;
 };
 USTRUCT(BlueprintType)
 struct FRental {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	bool is_rental;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString time_left;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString duration;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString is_active;
 };
 USTRUCT(BlueprintType)
 struct FInventory {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 instance_id;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 variation_id;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString rental_option_id;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString acquisition_source;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FLootLockerAsset asset;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FRental rental;
 };
 USTRUCT(BlueprintType)
 struct FInventoryResponse : public FLootLockerResponse {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	TArray<FInventory> inventory;
 };
 
 USTRUCT(BlueprintType)
 struct FPlayerLevel {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 level;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 xp_threshold;
 };
 USTRUCT(BlueprintType)
 struct FXp {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 previous;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 current;
 };
 USTRUCT(BlueprintType)
 struct FSubmitXpResponse : public FLootLockerResponse {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FXp xp;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	TArray<FPlayerLevel> levels;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	bool check_grant_notifications;
 };
 USTRUCT(BlueprintType)
 struct FSubmitXpRequest {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 points;
 };
 USTRUCT(BlueprintType)
 struct FLootLockerObjects
 {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 instance_id;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 variation_id;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FLootLockerAsset asset;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString acquisition_source;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString reason;
 };
 USTRUCT(BlueprintType)
 struct FPlayerAssetNotificationResponse : public FLootLockerResponse
 {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	TArray<FLootLockerObjects> objects;
 };
 

@@ -13,7 +13,7 @@
 USTRUCT(BlueprintType)
 struct FTriggerEvent {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString name;
 };
 
@@ -25,7 +25,7 @@ struct FTriggerEventResponse : public FSubmitXpResponse {
 USTRUCT(BlueprintType)
 struct FTriggersResponse : public FLootLockerResponse {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FString> triggers;
 };
 
