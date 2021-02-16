@@ -167,12 +167,35 @@ public:
     static void GetCharacterLoadout(const FPCharacterLoadoutResponseBP& OnGetCharacterLoadoutRequestCompleted);
     
     /**
-    * This endpoint lets you set a character as default, and set the name of the character. None of the parameters are required.
+    * Equip an asset to the specified character.
     *
-    * @param OnCompletedRequest - callback to be invoked with the server response.
-    * https://docs.lootlocker.io/game-api/#update-character
+    * @param Name - the name of the character.
+    * @param IsDefault - if this should be set as the default character.
+    * https://docs.lootlocker.io/game-api/#create-character
     */
     static void UpdateCharacter(bool isDefault, FString& Name, const FPCharacterLoadoutResponseBP& OnCompletedRequest);
+
+
+    /**
+    * When creating a character there is only one required field: character_type_id.
+    * See List Character Types to get your games Character Types. The other parameters
+    * are optional and are the same as for the Update Character call.
+    *
+    * @param CharacterTypeId - the ID of the type.
+    * @param CharacterName - the name of the character.
+    * @param IsDefault - if this should be set as the default character.
+    * https://docs.lootlocker.io/game-api/#create-character
+    */
+    static void CreateCharacter(bool IsDefault, const FString& CharacterName, const FString& CharacterTypeId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP);
+
+    /**
+
+    * Call this endpoint to list the character types configured for your game.
+    * 
+    * https://docs.lootlocker.io/game-api/#list-character-types
+    */
+    static void ListCharacterTypes(const FPLootLockerListCharacterTypesResponseBP& OnCompletedRequestBP);
+
 
     /**
     * Equip an asset to the default character.

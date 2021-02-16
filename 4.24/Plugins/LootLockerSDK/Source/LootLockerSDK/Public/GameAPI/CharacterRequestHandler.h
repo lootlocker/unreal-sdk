@@ -79,6 +79,18 @@ struct FUpdateCharacterRequest {
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString name;
 };
+
+USTRUCT(BlueprintType)
+struct FListCharacterRequest {
+	GENERATED_BODY()
+		UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+		bool is_default;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+		FString name;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+		FString character_type_id;
+};
+
 USTRUCT(BlueprintType)
 struct FEquipAssetToCharacterWithInstanceRequest {
 	GENERATED_BODY()
@@ -94,11 +106,28 @@ struct FEquipUniversalAssetToCharacterRequest {
 	int32 asset_variation_id;
 };
 
+USTRUCT(BlueprintType)
+struct FLootLockerListCharacterTypesResponse : public FLootLockerResponse {
+	GENERATED_BODY()
+	TArray<FLootLockerCharacterTypes> character_types;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerCharacterTypes
+{
+	GENERATED_BODY()
+	int32 id;
+	bool is_default;
+	FString name;
+};
+
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPCharacterLoadoutResponseBP, FCharacterLoadoutResponse, Var);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPCharacterDefaultResponseBP, FLootLockerResponse, Var);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FPLootLockerListCharacterTypesResponseBP, FLootLockerListCharacterTypesResponse, Var);
 
 DECLARE_DELEGATE_OneParam(FLootLockerCharacterLoadoutResponse, FCharacterLoadoutResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerCharacterDefaultResponse, FLootLockerResponse);
+DECLARE_DELEGATE_OneParam(FPLootLockerListCharacterTypesResponse, FLootLockerListCharacterTypesResponse);
 
 
 UCLASS()
@@ -109,6 +138,8 @@ public:
 	UCharacterRequestHandler();
 	static void GetCharacterLoadout(const FPCharacterLoadoutResponseBP& OnCompleteRequestBP = FPCharacterLoadoutResponseBP(), const FLootLockerCharacterLoadoutResponse& OnCompletedRequest = FLootLockerCharacterLoadoutResponse());
 	static void UpdateCharacter(bool IsDefault,const FString& Name, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP = FPCharacterLoadoutResponseBP(), const FLootLockerCharacterLoadoutResponse& OnCompletedRequest = FLootLockerCharacterLoadoutResponse());
+	static void CreateCharacter(bool IsDefault, const FString& CharacterName, const FString& CharacterId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP = FPCharacterLoadoutResponseBP(), const FLootLockerCharacterLoadoutResponse& OnCompletedRequest = FLootLockerCharacterLoadoutResponse());
+	static void ListCharacterTypes(const FPLootLockerListCharacterTypesResponseBP& OnCompletedRequestBP = FPLootLockerListCharacterTypesResponseBP(), const FPLootLockerListCharacterTypesResponse& OnCompletedRequest = FPLootLockerListCharacterTypesResponse());
 	static void EquipAssetToDefaultCharacter(int InstanceId, const FPCharacterDefaultResponseBP& OnCompletedRequestBP = FPCharacterDefaultResponseBP(), const FLootLockerCharacterDefaultResponse& OnCompletedRequest = FLootLockerCharacterDefaultResponse());
 	static void EquipAssetToCharacterById(const FLootLockerGetRequests& GetRequests,int AssetId, int AssetVariationId, const FPCharacterDefaultResponseBP& OnCompletedRequestBP = FPCharacterDefaultResponseBP(), const FLootLockerCharacterDefaultResponse& OnCompletedRequest = FLootLockerCharacterDefaultResponse());
 	static void UnEquipAssetToDefaultCharacter(int InstanceId, const FPCharacterDefaultResponseBP& OnCompletedRequestBP = FPCharacterDefaultResponseBP(), const FLootLockerCharacterDefaultResponse& OnCompletedRequest = FLootLockerCharacterDefaultResponse());

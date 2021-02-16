@@ -12,13 +12,13 @@
 USTRUCT(BlueprintType)
 struct FPersistentStorageItem {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     FString key;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     FString value;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     bool is_public;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     int order;
 };
 
@@ -26,7 +26,7 @@ USTRUCT(BlueprintType)
 struct FPersistentStorageItemsResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     TArray<FPersistentStorageItem> items;
 };
 
@@ -34,7 +34,7 @@ USTRUCT(BlueprintType)
 struct FPersistentStorageItemResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     FPersistentStorageItem item;
 };
 

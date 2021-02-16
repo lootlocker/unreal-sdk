@@ -86,6 +86,16 @@ void ULootLockerManager::UpdateCharacter(bool isDefault, FString& Name, const FP
     UCharacterRequestHandler::UpdateCharacter(isDefault, Name, OnCompletedRequest);
 }
 
+void ULootLockerManager::CreateCharacter(bool IsDefault, const FString& CharacterName, const FString& CharacterTypeId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP)
+{
+    UCharacterRequestHandler::CreateCharacter(IsDefault, CharacterName, CharacterTypeId, OnCompletedRequestBP);
+}
+
+void ULootLockerManager::ListCharacterTypes(const FPLootLockerListCharacterTypesResponseBP& OnCompletedRequestBP)
+{
+    UCharacterRequestHandler::ListCharacterTypes(OnCompletedRequestBP);
+}
+
 void ULootLockerManager::EquipAssetToDefaultCharacter(int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToDefaultCharacterRequestCompleted)
 {
     UCharacterRequestHandler::EquipAssetToDefaultCharacter(InstanceId, OnEquipAssetToDefaultCharacterRequestCompleted);

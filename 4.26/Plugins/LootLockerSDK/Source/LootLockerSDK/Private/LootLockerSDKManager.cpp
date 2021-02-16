@@ -88,6 +88,16 @@ void ULootLockerSDKManager::UpdateCharacter(bool isDefault, FString& Name, const
     UCharacterRequestHandler::UpdateCharacter(isDefault, Name, FPCharacterLoadoutResponseBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::CreateCharacter(bool IsDefault, const FString& CharacterName, const FString& CharacterId, const FLootLockerCharacterLoadoutResponse& OnCompletedRequest)
+{
+    UCharacterRequestHandler::CreateCharacter(IsDefault, CharacterName, CharacterId, FPCharacterLoadoutResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::ListCharacterTypes(const FPLootLockerListCharacterTypesResponse& OnCompletedRequest)
+{
+    UCharacterRequestHandler::ListCharacterTypes(FPLootLockerListCharacterTypesResponseBP(), OnCompletedRequest);
+}
+
 void ULootLockerSDKManager::EquipAssetToDefaultCharacter(int InstanceId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest)
 {
 	UCharacterRequestHandler::EquipAssetToDefaultCharacter(InstanceId, FPCharacterDefaultResponseBP(), OnCompletedRequest);

@@ -177,6 +177,27 @@ public:
     static void UpdateCharacter(bool isDefault, FString& Name, const FLootLockerCharacterLoadoutResponse& OnCompletedRequest);
 
     /**
+    * When creating a character there is only one required field: character_type_id.
+    * See List Character Types to get your games Character Types. The other parameters
+    * are optional and are the same as for the Update Character call.
+    *
+    * @param CharacterTypeId - the ID of the type.
+    * @param CharacterName - the name of the character.
+    * @param IsDefault - if this should be set as the default character.
+    * https://docs.lootlocker.io/game-api/#create-character
+    */
+    static void CreateCharacter(bool IsDefault, const FString& CharacterName, const FString& CharacterId,  const FLootLockerCharacterLoadoutResponse& OnCompletedRequest);
+
+    /**
+
+    * Call this endpoint to list the character types configured for your game.
+    * 
+    * https://docs.lootlocker.io/game-api/#list-character-types
+    */
+    static void ListCharacterTypes(const FPLootLockerListCharacterTypesResponse& OnCompletedRequest);
+
+
+    /**
     * Equip an asset to the default character.
     *
     * @param InstanceId - the asset's instance_id that is returned from the inventory and loadout calls.

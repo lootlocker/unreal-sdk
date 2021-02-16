@@ -13,70 +13,70 @@
 USTRUCT(BlueprintType)
 struct FCollectableReward {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     FLootLockerAsset asset;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     int asset_variation_id;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     int asset_rental_option_id;
 };
 
 USTRUCT(BlueprintType)
 struct FCollectableItem {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     FString name;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     bool collected;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     TArray<FCollectableReward> rewards;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     bool grants_all_rewards;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     bool just_collected;
 };
 
 USTRUCT(BlueprintType)
 struct FCollectableItemGroup {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     FString name;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     int completion_percentage;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     TArray<FCollectableItem> items;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     TArray<FCollectableReward> rewards;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     bool grants_all_rewards;
 };
 
 USTRUCT(BlueprintType)
 struct FLootLockerCollectable {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     FString name;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     TArray<FCollectableItemGroup> groups;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     int completion_percentage;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     TArray<FCollectableReward> rewards;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     bool grants_all_rewards;
 };
 
 USTRUCT(BlueprintType)
 struct FCollectItemPayload {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     FString slug;
 };
 
 USTRUCT(BlueprintType)
 struct FCollectablesResponse : public FLootLockerResponse {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     TArray<FLootLockerCollectable> collectables;
 };
 

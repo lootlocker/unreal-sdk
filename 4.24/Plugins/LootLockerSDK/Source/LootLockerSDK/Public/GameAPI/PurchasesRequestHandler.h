@@ -12,25 +12,25 @@
 USTRUCT(BlueprintType)
 struct FAssetPurchaseData {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     int asset_id;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     int variation_id;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     int rental_option_id;
 };
 
 USTRUCT(BlueprintType)
 struct FAndroidAssetPurchaseData : public FAssetPurchaseData {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     FString purchase_token;
 };
 
 USTRUCT(BlueprintType)
 struct FVerifyPurchaseIosData {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     FString receipt_data;
 };
 
@@ -38,9 +38,9 @@ USTRUCT(BlueprintType)
 struct FPurchaseResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     bool overlay;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     int order_id;
 };
 
@@ -48,7 +48,7 @@ USTRUCT(BlueprintType)
 struct FPurchaseStatusResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     FString status;
 };
 
@@ -56,7 +56,7 @@ USTRUCT(BlueprintType)
 struct FActivateRentalAssetResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     int time_left;
 };
 

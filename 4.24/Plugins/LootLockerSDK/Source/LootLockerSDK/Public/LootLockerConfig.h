@@ -12,15 +12,15 @@ struct FLootLockerResponse
 {
 	GENERATED_BODY()
 public:
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	bool success;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	bool ServerCallHasError;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	int ServerCallStatusCode;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FString FullTextFromServer;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FString ServerError;
 };
 
@@ -56,9 +56,9 @@ struct FEndPoints
 {
 	GENERATED_BODY()
 public:
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FString endpoint;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	ELootLockerHTTPMethod requestMethod;
 };
 

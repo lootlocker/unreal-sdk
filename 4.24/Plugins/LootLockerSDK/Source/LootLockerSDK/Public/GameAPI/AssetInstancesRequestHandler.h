@@ -12,23 +12,23 @@
 USTRUCT(BlueprintType)
 struct FAssetInstanceStorageItem {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     FString key;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     FString value;
 };
 
 USTRUCT(BlueprintType)
 struct FAssetInstanceStorageResponseItem : public FAssetInstanceStorageItem {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     int Id;
 };
 
 USTRUCT(BlueprintType)
 struct FAssetInstanceStorageItems {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     TArray<FAssetInstanceStorageItem> storage;
 };
 
@@ -36,20 +36,20 @@ USTRUCT(BlueprintType)
 struct FAssetInstanceStorageItemsResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     TArray<FAssetInstanceStorageResponseItem> items;
 };
 
 USTRUCT(BlueprintType)
 struct FLootBoxItem {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     int asset_id;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     int asset_variation_id;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     int asset_rental_option_id;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     int weight;
 };
 
@@ -57,7 +57,7 @@ USTRUCT(BlueprintType)
 struct FLootBoxContentResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     TArray<FLootBoxItem> items;
 };
 
@@ -65,7 +65,7 @@ USTRUCT(BlueprintType)
 struct FOpenLootBoxResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
     bool check_grant_notifications;
 };
 

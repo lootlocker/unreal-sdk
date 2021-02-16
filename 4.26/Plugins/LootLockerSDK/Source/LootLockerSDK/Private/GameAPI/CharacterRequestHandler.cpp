@@ -63,6 +63,62 @@ void UCharacterRequestHandler::UpdateCharacter(bool IsDefault, const FString& Na
 	HttpClient->SendApi(endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
 
+void UCharacterRequestHandler::CreateCharacter(bool IsDefault, const FString& CharacterName, const FString& CharacterId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP, const FLootLockerCharacterLoadoutResponse& OnCompletedRequest)
+{
+	FString data;
+	FListCharacterRequest characterRequest;
+	characterRequest.is_default = IsDefault;
+	characterRequest.name = CharacterName;
+	characterRequest.character_type_id = CharacterId;
+
+	FString ContentString;
+	FJsonObjectConverter::UStructToJsonObjectString(FListCharacterRequest::StaticStruct(), &characterRequest, ContentString, 0, 0);
+
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+		{
+			FCharacterLoadoutResponse ResponseStruct;
+			if (response.success)
+			{
+				FJsonObjectConverter::JsonObjectStringToUStruct<FCharacterLoadoutResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
+				ResponseStruct.success = true;
+			}
+			else {
+				ResponseStruct.success = false;
+				UE_LOG(LogTemp, Error, TEXT("Update character failed from lootlocker"));
+			}
+			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
+			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
+		});
+	FEndPoints endpoint = ULootLockerGameEndpoints::CreateCharacterEndpoint;
+	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
+	HttpClient->SendApi(endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
+}
+
+void UCharacterRequestHandler::ListCharacterTypes(const FPLootLockerListCharacterTypesResponseBP& OnCompletedRequestBP, const FPLootLockerListCharacterTypesResponse& OnCompletedRequest)
+{
+	FString ContentString;
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+		{
+			FLootLockerListCharacterTypesResponse ResponseStruct;
+			if (response.success)
+			{
+				FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerListCharacterTypesResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
+				ResponseStruct.success = true;
+			}
+			else {
+				ResponseStruct.success = false;
+				UE_LOG(LogTemp, Error, TEXT("Update character failed from lootlocker"));
+			}
+			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
+			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
+		});
+	FEndPoints endpoint = ULootLockerGameEndpoints::CreateCharacterEndpoint;
+	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
+	HttpClient->SendApi(endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
+}
+
 void UCharacterRequestHandler::EquipAssetToDefaultCharacter(int InstanceId,const FPCharacterDefaultResponseBP& OnCompletedRequestBP, const FLootLockerCharacterDefaultResponse& OnCompletedRequest)
 {
 	FString data;

@@ -33,6 +33,8 @@ public:
     static FEndPoints UpdateCharacterEndpoint;
     static FEndPoints EquipAssetToDefaultCharacterEndpoint;
     static FEndPoints EquipAssetToCharacterByIdEndpoint;
+    static FEndPoints CreateCharacterEndpoint;
+    static FEndPoints ListCharacterTypesByIdEndpoint;
     static FEndPoints UnEquipAssetToDefaultCharacterEndpoint;
     static FEndPoints UnEquipAssetToCharacterByIdEndpoint;
     static FEndPoints GetCurrentLoadoutToDefaultCharacterEndpoint;

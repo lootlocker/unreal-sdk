@@ -29,11 +29,11 @@ USTRUCT(BlueprintType)
 struct FVerificationRequest
 {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FString key;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FString platform;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FString token;
 };
 
@@ -41,13 +41,13 @@ USTRUCT(BlueprintType)
 struct FLevelThresholds
 {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	int32 current;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	bool current_is_prestige;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	int32 next;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	bool next_is_prestige;
 };
 
@@ -56,23 +56,23 @@ USTRUCT(BlueprintType)
 struct FAuthenticationResponse : public FLootLockerResponse
 {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	int32 player_id;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	bool seen_before;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	bool check_grant_notifications;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	bool check_deactivation_notifications;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	int32 xp;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	int32 level;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FLevelThresholds level_thresholds;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	int32 account_balance;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FString session_token;
 };
 
