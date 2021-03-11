@@ -17,7 +17,7 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
     int MissionId;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
-    FFinishMissionData MissionData;
+    FLootLockerFinishMissionData MissionData;
     
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Missions")
     void DemoGetAllMissions();
@@ -31,10 +31,10 @@ public:
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Missions")
     void DemoFinishMission();
     
-    void OnGetAllMissionsCompleted(FMissionsResponse Response);
-    void OnGetMissionCompleted(FMissionResponse Response);
-    void OnStartMissionCompleted(FStartMissionResponse Response);
-    void OnFinishMissionCompleted(FFinishMissionResponse Response);
+    void OnGetAllMissionsCompleted(FLootLockerMissionsResponse Response);
+    void OnGetMissionCompleted(FLootLockerMissionResponse Response);
+    void OnStartMissionCompleted(FLootLockerStartMissionResponse Response);
+    void OnFinishMissionCompleted(FLootLockerFinishMissionResponse Response);
     
 private:
     ULootLockerSDKManager* LootLockerManager;

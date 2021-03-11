@@ -22,7 +22,7 @@ void ADemoMissions::DemoFinishMission()
    ULootLockerSDKManager::FinishMission(MissionId, MissionData, FFinishMissionResponseDelegate::CreateUObject(this, &ADemoMissions::OnFinishMissionCompleted));
 }
 
-void ADemoMissions::OnGetAllMissionsCompleted(FMissionsResponse Response)
+void ADemoMissions::OnGetAllMissionsCompleted(FLootLockerMissionsResponse Response)
 {
     if (Response.success)
     {
@@ -34,7 +34,7 @@ void ADemoMissions::OnGetAllMissionsCompleted(FMissionsResponse Response)
     }
 }
 
-void ADemoMissions::OnGetMissionCompleted(FMissionResponse Response)
+void ADemoMissions::OnGetMissionCompleted(FLootLockerMissionResponse Response)
 {
     if (Response.success)
     {
@@ -46,7 +46,7 @@ void ADemoMissions::OnGetMissionCompleted(FMissionResponse Response)
     }
 }
 
-void ADemoMissions::OnStartMissionCompleted(FStartMissionResponse Response)
+void ADemoMissions::OnStartMissionCompleted(FLootLockerStartMissionResponse Response)
 {
     if (Response.success)
     {
@@ -58,7 +58,7 @@ void ADemoMissions::OnStartMissionCompleted(FStartMissionResponse Response)
     }
 }
 
-void ADemoMissions::OnFinishMissionCompleted(FFinishMissionResponse Response)
+void ADemoMissions::OnFinishMissionCompleted(FLootLockerFinishMissionResponse Response)
 {
     if (Response.success)
     {

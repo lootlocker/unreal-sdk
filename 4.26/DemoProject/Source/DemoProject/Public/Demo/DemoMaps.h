@@ -17,7 +17,7 @@ public:
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Maps")
     void GetMaps();
     
-    void OnGetMapsCompleted(FGetMapsResponse Response);
+    void OnGetMapsCompleted(FLootLockerGetMapsResponse Response);
     
     
 private:

@@ -4,7 +4,7 @@
 
 void ADemoCharacters::GetCharacterLoadout()
 {
-   ULootLockerSDKManager::GetCharacterLoadout(FLootLockerCharacterLoadoutResponse::CreateUObject(this, &ADemoCharacters::OnGetCharacterLoadoutCompleted));
+   ULootLockerSDKManager::GetCharacterLoadout(FCharacterLoadoutResponse::CreateUObject(this, &ADemoCharacters::OnGetCharacterLoadoutCompleted));
 }
 
 void ADemoCharacters::EquipAssetToDefaultCharacter()
@@ -29,12 +29,12 @@ void ADemoCharacters::UnEquipAssetToCharacterById()
 
 void ADemoCharacters::GetCurrentLoadoutToDefaultCharacter()
 {
-   ULootLockerSDKManager::GetCurrentLoadoutToDefaultCharacter(FLootLockerCharacterLoadoutResponse::CreateUObject(this, &ADemoCharacters::OnGetCurrentLoadoutToDefaultCharacterCompleted));
+   ULootLockerSDKManager::GetCurrentLoadoutToDefaultCharacter(FCharacterLoadoutResponse::CreateUObject(this, &ADemoCharacters::OnGetCurrentLoadoutToDefaultCharacterCompleted));
 }
 
 void ADemoCharacters::GetOtherPlayersCurrentLoadoutToDefaultCharacter()
 {
-   ULootLockerSDKManager::GetOtherPlayersCurrentLoadoutToDefaultCharacter(OtherPlayerId, FLootLockerCharacterLoadoutResponse::CreateUObject(this, &ADemoCharacters::OnGetOtherPlayersCurrentLoadoutToDefaultCharacterCompleted));
+   ULootLockerSDKManager::GetOtherPlayersCurrentLoadoutToDefaultCharacter(OtherPlayerId, FCharacterLoadoutResponse::CreateUObject(this, &ADemoCharacters::OnGetOtherPlayersCurrentLoadoutToDefaultCharacterCompleted));
 }
 
 void ADemoCharacters::GetEquipableContextsToDefaultCharacter()
@@ -49,11 +49,11 @@ void ADemoCharacters::GetEquipableContextsByCharacterId()
 
 void ADemoCharacters::UpdateCharacter()
 {
-    ULootLockerSDKManager::UpdateCharacter(IsDefault,CharacterName,FLootLockerCharacterLoadoutResponse::CreateUObject(this, &ADemoCharacters::OnUpdatedCharacterLoadoutCompleted));
+    ULootLockerSDKManager::UpdateCharacter(IsDefault,CharacterName,FCharacterLoadoutResponse::CreateUObject(this, &ADemoCharacters::OnUpdatedCharacterLoadoutCompleted));
 }
 
 
-void ADemoCharacters::OnUpdatedCharacterLoadoutCompleted(FCharacterLoadoutResponse Response)
+void ADemoCharacters::OnUpdatedCharacterLoadoutCompleted(FLootLockerCharacterLoadoutResponse Response)
 {
     if (Response.success)
     {
@@ -65,7 +65,7 @@ void ADemoCharacters::OnUpdatedCharacterLoadoutCompleted(FCharacterLoadoutRespon
     }
 }
 
-void ADemoCharacters::OnGetCharacterLoadoutCompleted(FCharacterLoadoutResponse Response)
+void ADemoCharacters::OnGetCharacterLoadoutCompleted(FLootLockerCharacterLoadoutResponse Response)
 {
     if (Response.success)
     {
@@ -125,7 +125,7 @@ void ADemoCharacters::OnUnEquipAssetToCharacterByIdCompleted(FLootLockerResponse
     }
 }
 
-void ADemoCharacters::OnGetCurrentLoadoutToDefaultCharacterCompleted(FCharacterLoadoutResponse Response)
+void ADemoCharacters::OnGetCurrentLoadoutToDefaultCharacterCompleted(FLootLockerCharacterLoadoutResponse Response)
 {
     if (Response.success)
     {
@@ -137,7 +137,7 @@ void ADemoCharacters::OnGetCurrentLoadoutToDefaultCharacterCompleted(FCharacterL
     }
 }
 
-void ADemoCharacters::OnGetOtherPlayersCurrentLoadoutToDefaultCharacterCompleted(FCharacterLoadoutResponse Response)
+void ADemoCharacters::OnGetOtherPlayersCurrentLoadoutToDefaultCharacterCompleted(FLootLockerCharacterLoadoutResponse Response)
 {
     if (Response.success)
     {
@@ -149,7 +149,7 @@ void ADemoCharacters::OnGetOtherPlayersCurrentLoadoutToDefaultCharacterCompleted
     }
 }
 
-void ADemoCharacters::OnGetEquipableContextsToDefaultCharacterCompleted(FGetContextResponse Response)
+void ADemoCharacters::OnGetEquipableContextsToDefaultCharacterCompleted(FLootLockerGetContextResponse Response)
 {
     if (Response.success)
     {
@@ -161,7 +161,7 @@ void ADemoCharacters::OnGetEquipableContextsToDefaultCharacterCompleted(FGetCont
     }
 }
 
-void ADemoCharacters::OnGetEquipableContextsByCharacterIdCompleted(FGetContextResponse Response)
+void ADemoCharacters::OnGetEquipableContextsByCharacterIdCompleted(FLootLockerGetContextResponse Response)
 {
     if (Response.success)
     {

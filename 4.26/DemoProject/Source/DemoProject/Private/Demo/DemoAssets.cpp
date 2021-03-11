@@ -37,7 +37,7 @@ void ADemoAssets::DemoRemoveAssetFromFavourites()
    ULootLockerSDKManager::RemoveAssetFromFavourites(AssetId, FGetFavouriteAssetIndicesResponseDelegate::CreateUObject(this, &ADemoAssets::OnRemoveAssetFromFavouritesCompleted));
 }
 
-void ADemoAssets::OnGetContextsCompleted(FGetContextResponse Response)
+void ADemoAssets::OnGetContextsCompleted(FLootLockerGetContextResponse Response)
 {
     if (Response.success)
     {
@@ -49,7 +49,7 @@ void ADemoAssets::OnGetContextsCompleted(FGetContextResponse Response)
     }
 }
 
-void ADemoAssets::OnGetAssetsCompleted(FGetAssetsResponse Response)
+void ADemoAssets::OnGetAssetsCompleted(FLootLockerGetAssetsResponse Response)
 {
     if (Response.success)
     {
@@ -61,7 +61,7 @@ void ADemoAssets::OnGetAssetsCompleted(FGetAssetsResponse Response)
     }
 }
 
-void ADemoAssets::OnGetAssetsByIdsCompleted(FGetAssetsResponse Response)
+void ADemoAssets::OnGetAssetsByIdsCompleted(FLootLockerGetAssetsResponse Response)
 {
     if (Response.success)
     {
@@ -73,7 +73,7 @@ void ADemoAssets::OnGetAssetsByIdsCompleted(FGetAssetsResponse Response)
     }
 }
 
-void ADemoAssets::OnGetAssetBonesCompleted(FGetAssetBonesResponse Response)
+void ADemoAssets::OnGetAssetBonesCompleted(FLootLockerGetAssetBonesResponse Response)
 {
     if (Response.success)
     {
@@ -85,7 +85,7 @@ void ADemoAssets::OnGetAssetBonesCompleted(FGetAssetBonesResponse Response)
     }
 }
 
-void ADemoAssets::OnGetFavouriteAssetIndicesCompleted(FGetFavouriteAssetIndicesResponse Response)
+void ADemoAssets::OnGetFavouriteAssetIndicesCompleted(FLootLockerGetFavouriteAssetIndicesResponse Response)
 {
     if (Response.success)
     {
@@ -97,7 +97,7 @@ void ADemoAssets::OnGetFavouriteAssetIndicesCompleted(FGetFavouriteAssetIndicesR
     }
 }
 
-void ADemoAssets::OnAddAssetToFavouritesCompleted(FGetFavouriteAssetIndicesResponse Response)
+void ADemoAssets::OnAddAssetToFavouritesCompleted(FLootLockerGetFavouriteAssetIndicesResponse Response)
 {
     if (Response.success)
     {
@@ -109,7 +109,7 @@ void ADemoAssets::OnAddAssetToFavouritesCompleted(FGetFavouriteAssetIndicesRespo
     }
 }
 
-void ADemoAssets::OnRemoveAssetFromFavouritesCompleted(FGetFavouriteAssetIndicesResponse Response)
+void ADemoAssets::OnRemoveAssetFromFavouritesCompleted(FLootLockerGetFavouriteAssetIndicesResponse Response)
 {
     if (Response.success)
     {

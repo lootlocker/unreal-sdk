@@ -4,22 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-#include "GameAPI/AuthenticationRequestHandler.h"
-#include "HttpClient.h"
+#include "GameAPI/LootLockerAuthenticationRequestHandler.h"
+#include "LootLockerHttpClient.h"
 #include "LootLockerConfig.h"
 #include "Engine/DataAsset.h"
-#include "GameAPI/PlayerRequestHandler.h"
-#include "GameAPI/CharacterRequestHandler.h"
-#include "GameAPI/PersistentStorageRequestHandler.h"
-#include "GameAPI/AssetsRequestHandler.h"
-#include "GameAPI/AssetInstancesRequestHandler.h"
-#include "GameAPI/UserGeneratedContentRequestHandler.h"
-#include "GameAPI/MissionsRequestHandler.h"
-#include "GameAPI/MapsRequestHandler.h"
-#include "GameAPI/PurchasesRequestHandler.h"
-#include "GameAPI/TriggerEventsRequestHandler.h"
-#include "GameAPI/CollectablesRequestHandler.h"
-#include "GameAPI/MessagesRequestHandler.h"
+#include "GameAPI/LootLockerPlayerRequestHandler.h"
+#include "GameAPI/LootLockerCharacterRequestHandler.h"
+#include "GameAPI/LootLockerPersistentStorageRequestHandler.h"
+#include "GameAPI/LootLockerAssetsRequestHandler.h"
+#include "GameAPI/LootLockerAssetInstancesRequestHandler.h"
+#include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
+#include "GameAPI/LootLockerMissionsRequestHandler.h"
+#include "GameAPI/LootLockerMapsRequestHandler.h"
+#include "GameAPI/LootLockerPurchasesRequestHandler.h"
+#include "GameAPI/LootLockerTriggerEventsRequestHandler.h"
+#include "GameAPI/LootLockerCollectablesRequestHandler.h"
+#include "GameAPI/LootLockerMessagesRequestHandler.h"
 
 #include "LootLockerManager.generated.h"
 
@@ -298,7 +298,7 @@ public:
     * https://docs.lootlocker.io/game-api/#updating-creating-key-value-pairs
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage")
-    static void AddItemsToPersistentStorage(const TArray<FPersistentStorageItem>& Items, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsAddRequestCompleted);
+    static void AddItemsToPersistentStorage(const TArray<FLootLockerPersistentStorageItem>& Items, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsAddRequestCompleted);
     
     /**
     * Delete a key/value pair.
@@ -339,7 +339,7 @@ public:
     * https://docs.lootlocker.io/game-api/#getting-asset-list
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
-    static void GetAssets(const FAssetsResponseDelegateBP& OnGetAssetsRequestCompleted,int StartFromIndex = 0, int ItemsCount = 50, EAssetFilter AssetFilter = EAssetFilter::None, bool IncludeUGC = false);
+    static void GetAssets(const FAssetsResponseDelegateBP& OnGetAssetsRequestCompleted,int StartFromIndex = 0, int ItemsCount = 50, ELootLockerAssetFilter AssetFilter = ELootLockerAssetFilter::None, bool IncludeUGC = false);
     
     /**
     * Retrieve only specific Assets by their ID's.
@@ -424,7 +424,7 @@ public:
     * https://docs.lootlocker.io/game-api/#creating-a-key-value-pair
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
-    static void CreateAKeyValuePairForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItem& Item, const FAssetInstanceStorageItemsResponseDelegateBP& OnCreateAKeyValuePairForAssetInstanceCompleted);
+    static void CreateAKeyValuePairForAssetInstance(int AssetInstanceId, const FLootLockerAssetInstanceStorageItem& Item, const FAssetInstanceStorageItemsResponseDelegateBP& OnCreateAKeyValuePairForAssetInstanceCompleted);
     
     /**
     * Update key/value pairs for an asset instance.
@@ -434,7 +434,7 @@ public:
     * https://docs.lootlocker.io/game-api/#updating-one-or-more-key-value-pairs
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
-    static void UpdateOneOrMoreKeyValuePairForAssetInstance(int AssetInstanceId, const TArray<FAssetInstanceStorageItem>& Items, const FAssetInstanceStorageItemsResponseDelegateBP& OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted);
+    static void UpdateOneOrMoreKeyValuePairForAssetInstance(int AssetInstanceId, const TArray<FLootLockerAssetInstanceStorageItem>& Items, const FAssetInstanceStorageItemsResponseDelegateBP& OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted);
     
     /**
     * Update a key/value pair for an asset instance.
@@ -444,7 +444,7 @@ public:
     * https://docs.lootlocker.io/game-api/#updating-a-key-value-pair-by-id
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
-    static void UpdateAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItem Item, const FAssetInstanceStorageItemsResponseDelegateBP& OnUpdateAKeyValuePairByIdForAssetInstanceCompleted);
+    static void UpdateAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FLootLockerAssetInstanceStorageItem Item, const FAssetInstanceStorageItemsResponseDelegateBP& OnUpdateAKeyValuePairByIdForAssetInstanceCompleted);
     
     /**
     * Delete a key/value pair for an asset instance.
@@ -489,7 +489,7 @@ public:
     * https://docs.lootlocker.io/game-api/#creating-an-asset-candidate
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
-    static void CreateAssetCandidate(const FAssetCandidate& AsssetCandidate, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted);
+    static void CreateAssetCandidate(const FLootLockerAssetCandidate2& AsssetCandidate, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted);
     
     /**
     * Update an asset candidate.
@@ -499,7 +499,7 @@ public:
     * https://docs.lootlocker.io/game-api/#updating-an-asset-candidate
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
-    static void UpdateAssetCandidate(int AssetCandidateId, const FAssetCandidate& AsssetCandidate, const  FAssetCandidateResponseDelegateBP& OnUpdateAssetCandidateCompleted);
+    static void UpdateAssetCandidate(int AssetCandidateId, const FLootLockerAssetCandidate2& AsssetCandidate, const  FAssetCandidateResponseDelegateBP& OnUpdateAssetCandidateCompleted);
     
     /**
     * Delete an asset candidate.
@@ -535,7 +535,7 @@ public:
     * https://docs.lootlocker.io/game-api/#adding-files-to-asset-candidates
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
-    static void AddFileToAssetCandidate(int AssetCandidateId, const FString& FilePath, EAssetFilePurpose FilePurpose, const FResponseCallbackBP& OnAddFileToAssetCandidateCompleted);
+    static void AddFileToAssetCandidate(int AssetCandidateId, const FString& FilePath, ELootLockerAssetFilePurpose FilePurpose, const FResponseCallbackBP& OnAddFileToAssetCandidateCompleted);
     
     /**
     * 
@@ -585,7 +585,7 @@ public:
     * https://docs.lootlocker.io/game-api/#finishing-mission
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions")
-    static void FinishMission(int MissionId, const FFinishMissionData& MissionData, const FFinishMissionResponseDelegateBP& OnFinishMissionCompleted);
+    static void FinishMission(int MissionId, const FLootLockerFinishMissionData& MissionData, const FFinishMissionResponseDelegateBP& OnFinishMissionCompleted);
     
     //==================================================
     //Maps
@@ -612,7 +612,7 @@ public:
     * https://docs.lootlocker.io/game-api/#purchase-call
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
-    static void PurchaseAssets(const TArray<FAssetPurchaseData>& PurchaseData, const FPurchaseResponseDelegateBP& OnPurchaseAssetsCompleted);
+    static void PurchaseAssets(const TArray<FLootLockerAssetPurchaseData>& PurchaseData, const FPurchaseResponseDelegateBP& OnPurchaseAssetsCompleted);
     
     /**
     * Platform-specific purchase call for Android.
@@ -621,7 +621,7 @@ public:
     * https://docs.lootlocker.io/game-api/#android-in-app-purchases
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
-    static void PurchaseAssetsAndroid(const TArray<FAndroidAssetPurchaseData>& PurchaseData, const  FPurchaseResponseDelegateBP& OnPurchaseAssetsAndroidCompleted);
+    static void PurchaseAssetsAndroid(const TArray<FLootLockerAndroidAssetPurchaseData>& PurchaseData, const  FPurchaseResponseDelegateBP& OnPurchaseAssetsAndroidCompleted);
     
     /**
     * Platform-specific purchase call for iOS.
@@ -630,7 +630,7 @@ public:
     *  https://docs.lootlocker.io/game-api/#ios-in-app-purchases
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
-    static void PurchaseAssetsIOS(const TArray<FVerifyPurchaseIosData>& PurchaseData, const FPurchaseResponseDelegateBP& OnPurchaseAssetsIOSCompleted);
+    static void PurchaseAssetsIOS(const TArray<FLootLockerVerifyPurchaseIosData>& PurchaseData, const FPurchaseResponseDelegateBP& OnPurchaseAssetsIOSCompleted);
     
     /**
     * This call will let you know the current status of an order.
@@ -663,7 +663,7 @@ public:
     * https://docs.lootlocker.io/game-api/#triggering-an-event
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Trigger Events")
-    static void TriggerEvent(const FTriggerEvent& Event, const FTriggerEventResponseDelegateBP& OnTriggerEventCompleted);
+    static void TriggerEvent(const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegateBP& OnTriggerEventCompleted);
     
     /**
     * This endpoint lists the triggers that a player have already completed.
@@ -691,7 +691,7 @@ public:
     * https://docs.lootlocker.io/game-api/#collecting-an-item
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Collectables")
-    static void CollectItem(const FCollectItemPayload& Item, const FCollectablesResponseDelegateBP& OnCollectItemCompleted);
+    static void CollectItem(const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegateBP& OnCollectItemCompleted);
     
     //==================================================
     //Messages

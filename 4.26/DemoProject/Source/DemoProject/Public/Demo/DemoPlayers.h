@@ -52,15 +52,15 @@ public:
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Authentication")
     void SetProfilePublic();
     
-    void OnGetPlayerInfoCompleted(FPlayerInfoResponse Response);
-    void OnGetInventoryCompleted(FInventoryResponse Response);
-    void OnSubmitXpCompleted(FSubmitXpResponse Response);
-    void OnGetOtherPlayerInfoCompleted(FPlayerInfoResponse Response);
-    void OnCheckPlayerAssetNotificationCompleted(FPlayerAssetNotificationResponse Response);
-    void OnCheckPlayerAssetDeactivationNotificationCompleted(FPlayerAssetNotificationResponse Response);
-    void OnGetCurrencyBalance(FBalanceResponse Response);
+    void OnGetPlayerInfoCompleted(FLootLockerPlayerInfoResponse Response);
+    void OnGetInventoryCompleted(FLootLockerInventoryResponse Response);
+    void OnSubmitXpCompleted(FLootLockerSubmitXpResponse Response);
+    void OnGetOtherPlayerInfoCompleted(FLootLockerPlayerInfoResponse Response);
+    void OnCheckPlayerAssetNotificationCompleted(FLootLockerPlayerAssetNotificationResponse Response);
+    void OnCheckPlayerAssetDeactivationNotificationCompleted(FLootLockerPlayerAssetNotificationResponse Response);
+    void OnGetCurrencyBalance(FLootLockerBalanceResponse Response);
     void OnInitiateDlcMigration(FLootLockerResponse Response);
-    void OnGotDlcMigration(FDlcResponse Response);
+    void OnGotDlcMigration(FLootLockerDlcResponse Response);
     void OnProfileSetPrivate(FLootLockerResponse Response);
     void OnProfileSetPublic(FLootLockerResponse Response);
 

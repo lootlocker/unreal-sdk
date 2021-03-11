@@ -30,9 +30,9 @@ public:
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Authentication")
     void DemoEndSession();
     
-    void OnStartSessionCompleted(FAuthenticationResponse Response);
-    void OnVerifyPlayerCompleted(FAuthenticationDefaultResponse Response);
-    void OnEndSessionCompleted(FAuthenticationDefaultResponse Response);
+    void OnStartSessionCompleted(FLootLockerAuthenticationResponse Response);
+    void OnVerifyPlayerCompleted(FLootLockerAuthenticationDefaultResponse Response);
+    void OnEndSessionCompleted(FLootLockerAuthenticationDefaultResponse Response);
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Authentication")
     static FString GetSteamIdentityToken();
 

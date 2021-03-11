@@ -15,13 +15,13 @@ public:
     GENERATED_BODY()
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
-    FAssetCandidate AsssetCandidate;
+    FLootLockerAssetCandidate2 AsssetCandidate;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
     int AssetCandidateId;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
     FString FilePath;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
-    EAssetFilePurpose FilePurpose;
+    ELootLockerAssetFilePurpose FilePurpose;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
     int FileId;
     
@@ -46,11 +46,11 @@ public:
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | User Generated Content")
     void DemoDeleteFileFromAssetCandidate();
     
-    void OnCreateAssetCandidateCompleted(FCreateAssetCandidateResponse Response);
-    void OnUpdateAssetCandidateCompleted(FAssetCandidateResponse Response);
+    void OnCreateAssetCandidateCompleted(FLootLockerCreateAssetCandidateResponse Response);
+    void OnUpdateAssetCandidateCompleted(FLootLockerAssetCandidateResponse Response);
     void OnDeleteAssetCandidateCompleted(FLootLockerResponse Response);
-    void OnGetAllAssetCandidatesCompleted(FAssetCandidatesResponse Response);
-    void OnGetAssetCandidateCompleted(FAssetCandidateResponse Response);
+    void OnGetAllAssetCandidatesCompleted(FLootLockerAssetCandidatesResponse Response);
+    void OnGetAssetCandidateCompleted(FLootLockerAssetCandidateResponse Response);
     void OnAddFileToAssetCandidateCompleted(FLootLockerResponse Response);
     void OnDeleteFileFromAssetCandidateCompleted(FLootLockerResponse Response);
     

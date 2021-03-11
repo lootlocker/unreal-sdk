@@ -15,11 +15,11 @@ public:
     GENERATED_BODY()
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
-    TArray<FAssetPurchaseData> PurchaseData;
+    TArray<FLootLockerAssetPurchaseData> PurchaseData;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
-    TArray<FAndroidAssetPurchaseData> AndroidPurchaseData;
+    TArray<FLootLockerAndroidAssetPurchaseData> AndroidPurchaseData;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
-    TArray<FVerifyPurchaseIosData> IosPurchaseData;
+    TArray<FLootLockerVerifyPurchaseIosData> IosPurchaseData;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
     int PurchaseId;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
@@ -40,11 +40,11 @@ public:
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Purchases")
     void DemoActivateRentalAsset();
     
-    void OnPurchaseAssetsCompleted(FPurchaseResponse Response);
-    void OnPurchaseAssetsAndroidCompleted(FPurchaseResponse Response);
-    void OnPurchaseAssetsIOSCompleted(FPurchaseResponse Response);
-    void OnPollingStatusCompleted(FPurchaseStatusResponse Response);
-    void OnActivateRentalAssetCompleted(FActivateRentalAssetResponse Response);
+    void OnPurchaseAssetsCompleted(FLootLockerPurchaseResponse Response);
+    void OnPurchaseAssetsAndroidCompleted(FLootLockerPurchaseResponse Response);
+    void OnPurchaseAssetsIOSCompleted(FLootLockerPurchaseResponse Response);
+    void OnPollingStatusCompleted(FLootLockerPurchaseStatusResponse Response);
+    void OnActivateRentalAssetCompleted(FLootLockerActivateRentalAssetResponse Response);
     
 private:
     ULootLockerSDKManager* LootLockerManager;

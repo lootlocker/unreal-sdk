@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "GameAPI/MissionsRequestHandler.h"
+#include "GameAPI/LootLockerMissionsRequestHandler.h"
 
 namespace LootLockerUtilities
 {

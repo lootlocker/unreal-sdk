@@ -15,7 +15,7 @@ public:
     GENERATED_BODY()
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
-    FTriggerEvent Event;
+    FLootLockerTriggerEvent Event;
     
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Trigger Events")
     void DemoTriggerEvent();
@@ -23,8 +23,8 @@ public:
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Trigger Events")
     void DemoGetTriggeredEvents();
     
-    void OnTriggerEventCompleted(FTriggerEventResponse Response);
-    void OnGetTriggeredEventsCompleted(FTriggersResponse Response);
+    void OnTriggerEventCompleted(FLootLockerTriggerEventResponse Response);
+    void OnGetTriggeredEventsCompleted(FLootLockerTriggersResponse Response);
     
     
 private:

@@ -13,7 +13,7 @@ void ADemoCollectables::DemoCollectItem()
    ULootLockerSDKManager::CollectItem(Item, FCollectablesResponseDelegate::CreateUObject(this, &ADemoCollectables::OnCollectItemCompleted));
 }
 
-void ADemoCollectables::OnGetAllCollectablesCompleted(FCollectablesResponse Response)
+void ADemoCollectables::OnGetAllCollectablesCompleted(FLootLockerCollectablesResponse Response)
 {
     if (Response.success)
     {
@@ -25,7 +25,7 @@ void ADemoCollectables::OnGetAllCollectablesCompleted(FCollectablesResponse Resp
     }
 }
 
-void ADemoCollectables::OnCollectItemCompleted(FCollectablesResponse Response)
+void ADemoCollectables::OnCollectItemCompleted(FLootLockerCollectablesResponse Response)
 {
     if (Response.success)
     {

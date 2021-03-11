@@ -19,7 +19,7 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
     int ItemsCount;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
-    EAssetFilter AssetFilter;
+    ELootLockerAssetFilter AssetFilter;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
     bool IncludeUGC;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
@@ -48,13 +48,13 @@ public:
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Assets")
     void DemoRemoveAssetFromFavourites();
     
-    void OnGetContextsCompleted(FGetContextResponse Response);
-    void OnGetAssetsCompleted(FGetAssetsResponse Response);
-    void OnGetAssetsByIdsCompleted(FGetAssetsResponse Response);
-    void OnGetAssetBonesCompleted(FGetAssetBonesResponse Response);
-    void OnGetFavouriteAssetIndicesCompleted(FGetFavouriteAssetIndicesResponse Response);
-    void OnAddAssetToFavouritesCompleted(FGetFavouriteAssetIndicesResponse Response);
-    void OnRemoveAssetFromFavouritesCompleted(FGetFavouriteAssetIndicesResponse Response);
+    void OnGetContextsCompleted(FLootLockerGetContextResponse Response);
+    void OnGetAssetsCompleted(FLootLockerGetAssetsResponse Response);
+    void OnGetAssetsByIdsCompleted(FLootLockerGetAssetsResponse Response);
+    void OnGetAssetBonesCompleted(FLootLockerGetAssetBonesResponse Response);
+    void OnGetFavouriteAssetIndicesCompleted(FLootLockerGetFavouriteAssetIndicesResponse Response);
+    void OnAddAssetToFavouritesCompleted(FLootLockerGetFavouriteAssetIndicesResponse Response);
+    void OnRemoveAssetFromFavouritesCompleted(FLootLockerGetFavouriteAssetIndicesResponse Response);
     
     
 private:

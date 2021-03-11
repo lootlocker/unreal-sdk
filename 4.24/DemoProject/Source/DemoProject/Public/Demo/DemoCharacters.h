@@ -59,16 +59,16 @@ public:
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Characters")
     void UpdateCharacter();
     
-    void OnGetCharacterLoadoutCompleted(FCharacterLoadoutResponse Response);
+    void OnGetCharacterLoadoutCompleted(FLootLockerCharacterLoadoutResponse Response);
     void OnEquipAssetToDefaultCharacterCompleted(FLootLockerResponse Response);
     void OnEquipAssetToCharacterByIdCompleted(FLootLockerResponse Response);
     void OnUnEquipAssetToDefaultCharacterCompleted(FLootLockerResponse Response);
     void OnUnEquipAssetToCharacterByIdCompleted(FLootLockerResponse Response);
-    void OnGetCurrentLoadoutToDefaultCharacterCompleted(FCharacterLoadoutResponse Response);
-    void OnGetOtherPlayersCurrentLoadoutToDefaultCharacterCompleted(FCharacterLoadoutResponse Response);
-    void OnGetEquipableContextsToDefaultCharacterCompleted(FGetContextResponse Response);
-    void OnGetEquipableContextsByCharacterIdCompleted(FGetContextResponse Response);
-    void OnUpdatedCharacterLoadoutCompleted(FCharacterLoadoutResponse Response);
+    void OnGetCurrentLoadoutToDefaultCharacterCompleted(FLootLockerCharacterLoadoutResponse Response);
+    void OnGetOtherPlayersCurrentLoadoutToDefaultCharacterCompleted(FLootLockerCharacterLoadoutResponse Response);
+    void OnGetEquipableContextsToDefaultCharacterCompleted(FLootLockerGetContextResponse Response);
+    void OnGetEquipableContextsByCharacterIdCompleted(FLootLockerGetContextResponse Response);
+    void OnUpdatedCharacterLoadoutCompleted(FLootLockerCharacterLoadoutResponse Response);
 
     
 private:

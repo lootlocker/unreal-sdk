@@ -28,7 +28,7 @@ void ADemoPersistentStorage::DemoGetPlayerPersistentStorage()
    ULootLockerSDKManager::GetPlayerPersistentStorage(PlayerId, FPersistentStorageItemsResponseDelegate::CreateUObject(this, &ADemoPersistentStorage::OnGetPlayerPersistentStorageCompleted));
 }
 
-void ADemoPersistentStorage::OnGetEntirePersistentStorageCompleted(FPersistentStorageItemsResponse Response)
+void ADemoPersistentStorage::OnGetEntirePersistentStorageCompleted(FLootLockerPersistentStorageItemsResponse Response)
 {
     if (Response.success)
     {
@@ -40,7 +40,7 @@ void ADemoPersistentStorage::OnGetEntirePersistentStorageCompleted(FPersistentSt
     }
 }
 
-void ADemoPersistentStorage::OnGetItemFromPersistentStorageCompleted(FPersistentStorageItemResponse Response)
+void ADemoPersistentStorage::OnGetItemFromPersistentStorageCompleted(FLootLockerPersistentStorageItemResponse Response)
 {
     if (Response.success)
     {
@@ -52,7 +52,7 @@ void ADemoPersistentStorage::OnGetItemFromPersistentStorageCompleted(FPersistent
     }
 }
 
-void ADemoPersistentStorage::OnAddItemsToPersistentStorageCompleted(FPersistentStorageItemsResponse Response)
+void ADemoPersistentStorage::OnAddItemsToPersistentStorageCompleted(FLootLockerPersistentStorageItemsResponse Response)
 {
     if (Response.success)
     {
@@ -64,7 +64,7 @@ void ADemoPersistentStorage::OnAddItemsToPersistentStorageCompleted(FPersistentS
     }
 }
 
-void ADemoPersistentStorage::OnDeleteItemFromPersistentStorageCompleted(FPersistentStorageItemsResponse Response)
+void ADemoPersistentStorage::OnDeleteItemFromPersistentStorageCompleted(FLootLockerPersistentStorageItemsResponse Response)
 {
     if (Response.success)
     {
@@ -76,7 +76,7 @@ void ADemoPersistentStorage::OnDeleteItemFromPersistentStorageCompleted(FPersist
     }
 }
 
-void ADemoPersistentStorage::OnGetPlayerPersistentStorageCompleted(FPersistentStorageItemsResponse Response)
+void ADemoPersistentStorage::OnGetPlayerPersistentStorageCompleted(FLootLockerPersistentStorageItemsResponse Response)
 {
     if (Response.success)
     {

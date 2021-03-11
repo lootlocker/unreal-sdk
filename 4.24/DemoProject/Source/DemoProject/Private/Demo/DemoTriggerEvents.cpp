@@ -13,7 +13,7 @@ void ADemoTriggerEvents::DemoGetTriggeredEvents()
    ULootLockerSDKManager::GetTriggeredEvents(FTriggersResponseDelegate::CreateUObject(this, &ADemoTriggerEvents::OnGetTriggeredEventsCompleted));
 }
 
-void ADemoTriggerEvents::OnTriggerEventCompleted(FTriggerEventResponse Response)
+void ADemoTriggerEvents::OnTriggerEventCompleted(FLootLockerTriggerEventResponse Response)
 {
     if (Response.success)
     {
@@ -25,7 +25,7 @@ void ADemoTriggerEvents::OnTriggerEventCompleted(FTriggerEventResponse Response)
     }
 }
 
-void ADemoTriggerEvents::OnGetTriggeredEventsCompleted(FTriggersResponse Response)
+void ADemoTriggerEvents::OnGetTriggeredEventsCompleted(FLootLockerTriggersResponse Response)
 {
     if (Response.success)
     {

@@ -8,7 +8,7 @@ void ADemoMaps::GetMaps()
    ULootLockerSDKManager::GetMaps(FGetMapsResponseDelegate::CreateUObject(this, &ADemoMaps::OnGetMapsCompleted));
 }
 
-void ADemoMaps::OnGetMapsCompleted(FGetMapsResponse Response)
+void ADemoMaps::OnGetMapsCompleted(FLootLockerGetMapsResponse Response)
 {
     if (Response.success)
     {

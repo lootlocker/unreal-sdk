@@ -4,22 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "GameAPI/AuthenticationRequestHandler.h"
-#include "HttpClient.h"
+#include "GameAPI/LootLockerAuthenticationRequestHandler.h"
+#include "LootLockerHttpClient.h"
 #include "LootLockerConfig.h"
 #include "Engine/DataAsset.h"
-#include "GameAPI/PlayerRequestHandler.h"
-#include "GameAPI/CharacterRequestHandler.h"
-#include "GameAPI/PersistentStorageRequestHandler.h"
-#include "GameAPI/AssetsRequestHandler.h"
-#include "GameAPI/AssetInstancesRequestHandler.h"
-#include "GameAPI/UserGeneratedContentRequestHandler.h"
-#include "GameAPI/MissionsRequestHandler.h"
-#include "GameAPI/MapsRequestHandler.h"
-#include "GameAPI/PurchasesRequestHandler.h"
-#include "GameAPI/TriggerEventsRequestHandler.h"
-#include "GameAPI/CollectablesRequestHandler.h"
-#include "GameAPI/MessagesRequestHandler.h"
+#include "GameAPI/LootLockerPlayerRequestHandler.h"
+#include "GameAPI/LootLockerCharacterRequestHandler.h"
+#include "GameAPI/LootLockerPersistentStorageRequestHandler.h"
+#include "GameAPI/LootLockerAssetsRequestHandler.h"
+#include "GameAPI/LootLockerAssetInstancesRequestHandler.h"
+#include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
+#include "GameAPI/LootLockerMissionsRequestHandler.h"
+#include "GameAPI/LootLockerMapsRequestHandler.h"
+#include "GameAPI/LootLockerPurchasesRequestHandler.h"
+#include "GameAPI/LootLockerTriggerEventsRequestHandler.h"
+#include "GameAPI/LootLockerCollectablesRequestHandler.h"
+#include "GameAPI/LootLockerMessagesRequestHandler.h"
 
 #include "LootLockerSDKManager.generated.h"
 
@@ -77,7 +77,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#get-inventory-list
     */
-	static void GetInventory(const FLootLockerInventoryResponse& OnCompletedRequest);
+	static void GetInventory(const FInventoryResponse& OnCompletedRequest);
     
     /**
     * Receive xp, and award it to the player.
@@ -86,7 +86,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#submit-xp
     */
-	static void SubmitXP(int Points, const FLootLockerSubmitXpResponse& OnCompletedRequest);
+	static void SubmitXP(int Points, const FSubmitXpResponse& OnCompletedRequest);
     
     /**
     * Get other players XP and level.
@@ -166,7 +166,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#character-loadouts
     */
-	static void GetCharacterLoadout(const FLootLockerCharacterLoadoutResponse& OnCompletedRequest);
+	static void GetCharacterLoadout(const FCharacterLoadoutResponse& OnCompletedRequest);
     
     /**
     * This endpoint lets you set a character as default, and set the name of the character. None of the parameters are required.
@@ -174,7 +174,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#update-character
     */
-    static void UpdateCharacter(bool isDefault, FString& Name, const FLootLockerCharacterLoadoutResponse& OnCompletedRequest);
+    static void UpdateCharacter(bool isDefault, FString& Name, const FCharacterLoadoutResponse& OnCompletedRequest);
 
     /**
     * When creating a character there is only one required field: character_type_id.
@@ -186,7 +186,7 @@ public:
     * @param IsDefault - if this should be set as the default character.
     * https://docs.lootlocker.io/game-api/#create-character
     */
-    static void CreateCharacter(bool IsDefault, const FString& CharacterName, const FString& CharacterId,  const FLootLockerCharacterLoadoutResponse& OnCompletedRequest);
+    static void CreateCharacter(bool IsDefault, const FString& CharacterName, const FString& CharacterId,  const FCharacterLoadoutResponse& OnCompletedRequest);
 
     /**
 
@@ -243,7 +243,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     *  https://docs.lootlocker.io/game-api/#get-current-loadout-to-default-character
     */
-	static void GetCurrentLoadoutToDefaultCharacter(const FLootLockerCharacterLoadoutResponse& OnCompletedRequest);
+	static void GetCurrentLoadoutToDefaultCharacter(const FCharacterLoadoutResponse& OnCompletedRequest);
     
     /**
     * This method will return the exact same response as the GetCharacterLoadout, except that it will be for another player.
@@ -252,7 +252,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#get-other-players-loadout-to-default-character
     */
-	static void GetOtherPlayersCurrentLoadoutToDefaultCharacter(const FString& OtherPlayerId, const FLootLockerCharacterLoadoutResponse& OnCompletedRequest);
+	static void GetOtherPlayersCurrentLoadoutToDefaultCharacter(const FString& OtherPlayerId, const FCharacterLoadoutResponse& OnCompletedRequest);
     
     /**
     * Get the contexts that the player's default character can equip.
@@ -299,7 +299,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#updating-creating-key-value-pairs
     */
-    static void AddItemsToPersistentStorage(const TArray<FPersistentStorageItem>& Items, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest);
+    static void AddItemsToPersistentStorage(const TArray<FLootLockerPersistentStorageItem>& Items, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest);
     
     /**
     * Delete a key/value pair.
@@ -341,7 +341,7 @@ public:
     * @param IncludeUGC - whether to include UGC Assets.
     * https://docs.lootlocker.io/game-api/#getting-asset-list
     */
-    static void GetAssets(const FAssetsResponseDelegate& OnCompletedRequest, int StartFromIndex = 0, int ItemsCount = 50, EAssetFilter AssetFilter = EAssetFilter::None, bool IncludeUGC = false);
+    static void GetAssets(const FAssetsResponseDelegate& OnCompletedRequest, int StartFromIndex = 0, int ItemsCount = 50, ELootLockerAssetFilter AssetFilter = ELootLockerAssetFilter::None, bool IncludeUGC = false);
     
     /**
     * Retrieve only specific Assets by their ID's.
@@ -426,7 +426,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#creating-a-key-value-pair
     */
-    static void CreateAKeyValuePairForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItem& Item, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+    static void CreateAKeyValuePairForAssetInstance(int AssetInstanceId, const FLootLockerAssetInstanceStorageItem& Item, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
     
     /**
     * Update key/value pairs for an asset instance.
@@ -436,7 +436,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#updating-one-or-more-key-value-pairs
     */
-    static void UpdateOneOrMoreKeyValuePairForAssetInstance(int AssetInstanceId, const TArray<FAssetInstanceStorageItem>& Items, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+    static void UpdateOneOrMoreKeyValuePairForAssetInstance(int AssetInstanceId, const TArray<FLootLockerAssetInstanceStorageItem>& Items, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
     
     /**
     * Update a key/value pair for an asset instance.
@@ -446,7 +446,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     *  https://docs.lootlocker.io/game-api/#updating-a-key-value-pair-by-id
     */
-    static void UpdateAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItem Item, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+    static void UpdateAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FLootLockerAssetInstanceStorageItem Item, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
     
     /**
     * Delete a key/value pair for an asset instance.
@@ -489,7 +489,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#creating-an-asset-candidate
     */
-    static void CreateAssetCandidate(const FAssetCandidate& AsssetCandidate, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest);
+    static void CreateAssetCandidate(const FLootLockerAssetCandidate2& AsssetCandidate, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest);
     
     /**
     * Update an asset candidate.
@@ -499,7 +499,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#updating-an-asset-candidate
     */
-    static void UpdateAssetCandidate(int AssetCandidateId, const FAssetCandidate& AsssetCandidate, const FAssetCandidateResponseDelegate& OnCompletedRequest);
+    static void UpdateAssetCandidate(int AssetCandidateId, const FLootLockerAssetCandidate2& AsssetCandidate, const FAssetCandidateResponseDelegate& OnCompletedRequest);
     
     /**
     * Delete an asset candidate.
@@ -536,7 +536,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#adding-files-to-asset-candidates
     */
-    static void AddFileToAssetCandidate(int AssetCandidateId, const FString& FilePath, EAssetFilePurpose FilePurpose, const FResponseCallback& OnCompletedRequest);
+    static void AddFileToAssetCandidate(int AssetCandidateId, const FString& FilePath, ELootLockerAssetFilePurpose FilePurpose, const FResponseCallback& OnCompletedRequest);
     
     /**
     * Remove a file from an asset candidate.
@@ -586,7 +586,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#finishing-mission
     */
-    static void FinishMission(int MissionId, const FFinishMissionData& MissionData, const FFinishMissionResponseDelegate& OnCompletedRequest);
+    static void FinishMission(int MissionId, const FLootLockerFinishMissionData& MissionData, const FFinishMissionResponseDelegate& OnCompletedRequest);
     
     //==================================================
     //Maps
@@ -613,7 +613,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#purchase-call
     */
-    static void PurchaseAssets(const TArray<FAssetPurchaseData>& PurchaseData, const FPurchaseResponseDelegate& OnCompletedRequest);
+    static void PurchaseAssets(const TArray<FLootLockerAssetPurchaseData>& PurchaseData, const FPurchaseResponseDelegate& OnCompletedRequest);
     
     /**
     * Platform-specific purchase call for Android.
@@ -622,7 +622,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#android-in-app-purchases
     */
-    static void PurchaseAssetsAndroid(const TArray<FAndroidAssetPurchaseData>& PurchaseData, const FPurchaseResponseDelegate& OnCompletedRequest);
+    static void PurchaseAssetsAndroid(const TArray<FLootLockerAndroidAssetPurchaseData>& PurchaseData, const FPurchaseResponseDelegate& OnCompletedRequest);
     
     /**
     * Platform-specific purchase call for iOS.
@@ -631,7 +631,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#ios-in-app-purchases
     */
-    static void PurchaseAssetsIOS(const TArray<FVerifyPurchaseIosData>& PurchaseData, const FPurchaseResponseDelegate& OnCompletedRequest);
+    static void PurchaseAssetsIOS(const TArray<FLootLockerVerifyPurchaseIosData>& PurchaseData, const FPurchaseResponseDelegate& OnCompletedRequest);
     
     /**
     * This call will let you know the current status of an order.
@@ -663,7 +663,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#triggering-an-event
     */
-    static void TriggerEvent(const FTriggerEvent& Event, const FTriggerEventResponseDelegate& OnCompletedRequest);
+    static void TriggerEvent(const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegate& OnCompletedRequest);
     
     /**
     * This endpoint lists the triggers that a player have already completed.
@@ -693,7 +693,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#collecting-an-item
     */
-    static void CollectItem(const FCollectItemPayload& Item, const FCollectablesResponseDelegate& OnCompletedRequest);
+    static void CollectItem(const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegate& OnCompletedRequest);
     
     //==================================================
     //Messages

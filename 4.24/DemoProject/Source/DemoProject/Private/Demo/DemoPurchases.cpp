@@ -27,7 +27,7 @@ void ADemoPurchases::DemoActivateRentalAsset()
    ULootLockerSDKManager::ActivateRentalAsset(AssetId, FActivateRentalAssetResponseDelegate::CreateUObject(this, &ADemoPurchases::OnActivateRentalAssetCompleted));
 }
 
-void ADemoPurchases::OnPurchaseAssetsCompleted(FPurchaseResponse Response)
+void ADemoPurchases::OnPurchaseAssetsCompleted(FLootLockerPurchaseResponse Response)
 {
     if (Response.success)
     {
@@ -39,7 +39,7 @@ void ADemoPurchases::OnPurchaseAssetsCompleted(FPurchaseResponse Response)
     }
 }
 
-void ADemoPurchases::OnPurchaseAssetsAndroidCompleted(FPurchaseResponse Response)
+void ADemoPurchases::OnPurchaseAssetsAndroidCompleted(FLootLockerPurchaseResponse Response)
 {
     if (Response.success)
     {
@@ -51,7 +51,7 @@ void ADemoPurchases::OnPurchaseAssetsAndroidCompleted(FPurchaseResponse Response
     }
 }
 
-void ADemoPurchases::OnPurchaseAssetsIOSCompleted(FPurchaseResponse Response)
+void ADemoPurchases::OnPurchaseAssetsIOSCompleted(FLootLockerPurchaseResponse Response)
 {
     if (Response.success)
     {
@@ -63,7 +63,7 @@ void ADemoPurchases::OnPurchaseAssetsIOSCompleted(FPurchaseResponse Response)
     }
 }
 
-void ADemoPurchases::OnPollingStatusCompleted(FPurchaseStatusResponse Response)
+void ADemoPurchases::OnPollingStatusCompleted(FLootLockerPurchaseStatusResponse Response)
 {
     if (Response.success)
     {
@@ -75,7 +75,7 @@ void ADemoPurchases::OnPollingStatusCompleted(FPurchaseStatusResponse Response)
     }
 }
 
-void ADemoPurchases::OnActivateRentalAssetCompleted(FActivateRentalAssetResponse Response)
+void ADemoPurchases::OnActivateRentalAssetCompleted(FLootLockerActivateRentalAssetResponse Response)
 {
     if (Response.success)
     {

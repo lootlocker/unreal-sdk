@@ -47,7 +47,7 @@ void ADemoAssetInstances::DemoOpenLootBox()
     ULootLockerSDKManager::OpenLootBox(AssetInstanceId, FOpenLootBoxResponseDelegate::CreateUObject(this, &ADemoAssetInstances::OnOpenLootBoxCompleted));
 }
 
-void ADemoAssetInstances::OnGetAllKeyValuePairsForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
+void ADemoAssetInstances::OnGetAllKeyValuePairsForAssetInstanceCompleted(FLootLockerAssetInstanceStorageItemsResponse Response)
 {
     if (Response.success)
     {
@@ -59,7 +59,7 @@ void ADemoAssetInstances::OnGetAllKeyValuePairsForAssetInstanceCompleted(FAssetI
     }
 }
 
-void ADemoAssetInstances::OnGetAllKeyValuePairsToAnInstanceForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
+void ADemoAssetInstances::OnGetAllKeyValuePairsToAnInstanceForAssetInstanceCompleted(FLootLockerAssetInstanceStorageItemsResponse Response)
 {
     if (Response.success)
     {
@@ -72,7 +72,7 @@ void ADemoAssetInstances::OnGetAllKeyValuePairsToAnInstanceForAssetInstanceCompl
     
 }
 
-void ADemoAssetInstances::OnGetAKeyValuePairByIdForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
+void ADemoAssetInstances::OnGetAKeyValuePairByIdForAssetInstanceCompleted(FLootLockerAssetInstanceStorageItemsResponse Response)
 {
     if (Response.success)
     {
@@ -84,7 +84,7 @@ void ADemoAssetInstances::OnGetAKeyValuePairByIdForAssetInstanceCompleted(FAsset
     }
 }
 
-void ADemoAssetInstances::OnCreateAKeyValuePairForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
+void ADemoAssetInstances::OnCreateAKeyValuePairForAssetInstanceCompleted(FLootLockerAssetInstanceStorageItemsResponse Response)
 {
     if (Response.success)
     {
@@ -96,7 +96,7 @@ void ADemoAssetInstances::OnCreateAKeyValuePairForAssetInstanceCompleted(FAssetI
     }
 }
 
-void ADemoAssetInstances::OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
+void ADemoAssetInstances::OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted(FLootLockerAssetInstanceStorageItemsResponse Response)
 {
     if (Response.success)
     {
@@ -108,7 +108,7 @@ void ADemoAssetInstances::OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted
     }
 }
 
-void ADemoAssetInstances::OnUpdateAKeyValuePairByIdForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
+void ADemoAssetInstances::OnUpdateAKeyValuePairByIdForAssetInstanceCompleted(FLootLockerAssetInstanceStorageItemsResponse Response)
 {
     if (Response.success)
     {
@@ -120,7 +120,7 @@ void ADemoAssetInstances::OnUpdateAKeyValuePairByIdForAssetInstanceCompleted(FAs
     }
 }
 
-void ADemoAssetInstances::OnDeleteAKeyValuePairByIdForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response)
+void ADemoAssetInstances::OnDeleteAKeyValuePairByIdForAssetInstanceCompleted(FLootLockerAssetInstanceStorageItemsResponse Response)
 {
     if (Response.success)
     {
@@ -132,7 +132,7 @@ void ADemoAssetInstances::OnDeleteAKeyValuePairByIdForAssetInstanceCompleted(FAs
     }
 }
 
-void ADemoAssetInstances::OnInspectLootBoxCompleted(FLootBoxContentResponse Response)
+void ADemoAssetInstances::OnInspectLootBoxCompleted(FLootLockerLootBoxContentResponse Response)
 {
     if (Response.success)
     {
@@ -144,7 +144,7 @@ void ADemoAssetInstances::OnInspectLootBoxCompleted(FLootBoxContentResponse Resp
     }
 }
 
-void ADemoAssetInstances::OnOpenLootBoxCompleted(FOpenLootBoxResponse Response)
+void ADemoAssetInstances::OnOpenLootBoxCompleted(FLootLockerOpenLootBoxResponse Response)
 {
     if (Response.success)
     {

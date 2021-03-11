@@ -19,9 +19,9 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
     int StorageItemId;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
-    FAssetInstanceStorageItem Item;
+    FLootLockerAssetInstanceStorageItem Item;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
-    TArray<FAssetInstanceStorageItem> Items;
+    TArray<FLootLockerAssetInstanceStorageItem> Items;
     
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Asset Instances")
     void DemoGetAllKeyValuePairsForAssetInstance();
@@ -50,15 +50,15 @@ public:
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Asset Instances")
     void DemoOpenLootBox();
     
-    void OnGetAllKeyValuePairsForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response);
-    void OnGetAllKeyValuePairsToAnInstanceForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response);
-    void OnGetAKeyValuePairByIdForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response);
-    void OnCreateAKeyValuePairForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response);
-    void OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response);
-    void OnUpdateAKeyValuePairByIdForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response);
-    void OnDeleteAKeyValuePairByIdForAssetInstanceCompleted(FAssetInstanceStorageItemsResponse Response);
-    void OnInspectLootBoxCompleted(FLootBoxContentResponse Response);
-    void OnOpenLootBoxCompleted(FOpenLootBoxResponse Response);
+    void OnGetAllKeyValuePairsForAssetInstanceCompleted(FLootLockerAssetInstanceStorageItemsResponse Response);
+    void OnGetAllKeyValuePairsToAnInstanceForAssetInstanceCompleted(FLootLockerAssetInstanceStorageItemsResponse Response);
+    void OnGetAKeyValuePairByIdForAssetInstanceCompleted(FLootLockerAssetInstanceStorageItemsResponse Response);
+    void OnCreateAKeyValuePairForAssetInstanceCompleted(FLootLockerAssetInstanceStorageItemsResponse Response);
+    void OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted(FLootLockerAssetInstanceStorageItemsResponse Response);
+    void OnUpdateAKeyValuePairByIdForAssetInstanceCompleted(FLootLockerAssetInstanceStorageItemsResponse Response);
+    void OnDeleteAKeyValuePairByIdForAssetInstanceCompleted(FLootLockerAssetInstanceStorageItemsResponse Response);
+    void OnInspectLootBoxCompleted(FLootLockerLootBoxContentResponse Response);
+    void OnOpenLootBoxCompleted(FLootLockerOpenLootBoxResponse Response);
     
     
 private:

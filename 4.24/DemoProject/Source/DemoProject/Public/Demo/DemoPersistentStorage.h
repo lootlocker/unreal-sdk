@@ -17,7 +17,7 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
     FString Key;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
-    TArray<FPersistentStorageItem> Items;
+    TArray<FLootLockerPersistentStorageItem> Items;
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
     FString PlayerId;
     
@@ -36,11 +36,11 @@ public:
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Persistent Storage")
     void DemoGetPlayerPersistentStorage();
     
-    void OnGetEntirePersistentStorageCompleted(FPersistentStorageItemsResponse Response);
-    void OnGetItemFromPersistentStorageCompleted(FPersistentStorageItemResponse Response);
-    void OnAddItemsToPersistentStorageCompleted(FPersistentStorageItemsResponse Response);
-    void OnDeleteItemFromPersistentStorageCompleted(FPersistentStorageItemsResponse Response);
-    void OnGetPlayerPersistentStorageCompleted(FPersistentStorageItemsResponse Response);
+    void OnGetEntirePersistentStorageCompleted(FLootLockerPersistentStorageItemsResponse Response);
+    void OnGetItemFromPersistentStorageCompleted(FLootLockerPersistentStorageItemResponse Response);
+    void OnAddItemsToPersistentStorageCompleted(FLootLockerPersistentStorageItemsResponse Response);
+    void OnDeleteItemFromPersistentStorageCompleted(FLootLockerPersistentStorageItemsResponse Response);
+    void OnGetPlayerPersistentStorageCompleted(FLootLockerPersistentStorageItemsResponse Response);
     
     
 private:

@@ -17,7 +17,7 @@ public:
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Messages")
     void DemoGetMessages();
     
-    void OnGetMessagesCompleted(FMessagesResponse Response);
+    void OnGetMessagesCompleted(FLootLockerMessagesResponse Response);
     
 private:
     ULootLockerSDKManager* LootLockerManager;

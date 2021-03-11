@@ -11,102 +11,102 @@ class LOOTLOCKERSDK_API ULootLockerGameEndpoints : public UObject
     GENERATED_BODY()
 public:
     //Auth
-    static FEndPoints StartSessionEndpoint;
-    static FEndPoints VerifyPlayerIdEndPoint;
-    static FEndPoints EndSessionEndpoint;
+    static FLootLockerEndPoints StartSessionEndpoint;
+    static FLootLockerEndPoints VerifyPlayerIdEndPoint;
+    static FLootLockerEndPoints EndSessionEndpoint;
 
     //Player
-    static FEndPoints GetPlayerInfoEndPoint;
-    static FEndPoints GetPlayerInventoryEndPoint;
-    static FEndPoints SubmitXpEndpoint;
-    static FEndPoints GetOtherPlayerInfoEndpoint;
-    static FEndPoints GetCurrencyBalance;
-    static FEndPoints CheckPlayerAssetActivationEndpoint;
-    static FEndPoints CheckPlayerAssetDeactivatonEndpoint;
-    static FEndPoints InitiateDLCMigration;
-    static FEndPoints GetDLCsMigrated;
-    static FEndPoints SetProfilePrivate;
-    static FEndPoints SetProfilePublic;
+    static FLootLockerEndPoints GetPlayerInfoEndPoint;
+    static FLootLockerEndPoints GetPlayerInventoryEndPoint;
+    static FLootLockerEndPoints SubmitXpEndpoint;
+    static FLootLockerEndPoints GetOtherPlayerInfoEndpoint;
+    static FLootLockerEndPoints GetCurrencyBalance;
+    static FLootLockerEndPoints CheckPlayerAssetActivationEndpoint;
+    static FLootLockerEndPoints CheckPlayerAssetDeactivatonEndpoint;
+    static FLootLockerEndPoints InitiateDLCMigration;
+    static FLootLockerEndPoints GetDLCsMigrated;
+    static FLootLockerEndPoints SetProfilePrivate;
+    static FLootLockerEndPoints SetProfilePublic;
 
     //Character
-    static FEndPoints GetCharacterLoadoutEndpoint;
-    static FEndPoints UpdateCharacterEndpoint;
-    static FEndPoints EquipAssetToDefaultCharacterEndpoint;
-    static FEndPoints EquipAssetToCharacterByIdEndpoint;
-    static FEndPoints CreateCharacterEndpoint;
-    static FEndPoints ListCharacterTypesByIdEndpoint;
-    static FEndPoints UnEquipAssetToDefaultCharacterEndpoint;
-    static FEndPoints UnEquipAssetToCharacterByIdEndpoint;
-    static FEndPoints GetCurrentLoadoutToDefaultCharacterEndpoint;
-    static FEndPoints GetOtherPlayersLoadoutToDefaultCharacterEndpoint;
-    static FEndPoints GetEquippableContextstoDefaultCharacterEndpoint;
-    static FEndPoints GetEquippableContextsByCharacterIDEndpoint;
+    static FLootLockerEndPoints GetCharacterLoadoutEndpoint;
+    static FLootLockerEndPoints UpdateCharacterEndpoint;
+    static FLootLockerEndPoints EquipAssetToDefaultCharacterEndpoint;
+    static FLootLockerEndPoints EquipAssetToCharacterByIdEndpoint;
+    static FLootLockerEndPoints CreateCharacterEndpoint;
+    static FLootLockerEndPoints ListCharacterTypesByIdEndpoint;
+    static FLootLockerEndPoints UnEquipAssetToDefaultCharacterEndpoint;
+    static FLootLockerEndPoints UnEquipAssetToCharacterByIdEndpoint;
+    static FLootLockerEndPoints GetCurrentLoadoutToDefaultCharacterEndpoint;
+    static FLootLockerEndPoints GetOtherPlayersLoadoutToDefaultCharacterEndpoint;
+    static FLootLockerEndPoints GetEquippableContextstoDefaultCharacterEndpoint;
+    static FLootLockerEndPoints GetEquippableContextsByCharacterIDEndpoint;
     
     //Persistent Storage
-    static FEndPoints GetEntirePersistentStorageEndpoint;
-    static FEndPoints GetASingleKeyFromPersistentStorageEndpoint;
-    static FEndPoints UpdateOrCreateKeyValuePairToPersistentStorageEndpoint;
-    static FEndPoints DeleteAKeyValuePairFromPersistentStorageEndpoint;
-    static FEndPoints GetOtherPlayersPublicKeyValuePairs;
+    static FLootLockerEndPoints GetEntirePersistentStorageEndpoint;
+    static FLootLockerEndPoints GetASingleKeyFromPersistentStorageEndpoint;
+    static FLootLockerEndPoints UpdateOrCreateKeyValuePairToPersistentStorageEndpoint;
+    static FLootLockerEndPoints DeleteAKeyValuePairFromPersistentStorageEndpoint;
+    static FLootLockerEndPoints GetOtherPlayersPublicKeyValuePairs;
     
     //Assets
-    static FEndPoints GetContextsEndpoint;
-    static FEndPoints GetAssetsEndpoint;
-    static FEndPoints GetAssetsByIdsEndpoint;
-    static FEndPoints GetAssetBonesEndpoint;
-    static FEndPoints GetFavouriteAssetIndicesEndpoint;
-    static FEndPoints AddAssetToFavouritesEndpoint;
-    static FEndPoints RemoveAssetFromFavouritesEndpoint;
+    static FLootLockerEndPoints GetContextsEndpoint;
+    static FLootLockerEndPoints GetAssetsEndpoint;
+    static FLootLockerEndPoints GetAssetsByIdsEndpoint;
+    static FLootLockerEndPoints GetAssetBonesEndpoint;
+    static FLootLockerEndPoints GetFavouriteAssetIndicesEndpoint;
+    static FLootLockerEndPoints AddAssetToFavouritesEndpoint;
+    static FLootLockerEndPoints RemoveAssetFromFavouritesEndpoint;
     
     //Asset Instances
-    static FEndPoints GetAllKeyValuePairsForAssetInstance;
-    static FEndPoints GetAllKeyValuePairsToAnInstanceForAssetInstance;
-    static FEndPoints GetAKeyValuePairByIdForAssetInstanceEndpoint;
-    static FEndPoints CreateAKeyValuePairForAssetInstanceEndpoint;
-    static FEndPoints UpdateOneOrMoreKeyValuePairForAssetInstanceEndpoint;
-    static FEndPoints UpdateAKeyValuePairByIdForAssetInstanceEndpoint;
-    static FEndPoints DeleteAKeyValuePairByIdForAssetInstanceEndpoint;
-    static FEndPoints InspectLootBoxEndpoint;
-    static FEndPoints OpenLootBoxEndpoint;
+    static FLootLockerEndPoints GetAllKeyValuePairsForAssetInstance;
+    static FLootLockerEndPoints GetAllKeyValuePairsToAnInstanceForAssetInstance;
+    static FLootLockerEndPoints GetAKeyValuePairByIdForAssetInstanceEndpoint;
+    static FLootLockerEndPoints CreateAKeyValuePairForAssetInstanceEndpoint;
+    static FLootLockerEndPoints UpdateOneOrMoreKeyValuePairForAssetInstanceEndpoint;
+    static FLootLockerEndPoints UpdateAKeyValuePairByIdForAssetInstanceEndpoint;
+    static FLootLockerEndPoints DeleteAKeyValuePairByIdForAssetInstanceEndpoint;
+    static FLootLockerEndPoints InspectLootBoxEndpoint;
+    static FLootLockerEndPoints OpenLootBoxEndpoint;
     
     //User Generated Content
-    static FEndPoints CreateAssetCandidateEndpoint;
-    static FEndPoints UpdateAssetCandidateEndpoint;
-    static FEndPoints DeleteAssetCandidateEndpoint;
-    static FEndPoints GetAllAssetCandidatesEndpoint;
-    static FEndPoints GetAssetCandidateEndpoint;
-    static FEndPoints AddFileToAssetCandidateEndpoint;
-    static FEndPoints DeleteFileFromAssetCandidateEndpoint;
+    static FLootLockerEndPoints CreateAssetCandidateEndpoint;
+    static FLootLockerEndPoints UpdateAssetCandidateEndpoint;
+    static FLootLockerEndPoints DeleteAssetCandidateEndpoint;
+    static FLootLockerEndPoints GetAllAssetCandidatesEndpoint;
+    static FLootLockerEndPoints GetAssetCandidateEndpoint;
+    static FLootLockerEndPoints AddFileToAssetCandidateEndpoint;
+    static FLootLockerEndPoints DeleteFileFromAssetCandidateEndpoint;
     
     //Missions
-    static FEndPoints GetAllMissionsEndpoint;
-    static FEndPoints GetMissionEndpoint;
-    static FEndPoints StartMissionEndpoint;
-    static FEndPoints FinishMissionEndpoint;
+    static FLootLockerEndPoints GetAllMissionsEndpoint;
+    static FLootLockerEndPoints GetMissionEndpoint;
+    static FLootLockerEndPoints StartMissionEndpoint;
+    static FLootLockerEndPoints FinishMissionEndpoint;
     
     //Maps
-    static FEndPoints GetAllMapsEndpoint;
+    static FLootLockerEndPoints GetAllMapsEndpoint;
     
     //Purchases
-    static FEndPoints PurchaseEndpoint;
-    static FEndPoints IOSPurchaseEndpoint;
-    static FEndPoints AndroidPurchaseEndpoint;
-    static FEndPoints PollingOrderStatusEndpoint;
-    static FEndPoints ActivateRentalAssetEndpoint;
+    static FLootLockerEndPoints PurchaseEndpoint;
+    static FLootLockerEndPoints IOSPurchaseEndpoint;
+    static FLootLockerEndPoints AndroidPurchaseEndpoint;
+    static FLootLockerEndPoints PollingOrderStatusEndpoint;
+    static FLootLockerEndPoints ActivateRentalAssetEndpoint;
     
     //Trigger Events
-    static FEndPoints TriggerEventEndpoint;
-    static FEndPoints GetTriggeredEventsEndpoint;
+    static FLootLockerEndPoints TriggerEventEndpoint;
+    static FLootLockerEndPoints GetTriggeredEventsEndpoint;
     
     //Collectables
-    static FEndPoints GetAllCollectablesEndpoint;
-    static FEndPoints CollectItemEndpoint;
+    static FLootLockerEndPoints GetAllCollectablesEndpoint;
+    static FLootLockerEndPoints CollectItemEndpoint;
     
     //Messages
-    static FEndPoints GetMessagesEndpoint;
+    static FLootLockerEndPoints GetMessagesEndpoint;
     
 private:
     static FString GameBaseUrl;
 
-    static FEndPoints InitEndpoint(const FString& Endpoint, ELootLockerHTTPMethod Method);
+    static FLootLockerEndPoints InitEndpoint(const FString& Endpoint, ELootLockerHTTPMethod Method);
 };

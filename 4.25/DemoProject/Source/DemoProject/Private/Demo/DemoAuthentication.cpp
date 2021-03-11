@@ -24,7 +24,7 @@ void ADemoAuthentication::DemoEndSession()
    ULootLockerSDKManager::EndSession(PlayerId, FLootLockerDefaultAuthenticationResponse::CreateUObject(this, &ADemoAuthentication::OnEndSessionCompleted));
 }
 
-void ADemoAuthentication::OnStartSessionCompleted(FAuthenticationResponse Response)
+void ADemoAuthentication::OnStartSessionCompleted(FLootLockerAuthenticationResponse Response)
 {
     if (Response.success)
     {
@@ -36,7 +36,7 @@ void ADemoAuthentication::OnStartSessionCompleted(FAuthenticationResponse Respon
     }
 }
 
-void ADemoAuthentication::OnVerifyPlayerCompleted(FAuthenticationDefaultResponse Response)
+void ADemoAuthentication::OnVerifyPlayerCompleted(FLootLockerAuthenticationDefaultResponse Response)
 {
     if (Response.success)
     {
@@ -48,7 +48,7 @@ void ADemoAuthentication::OnVerifyPlayerCompleted(FAuthenticationDefaultResponse
     }
 }
 
-void ADemoAuthentication::OnEndSessionCompleted(FAuthenticationDefaultResponse Response)
+void ADemoAuthentication::OnEndSessionCompleted(FLootLockerAuthenticationDefaultResponse Response)
 {
     if (Response.success)
     {

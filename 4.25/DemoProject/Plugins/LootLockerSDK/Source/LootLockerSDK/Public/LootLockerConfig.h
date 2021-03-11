@@ -52,7 +52,7 @@ enum class ELootLockerPlatformType : uint8
 };
 
 USTRUCT(BlueprintType)
-struct FEndPoints
+struct FLootLockerEndPoints
 {
 	GENERATED_BODY()
 public:

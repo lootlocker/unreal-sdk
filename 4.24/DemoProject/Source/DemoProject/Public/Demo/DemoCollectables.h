@@ -15,7 +15,7 @@ public:
     GENERATED_BODY()
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere)
-    FCollectItemPayload Item;
+    FLootLockerCollectItemPayload Item;
     
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Collectables")
     void DemoGetAllCollectables();
@@ -23,8 +23,8 @@ public:
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Collectables")
     void DemoCollectItem();
     
-    void OnGetAllCollectablesCompleted(FCollectablesResponse Response);
-    void OnCollectItemCompleted(FCollectablesResponse Response);
+    void OnGetAllCollectablesCompleted(FLootLockerCollectablesResponse Response);
+    void OnCollectItemCompleted(FLootLockerCollectablesResponse Response);
     
     
 private:

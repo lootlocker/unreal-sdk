@@ -8,7 +8,7 @@ void ADemoMessages::DemoGetMessages()
    ULootLockerSDKManager::GetMessages(FMessagesResponseDelegate::CreateUObject(this, &ADemoMessages::OnGetMessagesCompleted));
 }
 
-void ADemoMessages::OnGetMessagesCompleted(FMessagesResponse Response)
+void ADemoMessages::OnGetMessagesCompleted(FLootLockerMessagesResponse Response)
 {
     if (Response.success)
     {

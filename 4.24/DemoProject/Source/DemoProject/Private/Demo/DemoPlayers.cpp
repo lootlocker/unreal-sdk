@@ -10,12 +10,12 @@ void ADemoPlayers::DemoGetPlayerInfo()
 
 void ADemoPlayers::DemoGetInventory()
 {
-   ULootLockerSDKManager::GetInventory(FLootLockerInventoryResponse::CreateUObject(this, &ADemoPlayers::OnGetInventoryCompleted));
+   ULootLockerSDKManager::GetInventory(FInventoryResponse::CreateUObject(this, &ADemoPlayers::OnGetInventoryCompleted));
 }
 
 void ADemoPlayers::DemoSubmitXp()
 {
-   ULootLockerSDKManager::SubmitXP(points, FLootLockerSubmitXpResponse::CreateUObject(this, &ADemoPlayers::OnSubmitXpCompleted));
+   ULootLockerSDKManager::SubmitXP(points, FSubmitXpResponse::CreateUObject(this, &ADemoPlayers::OnSubmitXpCompleted));
 }
 
 void ADemoPlayers::DemoGetOtherPlayerInfo()
@@ -61,7 +61,7 @@ void ADemoPlayers::SetProfilePublic()
 }
 
 
-void ADemoPlayers::OnGetCurrencyBalance(FBalanceResponse Response)
+void ADemoPlayers::OnGetCurrencyBalance(FLootLockerBalanceResponse Response)
 {
     if (Response.success)
     {
@@ -85,7 +85,7 @@ void ADemoPlayers::OnInitiateDlcMigration(FLootLockerResponse Response)
     }
 }
 
-void ADemoPlayers::OnGotDlcMigration(FDlcResponse Response)
+void ADemoPlayers::OnGotDlcMigration(FLootLockerDlcResponse Response)
 {
     if (Response.success)
     {
@@ -121,7 +121,7 @@ void ADemoPlayers::OnProfileSetPublic(FLootLockerResponse Response)
     }
 }
 
-void ADemoPlayers::OnGetPlayerInfoCompleted(FPlayerInfoResponse Response)
+void ADemoPlayers::OnGetPlayerInfoCompleted(FLootLockerPlayerInfoResponse Response)
 {
     if (Response.success)
     {
@@ -133,7 +133,7 @@ void ADemoPlayers::OnGetPlayerInfoCompleted(FPlayerInfoResponse Response)
     }
 }
 
-void ADemoPlayers::OnGetInventoryCompleted(FInventoryResponse Response)
+void ADemoPlayers::OnGetInventoryCompleted(FLootLockerInventoryResponse Response)
 {
     if (Response.success)
     {
@@ -145,7 +145,7 @@ void ADemoPlayers::OnGetInventoryCompleted(FInventoryResponse Response)
     }
 }
 
-void ADemoPlayers::OnSubmitXpCompleted(FSubmitXpResponse Response)
+void ADemoPlayers::OnSubmitXpCompleted(FLootLockerSubmitXpResponse Response)
 {
     if (Response.success)
     {
@@ -157,7 +157,7 @@ void ADemoPlayers::OnSubmitXpCompleted(FSubmitXpResponse Response)
     }
 }
 
-void ADemoPlayers::OnGetOtherPlayerInfoCompleted(FPlayerInfoResponse Response)
+void ADemoPlayers::OnGetOtherPlayerInfoCompleted(FLootLockerPlayerInfoResponse Response)
 {
     if (Response.success)
     {
@@ -169,7 +169,7 @@ void ADemoPlayers::OnGetOtherPlayerInfoCompleted(FPlayerInfoResponse Response)
     }
 }
 
-void ADemoPlayers::OnCheckPlayerAssetNotificationCompleted(FPlayerAssetNotificationResponse Response)
+void ADemoPlayers::OnCheckPlayerAssetNotificationCompleted(FLootLockerPlayerAssetNotificationResponse Response)
 {
     if (Response.success)
     {
@@ -181,7 +181,7 @@ void ADemoPlayers::OnCheckPlayerAssetNotificationCompleted(FPlayerAssetNotificat
     }
 }
 
-void ADemoPlayers::OnCheckPlayerAssetDeactivationNotificationCompleted(FPlayerAssetNotificationResponse Response)
+void ADemoPlayers::OnCheckPlayerAssetDeactivationNotificationCompleted(FLootLockerPlayerAssetNotificationResponse Response)
 {
     if (Response.success)
     {

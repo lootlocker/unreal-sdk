@@ -37,7 +37,7 @@ void ADemoUserGeneratedContent::DemoDeleteFileFromAssetCandidate()
    ULootLockerSDKManager::DeleteFileFromAssetCandidate(AssetCandidateId, FileId, FResponseCallback::CreateUObject(this, &ADemoUserGeneratedContent::OnDeleteFileFromAssetCandidateCompleted));
 }
 
-void ADemoUserGeneratedContent::OnCreateAssetCandidateCompleted(FCreateAssetCandidateResponse Response)
+void ADemoUserGeneratedContent::OnCreateAssetCandidateCompleted(FLootLockerCreateAssetCandidateResponse Response)
 {
     if (Response.success)
     {
@@ -49,7 +49,7 @@ void ADemoUserGeneratedContent::OnCreateAssetCandidateCompleted(FCreateAssetCand
     }
 }
 
-void ADemoUserGeneratedContent::OnUpdateAssetCandidateCompleted(FAssetCandidateResponse Response)
+void ADemoUserGeneratedContent::OnUpdateAssetCandidateCompleted(FLootLockerAssetCandidateResponse Response)
 {
     if (Response.success)
     {
@@ -73,7 +73,7 @@ void ADemoUserGeneratedContent::OnDeleteAssetCandidateCompleted(FLootLockerRespo
     }
 }
 
-void ADemoUserGeneratedContent::OnGetAllAssetCandidatesCompleted(FAssetCandidatesResponse Response)
+void ADemoUserGeneratedContent::OnGetAllAssetCandidatesCompleted(FLootLockerAssetCandidatesResponse Response)
 {
     if (Response.success)
     {
@@ -85,7 +85,7 @@ void ADemoUserGeneratedContent::OnGetAllAssetCandidatesCompleted(FAssetCandidate
     }
 }
 
-void ADemoUserGeneratedContent::OnGetAssetCandidateCompleted(FAssetCandidateResponse Response)
+void ADemoUserGeneratedContent::OnGetAssetCandidateCompleted(FLootLockerAssetCandidateResponse Response)
 {
     if (Response.success)
     {
