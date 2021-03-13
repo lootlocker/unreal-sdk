@@ -118,6 +118,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#get-currency-balance
     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
     static void GetCurrencyBalance(const FPBalanceResponseBP& OnGetCurrencyBalance);
 
     /**
@@ -126,6 +127,7 @@ public:
     *
     * https://docs.lootlocker.io/game-api/#initiate-dlc-migration
     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
     static void InitiateDLCMigration(const FResponseCallbackBP& OnInitiateDlcMigration);
 
     /**
@@ -135,6 +137,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#get-dlcs-migrated
     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
     static void GetDLCsMigration(const FPDlcResponseBP& OnGotDlcMigration);
 
     /**
@@ -144,6 +147,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#set-profile-private
     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
     static void SetProfilePrivate(const FResponseCallbackBP& OnProfileSetPrivate);
 
     /**
@@ -153,6 +157,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#set-profile-public
     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
     static void SetProfilePublic(const FResponseCallbackBP& OnProfileSetPublic);
     
     //==================================================
@@ -173,6 +178,7 @@ public:
     * @param IsDefault - if this should be set as the default character.
     * https://docs.lootlocker.io/game-api/#create-character
     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
     static void UpdateCharacter(bool isDefault, FString& Name, const FPCharacterLoadoutResponseBP& OnCompletedRequest);
 
 
@@ -186,6 +192,7 @@ public:
     * @param IsDefault - if this should be set as the default character.
     * https://docs.lootlocker.io/game-api/#create-character
     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
     static void CreateCharacter(bool IsDefault, const FString& CharacterName, const FString& CharacterTypeId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP);
 
     /**
@@ -194,6 +201,7 @@ public:
     * 
     * https://docs.lootlocker.io/game-api/#list-character-types
     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
     static void ListCharacterTypes(const FPLootLockerListCharacterTypesResponseBP& OnCompletedRequestBP);
 
 
