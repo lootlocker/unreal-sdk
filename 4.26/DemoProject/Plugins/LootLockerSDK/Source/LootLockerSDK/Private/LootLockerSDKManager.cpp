@@ -4,17 +4,17 @@
 #include "LootLockerSDKManager.h"
 
 //Authentication
-void ULootLockerSDKManager::StartSession(const FString& PlayerId, const FLootLockerSessionResponse& OnCompleteRequest)
+void ULootLockerSDKManager::StartSession(const FString& PlayerIdentifier, const FLootLockerSessionResponse& OnCompleteRequest)
 {
-	ULootLockerAuthenticationRequestHandler::StartSession(PlayerId, FAuthResponseBP(), OnCompleteRequest);
+	ULootLockerAuthenticationRequestHandler::StartSession(PlayerIdentifier, FAuthResponseBP(), OnCompleteRequest);
 }
 
-void ULootLockerSDKManager::VerifyPlayer(const FString& CachedSteamToken, const FLootLockerDefaultAuthenticationResponse& OnCompleteRequest)
+void ULootLockerSDKManager::VerifyPlayer(const FString& SteamSessionTicket, const FLootLockerDefaultAuthenticationResponse& OnCompleteRequest)
 {
-	ULootLockerAuthenticationRequestHandler::VerifyPlayer(CachedSteamToken, FAuthDefaultResponseBP(), OnCompleteRequest);
+	ULootLockerAuthenticationRequestHandler::VerifyPlayer(SteamSessionTicket, FAuthDefaultResponseBP(), OnCompleteRequest);
 }
 
-void ULootLockerSDKManager::EndSession(const FString& PlayerId, const FLootLockerDefaultAuthenticationResponse& OnCompleteRequest)
+void ULootLockerSDKManager::EndSession(const FLootLockerDefaultAuthenticationResponse& OnCompleteRequest)
 {
 	ULootLockerAuthenticationRequestHandler::EndSession(FAuthDefaultResponseBP(), OnCompleteRequest);
 }
@@ -83,9 +83,9 @@ void ULootLockerSDKManager::GetCharacterLoadout(const FCharacterLoadoutResponse&
 	ULootLockerCharacterRequestHandler::GetCharacterLoadout(FPCharacterLoadoutResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::UpdateCharacter(bool isDefault, FString& Name, const FCharacterLoadoutResponse& OnCompletedRequest)
+void ULootLockerSDKManager::UpdateCharacter(int CharacterId, bool isDefault, FString& Name, const FCharacterLoadoutResponse& OnCompletedRequest)
 {
-    ULootLockerCharacterRequestHandler::UpdateCharacter(isDefault, Name, FPCharacterLoadoutResponseBP(), OnCompletedRequest);
+    ULootLockerCharacterRequestHandler::UpdateCharacter(CharacterId,isDefault, Name, FPCharacterLoadoutResponseBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::CreateCharacter(bool IsDefault, const FString& CharacterName, const FString& CharacterId, const FCharacterLoadoutResponse& OnCompletedRequest)
@@ -110,16 +110,22 @@ void ULootLockerSDKManager::EquipAssetToCharacterById(int CharacterId, int Asset
 	ULootLockerCharacterRequestHandler::EquipAssetToCharacterById(GetRequests, AssetId, AssetVariationId, FPCharacterDefaultResponseBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::EquipAssetToCharacterById(FString CharacterId, int InstanceId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest)
+{
+    ULootLockerCharacterRequestHandler::EquipAssetToCharacterById(CharacterId,InstanceId, FPCharacterDefaultResponseBP(), OnCompletedRequest);
+}
+
 void ULootLockerSDKManager::UnEquipAssetToDefaultCharacter(int InstanceId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest)
 {
 	ULootLockerCharacterRequestHandler::UnEquipAssetToDefaultCharacter(InstanceId, FPCharacterDefaultResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::UnEquipAssetToCharacterById(int CharacterId, int AssetId, int AssetVariationId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest)
+void ULootLockerSDKManager::UnEquipAssetToCharacterById(int CharacterId, int InstanceId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest)
 {
 	FLootLockerGetRequests GetRequests;
 	GetRequests.args.Add(CharacterId);
-	ULootLockerCharacterRequestHandler::UnEquipAssetToCharacterById(GetRequests, AssetId, AssetVariationId, FPCharacterDefaultResponseBP(), OnCompletedRequest);
+    GetRequests.args.Add(InstanceId);
+	ULootLockerCharacterRequestHandler::UnEquipAssetToCharacterById(GetRequests, FPCharacterDefaultResponseBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::GetCurrentLoadoutToDefaultCharacter(const FCharacterLoadoutResponse& OnCompletedRequest)
@@ -371,3 +377,58 @@ void ULootLockerSDKManager::GetMessages(const FMessagesResponseDelegate& OnCompl
 {
     ULootLockerMessagesRequestHandler::GetMessages(FMessagesResponseDelegateBP(), OnCompletedRequest);
 }
+
+void ULootLockerSDKManager::GetMemberRank(int LeaderboardId, int MemberId, const FLootLockerGetMemberRankResponseDelegate& OnCompletedRequest)
+{
+    FLootLockerGetMemberRankRequest MemberRequest;
+    MemberRequest.leaderboardId = LeaderboardId;
+    MemberRequest.member_id = MemberId;
+
+    ULootLockerLeaderboardRequestHandler::GetMemberRank(MemberRequest, FLootLockerGetMemberRankResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::GetByListOfMembers(TArray<FString> Members, int LeaderboardId, const FLootLockerGetByListOfMembersResponseDelegate& OnCompletedRequest)
+{
+    FLootLockerGetByListMembersRequest GetByListMembersRequest;
+    GetByListMembersRequest.members = Members;
+    ULootLockerLeaderboardRequestHandler::GetByListOfMembers(GetByListMembersRequest, LeaderboardId,FLootLockerGetByListOfMembersResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::GetScoreList(int LeaderboardId, int Count, int After, const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest)
+{
+    FLootLockerGetScoreListRequest GetScoreListRequest;
+    GetScoreListRequest.after = After;
+    GetScoreListRequest.count = Count;
+    GetScoreListRequest.leaderboardId = LeaderboardId;
+    ULootLockerLeaderboardRequestHandler::GetScoreList(GetScoreListRequest, FLootLockerGetScoreListResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::GetScoreListInitial(int LeaderboardId, int Count, const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest)
+{
+    FLootLockerGetScoreListRequest GetScoreListRequest;
+    GetScoreListRequest.after = -1;
+    GetScoreListRequest.count = Count;
+    GetScoreListRequest.leaderboardId = LeaderboardId;
+    ULootLockerLeaderboardRequestHandler::GetScoreList(GetScoreListRequest, FLootLockerGetScoreListResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::SubmitScore(FString MemberId, int LeaderboardId, int Score, const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest)
+{
+    FLootLockerSubmitScoreRequest SubmitScoreRequest;
+    SubmitScoreRequest.member_id = MemberId;
+    SubmitScoreRequest.score = Score;
+    ULootLockerLeaderboardRequestHandler::SubmitScore(SubmitScoreRequest, LeaderboardId, FLootLockerSubmitScoreResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::ComputeAndLockDropTable(int TableId, const FLootLockerComputeAndLockDropTableResponseDelegate& OnCompletedRequest)
+{
+    ULLDropTablesRequestHandler::ComputeAndLockDropTable(TableId, FLootLockerComputeAndLockDropTableResponseBP(),OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::PickDropsFromDropTable(TArray<int> picks, int TableId, const FFLootLockerPickDropsFromDropTableResponseDelegate& OnCompletedRequest)
+{
+    FLootLockerPickDropsFromDropTableRequest request;
+    request.picks = picks;
+    ULLDropTablesRequestHandler::PickDropsFromDropTable(request, TableId, FFLootLockerPickDropsFromDropTableResponseBP(),OnCompletedRequest);
+}
+

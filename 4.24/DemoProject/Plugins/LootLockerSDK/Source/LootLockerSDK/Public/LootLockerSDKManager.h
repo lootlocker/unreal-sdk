@@ -20,7 +20,8 @@
 #include "GameAPI/LootLockerTriggerEventsRequestHandler.h"
 #include "GameAPI/LootLockerCollectablesRequestHandler.h"
 #include "GameAPI/LootLockerMessagesRequestHandler.h"
-
+#include "GameAPI/LootLockerLeaderboardRequestHandler.h"
+#include "GameAPI/LLDropTablesRequestHandler.h"
 #include "LootLockerSDKManager.generated.h"
 
 UCLASS(Blueprintable)
@@ -36,19 +37,19 @@ public:
     
     /**
      * Register a session.
-     * @param PlayerId - the ID of the player on the platform the game is currently running on.
+     * @param PlayerIdentifier - the ID of the player on the platform the game is currently running on.
      * @param OnCompletedRequest - callback to be invoked with the server response.
      * https://docs.lootlocker.io/game-api/#authentication-request
      */
-	static void StartSession(const FString& PlayerId, const FLootLockerSessionResponse& OnCompletedRequest);
+	static void StartSession(const FString& PlayerIdentifier, const FLootLockerSessionResponse& OnCompletedRequest);
     
     /**
     * If your game uses Player Verification, you need to call this endpoint before you can register a session.
-    * @param CachedSteamToken - platform-specific token.
+    * @param SteamSessionTicket - platform-specific token.
     * @param OnCompletedRequest - callback to be invoked with the server response.
     *  https://docs.lootlocker.io/game-api/#player-verification
     */
-	static void VerifyPlayer(const FString& CachedSteamToken, const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest);
+	static void VerifyPlayer(const FString& SteamSessionTicket, const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest);
     
     /**
     * Terminate the session on the LootLocker servers. Any further requests with this session's token will be rejected with an 401 Unauthroized error.
@@ -57,7 +58,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     *  https://docs.lootlocker.io/game-api/#ending-a-session
     */
-	static void EndSession(const FString& PlayerId, const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest);
+	static void EndSession(const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest);
     
     //==================================================
 	//Player calls
@@ -174,7 +175,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#update-character
     */
-    static void UpdateCharacter(bool isDefault, FString& Name, const FCharacterLoadoutResponse& OnCompletedRequest);
+    static void UpdateCharacter(int CharacterId, bool isDefault, FString& Name, const FCharacterLoadoutResponse& OnCompletedRequest);
 
     /**
     * When creating a character there is only one required field: character_type_id.
@@ -210,13 +211,22 @@ public:
     * Equip an asset to the specified character.
     *
     * @param CharacterId - ID of the character to equip an asset to.
-    * @param InstanceId - the asset's instance_id that is returned from the inventory and loadout calls.
+    * @param AssetId - the asset's instance_id that is returned from the inventory and loadout calls.
     * @param AssetVariationId - the asset_variation_id.
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#equip-asset-to-character-by-id
     */
 	static void EquipAssetToCharacterById(int CharacterId, int AssetId, int AssetVariationId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest);
     
+        /**
+    * Equip an asset to the specified character.
+    *
+    * @param CharacterId - ID of the character to equip an asset to.
+    * @param InstanceId - the asset's instance_id that is returned from the inventory and loadout calls.
+    * https://docs.lootlocker.io/game-api/#equip-asset-to-character-by-id
+    */
+	static void EquipAssetToCharacterById(FString CharacterId, int InstanceId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest);
+
     /**
     * Unequip an asset from the default character.
     *
@@ -235,7 +245,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     *  https://docs.lootlocker.io/game-api/#unequip-asset-to-character-by-id
     */
-	static void UnEquipAssetToCharacterById(int CharacterId, int AssetId, int AssetVariationId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest);
+	static void UnEquipAssetToCharacterById(int CharacterId, int InstanceId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest);
     
     /**
     * Getting the current loadout will return an array of assets that the user currently has equipped.
@@ -706,4 +716,89 @@ public:
     * https://docs.lootlocker.io/game-api/#get-messages
     */
     static void GetMessages(const FMessagesResponseDelegate& OnCompletedRequest);
+
+     //==================================================
+    //Leaderboard
+    //==================================================
+
+     /**
+    * Get rank for single member for a leaderboard. If leaderboard is of type player a player will also be in the response.
+    * 
+    * @param LeaderboardId - the id of the leaderboard you need to connect to.
+    * @param MemberId - the id of player in the leaderboard
+    *
+    * https://ref.lootlocker.io/game-api/#get-member-rank
+    */
+    static void GetMemberRank(int LeaderboardId, int MemberId, const FLootLockerGetMemberRankResponseDelegate& OnCompletedRequest);
+
+
+     /**
+    * Collecting an Item is done by calling this endpoint with a payload equal to the slug of the Item.
+    * The slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
+    * @param Members - the ids of all leaderboard members you need to get info on.
+    * 
+    * https://ref.lootlocker.io/game-api/#get-by-list-of-members
+    */
+    static void GetByListOfMembers(TArray<FString> Members, int LeaderboardId, const FLootLockerGetByListOfMembersResponseDelegate& OnCompletedRequest);
+
+     /**
+    * Collecting an Item is done by calling this endpoint with a payload equal to the slug of the Item.
+    * The slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
+    * @param LeaderboardId - the id of the leaderboard you need to connect to.
+    * @param Count - Number of members returned per page
+    * @param After - Curser for pagination, a cursor will be returned in the response
+    * 
+    * https://ref.lootlocker.io/game-api/#get-score-list
+    */
+    static void GetScoreList(int LeaderboardId, int Count, int After, const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest);
+
+    /**
+    * Collecting an Item is done by calling this endpoint with a payload equal to the slug of the Item.
+    * The slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
+    * @param LeaderboardId - the id of the leaderboard you need to connect to.
+    * @param Count - Number of members returned per page
+    * @param After - Curser for pagination, a cursor will be returned in the response
+    *
+    * https://ref.lootlocker.io/game-api/#get-score-list
+    */
+    static void GetScoreListInitial(int LeaderboardId, int Count, const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest);
+
+
+     /**
+    * Collecting an Item is done by calling this endpoint with a payload equal to the slug of the Item.
+    * The slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
+    * @param LeaderboardId - the id of the leaderboard you need to connect to.
+    * @param MemberId - the id of player in the leaderboard.
+    * @param Score - the score to be submitted.
+    * 
+    * https://ref.lootlocker.io/game-api/#submit-scorem
+    */
+    static void SubmitScore(FString MemberId, int LeaderboardId, int Score, const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest);
+
+     //==================================================
+    //Drop Table
+    //==================================================
+    /**
+    * Collecting an Item is done by calling this endpoint with a payload equal to the slug of the Item.
+    * The slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
+    * @param LeaderboardId - the id of the leaderboard you need to connect to.
+    * @param MemberId - the id of player in the leaderboard.
+    * @param Score - the score to be submitted.
+    *
+    * https://ref.lootlocker.io/game-api/#submit-scorem
+    */
+    static void ComputeAndLockDropTable(int TableId, const FLootLockerComputeAndLockDropTableResponseDelegate& OnCompletedRequest);
+
+    /**
+   * Collecting an Item is done by calling this endpoint with a payload equal to the slug of the Item.
+   * The slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
+   * @param LeaderboardId - the id of the leaderboard you need to connect to.
+   * @param MemberId - the id of player in the leaderboard.
+   * @param Score - the score to be submitted.
+   *
+   * https://ref.lootlocker.io/game-api/#submit-scorem
+   */
+    static void PickDropsFromDropTable(TArray<int> picks, int TableId,const FFLootLockerPickDropsFromDropTableResponseDelegate& OnCompletedRequest);
+
+
 };

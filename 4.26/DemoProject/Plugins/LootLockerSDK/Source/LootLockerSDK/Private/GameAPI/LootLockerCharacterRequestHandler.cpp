@@ -33,7 +33,7 @@ void ULootLockerCharacterRequestHandler::GetCharacterLoadout(const FPCharacterLo
 	HttpClient->SendApi(ULootLockerGameEndpoints::GetCharacterLoadoutEndpoint.endpoint, requestMethod, data, sessionResponse, true);
 }
 
-void ULootLockerCharacterRequestHandler::UpdateCharacter(bool IsDefault, const FString& Name, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP, const FCharacterLoadoutResponse& OnCompletedRequest)
+void ULootLockerCharacterRequestHandler::UpdateCharacter(int CharacterId, bool IsDefault,  FString Name, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP, const FCharacterLoadoutResponse& OnCompletedRequest)
 {
 	FString data;
 	FLootLockerUpdateCharacterRequest characterRequest;
@@ -59,11 +59,13 @@ void ULootLockerCharacterRequestHandler::UpdateCharacter(bool IsDefault, const F
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
     FLootLockerEndPoints endpoint = ULootLockerGameEndpoints::UpdateCharacterEndpoint;
+	TArray<FStringFormatArg> args;
+	FString newEndpoint = FString::Format(*endpoint.endpoint, { CharacterId });
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
-	HttpClient->SendApi(endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
+	HttpClient->SendApi(newEndpoint, requestMethod, ContentString, sessionResponse, true);
 }
 
-void ULootLockerCharacterRequestHandler::CreateCharacter(bool IsDefault, const FString& CharacterName, const FString& CharacterId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP, const FCharacterLoadoutResponse& OnCompletedRequest)
+void ULootLockerCharacterRequestHandler::CreateCharacter(bool IsDefault,  FString CharacterName,  FString CharacterId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP, const FCharacterLoadoutResponse& OnCompletedRequest)
 {
 	FString data;
 	FLootLockerListCharacterRequest characterRequest;
@@ -149,6 +151,37 @@ void ULootLockerCharacterRequestHandler::EquipAssetToDefaultCharacter(int Instan
 	HttpClient->SendApi(endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
 
+void ULootLockerCharacterRequestHandler::EquipAssetToCharacterById(FString CharacterId,int InstanceId, const FPCharacterDefaultResponseBP& OnCompletedRequestBP, const FLootLockerCharacterDefaultResponse& OnCompletedRequest)
+{
+	FString data;
+
+	FLootLockerEquipAssetToCharacterWithInstanceRequest characterRequest;
+	characterRequest.instance_id = InstanceId;
+	FString ContentString;
+	FJsonObjectConverter::UStructToJsonObjectString(FLootLockerUpdateCharacterRequest::StaticStruct(), &characterRequest, ContentString, 0, 0);
+
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+		{
+			FLootLockerCharacterLoadoutResponse ResponseStruct;
+			if (response.success)
+			{
+				ResponseStruct.success = true;
+				FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
+			}
+			else {
+				ResponseStruct.success = false;
+				UE_LOG(LogTemp, Error, TEXT("Equip character failed for lootlocker"));
+			}
+			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
+			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
+		});
+	FLootLockerEndPoints endpoint = ULootLockerGameEndpoints::EquipAssetToCharacterByIdEndpoint;
+	FString newEndpoint = FString::Format(*endpoint.endpoint, {CharacterId});
+	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
+	HttpClient->SendApi(newEndpoint, requestMethod, ContentString, sessionResponse, true);
+}
+
 void ULootLockerCharacterRequestHandler::EquipAssetToCharacterById(const FLootLockerGetRequests& GetRequests,int AssetId, int AssetVariationId, const FPCharacterDefaultResponseBP& OnCompletedRequestBP, const FLootLockerCharacterDefaultResponse& OnCompletedRequest)
 {
 	FLootLockerEquipUniversalAssetToCharacterRequest characterRequest;
@@ -175,7 +208,7 @@ void ULootLockerCharacterRequestHandler::EquipAssetToCharacterById(const FLootLo
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
 	TArray<FStringFormatArg> args;
-    FLootLockerEndPoints endpoint = ULootLockerGameEndpoints::EquipAssetToDefaultCharacterEndpoint;
+    FLootLockerEndPoints endpoint = ULootLockerGameEndpoints::EquipAssetToCharacterByIdEndpoint;
 	FString newEndpoint = FString::Format(*endpoint.endpoint, GetRequests.args);
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
 	HttpClient->SendApi(newEndpoint, requestMethod, ContentString, sessionResponse, true);
@@ -183,12 +216,12 @@ void ULootLockerCharacterRequestHandler::EquipAssetToCharacterById(const FLootLo
 
 void ULootLockerCharacterRequestHandler::UnEquipAssetToDefaultCharacter(int InstanceId, const FPCharacterDefaultResponseBP& OnCompletedRequestBP, const FLootLockerCharacterDefaultResponse& OnCompletedRequest)
 {
-	FString data;
+	//FString data;
 
-	FLootLockerEquipAssetToCharacterWithInstanceRequest characterRequest;
-	characterRequest.instance_id = InstanceId;
+	//FLootLockerEquipAssetToCharacterWithInstanceRequest characterRequest;
+//	characterRequest.instance_id = InstanceId;
 	FString ContentString;
-	FJsonObjectConverter::UStructToJsonObjectString(FLootLockerUpdateCharacterRequest::StaticStruct(), &characterRequest, ContentString, 0, 0);
+//	FJsonObjectConverter::UStructToJsonObjectString(FLootLockerUpdateCharacterRequest::StaticStruct(), &characterRequest, ContentString, 0, 0);
 
 	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
@@ -207,17 +240,18 @@ void ULootLockerCharacterRequestHandler::UnEquipAssetToDefaultCharacter(int Inst
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
     FLootLockerEndPoints endpoint = ULootLockerGameEndpoints::UnEquipAssetToDefaultCharacterEndpoint;
+	FString newEndpoint = FString::Format(*endpoint.endpoint, {InstanceId});
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
-	HttpClient->SendApi(endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
+	HttpClient->SendApi(newEndpoint, requestMethod, ContentString, sessionResponse, true);
 }
 
-void ULootLockerCharacterRequestHandler::UnEquipAssetToCharacterById(const FLootLockerGetRequests& GetRequests, int AssetId, int AssetVariationId, const FPCharacterDefaultResponseBP& OnCompletedRequestBP, const FLootLockerCharacterDefaultResponse& OnCompletedRequest)
+void ULootLockerCharacterRequestHandler::UnEquipAssetToCharacterById(const FLootLockerGetRequests& GetRequests, const FPCharacterDefaultResponseBP& OnCompletedRequestBP, const FLootLockerCharacterDefaultResponse& OnCompletedRequest)
 {
-	FLootLockerEquipUniversalAssetToCharacterRequest characterRequest;
-	characterRequest.asset_id = AssetId;
-	characterRequest.asset_variation_id = AssetVariationId;
+	//FLootLockerEquipUniversalAssetToCharacterRequest characterRequest;
+	//characterRequest.asset_id = AssetId;
+	///characterRequest.asset_variation_id = AssetVariationId;
 	FString ContentString;
-	FJsonObjectConverter::UStructToJsonObjectString(FLootLockerEquipUniversalAssetToCharacterRequest::StaticStruct(), &characterRequest, ContentString, 0, 0);
+	//FJsonObjectConverter::UStructToJsonObjectString(FLootLockerEquipUniversalAssetToCharacterRequest::StaticStruct(), &characterRequest, ContentString, 0, 0);
 
 	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{

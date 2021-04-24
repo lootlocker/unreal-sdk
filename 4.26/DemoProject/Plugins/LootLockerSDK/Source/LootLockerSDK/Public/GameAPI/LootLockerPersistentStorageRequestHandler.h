@@ -27,7 +27,7 @@ struct FLootLockerPersistentStorageItemsResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerPersistentStorageItem> items;
+    TArray<FLootLockerPersistentStorageItem> payload;
 };
 
 USTRUCT(BlueprintType)
@@ -35,7 +35,7 @@ struct FLootLockerPersistentStorageItemResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FLootLockerPersistentStorageItem item;
+    FLootLockerPersistentStorageItem payload;
 };
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPersistentStorageItemsResponseDelegateBP, FLootLockerPersistentStorageItemsResponse, Response);

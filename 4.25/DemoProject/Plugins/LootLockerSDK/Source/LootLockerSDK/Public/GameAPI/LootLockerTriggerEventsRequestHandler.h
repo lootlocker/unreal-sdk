@@ -8,6 +8,7 @@
 #include "JsonObjectConverter.h"
 #include "LootLockerHttpClient.h"
 #include "GameAPI/LootLockerPlayerRequestHandler.h"
+#include "GameAPI/LootLockerAssetsRequestHandler.h"
 #include "LootLockerTriggerEventsRequestHandler.generated.h"
 
 USTRUCT(BlueprintType)
@@ -20,6 +21,7 @@ struct FLootLockerTriggerEvent {
 USTRUCT(BlueprintType)
 struct FLootLockerTriggerEventResponse : public FLootLockerSubmitXpResponse {
     GENERATED_BODY()
+        FLootLockerAsset granted_assets;
 };
 
 USTRUCT(BlueprintType)

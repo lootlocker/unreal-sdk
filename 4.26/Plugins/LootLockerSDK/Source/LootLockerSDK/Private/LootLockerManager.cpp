@@ -2,17 +2,17 @@
 
 #include "LootLockerManager.h"
 
-void ULootLockerManager::StartSession(const FString& PlayerId, const FAuthResponseBP& OnStartedSessionRequestCompleted)
+void ULootLockerManager::StartSession(const FString& playerIdentifier, const FAuthResponseBP& OnStartedSessionRequestCompleted)
 {
-    ULootLockerAuthenticationRequestHandler::StartSession(PlayerId, OnStartedSessionRequestCompleted);
+    ULootLockerAuthenticationRequestHandler::StartSession(playerIdentifier, OnStartedSessionRequestCompleted);
 }
 
-void ULootLockerManager::VerifyPlayer(const FString& CachedSteamToken, const FAuthDefaultResponseBP& OnVerifyPlayerRequestCompleted)
+void ULootLockerManager::VerifyPlayer(const FString& SteamSessionTicket, const FAuthDefaultResponseBP& OnVerifyPlayerRequestCompleted)
 {
-    ULootLockerAuthenticationRequestHandler::VerifyPlayer(CachedSteamToken, OnVerifyPlayerRequestCompleted);
+    ULootLockerAuthenticationRequestHandler::VerifyPlayer(SteamSessionTicket, OnVerifyPlayerRequestCompleted);
 }
 
-void ULootLockerManager::EndSession(const FString& PlayerId, const  FAuthDefaultResponseBP& OnEndSessionRequestCompleted)
+void ULootLockerManager::EndSession(const  FAuthDefaultResponseBP& OnEndSessionRequestCompleted)
 {
     ULootLockerAuthenticationRequestHandler::EndSession(OnEndSessionRequestCompleted);
 }
@@ -81,12 +81,12 @@ void ULootLockerManager::GetCharacterLoadout(const FPCharacterLoadoutResponseBP&
     ULootLockerCharacterRequestHandler::GetCharacterLoadout(OnGetCharacterLoadoutRequestCompleted);
 }
 
-void ULootLockerManager::UpdateCharacter(bool isDefault, FString& Name, const FPCharacterLoadoutResponseBP& OnCompletedRequest)
+void ULootLockerManager::UpdateCharacter(int CharacterId, bool isDefault, FString Name, const FPCharacterLoadoutResponseBP& OnCompletedRequest)
 {
-    ULootLockerCharacterRequestHandler::UpdateCharacter(isDefault, Name, OnCompletedRequest);
+    ULootLockerCharacterRequestHandler::UpdateCharacter(CharacterId,isDefault, Name, OnCompletedRequest);
 }
 
-void ULootLockerManager::CreateCharacter(bool IsDefault, const FString& CharacterName, const FString& CharacterTypeId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::CreateCharacter(bool IsDefault,  FString CharacterName,  FString CharacterTypeId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP)
 {
     ULootLockerCharacterRequestHandler::CreateCharacter(IsDefault, CharacterName, CharacterTypeId, OnCompletedRequestBP);
 }
@@ -108,16 +108,22 @@ void ULootLockerManager::EquipAssetToCharacterById(int CharacterId, int AssetId,
     ULootLockerCharacterRequestHandler::EquipAssetToCharacterById(GetRequests, AssetId, AssetVariationId,OnEquipAssetToCharacterByIdRequestCompleted);
 }
 
+void ULootLockerManager::EquipAssetToCharacterByIdAndInstance(FString CharacterId, int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted)
+{
+    ULootLockerCharacterRequestHandler::EquipAssetToCharacterById(CharacterId, InstanceId, OnEquipAssetToCharacterByIdRequestCompleted);
+}
+
 void ULootLockerManager::UnEquipAssetToDefaultCharacter(int InstanceId, const FPCharacterDefaultResponseBP& OnUnEquipAssetToDefaultCharacterRequestCompleted)
 {
     ULootLockerCharacterRequestHandler::UnEquipAssetToDefaultCharacter(InstanceId, OnUnEquipAssetToDefaultCharacterRequestCompleted);
 }
 
-void ULootLockerManager::UnEquipAssetToCharacterById(int CharacterId,int AssetId, int AssetVariationId, const  FPCharacterDefaultResponseBP& OnUnEquipAssetToCharacterByIdRequestCompleted)
+void ULootLockerManager::UnEquipAssetToCharacterById(int CharacterId,int InstanceId,const  FPCharacterDefaultResponseBP& OnUnEquipAssetToCharacterByIdRequestCompleted)
 {
     FLootLockerGetRequests GetRequests;
     GetRequests.args.Add(CharacterId);
-    ULootLockerCharacterRequestHandler::UnEquipAssetToCharacterById(GetRequests, AssetId, AssetVariationId, OnUnEquipAssetToCharacterByIdRequestCompleted);
+    GetRequests.args.Add(InstanceId);
+    ULootLockerCharacterRequestHandler::UnEquipAssetToCharacterById(GetRequests, OnUnEquipAssetToCharacterByIdRequestCompleted);
 }
 
 void ULootLockerManager::GetCurrentLoadoutToDefaultCharacter(const  FPCharacterLoadoutResponseBP& OnGetCurrentLoadoutToDefaultCharacterRequestCompleted)
@@ -125,7 +131,7 @@ void ULootLockerManager::GetCurrentLoadoutToDefaultCharacter(const  FPCharacterL
     ULootLockerCharacterRequestHandler::GetCurrentLoadoutToDefaultCharacter(OnGetCurrentLoadoutToDefaultCharacterRequestCompleted);
 }
 
-void ULootLockerManager::GetOtherPlayersCurrentLoadoutToDefaultCharacter(const FString& OtherPlayerId, const FPCharacterLoadoutResponseBP& OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted)
+void ULootLockerManager::GetOtherPlayersCurrentLoadoutToDefaultCharacter( FString OtherPlayerId, const FPCharacterLoadoutResponseBP& OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted)
 {
     FLootLockerGetRequests GetRequests;
     GetRequests.args.Add(OtherPlayerId);
@@ -137,7 +143,7 @@ void ULootLockerManager::GetEquipableContextsToDefaultCharacter(const FContextDe
     ULootLockerCharacterRequestHandler::GetEquipableContextsToDefaultCharacter(OnGetEquipableContextsToDefaultCharacterRequestCompleted);
 }
 
-void ULootLockerManager::GetEquipableContextsByCharacterId(const FString& OtherCharacterId, const  FContextDelegateBP& OnGetEquipableContextsByCharacterIdRequestCompleted)
+void ULootLockerManager::GetEquipableContextsByCharacterId( FString OtherCharacterId, const  FContextDelegateBP& OnGetEquipableContextsByCharacterIdRequestCompleted)
 {
     FLootLockerGetRequests GetRequests;
     GetRequests.args.Add(OtherCharacterId);
@@ -358,3 +364,61 @@ void ULootLockerManager::GetMessages(const FMessagesResponseDelegateBP& OnGetMes
 {
     ULootLockerMessagesRequestHandler::GetMessages(OnGetMessagesCompleted);
 }
+
+void ULootLockerManager::GetMemberRank(int LeaderboardId, int MemberId, const FLootLockerGetMemberRankResponseBP& OnCompletedRequestBP)
+{
+    FLootLockerGetMemberRankRequest MemberRequest;
+    MemberRequest.leaderboardId = LeaderboardId;
+    MemberRequest.member_id = MemberId;
+
+    ULootLockerLeaderboardRequestHandler::GetMemberRank(MemberRequest, OnCompletedRequestBP);
+
+}
+
+void ULootLockerManager::GetByListOfMembers(TArray<FString> Members, int LeaderboardId, const FLootLockerGetByListOfMembersResponseBP& OnCompletedRequestBP)
+{
+    FLootLockerGetByListMembersRequest GetByListMembersRequest;
+    GetByListMembersRequest.members = Members;
+    ULootLockerLeaderboardRequestHandler::GetByListOfMembers(GetByListMembersRequest, LeaderboardId, OnCompletedRequestBP);
+}
+
+void ULootLockerManager::GetScoreList(int LeaderboardId, int Count, int After, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP)
+{
+    FLootLockerGetScoreListRequest GetScoreListRequest;
+    GetScoreListRequest.after = After;
+    GetScoreListRequest.count = Count;
+    GetScoreListRequest.leaderboardId = LeaderboardId;
+    ULootLockerLeaderboardRequestHandler::GetScoreList(GetScoreListRequest, OnCompletedRequestBP);
+}
+
+void ULootLockerManager::GetScoreListInitial(int LeaderboardId, int Count,  const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP)
+{
+    FLootLockerGetScoreListRequest GetScoreListRequest;
+    GetScoreListRequest.after = -1;
+    GetScoreListRequest.count = Count;
+    GetScoreListRequest.leaderboardId = LeaderboardId;
+    ULootLockerLeaderboardRequestHandler::GetScoreList(GetScoreListRequest, OnCompletedRequestBP);
+}
+
+
+void ULootLockerManager::SubmitScore(FString MemberId, int LeaderboardId, int Score, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP)
+{
+    FLootLockerSubmitScoreRequest SubmitScoreRequest;
+    SubmitScoreRequest.member_id = MemberId;
+    SubmitScoreRequest.score = Score;
+    ULootLockerLeaderboardRequestHandler::SubmitScore(SubmitScoreRequest, LeaderboardId,OnCompletedRequestBP);
+}
+
+void ULootLockerManager::ComputeAndLockDropTable(int TableId, const FLootLockerComputeAndLockDropTableResponseBP& OnCompletedRequestBP)
+{
+    ULLDropTablesRequestHandler::ComputeAndLockDropTable(TableId, OnCompletedRequestBP);
+}
+
+void ULootLockerManager::PickDropsFromDropTable(TArray<int> picks, int TableId, const FFLootLockerPickDropsFromDropTableResponseBP& OnCompletedRequestBP)
+{
+    FLootLockerPickDropsFromDropTableRequest request;
+    request.picks = picks;
+    ULLDropTablesRequestHandler::PickDropsFromDropTable(request,TableId, OnCompletedRequestBP);
+}
+
+

@@ -104,6 +104,16 @@ public:
     
     //Messages
     static FLootLockerEndPoints GetMessagesEndpoint;
+
+    //Leaderboard
+    static FLootLockerEndPoints GetMemberRank;
+    static FLootLockerEndPoints GetByListOfMembers;
+    static FLootLockerEndPoints GetScoreList;
+    static FLootLockerEndPoints SubmitScore;
+
+    //DropTables
+    static FLootLockerEndPoints ComputeAndLockDropTable; 
+    static FLootLockerEndPoints PickDropsFromDropTable;
     
 private:
     static FString GameBaseUrl;

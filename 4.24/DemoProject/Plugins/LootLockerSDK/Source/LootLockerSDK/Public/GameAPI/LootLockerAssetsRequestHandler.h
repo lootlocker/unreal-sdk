@@ -67,7 +67,7 @@ USTRUCT(BlueprintType)
 struct FLootLockerRentalOption {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 Id;
+    int32 id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString name;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -124,7 +124,7 @@ struct FLootLockerAsset
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 Id;
+    int32 id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString name;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -153,8 +153,8 @@ struct FLootLockerAsset
     FString marked_new;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 default_variation_id;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FLootLockerDefaultLoadouts default_loadouts;
+  //  UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+  //  FLootLockerDefaultLoadouts default_loadouts;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString description;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -197,7 +197,7 @@ USTRUCT(BlueprintType)
 struct FLootLockerContext {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int Id;
+    int id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString name;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -215,7 +215,7 @@ struct FLootLockerGetContextResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerContext> Contexts;
+    TArray<FLootLockerContext> contexts;
 };
 
 USTRUCT(BlueprintType)
@@ -223,7 +223,7 @@ struct FLootLockerGetAssetsResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerAsset> Assets;
+    TArray<FLootLockerAsset> assets;
 };
 
 UENUM(BlueprintType)
@@ -242,24 +242,24 @@ USTRUCT(BlueprintType)
 struct FLootLockerAssetBoneParameters {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Rotation;
+    FString rotation;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Position;
+    FString position;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString BoneName;
+    FString boneName;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Flags;
+    FString flags;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Mass;
+    FString mass;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Binding;
+    FString binding;
 };
 
 USTRUCT(BlueprintType)
 struct FLootLockerAssetBone {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Id;
+    FString id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString name;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -279,7 +279,7 @@ struct FLootLockerGetFavouriteAssetIndicesResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<int> Indices;
+    TArray<int> favourites;
 };
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FContextDelegateBP, FLootLockerGetContextResponse, ContextsResponse);
