@@ -20,7 +20,8 @@ Full Documentation can be found on https://docs.lootlocker.io/
     Example: PrivateDependencyModuleNames.AddRange(new string\[\] { "Http", "Json", "JsonUtilities" });
 12. Open the LootLockerConfig.CPP file located in the plugins folder.
 
-13. Modify the LootLockerGameKey, Platform, Game Version, Development mode and AllowTokenRefresh (Set to true if you want the LootLockerSDK to attempt to refresh the token if it expires).
+13. Navigate to Edit/Project Settings in the editor, Scroll down on the left panel until the plugins sections of the project settings, Click on LootLockerSDK.
+Modify the LootLockerGameKey, Platform, Game Version, Development mode and AllowTokenRefresh (Set to true if you want the LootLockerSDK to attempt to refresh the token if it expires).
 
 14. You should now have access to the SDK in both your C++ and Blueprint projects.
 
@@ -96,9 +97,7 @@ struct FPersistentStorageItemsResponse : public FLootLockerResponse
 };
 ```
 
-#### SDK Configuration
 
-If you want to modify the LootLockerConfig by code, you can do this by calling "ULootLockerConfig::SetLootLockerSettings". This method requires you to pass in your LootLockerGameKey, Platform, Game Version, Development mode and AllowTokenRefresh.
 #### Authentication With Steam
 
 API Reference: [https://docs.lootlocker.io/game-api/#player-verification](https://docs.lootlocker.io/game-api/#player-verification "https://docs.lootlocker.io/game-api/#player-verification")
