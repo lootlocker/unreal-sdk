@@ -2,7 +2,7 @@
 
 #include "Demo/DemoAuthentication.h"
 
-FString ADemoAuthentication::GetSteamIdentityToken()
+FString ADemoAuthentication::GetSteamSessionTicket()
 {
     IOnlineSubsystem* OnlineSub = IOnlineSubsystem::Get();
     FString IdentityToken = OnlineSub->GetIdentityInterface()->GetAuthToken(0);
@@ -16,12 +16,12 @@ void ADemoAuthentication::DemoStartSession()
 
 void ADemoAuthentication::DemoVerifyPlayer()
 {
-   ULootLockerSDKManager::VerifyPlayer(GetSteamIdentityToken(), FLootLockerDefaultAuthenticationResponse::CreateUObject(this, &ADemoAuthentication::OnVerifyPlayerCompleted));
+   ULootLockerSDKManager::VerifyPlayer(GetSteamSessionTicket(), FLootLockerDefaultAuthenticationResponse::CreateUObject(this, &ADemoAuthentication::OnVerifyPlayerCompleted));
 }
 
 void ADemoAuthentication::DemoEndSession()
 {
-   ULootLockerSDKManager::EndSession(PlayerId, FLootLockerDefaultAuthenticationResponse::CreateUObject(this, &ADemoAuthentication::OnEndSessionCompleted));
+   ULootLockerSDKManager::EndSession(FLootLockerDefaultAuthenticationResponse::CreateUObject(this, &ADemoAuthentication::OnEndSessionCompleted));
 }
 
 void ADemoAuthentication::OnStartSessionCompleted(FLootLockerAuthenticationResponse Response)

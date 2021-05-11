@@ -24,7 +24,7 @@ void ADemoCharacters::UnEquipAssetToDefaultCharacter()
 
 void ADemoCharacters::UnEquipAssetToCharacterById()
 {
-   ULootLockerSDKManager::UnEquipAssetToCharacterById(CharacterId, AssetId, AssetVariationId, FLootLockerCharacterDefaultResponse::CreateUObject(this, &ADemoCharacters::OnUnEquipAssetToCharacterByIdCompleted));
+   ULootLockerSDKManager::UnEquipAssetToCharacterById(CharacterId, InstanceId, FLootLockerCharacterDefaultResponse::CreateUObject(this, &ADemoCharacters::OnUnEquipAssetToCharacterByIdCompleted));
 }
 
 void ADemoCharacters::GetCurrentLoadoutToDefaultCharacter()
@@ -49,7 +49,7 @@ void ADemoCharacters::GetEquipableContextsByCharacterId()
 
 void ADemoCharacters::UpdateCharacter()
 {
-    ULootLockerSDKManager::UpdateCharacter(IsDefault,CharacterName,FCharacterLoadoutResponse::CreateUObject(this, &ADemoCharacters::OnUpdatedCharacterLoadoutCompleted));
+    ULootLockerSDKManager::UpdateCharacter(CharacterId,IsDefault,CharacterName,FCharacterLoadoutResponse::CreateUObject(this, &ADemoCharacters::OnUpdatedCharacterLoadoutCompleted));
 }
 
 

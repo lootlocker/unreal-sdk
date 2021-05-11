@@ -34,7 +34,8 @@ public:
     void OnVerifyPlayerCompleted(FLootLockerAuthenticationDefaultResponse Response);
     void OnEndSessionCompleted(FLootLockerAuthenticationDefaultResponse Response);
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "LootLocker Demo | Authentication")
-    static FString GetSteamIdentityToken();
+    static FString GetSteamSessionTicket();
+
 
     
 private:
