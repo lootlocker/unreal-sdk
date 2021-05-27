@@ -1,0 +1,60 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.LootLockerSDK.cpp.obj": [
+			"LLDropTablesRequestHandler.cpp.obj",
+			"LootLockerAssetInstancesRequestHandler.cpp.obj",
+			"LootLockerAssetsRequestHandler.cpp.obj",
+			"LootLockerAuthenticationRequestHandler.cpp.obj",
+			"LootLockerCharacterRequestHandler.cpp.obj",
+			"LootLockerCollectablesRequestHandler.cpp.obj",
+			"LootLockerLeaderboardRequestHandler.cpp.obj",
+			"LootLockerMapsRequestHandler.cpp.obj",
+			"LootLockerMessagesRequestHandler.cpp.obj",
+			"LootLockerMissionsRequestHandler.cpp.obj",
+			"LootLockerPersistentStorageRequestHandler.cpp.obj",
+			"LootLockerPlayerRequestHandler.cpp.obj",
+			"LootLockerPurchasesRequestHandler.cpp.obj",
+			"LootLockerTriggerEventsRequestHandler.cpp.obj",
+			"LootLockerUserGeneratedContentRequestHandler.cpp.obj",
+			"LootLockerConfig.cpp.obj",
+			"LootLockerGameEndpoints.cpp.obj",
+			"LootLockerHttpClient.cpp.obj",
+			"LootLockerManager.cpp.obj",
+			"LootLockerPersitentDataHolder.cpp.obj",
+			"LootLockerSDK.cpp.obj",
+			"LootLockerSDKManager.cpp.obj",
+			"LootLockerUtilities.cpp.obj"
+		],
+		"Module.LootLockerSDK.gen.1_of_4.cpp.obj": [
+			"LLDropTablesRequestHandler.gen.cpp.obj",
+			"LootLockerAssetInstancesRequestHandler.gen.cpp.obj",
+			"LootLockerAssetsRequestHandler.gen.cpp.obj",
+			"LootLockerAuthenticationRequestHandler.gen.cpp.obj",
+			"LootLockerCharacterRequestHandler.gen.cpp.obj"
+		],
+		"Module.LootLockerSDK.gen.2_of_4.cpp.obj": [
+			"LootLockerCollectablesRequestHandler.gen.cpp.obj",
+			"LootLockerConfig.gen.cpp.obj",
+			"LootLockerGameEndpoints.gen.cpp.obj",
+			"LootLockerHttpClient.gen.cpp.obj",
+			"LootLockerLeaderboardRequestHandler.gen.cpp.obj",
+			"LootLockerManager.gen.cpp.obj"
+		],
+		"Module.LootLockerSDK.gen.3_of_4.cpp.obj": [
+			"LootLockerMapsRequestHandler.gen.cpp.obj",
+			"LootLockerMessagesRequestHandler.gen.cpp.obj",
+			"LootLockerMissionsRequestHandler.gen.cpp.obj",
+			"LootLockerPersistentStorageRequestHandler.gen.cpp.obj",
+			"LootLockerPersitentDataHolder.gen.cpp.obj",
+			"LootLockerPlayerRequestHandler.gen.cpp.obj",
+			"LootLockerPurchasesRequestHandler.gen.cpp.obj",
+			"LootLockerSDK.init.gen.cpp.obj",
+			"LootLockerSDKManager.gen.cpp.obj",
+			"LootLockerTriggerEventsRequestHandler.gen.cpp.obj"
+		],
+		"Module.LootLockerSDK.gen.4_of_4.cpp.obj": [
+			"LootLockerUserGeneratedContentRequestHandler.gen.cpp.obj"
+		]
+	}
+}

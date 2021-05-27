@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "DemoProject",
+			"Path": "C:\\Users\\donim\\Documents\\Repos\\unreal-sdk\\4.26\\DemoProject\\Source\\DemoProject.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "DemoProjectEditor",
+			"Path": "C:\\Users\\donim\\Documents\\Repos\\unreal-sdk\\4.26\\DemoProject\\Source\\DemoProjectEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}
