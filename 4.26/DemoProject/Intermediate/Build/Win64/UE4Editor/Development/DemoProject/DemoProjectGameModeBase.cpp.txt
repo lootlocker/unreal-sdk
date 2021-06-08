@@ -1,7 +1,0 @@
-C:\Users\donim\Documents\Repos\unreal-sdk\4.26\DemoProject\Intermediate\Build\Win64\UE4Editor\Development\DemoProject\Definitions.DemoProject.h
-C:\Users\donim\Documents\Repos\unreal-sdk\4.26\DemoProject\Source\DemoProject\DemoProjectGameModeBase.h
-C:\Program Files\Epic Games\UE_4.26\Engine\Source\Runtime\Engine\Classes\GameFramework/GameModeBase.h
-C:\Program Files\Epic Games\UE_4.26\Engine\Source\Runtime\Engine\Classes\Engine/ServerStatReplicator.h
-C:\Program Files\Epic Games\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\ServerStatReplicator.generated.h
-C:\Program Files\Epic Games\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\GameModeBase.generated.h
-C:\Users\donim\Documents\Repos\unreal-sdk\4.26\DemoProject\Intermediate\Build\Win64\UE4Editor\Inc\DemoProject\DemoProjectGameModeBase.generated.h

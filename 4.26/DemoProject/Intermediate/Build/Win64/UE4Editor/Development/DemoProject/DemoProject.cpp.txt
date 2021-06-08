@@ -1,2 +1,0 @@
-C:\Users\donim\Documents\Repos\unreal-sdk\4.26\DemoProject\Intermediate\Build\Win64\UE4Editor\Development\DemoProject\Definitions.DemoProject.h
-C:\Users\donim\Documents\Repos\unreal-sdk\4.26\DemoProject\Source\DemoProject\DemoProject.h
