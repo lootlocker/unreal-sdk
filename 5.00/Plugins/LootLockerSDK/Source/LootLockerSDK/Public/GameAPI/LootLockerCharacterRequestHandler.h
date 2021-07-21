@@ -107,18 +107,22 @@ struct FLootLockerEquipUniversalAssetToCharacterRequest {
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerListCharacterTypesResponse : public FLootLockerResponse {
-	GENERATED_BODY()
-	TArray<struct FLootLockerCharacterTypes> character_types;
-};
-
-USTRUCT(BlueprintType)
 struct FLootLockerCharacterTypes
 {
 	GENERATED_BODY()
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 id;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	bool is_default;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString name;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerListCharacterTypesResponse : public FLootLockerResponse {
+	GENERATED_BODY()
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	TArray<struct FLootLockerCharacterTypes> character_types;
 };
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPCharacterLoadoutResponseBP, FLootLockerCharacterLoadoutResponse, Var);
