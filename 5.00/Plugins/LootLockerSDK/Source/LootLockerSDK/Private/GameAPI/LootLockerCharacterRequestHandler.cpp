@@ -116,7 +116,7 @@ void ULootLockerCharacterRequestHandler::ListCharacterTypes(const FPLootLockerLi
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
 			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
-	FLootLockerEndPoints endpoint = ULootLockerGameEndpoints::CreateCharacterEndpoint;
+	FLootLockerEndPoints endpoint = ULootLockerGameEndpoints::ListCharacterTypesByIdEndpoint;
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
 	HttpClient->SendApi(endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
