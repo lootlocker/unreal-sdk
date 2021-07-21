@@ -110,8 +110,11 @@ USTRUCT(BlueprintType)
 struct FLootLockerCharacterTypes
 {
 	GENERATED_BODY()
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 id;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	bool is_default;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString name;
 };
 
