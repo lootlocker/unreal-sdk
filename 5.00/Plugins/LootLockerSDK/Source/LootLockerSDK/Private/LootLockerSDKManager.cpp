@@ -60,6 +60,16 @@ void ULootLockerSDKManager::InitiateDLCMigration(const FResponseCallback& OnComp
     ULootLockerPlayerRequestHandler::InitiateDLCMigration(FResponseCallbackBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::SetPlayerName(FString name, const FPNameResponse& OnCompletedRequest) 
+{
+    ULootLockerPlayerRequestHandler::SetPlayerName(name, FPNameResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::GetPlayerName(const FPNameResponse& OnCompletedRequest) 
+{
+    ULootLockerPlayerRequestHandler::GetPlayerName(FPNameResponseBP(), OnCompletedRequest);
+}
+
 
 void ULootLockerSDKManager::GetDLCsMigration(const FPDlcResponse& OnCompletedRequest) 
 {

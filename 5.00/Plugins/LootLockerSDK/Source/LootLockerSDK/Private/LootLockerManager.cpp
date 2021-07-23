@@ -74,6 +74,15 @@ void ULootLockerManager::SetProfilePublic(const FResponseCallbackBP& OnProfileSe
 {
     ULootLockerPlayerRequestHandler::SetProfilePublic(OnProfileSetPublic);
 }
+void ULootLockerManager::SetPlayerName(FString name, const FPNameResponseBP& OnSetPlayerName)
+{
+    ULootLockerPlayerRequestHandler::SetPlayerName(name, OnSetPlayerName);
+}
+
+void ULootLockerManager::GetPlayerName(const FPNameResponseBP& OnGetPlayerName)
+{
+    ULootLockerPlayerRequestHandler::GetPlayerName(OnGetPlayerName);
+}
 
 
 void ULootLockerManager::GetCharacterLoadout(const FPCharacterLoadoutResponseBP& OnGetCharacterLoadoutRequestCompleted)
