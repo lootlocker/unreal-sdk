@@ -70,8 +70,6 @@ struct FLootLockerCreateAssetCandidateResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int asset_candidate_id;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerResponseAssetCandidate asset_candidate;
 };
 
