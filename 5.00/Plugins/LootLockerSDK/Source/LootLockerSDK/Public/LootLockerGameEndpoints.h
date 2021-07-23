@@ -27,6 +27,8 @@ public:
     static FLootLockerEndPoints GetDLCsMigrated;
     static FLootLockerEndPoints SetProfilePrivate;
     static FLootLockerEndPoints SetProfilePublic;
+    static FLootLockerEndPoints SetPlayerName;
+    static FLootLockerEndPoints GetPlayerName;
 
     //Character
     static FLootLockerEndPoints GetCharacterLoadoutEndpoint;

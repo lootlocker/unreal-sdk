@@ -157,6 +157,22 @@ public:
     * https://docs.lootlocker.io/game-api/#set-profile-public
     */
     static void SetProfilePublic(const FResponseCallback& OnCompletedRequest);
+
+	/**
+	* This endpoint will set the players name. 
+	* @param name - String player name
+	* @param OnCompletedRequest - callback to be invoked with the server response.
+	* https://docs.lootlocker.io/game-api/#set-player-name
+	*/
+	static void SetPlayerName(FString name, const FPNameResponse& OnCompletedRequest);
+
+	/**
+	* This endpoint will get the players name. 
+	* @param OnCompletedRequest - callback to be invoked with the server response.
+	* https://docs.lootlocker.io/game-api/#get-player-name
+	*/
+	static void GetPlayerName(const FPNameResponse& OnCompletedRequest);
+
     //==================================================
 	//Characters
     //==================================================

@@ -130,6 +130,20 @@ struct FLootLockerPlayerAssetNotificationResponse : public FLootLockerResponse
 	TArray<FLootLockerObjects> objects;
 };
 
+USTRUCT(BlueprintType)
+struct FLootLockerNameResponse : public FLootLockerResponse
+{
+	GENERATED_BODY()
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString name;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerPlayerNameRequest {
+	GENERATED_BODY()
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString name;
+};
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPInfoResponseBP, FLootLockerPlayerInfoResponse, Value);
 
@@ -143,6 +157,8 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FPBalanceResponseBP, FLootLockerBalanceRespons
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPDlcResponseBP, FLootLockerDlcResponse, Value);
 
+DECLARE_DYNAMIC_DELEGATE_OneParam(FPNameResponseBP, FLootLockerNameResponse, Value);
+
 
 DECLARE_DELEGATE_OneParam(FLootLockerPlayerInformationResponse, FLootLockerPlayerInfoResponse);
 
@@ -155,6 +171,8 @@ DECLARE_DELEGATE_OneParam(FLootLockerAssetNotificationResponse, FLootLockerPlaye
 DECLARE_DELEGATE_OneParam(FPBalanceResponse, FLootLockerBalanceResponse);
 
 DECLARE_DELEGATE_OneParam(FPDlcResponse, FLootLockerDlcResponse);
+
+DECLARE_DELEGATE_OneParam(FPNameResponse, FLootLockerNameResponse);
 
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerPlayerRequestHandler : public UObject
@@ -174,6 +192,8 @@ public:
 	static void GetDLCsMigration(const FPDlcResponseBP& OnCompletedRequestBP = FPDlcResponseBP(), const FPDlcResponse& OnCompletedRequest = FPDlcResponse());
 	static void SetProfilePrivate(const FResponseCallbackBP& OnCompletedRequestBP = FResponseCallbackBP(), const FResponseCallback& OnCompletedRequest = FResponseCallback());
 	static void SetProfilePublic(const FResponseCallbackBP& OnCompletedRequestBP = FResponseCallbackBP(), const FResponseCallback& OnCompletedRequest = FResponseCallback());
+	static void SetPlayerName(FString name, const FPNameResponseBP& OnCompletedRequestBP = FPNameResponseBP(), const FPNameResponse& OnCompletedRequest = FPNameResponse());
+	static void GetPlayerName(const FPNameResponseBP& OnCompletedRequestBP = FPNameResponseBP(), const FPNameResponse& OnCompletedRequest = FPNameResponse());
 
 public:
 	static ULootLockerHttpClient* HttpClient;
