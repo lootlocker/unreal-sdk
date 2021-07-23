@@ -28,20 +28,27 @@ struct FLootLockerAssetDataEntity {
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerAssetCandidate2 {
+struct FLootLockerAssetCandidateData {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString name;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int context_id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool completed;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerContentKeyValuePair> kv_storage;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerContentKeyValuePair> filters;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerAssetDataEntity> data_entities;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerAssetCandidate2 {
+    GENERATED_BODY()
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool completed;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerAssetCandidateData data;
 };
 
 USTRUCT(BlueprintType)
