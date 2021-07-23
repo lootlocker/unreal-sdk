@@ -35,6 +35,8 @@ struct FLootLockerAssetCandidate2 {
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int context_id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool completed;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerContentKeyValuePair> kv_storage;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerContentKeyValuePair> filters;
@@ -67,8 +69,6 @@ USTRUCT(BlueprintType)
 struct FLootLockerCreateAssetCandidateResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int asset_candidate_id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerResponseAssetCandidate asset_candidate;
 };
