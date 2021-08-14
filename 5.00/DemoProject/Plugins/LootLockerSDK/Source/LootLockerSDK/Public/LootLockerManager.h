@@ -160,6 +160,25 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
     static void SetProfilePublic(const FResponseCallbackBP& OnProfileSetPublic);
+
+   /**
+   * This endpoint will set the players name. 
+   *
+   * @param name - String name to set.
+   * @param OnCompletedRequest - callback to be invoked with the server response.
+   * https://ref.lootlocker.io/game-api/#set-player-name
+   */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
+    static void SetPlayerName(FString name, const FPNameResponseBP& OnSetPlayerName);
+ 
+    /**
+    * This endpoint will get the players name. 
+    *
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    * https://ref.lootlocker.io/game-api/#get-player-name
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
+    static void GetPlayerName(const FPNameResponseBP& OnGetPlayerName);
     
     //==================================================
     //Characters

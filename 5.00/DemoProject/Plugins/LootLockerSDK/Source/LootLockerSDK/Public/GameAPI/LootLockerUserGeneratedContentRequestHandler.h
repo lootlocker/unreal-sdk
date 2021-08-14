@@ -28,7 +28,7 @@ struct FLootLockerAssetDataEntity {
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerAssetCandidate2 {
+struct FLootLockerAssetCandidateData {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString name;
@@ -40,6 +40,15 @@ struct FLootLockerAssetCandidate2 {
     TArray<FLootLockerContentKeyValuePair> filters;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerAssetDataEntity> data_entities;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerAssetCandidate2 {
+    GENERATED_BODY()
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool completed;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerAssetCandidateData data;
 };
 
 USTRUCT(BlueprintType)
@@ -67,8 +76,6 @@ USTRUCT(BlueprintType)
 struct FLootLockerCreateAssetCandidateResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int asset_candidate_id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerResponseAssetCandidate asset_candidate;
 };
