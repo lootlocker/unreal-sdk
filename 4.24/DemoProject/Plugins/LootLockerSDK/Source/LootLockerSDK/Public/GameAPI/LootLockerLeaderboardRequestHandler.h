@@ -75,7 +75,7 @@ struct FLootLockerGetScoreListResponse : public FLootLockerResponse
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerPagination pagination;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerMember> members;
+    TArray<FLootLockerMember> items;
 };
 
 
