@@ -57,7 +57,7 @@ void ULootLockerLeaderboardRequestHandler::GetByListOfMembers(const FLootLockerG
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("GetMemberRank failed from lootlocker"));
+				UE_LOG(LogTemp, Error, TEXT("GetByListOfMembers failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -73,7 +73,7 @@ void ULootLockerLeaderboardRequestHandler::GetByListOfMembers(const FLootLockerG
 void ULootLockerLeaderboardRequestHandler::GetScoreList(const FLootLockerGetScoreListRequest& GetScoreListRequests, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP, const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest)
 {
 	FString ContentString;
-	FJsonObjectConverter::UStructToJsonObjectString(FLootLockerGetScoreListRequest::StaticStruct(), &GetScoreListRequests, ContentString, 0, 0);
+	//FJsonObjectConverter::UStructToJsonObjectString(FLootLockerGetScoreListRequest::StaticStruct(), &GetScoreListRequests, ContentString, 0, 0);
 
 	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
@@ -82,10 +82,11 @@ void ULootLockerLeaderboardRequestHandler::GetScoreList(const FLootLockerGetScor
 			{
 				FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerGetScoreListResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
 				ResponseStruct.success = true;
+				UE_LOG(LogTemp, Error, TEXT("GetScoreList success from lootlocker"));
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("GetMemberRank failed from lootlocker"));
+				UE_LOG(LogTemp, Error, TEXT("GetScoreList failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -99,10 +100,12 @@ void ULootLockerLeaderboardRequestHandler::GetScoreList(const FLootLockerGetScor
 	if (GetScoreListRequests.after != -1)
 	{
 		TempEndpoint = Endpoint.endpoint + "&after={2}";
-		newEndpoint = FString::Format(*TempEndpoint, { GetScoreListRequests.leaderboardId, GetScoreListRequests.count, GetScoreListRequests .after});
+		newEndpoint = FString::Format(*TempEndpoint, { GetScoreListRequests.leaderboardId, GetScoreListRequests.count, GetScoreListRequests.after});
+		UE_LOG(LogTemp, Error, TEXT("not minus 1"));
 	}
-	
+
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+
 	HttpClient->SendApi(newEndpoint, requestMethod, ContentString, sessionResponse, true);
 }
 
@@ -121,7 +124,7 @@ void ULootLockerLeaderboardRequestHandler::SubmitScore(const FLootLockerSubmitSc
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("GetMemberRank failed from lootlocker"));
+				UE_LOG(LogTemp, Error, TEXT("SubmitScore failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -131,5 +134,8 @@ void ULootLockerLeaderboardRequestHandler::SubmitScore(const FLootLockerSubmitSc
 	FLootLockerEndPoints Endpoint = ULootLockerGameEndpoints::SubmitScore;
 	FString newEndpoint = FString::Format(*Endpoint.endpoint, { LeaderboardId });
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+	UE_LOG(LogTemp, Error, TEXT("%s"), *newEndpoint);
+	UE_LOG(LogTemp, Error, TEXT("%s"), *requestMethod);
+	UE_LOG(LogTemp, Error, TEXT("%s"), *ContentString);
 	HttpClient->SendApi(newEndpoint, requestMethod, ContentString, sessionResponse, true);
 }
