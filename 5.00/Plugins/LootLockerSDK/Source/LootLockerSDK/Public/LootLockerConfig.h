@@ -29,7 +29,7 @@ enum class ELootLockerHTTPMethod : uint8
 {
 	GET = 0         UMETA(DisplayName = "GET"),
 	POST = 1        UMETA(DisplayName = "POST"),
-	DELETE = 2      UMETA(DisplayName = "DELETE"),
+	DEL = 2     	UMETA(DisplayName = "DELETE"),
 	PUT = 3         UMETA(DisplayName = "PUT"),
 	HEAD = 4        UMETA(DisplayName = "HEAD"),
 	CREATE = 5      UMETA(DisplayName = "CREATE"),
