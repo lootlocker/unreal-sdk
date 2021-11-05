@@ -1,0 +1,38 @@
+C:\Users\donim\Documents\Repos\unreal-sdk\4.27\DemoProject\Plugins\LootLockerSDK\Intermediate\Build\Win64\UE4Editor\Development\LootLockerSDK\Definitions.LootLockerSDK.h
+C:/Users/donim/Documents/Repos/unreal-sdk/4.27/DemoProject/Plugins/LootLockerSDK/Intermediate/Build/Win64/UE4Editor/Inc/LootLockerSDK/LLDropTablesRequestHandler.gen.cpp
+C:\Program Files\Epic Games\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/GeneratedCppIncludes.h
+C:\Program Files\Epic Games\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/MetaData.h
+C:\Users\donim\Documents\Repos\unreal-sdk\4.27\DemoProject\Plugins\LootLockerSDK\Source\LootLockerSDK/Public/GameAPI/LLDropTablesRequestHandler.h
+C:\Program Files\Epic Games\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/NoExportTypes.h
+C:\Program Files\Epic Games\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/PropertyAccessUtil.h
+C:\Program Files\Epic Games\UE_4.27\Engine\Source\Runtime\Core\Public\Math/UnitConversion.h
+C:\Program Files\Epic Games\UE_4.27\Engine\Source\Runtime\Core\Public\Math/UnitConversion.inl
+C:\Program Files\Epic Games\UE_4.27\Engine\Source\Runtime\Core\Public\Internationalization/PolyglotTextData.h
+C:\Program Files\Epic Games\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\AssetRegistry/ARFilter.h
+C:\Users\donim\Documents\Repos\unreal-sdk\4.27\DemoProject\Plugins\LootLockerSDK\Source\LootLockerSDK\Public\LootLockerConfig.h
+C:\Program Files\Epic Games\UE_4.27\Engine\Source\Runtime\Online\HTTP\Public\HttpModule.h
+C:\Program Files\Epic Games\UE_4.27\Engine\Source\Runtime\Online\HTTP\Public\Interfaces/IHttpRequest.h
+C:\Program Files\Epic Games\UE_4.27\Engine\Source\Runtime\Online\HTTP\Public\Interfaces/IHttpBase.h
+C:\Users\donim\Documents\Repos\unreal-sdk\4.27\DemoProject\Plugins\LootLockerSDK\Intermediate\Build\Win64\UE4Editor\Inc\LootLockerSDK\LootLockerConfig.generated.h
+C:\Users\donim\Documents\Repos\unreal-sdk\4.27\DemoProject\Plugins\LootLockerSDK\Source\LootLockerSDK\Public\LootLockerHttpClient.h
+C:\Users\donim\Documents\Repos\unreal-sdk\4.27\DemoProject\Plugins\LootLockerSDK\Source\LootLockerSDK\Public\LootLockerGameEndpoints.h
+C:\Users\donim\Documents\Repos\unreal-sdk\4.27\DemoProject\Plugins\LootLockerSDK\Intermediate\Build\Win64\UE4Editor\Inc\LootLockerSDK\LootLockerGameEndpoints.generated.h
+C:\Users\donim\Documents\Repos\unreal-sdk\4.27\DemoProject\Plugins\LootLockerSDK\Intermediate\Build\Win64\UE4Editor\Inc\LootLockerSDK\LootLockerHttpClient.generated.h
+C:\Users\donim\Documents\Repos\unreal-sdk\4.27\DemoProject\Plugins\LootLockerSDK\Source\LootLockerSDK\Public\GameAPI/LootLockerAssetsRequestHandler.h
+C:\Users\donim\Documents\Repos\unreal-sdk\4.27\DemoProject\Plugins\LootLockerSDK\Source\LootLockerSDK\Public\GameAPI/LootLockerPersistentStorageRequestHandler.h
+C:\Program Files\Epic Games\UE_4.27\Engine\Source\Runtime\JsonUtilities\Public\JsonObjectConverter.h
+C:\Program Files\Epic Games\UE_4.27\Engine\Source\Runtime\JsonUtilities\Public\JsonObjectWrapper.h
+C:\Program Files\Epic Games\UE_4.27\Engine\Intermediate\Build\Win64\UE4Editor\Inc\JsonUtilities\JsonObjectWrapper.generated.h
+C:\Users\donim\Documents\Repos\unreal-sdk\4.27\DemoProject\Plugins\LootLockerSDK\Intermediate\Build\Win64\UE4Editor\Inc\LootLockerSDK\LootLockerPersistentStorageRequestHandler.generated.h
+C:\Users\donim\Documents\Repos\unreal-sdk\4.27\DemoProject\Plugins\LootLockerSDK\Intermediate\Build\Win64\UE4Editor\Inc\LootLockerSDK\LootLockerAssetsRequestHandler.generated.h
+C:\Users\donim\Documents\Repos\unreal-sdk\4.27\DemoProject\Plugins\LootLockerSDK\Intermediate\Build\Win64\UE4Editor\Inc\LootLockerSDK\LLDropTablesRequestHandler.generated.h
+C:/Users/donim/Documents/Repos/unreal-sdk/4.27/DemoProject/Plugins/LootLockerSDK/Intermediate/Build/Win64/UE4Editor/Inc/LootLockerSDK/LootLockerAssetInstancesRequestHandler.gen.cpp
+C:\Users\donim\Documents\Repos\unreal-sdk\4.27\DemoProject\Plugins\LootLockerSDK\Source\LootLockerSDK/Public/GameAPI/LootLockerAssetInstancesRequestHandler.h
+C:\Users\donim\Documents\Repos\unreal-sdk\4.27\DemoProject\Plugins\LootLockerSDK\Intermediate\Build\Win64\UE4Editor\Inc\LootLockerSDK\LootLockerAssetInstancesRequestHandler.generated.h
+C:/Users/donim/Documents/Repos/unreal-sdk/4.27/DemoProject/Plugins/LootLockerSDK/Intermediate/Build/Win64/UE4Editor/Inc/LootLockerSDK/LootLockerAssetsRequestHandler.gen.cpp
+C:/Users/donim/Documents/Repos/unreal-sdk/4.27/DemoProject/Plugins/LootLockerSDK/Intermediate/Build/Win64/UE4Editor/Inc/LootLockerSDK/LootLockerAuthenticationRequestHandler.gen.cpp
+C:\Users\donim\Documents\Repos\unreal-sdk\4.27\DemoProject\Plugins\LootLockerSDK\Source\LootLockerSDK/Public/GameAPI/LootLockerAuthenticationRequestHandler.h
+C:\Users\donim\Documents\Repos\unreal-sdk\4.27\DemoProject\Plugins\LootLockerSDK\Intermediate\Build\Win64\UE4Editor\Inc\LootLockerSDK\LootLockerAuthenticationRequestHandler.generated.h
+C:/Users/donim/Documents/Repos/unreal-sdk/4.27/DemoProject/Plugins/LootLockerSDK/Intermediate/Build/Win64/UE4Editor/Inc/LootLockerSDK/LootLockerCharacterRequestHandler.gen.cpp
+C:\Users\donim\Documents\Repos\unreal-sdk\4.27\DemoProject\Plugins\LootLockerSDK\Source\LootLockerSDK/Public/GameAPI/LootLockerCharacterRequestHandler.h
+C:\Users\donim\Documents\Repos\unreal-sdk\4.27\DemoProject\Plugins\LootLockerSDK\Intermediate\Build\Win64\UE4Editor\Inc\LootLockerSDK\LootLockerCharacterRequestHandler.generated.h
