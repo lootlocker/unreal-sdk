@@ -38,6 +38,13 @@ FLootLockerEndPoints ULootLockerGameEndpoints::GetOtherPlayersLoadoutToDefaultCh
 FLootLockerEndPoints ULootLockerGameEndpoints::GetEquippableContextstoDefaultCharacterEndpoint = InitEndpoint("v1/player/character/contexts", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetEquippableContextsByCharacterIDEndpoint = InitEndpoint("v1/player/character/{0}/contexts", ELootLockerHTTPMethod::GET);
 
+//Hero
+FLootLockerEndPoints ULootLockerGameEndpoints::GetGameHeroesEndpoint = InitEndpoint("v1/heroes", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::ListPlayerHeroesEndpoint = InitEndpoint("v1/player/heroes", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::CreateHeroEndpoint = InitEndpoint("v1/player/heroes", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetHeroEndpoint = InitEndpoint("v1/player/heroes/{0}", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetHeroLoadoutEndpoint = InitEndpoint("v1/player/heroes/{0}/loadout", ELootLockerHTTPMethod::GET);
+
 //Persistent Storage
 FLootLockerEndPoints ULootLockerGameEndpoints::GetEntirePersistentStorageEndpoint = InitEndpoint("v1/player/storage", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetASingleKeyFromPersistentStorageEndpoint = InitEndpoint("v1/player/storage", ELootLockerHTTPMethod::GET);

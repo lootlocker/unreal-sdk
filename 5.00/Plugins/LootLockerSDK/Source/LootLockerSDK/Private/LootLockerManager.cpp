@@ -159,6 +159,31 @@ void ULootLockerManager::GetEquipableContextsByCharacterId( FString OtherCharact
     ULootLockerCharacterRequestHandler::GetEquipableContextsByCharacterId(GetRequests, OnGetEquipableContextsByCharacterIdRequestCompleted);
 }
 
+void ULootLockerManager::GetGameHeroes(const FPGameHeroesResponseBP& OnGetGameHeroesRequestCompleted)
+{
+	ULootLockerHeroRequestHandler::GetGameHeroes(OnGetGameHeroesRequestCompleted);
+}
+
+void ULootLockerManager::ListPlayerHeroes(const FPHeroesResponseBP& OnListPlayerHeroesRequestCompleted)
+{
+	ULootLockerHeroRequestHandler::ListPlayerHeroes(OnListPlayerHeroesRequestCompleted);
+}
+
+void ULootLockerManager::CreateHero(FString CharacterName, int HeroId, const FPHeroResponseBP& OnCompletedRequestBP)
+{
+	ULootLockerHeroRequestHandler::CreateHero(CharacterName, HeroId, OnCompletedRequestBP);
+}
+
+void ULootLockerManager::GetHero(int HeroId, const FPHeroResponseBP& OnCompletedRequestBP)
+{
+	ULootLockerHeroRequestHandler::GetHero(HeroId, OnCompletedRequestBP);
+}
+
+void ULootLockerManager::GetHeroLoadout(int HeroId, const FPHeroLoadoutResponseBP& OnCompletedRequestBP)
+{
+	ULootLockerHeroRequestHandler::GetHeroLoadout(HeroId, OnCompletedRequestBP);
+}
+
 void ULootLockerManager::GetEntirePersistentStorage(const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsRequestCompleted)
 {
     ULootLockerPersistentStorageRequestHandler::GetEntirePersistentStorage(OnPersistentStorageItemsRequestCompleted);

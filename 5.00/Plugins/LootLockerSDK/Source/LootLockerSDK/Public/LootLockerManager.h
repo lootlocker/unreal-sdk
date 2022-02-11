@@ -22,6 +22,7 @@
 #include "GameAPI/LootLockerMessagesRequestHandler.h"
 #include "GameAPI/LootLockerLeaderboardRequestHandler.h"
 #include "GameAPI/LLDropTablesRequestHandler.h"
+#include "GameAPI/LootLockerHeroRequestHandler.h"
 
 #include "LootLockerManager.generated.h"
 
@@ -309,7 +310,26 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
     static void GetEquipableContextsByCharacterId(FString otherCharacterId, const  FContextDelegateBP& OnGetEquipableContextsByCharacterIdRequestCompleted);
-    
+
+	//==================================================
+	//Heroes
+	//==================================================
+	
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
+	static void GetGameHeroes(const FPGameHeroesResponseBP& OnGetGameHeroesRequestCompleted);
+
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
+	static void ListPlayerHeroes(const FPHeroesResponseBP& OnListPlayerHeroesRequestCompleted);
+	
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
+	static void CreateHero(FString CharacterName, int HeroId, const FPHeroResponseBP& OnCompletedRequestBP);
+
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
+	static void GetHero(int HeroId, const FPHeroResponseBP& OnCompletedRequestBP);
+
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
+	static void GetHeroLoadout(int HeroId, const FPHeroLoadoutResponseBP& OnCompletedRequestBP);
+	
     //==================================================
     //Persistent Storage
     //==================================================

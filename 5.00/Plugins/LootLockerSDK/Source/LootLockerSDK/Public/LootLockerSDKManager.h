@@ -22,6 +22,7 @@
 #include "GameAPI/LootLockerMessagesRequestHandler.h"
 #include "GameAPI/LootLockerLeaderboardRequestHandler.h"
 #include "GameAPI/LLDropTablesRequestHandler.h"
+#include "GameAPI/LootLockerHeroRequestHandler.h"
 #include "LootLockerSDKManager.generated.h"
 
 UCLASS(Blueprintable)
@@ -297,6 +298,20 @@ public:
     */
 	static void GetEquipableContextsByCharacterId(const FString& OtherCharacterId, const FContextDelegate& OnCompletedRequest);
     
+	//==================================================
+	//Heroes
+	//==================================================
+
+	static void GetGameHeroes(const FGameHeroesResponse& OnGetGameHeroesRequestCompleted);
+
+	static void ListPlayerHeroes(const FHeroesResponse& OnListPlayerHeroesRequestCompleted);
+	
+	static void CreateHero(FString CharacterName, int HeroId, const FHeroResponse& OnCompletedRequestBP);
+	
+	static void GetHero(int HeroId, const FHeroResponse& OnCompletedRequestBP);
+	
+	static void GetHeroLoadout(int HeroId, const FHeroLoadoutResponse& OnCompletedRequestBP);
+
     //==================================================
     //Persistent Storage
     //==================================================
