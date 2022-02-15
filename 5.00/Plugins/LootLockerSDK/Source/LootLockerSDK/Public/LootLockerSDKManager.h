@@ -379,10 +379,11 @@ public:
     * @param StartFromIndex - index of the item to start from.
     * @param ItemsCount - number of items to receive (50-200).
     * @param AssetFilter - optional filter.
+    * @param Context - optional context filter.
     * @param IncludeUGC - whether to include UGC Assets.
     * https://docs.lootlocker.io/game-api/#getting-asset-list
     */
-    static void GetAssets(const FAssetsResponseDelegate& OnCompletedRequest, int StartFromIndex = 0, int ItemsCount = 50, ELootLockerAssetFilter AssetFilter = ELootLockerAssetFilter::None, bool IncludeUGC = false);
+    static void GetAssets(const FAssetsResponseDelegate& OnCompletedRequest, int StartFromIndex = 0, int ItemsCount = 50, ELootLockerAssetFilter AssetFilter = ELootLockerAssetFilter::None, int Context = 0, bool IncludeUGC = false);
     
     /**
     * Retrieve only specific Assets by their ID's.

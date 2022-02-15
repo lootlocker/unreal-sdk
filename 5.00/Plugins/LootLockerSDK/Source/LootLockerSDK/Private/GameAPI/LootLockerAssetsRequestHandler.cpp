@@ -40,7 +40,7 @@ void ULootLockerAssetsRequestHandler::GetContexts(const FContextDelegateBP& OnCo
     HttpClient->SendApi(Endpoint.endpoint, requestMethod, ContentString, sessionResponse, true);
 }
 
-void ULootLockerAssetsRequestHandler::GetAssets(int StartFromIndex, int ItemsCount, ELootLockerAssetFilter AssetFilter, bool IncludeUGC, const FAssetsResponseDelegateBP& OnCompletedRequestBP, const FAssetsResponseDelegate& OnCompletedRequest)
+void ULootLockerAssetsRequestHandler::GetAssets(int StartFromIndex, int ItemsCount, ELootLockerAssetFilter AssetFilter, int Context, bool IncludeUGC, const FAssetsResponseDelegateBP& OnCompletedRequestBP, const FAssetsResponseDelegate& OnCompletedRequest)
 {
     FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
@@ -97,11 +97,16 @@ void ULootLockerAssetsRequestHandler::GetAssets(int StartFromIndex, int ItemsCou
     {
         EndpointUrl = LootLockerUtilities::AppendParameterToUrl(EndpointUrl, "filter=" + Filter);
     }
+	if(Context != 0)
+	{
+		EndpointUrl = LootLockerUtilities::AppendParameterToUrl(EndpointUrl, "context_id=" + FString::FromInt(Context));
+	}
     
     if (IncludeUGC)
     {
         EndpointUrl = LootLockerUtilities::AppendParameterToUrl(EndpointUrl, "include_ugc=true");
     }
+
     HttpClient->SendApi(EndpointUrl, requestMethod, ContentString, sessionResponse, true);
 }
 
