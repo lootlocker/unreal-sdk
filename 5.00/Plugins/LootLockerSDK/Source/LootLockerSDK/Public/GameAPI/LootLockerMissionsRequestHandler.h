@@ -48,9 +48,13 @@ struct FLootLockerMission
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString mission_id;
+    int mission_id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int asset_id;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int map_id;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int type;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int rounds;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -64,7 +68,7 @@ struct FLootLockerMission
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int difficulty_id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerMissionGoal> goals;
+    TMap<FString, FLootLockerMissionGoal> goals;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerMissionCheckpoint> checkpoints;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
