@@ -1,0 +1,72 @@
+// Copyright LootLocker AB
+
+#pragma once
+#include "CoreMinimal.h"
+#include "UObject/NoExportTypes.h"
+#include "LootLockerConfig.h"
+#include "LootLockerHttpClient.h"
+#include "LootLockerPlayerFilesRequestHandler.generated.h"
+
+USTRUCT(BlueprintType)
+struct FLootLockerFileUploadRequest
+{
+    GENERATED_BODY()
+    public:
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString file;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString purpose;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerFileResponse : public FLootLockerResponse
+{
+    GENERATED_BODY()
+    public:
+    bool success;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	int32 id;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString name;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int32 size;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString purpose;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString url;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString url_expires_at;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString created_at;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerFileListResponse : public FLootLockerResponse
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	TArray<FLootLockerFileResponse> items;
+};
+
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerUploadFileBP, FLootLockerFileResponse, Response);
+DECLARE_DELEGATE_OneParam(FLootLockerUploadFileDelegate, FLootLockerFileResponse);
+
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerFileListBP, FLootLockerFileListResponse, Response);
+DECLARE_DELEGATE_OneParam(FLootLockerFileListDelegate, FLootLockerFileListResponse);
+
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerFileDeletedBP, FLootLockerResponse, Response);
+DECLARE_DELEGATE_OneParam(FLootLockerFileDeletedDelegate, FLootLockerResponse);
+
+UCLASS()
+class LOOTLOCKERSDK_API ULLPlayerFilesRequestHandler : public UObject
+{
+	GENERATED_BODY()
+public:
+    ULLPlayerFilesRequestHandler();
+    static ULootLockerHttpClient* HttpClient;
+    static void UploadFile(const FLootLockerFileUploadRequest& Request, const FLootLockerUploadFileBP& OnCompleteBP = FLootLockerUploadFileBP(), const FLootLockerUploadFileDelegate& OnComplete = FLootLockerUploadFileDelegate());
+	static void ListFiles(const FLootLockerFileListBP& OnCompleteBP, const FLootLockerFileListDelegate& OnComplete);
+	static void GetSingleFile(const int32 FileID, const FLootLockerUploadFileBP& OnCompleteBP = FLootLockerUploadFileBP(), const FLootLockerUploadFileDelegate& OnComplete = FLootLockerUploadFileDelegate());
+	static void DeletePlayerFile(const int32 FileID, const FLootLockerFileDeletedBP& OnCompleteBP = FLootLockerFileDeletedBP(), const FLootLockerFileDeletedDelegate& OnComplete = FLootLockerFileDeletedDelegate());
+};
