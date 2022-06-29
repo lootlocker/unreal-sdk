@@ -13,11 +13,11 @@ USTRUCT(BlueprintType)
 struct FLootLockerAssetPurchaseData {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int asset_id;
+    int asset_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int variation_id;
+    int variation_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int rental_option_id;
+    int rental_option_id = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -39,9 +39,9 @@ struct FLootLockerPurchaseResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool overlay;
+    bool overlay = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int order_id;
+    int order_id = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -57,7 +57,7 @@ struct FLootLockerActivateRentalAssetResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int time_left;
+    int time_left = 0;
 };
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPurchaseResponseDelegateBP, FLootLockerPurchaseResponse, Response);

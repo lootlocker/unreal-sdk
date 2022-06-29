@@ -16,7 +16,7 @@ namespace LootLockerUtilities
     {
         TArray<FLootLockerMissionCheckpoint> Checkpoints;
 
-        // Has field and is not Null type, in case checkpoints are not defined
+        // Has field and is not Null type
         if(MissionJson->HasTypedField<EJson::Array>("checkpoints"))
         {
             TArray<TSharedPtr<FJsonValue>> CheckPointsJson = MissionJson->GetArrayField("checkpoints");

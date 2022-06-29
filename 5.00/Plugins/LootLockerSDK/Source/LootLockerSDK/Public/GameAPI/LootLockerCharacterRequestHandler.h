@@ -15,13 +15,13 @@ USTRUCT(BlueprintType)
 struct FLootLockerCharacter {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int32 id;
+	int32 id = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString type;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString name;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	bool is_default;
+	bool is_default = false;
 };
 USTRUCT(BlueprintType)
 struct FLootLockerCharacterAsset 
@@ -34,7 +34,7 @@ USTRUCT(BlueprintType)
 struct FLootLockerCharacterRental {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	bool is_rental;
+	bool is_rental = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString time_left;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -46,9 +46,9 @@ USTRUCT(BlueprintType)
 struct FLootLockerCharacterLoadout {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int32 variation_id;
+	int32 variation_id = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int32 instance_id;
+	int32 instance_id = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString mounted_at;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -75,7 +75,7 @@ USTRUCT(BlueprintType)
 struct FLootLockerUpdateCharacterRequest {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	bool is_default;
+	bool is_default = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString name;
 };
@@ -83,27 +83,27 @@ struct FLootLockerUpdateCharacterRequest {
 USTRUCT(BlueprintType)
 struct FLootLockerListCharacterRequest {
 	GENERATED_BODY()
-		UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		bool is_default;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		FString name;
+	bool is_default = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		FString character_type_id;
+	FString name;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString character_type_id;
 };
 
 USTRUCT(BlueprintType)
 struct FLootLockerEquipAssetToCharacterWithInstanceRequest {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int32 instance_id;
+	int32 instance_id = 0;
 };
 USTRUCT(BlueprintType)
 struct FLootLockerEquipUniversalAssetToCharacterRequest {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int32 asset_id;
+	int32 asset_id = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int32 asset_variation_id;
+	int32 asset_variation_id = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -111,9 +111,9 @@ struct FLootLockerCharacterTypes
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int32 id;
+	int32 id = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	bool is_default;
+	bool is_default = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString name;
 };
