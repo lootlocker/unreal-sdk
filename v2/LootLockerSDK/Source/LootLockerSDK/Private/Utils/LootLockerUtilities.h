@@ -30,6 +30,10 @@ struct LLAPI
             if (response.success)
             {
                 ResponseStruct.success = FJsonObjectConverter::JsonObjectStringToUStruct<W>(response.FullTextFromServer, &ResponseStruct, 0, 0);
+                if (ResponseStruct.session_token != "")
+                {
+                    ULootLockerPersistentDataHolder::Token = ResponseStruct.session_token;
+                }
             }
             else
             {
