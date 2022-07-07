@@ -36,14 +36,14 @@ void ULootLockerAuthenticationRequestHandler::Login(const FString &Email, const 
 	LLAPI<FLootLockerLoginResponse>::CallAPI(HttpClient, LoginRequest, ULootLockerGameEndpoints::LoginEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
-void ULootLockerAuthenticationRequestHandler::GuestLogin(const FAuthResponseBP &OnCompletedRequestBP, const FLootLockerSessionResponse &OnCompletedRequest)
+void ULootLockerAuthenticationRequestHandler::GuestLogin(const FString& playerIdentifier, const FAuthResponseBP &OnCompletedRequestBP, const FLootLockerSessionResponse &OnCompletedRequest)
 {
 	FLootLockerAuthenticationRequest AuthRequest;
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	AuthRequest.development_mode = config->OnDevelopmentMode;
 	AuthRequest.game_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
-
+	AuthRequest.player_identifier = playerIdentifier;
 	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::GuestloginEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 

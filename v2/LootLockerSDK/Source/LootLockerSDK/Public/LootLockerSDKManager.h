@@ -44,7 +44,7 @@ public:
      */
 	static void StartSession(const FString& PlayerIdentifier, const FLootLockerSessionResponse& OnCompletedRequest);
 	static void WhiteLabelStartSession(const FString& Email, const FString& Password, const FLootLockerSessionResponse& OnCompletedRequest);
-	static void GuestLogin(const FLootLockerSessionResponse &OnCompletedRequest);
+	static void GuestLogin(const FString& playerIdentifier, const FLootLockerSessionResponse &OnCompletedRequest);
 
     /**
     * If your game uses Player Verification, you need to call this endpoint before you can register a session.
