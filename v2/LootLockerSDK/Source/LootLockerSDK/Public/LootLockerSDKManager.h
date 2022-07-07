@@ -365,6 +365,15 @@ public:
     static void AddItemsToPersistentStorage(const FLootLockerPersistentStorageItems Items, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest);
 
     /**
+    * Create/Update a key/value pair.
+    *
+    * @param Item - item to be created/updated.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    * https://docs.lootlocker.io/game-api/#updating-creating-key-value-pairs
+    */
+    static void AddItemsToPersistentStorage(const FLootLockerPersistentStorageItem Item, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest);
+
+    /**
     * Delete a key/value pair.
     *
     * @param Key - key of a key/value pair.
