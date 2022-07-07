@@ -7,6 +7,7 @@
 #include "Tests/AutomationCommon.h"
 #include "TestUtils.h"
 
+#if ENGINE_MAJOR_VERSION > 4
 BEGIN_DEFINE_SPEC(FLootLockersTestLeaderboards, "LootLocker", EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
 END_DEFINE_SPEC(FLootLockersTestLeaderboards)
 
@@ -33,4 +34,5 @@ void FLootLockersTestLeaderboards::Define()
 		});
 	});
 }
+#endif
 
