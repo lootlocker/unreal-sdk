@@ -529,11 +529,12 @@ void ULootLockerSDKManager::GetScoreListInitial(int LeaderboardId, int Count, co
     ULootLockerLeaderboardRequestHandler::GetScoreList(GetScoreListRequest, FLootLockerGetScoreListResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::SubmitScore(FString MemberId, const int LeaderboardId, const int Score, const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest)
+void ULootLockerSDKManager::SubmitScore(FString MemberId, const int LeaderboardId, const int Score, FString Metadata, const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest)
 {
     FLootLockerSubmitScoreRequest SubmitScoreRequest;
     SubmitScoreRequest.member_id = MemberId;
     SubmitScoreRequest.score = Score;
+    SubmitScoreRequest.metadata = Metadata;
     ULootLockerLeaderboardRequestHandler::SubmitScore(SubmitScoreRequest, LeaderboardId, FLootLockerSubmitScoreResponseBP(), OnCompletedRequest);
 }
 

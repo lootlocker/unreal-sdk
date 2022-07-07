@@ -514,11 +514,12 @@ void ULootLockerManager::GetScoreListInitial(int LeaderboardId, int Count,  cons
 }
 
 
-void ULootLockerManager::SubmitScore(FString MemberId, int LeaderboardId, int Score, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::SubmitScore(FString MemberId, int LeaderboardId, int Score, FString Metadata, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP)
 {
     FLootLockerSubmitScoreRequest SubmitScoreRequest;
     SubmitScoreRequest.member_id = MemberId;
     SubmitScoreRequest.score = Score;
+    SubmitScoreRequest.metadata = Metadata;
     ULootLockerLeaderboardRequestHandler::SubmitScore(SubmitScoreRequest, LeaderboardId,OnCompletedRequestBP);
 }
 
