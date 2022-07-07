@@ -26,7 +26,7 @@ USTRUCT(BlueprintType)
 struct FLootLockerPersistentStorageItems {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerPersistentStorageItem> Items;
+    TArray<FLootLockerPersistentStorageItem> payload;
 };
 
 
@@ -76,6 +76,9 @@ public:
     static void AddItemsToPersistentStorage(const FLootLockerPersistentStorageItems Items, const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP =
                                                 FPersistentStorageItemsResponseDelegateBP(), const FPersistentStorageItemsResponseDelegate& OnCompletedRequest =
                                                 FPersistentStorageItemsResponseDelegate());
+    static void AddItemToPersistentStorage(const FLootLockerPersistentStorageItem Item, const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP =
+        FPersistentStorageItemsResponseDelegateBP(), const FPersistentStorageItemsResponseDelegate& OnCompletedRequest =
+        FPersistentStorageItemsResponseDelegate());
     
     static void DeleteItemFromPersistentStorage(const FString& Key, const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP = FPersistentStorageItemsResponseDelegateBP(), const FPersistentStorageItemsResponseDelegate& OnCompletedRequest = FPersistentStorageItemsResponseDelegate());
     
