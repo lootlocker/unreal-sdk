@@ -21,9 +21,9 @@ void ULootLockerSDKManager::WhiteLabelStartSession(const FString &Email, const F
 	ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(Email, Password, FAuthResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::GuestLogin(const FLootLockerSessionResponse &OnCompletedRequest)
+void ULootLockerSDKManager::GuestLogin(const FString& playerIdentifier, const FLootLockerSessionResponse &OnCompletedRequest)
 {
-	ULootLockerAuthenticationRequestHandler::GuestLogin(FAuthResponseBP(), OnCompletedRequest);
+	ULootLockerAuthenticationRequestHandler::GuestLogin(playerIdentifier, FAuthResponseBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::VerifyPlayer(const FString& SteamSessionTicket, const FLootLockerDefaultAuthenticationResponse& OnCompleteRequest)

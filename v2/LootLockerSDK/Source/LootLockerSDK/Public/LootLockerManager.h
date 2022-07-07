@@ -54,7 +54,7 @@ public:
 	static void CreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP &OnCompletedRequestBP);
 
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-	static void GuestLogin(const FAuthResponseBP& OnCompletedRequestBP);
+	static void GuestLogin(const FString& playerIdentifier, const FAuthResponseBP& OnCompletedRequestBP);
 
     /**
     * If your game uses Player Verification, you need to call this endpoint before you can register a session.

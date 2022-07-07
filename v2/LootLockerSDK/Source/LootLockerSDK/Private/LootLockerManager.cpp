@@ -19,9 +19,9 @@ void ULootLockerManager::CreateAccount(const FString &Email, const FString &Pass
 	ULootLockerAuthenticationRequestHandler::Signup(Email, Password, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::GuestLogin(const FAuthResponseBP &OnCompletedRequestBP)
+void ULootLockerManager::GuestLogin(const FString& playerIdentifier, const FAuthResponseBP &OnCompletedRequestBP)
 {
-	ULootLockerAuthenticationRequestHandler::GuestLogin(OnCompletedRequestBP);
+	ULootLockerAuthenticationRequestHandler::GuestLogin(playerIdentifier, OnCompletedRequestBP);
 }
 
 void ULootLockerManager::VerifyPlayer(const FString& SteamSessionTicket, const FAuthDefaultResponseBP& OnVerifyPlayerRequestCompleted)
