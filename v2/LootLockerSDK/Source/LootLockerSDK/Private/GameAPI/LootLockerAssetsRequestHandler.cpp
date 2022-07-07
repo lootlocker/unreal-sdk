@@ -96,7 +96,7 @@ void ULootLockerAssetsRequestHandler::AddAssetToFavourites(int AssetId, const FG
 
 void ULootLockerAssetsRequestHandler::RemoveAssetFromFavourites(int AssetId, const FGetFavouriteAssetIndicesResponseDelegateBP& OnCompletedRequestBP, const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerGetFavouriteAssetIndicesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::RemoveAssetFromFavouritesEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerGetFavouriteAssetIndicesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::RemoveAssetFromFavouritesEndpoint, { AssetId },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerAssetsRequestHandler::GetUniversalAssets(const FUniversalAssetResponseDelegateBP &OnCompletedRequestBP, const FUniversalAssetResponseDelegate &OnCompletedRequest)
