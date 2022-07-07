@@ -162,6 +162,31 @@ void ULootLockerSDKManager::GetEquipableContextsByCharacterId(const FString& Oth
 	ULootLockerCharacterRequestHandler::GetEquipableContextsByCharacterId(GetRequests, FContextDelegateBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::GetGameHeroes(const FGameHeroesResponse& OnGetGameHeroesRequestCompleted)
+{
+	ULootLockerHeroRequestHandler::GetGameHeroes(FPGameHeroesResponseBP(), OnGetGameHeroesRequestCompleted);
+}
+
+void ULootLockerSDKManager::ListPlayerHeroes(const FHeroesResponse& OnListPlayerHeroesRequestCompleted)
+{
+	ULootLockerHeroRequestHandler::ListPlayerHeroes(FPHeroesResponseBP(), OnListPlayerHeroesRequestCompleted);
+}
+
+void ULootLockerSDKManager::CreateHero(FString CharacterName, int HeroId, const FHeroResponse& OnCompletedRequestBP)
+{
+	ULootLockerHeroRequestHandler::CreateHero(CharacterName, HeroId, FPHeroResponseBP(), OnCompletedRequestBP);
+}
+
+void ULootLockerSDKManager::GetHero(int HeroId, const FHeroResponse& OnCompletedRequestBP)
+{
+	ULootLockerHeroRequestHandler::GetHero(HeroId, FPHeroResponseBP(), OnCompletedRequestBP);
+}
+
+void ULootLockerSDKManager::GetHeroLoadout(int HeroId, const FHeroLoadoutResponse& OnCompletedRequestBP)
+{
+	ULootLockerHeroRequestHandler::GetHeroLoadout(HeroId, FPHeroLoadoutResponseBP(), OnCompletedRequestBP);
+}
+
 //Persisitent Storage
 void ULootLockerSDKManager::GetEntirePersistentStorage(const FPersistentStorageItemsResponseDelegate& OnCompletedRequest)
 {
@@ -194,9 +219,9 @@ void ULootLockerSDKManager::GetContexts(const FContextDelegate& OnCompletedReque
     ULootLockerAssetsRequestHandler::GetContexts(FContextDelegateBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::GetAssets(const FAssetsResponseDelegate& OnCompletedRequest, int StartFromIndex, int ItemsCount, ELootLockerAssetFilter AssetFilter, bool IncludeUGC)
+void ULootLockerSDKManager::GetAssets(const FAssetsResponseDelegate& OnCompletedRequest, int StartFromIndex, int ItemsCount, ELootLockerAssetFilter AssetFilter, int Context, bool IncludeUGC)
 {
-    ULootLockerAssetsRequestHandler::GetAssets(StartFromIndex, ItemsCount, AssetFilter, IncludeUGC, FAssetsResponseDelegateBP(), OnCompletedRequest);
+    ULootLockerAssetsRequestHandler::GetAssets(StartFromIndex, ItemsCount, AssetFilter, Context, IncludeUGC, FAssetsResponseDelegateBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::GetAssetsByIds(const TArray<int>& AssetIds, const FAssetsResponseDelegate& OnCompletedRequest)

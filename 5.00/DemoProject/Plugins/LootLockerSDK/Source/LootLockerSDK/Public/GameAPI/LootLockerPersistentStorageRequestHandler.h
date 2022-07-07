@@ -17,9 +17,9 @@ struct FLootLockerPersistentStorageItem {
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString value;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool is_public;
+    bool is_public = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int order;
+    int order = 0;
 };
 
 USTRUCT(BlueprintType)

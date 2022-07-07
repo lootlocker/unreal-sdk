@@ -43,7 +43,15 @@ public:
     static FLootLockerEndPoints GetOtherPlayersLoadoutToDefaultCharacterEndpoint;
     static FLootLockerEndPoints GetEquippableContextstoDefaultCharacterEndpoint;
     static FLootLockerEndPoints GetEquippableContextsByCharacterIDEndpoint;
-    
+
+	//Hero
+    static FLootLockerEndPoints GetGameHeroesEndpoint;
+    static FLootLockerEndPoints ListPlayerHeroesEndpoint;
+    static FLootLockerEndPoints CreateHeroEndpoint;
+    static FLootLockerEndPoints GetHeroEndpoint;
+    static FLootLockerEndPoints GetHeroLoadoutEndpoint;
+	
+	
     //Persistent Storage
     static FLootLockerEndPoints GetEntirePersistentStorageEndpoint;
     static FLootLockerEndPoints GetASingleKeyFromPersistentStorageEndpoint;

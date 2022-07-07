@@ -28,7 +28,7 @@ void ULootLockerMissionsRequestHandler::GetAllMissions(const FMissionsResponseDe
                 FJsonSerializer::Deserialize(JsonReader, JsonObject);
                 
                 TArray<TSharedPtr<FJsonValue>> missionsJsonArray = JsonObject->GetArrayField("missions");
-                
+
                 for (int i = 0; i < ResponseStruct.missions.Num(); i++)
                 {
                     ResponseStruct.missions[i].checkpoints = LootLockerUtilities::ParseMissionCheckpoints(missionsJsonArray[i]->AsObject());

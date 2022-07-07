@@ -2,6 +2,8 @@
 
 #include "LootLockerConfig.h"
 
+DEFINE_LOG_CATEGORY(LogLootLocker);
+
 FString ULootLockerConfig::GetEnum(const TCHAR* Enum, int32 EnumValue)
 {
     const UEnum* EnumPtr = FindObject<UEnum>(ANY_PACKAGE, Enum, true);

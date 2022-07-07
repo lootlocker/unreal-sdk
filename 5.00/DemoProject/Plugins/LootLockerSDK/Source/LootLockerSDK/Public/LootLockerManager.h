@@ -22,6 +22,7 @@
 #include "GameAPI/LootLockerMessagesRequestHandler.h"
 #include "GameAPI/LootLockerLeaderboardRequestHandler.h"
 #include "GameAPI/LLDropTablesRequestHandler.h"
+#include "GameAPI/LootLockerHeroRequestHandler.h"
 
 #include "LootLockerManager.generated.h"
 
@@ -309,7 +310,26 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
     static void GetEquipableContextsByCharacterId(FString otherCharacterId, const  FContextDelegateBP& OnGetEquipableContextsByCharacterIdRequestCompleted);
-    
+
+	//==================================================
+	//Heroes
+	//==================================================
+	
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
+	static void GetGameHeroes(const FPGameHeroesResponseBP& OnGetGameHeroesRequestCompleted);
+
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
+	static void ListPlayerHeroes(const FPHeroesResponseBP& OnListPlayerHeroesRequestCompleted);
+	
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
+	static void CreateHero(FString CharacterName, int HeroId, const FPHeroResponseBP& OnCompletedRequestBP);
+
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
+	static void GetHero(int HeroId, const FPHeroResponseBP& OnCompletedRequestBP);
+
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
+	static void GetHeroLoadout(int HeroId, const FPHeroLoadoutResponseBP& OnCompletedRequestBP);
+	
     //==================================================
     //Persistent Storage
     //==================================================
@@ -374,11 +394,12 @@ public:
     * @param StartFromIndex - index of the item to start from.
     * @param ItemsCount - number of items to receive (50-200).
     * @param AssetFilter - optional filter.
+    * @param Context - optional context filter.
     * @param IncludeUGC - whether to include UGC Assets.
     * https://ref.lootlocker.io/game-api/#getting-asset-list
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
-    static void GetAssets(const FAssetsResponseDelegateBP& OnGetAssetsRequestCompleted,int StartFromIndex = 0, int ItemsCount = 50, ELootLockerAssetFilter AssetFilter = ELootLockerAssetFilter::None, bool IncludeUGC = false);
+    static void GetAssets(const FAssetsResponseDelegateBP& OnGetAssetsRequestCompleted,int StartFromIndex = 0, int ItemsCount = 50, ELootLockerAssetFilter AssetFilter = ELootLockerAssetFilter::None, int Context = 0, bool IncludeUGC = false);
     
     /**
     * Retrieve only specific Assets by their ID's.
