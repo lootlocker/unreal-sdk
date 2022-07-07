@@ -23,7 +23,7 @@ void ULootLockerHeroRequestHandler::GetGameHeroes(const FPGameHeroesResponseBP& 
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Get game heroes failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Get game heroes failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -47,7 +47,7 @@ void ULootLockerHeroRequestHandler::ListPlayerHeroes(const FPHeroesResponseBP& O
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("List player heroes failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("List player heroes failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -78,7 +78,7 @@ void ULootLockerHeroRequestHandler::CreateHero(FString HeroName, int HeroId, con
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Create hero failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Create hero failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -102,7 +102,7 @@ void ULootLockerHeroRequestHandler::GetHero(int HeroId, const FPHeroResponseBP& 
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Get hero failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Get hero failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -128,7 +128,7 @@ void ULootLockerHeroRequestHandler::GetHeroLoadout(int HeroId, const FPHeroLoado
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Get hero loadout failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Get hero loadout failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
