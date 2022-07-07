@@ -836,7 +836,7 @@ public:
     * @param OnCompletedRequest - FLootLockerSubmitScoreResponseDelegate
     * https://ref.lootlocker.io/game-api/#submit-scorem
     */
-    static void SubmitScore(FString MemberId, const int LeaderboardId, const int Score, const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest);
+    static void SubmitScore(FString MemberId, const int LeaderboardId, const int Score, FString Metadata, const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest);
 
      //==================================================
     //Drop Table
