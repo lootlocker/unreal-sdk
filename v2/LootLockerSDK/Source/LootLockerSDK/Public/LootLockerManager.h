@@ -870,7 +870,7 @@ public:
     * https://ref.lootlocker.io/game-api/#submit-scorem
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard")
-    static void SubmitScore(FString MemberId, int LeaderboardId, int Score, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP);
+    static void SubmitScore(FString MemberId, int LeaderboardId, int Score, FString Metadata, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP);
     //==================================================
     //Drop Table
     //==================================================

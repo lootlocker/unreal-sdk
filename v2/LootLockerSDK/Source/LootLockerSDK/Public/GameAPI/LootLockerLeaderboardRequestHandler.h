@@ -34,6 +34,8 @@ struct FLootLockerGetMemberRankResponse : public FLootLockerResponse
     int score;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerPlayer player;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString metadata;
 };
 
 USTRUCT(BlueprintType)
@@ -48,6 +50,8 @@ struct FLootLockerMember
     int score;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerPlayer player;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString metadata;
 };
 
 USTRUCT(BlueprintType)
@@ -75,7 +79,7 @@ struct FLootLockerGetScoreListResponse : public FLootLockerResponse
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerPagination pagination;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerMember> members;
+    TArray<FLootLockerMember> items;
 };
 
 
@@ -89,6 +93,8 @@ struct FLootLockerSubmitScoreResponse : public FLootLockerResponse
     int rank;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int score;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString metadata;
 };
 
 USTRUCT(BlueprintType)
@@ -99,6 +105,8 @@ struct FLootLockerSubmitScoreRequest
     FString member_id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int score;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString metadata;
 };
 
 USTRUCT(BlueprintType)
