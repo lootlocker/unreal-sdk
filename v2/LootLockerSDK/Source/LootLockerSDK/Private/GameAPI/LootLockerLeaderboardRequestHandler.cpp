@@ -14,9 +14,10 @@ ULootLockerLeaderboardRequestHandler::ULootLockerLeaderboardRequestHandler()
 }
 
 
+
 void ULootLockerLeaderboardRequestHandler::GetMemberRank(const FLootLockerGetMemberRankRequest& MemberRequest, const FLootLockerGetMemberRankResponseBP& OnCompletedRequestBP, const FLootLockerGetMemberRankResponseDelegate& OnCompletedRequest)
 {
-	LLAPI<FLootLockerGetMemberRankResponse>::CallAPI(HttpClient, MemberRequest, ULootLockerGameEndpoints::GetMemberRank, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+	LLAPI<FLootLockerGetMemberRankResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetMemberRank, { MemberRequest.leaderboardId, MemberRequest.member_id },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerLeaderboardRequestHandler::GetByListOfMembers(const FLootLockerGetByListMembersRequest& GetScoreByListRequests, int LeaderboardId, const FLootLockerGetByListOfMembersResponseBP& OnCompletedRequestBP, const FLootLockerGetByListOfMembersResponseDelegate& OnCompletedRequest)

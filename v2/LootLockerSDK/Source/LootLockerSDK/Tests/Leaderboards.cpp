@@ -7,7 +7,6 @@
 #include "Tests/AutomationCommon.h"
 #include "TestUtils.h"
 
-#if ENGINE_MAJOR_VERSION > 4
 BEGIN_DEFINE_SPEC(FLootLockersTestLeaderboards, "LootLocker", EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
 END_DEFINE_SPEC(FLootLockersTestLeaderboards)
 
@@ -17,23 +16,21 @@ void FLootLockersTestLeaderboards::Define()
 	{
 		LatentIt("When Working with Leaderboards", EAsyncExecution::ThreadPool, [this](const FDoneDelegate TestDone)
 		{
-			// get character loadout
+			// get member rank
 			// TODO: add player id to start session
 			test_util::StartSession();
 
 			{
-				const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerCharacterLoadoutResponse,FCharacterLoadoutResponse>();
+				const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerGetMemberRankResponse,FLootLockerGetMemberRankResponseDelegate>();
 
-				// ULootLockerSDKManager::SubmitScore()
+				ULootLockerSDKManager::GetMemberRank(1, 1, Delegate);
 
 				const auto Response = Promise ->get_future().get();
-				TestTrue("GetCharacterLoadouts success", Response.success);
-				TestTrue("GetCharacterLoadouts available", Response.loadouts.Num()>0);
+				TestTrue("GetMemberRank success", Response.success);
 				delete(Promise);
 			}
 			
 		});
 	});
 }
-#endif
 
