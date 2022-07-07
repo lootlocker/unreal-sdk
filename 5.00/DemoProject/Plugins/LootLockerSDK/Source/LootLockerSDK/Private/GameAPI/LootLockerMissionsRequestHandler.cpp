@@ -35,7 +35,7 @@ void ULootLockerMissionsRequestHandler::GetAllMissions(const FMissionsResponseDe
                 }
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("GetAllMissions failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("GetAllMissions failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -66,7 +66,7 @@ void ULootLockerMissionsRequestHandler::GetMission(int MissionId, const FMission
                 ResponseStruct.mission.checkpoints = LootLockerUtilities::ParseMissionCheckpoints(JsonObject->GetObjectField("mission"));
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("GetMission failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("GetMission failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -92,7 +92,7 @@ void ULootLockerMissionsRequestHandler::StartMission(int MissionId, const FStart
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerStartMissionResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("StartMission failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("StartMission failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -118,7 +118,7 @@ void ULootLockerMissionsRequestHandler::FinishMission(int MissionId, const FLoot
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerFinishMissionResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("FinishMission failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("FinishMission failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);

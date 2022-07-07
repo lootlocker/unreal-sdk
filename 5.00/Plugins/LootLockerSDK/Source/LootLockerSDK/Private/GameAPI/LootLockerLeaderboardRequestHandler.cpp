@@ -29,7 +29,7 @@ void ULootLockerLeaderboardRequestHandler::GetMemberRank(const FLootLockerGetMem
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("GetMemberRank failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("GetMemberRank failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -57,7 +57,7 @@ void ULootLockerLeaderboardRequestHandler::GetByListOfMembers(const FLootLockerG
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("GetMemberRank failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("GetMemberRank failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -85,7 +85,7 @@ void ULootLockerLeaderboardRequestHandler::GetScoreList(const FLootLockerGetScor
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("GetMemberRank failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("GetMemberRank failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -121,7 +121,7 @@ void ULootLockerLeaderboardRequestHandler::SubmitScore(const FLootLockerSubmitSc
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("GetMemberRank failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("GetMemberRank failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);

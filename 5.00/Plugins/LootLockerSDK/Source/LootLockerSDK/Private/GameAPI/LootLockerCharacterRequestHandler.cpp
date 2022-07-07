@@ -23,7 +23,7 @@ void ULootLockerCharacterRequestHandler::GetCharacterLoadout(const FPCharacterLo
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Get character failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Get character failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -52,7 +52,7 @@ void ULootLockerCharacterRequestHandler::UpdateCharacter(int CharacterId, bool I
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Update character failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Update character failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -86,7 +86,7 @@ void ULootLockerCharacterRequestHandler::CreateCharacter(bool IsDefault,  FStrin
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Update character failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Update character failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -110,7 +110,7 @@ void ULootLockerCharacterRequestHandler::ListCharacterTypes(const FPLootLockerLi
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Update character failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Update character failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -140,7 +140,7 @@ void ULootLockerCharacterRequestHandler::EquipAssetToDefaultCharacter(int Instan
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Equip character failed for lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Equip character failed for lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -170,7 +170,7 @@ void ULootLockerCharacterRequestHandler::EquipAssetToCharacterById(FString Chara
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Equip character failed for lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Equip character failed for lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -201,7 +201,7 @@ void ULootLockerCharacterRequestHandler::EquipAssetToCharacterById(const FLootLo
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("equip asset to default character failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("equip asset to default character failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -233,7 +233,7 @@ void ULootLockerCharacterRequestHandler::UnEquipAssetToDefaultCharacter(int Inst
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Equip character failed for lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Equip character failed for lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -263,7 +263,7 @@ void ULootLockerCharacterRequestHandler::UnEquipAssetToCharacterById(const FLoot
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("equip asset to default character failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("equip asset to default character failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -290,7 +290,7 @@ void ULootLockerCharacterRequestHandler::GetCurrentLoadoutToDefaultCharacter(con
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("equip asset to default character failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("equip asset to default character failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -316,7 +316,7 @@ void ULootLockerCharacterRequestHandler::GetOtherPlayersCurrentLoadoutToDefaultC
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("equip asset to default character failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("equip asset to default character failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -341,7 +341,7 @@ void ULootLockerCharacterRequestHandler::GetEquipableContextsToDefaultCharacter(
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("equip asset to default character failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("equip asset to default character failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -367,7 +367,7 @@ void ULootLockerCharacterRequestHandler::GetEquipableContextsByCharacterId(const
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("equip asset to default character failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("equip asset to default character failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);

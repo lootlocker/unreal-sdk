@@ -25,7 +25,7 @@ void ULootLockerPurchasesRequestHandler::PurchaseAssets(const TArray<FLootLocker
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerPurchaseResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("PurchaseAssets failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("PurchaseAssets failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -62,7 +62,7 @@ void ULootLockerPurchasesRequestHandler::PurchaseAssetsAndroid(const TArray<FLoo
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerPurchaseResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("PurchaseAssets failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("PurchaseAssets failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -99,7 +99,7 @@ void ULootLockerPurchasesRequestHandler::PurchaseAssetsIOS(const TArray<FLootLoc
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerPurchaseResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("VerifyPurchaseIos failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("VerifyPurchaseIos failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -136,7 +136,7 @@ void ULootLockerPurchasesRequestHandler::PollingOrderStatus(int PurchaseId, cons
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerPurchaseStatusResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("PollPurchaseStatus failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("PollPurchaseStatus failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -162,7 +162,7 @@ void ULootLockerPurchasesRequestHandler::ActivateRentalAsset(int AssetId, const 
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerActivateRentalAssetResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("ActivateRentalAsset failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("ActivateRentalAsset failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);

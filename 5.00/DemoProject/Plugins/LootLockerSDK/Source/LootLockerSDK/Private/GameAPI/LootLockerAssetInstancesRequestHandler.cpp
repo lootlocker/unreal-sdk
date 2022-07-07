@@ -22,7 +22,7 @@ void ULootLockerAssetInstancesRequestHandler::GetAllKeyValuePairsForAssetInstanc
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerAssetInstanceStorageItemsResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("GetAllKeyValuePairsForAssetInstance failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("GetAllKeyValuePairsForAssetInstance failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -46,7 +46,7 @@ void ULootLockerAssetInstancesRequestHandler::GetAllKeyValuePairsToAnInstanceFor
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerAssetInstanceStorageItemsResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("GetAllKeyValuePairsToAnInstanceForAssetInstance failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("GetAllKeyValuePairsToAnInstanceForAssetInstance failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -71,7 +71,7 @@ void ULootLockerAssetInstancesRequestHandler::GetAKeyValuePairByIdForAssetInstan
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerAssetInstanceStorageItemsResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("GetKeyValuePairForAssetInstance failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("GetKeyValuePairForAssetInstance failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -97,7 +97,7 @@ void ULootLockerAssetInstancesRequestHandler::CreateAKeyValuePairForAssetInstanc
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerAssetInstanceStorageItemsResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("CreateStorageItemForAssetInstance failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("CreateStorageItemForAssetInstance failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -124,7 +124,7 @@ void ULootLockerAssetInstancesRequestHandler::UpdateOneOrMoreKeyValuePairForAsse
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerAssetInstanceStorageItemsResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("UpdateOneOrMoreKeyValuePairForAssetInstance failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("UpdateOneOrMoreKeyValuePairForAssetInstance failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -153,7 +153,7 @@ void ULootLockerAssetInstancesRequestHandler::UpdateAKeyValuePairByIdForAssetIns
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerAssetInstanceStorageItemsResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("UpdateAKeyValuePairByIdForAssetInstance failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("UpdateAKeyValuePairByIdForAssetInstance failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -180,7 +180,7 @@ void ULootLockerAssetInstancesRequestHandler::DeleteAKeyValuePairByIdForAssetIns
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerAssetInstanceStorageItemsResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("DeleteStorageItemForAssetInstance failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("DeleteStorageItemForAssetInstance failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -206,7 +206,7 @@ void ULootLockerAssetInstancesRequestHandler::InspectLootBox(int AssetInstanceId
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerLootBoxContentResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("InspectLootBox failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("InspectLootBox failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -232,7 +232,7 @@ void ULootLockerAssetInstancesRequestHandler::OpenLootBox(int AssetInstanceId, c
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerOpenLootBoxResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("OpenLootBox failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("OpenLootBox failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);

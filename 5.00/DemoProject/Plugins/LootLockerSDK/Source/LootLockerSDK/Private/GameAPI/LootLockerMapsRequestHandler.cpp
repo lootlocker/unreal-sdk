@@ -22,7 +22,7 @@ void ULootLockerMapsRequestHandler::GetMaps(const FGetMapsResponseDelegateBP& On
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerGetMapsResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("GetMaps failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("GetMaps failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);

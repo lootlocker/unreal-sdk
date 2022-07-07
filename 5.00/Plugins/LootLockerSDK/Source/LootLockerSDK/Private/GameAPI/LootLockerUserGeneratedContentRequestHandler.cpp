@@ -25,7 +25,7 @@ void ULootLockerUserGeneratedContentRequestHandler::CreateAssetCandidate(const F
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerCreateAssetCandidateResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("CreateAssetCandidate failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("CreateAssetCandidate failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -51,7 +51,7 @@ void ULootLockerUserGeneratedContentRequestHandler::UpdateAssetCandidate(int Ass
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerAssetCandidateResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("UpdateAssetCandidate failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("UpdateAssetCandidate failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -78,7 +78,7 @@ void ULootLockerUserGeneratedContentRequestHandler::DeleteAssetCandidate(int Ass
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("DeleteAssetCandidate failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("DeleteAssetCandidate failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -104,7 +104,7 @@ void ULootLockerUserGeneratedContentRequestHandler::GetAllAssetCandidates(const 
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerAssetCandidatesResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("GetAllAssetCandidates failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("GetAllAssetCandidates failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -129,7 +129,7 @@ void ULootLockerUserGeneratedContentRequestHandler::GetAssetCandidate(int AssetC
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerAssetCandidateResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("GetAssetCandidate failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("GetAssetCandidate failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -155,7 +155,7 @@ void ULootLockerUserGeneratedContentRequestHandler::AddFileToAssetCandidate(int 
             FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
         }
         else {
-            UE_LOG(LogTemp, Error, TEXT("AddFileToAssetCandidate failed from lootlocker"));
+            UE_LOG(LogLootLocker, Error, TEXT("AddFileToAssetCandidate failed from lootlocker"));
         }
         ResponseStruct.FullTextFromServer = response.FullTextFromServer;
         OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -185,7 +185,7 @@ void ULootLockerUserGeneratedContentRequestHandler::DeleteFileFromAssetCandidate
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("DeleteFileFromAssetCandidate failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("DeleteFileFromAssetCandidate failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);

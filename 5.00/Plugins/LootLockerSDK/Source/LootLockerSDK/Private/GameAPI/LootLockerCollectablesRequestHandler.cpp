@@ -22,7 +22,7 @@ void ULootLockerCollectablesRequestHandler::GetAllCollectables(const FCollectabl
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerCollectablesResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("GetAllCollectables failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("GetAllCollectables failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -47,7 +47,7 @@ void ULootLockerCollectablesRequestHandler::CollectItem(const FLootLockerCollect
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerCollectablesResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("TriggerEvent failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("TriggerEvent failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);

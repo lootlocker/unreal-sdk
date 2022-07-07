@@ -24,7 +24,7 @@ void ULootLockerPlayerRequestHandler::GetPlayerInfo(const FPInfoResponseBP& OnCo
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Getting player failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Getting player failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -49,7 +49,7 @@ void ULootLockerPlayerRequestHandler::GetInventory(const FPInventoryResponseBP& 
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Getting player failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Getting player failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -83,7 +83,7 @@ void ULootLockerPlayerRequestHandler::SubmitXp(int points,const FPSubmitResponse
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Getting player failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Getting player failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -110,7 +110,7 @@ void ULootLockerPlayerRequestHandler::GetOtherPlayerInfo(FLootLockerGetRequests 
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Getting player failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Getting player failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -137,7 +137,7 @@ void ULootLockerPlayerRequestHandler::CheckPlayerAssetNotification(const FPAsset
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Getting player failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Getting player failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -162,7 +162,7 @@ void ULootLockerPlayerRequestHandler::CheckPlayerAssetDeactivationNotification(c
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Getting player failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Getting player failed from lootlocker"));
 			}		
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -188,7 +188,7 @@ void ULootLockerPlayerRequestHandler::InitiateDLCMigration(const FResponseCallba
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Getting player failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Getting player failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -214,7 +214,7 @@ void ULootLockerPlayerRequestHandler::GetDLCsMigration(const FPDlcResponseBP& On
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Getting player failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Getting player failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -240,7 +240,7 @@ void ULootLockerPlayerRequestHandler::SetProfilePrivate(const FResponseCallbackB
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Getting player failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Getting player failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -266,7 +266,7 @@ void ULootLockerPlayerRequestHandler::SetProfilePublic(const FResponseCallbackBP
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Getting player failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Getting player failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -295,7 +295,7 @@ void ULootLockerPlayerRequestHandler::SetPlayerName(FString name, const FPNameRe
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Getting player failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Getting player failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -321,7 +321,7 @@ void ULootLockerPlayerRequestHandler::GetPlayerName(const FPNameResponseBP& OnCo
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Getting player failed from lootlocker"));
+				UE_LOG(LogLootLocker, Error, TEXT("Getting player failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);

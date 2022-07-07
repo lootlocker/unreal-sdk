@@ -25,7 +25,7 @@ void ULootLockerPersistentStorageRequestHandler::GetEntirePersistentStorage(cons
             }
             else {
                 ResponseStruct.success = false;
-                UE_LOG(LogTemp, Error, TEXT("GetEntirePersistentStorage failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("GetEntirePersistentStorage failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -50,7 +50,7 @@ void ULootLockerPersistentStorageRequestHandler::GetItemFromPersistentStorage(co
             }
             else {
                 ResponseStruct.success = false;
-                UE_LOG(LogTemp, Error, TEXT("GetItemFromPersistentStorage failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("GetItemFromPersistentStorage failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -75,7 +75,7 @@ void ULootLockerPersistentStorageRequestHandler::AddItemsToPersistentStorage(con
             }
             else {
                 ResponseStruct.success = false;
-                UE_LOG(LogTemp, Error, TEXT("AddItemsToPersistentStorage failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("AddItemsToPersistentStorage failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -112,7 +112,7 @@ void ULootLockerPersistentStorageRequestHandler::DeleteItemFromPersistentStorage
             }
             else {
                 ResponseStruct.success = false;
-                UE_LOG(LogTemp, Error, TEXT("DeleteItemFromPersistentStorage failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("DeleteItemFromPersistentStorage failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -137,7 +137,7 @@ void ULootLockerPersistentStorageRequestHandler::GetPlayerPersistentStorage(cons
             }
             else {
                 ResponseStruct.success = false;
-                UE_LOG(LogTemp, Error, TEXT("DeleteItemFromPersistentStorage failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("DeleteItemFromPersistentStorage failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -148,6 +148,6 @@ void ULootLockerPersistentStorageRequestHandler::GetPlayerPersistentStorage(cons
     FLootLockerEndPoints Endpoint = ULootLockerGameEndpoints::GetOtherPlayersPublicKeyValuePairs;
     FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     FString endpoint = FString::Format(*(Endpoint.endpoint), { PlayerId });
-    UE_LOG(LogTemp, Verbose, TEXT("endpoint: %s"), *endpoint);
+    UE_LOG(LogLootLocker, Verbose, TEXT("endpoint: %s"), *endpoint);
     HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponse, true);
 }

@@ -27,7 +27,7 @@ void ULootLockerAssetsRequestHandler::GetContexts(const FContextDelegateBP& OnCo
             }
             else {
                 ResponseStruct.success = false;
-                UE_LOG(LogTemp, Error, TEXT("GetContexts failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("GetContexts failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -52,7 +52,7 @@ void ULootLockerAssetsRequestHandler::GetAssets(int StartFromIndex, int ItemsCou
             }
             else {
                 ResponseStruct.success = false;
-                UE_LOG(LogTemp, Error, TEXT("GetAssets failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("GetAssets failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -122,7 +122,7 @@ void ULootLockerAssetsRequestHandler::GetAssetsByIds(const TArray<int>& AssetIds
             }
             else {
                 ResponseStruct.success = false;
-                UE_LOG(LogTemp, Error, TEXT("GetAssetsByIds failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("GetAssetsByIds failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -159,7 +159,7 @@ void ULootLockerAssetsRequestHandler::GetAssetBones(const FAssetBonesResponseDel
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerGetAssetBonesResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("GetAssetBones failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("GetAssetBones failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -184,7 +184,7 @@ void ULootLockerAssetsRequestHandler::GetFavouriteAssetIndices(const FGetFavouri
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerGetFavouriteAssetIndicesResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("GetAssetBones failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("GetAssetBones failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -209,7 +209,7 @@ void ULootLockerAssetsRequestHandler::AddAssetToFavourites(int AssetId, const FG
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerGetFavouriteAssetIndicesResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("GetAssetBones failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("GetAssetBones failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -234,7 +234,7 @@ void ULootLockerAssetsRequestHandler::RemoveAssetFromFavourites(int AssetId, con
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerGetFavouriteAssetIndicesResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("GetAssetBones failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("GetAssetBones failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);

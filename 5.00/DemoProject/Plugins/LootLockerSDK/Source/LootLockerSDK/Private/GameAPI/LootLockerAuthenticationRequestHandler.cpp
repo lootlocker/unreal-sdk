@@ -38,7 +38,7 @@ void ULootLockerAuthenticationRequestHandler::StartSession(const FString& Player
 			else
 			{
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Starting of Session failed"));
+				UE_LOG(LogLootLocker, Error, TEXT("Starting of Session failed"));
 			}
 
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
@@ -73,7 +73,7 @@ void ULootLockerAuthenticationRequestHandler::VerifyPlayer(const FString& SteamT
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Verification failed"));
+				UE_LOG(LogLootLocker, Error, TEXT("Verification failed"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -98,7 +98,7 @@ void ULootLockerAuthenticationRequestHandler::EndSession(const FAuthDefaultRespo
 			}
 			else {
 				ResponseStruct.success = false;
-				UE_LOG(LogTemp, Error, TEXT("Session ending failed"));
+				UE_LOG(LogLootLocker, Error, TEXT("Session ending failed"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
 			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
