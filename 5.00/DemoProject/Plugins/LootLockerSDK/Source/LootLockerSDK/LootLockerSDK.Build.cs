@@ -37,7 +37,7 @@ public class LootLockerSDK : ModuleRules
                 "Core",
                 "CoreUObject",
                 "Engine",
-                "Http",
+                "HTTP",
                 "Json",
                 "JsonUtilities"
 			}
