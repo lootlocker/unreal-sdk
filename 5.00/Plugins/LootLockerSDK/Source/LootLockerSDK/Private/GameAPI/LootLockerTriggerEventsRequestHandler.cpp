@@ -22,7 +22,7 @@ void ULootLockerTriggerEventsRequestHandler::TriggerEvent(const FLootLockerTrigg
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerTriggerEventResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("TriggerEvent failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("TriggerEvent failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
@@ -48,7 +48,7 @@ void ULootLockerTriggerEventsRequestHandler::GetTriggeredEvents(const FTriggersR
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerTriggersResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("GetTriggeredEvents failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("GetTriggeredEvents failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);

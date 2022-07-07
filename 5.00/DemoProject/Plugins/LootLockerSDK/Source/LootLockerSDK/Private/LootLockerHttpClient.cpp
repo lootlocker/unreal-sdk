@@ -58,7 +58,7 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 				return;
 			}
 
-			UE_LOG(LogTemp, Warning, TEXT("Response code: %d; Response content:\n%s"), Response->GetResponseCode(), *ResponseString);
+			UE_LOG(LogLootLocker, Warning, TEXT("Response code: %d; Response content:\n%s"), Response->GetResponseCode(), *ResponseString);
 			response.success = true;
 			response.FullTextFromServer = Response->GetContentAsString();
 			response.ServerCallHasError = false;
@@ -84,8 +84,8 @@ bool ULootLockerHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, 
 	else
 	{
 		
-		UE_LOG(LogTemp, Warning, TEXT("Http Response returned error code: %d"), InResponse->GetResponseCode());
-		UE_LOG(LogTemp, Warning, TEXT("Http Response content:\n%s"), *InResponse->GetContentAsString());
+		UE_LOG(LogLootLocker, Warning, TEXT("Http Response returned error code: %d"), InResponse->GetResponseCode());
+		UE_LOG(LogLootLocker, Warning, TEXT("Http Response content:\n%s"), *InResponse->GetContentAsString());
 		return false;
 	}
 }
@@ -120,7 +120,7 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
     
     TArray<uint8> UpFileRawData;
     if (!FFileHelper::LoadFileToArray(UpFileRawData, *FilePath)) {
-        UE_LOG(LogTemp, Error, TEXT("FILE NOT READ!"));
+        UE_LOG(LogLootLocker, Error, TEXT("FILE NOT READ!"));
         return;
     }
     
@@ -167,7 +167,7 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
             response.ServerCallStatusCode = Response->GetResponseCode();
             response.ServerError = Response->GetContentAsString();
         
-            UE_LOG(LogTemp, Warning, TEXT("Response code: %d; Response content:\n%s"), Response->GetResponseCode(), *ResponseString);
+            UE_LOG(LogLootLocker, Warning, TEXT("Response code: %d; Response content:\n%s"), Response->GetResponseCode(), *ResponseString);
             bool success = ResponseIsValid(Response, bWasSuccessful);
         
             response.success = success;

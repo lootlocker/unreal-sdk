@@ -22,7 +22,7 @@ void ULootLockerMessagesRequestHandler::GetMessages(const FMessagesResponseDeleg
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerMessagesResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             else {
-                UE_LOG(LogTemp, Error, TEXT("GetMessages failed from lootlocker"));
+                UE_LOG(LogLootLocker, Error, TEXT("GetMessages failed from lootlocker"));
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
