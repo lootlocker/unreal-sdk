@@ -26,6 +26,7 @@ public:
 	FString message;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString error;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString session_token;
 };
 

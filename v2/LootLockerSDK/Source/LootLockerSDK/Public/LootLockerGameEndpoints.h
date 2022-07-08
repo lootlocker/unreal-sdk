@@ -14,11 +14,13 @@ public:
     static FLootLockerEndPoints StartSessionEndpoint;
     static FLootLockerEndPoints VerifyPlayerIdEndPoint;
     static FLootLockerEndPoints EndSessionEndpoint;
-	static FLootLockerEndPoints SignupEndpoint;
-	static FLootLockerEndPoints LoginEndpoint;
+    static FLootLockerEndPoints GuestloginEndpoint;
+	static FLootLockerEndPoints WhiteLabelSignupEndpoint;
+	static FLootLockerEndPoints WhiteLabelLoginEndpoint;
 	static FLootLockerEndPoints WhiteLabelAuthEndpoint;
-	static FLootLockerEndPoints GuestloginEndpoint;
-
+    static FLootLockerEndPoints WhiteLabelVerifyEndpoint;
+    static FLootLockerEndPoints WhiteLabelRequestPasswordResetEndpoint;
+    static FLootLockerEndPoints WhiteLabelRequestVerificationEndpoint;
 	// Files
 	static FLootLockerEndPoints FileUploadEndpoint;
 	static FLootLockerEndPoints ListFilesEndpoint;

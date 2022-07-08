@@ -13,7 +13,7 @@ ULootLockerAuthenticationRequestHandler::ULootLockerAuthenticationRequestHandler
 	HttpClient = NewObject<ULootLockerHttpClient>();
 }
 
-void ULootLockerAuthenticationRequestHandler::Signup(const FString &Email, const FString &Password, const FLootLockerLoginResponseDelegateBP &OnCompletedRequestBP,
+void ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(const FString &Email, const FString &Password, const FLootLockerLoginResponseDelegateBP &OnCompletedRequestBP,
 	const FLootLockerLoginResponseDelegate &OnCompletedRequest)
 {
 	FLootLockerLoginRequest SignupRequest;
@@ -23,17 +23,19 @@ void ULootLockerAuthenticationRequestHandler::Signup(const FString &Email, const
 	const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
 	ULootLockerPersistentDataHolder::DomainKey = Config->DomainKey;
 	
-	LLAPI<FLootLockerLoginResponse>::CallAPI(HttpClient, SignupRequest, ULootLockerGameEndpoints::SignupEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+	LLAPI<FLootLockerLoginResponse>::CallAPI(HttpClient, SignupRequest, ULootLockerGameEndpoints::WhiteLabelSignupEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest, true, true);
 }
 
-void ULootLockerAuthenticationRequestHandler::Login(const FString &Email, const FString &Password, const FLootLockerLoginResponseDelegateBP &OnCompletedRequestBP,
+void ULootLockerAuthenticationRequestHandler::WhiteLabelLogin(const FString &Email, const FString &Password, const FLootLockerLoginResponseDelegateBP &OnCompletedRequestBP,
 	const FLootLockerLoginResponseDelegate &OnCompletedRequest)
 {
 	FLootLockerLoginRequest LoginRequest;
 	LoginRequest.email = Email;
 	LoginRequest.password = Password;
-	
-	LLAPI<FLootLockerLoginResponse>::CallAPI(HttpClient, LoginRequest, ULootLockerGameEndpoints::LoginEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+	const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
+	ULootLockerPersistentDataHolder::DomainKey = Config->DomainKey;
+
+	LLAPI<FLootLockerLoginResponse>::CallAPI(HttpClient, LoginRequest, ULootLockerGameEndpoints::WhiteLabelLoginEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest, true, true);
 }
 
 void ULootLockerAuthenticationRequestHandler::GuestLogin(const FString& playerIdentifier, const FAuthResponseBP &OnCompletedRequestBP, const FLootLockerSessionResponse &OnCompletedRequest)
@@ -47,7 +49,7 @@ void ULootLockerAuthenticationRequestHandler::GuestLogin(const FString& playerId
 	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::GuestloginEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
-void ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(const FString &Email, const FString &Password, const FAuthResponseBP &OnCompletedRequestBP, const FLootLockerSessionResponse &OnCompletedRequest)
+void ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(const FString &Email, const FAuthResponseBP &OnCompletedRequestBP, const FLootLockerSessionResponse &OnCompletedRequest)
 {
 	FLootLockerWhiteLabelAuthRequest AuthRequest;
 	const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
@@ -55,8 +57,7 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(const FStri
 	AuthRequest.game_key = Config->LootLockerGameKey;
 	AuthRequest.game_version = Config->GameVersion;
 	AuthRequest.email = Email;
-	AuthRequest.password = Password;
-	
+	AuthRequest.token = ULootLockerPersistentDataHolder::Token;
 	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::WhiteLabelAuthEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 

@@ -6,9 +6,14 @@
 #include <concrt.h>
 
 //Authentication
-void ULootLockerSDKManager::CreateAccount(const FString &Email, const FString &Password, const FLootLockerLoginResponseDelegate &OnCompletedRequest)
+void ULootLockerSDKManager::WhiteLabelCreateAccount(const FString &Email, const FString &Password, const FLootLockerLoginResponseDelegate &OnCompletedRequest)
 {
-    ULootLockerAuthenticationRequestHandler::Signup(Email, Password, FLootLockerLoginResponseDelegateBP(), OnCompletedRequest);
+    ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(Email, Password, FLootLockerLoginResponseDelegateBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegate &OnCompletedRequest)
+{
+    ULootLockerAuthenticationRequestHandler::WhiteLabelLogin(Email, Password, FLootLockerLoginResponseDelegateBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::StartSession(const FString& PlayerIdentifier, const FLootLockerSessionResponse& OnCompleteRequest)
@@ -16,9 +21,9 @@ void ULootLockerSDKManager::StartSession(const FString& PlayerIdentifier, const 
 	ULootLockerAuthenticationRequestHandler::StartSession(PlayerIdentifier, FAuthResponseBP(), OnCompleteRequest);
 }
 
-void ULootLockerSDKManager::WhiteLabelStartSession(const FString &Email, const FString &Password, const FLootLockerSessionResponse &OnCompletedRequest)
+void ULootLockerSDKManager::WhiteLabelStartSession(const FString &Email, const FLootLockerSessionResponse &OnCompletedRequest)
 {
-	ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(Email, Password, FAuthResponseBP(), OnCompletedRequest);
+	ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(Email, FAuthResponseBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::GuestLogin(const FString& playerIdentifier, const FLootLockerSessionResponse &OnCompletedRequest)

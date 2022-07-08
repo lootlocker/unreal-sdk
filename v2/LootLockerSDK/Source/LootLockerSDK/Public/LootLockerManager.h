@@ -47,12 +47,40 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void StartSession(const FString& playerIdentifier, const FAuthResponseBP& OnStartedSessionRequestCompleted);
 
+    /**
+    * Register a White Label session. Execute after the player has logged in.
+    *
+    * @param Email - email of the player
+    *  https://ref.lootlocker.com/game-api/#white-label-authentication
+    */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-    static void WhiteLabelStartSession(const FString& Email,const FString& Password, const FAuthResponseBP& OnStartedSessionRequestCompleted);
+    static void WhiteLabelStartSession(const FString& Email, const FAuthResponseBP& OnStartedSessionRequestCompleted);
+    
+    /**
+    * Sign in with White Label
+    *
+    * @param Email
+    * @param Password
+    *  https://ref.lootlocker.com/game-api/#white-label-authentication
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    static void WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnCompletedRequestBP);
 
+    /**
+    * Create a White Label account
+    * @param Email
+    * @param Password - Have to be at least 8 characters long
+    *  https://ref.lootlocker.com/game-api/#white-label-authentication
+    */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-	static void CreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP &OnCompletedRequestBP);
+	static void WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP &OnCompletedRequestBP);
 
+    /**
+    * Register a Guest session.
+    *
+    * @param playerIdentifier - the ID of the player.
+    *  https://ref.lootlocker.com/game-api/#guest-login
+    */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
 	static void GuestLogin(const FString& playerIdentifier, const FAuthResponseBP& OnCompletedRequestBP);
 
