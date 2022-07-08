@@ -9,14 +9,19 @@ void ULootLockerManager::StartSession(const FString& playerIdentifier, const FAu
     ULootLockerAuthenticationRequestHandler::StartSession(playerIdentifier, OnStartedSessionRequestCompleted);
 }
 
-void ULootLockerManager::WhiteLabelStartSession(const FString &Email, const FString &Password, const FAuthResponseBP &OnStartedSessionRequestCompleted)
+void ULootLockerManager::WhiteLabelStartSession(const FString &Email, const FAuthResponseBP &OnStartedSessionRequestCompleted)
 {
-	ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(Email, Password, OnStartedSessionRequestCompleted);
+	ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(Email, OnStartedSessionRequestCompleted);
 }
 
-void ULootLockerManager::CreateAccount(const FString &Email, const FString &Password, const FLootLockerLoginResponseDelegateBP &OnCompletedRequestBP)
+void ULootLockerManager::WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnCompletedRequestBP)
 {
-	ULootLockerAuthenticationRequestHandler::Signup(Email, Password, OnCompletedRequestBP);
+    ULootLockerAuthenticationRequestHandler::WhiteLabelLogin(Email, Password, OnCompletedRequestBP);
+}
+
+void ULootLockerManager::WhiteLabelCreateAccount(const FString &Email, const FString &Password, const FLootLockerLoginResponseDelegateBP &OnCompletedRequestBP)
+{
+	ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(Email, Password, OnCompletedRequestBP);
 }
 
 void ULootLockerManager::GuestLogin(const FString& playerIdentifier, const FAuthResponseBP &OnCompletedRequestBP)

@@ -35,7 +35,6 @@ public:
     //Authentication
     //==================================================
 
-	static void CreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegate& OnCompletedRequest);
     /**
      * Register a session.
      * @param PlayerIdentifier - the ID of the player on the platform the game is currently running on.
@@ -43,7 +42,11 @@ public:
      * https://docs.lootlocker.io/game-api/#authentication-request
      */
 	static void StartSession(const FString& PlayerIdentifier, const FLootLockerSessionResponse& OnCompletedRequest);
-	static void WhiteLabelStartSession(const FString& Email, const FString& Password, const FLootLockerSessionResponse& OnCompletedRequest);
+	static void WhiteLabelStartSession(const FString& Email, const FLootLockerSessionResponse& OnCompletedRequest);
+    static void WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegate& OnCompletedRequest);
+    static void WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegate& OnCompletedRequest);
+    static void WhiteLabelRequestPasswordReset(const FString& Email, const FLootLockerResponse& OnCompletedRequest);
+
 	static void GuestLogin(const FString& playerIdentifier, const FLootLockerSessionResponse &OnCompletedRequest);
 
     /**

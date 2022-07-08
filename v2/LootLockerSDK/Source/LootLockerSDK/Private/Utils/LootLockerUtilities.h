@@ -27,10 +27,13 @@ struct LLAPI
         FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             W ResponseStruct;
-            if (response.success)
+
+            FJsonObjectConverter::JsonObjectStringToUStruct<W>(response.FullTextFromServer, &ResponseStruct, 0, 0);
+            ULootLockerPersistentDataHolder::Token = ResponseStruct.session_token;
+            if (response.ServerCallStatusCode == 200 || response.ServerCallStatusCode == 204)
             {
-                ResponseStruct.success = FJsonObjectConverter::JsonObjectStringToUStruct<W>(response.FullTextFromServer, &ResponseStruct, 0, 0);
-                if (ResponseStruct.session_token != "")
+                ResponseStruct.success = true;
+                if (response.session_token != "")
                 {
                     ULootLockerPersistentDataHolder::Token = ResponseStruct.session_token;
                 }
@@ -47,7 +50,7 @@ struct LLAPI
     }
 
     template<typename S, typename T , typename U>
-    static void CallAPI(ULootLockerHttpClient* HttpClient, S RequestStruct, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMap<FString,FString> QueryParams,  const T& OnCompletedRequestBP, const U& OnCompletedRequest)
+    static void CallAPI(ULootLockerHttpClient* HttpClient, S RequestStruct, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMap<FString,FString> QueryParams,  const T& OnCompletedRequestBP, const U& OnCompletedRequest, bool useDomainKey = false, bool useDevHeaders = false)
     {
         FString ContentString;        
         if (!std::is_same_v<S, FLootLockerEmptyRequest>) 
@@ -70,11 +73,10 @@ struct LLAPI
                 Delimiter = "&";
             }
         }
-        
+
         const FString RequestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
-    
         // send request
-        HttpClient->SendApi(EndpointWithArguments, RequestMethod, ContentString, SessionResponse, true);
+        HttpClient->SendApi(EndpointWithArguments, RequestMethod, ContentString, SessionResponse, true, false, useDomainKey, useDevHeaders);
     }
 
     template<typename T , typename U>
