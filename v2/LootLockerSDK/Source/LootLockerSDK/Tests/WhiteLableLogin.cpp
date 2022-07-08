@@ -35,7 +35,7 @@ void FWhiteLabelLogin::Define()
 				// signup
 				const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerLoginResponse,FLootLockerLoginResponseDelegate>();
 		
-				ULootLockerSDKManager::CreateAccount(TestEmail,TestPassword,Delegate);
+				ULootLockerSDKManager::WhiteLabelCreateAccount(TestEmail,TestPassword,Delegate);
 		
 				const auto Response = Promise ->get_future().get();
 				TestTrue("Signup success", Response.success);
@@ -45,7 +45,7 @@ void FWhiteLabelLogin::Define()
 				// signin
 				const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerAuthenticationResponse,FLootLockerSessionResponse>();
 						
-				ULootLockerSDKManager::WhiteLabelStartSession(TestEmail,TestPassword,Delegate);
+				ULootLockerSDKManager::WhiteLabelStartSession(TestEmail,Delegate);
 						
 				const auto Response = Promise ->get_future().get();
 				TestTrue("Signup success", Response.success);
