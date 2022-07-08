@@ -12,8 +12,8 @@ ULLDropTablesRequestHandler::ULLDropTablesRequestHandler()
 
 void ULLDropTablesRequestHandler::ComputeAndLockDropTable(int TableId, const FLootLockerComputeAndLockDropTableResponseBP& OnCompletedRequestBP, const FLootLockerComputeAndLockDropTableResponseDelegate& OnCompletedRequest)
 {
-	FString ContentString;
-	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+	const FString ContentString;
+	const FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
 			FLootLockerComputeAndLockDropTableResponse ResponseStruct;
 			if (response.success)
@@ -26,14 +26,14 @@ void ULLDropTablesRequestHandler::ComputeAndLockDropTable(int TableId, const FLo
 				UE_LOG(LogLootLocker, Error, TEXT("Update character failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
-			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
+			(void) OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
+			(void) OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
 
 	FLootLockerEndPoints endpoint = ULootLockerGameEndpoints::ComputeAndLockDropTable;
 
-	FString newEndpoint = FString::Format(*endpoint.endpoint, { TableId });
-	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
+	const FString newEndpoint = FString::Format(*endpoint.endpoint, { TableId });
+	const FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
 	HttpClient->SendApi(newEndpoint, requestMethod, ContentString, sessionResponse, true);
 }
 
@@ -42,7 +42,7 @@ void ULLDropTablesRequestHandler::PickDropsFromDropTable(const FLootLockerPickDr
 	FString ContentString;
 	FJsonObjectConverter::UStructToJsonObjectString(FLootLockerPickDropsFromDropTableItem::StaticStruct(), &request, ContentString, 0, 0);
 
-	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+	const FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
 			FLootLockerPickDropsFromDropTableResponse ResponseStruct;
 			if (response.success)
@@ -55,13 +55,13 @@ void ULLDropTablesRequestHandler::PickDropsFromDropTable(const FLootLockerPickDr
 				UE_LOG(LogLootLocker, Error, TEXT("Update character failed from lootlocker"));
 			}
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
-			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
+			(void) OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
+			(void) OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
 
 	FLootLockerEndPoints endpoint = ULootLockerGameEndpoints::ComputeAndLockDropTable;
 
-	FString newEndpoint = FString::Format(*endpoint.endpoint, { TableId });
-	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
+	const FString newEndpoint = FString::Format(*endpoint.endpoint, { TableId });
+	const FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
 	HttpClient->SendApi(newEndpoint, requestMethod, ContentString, sessionResponse, true);
 }

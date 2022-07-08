@@ -10,29 +10,20 @@
 #include "LLDropTablesRequestHandler.generated.h"
 
 USTRUCT(BlueprintType)
-struct FLootLockerComputeAndLockDropTableResponse : public FLootLockerResponse
-{
-    GENERATED_BODY()
-    bool success;
-    TArray<FLootLockerComputeAndLockItem> items;
-};
-
-USTRUCT(BlueprintType)
 struct FLootLockerComputeAndLockItem
 {
     GENERATED_BODY()
     int asset_id;
-    int  asset_variation_id;
-    int  asset_rental_option_id;
+    int asset_variation_id;
+    int asset_rental_option_id;
     int id;
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerPickDropsFromDropTableResponse : public FLootLockerResponse
+struct FLootLockerComputeAndLockDropTableResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
-    bool success;
-    TArray <FLootLockerPickDropsFromDropTableItem> items;
+    TArray<FLootLockerComputeAndLockItem> items;
 };
 
 USTRUCT(BlueprintType)
@@ -44,6 +35,13 @@ struct FLootLockerPickDropsFromDropTableItem
     int rental_option_id;
     int quantity;
     FLootLockerAsset asset;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerPickDropsFromDropTableResponse : public FLootLockerResponse
+{
+    GENERATED_BODY()
+    TArray <FLootLockerPickDropsFromDropTableItem> items;
 };
 
 USTRUCT(BlueprintType)

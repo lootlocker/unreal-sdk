@@ -7,19 +7,19 @@
 #include "HttpModule.h"
 #include "LootLockerConfig.generated.h"
 
-DECLARE_LOG_CATEGORY_EXTERN(LogLootLocker, Log, All);
+DECLARE_LOG_CATEGORY_EXTERN(LogLootLocker, Log, All)
 
 USTRUCT(BlueprintType)
 struct FLootLockerResponse
 {
 	GENERATED_BODY()
-public:
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	bool success;
+	bool success = true;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	bool ServerCallHasError;
+	bool ServerCallHasError = true;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	int ServerCallStatusCode;
+	int ServerCallStatusCode = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString FullTextFromServer;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -57,11 +57,11 @@ USTRUCT(BlueprintType)
 struct FLootLockerEndPoints
 {
 	GENERATED_BODY()
-public:
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString endpoint;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	ELootLockerHTTPMethod requestMethod;
+	ELootLockerHTTPMethod requestMethod = ELootLockerHTTPMethod::GET;
 };
 
 USTRUCT(BlueprintType)
@@ -79,13 +79,14 @@ UCLASS(Config = LootLockerSDK)
 class LOOTLOCKERSDK_API ULootLockerConfig : public UObject
 {
 	GENERATED_BODY()
+
 public:
 	static FString GetEnum(const TCHAR* Enum, int32 EnumValue);
     static inline FString GetRequestMethodString(ELootLockerHTTPMethod RequestMethod)
     {
         return GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(RequestMethod));
     }
-public:
+
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString LootLockerGameKey;
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -93,8 +94,8 @@ public:
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString GameVersion;
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	bool OnDevelopmentMode;
+	bool OnDevelopmentMode = true;
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	bool AllowTokenRefresh;
+	bool AllowTokenRefresh = true;
 
 };
