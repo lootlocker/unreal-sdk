@@ -73,7 +73,7 @@ void ULootLockerLeaderboardRequestHandler::GetByListOfMembers(const FLootLockerG
 void ULootLockerLeaderboardRequestHandler::GetScoreList(const FLootLockerGetScoreListRequest& GetScoreListRequests, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP, const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest)
 {
 	FString ContentString;
-	FJsonObjectConverter::UStructToJsonObjectString(FLootLockerGetScoreListRequest::StaticStruct(), &GetScoreListRequests, ContentString, 0, 0);
+	//FJsonObjectConverter::UStructToJsonObjectString(FLootLockerGetScoreListRequest::StaticStruct(), &GetScoreListRequests, ContentString, 0, 0);
 
 	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
