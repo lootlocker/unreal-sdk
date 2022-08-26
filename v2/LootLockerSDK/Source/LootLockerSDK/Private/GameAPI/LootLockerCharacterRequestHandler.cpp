@@ -43,14 +43,16 @@ void ULootLockerCharacterRequestHandler::ListCharacterTypes(const FPLootLockerLi
 
 void ULootLockerCharacterRequestHandler::EquipAssetToDefaultCharacter(int InstanceId,const FPCharacterDefaultResponseBP& OnCompletedRequestBP, const FLootLockerCharacterDefaultResponse& OnCompletedRequest)
 {
-	FLootLockerEquipAssetToDefaultCharacterRequest equipAssetToDefaultCharacterRequest;
+	FLootLockerEquipAssetToCharacterWithInstanceRequest equipAssetToDefaultCharacterRequest;
 	equipAssetToDefaultCharacterRequest.instance_id = InstanceId;
 	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, equipAssetToDefaultCharacterRequest, ULootLockerGameEndpoints::EquipAssetToDefaultCharacterEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerCharacterRequestHandler::EquipAssetToCharacterById(int CharacterId,int InstanceId, const FPCharacterDefaultResponseBP& OnCompletedRequestBP, const FLootLockerCharacterDefaultResponse& OnCompletedRequest)
 {
-	LLAPI<FLootLockerCharacterLoadoutResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::EquipAssetToCharacterByIdEndpoint, { CharacterId, InstanceId },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+	FLootLockerEquipAssetToCharacterWithInstanceRequest equipAssetToCharacterRequest;
+	equipAssetToCharacterRequest.instance_id = InstanceId;
+	LLAPI<FLootLockerCharacterLoadoutResponse>::CallAPI(HttpClient, equipAssetToCharacterRequest, ULootLockerGameEndpoints::EquipAssetToCharacterByIdEndpoint, { CharacterId },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerCharacterRequestHandler::EquipAssetToCharacterById(int CharacterId,int AssetId, int AssetVariationId, const FPCharacterDefaultResponseBP& OnCompletedRequestBP, const FLootLockerCharacterDefaultResponse& OnCompletedRequest)
