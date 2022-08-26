@@ -32,11 +32,11 @@ void ULootLockerPersistentStorageRequestHandler::AddItemsToPersistentStorage(con
     LLAPI<FLootLockerPersistentStorageItemsResponse>::CallAPI(HttpClient, payload, ULootLockerGameEndpoints::UpdateOrCreateKeyValuePairToPersistentStorageEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
-void ULootLockerPersistentStorageRequestHandler::AddItemToPersistentStorage(const FLootLockerPersistentStorageItem payload, const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest)
+void ULootLockerPersistentStorageRequestHandler::AddItemToPersistentStorage(const FLootLockerPersistentStorageItem payload, const FPersistentStorageItemResponseDelegateBP& OnCompletedRequestBP, const FPersistentStorageItemResponseDelegate& OnCompletedRequest)
 {
     FLootLockerPersistentStorageItems singleItem;
     singleItem.payload.Add(payload);
-    LLAPI<FLootLockerPersistentStorageItemsResponse>::CallAPI(HttpClient, singleItem, ULootLockerGameEndpoints::UpdateOrCreateKeyValuePairToPersistentStorageEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerPersistentStorageItemResponse>::CallAPI(HttpClient, singleItem, ULootLockerGameEndpoints::UpdateOrCreateKeyValuePairToPersistentStorageEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerPersistentStorageRequestHandler::DeleteItemFromPersistentStorage(const FString& Key, const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest)

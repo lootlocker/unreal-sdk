@@ -84,6 +84,14 @@ struct FLootLockerWhiteLabelAuthRequest : public FLootLockerBaseAuthRequest
 };
 
 USTRUCT(BlueprintType)
+struct FLootLockerWhiteLabelResetPasswordRequest : public FLootLockerResponse
+{
+	GENERATED_BODY()
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
+		FString email;
+};
+
+USTRUCT(BlueprintType)
 struct FLootLockerVerificationRequest
 {
 	GENERATED_BODY()
@@ -148,6 +156,7 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerLoginResponseDelegateBP, FLootLocke
 DECLARE_DELEGATE_OneParam(FLootLockerSessionResponse, FLootLockerAuthenticationResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerDefaultAuthenticationResponse, FLootLockerAuthenticationDefaultResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerLoginResponseDelegate, FLootLockerLoginResponse);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerRequestPasswordResetDelegate, FLootLockerWhiteLabelResetPasswordRequest, var);
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class LOOTLOCKERSDK_API ULootLockerAuthenticationRequestHandler : public UObject

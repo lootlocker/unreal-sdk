@@ -13,7 +13,7 @@ ULootLockerMissionsRequestHandler::ULootLockerMissionsRequestHandler()
 
 void ULootLockerMissionsRequestHandler::GetAllMissions(const FMissionsResponseDelegateBP& OnCompletedRequestBP, const FMissionsResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerMissionsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetMessagesEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerMissionsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAllMissionsEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerMissionsRequestHandler::GetMission(int MissionId, const FMissionResponseDelegateBP& OnCompletedRequestBP, const FMissionResponseDelegate& OnCompletedRequest)

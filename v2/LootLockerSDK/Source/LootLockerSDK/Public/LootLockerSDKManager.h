@@ -45,7 +45,7 @@ public:
 	static void WhiteLabelStartSession(const FString& Email, const FLootLockerSessionResponse& OnCompletedRequest);
     static void WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegate& OnCompletedRequest);
     static void WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegate& OnCompletedRequest);
-    static void WhiteLabelRequestPasswordReset(const FString& Email, const FLootLockerResponse& OnCompletedRequest);
+    static void WhiteLabelRequestPasswordReset(const FString& Email, const FLootLockerWhiteLabelResetPasswordRequest& OnCompletedRequest);
 
 	static void GuestLogin(const FString& playerIdentifier, const FLootLockerSessionResponse &OnCompletedRequest);
 
@@ -374,7 +374,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#updating-creating-key-value-pairs
     */
-    static void AddItemsToPersistentStorage(const FLootLockerPersistentStorageItem Item, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest);
+    static void AddItemsToPersistentStorage(const FLootLockerPersistentStorageItem Item, const FPersistentStorageItemResponseDelegate& OnCompletedRequest);
 
     /**
     * Delete a key/value pair.
