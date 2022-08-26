@@ -71,12 +71,12 @@ void FLootLockerTestUserGeneratedContent::Define()
 				de.name = "de_key";
 				de.data = "de_value_rev";
 			
-				FLootLockerAssetCandidateData AssetCandidateData;
-				AssetCandidateData.name = "TestAssets314";
-				AssetCandidateData.context_id = 1000;
-				AssetCandidateData.filters.Add(filter);
-				AssetCandidateData.kv_storage.Add(kv);
-				AssetCandidateData.data_entities.Add(de);
+				FLootLockerUpdateAssetCandidateData AssetCandidateData;
+				AssetCandidateData.data.name = "TestAssets314";
+				AssetCandidateData.data.context_id = 1000;
+				AssetCandidateData.data.filters.Add(filter);
+				AssetCandidateData.data.kv_storage.Add(kv);
+				AssetCandidateData.data.data_entities.Add(de);
 				
 				ULootLockerSDKManager::UpdateAssetCandidate(createdAssetId, AssetCandidateData, Delegate);
 			

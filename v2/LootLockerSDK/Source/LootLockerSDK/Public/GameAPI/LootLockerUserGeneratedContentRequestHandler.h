@@ -43,6 +43,16 @@ struct FLootLockerAssetCandidateData {
 };
 
 USTRUCT(BlueprintType)
+struct FLootLockerUpdateAssetCandidateData {
+    GENERATED_BODY()
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool completed;
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerAssetCandidateData data;
+};
+
+USTRUCT(BlueprintType)
 struct FLootLockerResponseAssetCandidate {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -111,7 +121,7 @@ public:
                                          OnCompletedRequestBP = FCreateAssetCandidateResponseDelegateBP(), const FCreateAssetCandidateResponseDelegate&
                                          OnCompletedRequest = FCreateAssetCandidateResponseDelegate());
     
-    static void UpdateAssetCandidate(int AssetCandidateId, const FLootLockerAssetCandidateData& AssetCandidateData, const FAssetCandidateResponseDelegateBP& OnCompletedRequestBP = FAssetCandidateResponseDelegateBP(), const FAssetCandidateResponseDelegate& OnCompletedRequest = FAssetCandidateResponseDelegate());
+    static void UpdateAssetCandidate(int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidateData, const FAssetCandidateResponseDelegateBP& OnCompletedRequestBP = FAssetCandidateResponseDelegateBP(), const FAssetCandidateResponseDelegate& OnCompletedRequest = FAssetCandidateResponseDelegate());
     
     static void DeleteAssetCandidate(int AssetCandidateId, const FResponseCallbackBP& OnCompletedRequestBP = FResponseCallbackBP(), const FResponseCallback& OnCompletedRequest = FResponseCallback());
     
