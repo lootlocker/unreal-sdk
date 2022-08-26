@@ -285,9 +285,9 @@ void ULootLockerSDKManager::AddItemsToPersistentStorage(const FLootLockerPersist
     ULootLockerPersistentStorageRequestHandler::AddItemsToPersistentStorage(Items, FPersistentStorageItemsResponseDelegateBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::AddItemsToPersistentStorage(const FLootLockerPersistentStorageItem Item, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest)
+void ULootLockerSDKManager::AddItemsToPersistentStorage(const FLootLockerPersistentStorageItem Item, const FPersistentStorageItemResponseDelegate& OnCompletedRequest)
 {
-    ULootLockerPersistentStorageRequestHandler::AddItemToPersistentStorage(Item, FPersistentStorageItemsResponseDelegateBP(), OnCompletedRequest);
+    ULootLockerPersistentStorageRequestHandler::AddItemToPersistentStorage(Item, FPersistentStorageItemResponseDelegateBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::DeleteItemFromPersistentStorage(const FString& Key, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest)

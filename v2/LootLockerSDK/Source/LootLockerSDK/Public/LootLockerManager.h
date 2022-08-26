@@ -435,8 +435,8 @@ public:
     * https://ref.lootlocker.io/game-api/#updating-creating-key-value-pairs
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage")
-        static void AddItemToPersistentStorage(FLootLockerPersistentStorageItem Item, const FPersistentStorageItemsResponseDelegateBP&
-            OnPersistentStorageItemsAddRequestCompleted);
+        static void AddItemToPersistentStorage(FLootLockerPersistentStorageItem Item, const FPersistentStorageItemResponseDelegateBP&
+            OnPersistentStorageItemAddRequestCompleted);
 
     /**
     * Delete a key/value pair.
