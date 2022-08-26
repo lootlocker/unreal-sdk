@@ -43,7 +43,9 @@ void ULootLockerCharacterRequestHandler::ListCharacterTypes(const FPLootLockerLi
 
 void ULootLockerCharacterRequestHandler::EquipAssetToDefaultCharacter(int InstanceId,const FPCharacterDefaultResponseBP& OnCompletedRequestBP, const FLootLockerCharacterDefaultResponse& OnCompletedRequest)
 {
-	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::EquipAssetToDefaultCharacterEndpoint, { InstanceId },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+	FLootLockerEquipAssetToDefaultCharacterRequest equipAssetToDefaultCharacterRequest;
+	equipAssetToDefaultCharacterRequest.instance_id = InstanceId;
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, equipAssetToDefaultCharacterRequest, ULootLockerGameEndpoints::EquipAssetToDefaultCharacterEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerCharacterRequestHandler::EquipAssetToCharacterById(int CharacterId,int InstanceId, const FPCharacterDefaultResponseBP& OnCompletedRequestBP, const FLootLockerCharacterDefaultResponse& OnCompletedRequest)
