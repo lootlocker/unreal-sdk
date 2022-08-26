@@ -581,7 +581,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#updating-an-asset-candidate
     */
-    static void UpdateAssetCandidate(int AssetCandidateId, const FLootLockerAssetCandidateData& AssetCandidateData, const FAssetCandidateResponseDelegate&
+    static void UpdateAssetCandidate(int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidateData, const FAssetCandidateResponseDelegate&
                                      OnCompletedRequest);
 
     /**

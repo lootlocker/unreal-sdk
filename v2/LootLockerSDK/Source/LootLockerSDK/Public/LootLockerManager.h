@@ -640,7 +640,7 @@ public:
     * https://ref.lootlocker.io/game-api/#updating-an-asset-candidate
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
-    static void UpdateAssetCandidate(int AssetCandidateId, const FLootLockerAssetCandidateData& AssetCandidate, const FAssetCandidateResponseDelegateBP&
+    static void UpdateAssetCandidate(int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidate, const FAssetCandidateResponseDelegateBP&
                                      OnUpdateAssetCandidateCompleted);
 
     /**
