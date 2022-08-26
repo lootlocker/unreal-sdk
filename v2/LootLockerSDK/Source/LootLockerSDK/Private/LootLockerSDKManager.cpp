@@ -389,7 +389,7 @@ void ULootLockerSDKManager::OpenLootBox(int AssetInstanceId, const FOpenLootBoxR
 }
 
 //User Generated Candidate
-void ULootLockerSDKManager::CreateAssetCandidate(const FLootLockerAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest)
+void ULootLockerSDKManager::CreateAssetCandidate(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest)
 {
     ULootLockerUserGeneratedContentRequestHandler::CreateAssetCandidate(AssetCandidateData, FCreateAssetCandidateResponseDelegateBP(), OnCompletedRequest);
 }

@@ -570,7 +570,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#creating-an-asset-candidate
     */
-    static void CreateAssetCandidate(const FLootLockerAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegate&
+    static void CreateAssetCandidate(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegate&
                                      OnCompletedRequest);
 
     /**
