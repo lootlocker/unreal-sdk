@@ -629,7 +629,7 @@ public:
     * https://ref.lootlocker.io/game-api/#creating-an-asset-candidate
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
-    static void CreateAssetCandidate(const FLootLockerAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP&
+    static void CreateAssetCandidate(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP&
                                      OnCreateAssetCandidateCompleted);
 
     /**
