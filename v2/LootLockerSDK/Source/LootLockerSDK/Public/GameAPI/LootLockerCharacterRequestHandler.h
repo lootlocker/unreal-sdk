@@ -98,13 +98,6 @@ struct FLootLockerListCharacterRequest {
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerEquipAssetToDefaultCharacterRequest {
-	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		int32 instance_id;
-};
-
-USTRUCT(BlueprintType)
 struct FLootLockerEquipAssetToCharacterWithInstanceRequest {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
