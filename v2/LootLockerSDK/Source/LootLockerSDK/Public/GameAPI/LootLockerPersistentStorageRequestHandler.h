@@ -76,9 +76,9 @@ public:
     static void AddItemsToPersistentStorage(const FLootLockerPersistentStorageItems Items, const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP =
                                                 FPersistentStorageItemsResponseDelegateBP(), const FPersistentStorageItemsResponseDelegate& OnCompletedRequest =
                                                 FPersistentStorageItemsResponseDelegate());
-    static void AddItemToPersistentStorage(const FLootLockerPersistentStorageItem Item, const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP =
-        FPersistentStorageItemsResponseDelegateBP(), const FPersistentStorageItemsResponseDelegate& OnCompletedRequest =
-        FPersistentStorageItemsResponseDelegate());
+    static void AddItemToPersistentStorage(const FLootLockerPersistentStorageItem Item, const FPersistentStorageItemResponseDelegateBP& OnCompletedRequestBP =
+        FPersistentStorageItemResponseDelegateBP(), const FPersistentStorageItemResponseDelegate& OnCompletedRequest =
+        FPersistentStorageItemResponseDelegate());
     
     static void DeleteItemFromPersistentStorage(const FString& Key, const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP = FPersistentStorageItemsResponseDelegateBP(), const FPersistentStorageItemsResponseDelegate& OnCompletedRequest = FPersistentStorageItemsResponseDelegate());
     
