@@ -14,14 +14,14 @@ ULootLockerUserGeneratedContentRequestHandler::ULootLockerUserGeneratedContentRe
     HttpClient = NewObject<ULootLockerHttpClient>();
 }
 
-void ULootLockerUserGeneratedContentRequestHandler::CreateAssetCandidate(const FLootLockerAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCompletedRequestBP, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest)
+void ULootLockerUserGeneratedContentRequestHandler::CreateAssetCandidate(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCompletedRequestBP, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest)
 {
     LLAPI<FLootLockerCreateAssetCandidateResponse>::CallAPI(HttpClient, AssetCandidateData,ULootLockerGameEndpoints::CreateAssetCandidateEndpoint,{}, EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerUserGeneratedContentRequestHandler::UpdateAssetCandidate(int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidateData, const FAssetCandidateResponseDelegateBP& OnCompletedRequestBP, const FAssetCandidateResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerAssetCandidateResponse>::CallAPI(HttpClient, AssetCandidateData, ULootLockerGameEndpoints::UpdateAssetCandidateEndpoint, { AssetCandidateId },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerAssetCandidateResponse>::CallAPI(HttpClient, AssetCandidateData,ULootLockerGameEndpoints::UpdateAssetCandidateEndpoint, { AssetCandidateId },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerUserGeneratedContentRequestHandler::DeleteAssetCandidate(int AssetCandidateId, const FResponseCallbackBP& OnCompletedRequestBP, const FResponseCallback& OnCompletedRequest)
