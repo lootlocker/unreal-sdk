@@ -73,7 +73,9 @@ struct LLAPI
                 Delimiter = "&";
             }
         }
-
+        UE_LOG(LogTemp, Warning, TEXT("Request:"));
+        UE_LOG(LogTemp, Warning, TEXT("ContentString:%s"), *ContentString);
+        UE_LOG(LogTemp, Warning, TEXT("EndpointWithArguments:%s"), *EndpointWithArguments);
         const FString RequestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
         // send request
         HttpClient->SendApi(EndpointWithArguments, RequestMethod, ContentString, SessionResponse, true, false, useDomainKey, useDevHeaders);
@@ -90,6 +92,8 @@ struct LLAPI
         
         const FString RequestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     
+        UE_LOG(LogTemp, Warning, TEXT("Request:"));
+        UE_LOG(LogTemp, Warning, TEXT("EndpointWithArguments:%s"), *EndpointWithArguments);
         // send request
         HttpClient->UploadFile(Endpoint.endpoint, RequestMethod, File, AdditionalData, SessionResponse, true);
     }
