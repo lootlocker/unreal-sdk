@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
 #include "LootLockerConfig.h"
 #include "LootLockerHttpClient.h"
 #include "JsonObjectConverter.h"

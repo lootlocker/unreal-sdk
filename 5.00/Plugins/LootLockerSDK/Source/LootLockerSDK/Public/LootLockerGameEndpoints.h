@@ -11,6 +11,7 @@ class LOOTLOCKERSDK_API ULootLockerGameEndpoints : public UObject
     GENERATED_BODY()
 public:
     //Auth
+    static FLootLockerEndPoints GuestSessionEndpoint;
     static FLootLockerEndPoints StartSessionEndpoint;
     static FLootLockerEndPoints VerifyPlayerIdEndPoint;
     static FLootLockerEndPoints EndSessionEndpoint;

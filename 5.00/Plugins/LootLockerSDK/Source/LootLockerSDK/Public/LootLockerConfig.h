@@ -47,10 +47,11 @@ enum class ELootLockerPlatformType : uint8
 	Ios = 1					UMETA(DisplayName = "Ios"),
 	Steam = 2				UMETA(DisplayName = "Steam"),
 	NintendoSwitch = 3		UMETA(DisplayName = "NintendoSwitch"),
-	EpicStore = 3			UMETA(DisplayName = "EpicStore"),
-	PlayStationNetwork = 3  UMETA(DisplayName = "PlayStationNetwork"),
-	Xbox = 3				UMETA(DisplayName = "Xbox"),
-	GoG = 3					UMETA(DisplayName = "GoG")
+	EpicStore = 4			UMETA(DisplayName = "EpicStore"),
+	PlayStationNetwork = 5  UMETA(DisplayName = "PlayStationNetwork"),
+	Xbox = 6				UMETA(DisplayName = "Xbox"),
+	GoG = 7					UMETA(DisplayName = "GoG"),
+	Guest = 8				UMETA(DisplayName = "Guest")
 };
 
 USTRUCT(BlueprintType)
