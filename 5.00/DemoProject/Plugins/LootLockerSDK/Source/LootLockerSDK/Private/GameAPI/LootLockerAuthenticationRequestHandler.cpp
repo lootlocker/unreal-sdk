@@ -21,12 +21,15 @@ void ULootLockerAuthenticationRequestHandler::StartSession(const FString& Player
 	authRequest.game_key = config->LootLockerGameKey;
 	authRequest.game_version = config->GameVersion;
 	authRequest.player_identifier = PlayerId;
-	FString platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(config->Platform));
-	authRequest.platform = platform;
+	if (config->Platform != ELootLockerPlatformType::Guest)
+	{
+		FString platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(config->Platform));
+		authRequest.platform = platform;
+	}
 	FString AuthContentString;
 	FJsonObjectConverter::UStructToJsonObjectString(FLootLockerAuthenticationRequest::StaticStruct(), &authRequest, AuthContentString, 0, 0);
 
-	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest, config](FLootLockerResponse response)
+	FResponseCallback const SessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest, config](FLootLockerResponse response)
 		{
 			FLootLockerAuthenticationResponse ResponseStruct;
 			if (response.success)
@@ -42,12 +45,16 @@ void ULootLockerAuthenticationRequestHandler::StartSession(const FString& Player
 			}
 
 			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
-			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
+			(void) OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
+			(void) OnCompletedRequest.ExecuteIfBound(ResponseStruct);
 		});
-    FLootLockerEndPoints endpoint = ULootLockerGameEndpoints::StartSessionEndpoint;
-	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(endpoint.requestMethod));
-	HttpClient->SendApi(endpoint.endpoint, requestMethod, AuthContentString, sessionResponse);
+    FLootLockerEndPoints & Endpoint = ULootLockerGameEndpoints::StartSessionEndpoint;
+	if (config->Platform == ELootLockerPlatformType::Guest)
+	{
+		Endpoint = ULootLockerGameEndpoints::GuestSessionEndpoint;
+	}
+	FString const RequestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+	HttpClient->SendApi(Endpoint.endpoint, RequestMethod, AuthContentString, SessionResponse);
 }
 
 void ULootLockerAuthenticationRequestHandler::VerifyPlayer(const FString& SteamToken, const FAuthDefaultResponseBP& OnCompletedRequestBP , const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest )

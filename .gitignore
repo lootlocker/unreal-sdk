@@ -82,3 +82,6 @@ DemoProject/DerivedDataCache/*
 5.00/DemoProject/Plugins/LootLockerSDK/Binaries
 5.00/DemoProject/Plugins/LootLockerSDK/Intermediate
 5.00/DemoProject/Saved
+5.00/DemoProject/Plugins/Developer
+5.00/DemoProject/Config/HoloLens
+5.00/DemoProject/Config/DefaultEngine.ini
