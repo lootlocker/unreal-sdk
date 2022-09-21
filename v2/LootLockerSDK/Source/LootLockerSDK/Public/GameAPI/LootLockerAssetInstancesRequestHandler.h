@@ -68,7 +68,7 @@ struct FLootLockerOpenLootBoxResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool check_grant_notifications;
+    bool check_grant_notifications = false;
 };
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FAssetInstanceStorageItemsResponseDelegateBP, FLootLockerAssetInstanceStorageItemsResponse, Response);
