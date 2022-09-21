@@ -27,7 +27,7 @@ struct FLootLockerPsn
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString entitlement_id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 service_label;
+    int32 service_label = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -157,7 +157,7 @@ struct FLootLockerAssetCandidate
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int created_by_player_id;
+    int created_by_player_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString created_by_player_uid;
 };
@@ -195,9 +195,9 @@ struct FLootLockerAsset : public FLootLockerHasKeyValueStorage
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString name;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool active;
+    bool active = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool purchasable;
+    bool purchasable = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString type;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -213,7 +213,7 @@ struct FLootLockerAsset : public FLootLockerHasKeyValueStorage
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString unlocks_context;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool detachable;
+    bool detachable = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString updated;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -227,7 +227,7 @@ struct FLootLockerAsset : public FLootLockerHasKeyValueStorage
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerRarity rarity;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool popular;
+    bool popular = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 popularity_score;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -239,7 +239,7 @@ struct FLootLockerAsset : public FLootLockerHasKeyValueStorage
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerVariation> variations;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool featured;
+    bool featured = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool context_locked;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -280,7 +280,7 @@ struct FLootLockerContext {
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString friendly_name;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool detachable;
+    bool detachable = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool user_facing;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
