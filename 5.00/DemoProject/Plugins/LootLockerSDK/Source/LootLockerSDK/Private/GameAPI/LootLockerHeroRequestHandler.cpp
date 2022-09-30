@@ -139,3 +139,27 @@ void ULootLockerHeroRequestHandler::GetHeroLoadout(int HeroId, const FPHeroLoado
 	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
 	HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponse, true);
 }
+
+void ULootLockerHeroRequestHandler::DeleteHero(int HeroId, const FPHeroDefaultResponseBP& OnCompletedRequestBP,	const FHeroDefaultResponse& OnCompletedRequest)
+{
+	FString ContentString;
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+		{
+			FLootLockerResponse ResponseStruct;
+			if (response.success)
+			{
+				ResponseStruct.success = true;
+			}
+			else {
+				ResponseStruct.success = false;
+				UE_LOG(LogLootLocker, Error, TEXT("Delete hero failed from lootlocker"));
+			}
+			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
+			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
+		});
+	FLootLockerEndPoints Endpoint = ULootLockerGameEndpoints::DeleteHeroEndpoint;
+	FString endpoint = FString::Format(*(Endpoint.endpoint), { HeroId });
+	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+	HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponse, true);
+}

@@ -51,7 +51,7 @@ public:
     static FLootLockerEndPoints CreateHeroEndpoint;
     static FLootLockerEndPoints GetHeroEndpoint;
     static FLootLockerEndPoints GetHeroLoadoutEndpoint;
-	
+    static FLootLockerEndPoints DeleteHeroEndpoint;
 	
     //Persistent Storage
     static FLootLockerEndPoints GetEntirePersistentStorageEndpoint;

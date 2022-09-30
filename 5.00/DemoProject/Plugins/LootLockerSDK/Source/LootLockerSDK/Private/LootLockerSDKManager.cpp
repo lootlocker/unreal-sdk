@@ -187,6 +187,11 @@ void ULootLockerSDKManager::GetHeroLoadout(int HeroId, const FHeroLoadoutRespons
 	ULootLockerHeroRequestHandler::GetHeroLoadout(HeroId, FPHeroLoadoutResponseBP(), OnCompletedRequestBP);
 }
 
+void ULootLockerSDKManager::DeleteHero(int HeroId, const FHeroDefaultResponse& OnCompletedRequestBP)
+{
+    ULootLockerHeroRequestHandler::DeleteHero(HeroId, FPHeroDefaultResponseBP(), OnCompletedRequestBP);
+}
+
 //Persisitent Storage
 void ULootLockerSDKManager::GetEntirePersistentStorage(const FPersistentStorageItemsResponseDelegate& OnCompletedRequest)
 {

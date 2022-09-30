@@ -161,6 +161,7 @@ public:
 	static void CreateHero(FString HeroName, int HeroId, const FPHeroResponseBP& OnCompletedRequestBP = FPHeroResponseBP(), const FHeroResponse& OnCompletedRequest = FHeroResponse());
 	static void GetHero(int HeroId, const FPHeroResponseBP& OnCompletedRequestBP = FPHeroResponseBP(), const FHeroResponse& OnCompletedRequest = FHeroResponse());
 	static void GetHeroLoadout(int HeroId, const FPHeroLoadoutResponseBP& OnCompletedRequestBP = FPHeroLoadoutResponseBP(), const FHeroLoadoutResponse& OnCompletedRequest = FHeroLoadoutResponse());
+	static void DeleteHero(int HeroId, const FPHeroDefaultResponseBP& OnCompletedRequestBP = FPHeroDefaultResponseBP(), const FHeroDefaultResponse& OnCompletedRequest = FHeroDefaultResponse());
 
 public:
 	static ULootLockerHttpClient* HttpClient;

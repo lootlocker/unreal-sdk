@@ -311,6 +311,8 @@ public:
 	static void GetHero(int HeroId, const FHeroResponse& OnCompletedRequestBP);
 	
 	static void GetHeroLoadout(int HeroId, const FHeroLoadoutResponse& OnCompletedRequestBP);
+	
+	static void DeleteHero(int HeroId, const FHeroDefaultResponse& OnCompletedRequestBP);
 
     //==================================================
     //Persistent Storage

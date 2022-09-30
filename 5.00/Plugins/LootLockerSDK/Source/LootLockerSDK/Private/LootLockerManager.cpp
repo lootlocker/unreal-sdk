@@ -184,6 +184,11 @@ void ULootLockerManager::GetHeroLoadout(int HeroId, const FPHeroLoadoutResponseB
 	ULootLockerHeroRequestHandler::GetHeroLoadout(HeroId, OnCompletedRequestBP);
 }
 
+void ULootLockerManager::DeleteHero(int HeroId, const FPHeroDefaultResponseBP& OnCompletedRequestBP)
+{
+    ULootLockerHeroRequestHandler::DeleteHero(HeroId, OnCompletedRequestBP);
+}
+
 void ULootLockerManager::GetEntirePersistentStorage(const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsRequestCompleted)
 {
     ULootLockerPersistentStorageRequestHandler::GetEntirePersistentStorage(OnPersistentStorageItemsRequestCompleted);

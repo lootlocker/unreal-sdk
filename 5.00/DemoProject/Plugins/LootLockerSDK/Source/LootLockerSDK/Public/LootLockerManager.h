@@ -329,6 +329,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
 	static void GetHeroLoadout(int HeroId, const FPHeroLoadoutResponseBP& OnCompletedRequestBP);
+
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
+	static void DeleteHero(int HeroId, const FPHeroDefaultResponseBP& OnCompletedRequestBP);
 	
     //==================================================
     //Persistent Storage
