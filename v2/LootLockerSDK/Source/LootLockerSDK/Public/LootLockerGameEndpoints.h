@@ -143,6 +143,7 @@ public:
     static FLootLockerEndPoints GetScoreList;
 	static FLootLockerEndPoints GetScoreListAfter;
     static FLootLockerEndPoints SubmitScore;
+	static FLootLockerEndPoints GetAllMemberRanks;
 
     //DropTables
     static FLootLockerEndPoints ComputeAndLockDropTable;
