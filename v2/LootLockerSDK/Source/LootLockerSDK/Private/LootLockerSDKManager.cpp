@@ -505,6 +505,7 @@ void ULootLockerSDKManager::GetMessages(const FMessagesResponseDelegate& OnCompl
     ULootLockerMessagesRequestHandler::GetMessages(FMessagesResponseDelegateBP(), OnCompletedRequest);
 }
 
+// Leaderboards
 void ULootLockerSDKManager::GetMemberRank(int LeaderboardId, int MemberId, const FLootLockerGetMemberRankResponseDelegate& OnCompletedRequest)
 {
     FLootLockerGetMemberRankRequest MemberRequest;
@@ -548,6 +549,16 @@ void ULootLockerSDKManager::SubmitScore(FString MemberId, const int LeaderboardI
     ULootLockerLeaderboardRequestHandler::SubmitScore(SubmitScoreRequest, LeaderboardId, FLootLockerSubmitScoreResponseBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::GetAllMemberRanks(int MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseDelegate& OnCompletedRequest)
+{
+    FLootLockerGetAllMemberRanksRequest GetAllMemberRanksRequest;
+    GetAllMemberRanksRequest.after = After;
+    GetAllMemberRanksRequest.count = Count;
+    GetAllMemberRanksRequest.memberId = MemberId;
+    ULootLockerLeaderboardRequestHandler::GetAllMemberRanks(GetAllMemberRanksRequest, FLootLockerGetAllMemberRanksResponseBP(), OnCompletedRequest);
+}
+
+// Droptables
 void ULootLockerSDKManager::ComputeAndLockDropTable(const int TableId, const FLootLockerComputeAndLockDropTableResponseDelegate& OnCompletedRequest)
 {
     ULootLockerDropTablesRequestHandler::ComputeAndLockDropTable(TableId, FLootLockerComputeAndLockDropTableResponseBP(), OnCompletedRequest);

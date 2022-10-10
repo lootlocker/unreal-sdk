@@ -850,6 +850,17 @@ public:
     */
     static void SubmitScore(FString MemberId, const int LeaderboardId, const int Score, FString Metadata, const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest);
 
+	/**
+	* Get all leaderboards with member information on the ones the member is on, with rank and score, as well as player information if the leaderboard is of type player.
+   * If metadata is enabled for the leaderboard, that will be returned in the response.
+   * @param MemberId - player_id if player type leaderboard, otherwise id used when submitting the score
+   * @param Count - Number of members returned per page
+   * @param After - Curser for pagination, a cursor will be returned in the response
+   *
+   * https://ref.lootlocker.com/game-api/#get-all-member-ranks
+   */
+	static void GetAllMemberRanks(int MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseDelegate& OnCompletedRequest);
+	
      //==================================================
     //Drop Table
     //==================================================
