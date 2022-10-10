@@ -41,3 +41,14 @@ void ULootLockerLeaderboardRequestHandler::SubmitScore(const FLootLockerSubmitSc
 {
 	LLAPI<FLootLockerSubmitScoreResponse>::CallAPI(HttpClient, SubmitScoreRequests, ULootLockerGameEndpoints::SubmitScore, { LeaderboardId },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
+
+void ULootLockerLeaderboardRequestHandler::GetAllMemberRanks(const FLootLockerGetAllMemberRanksRequest& GetAllMemberRanksRequests, const FLootLockerGetAllMemberRanksResponseBP& OnCompletedRequestBP, const FLootLockerGetAllMemberRanksResponseDelegate& OnCompletedRequest)
+{
+    TMap<FString,FString> QueryParams;
+    QueryParams.Add("count", FString::FromInt(GetAllMemberRanksRequests.count));
+    if (GetAllMemberRanksRequests.after != -1)
+    {
+        QueryParams.Add("after", FString::FromInt(GetAllMemberRanksRequests.after));
+    }
+	LLAPI<FLootLockerGetAllMemberRanksResponse>::CallAPI(HttpClient, GetAllMemberRanksRequests, ULootLockerGameEndpoints::GetAllMemberRanks, {}, QueryParams, OnCompletedRequestBP, OnCompletedRequest);
+}
