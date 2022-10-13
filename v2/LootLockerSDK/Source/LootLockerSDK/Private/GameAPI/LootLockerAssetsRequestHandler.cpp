@@ -99,7 +99,13 @@ void ULootLockerAssetsRequestHandler::RemoveAssetFromFavourites(int AssetId, con
     LLAPI<FLootLockerGetFavouriteAssetIndicesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::RemoveAssetFromFavouritesEndpoint, { AssetId },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
-void ULootLockerAssetsRequestHandler::GetUniversalAssets(const FUniversalAssetResponseDelegateBP &OnCompletedRequestBP, const FUniversalAssetResponseDelegate &OnCompletedRequest)
+void ULootLockerAssetsRequestHandler::GetUniversalAssets(const int After, const int Count, const FUniversalAssetResponseDelegateBP &OnCompletedRequestBP, const FUniversalAssetResponseDelegate &OnCompletedRequest)
 {
-	LLAPI<FLootLockerUniversalAssetsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetUniversalAssetsEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+    TMap<FString,FString> QueryParams;
+    QueryParams.Add("count", FString::FromInt(Count));
+    if (After != -1)
+    {
+        QueryParams.Add("after", FString::FromInt(After));
+    }
+    LLAPI<FLootLockerUniversalAssetsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetUniversalAssetsEndpoint, {}, QueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }

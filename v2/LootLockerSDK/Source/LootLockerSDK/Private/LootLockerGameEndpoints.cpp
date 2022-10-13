@@ -39,6 +39,8 @@ FLootLockerEndPoints ULootLockerGameEndpoints::SetProfilePublic = InitEndpoint("
 FLootLockerEndPoints ULootLockerGameEndpoints::SetPlayerName = InitEndpoint("player/name", ELootLockerHTTPMethod::PATCH);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetPlayerName = InitEndpoint("player/name", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::LookupMultiplePlayerNamesUsingIDs = InitEndpoint("player/lookup/name", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetUniversalAssetsEndpoint = InitEndpoint("v1/player/inventory/universal", ELootLockerHTTPMethod::GET);
+
 //Heroes
 FLootLockerEndPoints ULootLockerGameEndpoints::GetGameHeroes = InitEndpoint("v1/heroes", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::ListPlayerHeroes = InitEndpoint("v1/player/heroes", ELootLockerHTTPMethod::GET);
@@ -84,7 +86,6 @@ FLootLockerEndPoints ULootLockerGameEndpoints::GetAssetBonesEndpoint = InitEndpo
 FLootLockerEndPoints ULootLockerGameEndpoints::GetFavouriteAssetIndicesEndpoint = InitEndpoint("v1/asset/favourites", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::AddAssetToFavouritesEndpoint = InitEndpoint("v1/asset/{0}/favourite", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::RemoveAssetFromFavouritesEndpoint = InitEndpoint("v1/asset/{0}/favourite", ELootLockerHTTPMethod::DEL);
-FLootLockerEndPoints ULootLockerGameEndpoints::GetUniversalAssetsEndpoint = InitEndpoint("v1/player/inventory/universal", ELootLockerHTTPMethod::GET);
 
 //Asset Instances
 FLootLockerEndPoints ULootLockerGameEndpoints::GetAllKeyValuePairsForAssetInstance = InitEndpoint("v1/asset/instance/{0}/storage", ELootLockerHTTPMethod::GET);
