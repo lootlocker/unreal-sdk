@@ -311,9 +311,9 @@ void ULootLockerSDKManager::GetAssets(const FAssetsResponseDelegate& OnCompleted
     ULootLockerAssetsRequestHandler::GetAssets(StartFromIndex, ItemsCount, AssetFilter, Context, IncludeUGC, FAssetsResponseDelegateBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::GetUniversalAssets(const FUniversalAssetResponseDelegate &OnCompletedRequest)
+void ULootLockerSDKManager::GetUniversalAssets(int After, int ItemsCount, const FUniversalAssetResponseDelegate &OnCompletedRequest)
 {
-	ULootLockerAssetsRequestHandler::GetUniversalAssets(FUniversalAssetResponseDelegateBP(), OnCompletedRequest);
+	ULootLockerAssetsRequestHandler::GetUniversalAssets(After, ItemsCount, FUniversalAssetResponseDelegateBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::GetAssetsByIds(const TArray<int>& AssetIds, const FAssetsResponseDelegate& OnCompletedRequest)
