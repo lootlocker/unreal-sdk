@@ -419,8 +419,15 @@ public:
     */
     static void GetAssets(const FAssetsResponseDelegate& OnCompletedRequest, int StartFromIndex = 0, int ItemsCount = 50, ELootLockerAssetFilter AssetFilter = ELootLockerAssetFilter::None, int Context = 0, bool IncludeUGC = false);
 
-	// lazy af
-	static void GetUniversalAssets(const FUniversalAssetResponseDelegate &OnCompletedRequest);
+	/**
+	* This call offers a paginated list of the games universal assets
+	*
+	* @param After - last universal id to start after.
+	* @param ItemsCount - number of items to receive (50-200).
+	* @param OnCompletedRequest - callback to be invoked with the server response.
+	* https://docs.lootlocker.io/game-api/#get-universal-assets
+	 */
+	static void GetUniversalAssets(int After, int ItemsCount, const FUniversalAssetResponseDelegate &OnCompletedRequest);
 
     /**
     * Retrieve only specific Assets by their ID's.
