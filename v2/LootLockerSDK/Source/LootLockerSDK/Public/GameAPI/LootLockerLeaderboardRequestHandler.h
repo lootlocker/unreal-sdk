@@ -101,7 +101,7 @@ struct FLootLockerGetAllMemberRanksResponse : public FLootLockerResponse
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerPagination pagination;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerLeaderboard> items;
+    TArray<FLootLockerLeaderboard> leaderboards;
 };
 
 USTRUCT(BlueprintType)

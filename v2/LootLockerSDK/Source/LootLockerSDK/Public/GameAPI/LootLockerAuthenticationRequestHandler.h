@@ -84,6 +84,16 @@ struct FLootLockerWhiteLabelAuthRequest : public FLootLockerBaseAuthRequest
 };
 
 USTRUCT(BlueprintType)
+struct FLootLockerWhiteLabelVerifySessionRequest
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
+	FString email;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
+	FString token;
+};
+
+USTRUCT(BlueprintType)
 struct FLootLockerWhiteLabelResetPasswordRequest : public FLootLockerResponse
 {
 	GENERATED_BODY()
@@ -117,7 +127,6 @@ struct FLootLockerLevelThresholds
 	bool next_is_prestige;
 };
 
-
 USTRUCT(BlueprintType)
 struct FLootLockerAuthenticationResponse : public FLootLockerResponse
 {
@@ -142,6 +151,18 @@ struct FLootLockerAuthenticationResponse : public FLootLockerResponse
 	FString player_identifier;
 };
 
+USTRUCT(BlueprintType)
+struct FLootLockerWhiteLabelVerifySessionResponse : public FLootLockerResponse
+{
+	GENERATED_BODY()
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	int32 game_id;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	int32 user_id;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString email;
+};
+
 
 
 USTRUCT(BlueprintType)
@@ -153,9 +174,11 @@ struct FLootLockerAuthenticationDefaultResponse : public FLootLockerResponse
 DECLARE_DYNAMIC_DELEGATE_OneParam(FAuthResponseBP, FLootLockerAuthenticationResponse, Var);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FAuthDefaultResponseBP, FLootLockerAuthenticationDefaultResponse, AuthVar);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerLoginResponseDelegateBP, FLootLockerLoginResponse, AuthVar);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerVerifySessionResponseBP, FLootLockerWhiteLabelVerifySessionResponse, Response);
 DECLARE_DELEGATE_OneParam(FLootLockerSessionResponse, FLootLockerAuthenticationResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerDefaultAuthenticationResponse, FLootLockerAuthenticationDefaultResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerLoginResponseDelegate, FLootLockerLoginResponse);
+DECLARE_DELEGATE_OneParam(FLootLockerWhiteLabelVerifySessionDelegate, FLootLockerWhiteLabelVerifySessionResponse);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerRequestPasswordResetDelegate, FLootLockerWhiteLabelResetPasswordRequest, var);
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
@@ -170,6 +193,7 @@ public:
 	static void WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnCompletedRequestBP = FLootLockerLoginResponseDelegateBP(), const FLootLockerLoginResponseDelegate& OnCompletedRequest = FLootLockerLoginResponseDelegate());
 	static void GuestLogin(const FString& playerIdentifier, const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
 	static void WhiteLabelStartSession(const FString& Email,  const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
+	static void WhiteLabelVerifySession(const FString& Email, const FLootLockerVerifySessionResponseBP& OnCompletedRequestBP = FLootLockerVerifySessionResponseBP(), const FLootLockerWhiteLabelVerifySessionDelegate& OnCompletedRequest = FLootLockerWhiteLabelVerifySessionDelegate());
 	static void StartSession(const FString& PlayerId, const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
 	static void VerifyPlayer(const FString& SteamToken, const FAuthDefaultResponseBP& OnCompletedRequestBP = FAuthDefaultResponseBP(), const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest = FLootLockerDefaultAuthenticationResponse());
 	static void EndSession(const FAuthDefaultResponseBP& OnCompletedRequestBP = FAuthDefaultResponseBP(), const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest = FLootLockerDefaultAuthenticationResponse());
