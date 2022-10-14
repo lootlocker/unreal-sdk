@@ -50,5 +50,5 @@ void ULootLockerLeaderboardRequestHandler::GetAllMemberRanks(const FLootLockerGe
     {
         QueryParams.Add("after", FString::FromInt(GetAllMemberRanksRequests.after));
     }
-	LLAPI<FLootLockerGetAllMemberRanksResponse>::CallAPI(HttpClient, GetAllMemberRanksRequests, ULootLockerGameEndpoints::GetAllMemberRanks, {}, QueryParams, OnCompletedRequestBP, OnCompletedRequest);
+	LLAPI<FLootLockerGetAllMemberRanksResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAllMemberRanks, {GetAllMemberRanksRequests.memberId}, QueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
