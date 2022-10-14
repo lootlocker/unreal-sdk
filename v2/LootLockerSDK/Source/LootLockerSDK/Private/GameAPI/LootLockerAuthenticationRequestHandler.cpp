@@ -66,9 +66,22 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelVerifySession(const FStr
 	FLootLockerWhiteLabelVerifySessionRequest VerifyRequest;
 	VerifyRequest.email = Email;
 	VerifyRequest.token = ULootLockerPersistentDataHolder::Token;
-	LLAPI<FLootLockerWhiteLabelVerifySessionResponse>::CallAPI(HttpClient, VerifyRequest, ULootLockerGameEndpoints::WhiteLabelVerifyEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+	LLAPI<FLootLockerWhiteLabelVerifySessionResponse>::CallAPI(HttpClient, VerifyRequest, ULootLockerGameEndpoints::WhiteLabelVerifySessionEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest, true);
 }
 
+void ULootLockerAuthenticationRequestHandler::WhiteLabelRequestUserVerification(const FString& UserId, const FLootLockerDefaultResponseBP& OnCompletedRequestBP, const FLootLockerDefaultDelegate& OnCompletedRequest)
+{
+	FLootLockerUserIdRequest UserIdRequest;
+	UserIdRequest.user_id = UserId;
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, UserIdRequest, ULootLockerGameEndpoints::WhiteLabelRequestVerificationEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest, true);
+}
+
+void ULootLockerAuthenticationRequestHandler::WhiteLabelRequestPasswordReset(const FString& UserId, const FLootLockerDefaultResponseBP& OnCompletedRequestBP, const FLootLockerDefaultDelegate& OnCompletedRequest)
+{
+	FLootLockerUserIdRequest UserIdRequest;
+	UserIdRequest.user_id = UserId;
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, UserIdRequest, ULootLockerGameEndpoints::WhiteLabelRequestPasswordResetEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest, true);
+}
 
 void ULootLockerAuthenticationRequestHandler::StartSession(const FString& PlayerId, const FAuthResponseBP& OnCompletedRequestBP, const FLootLockerSessionResponse& OnCompletedRequest)
 {
