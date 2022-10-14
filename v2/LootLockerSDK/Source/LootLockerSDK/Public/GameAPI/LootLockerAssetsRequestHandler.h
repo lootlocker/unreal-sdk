@@ -424,7 +424,7 @@ public:
 
     static void RemoveAssetFromFavourites(int AssetId, const FGetFavouriteAssetIndicesResponseDelegateBP& OnCompletedRequestBP = FGetFavouriteAssetIndicesResponseDelegateBP(), const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest = FGetFavouriteAssetIndicesResponseDelegate());
 
-	static void GetUniversalAssets(const FUniversalAssetResponseDelegateBP &OnCompletedRequestBP = FUniversalAssetResponseDelegateBP(), const FUniversalAssetResponseDelegate &OnCompletedRequest = FUniversalAssetResponseDelegate());
+	static void GetUniversalAssets(int After, int Count, const FUniversalAssetResponseDelegateBP &OnCompletedRequestBP = FUniversalAssetResponseDelegateBP(), const FUniversalAssetResponseDelegate &OnCompletedRequest = FUniversalAssetResponseDelegate());
 
 public:
     ULootLockerAssetsRequestHandler();

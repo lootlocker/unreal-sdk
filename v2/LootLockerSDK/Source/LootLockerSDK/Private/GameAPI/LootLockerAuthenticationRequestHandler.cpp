@@ -61,6 +61,15 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(const FStri
 	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::WhiteLabelAuthEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
+void ULootLockerAuthenticationRequestHandler::WhiteLabelVerifySession(const FString &Email, const FLootLockerVerifySessionResponseBP& OnCompletedRequestBP, const FLootLockerWhiteLabelVerifySessionDelegate& OnCompletedRequest)
+{
+	FLootLockerWhiteLabelVerifySessionRequest VerifyRequest;
+	VerifyRequest.email = Email;
+	VerifyRequest.token = ULootLockerPersistentDataHolder::Token;
+	LLAPI<FLootLockerWhiteLabelVerifySessionResponse>::CallAPI(HttpClient, VerifyRequest, ULootLockerGameEndpoints::WhiteLabelVerifyEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+}
+
+
 void ULootLockerAuthenticationRequestHandler::StartSession(const FString& PlayerId, const FAuthResponseBP& OnCompletedRequestBP, const FLootLockerSessionResponse& OnCompletedRequest)
 {
     ULootLockerPersistentDataHolder::CachedPlayerIdentifier = PlayerId;
