@@ -66,11 +66,38 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnCompletedRequestBP);
 
+	/**
+	* Verify that a session token is still valid
+	*
+	* @param Email
+	*  https://ref.lootlocker.com/game-api/#verify-session
+	*/
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+	static void WhiteLabelVerifySession(const FString &Email, const FLootLockerVerifySessionResponseBP &OnStartedSessionRequestCompleted);
+
+	/**
+	* If the initial verification email has expired, the user can request a new verification email using this endpoint.
+	*
+	* @param UserId
+	*  https://ref.lootlocker.com/game-api/#request-user-verification
+	*/
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+	static void WhiteLabelRequestUserVerification(const FString &UserId, const FLootLockerDefaultResponseBP &OnStartedSessionRequestCompleted);
+
+	/**
+	* If the user needs to reset their password they can trigger a reset password email using this endpoint.
+	*
+	* @param UserId
+	*  https://ref.lootlocker.com/game-api/#verify-session
+	*/
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+	static void WhiteLabelResetPassword(const FString &UserId, const FLootLockerDefaultResponseBP &OnStartedSessionRequestCompleted);
+	
     /**
     * Create a White Label account
     * @param Email
     * @param Password - Have to be at least 8 characters long
-    *  https://ref.lootlocker.com/game-api/#white-label-authentication
+    *  https://ref.lootlocker.com/game-api/#request-reset-password
     */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
 	static void WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP &OnCompletedRequestBP);

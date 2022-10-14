@@ -26,6 +26,21 @@ void ULootLockerSDKManager::WhiteLabelStartSession(const FString &Email, const F
 	ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(Email, FAuthResponseBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::WhiteLabelVerifySession(const FString &Email, const FLootLockerWhiteLabelVerifySessionDelegate &OnCompletedRequest)
+{
+    ULootLockerAuthenticationRequestHandler::WhiteLabelVerifySession(Email, FLootLockerVerifySessionResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::WhiteLabelRequestUserVerification(const FString &UserId, const FLootLockerDefaultDelegate &OnCompletedRequest)
+{
+    ULootLockerAuthenticationRequestHandler::WhiteLabelRequestUserVerification(UserId, FLootLockerDefaultResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::WhiteLabelRequestPasswordReset(const FString &UserId, const FLootLockerDefaultDelegate &OnCompletedRequest)
+{
+    ULootLockerAuthenticationRequestHandler::WhiteLabelRequestPasswordReset(UserId, FLootLockerDefaultResponseBP(), OnCompletedRequest);
+}
+
 void ULootLockerSDKManager::GuestLogin(const FString& playerIdentifier, const FLootLockerSessionResponse &OnCompletedRequest)
 {
 	ULootLockerAuthenticationRequestHandler::GuestLogin(playerIdentifier, FAuthResponseBP(), OnCompletedRequest);

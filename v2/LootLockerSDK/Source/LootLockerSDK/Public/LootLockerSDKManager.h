@@ -45,7 +45,10 @@ public:
 	static void WhiteLabelStartSession(const FString& Email, const FLootLockerSessionResponse& OnCompletedRequest);
     static void WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegate& OnCompletedRequest);
     static void WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegate& OnCompletedRequest);
-    static void WhiteLabelRequestPasswordReset(const FString& Email, const FLootLockerWhiteLabelResetPasswordRequest& OnCompletedRequest);
+	static void WhiteLabelVerifySession(const FString &Email, const FLootLockerWhiteLabelVerifySessionDelegate &OnCompletedRequest);
+    static void WhiteLabelRequestUserVerification(const FString& UserId, const FLootLockerDefaultDelegate& OnCompletedRequest);
+    static void WhiteLabelRequestPasswordReset(const FString& UserId, const FLootLockerDefaultDelegate& OnCompletedRequest);
+
 
 	static void GuestLogin(const FString& playerIdentifier, const FLootLockerSessionResponse &OnCompletedRequest);
 

@@ -18,7 +18,7 @@ public:
 	static FLootLockerEndPoints WhiteLabelSignupEndpoint;
 	static FLootLockerEndPoints WhiteLabelLoginEndpoint;
 	static FLootLockerEndPoints WhiteLabelAuthEndpoint;
-    static FLootLockerEndPoints WhiteLabelVerifyEndpoint;
+    static FLootLockerEndPoints WhiteLabelVerifySessionEndpoint;
     static FLootLockerEndPoints WhiteLabelRequestPasswordResetEndpoint;
     static FLootLockerEndPoints WhiteLabelRequestVerificationEndpoint;
 	// Files
