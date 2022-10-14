@@ -329,6 +329,12 @@ void ULootLockerManager::RemoveAssetFromFavourites(int AssetId, const  FGetFavou
     ULootLockerAssetsRequestHandler::RemoveAssetFromFavourites(AssetId, OnRemoveAssetFromFavouritesRequestCompleted);
 }
 
+void ULootLockerManager::GetUniversalAssets(int After, int ItemsCount, const FUniversalAssetResponseDelegateBP &OnCompletedRequest)
+{
+    ULootLockerAssetsRequestHandler::GetUniversalAssets(After, ItemsCount, OnCompletedRequest);
+}
+
+
 void ULootLockerManager::GetAllKeyValuePairsForAssetInstance(const  FAssetInstanceStorageItemsResponseDelegateBP& OnGetAllKeyValuePairsForAssetInstanceCompleted)
 {
     ULootLockerAssetInstancesRequestHandler::GetAllKeyValuePairsForAssetInstance(OnGetAllKeyValuePairsForAssetInstanceCompleted);
@@ -496,6 +502,16 @@ void ULootLockerManager::GetMemberRank(int LeaderboardId, int MemberId, const FL
     MemberRequest.member_id = MemberId;
 
     ULootLockerLeaderboardRequestHandler::GetMemberRank(MemberRequest, OnCompletedRequestBP);
+}
+
+void ULootLockerManager::GetAllMemberRanks(int MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseBP& OnCompletedRequestBP)
+{
+    FLootLockerGetAllMemberRanksRequest MemberRanksRequest;
+    MemberRanksRequest.memberId = MemberId;
+    MemberRanksRequest.after = After;
+    MemberRanksRequest.count = Count;
+
+    ULootLockerLeaderboardRequestHandler::GetAllMemberRanks(MemberRanksRequest, OnCompletedRequestBP);
 }
 
 void ULootLockerManager::GetByListOfMembers(TArray<FString> Members, int LeaderboardId, const FLootLockerGetByListOfMembersResponseBP& OnCompletedRequestBP)
