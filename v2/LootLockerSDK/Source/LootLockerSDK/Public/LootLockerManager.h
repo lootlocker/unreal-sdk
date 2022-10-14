@@ -522,6 +522,17 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
     static void RemoveAssetFromFavourites(int AssetId, const  FGetFavouriteAssetIndicesResponseDelegateBP& OnRemoveAssetFromFavouritesRequestCompleted);
 
+	/**
+	* This call offers a paginated list of the games universal assets
+	*
+	* @param After - last universal id to start after.
+	* @param ItemsCount - number of items to receive (50-200).
+	* @param OnCompletedRequest - callback to be invoked with the server response.
+	* https://docs.lootlocker.io/game-api/#get-universal-assets
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
+	static void GetUniversalAssets(int After, int ItemsCount, const FUniversalAssetResponseDelegateBP &OnCompletedRequest);
+
     //==================================================
     //Asset Instances
     //==================================================
@@ -863,6 +874,18 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard")
     static void GetMemberRank(int LeaderboardId, int MemberId, const FLootLockerGetMemberRankResponseBP& OnCompletedRequestBP);
+
+	/**
+	* Get all leaderboards with member information on the ones the member is on, with rank and score, as well as player information if the leaderboard is of type player.
+    * If metadata is enabled for the leaderboard, that will be returned in the response.
+    * @param MemberId - player_id if player type leaderboard, otherwise id used when submitting the score
+    * @param Count - Number of members returned per page
+    * @param After - Curser for pagination, a cursor will be returned in the response
+    *
+    * https://ref.lootlocker.com/game-api/#get-all-member-ranks
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard")
+	static void GetAllMemberRanks(int MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseBP& OnCompletedRequestBP);
 
 
      /**
