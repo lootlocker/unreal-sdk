@@ -54,9 +54,9 @@ void ULootLockerManager::SubmitXP(int Points, const FPSubmitResponseBP& OnSubmit
     ULootLockerPlayerRequestHandler::SubmitXp(Points, OnSubmitXPRequestCompleted);
 }
 
-void ULootLockerManager::GetOtherPlayerInfo(FString OtherPlayerId, const  FPInfoResponseBP& OnGetOtherPlayerInfoRequestCompleted)
+void ULootLockerManager::GetOtherPlayersXpAndLevel(FString OtherPlayerId, const  FPOtherPlayersXpAndLevelBP& OnGetOtherPlayersXpAndLevelRequestCompleted)
 {
-    ULootLockerPlayerRequestHandler::GetOtherPlayerInfo(OtherPlayerId, OnGetOtherPlayerInfoRequestCompleted);
+    ULootLockerPlayerRequestHandler::GetOtherPlayersXpAndLevel(OtherPlayerId, OnGetOtherPlayersXpAndLevelRequestCompleted);
 }
 
 void ULootLockerManager::GetMultiplePlayersXp(FLootLockerMultiplePlayersXpRequest &Requests, const FPMultiplePlayersXPBP &OnGetOtherPlayerInfoRequestCompleted)
@@ -110,6 +110,12 @@ void ULootLockerManager::GetPlayerName(const FPNameResponseBP& OnGetPlayerName)
 {
     ULootLockerPlayerRequestHandler::GetPlayerName(OnGetPlayerName);
 }
+
+void ULootLockerManager::LookupMultiplePlayerNamesUsingIDs(const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayerNamesBP& OnCompletedRequest)
+{
+    ULootLockerPlayerRequestHandler::LookupMultiplePlayerNamesUsingIDs(Request, OnCompletedRequest);
+}
+
 
 void ULootLockerManager::UploadFile(const FLootLockerFileUploadRequest &Request, const FLootLockerUploadFileBP &OnComplete)
 {
