@@ -49,19 +49,19 @@ void ULootLockerPlayerRequestHandler::SubmitXp(int Points,const FPSubmitResponse
 	LLAPI<FLootLockerSubmitXpResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::SubmitXpEndpoint, {  },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
-void ULootLockerPlayerRequestHandler::GetOtherPlayerInfo(FString OtherPlayerId,const FPInfoResponseBP OnCompletedRequestBP, const FLootLockerPlayerInformationResponse& OnCompletedRequest)
+void ULootLockerPlayerRequestHandler::GetOtherPlayersXpAndLevel(FString OtherPlayerId,const FPOtherPlayersXpAndLevelBP OnCompletedRequestBP, const FOtherPlayersXpAndLevelResponse& OnCompletedRequest)
 {
 	const auto* Config = GetDefault<ULootLockerConfig>();
 	const FString Platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(Config->Platform));
 	TMap<FString, FString> QueryParams;
 	QueryParams.Add("platform", Platform);
 	
-	LLAPI<FLootLockerPlayerInfoResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOtherPlayerInfoEndpoint, { OtherPlayerId }, QueryParams,OnCompletedRequestBP, OnCompletedRequest);
+	LLAPI<FLootLockerOtherPlayersXpAndLevelResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOtherPlayersXpAndLevelEndpoint, { OtherPlayerId }, QueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerPlayerRequestHandler::GetMultiplePlayersXp(FLootLockerMultiplePlayersXpRequest Request, const FPMultiplePlayersXPBP &OnCompletedRequestBP, const FPMultiplePlayersXP &OnCompletedRequest)
 {
-	LLAPI<FLootLockerMultiplePlayerXpResponse>::CallAPI(HttpClient, Request, ULootLockerGameEndpoints::GetMultipleOtherPlatersXPAndLevel, {  },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+	LLAPI<FLootLockerMultiplePlayerXpResponse>::CallAPI(HttpClient, Request, ULootLockerGameEndpoints::GetMultipleOtherPlayersXPAndLevel, {  },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerPlayerRequestHandler::CheckPlayerAssetNotification(const FPAssetNotificationResponseBP& OnCompletedRequestBP, const FLootLockerAssetNotificationResponse& OnCompletedRequest)
@@ -71,7 +71,7 @@ void ULootLockerPlayerRequestHandler::CheckPlayerAssetNotification(const FPAsset
 
 void ULootLockerPlayerRequestHandler::CheckPlayerAssetDeactivationNotification(const FPAssetNotificationResponseBP& OnCompletedRequestBP, const FLootLockerAssetNotificationResponse& OnCompletedRequest)
 {
-	LLAPI<FLootLockerPlayerAssetNotificationResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::CheckPlayerAssetDeactivatonEndpoint, {  },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+	LLAPI<FLootLockerPlayerAssetNotificationResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::CheckPlayerAssetDeactivationEndpoint, {  },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerPlayerRequestHandler::InitiateDLCMigration(const FResponseCallbackBP& OnCompletedRequestBP, const FResponseCallback& OnCompletedRequest)
@@ -119,3 +119,9 @@ void ULootLockerPlayerRequestHandler::LookupMultiplePlayerNamesUsingIDs(FLootLoc
 	}
 	LLAPI<FLootLockerMultiplePlayersNamesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::LookupMultiplePlayerNamesUsingIDs, {  },QueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
+
+void ULootLockerPlayerRequestHandler::LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesRequest& Request, const FPMultiplePlayerNamesBP& PMultiplePlayerNamesBP, const FPMultiplePlayersPlatformIdsNames& Delegate)
+{
+	// TODO	
+}
+

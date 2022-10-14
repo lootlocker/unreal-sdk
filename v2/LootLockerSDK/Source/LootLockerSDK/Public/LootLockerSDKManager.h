@@ -100,11 +100,11 @@ public:
     /**
     * Get other players XP and level.
     *
-    * @param GetRequests - request data.
+    * @param OtherPlayerId - other players id.
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#get-other-players-xp-and-level
     */
-	static void GetOtherPlayerInfo(FString OtherPlayerId, const FLootLockerPlayerInformationResponse& OnCompletedRequest);
+	static void GetOtherPlayersXpAndLevel(FString OtherPlayerId, const FOtherPlayersXpAndLevelResponse& OnCompletedRequest);
 
 	static void GetMultiplePlayersXp(FLootLockerMultiplePlayersXpRequest& Request, const FPMultiplePlayersXP& OnCompletedRequest);
 
@@ -182,6 +182,8 @@ public:
 	* https://docs.lootlocker.io/game-api/#set-profile-public
 	*/
 	static void GetPlayerName(const FPNameResponse& OnCompletedRequest);
+	static void LookupMultiplePlayerNamesUsingIDs(const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayerNames& OnCompletedRequest);
+	static void LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest);
 
     //==================================================
 	//Files
