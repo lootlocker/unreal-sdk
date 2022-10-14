@@ -276,6 +276,8 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FPMultiplePlayersXPBP, FLootLockerMultiplePlay
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPMultiplePlayerNamesBP, FLootLockerMultiplePlayersNamesResponse, Value);
 
+DECLARE_DYNAMIC_DELEGATE_OneParam(FPMultiplePlayersPlatformIdsBP, FLootLockerMultiplePlayersPlatformIdsResponse, Value);
+
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPOtherPlayersXpAndLevelBP, FLootLockerOtherPlayersXpAndLevelResponse, Value);
 
 DECLARE_DELEGATE_OneParam(FPMultiplePlayersXP, FLootLockerMultiplePlayerXpResponse);
@@ -325,7 +327,7 @@ public:
 	static void SetPlayerName(FString Name, const FPNameResponseBP& OnCompletedRequestBP = FPNameResponseBP(), const FPNameResponse& OnCompletedRequest = FPNameResponse());
 	static void GetPlayerName(const FPNameResponseBP& OnCompletedRequestBP = FPNameResponseBP(), const FPNameResponse& OnCompletedRequest = FPNameResponse());
 	static void LookupMultiplePlayerNamesUsingIDs(FLootLockerMultiplePlayerNamesRequest Request, const FPMultiplePlayerNamesBP& OnCompletedRequestBP = FPMultiplePlayerNamesBP(), const FPMultiplePlayerNames& OnCompletedRequest = FPMultiplePlayerNames());
-	static void LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesRequest& Request, const FPMultiplePlayerNamesBP& PMultiplePlayerNamesBP, const FPMultiplePlayersPlatformIdsNames& Delegate);
+	static void LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesRequest& Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequestBP = FPMultiplePlayersPlatformIdsBP(), const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest = FPMultiplePlayersPlatformIdsNames());
 
 public:
 	static ULootLockerHttpClient* HttpClient;

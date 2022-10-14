@@ -43,6 +43,7 @@ public:
     static FLootLockerEndPoints SetPlayerName;
     static FLootLockerEndPoints GetPlayerName;
     static FLootLockerEndPoints LookupMultiplePlayerNamesUsingIDs;
+	static FLootLockerEndPoints LookupMultiplePlayer1stPlatformID;
 	//Heroes
 	static FLootLockerEndPoints GetGameHeroes;
 	static FLootLockerEndPoints ListPlayerHeroes;
