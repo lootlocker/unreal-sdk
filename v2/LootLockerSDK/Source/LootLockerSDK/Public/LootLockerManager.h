@@ -138,7 +138,13 @@ public:
      static void GetOtherPlayersXpAndLevel(FString OtherPlayerId, const FPOtherPlayersXpAndLevelBP& OnGetOtherPlayersXpAndLevelRequestCompleted);
 
 
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
+	/**
+	* Get Multiple Other Players XP And Level.
+	*
+	* @param GetRequests - request data.
+	*  https://ref.lootlocker.com/game-api/#get-multiple-other-players-xp-and-level
+	*/
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
      static void GetMultiplePlayersXp(FLootLockerMultiplePlayersXpRequest& Requests, const  FPMultiplePlayersXPBP& OnGetOtherPlayerInfoRequestCompleted);
 
     /**
@@ -232,6 +238,16 @@ public:
 	*/
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
 	static void LookupMultiplePlayerNamesUsingIDs(const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayerNamesBP& OnCompletedRequest);
+
+	/**
+	* This endpoint will return all known players 1st party platform id's.
+	*
+	* @param Request - Request array with platforms and Ids to search for.
+	* @param OnCompletedRequest - callback to be invoked with the server response.
+	* https://ref.lootlocker.com/game-api/#lookup-multiple-player-1st-platform-ids-using-lootlocker-player-ids
+	*/
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
+	static void LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequest);
 
 
     //==================================================
