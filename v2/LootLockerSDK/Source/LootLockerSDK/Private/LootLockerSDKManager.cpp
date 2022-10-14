@@ -61,9 +61,9 @@ void ULootLockerSDKManager::SubmitXP(int Points, const FSubmitXpResponse& OnComp
 	ULootLockerPlayerRequestHandler::SubmitXp(Points, FPSubmitResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::GetOtherPlayerInfo(FString OtherPlayerId, const FLootLockerPlayerInformationResponse& OnCompletedRequest)
+void ULootLockerSDKManager::GetOtherPlayersXpAndLevel(FString OtherPlayerId, const FOtherPlayersXpAndLevelResponse& OnCompletedRequest)
 {
-	ULootLockerPlayerRequestHandler::GetOtherPlayerInfo(OtherPlayerId, FPInfoResponseBP(), OnCompletedRequest);
+	ULootLockerPlayerRequestHandler::GetOtherPlayersXpAndLevel(OtherPlayerId, FPOtherPlayersXpAndLevelBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::GetMultiplePlayersXp(FLootLockerMultiplePlayersXpRequest &Request, const FPMultiplePlayersXP &OnCompletedRequest)
@@ -100,6 +100,17 @@ void ULootLockerSDKManager::GetPlayerName(const FPNameResponse& OnCompletedReque
 {
     ULootLockerPlayerRequestHandler::GetPlayerName(FPNameResponseBP(), OnCompletedRequest);
 }
+
+void ULootLockerSDKManager::LookupMultiplePlayerNamesUsingIDs(const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayerNames& OnCompletedRequest)
+{
+    ULootLockerPlayerRequestHandler::LookupMultiplePlayerNamesUsingIDs(Request, FPMultiplePlayerNamesBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest)
+{
+    ULootLockerPlayerRequestHandler::LookupMultiplePlayerNames1stPlatformIDs(Request, FPMultiplePlayerNamesBP(), OnCompletedRequest);
+}
+
 //Files
 void ULootLockerSDKManager::UploadFile(const FLootLockerFileUploadRequest& Request, const FLootLockerUploadFileDelegate& OnComplete)
 {
