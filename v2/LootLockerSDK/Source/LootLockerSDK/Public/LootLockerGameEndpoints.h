@@ -31,11 +31,11 @@ public:
     static FLootLockerEndPoints GetPlayerInfoEndPoint;
     static FLootLockerEndPoints GetPlayerInventoryEndPoint;
     static FLootLockerEndPoints SubmitXpEndpoint;
-    static FLootLockerEndPoints GetOtherPlayerInfoEndpoint;
-    static FLootLockerEndPoints GetMultipleOtherPlatersXPAndLevel;
+    static FLootLockerEndPoints GetOtherPlayersXpAndLevelEndpoint;
+    static FLootLockerEndPoints GetMultipleOtherPlayersXPAndLevel;
     static FLootLockerEndPoints GetCurrencyBalance;
     static FLootLockerEndPoints CheckPlayerAssetActivationEndpoint;
-    static FLootLockerEndPoints CheckPlayerAssetDeactivatonEndpoint;
+    static FLootLockerEndPoints CheckPlayerAssetDeactivationEndpoint;
     static FLootLockerEndPoints InitiateDLCMigration;
     static FLootLockerEndPoints GetDLCsMigrated;
     static FLootLockerEndPoints SetProfilePrivate;
