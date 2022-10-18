@@ -124,6 +124,7 @@ void ULootLockerPlayerRequestHandler::LookupMultiplePlayerNames1stPlatformIDs(co
 {
 	TMap<FString,FString> QueryParams;
 
+	// TODO: only player_id or player_public_uid are valid platform
 	for (const auto player : Request.player_ids)
 	{
 		QueryParams.Add(player.platform, player.player_id);

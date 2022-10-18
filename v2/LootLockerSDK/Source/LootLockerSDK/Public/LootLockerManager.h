@@ -88,7 +88,7 @@ public:
 	* If the user needs to reset their password they can trigger a reset password email using this endpoint.
 	*
 	* @param UserId
-	*  https://ref.lootlocker.com/game-api/#verify-session
+	*  https://ref.lootlocker.com/game-api/#request-reset-password
 	*/
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
 	static void WhiteLabelResetPassword(const FString &UserId, const FLootLockerDefaultResponseBP &OnStartedSessionRequestCompleted);

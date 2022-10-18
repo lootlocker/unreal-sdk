@@ -27,7 +27,7 @@ void ULootLockerLeaderboardRequestHandler::GetByListOfMembers(const FLootLockerG
 
 void ULootLockerLeaderboardRequestHandler::GetScoreList(const FLootLockerGetScoreListRequest& GetScoreListRequests, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP, const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest)
 {
-	if (GetScoreListRequests.after != -1)
+	if (GetScoreListRequests.after >= 0)
 	{
 		LLAPI<FLootLockerGetScoreListResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetScoreListAfter, { GetScoreListRequests.leaderboardId, GetScoreListRequests.count, GetScoreListRequests.after },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 	}
@@ -46,7 +46,7 @@ void ULootLockerLeaderboardRequestHandler::GetAllMemberRanks(const FLootLockerGe
 {
     TMap<FString,FString> QueryParams;
     QueryParams.Add("count", FString::FromInt(GetAllMemberRanksRequests.count));
-    if (GetAllMemberRanksRequests.after != -1)
+    if (GetAllMemberRanksRequests.after >= 0)
     {
         QueryParams.Add("after", FString::FromInt(GetAllMemberRanksRequests.after));
     }
