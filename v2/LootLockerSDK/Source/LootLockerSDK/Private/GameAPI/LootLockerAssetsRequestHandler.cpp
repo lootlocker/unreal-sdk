@@ -103,7 +103,7 @@ void ULootLockerAssetsRequestHandler::GetUniversalAssets(const int After, const 
 {
     TMap<FString,FString> QueryParams;
     QueryParams.Add("count", FString::FromInt(Count));
-    if (After != -1)
+    if (After >= 0)
     {
         QueryParams.Add("after", FString::FromInt(After));
     }
