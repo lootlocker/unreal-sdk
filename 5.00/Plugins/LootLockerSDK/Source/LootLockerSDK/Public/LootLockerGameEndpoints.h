@@ -19,6 +19,7 @@ public:
     //Player
     static FLootLockerEndPoints GetPlayerInfoEndPoint;
     static FLootLockerEndPoints GetPlayerInventoryEndPoint;
+    static FLootLockerEndPoints GetUniversalAssetsEndPoint;
     static FLootLockerEndPoints SubmitXpEndpoint;
     static FLootLockerEndPoints GetOtherPlayerInfoEndpoint;
     static FLootLockerEndPoints GetCurrencyBalance;

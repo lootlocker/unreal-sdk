@@ -128,7 +128,7 @@ void ULootLockerCharacterRequestHandler::EquipAssetToDefaultCharacter(int Instan
 	FLootLockerEquipAssetToCharacterWithInstanceRequest characterRequest;
 	characterRequest.instance_id = InstanceId;
 	FString ContentString;
-	FJsonObjectConverter::UStructToJsonObjectString(FLootLockerUpdateCharacterRequest::StaticStruct(), &characterRequest, ContentString, 0, 0);
+	FJsonObjectConverter::UStructToJsonObjectString(FLootLockerEquipAssetToCharacterWithInstanceRequest::StaticStruct(), &characterRequest, ContentString, 0, 0);
 
 	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{
@@ -158,7 +158,7 @@ void ULootLockerCharacterRequestHandler::EquipAssetToCharacterById(FString Chara
 	FLootLockerEquipAssetToCharacterWithInstanceRequest characterRequest;
 	characterRequest.instance_id = InstanceId;
 	FString ContentString;
-	FJsonObjectConverter::UStructToJsonObjectString(FLootLockerUpdateCharacterRequest::StaticStruct(), &characterRequest, ContentString, 0, 0);
+	FJsonObjectConverter::UStructToJsonObjectString(FLootLockerEquipAssetToCharacterWithInstanceRequest::StaticStruct(), &characterRequest, ContentString, 0, 0);
 
 	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
 		{

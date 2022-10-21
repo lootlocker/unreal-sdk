@@ -60,6 +60,31 @@ void ULootLockerPlayerRequestHandler::GetInventory(const FPInventoryResponseBP& 
 	HttpClient->SendApi(Endpoint.endpoint, requestMethod, data, sessionResponse, true);
 }
 
+void ULootLockerPlayerRequestHandler::GetUniversalAssets(const FPUniversalAssetsResponseBP& OnCompletedRequestBP, const FUniversalAssetsResponse& OnCompletedRequest)
+{
+	FString data;
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+		{
+			FLootLockerUniversalAssetsResponse ResponseStruct;
+			if (response.success)
+			{
+				ResponseStruct.success = true;
+				FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerUniversalAssetsResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
+
+			}
+			else {
+				ResponseStruct.success = false;
+				UE_LOG(LogLootLocker, Error, TEXT("Getting universal assets failed from lootlocker"));
+			}
+			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
+			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
+		});
+	FLootLockerEndPoints Endpoint = ULootLockerGameEndpoints::GetUniversalAssetsEndPoint;
+	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+	HttpClient->SendApi(Endpoint.endpoint, requestMethod, data, sessionResponse, true);
+}
+
 void ULootLockerPlayerRequestHandler::GetCurrencyBalance(const FPBalanceResponseBP& onCompletedRequestBP, const FPBalanceResponse& onCompletedRequest )
 {
 

@@ -29,6 +29,11 @@ void ULootLockerSDKManager::GetInventory(const FInventoryResponse& OnCompletedRe
 	ULootLockerPlayerRequestHandler::GetInventory(FPInventoryResponseBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::GetUniversalAssets(const FUniversalAssetsResponse& OnCompletedRequest)
+{
+    ULootLockerPlayerRequestHandler::GetUniversalAssets(FPUniversalAssetsResponseBP(), OnCompletedRequest);
+}
+
 void ULootLockerSDKManager::SubmitXP(int Points, const FSubmitXpResponse& OnCompletedRequest)
 {
 	ULootLockerPlayerRequestHandler::SubmitXp(Points, FPSubmitResponseBP(), OnCompletedRequest);

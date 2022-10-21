@@ -80,6 +80,13 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
      static void GetInventory(const FPInventoryResponseBP& OnGetInventoryRequestCompleted);
+
+	/**
+    * Get a list of the games universal assets.
+    * https://ref.lootlocker.com/game-api/#get-universal-assets
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
+     static void GetUniversalAssets(const FPUniversalAssetsResponseBP& OnGetUniversalAssetsRequestCompleted);
     
     /**
     * Receive xp, and award it to the player.

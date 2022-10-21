@@ -81,6 +81,15 @@ public:
     */
 	static void GetInventory(const FInventoryResponse& OnCompletedRequest);
     
+	/**
+	* Get a list of the games universal assets.
+	*
+	* @param OnCompletedRequest - callback to be invoked with the server response.
+	* https://ref.lootlocker.com/game-api/#get-universal-assets
+	*/
+	static void GetUniversalAssets(const FUniversalAssetsResponse& OnCompletedRequest);
+
+	
     /**
     * Receive xp, and award it to the player.
     *

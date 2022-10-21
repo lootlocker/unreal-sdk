@@ -27,6 +27,11 @@ void ULootLockerManager::GetInventory(const FPInventoryResponseBP& OnGetInventor
     ULootLockerPlayerRequestHandler::GetInventory(OnGetInventoryRequestCompleted);
 }
 
+void ULootLockerManager::GetUniversalAssets(const FPUniversalAssetsResponseBP& OnGetUniversalAssetsRequestCompleted)
+{
+    ULootLockerPlayerRequestHandler::GetUniversalAssets(OnGetUniversalAssetsRequestCompleted);
+}
+
 void ULootLockerManager::SubmitXP(int Points, const FPSubmitResponseBP& OnSubmitXPRequestCompleted)
 {
     ULootLockerPlayerRequestHandler::SubmitXp(Points, OnSubmitXPRequestCompleted);

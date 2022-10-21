@@ -74,7 +74,28 @@ struct FLootLockerInventoryResponse : public FLootLockerResponse {
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	TArray<FLootLockerInventory> inventory;
 };
-
+USTRUCT(BlueprintType)
+struct FLootLockerUniversalAsset {
+	GENERATED_BODY()
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	int32 universal_id = 0;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	int32 variation_id = 0;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString rental_option_id;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString acquisition_source;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FLootLockerAsset asset;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FLootLockerRental rental;
+};
+USTRUCT(BlueprintType)
+struct FLootLockerUniversalAssetsResponse : public FLootLockerResponse {
+	GENERATED_BODY()
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	TArray<FLootLockerUniversalAsset> global_assets;
+};
 USTRUCT(BlueprintType)
 struct FLootLockerPlayerLevel {
 	GENERATED_BODY()
@@ -149,6 +170,8 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FPInfoResponseBP, FLootLockerPlayerInfoRespons
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPInventoryResponseBP, FLootLockerInventoryResponse, Value);
 
+DECLARE_DYNAMIC_DELEGATE_OneParam(FPUniversalAssetsResponseBP, FLootLockerUniversalAssetsResponse, Value);
+
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPSubmitResponseBP, FLootLockerSubmitXpResponse, Value);
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPAssetNotificationResponseBP, FLootLockerPlayerAssetNotificationResponse, Value);
@@ -163,6 +186,8 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FPNameResponseBP, FLootLockerNameResponse, Val
 DECLARE_DELEGATE_OneParam(FLootLockerPlayerInformationResponse, FLootLockerPlayerInfoResponse);
 
 DECLARE_DELEGATE_OneParam(FInventoryResponse, FLootLockerInventoryResponse);
+
+DECLARE_DELEGATE_OneParam(FUniversalAssetsResponse, FLootLockerUniversalAssetsResponse);
 
 DECLARE_DELEGATE_OneParam(FSubmitXpResponse, FLootLockerSubmitXpResponse);
 
@@ -182,7 +207,8 @@ public:
 	ULootLockerPlayerRequestHandler();
 	static void GetPlayerInfo(const FPInfoResponseBP& OnCompletedRequestBP = FPInfoResponseBP(), const FLootLockerPlayerInformationResponse& OnCompletedRequest = FLootLockerPlayerInformationResponse());
 	static void GetInventory(const FPInventoryResponseBP& onCompletedRequestBP = FPInventoryResponseBP(), const FInventoryResponse& onCompletedRequest = FInventoryResponse());
-
+	static void GetUniversalAssets(const FPUniversalAssetsResponseBP& OnCompletedRequestBP = FPUniversalAssetsResponseBP(), const FUniversalAssetsResponse& OnCompletedRequest = FUniversalAssetsResponse());
+	
 	static void SubmitXp(int points, const FPSubmitResponseBP& onCompletedRequestBP = FPSubmitResponseBP(), const FSubmitXpResponse& onCompletedRequest = FSubmitXpResponse());
 	static void GetOtherPlayerInfo(FLootLockerGetRequests getRequests, const FPInfoResponseBP& onCompletedRequestBP = FPInfoResponseBP(), const FLootLockerPlayerInformationResponse& onCompletedRequest = FLootLockerPlayerInformationResponse());
 	static void CheckPlayerAssetNotification(const FPAssetNotificationResponseBP& onCompletedRequestBP = FPAssetNotificationResponseBP(), const FLootLockerAssetNotificationResponse& onCompletedRequest = FLootLockerAssetNotificationResponse());
