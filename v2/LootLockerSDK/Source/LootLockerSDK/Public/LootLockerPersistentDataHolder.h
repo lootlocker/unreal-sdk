@@ -14,6 +14,7 @@ class LOOTLOCKERSDK_API ULootLockerPersistentDataHolder : public UObject
 	GENERATED_BODY()
 public:
 	static FString Token;
+	static FString WhiteLabelEmail;
 	static FString DomainKey;
 	static FString CachedLastEndpointUsed;
 	static FString CachedLastRequestTypeUsed;
