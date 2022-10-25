@@ -30,9 +30,9 @@ void ULootLockerManager::WhiteLabelResetPassword(const FString &UserId, const FL
 }
 
 
-void ULootLockerManager::WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnCompletedRequestBP)
+void ULootLockerManager::WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnCompletedRequestBP, const bool Remember /* = false */)
 {
-    ULootLockerAuthenticationRequestHandler::WhiteLabelLogin(Email, Password, OnCompletedRequestBP);
+    ULootLockerAuthenticationRequestHandler::WhiteLabelLogin(Email, Password, Remember, OnCompletedRequestBP);
 }
 
 void ULootLockerManager::WhiteLabelCreateAccount(const FString &Email, const FString &Password, const FLootLockerLoginResponseDelegateBP &OnCompletedRequestBP)

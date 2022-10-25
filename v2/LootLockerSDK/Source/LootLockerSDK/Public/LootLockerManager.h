@@ -48,23 +48,41 @@ public:
     static void StartSession(const FString& playerIdentifier, const FAuthResponseBP& OnStartedSessionRequestCompleted);
 
     /**
-    * Register a White Label session. Execute after the player has logged in.
-    *
-    * @param Email - email of the player
-    *  https://ref.lootlocker.com/game-api/#white-label-authentication
-    */
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-    static void WhiteLabelStartSession(const FString& Email, const FAuthResponseBP& OnStartedSessionRequestCompleted);
+     * Create new user using the White Label login system.
+     *
+     * White Label platform must be enabled in the web console for this to work.
+     * @param Email - The Email for the new white label account
+     * @param Password - The Password for the new white label account
+     * @param OnCompletedRequest - callback to be invoked with the server response.
+     * https://ref.lootlocker.com/game-api/#sign-up
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    static void WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnCompletedRequestBP);
     
     /**
-    * Sign in with White Label
-    *
-    * @param Email
-    * @param Password
-    *  https://ref.lootlocker.com/game-api/#white-label-authentication
-    */
+     * Log in a White Label user with the given email and password combination, verify user, and start a White Label Session.
+     * Set remember=true to prolong the session lifetime
+     *
+     * White Label platform must be enabled in the web console for this to work.
+     * @param Email - The Email for the white label account
+     * @param Password - The Password for the white label account
+     * @param OnCompletedRequest - callback to be invoked with the server response.
+     * @param Remember - Optional flag to prolong the session lifetime
+     * https://ref.lootlocker.com/game-api/#login
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta=(AdvancedDisplay=3))
+    static void WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnCompletedRequestBP, const bool Remember = false);
+
+    /**
+     * Start a LootLocker Session using the cached White Label token if any exists.
+     *
+     * White Label platform must be enabled in the web console for this to work.
+     * @param Email - The Email for the logged in white label user
+     * @param OnCompletedRequest - callback to be invoked with the server response.
+     * https://ref.lootlocker.com/game-api/#white-label-authentication
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-    static void WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnCompletedRequestBP);
+    static void WhiteLabelStartSession(const FString& Email, const FAuthResponseBP& OnStartedSessionRequestCompleted);
 
 	/**
 	* Verify that a session token is still valid
@@ -92,15 +110,6 @@ public:
 	*/
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
 	static void WhiteLabelResetPassword(const FString &UserId, const FLootLockerDefaultResponseBP &OnStartedSessionRequestCompleted);
-	
-    /**
-    * Create a White Label account
-    * @param Email
-    * @param Password - Have to be at least 8 characters long
-    *  https://ref.lootlocker.com/game-api/#sign-up
-    */
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-	static void WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP &OnCompletedRequestBP);
 
     /**
     * Register a Guest session.

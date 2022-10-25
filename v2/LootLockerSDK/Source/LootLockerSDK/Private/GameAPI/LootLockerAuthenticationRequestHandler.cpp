@@ -26,12 +26,13 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(const FStr
 	LLAPI<FLootLockerLoginResponse>::CallAPI(HttpClient, SignupRequest, ULootLockerGameEndpoints::WhiteLabelSignupEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest, true, true);
 }
 
-void ULootLockerAuthenticationRequestHandler::WhiteLabelLogin(const FString &Email, const FString &Password, const FLootLockerLoginResponseDelegateBP &OnCompletedRequestBP,
+void ULootLockerAuthenticationRequestHandler::WhiteLabelLogin(const FString &Email, const FString &Password, const bool Remember, const FLootLockerLoginResponseDelegateBP &OnCompletedRequestBP,
 	const FLootLockerLoginResponseDelegate &OnCompletedRequest)
 {
-	FLootLockerLoginRequest LoginRequest;
+	FLootLockerWhiteLabelLoginRequest LoginRequest;
 	LoginRequest.email = Email;
 	LoginRequest.password = Password;
+	LoginRequest.remember = Remember;
 	const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
 	ULootLockerPersistentDataHolder::DomainKey = Config->DomainKey;
 
