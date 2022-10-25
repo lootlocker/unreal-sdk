@@ -97,7 +97,7 @@ public:
     * Create a White Label account
     * @param Email
     * @param Password - Have to be at least 8 characters long
-    *  https://ref.lootlocker.com/game-api/#request-reset-password
+    *  https://ref.lootlocker.com/game-api/#sign-up
     */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
 	static void WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP &OnCompletedRequestBP);
@@ -257,7 +257,7 @@ public:
     static void GetPlayerName(const FPNameResponseBP& OnGetPlayerName);
 
 	/**
-	* This endpoint will return the names of the players on their last active platform..
+	* This endpoint will return the names of the players on their last active platform.
 	*
 	* @param Request - Request array with platforms and Ids to search for.
 	* @param OnCompletedRequest - callback to be invoked with the server response.
@@ -266,15 +266,15 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
 	static void LookupMultiplePlayerNamesUsingIDs(const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayerNamesBP& OnCompletedRequest);
 
-	/**
-	* This endpoint will return all known players 1st party platform id's.
-	*
-	* @param Request - Request array with platforms and Ids to search for.
-	* @param OnCompletedRequest - callback to be invoked with the server response.
-	* https://ref.lootlocker.com/game-api/#lookup-multiple-player-1st-platform-ids-using-lootlocker-player-ids
-	*/
+    /**
+    * This endpoint will return the names of the players on their last active platform.
+    *
+    * @param Request - Request array with player ids and/or player public uids to search for.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
+    * https://ref.lootlocker.com/game-api/#lookup-multiple-player-1st-platform-ids-using-lootlocker-player-ids
+    */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
-	static void LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequest);
+	static void LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesAndPlatformsRequest &Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequest);
 
 
     //==================================================
