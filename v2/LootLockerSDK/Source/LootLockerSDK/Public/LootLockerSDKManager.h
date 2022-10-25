@@ -90,35 +90,43 @@ public:
     static void WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegate& OnCompletedRequest, const bool Remember = false);
 
     /**
-     * Start a LootLocker Session using the cached White Label token if any exists.
+     * Start a LootLocker Session using the cached White Label information if any exists.
      * 
      * White Label platform must be enabled in the web console for this to work.
-     * @param Email - The Email for the logged in white label user
      * @param OnCompletedRequest - callback to be invoked with the server response.
      * https://ref.lootlocker.com/game-api/#white-label-authentication
      */
-	static void WhiteLabelStartSession(const FString& Email, const FLootLockerSessionResponse& OnCompletedRequest);
+	static void WhiteLabelStartSession(const FLootLockerSessionResponse& OnCompletedRequest);
 
     /**
-     * Checks if the cached session token is valid for the provided White Label email.
+     * Checks if the cached session information is still valid.
      *
      * Depending on response of this method the developer can either start a session using the token, or show a login form.
      *
      * White Label platform must be enabled in the web console for this to work.
+     * @param OnCompletedRequest - callback to be invoked with the server response.
+     * https://ref.lootlocker.com/game-api/#verify-session
      */
-	static void WhiteLabelVerifySession(const FString &Email, const FLootLockerWhiteLabelVerifySessionDelegate &OnCompletedRequest);
+	static void WhiteLabelVerifySession(const FLootLockerWhiteLabelVerifySessionDelegate &OnCompletedRequest);
 
     /**
+     * Request verify account email for the user.
      *
-     *
-     *
+     * White Label platform must be enabled in the web console for this to work.
+     * Account verification must also be enabled.
+     * @param UserId - The UserId for the white label user
+     * @param OnCompletedRequest - callback to be invoked with the server response.
+     * https://ref.lootlocker.com/game-api/#request-user-verification
      */
     static void WhiteLabelRequestUserVerification(const FString& UserId, const FLootLockerDefaultDelegate& OnCompletedRequest);
 
     /**
+     * Request password reset email for the user.
      *
-     *
-     *
+     * White Label platform must be enabled in the web console for this to work.
+     * @param UserId - The UserId for the white label user
+     * @param OnCompletedRequest - callback to be invoked with the server response.
+     * https://ref.lootlocker.com/game-api/#request-reset-password
      */
     static void WhiteLabelRequestPasswordReset(const FString& UserId, const FLootLockerDefaultDelegate& OnCompletedRequest);
 
