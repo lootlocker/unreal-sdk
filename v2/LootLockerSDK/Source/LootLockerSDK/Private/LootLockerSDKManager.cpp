@@ -21,14 +21,14 @@ void ULootLockerSDKManager::StartSession(const FString& PlayerIdentifier, const 
 	ULootLockerAuthenticationRequestHandler::StartSession(PlayerIdentifier, FAuthResponseBP(), OnCompleteRequest);
 }
 
-void ULootLockerSDKManager::WhiteLabelStartSession(const FString &Email, const FLootLockerSessionResponse &OnCompletedRequest)
+void ULootLockerSDKManager::WhiteLabelStartSession(const FLootLockerSessionResponse &OnCompletedRequest)
 {
-	ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(Email, FAuthResponseBP(), OnCompletedRequest);
+	ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(FAuthResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::WhiteLabelVerifySession(const FString &Email, const FLootLockerWhiteLabelVerifySessionDelegate &OnCompletedRequest)
+void ULootLockerSDKManager::WhiteLabelVerifySession(const FLootLockerWhiteLabelVerifySessionDelegate &OnCompletedRequest)
 {
-    ULootLockerAuthenticationRequestHandler::WhiteLabelVerifySession(Email, FLootLockerVerifySessionResponseBP(), OnCompletedRequest);
+    ULootLockerAuthenticationRequestHandler::WhiteLabelVerifySession(FLootLockerVerifySessionResponseBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::WhiteLabelRequestUserVerification(const FString &UserId, const FLootLockerDefaultDelegate &OnCompletedRequest)

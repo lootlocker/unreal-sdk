@@ -9,14 +9,14 @@ void ULootLockerManager::StartSession(const FString& playerIdentifier, const FAu
     ULootLockerAuthenticationRequestHandler::StartSession(playerIdentifier, OnStartedSessionRequestCompleted);
 }
 
-void ULootLockerManager::WhiteLabelStartSession(const FString &Email, const FAuthResponseBP &OnStartedSessionRequestCompleted)
+void ULootLockerManager::WhiteLabelStartSession(const FAuthResponseBP &OnStartedSessionRequestCompleted)
 {
-	ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(Email, OnStartedSessionRequestCompleted);
+	ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(OnStartedSessionRequestCompleted);
 }
 
-void ULootLockerManager::WhiteLabelVerifySession(const FString &Email, const FLootLockerVerifySessionResponseBP &OnStartedSessionRequestCompleted)
+void ULootLockerManager::WhiteLabelVerifySession(const FLootLockerVerifySessionResponseBP &OnStartedSessionRequestCompleted)
 {
-    ULootLockerAuthenticationRequestHandler::WhiteLabelVerifySession(Email, OnStartedSessionRequestCompleted);
+    ULootLockerAuthenticationRequestHandler::WhiteLabelVerifySession(OnStartedSessionRequestCompleted);
 }
 
 void ULootLockerManager::WhiteLabelRequestUserVerification(const FString &UserId, const FLootLockerDefaultResponseBP &OnStartedSessionRequestCompleted)
