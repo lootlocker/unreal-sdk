@@ -117,6 +117,8 @@ void ULootLockerAuthenticationRequestHandler::VerifyPlayer(const FString& SteamT
 
 void ULootLockerAuthenticationRequestHandler::EndSession(const FAuthDefaultResponseBP& OnCompletedRequestBP, const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest)
 {
+	ULootLockerPersistentDataHolder::WhiteLabelEmail = "";
+	ULootLockerPersistentDataHolder::Token = "";
 	LLAPI<FLootLockerAuthenticationDefaultResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::EndSessionEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
