@@ -9,35 +9,35 @@ void ULootLockerManager::StartSession(const FString& playerIdentifier, const FAu
     ULootLockerAuthenticationRequestHandler::StartSession(playerIdentifier, OnStartedSessionRequestCompleted);
 }
 
-void ULootLockerManager::WhiteLabelStartSession(const FAuthResponseBP &OnStartedSessionRequestCompleted)
+void ULootLockerManager::WhiteLabelStartSession(const FAuthResponseBP &OnStartWhiteLabelSessionRequestCompleted)
 {
-	ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(OnStartedSessionRequestCompleted);
+	ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(OnStartWhiteLabelSessionRequestCompleted);
 }
 
-void ULootLockerManager::WhiteLabelVerifySession(const FLootLockerVerifySessionResponseBP &OnStartedSessionRequestCompleted)
+void ULootLockerManager::WhiteLabelVerifySession(const FLootLockerVerifySessionResponseBP &OnVerifyWhiteLabelSessionRequestCompleted)
 {
-    ULootLockerAuthenticationRequestHandler::WhiteLabelVerifySession(OnStartedSessionRequestCompleted);
+    ULootLockerAuthenticationRequestHandler::WhiteLabelVerifySession(OnVerifyWhiteLabelSessionRequestCompleted);
 }
 
-void ULootLockerManager::WhiteLabelRequestUserVerification(const FString &UserId, const FLootLockerDefaultResponseBP &OnStartedSessionRequestCompleted)
+void ULootLockerManager::WhiteLabelRequestUserVerification(const FString &UserId, const FLootLockerDefaultResponseBP &OnRequestWhiteLabelUserVerificationRequestCompleted)
 {
-    ULootLockerAuthenticationRequestHandler::WhiteLabelRequestUserVerification(UserId, OnStartedSessionRequestCompleted);
+    ULootLockerAuthenticationRequestHandler::WhiteLabelRequestUserVerification(UserId, OnRequestWhiteLabelUserVerificationRequestCompleted);
 }
 
-void ULootLockerManager::WhiteLabelResetPassword(const FString &UserId, const FLootLockerDefaultResponseBP &OnStartedSessionRequestCompleted)
+void ULootLockerManager::WhiteLabelResetPassword(const FString &UserId, const FLootLockerDefaultResponseBP &OnResetWhiteLabelPasswordRequestCompleted)
 {
-    ULootLockerAuthenticationRequestHandler::WhiteLabelRequestPasswordReset(UserId, OnStartedSessionRequestCompleted);
+    ULootLockerAuthenticationRequestHandler::WhiteLabelRequestPasswordReset(UserId, OnResetWhiteLabelPasswordRequestCompleted);
 }
 
 
-void ULootLockerManager::WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnCompletedRequestBP, const bool Remember /* = false */)
+void ULootLockerManager::WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelLoginRequestCompleted, const bool Remember /* = false */)
 {
-    ULootLockerAuthenticationRequestHandler::WhiteLabelLogin(Email, Password, Remember, OnCompletedRequestBP);
+    ULootLockerAuthenticationRequestHandler::WhiteLabelLogin(Email, Password, Remember, OnWhiteLabelLoginRequestCompleted);
 }
 
-void ULootLockerManager::WhiteLabelCreateAccount(const FString &Email, const FString &Password, const FLootLockerLoginResponseDelegateBP &OnCompletedRequestBP)
+void ULootLockerManager::WhiteLabelCreateAccount(const FString &Email, const FString &Password, const FLootLockerLoginResponseDelegateBP &OnWhiteLabelAccountCreationRequestCompleted)
 {
-	ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(Email, Password, OnCompletedRequestBP);
+	ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(Email, Password, OnWhiteLabelAccountCreationRequestCompleted);
 }
 
 void ULootLockerManager::GuestLogin(const FString& playerIdentifier, const FAuthResponseBP &OnCompletedRequestBP)
