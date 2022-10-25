@@ -108,8 +108,7 @@ void ULootLockerPlayerRequestHandler::GetPlayerName(const FPNameResponseBP& OnCo
 	LLAPI<FLootLockerNameResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetPlayerName, {  },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
-void ULootLockerPlayerRequestHandler::LookupMultiplePlayerNamesUsingIDs(FLootLockerMultiplePlayerNamesRequest Request,
-	const FPMultiplePlayerNamesBP& OnCompletedRequestBP, const FPMultiplePlayerNames& OnCompletedRequest)
+void ULootLockerPlayerRequestHandler::LookupMultiplePlayerNamesUsingIDs(FLootLockerMultiplePlayerNamesRequest Request, const FPMultiplePlayerNamesBP& OnCompletedRequestBP, const FPMultiplePlayerNames& OnCompletedRequest)
 {
 	TMap<FString,FString> QueryParams;
 
@@ -120,15 +119,18 @@ void ULootLockerPlayerRequestHandler::LookupMultiplePlayerNamesUsingIDs(FLootLoc
 	LLAPI<FLootLockerMultiplePlayersNamesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::LookupMultiplePlayerNamesUsingIDs, {  },QueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
-void ULootLockerPlayerRequestHandler::LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesRequest& Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequestBP, const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest)
+void ULootLockerPlayerRequestHandler::LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequestBP, const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest)
 {
 	TMap<FString,FString> QueryParams;
 
-	// TODO: only player_id or player_public_uid are valid platform
-	for (const auto player : Request.player_ids)
+	for (const auto player_id : Request.player_ids)
 	{
-		QueryParams.Add(player.platform, player.player_id);
+		QueryParams.Add("player_id", player_id);
 	}
-	LLAPI<FLootLockerMultiplePlayersPlatformIdsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::LookupMultiplePlayer1stPlatformID, {  },QueryParams,OnCompletedRequestBP, OnCompletedRequest);
+    for (const auto player_public_uid : Request.player_public_uids)
+	{
+		QueryParams.Add("player_public_uid", player_public_uid);
+	}
+	LLAPI<FLootLockerMultiplePlayersPlatformIdsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::LookupMultiplePlayer1stPlatformID, {  }, QueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 

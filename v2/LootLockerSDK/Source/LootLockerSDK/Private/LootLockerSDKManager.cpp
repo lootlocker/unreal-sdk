@@ -121,7 +121,7 @@ void ULootLockerSDKManager::LookupMultiplePlayerNamesUsingIDs(const FLootLockerM
     ULootLockerPlayerRequestHandler::LookupMultiplePlayerNamesUsingIDs(Request, FPMultiplePlayerNamesBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest)
+void ULootLockerSDKManager::LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest)
 {
     ULootLockerPlayerRequestHandler::LookupMultiplePlayerNames1stPlatformIDs(Request, FPMultiplePlayersPlatformIdsBP(), OnCompletedRequest);
 }
