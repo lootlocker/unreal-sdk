@@ -56,7 +56,7 @@ public:
      * https://ref.lootlocker.com/game-api/#sign-up
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-    static void WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnCompletedRequestBP);
+    static void WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelAccountCreationRequestCompleted);
     
     /**
      * Log in a White Label user with the given email and password combination, verify user, and start a White Label Session.
@@ -69,7 +69,7 @@ public:
      * https://ref.lootlocker.com/game-api/#login
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta=(AdvancedDisplay=3))
-    static void WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnCompletedRequestBP, const bool Remember = false);
+    static void WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelLoginRequestCompleted, const bool Remember = false);
 
     /**
      * Start a LootLocker Session using the cached White Label token if any exists.
@@ -78,7 +78,7 @@ public:
      * https://ref.lootlocker.com/game-api/#white-label-authentication
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-    static void WhiteLabelStartSession(const FAuthResponseBP& OnStartedSessionRequestCompleted);
+    static void WhiteLabelStartSession(const FAuthResponseBP& OnStartWhiteLabelSessionRequestCompleted);
 
     /**
      * Checks if the cached session token is valid for the provided White Label email.
@@ -89,7 +89,7 @@ public:
      * https://ref.lootlocker.com/game-api/#verify-session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-	static void WhiteLabelVerifySession(const FLootLockerVerifySessionResponseBP &OnStartedSessionRequestCompleted);
+	static void WhiteLabelVerifySession(const FLootLockerVerifySessionResponseBP &OnVerifyWhiteLabelSessionRequestCompleted);
 
     /**
      * Request verify account email for the user.
@@ -100,7 +100,7 @@ public:
      * https://ref.lootlocker.com/game-api/#request-user-verification
      */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-	static void WhiteLabelRequestUserVerification(const FString &UserId, const FLootLockerDefaultResponseBP &OnStartedSessionRequestCompleted);
+	static void WhiteLabelRequestUserVerification(const FString &UserId, const FLootLockerDefaultResponseBP &OnRequestWhiteLabelUserVerificationRequestCompleted);
 
     /**
      * Request password reset email for the user.
@@ -110,7 +110,7 @@ public:
      * https://ref.lootlocker.com/game-api/#request-reset-password
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-	static void WhiteLabelResetPassword(const FString &UserId, const FLootLockerDefaultResponseBP &OnStartedSessionRequestCompleted);
+	static void WhiteLabelResetPassword(const FString &UserId, const FLootLockerDefaultResponseBP &OnResetWhiteLabelPasswordRequestCompleted);
 
     /**
     * Register a Guest session.
@@ -131,7 +131,7 @@ public:
     static void VerifyPlayer(const FString& SteamSessionTicket, const FAuthDefaultResponseBP& OnVerifyPlayerRequestCompleted);
 
     /**
-    * Terminate the session on the LootLocker servers. Any further requests with this session's token will be rejected with an 401 Unauthroized error.
+    * Terminate the session on the LootLocker servers. Any further requests with this session's token will be rejected with an 401 Unauthorized error.
     *
     * https://ref.lootlocker.io/game-api/#ending-a-session
     */
