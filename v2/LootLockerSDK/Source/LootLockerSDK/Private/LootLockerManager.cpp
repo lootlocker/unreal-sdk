@@ -132,7 +132,7 @@ void ULootLockerManager::LookupMultiplePlayerNamesUsingIDs(const FLootLockerMult
     ULootLockerPlayerRequestHandler::LookupMultiplePlayerNamesUsingIDs(Request, OnCompletedRequest);
 }
 
-void ULootLockerManager::LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequest)
+void ULootLockerManager::LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequest)
 {
     ULootLockerPlayerRequestHandler::LookupMultiplePlayerNames1stPlatformIDs(Request, OnCompletedRequest);
 }

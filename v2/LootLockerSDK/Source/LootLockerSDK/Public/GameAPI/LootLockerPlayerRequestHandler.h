@@ -257,6 +257,15 @@ struct FLootLockerMultiplePlayerNamesRequest {
 	TArray<FLootLockerMultiplePlayerNameRequest> player_ids;
 };
 
+USTRUCT(BlueprintType)
+struct FLootLockerMultiplePlayerNamesAndPlatformsRequest {
+	GENERATED_BODY()
+		UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+		TArray<FString> player_ids;
+	    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+		TArray<FString> player_public_uids;
+};
+
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPInfoResponseBP, FLootLockerPlayerInfoResponse, Value);
 
@@ -327,7 +336,7 @@ public:
 	static void SetPlayerName(FString Name, const FPNameResponseBP& OnCompletedRequestBP = FPNameResponseBP(), const FPNameResponse& OnCompletedRequest = FPNameResponse());
 	static void GetPlayerName(const FPNameResponseBP& OnCompletedRequestBP = FPNameResponseBP(), const FPNameResponse& OnCompletedRequest = FPNameResponse());
 	static void LookupMultiplePlayerNamesUsingIDs(FLootLockerMultiplePlayerNamesRequest Request, const FPMultiplePlayerNamesBP& OnCompletedRequestBP = FPMultiplePlayerNamesBP(), const FPMultiplePlayerNames& OnCompletedRequest = FPMultiplePlayerNames());
-	static void LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesRequest& Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequestBP = FPMultiplePlayersPlatformIdsBP(), const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest = FPMultiplePlayersPlatformIdsNames());
+	static void LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequestBP = FPMultiplePlayersPlatformIdsBP(), const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest = FPMultiplePlayersPlatformIdsNames());
 
 public:
 	static ULootLockerHttpClient* HttpClient;
