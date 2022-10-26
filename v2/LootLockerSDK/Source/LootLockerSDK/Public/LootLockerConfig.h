@@ -103,5 +103,4 @@ public:
 	bool AllowTokenRefresh = true;
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString DomainKey = "85b48f3";
-
 };

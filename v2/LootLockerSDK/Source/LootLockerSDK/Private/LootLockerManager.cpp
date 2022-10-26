@@ -19,14 +19,14 @@ void ULootLockerManager::WhiteLabelVerifySession(const FLootLockerVerifySessionR
     ULootLockerAuthenticationRequestHandler::WhiteLabelVerifySession(OnVerifyWhiteLabelSessionRequestCompleted);
 }
 
-void ULootLockerManager::WhiteLabelRequestUserVerification(const FString &UserId, const FLootLockerDefaultResponseBP &OnRequestWhiteLabelUserVerificationRequestCompleted)
+void ULootLockerManager::WhiteLabelRequestUserVerification(const int &UserId, const FLootLockerDefaultResponseBP &OnRequestWhiteLabelUserVerificationRequestCompleted)
 {
     ULootLockerAuthenticationRequestHandler::WhiteLabelRequestUserVerification(UserId, OnRequestWhiteLabelUserVerificationRequestCompleted);
 }
 
-void ULootLockerManager::WhiteLabelResetPassword(const FString &UserId, const FLootLockerDefaultResponseBP &OnResetWhiteLabelPasswordRequestCompleted)
+void ULootLockerManager::WhiteLabelResetPassword(const FString &Email, const FLootLockerDefaultResponseBP &OnResetWhiteLabelPasswordRequestCompleted)
 {
-    ULootLockerAuthenticationRequestHandler::WhiteLabelRequestPasswordReset(UserId, OnResetWhiteLabelPasswordRequestCompleted);
+    ULootLockerAuthenticationRequestHandler::WhiteLabelRequestPasswordReset(Email, OnResetWhiteLabelPasswordRequestCompleted);
 }
 
 

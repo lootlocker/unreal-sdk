@@ -58,7 +58,7 @@ struct FLootLockerErrorData
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerBaseAuthRequest : public FLootLockerErrorData
+struct FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
@@ -83,11 +83,9 @@ USTRUCT(BlueprintType)
 struct FLootLockerWhiteLabelAuthRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString email;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	FString password;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString token;
 };
 
@@ -95,18 +93,18 @@ USTRUCT(BlueprintType)
 struct FLootLockerWhiteLabelVerifySessionRequest
 {
 	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString email;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString token;
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerWhiteLabelResetPasswordRequest : public FLootLockerResponse
+struct FLootLockerWhiteLabelResetPasswordRequest
 {
 	GENERATED_BODY()
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-		FString email;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FString email;
 };
 
 USTRUCT(BlueprintType)
@@ -126,7 +124,7 @@ struct FLootLockerUserIdRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString user_id;
+	int user_id;
 };
 
 
@@ -212,8 +210,8 @@ public:
 	static void GuestLogin(const FString& playerIdentifier, const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
 	static void WhiteLabelStartSession(const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
 	static void WhiteLabelVerifySession(const FLootLockerVerifySessionResponseBP& OnCompletedRequestBP = FLootLockerVerifySessionResponseBP(), const FLootLockerWhiteLabelVerifySessionDelegate& OnCompletedRequest = FLootLockerWhiteLabelVerifySessionDelegate());
-	static void WhiteLabelRequestUserVerification(const FString& UserId, const FLootLockerDefaultResponseBP& OnCompletedRequestBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
-	static void WhiteLabelRequestPasswordReset(const FString& UserId, const FLootLockerDefaultResponseBP& OnCompletedRequestBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
+	static void WhiteLabelRequestUserVerification(const int& UserId, const FLootLockerDefaultResponseBP& OnCompletedRequestBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
+	static void WhiteLabelRequestPasswordReset(const FString& Email, const FLootLockerDefaultResponseBP& OnCompletedRequestBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
 	static void StartSession(const FString& PlayerId, const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
 	static void VerifyPlayer(const FString& SteamToken, const FAuthDefaultResponseBP& OnCompletedRequestBP = FAuthDefaultResponseBP(), const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest = FLootLockerDefaultAuthenticationResponse());
 	static void EndSession(const FAuthDefaultResponseBP& OnCompletedRequestBP = FAuthDefaultResponseBP(), const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest = FLootLockerDefaultAuthenticationResponse());

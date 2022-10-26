@@ -118,17 +118,17 @@ public:
      * @param OnCompletedRequest - callback to be invoked with the server response.
      * https://ref.lootlocker.com/game-api/#request-user-verification
      */
-    static void WhiteLabelRequestUserVerification(const FString& UserId, const FLootLockerDefaultDelegate& OnCompletedRequest);
+    static void WhiteLabelRequestUserVerification(const int& UserId, const FLootLockerDefaultDelegate& OnCompletedRequest);
 
     /**
      * Request password reset email for the user.
      *
      * White Label platform must be enabled in the web console for this to work.
-     * @param UserId - The UserId for the white label user
+     * @param Email - The email for the white label user
      * @param OnCompletedRequest - callback to be invoked with the server response.
      * https://ref.lootlocker.com/game-api/#request-reset-password
      */
-    static void WhiteLabelRequestPasswordReset(const FString& UserId, const FLootLockerDefaultDelegate& OnCompletedRequest);
+    static void WhiteLabelRequestPasswordReset(const FString& Email, const FLootLockerDefaultDelegate& OnCompletedRequest);
 
     //==================================================
 	//Player calls
