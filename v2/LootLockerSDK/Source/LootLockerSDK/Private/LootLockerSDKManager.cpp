@@ -31,14 +31,14 @@ void ULootLockerSDKManager::WhiteLabelVerifySession(const FLootLockerWhiteLabelV
     ULootLockerAuthenticationRequestHandler::WhiteLabelVerifySession(FLootLockerVerifySessionResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::WhiteLabelRequestUserVerification(const FString &UserId, const FLootLockerDefaultDelegate &OnCompletedRequest)
+void ULootLockerSDKManager::WhiteLabelRequestUserVerification(const int &UserId, const FLootLockerDefaultDelegate &OnCompletedRequest)
 {
     ULootLockerAuthenticationRequestHandler::WhiteLabelRequestUserVerification(UserId, FLootLockerDefaultResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::WhiteLabelRequestPasswordReset(const FString &UserId, const FLootLockerDefaultDelegate &OnCompletedRequest)
+void ULootLockerSDKManager::WhiteLabelRequestPasswordReset(const FString &Email, const FLootLockerDefaultDelegate &OnCompletedRequest)
 {
-    ULootLockerAuthenticationRequestHandler::WhiteLabelRequestPasswordReset(UserId, FLootLockerDefaultResponseBP(), OnCompletedRequest);
+    ULootLockerAuthenticationRequestHandler::WhiteLabelRequestPasswordReset(Email, FLootLockerDefaultResponseBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::GuestLogin(const FString& playerIdentifier, const FLootLockerSessionResponse &OnCompletedRequest)

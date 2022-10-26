@@ -100,17 +100,17 @@ public:
      * https://ref.lootlocker.com/game-api/#request-user-verification
      */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-	static void WhiteLabelRequestUserVerification(const FString &UserId, const FLootLockerDefaultResponseBP &OnRequestWhiteLabelUserVerificationRequestCompleted);
+	static void WhiteLabelRequestUserVerification(const int &UserId, const FLootLockerDefaultResponseBP &OnRequestWhiteLabelUserVerificationRequestCompleted);
 
     /**
      * Request password reset email for the user.
      *
      * White Label platform must be enabled in the web console for this to work.
-     * @param UserId - The UserId for the white label user
+     * @param Email - The email for the white label user
      * https://ref.lootlocker.com/game-api/#request-reset-password
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-	static void WhiteLabelResetPassword(const FString &UserId, const FLootLockerDefaultResponseBP &OnResetWhiteLabelPasswordRequestCompleted);
+	static void WhiteLabelResetPassword(const FString &Email, const FLootLockerDefaultResponseBP &OnResetWhiteLabelPasswordRequestCompleted);
 
     /**
     * Register a Guest session.
