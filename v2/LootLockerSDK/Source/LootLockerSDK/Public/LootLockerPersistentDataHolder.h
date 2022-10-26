@@ -14,13 +14,14 @@ class LOOTLOCKERSDK_API ULootLockerPersistentDataHolder : public UObject
 	GENERATED_BODY()
 public:
 	static FString Token;
-	static FString WhiteLabelEmail;
 	static FString DomainKey;
 	static FString CachedLastEndpointUsed;
 	static FString CachedLastRequestTypeUsed;
 	static FString CachedLastDataSentToServer;
 	static FString CachedSteamToken;
     static FString CachedPlayerIdentifier;
+    static FString CachedWhiteLabelEmail;
+    static FString CachedWhiteLabelToken;
     static FString AdminToken;
 
 };
