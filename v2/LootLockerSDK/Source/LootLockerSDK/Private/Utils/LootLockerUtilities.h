@@ -27,8 +27,11 @@ struct LLAPI
         FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
         {
             W ResponseStruct;
-
-            FJsonObjectConverter::JsonObjectStringToUStruct<W>(response.FullTextFromServer, &ResponseStruct, 0, 0);
+            
+            if(!response.FullTextFromServer.IsEmpty())
+            {
+                FJsonObjectConverter::JsonObjectStringToUStruct<W>(response.FullTextFromServer, &ResponseStruct, 0, 0);
+            }
             ULootLockerPersistentDataHolder::Token = ResponseStruct.session_token;
             if (response.ServerCallStatusCode == 200 || response.ServerCallStatusCode == 204)
             {
