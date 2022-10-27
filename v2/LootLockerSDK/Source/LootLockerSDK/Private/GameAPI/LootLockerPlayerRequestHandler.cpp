@@ -24,7 +24,7 @@ void ULootLockerPlayerRequestHandler::GetInventory(const FPInventoryResponseBP& 
 
 void ULootLockerPlayerRequestHandler::GetFullInventory(const FPInventoryResponseBP& OnCompletedRequestBP, const FInventoryResponse& OnCompletedRequest, int32 StartIndex)
 {
-	TMap<FString,FString> QueryParams;
+	TMultiMap<FString,FString> QueryParams;
 	
 	if (StartIndex != 0)
 	{
@@ -52,9 +52,8 @@ void ULootLockerPlayerRequestHandler::SubmitXp(int Points,const FPSubmitResponse
 void ULootLockerPlayerRequestHandler::GetOtherPlayersXpAndLevel(FString OtherPlayerId,const FPOtherPlayersXpAndLevelBP OnCompletedRequestBP, const FOtherPlayersXpAndLevelResponse& OnCompletedRequest)
 {
 	const auto* Config = GetDefault<ULootLockerConfig>();
-	const FString Platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(Config->Platform));
-	TMap<FString, FString> QueryParams;
-	QueryParams.Add("platform", Platform);
+	const FString Platform = LootLockerUtilities::CurrentPlatformFString::Get();
+	TMultiMap<FString, FString> QueryParams;
 	
 	LLAPI<FLootLockerOtherPlayersXpAndLevelResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOtherPlayersXpAndLevelEndpoint, { OtherPlayerId }, QueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
@@ -110,7 +109,7 @@ void ULootLockerPlayerRequestHandler::GetPlayerName(const FPNameResponseBP& OnCo
 
 void ULootLockerPlayerRequestHandler::LookupMultiplePlayerNamesUsingIDs(FLootLockerMultiplePlayerNamesRequest Request, const FPMultiplePlayerNamesBP& OnCompletedRequestBP, const FPMultiplePlayerNames& OnCompletedRequest)
 {
-	TMap<FString,FString> QueryParams;
+	TMultiMap<FString,FString> QueryParams;
 
 	for (const auto player : Request.player_ids)
 	{
@@ -121,7 +120,7 @@ void ULootLockerPlayerRequestHandler::LookupMultiplePlayerNamesUsingIDs(FLootLoc
 
 void ULootLockerPlayerRequestHandler::LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequestBP, const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest)
 {
-	TMap<FString,FString> QueryParams;
+	TMultiMap<FString,FString> QueryParams;
 
 	for (const auto player_id : Request.player_ids)
 	{

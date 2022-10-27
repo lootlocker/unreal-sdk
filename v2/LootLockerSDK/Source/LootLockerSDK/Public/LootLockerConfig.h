@@ -48,7 +48,7 @@ UENUM(BlueprintType)
 enum class ELootLockerPlatformType : uint8
 {
 	Android = 0				UMETA(DisplayName = "Android"),
-	// WhiteLabel =
+	//WhiteLabel = 0			UMETA(DisplayName = "WhiteLabel"),
 	Ios = 1					UMETA(DisplayName = "Ios"),
 	Steam = 2				UMETA(DisplayName = "Steam"),
 	NintendoSwitch = 3		UMETA(DisplayName = "NintendoSwitch"),
@@ -92,7 +92,7 @@ public:
     }
 public:
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString LootLockerGameKey = TEXT("9de3caa95333e5d6a6758bb22d2fa84a2500e4e8");
+	FString LootLockerGameKey = TEXT("d925392bfba5bf79827b8ee8207e21e511f1483a");
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	ELootLockerPlatformType Platform = ELootLockerPlatformType::Android;
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -102,5 +102,7 @@ public:
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	bool AllowTokenRefresh = true;
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString DomainKey = "85b48f3";
+	FString DomainKey = "2e85q3wx";
 };
+
+
