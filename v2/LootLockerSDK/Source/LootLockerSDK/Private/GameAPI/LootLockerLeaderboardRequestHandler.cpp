@@ -44,7 +44,7 @@ void ULootLockerLeaderboardRequestHandler::SubmitScore(const FLootLockerSubmitSc
 
 void ULootLockerLeaderboardRequestHandler::GetAllMemberRanks(const FLootLockerGetAllMemberRanksRequest& GetAllMemberRanksRequests, const FLootLockerGetAllMemberRanksResponseBP& OnCompletedRequestBP, const FLootLockerGetAllMemberRanksResponseDelegate& OnCompletedRequest)
 {
-    TMap<FString,FString> QueryParams;
+    TMultiMap<FString,FString> QueryParams;
     QueryParams.Add("count", FString::FromInt(GetAllMemberRanksRequests.count));
     if (GetAllMemberRanksRequests.after >= 0)
     {

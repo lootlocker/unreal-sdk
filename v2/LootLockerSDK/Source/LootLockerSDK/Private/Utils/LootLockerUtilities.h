@@ -7,7 +7,7 @@
 
 constexpr FLootLockerEmptyRequest LootLockerEmptyRequest;
 
-const TMap<FString,FString> EmptyQueryParams;
+const TMultiMap<FString,FString> EmptyQueryParams;
 
 namespace LootLockerUtilities
 {
@@ -16,6 +16,33 @@ namespace LootLockerUtilities
     TArray<FLootLockerMissionCheckpoint> ParseMissionCheckpoints(const TSharedPtr<FJsonObject>& MissionJson);
 
     TArray<TSharedPtr<FJsonValue>> SerializeMissionCheckpoints(const TArray<FLootLockerMissionCheckpoint>& Checkpoints);
+
+    class CurrentPlatformFString
+    {
+    public:
+        static FString Get()
+        {
+            if (PlatformOverride.Compare(EmptyFString) == 0)
+            {
+                const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
+                return ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(Config->Platform));
+            } else
+            {
+                return PlatformOverride;
+            }
+        }
+        static void Override(FString Override)
+        {
+            PlatformOverride = Override;
+        }
+        static void Reset()
+        {
+            PlatformOverride = EmptyFString;
+        }
+    private:
+        inline static const FString EmptyFString = FString(TEXT(""));
+        inline static FString PlatformOverride = EmptyFString;
+    };
 }
 
 template<typename W>
@@ -53,7 +80,7 @@ struct LLAPI
     }
 
     template<typename S, typename T , typename U>
-    static void CallAPI(ULootLockerHttpClient* HttpClient, S RequestStruct, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMap<FString,FString> QueryParams,  const T& OnCompletedRequestBP, const U& OnCompletedRequest, bool useDomainKey = false, bool useDevHeaders = false)
+    static void CallAPI(ULootLockerHttpClient* HttpClient, S RequestStruct, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const T& OnCompletedRequestBP, const U& OnCompletedRequest, bool useDomainKey = false, bool useDevHeaders = false)
     {
         FString ContentString;        
         if (!std::is_same_v<S, FLootLockerEmptyRequest>) 
@@ -85,7 +112,7 @@ struct LLAPI
     }
 
     template<typename T , typename U>
-    static void UploadFileAPI(ULootLockerHttpClient* HttpClient,FString File, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMap<FString, FString> AdditionalData,  const T& OnCompletedRequestBP, const U& OnCompletedRequest)
+    static void UploadFileAPI(ULootLockerHttpClient* HttpClient, FString File, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMap<FString, FString> AdditionalData, const T& OnCompletedRequestBP, const U& OnCompletedRequest)
     {
         // create callback lambda
         const FResponseCallback SessionResponse = CreateLambda<T,U>(OnCompletedRequestBP, OnCompletedRequest);
@@ -102,7 +129,7 @@ struct LLAPI
     }
 
     template<typename T , typename U>
-    static void CallAPIUsingRawJSON(ULootLockerHttpClient* HttpClient,FString& ContentString, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMap<FString,FString> QueryParams,  const T& OnCompletedRequestBP, const U& OnCompletedRequest)
+    static void CallAPIUsingRawJSON(ULootLockerHttpClient* HttpClient, FString& ContentString, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const T& OnCompletedRequestBP, const U& OnCompletedRequest)
     {
         // create callback lambda
         const FResponseCallback SessionResponse = CreateLambda<T,U>(OnCompletedRequestBP, OnCompletedRequest);
