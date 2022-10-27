@@ -21,7 +21,7 @@ void ULootLockerPersistentStorageRequestHandler::GetEntirePersistentStorage(cons
 
 void ULootLockerPersistentStorageRequestHandler::GetItemFromPersistentStorage(const FString& Key, const FPersistentStorageItemResponseDelegateBP& OnCompletedRequestBP, const FPersistentStorageItemResponseDelegate& OnCompletedRequest)
 {
-    TMap<FString, FString> QueryParams;
+    TMultiMap<FString, FString> QueryParams;
 
     QueryParams.Add("key",Key);
     LLAPI<FLootLockerPersistentStorageItemResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetASingleKeyFromPersistentStorageEndpoint, {  }, QueryParams, OnCompletedRequestBP, OnCompletedRequest);
@@ -41,7 +41,7 @@ void ULootLockerPersistentStorageRequestHandler::AddItemToPersistentStorage(cons
 
 void ULootLockerPersistentStorageRequestHandler::DeleteItemFromPersistentStorage(const FString& Key, const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest)
 {
-    TMap<FString, FString> QueryParams;
+    TMultiMap<FString, FString> QueryParams;
 
     QueryParams.Add("key",Key);
     LLAPI<FLootLockerPersistentStorageItemsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteAKeyValuePairFromPersistentStorageEndpoint, {  }, QueryParams, OnCompletedRequestBP, OnCompletedRequest);
