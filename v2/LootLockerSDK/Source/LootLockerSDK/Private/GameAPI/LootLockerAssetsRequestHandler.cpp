@@ -19,7 +19,7 @@ void ULootLockerAssetsRequestHandler::GetContexts(const FContextDelegateBP& OnCo
 
 void ULootLockerAssetsRequestHandler::GetAssets(int StartFromIndex, int ItemsCount, ELootLockerAssetFilter AssetFilter, int Context, bool IncludeUGC, const FAssetsResponseDelegateBP& OnCompletedRequestBP, const FAssetsResponseDelegate& OnCompletedRequest)
 {
-    TMap<FString,FString> QueryParams;
+    TMultiMap<FString,FString> QueryParams;
     
     if (StartFromIndex != 0)
     {
@@ -31,7 +31,7 @@ void ULootLockerAssetsRequestHandler::GetAssets(int StartFromIndex, int ItemsCou
         QueryParams.Add("count",FString::FromInt(ItemsCount));
     }
     
-	const TMap<ELootLockerAssetFilter, FString> AssetFilterMap = {
+	const TMultiMap<ELootLockerAssetFilter, FString> AssetFilterMap = {
 	    {ELootLockerAssetFilter::Purchasable,		"purchasable"},
 		{ELootLockerAssetFilter::NonPurchasable,	"!purchasable"},
 		{ELootLockerAssetFilter::Rentable,			"rentable"},
@@ -62,7 +62,7 @@ void ULootLockerAssetsRequestHandler::GetAssets(int StartFromIndex, int ItemsCou
 
 void ULootLockerAssetsRequestHandler::GetAssetsByIds(const TArray<int>& AssetIds, const FAssetsResponseDelegateBP& OnCompletedRequestBP, const FAssetsResponseDelegate& OnCompletedRequest)
 {
-    TMap<FString,FString> QueryParams;
+    TMultiMap<FString,FString> QueryParams;
 
     if (AssetIds.Num() > 0)
     {
@@ -101,7 +101,7 @@ void ULootLockerAssetsRequestHandler::RemoveAssetFromFavourites(int AssetId, con
 
 void ULootLockerAssetsRequestHandler::GetUniversalAssets(const int After, const int Count, const FUniversalAssetResponseDelegateBP &OnCompletedRequestBP, const FUniversalAssetResponseDelegate &OnCompletedRequest)
 {
-    TMap<FString,FString> QueryParams;
+    TMultiMap<FString,FString> QueryParams;
     QueryParams.Add("count", FString::FromInt(Count));
     if (After >= 0)
     {

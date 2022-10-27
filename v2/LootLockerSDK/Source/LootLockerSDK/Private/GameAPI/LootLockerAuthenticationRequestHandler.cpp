@@ -7,6 +7,8 @@
 #include "Utils/LootLockerUtilities.h"
 
 ULootLockerHttpClient* ULootLockerAuthenticationRequestHandler::HttpClient = nullptr;
+const FString WHITE_LABEL_PLATFORM = FString(TEXT("white_label_login"));
+const FString GUEST_PLATFORM = FString(TEXT("guest"));
 // Sets default values for this component's properties
 ULootLockerAuthenticationRequestHandler::ULootLockerAuthenticationRequestHandler()
 {
@@ -41,6 +43,7 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelLogin(const FString &Ema
 	{
 		if (Response.success) {
 			ULootLockerPersistentDataHolder::CachedWhiteLabelToken = Response.session_token;
+			LootLockerUtilities::CurrentPlatformFString::Override(WHITE_LABEL_PLATFORM);
 		}
 		OnCompletedRequestBP.ExecuteIfBound(Response);
 		OnCompletedRequest.ExecuteIfBound(Response);
@@ -59,6 +62,7 @@ void ULootLockerAuthenticationRequestHandler::GuestLogin(const FString& playerId
 	AuthRequest.game_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.player_identifier = playerIdentifier;
+	LootLockerUtilities::CurrentPlatformFString::Override(GUEST_PLATFORM);
 	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::GuestloginEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
@@ -108,7 +112,8 @@ void ULootLockerAuthenticationRequestHandler::StartSession(const FString& Player
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.player_identifier = PlayerId;
 
-	FString Platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(config->Platform));
+	LootLockerUtilities::CurrentPlatformFString::Reset();
+	FString Platform = LootLockerUtilities::CurrentPlatformFString::Get();
 	AuthRequest.platform = Platform;
 	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartSessionEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
@@ -121,7 +126,7 @@ void ULootLockerAuthenticationRequestHandler::VerifyPlayer(const FString& SteamT
 	const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
 	AuthRequest.key = Config->LootLockerGameKey;
 
-	FString Platform = ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(Config->Platform));
+	FString Platform = LootLockerUtilities::CurrentPlatformFString::Get();
 	AuthRequest.platform = Platform;
 
 	ULootLockerPersistentDataHolder::CachedSteamToken = SteamToken;
@@ -134,6 +139,8 @@ void ULootLockerAuthenticationRequestHandler::EndSession(const FAuthDefaultRespo
 	ULootLockerPersistentDataHolder::CachedWhiteLabelEmail = "";
 	ULootLockerPersistentDataHolder::CachedWhiteLabelToken = "";
 	ULootLockerPersistentDataHolder::Token = "";
+
+	LootLockerUtilities::CurrentPlatformFString::Reset();
 	LLAPI<FLootLockerAuthenticationDefaultResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::EndSessionEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
