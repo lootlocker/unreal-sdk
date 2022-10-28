@@ -75,9 +75,12 @@ void ULootLockerManager::GetOtherPlayersXpAndLevel(FString OtherPlayerId, const 
     ULootLockerPlayerRequestHandler::GetOtherPlayersXpAndLevel(OtherPlayerId, OtherPlayerPlatform, OnGetOtherPlayersXpAndLevelRequestCompleted);
 }
 
-void ULootLockerManager::GetMultiplePlayersXp(FLootLockerMultiplePlayersXpRequest &Requests, const FPMultiplePlayersXPBP &OnGetOtherPlayerInfoRequestCompleted)
+void ULootLockerManager::GetMultiplePlayersXp(FString Platform, TArray<FString> PlayerIDs, const FPMultiplePlayersXPBP& OnGetOtherPlayerInfoRequestCompleted)
 {
-	ULootLockerPlayerRequestHandler::GetMultiplePlayersXp(Requests, OnGetOtherPlayerInfoRequestCompleted);
+    FLootLockerMultiplePlayersXpRequest request;
+    request.platform = Platform;
+    request.player_ids = PlayerIDs;
+	ULootLockerPlayerRequestHandler::GetMultiplePlayersXp(request, OnGetOtherPlayerInfoRequestCompleted);
 }
 
 void ULootLockerManager::CheckPlayerAssetActivationNotification(const FPAssetNotificationResponseBP& OnCheckPlayerAssetDeactivationNotificationRequestCompleted)

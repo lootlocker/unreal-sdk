@@ -182,7 +182,7 @@ public:
 	*  https://ref.lootlocker.com/game-api/#get-multiple-other-players-xp-and-level
 	*/
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
-     static void GetMultiplePlayersXp(FLootLockerMultiplePlayersXpRequest& Requests, const  FPMultiplePlayersXPBP& OnGetOtherPlayerInfoRequestCompleted);
+     static void GetMultiplePlayersXp(FString Platform, TArray<FString> PlayerIDs, const  FPMultiplePlayersXPBP& OnGetOtherPlayerInfoRequestCompleted);
 
     /**
     * Get assets that have been granted (given to) the player since the last time this endpoint was called.
