@@ -182,15 +182,6 @@ public:
 	static void CheckPlayerAssetActivationNotification(const FLootLockerAssetNotificationResponse& OnCompletedRequest);
 
     /**
-    * Get asset deactivations since the last time it's been checked.
-    * Do not expect both replacement_asset_id and reason to have values at the same time. They can have, but it is not required.
-    *
-    * @param OnCompletedRequest - callback to be invoked with the server response.
-    * https://docs.lootlocker.io/game-api/#player-asset-deactivation-notifications
-    */
-	static void CheckPlayerAssetDeactivationNotification(const FLootLockerAssetNotificationResponse& OnCompletedRequest);
-
-    /**
     * This endpoint will return the amount of credits the current player have on their account.
     *
     * @param OnCompletedRequest - callback to be invoked with the server response.

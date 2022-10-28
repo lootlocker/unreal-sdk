@@ -91,11 +91,6 @@ void ULootLockerSDKManager::CheckPlayerAssetActivationNotification(const FLootLo
 	ULootLockerPlayerRequestHandler::CheckPlayerAssetNotification(FPAssetNotificationResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::CheckPlayerAssetDeactivationNotification(const FLootLockerAssetNotificationResponse& OnCompletedRequest)
-{
-	ULootLockerPlayerRequestHandler::CheckPlayerAssetDeactivationNotification(FPAssetNotificationResponseBP(), OnCompletedRequest);
-}
-
 void ULootLockerSDKManager::GetCurrencyBalance(const FPBalanceResponse& onCompletedRequest)
 {
     ULootLockerPlayerRequestHandler::GetCurrencyBalance(FPBalanceResponseBP(), onCompletedRequest);
