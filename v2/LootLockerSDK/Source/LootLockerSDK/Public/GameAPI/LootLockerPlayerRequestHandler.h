@@ -158,27 +158,6 @@ struct FLootLockerPlayerNameRequest
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerPlayerXpInfo
-{
-	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString id;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int32 xp;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int32 level;
-};
-
-USTRUCT(BlueprintType)
-struct FLootLockerMultiplePlayerXpResponse : public FLootLockerResponse
-{
-	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	TArray<FLootLockerPlayerXpInfo> players;
-};
-
-
-USTRUCT(BlueprintType)
 struct FLootLockerMultiplePlayersNames
 {
 	GENERATED_BODY()
@@ -235,15 +214,6 @@ struct FLootLockerMultiplePlayersNamesResponse : public FLootLockerResponse {
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerMultiplePlayersXpRequest {
-	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString platform;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	TArray<FString> player_ids;
-};
-
-USTRUCT(BlueprintType)
 struct FLootLockerMultiplePlayerNameRequest {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -283,15 +253,11 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FPDlcResponseBP, FLootLockerDlcResponse, Value
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPNameResponseBP, FLootLockerNameResponse, Value);
 
-DECLARE_DYNAMIC_DELEGATE_OneParam(FPMultiplePlayersXPBP, FLootLockerMultiplePlayerXpResponse, Value);
-
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPMultiplePlayerNamesBP, FLootLockerMultiplePlayersNamesResponse, Value);
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPMultiplePlayersPlatformIdsBP, FLootLockerMultiplePlayersPlatformIdsResponse, Value);
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPOtherPlayersXpAndLevelBP, FLootLockerOtherPlayersXpAndLevelResponse, Value);
-
-DECLARE_DELEGATE_OneParam(FPMultiplePlayersXP, FLootLockerMultiplePlayerXpResponse);
 
 DECLARE_DELEGATE_OneParam(FLootLockerPlayerInformationResponse, FLootLockerPlayerInfoResponse);
 
@@ -326,8 +292,6 @@ public:
 	static void SubmitXp(int Points, const FPSubmitResponseBP& OnCompletedRequestBP = FPSubmitResponseBP(), const FSubmitXpResponse& OnCompletedRequest = FSubmitXpResponse());
 	static void GetOtherPlayersXpAndLevel(FString OtherPlayerId, FString OtherPlayerPlatform, const FPOtherPlayersXpAndLevelBP OnCompletedRequestBP = FPOtherPlayersXpAndLevelBP(), const
 	                               FOtherPlayersXpAndLevelResponse& OnCompletedRequest = FOtherPlayersXpAndLevelResponse());
-	static void GetMultiplePlayersXp(FLootLockerMultiplePlayersXpRequest Request, const FPMultiplePlayersXPBP& OnCompletedRequestBP =
-		                                 FPMultiplePlayersXPBP(), const FPMultiplePlayersXP& OnCompletedRequest = FPMultiplePlayersXP());
 	static void CheckPlayerAssetNotification(const FPAssetNotificationResponseBP& OnCompletedRequestBP = FPAssetNotificationResponseBP(), const FLootLockerAssetNotificationResponse& OnCompletedRequest = FLootLockerAssetNotificationResponse());
 	static void CheckPlayerAssetDeactivationNotification(const FPAssetNotificationResponseBP& OnCompletedRequestBP= FPAssetNotificationResponseBP(), const FLootLockerAssetNotificationResponse& OnCompletedRequest = FLootLockerAssetNotificationResponse());
 	static void GetCurrencyBalance(const FPBalanceResponseBP& OnCompletedRequestBP = FPBalanceResponseBP(), const FPBalanceResponse& OnCompletedRequest = FPBalanceResponse());

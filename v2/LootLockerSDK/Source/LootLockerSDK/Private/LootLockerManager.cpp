@@ -70,9 +70,9 @@ void ULootLockerManager::SubmitXP(int Points, const FPSubmitResponseBP& OnSubmit
     ULootLockerPlayerRequestHandler::SubmitXp(Points, OnSubmitXPRequestCompleted);
 }
 
-void ULootLockerManager::GetOtherPlayersXpAndLevel(FString OtherPlayerId, const  FPOtherPlayersXpAndLevelBP& OnGetOtherPlayersXpAndLevelRequestCompleted)
+void ULootLockerManager::GetOtherPlayersXpAndLevel(FString OtherPlayerId, const FPOtherPlayersXpAndLevelBP& OnGetOtherPlayersXpAndLevelRequestCompleted, FString OtherPlayerPlatform)
 {
-    ULootLockerPlayerRequestHandler::GetOtherPlayersXpAndLevel(OtherPlayerId, OnGetOtherPlayersXpAndLevelRequestCompleted);
+    ULootLockerPlayerRequestHandler::GetOtherPlayersXpAndLevel(OtherPlayerId, OtherPlayerPlatform, OnGetOtherPlayersXpAndLevelRequestCompleted);
 }
 
 void ULootLockerManager::GetMultiplePlayersXp(FLootLockerMultiplePlayersXpRequest &Requests, const FPMultiplePlayersXPBP &OnGetOtherPlayerInfoRequestCompleted)

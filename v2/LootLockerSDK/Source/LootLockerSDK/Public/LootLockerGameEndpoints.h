@@ -32,7 +32,6 @@ public:
     static FLootLockerEndPoints GetPlayerInventoryEndPoint;
     static FLootLockerEndPoints SubmitXpEndpoint;
     static FLootLockerEndPoints GetOtherPlayersXpAndLevelEndpoint;
-    static FLootLockerEndPoints GetMultipleOtherPlayersXPAndLevel;
     static FLootLockerEndPoints GetCurrencyBalance;
     static FLootLockerEndPoints CheckPlayerAssetActivationEndpoint;
     static FLootLockerEndPoints CheckPlayerAssetDeactivationEndpoint;
