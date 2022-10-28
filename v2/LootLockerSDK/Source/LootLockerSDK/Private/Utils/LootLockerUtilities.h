@@ -59,11 +59,10 @@ struct LLAPI
             {
                 FJsonObjectConverter::JsonObjectStringToUStruct<W>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
-            ULootLockerPersistentDataHolder::Token = ResponseStruct.session_token;
             if (response.ServerCallStatusCode == 200 || response.ServerCallStatusCode == 204)
             {
                 ResponseStruct.success = true;
-                if (response.session_token != "")
+                if (ResponseStruct.session_token != "")
                 {
                     ULootLockerPersistentDataHolder::Token = ResponseStruct.session_token;
                 }
