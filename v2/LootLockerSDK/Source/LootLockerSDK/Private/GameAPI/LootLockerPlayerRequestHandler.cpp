@@ -68,11 +68,6 @@ void ULootLockerPlayerRequestHandler::CheckPlayerAssetNotification(const FPAsset
 	LLAPI<FLootLockerPlayerAssetNotificationResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::CheckPlayerAssetActivationEndpoint, {  },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
-void ULootLockerPlayerRequestHandler::CheckPlayerAssetDeactivationNotification(const FPAssetNotificationResponseBP& OnCompletedRequestBP, const FLootLockerAssetNotificationResponse& OnCompletedRequest)
-{
-	LLAPI<FLootLockerPlayerAssetNotificationResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::CheckPlayerAssetDeactivationEndpoint, {  },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
-}
-
 void ULootLockerPlayerRequestHandler::InitiateDLCMigration(const FResponseCallbackBP& OnCompletedRequestBP, const FResponseCallback& OnCompletedRequest)
 {
 	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::InitiateDLCMigration, {  },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
