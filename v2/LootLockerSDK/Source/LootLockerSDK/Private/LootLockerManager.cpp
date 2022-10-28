@@ -88,11 +88,6 @@ void ULootLockerManager::CheckPlayerAssetActivationNotification(const FPAssetNot
     ULootLockerPlayerRequestHandler::CheckPlayerAssetNotification(OnCheckPlayerAssetDeactivationNotificationRequestCompleted);
 }
 
-void ULootLockerManager::CheckPlayerAssetDeactivationNotification(const FPAssetNotificationResponseBP& OnCheckPlayerAssetDeactivationNotificationRequestCompleted)
-{
-    ULootLockerPlayerRequestHandler::CheckPlayerAssetDeactivationNotification(OnCheckPlayerAssetDeactivationNotificationRequestCompleted);
-}
-
 void ULootLockerManager::GetCurrencyBalance(const FPBalanceResponseBP& OnGetCurrencyBalance)
 {
     ULootLockerPlayerRequestHandler::GetCurrencyBalance(OnGetCurrencyBalance);
