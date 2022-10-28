@@ -172,7 +172,7 @@ public:
     *  https://ref.lootlocker.io/game-api/#get-other-players-xp-and-level
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
-     static void GetOtherPlayersXpAndLevel(FString OtherPlayerId, const FPOtherPlayersXpAndLevelBP& OnGetOtherPlayersXpAndLevelRequestCompleted);
+     static void GetOtherPlayersXpAndLevel(FString OtherPlayerId, const FPOtherPlayersXpAndLevelBP& OnGetOtherPlayersXpAndLevelRequestCompleted, FString OtherPlayerPlatform = FString(TEXT("")));
 
 
 	/**
