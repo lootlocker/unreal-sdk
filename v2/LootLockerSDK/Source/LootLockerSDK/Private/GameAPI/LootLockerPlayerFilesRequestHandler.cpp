@@ -17,7 +17,7 @@ void ULLPlayerFilesRequestHandler::UploadFile(const FLootLockerFileUploadRequest
 	AdditionalData.Add(TEXT("purpose"), *Request.purpose);
 	AdditionalData.Add(TEXT("public"), Request.isPublic ? "true" : "false");
 	
-	LLAPI<FLootLockerFileResponse>::UploadFileAPI(HttpClient, Request.file, ULootLockerGameEndpoints::FileUploadEndpoint, { },AdditionalData,OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerFileResponse>::UploadFileAPI(HttpClient, Request.file, ULootLockerGameEndpoints::FileUploadEndpoint, { },AdditionalData,OnCompleteBP, OnComplete, true);
 }
 
 void ULLPlayerFilesRequestHandler::ListFiles(const FLootLockerFileListBP &OnCompleteBP, const FLootLockerFileListDelegate &OnComplete)
