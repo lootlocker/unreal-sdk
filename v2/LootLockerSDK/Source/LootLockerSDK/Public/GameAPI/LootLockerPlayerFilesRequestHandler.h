@@ -16,6 +16,8 @@ struct FLootLockerFileUploadRequest
 	FString file;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString purpose;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	bool isPublic;
 };
 
 USTRUCT(BlueprintType)
@@ -38,6 +40,8 @@ struct FLootLockerFileResponse : public FLootLockerResponse
     FString url_expires_at;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString created_at;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	bool is_public;
 };
 
 USTRUCT(BlueprintType)
