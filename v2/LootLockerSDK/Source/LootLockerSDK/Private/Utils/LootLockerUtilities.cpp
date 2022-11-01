@@ -55,4 +55,7 @@ namespace LootLockerUtilities
         return ItemsJsonArray;
     }
 
+    const FString CurrentPlatformFString::EmptyFString = FString(TEXT(""));
+    FString CurrentPlatformFString::PlatformOverride = CurrentPlatformFString::EmptyFString;
+
 }
