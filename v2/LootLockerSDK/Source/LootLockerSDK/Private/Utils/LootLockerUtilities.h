@@ -40,8 +40,8 @@ namespace LootLockerUtilities
             PlatformOverride = EmptyFString;
         }
     private:
-        inline static const FString EmptyFString = FString(TEXT(""));
-        inline static FString PlatformOverride = EmptyFString;
+        static const FString EmptyFString;
+        static FString PlatformOverride;
     };
 }
 
