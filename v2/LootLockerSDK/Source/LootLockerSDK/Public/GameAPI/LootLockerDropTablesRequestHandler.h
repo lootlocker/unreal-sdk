@@ -15,9 +15,13 @@ USTRUCT(BlueprintType)
 struct FLootLockerComputeAndLockItem
 {
     GENERATED_BODY()
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int asset_id;
-    int  asset_variation_id;
-    int  asset_rental_option_id;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int asset_variation_id;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int asset_rental_option_id;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int id;
 };
 
@@ -25,7 +29,7 @@ USTRUCT(BlueprintType)
 struct FLootLockerComputeAndLockDropTableResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
-    bool success;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerComputeAndLockItem> items;
 };
 
@@ -33,10 +37,15 @@ USTRUCT(BlueprintType)
 struct FLootLockerPickDropsFromDropTableItem
 {
     GENERATED_BODY()
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int instance_id;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int variation_id;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int rental_option_id;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int quantity;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerAsset asset;
 };
 
@@ -44,7 +53,7 @@ USTRUCT(BlueprintType)
 struct FLootLockerPickDropsFromDropTableResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
-    bool success;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray <FLootLockerPickDropsFromDropTableItem> items;
 };
 
@@ -53,6 +62,7 @@ USTRUCT(BlueprintType)
 struct FLootLockerPickDropsFromDropTableRequest
 {
     GENERATED_BODY()
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<int> picks;
 };
 
