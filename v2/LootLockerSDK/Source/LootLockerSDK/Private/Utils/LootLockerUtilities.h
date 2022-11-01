@@ -111,8 +111,7 @@ struct LLAPI
     }
 
     template<typename T , typename U>
-    static void UploadFileAPI(ULootLockerHttpClient* HttpClient, FString File, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMap<FString, FString> AdditionalData, const T& OnCompletedRequestBP, const U& OnCompletedRequest)
-    static void UploadFileAPI(ULootLockerHttpClient* HttpClient,FString File, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMap<FString, FString> AdditionalData,  const T& OnCompletedRequestBP, const U& OnCompletedRequest, bool returnPublicFileInformation = false)
+    static void UploadFileAPI(ULootLockerHttpClient* HttpClient,FString File, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMap<FString, FString> AdditionalData,  const T& OnCompletedRequestBP, const U& OnCompletedRequest)
     {
         // create callback lambda
         const FResponseCallback SessionResponse = CreateLambda<T,U>(OnCompletedRequestBP, OnCompletedRequest);
@@ -126,7 +125,6 @@ struct LLAPI
         UE_LOG(LogTemp, Warning, TEXT("EndpointWithArguments:%s"), *EndpointWithArguments);
         // send request
         HttpClient->UploadFile(Endpoint.endpoint, RequestMethod, File, AdditionalData, SessionResponse, true);
-        HttpClient->UploadFile(Endpoint.endpoint, RequestMethod, File, AdditionalData, SessionResponse, true, returnPublicFileInformation);
     }
 
     template<typename T , typename U>

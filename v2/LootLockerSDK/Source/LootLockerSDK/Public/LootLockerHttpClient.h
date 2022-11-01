@@ -22,7 +22,6 @@ public:
     ULootLockerHttpClient();
     void SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, bool useHeader = false, bool useAdmin = false, bool useDomainKey = false, bool useDevHeaders = false);
     void UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString> AdditionalFields, const FResponseCallback& onCompleteRequest, bool useHeader = false, bool useAdmin = false);
-    void UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString> AdditionalFields, const FResponseCallback& onCompleteRequest, bool useHeader = false, bool useAdmin = false, bool returnPublicFileInformation = false);
 public:
     bool ResponseIsValid(const FHttpResponsePtr& InResponse, bool bWasSuccessful);
 };

@@ -25,7 +25,6 @@ struct FLootLockerFileResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
     public:
-    bool success;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 id;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")

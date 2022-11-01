@@ -16,7 +16,20 @@ void ULLPlayerFilesRequestHandler::UploadFile(const FLootLockerFileUploadRequest
 	TMap<FString, FString> AdditionalData;
 	AdditionalData.Add(TEXT("purpose"), *Request.purpose);
 	AdditionalData.Add(TEXT("public"), Request.isPublic ? "true" : "false");
-	
+
+	FLootLockerUploadFileDelegate::CreateLambda([OnComplete, OnCompleteBP](FLootLockerFileResponse Response)
+	{
+		if(Response.success)
+		{
+			// Add "public" to is_public field manually if it exists
+			TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
+			TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(Response.FullTextFromServer);
+			FJsonSerializer::Deserialize(JsonReader, JsonObject);
+			Response.is_public = JsonObject->GetBoolField("public");
+		}
+	    OnCompleteBP.ExecuteIfBound(Response);
+		OnComplete.ExecuteIfBound(Response);
+	});
 	LLAPI<FLootLockerFileResponse>::UploadFileAPI(HttpClient, Request.file, ULootLockerGameEndpoints::FileUploadEndpoint, { },AdditionalData,OnCompleteBP, OnComplete, true);
 }
 

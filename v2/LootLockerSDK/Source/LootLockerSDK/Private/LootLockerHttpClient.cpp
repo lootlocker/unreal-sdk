@@ -107,7 +107,7 @@ bool ULootLockerHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, 
 	}
 }
 
-void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString> AdditionalFields, const FResponseCallback& onCompleteRequest, bool useHeader, bool useAdmin, bool returnPublicFileInformation)
+void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString> AdditionalFields, const FResponseCallback& onCompleteRequest, bool useHeader, bool useAdmin)
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
 
@@ -178,48 +178,21 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
 
 	Request->SetContent(Data);
 
-	if (returnPublicFileInformation)
-	{
-		Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
-			{
-				FLootLockerFileResponse response;
+	Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
+		{
+			FLootLockerResponse response;
 
-				// Add "public" to is_public field manually if it exists
-				TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
-				TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(Response->GetContentAsString());
-				FJsonSerializer::Deserialize(JsonReader, JsonObject);
-				response.is_public = JsonObject->GetBoolField("public");
+			response.FullTextFromServer = Response->GetContentAsString();
+			response.ServerCallStatusCode = Response->GetResponseCode();
+			response.ServerError = Response->GetContentAsString();
 
-				response.FullTextFromServer = Response->GetContentAsString();
-				response.ServerCallStatusCode = Response->GetResponseCode();
-				response.ServerError = Response->GetContentAsString();
+            const bool success = ResponseIsValid(Response, bWasSuccessful);
 
-				bool success = ResponseIsValid(Response, bWasSuccessful);
+			response.success = success;
+			response.ServerCallHasError = !success;
 
-				response.success = success;
-				response.ServerCallHasError = !success;
+			onCompleteRequest.ExecuteIfBound(response);
 
-				onCompleteRequest.ExecuteIfBound(response);
-			});
-	}
-	else
-	{
-		Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
-			{
-				FLootLockerResponse response;
-
-				response.FullTextFromServer = Response->GetContentAsString();
-				response.ServerCallStatusCode = Response->GetResponseCode();
-				response.ServerError = Response->GetContentAsString();
-
-				bool success = ResponseIsValid(Response, bWasSuccessful);
-
-				response.success = success;
-				response.ServerCallHasError = !success;
-
-				onCompleteRequest.ExecuteIfBound(response);
-
-			});
-	}
+		});
 	Request->ProcessRequest();
 }
