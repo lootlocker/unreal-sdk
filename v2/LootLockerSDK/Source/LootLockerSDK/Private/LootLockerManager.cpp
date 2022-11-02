@@ -45,9 +45,9 @@ void ULootLockerManager::GuestLogin(const FString& playerIdentifier, const FAuth
 	ULootLockerAuthenticationRequestHandler::GuestLogin(playerIdentifier, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::VerifyPlayer(const FString& SteamSessionTicket, const FAuthDefaultResponseBP& OnVerifyPlayerRequestCompleted)
+void ULootLockerManager::VerifyPlayer(const FString& PlatformToken, const FAuthDefaultResponseBP& OnVerifyPlayerRequestCompleted, const FString Platform /*= FString()*/)
 {
-    ULootLockerAuthenticationRequestHandler::VerifyPlayer(SteamSessionTicket, OnVerifyPlayerRequestCompleted);
+    ULootLockerAuthenticationRequestHandler::VerifyPlayer(PlatformToken, Platform, OnVerifyPlayerRequestCompleted);
 }
 
 void ULootLockerManager::EndSession(const  FAuthDefaultResponseBP& OnEndSessionRequestCompleted)
