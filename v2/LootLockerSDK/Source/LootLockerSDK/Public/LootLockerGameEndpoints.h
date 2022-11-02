@@ -26,6 +26,7 @@ public:
 	static FLootLockerEndPoints ListFilesEndpoint;
 	static FLootLockerEndPoints GetSingleFileEndpoint;
 	static FLootLockerEndPoints DeleteFileEndpoint;
+    static FLootLockerEndPoints ListOtherPlayersFilesEndpoint;
 
     //Player
     static FLootLockerEndPoints GetPlayerInfoEndPoint;
