@@ -600,10 +600,11 @@ public:
     * Get all key/value pairs for an asset instance.
     *
     * @param AssetInstanceId - asset instance ID.
+    * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://ref.lootlocker.io/game-api/#getting-all-key-value-pairs
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
-    static void GetAllKeyValuePairsForAssetInstance(const  FAssetInstanceStorageItemsResponseDelegateBP& OnGetAllKeyValuePairsForAssetInstanceCompleted);
+    static void GetAllKeyValuePairsForAssetInstance(int AssetInstanceId, const  FAssetInstanceStorageItemsResponseDelegateBP& OnGetAllKeyValuePairsForAssetInstanceCompleted);
 
     /**
     * Get all key/value pairs for an asset instance.
@@ -622,7 +623,7 @@ public:
     * https://ref.lootlocker.io/game-api/#getting-a-key-value-pair-by-id
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
-    static void GetAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegateBP& OnGetAKeyValuePairByIdForAssetInstanceCompleted);
+    static void GetAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemResponseDelegateBP& OnGetAKeyValuePairByIdForAssetInstanceCompleted);
 
     /**
     * Create a key/value pair for an asset instance.
@@ -653,7 +654,7 @@ public:
     * https://ref.lootlocker.io/game-api/#updating-a-key-value-pair-by-id
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
-    static void UpdateAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FLootLockerAssetInstanceStorageItem Item, const FAssetInstanceStorageItemsResponseDelegateBP& OnUpdateAKeyValuePairByIdForAssetInstanceCompleted);
+    static void UpdateAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FLootLockerAssetInstanceStorageItem Item, const FAssetInstanceStorageItemResponseDelegateBP& OnUpdateAKeyValuePairByIdForAssetInstanceCompleted);
 
     /**
     * Delete a key/value pair for an asset instance.

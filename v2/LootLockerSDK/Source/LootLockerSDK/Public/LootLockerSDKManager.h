@@ -556,10 +556,11 @@ public:
     /**
     * Get all key/value pairs for an asset instance.
     *
+    * @param AssetInstanceId - asset instance ID.
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#getting-all-key-value-pairs-to-an-instance
     */
-    static void GetAllKeyValuePairsForAssetInstance(const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+    static void GetAllKeyValuePairsForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
 
     /**
     * Get all key/value pairs for an asset instance.
@@ -578,7 +579,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://docs.lootlocker.io/game-api/#getting-a-key-value-pair-by-id
     */
-    static void GetAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+    static void GetAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemResponseDelegate& OnCompletedRequest);
 
     /**
     * Create a key/value pair for an asset instance.
@@ -610,7 +611,7 @@ public:
     * @param OnCompletedRequest - callback to be invoked with the server response.
     *  https://docs.lootlocker.io/game-api/#updating-a-key-value-pair-by-id
     */
-    static void UpdateAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FLootLockerAssetInstanceStorageItem Item, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+    static void UpdateAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FLootLockerAssetInstanceStorageItem Item, const FAssetInstanceStorageItemResponseDelegate& OnCompletedRequest);
 
     /**
     * Delete a key/value pair for an asset instance.

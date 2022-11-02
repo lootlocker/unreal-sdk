@@ -52,7 +52,7 @@ void FTestLootLockerAssetInstances::Define()
 			{
 				const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerAssetInstanceStorageItemsResponse,FAssetInstanceStorageItemsResponseDelegate>();
 		
-				ULootLockerSDKManager::GetAllKeyValuePairsForAssetInstance(Delegate);
+				ULootLockerSDKManager::GetAllKeyValuePairsForAssetInstance(1, Delegate);
 
 				const auto Response = Promise ->get_future().get();
 				TestTrue("GetAllKeyValuePairsForAssetInstance success", Response.success);
@@ -61,7 +61,7 @@ void FTestLootLockerAssetInstances::Define()
 
 			
 			{
-				const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerAssetInstanceStorageItemsResponse,FAssetInstanceStorageItemsResponseDelegate>();
+				const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerAssetInstanceStorageItemResponse,FAssetInstanceStorageItemResponseDelegate>();
 		
 				ULootLockerSDKManager::GetAKeyValuePairByIdForAssetInstance(1,1,Delegate);
 
@@ -71,7 +71,7 @@ void FTestLootLockerAssetInstances::Define()
 			}
 			
 			{
-				const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerAssetInstanceStorageItemsResponse,FAssetInstanceStorageItemsResponseDelegate>();
+				const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerAssetInstanceStorageItemResponse,FAssetInstanceStorageItemResponseDelegate>();
 
 				FLootLockerAssetInstanceStorageItem Item;
 				//TODO: fill in item
