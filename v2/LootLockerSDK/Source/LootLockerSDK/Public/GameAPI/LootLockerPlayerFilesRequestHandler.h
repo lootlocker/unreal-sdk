@@ -67,6 +67,7 @@ public:
     static ULootLockerHttpClient* HttpClient;
     static void UploadFile(const FLootLockerFileUploadRequest& Request, const FLootLockerUploadFileBP& OnCompleteBP = FLootLockerUploadFileBP(), const FLootLockerUploadFileDelegate& OnComplete = FLootLockerUploadFileDelegate());
 	static void ListFiles(const FLootLockerFileListBP& OnCompleteBP, const FLootLockerFileListDelegate& OnComplete);
+	static void ListOtherPlayersPublicFiles(const int32 PlayerID, const FLootLockerFileListBP& OnCompleteBP = FLootLockerFileListBP(), const FLootLockerFileListDelegate& OnComplete = FLootLockerFileListDelegate());
 	static void GetSingleFile(const int32 FileID, const FLootLockerUploadFileBP& OnCompleteBP = FLootLockerUploadFileBP(), const FLootLockerUploadFileDelegate& OnComplete = FLootLockerUploadFileDelegate());
 	static void DeletePlayerFile(const int32 FileID, const FLootLockerFileDeletedBP& OnCompleteBP = FLootLockerFileDeletedBP(), const FLootLockerFileDeletedDelegate& OnComplete = FLootLockerFileDeletedDelegate());
 };

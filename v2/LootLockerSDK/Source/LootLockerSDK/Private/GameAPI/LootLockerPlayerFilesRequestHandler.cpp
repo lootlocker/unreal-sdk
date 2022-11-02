@@ -24,6 +24,11 @@ void ULLPlayerFilesRequestHandler::ListFiles(const FLootLockerFileListBP &OnComp
 	LLAPI<FLootLockerFileListResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ListFilesEndpoint, { },EmptyQueryParams,OnCompleteBP, OnComplete);
 }
 
+void ULLPlayerFilesRequestHandler::ListOtherPlayersPublicFiles(const int32 PlayerID, const FLootLockerFileListBP& OnCompleteBP, const FLootLockerFileListDelegate& OnComplete)
+{
+	LLAPI<FLootLockerFileListResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ListOtherPlayersFilesEndpoint, { PlayerID }, EmptyQueryParams, OnCompleteBP, OnComplete);
+}
+
 void ULLPlayerFilesRequestHandler::GetSingleFile(const int32 FileID, const FLootLockerUploadFileBP &OnCompleteBP, const FLootLockerUploadFileDelegate &OnComplete)
 {
 	LLAPI<FLootLockerFileResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetSingleFileEndpoint, {FileID },EmptyQueryParams,OnCompleteBP, OnComplete);

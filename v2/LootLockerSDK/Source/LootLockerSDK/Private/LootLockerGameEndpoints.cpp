@@ -23,6 +23,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::FileUploadEndpoint = InitEndpoint
 FLootLockerEndPoints ULootLockerGameEndpoints::ListFilesEndpoint = InitEndpoint("player/files", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetSingleFileEndpoint = InitEndpoint("player/files/{0}", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::DeleteFileEndpoint = InitEndpoint("player/files/{0}", ELootLockerHTTPMethod::DEL);
+FLootLockerEndPoints ULootLockerGameEndpoints::ListOtherPlayersFilesEndpoint = InitEndpoint("player/{0}/files", ELootLockerHTTPMethod::GET);
 //Player
 FLootLockerEndPoints ULootLockerGameEndpoints::GetPlayerInfoEndPoint = InitEndpoint("v1/player/info", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetPlayerInventoryEndPoint = InitEndpoint("v1/player/inventory/list", ELootLockerHTTPMethod::GET);

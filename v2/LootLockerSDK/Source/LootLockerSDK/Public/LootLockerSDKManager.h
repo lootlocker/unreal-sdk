@@ -264,6 +264,7 @@ public:
     //==================================================
     static void UploadFile(const FLootLockerFileUploadRequest& Request, const FLootLockerUploadFileDelegate& OnComplete);
     static void ListFiles(const FLootLockerFileListDelegate& OnComplete);
+    static void ListOtherPlayersPublicFiles(const int32 PlayerID, const FLootLockerFileListDelegate& OnComplete);
     static void GetSingleFile(const int32 FileID, const FLootLockerUploadFileDelegate& OnComplete);
     static void DeletePlayerFile(const int32 FileID, const FLootLockerFileDeletedDelegate& OnComplete);
 
