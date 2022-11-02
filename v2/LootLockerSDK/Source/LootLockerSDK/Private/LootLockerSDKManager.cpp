@@ -132,6 +132,11 @@ void ULootLockerSDKManager::ListFiles(const FLootLockerFileListDelegate &OnCompl
 	ULLPlayerFilesRequestHandler::ListFiles(FLootLockerFileListBP(), OnComplete);
 }
 
+void ULootLockerSDKManager::ListOtherPlayersPublicFiles(const int32 PlayerID, const FLootLockerFileListDelegate& OnComplete)
+{
+    ULLPlayerFilesRequestHandler::ListOtherPlayersPublicFiles(PlayerID, FLootLockerFileListBP(), OnComplete);
+}
+
 void ULootLockerSDKManager::GetSingleFile(const int32 FileID, const FLootLockerUploadFileDelegate &OnComplete)
 {
 	ULLPlayerFilesRequestHandler::GetSingleFile(FileID, FLootLockerUploadFileBP(), OnComplete);
