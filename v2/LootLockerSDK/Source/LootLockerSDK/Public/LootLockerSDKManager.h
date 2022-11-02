@@ -388,11 +388,12 @@ public:
     /**
     * This method will return the exact same response as the GetCharacterLoadout, except that it will be for another player.
     *
-    * @param OtherPlayerId - other player's ID.
+    * @param OtherPlayerId - other player's ID on the requested platform.
     * @param OnCompletedRequest - callback to be invoked with the server response.
+    * @param OtherPlayerPlatform - Optional: the platform the id refers to if different than the current platform
     * https://docs.lootlocker.io/game-api/#get-other-players-loadout-to-default-character
     */
-	static void GetOtherPlayersCurrentLoadoutToDefaultCharacter(FString OtherPlayerId, const FCharacterLoadoutResponse& OnCompletedRequest);
+	static void GetOtherPlayersCurrentLoadoutToDefaultCharacter(FString OtherPlayerId, const FCharacterLoadoutResponse& OnCompletedRequest, const FString& OtherPlayerPlatform = FString(TEXT("")));
 
     /**
     * Get the contexts that the player's default character can equip.
