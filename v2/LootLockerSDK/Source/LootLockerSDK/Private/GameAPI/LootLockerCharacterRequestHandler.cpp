@@ -75,9 +75,12 @@ void ULootLockerCharacterRequestHandler::GetCurrentLoadoutToDefaultCharacter(con
 	LLAPI<FLootLockerCharacterLoadoutResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetCurrentLoadoutToDefaultCharacterEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
-void ULootLockerCharacterRequestHandler::GetOtherPlayersCurrentLoadoutToDefaultCharacter(FString& OtherPlayerId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP,  const FCharacterLoadoutResponse& OnCompletedRequest)
+void ULootLockerCharacterRequestHandler::GetOtherPlayersCurrentLoadoutToDefaultCharacter(FString& OtherPlayerId, const FString& OtherPlayerPlatform, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP,  const FCharacterLoadoutResponse& OnCompletedRequest)
 {
-	LLAPI<FLootLockerCharacterLoadoutResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOtherPlayersLoadoutToDefaultCharacterEndpoint, { OtherPlayerId },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+	const FString Platform = !OtherPlayerPlatform.IsEmpty() ? OtherPlayerPlatform : LootLockerUtilities::CurrentPlatformFString::Get();
+	TMultiMap<FString, FString> QueryParams;
+	QueryParams.Add("platform", Platform);
+	LLAPI<FLootLockerCharacterLoadoutResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOtherPlayersLoadoutToDefaultCharacterEndpoint, { OtherPlayerId },QueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerCharacterRequestHandler::GetEquipableContextsToDefaultCharacter(const FContextDelegateBP& OnCompletedRequestBP, const FContextDelegate& OnCompletedRequest)
