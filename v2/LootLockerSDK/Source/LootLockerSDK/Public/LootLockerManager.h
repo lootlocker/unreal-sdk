@@ -124,11 +124,13 @@ public:
     /**
     * If your game uses Player Verification, you need to call this endpoint before you can register a session.
     *
-    * @param SteamSessionTicket - platform-specific token.
+    * @param PlatformToken - platform-specific token.
+    * @param OnVerifyPlayerRequestCompleted - Response Delegate to handle the response
+    * @param Platform - Optional parameter to call explicitly for a specific platform
     * https://ref.lootlocker.io/game-api/#player-verification
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-    static void VerifyPlayer(const FString& SteamSessionTicket, const FAuthDefaultResponseBP& OnVerifyPlayerRequestCompleted);
+    static void VerifyPlayer(const FString& PlatformToken, const FAuthDefaultResponseBP& OnVerifyPlayerRequestCompleted, const FString Platform = FString(TEXT("")));
 
     /**
     * Terminate the session on the LootLocker servers. Any further requests with this session's token will be rejected with an 401 Unauthorized error.

@@ -118,18 +118,21 @@ void ULootLockerAuthenticationRequestHandler::StartSession(const FString& Player
 	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartSessionEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
-void ULootLockerAuthenticationRequestHandler::VerifyPlayer(const FString& SteamToken, const FAuthDefaultResponseBP& OnCompletedRequestBP, const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest )
+void ULootLockerAuthenticationRequestHandler::VerifyPlayer(const FString& PlatformToken, const FString& Platform, const FAuthDefaultResponseBP& OnCompletedRequestBP, const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest)
 {
 	FLootLockerVerificationRequest AuthRequest;
-	AuthRequest.token = SteamToken;
+	AuthRequest.token = PlatformToken;
 
 	const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
 	AuthRequest.key = Config->LootLockerGameKey;
 
-	FString Platform = LootLockerUtilities::CurrentPlatformFString::Get();
-	AuthRequest.platform = Platform;
+	FString RequestPlatform = Platform.IsEmpty() ? LootLockerUtilities::CurrentPlatformFString::Get() : Platform;
+	AuthRequest.platform = RequestPlatform;
 
-	ULootLockerPersistentDataHolder::CachedSteamToken = SteamToken;
+	if(RequestPlatform.Compare(ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(ELootLockerPlatformType::Steam))))
+	{
+		ULootLockerPersistentDataHolder::CachedSteamToken = PlatformToken;
+	}
 
 	LLAPI<FLootLockerAuthenticationDefaultResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::VerifyPlayerIdEndPoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
