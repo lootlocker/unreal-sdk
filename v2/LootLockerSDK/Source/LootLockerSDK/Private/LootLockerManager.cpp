@@ -146,6 +146,11 @@ void ULootLockerManager::ListFiles(const FLootLockerFileListBP &OnComplete)
 	ULLPlayerFilesRequestHandler::ListFiles(OnComplete, FLootLockerFileListDelegate());
 }
 
+void ULootLockerManager::ListOtherPlayersPublicFiles(const int32 PlayerID, const FLootLockerFileListBP& OnCompleteBP)
+{
+    ULLPlayerFilesRequestHandler::ListOtherPlayersPublicFiles(PlayerID, OnCompleteBP);
+}
+
 void ULootLockerManager::GetSingleFile(const int32 FileID, const FLootLockerUploadFileBP &OnComplete)
 {
 	ULLPlayerFilesRequestHandler::GetSingleFile(FileID, OnComplete, FLootLockerUploadFileDelegate());

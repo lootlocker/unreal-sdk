@@ -286,6 +286,8 @@ public:
 	static void UploadFile(const FLootLockerFileUploadRequest& Request, const FLootLockerUploadFileBP& OnComplete);
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files")
 	static void ListFiles(const FLootLockerFileListBP& OnComplete);
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files")
+    static void ListOtherPlayersPublicFiles(const int32 PlayerID, const FLootLockerFileListBP& OnCompleteBP);
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files")
 	static void GetSingleFile(const int32 FileID, const FLootLockerUploadFileBP& OnComplete);
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files")
