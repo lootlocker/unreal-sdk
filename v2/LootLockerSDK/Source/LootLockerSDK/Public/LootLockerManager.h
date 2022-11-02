@@ -428,12 +428,13 @@ public:
     /**
     * This method will return the exact same response as the GetCharacterLoadout, except that it will be for another player.
     *
-    * @param OtherPlayerId - other player's ID.
+    * @param OtherPlayerId - other player's ID on the requested platform.
+    * @param OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted - callback to be invoked with the server response.
+    * @param OtherPlayerPlatform - Optional: the platform the id refers to if different than the current platform
     * https://ref.lootlocker.io/game-api/#get-other-players-loadout-to-default-character
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
-    static void GetOtherPlayersCurrentLoadoutToDefaultCharacter(FString OtherPlayerId, const FPCharacterLoadoutResponseBP&
-                                                                OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted);
+    static void GetOtherPlayersCurrentLoadoutToDefaultCharacter(FString OtherPlayerId, const FPCharacterLoadoutResponseBP& OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted, const FString& OtherPlayerPlatform = FString(TEXT("")));
 
     /**
     *
