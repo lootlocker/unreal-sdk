@@ -158,8 +158,7 @@ public:
 		                                        FPCharacterDefaultResponseBP(), const FLootLockerCharacterDefaultResponse& OnCompletedRequest =
 		                                        FLootLockerCharacterDefaultResponse());
 	static void GetCurrentLoadoutToDefaultCharacter(const FPCharacterLoadoutResponseBP& OnCompletedRequestBP = FPCharacterLoadoutResponseBP(), const FCharacterLoadoutResponse& OnCompletedRequest = FCharacterLoadoutResponse());
-	static void GetOtherPlayersCurrentLoadoutToDefaultCharacter(FString& OtherPlayerId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP = FPCharacterLoadoutResponseBP(), const
-	                                                            FCharacterLoadoutResponse& OnCompletedRequest = FCharacterLoadoutResponse());
+	static void GetOtherPlayersCurrentLoadoutToDefaultCharacter(FString& OtherPlayerId, const FString& OtherPlayerPlatform, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP = FPCharacterLoadoutResponseBP(), const FCharacterLoadoutResponse& OnCompletedRequest = FCharacterLoadoutResponse());
 	static void GetEquipableContextsToDefaultCharacter(const FContextDelegateBP& OnCompletedRequestBP = FContextDelegateBP(), const FContextDelegate& OnCompletedRequest = FContextDelegate());
 	static void GetEquipableContextsByCharacterId(int OtherCharacterId, const FContextDelegateBP& OnCompletedRequestBP = FContextDelegateBP(), const FContextDelegate&
 		                                              OnCompletedRequest = FContextDelegate());
