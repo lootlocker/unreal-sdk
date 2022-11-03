@@ -503,6 +503,11 @@ void ULootLockerSDKManager::ActivateRentalAsset(int AssetId, const FActivateRent
     ULootLockerPurchasesRequestHandler::ActivateRentalAsset(AssetId, FActivateRentalAssetResponseDelegateBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::GetOrderDetails(int32 OrderId, const bool noProducts, const FOrderStatusDetailsDelegate& OnCompletedRequest)
+{
+    ULootLockerPurchasesRequestHandler::GetOrderDetails(OrderId, noProducts, FOrderStatusDetailsBP(), OnCompletedRequest);
+}
+
 //Trigger
 void ULootLockerSDKManager::TriggerEvent(const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegate& OnCompletedRequest)
 {
