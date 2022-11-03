@@ -4,6 +4,8 @@
 
 #include <concrt.h>
 
+#include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
+
 void ULootLockerManager::StartSession(const FString& playerIdentifier, const FAuthResponseBP& OnStartedSessionRequestCompleted)
 {
     ULootLockerAuthenticationRequestHandler::StartSession(playerIdentifier, OnStartedSessionRequestCompleted);
@@ -591,4 +593,8 @@ void ULootLockerManager::PickDropsFromDropTable(TArray<int> picks, int TableId, 
     ULootLockerDropTablesRequestHandler::PickDropsFromDropTable(request,TableId, OnCompletedRequestBP);
 }
 
-
+// Miscellaneous
+void ULootLockerManager::GetServerTime(const FTimeResponseDelegateBP& OnCompletedRequestBP)
+{
+    ULootLockerMiscellaneousRequestHandler::GetServerTime(OnCompletedRequestBP);
+}
