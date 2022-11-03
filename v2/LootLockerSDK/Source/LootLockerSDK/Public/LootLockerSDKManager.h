@@ -977,7 +977,7 @@ public:
 	//==================================================
 
 	/**
-	* Get Server Time
+	* Get the current time of the server. Can also be used to ping the server
 	*
 	* @param OnCompletedRequest - callback to be invoked with the server response.
 	* https://ref.lootlocker.com/game-api/#server-time
