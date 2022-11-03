@@ -84,8 +84,9 @@ void ULootLockerPurchasesRequestHandler::ActivateRentalAsset(int AssetId, const 
     LLAPI<FLootLockerActivateRentalAssetResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ActivateRentalAssetEndpoint, { AssetId },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
-// TODO noProductes ?
-void ULootLockerPurchasesRequestHandler::GetOrderDetails(int32 OrderId, const bool noProductes, const FOrderStatusDetailsBP &OnCompleteBP, const FOrderStatusDetailsDelegate &OnComplete)
+void ULootLockerPurchasesRequestHandler::GetOrderDetails(int32 OrderId, const bool noProducts, const FOrderStatusDetailsBP &OnCompleteBP, const FOrderStatusDetailsDelegate &OnComplete)
 {
-    LLAPI<FLootLockerOrderDetailsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOrderDetailsEndpoint, { OrderId },EmptyQueryParams,OnCompleteBP, OnComplete);
+    TMultiMap<FString, FString> QueryParams;
+    QueryParams.Add(TEXT("no_products"), noProducts ? TEXT("true") : TEXT("false"));
+    LLAPI<FLootLockerOrderDetailsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOrderDetailsEndpoint, { OrderId },QueryParams,OnCompleteBP, OnComplete);
 }

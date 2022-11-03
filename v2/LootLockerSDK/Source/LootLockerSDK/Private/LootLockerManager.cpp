@@ -495,9 +495,9 @@ void ULootLockerManager::ActivateRentalAsset(int AssetId, const FActivateRentalA
     ULootLockerPurchasesRequestHandler::ActivateRentalAsset(AssetId, OnActivateRentalAssetCompleted);
 }
 
-void ULootLockerManager::GetOrderDetails(int32 OrderId, const bool noProductes, const FOrderStatusDetailsBP &OnCompleteBP)
+void ULootLockerManager::GetOrderDetails(int32 OrderId, const bool noProducts, const FOrderStatusDetailsBP &OnCompleteBP)
 {
-	ULootLockerPurchasesRequestHandler::GetOrderDetails(OrderId, noProductes, OnCompleteBP, FOrderStatusDetailsDelegate());
+	ULootLockerPurchasesRequestHandler::GetOrderDetails(OrderId, noProducts, OnCompleteBP, FOrderStatusDetailsDelegate());
 }
 
 void ULootLockerManager::TriggerEvent(const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegateBP& OnTriggerEventCompleted)
