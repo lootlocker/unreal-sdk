@@ -23,6 +23,7 @@
 #include "GameAPI/LootLockerLeaderboardRequestHandler.h"
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
 #include "GameAPI/LootLockerHeroRequestHandler.h"
+#include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
 #include "GameAPI/LootLockerPlayerFilesRequestHandler.h"
 
 #include "LootLockerManager.generated.h"
@@ -997,26 +998,30 @@ public:
     //Drop Table
     //==================================================
     /**
-    * Collecting an Item is done by calling this endpoint with a payload equal to the slug of the Item.
-    * The slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
-    * @param LeaderboardId - the id of the leaderboard you need to connect to.
-    * @param MemberId - the id of player in the leaderboard.
-    * @param Score - the score to be submitted.
     *
     * https://ref.lootlocker.io/game-api/#compute-and-lock-drop-table
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | DropTable")
     static void ComputeAndLockDropTable(int TableId, const FLootLockerComputeAndLockDropTableResponseBP& OnCompletedRequestBP);
 
-     /**
-    * Collecting an Item is done by calling this endpoint with a payload equal to the slug of the Item.
-    * The slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
-    * @param LeaderboardId - the id of the leaderboard you need to connect to.
-    * @param MemberId - the id of player in the leaderboard.
-    * @param Score - the score to be submitted.
+    /**
+    * 
     *
     * https://ref.lootlocker.io/game-api/#pick-drops-from-drop-table
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | DropTable")
     static void PickDropsFromDropTable(TArray<int> picks, int TableId, const FFLootLockerPickDropsFromDropTableResponseBP& OnCompletedRequestBP);
+
+    //==================================================
+    // Miscellaneous
+    //==================================================
+
+    /**
+    * Get the current time of the server. Can also be used to ping the server
+    *
+    * @param OnCompletedRequestBP - callback to be invoked with the server response.
+    * https://ref.lootlocker.com/game-api/#server-time
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous")
+    static void GetServerTime(const FTimeResponseDelegateBP& OnCompletedRequestBP);
 };
