@@ -125,7 +125,7 @@ struct LLAPI
         UE_LOG(LogTemp, Warning, TEXT("Request:"));
         UE_LOG(LogTemp, Warning, TEXT("EndpointWithArguments:%s"), *EndpointWithArguments);
         // send request
-        HttpClient->UploadFile(Endpoint.endpoint, RequestMethod, File, AdditionalData, SessionResponse, true);
+        HttpClient->UploadFile(EndpointWithArguments, RequestMethod, File, AdditionalData, SessionResponse, true);
     }
 
     template<typename T , typename U>
