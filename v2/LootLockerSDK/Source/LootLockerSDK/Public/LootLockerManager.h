@@ -867,7 +867,7 @@ public:
     static void ActivateRentalAsset(int AssetId, const FActivateRentalAssetResponseDelegateBP& OnActivateRentalAssetCompleted);
 
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
-    static void GetOrderDetails(int32 OrderId, const bool noProductes, const FOrderStatusDetailsBP& OnCompleteBP);
+    static void GetOrderDetails(int32 OrderId, const bool noProducts, const FOrderStatusDetailsBP& OnCompleteBP);
 
     //==================================================
     //Trigger Events

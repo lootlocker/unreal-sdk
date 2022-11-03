@@ -820,6 +820,8 @@ public:
     */
     static void ActivateRentalAsset(int AssetId, const FActivateRentalAssetResponseDelegate& OnCompletedRequest);
 
+    static void GetOrderDetails(int32 OrderId, const bool noProducts, const FOrderStatusDetailsDelegate& OnCompletedRequest);
+
     //==================================================
     //Trigger Events
     //==================================================
