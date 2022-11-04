@@ -50,7 +50,7 @@ namespace LootLockerUtilities
         {
             TSharedPtr<FJsonObject> JsonCheckPoint = FJsonObjectConverter::UStructToJsonObject(Checkpoints[i]);
             JsonCheckPoint->RemoveField("parameters");
-            for (auto KeyValuePair : Checkpoints[i].parameters) {
+            for (auto& KeyValuePair : Checkpoints[i].parameters) {
                 JsonCheckPoint->SetStringField(KeyValuePair.Key, KeyValuePair.Value);
             }
             
