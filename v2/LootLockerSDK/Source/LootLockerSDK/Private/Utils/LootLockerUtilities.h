@@ -95,7 +95,7 @@ struct LLAPI
         // calculate endpoint
         FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, InOrderedArguments);
 
-        if (!QueryParams.Num() == 0)
+        if (QueryParams.Num() != 0)
         {
             FString Delimiter = "?";
             for (const TPair<FString, FString>& Pair : QueryParams)
@@ -138,7 +138,7 @@ struct LLAPI
         // calculate endpoint
         FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, InOrderedArguments);
 
-        if (!QueryParams.Num() == 0)
+        if (QueryParams.Num() != 0)
         {
             FString Delimiter = "?";
             for (const TPair<FString, FString>& Pair : QueryParams)
