@@ -52,6 +52,14 @@ public:
      */
     static void StartNintendoSwitchSession(const FString& NSAIdToken, const FLootLockerSessionResponse& OnCompletedRequest);
 
+    /**
+     * Create a new session for a Xbox One user
+     * The Xbox One platform must be enabled in the web console for this to work.
+     * @param XboxUserToken - Xbox user token as a string
+     * @param OnCompletedRequest - callback to be invoked with the server response.
+     */
+    static void StartXboxSession(const FString& XboxUserToken, const FLootLockerSessionResponse& OnCompletedRequest);
+
     static void GuestLogin(const FString& playerIdentifier, const FLootLockerSessionResponse& OnCompletedRequest);
 
     /**
