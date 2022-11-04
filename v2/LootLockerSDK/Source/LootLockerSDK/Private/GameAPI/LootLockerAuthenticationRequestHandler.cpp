@@ -118,6 +118,18 @@ void ULootLockerAuthenticationRequestHandler::StartSession(const FString& Player
 	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartSessionEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
+void ULootLockerAuthenticationRequestHandler::StartNintendoSwitchSession(const FString& NSAIdToken, const FAuthResponseBP& OnCompletedRequestBP, const FLootLockerSessionResponse& OnCompletedRequest)
+{
+	FLootLockerNintendoSwitchSessionRequest AuthRequest;
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+	AuthRequest.development_mode = config->OnDevelopmentMode;
+	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_version = config->GameVersion;
+	AuthRequest.nsa_id_token = NSAIdToken;
+
+	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartNintendoSwitchSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+}
+
 void ULootLockerAuthenticationRequestHandler::VerifyPlayer(const FString& PlatformToken, const FString& Platform, const FAuthDefaultResponseBP& OnCompletedRequestBP, const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest)
 {
 	FLootLockerVerificationRequest AuthRequest;
