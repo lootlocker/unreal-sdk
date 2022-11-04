@@ -13,6 +13,7 @@ public:
     //Auth
     static FLootLockerEndPoints StartSessionEndpoint;
     static FLootLockerEndPoints StartNintendoSwitchSessionEndpoint;
+    static FLootLockerEndPoints StartXboxSessionEndpoint;
     static FLootLockerEndPoints VerifyPlayerIdEndPoint;
     static FLootLockerEndPoints EndSessionEndpoint;
     static FLootLockerEndPoints GuestloginEndpoint;

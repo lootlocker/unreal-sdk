@@ -54,7 +54,14 @@ public:
      * @param NSAIdToken - NSA (Nintendo Switch Account) id token as a string
      * https://ref.lootlocker.com/game-api/#nintendo-switch
      */
-    static void StartNintendoSwitchSession(const FString& NSAIdToken, const FAuthResponseBP& OnStartedNintendoSwitchRequestCompleted);
+    static void StartNintendoSwitchSession(const FString& NSAIdToken, const FAuthResponseBP& OnStartedNintendoSwitchSessionRequestCompleted);
+
+    /**
+     * Create a new session for a Xbox One user
+     * The Xbox One platform must be enabled in the web console for this to work.
+     * @param XboxUserToken - Xbox user token as a string
+     */
+    static void StartXboxSession(const FString& XboxUserToken, const FAuthResponseBP& OnStartedXboxSessionCompleted);
 
     /**
      * Create new user using the White Label login system.
