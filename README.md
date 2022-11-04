@@ -1,7 +1,7 @@
 <h1 align="center">LootLocker Unreal SDK</h1>
 
 <h1 align="center">
-  <a href="https://www.lootlocker.io/"><img src="https://s3.eu-west-1.amazonaws.com/cdn.lootlocker.io/public/lootLocker_wide_dark_whiteBG.png" alt="LootLocker"></a>
+  <a href="https://www.lootlocker.io/"><img src="https://s3.eu-west-1.amazonaws.com/cdn.lootlocker.io/public/lootlocker-github-bg.png" alt="LootLocker"></a>
 </h1>
 
 <p align="center">
