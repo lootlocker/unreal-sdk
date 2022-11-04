@@ -23,9 +23,9 @@ struct FLootLockerMessage {
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString category;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool alert;
+    bool alert = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool New;
+    bool New = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString action;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")

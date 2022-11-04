@@ -14,7 +14,7 @@ struct FLootLockerMissionGoalAsset
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int variation_id;
+    int variation_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerAsset assets;
 };
@@ -36,9 +36,9 @@ struct FLootLockerMissionCheckpoint
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int index;
+    int index = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int time;
+    int time = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TMap<FString, FString> parameters;
 };
@@ -48,31 +48,31 @@ struct FLootLockerMission
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int mission_id;
+    int mission_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int asset_id;
+    int asset_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int map_id;
+    int map_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int type;
+    int type = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int rounds;
+    int rounds = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString round_length;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString difficulty_name;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    float difficulty_multiplier;
+    float difficulty_multiplier = 0.0f;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString difficulty_color;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int difficulty_id;
+    int difficulty_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TMap<FString,FLootLockerMissionGoal> goals;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerMissionCheckpoint> checkpoints;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool player_access;
+    bool player_access = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString best_goal;
 };
@@ -82,9 +82,9 @@ struct FLootLockerCheckpointTime
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int index;
+    int index = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int time;
+    int time = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -138,9 +138,9 @@ struct FLootLockerFinishMissionResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int score;
+    int score = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool check_grant_notifications;
+    bool check_grant_notifications = false;
 };
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FMissionsResponseDelegateBP, FLootLockerMissionsResponse, Response);
