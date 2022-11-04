@@ -12,6 +12,7 @@ class LOOTLOCKERSDK_API ULootLockerGameEndpoints : public UObject
 public:
     //Auth
     static FLootLockerEndPoints StartSessionEndpoint;
+    static FLootLockerEndPoints StartNintendoSwitchSessionEndpoint;
     static FLootLockerEndPoints VerifyPlayerIdEndPoint;
     static FLootLockerEndPoints EndSessionEndpoint;
     static FLootLockerEndPoints GuestloginEndpoint;
