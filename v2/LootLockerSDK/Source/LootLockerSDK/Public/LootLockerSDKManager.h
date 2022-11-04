@@ -43,6 +43,15 @@ public:
      */
 	static void StartSession(const FString& PlayerIdentifier, const FLootLockerSessionResponse& OnCompletedRequest);
 
+    /**
+     * Create a new session for a Nintendo Switch user
+     * The Nintendo Switch platform must be enabled in the web console for this to work.
+     * @param NSAIdToken - NSA (Nintendo Switch Account) id token as a string
+     * @param OnCompletedRequest - callback to be invoked with the server response.
+     * https://ref.lootlocker.com/game-api/#nintendo-switch
+     */
+    static void StartNintendoSwitchSession(const FString& NSAIdToken, const FLootLockerSessionResponse& OnCompletedRequest);
+
     static void GuestLogin(const FString& playerIdentifier, const FLootLockerSessionResponse& OnCompletedRequest);
 
     /**
