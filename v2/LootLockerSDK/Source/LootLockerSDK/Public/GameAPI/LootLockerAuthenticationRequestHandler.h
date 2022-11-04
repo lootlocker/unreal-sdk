@@ -24,7 +24,7 @@ struct FLootLockerWhiteLabelLoginRequest : public FLootLockerLoginRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login")
-	bool remember;
+	bool remember = false;
 };
 
 USTRUCT(BlueprintType)
@@ -32,9 +32,9 @@ struct FLootLockerLoginResponse : public FLootLockerResponse
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login Response")
-	int32 id;
+	int32 id = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login Response")
-	int32 game_id;
+	int32 game_id = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login Response")
 	FString email;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login Response")
@@ -66,7 +66,7 @@ struct FLootLockerBaseAuthRequest
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
 	FString game_version;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	bool development_mode;
+	bool development_mode = false;
 };
 
 USTRUCT(BlueprintType)
@@ -124,7 +124,7 @@ struct FLootLockerUserIdRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int user_id;
+	int user_id = 0;
 };
 
 
@@ -133,13 +133,13 @@ struct FLootLockerLevelThresholds
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int32 current;
+	int32 current = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	bool current_is_prestige;
+	bool current_is_prestige = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int32 next;
+	int32 next = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	bool next_is_prestige;
+	bool next_is_prestige = false;
 };
 
 USTRUCT(BlueprintType)
@@ -147,21 +147,21 @@ struct FLootLockerAuthenticationResponse : public FLootLockerResponse
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int32 player_id;
+	int32 player_id = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	bool seen_before;
+	bool seen_before = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	bool check_grant_notifications;
+	bool check_grant_notifications = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	bool check_deactivation_notifications;
+	bool check_deactivation_notifications = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int32 xp;
+	int32 xp = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int32 level;
+	int32 level = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FLootLockerLevelThresholds level_thresholds;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int32 account_balance;
+	int32 account_balance = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString player_identifier;
 };
@@ -171,9 +171,9 @@ struct FLootLockerWhiteLabelVerifySessionResponse : public FLootLockerResponse
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int32 game_id;
+	int32 game_id = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int32 user_id;
+	int32 user_id = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString email;
 };

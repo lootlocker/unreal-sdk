@@ -13,37 +13,37 @@ USTRUCT(BlueprintType)
 struct FLootLockerMapCamera {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    float position;
+    float position = 0.0f;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    float rotation;
+    float rotation = 0.0f;
 };
 
 USTRUCT(BlueprintType)
 struct FLootLockerMapSpawnPoint {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int asset_id;
+    int asset_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    float position;
+    float position = 0.0f;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    float rotation;
+    float rotation = 0.0f;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerMapCamera> cameras;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool player_access;
+    bool player_access = false;
 };
 
 USTRUCT(BlueprintType)
 struct FLootLockerMap {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int map_id;
+    int map_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int asset_id;
+    int asset_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerMapSpawnPoint> spawn_points;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool player_access;
+    bool player_access = false;
 };
 
 USTRUCT(BlueprintType)

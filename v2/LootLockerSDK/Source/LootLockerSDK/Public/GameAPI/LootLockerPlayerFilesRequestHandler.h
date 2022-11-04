@@ -17,7 +17,7 @@ struct FLootLockerFileUploadRequest
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString purpose;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool bIsPublic;
+    bool bIsPublic = false;
 };
 
 USTRUCT(BlueprintType)
@@ -25,13 +25,13 @@ struct FLootLockerFileResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
     public:
-    bool success;
+    bool success = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int32 id;
+	int32 id = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString name;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 size;
+    int32 size = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString purpose;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")

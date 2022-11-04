@@ -161,7 +161,7 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
     FString FileHeader = (TEXT("Content-Type: application/octet-stream\r\n"));
     FileHeader.Append(TEXT("Content-disposition: form-data; name=\"file\"; filename=\""));
 
-    int32 LastSlashPos;
+    int32 LastSlashPos = 0;
     FilePath.FindLastChar('/', LastSlashPos);
     FString FileName = FilePath.RightChop(LastSlashPos + 1);
 

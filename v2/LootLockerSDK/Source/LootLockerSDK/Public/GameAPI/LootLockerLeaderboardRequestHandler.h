@@ -15,7 +15,7 @@ struct FLootLockerPlayer
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int id;
+    int id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString public_uid;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -29,9 +29,9 @@ struct FLootLockerGetMemberRankResponse : public FLootLockerResponse
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString member_id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int rank;
+    int rank = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int score;
+    int score = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerPlayer player;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -45,9 +45,9 @@ struct FLootLockerMember
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString member_id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int rank;
+    int rank = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int score;
+    int score = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerPlayer player;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -59,7 +59,7 @@ struct FLootLockerLeaderboard
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int leaderboard_id;
+    int leaderboard_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString leaderboard_key;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -71,9 +71,9 @@ struct FLootLockerPagination
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int total;
+    int total = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int next_cursor;
+    int next_cursor = 0;
 
 };
 USTRUCT(BlueprintType)
@@ -111,9 +111,9 @@ struct FLootLockerSubmitScoreResponse : public FLootLockerResponse
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString member_id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int rank;
+    int rank = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int score;
+    int score = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString metadata;
 };
@@ -125,7 +125,7 @@ struct FLootLockerSubmitScoreRequest
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString member_id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int score;
+    int score = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString metadata;
 };
@@ -135,9 +135,9 @@ struct FLootLockerGetMemberRankRequest
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int leaderboardId;
+    int leaderboardId = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int member_id;
+    int member_id = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -145,11 +145,11 @@ struct FLootLockerGetScoreListRequest
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int leaderboardId;
+    int leaderboardId = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int count;
+    int count = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int after;
+    int after = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -157,11 +157,11 @@ struct FLootLockerGetAllMemberRanksRequest
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int memberId;
+    int memberId = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int count;
+    int count = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int after;
+    int after = 0;
 };
 
 USTRUCT(BlueprintType)

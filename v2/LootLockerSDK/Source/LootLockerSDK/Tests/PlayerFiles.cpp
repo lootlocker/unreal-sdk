@@ -21,7 +21,7 @@ void FLootLockerTestPlayerFiles::Define()
 		{
 			test_util::StartSession();
 
-			int FileId;
+			int FileId = 0;
 			FString FileName;
 
 			FFileHelper::SaveStringToFile(TEXT("TestDataAbc123"), TEXT("test-file.txt"));
