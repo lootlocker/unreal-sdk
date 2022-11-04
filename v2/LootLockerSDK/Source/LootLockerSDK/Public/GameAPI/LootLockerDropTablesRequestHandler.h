@@ -16,13 +16,13 @@ struct FLootLockerComputeAndLockItem
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int asset_id;
+    int asset_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int asset_variation_id;
+    int asset_variation_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int asset_rental_option_id;
+    int asset_rental_option_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int id;
+    int id = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -38,13 +38,13 @@ struct FLootLockerPickDropsFromDropTableItem
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int instance_id;
+    int instance_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int variation_id;
+    int variation_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int rental_option_id;
+    int rental_option_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int quantity;
+    int quantity = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerAsset asset;
 };

@@ -24,7 +24,7 @@ USTRUCT(BlueprintType)
 struct FLootLockerAssetInstanceStorageResponseItem : public FLootLockerAssetInstanceStorageItem {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int id;
+    int id = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -54,13 +54,13 @@ USTRUCT(BlueprintType)
 struct FLootLockerLootBoxItem {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int asset_id;
+    int asset_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int asset_variation_id;
+    int asset_variation_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int asset_rental_option_id;
+    int asset_rental_option_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int weight;
+    int weight = 0;
 };
 
 USTRUCT(BlueprintType)
