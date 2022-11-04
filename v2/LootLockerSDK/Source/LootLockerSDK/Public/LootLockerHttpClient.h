@@ -11,8 +11,6 @@
 #include "Runtime/Launch/Resources/Version.h"
 #include "LootLockerHttpClient.generated.h"
 
-DECLARE_LOG_CATEGORY_EXTERN(LogLootLockerGameSDK, Log, All);
-
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerHttpClient : public UObject
 {
