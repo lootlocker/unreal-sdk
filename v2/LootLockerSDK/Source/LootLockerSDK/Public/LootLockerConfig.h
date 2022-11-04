@@ -7,6 +7,8 @@
 #include "HttpModule.h"
 #include "LootLockerConfig.generated.h"
 
+DECLARE_LOG_CATEGORY_EXTERN(LogLootLockerGameSDK, Log, All);
+
 USTRUCT(BlueprintType)
 struct FLootLockerResponse
 {
