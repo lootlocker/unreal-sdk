@@ -49,6 +49,14 @@ public:
     static void StartSession(const FString& playerIdentifier, const FAuthResponseBP& OnStartedSessionRequestCompleted);
 
     /**
+     * Create a new session for a Nintendo Switch user
+     * The Nintendo Switch platform must be enabled in the web console for this to work.
+     * @param NSAIdToken - NSA (Nintendo Switch Account) id token as a string
+     * https://ref.lootlocker.com/game-api/#nintendo-switch
+     */
+    static void StartNintendoSwitchSession(const FString& NSAIdToken, const FAuthResponseBP& OnStartedNintendoSwitchRequestCompleted);
+
+    /**
      * Create new user using the White Label login system.
      *
      * White Label platform must be enabled in the web console for this to work.

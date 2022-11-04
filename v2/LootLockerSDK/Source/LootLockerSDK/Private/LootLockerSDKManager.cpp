@@ -21,6 +21,11 @@ void ULootLockerSDKManager::StartSession(const FString& PlayerIdentifier, const 
 	ULootLockerAuthenticationRequestHandler::StartSession(PlayerIdentifier, FAuthResponseBP(), OnCompleteRequest);
 }
 
+void ULootLockerSDKManager::StartNintendoSwitchSession(const FString& NSAIdToken, const FLootLockerSessionResponse& OnCompletedRequest)
+{
+    ULootLockerAuthenticationRequestHandler::StartNintendoSwitchSession(NSAIdToken, FAuthResponseBP(), OnCompletedRequest);
+}
+
 void ULootLockerSDKManager::WhiteLabelStartSession(const FLootLockerSessionResponse &OnCompletedRequest)
 {
 	ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(FAuthResponseBP(), OnCompletedRequest);
