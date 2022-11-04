@@ -8,9 +8,7 @@
 #include "LootLockerSDK.h"
 #include "LootLockerPersistentDataHolder.h"
 #include "Misc/FileHelper.h"
-
-
-DEFINE_LOG_CATEGORY(LogLootLockerGameSDK);
+#include "LootLockerConfig.h"
 
 ULootLockerHttpClient::ULootLockerHttpClient()
 {
