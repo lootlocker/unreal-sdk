@@ -104,9 +104,9 @@ struct LLAPI
                 Delimiter = "&";
             }
         }
-        UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Request:"));
-        UE_LOG(LogLootLockerGameSDK, Warning, TEXT("ContentString:%s"), *ContentString);
-        UE_LOG(LogLootLockerGameSDK, Warning, TEXT("EndpointWithArguments:%s"), *EndpointWithArguments);
+        UE_LOG(LogLootLockerGameSDK, Log, TEXT("Request:"));
+        UE_LOG(LogLootLockerGameSDK, Log, TEXT("ContentString:%s"), *ContentString);
+        UE_LOG(LogLootLockerGameSDK, Log, TEXT("EndpointWithArguments:%s"), *EndpointWithArguments);
         const FString RequestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
         // send request
         HttpClient->SendApi(EndpointWithArguments, RequestMethod, ContentString, SessionResponse, true, false, useDomainKey, useDevHeaders);
@@ -123,8 +123,8 @@ struct LLAPI
         
         const FString RequestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
     
-        UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Request:"));
-        UE_LOG(LogLootLockerGameSDK, Warning, TEXT("EndpointWithArguments:%s"), *EndpointWithArguments);
+        UE_LOG(LogLootLockerGameSDK, Log, TEXT("Request:"));
+        UE_LOG(LogLootLockerGameSDK, Log, TEXT("EndpointWithArguments:%s"), *EndpointWithArguments);
         // send request
         HttpClient->UploadFile(EndpointWithArguments, RequestMethod, File, AdditionalData, SessionResponse, true);
     }
