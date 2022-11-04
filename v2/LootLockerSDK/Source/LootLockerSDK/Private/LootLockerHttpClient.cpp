@@ -146,7 +146,7 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
     const FString BeginBoundary = TEXT("\r\n--" + Boundary + "\r\n");
     const FString EndBoundary = TEXT("\r\n--" + Boundary + "--\r\n");
 
-    for (auto KeyValuePair : AdditionalFields) {
+    for (auto& KeyValuePair : AdditionalFields) {
         Data.Append((uint8*)TCHAR_TO_ANSI(*BeginBoundary), BeginBoundary.Len());
 
         FString ParameterEntry = "Content-Type: text/plain; charset=\"utf-8\"\r\n";
