@@ -16,9 +16,9 @@ struct FLootLockerCollectableReward {
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerAsset asset;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int asset_variation_id;
+    int asset_variation_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int asset_rental_option_id;
+    int asset_rental_option_id = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -27,13 +27,13 @@ struct FLootLockerCollectableItem {
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString name;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool collected;
+    bool collected = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerCollectableReward> rewards;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool grants_all_rewards;
+    bool grants_all_rewards = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool just_collected;
+    bool just_collected = false;
 };
 
 USTRUCT(BlueprintType)
@@ -42,13 +42,13 @@ struct FLootLockerCollectableItemGroup {
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString name;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int completion_percentage;
+    int completion_percentage = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerCollectableItem> items;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerCollectableReward> rewards;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool grants_all_rewards;
+    bool grants_all_rewards = false;
 };
 
 USTRUCT(BlueprintType)
@@ -59,11 +59,11 @@ struct FLootLockerCollectable {
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerCollectableItemGroup> groups;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int completion_percentage;
+    int completion_percentage = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerCollectableReward> rewards;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool grants_all_rewards;
+    bool grants_all_rewards = false;
 };
 
 USTRUCT(BlueprintType)
