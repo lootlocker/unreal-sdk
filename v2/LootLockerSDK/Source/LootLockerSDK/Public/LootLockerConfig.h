@@ -37,7 +37,7 @@ enum class ELootLockerHTTPMethod : uint8
 {
 	GET = 0         UMETA(DisplayName = "GET"),
 	POST = 1        UMETA(DisplayName = "POST"),
-	DEL = 2      UMETA(DisplayName = "DELETE"),
+	DELETE = 2      UMETA(DisplayName = "DELETE"),
 	PUT = 3         UMETA(DisplayName = "PUT"),
 	HEAD = 4        UMETA(DisplayName = "HEAD"),
 	CREATE = 5      UMETA(DisplayName = "CREATE"),
@@ -54,10 +54,10 @@ enum class ELootLockerPlatformType : uint8
 	Ios = 1					UMETA(DisplayName = "Ios"),
 	Steam = 2				UMETA(DisplayName = "Steam"),
 	NintendoSwitch = 3		UMETA(DisplayName = "NintendoSwitch"),
-	EpicStore = 3			UMETA(DisplayName = "EpicStore"),
-	PlayStationNetwork = 3  UMETA(DisplayName = "PlayStationNetwork"),
-	Xbox = 3				UMETA(DisplayName = "Xbox"),
-	GoG = 3					UMETA(DisplayName = "GoG")
+	EpicStore = 4			UMETA(DisplayName = "EpicStore"),
+	PlayStationNetwork = 5  UMETA(DisplayName = "PlayStationNetwork"),
+	Xbox = 6				UMETA(DisplayName = "Xbox"),
+	GoG = 7					UMETA(DisplayName = "GoG")
 };
 
 USTRUCT(BlueprintType)
