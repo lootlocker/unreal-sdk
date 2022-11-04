@@ -130,6 +130,18 @@ void ULootLockerAuthenticationRequestHandler::StartNintendoSwitchSession(const F
 	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartNintendoSwitchSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
+void ULootLockerAuthenticationRequestHandler::StartXboxSession(const FString& XboxUserToken, const FAuthResponseBP& OnCompletedRequestBP, const FLootLockerSessionResponse& OnCompletedRequest)
+{
+	FLootLockerXboxSessionRequest AuthRequest;
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+	AuthRequest.development_mode = config->OnDevelopmentMode;
+	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_version = config->GameVersion;
+	AuthRequest.xbox_user_token = XboxUserToken;
+
+	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartXboxSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+}
+
 void ULootLockerAuthenticationRequestHandler::VerifyPlayer(const FString& PlatformToken, const FString& Platform, const FAuthDefaultResponseBP& OnCompletedRequestBP, const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest)
 {
 	FLootLockerVerificationRequest AuthRequest;
