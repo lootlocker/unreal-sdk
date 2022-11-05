@@ -21,6 +21,16 @@ void ULootLockerManager::StartXboxSession(const FString& XboxUserToken, const FA
     ULootLockerAuthenticationRequestHandler::StartXboxSession(XboxUserToken, OnStartedXboxSessionCompleted);
 }
 
+void ULootLockerManager::StartAppleSession(const FString& AuthorizationCode, const FAppleSessionResponseBP& OnStartedAppleSessionCompleted)
+{
+    ULootLockerAuthenticationRequestHandler::StartAppleSession(AuthorizationCode, OnStartedAppleSessionCompleted);
+}
+
+void ULootLockerManager::RefreshAppleSession(const FString& RefreshToken, const FAppleSessionResponseBP& OnRefreshAppleSessionCompleted)
+{
+    ULootLockerAuthenticationRequestHandler::RefreshAppleSession(RefreshToken, OnRefreshAppleSessionCompleted);
+}
+
 void ULootLockerManager::WhiteLabelStartSession(const FAuthResponseBP &OnStartWhiteLabelSessionRequestCompleted)
 {
 	ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(OnStartWhiteLabelSessionRequestCompleted);

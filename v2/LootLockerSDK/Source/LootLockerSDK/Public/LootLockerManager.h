@@ -54,6 +54,7 @@ public:
      * @param NSAIdToken - NSA (Nintendo Switch Account) id token as a string
      * https://ref.lootlocker.com/game-api/#nintendo-switch
      */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void StartNintendoSwitchSession(const FString& NSAIdToken, const FAuthResponseBP& OnStartedNintendoSwitchSessionRequestCompleted);
 
     /**
@@ -61,7 +62,27 @@ public:
      * The Xbox One platform must be enabled in the web console for this to work.
      * @param XboxUserToken - Xbox user token as a string
      */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void StartXboxSession(const FString& XboxUserToken, const FAuthResponseBP& OnStartedXboxSessionCompleted);
+
+    /**
+     * Create a new session for Sign in with Apple
+     * The Apple sign in platform must be enabled in the web console for this to work.
+     *
+     * @param AuthorizationCode - Authorization code provided by apple as a string
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    static void StartAppleSession(const FString& AuthorizationCode, const FAppleSessionResponseBP& OnStartedAppleSessionCompleted);
+
+    /**
+     * Refresh a previous session signed in with Apple
+     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
+     * The Apple sign in platform must be enabled in the web console for this to work.
+     *
+     * @param RefreshToken - Token received in response from StartAppleSession request
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    static void RefreshAppleSession(const FString& RefreshToken, const FAppleSessionResponseBP& OnRefreshAppleSessionCompleted);
 
     /**
      * Create new user using the White Label login system.

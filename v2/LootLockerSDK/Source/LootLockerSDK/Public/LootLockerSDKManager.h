@@ -60,6 +60,25 @@ public:
      */
     static void StartXboxSession(const FString& XboxUserToken, const FLootLockerSessionResponse& OnCompletedRequest);
 
+    /**
+     * Create a new session for Sign in with Apple
+     * The Apple sign in platform must be enabled in the web console for this to work.
+     *
+     * @param AuthorizationCode - Authorization code provided by apple as a string
+     * @param OnCompletedRequest - callback to be invoked with the server response.
+     */
+    static void StartAppleSession(const FString& AuthorizationCode, const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest);
+
+    /**
+     * Refresh a previous session signed in with Apple
+     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
+     * The Apple sign in platform must be enabled in the web console for this to work.
+     * 
+     * @param RefreshToken - Token received in response from StartAppleSession request
+     * @param OnCompletedRequest - callback to be invoked with the server response.
+     */
+    static void RefreshAppleSession(const FString& RefreshToken, const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest);
+
     static void GuestLogin(const FString& playerIdentifier, const FLootLockerSessionResponse& OnCompletedRequest);
 
     /**
