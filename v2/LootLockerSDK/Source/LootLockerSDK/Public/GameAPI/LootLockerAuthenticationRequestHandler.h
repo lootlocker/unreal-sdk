@@ -111,7 +111,7 @@ USTRUCT(BlueprintType)
 struct FLootLockerNintendoSwitchSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString nsa_id_token;
 };
 
@@ -119,8 +119,24 @@ USTRUCT(BlueprintType)
 struct FLootLockerXboxSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString xbox_user_token;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerAppleSessionRequest : public FLootLockerBaseAuthRequest
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FString apple_authorization_code;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerRefreshAppleSessionRequest : public FLootLockerBaseAuthRequest
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FString refresh_token;
 };
 
 USTRUCT(BlueprintType)
@@ -183,6 +199,14 @@ struct FLootLockerAuthenticationResponse : public FLootLockerResponse
 };
 
 USTRUCT(BlueprintType)
+struct FLootLockerAppleSessionResponse : public FLootLockerResponse
+{
+	GENERATED_BODY()
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString refresh_token;
+};
+
+USTRUCT(BlueprintType)
 struct FLootLockerWhiteLabelVerifySessionResponse : public FLootLockerResponse
 {
 	GENERATED_BODY()
@@ -203,11 +227,13 @@ struct FLootLockerAuthenticationDefaultResponse : public FLootLockerResponse
 };
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FAuthResponseBP, FLootLockerAuthenticationResponse, Var);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FAppleSessionResponseBP, FLootLockerAppleSessionResponse, Var);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FAuthDefaultResponseBP, FLootLockerAuthenticationDefaultResponse, AuthVar);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerLoginResponseDelegateBP, FLootLockerLoginResponse, AuthVar);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerVerifySessionResponseBP, FLootLockerWhiteLabelVerifySessionResponse, Response);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerDefaultResponseBP, FLootLockerResponse, Var);
 DECLARE_DELEGATE_OneParam(FLootLockerSessionResponse, FLootLockerAuthenticationResponse);
+DECLARE_DELEGATE_OneParam(FLootLockerAppleSessionResponseDelegate, FLootLockerAppleSessionResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerDefaultAuthenticationResponse, FLootLockerAuthenticationDefaultResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerLoginResponseDelegate, FLootLockerLoginResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerWhiteLabelVerifySessionDelegate, FLootLockerWhiteLabelVerifySessionResponse);
@@ -231,6 +257,8 @@ public:
 	static void StartSession(const FString& PlayerId, const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
 	static void StartNintendoSwitchSession(const FString& NSAIdToken, const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
 	static void StartXboxSession(const FString& XboxUserToken, const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
+	static void StartAppleSession(const FString& AuthorizationCode, const FAppleSessionResponseBP& OnCompletedRequestBP = FAppleSessionResponseBP(), const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleSessionResponseDelegate());
+	static void RefreshAppleSession(const FString& RefreshToken, const FAppleSessionResponseBP& OnCompletedRequestBP = FAppleSessionResponseBP(), const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleSessionResponseDelegate());
 	static void VerifyPlayer(const FString& PlatformToken, const FString& Platform, const FAuthDefaultResponseBP& OnCompletedRequestBP = FAuthDefaultResponseBP(), const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest = FLootLockerDefaultAuthenticationResponse());
 	static void EndSession(const FAuthDefaultResponseBP& OnCompletedRequestBP = FAuthDefaultResponseBP(), const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest = FLootLockerDefaultAuthenticationResponse());
 	static ULootLockerHttpClient* HttpClient;

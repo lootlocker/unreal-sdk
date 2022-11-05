@@ -31,6 +31,16 @@ void ULootLockerSDKManager::StartXboxSession(const FString& XboxUserToken, const
     ULootLockerAuthenticationRequestHandler::StartXboxSession(XboxUserToken, FAuthResponseBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::StartAppleSession(const FString& AuthorizationCode, const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest)
+{
+    ULootLockerAuthenticationRequestHandler::StartAppleSession(AuthorizationCode, FAppleSessionResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::RefreshAppleSession(const FString& RefreshToken, const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest)
+{
+    ULootLockerAuthenticationRequestHandler::RefreshAppleSession(RefreshToken, FAppleSessionResponseBP(), OnCompletedRequest);
+}
+
 void ULootLockerSDKManager::WhiteLabelStartSession(const FLootLockerSessionResponse &OnCompletedRequest)
 {
 	ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(FAuthResponseBP(), OnCompletedRequest);
