@@ -142,6 +142,30 @@ void ULootLockerAuthenticationRequestHandler::StartXboxSession(const FString& Xb
 	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartXboxSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
+void ULootLockerAuthenticationRequestHandler::StartAppleSession(const FString& AuthorizationCode, const FAppleSessionResponseBP& OnCompletedRequestBP, const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest)
+{
+	FLootLockerAppleSessionRequest AuthRequest;
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+	AuthRequest.development_mode = config->OnDevelopmentMode;
+	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_version = config->GameVersion;
+	AuthRequest.apple_authorization_code = AuthorizationCode;
+
+	LLAPI<FLootLockerAppleSessionResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartAppleSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+}
+
+void ULootLockerAuthenticationRequestHandler::RefreshAppleSession(const FString& RefreshToken, const FAppleSessionResponseBP& OnCompletedRequestBP, const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest)
+{
+	FLootLockerRefreshAppleSessionRequest AuthRequest;
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+	AuthRequest.development_mode = config->OnDevelopmentMode;
+	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_version = config->GameVersion;
+	AuthRequest.refresh_token = RefreshToken;
+
+	LLAPI<FLootLockerAppleSessionResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::RefreshAppleSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+}
+
 void ULootLockerAuthenticationRequestHandler::VerifyPlayer(const FString& PlatformToken, const FString& Platform, const FAuthDefaultResponseBP& OnCompletedRequestBP, const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest)
 {
 	FLootLockerVerificationRequest AuthRequest;
