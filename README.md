@@ -18,11 +18,11 @@
 
 LootLocker is a game backend-as-a-service that unlocks cross-platform systems so you can build, ship, and run your best games.
 
-Full documentation is available [here](https://docs.lootlocker.io/)
+Full documentation is available [here](https://docs.lootlocker.com/)
 
 ## Installation
 
-For a more detailed guide on installation, please see our [User Documentation](https://docs.lootlocker.io/getting-started/unreal-tutorials/getting-started-with-unreal)
+For a more detailed guide on installation, please see our [User Documentation](https://docs.lootlocker.com/getting-started/unreal-tutorials/getting-started-with-unreal)
 
 1. Download the latest Unreal [Package release](https://github.com/LootLocker/unreal-sdk/releases)
 2. Copy the LootLockerSDK folder from the plugins folder equivalent to the Unreal Version you intend to use. For example, if you are using Unreal Version 4.26, Navigate to `4.26/Plugins` to find the appropriate LootLockerSDK folder
@@ -57,7 +57,7 @@ It is important that in your first ever Blueprint class you set the LootLocker c
 
 1. Right click within the Event Graph of your blueprint class and locate "LootLocker Settings" category.
 2. Select "Set LootLocker Settings" in that category.
-3. Fill in the info from the LootLocker dashboard (LootLockerGameKey, Platform, Game Version, Development mode and AllowTokenRefresh). You should already have an account from [https://my.lootlocker.io/login](https://my.lootlocker.io/login "https://my.lootlocker.io/login").
+3. Fill in the info from the LootLocker dashboard (LootLockerGameKey, Platform, Game Version, Development mode and AllowTokenRefresh). You should already have an account from [https://my.lootlocker.com/login](https://my.lootlocker.com/login "https://my.lootlocker.com/login").
 
 ## Sample App
 
@@ -67,4 +67,4 @@ There you can check out our sample Blueprint examples.
 
 ## Support
 
-If you have any issues or just wanna chat you can reach us on our [Discord Server](https://discord.lootlocker.io/)
+If you have any issues or just wanna chat you can reach us on our [Discord Server](https://discord.lootlocker.com/)
