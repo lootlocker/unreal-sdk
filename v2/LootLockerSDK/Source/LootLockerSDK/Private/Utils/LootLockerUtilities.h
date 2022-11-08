@@ -88,9 +88,6 @@ struct LLAPI
         {
             FJsonObjectConverter::UStructToJsonObjectString(S::StaticStruct(), &RequestStruct, ContentString, 0, 0);
         }
-		  
-        // create callback lambda
-        const FResponseCallback SessionResponse = CreateLambda<T,U>(OnCompletedRequestBP, OnCompletedRequest);
         
         // calculate endpoint
         FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, InOrderedArguments);
@@ -108,6 +105,10 @@ struct LLAPI
         UE_LOG(LogLootLockerGameSDK, Log, TEXT("ContentString:%s"), *ContentString);
         UE_LOG(LogLootLockerGameSDK, Log, TEXT("EndpointWithArguments:%s"), *EndpointWithArguments);
         const FString RequestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+
+        // create callback lambda
+        const FResponseCallback SessionResponse = CreateLambda<T, U>(OnCompletedRequestBP, OnCompletedRequest);
+
         // send request
         HttpClient->SendApi(EndpointWithArguments, RequestMethod, ContentString, SessionResponse, true, false, useDomainKey, useDevHeaders);
     }
@@ -115,8 +116,6 @@ struct LLAPI
     template<typename T , typename U>
     static void UploadFileAPI(ULootLockerHttpClient* HttpClient, FString File, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMap<FString, FString> AdditionalData, const T& OnCompletedRequestBP, const U& OnCompletedRequest)
     {
-        // create callback lambda
-        const FResponseCallback SessionResponse = CreateLambda<T,U>(OnCompletedRequestBP, OnCompletedRequest);
         
         // calculate endpoint
         FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, InOrderedArguments);
@@ -125,6 +124,10 @@ struct LLAPI
     
         UE_LOG(LogLootLockerGameSDK, Log, TEXT("Request:"));
         UE_LOG(LogLootLockerGameSDK, Log, TEXT("EndpointWithArguments:%s"), *EndpointWithArguments);
+
+        // create callback lambda
+        const FResponseCallback SessionResponse = CreateLambda<T, U>(OnCompletedRequestBP, OnCompletedRequest);
+
         // send request
         HttpClient->UploadFile(EndpointWithArguments, RequestMethod, File, AdditionalData, SessionResponse, true);
     }
@@ -132,8 +135,6 @@ struct LLAPI
     template<typename T , typename U>
     static void CallAPIUsingRawJSON(ULootLockerHttpClient* HttpClient, FString& ContentString, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const T& OnCompletedRequestBP, const U& OnCompletedRequest)
     {
-        // create callback lambda
-        const FResponseCallback SessionResponse = CreateLambda<T,U>(OnCompletedRequestBP, OnCompletedRequest);
         
         // calculate endpoint
         FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, InOrderedArguments);
@@ -149,6 +150,9 @@ struct LLAPI
         }
         
         const FString RequestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+
+        // create callback lambda
+        const FResponseCallback SessionResponse = CreateLambda<T, U>(OnCompletedRequestBP, OnCompletedRequest);
     
         // send request
         HttpClient->SendApi(EndpointWithArguments, RequestMethod, ContentString, SessionResponse, true);

@@ -15,7 +15,7 @@ ULootLockerHttpClient::ULootLockerHttpClient()
 
 }
 
-void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, bool useHeader, bool useAdmin, bool useDomainKey, bool useDevHeaders)
+void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, bool useHeader, bool useAdmin, bool useDomainKey, bool useDevHeaders) const
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
 
@@ -59,12 +59,12 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 	Request->SetVerb(requestType);
     Request->SetContentAsString(data);
 
-	Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
+	Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this, endPoint, requestType, data](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
 		{
 			const FString ResponseString = Response->GetContentAsString();
 			FLootLockerResponse response;
 
-			if (!ResponseIsValid(Response, bWasSuccessful))
+			if (!ResponseIsValid(Response, bWasSuccessful, requestType, endPoint, data))
 			{
 				response.success = false;
 				response.FullTextFromServer = Response->GetContentAsString();
@@ -85,7 +85,7 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 	Request->ProcessRequest();
 }
 
-bool ULootLockerHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, bool bWasSuccessful)
+bool ULootLockerHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, bool bWasSuccessful, FString RequestMethod, FString Endpoint, FString Data)
 {
 	if (!bWasSuccessful || !InResponse.IsValid())
 		return false;
@@ -96,14 +96,15 @@ bool ULootLockerHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, 
 	}
 	else
 	{
-
 		UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Http Response returned error code: %d"), InResponse->GetResponseCode());
 		UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Http Response content:\n%s"), *InResponse->GetContentAsString());
+        UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Http Request endpoint: %s to %s"), *RequestMethod, *Endpoint);
+        UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Http Request data: %s"), *Data);
 		return false;
 	}
 }
 
-void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString> AdditionalFields, const FResponseCallback& onCompleteRequest, bool useHeader, bool useAdmin)
+void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString> AdditionalFields, const FResponseCallback& onCompleteRequest, bool useHeader, bool useAdmin) const
 {
     FHttpModule* HttpModule = &FHttpModule::Get();
 
@@ -116,6 +117,7 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
 
     ULootLockerPersistentDataHolder::CachedLastEndpointUsed = endPoint;
     ULootLockerPersistentDataHolder::CachedLastRequestTypeUsed = requestType;
+    ULootLockerPersistentDataHolder::CachedLastDataSentToServer = FString(TEXT("Data Stream"));
 
     FString Boundary = "lootlockerboundary";
 
@@ -173,7 +175,7 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
 
     Request->SetContent(Data);
 
-    Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
+    Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this, requestType, endPoint](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
         {
             const FString ResponseString = Response->GetContentAsString();
             FLootLockerResponse response;
@@ -182,7 +184,7 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
             response.ServerCallStatusCode = Response->GetResponseCode();
             response.ServerError = Response->GetContentAsString();
 
-            bool success = ResponseIsValid(Response, bWasSuccessful);
+            bool success = ResponseIsValid(Response, bWasSuccessful, requestType, endPoint, FString("Data Stream"));
 
             response.success = success;
             response.ServerCallHasError = !success;
