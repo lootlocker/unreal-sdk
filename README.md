@@ -59,12 +59,6 @@ It is important that in your first ever Blueprint class you set the LootLocker c
 2. Select "Set LootLocker Settings" in that category.
 3. Fill in the info from the LootLocker dashboard (LootLockerGameKey, Platform, Game Version, Development mode and AllowTokenRefresh). You should already have an account from [https://my.lootlocker.com/login](https://my.lootlocker.com/login "https://my.lootlocker.com/login").
 
-## Sample App
-
-Please download the sample project available [here](https://github.com/LootLocker/unreal-sdk/releases). 
-
-There you can check out our sample Blueprint examples.
-
 ## Support
 
 If you have any issues or just wanna chat you can reach us on our [Discord Server](https://discord.lootlocker.com/)
