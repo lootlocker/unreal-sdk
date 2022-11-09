@@ -46,8 +46,8 @@ For a more detailed guide on installation, please see our [User Documentation](h
 ## Configuration
 
 1. Navigate to Edit/Project Settings in the editor, Scroll down on the left panel until the plugins sections of the project settings, Click on LootLockerSDK
-2. Modify the LootLockerGameKey, Platform, Game Version, Development mode and AllowTokenRefresh (Set to true if you want the LootLockerSDK to attempt to refresh the token if it expires)
+2. Modify the LootLockerGameKey, Platform, Game Version, Development mode and AllowTokenRefresh (Set to true if you want the LootLockerSDK to attempt to refresh the token if it expires). What values to set, you can find in the LootLocker dashboard. You should already have an account from [https://my.lootlocker.io/login](https://my.lootlocker.io/login "https://my.lootlocker.io/login")
 
 ## Support
 
-If you have any issues or just wanna chat you can reach us on our [Discord Server](https://discord.lootlocker.com/)
+If you have any issues or just wanna chat you can reach us on our [Discord Server](https://discord.lootlocker.io/)
