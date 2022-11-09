@@ -24,8 +24,8 @@ Full documentation is available [here](https://docs.lootlocker.com/)
 
 For a more detailed guide on installation, please see our [User Documentation](https://docs.lootlocker.com/getting-started/unreal-tutorials/getting-started-with-unreal)
 
-1. Download the latest Unreal [Package release](https://github.com/LootLocker/unreal-sdk/releases)
-2. Copy the LootLockerSDK folder from the plugins folder equivalent to the Unreal Version you intend to use. For example, if you are using Unreal Version 4.26, Navigate to `4.26/Plugins` to find the appropriate LootLockerSDK folder
+1. Download the latest Unreal [Package release](https://github.com/LootLocker/unreal-sdk/releases) or clone the [repo](https://github.com/LootLocker/unreal-sdk/releases).
+2. Copy the LootLockerSDK folder.
 3. Paste the LootLockerSDK folder into the plugins folder created in the root of your project (create if it doesn't exist)
 4. Right-click on the "Unreal Engine Project Launch" file in the root of your project and click on "Generate Visual Studio Project Files"
 5. Open the .sln file of your project
@@ -36,11 +36,11 @@ For a more detailed guide on installation, please see our [User Documentation](h
     ```cpp
     PublicDependencyModuleNames.AddRange(new string\[\] { "Core", "CoreUObject", "Engine", "InputCore", "LootLockerSDK" });
     ```
-8. Add `{"Http", "Json", "JsonUtilities"}` to the PrivateDependencyModuleNames list
+8. Add `{"HTTP", "Json", "JsonUtilities"}` to the PrivateDependencyModuleNames list
 
     Example: 
     ```cpp
-    PrivateDependencyModuleNames.AddRange(new string\[\] { "Http", "Json", "JsonUtilities" });
+    PrivateDependencyModuleNames.AddRange(new string\[\] { "HTTP", "Json", "JsonUtilities" });
     ```
 
 ## Configuration
