@@ -9,8 +9,6 @@
 #include "LootLockerPersistentDataHolder.h"
 #include "Misc/FileHelper.h"
 #include "LootLockerConfig.h"
-#include "Chaos/AABB.h"
-#include "Chaos/AABB.h"
 
 unsigned long requestNumber = 0;
 
@@ -22,6 +20,7 @@ ULootLockerHttpClient::ULootLockerHttpClient()
 void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, bool useHeader, bool useAdmin, bool useDomainKey, bool useDevHeaders) const
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
+    FString RequestLog = FString(TEXT(""));
 
     auto localRequestNumber = ++requestNumber;
 #if ENGINE_MINOR_VERSION < 26
@@ -30,24 +29,29 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = HttpModule->CreateRequest();
 #endif
 	Request->SetURL(endPoint);
+    Request->SetVerb(requestType);
+    RequestLog += FString::Printf(TEXT("Requesting %s using method %s \n"), *endPoint, *requestType);
+    Request->SetContentAsString(data);
+    RequestLog += FString::Printf(TEXT("Set body: %s\n"), *data);
+
 
 	ULootLockerPersistentDataHolder::CachedLastEndpointUsed = endPoint;
 	ULootLockerPersistentDataHolder::CachedLastRequestTypeUsed = requestType;
 	ULootLockerPersistentDataHolder::CachedLastDataSentToServer = data;
 
-	Request->SetHeader(TEXT("User-Agent"), TEXT("X-UnrealEngine-Agent"));
-    Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
-    Request->SetHeader(TEXT("Accepts"), TEXT("application/json"));
+	SetHeader(Request, TEXT("User-Agent"), TEXT("X-UnrealEngine-Agent"), RequestLog);
+    SetHeader(Request, TEXT("Content-Type"), TEXT("application/json"), RequestLog);
+    SetHeader(Request, TEXT("Accepts"), TEXT("application/json"), RequestLog);
 
 	// Todo: Replace this header madness with an optional TMap of headers.
 	if (useHeader)
 	{
         if (!useAdmin) {
             UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Request #%d, Setting session token to: %s"), localRequestNumber, *ULootLockerPersistentDataHolder::Token);
-            Request->SetHeader(TEXT("x-session-token"), ULootLockerPersistentDataHolder::Token);
+            SetHeader(Request, TEXT("x-session-token"), ULootLockerPersistentDataHolder::Token, RequestLog);
         } else {
             UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Request #%d, Setting admin token to: %s"), localRequestNumber, *ULootLockerPersistentDataHolder::AdminToken);
-            Request->SetHeader(TEXT("x-auth-token"), ULootLockerPersistentDataHolder::AdminToken);
+            SetHeader(Request, TEXT("x-auth-token"), ULootLockerPersistentDataHolder::AdminToken, RequestLog);
         }
 	}
 
@@ -55,43 +59,31 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 	if (useDomainKey)
 	{
         UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Request #%d, Setting domain key to: %s"), localRequestNumber, *ULootLockerPersistentDataHolder::DomainKey);
-		Request->SetHeader(TEXT("domain-key"), ULootLockerPersistentDataHolder::DomainKey);
+        SetHeader(Request, TEXT("domain-key"), ULootLockerPersistentDataHolder::DomainKey, RequestLog);
 	}
 
 	// This is normally sent via the body, but with the white label login it goes in the header!
 	if (useDevHeaders)
 	{
         UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Request #%d, Setting development mode to: %s"), localRequestNumber, GetDefault<ULootLockerConfig>()->OnDevelopmentMode ? TEXT("true") : TEXT("false"));
-		Request->SetHeader(TEXT("is-development"),GetDefault<ULootLockerConfig>()->OnDevelopmentMode ? TEXT("true") : TEXT("false"));
+        SetHeader(Request, TEXT("is-development"),GetDefault<ULootLockerConfig>()->OnDevelopmentMode ? TEXT("true") : TEXT("false"), RequestLog);
 	}
-
-	Request->SetVerb(requestType);
-    Request->SetContentAsString(data);
 
     UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Request #%d, Making request %s to %s"), localRequestNumber, *requestType, *endPoint);
     UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Request #%d, Data: %s"), localRequestNumber, *data);
 
-	Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this, endPoint, requestType, data, localRequestNumber](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
-		{
-			const FString ResponseString = Response->GetContentAsString();
-			FLootLockerResponse response;
+    Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this, endPoint, requestType, data, localRequestNumber, RequestLog](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
+        {
+            const FString ResponseString = Response->GetContentAsString();
+            FLootLockerResponse response;
+            response.FullTextFromServer = ResponseString;
+            response.ServerCallStatusCode = Response->GetResponseCode();
+            response.ServerError = ResponseString;
+            response.RequestLog = RequestLog;
+            response.RequestLog += FString::Printf(TEXT("Response code %d with data: %s\n"), response.ServerCallStatusCode, *ResponseString);
 
-			if (!ResponseIsValid(Response, bWasSuccessful, requestType, endPoint, data, localRequestNumber))
-			{
-				response.success = false;
-				response.FullTextFromServer = Response->GetContentAsString();
-				response.ServerCallHasError = true;
-				response.ServerCallStatusCode = Response->GetResponseCode();
-				response.ServerError = Response->GetContentAsString();
-				onCompleteRequest.ExecuteIfBound(response);
-				return;
-			}
-
-			response.success = true;
-			response.FullTextFromServer = Response->GetContentAsString();
-			response.ServerCallHasError = false;
-			response.ServerCallStatusCode = Response->GetResponseCode();
-			response.ServerError = Response->GetContentAsString();
+            response.success = ResponseIsValid(Response, bWasSuccessful, requestType, endPoint, data, localRequestNumber);
+			response.ServerCallHasError = !response.success;
 			onCompleteRequest.ExecuteIfBound(response);
 		});
 	Request->ProcessRequest();
@@ -114,6 +106,12 @@ bool ULootLockerHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, 
 	{
 		return false;
 	}
+}
+
+void ULootLockerHttpClient::SetHeader(TSharedRef<IHttpRequest> Request, const FString& Key, const FString& Value, FString& RequestLog)
+{
+    Request->SetHeader(Key, Value);
+    RequestLog += FString::Printf(TEXT("Setting Header - \"%s\": \"%s\"\n"), *Key, *Value);
 }
 
 void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString> AdditionalFields, const FResponseCallback& onCompleteRequest, bool useHeader, bool useAdmin) const

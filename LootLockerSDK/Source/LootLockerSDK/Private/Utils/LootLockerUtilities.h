@@ -74,6 +74,7 @@ struct LLAPI
                 ResponseStruct.success = false;
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
+            ResponseStruct.RequestLog = response.RequestLog;
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
