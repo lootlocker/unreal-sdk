@@ -9,6 +9,10 @@
 #include "LootLockerPersistentDataHolder.h"
 #include "Misc/FileHelper.h"
 #include "LootLockerConfig.h"
+#include "Chaos/AABB.h"
+#include "Chaos/AABB.h"
+
+unsigned long requestNumber = 0;
 
 ULootLockerHttpClient::ULootLockerHttpClient()
 {
@@ -19,6 +23,7 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
 
+    auto localRequestNumber = ++requestNumber;
 #if ENGINE_MINOR_VERSION < 26
 	TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
 #else
@@ -38,8 +43,10 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 	if (useHeader)
 	{
         if (!useAdmin) {
+            UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Request #%d, Setting session token to: %s"), localRequestNumber, *ULootLockerPersistentDataHolder::Token);
             Request->SetHeader(TEXT("x-session-token"), ULootLockerPersistentDataHolder::Token);
         } else {
+            UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Request #%d, Setting admin token to: %s"), localRequestNumber, *ULootLockerPersistentDataHolder::AdminToken);
             Request->SetHeader(TEXT("x-auth-token"), ULootLockerPersistentDataHolder::AdminToken);
         }
 	}
@@ -47,24 +54,29 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 	// Needed by the White Label Login
 	if (useDomainKey)
 	{
+        UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Request #%d, Setting domain key to: %s"), localRequestNumber, *ULootLockerPersistentDataHolder::DomainKey);
 		Request->SetHeader(TEXT("domain-key"), ULootLockerPersistentDataHolder::DomainKey);
 	}
 
 	// This is normally sent via the body, but with the white label login it goes in the header!
 	if (useDevHeaders)
 	{
+        UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Request #%d, Setting development mode to: %s"), localRequestNumber, GetDefault<ULootLockerConfig>()->OnDevelopmentMode ? TEXT("true") : TEXT("false"));
 		Request->SetHeader(TEXT("is-development"),GetDefault<ULootLockerConfig>()->OnDevelopmentMode ? TEXT("true") : TEXT("false"));
 	}
 
 	Request->SetVerb(requestType);
     Request->SetContentAsString(data);
 
-	Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this, endPoint, requestType, data](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
+    UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Request #%d, Making request %s to %s"), localRequestNumber, *requestType, *endPoint);
+    UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Request #%d, Data: %s"), localRequestNumber, *data);
+
+	Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this, endPoint, requestType, data, localRequestNumber](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
 		{
 			const FString ResponseString = Response->GetContentAsString();
 			FLootLockerResponse response;
 
-			if (!ResponseIsValid(Response, bWasSuccessful, requestType, endPoint, data))
+			if (!ResponseIsValid(Response, bWasSuccessful, requestType, endPoint, data, localRequestNumber))
 			{
 				response.success = false;
 				response.FullTextFromServer = Response->GetContentAsString();
@@ -85,21 +97,21 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 	Request->ProcessRequest();
 }
 
-bool ULootLockerHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, bool bWasSuccessful, FString RequestMethod, FString Endpoint, FString Data)
+bool ULootLockerHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, bool bWasSuccessful, FString RequestMethod, FString Endpoint, FString Data, unsigned long localRequestNumber)
 {
 	if (!bWasSuccessful || !InResponse.IsValid())
 		return false;
 
+    UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Req #%d, Http Response returned error code: %d"), localRequestNumber, InResponse->GetResponseCode());
+    UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Req #%d, Http Response content:\n%s"), localRequestNumber, *InResponse->GetContentAsString());
+    UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Req #%d, Http Request endpoint: %s to %s"), localRequestNumber, *RequestMethod, *Endpoint);
+    UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Req #%d, Http Request data: %s"), localRequestNumber, *Data);
 	if (EHttpResponseCodes::IsOk(InResponse->GetResponseCode()))
 	{
 		return true;
 	}
 	else
 	{
-		UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Http Response returned error code: %d"), InResponse->GetResponseCode());
-		UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Http Response content:\n%s"), *InResponse->GetContentAsString());
-        UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Http Request endpoint: %s to %s"), *RequestMethod, *Endpoint);
-        UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Http Request data: %s"), *Data);
 		return false;
 	}
 }
@@ -184,7 +196,7 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
             response.ServerCallStatusCode = Response->GetResponseCode();
             response.ServerError = Response->GetContentAsString();
 
-            bool success = ResponseIsValid(Response, bWasSuccessful, requestType, endPoint, FString("Data Stream"));
+            bool success = ResponseIsValid(Response, bWasSuccessful, requestType, endPoint, FString("Data Stream"), 1337);
 
             response.success = success;
             response.ServerCallHasError = !success;
