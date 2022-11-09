@@ -45,19 +45,8 @@ For a more detailed guide on installation, please see our [User Documentation](h
 
 ## Configuration
 
-### Using C++
-
-1. Open the LootLockerConfig.CPP file located in the plugins folder
-2. Navigate to Edit/Project Settings in the editor, Scroll down on the left panel until the plugins sections of the project settings, Click on LootLockerSDK
-3. Modify the LootLockerGameKey, Platform, Game Version, Development mode and AllowTokenRefresh (Set to true if you want the LootLockerSDK to attempt to refresh the token if it expires)
-
-### Using Blueprint
-
-It is important that in your first ever Blueprint class you set the LootLocker configurations.
-
-1. Right click within the Event Graph of your blueprint class and locate "LootLocker Settings" category.
-2. Select "Set LootLocker Settings" in that category.
-3. Fill in the info from the LootLocker dashboard (LootLockerGameKey, Platform, Game Version, Development mode and AllowTokenRefresh). You should already have an account from [https://my.lootlocker.com/login](https://my.lootlocker.com/login "https://my.lootlocker.com/login").
+1. Navigate to Edit/Project Settings in the editor, Scroll down on the left panel until the plugins sections of the project settings, Click on LootLockerSDK
+2. Modify the LootLockerGameKey, Platform, Game Version, Development mode and AllowTokenRefresh (Set to true if you want the LootLockerSDK to attempt to refresh the token if it expires)
 
 ## Support
 
