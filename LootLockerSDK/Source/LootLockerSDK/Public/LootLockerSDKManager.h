@@ -988,6 +988,7 @@ public:
 
     //==================================================
     //Purchases
+    // https://ref.lootlocker.com/game-api/#purchasing
     //==================================================
 
     /**
@@ -1050,15 +1051,16 @@ public:
 
     //==================================================
     //Trigger Events
+    // https://ref.lootlocker.com/game-api/#trigger-events
     //==================================================
 
     /**
-    * Trigger an event.
-    *
-    * @param Event data of the event to be triggered.
-    * @param OnCompletedRequest Delegate for handling the server response.
-    * https://docs.lootlocker.io/game-api/#triggering-an-event
-    */
+     * Trigger an event.
+     * https://docs.lootlocker.io/game-api/#triggering-an-event
+     *
+     * @param Event data of the event to be triggered.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     static void TriggerEvent(const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegate& OnCompletedRequest);
 
     /**
