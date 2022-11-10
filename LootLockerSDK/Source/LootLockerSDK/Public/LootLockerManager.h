@@ -1026,37 +1026,42 @@ public:
     //==================================================
 
     /**
-    * Get all missions.
-    *  https://ref.lootlocker.io/game-api/#getting-all-missions
-    */
+     * Get all missions.
+     * https://docs.lootlocker.io/game-api/#getting-all-missions
+     *
+     * @param OnGetAllMissionsCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions")
     static void GetAllMissions(const FMissionsResponseDelegateBP& OnGetAllMissionsCompleted);
 
     /**
-    * Get a mission.
-    *
-    * @param MissionId mission ID.
-    * https://ref.lootlocker.io/game-api/#getting-a-single-mission
-    */
+     * Get a mission.
+     * https://docs.lootlocker.io/game-api/#getting-a-single-mission
+     *
+     * @param MissionId mission ID.
+     * @param OnGetMissionCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions")
     static void GetMission(int MissionId, const FMissionResponseDelegateBP& OnGetMissionCompleted);
 
     /**
-    * Start a mission.
-    *
-    * @param MissionId mission ID.
-    * https://ref.lootlocker.io/game-api/#starting-mission
-    */
+     * Start a mission.
+     * https://docs.lootlocker.io/game-api/#starting-mission
+     *
+     * @param MissionId mission ID.
+     * @param OnStartMissionCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions")
     static void StartMission(int MissionId, const  FStartMissionResponseDelegateBP& OnStartMissionCompleted);
 
     /**
-    * Finish a mission.
-    *
-    * @param MissionId mission ID.
-    * @param MissionData mission completion data.
-    * https://ref.lootlocker.io/game-api/#finishing-mission
-    */
+     * Finish a mission.
+     * https://docs.lootlocker.io/game-api/#finishing-mission
+     *
+     * @param MissionId mission ID.
+     * @param MissionData mission completion data.
+     * @param OnFinishMissionCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions")
     static void FinishMission(int MissionId, const FLootLockerFinishMissionData& MissionData, const FFinishMissionResponseDelegateBP& OnFinishMissionCompleted);
 
