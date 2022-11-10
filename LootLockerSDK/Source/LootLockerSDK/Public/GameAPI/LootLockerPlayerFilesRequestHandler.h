@@ -12,6 +12,7 @@ struct FLootLockerFileUploadRequest
 {
     GENERATED_BODY()
     public:
+	// Path to the file, example: Application.persistentDataPath + "/" + fileName;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString file;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")

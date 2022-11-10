@@ -357,14 +357,53 @@ public:
     //Files
 	// https://ref.lootlocker.io/game-api/#player-files
     //==================================================
+
+    /**
+     * Upload a file with the provided name and content. The file will be owned by the currently active player.
+     * https://ref.lootlocker.com/game-api/#upload-a-file
+     *
+     * @param Request Request of type FLootLockerFileUploadRequest.
+     * @param OnComplete Delegate for handling the response
+     */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files")
 	static void UploadFile(const FLootLockerFileUploadRequest& Request, const FLootLockerUploadFileBP& OnComplete);
+
+    /**
+     * Returns all the files that your currently active player own.
+     * https://ref.lootlocker.com/game-api/#list-files
+     *
+     * @param OnComplete Delegate for handling the response
+     */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files")
 	static void ListFiles(const FLootLockerFileListBP& OnComplete);
+
+    /**
+     * Returns all public files that the player with the provided playerID owns.
+     * https://ref.lootlocker.com/game-api/#list-another-players-public-files
+     *
+     * @param PlayerID Player ID of the player for whom to get the files
+     * @param OnCompleteBP Delegate for handling the response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files")
     static void ListOtherPlayersPublicFiles(const int32 PlayerID, const FLootLockerFileListBP& OnCompleteBP);
+
+    /**
+     * Returns a URL where you can access the file. You can get the ID of files when you upload them, or call the list endpoint.
+     * https://ref.lootlocker.com/game-api/#get-single-file
+     *
+     * @param FileID Id of the file, can be retrieved with ListFiles or when the file is uploaded
+     * @param OnComplete Delegate for handling the response
+     */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files")
 	static void GetSingleFile(const int32 FileID, const FLootLockerUploadFileBP& OnComplete);
+
+    /**
+     * The file will be deleted immediately and the action can not be reversed. You will get the ID of files when you upload a file, or with ListFiles.
+     * https://ref.lootlocker.com/game-api/#delete-file
+     *
+     * @param FileID Id of the file. You can get the ID of files when you upload a file, or with GetAllPlayerFiles()
+     * @param OnComplete Delegate for handling the response
+     */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files")
 	static void DeletePlayerFile(const int32 FileID, const FLootLockerFileDeletedBP& OnComplete);
 
