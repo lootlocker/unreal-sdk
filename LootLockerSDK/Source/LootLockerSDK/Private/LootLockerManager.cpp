@@ -137,9 +137,9 @@ void ULootLockerManager::SetProfilePublic(const FResponseCallbackBP& OnProfileSe
 {
     ULootLockerPlayerRequestHandler::SetProfilePublic(OnProfileSetPublic);
 }
-void ULootLockerManager::SetPlayerName(FString name, const FPNameResponseBP& OnSetPlayerName)
+void ULootLockerManager::SetPlayerName(FString Name, const FPNameResponseBP& OnSetPlayerName)
 {
-    ULootLockerPlayerRequestHandler::SetPlayerName(name, OnSetPlayerName);
+    ULootLockerPlayerRequestHandler::SetPlayerName(Name, OnSetPlayerName);
 }
 
 void ULootLockerManager::GetPlayerName(const FPNameResponseBP& OnGetPlayerName)

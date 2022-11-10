@@ -121,9 +121,9 @@ void ULootLockerSDKManager::InitiateDLCMigration(const FResponseCallback& OnComp
     ULootLockerPlayerRequestHandler::InitiateDLCMigration(FResponseCallbackBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::SetPlayerName(FString name, const FPNameResponse& OnCompletedRequest)
+void ULootLockerSDKManager::SetPlayerName(FString Name, const FPNameResponse& OnCompletedRequest)
 {
-    ULootLockerPlayerRequestHandler::SetPlayerName(name, FPNameResponseBP(), OnCompletedRequest);
+    ULootLockerPlayerRequestHandler::SetPlayerName(Name, FPNameResponseBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::GetPlayerName(const FPNameResponse& OnCompletedRequest)
