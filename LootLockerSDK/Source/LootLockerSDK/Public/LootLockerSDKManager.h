@@ -1106,78 +1106,79 @@ public:
      */
     static void GetMessages(const FMessagesResponseDelegate& OnCompletedRequest);
 
-     //==================================================
+    //==================================================
     //Leaderboard
+    // https://ref.lootlocker.com/game-api/#leaderboards
     //==================================================
 
-     /**
-    * Get rank for single member for a leaderboard. If leaderboard is of type player a player will also be in the response.
-    *
-    * @param LeaderboardId the id of the leaderboard you need to connect to.
-    * @param MemberId the id of player in the leaderboard
-    * @param OnCompletedRequest FLootLockerGetMemberRankResponseDelegate
-    *
-    * https://ref.lootlocker.io/game-api/#get-member-rank
-    */
+    /**
+     * Get rank for single member for a leaderboard. If leaderboard is of type player a player will also be in the response.
+     * https://ref.lootlocker.io/game-api/#get-member-rank
+     *
+     * @param LeaderboardId the id of the leaderboard you need to connect to.
+     * @param MemberId the id of player in the leaderboard
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
     static void GetMemberRank(int LeaderboardId, int MemberId, const FLootLockerGetMemberRankResponseDelegate& OnCompletedRequest);
 
-
-     /**
-    * Collecting an Item is done by calling this endpoint with a payload equal to the slug of the Item.
-    * The slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
-    * @param Members the ids of all leaderboard members you need to get info on.
-    * @param LeaderboardId int32
-    * @param OnCompletedRequest FLootLockerGetByListOfMembersResponseDelegate
-    * https://ref.lootlocker.io/game-api/#get-by-list-of-members
-    */
+    /**
+     * Get rank for a set of members for a leaderboard. If leaderboard is of type player a player will also be in the response.
+     * https://ref.lootlocker.io/game-api/#get-by-list-of-members
+     *
+     * @param Members The ids of all leaderboard members you want to get info on.
+     * @param LeaderboardId int32
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
     static void GetByListOfMembers(TArray<FString> Members, int LeaderboardId, const FLootLockerGetByListOfMembersResponseDelegate& OnCompletedRequest);
 
-     /**
-    * Collecting an Item is done by calling this endpoint with a payload equal to the slug of the Item.
-    * The slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
-    * @param LeaderboardId the id of the leaderboard you need to connect to.
-    * @param Count Number of members returned per page
-    * @param After Curser for pagination, a cursor will be returned in the response
-    *
-    * https://ref.lootlocker.io/game-api/#get-score-list
-    */
+    /**
+     * Get list of members in rank range. Result is sorted by rank ascending.
+     * Maximum allowed members to query for at a time is currently 2000. If leaderboard is of type player a player will also be in the response.
+     * https://ref.lootlocker.io/game-api/#get-score-list
+     *
+     * @param LeaderboardId the id of the leaderboard you need to connect to.
+     * @param Count Number of members returned per page
+     * @param After Cursor for pagination, a cursor will be returned in the response
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
     static void GetScoreList(int LeaderboardId, int Count, int After, const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest);
 
     /**
-    * Collecting an Item is done by calling this endpoint with a payload equal to the slug of the Item.
-    * The slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
-    * @param LeaderboardId the id of the leaderboard you need to connect to.
-    * @param Count Number of members returned per page
-    * @param OnCompletedRequest FLootLockerGetScoreListResponseDelegate
-    *
-    * https://ref.lootlocker.io/game-api/#get-score-list
-    */
+     * Get list of members in rank range. Result is sorted by rank ascending.
+     * Maximum allowed members to query for at a time is currently 2000. If leaderboard is of type player a player will also be in the response.
+     * https://ref.lootlocker.io/game-api/#get-score-list
+     *
+     * @param LeaderboardId the id of the leaderboard you need to connect to.
+     * @param Count Number of members returned per page
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
     static void GetScoreListInitial(int LeaderboardId, int Count, const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest);
 
-
-     /**
-    * Collecting an Item is done by calling this endpoint with a payload equal to the slug of the Item.
-    * The slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
-    * @param LeaderboardId the id of the leaderboard you need to connect to.
-    * @param MemberId the id of player in the leaderboard.
-    * @param Score the score to be submitted.
-    * @param OnCompletedRequest FLootLockerSubmitScoreResponseDelegate
-    * https://ref.lootlocker.io/game-api/#submit-scorem
-    */
+    /**
+     * Submit score for member on leaderboard.
+     * https://ref.lootlocker.com/game-api/#submit-score
+     *
+     * @param MemberId The id of player in the leaderboard.
+     * @param LeaderboardId The id of the leaderboard you need to connect to.
+     * @param Score The score to be submitted.
+     * @param Metadata Metadata for the score, will be used if metadata is enabled for the leaderboard
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
     static void SubmitScore(FString MemberId, const int LeaderboardId, const int Score, FString Metadata, const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest);
 
 	/**
-	* Get all leaderboards with member information on the ones the member is on, with rank and score, as well as player information if the leaderboard is of type player.
-   * If metadata is enabled for the leaderboard, that will be returned in the response.
-   * @param MemberId player_id if player type leaderboard, otherwise id used when submitting the score
-   * @param Count Number of members returned per page
-   * @param After Curser for pagination, a cursor will be returned in the response
-   *
-   * https://ref.lootlocker.com/game-api/#get-all-member-ranks
-   */
+	 * Get all leaderboards with member information on the ones the member is on, with rank and score, as well as player information if the leaderboard is of type player.
+     * If metadata is enabled for the leaderboard, that will be returned in the response.
+     * https://ref.lootlocker.com/game-api/#get-all-member-ranks
+     *
+     * @param MemberId player_id if player type leaderboard, otherwise id used when submitting the score
+     * @param Count Number of members returned per page
+     * @param After Cursor for pagination, a cursor will be returned in the response
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
 	static void GetAllMemberRanks(int MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseDelegate& OnCompletedRequest);
 	
-     //==================================================
+    //==================================================
     //Drop Table
     //==================================================
     /**
