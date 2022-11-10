@@ -1067,12 +1067,15 @@ public:
 
     //==================================================
     //Maps
+    // https://ref.lootlocker.com/game-api/#maps
     //==================================================
 
     /**
-    * Get maps data.
-    * https://ref.lootlocker.io/game-api/#getting-all-maps
-    */
+     * Get maps data.
+     * https://docs.lootlocker.io/game-api/#getting-all-maps
+     *
+     * @param OnGetMapsCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Maps")
     static void GetMaps(const FGetMapsResponseDelegateBP& OnGetMapsCompleted);
 
@@ -1080,58 +1083,69 @@ public:
     //Purchases
     //==================================================
 
-
     /**
-    * Sending a request to this endpoint with asset information, will facilitate a purchase.
-    * If your game uses soft currency, it will check the players account balance and grant the assets to the player if there is coverage.
-    * If there is no coverage, an error will be returned.
-    *
-    * @param PurchaseData data about the assets to be purchased.
-    * https://ref.lootlocker.io/game-api/#purchase-call
-    */
+     * Purchase an asset
+     * If your game uses soft currency, it will check the players account balance and grant the assets to the player if there is coverage.
+     * If there is no coverage, an error will be returned.
+     * https://docs.lootlocker.io/game-api/#purchase-call
+     *
+     * @param PurchaseData Data about the assets to be purchased.
+     * @param OnPurchaseAssetsCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
     static void PurchaseAssets(const TArray<FLootLockerAssetPurchaseData>& PurchaseData, const FPurchaseResponseDelegateBP& OnPurchaseAssetsCompleted);
 
     /**
-    * Platform-specific purchase call for Android.
-    *
-    * @param PurchaseData data about the assets to be purchased.
-    * https://ref.lootlocker.io/game-api/#android-in-app-purchases
-    */
+     * Platform-specific purchase call for Android.
+     * https://docs.lootlocker.io/game-api/#android-in-app-purchases
+     *
+     * @param PurchaseData Data about the assets to be purchased.
+     * @param OnPurchaseAssetsAndroidCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
     static void PurchaseAssetsAndroid(const TArray<FLootLockerAndroidAssetPurchaseData>& PurchaseData, const  FPurchaseResponseDelegateBP& OnPurchaseAssetsAndroidCompleted);
 
     /**
-    * Platform-specific purchase call for iOS.
-    *
-    * @param PurchaseData data about the assets to be purchased.
-    *  https://ref.lootlocker.io/game-api/#ios-in-app-purchases
-    */
+     * Platform-specific purchase call for iOS.
+     * https://docs.lootlocker.io/game-api/#ios-in-app-purchases
+     *
+     * @param PurchaseData data about the assets to be purchased.
+     * @param OnPurchaseAssetsIOSCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
     static void PurchaseAssetsIOS(const TArray<FLootLockerVerifyPurchaseIosData>& PurchaseData, const FPurchaseResponseDelegateBP& OnPurchaseAssetsIOSCompleted);
 
     /**
-    * This call will let you know the current status of an order.
-    * If you get a response that is considered final, you should issue a call to the player inventory endpoint if you're in a context where the inventory might change.
-    *
-    * @param PurchaseId ID of the purchase order.
-    *  https://ref.lootlocker.io/game-api/#polling-order-status
-    */
+     * Get the status of an order.
+     * If you get a response that is considered final, you should issue a call to the player inventory endpoint if you're in a context where the inventory might change.
+     *  https://docs.lootlocker.io/game-api/#polling-order-status
+     *
+     * @param PurchaseId ID of the purchase order.
+     * @param OnPollingStatusCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
     static  void PollingOrderStatus(int PurchaseId, const FPurchaseStatusResponseDelegateBP& OnPollingStatusCompleted);
 
     /**
-    *
-    * Once you have purchased a rental asset, you need to activate the rental for it to become available for the player. This endpoint achieves that.
-    *
-    * @param AssetId ID of the asset.
-    * https://ref.lootlocker.io/game-api/#activating-a-rental-asset
-    */
+     * Once you have purchased a rental asset, you need to activate the rental for it to become available for the player. This endpoint achieves that.
+     * https://docs.lootlocker.io/game-api/#activating-a-rental-asset
+     *
+     * @param AssetId ID of the asset.
+     * @param OnActivateRentalAssetCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
     static void ActivateRentalAsset(int AssetId, const FActivateRentalAssetResponseDelegateBP& OnActivateRentalAssetCompleted);
 
+    /**
+     * Get details on an order, like what products it contains as well as the order status.
+     * https://ref.lootlocker.com/game-api/#get-order-details
+     *
+     * @param OrderId ID of the order.
+     * @param NoProducts Set to true if you do not want products in the order returned in the response.
+     * @param OnCompleteBP Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
-    static void GetOrderDetails(int32 OrderId, const bool noProducts, const FOrderStatusDetailsBP& OnCompleteBP);
+    static void GetOrderDetails(int32 OrderId, const bool NoProducts, const FOrderStatusDetailsBP& OnCompleteBP);
 
     //==================================================
     //Trigger Events
