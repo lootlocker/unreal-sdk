@@ -112,10 +112,10 @@ public:
      * https://ref.lootlocker.com/game-api/#login
      *
      * White Label platform must be enabled in the web console for this to work.
-     * @param Email - The Email for the white label account
-     * @param Password - The Password for the white label account
+     * @param Email The Email for the white label account
+     * @param Password The Password for the white label account
      * @param OnWhiteLabelLoginRequestCompleted Delegate for handling the response of type FLootLockerLoginResponse
-     * @param Remember - Optional flag to prolong the session lifetime
+     * @param Remember Optional flag to prolong the session lifetime
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta=(AdvancedDisplay=3))
     static void WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelLoginRequestCompleted, const bool Remember = false);
@@ -205,59 +205,69 @@ public:
     //==================================================
 
     /**
-    * Get general information about the player, such as the XP, Level information and their account balance.
-    * https://ref.lootlocker.io/game-api/#get-player-info
-    */
+     * Get general information about the current current player, such as the XP, Level information and their account balance.
+     * https://ref.lootlocker.io/game-api/#get-player-info
+     *
+     * @param OnGetPlayerInfoRequestComplete Delegate for handling the response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
     static void GetPlayerInfo(const FPInfoResponseBP& OnGetPlayerInfoRequestComplete);
 
     /**
     * Get a paginated list of the players inventory.
-    * https://ref.lootlocker.io/game-api/#get-inventory-list
+    * https://docs.lootlocker.io/game-api/#get-inventory-list
+    *
+    * @param OnGetInventoryRequestCompleted Delegate for handling the the server response.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
-     static void GetInventory(const FPInventoryResponseBP& OnGetInventoryRequestCompleted);
+    static void GetInventory(const FPInventoryResponseBP& OnGetInventoryRequestCompleted);
 
     /**
     * Receive xp, and award it to the player.
-    *
-    * @param Points - number of XP points to grant to the player.
     * https://ref.lootlocker.io/game-api/#submit-xp
+    *
+    * @param Points Number of XP points to grant to the player.
+    * @param OnSubmitXPRequestCompleted Delegate for handling the the server response.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
-     static void SubmitXP(int points, const FPSubmitResponseBP& OnSubmitXPRequestCompleted);
+    static void SubmitXP(int Points, const FPSubmitResponseBP& OnSubmitXPRequestCompleted);
 
     /**
     * Get other players XP and level.
+    * https://docs.lootlocker.io/game-api/#get-other-players-xp-and-level
     *
-    * @param GetRequests - request data.
-    *  https://ref.lootlocker.io/game-api/#get-other-players-xp-and-level
+    * @param OtherPlayerId Other players id.
+    * @param OnGetOtherPlayersXpAndLevelRequestCompleted Delegate for handling the the server response.
+    * @param OtherPlayerPlatform Optional parameter to specify which platform the Id is for.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
-     static void GetOtherPlayersXpAndLevel(FString OtherPlayerId, const FPOtherPlayersXpAndLevelBP& OnGetOtherPlayersXpAndLevelRequestCompleted, FString OtherPlayerPlatform = FString(TEXT("")));
-
+    static void GetOtherPlayersXpAndLevel(FString OtherPlayerId, const FPOtherPlayersXpAndLevelBP& OnGetOtherPlayersXpAndLevelRequestCompleted, FString OtherPlayerPlatform = FString(TEXT("")));
 
 	/**
 	* Get Multiple Other Players XP And Level.
+	* https://ref.lootlocker.com/game-api/#get-multiple-other-players-xp-and-level
 	*
-	* @param GetRequests - request data.
-	*  https://ref.lootlocker.com/game-api/#get-multiple-other-players-xp-and-level
+    * @param Platform Specify which platform the Ids are for.
+    * @param PlayerIDs Lost of player ids on the specified platform.
+    * @param OnGetOtherPlayerInfoRequestCompleted Delegate for handling the the server response.
 	*/
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
      static void GetMultiplePlayersXp(FString Platform, TArray<FString> PlayerIDs, const  FPMultiplePlayersXPBP& OnGetOtherPlayerInfoRequestCompleted);
 
     /**
-    * Get assets that have been granted (given to) the player since the last time this endpoint was called.
-    * https://ref.lootlocker.io/game-api/#player-asset-notifications
+    * Get assets that have been granted to the player since the last time this endpoint was called.
+    * https://docs.lootlocker.io/game-api/#player-asset-notifications
+    *
+    * @param OnCheckPlayerAssetDeactivationNotificationRequestCompleted Delegate for handling the the server response.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
      static void CheckPlayerAssetActivationNotification(const FPAssetNotificationResponseBP& OnCheckPlayerAssetDeactivationNotificationRequestCompleted);
 
     /**
     * This endpoint will return the amount of credits the current player have on their account.
+    * https://docs.lootlocker.io/game-api/#get-currency-balance
     *
-    * @param OnCompletedRequest - callback to be invoked with the server response.
-    * https://ref.lootlocker.io/game-api/#get-currency-balance
+    * @param OnGetCurrencyBalance Delegate for handling the the server response.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
     static void GetCurrencyBalance(const FPBalanceResponseBP& OnGetCurrencyBalance);
@@ -267,6 +277,8 @@ public:
     * a call to the Player Asset Notifications call, to get the results of the migration, if any.
     *
     * https://ref.lootlocker.io/game-api/#initiate-dlc-migration
+    *
+    * @param OnInitiateDlcMigration Delegate for handling the the server response.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
     static void InitiateDLCMigration(const FResponseCallbackBP& OnInitiateDlcMigration);
@@ -274,9 +286,9 @@ public:
     /**
     * This endpoint will return a list of DLC's migrated for the player. The DLC identifiers returned
     * will be the ones of the platform the DLC belongs to. The identifier will always be a string, even if the identifier is numeric.
-    *
-    * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://ref.lootlocker.io/game-api/#get-dlcs-migrated
+    *
+    * @param OnGotDlcMigration Delegate for handling the the server response.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
     static void GetDLCsMigration(const FPDlcResponseBP& OnGotDlcMigration);
@@ -284,9 +296,9 @@ public:
     /**
     * This endpoint will set the players profile to private. This means that their
     * inventory will not be displayed publicly on Steam and other places.
-    *
-    * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://ref.lootlocker.io/game-api/#set-profile-private
+    *
+    * @param OnProfileSetPrivate Delegate for handling the the server response.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
     static void SetProfilePrivate(const FResponseCallbackBP& OnProfileSetPrivate);
@@ -294,48 +306,48 @@ public:
     /**
     * This endpoint will set the players profile to public. This means that their inventory will be
     * displayed publicly on Steam and other places.
-    *
-    * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://ref.lootlocker.io/game-api/#set-profile-public
+    *
+    * @param OnProfileSetPublic Delegate for handling the the server response.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
     static void SetProfilePublic(const FResponseCallbackBP& OnProfileSetPublic);
 
    /**
    * This endpoint will set the players name.
-   *
-   * @param name - String name to set.
-   * @param OnCompletedRequest - callback to be invoked with the server response.
    * https://ref.lootlocker.io/game-api/#set-player-name
+   *
+   * @param Name String name to set.
+   * @param OnSetPlayerName Delegate for handling the the server response.
    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
-    static void SetPlayerName(FString name, const FPNameResponseBP& OnSetPlayerName);
+    static void SetPlayerName(FString Name, const FPNameResponseBP& OnSetPlayerName);
 
     /**
     * This endpoint will get the players name.
-    *
-    * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://ref.lootlocker.io/game-api/#get-player-name
+    *
+    * @param OnGetPlayerName Delegate for handling the the server response.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
     static void GetPlayerName(const FPNameResponseBP& OnGetPlayerName);
 
 	/**
 	* This endpoint will return the names of the players on their last active platform.
-	*
-	* @param Request - Request array with platforms and Ids to search for.
-	* @param OnCompletedRequest - callback to be invoked with the server response.
 	* https://ref.lootlocker.com/game-api/#lookup-multiple-player-names-using-ids
+	*
+	* @param Request Request array with platforms and Ids to search for.
+	* @param OnCompletedRequest Delegate for handling the the server response.
 	*/
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
 	static void LookupMultiplePlayerNamesUsingIDs(const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayerNamesBP& OnCompletedRequest);
 
     /**
     * This endpoint will return the names of the players on their last active platform.
-    *
-    * @param Request - Request array with player ids and/or player public uids to search for.
-    * @param OnCompletedRequest - callback to be invoked with the server response.
     * https://ref.lootlocker.com/game-api/#lookup-multiple-player-1st-platform-ids-using-lootlocker-player-ids
+    *
+    * @param Request Request array with player ids and/or player public uids to search for.
+    * @param OnCompletedRequest Delegate for handling the the server response.
     */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
 	static void LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesAndPlatformsRequest &Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequest);
@@ -343,6 +355,7 @@ public:
 
     //==================================================
     //Files
+	// https://ref.lootlocker.io/game-api/#player-files
     //==================================================
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files")
 	static void UploadFile(const FLootLockerFileUploadRequest& Request, const FLootLockerUploadFileBP& OnComplete);
@@ -399,8 +412,8 @@ public:
     /**
     * Equip an asset to the specified character.
     *
-    * @param Name - the name of the character.
-    * @param IsDefault - if this should be set as the default character.
+    * @param Name the name of the character.
+    * @param IsDefault if this should be set as the default character.
     * https://ref.lootlocker.io/game-api/#create-character
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
@@ -412,9 +425,9 @@ public:
     * See List Character Types to get your games Character Types. The other parameters
     * are optional and are the same as for the Update Character call.
     *
-    * @param CharacterTypeId - the ID of the type.
-    * @param CharacterName - the name of the character.
-    * @param IsDefault - if this should be set as the default character.
+    * @param CharacterTypeId the ID of the type.
+    * @param CharacterName the name of the character.
+    * @param IsDefault if this should be set as the default character.
     * https://ref.lootlocker.io/game-api/#create-character
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
@@ -433,7 +446,7 @@ public:
     /**
     * Equip an asset to the default character.
     *
-    * @param InstanceId - the asset's instance_id that is returned from the inventory and loadout calls.
+    * @param InstanceId the asset's instance_id that is returned from the inventory and loadout calls.
     *  https://ref.lootlocker.io/game-api/#equip-asset-to-default-character
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
@@ -442,9 +455,9 @@ public:
     /**
     * Equip an asset to the specified character.
     *
-    * @param CharacterId - ID of the character to equip an asset to.
-    * @param asset_id - the asset's instance_id that is returned from the inventory and loadout calls.
-    * @param AssetVariationId - the asset_variation_id.
+    * @param CharacterId ID of the character to equip an asset to.
+    * @param asset_id the asset's instance_id that is returned from the inventory and loadout calls.
+    * @param AssetVariationId the asset_variation_id.
     * https://ref.lootlocker.io/game-api/#equip-asset-to-character-by-id
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
@@ -453,9 +466,9 @@ public:
         /**
     * Equip an asset to the specified character.
     *
-    * @param CharacterId - ID of the character to equip an asset to.
-    * @param InstanceId - the asset's instance_id that is returned from the inventory and loadout calls.
-    * @param AssetVariationId - the asset_variation_id.
+    * @param CharacterId ID of the character to equip an asset to.
+    * @param InstanceId the asset's instance_id that is returned from the inventory and loadout calls.
+    * @param AssetVariationId the asset_variation_id.
     * https://ref.lootlocker.io/game-api/#equip-asset-to-character-by-id
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
@@ -465,7 +478,7 @@ public:
     /**
     * Unequip an asset from the default character.
     *
-    * @param InstanceId - the asset's instance_id that is returned from the inventory and loadout calls.
+    * @param InstanceId the asset's instance_id that is returned from the inventory and loadout calls.
     * https://ref.lootlocker.io/game-api/#unequip-asset-to-default-character
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
@@ -474,9 +487,9 @@ public:
     /**
     * Unequip an asset from the specified character.
     *
-    * @param CharacterId - ID of the character to unequip an asset from.
-    * @param InstanceId - the asset's instance_id that is returned from the inventory and loadout calls.
-    * @param AssetVariationId - the asset_variation_id.
+    * @param CharacterId ID of the character to unequip an asset from.
+    * @param InstanceId the asset's instance_id that is returned from the inventory and loadout calls.
+    * @param AssetVariationId the asset_variation_id.
     * https://ref.lootlocker.io/game-api/#unequip-asset-to-character-by-id
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
@@ -492,9 +505,9 @@ public:
     /**
     * This method will return the exact same response as the GetCharacterLoadout, except that it will be for another player.
     *
-    * @param OtherPlayerId - other player's ID on the requested platform.
-    * @param OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted - callback to be invoked with the server response.
-    * @param OtherPlayerPlatform - Optional: the platform the id refers to if different than the current platform
+    * @param OtherPlayerId other player's ID on the requested platform.
+    * @param OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted Delegate for handling the the server response.
+    * @param OtherPlayerPlatform Optional: the platform the id refers to if different than the current platform
     * https://ref.lootlocker.io/game-api/#get-other-players-loadout-to-default-character
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
@@ -512,7 +525,7 @@ public:
     *
     * Get the contexts that the specified player's default character can equip.
     *
-    * @param otherCharacterId - other player's ID.
+    * @param otherCharacterId other player's ID.
     * https://ref.lootlocker.io/game-api/#get-equippable-contexts-by-character-id
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
@@ -532,7 +545,7 @@ public:
     /**
     * Get Key/Value pair from the player's persistent storage.
     *
-    * @param Key - key of the key/value pair.
+    * @param Key key of the key/value pair.
     * https://ref.lootlocker.io/game-api/#get-a-single-key-from-persistent-storage
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage")
@@ -541,7 +554,7 @@ public:
     /**
     * Create/Update key/value pair(s).
     *
-    * @param Items - array of items to be created/updated.
+    * @param Items array of items to be created/updated.
     * https://ref.lootlocker.io/game-api/#updating-creating-key-value-pairs
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage")
@@ -561,7 +574,7 @@ public:
     /**
     * Delete a key/value pair.
     *
-    * @param Key - key of a key/value pair.
+    * @param Key key of a key/value pair.
     * https://ref.lootlocker.io/game-api/#deleting-a-key-value-pair
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage")
@@ -570,7 +583,7 @@ public:
     /**
     * Read another players public key/value storage.
     *
-    * @param PlayerId - players id or their public UID.
+    * @param PlayerId players id or their public UID.
     * https://ref.lootlocker.io/game-api/#getting-other-players-public-key-value-pairs
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage")
@@ -590,11 +603,11 @@ public:
     /**
     * Get all assets in a paginated form.
     *
-    * @param StartFromIndex - index of the item to start from.
-    * @param ItemsCount - number of items to receive (50-200).
-    * @param AssetFilter - optional filter.
-    * @param Context - optional context filter.
-    * @param IncludeUGC - whether to include UGC Assets.
+    * @param StartFromIndex index of the item to start from.
+    * @param ItemsCount number of items to receive (50-200).
+    * @param AssetFilter optional filter.
+    * @param Context optional context filter.
+    * @param IncludeUGC whether to include UGC Assets.
     * https://ref.lootlocker.io/game-api/#getting-asset-list
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
@@ -603,7 +616,7 @@ public:
     /**
     * Retrieve only specific Assets by their ID's.
     *
-    * @param AssetIds - array of the asset ID's to be fetched.
+    * @param AssetIds array of the asset ID's to be fetched.
     * https://ref.lootlocker.io/game-api/#getting-assets-by-ids
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
@@ -627,7 +640,7 @@ public:
     /**
     * Add an asset to the list of favourites.
     *
-    * @param AssetId - asset ID to be added.
+    * @param AssetId asset ID to be added.
     * https://ref.lootlocker.io/game-api/#adding-favourite-assets
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
@@ -636,7 +649,7 @@ public:
     /**
     * Remove an asset from the list of favourites.
     *
-    * @param AssetId - asset ID to be removed.
+    * @param AssetId asset ID to be removed.
     * https://ref.lootlocker.io/game-api/#removing-favourite-assets
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
@@ -645,9 +658,9 @@ public:
 	/**
 	* This call offers a paginated list of the games universal assets
 	*
-	* @param After - last universal id to start after.
-	* @param ItemsCount - number of items to receive (50-200).
-	* @param OnCompletedRequest - callback to be invoked with the server response.
+	* @param After last universal id to start after.
+	* @param ItemsCount number of items to receive (50-200).
+	* @param OnCompletedRequest Delegate for handling the the server response.
 	* https://docs.lootlocker.io/game-api/#get-universal-assets
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
@@ -661,8 +674,8 @@ public:
     /**
     * Get all key/value pairs for an asset instance.
     *
-    * @param AssetInstanceId - asset instance ID.
-    * @param OnCompletedRequest - callback to be invoked with the server response.
+    * @param AssetInstanceId asset instance ID.
+    * @param OnCompletedRequest Delegate for handling the the server response.
     * https://ref.lootlocker.io/game-api/#getting-all-key-value-pairs
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
@@ -671,7 +684,7 @@ public:
     /**
     * Get all key/value pairs for an asset instance.
     *
-    * @param AssetInstanceId - asset instance ID.
+    * @param AssetInstanceId asset instance ID.
     * https://ref.lootlocker.io/game-api/#getting-all-key-value-pairs-to-an-instance
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
@@ -680,8 +693,8 @@ public:
     /**
     * Get a key/value pair for an asset instance.
     *
-    * @param AssetInstanceId - asset instance ID.
-    * @param StorageItemId - ID of the key/value pair.
+    * @param AssetInstanceId asset instance ID.
+    * @param StorageItemId ID of the key/value pair.
     * https://ref.lootlocker.io/game-api/#getting-a-key-value-pair-by-id
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
@@ -690,8 +703,8 @@ public:
     /**
     * Create a key/value pair for an asset instance.
     *
-    * @param AssetInstanceId - asset instance ID.
-    * @param Item - key/value pair.
+    * @param AssetInstanceId asset instance ID.
+    * @param Item key/value pair.
     * https://ref.lootlocker.io/game-api/#creating-a-key-value-pair
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
@@ -700,8 +713,8 @@ public:
     /**
     * Update key/value pairs for an asset instance.
     *
-    * @param AssetInstanceId - asset instance ID.
-    * @param Items - key/value pairs.
+    * @param AssetInstanceId asset instance ID.
+    * @param Items key/value pairs.
     * https://ref.lootlocker.io/game-api/#updating-one-or-more-key-value-pairs
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
@@ -711,8 +724,8 @@ public:
     /**
     * Update a key/value pair for an asset instance.
     *
-    * @param AssetInstanceId - asset instance ID.
-    * @param StorageItemId - key/value pair ID.
+    * @param AssetInstanceId asset instance ID.
+    * @param StorageItemId key/value pair ID.
     * https://ref.lootlocker.io/game-api/#updating-a-key-value-pair-by-id
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
@@ -721,8 +734,8 @@ public:
     /**
     * Delete a key/value pair for an asset instance.
     *
-    * @param AssetInstanceId - asset instance ID.
-    * @param StorageItemId - key/value pair ID.
+    * @param AssetInstanceId asset instance ID.
+    * @param StorageItemId key/value pair ID.
     * https://ref.lootlocker.io/game-api/#delete-a-key-value-pair
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
@@ -731,7 +744,7 @@ public:
     /**
     * Asset instances with the type set to loot box can be inspected, to see what assets the player might possibly get when opening them.
     *
-    * @param AssetInstanceId - asset instance ID.
+    * @param AssetInstanceId asset instance ID.
     * https://ref.lootlocker.io/game-api/#inspect-a-loot-box
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
@@ -743,7 +756,7 @@ public:
     * Once you call this endpoint, the Loot Box will be removed from the players inventory, and a new asset will be added to the inventory,
     * with the acquisition_source set to grant_loot_box. You will be asked to check the grant notifications to see which asset was granted.
     *
-    * @param AssetInstanceId - asset instance ID.
+    * @param AssetInstanceId asset instance ID.
     * https://ref.lootlocker.io/game-api/#open-a-loot-box
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
@@ -757,7 +770,7 @@ public:
     /**
     * Create an asset candidate.
     *
-    * @param AsssetCandidate - asset candidate data.
+    * @param AsssetCandidate asset candidate data.
     * https://ref.lootlocker.io/game-api/#creating-an-asset-candidate
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
@@ -767,8 +780,8 @@ public:
     /**
     * Update an asset candidate.
     *
-    * @param AssetCandidateId - ID of the asset candidate.
-    * @param AsssetCandidate - asset candidate data.
+    * @param AssetCandidateId ID of the asset candidate.
+    * @param AsssetCandidate asset candidate data.
     * https://ref.lootlocker.io/game-api/#updating-an-asset-candidate
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
@@ -778,7 +791,7 @@ public:
     /**
     * Delete an asset candidate.
     *
-    * @param AssetCandidateId - ID of the asset candidate.
+    * @param AssetCandidateId ID of the asset candidate.
     * https://ref.lootlocker.io/game-api/#deleting-an-asset-candidate
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
@@ -794,7 +807,7 @@ public:
     /**
     * Get an asset candidate.
     *
-    * @param AssetCandidateId - ID of the asset candidate.
+    * @param AssetCandidateId ID of the asset candidate.
     * https://ref.lootlocker.io/game-api/#getting-a-single-asset-candidate
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
@@ -803,9 +816,9 @@ public:
     /**
     * Add a file to an asset candidate.
     *
-    * @param AssetCandidateId - ID of the asset candidate.
-    * @param FilePath - full absolute path to a file.
-    * @param FilePurpose - purpose of the file.
+    * @param AssetCandidateId ID of the asset candidate.
+    * @param FilePath full absolute path to a file.
+    * @param FilePurpose purpose of the file.
     * https://ref.lootlocker.io/game-api/#adding-files-to-asset-candidates
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
@@ -815,8 +828,8 @@ public:
     *
     * Remove a file from an asset candidate.
     *
-    * @param AssetCandidateId - ID of the asset candidate.
-    * @param FileId - ID of the file.
+    * @param AssetCandidateId ID of the asset candidate.
+    * @param FileId ID of the file.
     * https://ref.lootlocker.io/game-api/#removing-files-from-an-asset-candidate
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
@@ -836,7 +849,7 @@ public:
     /**
     * Get a mission.
     *
-    * @param MissionId - mission ID.
+    * @param MissionId mission ID.
     * https://ref.lootlocker.io/game-api/#getting-a-single-mission
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions")
@@ -845,7 +858,7 @@ public:
     /**
     * Start a mission.
     *
-    * @param MissionId - mission ID.
+    * @param MissionId mission ID.
     * https://ref.lootlocker.io/game-api/#starting-mission
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions")
@@ -854,8 +867,8 @@ public:
     /**
     * Finish a mission.
     *
-    * @param MissionId - mission ID.
-    * @param MissionData - mission completion data.
+    * @param MissionId mission ID.
+    * @param MissionData mission completion data.
     * https://ref.lootlocker.io/game-api/#finishing-mission
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions")
@@ -882,7 +895,7 @@ public:
     * If your game uses soft currency, it will check the players account balance and grant the assets to the player if there is coverage.
     * If there is no coverage, an error will be returned.
     *
-    * @param PurchaseData - data about the assets to be purchased.
+    * @param PurchaseData data about the assets to be purchased.
     * https://ref.lootlocker.io/game-api/#purchase-call
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
@@ -891,7 +904,7 @@ public:
     /**
     * Platform-specific purchase call for Android.
     *
-    * @param PurchaseData - data about the assets to be purchased.
+    * @param PurchaseData data about the assets to be purchased.
     * https://ref.lootlocker.io/game-api/#android-in-app-purchases
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
@@ -900,7 +913,7 @@ public:
     /**
     * Platform-specific purchase call for iOS.
     *
-    * @param PurchaseData - data about the assets to be purchased.
+    * @param PurchaseData data about the assets to be purchased.
     *  https://ref.lootlocker.io/game-api/#ios-in-app-purchases
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
@@ -910,7 +923,7 @@ public:
     * This call will let you know the current status of an order.
     * If you get a response that is considered final, you should issue a call to the player inventory endpoint if you're in a context where the inventory might change.
     *
-    * @param PurchaseId - ID of the purchase order.
+    * @param PurchaseId ID of the purchase order.
     *  https://ref.lootlocker.io/game-api/#polling-order-status
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
@@ -920,7 +933,7 @@ public:
     *
     * Once you have purchased a rental asset, you need to activate the rental for it to become available for the player. This endpoint achieves that.
     *
-    * @param AssetId - ID of the asset.
+    * @param AssetId ID of the asset.
     * https://ref.lootlocker.io/game-api/#activating-a-rental-asset
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
@@ -936,7 +949,7 @@ public:
     /**
     * Trigger an event.
     *
-    * @param Event - data of the event to be triggered.
+    * @param Event data of the event to be triggered.
     * https://ref.lootlocker.io/game-api/#triggering-an-event
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Trigger Events")
@@ -963,7 +976,7 @@ public:
     /**
     * Collecting an Item is done by calling this endpoint with a payload equal to the slug of the Item.
     * The slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
-    * @param Item - the slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
+    * @param Item the slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
     *
     * https://ref.lootlocker.io/game-api/#collecting-an-item
     */
@@ -988,8 +1001,8 @@ public:
      /**
     * Get rank for single member for a leaderboard. If leaderboard is of type player a player will also be in the response.
     *
-    * @param LeaderboardId - the id of the leaderboard you need to connect to.
-    * @param MemberId - the id of player in the leaderboard
+    * @param LeaderboardId the id of the leaderboard you need to connect to.
+    * @param MemberId the id of player in the leaderboard
     *
     * https://ref.lootlocker.io/game-api/#get-member-rank
     */
@@ -999,9 +1012,9 @@ public:
 	/**
 	* Get all leaderboards with member information on the ones the member is on, with rank and score, as well as player information if the leaderboard is of type player.
     * If metadata is enabled for the leaderboard, that will be returned in the response.
-    * @param MemberId - player_id if player type leaderboard, otherwise id used when submitting the score
-    * @param Count - Number of members returned per page
-    * @param After - Curser for pagination, a cursor will be returned in the response
+    * @param MemberId player_id if player type leaderboard, otherwise id used when submitting the score
+    * @param Count Number of members returned per page
+    * @param After Curser for pagination, a cursor will be returned in the response
     *
     * https://ref.lootlocker.com/game-api/#get-all-member-ranks
     */
@@ -1012,7 +1025,7 @@ public:
      /**
     * Get ranks for list of members for a leaderboard. This can be helpful when getting a players friends on leaderboard.
     * If leaderboard is of type player a player will also be in the response.
-    * @param Members - the ids of all leaderboard members you need to get info on.
+    * @param Members the ids of all leaderboard members you need to get info on.
     *
     * https://ref.lootlocker.io/game-api/#get-by-list-of-members
     */
@@ -1022,9 +1035,9 @@ public:
      /**
     * Get list of members in rank range. Result is sorted by rank ascending.
     * Maximum allowed members to query for at a time is currently 2000. If leaderboard is of type player a player will also be in the response.
-    * @param LeaderboardId - the id of the leaderboard you need to connect to.
-    * @param Count - Number of members returned per page
-    * @param After - Curser for pagination, a cursor will be returned in the response
+    * @param LeaderboardId the id of the leaderboard you need to connect to.
+    * @param Count Number of members returned per page
+    * @param After Curser for pagination, a cursor will be returned in the response
     *
     * https://ref.lootlocker.io/game-api/#get-score-list
     */
@@ -1034,9 +1047,9 @@ public:
     /**
     * Get list of members in rank range. Result is sorted by rank ascending.
     * Maximum allowed members to query for at a time is currently 2000. If leaderboard is of type player a player will also be in the response.
-    * @param LeaderboardId - the id of the leaderboard you need to connect to.
-    * @param Count - Number of members returned per page
-    * @param After - Curser for pagination, a cursor will be returned in the response
+    * @param LeaderboardId the id of the leaderboard you need to connect to.
+    * @param Count Number of members returned per page
+    * @param After Curser for pagination, a cursor will be returned in the response
     *
     * https://ref.lootlocker.io/game-api/#get-score-list
     */
@@ -1045,9 +1058,9 @@ public:
 
      /**
     * Submit scores for member on leaderboard.
-    * @param LeaderboardId - the id of the leaderboard you need to connect to.
-    * @param MemberId - the id of player in the leaderboard.
-    * @param Score - the score to be submitted.
+    * @param LeaderboardId the id of the leaderboard you need to connect to.
+    * @param MemberId the id of player in the leaderboard.
+    * @param Score the score to be submitted.
     *
     * https://ref.lootlocker.io/game-api/#submit-scorem
     */
@@ -1078,7 +1091,7 @@ public:
     /**
     * Get the current time of the server. Can also be used to ping the server
     *
-    * @param OnCompletedRequestBP - callback to be invoked with the server response.
+    * @param OnCompletedRequestBP Delegate for handling the the server response.
     * https://ref.lootlocker.com/game-api/#server-time
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous")
