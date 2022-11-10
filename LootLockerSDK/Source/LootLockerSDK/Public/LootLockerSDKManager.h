@@ -1095,14 +1095,15 @@ public:
 
     //==================================================
     //Messages
+    // https://ref.lootlocker.com/game-api/#messages
     //==================================================
 
     /**
-    * Get all messages for a player.
-    *
-    * @param OnCompletedRequest Delegate for handling the server response.
-    * https://docs.lootlocker.io/game-api/#get-messages
-    */
+     * Get all messages for a player.
+     * https://docs.lootlocker.io/game-api/#get-messages
+     *
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     static void GetMessages(const FMessagesResponseDelegate& OnCompletedRequest);
 
      //==================================================

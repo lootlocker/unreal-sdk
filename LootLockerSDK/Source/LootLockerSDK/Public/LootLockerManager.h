@@ -1191,19 +1191,22 @@ public:
      * https://docs.lootlocker.io/game-api/#collecting-an-item
      *
      * @param Item The slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
-     * @param OnCompletedRequest Delegate for handling the server response.
+     * @param OnCollectItemCompleted Delegate for handling the server response.
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Collectables")
     static void CollectItem(const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegateBP& OnCollectItemCompleted);
 
     //==================================================
     //Messages
+    // https://ref.lootlocker.com/game-api/#messages
     //==================================================
 
     /**
-    * Get all messages for a player.
-    * https://ref.lootlocker.io/game-api/#get-messages
-    */
+     * Get all messages for a player.
+     * https://docs.lootlocker.io/game-api/#get-messages
+     *
+     * @param OnGetMessagesCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Messages")
     static void GetMessages(const FMessagesResponseDelegateBP& OnGetMessagesCompleted);
 
