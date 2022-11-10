@@ -253,9 +253,9 @@ void ULootLockerManager::GetCharacterLoadout(const FPCharacterLoadoutResponseBP&
     ULootLockerCharacterRequestHandler::GetCharacterLoadout(OnGetCharacterLoadoutRequestCompleted);
 }
 
-void ULootLockerManager::UpdateCharacter(int CharacterId, bool isDefault, FString Name, const FPCharacterLoadoutResponseBP& OnCompletedRequest)
+void ULootLockerManager::UpdateCharacter(int CharacterId, bool IsDefault, FString Name, const FPCharacterLoadoutResponseBP& OnCompletedRequest)
 {
-    ULootLockerCharacterRequestHandler::UpdateCharacter(CharacterId,isDefault, Name, OnCompletedRequest);
+    ULootLockerCharacterRequestHandler::UpdateCharacter(CharacterId,IsDefault, Name, OnCompletedRequest);
 }
 
 void ULootLockerManager::CreateCharacter(bool IsDefault,  FString CharacterName,  FString CharacterTypeId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP)
@@ -275,7 +275,7 @@ void ULootLockerManager::EquipAssetToDefaultCharacter(int InstanceId, const FPCh
 
 void ULootLockerManager::EquipAssetToCharacterById(int CharacterId, int AssetId, int AssetVariationId, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted)
 {
-    ULootLockerCharacterRequestHandler::EquipAssetToCharacterById(CharacterId, AssetId, AssetVariationId,OnEquipAssetToCharacterByIdRequestCompleted);
+    ULootLockerCharacterRequestHandler::EquipAssetToCharacterById(CharacterId, AssetId, AssetVariationId, OnEquipAssetToCharacterByIdRequestCompleted);
 }
 
 void ULootLockerManager::EquipAssetToCharacterByIdAndInstance(int CharacterId, int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted)
