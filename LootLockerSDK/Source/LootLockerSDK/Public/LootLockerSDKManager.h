@@ -1180,27 +1180,29 @@ public:
 	
     //==================================================
     //Drop Table
+    // https://ref.lootlocker.com/game-api/#drop-tables
     //==================================================
+
     /**
-    * Compute drop table
-    *
-    * @param TableId Drop table ID
-    * @param OnCompletedRequest FLootLockerComputeAndLockDropTableResponseDelegate
-    *
-    * https://ref.lootlocker.io/game-api/#submit-scorem
-    */
+     * Compute and lock the specified drop table.
+     * When you wish to evaluate a drop table and lock the drops from it in place, you call this method.
+     * The response will hold information on the assets that are dropped, and can be picked up using the Pick endpoint.
+     * https://ref.lootlocker.com/game-api/#compute-and-lock-drop-table
+     *
+     * @param TableId Drop table ID
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
     static void ComputeAndLockDropTable(const int TableId, const FLootLockerComputeAndLockDropTableResponseDelegate& OnCompletedRequest);
 
     /**
-   * Picks drops from drop table.
-   *
-   * @param Picks TArray int32 picked item IDs
-   * @param TableId drop table ID
-   * @param OnCompletedRequest FFLootLockerPickDropsFromDropTableResponseDelegate
-   *
-   * https://ref.lootlocker.io/game-api/#submit-scorem
-   */
-    static void PickDropsFromDropTable(const TArray<int> Picks,const int TableId,const FFLootLockerPickDropsFromDropTableResponseDelegate& OnCompletedRequest);
+     * Picks drops from a locked drop table.
+     * https://ref.lootlocker.com/game-api/#pick-drops-from-drop-table
+     *
+     * @param Picks List of the item IDs you want to pick. Submit empty list for no picks
+     * @param TableId Drop table ID, needs to have been locked prior to this call
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    static void PickDropsFromDropTable(const TArray<int> Picks, const int TableId,const FFLootLockerPickDropsFromDropTableResponseDelegate& OnCompletedRequest);
 
 	//==================================================
 	//Miscellaneous
@@ -1208,9 +1210,9 @@ public:
 
 	/**
 	* Get the current time of the server. Can also be used to ping the server
+	* https://ref.lootlocker.com/game-api/#server-time
 	*
 	* @param OnCompletedRequest Delegate for handling the server response.
-	* https://ref.lootlocker.com/game-api/#server-time
 	*/
 	static void GetServerTime(const FTimeResponseDelegate& OnCompletedRequest);
 
