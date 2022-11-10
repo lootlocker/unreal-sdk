@@ -23,7 +23,7 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
     FString RequestLog = FString(TEXT(""));
 
     auto localRequestNumber = ++requestNumber;
-#if ENGINE_MINOR_VERSION < 26
+#if ENGINE_MAJOR_VERSION < 5 && ENGINE_MINOR_VERSION < 26
 	TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
 #else
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = HttpModule->CreateRequest();
@@ -108,7 +108,11 @@ bool ULootLockerHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, 
 	}
 }
 
+#if ENGINE_MAJOR_VERSION < 5 && ENGINE_MINOR_VERSION < 26
 void ULootLockerHttpClient::SetHeader(TSharedRef<IHttpRequest> Request, const FString& Key, const FString& Value, FString& RequestLog)
+#else
+void ULootLockerHttpClient::SetHeader(TSharedRef < IHttpRequest, ESPMode::ThreadSafe > Request, const FString& Key, const FString& Value, FString& RequestLog)
+#endif
 {
     Request->SetHeader(Key, Value);
     RequestLog += FString::Printf(TEXT("Setting Header - \"%s\": \"%s\"\n"), *Key, *Value);
