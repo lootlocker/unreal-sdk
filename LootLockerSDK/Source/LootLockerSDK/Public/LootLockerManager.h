@@ -550,192 +550,208 @@ public:
 
     //==================================================
     //Characters
+    // https://ref.lootlocker.com/game-api/#characters
     //==================================================
 
     /**
     * This call will return all characters loadouts for a game, and have some additional information on the characters.
-    * https://ref.lootlocker.io/game-api/#character-loadouts
+    * https://docs.lootlocker.io/game-api/#character-loadouts
+    *
+    * @param OnGetCharacterLoadoutRequestCompleted Delegate for handling the server response.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
     static void GetCharacterLoadout(const FPCharacterLoadoutResponseBP& OnGetCharacterLoadoutRequestCompleted);
 
     /**
-    * Equip an asset to the specified character.
-    *
-    * @param Name the name of the character.
-    * @param IsDefault if this should be set as the default character.
-    * https://ref.lootlocker.io/game-api/#create-character
-    */
+     * This endpoint lets you set a character as default, and set the name of the character.
+     * https://docs.lootlocker.io/game-api/#update-character
+     *
+     * @param CharacterId Id of the character to make the update for
+     * @param IsDefault Should the character be set as default
+     * @param Name The name to set for the character
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
-    static void UpdateCharacter(int CharacterId,bool isDefault, FString Name, const FPCharacterLoadoutResponseBP& OnCompletedRequest);
-
+    static void UpdateCharacter(int CharacterId, bool IsDefault, FString Name, const FPCharacterLoadoutResponseBP& OnCompletedRequest);
 
     /**
-    * When creating a character there is only one required field: character_type_id.
-    * See List Character Types to get your games Character Types. The other parameters
-    * are optional and are the same as for the Update Character call.
-    *
-    * @param CharacterTypeId the ID of the type.
-    * @param CharacterName the name of the character.
-    * @param IsDefault if this should be set as the default character.
-    * https://ref.lootlocker.io/game-api/#create-character
-    */
+     * Create a character of the specified character type with the given name
+     * If IsDefault is set to true, the new character will be made the default character.
+     * See List Character Types to get your games Character Types.
+     * https://docs.lootlocker.io/game-api/#create-character
+     *
+     * @param IsDefault If this should be set as the default character.
+     * @param CharacterName The name of the character.
+     * @param CharacterTypeId The ID of the character type.
+     * @param OnCompletedRequestBP Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
     static void CreateCharacter(bool IsDefault,  FString CharacterName,  FString CharacterTypeId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP);
 
     /**
-
-    * Call this endpoint to list the character types configured for your game.
-    *
-    * https://ref.lootlocker.io/game-api/#list-character-types
-    */
+     * Call this endpoint to list the character types configured for your game.
+     * https://docs.lootlocker.io/game-api/#list-character-types
+     *
+     * @param OnCompletedRequestBP Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
     static void ListCharacterTypes(const FPLootLockerListCharacterTypesResponseBP& OnCompletedRequestBP);
 
-
     /**
-    * Equip an asset to the default character.
-    *
-    * @param InstanceId the asset's instance_id that is returned from the inventory and loadout calls.
-    *  https://ref.lootlocker.io/game-api/#equip-asset-to-default-character
-    */
+     * Equip an asset to the default character.
+     * https://docs.lootlocker.io/game-api/#equip-asset-to-default-character
+     *
+     * @param InstanceId The asset's instance_id that is returned from the inventory and loadout calls.
+     * @param OnEquipAssetToDefaultCharacterRequestCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
-    static void EquipAssetToDefaultCharacter(int instance_id, const FPCharacterDefaultResponseBP& OnEquipAssetToDefaultCharacterRequestCompleted);
+    static void EquipAssetToDefaultCharacter(int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToDefaultCharacterRequestCompleted);
 
     /**
     * Equip an asset to the specified character.
+    * https://docs.lootlocker.io/game-api/#equip-asset-to-character-by-id
     *
     * @param CharacterId ID of the character to equip an asset to.
-    * @param asset_id the asset's instance_id that is returned from the inventory and loadout calls.
+    * @param AssetId the asset's instance_id that is returned from the inventory and loadout calls.
     * @param AssetVariationId the asset_variation_id.
-    * https://ref.lootlocker.io/game-api/#equip-asset-to-character-by-id
+    * @param OnEquipAssetToCharacterByIdRequestCompleted Delegate for handling the server response.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
-    static void EquipAssetToCharacterById(int characterId, int asset_id, int asset_variation_id, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted);
-
-        /**
-    * Equip an asset to the specified character.
-    *
-    * @param CharacterId ID of the character to equip an asset to.
-    * @param InstanceId the asset's instance_id that is returned from the inventory and loadout calls.
-    * @param AssetVariationId the asset_variation_id.
-    * https://ref.lootlocker.io/game-api/#equip-asset-to-character-by-id
-    */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
-    static void EquipAssetToCharacterByIdAndInstance(int CharacterId, int InstanceId, const FPCharacterDefaultResponseBP&
-                                                     OnEquipAssetToCharacterByIdRequestCompleted);
+    static void EquipAssetToCharacterById(int CharacterId, int AssetId, int AssetVariationId, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted);
 
     /**
-    * Unequip an asset from the default character.
-    *
-    * @param InstanceId the asset's instance_id that is returned from the inventory and loadout calls.
-    * https://ref.lootlocker.io/game-api/#unequip-asset-to-default-character
-    */
+     * Equip an asset to the specified character.
+     * https://docs.lootlocker.io/game-api/#equip-asset-to-character-by-id
+     *
+     * @param CharacterId ID of the character to equip an asset to.
+     * @param InstanceId the asset's instance_id that is returned from the inventory and loadout calls.
+     * @param OnEquipAssetToCharacterByIdRequestCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
-    static void UnEquipAssetToDefaultCharacter(int instance_id, const FPCharacterDefaultResponseBP& OnUnEquipAssetToDefaultCharacterRequestCompleted);
+    static void EquipAssetToCharacterByIdAndInstance(int CharacterId, int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted);
 
     /**
-    * Unequip an asset from the specified character.
-    *
-    * @param CharacterId ID of the character to unequip an asset from.
-    * @param InstanceId the asset's instance_id that is returned from the inventory and loadout calls.
-    * @param AssetVariationId the asset_variation_id.
-    * https://ref.lootlocker.io/game-api/#unequip-asset-to-character-by-id
-    */
+     * Unequip an asset from the default character.
+     * https://docs.lootlocker.io/game-api/#unequip-asset-to-default-character
+     *
+     * @param InstanceId the asset's instance id that is returned from the inventory and loadout calls.
+     * @param OnUnEquipAssetToDefaultCharacterRequestCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
-    static void UnEquipAssetToCharacterById(int characterId, int InstanceId, const  FPCharacterDefaultResponseBP& OnUnEquipAssetToCharacterByIdRequestCompleted);
+    static void UnEquipAssetToDefaultCharacter(int InstanceId, const FPCharacterDefaultResponseBP& OnUnEquipAssetToDefaultCharacterRequestCompleted);
 
     /**
-    * Getting the current loadout will return an array of assets that the user currently has equipped.
-    * https://ref.lootlocker.io/game-api/#get-current-loadout-to-default-character
-    */
+     * Unequip an asset from the specified character.
+     * https://docs.lootlocker.io/game-api/#unequip-asset-to-character-by-id
+     *
+     * @param CharacterId ID of the character to unequip an asset from.
+     * @param InstanceId the asset's instance id that is returned from the inventory and loadout calls.
+     * @param OnUnEquipAssetToCharacterByIdRequestCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
-    static void GetCurrentLoadoutToDefaultCharacter(const  FPCharacterLoadoutResponseBP& OnGetCurrentLoadoutToDefaultCharacterRequestCompleted);
+    static void UnEquipAssetToCharacterById(int CharacterId, int InstanceId, const  FPCharacterDefaultResponseBP& OnUnEquipAssetToCharacterByIdRequestCompleted);
+
 
     /**
-    * This method will return the exact same response as the GetCharacterLoadout, except that it will be for another player.
-    *
-    * @param OtherPlayerId other player's ID on the requested platform.
-    * @param OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted Delegate for handling the the server response.
-    * @param OtherPlayerPlatform Optional: the platform the id refers to if different than the current platform
-    * https://ref.lootlocker.io/game-api/#get-other-players-loadout-to-default-character
-    */
+     * Getting the current loadout will return an array of assets that the user currently has equipped.
+     * https://docs.lootlocker.io/game-api/#get-current-loadout-to-default-character
+     *
+     * @param OnGetCurrentLoadoutToDefaultCharacterRequestCompleted Delegate for handling the server response.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
+    static void GetCurrentLoadoutToDefaultCharacter(const FPCharacterLoadoutResponseBP& OnGetCurrentLoadoutToDefaultCharacterRequestCompleted);
+
+    /**
+     * This method will return the exact same response as the GetCharacterLoadout, except that it will be for another player.
+     * https://docs.lootlocker.io/game-api/#get-other-players-loadout-to-default-character
+     *
+     * @param OtherPlayerId other player's ID on the requested platform.
+     * @param OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted Delegate for handling the server response.
+     * @param OtherPlayerPlatform Optional: the platform the id refers to if different than the current platform
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
     static void GetOtherPlayersCurrentLoadoutToDefaultCharacter(FString OtherPlayerId, const FPCharacterLoadoutResponseBP& OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted, const FString& OtherPlayerPlatform = FString(TEXT("")));
 
     /**
-    *
-    * Get the contexts that the player's default character can equip.
-    * https://ref.lootlocker.io/game-api/#get-equippable-contexts-to-default-character
-    */
+     * Get the contexts that the player's default character can equip.
+     * https://docs.lootlocker.io/game-api/#get-equippable-contexts-to-default-character
+     *
+     * @param OnGetEquipableContextsToDefaultCharacterRequestCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
     static void GetEquipableContextsToDefaultCharacter(const FContextDelegateBP& OnGetEquipableContextsToDefaultCharacterRequestCompleted);
 
     /**
-    *
-    * Get the contexts that the specified player's default character can equip.
-    *
-    * @param otherCharacterId other player's ID.
-    * https://ref.lootlocker.io/game-api/#get-equippable-contexts-by-character-id
-    */
+     * Get the contexts that the specified player's default character can equip.
+     * https://docs.lootlocker.io/game-api/#get-equippable-contexts-by-character-id
+     *
+     * @param OtherCharacterId other player's ID.
+     * @param OnGetEquipableContextsByCharacterIdRequestCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
     static void GetEquipableContextsByCharacterId(int OtherCharacterId, const FContextDelegateBP& OnGetEquipableContextsByCharacterIdRequestCompleted);
 
     //==================================================
     //Persistent Storage
+    // https://ref.lootlocker.com/game-api/#persistent-player-storage
     //==================================================
 
     /**
-    * This call returns all key/value pairs on record for the current player, and can thus be slow if you create many.
-    * https://ref.lootlocker.io/game-api/#get-entire-persistent-storage
-    */
+     * This call returns all key/value pairs on record for the current player, beware that it may be a lot of data.
+     * https://docs.lootlocker.io/game-api/#get-entire-persistent-storage
+     *
+     * @param OnPersistentStorageItemsRequestCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage")
     static void GetEntirePersistentStorage(const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsRequestCompleted);
 
     /**
-    * Get Key/Value pair from the player's persistent storage.
-    *
-    * @param Key key of the key/value pair.
-    * https://ref.lootlocker.io/game-api/#get-a-single-key-from-persistent-storage
-    */
+     * Get Key/Value pair from the player's persistent storage.
+     * https://docs.lootlocker.io/game-api/#get-a-single-key-from-persistent-storage
+     *
+     * @param Key Key of the key/value pair.
+     * @param OnPersistentStorageItemRequestCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage")
     static void GetItemFromPersistentStorage(const FString& Key, const FPersistentStorageItemResponseDelegateBP& OnPersistentStorageItemRequestCompleted);
 
     /**
-    * Create/Update key/value pair(s).
-    *
-    * @param Items array of items to be created/updated.
-    * https://ref.lootlocker.io/game-api/#updating-creating-key-value-pairs
-    */
+     * Create/Update key/value pair(s).
+     * https://docs.lootlocker.io/game-api/#updating-creating-key-value-pairs
+     *
+     * @param Items array of items to be created/updated.
+     * @param OnPersistentStorageItemsAddRequestCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage")
-    static void AddItemsToPersistentStorage(FLootLockerPersistentStorageItems Items, const FPersistentStorageItemsResponseDelegateBP&
-                                            OnPersistentStorageItemsAddRequestCompleted);
+    static void AddItemsToPersistentStorage(FLootLockerPersistentStorageItems Items, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsAddRequestCompleted);
 
     /**
-    * Create/Update one key/value pair.
-    *
-    * @param Items -items to be created/updated.
-    * https://ref.lootlocker.io/game-api/#updating-creating-key-value-pairs
-    */
+     * Create/Update a key/value pair.
+     * https://docs.lootlocker.io/game-api/#updating-creating-key-value-pairs
+     *
+     * @param Item item to be created/updated.
+     * @param OnPersistentStorageItemAddRequestCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage")
-        static void AddItemToPersistentStorage(FLootLockerPersistentStorageItem Item, const FPersistentStorageItemResponseDelegateBP&
-            OnPersistentStorageItemAddRequestCompleted);
+    static void AddItemToPersistentStorage(FLootLockerPersistentStorageItem Item, const FPersistentStorageItemResponseDelegateBP& OnPersistentStorageItemAddRequestCompleted);
 
     /**
-    * Delete a key/value pair.
-    *
-    * @param Key key of a key/value pair.
-    * https://ref.lootlocker.io/game-api/#deleting-a-key-value-pair
-    */
+     * Delete a key/value pair.
+     * https://docs.lootlocker.io/game-api/#deleting-a-key-value-pair
+     *
+     * @param Key key of a key/value pair.
+     * @param OnPersistentStorageItemDeleteRequestCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage")
     static void DeleteItemFromPersistentStorage(const FString& Key, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemDeleteRequestCompleted);
 
     /**
-    * Read another players public key/value storage.
-    *
-    * @param PlayerId players id or their public UID.
-    * https://ref.lootlocker.io/game-api/#getting-other-players-public-key-value-pairs
-    */
+     * Read another players public key/value storage.
+     * https://docs.lootlocker.io/game-api/#getting-other-players-public-key-value-pairs
+     *
+     * @param PlayerId players id or their public UID.
+     * @param OnGetPlayerPersistentStorageRequestCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage")
     static void GetPlayerPersistentStorage(const FString& PlayerId, const  FPersistentStorageItemsResponseDelegateBP& OnGetPlayerPersistentStorageRequestCompleted);
 
