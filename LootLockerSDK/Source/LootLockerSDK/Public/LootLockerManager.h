@@ -760,75 +760,85 @@ public:
     //==================================================
 
     /**
-    * Get all the contexts the game has.
-    * https://ref.lootlocker.io/game-api/#getting-contexts
-    */
+     * Get all the contexts the game has.
+     * https://docs.lootlocker.io/game-api/#getting-contexts
+     *
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
     static void GetContexts(const FContextDelegateBP& OnGetContextsRequestCompleted);
 
     /**
-    * Get all assets in a paginated form.
-    *
-    * @param StartFromIndex index of the item to start from.
-    * @param ItemsCount number of items to receive (50-200).
-    * @param AssetFilter optional filter.
-    * @param Context optional context filter.
-    * @param IncludeUGC whether to include UGC Assets.
-    * https://ref.lootlocker.io/game-api/#getting-asset-list
-    */
+     * Get all assets in a paginated form.
+     * https://docs.lootlocker.io/game-api/#getting-asset-list
+     *
+     * @param OnGetAssetsRequestCompleted Delegate for handling the server response.
+     * @param StartFromIndex Optional: Index of the item to start from, defaults to 0
+     * @param ItemsCount Optional: Number of items to receive (50-200), defaults to 50
+     * @param AssetFilter Optional: Filter to apply, defaults to None
+     * @param Context Optional: Context filter to apply, defaults to 0
+     * @param IncludeUGC Optional: Whether to include UGC Assets, defaults to false
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
-    static void GetAssets(const FAssetsResponseDelegateBP& OnGetAssetsRequestCompleted,int StartFromIndex = 0, int ItemsCount = 50, ELootLockerAssetFilter AssetFilter = ELootLockerAssetFilter::None, int Context = 0, bool IncludeUGC = false);
+    static void GetAssets(const FAssetsResponseDelegateBP& OnGetAssetsRequestCompleted, int StartFromIndex = 0, int ItemsCount = 50, ELootLockerAssetFilter AssetFilter = ELootLockerAssetFilter::None, int Context = 0, bool IncludeUGC = false);
 
     /**
-    * Retrieve only specific Assets by their ID's.
-    *
-    * @param AssetIds array of the asset ID's to be fetched.
-    * https://ref.lootlocker.io/game-api/#getting-assets-by-ids
-    */
+     * Retrieve only specific Assets by their ID's.
+     * https://docs.lootlocker.io/game-api/#getting-assets-by-ids
+     *
+     * @param AssetIds Array of the asset ID's to be fetched.
+     * @param OnGetAssetsByIdsRequestCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
     static void GetAssetsByIds(const TArray<int>& AssetIds, const FAssetsResponseDelegateBP& OnGetAssetsByIdsRequestCompleted);
 
     /**
-    * This call will return you all the default bones.
-    * If a binding overrides anything on a bone, it will be returned along with the binding.
-    * https://ref.lootlocker.io/game-api/#getting-asset-bone-information
-    */
+     * This call will return you all the default bones.
+     * If a binding overrides anything on a bone, it will be returned along with the binding.
+     * https://docs.lootlocker.io/game-api/#getting-asset-bone-information
+     *
+     * @param OnGetAssetBonesRequestCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
     static void GetAssetBones(const  FAssetBonesResponseDelegateBP& OnGetAssetBonesRequestCompleted);
 
     /**
-    * This call will simply list the current players favourite assets.
-    * https://ref.lootlocker.io/game-api/#listing-favourite-assets
-    */
+     * List the current players favourite assets.
+     * https://docs.lootlocker.io/game-api/#listing-favourite-assets
+     *
+     * @param OnGetFavouriteAssetIndicesRequestCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
     static void GetFavouriteAssetIndices(const FGetFavouriteAssetIndicesResponseDelegateBP& OnGetFavouriteAssetIndicesRequestCompleted);
 
     /**
-    * Add an asset to the list of favourites.
-    *
-    * @param AssetId asset ID to be added.
-    * https://ref.lootlocker.io/game-api/#adding-favourite-assets
-    */
+     * Add an asset to the list of favourites.
+     * https://docs.lootlocker.io/game-api/#adding-favourite-assets
+     *
+     * @param AssetId Asset ID to be added.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
     static void AddAssetToFavourites(int AssetId, const FGetFavouriteAssetIndicesResponseDelegateBP& OnAddAssetToFavouritesRequestCompleted);
 
     /**
-    * Remove an asset from the list of favourites.
-    *
-    * @param AssetId asset ID to be removed.
-    * https://ref.lootlocker.io/game-api/#removing-favourite-assets
-    */
+     * Remove an asset from the list of favourites.
+     * https://docs.lootlocker.io/game-api/#removing-favourite-assets
+     *
+     * @param AssetId asset ID to be removed.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
     static void RemoveAssetFromFavourites(int AssetId, const  FGetFavouriteAssetIndicesResponseDelegateBP& OnRemoveAssetFromFavouritesRequestCompleted);
 
-	/**
-	* This call offers a paginated list of the games universal assets
-	*
-	* @param After last universal id to start after.
-	* @param ItemsCount number of items to receive (50-200).
-	* @param OnCompletedRequest Delegate for handling the the server response.
-	* https://docs.lootlocker.io/game-api/#get-universal-assets
-    */
+    /**
+     * This call offers a paginated list of the games universal assets
+     * https://docs.lootlocker.io/game-api/#get-universal-assets
+     *
+     * @param After Last universal id to start after.
+     * @param ItemsCount Number of items to receive (50-200).
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
 	static void GetUniversalAssets(int After, int ItemsCount, const FUniversalAssetResponseDelegateBP &OnCompletedRequest);
 
