@@ -1064,33 +1064,33 @@ public:
     static void TriggerEvent(const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegate& OnCompletedRequest);
 
     /**
-    * This endpoint lists the triggers that a player have already completed.
-    *
-    * @param OnCompletedRequest Delegate for handling the server response.
-    * https://docs.lootlocker.io/game-api/#listing-triggered-trigger-events
-    */
+     * This endpoint lists the triggers that a player have already completed.
+     * https://docs.lootlocker.io/game-api/#listing-triggered-trigger-events
+     *
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     static void GetTriggeredEvents(const FTriggersResponseDelegate& OnCompletedRequest);
 
     //==================================================
     //Collectables
+    // https://ref.lootlocker.com/game-api/#collectables
     //==================================================
 
     /**
-    * This endpoint will return all the collectables a game has set up. It will hold a set of Collectables, with Groups inside which in turn contain Items.
-    *
-    * @param OnCompletedRequest Delegate for handling the server response.
-    * https://docs.lootlocker.io/game-api/#getting-collectables
-    */
+     * This endpoint will return all the collectables a game has set up. It will hold a set of Collectables, with Groups inside which in turn contain Items.
+     * https://docs.lootlocker.io/game-api/#getting-collectables
+     *
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     static void GetAllCollectables(const FCollectablesResponseDelegate& OnCompletedRequest);
 
     /**
-    * Collecting an Item is done by calling this endpoint with a payload equal to the slug of the Item.
-    * The slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
-    *
-    * @param Item the slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
-    * @param OnCompletedRequest Delegate for handling the server response.
-    * https://docs.lootlocker.io/game-api/#collecting-an-item
-    */
+     * Collect an item.
+     * https://docs.lootlocker.io/game-api/#collecting-an-item
+     *
+     * @param Item The slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     static void CollectItem(const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegate& OnCompletedRequest);
 
     //==================================================
