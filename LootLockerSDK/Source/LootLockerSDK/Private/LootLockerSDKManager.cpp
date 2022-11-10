@@ -193,7 +193,7 @@ void ULootLockerSDKManager::ListPlayerHeroes(const FLootLockerHeroListDelegate &
 	ULootLockerHeroRequestHandler::ListPlayerHeroes(FLootLockerHeroListBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::ListOtherPlayersHeroesBySteamID64(const int32 SteamID64, const FLootLockerHeroListDelegate &OnCompletedRequest)
+void ULootLockerSDKManager::ListOtherPlayersHeroesBySteamID64(const int64 SteamID64, const FLootLockerHeroListDelegate &OnCompletedRequest)
 {
 	ULootLockerHeroRequestHandler::ListOtherPlayersHeroesBySteamID64(SteamID64, FLootLockerHeroListBP(), OnCompletedRequest);
 }
@@ -208,7 +208,7 @@ void ULootLockerSDKManager::GetHero(const int32 HeroID, const FLootLockerPlayerH
 	ULootLockerHeroRequestHandler::GetHero(HeroID, FLootLockerPlayerHeroBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::GetOtherPlayersDefaultHeroBySteamID64(const int32 SteamID64, const FLootLockerPlayerHeroDelegate &OnCompletedRequest)
+void ULootLockerSDKManager::GetOtherPlayersDefaultHeroBySteamID64(const int64 SteamID64, const FLootLockerPlayerHeroDelegate &OnCompletedRequest)
 {
 	ULootLockerHeroRequestHandler::GetOtherPlayersDefaultHeroBySteamID64(SteamID64, FLootLockerPlayerHeroBP(), OnCompletedRequest);
 }

@@ -409,31 +409,142 @@ public:
 
 	//==================================================
 	//Heroes
+    // https://ref.lootlocker.com/game-api/#heroes
 	//==================================================
+
+    /**
+     * List heroes with names and character information
+     * https://ref.lootlocker.com/game-api/#get-game-heroes
+     *
+     * @param OnCompleteBP Delegate for handling the response
+     */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
 	static void GetGameHeroes(const FLootLockerGameHeroListBP& OnCompleteBP);
+
+    /**
+     * List heroes that the current player owns
+     * https://ref.lootlocker.com/game-api/#list-player-heroes
+     *
+     * @param OnCompleteBP Delegate for handling the response
+     */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
 	static void ListPlayerHeroes(const FLootLockerHeroListBP& OnCompleteBP);
+
+    /**
+     * List player that the player with the specified SteamID64 owns
+     * https://ref.lootlocker.com/game-api/#list-other-players-heroes-by-steamid64
+     *
+     * @param SteamID64 Steam Id of the requested player
+     * @param OnCompleteBP Delegate for handling the response
+     */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
-	static void ListOtherPlayersHeroesBySteamID64(const int32 SteamID64, const FLootLockerHeroListBP& OnCompleteBP);
+	static void ListOtherPlayersHeroesBySteamID64(const int64 SteamID64, const FLootLockerHeroListBP& OnCompleteBP);
+
+    /**
+     * Create a hero for the current player with the supplied name from the game hero specified with the supplied hero id
+     * https://ref.lootlocker.com/game-api/#creating-a-hero
+     *
+     * @param Request Request specifying the hero id for the game hero to use for creation and the name of the hero to create
+     * @param OnCompleteBP Delegate for handling the response
+     */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
 	static void CreateHero(const FLootLockerCreateHeroRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP);
+
+    /**
+     * Return information about the requested hero on the current player
+     * https://ref.lootlocker.com/game-api/#getting-a-hero
+     *
+     * @param HeroID Id of the hero to get
+     * @param OnCompleteBP Delegate for handling the response
+     */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
 	static void GetHero(const int32 HeroID, const FLootLockerPlayerHeroBP& OnCompleteBP);
+
+    /**
+     * Get the default hero for the player with the specified SteamID64
+     * https://ref.lootlocker.com/game-api/#get-other-players-default-hero-by-steamid64
+     *
+     * @param SteamID64 Steam Id of the requested player
+     * @param OnCompleteBP Delegate for handling the response
+     */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
 	static void GetOtherPlayersDefaultHeroBySteamID64(const int32 SteamID64, const FLootLockerPlayerHeroBP& OnCompleteBP);
+
+    /**
+     * Update the name of the hero with the specified id and/or set it as default for the current player
+     * https://ref.lootlocker.com/game-api/#updating-a-hero
+     *
+     * @param HeroID Id of the hero
+     * @param Request Request specifying the new (or same) name to set for the hero and if it is to be the default hero for the player
+     * @param OnCompleteBP Delegate for handling the response
+     */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
 	static void UpdateHero(const int32 HeroID, const FLootLockerUpdateHeroRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP);
+
+    /**
+     * Remove the hero with the specified id from the current players list of heroes.
+     * This action is currently irreversible.
+     * When deleting a hero, the heroes inventory is returned to the player, and their loadout is reset.
+     * https://ref.lootlocker.com/game-api/#deleting-a-hero
+     *
+     * @param HeroID Id of the hero
+     * @param OnCompleteBP Delegate for handling the response
+     */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
 	static void DeleteHero(const int32 HeroID, const FLLHeroDefaultResponseBP& OnCompleteBP);
+
+    /**
+     * List Asset Instances owned by the specified hero
+     *
+     * Note that this endpoint is paginated and will return the first 50 entries
+     * https://ref.lootlocker.com/game-api/#get-hero-inventory
+     *
+     * @param HeroID Id of the hero
+     * @param OnCompleteBP Delegate for handling the response
+     */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
-	static void GetHeroInventory(const int32 HeroID, const FPInventoryResponseBP& OnCompleteBp);
+	static void GetHeroInventory(const int32 HeroID, const FPInventoryResponseBP& OnCompleteBP);
+
+    /**
+     * List the loadout of the specified hero that the current player owns
+     *
+     * https://ref.lootlocker.com/game-api/#get-hero-loadout
+     *
+     * @param HeroID Id of the hero
+     * @param OnCompleteBP Delegate for handling the response
+     */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
 	static void GetHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseBP& OnCompleteBP);
+
+    /**
+     * List the loadout of the specified hero that the another player owns
+     * https://ref.lootlocker.com/game-api/#get-other-players-hero-loadout
+     *
+     * @param HeroID Id of the hero
+     * @param OnCompleteBP Delegate for handling the response
+     */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
 	static void GetOtherPlayersHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseBP& OnCompleteBP);
+
+    /**
+     * Equip the specified Asset Instance to the specified Hero that the current player owns
+     * https://ref.lootlocker.com/game-api/#add-asset-to-hero-loadout
+     *
+     * @param HeroID Id of the hero
+     * @param AssetInstanceID Desc
+     * @param OnCompleteBP Delegate for handling the response
+     */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
 	static void AddAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP);
+
+    /**
+     * Unequip the specified Asset Instance to the specified Hero that the current player owns
+     * https://ref.lootlocker.com/game-api/#remove-asset-from-hero-loadout
+     *
+     * @param HeroID Id of the hero
+     * @param AssetInstanceID Desc
+     * @param OnCompleteBP Delegate for handling the response
+     */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
 	static void RemoveAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP);
 
