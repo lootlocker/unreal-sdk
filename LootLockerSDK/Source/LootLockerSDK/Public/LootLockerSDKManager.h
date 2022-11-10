@@ -938,39 +938,39 @@ public:
     //==================================================
 
     /**
-    * Get all missions.
-    *
-    * @param OnCompletedRequest Delegate for handling the server response.
-    * https://docs.lootlocker.io/game-api/#getting-all-missions
-    */
+     * Get all missions.
+     * https://docs.lootlocker.io/game-api/#getting-all-missions
+     *
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     static void GetAllMissions(const FMissionsResponseDelegate& OnCompletedRequest);
 
     /**
-    * Get a mission.
-    *
-    * @param MissionId mission ID.
-    * @param OnCompletedRequest Delegate for handling the server response.
-    * https://docs.lootlocker.io/game-api/#getting-a-single-mission
-    */
+     * Get a mission.
+     * https://docs.lootlocker.io/game-api/#getting-a-single-mission
+     *
+     * @param MissionId mission ID.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     static void GetMission(int MissionId, const FMissionResponseDelegate& OnCompletedRequest);
 
     /**
-    * Start a mission.
-    *
-    * @param MissionId mission ID.
-    * @param OnCompletedRequest Delegate for handling the server response.
-    * https://docs.lootlocker.io/game-api/#starting-mission
-    */
+     * Start a mission.
+     * https://docs.lootlocker.io/game-api/#starting-mission
+     *
+     * @param MissionId mission ID.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     static void StartMission(int MissionId, const FStartMissionResponseDelegate& OnCompletedRequest);
 
     /**
-    * Finish a mission.
-    *
-    * @param MissionId mission ID.
-    * @param MissionData mission completion data.
-    * @param OnCompletedRequest Delegate for handling the server response.
-    * https://docs.lootlocker.io/game-api/#finishing-mission
-    */
+     * Finish a mission.
+     * https://docs.lootlocker.io/game-api/#finishing-mission
+     *
+     * @param MissionId mission ID.
+     * @param MissionData mission completion data.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     static void FinishMission(int MissionId, const FLootLockerFinishMissionData& MissionData, const FFinishMissionResponseDelegate& OnCompletedRequest);
 
     //==================================================
