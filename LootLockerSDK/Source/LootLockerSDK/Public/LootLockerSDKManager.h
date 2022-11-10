@@ -856,7 +856,7 @@ public:
      * Asset instances with the type set to loot box can be opened, using this endpoint.
      * Once you call this endpoint, the Loot Box will be removed from the players inventory, and a new asset will be added to the inventory,
      * with the acquisition_source set to grant_loot_box. You will be asked to check the grant notifications to see which asset was granted.
-     * https://docs.lootlocker.io/game-api/#open-a-loot-box
+     *  https://docs.lootlocker.io/game-api/#open-a-loot-box
      *
      * @param AssetInstanceId asset instance ID.
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -868,71 +868,69 @@ public:
     //==================================================
 
     /**
-    * Create an asset candidate.
-    *
-    * @param AsssetCandidate asset candidate data.
-    * @param OnCompletedRequest Delegate for handling the server response.
-    * https://docs.lootlocker.io/game-api/#creating-an-asset-candidate
-    */
-    static void CreateAssetCandidate(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegate&
-                                     OnCompletedRequest);
+     * Create an asset candidate.
+     * https://docs.lootlocker.io/game-api/#creating-an-asset-candidate
+     *
+     * @param AssetCandidateData asset candidate data.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
+    static void CreateAssetCandidate(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest);
 
     /**
-    * Update an asset candidate.
-    *
-    * @param AssetCandidateId ID of the asset candidate.
-    * @param AsssetCandidate asset candidate data.
-    * @param OnCompletedRequest Delegate for handling the server response.
-    * https://docs.lootlocker.io/game-api/#updating-an-asset-candidate
-    */
-    static void UpdateAssetCandidate(int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidateData, const FAssetCandidateResponseDelegate&
-                                     OnCompletedRequest);
+     * Update an asset candidate.
+     * https://docs.lootlocker.io/game-api/#updating-an-asset-candidate
+     *
+     * @param AssetCandidateId ID of the asset candidate.
+     * @param AssetCandidateData asset candidate data.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
+    static void UpdateAssetCandidate(int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidateData, const FAssetCandidateResponseDelegate& OnCompletedRequest);
 
     /**
-    * Delete an asset candidate.
-    *
-    * @param AssetCandidateId ID of the asset candidate.
-    * @param OnCompletedRequest Delegate for handling the server response.
-    * https://docs.lootlocker.io/game-api/#deleting-an-asset-candidate
-    */
+     * Delete an asset candidate.
+     * https://docs.lootlocker.io/game-api/#deleting-an-asset-candidate
+     *
+     * @param AssetCandidateId ID of the asset candidate.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     static void DeleteAssetCandidate(int AssetCandidateId, const FResponseCallback& OnCompletedRequest);
 
     /**
-    * Get all asset candidates.
-    *
-    * @param OnCompletedRequest Delegate for handling the server response.
-    * https://docs.lootlocker.io/game-api/#listing-asset-candidates
-    */
+     * Get all asset candidates.
+     * https://docs.lootlocker.io/game-api/#listing-asset-candidates
+     *
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     static void GetAllAssetCandidates(const FAssetCandidatesResponseDelegate& OnCompletedRequest);
 
     /**
-    * Get an asset candidate.
-    *
-    * @param AssetCandidateId ID of the asset candidate.
-    * @param OnCompletedRequest Delegate for handling the server response.
-    * https://docs.lootlocker.io/game-api/#getting-a-single-asset-candidate
-    */
+     * Get an asset candidate.
+     * https://docs.lootlocker.io/game-api/#getting-a-single-asset-candidate
+     *
+     * @param AssetCandidateId ID of the asset candidate.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     static void GetAssetCandidate(int AssetCandidateId, const FAssetCandidateResponseDelegate& OnCompletedRequest);
 
     /**
-    * Add a file to an asset candidate.
-    *
-    * @param AssetCandidateId ID of the asset candidate.
-    * @param FilePath full absolute path to a file.
-    * @param FilePurpose purpose of the file.
-    * @param OnCompletedRequest Delegate for handling the server response.
-    * https://docs.lootlocker.io/game-api/#adding-files-to-asset-candidates
-    */
+     * Add a file to an asset candidate.
+     * https://docs.lootlocker.io/game-api/#adding-files-to-asset-candidates
+     *
+     * @param AssetCandidateId ID of the asset candidate.
+     * @param FilePath full absolute path to a file.
+     * @param FilePurpose purpose of the file.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     static void AddFileToAssetCandidate(int AssetCandidateId, const FString& FilePath, ELootLockerAssetFilePurpose FilePurpose, const FResponseCallback& OnCompletedRequest);
 
     /**
-    * Remove a file from an asset candidate.
-    *
-    * @param AssetCandidateId ID of the asset candidate.
-    * @param FileId ID of the file.
-    * @param OnCompletedRequest Delegate for handling the server response.
-    * https://docs.lootlocker.io/game-api/#removing-files-from-an-asset-candidate
-    */
+     * Remove a file from an asset candidate.
+     * https://docs.lootlocker.io/game-api/#removing-files-from-an-asset-candidate
+     *
+     * @param AssetCandidateId ID of the asset candidate.
+     * @param FileId ID of the file.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     static void DeleteFileFromAssetCandidate(int AssetCandidateId, int FileId, const FResponseCallback& OnCompletedRequest);
 
     //==================================================

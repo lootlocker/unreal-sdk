@@ -948,72 +948,76 @@ public:
     //User Generated Content
     //==================================================
 
-
     /**
-    * Create an asset candidate.
-    *
-    * @param AsssetCandidate asset candidate data.
-    * https://ref.lootlocker.io/game-api/#creating-an-asset-candidate
-    */
+     * Create an asset candidate.
+     * https://docs.lootlocker.io/game-api/#creating-an-asset-candidate
+     *
+     * @param AssetCandidateData asset candidate data.
+     * @param OnCreateAssetCandidateCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
-    static void CreateAssetCandidate(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP&
-                                     OnCreateAssetCandidateCompleted);
+    static void CreateAssetCandidate(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted);
 
     /**
-    * Update an asset candidate.
-    *
-    * @param AssetCandidateId ID of the asset candidate.
-    * @param AsssetCandidate asset candidate data.
-    * https://ref.lootlocker.io/game-api/#updating-an-asset-candidate
-    */
+     * Update an asset candidate.
+     * https://docs.lootlocker.io/game-api/#updating-an-asset-candidate
+     *
+     * @param AssetCandidateId ID of the asset candidate.
+     * @param AssetCandidateData asset candidate data.
+     * @param OnUpdateAssetCandidateCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
-    static void UpdateAssetCandidate(int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidate, const FAssetCandidateResponseDelegateBP&
-                                     OnUpdateAssetCandidateCompleted);
+    static void UpdateAssetCandidate(int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidateData, const FAssetCandidateResponseDelegateBP& OnUpdateAssetCandidateCompleted);
 
     /**
-    * Delete an asset candidate.
-    *
-    * @param AssetCandidateId ID of the asset candidate.
-    * https://ref.lootlocker.io/game-api/#deleting-an-asset-candidate
-    */
+     * Delete an asset candidate.
+     * https://docs.lootlocker.io/game-api/#deleting-an-asset-candidate
+     *
+     * @param AssetCandidateId ID of the asset candidate.
+     * @param OnDeleteAssetCandidateCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
     static void DeleteAssetCandidate(int AssetCandidateId, const FResponseCallbackBP& OnDeleteAssetCandidateCompleted);
 
     /**
-    * Get all asset candidates.
-    * https://ref.lootlocker.io/game-api/#listing-asset-candidates
-    */
+     * Get all asset candidates.
+     * https://docs.lootlocker.io/game-api/#listing-asset-candidates
+     *
+     * @param OnGetAllAssetCandidatesCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
     static void GetAllAssetCandidates(const FAssetCandidatesResponseDelegateBP& OnGetAllAssetCandidatesCompleted);
 
     /**
-    * Get an asset candidate.
-    *
-    * @param AssetCandidateId ID of the asset candidate.
-    * https://ref.lootlocker.io/game-api/#getting-a-single-asset-candidate
-    */
+     * Get an asset candidate.
+     * https://docs.lootlocker.io/game-api/#getting-a-single-asset-candidate
+     *
+     * @param AssetCandidateId ID of the asset candidate.
+     * @param OnGetAssetCandidateCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
     static void GetAssetCandidate(int AssetCandidateId, const FAssetCandidateResponseDelegateBP& OnGetAssetCandidateCompleted);
 
     /**
-    * Add a file to an asset candidate.
-    *
-    * @param AssetCandidateId ID of the asset candidate.
-    * @param FilePath full absolute path to a file.
-    * @param FilePurpose purpose of the file.
-    * https://ref.lootlocker.io/game-api/#adding-files-to-asset-candidates
-    */
+     * Add a file to an asset candidate.
+     * https://docs.lootlocker.io/game-api/#adding-files-to-asset-candidates
+     *
+     * @param AssetCandidateId ID of the asset candidate.
+     * @param FilePath full absolute path to a file.
+     * @param FilePurpose purpose of the file.
+     * @param OnAddFileToAssetCandidateCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
     static void AddFileToAssetCandidate(int AssetCandidateId, const FString& FilePath, ELootLockerAssetFilePurpose FilePurpose, const FResponseCallbackBP& OnAddFileToAssetCandidateCompleted);
 
     /**
-    *
-    * Remove a file from an asset candidate.
-    *
-    * @param AssetCandidateId ID of the asset candidate.
-    * @param FileId ID of the file.
-    * https://ref.lootlocker.io/game-api/#removing-files-from-an-asset-candidate
-    */
+     * Remove a file from an asset candidate.
+     * https://docs.lootlocker.io/game-api/#removing-files-from-an-asset-candidate
+     *
+     * @param AssetCandidateId ID of the asset candidate.
+     * @param FileId ID of the file.
+     * @param OnDeleteFileFromAssetCandidateCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
     static void DeleteFileFromAssetCandidate(int AssetCandidateId, int FileId, const FResponseCallbackBP& OnDeleteFileFromAssetCandidateCompleted);
 
