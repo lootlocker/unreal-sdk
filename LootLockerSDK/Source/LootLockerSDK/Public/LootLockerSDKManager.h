@@ -771,96 +771,96 @@ public:
 
     //==================================================
     //Asset Instances
+    // https://ref.lootlocker.com/game-api/#asset-instances
     //==================================================
 
     /**
-    * Get all key/value pairs for an asset instance.
-    *
-    * @param AssetInstanceId asset instance ID.
-    * @param OnCompletedRequest Delegate for handling the server response.
-    * https://docs.lootlocker.io/game-api/#getting-all-key-value-pairs-to-an-instance
-    */
+     * Get all key/value pairs for an asset instance.
+     * https://docs.lootlocker.io/game-api/#getting-all-key-value-pairs-to-an-instance
+     *
+     * @param AssetInstanceId asset instance ID.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     static void GetAllKeyValuePairsForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
 
     /**
-    * Get all key/value pairs for an asset instance.
-    *
-    * @param AssetInstanceId asset instance ID.
-    * @param OnCompletedRequest Delegate for handling the server response.
-    * https://docs.lootlocker.io/game-api/#getting-all-key-value-pairs-to-an-instance
-    */
+     * Get all key/value pairs for an asset instance.
+     * https://docs.lootlocker.io/game-api/#getting-all-key-value-pairs-to-an-instance
+     *
+     * @param AssetInstanceId asset instance ID.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     static void GetAllKeyValuePairsToAnInstanceForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
 
     /**
-    * Get a key/value pair for an asset instance.
-    *
-    * @param AssetInstanceId asset instance ID.
-    * @param StorageItemId ID of the key/value pair.
-    * @param OnCompletedRequest Delegate for handling the server response.
-    * https://docs.lootlocker.io/game-api/#getting-a-key-value-pair-by-id
-    */
+     * Get a key/value pair for an asset instance.
+     * https://docs.lootlocker.io/game-api/#getting-a-key-value-pair-by-id
+     *
+     * @param AssetInstanceId asset instance ID.
+     * @param StorageItemId ID of the key/value pair.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     static void GetAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemResponseDelegate& OnCompletedRequest);
 
     /**
-    * Create a key/value pair for an asset instance.
-    *
-    * @param AssetInstanceId asset instance ID.
-    * @param Item key/value pair.
-    * @param OnCompletedRequest Delegate for handling the server response.
-    * https://docs.lootlocker.io/game-api/#creating-a-key-value-pair
-    */
+     * Create a key/value pair for an asset instance.
+     * https://docs.lootlocker.io/game-api/#creating-a-key-value-pair
+     *
+     * @param AssetInstanceId asset instance ID.
+     * @param Item key/value pair.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     static void CreateAKeyValuePairForAssetInstance(int AssetInstanceId, const FLootLockerAssetInstanceStorageItem& Item, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
 
     /**
-    * Update key/value pairs for an asset instance.
-    *
-    * @param AssetInstanceId asset instance ID.
-    * @param Items key/value pairs.
-    * @param OnCompletedRequest Delegate for handling the server response.
-    * https://docs.lootlocker.io/game-api/#updating-one-or-more-key-value-pairs
-    */
-    static void UpdateOneOrMoreKeyValuePairForAssetInstance(int AssetInstanceId, FLootLockerAssetInstanceStorageItems Items, const FAssetInstanceStorageItemsResponseDelegate&
-                                                            OnCompletedRequest);
+     * Update key/value pairs for an asset instance.
+     * https://docs.lootlocker.io/game-api/#updating-one-or-more-key-value-pairs
+     *
+     * @param AssetInstanceId asset instance ID.
+     * @param Items key/value pairs.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
+    static void UpdateOneOrMoreKeyValuePairForAssetInstance(int AssetInstanceId, FLootLockerAssetInstanceStorageItems Items, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
 
     /**
-    * Update a key/value pair for an asset instance.
-    *
-    * @param AssetInstanceId asset instance ID.
-    * @param StorageItemId key/value pair ID.
-	* @param Item Struct FLootLockerAssetInstanceStorageItem
-    * @param OnCompletedRequest Delegate for handling the server response.
-    *  https://docs.lootlocker.io/game-api/#updating-a-key-value-pair-by-id
-    */
+     * Update a key/value pair for an asset instance.
+     * https://docs.lootlocker.io/game-api/#updating-a-key-value-pair-by-id
+     *
+     * @param AssetInstanceId asset instance ID.
+     * @param StorageItemId key/value pair ID.
+	 * @param Item Struct FLootLockerAssetInstanceStorageItem
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     static void UpdateAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FLootLockerAssetInstanceStorageItem Item, const FAssetInstanceStorageItemResponseDelegate& OnCompletedRequest);
 
     /**
-    * Delete a key/value pair for an asset instance.
-    *
-    * @param AssetInstanceId asset instance ID.
-    * @param StorageItemId key/value pair ID.
-    * @param OnCompletedRequest Delegate for handling the server response.
-    * https://docs.lootlocker.io/game-api/#delete-a-key-value-pair
-    */
+     * Delete a key/value pair for an asset instance.
+     * https://docs.lootlocker.io/game-api/#delete-a-key-value-pair
+     *
+     * @param AssetInstanceId asset instance ID.
+     * @param StorageItemId key/value pair ID.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     static void DeleteAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
 
     /**
-    * Asset instances with the type set to loot box can be inspected, to see what assets the player might possibly get when opening them.
-    *
-    * @param AssetInstanceId asset instance ID.
-    * @param OnCompletedRequest Delegate for handling the server response.
-    *  https://docs.lootlocker.io/game-api/#inspect-a-loot-box
-    */
+     * Asset instances with the type set to loot box can be inspected, to see what assets the player might possibly get when opening them.
+     * https://docs.lootlocker.io/game-api/#inspect-a-loot-box
+     *
+     * @param AssetInstanceId asset instance ID.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     static void InspectLootBox(int AssetInstanceId, const FLootBoxContentResponseDelegate& OnCompletedRequest);
 
     /**
-    * Asset instances with the type set to loot box can be opened, using this endpoint.
-    * Once you call this endpoint, the Loot Box will be removed from the players inventory, and a new asset will be added to the inventory,
-    * with the acquisition_source set to grant_loot_box. You will be asked to check the grant notifications to see which asset was granted.
-    *
-    * @param AssetInstanceId asset instance ID.
-    * @param OnCompletedRequest Delegate for handling the server response.
-    *  https://docs.lootlocker.io/game-api/#open-a-loot-box
-    */
+     * Asset instances with the type set to loot box can be opened, using this endpoint.
+     * Once you call this endpoint, the Loot Box will be removed from the players inventory, and a new asset will be added to the inventory,
+     * with the acquisition_source set to grant_loot_box. You will be asked to check the grant notifications to see which asset was granted.
+     * https://docs.lootlocker.io/game-api/#open-a-loot-box
+     *
+     * @param AssetInstanceId asset instance ID.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
     static void OpenLootBox(int AssetInstanceId, const FOpenLootBoxResponseDelegate& OnCompletedRequest);
 
     //==================================================
