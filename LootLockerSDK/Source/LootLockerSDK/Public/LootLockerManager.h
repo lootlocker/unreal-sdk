@@ -40,27 +40,33 @@ public:
     //==================================================
 
     /**
-    * Register a session.
-    *
-    * @param playerIdentifier - the ID of the player on the platform the game is currently running on.
-    *  https://ref.lootlocker.io/game-api/#authentication-request
-    */
+     * Start a session with the platform used in the platform selected in Project Settings -> Platform.
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * https://ref.lootlocker.io/game-api/#authentication-request
+     *
+     * @param PlayerIdentifier The ID of the current device the player is on
+     * @param OnStartedSessionRequestCompleted Delegate for handling the response of type FLootLockerAuthenticationResponse
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-    static void StartSession(const FString& playerIdentifier, const FAuthResponseBP& OnStartedSessionRequestCompleted);
+    static void StartSession(const FString& PlayerIdentifier, const FAuthResponseBP& OnStartedSessionRequestCompleted);
 
     /**
      * Create a new session for a Nintendo Switch user
      * The Nintendo Switch platform must be enabled in the web console for this to work.
-     * @param NSAIdToken - NSA (Nintendo Switch Account) id token as a string
      * https://ref.lootlocker.com/game-api/#nintendo-switch
+     *
+     * @param NSAIdToken NSA (Nintendo Switch Account) id token as a string
+     * @param OnStartedNintendoSwitchSessionRequestCompleted Delegate for handling the response of type FLootLockerAuthenticationResponse
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void StartNintendoSwitchSession(const FString& NSAIdToken, const FAuthResponseBP& OnStartedNintendoSwitchSessionRequestCompleted);
 
     /**
-     * Create a new session for a Xbox One user
-     * The Xbox One platform must be enabled in the web console for this to work.
-     * @param XboxUserToken - Xbox user token as a string
+     * Create a new session for an Xbox user
+     * The Xbox platform must be enabled in the web console for this to work.
+     *
+     * @param XboxUserToken Xbox user token as a string
+     * @param OnStartedXboxSessionCompleted Delegate for handling the response of FLootLockerAuthenticationResponse
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void StartXboxSession(const FString& XboxUserToken, const FAuthResponseBP& OnStartedXboxSessionCompleted);
@@ -68,8 +74,10 @@ public:
     /**
      * Create a new session for Sign in with Apple
      * The Apple sign in platform must be enabled in the web console for this to work.
+     * https://ref.lootlocker.com/game-api/#sign-in-with-apple
      *
-     * @param AuthorizationCode - Authorization code provided by apple as a string
+     * @param AuthorizationCode Authorization code, provided by apple
+     * @param OnStartedAppleSessionCompleted Delegate for handling the response of type  for handling the response of type FLootLockerAppleSessionResponse
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void StartAppleSession(const FString& AuthorizationCode, const FAppleSessionResponseBP& OnStartedAppleSessionCompleted);
@@ -78,19 +86,22 @@ public:
      * Refresh a previous session signed in with Apple
      * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
      * The Apple sign in platform must be enabled in the web console for this to work.
+     * https://ref.lootlocker.com/game-api/#sign-in-with-apple
      *
-     * @param RefreshToken - Token received in response from StartAppleSession request
+     * @param RefreshToken Token received in response from StartAppleSession request
+     * @param OnRefreshAppleSessionCompleted Delegate for handling the response of type FLootLockerAppleSessionResponse
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void RefreshAppleSession(const FString& RefreshToken, const FAppleSessionResponseBP& OnRefreshAppleSessionCompleted);
 
     /**
-     * Create new user using the White Label login system.
-     *
+     * Create a new user using the White Label login system.
      * White Label platform must be enabled in the web console for this to work.
-     * @param Email - The Email for the new white label account
-     * @param Password - The Password for the new white label account
      * https://ref.lootlocker.com/game-api/#sign-up
+     *
+     * @param Email E-mail for the new user
+     * @param Password Password for the new user
+     * @param OnWhiteLabelAccountCreationRequestCompleted Delegate for handling the response of type FLootLockerLoginResponse
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelAccountCreationRequestCompleted);
@@ -98,21 +109,23 @@ public:
     /**
      * Log in a White Label user with the given email and password combination, verify user, and start a White Label Session.
      * Set remember=true to prolong the session lifetime
+     * https://ref.lootlocker.com/game-api/#login
      *
      * White Label platform must be enabled in the web console for this to work.
      * @param Email - The Email for the white label account
      * @param Password - The Password for the white label account
+     * @param OnWhiteLabelLoginRequestCompleted Delegate for handling the response of type FLootLockerLoginResponse
      * @param Remember - Optional flag to prolong the session lifetime
-     * https://ref.lootlocker.com/game-api/#login
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta=(AdvancedDisplay=3))
     static void WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelLoginRequestCompleted, const bool Remember = false);
 
     /**
-     * Start a LootLocker Session using the cached White Label token if any exists.
-     *
+     * Start a LootLocker Session using the cached White Label token and email if any exist
      * White Label platform must be enabled in the web console for this to work.
      * https://ref.lootlocker.com/game-api/#white-label-authentication
+     *
+     * @param OnStartWhiteLabelSessionRequestCompleted Delegate for handling the response of type FLootLockerAuthenticationResponse
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void WhiteLabelStartSession(const FAuthResponseBP& OnStartWhiteLabelSessionRequestCompleted);
@@ -124,56 +137,66 @@ public:
      *
      * White Label platform must be enabled in the web console for this to work.
      * https://ref.lootlocker.com/game-api/#verify-session
+     *
+     * @param OnVerifyWhiteLabelSessionRequestCompleted Delegate for handling the response of type FLootLockerWhiteLabelVerifySessionResponse
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
 	static void WhiteLabelVerifySession(const FLootLockerVerifySessionResponseBP &OnVerifyWhiteLabelSessionRequestCompleted);
 
     /**
      * Request verify account email for the user.
-     *
      * White Label platform must be enabled in the web console for this to work.
      * Account verification must also be enabled.
-     * @param UserId - The UserId for the white label user
      * https://ref.lootlocker.com/game-api/#request-user-verification
+     *
+     * @param UserId The UserId for the white label user
+     * @param OnRequestWhiteLabelUserVerificationRequestCompleted Delegate for handling the response of type FLootLockerResponse
      */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
 	static void WhiteLabelRequestUserVerification(const int &UserId, const FLootLockerDefaultResponseBP &OnRequestWhiteLabelUserVerificationRequestCompleted);
 
     /**
-     * Request password reset email for the user.
-     *
+     * Request a password reset email for the given email address.
      * White Label platform must be enabled in the web console for this to work.
-     * @param Email - The email for the white label user
      * https://ref.lootlocker.com/game-api/#request-reset-password
+     *
+     * @param Email The email for the white label user
+     * @param OnResetWhiteLabelPasswordRequestCompleted Delegate for handling the response of type FLootLockerResponse
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
 	static void WhiteLabelResetPassword(const FString &Email, const FLootLockerDefaultResponseBP &OnResetWhiteLabelPasswordRequestCompleted);
 
     /**
-    * Register a Guest session.
-    *
-    * @param playerIdentifier - the ID of the player.
-    *  https://ref.lootlocker.com/game-api/#guest-login
-    */
+     * Start a guest session with an identifier, you can use something like a unique device identifier to tie the account to a device.
+     * https://ref.lootlocker.com/game-api/#guest-login
+     *
+     * @param PlayerIdentifier Identifier for the player
+     * @param OnCompletedRequestBP Delegate for handling the response of type FLootLockerAuthenticationResponse
+     */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-	static void GuestLogin(const FString& playerIdentifier, const FAuthResponseBP& OnCompletedRequestBP);
+	static void GuestLogin(const FString& PlayerIdentifier, const FAuthResponseBP& OnCompletedRequestBP);
 
     /**
-    * If your game uses Player Verification, you need to call this endpoint before you can register a session.
-    *
-    * @param PlatformToken - platform-specific token.
-    * @param OnVerifyPlayerRequestCompleted - Response Delegate to handle the response
-    * @param Platform - Optional parameter to call explicitly for a specific platform
-    * https://ref.lootlocker.io/game-api/#player-verification
-    */
+     * Verify the player's identity with the server and selected platform.
+     * If your game uses Player Verification, you need to call this endpoint before you can register a session.
+     * https://ref.lootlocker.io/game-api/#player-verification
+     *
+     *
+     * @param PlatformToken Platform-specific token.
+     * @param OnVerifyPlayerRequestCompleted Response Delegate to handle the response
+     * @param Platform Optional parameter to call explicitly for a specific platform
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void VerifyPlayer(const FString& PlatformToken, const FAuthDefaultResponseBP& OnVerifyPlayerRequestCompleted, const FString Platform = FString(TEXT("")));
 
     /**
-    * Terminate the session on the LootLocker servers. Any further requests with this session's token will be rejected with an 401 Unauthorized error.
-    *
-    * https://ref.lootlocker.io/game-api/#ending-a-session
-    */
+     * End active session (if any exists)
+     * Terminates the session on the LootLocker servers. Any further requests with this session's token will be rejected with an 401 Unauthorized error.
+     * Succeeds if a session was ended or no sessions were active
+     * https://ref.lootlocker.io/game-api/#ending-a-session
+     *
+     * @param OnEndSessionRequestCompleted Delegate for handling the response of type LootLockerSessionResponse
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void EndSession(const  FAuthDefaultResponseBP& OnEndSessionRequestCompleted);
 
