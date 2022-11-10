@@ -19,7 +19,7 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
 
-#if ENGINE_MINOR_VERSION < 26
+#if ENGINE_MAJOR_VERSION <= 4 && ENGINE_MINOR_VERSION <= 25
 	TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
 #else
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = HttpModule->CreateRequest();
@@ -108,7 +108,7 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
 {
     FHttpModule* HttpModule = &FHttpModule::Get();
 
-#if ENGINE_MINOR_VERSION < 26
+#if ENGINE_MAJOR_VERSION <= 4 && ENGINE_MINOR_VERSION <= 25
 	TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
 #else
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = HttpModule->CreateRequest();
