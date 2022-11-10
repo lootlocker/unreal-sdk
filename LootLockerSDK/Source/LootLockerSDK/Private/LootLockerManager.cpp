@@ -437,9 +437,9 @@ void ULootLockerManager::CreateAssetCandidate(const FLootLockerCreateAssetCandid
     ULootLockerUserGeneratedContentRequestHandler::CreateAssetCandidate(AssetCandidateData, OnCreateAssetCandidateCompleted);
 }
 
-void ULootLockerManager::UpdateAssetCandidate(int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidate, const  FAssetCandidateResponseDelegateBP& OnUpdateAssetCandidateCompleted)
+void ULootLockerManager::UpdateAssetCandidate(int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidateData, const  FAssetCandidateResponseDelegateBP& OnUpdateAssetCandidateCompleted)
 {
-    ULootLockerUserGeneratedContentRequestHandler::UpdateAssetCandidate(AssetCandidateId, AssetCandidate, OnUpdateAssetCandidateCompleted);
+    ULootLockerUserGeneratedContentRequestHandler::UpdateAssetCandidate(AssetCandidateId, AssetCandidateData, OnUpdateAssetCandidateCompleted);
 }
 
 void ULootLockerManager::DeleteAssetCandidate(int AssetCandidateId, const FResponseCallbackBP& OnDeleteAssetCandidateCompleted)
