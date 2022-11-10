@@ -6,9 +6,9 @@
 
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
 
-void ULootLockerManager::StartSession(const FString& playerIdentifier, const FAuthResponseBP& OnStartedSessionRequestCompleted)
+void ULootLockerManager::StartSession(const FString& PlayerIdentifier, const FAuthResponseBP& OnStartedSessionRequestCompleted)
 {
-    ULootLockerAuthenticationRequestHandler::StartSession(playerIdentifier, OnStartedSessionRequestCompleted);
+    ULootLockerAuthenticationRequestHandler::StartSession(PlayerIdentifier, OnStartedSessionRequestCompleted);
 }
 
 void ULootLockerManager::StartNintendoSwitchSession(const FString& NSAIdToken, const FAuthResponseBP& OnStartedNintendoSwitchSessionRequestCompleted)
@@ -62,9 +62,9 @@ void ULootLockerManager::WhiteLabelCreateAccount(const FString &Email, const FSt
 	ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(Email, Password, OnWhiteLabelAccountCreationRequestCompleted);
 }
 
-void ULootLockerManager::GuestLogin(const FString& playerIdentifier, const FAuthResponseBP &OnCompletedRequestBP)
+void ULootLockerManager::GuestLogin(const FString& PlayerIdentifier, const FAuthResponseBP &OnCompletedRequestBP)
 {
-	ULootLockerAuthenticationRequestHandler::GuestLogin(playerIdentifier, OnCompletedRequestBP);
+	ULootLockerAuthenticationRequestHandler::GuestLogin(PlayerIdentifier, OnCompletedRequestBP);
 }
 
 void ULootLockerManager::VerifyPlayer(const FString& PlatformToken, const FAuthDefaultResponseBP& OnVerifyPlayerRequestCompleted, const FString Platform /*= FString()*/)
