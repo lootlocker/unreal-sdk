@@ -172,10 +172,10 @@ class LOOTLOCKERSDK_API ULootLockerHeroRequestHandler : public UObject
 public:
 	static void GetGameHeroes(const FLootLockerGameHeroListBP& OnCompleteBP, const FLootLockerGameHeroListDelegate& OnComplete);
 	static void ListPlayerHeroes(const FLootLockerHeroListBP& OnCompleteBP, const FLootLockerHeroListDelegate& OnComplete);
-	static void ListOtherPlayersHeroesBySteamID64(const int32 SteamID64, const FLootLockerHeroListBP& OnCompleteBP, const FLootLockerHeroListDelegate& OnComplete);
+	static void ListOtherPlayersHeroesBySteamID64(const int64 SteamID64, const FLootLockerHeroListBP& OnCompleteBP, const FLootLockerHeroListDelegate& OnComplete);
 	static void CreateHero(const FLootLockerCreateHeroRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP, const FLootLockerPlayerHeroDelegate& OnComplete);
 	static void GetHero(const int32 HeroID, const FLootLockerPlayerHeroBP& OnCompleteBP, const FLootLockerPlayerHeroDelegate& OnComplete);
-	static void GetOtherPlayersDefaultHeroBySteamID64(const int32 SteamID64, const FLootLockerPlayerHeroBP& OnCompleteBP, const FLootLockerPlayerHeroDelegate& OnComplete);
+	static void GetOtherPlayersDefaultHeroBySteamID64(const int64 SteamID64, const FLootLockerPlayerHeroBP& OnCompleteBP, const FLootLockerPlayerHeroDelegate& OnComplete);
 	static void UpdateHero(const int32 HeroID, const FLootLockerUpdateHeroRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP, const FLootLockerPlayerHeroDelegate& OnComplete);
 	static void DeleteHero(const int32 HeroID, const FLLHeroDefaultResponseBP& OnCompleteBP, const FLLHeroDefaultResponseDelegate& OnComplete);
 	static void GetHeroInventory(const int32 HeroID, const FPInventoryResponseBP& OnCompleteBp, const FInventoryResponse& OnComplete);
