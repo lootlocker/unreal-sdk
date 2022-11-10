@@ -523,9 +523,9 @@ void ULootLockerSDKManager::ActivateRentalAsset(int AssetId, const FActivateRent
     ULootLockerPurchasesRequestHandler::ActivateRentalAsset(AssetId, FActivateRentalAssetResponseDelegateBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::GetOrderDetails(int32 OrderId, const bool noProducts, const FOrderStatusDetailsDelegate& OnCompletedRequest)
+void ULootLockerSDKManager::GetOrderDetails(int32 OrderId, const bool NoProducts, const FOrderStatusDetailsDelegate& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::GetOrderDetails(OrderId, noProducts, FOrderStatusDetailsBP(), OnCompletedRequest);
+    ULootLockerPurchasesRequestHandler::GetOrderDetails(OrderId, NoProducts, FOrderStatusDetailsBP(), OnCompletedRequest);
 }
 
 //Trigger

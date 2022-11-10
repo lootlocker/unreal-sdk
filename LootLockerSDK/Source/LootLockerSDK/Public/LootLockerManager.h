@@ -1287,23 +1287,34 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard")
     static void SubmitScore(FString MemberId, int LeaderboardId, int Score, FString Metadata, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP);
+
     //==================================================
     //Drop Table
+    // https://ref.lootlocker.com/game-api/#drop-tables
     //==================================================
+
     /**
-    *
-    * https://ref.lootlocker.io/game-api/#compute-and-lock-drop-table
-    */
+     * Compute and lock the specified drop table.
+     * When you wish to evaluate a drop table and lock the drops from it in place, you call this method.
+     * The response will hold information on the assets that are dropped, and can be picked up using the Pick endpoint.
+     * https://ref.lootlocker.com/game-api/#compute-and-lock-drop-table
+     *
+     * @param TableId Drop table ID
+     * @param OnCompletedRequestBP Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | DropTable")
     static void ComputeAndLockDropTable(int TableId, const FLootLockerComputeAndLockDropTableResponseBP& OnCompletedRequestBP);
 
     /**
-    * 
-    *
-    * https://ref.lootlocker.io/game-api/#pick-drops-from-drop-table
-    */
+     * Picks drops from a locked drop table.
+     * https://ref.lootlocker.com/game-api/#pick-drops-from-drop-table
+     *
+     * @param Picks List of the item IDs you want to pick. Submit empty list for no picks
+     * @param TableId Drop table ID, needs to have been locked prior to this call
+     * @param OnCompletedRequestBP Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | DropTable")
-    static void PickDropsFromDropTable(TArray<int> picks, int TableId, const FFLootLockerPickDropsFromDropTableResponseBP& OnCompletedRequestBP);
+    static void PickDropsFromDropTable(TArray<int> Picks, int TableId, const FFLootLockerPickDropsFromDropTableResponseBP& OnCompletedRequestBP);
 
     //==================================================
     // Miscellaneous
@@ -1311,9 +1322,9 @@ public:
 
     /**
     * Get the current time of the server. Can also be used to ping the server
+    * https://ref.lootlocker.com/game-api/#server-time
     *
     * @param OnCompletedRequestBP Delegate for handling the the server response.
-    * https://ref.lootlocker.com/game-api/#server-time
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous")
     static void GetServerTime(const FTimeResponseDelegateBP& OnCompletedRequestBP);
