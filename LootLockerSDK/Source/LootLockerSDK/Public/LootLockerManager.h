@@ -1081,6 +1081,7 @@ public:
 
     //==================================================
     //Purchases
+    // https://ref.lootlocker.com/game-api/#purchasing
     //==================================================
 
     /**
@@ -1149,21 +1150,25 @@ public:
 
     //==================================================
     //Trigger Events
+    // https://ref.lootlocker.com/game-api/#trigger-events
     //==================================================
 
     /**
-    * Trigger an event.
-    *
-    * @param Event data of the event to be triggered.
-    * https://ref.lootlocker.io/game-api/#triggering-an-event
-    */
+     * Trigger an event.
+     * https://docs.lootlocker.io/game-api/#triggering-an-event
+     *
+     * @param Event data of the event to be triggered.
+     * @param OnTriggerEventCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Trigger Events")
     static void TriggerEvent(const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegateBP& OnTriggerEventCompleted);
 
     /**
-    * This endpoint lists the triggers that a player have already completed.
-    * https://ref.lootlocker.io/game-api/#listing-triggered-trigger-events
-    */
+     * This endpoint lists the triggers that a player have already completed.
+     * https://docs.lootlocker.io/game-api/#listing-triggered-trigger-events
+     *
+     * @param OnGetTriggeredEventsCompleted Delegate for handling the server response.
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Trigger Events")
     static void GetTriggeredEvents(const FTriggersResponseDelegateBP& OnGetTriggeredEventsCompleted);
 
