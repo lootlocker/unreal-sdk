@@ -193,7 +193,7 @@ void ULootLockerManager::ListPlayerHeroes(const FLootLockerHeroListBP &OnComplet
 	ULootLockerHeroRequestHandler::ListPlayerHeroes(OnCompleteBP, FLootLockerHeroListDelegate());
 }
 
-void ULootLockerManager::ListOtherPlayersHeroesBySteamID64(const int32 SteamID64, const FLootLockerHeroListBP &OnCompleteBP)
+void ULootLockerManager::ListOtherPlayersHeroesBySteamID64(const int64 SteamID64, const FLootLockerHeroListBP &OnCompleteBP)
 {
 	ULootLockerHeroRequestHandler::ListOtherPlayersHeroesBySteamID64(SteamID64, OnCompleteBP, FLootLockerHeroListDelegate());
 }
@@ -223,9 +223,9 @@ void ULootLockerManager::DeleteHero(const int32 HeroID, const FLLHeroDefaultResp
 	ULootLockerHeroRequestHandler::DeleteHero(HeroID, OnCompleteBP, FLLHeroDefaultResponseDelegate());
 }
 
-void ULootLockerManager::GetHeroInventory(const int32 HeroID, const FPInventoryResponseBP &OnCompleteBp)
+void ULootLockerManager::GetHeroInventory(const int32 HeroID, const FPInventoryResponseBP &OnCompleteBP)
 {
-	ULootLockerHeroRequestHandler::GetHeroInventory(HeroID, OnCompleteBp, FInventoryResponse());
+	ULootLockerHeroRequestHandler::GetHeroInventory(HeroID, OnCompleteBP, FInventoryResponse());
 }
 
 void ULootLockerManager::GetHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseBP &OnCompleteBP)

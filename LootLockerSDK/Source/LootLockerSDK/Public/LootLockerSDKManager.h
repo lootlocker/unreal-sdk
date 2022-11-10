@@ -378,18 +378,128 @@ public:
 	//==================================================
 	//Heroes
 	//==================================================
+
+    /**
+     * List heroes with names and character information
+     * https://ref.lootlocker.com/game-api/#get-game-heroes
+     *
+     * @param OnCompleteRequest Delegate for handling the response
+     */
 	static void GetGameHeroes(const FLootLockerGameHeroListDelegate& OnCompleteRequest);
-	static void ListPlayerHeroes(const FLootLockerHeroListDelegate& OnCompleteBP);
-	static void ListOtherPlayersHeroesBySteamID64(const int32 SteamID64, const FLootLockerHeroListDelegate& OnCompleteRequest);
+
+    /**
+     * List heroes that the current player owns
+     * https://ref.lootlocker.com/game-api/#list-player-heroes
+     *
+     * @param OnCompleteRequest Delegate for handling the response
+     */
+	static void ListPlayerHeroes(const FLootLockerHeroListDelegate& OnCompleteRequest);
+
+    /**
+     * List player that the player with the specified SteamID64 owns
+     * https://ref.lootlocker.com/game-api/#list-other-players-heroes-by-steamid64
+     *
+     * @param SteamID64 Steam Id of the requested player
+     * @param OnCompleteRequest Delegate for handling the response
+     */
+	static void ListOtherPlayersHeroesBySteamID64(const int64 SteamID64, const FLootLockerHeroListDelegate& OnCompleteRequest);
+
+    /**
+     * Create a hero for the current player with the supplied name from the game hero specified with the supplied hero id
+     * https://ref.lootlocker.com/game-api/#creating-a-hero
+     *
+     * @param Request Request specifying the hero id for the game hero to use for creation and the name of the hero to create
+     * @param OnCompleteRequest Delegate for handling the response
+     */
 	static void CreateHero(const FLootLockerCreateHeroRequest& Request, const FLootLockerPlayerHeroDelegate& OnCompleteRequest);
+
+    /**
+     * Return information about the requested hero on the current player
+     * https://ref.lootlocker.com/game-api/#getting-a-hero
+     *
+     * @param HeroID Id of the hero to get
+     * @param OnCompletedRequest Delegate for handling the response
+     */
 	static void GetHero(const int32 HeroID, const FLootLockerPlayerHeroDelegate& OnCompletedRequest);
-	static void GetOtherPlayersDefaultHeroBySteamID64(const int32 SteamID64, const FLootLockerPlayerHeroDelegate& OnCompleteRequest);
+
+    /**
+     * Get the default hero for the player with the specified SteamID64
+     * https://ref.lootlocker.com/game-api/#get-other-players-default-hero-by-steamid64
+     *
+     * @param SteamID64 Steam Id of the requested player
+     * @param OnCompleteRequest Delegate for handling the response
+     */
+	static void GetOtherPlayersDefaultHeroBySteamID64(const int64 SteamID64, const FLootLockerPlayerHeroDelegate& OnCompleteRequest);
+
+    /**
+     * Update the name of the hero with the specified id and/or set it as default for the current player
+     * https://ref.lootlocker.com/game-api/#updating-a-hero
+     *
+     * @param HeroID Id of the hero
+     * @param Request Request specifying the new (or same) name to set for the hero and if it is to be the default hero for the player
+     * @param OnCompletedRequest Delegate for handling the response
+     */
 	static void UpdateHero(const int32 HeroID, const FLootLockerUpdateHeroRequest &Request, const FLootLockerPlayerHeroDelegate &OnCompletedRequest);
+
+    /**
+     * Remove the hero with the specified id from the current players list of heroes.
+     * This action is currently irreversible.
+     * When deleting a hero, the heroes inventory is returned to the player, and their loadout is reset.
+     * https://ref.lootlocker.com/game-api/#deleting-a-hero
+     *
+     * @param HeroID Id of the hero
+     * @param OnCompletedRequest Delegate for handling the response
+     */
 	static void DeleteHero(const int32 HeroID, const FLLHeroDefaultResponseDelegate& OnCompletedRequest);
+
+    /**
+     * List Asset Instances owned by the specified hero
+     *
+     * Note that this endpoint is paginated and will return the first 50 entries
+     * https://ref.lootlocker.com/game-api/#get-hero-inventory
+     *
+     * @param HeroID Id of the hero
+     * @param OnCompleteRequest Delegate for handling the response
+     */
 	static void GetHeroInventory(const int32 HeroID, const FInventoryResponse& OnCompleteRequest);
+
+    /**
+     * List the loadout of the specified hero that the current player owns
+     *
+     * https://ref.lootlocker.com/game-api/#get-hero-loadout
+     *
+     * @param HeroID Id of the hero
+     * @param OnCompletedRequest Delegate for handling the response
+     */
 	static void GetHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseDelegate& OnCompletedRequest);
+
+    /**
+     * List the loadout of the specified hero that the another player owns
+     * https://ref.lootlocker.com/game-api/#get-other-players-hero-loadout
+     *
+     * @param HeroID Id of the hero
+     * @param OnCompletedRequest Delegate for handling the response
+     */
 	static void GetOtherPlayersHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseDelegate& OnCompletedRequest);
+
+    /**
+     * Equip the specified Asset Instance to the specified Hero that the current player owns
+     * https://ref.lootlocker.com/game-api/#add-asset-to-hero-loadout
+     *
+     * @param HeroID Id of the hero
+     * @param AssetInstanceID Desc
+     * @param OnCompletedRequest Delegate for handling the response
+     */
 	static void AddAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseDelegate& OnCompletedRequest);
+
+    /**
+     * Unequip the specified Asset Instance to the specified Hero that the current player owns
+     * https://ref.lootlocker.com/game-api/#remove-asset-from-hero-loadout
+     *
+     * @param HeroID Id of the hero
+     * @param AssetInstanceID Desc
+     * @param OnCompletedRequest Delegate for handling the response
+     */
 	static void RemoveAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseDelegate& OnCompletedRequest);
 	
     //==================================================
