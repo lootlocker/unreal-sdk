@@ -517,9 +517,9 @@ void ULootLockerManager::ActivateRentalAsset(int AssetId, const FActivateRentalA
     ULootLockerPurchasesRequestHandler::ActivateRentalAsset(AssetId, OnActivateRentalAssetCompleted);
 }
 
-void ULootLockerManager::GetOrderDetails(int32 OrderId, const bool noProducts, const FOrderStatusDetailsBP &OnCompleteBP)
+void ULootLockerManager::GetOrderDetails(int32 OrderId, const bool NoProducts, const FOrderStatusDetailsBP &OnCompleteBP)
 {
-	ULootLockerPurchasesRequestHandler::GetOrderDetails(OrderId, noProducts, OnCompleteBP, FOrderStatusDetailsDelegate());
+	ULootLockerPurchasesRequestHandler::GetOrderDetails(OrderId, NoProducts, OnCompleteBP, FOrderStatusDetailsDelegate());
 }
 
 void ULootLockerManager::TriggerEvent(const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegateBP& OnTriggerEventCompleted)
@@ -606,10 +606,10 @@ void ULootLockerManager::ComputeAndLockDropTable(int TableId, const FLootLockerC
     ULootLockerDropTablesRequestHandler::ComputeAndLockDropTable(TableId, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::PickDropsFromDropTable(TArray<int> picks, int TableId, const FFLootLockerPickDropsFromDropTableResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::PickDropsFromDropTable(TArray<int> Picks, int TableId, const FFLootLockerPickDropsFromDropTableResponseBP& OnCompletedRequestBP)
 {
     FLootLockerPickDropsFromDropTableRequest request;
-    request.picks = picks;
+    request.picks = Picks;
     ULootLockerDropTablesRequestHandler::PickDropsFromDropTable(request,TableId, OnCompletedRequestBP);
 }
 
