@@ -66,7 +66,7 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString endpoint;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	ELootLockerHTTPMethod requestMethod;
+	ELootLockerHTTPMethod requestMethod = ELootLockerHTTPMethod::GET;
 };
 
 USTRUCT(BlueprintType)
@@ -80,7 +80,7 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FResponseCallbackBP, FLootLockerResponse, Resp
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerResponseCallback, FLootLockerResponse, Response);
 DECLARE_DELEGATE_OneParam(FResponseCallback, FLootLockerResponse);
 
-UCLASS(Config = LootLockerSDK)
+UCLASS(Config = Game, DefaultConfig, meta = (DisplayName = "LootLocker SDK Settings"))
 class LOOTLOCKERSDK_API ULootLockerConfig : public UObject
 {
 	GENERATED_BODY()
