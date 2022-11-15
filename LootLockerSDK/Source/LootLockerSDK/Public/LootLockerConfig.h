@@ -92,17 +92,17 @@ public:
     }
 public:
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString LootLockerGameKey = TEXT("d925392bfba5bf79827b8ee8207e21e511f1483a");
+	FString LootLockerGameKey;
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	ELootLockerPlatformType Platform = ELootLockerPlatformType::Android;
+    ELootLockerPlatformType Platform;
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString GameVersion = TEXT("0.0.0.1");
+    FString GameVersion;
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	bool OnDevelopmentMode = true;
+	bool OnDevelopmentMode;
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	bool AllowTokenRefresh = true;
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString DomainKey = "2e85q3wx";
+	FString DomainKey;
 };
 
 
