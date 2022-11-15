@@ -857,13 +857,14 @@ public:
     static void GetAllKeyValuePairsForAssetInstance(int AssetInstanceId, const  FAssetInstanceStorageItemsResponseDelegateBP& OnGetAllKeyValuePairsForAssetInstanceCompleted);
 
     /**
+     * DEPRECATED
      * Get all key/value pairs for an asset instance.
      * https://docs.lootlocker.io/game-api/#getting-all-key-value-pairs-to-an-instance
      *
      * @param AssetInstanceId asset instance ID.
      * @param OnGetAllKeyValuePairsToAnInstanceForAssetInstanceCompleted Delegate for handling the server response.
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances", meta = (DeprecatedFunction, DeprecationMessage = "Deprecated, Please use GetAllKeyValuePairsForAssetInstance"))
     static void GetAllKeyValuePairsToAnInstanceForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItemsResponseDelegateBP& OnGetAllKeyValuePairsToAnInstanceForAssetInstanceCompleted);
 
     /**
@@ -923,7 +924,7 @@ public:
     static void DeleteAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegateBP& OnDeleteAKeyValuePairByIdForAssetInstanceCompleted);
 
     /**
-     * Asset instances with the type set to loot box can be inspected, to see what assets the player might possibly get when opening them.
+     * Get the drop rates for a loot box asset instance.
      * https://docs.lootlocker.io/game-api/#inspect-a-loot-box
      *
      * @param AssetInstanceId asset instance ID.
@@ -933,9 +934,8 @@ public:
     static void InspectLootBox(int AssetInstanceId, const  FLootBoxContentResponseDelegateBP& OnInspectLootBoxCompleted);
 
     /**
-     * Asset instances with the type set to loot box can be opened, using this endpoint.
-     * Once you call this endpoint, the Loot Box will be removed from the players inventory, and a new asset will be added to the inventory,
-     * with the acquisition_source set to grant_loot_box. You will be asked to check the grant notifications to see which asset was granted.
+     * Open a loot box asset instance.
+     * The loot box will be consumed and the contents will be added to the player's inventory.
      * https://docs.lootlocker.io/game-api/#open-a-loot-box
      *
      * @param AssetInstanceId asset instance ID.
@@ -1128,7 +1128,8 @@ public:
     static  void PollingOrderStatus(int PurchaseId, const FPurchaseStatusResponseDelegateBP& OnPollingStatusCompleted);
 
     /**
-     * Once you have purchased a rental asset, you need to activate the rental for it to become available for the player. This endpoint achieves that.
+     * Activates specified rental asset
+     * Once you have purchased a rental asset, you need to activate the rental for it to become available for the player.
      * https://docs.lootlocker.io/game-api/#activating-a-rental-asset
      *
      * @param AssetId ID of the asset.
@@ -1251,7 +1252,7 @@ public:
     static void GetByListOfMembers(TArray<FString> Members, int LeaderboardId, const FLootLockerGetByListOfMembersResponseBP& OnCompletedRequestBP);
 
     /**
-     * Get list of members in rank range. Result is sorted by rank ascending.
+     * Get list of members in rank range.
      * Maximum allowed members to query for at a time is currently 2000. If leaderboard is of type player a player will also be in the response.
      * https://ref.lootlocker.io/game-api/#get-score-list
      *
@@ -1264,7 +1265,7 @@ public:
     static void GetScoreList(int LeaderboardId, int Count, int After, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP);
 
     /**
-     * Get list of members in rank range. Result is sorted by rank ascending.
+     * Get list of members in rank range.
      * Maximum allowed members to query for at a time is currently 2000. If leaderboard is of type player a player will also be in the response.
      * https://ref.lootlocker.io/game-api/#get-score-list
      *
