@@ -9,6 +9,7 @@ struct FLootLockerResponse
 {
 	GENERATED_BODY()
 public:
+    virtual ~FLootLockerResponse() = default;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
     bool success = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
