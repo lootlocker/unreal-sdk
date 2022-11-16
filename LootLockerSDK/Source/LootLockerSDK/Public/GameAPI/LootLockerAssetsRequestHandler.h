@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-#include "LootLockerConfig.h"
+#include "LootLockerResponse.h"
 #include "LootLockerHttpClient.h"
 #include "GameAPI/LootLockerPersistentStorageRequestHandler.h"
 #include "LootLockerAssetsRequestHandler.generated.h"
