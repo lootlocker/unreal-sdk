@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-#include "LootLockerConfig.h"
+#include "LootLockerResponse.h"
 #include "LootLockerHttpClient.h"
 #include "JsonObjectConverter.h"
 #include "LootLockerLeaderboardRequestHandler.generated.h"
