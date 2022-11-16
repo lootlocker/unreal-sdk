@@ -4,8 +4,7 @@
 #include "LootLockerHttpClient.h"
 #include "GameAPI/LootLockerAssetsRequestHandler.h"
 #include "UObject/NoExportTypes.h"
-#include "LootLockerConfig.h"
-#include "LootLockerHttpClient.h"
+#include "LootLockerResponse.h"
 #include "JsonObjectConverter.h"
 #include "LootLockerHeroRequestHandler.generated.h"
 
