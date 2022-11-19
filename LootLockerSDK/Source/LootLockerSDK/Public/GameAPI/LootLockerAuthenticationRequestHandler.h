@@ -198,7 +198,7 @@ struct FLootLockerAuthenticationResponse : public FLootLockerResponse
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerAppleSessionResponse : public FLootLockerResponse
+struct FLootLockerAppleSessionResponse : public FLootLockerAuthenticationResponse
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
