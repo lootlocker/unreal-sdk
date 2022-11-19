@@ -187,11 +187,21 @@ void ULootLockerAuthenticationRequestHandler::VerifyPlayer(const FString& Platfo
 
 void ULootLockerAuthenticationRequestHandler::EndSession(const FAuthDefaultResponseBP& OnCompletedRequestBP, const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest)
 {
-	ULootLockerPersistentDataHolder::CachedWhiteLabelEmail = "";
-	ULootLockerPersistentDataHolder::CachedWhiteLabelToken = "";
-	ULootLockerPersistentDataHolder::Token = "";
+	const auto UnsetTokensLambda = FLootLockerDefaultAuthenticationResponse::CreateLambda([OnCompletedRequest, OnCompletedRequestBP](FLootLockerAuthenticationDefaultResponse Response)
+		{
+			if (Response.success) {
+				ULootLockerPersistentDataHolder::CachedWhiteLabelEmail = "";
+				ULootLockerPersistentDataHolder::CachedWhiteLabelToken = "";
+				ULootLockerPersistentDataHolder::Token = "";
+				ULootLockerPersistentDataHolder::CachedSteamToken = "";
+				ULootLockerPersistentDataHolder::CachedPlayerIdentifier = "";
+				LootLockerUtilities::CurrentPlatformFString::Reset();
+			}
+			OnCompletedRequestBP.ExecuteIfBound(Response);
+			OnCompletedRequest.ExecuteIfBound(Response);
+		});
 
-	LootLockerUtilities::CurrentPlatformFString::Reset();
-	LLAPI<FLootLockerAuthenticationDefaultResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::EndSessionEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+	const FAuthDefaultResponseBP EmptyPlaceholderResponseDelegateBP;
+	LLAPI<FLootLockerAuthenticationDefaultResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::EndSessionEndpoint, { }, EmptyQueryParams, EmptyPlaceholderResponseDelegateBP, UnsetTokensLambda);
 }
 
