@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "LootLockerPersistentDataHolder.h"
+#include "LootLockerPersistentData.h"
 
 #if ENGINE_MAJOR_VERSION > 4
 namespace test_util
@@ -27,7 +27,7 @@ namespace test_util
 		ULootLockerSDKManager::StartSession("1", Delegate);
 
 		const auto Response = Promise ->get_future().get();
-		ULootLockerPersistentDataHolder::Token = Response.session_token;
+		ULootLockerPersistentData::Token = Response.session_token;
 		delete(Promise);
 	}
 
