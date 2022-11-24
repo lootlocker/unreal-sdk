@@ -7,6 +7,7 @@
 #include "LootLockerConfig.h"
 #endif
 
+#include "LootLockerPersistentData.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Framework/MultiBox/MultiBoxBuilder.h"
 

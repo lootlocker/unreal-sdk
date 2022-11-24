@@ -6,7 +6,7 @@
 #include "Interfaces/IHttpResponse.h"
 #include "GameAPI/LootLockerAuthenticationRequestHandler.h"
 #include "LootLockerSDK.h"
-#include "LootLockerPersistentDataHolder.h"
+#include "LootLockerPersistentData.h"
 #include "Misc/FileHelper.h"
 #include "LootLockerConfig.h"
 
@@ -26,10 +26,6 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 #endif
 	Request->SetURL(endPoint);
 
-	ULootLockerPersistentDataHolder::CachedLastEndpointUsed = endPoint;
-	ULootLockerPersistentDataHolder::CachedLastRequestTypeUsed = requestType;
-	ULootLockerPersistentDataHolder::CachedLastDataSentToServer = data;
-
 	Request->SetHeader(TEXT("User-Agent"), TEXT("X-UnrealEngine-Agent"));
     Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
     Request->SetHeader(TEXT("Accepts"), TEXT("application/json"));
@@ -38,16 +34,16 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 	if (useHeader)
 	{
         if (!useAdmin) {
-            Request->SetHeader(TEXT("x-session-token"), ULootLockerPersistentDataHolder::Token);
+            Request->SetHeader(TEXT("x-session-token"), ULootLockerPersistentData::Token);
         } else {
-            Request->SetHeader(TEXT("x-auth-token"), ULootLockerPersistentDataHolder::AdminToken);
+            Request->SetHeader(TEXT("x-auth-token"), ULootLockerPersistentData::AdminToken);
         }
 	}
 
 	// Needed by the White Label Login
 	if (useDomainKey)
 	{
-		Request->SetHeader(TEXT("domain-key"), ULootLockerPersistentDataHolder::DomainKey);
+		Request->SetHeader(TEXT("domain-key"), ULootLockerPersistentData::DomainKey);
 	}
 
 	// This is normally sent via the body, but with the white label login it goes in the header!
@@ -115,10 +111,6 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
 #endif
 	Request->SetURL(endPoint);
 
-    ULootLockerPersistentDataHolder::CachedLastEndpointUsed = endPoint;
-    ULootLockerPersistentDataHolder::CachedLastRequestTypeUsed = requestType;
-    ULootLockerPersistentDataHolder::CachedLastDataSentToServer = FString(TEXT("Data Stream"));
-
     FString Boundary = "lootlockerboundary";
 
     Request->SetHeader(TEXT("User-Agent"), TEXT("X-UnrealEngine-Agent"));
@@ -127,9 +119,9 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
     if (useHeader)
     {
         if (!useAdmin) {
-            Request->SetHeader(TEXT("x-session-token"), ULootLockerPersistentDataHolder::Token);
+            Request->SetHeader(TEXT("x-session-token"), ULootLockerPersistentData::Token);
         } else {
-            Request->SetHeader(TEXT("x-auth-token"), ULootLockerPersistentDataHolder::AdminToken);
+            Request->SetHeader(TEXT("x-auth-token"), ULootLockerPersistentData::AdminToken);
         }
     }
 
