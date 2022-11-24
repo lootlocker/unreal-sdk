@@ -315,7 +315,7 @@ void ULootLockerSDKManager::GetEquipableContextsByCharacterId(int OtherCharacter
 	ULootLockerCharacterRequestHandler::GetEquipableContextsByCharacterId(OtherCharacterId, FContextDelegateBP(), OnCompletedRequest);
 }
 
-//Persisitent Storage
+//Persistent Storage
 void ULootLockerSDKManager::GetEntirePersistentStorage(const FPersistentStorageItemsResponseDelegate& OnCompletedRequest)
 {
     ULootLockerPersistentStorageRequestHandler::GetEntirePersistentStorage(FPersistentStorageItemsResponseDelegateBP(), OnCompletedRequest);
