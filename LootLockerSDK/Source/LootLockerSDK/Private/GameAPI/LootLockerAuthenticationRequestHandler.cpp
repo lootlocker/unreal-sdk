@@ -19,10 +19,10 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(const FStr
 	const FLootLockerLoginResponseDelegate &OnCompletedRequest)
 {
 	const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
-	ULootLockerStateData::DomainKey = Config->DomainKey;
-	ULootLockerStateData::WhiteLabelEmail = Email;
+	ULootLockerStateData::SetDomainKey(Config->DomainKey);
+	ULootLockerStateData::SetWhiteLabelEmail(Email);
 	FLootLockerLoginRequest SignupRequest;
-	SignupRequest.email = ULootLockerStateData::WhiteLabelEmail;
+	SignupRequest.email = ULootLockerStateData::GetWhiteLabelEmail();
 	SignupRequest.password = Password;
 	
 	LLAPI<FLootLockerLoginResponse>::CallAPI(HttpClient, SignupRequest, ULootLockerGameEndpoints::WhiteLabelSignupEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest, true, true);
@@ -32,17 +32,17 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelLogin(const FString &Ema
 	const FLootLockerLoginResponseDelegate &OnCompletedRequest)
 {
 	const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
-	ULootLockerStateData::DomainKey = Config->DomainKey;
-	ULootLockerStateData::WhiteLabelEmail = Email;
+	ULootLockerStateData::SetDomainKey(Config->DomainKey);
+	ULootLockerStateData::SetWhiteLabelEmail(Email);
 	FLootLockerWhiteLabelLoginRequest LoginRequest;
-	LoginRequest.email = ULootLockerStateData::WhiteLabelEmail;
+	LoginRequest.email = ULootLockerStateData::GetWhiteLabelEmail();
 	LoginRequest.password = Password;
 	LoginRequest.remember = Remember;
 
 	auto CacheWhiteLabelTokenLambda = FLootLockerLoginResponseDelegate::CreateLambda([OnCompletedRequest, OnCompletedRequestBP](FLootLockerLoginResponse Response)
 	{
 		if (Response.success) {
-			ULootLockerStateData::WhiteLabelToken = Response.session_token;
+			ULootLockerStateData::SetWhiteLabelToken(Response.session_token);
 			LootLockerUtilities::CurrentPlatformFString::Override(WHITE_LABEL_PLATFORM);
 		}
 		OnCompletedRequestBP.ExecuteIfBound(Response);
@@ -61,29 +61,29 @@ void ULootLockerAuthenticationRequestHandler::GuestLogin(const FString& playerId
 	AuthRequest.development_mode = config->OnDevelopmentMode;
 	AuthRequest.game_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
-	AuthRequest.player_identifier = !(playerIdentifier.IsEmpty()) ? playerIdentifier : ULootLockerStateData::PlayerIdentifier;
+	AuthRequest.player_identifier = !(playerIdentifier.IsEmpty()) ? playerIdentifier : ULootLockerStateData::GetPlayerIdentifier();
 	LootLockerUtilities::CurrentPlatformFString::Override(GUEST_PLATFORM);
-	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::GuestloginEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::GuestloginEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(const FAuthResponseBP &OnCompletedRequestBP, const FLootLockerSessionResponse &OnCompletedRequest)
 {
 	const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
-	ULootLockerStateData::DomainKey = Config->DomainKey;
+	ULootLockerStateData::SetDomainKey(Config->DomainKey);
 	FLootLockerWhiteLabelAuthRequest AuthRequest;
 	AuthRequest.development_mode = Config->OnDevelopmentMode;
 	AuthRequest.game_key = Config->LootLockerGameKey;
 	AuthRequest.game_version = Config->GameVersion;
-	AuthRequest.email = ULootLockerStateData::WhiteLabelEmail;
-	AuthRequest.token = ULootLockerStateData::WhiteLabelToken;
+	AuthRequest.email = ULootLockerStateData::GetWhiteLabelEmail();
+	AuthRequest.token = ULootLockerStateData::GetWhiteLabelToken();
 	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::WhiteLabelAuthEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerAuthenticationRequestHandler::WhiteLabelVerifySession(const FLootLockerVerifySessionResponseBP& OnCompletedRequestBP, const FLootLockerWhiteLabelVerifySessionDelegate& OnCompletedRequest)
 {
 	FLootLockerWhiteLabelVerifySessionRequest VerifyRequest;
-	VerifyRequest.email = ULootLockerStateData::WhiteLabelEmail;;
-	VerifyRequest.token = ULootLockerStateData::WhiteLabelToken;
+	VerifyRequest.email = ULootLockerStateData::GetWhiteLabelEmail();
+	VerifyRequest.token = ULootLockerStateData::GetWhiteLabelToken();
 	LLAPI<FLootLockerWhiteLabelVerifySessionResponse>::CallAPI(HttpClient, VerifyRequest, ULootLockerGameEndpoints::WhiteLabelVerifySessionEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest, true, true);
 }
 
@@ -103,7 +103,7 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelRequestPasswordReset(con
 
 void ULootLockerAuthenticationRequestHandler::StartSession(const FString& PlayerId, const FAuthResponseBP& OnCompletedRequestBP, const FLootLockerSessionResponse& OnCompletedRequest)
 {
-    ULootLockerStateData::PlayerIdentifier = PlayerId;
+    ULootLockerStateData::SetPlayerIdentifier(PlayerId);
 	FLootLockerAuthenticationRequest AuthRequest;
 
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
@@ -179,7 +179,7 @@ void ULootLockerAuthenticationRequestHandler::VerifyPlayer(const FString& Platfo
 
 	if(RequestPlatform.Compare(ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(ELootLockerPlatformType::Steam))))
 	{
-		ULootLockerStateData::SteamToken = PlatformToken;
+		ULootLockerStateData::SetSteamToken(PlatformToken);
 	}
 
 	LLAPI<FLootLockerAuthenticationDefaultResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::VerifyPlayerIdEndPoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
@@ -190,11 +190,11 @@ void ULootLockerAuthenticationRequestHandler::EndSession(const FAuthDefaultRespo
 	const auto UnsetTokensLambda = FLootLockerDefaultAuthenticationResponse::CreateLambda([OnCompletedRequest, OnCompletedRequestBP](FLootLockerAuthenticationDefaultResponse Response)
 		{
 			if (Response.success) {
-				ULootLockerStateData::WhiteLabelEmail = "";
-				ULootLockerStateData::WhiteLabelToken = "";
-				ULootLockerStateData::Token = "";
-				ULootLockerStateData::SteamToken = "";
-				ULootLockerStateData::PlayerIdentifier = "";
+				ULootLockerStateData::SetWhiteLabelEmail("");
+				ULootLockerStateData::SetWhiteLabelToken("");
+				ULootLockerStateData::SetToken("");
+				ULootLockerStateData::SetSteamToken("");
+				ULootLockerStateData::SetPlayerIdentifier("");
 				LootLockerUtilities::CurrentPlatformFString::Reset();
 			}
 			OnCompletedRequestBP.ExecuteIfBound(Response);

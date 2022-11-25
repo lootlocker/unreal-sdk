@@ -6,6 +6,20 @@
 
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
 
+void ULootLockerManager::GetConfig(const FConfigResponseBP& OnGetConfigCompleted)
+{
+    const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
+    FLootLockerConfigForBlueprint config;
+    config.DomainKey = Config->DomainKey;
+    config.AllowTokenRefresh = Config->AllowTokenRefresh;
+    config.GameVersion = Config->GameVersion;
+    config.LootLockerGameKey = Config->LootLockerGameKey;
+    config.OnDevelopmentMode = Config->OnDevelopmentMode;
+    config.Platform = Config->Platform;
+
+    OnGetConfigCompleted.ExecuteIfBound(config);
+}
+
 void ULootLockerManager::StartSession(const FString& PlayerIdentifier, const FAuthResponseBP& OnStartedSessionRequestCompleted)
 {
     ULootLockerAuthenticationRequestHandler::StartSession(PlayerIdentifier, OnStartedSessionRequestCompleted);
