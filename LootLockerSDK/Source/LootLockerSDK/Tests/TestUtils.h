@@ -27,7 +27,7 @@ namespace test_util
 		ULootLockerSDKManager::StartSession("1", Delegate);
 
 		const auto Response = Promise ->get_future().get();
-		ULootLockerStateData::Token = Response.session_token;
+		ULootLockerStateData::SetToken(Response.session_token);
 		delete(Promise);
 	}
 
