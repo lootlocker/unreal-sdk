@@ -40,4 +40,5 @@ public:
 	static void SetWhiteLabelEmail(FString InWhiteLabelEmail);
 	static void SetWhiteLabelToken(FString InWhiteLabelToken);
 	static void SetAdminToken(FString InAdminToken);
+    static void ClearState();
 };
