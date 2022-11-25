@@ -61,7 +61,7 @@ void ULootLockerAuthenticationRequestHandler::GuestLogin(const FString& playerId
 	AuthRequest.development_mode = config->OnDevelopmentMode;
 	AuthRequest.game_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
-	AuthRequest.player_identifier = playerIdentifier;
+	AuthRequest.player_identifier = !(playerIdentifier.IsEmpty()) ? playerIdentifier : ULootLockerPersistentData::PlayerIdentifier;
 	LootLockerUtilities::CurrentPlatformFString::Override(GUEST_PLATFORM);
 	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::GuestloginEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
