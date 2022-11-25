@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-#include "LootLockerConfig.h"
 #include "LootLockerPersistentData.generated.h"
 
 
@@ -20,10 +19,4 @@ public:
     static FString WhiteLabelEmail;
     static FString WhiteLabelToken;
     static FString AdminToken;
-
-	ULootLockerPersistentData()
-	{
-		PlayerIdentifier = FPlatformMisc::GetDeviceId();
-	}
-
 };
