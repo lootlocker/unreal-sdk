@@ -19,8 +19,13 @@ class LOOTLOCKERSDK_API ULootLockerStateData : public UObject
 	static FString WhiteLabelToken;
 	static FString AdminToken;
 
+#if ENGINE_MAJOR_VERSION < 5
+	static const FString SaveSlot;
+    static constexpr int SaveIndex = 0;
+#else
     inline static const FString SaveSlot = "LootLocker";
     inline static constexpr int SaveIndex = 0;
+#endif
 	static bool StateLoaded;
 
 	static void LoadStateFromDiskIfNeeded();
