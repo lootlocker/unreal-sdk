@@ -22,6 +22,4 @@ public:
 	FString WhiteLabelEmail = "";
 	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
 	FString WhiteLabelToken = "";
-	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
-	FString AdminToken = "";
 };

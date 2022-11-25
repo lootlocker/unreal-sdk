@@ -112,7 +112,7 @@ struct LLAPI
         const FResponseCallback SessionResponse = CreateLambda<BluePrintDelegate, CppDelegate>(OnCompletedRequestBP, OnCompletedRequest, ResponseInspectorCallback);
 
         // send request
-        HttpClient->SendApi(EndpointWithArguments, RequestMethod, ContentString, SessionResponse, true, false, useDomainKey, useDevHeaders);
+        HttpClient->SendApi(EndpointWithArguments, RequestMethod, ContentString, SessionResponse, true, useDomainKey, useDevHeaders);
     }
 
     template<typename BluePrintDelegate, typename CppDelegate>
