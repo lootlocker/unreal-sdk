@@ -169,11 +169,11 @@ public:
      * Start a guest session with an identifier, you can use something like a unique device identifier to tie the account to a device.
      * https://ref.lootlocker.com/game-api/#guest-login
      *
-     * @param PlayerIdentifier Identifier for the player
+     * @param PlayerIdentifier Optional: Identifier for the player. Needs to be unique for each player, so only set this explicitly if you want to set a specific name for the guest player. Otherwise, an id will be generated for the player.
      * @param OnCompletedRequestBP Delegate for handling the response of type FLootLockerAuthenticationResponse
      */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-	static void GuestLogin(const FString& PlayerIdentifier, const FAuthResponseBP& OnCompletedRequestBP);
+	static void GuestLogin(const FAuthResponseBP& OnCompletedRequestBP, const FString& PlayerIdentifier = "");
 
     /**
      * Verify the player's identity with the server and selected platform.
