@@ -67,7 +67,7 @@ struct LLAPI
                 ResponseStruct.success = true;
                 if (ResponseStruct.session_token != "")
                 {
-                    ULootLockerStateData::Token = ResponseStruct.session_token;
+                    ULootLockerStateData::SetToken(ResponseStruct.session_token);
                 }
             }
             else
