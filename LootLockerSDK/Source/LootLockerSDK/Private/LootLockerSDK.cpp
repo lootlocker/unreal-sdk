@@ -8,9 +8,10 @@
 #endif
 
 #include "LootLockerPersistentData.h"
+#include "LootLockerSaveState.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Framework/MultiBox/MultiBoxBuilder.h"
-
+#include "Kismet/GameplayStatics.h"
 
 
 #define LOCTEXT_NAMESPACE "FLootLockerSDKModule"
@@ -29,6 +30,18 @@ void FLootLockerSDKModule::StartupModule()
 			GetMutableDefault<ULootLockerConfig>()
 		);
 	}
+	
+	if (ULootLockerSaveState* LoadedState = Cast<ULootLockerSaveState>(UGameplayStatics::LoadGameFromSlot(ULootLockerSaveState::SaveSlot, ULootLockerSaveState::SaveIndex)))
+	{
+		ULootLockerPersistentData::Token = LoadedState->Token;
+		ULootLockerPersistentData::AdminToken = LoadedState->AdminToken;
+		ULootLockerPersistentData::PlayerIdentifier = LoadedState->PlayerIdentifier;
+		ULootLockerPersistentData::SteamToken = LoadedState->SteamToken;
+		ULootLockerPersistentData::WhiteLabelEmail = LoadedState->WhiteLabelEmail;
+		ULootLockerPersistentData::WhiteLabelToken = LoadedState->WhiteLabelToken;
+
+		UE_LOG(LogLootLockerGameSDK, Log, TEXT("Loaded state from disk for player with identifier %s"), *ULootLockerPersistentData::PlayerIdentifier);
+	}
 
 #endif
 }
@@ -37,6 +50,23 @@ void FLootLockerSDKModule::ShutdownModule()
 {
 	// This function may be called during shutdown to clean up your module.  For modules that support dynamic reloading,
 	// we call this function before unloading the module.
+
+	bool SuccessfullySaved = false;
+	if (ULootLockerSaveState* SavedState = Cast<ULootLockerSaveState>(UGameplayStatics::CreateSaveGameObject(ULootLockerSaveState::StaticClass())))
+	{
+		SavedState->Token = ULootLockerPersistentData::Token;
+		SavedState->AdminToken = ULootLockerPersistentData::AdminToken;
+		SavedState->PlayerIdentifier = ULootLockerPersistentData::PlayerIdentifier;
+		SavedState->SteamToken = ULootLockerPersistentData::SteamToken;
+		SavedState->WhiteLabelEmail = ULootLockerPersistentData::WhiteLabelEmail;
+		SavedState->WhiteLabelToken = ULootLockerPersistentData::WhiteLabelToken;
+		
+		SuccessfullySaved = UGameplayStatics::SaveGameToSlot(SavedState, ULootLockerSaveState::SaveSlot, ULootLockerSaveState::SaveIndex);
+	}
+	if(!SuccessfullySaved)
+	{
+		UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Failed to save LootLocker state to disk"));
+	}
 }
 
 #undef LOCTEXT_NAMESPACE
