@@ -51,7 +51,7 @@ template<typename ResponseType>
 struct LLAPI
 {
     template<typename BluePrintDelegate, typename CppDelegate>
-    static FResponseCallback CreateLambda(const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, std::function<void(ResponseType Response)> ResponseInspectorCallback = nullptr)
+    static FResponseCallback CreateLambda(const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const CppDelegate& ResponseInspectorCallback = CppDelegate())
     {
         FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest, ResponseInspectorCallback](FLootLockerResponse response)
         {
@@ -75,10 +75,7 @@ struct LLAPI
                 ResponseStruct.success = false;
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
-            if(ResponseInspectorCallback)
-            {
-                ResponseInspectorCallback(ResponseStruct);
-            }
+            ResponseInspectorCallback.ExecuteIfBound(ResponseStruct);
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
@@ -86,7 +83,7 @@ struct LLAPI
     }
 
     template<typename RequestType, typename BluePrintDelegate , typename CppDelegate>
-    static void CallAPI(ULootLockerHttpClient* HttpClient, RequestType RequestStruct, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, bool useDomainKey = false, bool useDevHeaders = false, std::function<void(ResponseType Response)> ResponseInspectorCallback = nullptr)
+    static void CallAPI(ULootLockerHttpClient* HttpClient, RequestType RequestStruct, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, bool useDomainKey = false, bool useDevHeaders = false, const CppDelegate& ResponseInspectorCallback = CppDelegate())
     {
         FString ContentString;        
         if (!std::is_same_v<RequestType, FLootLockerEmptyRequest>) 
@@ -119,7 +116,7 @@ struct LLAPI
     }
 
     template<typename BluePrintDelegate, typename CppDelegate>
-    static void UploadFileAPI(ULootLockerHttpClient* HttpClient, FString File, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMap<FString, FString> AdditionalData, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, std::function<void(ResponseType Response)> ResponseInspectorCallback = nullptr)
+    static void UploadFileAPI(ULootLockerHttpClient* HttpClient, FString File, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMap<FString, FString> AdditionalData, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const CppDelegate& ResponseInspectorCallback = CppDelegate())
     {
         
         // calculate endpoint
@@ -138,7 +135,7 @@ struct LLAPI
     }
 
     template<typename BluePrintDelegate , typename CppDelegate>
-    static void CallAPIUsingRawJSON(ULootLockerHttpClient* HttpClient, FString& ContentString, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, std::function<void(ResponseType Response)> ResponseInspectorCallback = nullptr)
+    static void CallAPIUsingRawJSON(ULootLockerHttpClient* HttpClient, FString& ContentString, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const CppDelegate& ResponseInspectorCallback = CppDelegate())
     {
         
         // calculate endpoint
