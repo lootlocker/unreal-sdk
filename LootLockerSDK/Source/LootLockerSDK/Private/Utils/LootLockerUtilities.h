@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "LootLockerPersistentData.h"
+#include "LootLockerStateData.h"
 #include "GameAPI/LootLockerCharacterRequestHandler.h"
 #include "GameAPI/LootLockerMissionsRequestHandler.h"
 #include "LootLockerConfig.h"
@@ -67,7 +67,7 @@ struct LLAPI
                 ResponseStruct.success = true;
                 if (ResponseStruct.session_token != "")
                 {
-                    ULootLockerPersistentData::Token = ResponseStruct.session_token;
+                    ULootLockerStateData::Token = ResponseStruct.session_token;
                 }
             }
             else
