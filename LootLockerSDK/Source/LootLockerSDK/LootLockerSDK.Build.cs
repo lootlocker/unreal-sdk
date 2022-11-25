@@ -26,7 +26,7 @@ public class LootLockerSDK : ModuleRules
         PublicDependencyModuleNames.AddRange(
             new string[]
             {
-                "Core", "Engine",
+                "Core",
 				// ... add other public dependencies that you statically link with here ...
 			}
             );

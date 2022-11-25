@@ -10,7 +10,7 @@
 FString ULootLockerStateData::Token = "";
 FString ULootLockerStateData::DomainKey = "";
 FString ULootLockerStateData::SteamToken = "";
-FString ULootLockerStateData::PlayerIdentifier = FPlatformMisc::GetDeviceId();
+FString ULootLockerStateData::PlayerIdentifier = FGenericPlatformMisc::GetDeviceId();
 FString ULootLockerStateData::AdminToken = "";
 FString ULootLockerStateData::WhiteLabelEmail = "";
 FString ULootLockerStateData::WhiteLabelToken = "";
@@ -27,7 +27,7 @@ void ULootLockerStateData::LoadStateFromDiskIfNeeded()
 	{
 		Token = LoadedState->Token;
 		AdminToken = LoadedState->AdminToken;
-		PlayerIdentifier = LoadedState->PlayerIdentifier;
+		PlayerIdentifier = LoadedState->PlayerIdentifier.IsEmpty() ? FPlatformMisc::GetDeviceId() : LoadedState->PlayerIdentifier;
 		SteamToken = LoadedState->SteamToken;
 		WhiteLabelEmail = LoadedState->WhiteLabelEmail;
 		WhiteLabelToken = LoadedState->WhiteLabelToken;
@@ -155,4 +155,18 @@ void ULootLockerStateData::SetAdminToken(FString InAdminToken) {
 	}
 	AdminToken = InAdminToken;
 	SaveStateToDisk();
+}
+
+void ULootLockerStateData::ClearState()
+{
+	LoadStateFromDiskIfNeeded();
+	Token = "";
+	DomainKey = "";
+	SteamToken = "";
+	PlayerIdentifier = "";
+	WhiteLabelEmail = "";
+	WhiteLabelToken = "";
+	AdminToken = "";
+	SaveStateToDisk();
+	StateLoaded = false;
 }
