@@ -34,16 +34,16 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 	if (useHeader)
 	{
         if (!useAdmin) {
-            Request->SetHeader(TEXT("x-session-token"), ULootLockerStateData::Token);
+            Request->SetHeader(TEXT("x-session-token"), ULootLockerStateData::GetToken());
         } else {
-            Request->SetHeader(TEXT("x-auth-token"), ULootLockerStateData::AdminToken);
+            Request->SetHeader(TEXT("x-auth-token"), ULootLockerStateData::GetAdminToken());
         }
 	}
 
 	// Needed by the White Label Login
 	if (useDomainKey)
 	{
-		Request->SetHeader(TEXT("domain-key"), ULootLockerStateData::DomainKey);
+		Request->SetHeader(TEXT("domain-key"), ULootLockerStateData::GetDomainKey());
 	}
 
 	// This is normally sent via the body, but with the white label login it goes in the header!
@@ -119,9 +119,9 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
     if (useHeader)
     {
         if (!useAdmin) {
-            Request->SetHeader(TEXT("x-session-token"), ULootLockerStateData::Token);
+            Request->SetHeader(TEXT("x-session-token"), ULootLockerStateData::GetToken());
         } else {
-            Request->SetHeader(TEXT("x-auth-token"), ULootLockerStateData::AdminToken);
+            Request->SetHeader(TEXT("x-auth-token"), ULootLockerStateData::GetAdminToken());
         }
     }
 

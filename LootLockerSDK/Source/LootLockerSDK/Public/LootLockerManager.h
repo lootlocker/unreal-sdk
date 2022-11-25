@@ -34,6 +34,13 @@ class LOOTLOCKERSDK_API ULootLockerManager : public UObject
     GENERATED_BODY()
 
 public:
+    //==================================================
+    //Meta
+    //==================================================
+    
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Meta")
+    static void GetConfig(const FConfigResponseBP& OnGetConfigCompleted);
+    
 
     //==================================================
     //Authentication
