@@ -61,7 +61,7 @@ void ULootLockerSDKManager::WhiteLabelRequestPasswordReset(const FString &Email,
     ULootLockerAuthenticationRequestHandler::WhiteLabelRequestPasswordReset(Email, FLootLockerDefaultResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::GuestLogin(const FString& PlayerIdentifier, const FLootLockerSessionResponse &OnCompletedRequest)
+void ULootLockerSDKManager::GuestLogin(const FLootLockerSessionResponse &OnCompletedRequest, const FString& PlayerIdentifier)
 {
 	ULootLockerAuthenticationRequestHandler::GuestLogin(PlayerIdentifier, FAuthResponseBP(), OnCompletedRequest);
 }
