@@ -48,14 +48,14 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelLogin(const FString &Ema
 	}));
 }
 
-void ULootLockerAuthenticationRequestHandler::GuestLogin(const FString& playerIdentifier, const FAuthResponseBP &OnCompletedRequestBP, const FLootLockerSessionResponse &OnCompletedRequest)
+void ULootLockerAuthenticationRequestHandler::GuestLogin(const FString& PlayerIdentifier, const FAuthResponseBP &OnCompletedRequestBP, const FLootLockerSessionResponse &OnCompletedRequest)
 {
 	FLootLockerAuthenticationRequest AuthRequest;
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	AuthRequest.development_mode = config->OnDevelopmentMode;
 	AuthRequest.game_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
-	AuthRequest.player_identifier = !(playerIdentifier.IsEmpty()) ? playerIdentifier : ULootLockerStateData::GetPlayerIdentifier();
+	AuthRequest.player_identifier = !(PlayerIdentifier.IsEmpty()) ? PlayerIdentifier : ULootLockerStateData::GetPlayerIdentifier();
 	LootLockerUtilities::CurrentPlatformFString::Override(GUEST_PLATFORM);
 	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::GuestloginEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, false, false, FLootLockerSessionResponse::CreateLambda([] (FLootLockerAuthenticationResponse Response)
 	{

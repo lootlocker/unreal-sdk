@@ -62,7 +62,7 @@ void ULootLockerManager::WhiteLabelCreateAccount(const FString &Email, const FSt
 	ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(Email, Password, OnWhiteLabelAccountCreationRequestCompleted);
 }
 
-void ULootLockerManager::GuestLogin(const FString& PlayerIdentifier, const FAuthResponseBP &OnCompletedRequestBP)
+void ULootLockerManager::GuestLogin(const FAuthResponseBP &OnCompletedRequestBP, const FString& PlayerIdentifier)
 {
 	ULootLockerAuthenticationRequestHandler::GuestLogin(PlayerIdentifier, OnCompletedRequestBP);
 }
