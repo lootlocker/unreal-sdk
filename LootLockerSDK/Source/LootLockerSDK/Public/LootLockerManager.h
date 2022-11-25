@@ -35,14 +35,6 @@ class LOOTLOCKERSDK_API ULootLockerManager : public UObject
 
 public:
     //==================================================
-    //Meta
-    //==================================================
-    
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Meta")
-    static void GetConfig(const FConfigResponseBP& OnGetConfigCompleted);
-    
-
-    //==================================================
     //Authentication
     //==================================================
 

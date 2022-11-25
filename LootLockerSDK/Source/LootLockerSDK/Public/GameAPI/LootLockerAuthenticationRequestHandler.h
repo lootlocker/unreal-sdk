@@ -225,26 +225,6 @@ struct FLootLockerAuthenticationDefaultResponse : public FLootLockerResponse
 	GENERATED_BODY()
 };
 
-
-USTRUCT(BlueprintType)
-struct FLootLockerConfigForBlueprint
-{
-	GENERATED_BODY()
-    UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-    FString LootLockerGameKey;
-    UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-    ELootLockerPlatformType Platform;
-    UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-    FString GameVersion;
-    UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-    bool OnDevelopmentMode;
-    UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-    bool AllowTokenRefresh = true;
-    UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-    FString DomainKey;
-};
-
-DECLARE_DYNAMIC_DELEGATE_OneParam(FConfigResponseBP, FLootLockerConfigForBlueprint, Var);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FAuthResponseBP, FLootLockerAuthenticationResponse, Var);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FAppleSessionResponseBP, FLootLockerAppleSessionResponse, Var);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FAuthDefaultResponseBP, FLootLockerAuthenticationDefaultResponse, AuthVar);
