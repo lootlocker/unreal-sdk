@@ -7,8 +7,8 @@
 #include "LootLockerConfig.h"
 #endif
 
-#include "LootLockerPersistentData.h"
-#include "LootLockerSaveState.h"
+#include "LootLockerStateData.h"
+#include "LootLockerPersistedState.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Framework/MultiBox/MultiBoxBuilder.h"
 #include "Kismet/GameplayStatics.h"
@@ -31,16 +31,16 @@ void FLootLockerSDKModule::StartupModule()
 		);
 	}
 	
-	if (ULootLockerSaveState* LoadedState = Cast<ULootLockerSaveState>(UGameplayStatics::LoadGameFromSlot(ULootLockerSaveState::SaveSlot, ULootLockerSaveState::SaveIndex)))
+	if (ULootLockerPersistedState* LoadedState = Cast<ULootLockerPersistedState>(UGameplayStatics::LoadGameFromSlot(ULootLockerPersistedState::SaveSlot, ULootLockerPersistedState::SaveIndex)))
 	{
-		ULootLockerPersistentData::Token = LoadedState->Token;
-		ULootLockerPersistentData::AdminToken = LoadedState->AdminToken;
-		ULootLockerPersistentData::PlayerIdentifier = LoadedState->PlayerIdentifier;
-		ULootLockerPersistentData::SteamToken = LoadedState->SteamToken;
-		ULootLockerPersistentData::WhiteLabelEmail = LoadedState->WhiteLabelEmail;
-		ULootLockerPersistentData::WhiteLabelToken = LoadedState->WhiteLabelToken;
+		ULootLockerStateData::Token = LoadedState->Token;
+		ULootLockerStateData::AdminToken = LoadedState->AdminToken;
+		ULootLockerStateData::PlayerIdentifier = LoadedState->PlayerIdentifier;
+		ULootLockerStateData::SteamToken = LoadedState->SteamToken;
+		ULootLockerStateData::WhiteLabelEmail = LoadedState->WhiteLabelEmail;
+		ULootLockerStateData::WhiteLabelToken = LoadedState->WhiteLabelToken;
 
-		UE_LOG(LogLootLockerGameSDK, Log, TEXT("Loaded state from disk for player with identifier %s"), *ULootLockerPersistentData::PlayerIdentifier);
+		UE_LOG(LogLootLockerGameSDK, Log, TEXT("Loaded state from disk for player with identifier %s"), *ULootLockerStateData::PlayerIdentifier);
 	}
 
 #endif
@@ -52,16 +52,16 @@ void FLootLockerSDKModule::ShutdownModule()
 	// we call this function before unloading the module.
 
 	bool SuccessfullySaved = false;
-	if (ULootLockerSaveState* SavedState = Cast<ULootLockerSaveState>(UGameplayStatics::CreateSaveGameObject(ULootLockerSaveState::StaticClass())))
+	if (ULootLockerPersistedState* SavedState = Cast<ULootLockerPersistedState>(UGameplayStatics::CreateSaveGameObject(ULootLockerPersistedState::StaticClass())))
 	{
-		SavedState->Token = ULootLockerPersistentData::Token;
-		SavedState->AdminToken = ULootLockerPersistentData::AdminToken;
-		SavedState->PlayerIdentifier = ULootLockerPersistentData::PlayerIdentifier;
-		SavedState->SteamToken = ULootLockerPersistentData::SteamToken;
-		SavedState->WhiteLabelEmail = ULootLockerPersistentData::WhiteLabelEmail;
-		SavedState->WhiteLabelToken = ULootLockerPersistentData::WhiteLabelToken;
+		SavedState->Token = ULootLockerStateData::Token;
+		SavedState->AdminToken = ULootLockerStateData::AdminToken;
+		SavedState->PlayerIdentifier = ULootLockerStateData::PlayerIdentifier;
+		SavedState->SteamToken = ULootLockerStateData::SteamToken;
+		SavedState->WhiteLabelEmail = ULootLockerStateData::WhiteLabelEmail;
+		SavedState->WhiteLabelToken = ULootLockerStateData::WhiteLabelToken;
 		
-		SuccessfullySaved = UGameplayStatics::SaveGameToSlot(SavedState, ULootLockerSaveState::SaveSlot, ULootLockerSaveState::SaveIndex);
+		SuccessfullySaved = UGameplayStatics::SaveGameToSlot(SavedState, ULootLockerPersistedState::SaveSlot, ULootLockerPersistedState::SaveIndex);
 	}
 	if(!SuccessfullySaved)
 	{

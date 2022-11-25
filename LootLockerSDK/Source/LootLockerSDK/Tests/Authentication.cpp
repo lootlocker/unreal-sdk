@@ -29,7 +29,7 @@ void FTestLootLockerAuthentication::Define()
 				ULootLockerSDKManager::StartSession(PlayerIdentifier, Delegate);
 
 				const auto Response = Promise ->get_future().get();
-				ULootLockerPersistentData::Token = Response.session_token;
+				ULootLockerStateData::Token = Response.session_token;
 				TestTrue("Startsession success", Response.success);
 				delete(Promise);
 			}
