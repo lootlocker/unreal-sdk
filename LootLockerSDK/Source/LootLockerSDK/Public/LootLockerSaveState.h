@@ -12,8 +12,6 @@ class LOOTLOCKERSDK_API ULootLockerSaveState : public USaveGame
 {
 	GENERATED_BODY()
 public:
-    inline static const FString SaveSlot = "LootLocker";
-    inline static constexpr unsigned short SaveIndex = 0;
 	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
 	FString Token = "";
 	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
