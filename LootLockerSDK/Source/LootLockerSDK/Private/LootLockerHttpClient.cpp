@@ -15,7 +15,7 @@ ULootLockerHttpClient::ULootLockerHttpClient()
 
 }
 
-void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, bool useHeader, bool useAdmin, bool useDomainKey, bool useDevHeaders) const
+void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, bool useHeader, bool useDomainKey, bool useDevHeaders) const
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
 
@@ -33,11 +33,7 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 	// Todo: Replace this header madness with an optional TMap of headers.
 	if (useHeader)
 	{
-        if (!useAdmin) {
-            Request->SetHeader(TEXT("x-session-token"), ULootLockerStateData::GetToken());
-        } else {
-            Request->SetHeader(TEXT("x-auth-token"), ULootLockerStateData::GetAdminToken());
-        }
+        Request->SetHeader(TEXT("x-session-token"), ULootLockerStateData::GetToken());
 	}
 
 	// Needed by the White Label Login
@@ -100,7 +96,7 @@ bool ULootLockerHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, 
 	}
 }
 
-void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString> AdditionalFields, const FResponseCallback& onCompleteRequest, bool useHeader, bool useAdmin) const
+void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString> AdditionalFields, const FResponseCallback& onCompleteRequest, bool useHeader) const
 {
     FHttpModule* HttpModule = &FHttpModule::Get();
 
@@ -118,11 +114,7 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
 
     if (useHeader)
     {
-        if (!useAdmin) {
-            Request->SetHeader(TEXT("x-session-token"), ULootLockerStateData::GetToken());
-        } else {
-            Request->SetHeader(TEXT("x-auth-token"), ULootLockerStateData::GetAdminToken());
-        }
+        Request->SetHeader(TEXT("x-session-token"), ULootLockerStateData::GetToken());
     }
 
     Request->SetVerb(requestType);

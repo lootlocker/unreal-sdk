@@ -17,7 +17,6 @@ class LOOTLOCKERSDK_API ULootLockerStateData : public UObject
 	static FString PlayerIdentifier;
 	static FString WhiteLabelEmail;
 	static FString WhiteLabelToken;
-	static FString AdminToken;
 
 #if ENGINE_MAJOR_VERSION < 5
 	static const FString SaveSlot;
@@ -37,13 +36,11 @@ public:
 	static FString GetPlayerIdentifier();
 	static FString GetWhiteLabelEmail();
 	static FString GetWhiteLabelToken();
-	static FString GetAdminToken();
 	static void SetToken(FString InToken);
 	static void SetDomainKey(FString InDomainKey);
 	static void SetSteamToken(FString InSteamToken);
 	static void SetPlayerIdentifier(FString InPlayerIdentifier);
 	static void SetWhiteLabelEmail(FString InWhiteLabelEmail);
 	static void SetWhiteLabelToken(FString InWhiteLabelToken);
-	static void SetAdminToken(FString InAdminToken);
     static void ClearState();
 };

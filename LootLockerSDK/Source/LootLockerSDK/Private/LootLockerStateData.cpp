@@ -11,7 +11,6 @@ FString ULootLockerStateData::Token = "";
 FString ULootLockerStateData::DomainKey = "";
 FString ULootLockerStateData::SteamToken = "";
 FString ULootLockerStateData::PlayerIdentifier = FGenericPlatformMisc::GetDeviceId();
-FString ULootLockerStateData::AdminToken = "";
 FString ULootLockerStateData::WhiteLabelEmail = "";
 FString ULootLockerStateData::WhiteLabelToken = "";
 bool ULootLockerStateData::StateLoaded = false;
@@ -30,7 +29,6 @@ void ULootLockerStateData::LoadStateFromDiskIfNeeded()
 	if (ULootLockerPersistedState* LoadedState = Cast<ULootLockerPersistedState>(UGameplayStatics::LoadGameFromSlot(SaveSlot, SaveIndex)))
 	{
 		Token = LoadedState->Token;
-		AdminToken = LoadedState->AdminToken;
 		PlayerIdentifier = LoadedState->PlayerIdentifier.IsEmpty() ? FPlatformMisc::GetDeviceId() : LoadedState->PlayerIdentifier;
 		SteamToken = LoadedState->SteamToken;
 		WhiteLabelEmail = LoadedState->WhiteLabelEmail;
@@ -48,7 +46,6 @@ void ULootLockerStateData::SaveStateToDisk()
 	if (ULootLockerPersistedState* SavedState = Cast<ULootLockerPersistedState>(UGameplayStatics::CreateSaveGameObject(ULootLockerPersistedState::StaticClass())))
 	{
 		SavedState->Token = Token;
-		SavedState->AdminToken = AdminToken;
 		SavedState->PlayerIdentifier = PlayerIdentifier;
 		SavedState->SteamToken = SteamToken;
 		SavedState->WhiteLabelEmail = WhiteLabelEmail;
@@ -96,12 +93,6 @@ FString ULootLockerStateData::GetWhiteLabelToken()
 {
 	LoadStateFromDiskIfNeeded();
 	return WhiteLabelToken;
-}
-
-FString ULootLockerStateData::GetAdminToken() 
-{
-	LoadStateFromDiskIfNeeded();
-	return AdminToken;
 }
 
 void ULootLockerStateData::SetToken(FString InToken) {
@@ -152,14 +143,6 @@ void ULootLockerStateData::SetWhiteLabelToken(FString InWhiteLabelToken) {
 	WhiteLabelToken = InWhiteLabelToken;
 	SaveStateToDisk();
 }
-void ULootLockerStateData::SetAdminToken(FString InAdminToken) {
-	LoadStateFromDiskIfNeeded();
-	if (InAdminToken.Equals(AdminToken)) {
-		return;
-	}
-	AdminToken = InAdminToken;
-	SaveStateToDisk();
-}
 
 void ULootLockerStateData::ClearState()
 {
@@ -170,7 +153,6 @@ void ULootLockerStateData::ClearState()
 	PlayerIdentifier = "";
 	WhiteLabelEmail = "";
 	WhiteLabelToken = "";
-	AdminToken = "";
 	SaveStateToDisk();
 	StateLoaded = false;
 }
