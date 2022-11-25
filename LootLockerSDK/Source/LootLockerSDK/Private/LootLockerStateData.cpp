@@ -16,6 +16,10 @@ FString ULootLockerStateData::WhiteLabelEmail = "";
 FString ULootLockerStateData::WhiteLabelToken = "";
 bool ULootLockerStateData::StateLoaded = false;
 
+#if ENGINE_MAJOR_VERSION < 5
+const FString ULootLockerStateData::SaveSlot = "LootLocker";
+#endif
+
 void ULootLockerStateData::LoadStateFromDiskIfNeeded() 
 {
 	if(StateLoaded)
