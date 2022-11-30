@@ -9,6 +9,14 @@ ULootLockerHeroRequestHandler::ULootLockerHeroRequestHandler()
 	HttpClient = NewObject<ULootLockerHttpClient>();
 }
 
+void FLootLockerCreateHeroRequest::DoManualPostDeserialization(TSharedPtr<FJsonObject> JsonObject) const
+{
+    FLootLockerRequiresManualPostSerialization::DoManualPostDeserialization(JsonObject);
+	if (asset_variation_id == 0) {
+		JsonObject->RemoveField(LOOTLOCKER_GET_VARIABLE_NAME(asset_variation_id));
+	}
+}
+
 void ULootLockerHeroRequestHandler::GetGameHeroes(const FLootLockerGameHeroListBP &OnCompleteBP, const FLootLockerGameHeroListDelegate &OnComplete)
 {
 	LLAPI<FLootLockerGameHeroListResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetGameHeroes, { },EmptyQueryParams,OnCompleteBP, OnComplete);

@@ -6,6 +6,7 @@
 #include "LootLockerAssetsRequestHandler.h"
 #include "JsonObjectConverter.h"
 #include "LootLockerHttpClient.h"
+#include "LootLockerRequiresManualPostSerialization.h"
 #include "LootLockerResponse.h"
 #include "LootLockerCharacterRequestHandler.generated.h"
 
@@ -88,12 +89,12 @@ struct FLootLockerUpdateCharacterRequest {
 USTRUCT(BlueprintType)
 struct FLootLockerListCharacterRequest {
 	GENERATED_BODY()
-		UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		bool is_default = false;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		FString name;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		FString character_type_id;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool is_default = false;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString name;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString character_type_id;
 };
 
 USTRUCT(BlueprintType)
@@ -102,6 +103,7 @@ struct FLootLockerEquipAssetToCharacterWithInstanceRequest {
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 instance_id = 0;
 };
+
 USTRUCT(BlueprintType)
 struct FLootLockerEquipUniversalAssetToCharacterRequest {
 	GENERATED_BODY()

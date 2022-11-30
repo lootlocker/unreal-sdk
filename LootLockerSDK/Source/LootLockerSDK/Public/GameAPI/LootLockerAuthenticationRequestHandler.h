@@ -9,7 +9,7 @@
 #include "LootLockerAuthenticationRequestHandler.generated.h"
 
 USTRUCT(BlueprintType)
-struct FLootLockerLoginRequest
+struct FLootLockerSignupRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login")
@@ -19,9 +19,13 @@ struct FLootLockerLoginRequest
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerWhiteLabelLoginRequest : public FLootLockerLoginRequest
+struct FLootLockerWhiteLabelLoginRequest
 {
 	GENERATED_BODY()
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login")
+    FString email;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login")
+    FString password;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login")
 	bool remember = false;
 };

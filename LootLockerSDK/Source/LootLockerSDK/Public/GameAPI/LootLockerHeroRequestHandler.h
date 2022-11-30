@@ -6,6 +6,7 @@
 #include "UObject/NoExportTypes.h"
 #include "LootLockerResponse.h"
 #include "JsonObjectConverter.h"
+#include "LootLockerRequiresManualPostSerialization.h"
 #include "LootLockerHeroRequestHandler.generated.h"
 
 USTRUCT(BlueprintType)
@@ -77,13 +78,18 @@ struct FLootLockerHeroListResponse : public FLootLockerResponse
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerCreateHeroRequest
+struct FLootLockerCreateHeroRequest : public FLootLockerRequiresManualPostSerialization
 {
-	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker | Heroes")
+    GENERATED_BODY()
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker | Heroes")
 	int32 hero_id = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker | Heroes")
 	FString name;
+	// Optional: Will create a Hero with this specific variation from the asset. These heroes will also be treated as unique from other heroes with the same hero_id but a different asset_variation_id
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker | Heroes")
+	int32 asset_variation_id = 0;
+
+	virtual void DoManualPostDeserialization(TSharedPtr<FJsonObject> JsonObject) const override;
 };
 
 USTRUCT(BlueprintType)

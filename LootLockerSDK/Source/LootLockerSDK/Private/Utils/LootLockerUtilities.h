@@ -6,6 +6,7 @@
 #include "GameAPI/LootLockerCharacterRequestHandler.h"
 #include "GameAPI/LootLockerMissionsRequestHandler.h"
 #include "LootLockerConfig.h"
+#include "LootLockerRequiresManualPostSerialization.h"
 
 constexpr FLootLockerEmptyRequest LootLockerEmptyRequest;
 
@@ -91,7 +92,12 @@ struct LLAPI
         FString ContentString;        
         if (!std::is_same_v<RequestType, FLootLockerEmptyRequest>) 
         {
-            FJsonObjectConverter::UStructToJsonObjectString(RequestType::StaticStruct(), &RequestStruct, ContentString, 0, 0);
+            TSharedPtr<FJsonObject> JsonObject = FJsonObjectConverter::UStructToJsonObject(RequestStruct);
+            if (std::is_base_of<FLootLockerRequiresManualPostSerialization, RequestType>())
+            {
+                ((FLootLockerRequiresManualPostSerialization*)&RequestStruct)->DoManualPostDeserialization(JsonObject);
+            }
+            FJsonSerializer::Serialize(JsonObject.ToSharedRef(), TJsonWriterFactory<TCHAR, TCondensedJsonPrintPolicy<TCHAR>>::Create(&ContentString), true);
         }
         
         // calculate endpoint

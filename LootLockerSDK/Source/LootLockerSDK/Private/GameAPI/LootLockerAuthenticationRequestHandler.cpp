@@ -9,6 +9,7 @@
 ULootLockerHttpClient* ULootLockerAuthenticationRequestHandler::HttpClient = nullptr;
 const FString WHITE_LABEL_PLATFORM = FString(TEXT("white_label_login"));
 const FString GUEST_PLATFORM = FString(TEXT("guest"));
+
 // Sets default values for this component's properties
 ULootLockerAuthenticationRequestHandler::ULootLockerAuthenticationRequestHandler()
 {
@@ -19,7 +20,7 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(const FStr
 {
 	const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
 	ULootLockerStateData::SetDomainKey(Config->DomainKey);
-	FLootLockerLoginRequest SignupRequest;
+	FLootLockerSignupRequest SignupRequest;
 	SignupRequest.email = Email;
 	SignupRequest.password = Password;
 	
