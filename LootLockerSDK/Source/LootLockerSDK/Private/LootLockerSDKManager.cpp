@@ -557,55 +557,51 @@ void ULootLockerSDKManager::GetMessages(const FMessagesResponseDelegate& OnCompl
 }
 
 // Leaderboards
-void ULootLockerSDKManager::GetMemberRank(int LeaderboardId, int MemberId, const FLootLockerGetMemberRankResponseDelegate& OnCompletedRequest)
+void ULootLockerSDKManager::GetMemberRank(FString LeaderboardKey, FString MemberId, const FLootLockerGetMemberRankResponseDelegate& OnCompletedRequest)
 {
     FLootLockerGetMemberRankRequest MemberRequest;
-    MemberRequest.leaderboardId = LeaderboardId;
+    MemberRequest.leaderboard_key = LeaderboardKey;
     MemberRequest.member_id = MemberId;
 
     ULootLockerLeaderboardRequestHandler::GetMemberRank(MemberRequest, FLootLockerGetMemberRankResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::GetByListOfMembers(TArray<FString> Members, int LeaderboardId, const FLootLockerGetByListOfMembersResponseDelegate& OnCompletedRequest)
+void ULootLockerSDKManager::GetByListOfMembers(TArray<FString> Members, FString LeaderboardKey, const FLootLockerGetByListOfMembersResponseDelegate& OnCompletedRequest)
 {
     FLootLockerGetByListMembersRequest GetByListMembersRequest;
     GetByListMembersRequest.members = Members;
-    ULootLockerLeaderboardRequestHandler::GetByListOfMembers(GetByListMembersRequest, LeaderboardId,FLootLockerGetByListOfMembersResponseBP(), OnCompletedRequest);
+    ULootLockerLeaderboardRequestHandler::GetByListOfMembers(GetByListMembersRequest, LeaderboardKey, FLootLockerGetByListOfMembersResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::GetScoreList(int LeaderboardId, int Count, int After, const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest)
+void ULootLockerSDKManager::GetScoreList(FString LeaderboardKey, int Count, int After, const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest)
 {
     FLootLockerGetScoreListRequest GetScoreListRequest;
     GetScoreListRequest.after = After;
     GetScoreListRequest.count = Count;
-    GetScoreListRequest.leaderboardId = LeaderboardId;
+    GetScoreListRequest.leaderboard_key = LeaderboardKey;
     ULootLockerLeaderboardRequestHandler::GetScoreList(GetScoreListRequest, FLootLockerGetScoreListResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::GetScoreListInitial(int LeaderboardId, int Count, const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest)
+void ULootLockerSDKManager::GetScoreListInitial(FString LeaderboardKey, int Count, const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest)
 {
-    FLootLockerGetScoreListRequest GetScoreListRequest;
-    GetScoreListRequest.after = -1;
-    GetScoreListRequest.count = Count;
-    GetScoreListRequest.leaderboardId = LeaderboardId;
-    ULootLockerLeaderboardRequestHandler::GetScoreList(GetScoreListRequest, FLootLockerGetScoreListResponseBP(), OnCompletedRequest);
+    GetScoreList(LeaderboardKey, Count, -1, OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::SubmitScore(FString MemberId, const int LeaderboardId, const int Score, FString Metadata, const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest)
+void ULootLockerSDKManager::SubmitScore(FString MemberId, const FString LeaderboardKey, const int Score, FString Metadata, const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest)
 {
     FLootLockerSubmitScoreRequest SubmitScoreRequest;
     SubmitScoreRequest.member_id = MemberId;
     SubmitScoreRequest.score = Score;
     SubmitScoreRequest.metadata = Metadata;
-    ULootLockerLeaderboardRequestHandler::SubmitScore(SubmitScoreRequest, LeaderboardId, FLootLockerSubmitScoreResponseBP(), OnCompletedRequest);
+    ULootLockerLeaderboardRequestHandler::SubmitScore(SubmitScoreRequest, LeaderboardKey, FLootLockerSubmitScoreResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::GetAllMemberRanks(int MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseDelegate& OnCompletedRequest)
+void ULootLockerSDKManager::GetAllMemberRanks(FString MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseDelegate& OnCompletedRequest)
 {
     FLootLockerGetAllMemberRanksRequest GetAllMemberRanksRequest;
     GetAllMemberRanksRequest.after = After;
     GetAllMemberRanksRequest.count = Count;
-    GetAllMemberRanksRequest.memberId = MemberId;
+    GetAllMemberRanksRequest.member_id = MemberId;
     ULootLockerLeaderboardRequestHandler::GetAllMemberRanks(GetAllMemberRanksRequest, FLootLockerGetAllMemberRanksResponseBP(), OnCompletedRequest);
 }
 

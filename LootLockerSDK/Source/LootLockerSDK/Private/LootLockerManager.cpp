@@ -547,58 +547,54 @@ void ULootLockerManager::GetMessages(const FMessagesResponseDelegateBP& OnGetMes
     ULootLockerMessagesRequestHandler::GetMessages(OnGetMessagesCompleted);
 }
 
-void ULootLockerManager::GetMemberRank(int LeaderboardId, int MemberId, const FLootLockerGetMemberRankResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::GetMemberRank(FString LeaderboardKey, FString MemberId, const FLootLockerGetMemberRankResponseBP& OnCompletedRequestBP)
 {
     FLootLockerGetMemberRankRequest MemberRequest;
-    MemberRequest.leaderboardId = LeaderboardId;
+    MemberRequest.leaderboard_key = LeaderboardKey;
     MemberRequest.member_id = MemberId;
 
     ULootLockerLeaderboardRequestHandler::GetMemberRank(MemberRequest, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::GetAllMemberRanks(int MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::GetAllMemberRanks(FString MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseBP& OnCompletedRequestBP)
 {
     FLootLockerGetAllMemberRanksRequest MemberRanksRequest;
-    MemberRanksRequest.memberId = MemberId;
+    MemberRanksRequest.member_id = MemberId;
     MemberRanksRequest.after = After;
     MemberRanksRequest.count = Count;
 
     ULootLockerLeaderboardRequestHandler::GetAllMemberRanks(MemberRanksRequest, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::GetByListOfMembers(TArray<FString> Members, int LeaderboardId, const FLootLockerGetByListOfMembersResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::GetByListOfMembers(TArray<FString> Members, FString LeaderboardKey, const FLootLockerGetByListOfMembersResponseBP& OnCompletedRequestBP)
 {
     FLootLockerGetByListMembersRequest GetByListMembersRequest;
     GetByListMembersRequest.members = Members;
-    ULootLockerLeaderboardRequestHandler::GetByListOfMembers(GetByListMembersRequest, LeaderboardId, OnCompletedRequestBP);
+    ULootLockerLeaderboardRequestHandler::GetByListOfMembers(GetByListMembersRequest, LeaderboardKey, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::GetScoreList(int LeaderboardId, int Count, int After, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::GetScoreList(FString LeaderboardKey, int Count, int After, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP)
 {
     FLootLockerGetScoreListRequest GetScoreListRequest;
     GetScoreListRequest.after = After;
     GetScoreListRequest.count = Count;
-    GetScoreListRequest.leaderboardId = LeaderboardId;
+    GetScoreListRequest.leaderboard_key = LeaderboardKey;
     ULootLockerLeaderboardRequestHandler::GetScoreList(GetScoreListRequest, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::GetScoreListInitial(int LeaderboardId, int Count,  const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::GetScoreListInitial(FString LeaderboardKey, int Count, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP)
 {
-    FLootLockerGetScoreListRequest GetScoreListRequest;
-    GetScoreListRequest.after = -1;
-    GetScoreListRequest.count = Count;
-    GetScoreListRequest.leaderboardId = LeaderboardId;
-    ULootLockerLeaderboardRequestHandler::GetScoreList(GetScoreListRequest, OnCompletedRequestBP);
+    GetScoreList(LeaderboardKey, Count, -1, OnCompletedRequestBP);
 }
 
 
-void ULootLockerManager::SubmitScore(FString MemberId, int LeaderboardId, int Score, FString Metadata, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::SubmitScore(FString MemberId, FString LeaderboardKey, int Score, FString Metadata, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP)
 {
     FLootLockerSubmitScoreRequest SubmitScoreRequest;
     SubmitScoreRequest.member_id = MemberId;
     SubmitScoreRequest.score = Score;
     SubmitScoreRequest.metadata = Metadata;
-    ULootLockerLeaderboardRequestHandler::SubmitScore(SubmitScoreRequest, LeaderboardId,OnCompletedRequestBP);
+    ULootLockerLeaderboardRequestHandler::SubmitScore(SubmitScoreRequest, LeaderboardKey, OnCompletedRequestBP);
 }
 
 void ULootLockerManager::ComputeAndLockDropTable(int TableId, const FLootLockerComputeAndLockDropTableResponseBP& OnCompletedRequestBP)
