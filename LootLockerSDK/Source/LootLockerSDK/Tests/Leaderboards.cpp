@@ -24,7 +24,7 @@ void FLootLockersTestLeaderboards::Define()
 			{
 				const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerGetMemberRankResponse,FLootLockerGetMemberRankResponseDelegate>();
 
-				ULootLockerSDKManager::GetMemberRank(1, 1, Delegate);
+				ULootLockerSDKManager::GetMemberRank("1", "1", Delegate);
 
 				const auto Response = Promise ->get_future().get();
 				TestTrue("GetMemberRank success", Response.success);
