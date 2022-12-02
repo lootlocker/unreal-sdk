@@ -1219,12 +1219,12 @@ public:
      * Get rank for single member for a leaderboard. If leaderboard is of type player a player will also be in the response.
      * https://ref.lootlocker.io/game-api/#get-member-rank
      *
-     * @param LeaderboardId the id of the leaderboard you want to connect to.
+     * @param LeaderboardKey the key of the leaderboard you want to connect to.
      * @param MemberId the id of player in the leaderboard
      * @param OnCompletedRequestBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard")
-    static void GetMemberRank(int LeaderboardId, int MemberId, const FLootLockerGetMemberRankResponseBP& OnCompletedRequestBP);
+    static void GetMemberRank(FString LeaderboardKey, FString MemberId, const FLootLockerGetMemberRankResponseBP& OnCompletedRequestBP);
 
     /**
      * Get all leaderboards with member information on the ones the member is on, with rank and score, as well as player information if the leaderboard is of type player.
@@ -1237,56 +1237,56 @@ public:
      * @param OnCompletedRequestBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard")
-	static void GetAllMemberRanks(int MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseBP& OnCompletedRequestBP);
+    static void GetAllMemberRanks(FString MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseBP& OnCompletedRequestBP);
 
     /**
      * Get rank for a set of members for a leaderboard. If leaderboard is of type player a player will also be in the response.
      * https://ref.lootlocker.io/game-api/#get-by-list-of-members
      *
      * @param Members The ids of all leaderboard members you want to get info on.
-     * @param LeaderboardId the id of the leaderboard you want to connect to.
+     * @param LeaderboardKey the key of the leaderboard you want to connect to.
      * @param OnCompletedRequestBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard")
-    static void GetByListOfMembers(TArray<FString> Members, int LeaderboardId, const FLootLockerGetByListOfMembersResponseBP& OnCompletedRequestBP);
+    static void GetByListOfMembers(TArray<FString> Members, FString LeaderboardKey, const FLootLockerGetByListOfMembersResponseBP& OnCompletedRequestBP);
 
     /**
      * Get list of members in rank range.
      * Maximum allowed members to query for at a time is currently 2000. If leaderboard is of type player a player will also be in the response.
      * https://ref.lootlocker.io/game-api/#get-score-list
      *
-     * @param LeaderboardId the id of the leaderboard you need to connect to.
+     * @param LeaderboardKey the key of the leaderboard you want to connect to.
      * @param Count Number of members returned per page
      * @param After Cursor for pagination, a cursor will be returned in the response
      * @param OnCompletedRequestBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard")
-    static void GetScoreList(int LeaderboardId, int Count, int After, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP);
+    static void GetScoreList(FString LeaderboardKey, int Count, int After, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP);
 
     /**
      * Get list of members in rank range.
      * Maximum allowed members to query for at a time is currently 2000. If leaderboard is of type player a player will also be in the response.
      * https://ref.lootlocker.io/game-api/#get-score-list
      *
-     * @param LeaderboardId the id of the leaderboard you need to connect to.
+     * @param LeaderboardKey the key of the leaderboard you need to connect to.
      * @param Count Number of members returned per page
      * @param OnCompletedRequestBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard")
-    static void GetScoreListInitial(int LeaderboardId, int Count, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP);
+    static void GetScoreListInitial(FString LeaderboardKey, int Count, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP);
 
     /**
      * Submit score for member on leaderboard.
      * https://ref.lootlocker.com/game-api/#submit-score
      *
      * @param MemberId The id of player in the leaderboard.
-     * @param LeaderboardId The id of the leaderboard you need to connect to.
+     * @param LeaderboardKey The key of the leaderboard you need to connect to.
      * @param Score The score to be submitted.
      * @param Metadata Metadata for the score, will be used if metadata is enabled for the leaderboard
      * @param OnCompletedRequestBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard")
-    static void SubmitScore(FString MemberId, int LeaderboardId, int Score, FString Metadata, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP);
+    static void SubmitScore(FString MemberId, FString LeaderboardKey, int Score, FString Metadata, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP);
 
     //==================================================
     //Drop Table
