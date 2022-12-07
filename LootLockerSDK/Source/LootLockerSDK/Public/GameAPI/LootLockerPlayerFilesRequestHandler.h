@@ -43,7 +43,9 @@ struct FLootLockerFileResponse : public FLootLockerResponse
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString created_at;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	bool IsPublic = false;
+	bool bIsPublic;
+
+	virtual void DoCustomPostDeserialization(const FString& JsonString) override;
 };
 
 USTRUCT(BlueprintType)

@@ -6,7 +6,7 @@
 #include "GameAPI/LootLockerCharacterRequestHandler.h"
 #include "GameAPI/LootLockerMissionsRequestHandler.h"
 #include "LootLockerConfig.h"
-#include "LootLockerRequiresManualPostSerialization.h"
+#include "LootLockerRequiresCustomPostSerialization.h"
 
 constexpr FLootLockerEmptyRequest LootLockerEmptyRequest;
 
@@ -64,7 +64,7 @@ struct LLAPI
             if(!response.FullTextFromServer.IsEmpty())
             {
                 FJsonObjectConverter::JsonObjectStringToUStruct<ResponseType>(response.FullTextFromServer, &ResponseStruct, 0, 0);
-                ResponseStruct.ManualPostDeserialization(response.FullTextFromServer);
+                ResponseStruct.DoCustomPostDeserialization(response.FullTextFromServer);
             }
             if (response.ServerCallStatusCode == 200 || response.ServerCallStatusCode == 204)
             {
@@ -93,9 +93,9 @@ struct LLAPI
         if (!std::is_same_v<RequestType, FLootLockerEmptyRequest>) 
         {
             TSharedPtr<FJsonObject> JsonObject = FJsonObjectConverter::UStructToJsonObject(RequestStruct);
-            if (std::is_base_of<FLootLockerRequiresManualPostSerialization, RequestType>())
+            if (std::is_base_of<FLootLockerRequiresCustomPostSerialization, RequestType>())
             {
-                ((FLootLockerRequiresManualPostSerialization*)&RequestStruct)->DoManualPostDeserialization(JsonObject);
+                ((FLootLockerRequiresCustomPostSerialization*)&RequestStruct)->DoCustomPostSerialization(JsonObject);
             }
             FJsonSerializer::Serialize(JsonObject.ToSharedRef(), TJsonWriterFactory<TCHAR, TCondensedJsonPrintPolicy<TCHAR>>::Create(&ContentString), true);
         }

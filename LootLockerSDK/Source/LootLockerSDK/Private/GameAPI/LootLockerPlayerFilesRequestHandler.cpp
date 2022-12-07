@@ -95,3 +95,18 @@ void ULLPlayerFilesRequestHandler::ParsePublicFlagOnFileList(TArray<FLootLockerF
 		}
 	}
 }
+
+void FLootLockerFileResponse::DoCustomPostDeserialization(const FString& JsonString)
+{
+	if(JsonString.IsEmpty())
+	{
+		return;
+	}
+
+	TSharedPtr<FJsonObject> JsonObject;
+	TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonString);
+	if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
+	{
+		bIsPublic = JsonObject->GetBoolField(TEXT("public"));
+	}
+}

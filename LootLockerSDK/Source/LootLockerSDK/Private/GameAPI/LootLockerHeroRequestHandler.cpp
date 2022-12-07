@@ -9,9 +9,9 @@ ULootLockerHeroRequestHandler::ULootLockerHeroRequestHandler()
 	HttpClient = NewObject<ULootLockerHttpClient>();
 }
 
-void FLootLockerCreateHeroRequest::DoManualPostDeserialization(TSharedPtr<FJsonObject> JsonObject) const
+void FLootLockerCreateHeroRequest::DoCustomPostSerialization(TSharedPtr<FJsonObject> JsonObject) const
 {
-    FLootLockerRequiresManualPostSerialization::DoManualPostDeserialization(JsonObject);
+    FLootLockerRequiresCustomPostSerialization::DoCustomPostSerialization(JsonObject);
 	if (asset_variation_id == 0) {
 		JsonObject->RemoveField(LOOTLOCKER_GET_VARIABLE_NAME(asset_variation_id));
 	}

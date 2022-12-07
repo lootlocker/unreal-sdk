@@ -6,7 +6,7 @@
 #include "LootLockerAssetsRequestHandler.h"
 #include "JsonObjectConverter.h"
 #include "LootLockerHttpClient.h"
-#include "LootLockerRequiresManualPostSerialization.h"
+#include "LootLockerRequiresCustomPostSerialization.h"
 #include "LootLockerResponse.h"
 #include "LootLockerCharacterRequestHandler.generated.h"
 
