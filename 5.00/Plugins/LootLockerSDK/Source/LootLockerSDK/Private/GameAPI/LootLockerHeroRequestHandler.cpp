@@ -140,6 +140,42 @@ void ULootLockerHeroRequestHandler::GetHeroLoadout(int HeroId, const FPHeroLoado
 	HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponse, true);
 }
 
+void ULootLockerHeroRequestHandler::EquipAssetToHero(int HeroId, int AssetId, int AssetVariationId,
+	const FPHeroLoadoutResponseBP& OnCompletedRequestBP, const FHeroLoadoutResponse& OnCompletedRequest)
+{
+TSharedRef<FJsonObject> ItemJson = MakeShareable(new FJsonObject());
+ItemJson->SetStringField(FString(TEXT("asset_id")), FString::FromInt(AssetId));
+if(AssetVariationId > 0)
+{
+	ItemJson->SetStringField(FString(TEXT("asset_variation_id")), FString::FromInt(AssetVariationId));
+}
+FString ContentString;
+TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&ContentString);
+FJsonSerializer::Serialize(ItemJson, Writer);
+	
+	FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest](FLootLockerResponse response)
+		{
+			FLootLockerHeroLoadoutResponse ResponseStruct;
+			if (response.success)
+			{
+				FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerHeroLoadoutResponse>(response.FullTextFromServer, &ResponseStruct, 0, 0);
+				ResponseStruct.success = true;
+			}
+			else {
+				ResponseStruct.success = false;
+				UE_LOG(LogLootLocker, Error, TEXT("Equip asset to hero failed from lootlocker"));
+			}
+			ResponseStruct.FullTextFromServer = response.FullTextFromServer;
+			OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
+			OnCompletedRequest.ExecuteIfBound(ResponseStruct);
+		});
+	TArray<FStringFormatArg> args;
+	FLootLockerEndPoints Endpoint = ULootLockerGameEndpoints::AddAssetToHeroLoadoutEndpoint;
+	FString endpoint = FString::Format(*(Endpoint.endpoint), { HeroId });
+	FString requestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+	HttpClient->SendApi(endpoint, requestMethod, ContentString, sessionResponse, true);
+}
+
 void ULootLockerHeroRequestHandler::DeleteHero(int HeroId, const FPHeroDefaultResponseBP& OnCompletedRequestBP,	const FHeroDefaultResponse& OnCompletedRequest)
 {
 	FString ContentString;

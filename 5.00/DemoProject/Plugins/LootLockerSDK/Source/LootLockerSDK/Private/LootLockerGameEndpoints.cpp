@@ -46,6 +46,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::ListPlayerHeroesEndpoint = InitEn
 FLootLockerEndPoints ULootLockerGameEndpoints::CreateHeroEndpoint = InitEndpoint("v1/player/heroes", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetHeroEndpoint = InitEndpoint("v1/player/heroes/{0}", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetHeroLoadoutEndpoint = InitEndpoint("v1/player/heroes/{0}/loadout", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::AddAssetToHeroLoadoutEndpoint = InitEndpoint("v1/player/heroes/{0}/loadout", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::DeleteHeroEndpoint = InitEndpoint("v1/player/heroes/{0}", ELootLockerHTTPMethod::DELETE);
 
 //Persistent Storage

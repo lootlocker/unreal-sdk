@@ -189,6 +189,12 @@ void ULootLockerManager::GetHeroLoadout(int HeroId, const FPHeroLoadoutResponseB
 	ULootLockerHeroRequestHandler::GetHeroLoadout(HeroId, OnCompletedRequestBP);
 }
 
+void ULootLockerManager::EquipAssetToHero(int HeroId, int AssetId, int AssetVariationId,
+    const FPHeroLoadoutResponseBP& OnCompletedRequestBP)
+{
+    ULootLockerHeroRequestHandler::EquipAssetToHero(HeroId, AssetId, AssetVariationId, OnCompletedRequestBP);
+}
+
 void ULootLockerManager::DeleteHero(int HeroId, const FPHeroDefaultResponseBP& OnCompletedRequestBP)
 {
     ULootLockerHeroRequestHandler::DeleteHero(HeroId, OnCompletedRequestBP);
