@@ -60,7 +60,6 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 			{
 				response.success = false;
 				response.FullTextFromServer = Response->GetContentAsString();
-				response.ServerCallHasError = true;
 				response.ServerCallStatusCode = Response->GetResponseCode();
 				onCompleteRequest.ExecuteIfBound(response);
 				return;
@@ -68,7 +67,6 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 
 			response.success = true;
 			response.FullTextFromServer = Response->GetContentAsString();
-			response.ServerCallHasError = false;
 			response.ServerCallStatusCode = Response->GetResponseCode();
 			onCompleteRequest.ExecuteIfBound(response);
 		});
@@ -168,7 +166,6 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
             bool success = ResponseIsValid(Response, bWasSuccessful, requestType, endPoint, FString("Data Stream"));
 
             response.success = success;
-            response.ServerCallHasError = !success;
 
             onCompleteRequest.ExecuteIfBound(response);
         });
