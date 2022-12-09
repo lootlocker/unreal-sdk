@@ -228,7 +228,7 @@ void ULootLockerAuthenticationRequestHandler::VerifyPlayer(const FString& Platfo
 
 void ULootLockerAuthenticationRequestHandler::EndSession(const FAuthDefaultResponseBP& OnCompletedRequestBP, const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest)
 {
-	LLAPI<FLootLockerAuthenticationDefaultResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::EndSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, false, false, LLAPI<FLootLockerAuthenticationDefaultResponse>::ResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationDefaultResponse& Response)
+	LLAPI<FLootLockerAuthenticationDefaultResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::EndSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, false, false, LLAPI<FLootLockerAuthenticationDefaultResponse>::ResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationDefaultResponse& Response)
 	{
 		if (Response.success) {
 			ULootLockerStateData::ClearState();

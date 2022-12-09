@@ -26,17 +26,17 @@ void ULootLockerUserGeneratedContentRequestHandler::UpdateAssetCandidate(int Ass
 
 void ULootLockerUserGeneratedContentRequestHandler::DeleteAssetCandidate(int AssetCandidateId, const FResponseCallbackBP& OnCompletedRequestBP, const FResponseCallback& OnCompletedRequest)
 {
-    LLAPI<FLootLockerCreateAssetCandidateResponse>::CallAPI(HttpClient, LootLockerEmptyRequest,ULootLockerGameEndpoints::DeleteAssetCandidateEndpoint, { AssetCandidateId },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerCreateAssetCandidateResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(),ULootLockerGameEndpoints::DeleteAssetCandidateEndpoint, { AssetCandidateId },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerUserGeneratedContentRequestHandler::GetAllAssetCandidates(const FAssetCandidatesResponseDelegateBP& OnCompletedRequestBP, const FAssetCandidatesResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerAssetCandidatesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest,ULootLockerGameEndpoints::GetAllAssetCandidatesEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerAssetCandidatesResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(),ULootLockerGameEndpoints::GetAllAssetCandidatesEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerUserGeneratedContentRequestHandler::GetAssetCandidate(int AssetCandidateId, const FAssetCandidateResponseDelegateBP& OnCompletedRequestBP, const FAssetCandidateResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerAssetCandidateResponse>::CallAPI(HttpClient, LootLockerEmptyRequest,ULootLockerGameEndpoints::GetAssetCandidateEndpoint, { AssetCandidateId }, EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerAssetCandidateResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(),ULootLockerGameEndpoints::GetAssetCandidateEndpoint, { AssetCandidateId }, EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerUserGeneratedContentRequestHandler::AddFileToAssetCandidate(int AssetCandidateId, const FString& FilePath, ELootLockerAssetFilePurpose FilePurpose, const FResponseCallbackBP& OnCompletedRequestBP, const FResponseCallback& OnCompletedRequest)
@@ -50,5 +50,5 @@ void ULootLockerUserGeneratedContentRequestHandler::AddFileToAssetCandidate(int 
 
 void ULootLockerUserGeneratedContentRequestHandler::DeleteFileFromAssetCandidate(int AssetCandidateId, int FileId, const FResponseCallbackBP& OnCompletedRequestBP, const FResponseCallback& OnCompletedRequest)
 {
-    LLAPI<FLootLockerAssetCandidateResponse>::CallAPI(HttpClient, LootLockerEmptyRequest,ULootLockerGameEndpoints::DeleteFileFromAssetCandidateEndpoint, { AssetCandidateId, FileId },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerAssetCandidateResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(),ULootLockerGameEndpoints::DeleteFileFromAssetCandidateEndpoint, { AssetCandidateId, FileId },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }

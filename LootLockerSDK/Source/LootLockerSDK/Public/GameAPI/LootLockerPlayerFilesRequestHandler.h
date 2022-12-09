@@ -3,12 +3,13 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "LootLockerRequest.h"
 #include "LootLockerResponse.h"
 #include "LootLockerHttpClient.h"
 #include "LootLockerPlayerFilesRequestHandler.generated.h"
 
 USTRUCT(BlueprintType)
-struct FLootLockerFileUploadRequest
+struct FLootLockerFileUploadRequest : public FLootLockerRequest
 {
     GENERATED_BODY()
     public:

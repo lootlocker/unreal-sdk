@@ -59,7 +59,7 @@ struct FLootLockerPickDropsFromDropTableResponse : public FLootLockerResponse
 
 
 USTRUCT(BlueprintType)
-struct FLootLockerPickDropsFromDropTableRequest
+struct FLootLockerPickDropsFromDropTableRequest : public FLootLockerRequest
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")

@@ -6,7 +6,7 @@
 #include "LootLockerAssetsRequestHandler.h"
 #include "JsonObjectConverter.h"
 #include "LootLockerHttpClient.h"
-#include "LootLockerRequiresCustomPostSerialization.h"
+#include "LootLockerRequest.h"
 #include "LootLockerResponse.h"
 #include "LootLockerCharacterRequestHandler.generated.h"
 
@@ -66,11 +66,6 @@ struct FLootLockerCharacterLoadoutArray {
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerEmptyRequest {
-	GENERATED_BODY()
-};
-
-USTRUCT(BlueprintType)
 struct FLootLockerCharacterLoadoutResponse : public FLootLockerResponse {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -78,7 +73,7 @@ struct FLootLockerCharacterLoadoutResponse : public FLootLockerResponse {
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerUpdateCharacterRequest {
+struct FLootLockerUpdateCharacterRequest : public FLootLockerRequest {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	bool is_default = false;
@@ -87,7 +82,7 @@ struct FLootLockerUpdateCharacterRequest {
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerListCharacterRequest {
+struct FLootLockerListCharacterRequest : public FLootLockerRequest {
 	GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool is_default = false;
@@ -98,14 +93,14 @@ struct FLootLockerListCharacterRequest {
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerEquipAssetToCharacterWithInstanceRequest {
+struct FLootLockerEquipAssetToCharacterWithInstanceRequest : public FLootLockerRequest {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 instance_id = 0;
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerEquipUniversalAssetToCharacterRequest {
+struct FLootLockerEquipUniversalAssetToCharacterRequest : public FLootLockerRequest {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 asset_id = 0;

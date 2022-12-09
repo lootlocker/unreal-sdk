@@ -28,7 +28,7 @@ void ULLPlayerFilesRequestHandler::UploadFile(const FLootLockerFileUploadRequest
 
 void ULLPlayerFilesRequestHandler::ListFiles(const FLootLockerFileListBP &OnCompleteBP, const FLootLockerFileListDelegate &OnComplete)
 {
-	LLAPI<FLootLockerFileListResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ListFilesEndpoint, { },EmptyQueryParams,OnCompleteBP, OnComplete, false, false, LLAPI<FLootLockerFileListResponse>::ResponseInspectorCallback::CreateLambda([](FLootLockerFileListResponse& Response)
+	LLAPI<FLootLockerFileListResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListFilesEndpoint, { },EmptyQueryParams,OnCompleteBP, OnComplete, false, false, LLAPI<FLootLockerFileListResponse>::ResponseInspectorCallback::CreateLambda([](FLootLockerFileListResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -41,7 +41,7 @@ void ULLPlayerFilesRequestHandler::ListFiles(const FLootLockerFileListBP &OnComp
 
 void ULLPlayerFilesRequestHandler::ListOtherPlayersPublicFiles(const int32 PlayerID, const FLootLockerFileListBP& OnCompleteBP, const FLootLockerFileListDelegate& OnComplete)
 {
-	LLAPI<FLootLockerFileListResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ListOtherPlayersFilesEndpoint, { PlayerID }, EmptyQueryParams, OnCompleteBP, OnComplete, false, false, LLAPI<FLootLockerFileListResponse>::ResponseInspectorCallback::CreateLambda([](FLootLockerFileListResponse& Response)
+	LLAPI<FLootLockerFileListResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListOtherPlayersFilesEndpoint, { PlayerID }, EmptyQueryParams, OnCompleteBP, OnComplete, false, false, LLAPI<FLootLockerFileListResponse>::ResponseInspectorCallback::CreateLambda([](FLootLockerFileListResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -54,7 +54,7 @@ void ULLPlayerFilesRequestHandler::ListOtherPlayersPublicFiles(const int32 Playe
 
 void ULLPlayerFilesRequestHandler::GetSingleFile(const int32 FileID, const FLootLockerUploadFileBP &OnCompleteBP, const FLootLockerUploadFileDelegate &OnComplete)
 {
-	LLAPI<FLootLockerFileResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetSingleFileEndpoint, {FileID },EmptyQueryParams, OnCompleteBP, OnComplete, false, false, LLAPI<FLootLockerFileResponse>::ResponseInspectorCallback::CreateLambda([](FLootLockerFileResponse& Response)
+	LLAPI<FLootLockerFileResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetSingleFileEndpoint, {FileID },EmptyQueryParams, OnCompleteBP, OnComplete, false, false, LLAPI<FLootLockerFileResponse>::ResponseInspectorCallback::CreateLambda([](FLootLockerFileResponse& Response)
 	{
 		if (Response.success)
 		{
@@ -67,7 +67,7 @@ void ULLPlayerFilesRequestHandler::GetSingleFile(const int32 FileID, const FLoot
 
 void ULLPlayerFilesRequestHandler::DeletePlayerFile(const int32 FileID, const FLootLockerFileDeletedBP &OnCompleteBP, const FLootLockerFileDeletedDelegate &OnComplete)
 {
-	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteFileEndpoint, { FileID }, EmptyQueryParams,OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::DeleteFileEndpoint, { FileID }, EmptyQueryParams,OnCompleteBP, OnComplete);
 }
 
 void ULLPlayerFilesRequestHandler::ParsePublicFlagOnFileList(TArray<FLootLockerFileResponse>& ParsedFilesList, const TArray<TSharedPtr<FJsonValue>>& JsonFilesList)
@@ -98,6 +98,7 @@ void ULLPlayerFilesRequestHandler::ParsePublicFlagOnFileList(TArray<FLootLockerF
 
 void FLootLockerFileResponse::DoCustomPostDeserialization(const FString& JsonString)
 {
+	FLootLockerResponse::DoCustomPostDeserialization(JsonString);
 	if(JsonString.IsEmpty())
 	{
 		return;

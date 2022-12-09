@@ -6,7 +6,6 @@
 #include "UObject/NoExportTypes.h"
 #include "LootLockerResponse.h"
 #include "JsonObjectConverter.h"
-#include "LootLockerRequiresCustomPostSerialization.h"
 #include "LootLockerHeroRequestHandler.generated.h"
 
 USTRUCT(BlueprintType)
@@ -93,7 +92,7 @@ struct FLootLockerCreateHeroRequest : public FLootLockerRequiresCustomPostSerial
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerUpdateHeroRequest
+struct FLootLockerUpdateHeroRequest : public FLootLockerRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker | Heroes")

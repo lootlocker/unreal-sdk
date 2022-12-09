@@ -119,7 +119,7 @@ struct FLootLockerSubmitScoreResponse : public FLootLockerResponse
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerSubmitScoreRequest
+struct FLootLockerSubmitScoreRequest : public FLootLockerRequest
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -131,7 +131,7 @@ struct FLootLockerSubmitScoreRequest
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerGetMemberRankRequest
+struct FLootLockerGetMemberRankRequest : public FLootLockerRequest
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -141,7 +141,7 @@ struct FLootLockerGetMemberRankRequest
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerGetScoreListRequest
+struct FLootLockerGetScoreListRequest : public FLootLockerRequest
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -153,7 +153,7 @@ struct FLootLockerGetScoreListRequest
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerGetAllMemberRanksRequest
+struct FLootLockerGetAllMemberRanksRequest : public FLootLockerRequest
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -165,7 +165,7 @@ struct FLootLockerGetAllMemberRanksRequest
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerGetByListMembersRequest
+struct FLootLockerGetByListMembersRequest : public FLootLockerRequest
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")

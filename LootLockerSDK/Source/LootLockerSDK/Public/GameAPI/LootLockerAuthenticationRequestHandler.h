@@ -3,13 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "LootLockerRequest.h"
 #include "LootLockerResponse.h"
 #include "LootLockerHttpClient.h"
 #include "JsonObjectConverter.h"
 #include "LootLockerAuthenticationRequestHandler.generated.h"
 
 USTRUCT(BlueprintType)
-struct FLootLockerSignupRequest
+struct FLootLockerSignupRequest : public FLootLockerRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login")
@@ -19,7 +20,7 @@ struct FLootLockerSignupRequest
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerWhiteLabelLoginRequest
+struct FLootLockerWhiteLabelLoginRequest : public FLootLockerRequest
 {
 	GENERATED_BODY()
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login")
@@ -61,7 +62,7 @@ struct FLootLockerErrorData
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerBaseAuthRequest
+struct FLootLockerBaseAuthRequest : public FLootLockerRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
@@ -93,7 +94,7 @@ struct FLootLockerWhiteLabelAuthRequest : public FLootLockerBaseAuthRequest
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerWhiteLabelVerifySessionRequest
+struct FLootLockerWhiteLabelVerifySessionRequest : public FLootLockerRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -103,7 +104,7 @@ struct FLootLockerWhiteLabelVerifySessionRequest
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerWhiteLabelResetPasswordRequest
+struct FLootLockerWhiteLabelResetPasswordRequest : public FLootLockerRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -143,7 +144,7 @@ struct FLootLockerRefreshAppleSessionRequest : public FLootLockerBaseAuthRequest
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerVerificationRequest
+struct FLootLockerVerificationRequest : public FLootLockerRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -155,7 +156,7 @@ struct FLootLockerVerificationRequest
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerUserIdRequest
+struct FLootLockerUserIdRequest : public FLootLockerRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")

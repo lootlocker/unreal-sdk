@@ -114,7 +114,7 @@ struct FLootLockerSubmitXpResponse : public FLootLockerResponse {
 	bool check_grant_notifications = false;
 };
 USTRUCT(BlueprintType)
-struct FLootLockerSubmitXpRequest {
+struct FLootLockerSubmitXpRequest : public FLootLockerRequest {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 points = 0;
@@ -151,7 +151,7 @@ struct FLootLockerNameResponse : public FLootLockerResponse
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerPlayerNameRequest
+struct FLootLockerPlayerNameRequest : public FLootLockerRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -236,7 +236,7 @@ struct FLootLockerMultiplePlayersNamesResponse : public FLootLockerResponse {
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerMultiplePlayersXpRequest {
+struct FLootLockerMultiplePlayersXpRequest : public FLootLockerRequest {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString platform;
@@ -245,7 +245,7 @@ struct FLootLockerMultiplePlayersXpRequest {
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerMultiplePlayerNameRequest {
+struct FLootLockerMultiplePlayerNameRequest : public FLootLockerRequest {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString platform;
@@ -254,14 +254,14 @@ struct FLootLockerMultiplePlayerNameRequest {
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerMultiplePlayerNamesRequest {
+struct FLootLockerMultiplePlayerNamesRequest : public FLootLockerRequest {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	TArray<FLootLockerMultiplePlayerNameRequest> player_ids;
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerMultiplePlayerNamesAndPlatformsRequest {
+struct FLootLockerMultiplePlayerNamesAndPlatformsRequest : public FLootLockerRequest {
 	GENERATED_BODY()
 		UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 		TArray<FString> player_ids;

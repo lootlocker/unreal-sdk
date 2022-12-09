@@ -6,11 +6,10 @@
 #include "GameAPI/LootLockerCharacterRequestHandler.h"
 #include "GameAPI/LootLockerMissionsRequestHandler.h"
 #include "LootLockerConfig.h"
-#include "LootLockerRequiresCustomPostSerialization.h"
-
-constexpr FLootLockerEmptyRequest LootLockerEmptyRequest;
+#include "LootLockerEmptyRequest.h"
 
 const TMultiMap<FString,FString> EmptyQueryParams;
+#define LOOTLOCKER_GET_VARIABLE_NAME(Variable) (#Variable)
 
 namespace LootLockerUtilities
 {
@@ -93,9 +92,9 @@ struct LLAPI
         if (!std::is_same_v<RequestType, FLootLockerEmptyRequest>) 
         {
             TSharedPtr<FJsonObject> JsonObject = FJsonObjectConverter::UStructToJsonObject(RequestStruct);
-            if (std::is_base_of<FLootLockerRequiresCustomPostSerialization, RequestType>())
+            if (std::is_base_of<FLootLockerRequest, RequestType>())
             {
-                ((FLootLockerRequiresCustomPostSerialization*)&RequestStruct)->DoCustomPostSerialization(JsonObject);
+                ((FLootLockerRequest*)&RequestStruct)->DoCustomPostSerialization(JsonObject);
             }
             FJsonSerializer::Serialize(JsonObject.ToSharedRef(), TJsonWriterFactory<TCHAR, TCondensedJsonPrintPolicy<TCHAR>>::Create(&ContentString), true);
         }
