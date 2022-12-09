@@ -19,8 +19,6 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
     FString FullTextFromServer;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-    FString ServerError;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
     FString session_token;
 
     virtual void ManualPostDeserialization(const FString& JsonString) {};
