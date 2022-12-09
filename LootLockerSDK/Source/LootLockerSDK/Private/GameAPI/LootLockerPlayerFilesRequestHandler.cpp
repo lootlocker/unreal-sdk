@@ -1,5 +1,4 @@
 #include "GameAPI/LootLockerPlayerFilesRequestHandler.h"
-#include <JsonObjectConverter.h>
 
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
 #include "Utils/LootLockerUtilities.h"

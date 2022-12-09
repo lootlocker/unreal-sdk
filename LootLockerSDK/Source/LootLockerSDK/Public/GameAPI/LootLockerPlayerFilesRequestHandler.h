@@ -26,7 +26,8 @@ struct FLootLockerFileResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
     public:
-    bool success = false;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString message;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 id = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
