@@ -17,4 +17,6 @@ public:
     FString FullTextFromServer;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
     FString session_token;
+
+    virtual void ManualPostDeserialization(const FString& JsonString) {};
 };

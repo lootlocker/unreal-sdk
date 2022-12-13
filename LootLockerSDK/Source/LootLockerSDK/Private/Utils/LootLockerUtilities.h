@@ -63,6 +63,7 @@ struct LLAPI
             if(!response.FullTextFromServer.IsEmpty())
             {
                 FJsonObjectConverter::JsonObjectStringToUStruct<ResponseType>(response.FullTextFromServer, &ResponseStruct, 0, 0);
+                ResponseStruct.ManualPostDeserialization(response.FullTextFromServer);
             }
             if (response.ServerCallStatusCode == 200 || response.ServerCallStatusCode == 204)
             {
