@@ -16,7 +16,7 @@ void ULLPlayerFilesRequestHandler::UploadFile(const FLootLockerFileUploadRequest
 	AdditionalData.Add(TEXT("purpose"), *Request.purpose);
 	AdditionalData.Add(TEXT("public"), Request.bIsPublic ? TEXT("true") : TEXT("false"));
 	
-	LLAPI<FLootLockerFileResponse>::UploadFileAPI(HttpClient, Request.file, ULootLockerGameEndpoints::FileUploadEndpoint, { },AdditionalData, OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerFileResponse>::UploadFileAPI(HttpClient, Request.file, ULootLockerGameEndpoints::FileUploadEndpoint, { },AdditionalData,OnCompleteBP, OnComplete);
 }
 
 void ULLPlayerFilesRequestHandler::ListFiles(const FLootLockerFileListBP &OnCompleteBP, const FLootLockerFileListDelegate &OnComplete)
@@ -37,19 +37,4 @@ void ULLPlayerFilesRequestHandler::GetSingleFile(const int32 FileID, const FLoot
 void ULLPlayerFilesRequestHandler::DeletePlayerFile(const int32 FileID, const FLootLockerFileDeletedBP &OnCompleteBP, const FLootLockerFileDeletedDelegate &OnComplete)
 {
 	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteFileEndpoint, { FileID }, EmptyQueryParams,OnCompleteBP, OnComplete);
-}
-
-void FLootLockerFileResponse::ManualPostDeserialization(const FString& JsonString)
-{
-	if(JsonString.IsEmpty())
-	{
-		return;
-	}
-
-	TSharedPtr<FJsonObject> JsonObject;
-	TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonString);
-	if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
-	{
-		bIsPublic = JsonObject->GetBoolField(TEXT("public"));
-	}
 }
