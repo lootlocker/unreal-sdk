@@ -45,13 +45,16 @@ namespace LootLockerUtilities
         static const FString EmptyFString;
         static FString PlatformOverride;
     };
+
+    TSharedPtr<FJsonObject> JsonObjectFromFString(const FString& JsonString);
 }
 
 template<typename ResponseType>
 struct LLAPI
 {
+    DECLARE_DELEGATE_OneParam(ResponseInspectorCallback, ResponseType&);
     template<typename BluePrintDelegate, typename CppDelegate>
-    static FResponseCallback CreateLambda(const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const CppDelegate& ResponseInspectorCallback = CppDelegate())
+    static FResponseCallback CreateLambda(const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const ResponseInspectorCallback& ResponseInspectorCallback = ResponseInspectorCallback())
     {
         FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest, ResponseInspectorCallback](FLootLockerResponse response)
         {
@@ -82,7 +85,7 @@ struct LLAPI
     }
 
     template<typename RequestType, typename BluePrintDelegate , typename CppDelegate>
-    static void CallAPI(ULootLockerHttpClient* HttpClient, RequestType RequestStruct, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, bool useDomainKey = false, bool useDevHeaders = false, const CppDelegate& ResponseInspectorCallback = CppDelegate())
+    static void CallAPI(ULootLockerHttpClient* HttpClient, RequestType RequestStruct, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, bool useDomainKey = false, bool useDevHeaders = false, const ResponseInspectorCallback& ResponseInspectorCallback = ResponseInspectorCallback())
     {
         FString ContentString;        
         if (!std::is_same_v<RequestType, FLootLockerEmptyRequest>) 
@@ -115,7 +118,7 @@ struct LLAPI
     }
 
     template<typename BluePrintDelegate, typename CppDelegate>
-    static void UploadFileAPI(ULootLockerHttpClient* HttpClient, FString File, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMap<FString, FString> AdditionalData, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const CppDelegate& ResponseInspectorCallback = CppDelegate())
+    static void UploadFileAPI(ULootLockerHttpClient* HttpClient, FString File, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMap<FString, FString> AdditionalData, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const ResponseInspectorCallback& ResponseInspectorCallback = ResponseInspectorCallback())
     {
         
         // calculate endpoint
@@ -134,7 +137,7 @@ struct LLAPI
     }
 
     template<typename BluePrintDelegate , typename CppDelegate>
-    static void CallAPIUsingRawJSON(ULootLockerHttpClient* HttpClient, FString& ContentString, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const CppDelegate& ResponseInspectorCallback = CppDelegate())
+    static void CallAPIUsingRawJSON(ULootLockerHttpClient* HttpClient, FString& ContentString, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const ResponseInspectorCallback& ResponseInspectorCallback = ResponseInspectorCallback())
     {
         
         // calculate endpoint

@@ -18,7 +18,7 @@ struct FLootLockerFileUploadRequest
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString purpose;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool bIsPublic = false;
+    bool IsPublic = false;
 };
 
 USTRUCT(BlueprintType)
@@ -42,6 +42,8 @@ struct FLootLockerFileResponse : public FLootLockerResponse
     FString url_expires_at;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString created_at;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	bool IsPublic = false;
 };
 
 USTRUCT(BlueprintType)
@@ -74,4 +76,6 @@ public:
 	static void ListOtherPlayersPublicFiles(const int32 PlayerID, const FLootLockerFileListBP& OnCompleteBP = FLootLockerFileListBP(), const FLootLockerFileListDelegate& OnComplete = FLootLockerFileListDelegate());
 	static void GetSingleFile(const int32 FileID, const FLootLockerUploadFileBP& OnCompleteBP = FLootLockerUploadFileBP(), const FLootLockerUploadFileDelegate& OnComplete = FLootLockerUploadFileDelegate());
 	static void DeletePlayerFile(const int32 FileID, const FLootLockerFileDeletedBP& OnCompleteBP = FLootLockerFileDeletedBP(), const FLootLockerFileDeletedDelegate& OnComplete = FLootLockerFileDeletedDelegate());
+private:
+	static void ParsePublicFlagOnFileList(TArray<FLootLockerFileResponse>& ParsedFilesList, const TArray<TSharedPtr<FJsonValue>>& JsonFilesList);
 };
