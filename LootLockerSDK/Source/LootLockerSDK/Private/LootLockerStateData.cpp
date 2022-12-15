@@ -52,7 +52,7 @@ void ULootLockerStateData::SaveStateToDisk()
 		SavedState->WhiteLabelToken = WhiteLabelToken;
 
 		if (UGameplayStatics::SaveGameToSlot(SavedState, SaveSlot, SaveIndex)) {
-			UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Saved LootLocker state to disk for player with identifier %s"), *PlayerIdentifier);
+			UE_LOG(LogLootLockerGameSDK, Log, TEXT("Saved LootLocker state to disk for player with identifier %s"), *PlayerIdentifier);
 			return;
 		}
 	}
