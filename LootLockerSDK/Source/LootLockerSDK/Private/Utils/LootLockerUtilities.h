@@ -52,9 +52,10 @@ namespace LootLockerUtilities
 template<typename ResponseType>
 struct LLAPI
 {
-    DECLARE_DELEGATE_OneParam(ResponseInspectorCallback, ResponseType&);
+    DECLARE_DELEGATE_OneParam(FResponseInspectorCallback, ResponseType&);
+
     template<typename BluePrintDelegate, typename CppDelegate>
-    static FResponseCallback CreateLambda(const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const ResponseInspectorCallback& ResponseInspectorCallback = ResponseInspectorCallback())
+    static FResponseCallback CreateLambda(const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const FResponseInspectorCallback& ResponseInspectorCallback)
     {
         FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest, ResponseInspectorCallback](FLootLockerResponse response)
         {
@@ -85,13 +86,21 @@ struct LLAPI
     }
 
     template<typename RequestType, typename BluePrintDelegate , typename CppDelegate>
-    static void CallAPI(ULootLockerHttpClient* HttpClient, RequestType RequestStruct, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, bool useDomainKey = false, bool useDevHeaders = false, const ResponseInspectorCallback& ResponseInspectorCallback = ResponseInspectorCallback())
+    static void CallAPI(ULootLockerHttpClient* HttpClient, RequestType RequestStruct, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const FResponseInspectorCallback& ResponseInspectorCallback, bool useDomainKey = false, bool useDevHeaders = false)
     {
-        FString ContentString;        
-        if (!std::is_same_v<RequestType, FLootLockerEmptyRequest>) 
+        FString ContentString;
+#if ENGINE_MAJOR_VERSION < 5
+        FJsonObjectConverter::UStructToJsonObjectString(RequestType::StaticStruct(), &RequestStruct, ContentString, 0, 0);
+        if (IsEmptyJsonString(ContentString))
+        {
+            ContentString = FString();
+        }
+#else
+        if (!std::is_same_v<RequestType, FLootLockerEmptyRequest>)
         {
             FJsonObjectConverter::UStructToJsonObjectString(RequestType::StaticStruct(), &RequestStruct, ContentString, 0, 0);
         }
+#endif
         
         // calculate endpoint
         FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, InOrderedArguments);
@@ -118,7 +127,7 @@ struct LLAPI
     }
 
     template<typename BluePrintDelegate, typename CppDelegate>
-    static void UploadFileAPI(ULootLockerHttpClient* HttpClient, FString File, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMap<FString, FString> AdditionalData, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const ResponseInspectorCallback& ResponseInspectorCallback = ResponseInspectorCallback())
+    static void UploadFileAPI(ULootLockerHttpClient* HttpClient, FString File, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMap<FString, FString> AdditionalData, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const FResponseInspectorCallback& ResponseInspectorCallback)
     {
         
         // calculate endpoint
@@ -137,7 +146,7 @@ struct LLAPI
     }
 
     template<typename BluePrintDelegate , typename CppDelegate>
-    static void CallAPIUsingRawJSON(ULootLockerHttpClient* HttpClient, FString& ContentString, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const ResponseInspectorCallback& ResponseInspectorCallback = ResponseInspectorCallback())
+    static void CallAPIUsingRawJSON(ULootLockerHttpClient* HttpClient, FString& ContentString, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const FResponseInspectorCallback& ResponseInspectorCallback)
     {
         
         // calculate endpoint
@@ -160,5 +169,14 @@ struct LLAPI
     
         // send request
         HttpClient->SendApi(EndpointWithArguments, RequestMethod, ContentString, SessionResponse, true);
+    }
+
+private:
+    static bool IsEmptyJsonString(const FString& JsonString)
+    {
+        return JsonString.Equals(FString("{}")) ||
+            JsonString.Equals(FString("{\r\n}")) ||
+            JsonString.Equals(FString("{\n}")) ||
+            JsonString.Equals(FString("{ }"));
     }
 };

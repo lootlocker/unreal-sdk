@@ -11,66 +11,66 @@ ULootLockerHeroRequestHandler::ULootLockerHeroRequestHandler()
 
 void ULootLockerHeroRequestHandler::GetGameHeroes(const FLootLockerGameHeroListBP &OnCompleteBP, const FLootLockerGameHeroListDelegate &OnComplete)
 {
-	LLAPI<FLootLockerGameHeroListResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetGameHeroes, { },EmptyQueryParams,OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerGameHeroListResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetGameHeroes, { },EmptyQueryParams, OnCompleteBP, OnComplete, LLAPI<FLootLockerGameHeroListResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerHeroRequestHandler::ListPlayerHeroes(const FLootLockerHeroListBP &OnCompleteBP, const FLootLockerHeroListDelegate &OnComplete)
 {
-	LLAPI<FLootLockerHeroListResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ListPlayerHeroes, { },EmptyQueryParams,OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerHeroListResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ListPlayerHeroes, { },EmptyQueryParams, OnCompleteBP, OnComplete, LLAPI<FLootLockerHeroListResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerHeroRequestHandler::ListOtherPlayersHeroesBySteamID64(const int64 SteamID64, const FLootLockerHeroListBP &OnCompleteBP, const FLootLockerHeroListDelegate &OnComplete)
 {
-	LLAPI<FLootLockerHeroListResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ListOtherPlayersHeroesBySteamID64, { SteamID64 },EmptyQueryParams,OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerHeroListResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ListOtherPlayersHeroesBySteamID64, { SteamID64 },EmptyQueryParams, OnCompleteBP, OnComplete, LLAPI<FLootLockerHeroListResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerHeroRequestHandler::CreateHero(const FLootLockerCreateHeroRequest &Request, const FLootLockerPlayerHeroBP &OnCompleteBP, const FLootLockerPlayerHeroDelegate &OnComplete)
 {
-	LLAPI<FLootLockerPlayerHeroResponse>::CallAPI(HttpClient, Request, ULootLockerGameEndpoints::CreateHero, { },EmptyQueryParams,OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerPlayerHeroResponse>::CallAPI(HttpClient, Request, ULootLockerGameEndpoints::CreateHero, { },EmptyQueryParams, OnCompleteBP, OnComplete, LLAPI<FLootLockerPlayerHeroResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerHeroRequestHandler::GetHero(const int32 HeroID, const FLootLockerPlayerHeroBP &OnCompleteBP, const FLootLockerPlayerHeroDelegate &OnComplete)
 {
-	LLAPI<FLootLockerPlayerHeroResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetHero,  { HeroID },EmptyQueryParams,OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerPlayerHeroResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetHero,  { HeroID },EmptyQueryParams, OnCompleteBP, OnComplete, LLAPI<FLootLockerPlayerHeroResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerHeroRequestHandler::GetOtherPlayersDefaultHeroBySteamID64(const int64 SteamID64, const FLootLockerPlayerHeroBP &OnCompleteBP, const FLootLockerPlayerHeroDelegate &OnComplete)
 {
-	LLAPI<FLootLockerPlayerHeroResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOtherPlayersDefaultHeroBySteamID64,  { SteamID64 },EmptyQueryParams,OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerPlayerHeroResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOtherPlayersDefaultHeroBySteamID64,  { SteamID64 },EmptyQueryParams, OnCompleteBP, OnComplete, LLAPI<FLootLockerPlayerHeroResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerHeroRequestHandler::UpdateHero(const int32 HeroID, const FLootLockerUpdateHeroRequest &Request, const FLootLockerPlayerHeroBP &OnCompleteBP, const FLootLockerPlayerHeroDelegate &OnComplete)
 {
-	LLAPI<FLootLockerPlayerHeroResponse>::CallAPI(HttpClient, Request, ULootLockerGameEndpoints::UpdateHero, { HeroID },EmptyQueryParams,OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerPlayerHeroResponse>::CallAPI(HttpClient, Request, ULootLockerGameEndpoints::UpdateHero, { HeroID },EmptyQueryParams, OnCompleteBP, OnComplete, LLAPI<FLootLockerPlayerHeroResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerHeroRequestHandler::DeleteHero(const int32 HeroID, const FLLHeroDefaultResponseBP &OnCompleteBP, const FLLHeroDefaultResponseDelegate &OnComplete)
 {
-	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteHero, { HeroID },EmptyQueryParams,OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteHero, { HeroID },EmptyQueryParams, OnCompleteBP, OnComplete, LLAPI<FLootLockerResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerHeroRequestHandler::GetHeroInventory(const int32 HeroID, const FPInventoryResponseBP &OnCompleteBp, const FInventoryResponse &OnComplete)
 {
-	LLAPI<FLootLockerInventoryResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetHeroInventory, { HeroID },EmptyQueryParams,OnCompleteBp, OnComplete);
+	LLAPI<FLootLockerInventoryResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetHeroInventory, { HeroID },EmptyQueryParams, OnCompleteBp, OnComplete, LLAPI<FLootLockerInventoryResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerHeroRequestHandler::GetHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseBP &OnCompleteBP, const FHeroLoadoutReseponseDelegate &OnComplete)
 {
-	LLAPI<FLootLockerHeroLoadoutResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetHeroLoadout,  { HeroID },EmptyQueryParams,OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerHeroLoadoutResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetHeroLoadout,  { HeroID },EmptyQueryParams, OnCompleteBP, OnComplete, LLAPI<FLootLockerHeroLoadoutResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerHeroRequestHandler::GetOtherPlayersHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseBP &OnCompleteBP, const FHeroLoadoutReseponseDelegate &OnComplete)
 {
-	LLAPI<FLootLockerHeroLoadoutResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOtherPlayersHeroLoadout,  { HeroID },EmptyQueryParams,OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerHeroLoadoutResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOtherPlayersHeroLoadout,  { HeroID },EmptyQueryParams, OnCompleteBP, OnComplete, LLAPI<FLootLockerHeroLoadoutResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerHeroRequestHandler::AddAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP &OnCompleteBP, const FHeroLoadoutReseponseDelegate &OnComplete)
 {
-	LLAPI<FLootLockerHeroLoadoutResponse>::CallAPI(HttpClient, FLootLockerHeroAssetInstance{ AssetInstanceID }, ULootLockerGameEndpoints::AddAssetToHeroLoadout, { HeroID }, EmptyQueryParams, OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerHeroLoadoutResponse>::CallAPI(HttpClient, FLootLockerHeroAssetInstance{ AssetInstanceID }, ULootLockerGameEndpoints::AddAssetToHeroLoadout, { HeroID }, EmptyQueryParams, OnCompleteBP, OnComplete, LLAPI<FLootLockerHeroLoadoutResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerHeroRequestHandler::RemoveAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP &OnCompleteBP, const FHeroLoadoutReseponseDelegate &OnComplete)
 {
-	LLAPI<FLootLockerHeroLoadoutResponse>::CallAPI(HttpClient, FLootLockerHeroAssetInstance{ AssetInstanceID }, ULootLockerGameEndpoints::RemoveAssetToHeroLoadout,  { HeroID }, EmptyQueryParams, OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerHeroLoadoutResponse>::CallAPI(HttpClient, FLootLockerHeroAssetInstance{ AssetInstanceID }, ULootLockerGameEndpoints::RemoveAssetToHeroLoadout,  { HeroID }, EmptyQueryParams, OnCompleteBP, OnComplete, LLAPI<FLootLockerHeroLoadoutResponse>::FResponseInspectorCallback());
 }
 

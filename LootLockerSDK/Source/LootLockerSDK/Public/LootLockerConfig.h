@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "HttpModule.h"
+#include "LootLockerResponse.h"
 #include "LootLockerConfig.generated.h"
 
 DECLARE_LOG_CATEGORY_EXTERN(LogLootLockerGameSDK, Log, All);
@@ -63,7 +64,7 @@ class LOOTLOCKERSDK_API ULootLockerConfig : public UObject
 	GENERATED_BODY()
 public:
 	static FString GetEnum(const TCHAR* Enum, int32 EnumValue);
-    static inline FString GetRequestMethodString(ELootLockerHTTPMethod RequestMethod)
+    static FString GetRequestMethodString(ELootLockerHTTPMethod RequestMethod)
     {
         return GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(RequestMethod));
     }
