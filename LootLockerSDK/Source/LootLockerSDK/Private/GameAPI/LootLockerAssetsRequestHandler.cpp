@@ -14,7 +14,7 @@ ULootLockerAssetsRequestHandler::ULootLockerAssetsRequestHandler()
 
 void ULootLockerAssetsRequestHandler::GetContexts(const FContextDelegateBP& OnCompletedRequestBP, const FContextDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerGetContextResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetContextsEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerGetContextResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetContextsEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerGetContextResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerAssetsRequestHandler::GetAssets(int StartFromIndex, int ItemsCount, ELootLockerAssetFilter AssetFilter, int Context, bool IncludeUGC, const FAssetsResponseDelegateBP& OnCompletedRequestBP, const FAssetsResponseDelegate& OnCompletedRequest)
@@ -57,7 +57,7 @@ void ULootLockerAssetsRequestHandler::GetAssets(int StartFromIndex, int ItemsCou
 		QueryParams.Add("include_ugc","true");
 	}
 	
-    LLAPI<FLootLockerGetAssetsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAssetsEndpoint, { },QueryParams,OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerGetAssetsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAssetsEndpoint, { },QueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerGetAssetsResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerAssetsRequestHandler::GetAssetsByIds(const TArray<int>& AssetIds, const FAssetsResponseDelegateBP& OnCompletedRequestBP, const FAssetsResponseDelegate& OnCompletedRequest)
@@ -67,7 +67,7 @@ void ULootLockerAssetsRequestHandler::GetAssetsByIds(const TArray<int>& AssetIds
     if (AssetIds.Num() > 0)
     {
         FString ItemsParameterString;
-        for (const auto Id : AssetIds)
+        for (const auto& Id : AssetIds)
         {
             ItemsParameterString += FString::FromInt(Id) + ",";
         }
@@ -76,27 +76,27 @@ void ULootLockerAssetsRequestHandler::GetAssetsByIds(const TArray<int>& AssetIds
         QueryParams.Add("asset_ids", ItemsParameterString);
     }
     
-    LLAPI<FLootLockerGetAssetsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAssetsByIdsEndpoint, { },QueryParams,OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerGetAssetsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAssetsByIdsEndpoint, { },QueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerGetAssetsResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerAssetsRequestHandler::GetAssetBones(const FAssetBonesResponseDelegateBP& OnCompletedRequestBP, const FAssetBonesResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerGetAssetBonesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAssetBonesEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerGetAssetBonesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAssetBonesEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerGetAssetBonesResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerAssetsRequestHandler::GetFavouriteAssetIndices(const FGetFavouriteAssetIndicesResponseDelegateBP& OnCompletedRequestBP, const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerGetFavouriteAssetIndicesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetFavouriteAssetIndicesEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerGetFavouriteAssetIndicesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetFavouriteAssetIndicesEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerGetFavouriteAssetIndicesResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerAssetsRequestHandler::AddAssetToFavourites(int AssetId, const FGetFavouriteAssetIndicesResponseDelegateBP& OnCompletedRequestBP, const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerGetFavouriteAssetIndicesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::AddAssetToFavouritesEndpoint, { AssetId },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerGetFavouriteAssetIndicesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::AddAssetToFavouritesEndpoint, { AssetId },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerGetFavouriteAssetIndicesResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerAssetsRequestHandler::RemoveAssetFromFavourites(int AssetId, const FGetFavouriteAssetIndicesResponseDelegateBP& OnCompletedRequestBP, const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerGetFavouriteAssetIndicesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::RemoveAssetFromFavouritesEndpoint, { AssetId },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerGetFavouriteAssetIndicesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::RemoveAssetFromFavouritesEndpoint, { AssetId },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerGetFavouriteAssetIndicesResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerAssetsRequestHandler::GetUniversalAssets(const int After, const int Count, const FUniversalAssetResponseDelegateBP &OnCompletedRequestBP, const FUniversalAssetResponseDelegate &OnCompletedRequest)
@@ -107,5 +107,5 @@ void ULootLockerAssetsRequestHandler::GetUniversalAssets(const int After, const 
     {
         QueryParams.Add("after", FString::FromInt(After));
     }
-    LLAPI<FLootLockerUniversalAssetsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetUniversalAssetsEndpoint, {}, QueryParams, OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerUniversalAssetsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetUniversalAssetsEndpoint, {}, QueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerUniversalAssetsResponse>::FResponseInspectorCallback());
 }

@@ -2,8 +2,6 @@
 
 #include "LootLockerManager.h"
 
-#include <concrt.h>
-
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
 
 void ULootLockerManager::StartSession(const FString& PlayerIdentifier, const FAuthResponseBP& OnStartedSessionRequestCompleted)

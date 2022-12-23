@@ -3,8 +3,6 @@
 
 #include "LootLockerSDKManager.h"
 
-#include <concrt.h>
-
 //Authentication
 void ULootLockerSDKManager::WhiteLabelCreateAccount(const FString &Email, const FString &Password, const FLootLockerLoginResponseDelegate &OnCompletedRequest)
 {
@@ -88,7 +86,7 @@ void ULootLockerSDKManager::GetInventory(const FInventoryResponse& OnCompletedRe
 
 void ULootLockerSDKManager::GetFullInventory(const FInventoryResponse &OnCompletedRequest, int32 StartIndex)
 {
-	ULootLockerPlayerRequestHandler::GetFullInventory(FPInventoryResponseBP(),OnCompletedRequest, StartIndex);
+	ULootLockerPlayerRequestHandler::GetFullInventory(FPInventoryResponseBP(), OnCompletedRequest, StartIndex);
 }
 
 void ULootLockerSDKManager::SubmitXP(int Points, const FSubmitXpResponse& OnCompletedRequest)

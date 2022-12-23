@@ -31,7 +31,7 @@ void ULootLockerPurchasesRequestHandler::PurchaseAssets(const TArray<FLootLocker
     TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&ContentString);
     FJsonSerializer::Serialize(ItemsJsonArray, Writer);
     
-    LLAPI<FLootLockerPurchaseResponse>::CallAPIUsingRawJSON(HttpClient, ContentString, ULootLockerGameEndpoints::PurchaseEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerPurchaseResponse>::CallAPIUsingRawJSON(HttpClient, ContentString, ULootLockerGameEndpoints::PurchaseEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerPurchaseResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerPurchasesRequestHandler::PurchaseAssetsAndroid(const TArray<FLootLockerAndroidAssetPurchaseData>& PurchaseData, const FPurchaseResponseDelegateBP& OnCompletedRequestBP, const FPurchaseResponseDelegate& OnCompletedRequest)
@@ -51,7 +51,7 @@ void ULootLockerPurchasesRequestHandler::PurchaseAssetsAndroid(const TArray<FLoo
     TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&ContentString);
     FJsonSerializer::Serialize(ItemsJsonArray, Writer);
     
-    LLAPI<FLootLockerPurchaseResponse>::CallAPIUsingRawJSON(HttpClient, ContentString, ULootLockerGameEndpoints::AndroidPurchaseEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerPurchaseResponse>::CallAPIUsingRawJSON(HttpClient, ContentString, ULootLockerGameEndpoints::AndroidPurchaseEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerPurchaseResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerPurchasesRequestHandler::PurchaseAssetsIOS(const TArray<FLootLockerVerifyPurchaseIosData>& PurchaseData, const FPurchaseResponseDelegateBP& OnCompletedRequestBP, const FPurchaseResponseDelegate& OnCompletedRequest)
@@ -71,22 +71,22 @@ void ULootLockerPurchasesRequestHandler::PurchaseAssetsIOS(const TArray<FLootLoc
     TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&ContentString);
     FJsonSerializer::Serialize(ItemsJsonArray, Writer);
     
-    LLAPI<FLootLockerPurchaseResponse>::CallAPIUsingRawJSON(HttpClient, ContentString, ULootLockerGameEndpoints::IOSPurchaseEndpoint, { },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerPurchaseResponse>::CallAPIUsingRawJSON(HttpClient, ContentString, ULootLockerGameEndpoints::IOSPurchaseEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerPurchaseResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerPurchasesRequestHandler::PollingOrderStatus(int PurchaseId, const FPurchaseStatusResponseDelegateBP& OnCompletedRequestBP, const FPurchaseStatusResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerPurchaseStatusResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::PollingOrderStatusEndpoint, {  PurchaseId},EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerPurchaseStatusResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::PollingOrderStatusEndpoint, {  PurchaseId}, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerPurchaseStatusResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerPurchasesRequestHandler::ActivateRentalAsset(int AssetId, const FActivateRentalAssetResponseDelegateBP& OnCompletedRequestBP, const FActivateRentalAssetResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerActivateRentalAssetResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ActivateRentalAssetEndpoint, { AssetId },EmptyQueryParams,OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerActivateRentalAssetResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ActivateRentalAssetEndpoint, { AssetId }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerActivateRentalAssetResponse>::FResponseInspectorCallback());
 }
 
 void ULootLockerPurchasesRequestHandler::GetOrderDetails(int32 OrderId, const bool noProducts, const FOrderStatusDetailsBP &OnCompleteBP, const FOrderStatusDetailsDelegate &OnComplete)
 {
     TMultiMap<FString, FString> QueryParams;
     QueryParams.Add(TEXT("no_products"), noProducts ? TEXT("true") : TEXT("false"));
-    LLAPI<FLootLockerOrderDetailsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOrderDetailsEndpoint, { OrderId },QueryParams,OnCompleteBP, OnComplete);
+    LLAPI<FLootLockerOrderDetailsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOrderDetailsEndpoint, { OrderId }, QueryParams, OnCompleteBP, OnComplete, LLAPI<FLootLockerOrderDetailsResponse>::FResponseInspectorCallback());
 }
