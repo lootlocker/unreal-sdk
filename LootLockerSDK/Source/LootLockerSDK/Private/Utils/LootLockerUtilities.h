@@ -2,10 +2,11 @@
 
 #pragma once
 
+#include "LootLockerConfig.h"
 #include "LootLockerStateData.h"
 #include "GameAPI/LootLockerCharacterRequestHandler.h"
 #include "GameAPI/LootLockerMissionsRequestHandler.h"
-#include "LootLockerConfig.h"
+#include "Launch/Resources/Version.h"
 
 constexpr FLootLockerEmptyRequest LootLockerEmptyRequest;
 

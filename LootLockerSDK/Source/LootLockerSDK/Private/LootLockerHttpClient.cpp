@@ -3,12 +3,12 @@
 
 #include "LootLockerHttpClient.h"
 #include "JsonObjectConverter.h"
-#include "Interfaces/IHttpResponse.h"
-#include "GameAPI/LootLockerAuthenticationRequestHandler.h"
-#include "LootLockerSDK.h"
-#include "LootLockerStateData.h"
-#include "Misc/FileHelper.h"
 #include "LootLockerConfig.h"
+#include "LootLockerStateData.h"
+#include "GameAPI/LootLockerAuthenticationRequestHandler.h"
+#include "Interfaces/IHttpResponse.h"
+#include "Launch/Resources/Version.h"
+#include "Misc/FileHelper.h"
 
 ULootLockerHttpClient::ULootLockerHttpClient()
 {

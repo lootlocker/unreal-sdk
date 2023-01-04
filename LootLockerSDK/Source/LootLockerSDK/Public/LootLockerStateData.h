@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "Launch/Resources/Version.h"
 #include "LootLockerStateData.generated.h"
 
 
