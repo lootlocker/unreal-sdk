@@ -107,6 +107,7 @@ public:
     
     /**
      * Log in a White Label user with the given email and password combination, verify user, and start a White Label Session.
+     * Note: Use WhiteLabelLoginAndStartSession unless there's a specific purpose to use this method instead.
      * Set remember=true to prolong the session lifetime
      * https://ref.lootlocker.com/game-api/#login
      *
@@ -121,6 +122,7 @@ public:
 
     /**
      * Start a LootLocker Session using the cached White Label token and email if any exist
+     * Note: Use WhiteLabelLoginAndStartSession unless there's a specific purpose to use this method instead.
      * White Label platform must be enabled in the web console for this to work.
      * https://ref.lootlocker.com/game-api/#white-label-authentication
      *
@@ -128,6 +130,19 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void WhiteLabelStartSession(const FAuthResponseBP& OnStartWhiteLabelSessionRequestCompleted);
+
+    /**
+     * Login and Start a LootLocker Session using a White Label account
+     * White Label platform must be enabled in the web console for this to work.
+     * https://ref.lootlocker.com/game-api/#white-label-authentication
+     *
+     * @param Email - The Email for the white label account
+     * @param Password - The Password for the white label account
+     * @param OnWhiteLabelLoginAndStartSessionRequestCompleted Delegate for handling the response of type FLootLockerWhiteLabelLoginAndSessionResponse
+     * @param Remember - Optional flag to prolong the session lifetime
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    static void WhiteLabelLoginAndStartSession(const FString& Email, const FString& Password, const FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP& OnWhiteLabelLoginAndStartSessionRequestCompleted, const bool Remember = false);
 
     /**
      * Checks if the cached session token is valid for the provided White Label email.

@@ -34,6 +34,11 @@ void ULootLockerManager::WhiteLabelStartSession(const FAuthResponseBP &OnStartWh
 	ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(OnStartWhiteLabelSessionRequestCompleted);
 }
 
+void ULootLockerManager::WhiteLabelLoginAndStartSession(const FString& Email, const FString& Password, const FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP& OnWhiteLabelLoginAndStartSessionRequestCompleted, const bool Remember)
+{
+    ULootLockerAuthenticationRequestHandler::WhiteLabelLoginAndStartSession(Email, Password, Remember, OnWhiteLabelLoginAndStartSessionRequestCompleted);
+}
+
 void ULootLockerManager::WhiteLabelVerifySession(const FLootLockerVerifySessionResponseBP &OnVerifyWhiteLabelSessionRequestCompleted)
 {
     ULootLockerAuthenticationRequestHandler::WhiteLabelVerifySession(OnVerifyWhiteLabelSessionRequestCompleted);
