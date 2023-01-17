@@ -225,18 +225,51 @@ struct FLootLockerAuthenticationDefaultResponse : public FLootLockerResponse
 	GENERATED_BODY()
 };
 
+USTRUCT(BlueprintType)
+struct FLootLockerWhiteLabelLoginAndSessionResponse : public FLootLockerResponse
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FLootLockerLoginResponse LoginResponse;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FLootLockerAuthenticationResponse StartSessionResponse;
+
+	FLootLockerWhiteLabelLoginAndSessionResponse() = default;
+
+	FLootLockerWhiteLabelLoginAndSessionResponse(FLootLockerLoginResponse LoginResponse)
+	{
+		this->success = LoginResponse.success;
+		this->ServerCallStatusCode = LoginResponse.ServerCallStatusCode;
+		this->session_token = LoginResponse.session_token;
+		this->FullTextFromServer = LoginResponse.FullTextFromServer;
+		this->LoginResponse = LoginResponse;
+	}
+
+	FLootLockerWhiteLabelLoginAndSessionResponse(FLootLockerLoginResponse LoginResponse, FLootLockerAuthenticationResponse SessionResponse)
+	{
+		this->success = SessionResponse.success;
+		this->ServerCallStatusCode = SessionResponse.ServerCallStatusCode;
+		this->session_token = SessionResponse.session_token;
+		this->FullTextFromServer = SessionResponse.FullTextFromServer;
+		this->LoginResponse = LoginResponse;
+		this->StartSessionResponse = SessionResponse;
+	}
+};
+
 DECLARE_DYNAMIC_DELEGATE_OneParam(FAuthResponseBP, FLootLockerAuthenticationResponse, Var);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FAppleSessionResponseBP, FLootLockerAppleSessionResponse, Var);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FAuthDefaultResponseBP, FLootLockerAuthenticationDefaultResponse, AuthVar);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerLoginResponseDelegateBP, FLootLockerLoginResponse, AuthVar);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerVerifySessionResponseBP, FLootLockerWhiteLabelVerifySessionResponse, Response);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerDefaultResponseBP, FLootLockerResponse, Var);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP, FLootLockerWhiteLabelLoginAndSessionResponse, Var);
 DECLARE_DELEGATE_OneParam(FLootLockerSessionResponse, FLootLockerAuthenticationResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerAppleSessionResponseDelegate, FLootLockerAppleSessionResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerDefaultAuthenticationResponse, FLootLockerAuthenticationDefaultResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerLoginResponseDelegate, FLootLockerLoginResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerWhiteLabelVerifySessionDelegate, FLootLockerWhiteLabelVerifySessionResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerDefaultDelegate, FLootLockerResponse);
+DECLARE_DELEGATE_OneParam(FLootLockerWhiteLabelLoginAndSessionResponseDelegate, FLootLockerWhiteLabelLoginAndSessionResponse);
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class LOOTLOCKERSDK_API ULootLockerAuthenticationRequestHandler : public UObject
@@ -260,5 +293,6 @@ public:
 	static void RefreshAppleSession(const FString& RefreshToken, const FAppleSessionResponseBP& OnCompletedRequestBP = FAppleSessionResponseBP(), const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleSessionResponseDelegate());
 	static void VerifyPlayer(const FString& PlatformToken, const FString& Platform, const FAuthDefaultResponseBP& OnCompletedRequestBP = FAuthDefaultResponseBP(), const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest = FLootLockerDefaultAuthenticationResponse());
 	static void EndSession(const FAuthDefaultResponseBP& OnCompletedRequestBP = FAuthDefaultResponseBP(), const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest = FLootLockerDefaultAuthenticationResponse());
-	static ULootLockerHttpClient* HttpClient;
+    static void WhiteLabelLoginAndStartSession(const FString& Email, const FString& Password, bool bRemember, const FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP& LootLockerWhiteLabelLoginAndSessionResponseDelegateBP = FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP(), const FLootLockerWhiteLabelLoginAndSessionResponseDelegate& LootLockerWhiteLabelLoginAndSessionResponseDelegate = FLootLockerWhiteLabelLoginAndSessionResponseDelegate());
+    static ULootLockerHttpClient* HttpClient;
 };
