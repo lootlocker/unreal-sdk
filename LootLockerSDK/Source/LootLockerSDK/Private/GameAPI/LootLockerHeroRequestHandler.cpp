@@ -29,6 +29,11 @@ void ULootLockerHeroRequestHandler::CreateHero(const FLootLockerCreateHeroReques
 	LLAPI<FLootLockerPlayerHeroResponse>::CallAPI(HttpClient, Request, ULootLockerGameEndpoints::CreateHero, { },EmptyQueryParams, OnCompleteBP, OnComplete, LLAPI<FLootLockerPlayerHeroResponse>::FResponseInspectorCallback());
 }
 
+void ULootLockerHeroRequestHandler::CreateHeroWithVariation(const FLootLockerCreateHeroWithVariationRequest &Request, const FLootLockerPlayerHeroBP &OnCompleteBP, const FLootLockerPlayerHeroDelegate &OnComplete)
+{
+	LLAPI<FLootLockerPlayerHeroResponse>::CallAPI(HttpClient, Request, ULootLockerGameEndpoints::CreateHero, { },EmptyQueryParams, OnCompleteBP, OnComplete, LLAPI<FLootLockerPlayerHeroResponse>::FResponseInspectorCallback());
+}
+
 void ULootLockerHeroRequestHandler::GetHero(const int32 HeroID, const FLootLockerPlayerHeroBP &OnCompleteBP, const FLootLockerPlayerHeroDelegate &OnComplete)
 {
 	LLAPI<FLootLockerPlayerHeroResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetHero,  { HeroID },EmptyQueryParams, OnCompleteBP, OnComplete, LLAPI<FLootLockerPlayerHeroResponse>::FResponseInspectorCallback());
