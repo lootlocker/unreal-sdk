@@ -201,6 +201,11 @@ void ULootLockerSDKManager::CreateHero(const FLootLockerCreateHeroRequest &Reque
 	ULootLockerHeroRequestHandler::CreateHero(Request, FLootLockerPlayerHeroBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::CreateHeroWithVariation(const FLootLockerCreateHeroWithVariationRequest &Request, const FLootLockerPlayerHeroDelegate &OnCompletedRequest)
+{
+	ULootLockerHeroRequestHandler::CreateHeroWithVariation(Request, FLootLockerPlayerHeroBP(), OnCompletedRequest);
+}
+
 void ULootLockerSDKManager::GetHero(const int32 HeroID, const FLootLockerPlayerHeroDelegate &OnCompletedRequest)
 {
 	ULootLockerHeroRequestHandler::GetHero(HeroID, FLootLockerPlayerHeroBP(), OnCompletedRequest);

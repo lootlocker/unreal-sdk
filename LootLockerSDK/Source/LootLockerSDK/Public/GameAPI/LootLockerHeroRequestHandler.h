@@ -84,6 +84,22 @@ struct FLootLockerCreateHeroRequest
 	int32 hero_id = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker | Heroes")
 	FString name;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker | Heroes")
+	bool is_default = false;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerCreateHeroWithVariationRequest
+{
+	GENERATED_BODY()
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker | Heroes")
+	int32 hero_id = 0;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker | Heroes")
+	FString name;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker | Heroes")
+	int32 asset_variation_id = 0;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker | Heroes")
+	bool is_default = false;
 };
 
 USTRUCT(BlueprintType)
@@ -173,6 +189,7 @@ public:
 	static void ListPlayerHeroes(const FLootLockerHeroListBP& OnCompleteBP, const FLootLockerHeroListDelegate& OnComplete);
 	static void ListOtherPlayersHeroesBySteamID64(const int64 SteamID64, const FLootLockerHeroListBP& OnCompleteBP, const FLootLockerHeroListDelegate& OnComplete);
 	static void CreateHero(const FLootLockerCreateHeroRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP, const FLootLockerPlayerHeroDelegate& OnComplete);
+	static void CreateHeroWithVariation(const FLootLockerCreateHeroWithVariationRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP, const FLootLockerPlayerHeroDelegate& OnComplete);
 	static void GetHero(const int32 HeroID, const FLootLockerPlayerHeroBP& OnCompleteBP, const FLootLockerPlayerHeroDelegate& OnComplete);
 	static void GetOtherPlayersDefaultHeroBySteamID64(const int64 SteamID64, const FLootLockerPlayerHeroBP& OnCompleteBP, const FLootLockerPlayerHeroDelegate& OnComplete);
 	static void UpdateHero(const int32 HeroID, const FLootLockerUpdateHeroRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP, const FLootLockerPlayerHeroDelegate& OnComplete);
