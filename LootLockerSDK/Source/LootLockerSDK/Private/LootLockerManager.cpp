@@ -201,6 +201,11 @@ void ULootLockerManager::CreateHero(const FLootLockerCreateHeroRequest &Request,
 	ULootLockerHeroRequestHandler::CreateHero(Request, OnCompleteBP, FLootLockerPlayerHeroDelegate());
 }
 
+void ULootLockerManager::CreateHeroWithVariation(const FLootLockerCreateHeroWithVariationRequest &Request, const FLootLockerPlayerHeroBP &OnCompleteBP)
+{
+	ULootLockerHeroRequestHandler::CreateHeroWithVariation(Request, OnCompleteBP, FLootLockerPlayerHeroDelegate());
+}
+
 void ULootLockerManager::GetHero(const int32 HeroID, const FLootLockerPlayerHeroBP &OnCompleteBP)
 {
 	ULootLockerHeroRequestHandler::GetHero(HeroID, OnCompleteBP, FLootLockerPlayerHeroDelegate());
