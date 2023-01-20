@@ -414,10 +414,10 @@ public:
 	static void CreateHero(const FLootLockerCreateHeroRequest& Request, const FLootLockerPlayerHeroDelegate& OnCompleteRequest);
 
     /**
-     * Create a hero for the current player with the supplied name from the game hero specified with the supplied hero id
+     * Create a hero for the current player with the supplied name from the game hero specified with the supplied hero id, asset variation id, and whether to set as default.
      * https://ref.lootlocker.com/game-api/#creating-a-hero
      *
-     * @param Request Request specifying the hero id for the game hero to use for creation and the name of the hero to create
+     * @param Request Request specifying the hero id for the game hero to use for creation and the name of the hero to create, an asset variation id for this hero, and whether this hero should be the default
      * @param OnCompleteRequest Delegate for handling the response
      */
 	static void CreateHeroWithVariation(const FLootLockerCreateHeroWithVariationRequest& Request, const FLootLockerPlayerHeroDelegate& OnCompleteRequest);
