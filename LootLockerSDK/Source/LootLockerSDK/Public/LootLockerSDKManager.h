@@ -516,6 +516,17 @@ public:
 	static void AddAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseDelegate& OnCompletedRequest);
 
     /**
+     * Equip the specified Asset Variation to the specified Hero that the current player owns
+     * https://ref.lootlocker.com/game-api/#add-asset-to-hero-loadout
+     *
+     * @param HeroID Id of the hero
+     * @param AssetID Desc
+     * @param AssetVariationID Desc
+     * @param OnCompletedRequest Delegate for handling the response
+     */
+	static void AddAssetVariationToHeroLoadout(const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseDelegate& OnCompletedRequest);
+
+    /**
      * Unequip the specified Asset Instance to the specified Hero that the current player owns
      * https://ref.lootlocker.com/game-api/#remove-asset-from-hero-loadout
      *
