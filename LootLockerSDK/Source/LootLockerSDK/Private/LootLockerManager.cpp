@@ -251,6 +251,11 @@ void ULootLockerManager::AddAssetToHeroLoadout(const int32 HeroID, const int32 A
 	ULootLockerHeroRequestHandler::AddAssetToHeroLoadout(HeroID, AssetInstanceID, OnCompleteBP,  FHeroLoadoutReseponseDelegate());
 }
 
+void ULootLockerManager::AddAssetVariationToHeroLoadout(const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseBP &OnCompleteBP)
+{
+	ULootLockerHeroRequestHandler::AddAssetVariationToHeroLoadout(HeroID, AssetID, AssetVariationID, OnCompleteBP, FHeroLoadoutReseponseDelegate());
+}
+
 void ULootLockerManager::RemoveAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP &OnCompleteBP)
 {
 	ULootLockerHeroRequestHandler::RemoveAssetToHeroLoadout(HeroID, AssetInstanceID, OnCompleteBP, FHeroLoadoutReseponseDelegate());

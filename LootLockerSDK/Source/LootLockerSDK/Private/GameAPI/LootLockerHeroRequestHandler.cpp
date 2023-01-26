@@ -74,6 +74,11 @@ void ULootLockerHeroRequestHandler::AddAssetToHeroLoadout(const int32 HeroID, co
 	LLAPI<FLootLockerHeroLoadoutResponse>::CallAPI(HttpClient, FLootLockerHeroAssetInstance{ AssetInstanceID }, ULootLockerGameEndpoints::AddAssetToHeroLoadout, { HeroID }, EmptyQueryParams, OnCompleteBP, OnComplete, LLAPI<FLootLockerHeroLoadoutResponse>::FResponseInspectorCallback());
 }
 
+void ULootLockerHeroRequestHandler::AddAssetVariationToHeroLoadout(const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete)
+{
+	LLAPI<FLootLockerHeroLoadoutResponse>::CallAPI(HttpClient, FLootLockerHeroAsset{ AssetID, AssetVariationID }, ULootLockerGameEndpoints::AddAssetToHeroLoadout, { HeroID }, EmptyQueryParams, OnCompleteBP, OnComplete, LLAPI<FLootLockerHeroLoadoutResponse>::FResponseInspectorCallback());
+}
+
 void ULootLockerHeroRequestHandler::RemoveAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP &OnCompleteBP, const FHeroLoadoutReseponseDelegate &OnComplete)
 {
 	LLAPI<FLootLockerHeroLoadoutResponse>::CallAPI(HttpClient, FLootLockerHeroAssetInstance{ AssetInstanceID }, ULootLockerGameEndpoints::RemoveAssetToHeroLoadout,  { HeroID }, EmptyQueryParams, OnCompleteBP, OnComplete, LLAPI<FLootLockerHeroLoadoutResponse>::FResponseInspectorCallback());

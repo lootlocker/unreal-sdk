@@ -198,6 +198,7 @@ public:
 	static void GetHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
 	static void GetOtherPlayersHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
 	static void AddAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
+	static void AddAssetVariationToHeroLoadout(const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
 	static void RemoveAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
 
 	ULootLockerHeroRequestHandler();
