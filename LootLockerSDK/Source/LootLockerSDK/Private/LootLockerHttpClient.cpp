@@ -15,7 +15,7 @@ ULootLockerHttpClient::ULootLockerHttpClient()
 
 }
 
-void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, bool useHeader, bool useDomainKey, bool useDevHeaders) const
+void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, TMap<FString, FString> customHeaders) const
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
 
@@ -30,23 +30,10 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
     Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
     Request->SetHeader(TEXT("Accepts"), TEXT("application/json"));
 
-	// Todo: Replace this header madness with an optional TMap of headers.
-	if (useHeader)
-	{
-        Request->SetHeader(TEXT("x-session-token"), ULootLockerStateData::GetToken());
-	}
-
-	// Needed by the White Label Login
-	if (useDomainKey)
-	{
-		Request->SetHeader(TEXT("domain-key"), ULootLockerStateData::GetDomainKey());
-	}
-
-	// This is normally sent via the body, but with the white label login it goes in the header!
-	if (useDevHeaders)
-	{
-		Request->SetHeader(TEXT("is-development"),GetDefault<ULootLockerConfig>()->OnDevelopmentMode ? TEXT("true") : TEXT("false"));
-	}
+    for (TTuple<FString, FString> CustomHeader : customHeaders)
+    {
+        Request->SetHeader(CustomHeader.Key, CustomHeader.Value);
+    }
 
 	Request->SetVerb(requestType);
     Request->SetContentAsString(data);
@@ -83,7 +70,7 @@ bool ULootLockerHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, 
 	}
 }
 
-void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString> AdditionalFields, const FResponseCallback& onCompleteRequest, bool useHeader) const
+void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString> AdditionalFields, const FResponseCallback& onCompleteRequest, TMap<FString, FString> customHeaders) const
 {
     FHttpModule* HttpModule = &FHttpModule::Get();
 
@@ -99,9 +86,9 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
     Request->SetHeader(TEXT("User-Agent"), TEXT("X-UnrealEngine-Agent"));
     Request->SetHeader(TEXT("Content-Type"), TEXT("multipart/form-data; boundary=" + Boundary));
 
-    if (useHeader)
+    for (TTuple<FString, FString> CustomHeader : customHeaders)
     {
-        Request->SetHeader(TEXT("x-session-token"), ULootLockerStateData::GetToken());
+        Request->SetHeader(CustomHeader.Key, CustomHeader.Value);
     }
 
     Request->SetVerb(requestType);
