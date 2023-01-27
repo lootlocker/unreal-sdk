@@ -102,7 +102,7 @@ public:
 	FString DomainKey;
 	// Development Mode is only used for legacy API keys and signifies if the API Key is for the Stage or the Live environment (true = Stage, false = Live)
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker", Meta = (EditCondition = "IsLegacyKey"), Meta = (DisplayName = "Development Mode"))
-    bool OnDevelopmentMode;
+    bool OnDevelopmentMode; // TODO: Deprecated functionality, remove in v2.1
 	[[deprecated("The Platform property has been deprecated, please use the appropriate Start Session method for your needs instead")]]
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
     ELootLockerPlatformType Platform;
