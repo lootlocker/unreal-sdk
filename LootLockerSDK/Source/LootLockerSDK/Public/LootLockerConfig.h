@@ -68,19 +68,47 @@ public:
     {
         return GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(RequestMethod));
     }
+	UFUNCTION()
+	bool IsLegacyAPIKey() const
+    {
+		return LootLockerGameKey.Find("dev_", ESearchCase::CaseSensitive) == -1 && LootLockerGameKey.Find("prod_", ESearchCase::CaseSensitive) == -1;
+    }
+	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override
+    {
+        if(PropertyChangedEvent.GetPropertyName() == "LootLockerGameKey")
+        {
+			IsLegacyKey = IsLegacyAPIKey();
+        }
+		UObject::PostEditChangeProperty(PropertyChangedEvent);
+    }
+	virtual void PostInitProperties() override
+    {
+		UObject::PostInitProperties();
+		IsLegacyKey = IsLegacyAPIKey();
+    }
 public:
-	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	// API Key used to talk to LootLocker. The API key can be found in `Settings > API Keys` in the Web Console: https://console.lootlocker.com/settings/api-keys
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker", Meta = (DisplayName = "LootLocker API Key"))
 	FString LootLockerGameKey;
-	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-    ELootLockerPlatformType Platform;
+	UPROPERTY(Config, VisibleAnywhere, BlueprintReadOnly, Category = "LootLocker", Meta = (EditCondition = "IsLegacyKey", EditConditionHides), Meta = (MultiLine = true), Meta = (DisplayName = "WARNING: "), Transient)
+    FString LegacyKeyWarning = "You are using a legacy API Key, please generate a new one here: https://console.lootlocker.com/settings/api-keys";
+	
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
     FString GameVersion;
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	bool OnDevelopmentMode;
-	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	bool AllowTokenRefresh = true;
+	// Domain Key used to talk to LootLocker. The Domain key can be found in `Settings > API Keys` in the Web Console: https://console.lootlocker.com/settings/api-keys
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString DomainKey;
+	// Development Mode is only used for legacy API keys and signifies if the API Key is for the Stage or the Live environment (true = Stage, false = Live)
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker", Meta = (EditCondition = "IsLegacyKey"), Meta = (DisplayName = "Development Mode"))
+    bool OnDevelopmentMode;
+	[[deprecated("The Platform property has been deprecated, please use the appropriate Start Session method for your needs instead")]]
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+    ELootLockerPlatformType Platform;
+private:
+	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "1 == 0", EditConditionHides), Transient)
+    bool IsLegacyKey;
 };
 
 
