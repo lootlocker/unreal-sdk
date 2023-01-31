@@ -43,7 +43,38 @@ public:
      * @param PlayerIdentifier The ID of the player on the platform the game is currently running on.
      * @param OnCompletedRequest Delegate for handling the server response.
      */
+    [[deprecated("This method has been deprecated. Please use the appropriate \"StartXSession\" instead.\nFor Android use GuestLogin. For iOS use StartAppleSession. For Steam use StartSteamSession. For PlayStation use StartPlaystationNetworkSession. For Amazon Luna use StartAmazonLunaSession. If you are unsure of what to use, use GuestLogin.")]]
 	static void StartSession(const FString& PlayerIdentifier, const FLootLockerSessionResponse& OnCompletedRequest);
+
+    /**
+     * Start a session for a Playstation Network user
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * https://ref.lootlocker.io/game-api/#authentication-request
+     *
+     * @param PsnOnlineId The PSN Online ID of the player
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
+    static void StartPlaystationNetworkSession(const FString& PsnOnlineId, const FLootLockerSessionResponse& OnCompletedRequest);
+
+    /**
+     * Start a session for a Amazon Luna user
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * https://ref.lootlocker.io/game-api/#authentication-request
+     *
+     * @param AmazonLunaGuid The Amazon Luna GUID of the player
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
+    static void StartAmazonLunaSession(const FString& AmazonLunaGuid, const FLootLockerSessionResponse& OnCompletedRequest);
+
+    /**
+     * Start a session for a Steam user
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * https://ref.lootlocker.io/game-api/#authentication-request
+     *
+     * @param SteamId64 The Steam 64 bit Id as an FString
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
+    static void StartSteamSession(const FString& SteamId64, const FLootLockerSessionResponse& OnCompletedRequest);
 
     /**
      * Create a new session for a Nintendo Switch user

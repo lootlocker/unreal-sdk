@@ -18,7 +18,7 @@ void FTestLootLockerAuthentication::Define()
 		LatentIt("When Start/End session", EAsyncExecution::ThreadPool, [this](const FDoneDelegate TestDone)
 		{
 			// set this to enable test;
-			const FString PlayerIdentifier="1";
+			const FString PlayerIdentifier="unreal_unit_test_user";
 			
 			TestFalse("PlayerIdentifier is set",PlayerIdentifier.IsEmpty());
 			
@@ -26,7 +26,7 @@ void FTestLootLockerAuthentication::Define()
 			{
 				const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerAuthenticationResponse,FLootLockerSessionResponse>();
 		
-				ULootLockerSDKManager::StartSession(PlayerIdentifier, Delegate);
+				ULootLockerSDKManager::GuestLogin(Delegate, PlayerIdentifier);
 
 				const auto Response = Promise ->get_future().get();
 				ULootLockerStateData::SetToken(Response.session_token);

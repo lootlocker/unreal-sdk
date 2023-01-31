@@ -66,8 +66,4 @@ namespace LootLockerUtilities
         FJsonSerializer::Deserialize(JsonReader, JsonObject);
         return JsonObject;
     }
-
-    const FString CurrentPlatformFString::EmptyFString = FString(TEXT(""));
-    FString CurrentPlatformFString::PlatformOverride = CurrentPlatformFString::EmptyFString;
-
 }
