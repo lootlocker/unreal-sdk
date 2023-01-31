@@ -2,14 +2,12 @@
 
 #include "GameAPI/LootLockerAuthenticationRequestHandler.h"
 #include "LootLockerGameEndpoints.h"
+#include "LootLockerPlatformManager.h"
 #include "LootLockerStateData.h"
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
-#include "GenericPlatform/GenericPlatformMisc.h"
 #include "Utils/LootLockerUtilities.h"
 
 ULootLockerHttpClient* ULootLockerAuthenticationRequestHandler::HttpClient = nullptr;
-const FString WHITE_LABEL_PLATFORM = FString(TEXT("white_label_login"));
-const FString GUEST_PLATFORM = FString(TEXT("guest"));
 // Sets default values for this component's properties
 ULootLockerAuthenticationRequestHandler::ULootLockerAuthenticationRequestHandler()
 {
@@ -39,12 +37,15 @@ void ULootLockerAuthenticationRequestHandler::GuestLogin(const FString& PlayerId
 		AuthRequest.game_key = config->LootLockerGameKey;
 		AuthRequest.game_version = config->GameVersion;
 		AuthRequest.player_identifier = !(PlayerIdentifier.IsEmpty()) ? PlayerIdentifier : ULootLockerStateData::GetPlayerIdentifier();
-		LootLockerUtilities::CurrentPlatformFString::Override(GUEST_PLATFORM);
+		ULootLockerCurrentPlatform::Set(ELootLockerPlatform::Guest);
 		LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::GuestloginEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
 		{
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+			} else
+			{
+				ULootLockerCurrentPlatform::Reset();
 			}
 		}));
 		return;
@@ -53,13 +54,17 @@ void ULootLockerAuthenticationRequestHandler::GuestLogin(const FString& PlayerId
 	AuthRequest.game_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.player_identifier = !(PlayerIdentifier.IsEmpty()) ? PlayerIdentifier : ULootLockerStateData::GetPlayerIdentifier();
-	LootLockerUtilities::CurrentPlatformFString::Override(GUEST_PLATFORM);
+	ULootLockerCurrentPlatform::Set(ELootLockerPlatform::Guest);
 	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::GuestloginEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
     {
         if(Response.success)
         {
             ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
         }
+		else
+		{
+			ULootLockerCurrentPlatform::Reset();
+		}
     }));
 }
 
@@ -72,13 +77,17 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelLogin(const FString& Ema
 	LoginRequest.password = Password;
 	LoginRequest.remember = Remember;
 
+	ULootLockerCurrentPlatform::Set(ELootLockerPlatform::WhiteLabel);
 	LLAPI<FLootLockerLoginResponse>::CallAPI(HttpClient, LoginRequest, ULootLockerGameEndpoints::WhiteLabelLoginEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerLoginResponse>::FResponseInspectorCallback::CreateLambda([Email](const FLootLockerLoginResponse& Response)
     {
         if (Response.success) {
             ULootLockerStateData::SetWhiteLabelEmail(Email);
             ULootLockerStateData::SetWhiteLabelToken(Response.session_token);
-            LootLockerUtilities::CurrentPlatformFString::Override(WHITE_LABEL_PLATFORM);
         }
+		else
+		{
+			ULootLockerCurrentPlatform::Reset();
+		}
     }), WhiteLabelHeaders());
 }
 
@@ -146,6 +155,7 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelRequestPasswordReset(con
 	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, ResetPasswordRequest, ULootLockerGameEndpoints::WhiteLabelRequestPasswordResetEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback(), WhiteLabelHeaders());
 }
 
+//TODO: Deprecated method, remove in v2.1
 void ULootLockerAuthenticationRequestHandler::StartSession(const FString& PlayerId, const FAuthResponseBP& OnCompletedRequestBP, const FLootLockerSessionResponse& OnCompletedRequest)
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
@@ -156,14 +166,19 @@ void ULootLockerAuthenticationRequestHandler::StartSession(const FString& Player
 		AuthRequest.game_version = config->GameVersion;
 		AuthRequest.player_identifier = PlayerId;
 
-		LootLockerUtilities::CurrentPlatformFString::Reset();
-		FString Platform = LootLockerUtilities::CurrentPlatformFString::Get();
-		AuthRequest.platform = Platform;
+		if (ULootLockerCurrentPlatform::Get() == ELootLockerPlatform::None) {
+			ULootLockerCurrentPlatform::Set(config->Platform);
+		}
+		AuthRequest.platform = ULootLockerCurrentPlatform::GetString();
 		LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
 		{
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+			}
+			else
+			{
+				ULootLockerCurrentPlatform::Reset();
 			}
 		}));
 		return;
@@ -173,16 +188,157 @@ void ULootLockerAuthenticationRequestHandler::StartSession(const FString& Player
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.player_identifier = PlayerId;
 
-	LootLockerUtilities::CurrentPlatformFString::Reset();
-	FString Platform = LootLockerUtilities::CurrentPlatformFString::Get();
-	AuthRequest.platform = Platform;
+	if (ULootLockerCurrentPlatform::Get() == ELootLockerPlatform::None) {
+		ULootLockerCurrentPlatform::Set(config->Platform);
+	}
+	AuthRequest.platform = ULootLockerCurrentPlatform::GetString();
 	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartSessionEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
     {
         if (Response.success)
         {
             ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
         }
+		else
+		{
+			ULootLockerCurrentPlatform::Reset();
+		}
     }));
+}
+
+void ULootLockerAuthenticationRequestHandler::StartPlaystationNetworkSession(const FString& PsnOnlineId, const FAuthResponseBP& OnCompletedRequestBP, const FLootLockerSessionResponse& OnCompletedRequest)
+{
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+	if (config->IsLegacyAPIKey()) // TODO: <Deprecated functionality, remove in v2.1>
+	{
+		FLootLockerAuthenticationRequestWithDevelopmentMode AuthRequest(config->OnDevelopmentMode);
+		AuthRequest.game_key = config->LootLockerGameKey;
+		AuthRequest.game_version = config->GameVersion;
+		AuthRequest.player_identifier = PsnOnlineId;
+
+		ULootLockerCurrentPlatform::Set(ELootLockerPlatform::PlayStationNetwork);
+		AuthRequest.platform = ULootLockerCurrentPlatform::GetString();
+		LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
+		{
+			if (Response.success)
+			{
+				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+			}
+			else
+			{
+				ULootLockerCurrentPlatform::Reset();
+			}
+		}));
+		return;
+	} // TODO: </Deprecated functionality, remove in v2.1>
+	FLootLockerAuthenticationRequest AuthRequest;
+	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_version = config->GameVersion;
+	AuthRequest.player_identifier = PsnOnlineId;
+
+
+	ULootLockerCurrentPlatform::Set(ELootLockerPlatform::PlayStationNetwork);
+	AuthRequest.platform = ULootLockerCurrentPlatform::GetString();
+	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
+	{
+		if (Response.success)
+		{
+			ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+		}
+		else
+		{
+			ULootLockerCurrentPlatform::Reset();
+		}
+	}));
+}
+
+void ULootLockerAuthenticationRequestHandler::StartAmazonLunaSession(const FString& AmazonLunaGuid, const FAuthResponseBP& OnCompletedRequestBP, const FLootLockerSessionResponse& OnCompletedRequest)
+{
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+	if (config->IsLegacyAPIKey()) // TODO: <Deprecated functionality, remove in v2.1>
+	{
+		FLootLockerAuthenticationRequestWithDevelopmentMode AuthRequest(config->OnDevelopmentMode);
+		AuthRequest.game_key = config->LootLockerGameKey;
+		AuthRequest.game_version = config->GameVersion;
+		AuthRequest.player_identifier = AmazonLunaGuid;
+
+		ULootLockerCurrentPlatform::Set(ELootLockerPlatform::AmazonLuna);
+		AuthRequest.platform = ULootLockerCurrentPlatform::GetString();
+		LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
+		{
+			if (Response.success)
+			{
+				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+			}
+			else
+			{
+				ULootLockerCurrentPlatform::Reset();
+			}
+		}));
+		return;
+	} // TODO: </Deprecated functionality, remove in v2.1>
+	FLootLockerAuthenticationRequest AuthRequest;
+	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_version = config->GameVersion;
+	AuthRequest.player_identifier = AmazonLunaGuid;
+
+	ULootLockerCurrentPlatform::Set(ELootLockerPlatform::AmazonLuna);
+	AuthRequest.platform = ULootLockerCurrentPlatform::GetString();
+	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
+	{
+		if (Response.success)
+		{
+			ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+		}
+		else
+		{
+			ULootLockerCurrentPlatform::Reset();
+		}
+	}));
+}
+
+void ULootLockerAuthenticationRequestHandler::StartSteamSession(const FString& SteamId64, const FAuthResponseBP& OnCompletedRequestBP, const FLootLockerSessionResponse& OnCompletedRequest)
+{
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+	if (config->IsLegacyAPIKey()) // TODO: <Deprecated functionality, remove in v2.1>
+	{
+		FLootLockerAuthenticationRequestWithDevelopmentMode AuthRequest(config->OnDevelopmentMode);
+		AuthRequest.game_key = config->LootLockerGameKey;
+		AuthRequest.game_version = config->GameVersion;
+		AuthRequest.player_identifier = SteamId64;
+
+		ULootLockerCurrentPlatform::Set(ELootLockerPlatform::AmazonLuna);
+		AuthRequest.platform = ULootLockerCurrentPlatform::GetString();
+		LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
+			{
+				if (Response.success)
+				{
+					ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				}
+				else
+				{
+					ULootLockerCurrentPlatform::Reset();
+				}
+			}));
+		return;
+	} // TODO: </Deprecated functionality, remove in v2.1>
+	FLootLockerAuthenticationRequest AuthRequest;
+	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_version = config->GameVersion;
+	AuthRequest.player_identifier = SteamId64;
+
+	ULootLockerCurrentPlatform::Set(ELootLockerPlatform::AmazonLuna);
+	AuthRequest.platform = ULootLockerCurrentPlatform::GetString();
+	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
+		{
+			if (Response.success)
+			{
+				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+			}
+			else
+			{
+				ULootLockerCurrentPlatform::Reset();
+			}
+		}));
 }
 
 void ULootLockerAuthenticationRequestHandler::StartNintendoSwitchSession(const FString& NSAIdToken, const FAuthResponseBP& OnCompletedRequestBP, const FLootLockerSessionResponse& OnCompletedRequest)
@@ -195,11 +351,16 @@ void ULootLockerAuthenticationRequestHandler::StartNintendoSwitchSession(const F
 		AuthRequest.game_version = config->GameVersion;
 		AuthRequest.nsa_id_token = NSAIdToken;
 
+		ULootLockerCurrentPlatform::Set(ELootLockerPlatform::NintendoSwitch);
 		LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartNintendoSwitchSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
 		{
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+			}
+			else
+			{
+				ULootLockerCurrentPlatform::Reset();
 			}
 		}));
 		return;
@@ -209,12 +370,17 @@ void ULootLockerAuthenticationRequestHandler::StartNintendoSwitchSession(const F
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.nsa_id_token = NSAIdToken;
 
+	ULootLockerCurrentPlatform::Set(ELootLockerPlatform::NintendoSwitch);
 	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartNintendoSwitchSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
     {
         if (Response.success)
         {
             ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
         }
+		else
+		{
+			ULootLockerCurrentPlatform::Reset();
+		}
     }));
 }
 
@@ -228,11 +394,16 @@ void ULootLockerAuthenticationRequestHandler::StartXboxSession(const FString& Xb
 		AuthRequest.game_version = config->GameVersion;
 		AuthRequest.xbox_user_token = XboxUserToken;
 
+		ULootLockerCurrentPlatform::Set(ELootLockerPlatform::Xbox);
 		LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartXboxSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
 		{
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+			}
+			else
+			{
+				ULootLockerCurrentPlatform::Reset();
 			}
 		}));
 		return;
@@ -242,12 +413,17 @@ void ULootLockerAuthenticationRequestHandler::StartXboxSession(const FString& Xb
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.xbox_user_token = XboxUserToken;
 
+	ULootLockerCurrentPlatform::Set(ELootLockerPlatform::Xbox);
 	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartXboxSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
     {
         if (Response.success)
         {
             ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
         }
+		else
+		{
+			ULootLockerCurrentPlatform::Reset();
+		}
     }));
 }
 
@@ -261,11 +437,16 @@ void ULootLockerAuthenticationRequestHandler::StartAppleSession(const FString& A
 		AuthRequest.game_version = config->GameVersion;
 		AuthRequest.apple_authorization_code = AuthorizationCode;
 
+		ULootLockerCurrentPlatform::Set(ELootLockerPlatform::AppleSignIn);
 		LLAPI<FLootLockerAppleSessionResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartAppleSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAppleSessionResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAppleSessionResponse& Response)
 		{
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+			}
+			else
+			{
+				ULootLockerCurrentPlatform::Reset();
 			}
 		}));
 		return;
@@ -275,12 +456,17 @@ void ULootLockerAuthenticationRequestHandler::StartAppleSession(const FString& A
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.apple_authorization_code = AuthorizationCode;
 
+	ULootLockerCurrentPlatform::Set(ELootLockerPlatform::AppleSignIn);
 	LLAPI<FLootLockerAppleSessionResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartAppleSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAppleSessionResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAppleSessionResponse& Response)
     {
         if (Response.success)
         {
             ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
         }
+		else
+		{
+			ULootLockerCurrentPlatform::Reset();
+		}
     }));
 }
 
@@ -294,11 +480,16 @@ void ULootLockerAuthenticationRequestHandler::RefreshAppleSession(const FString&
 		AuthRequest.game_version = config->GameVersion;
 		AuthRequest.refresh_token = RefreshToken;
 
+		ULootLockerCurrentPlatform::Set(ELootLockerPlatform::AppleSignIn);
 		LLAPI<FLootLockerAppleSessionResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::RefreshAppleSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAppleSessionResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAppleSessionResponse& Response)
 		{
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+			}
+			else
+			{
+				ULootLockerCurrentPlatform::Reset();
 			}
 		}));
 		return;
@@ -308,12 +499,17 @@ void ULootLockerAuthenticationRequestHandler::RefreshAppleSession(const FString&
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.refresh_token = RefreshToken;
 
+	ULootLockerCurrentPlatform::Set(ELootLockerPlatform::AppleSignIn);
 	LLAPI<FLootLockerAppleSessionResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::RefreshAppleSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAppleSessionResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAppleSessionResponse& Response)
     {
         if (Response.success)
         {
             ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
         }
+		else
+		{
+			ULootLockerCurrentPlatform::Reset();
+		}
     }));
 }
 
@@ -325,15 +521,14 @@ void ULootLockerAuthenticationRequestHandler::VerifyPlayer(const FString& Platfo
 	const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
 	AuthRequest.key = Config->LootLockerGameKey;
 
-	FString RequestPlatform = Platform.IsEmpty() ? LootLockerUtilities::CurrentPlatformFString::Get() : Platform;
+	FString RequestPlatform = Platform.IsEmpty() ? ULootLockerCurrentPlatform::GetString().IsEmpty() ? ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int>(Config->Platform)) : ULootLockerCurrentPlatform::GetString() : Platform;
 	AuthRequest.platform = RequestPlatform;
-
 	LLAPI<FLootLockerAuthenticationDefaultResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::VerifyPlayerIdEndPoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationDefaultResponse>::FResponseInspectorCallback::CreateLambda([RequestPlatform, PlatformToken](const FLootLockerAuthenticationDefaultResponse& Response)
     {
         if (Response.success)
         {
 
-            if (RequestPlatform.Compare(ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(ELootLockerPlatformType::Steam))))
+            if (RequestPlatform.Compare(ULootLockerCurrentPlatform::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Steam).PlatformString))
             {
                 ULootLockerStateData::SetSteamToken(PlatformToken);
             }
@@ -347,7 +542,7 @@ void ULootLockerAuthenticationRequestHandler::EndSession(const FAuthDefaultRespo
     {
         if (Response.success) {
             ULootLockerStateData::ClearState();
-            LootLockerUtilities::CurrentPlatformFString::Reset();
+			ULootLockerCurrentPlatform::Reset();
         }
     }));
 }

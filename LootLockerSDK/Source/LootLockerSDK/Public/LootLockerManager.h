@@ -39,15 +39,48 @@ public:
     //==================================================
 
     /**
-     * Start a session with the platform used in the platform selected in Project Settings -> Platform.
+     * DEPRECATED: Start a session with the platform used in the platform selected in Project Settings -> Platform.
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.
      * https://ref.lootlocker.io/game-api/#authentication-request
      *
      * @param PlayerIdentifier The ID of the current device the player is on
      * @param OnStartedSessionRequestCompleted Delegate for handling the response of type FLootLockerAuthenticationResponse
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (DeprecatedFunction, DeprecationMessage = "This method has been deprecated. Please use the appropriate \"StartXSession\" instead.\nFor Android use GuestLogin. For iOS use StartAppleSession. For Steam use StartSteamSession. For PlayStation use StartPlaystationNetworkSession. For Amazon Luna use StartAmazonLunaSession. If you are unsure of what to use, use GuestLogin."))
     static void StartSession(const FString& PlayerIdentifier, const FAuthResponseBP& OnStartedSessionRequestCompleted);
+
+    /**
+     * Start a session for a Playstation Network user
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * https://ref.lootlocker.io/game-api/#authentication-request
+     *
+     * @param PsnOnlineId The PSN Online ID of the player
+     * @param OnStartedSessionRequestCompleted Delegate for handling the server response.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    static void StartPlaystationNetworkSession(const FString& PsnOnlineId, const FAuthResponseBP& OnStartedSessionRequestCompleted);
+
+    /**
+     * Start a session for a Amazon Luna user
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * https://ref.lootlocker.io/game-api/#authentication-request
+     *
+     * @param AmazonLunaGuid The Amazon Luna GUID of the player
+     * @param OnStartedSessionRequestCompleted Delegate for handling the server response.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    static void StartAmazonLunaSession(const FString& AmazonLunaGuid, const FAuthResponseBP& OnStartedSessionRequestCompleted);
+
+    /**
+     * Start a session for a Steam user
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * https://ref.lootlocker.io/game-api/#authentication-request
+     *
+     * @param SteamId64 The Steam 64 bit Id as an FString
+     * @param OnStartedSessionRequestCompleted Delegate for handling the server response.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    static void StartSteamSession(const FString& SteamId64, const FAuthResponseBP& OnStartedSessionRequestCompleted);
 
     /**
      * Create a new session for a Nintendo Switch user
