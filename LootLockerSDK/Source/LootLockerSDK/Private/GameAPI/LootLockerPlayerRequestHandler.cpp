@@ -3,6 +3,7 @@
 
 #include "GameAPI/LootLockerPlayerRequestHandler.h"
 #include "LootLockerGameEndpoints.h"
+#include "LootLockerPlatformManager.h"
 #include "Utils/LootLockerUtilities.h"
 
 ULootLockerHttpClient* ULootLockerPlayerRequestHandler::HttpClient = nullptr;
@@ -51,7 +52,7 @@ void ULootLockerPlayerRequestHandler::SubmitXp(int Points,const FPSubmitResponse
 
 void ULootLockerPlayerRequestHandler::GetOtherPlayersXpAndLevel(FString OtherPlayerId, FString OtherPlayerPlatform, const FPOtherPlayersXpAndLevelBP OnCompletedRequestBP, const FOtherPlayersXpAndLevelResponse& OnCompletedRequest)
 {
-	const FString Platform = !OtherPlayerPlatform.IsEmpty() ? OtherPlayerPlatform : LootLockerUtilities::CurrentPlatformFString::Get();
+	const FString Platform = !OtherPlayerPlatform.IsEmpty() ? OtherPlayerPlatform : ULootLockerCurrentPlatform::GetString();
 	TMultiMap<FString, FString> QueryParams;
 	QueryParams.Add("platform", Platform);
 	

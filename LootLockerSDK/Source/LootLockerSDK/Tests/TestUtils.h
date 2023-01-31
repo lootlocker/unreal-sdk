@@ -24,8 +24,8 @@ namespace test_util
 	inline void StartSession()
 	{
 		const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerAuthenticationResponse,FLootLockerSessionResponse>();
-		
-		ULootLockerSDKManager::StartSession("1", Delegate);
+
+		ULootLockerSDKManager::GuestLogin(Delegate, TEXT("unreal_unit_test_user"));
 
 		const auto Response = Promise ->get_future().get();
 		ULootLockerStateData::SetToken(Response.session_token);

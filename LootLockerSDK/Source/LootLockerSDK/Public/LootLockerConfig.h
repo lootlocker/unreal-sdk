@@ -28,12 +28,12 @@ UENUM(BlueprintType)
 enum class ELootLockerPlatformType : uint8
 {
 	Android = 0				UMETA(DisplayName = "Android"),
-	//WhiteLabel = 0			UMETA(DisplayName = "WhiteLabel"),
 	Ios = 1					UMETA(DisplayName = "Ios"),
 	Steam = 2				UMETA(DisplayName = "Steam"),
 	NintendoSwitch = 3		UMETA(DisplayName = "NintendoSwitch"),
 	PlayStationNetwork = 4  UMETA(DisplayName = "PlayStationNetwork"),
-	Xbox = 5				UMETA(DisplayName = "Xbox")
+	Xbox = 5				UMETA(DisplayName = "Xbox"),
+	UNUSED = 6				UMETA(DisplayName = "Unused")
 };
 
 USTRUCT(BlueprintType)
@@ -78,6 +78,9 @@ public:
         if(PropertyChangedEvent.GetPropertyName() == "LootLockerGameKey")
         {
 			IsLegacyKey = IsLegacyAPIKey();
+        } else if(PropertyChangedEvent.GetPropertyName() == "Platform")
+        {
+			IsLegacyPlatform = Platform != ELootLockerPlatformType::UNUSED;
         }
 		UObject::PostEditChangeProperty(PropertyChangedEvent);
     }
@@ -85,12 +88,13 @@ public:
     {
 		UObject::PostInitProperties();
 		IsLegacyKey = IsLegacyAPIKey();
+		IsLegacyPlatform = Platform != ELootLockerPlatformType::UNUSED;
     }
 public:
 	// API Key used to talk to LootLocker. The API key can be found in `Settings > API Keys` in the Web Console: https://console.lootlocker.com/settings/api-keys
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker", Meta = (DisplayName = "LootLocker API Key"))
 	FString LootLockerGameKey;
-	UPROPERTY(Config, VisibleAnywhere, BlueprintReadOnly, Category = "LootLocker", Meta = (EditCondition = "IsLegacyKey", EditConditionHides), Meta = (MultiLine = true), Meta = (DisplayName = "WARNING: "), Transient)
+	UPROPERTY(Config, VisibleAnywhere, BlueprintReadOnly, Category = "LootLocker", Meta = (EditCondition = "IsLegacyKey", EditConditionHides), Meta = (MultiLine = true), Meta = (DisplayName = "WARNING:"), Transient)
     FString LegacyKeyWarning = "You are using a legacy API Key, please generate a new one here: https://console.lootlocker.com/settings/api-keys";
 	
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -102,13 +106,15 @@ public:
 	FString DomainKey;
 	// Development Mode is only used for legacy API keys and signifies if the API Key is for the Stage or the Live environment (true = Stage, false = Live)
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker", Meta = (EditCondition = "IsLegacyKey"), Meta = (DisplayName = "Development Mode"))
-    bool OnDevelopmentMode; // TODO: Deprecated functionality, remove in v2.1
-	[[deprecated("The Platform property has been deprecated, please use the appropriate Start Session method for your needs instead")]]
-	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-    ELootLockerPlatformType Platform;
+    bool OnDevelopmentMode;
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker", Meta = (DisplayName="DEPRECATED: Platform", EditCondition = "IsLegacyPlatform", DeprecatedProperty, 
+		DeprecationMessage	= "The Platform property has been deprecated, please use the appropriate \"StartXSession\" instead and set this property to UNUSED.\nFor Android use GuestLogin. For iOS use StartAppleSession. For Steam use StartSteamSession. For PlayStation use StartPlaystationNetworkSession. For Amazon Luna use StartAmazonLunaSession. If you are unsure of what to use, use GuestLogin.",
+		ToolTip				= "The Platform property has been deprecated, please use the appropriate \"StartXSession\" instead and set this property to UNUSED.\nFor Android use GuestLogin. For iOS use StartAppleSession. For Steam use StartSteamSession. For PlayStation use StartPlaystationNetworkSession. For Amazon Luna use StartAmazonLunaSession. If you are unsure of what to use, use GuestLogin."
+	))
+    ELootLockerPlatformType Platform = ELootLockerPlatformType::UNUSED;
 private:
-	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "1 == 0", EditConditionHides), Transient)
+	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient)
     bool IsLegacyKey;
+	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient)
+	bool IsLegacyPlatform;
 };
-
-

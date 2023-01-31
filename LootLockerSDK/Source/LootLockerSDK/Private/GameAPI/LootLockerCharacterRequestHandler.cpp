@@ -2,6 +2,7 @@
 
 #include "GameAPI/LootLockerCharacterRequestHandler.h"
 #include "LootLockerGameEndpoints.h"
+#include "LootLockerPlatformManager.h"
 #include "Utils/LootLockerUtilities.h"
 
 ULootLockerHttpClient* ULootLockerCharacterRequestHandler::HttpClient = nullptr;
@@ -77,7 +78,7 @@ void ULootLockerCharacterRequestHandler::GetCurrentLoadoutToDefaultCharacter(con
 
 void ULootLockerCharacterRequestHandler::GetOtherPlayersCurrentLoadoutToDefaultCharacter(FString& OtherPlayerId, const FString& OtherPlayerPlatform, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP,  const FCharacterLoadoutResponse& OnCompletedRequest)
 {
-	const FString Platform = !OtherPlayerPlatform.IsEmpty() ? OtherPlayerPlatform : LootLockerUtilities::CurrentPlatformFString::Get();
+	const FString Platform = !OtherPlayerPlatform.IsEmpty() ? OtherPlayerPlatform : ULootLockerCurrentPlatform::GetString();
 	TMultiMap<FString, FString> QueryParams;
 	QueryParams.Add("platform", Platform);
 	LLAPI<FLootLockerCharacterLoadoutResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOtherPlayersLoadoutToDefaultCharacterEndpoint, { OtherPlayerId },QueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerCharacterLoadoutResponse>::FResponseInspectorCallback());

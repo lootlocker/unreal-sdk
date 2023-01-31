@@ -20,33 +20,6 @@ namespace LootLockerUtilities
 
     TArray<TSharedPtr<FJsonValue>> SerializeMissionCheckpoints(const TArray<FLootLockerMissionCheckpoint>& Checkpoints);
 
-    class CurrentPlatformFString
-    {
-    public:
-        static FString Get()
-        {
-            if (PlatformOverride.Compare(EmptyFString) == 0)
-            {
-                const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
-                return ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int32>(Config->Platform));
-            } else
-            {
-                return PlatformOverride;
-            }
-        }
-        static void Override(FString Override)
-        {
-            PlatformOverride = Override;
-        }
-        static void Reset()
-        {
-            PlatformOverride = EmptyFString;
-        }
-    private:
-        static const FString EmptyFString;
-        static FString PlatformOverride;
-    };
-
     TSharedPtr<FJsonObject> JsonObjectFromFString(const FString& JsonString);
 }
 
