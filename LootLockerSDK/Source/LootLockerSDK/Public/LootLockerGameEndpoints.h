@@ -64,6 +64,14 @@ public:
 	static FLootLockerEndPoints AddAssetToHeroLoadout;
 	static FLootLockerEndPoints RemoveAssetToHeroLoadout;
 
+    //Player Progressions
+    static FLootLockerEndPoints GetAllPlayerProgressions;
+    static FLootLockerEndPoints GetSinglePlayerProgression;
+    static FLootLockerEndPoints AddPointsToPlayerProgression;
+    static FLootLockerEndPoints SubtractPointsFromPlayerProgression;
+    static FLootLockerEndPoints ResetPlayerProgression;
+    static FLootLockerEndPoints DeletePlayerProgression;
+
     //Character
     static FLootLockerEndPoints GetCharacterLoadoutEndpoint;
     static FLootLockerEndPoints UpdateCharacterEndpoint;
@@ -77,6 +85,14 @@ public:
     static FLootLockerEndPoints GetOtherPlayersLoadoutToDefaultCharacterEndpoint;
     static FLootLockerEndPoints GetEquippableContextstoDefaultCharacterEndpoint;
     static FLootLockerEndPoints GetEquippableContextsByCharacterIDEndpoint;
+
+    //Character Progressions
+    static FLootLockerEndPoints GetAllCharacterProgressions;
+    static FLootLockerEndPoints GetSingleCharacterProgression;
+    static FLootLockerEndPoints AddPointsToCharacterProgression;
+    static FLootLockerEndPoints SubtractPointsFromCharacterProgression;
+    static FLootLockerEndPoints ResetCharacterProgression;
+    static FLootLockerEndPoints DeleteCharacterProgression;
 
     //Persistent Storage
     static FLootLockerEndPoints GetEntirePersistentStorageEndpoint;
@@ -150,6 +166,11 @@ public:
 	static FLootLockerEndPoints GetScoreListAfter;
     static FLootLockerEndPoints SubmitScore;
 	static FLootLockerEndPoints GetAllMemberRanks;
+
+    //Progressions
+    static FLootLockerEndPoints GetAllProgressions;
+    static FLootLockerEndPoints GetSingleProgression;
+    static FLootLockerEndPoints GetProgressionTiers;
 
     //DropTables
     static FLootLockerEndPoints ComputeAndLockDropTable;
