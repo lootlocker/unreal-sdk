@@ -265,6 +265,52 @@ void ULootLockerAuthenticationRequestHandler::StartPlaystationNetworkSession(con
 	}));
 }
 
+void ULootLockerAuthenticationRequestHandler::StartAndroidSession(const FString& DeviceId, const FAuthResponseBP& OnCompletedRequestBP, const FLootLockerSessionResponse& OnCompletedRequest)
+{
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+	if (config->IsLegacyAPIKey()) // TODO: <Deprecated functionality, remove in v2.1>
+	{
+		FLootLockerAuthenticationRequestWithDevelopmentMode AuthRequest(config->OnDevelopmentMode);
+		AuthRequest.game_key = config->LootLockerGameKey;
+		AuthRequest.game_version = config->GameVersion;
+		AuthRequest.player_identifier = DeviceId;
+
+		ULootLockerCurrentPlatform::Set(ELootLockerPlatform::Android);
+		AuthRequest.platform = ULootLockerCurrentPlatform::GetString();
+		LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
+			{
+				if (Response.success)
+				{
+					ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				}
+				else
+				{
+					ULootLockerCurrentPlatform::Reset();
+				}
+			}));
+		return;
+	} // TODO: </Deprecated functionality, remove in v2.1>
+	FLootLockerAuthenticationRequest AuthRequest;
+	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_version = config->GameVersion;
+	AuthRequest.player_identifier = DeviceId;
+
+
+	ULootLockerCurrentPlatform::Set(ELootLockerPlatform::Android);
+	AuthRequest.platform = ULootLockerCurrentPlatform::GetString();
+	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
+		{
+			if (Response.success)
+			{
+				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+			}
+			else
+			{
+				ULootLockerCurrentPlatform::Reset();
+			}
+		}));
+}
+
 void ULootLockerAuthenticationRequestHandler::StartAmazonLunaSession(const FString& AmazonLunaGuid, const FAuthResponseBP& OnCompletedRequestBP, const FLootLockerSessionResponse& OnCompletedRequest)
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
