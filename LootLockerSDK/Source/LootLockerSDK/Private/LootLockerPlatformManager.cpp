@@ -13,6 +13,7 @@ TMap<ELootLockerPlatform, FLootLockerPlatformRepresentation> ULootLockerCurrentP
 		, {ELootLockerPlatform::NintendoSwitch, FLootLockerPlatformRepresentation(ELootLockerPlatform::NintendoSwitch, "nintendo_switch")}
 		, {ELootLockerPlatform::AmazonLuna, FLootLockerPlatformRepresentation(ELootLockerPlatform::AmazonLuna, "amazon_luna")}
 		, {ELootLockerPlatform::AppleSignIn, FLootLockerPlatformRepresentation(ELootLockerPlatform::AppleSignIn, "apple_sign_in")}
+		, {ELootLockerPlatform::Android, FLootLockerPlatformRepresentation(ELootLockerPlatform::Android, "android")}
 };
 
 FLootLockerPlatformRepresentation& ULootLockerCurrentPlatform::CurrentPlatform = *PlatformRepresentations.Find(ELootLockerPlatform::None);
