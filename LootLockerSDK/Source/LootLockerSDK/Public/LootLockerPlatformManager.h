@@ -20,7 +20,8 @@ enum class ELootLockerPlatform : uint8
 	NintendoSwitch = 6		UMETA(DisplayName = "Nintendo Switch Online"),
 	AmazonLuna = 7			UMETA(DisplayName = "Amazon Luna"),
 	AppleSignIn = 8			UMETA(DisplayName = "Apple Sign In"),
-	LastValue = 9			UMETA(DisplayName = "N/A")
+	Android = 9				UMETA(DisplayName = "Android"),
+	LastValue = 10			UMETA(DisplayName = "N/A")
 };
 
 
@@ -50,7 +51,10 @@ class LOOTLOCKERSDK_API ULootLockerCurrentPlatform : public UObject
 {
 	GENERATED_BODY()
 public:
-    ULootLockerCurrentPlatform() {};
+    ULootLockerCurrentPlatform()
+    {
+		EnsureAllPlatformsAreRepresented();
+    };
 	static const ELootLockerPlatform& Get() { return CurrentPlatform.Platform; }
 	static const FString& GetString() { return CurrentPlatform.PlatformString; }
 	static const FString& GetFriendlyString() { return CurrentPlatform.FriendlyPlatformString; }
@@ -66,10 +70,20 @@ public:
 	virtual void PostInitProperties() override
 	{
 		UObject::PostInitProperties();
-		assert(PlatformRepresentations.Num() == static_cast<int>(ELootLockerPlatform::LastValue));
+		EnsureAllPlatformsAreRepresented();
 	}
 private:
 	static TMap<ELootLockerPlatform, FLootLockerPlatformRepresentation> PlatformRepresentations;
 
 	static FLootLockerPlatformRepresentation& CurrentPlatform;
+
+	// Can't static assert, so we try and make it painfully obvious runtime that we've missed something
+	static void EnsureAllPlatformsAreRepresented()
+	{
+		if (PlatformRepresentations.Num() != static_cast<int>(ELootLockerPlatform::LastValue))
+		{
+			UE_LOG(LogLootLockerGameSDK, Error, TEXT("All platforms in the ELootLockerPlatform must have a representation in PlatformRepresentations"));
+			throw std::range_error("All platforms in the ELootLockerPlatform must have a representation in PlatformRepresentations");
+		}
+	}
 };
