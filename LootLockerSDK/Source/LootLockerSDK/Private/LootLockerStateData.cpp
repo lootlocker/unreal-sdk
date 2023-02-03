@@ -9,7 +9,6 @@
 #include "Launch/Resources/Version.h"
 
 FString ULootLockerStateData::Token = "";
-FString ULootLockerStateData::DomainKey = "";
 FString ULootLockerStateData::SteamToken = "";
 FString ULootLockerStateData::PlayerIdentifier = FGenericPlatformMisc::GetDeviceId();
 FString ULootLockerStateData::WhiteLabelEmail = "";
@@ -66,12 +65,6 @@ FString ULootLockerStateData::GetToken()
 	return Token;
 }
 
-FString ULootLockerStateData::GetDomainKey() 
-{
-	LoadStateFromDiskIfNeeded();
-	return DomainKey;
-}
-
 FString ULootLockerStateData::GetSteamToken() 
 {
 	LoadStateFromDiskIfNeeded();
@@ -102,14 +95,6 @@ void ULootLockerStateData::SetToken(FString InToken) {
 		return;
 	}
 	Token = InToken;
-	SaveStateToDisk();
-}
-void ULootLockerStateData::SetDomainKey(FString InDomainKey) {
-	LoadStateFromDiskIfNeeded();
-	if (InDomainKey.Equals(DomainKey)) {
-		return;
-	}
-	DomainKey = InDomainKey;
 	SaveStateToDisk();
 }
 void ULootLockerStateData::SetSteamToken(FString InSteamToken) {
@@ -149,7 +134,6 @@ void ULootLockerStateData::ClearState()
 {
 	LoadStateFromDiskIfNeeded();
 	Token = "";
-	DomainKey = "";
 	SteamToken = "";
 	PlayerIdentifier = "";
 	WhiteLabelEmail = "";

@@ -17,7 +17,6 @@ ULootLockerAuthenticationRequestHandler::ULootLockerAuthenticationRequestHandler
 void ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(const FString &Email, const FString &Password, const FLootLockerLoginResponseDelegateBP &OnCompletedRequestBP, const FLootLockerLoginResponseDelegate &OnCompletedRequest)
 {
 	const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
-	ULootLockerStateData::SetDomainKey(Config->DomainKey);
 	FLootLockerLoginRequest SignupRequest;
 	SignupRequest.email = Email;
 	SignupRequest.password = Password;
@@ -25,7 +24,7 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(const FStr
 	LLAPI<FLootLockerLoginResponse>::CallAPI(HttpClient, SignupRequest, ULootLockerGameEndpoints::WhiteLabelSignupEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerLoginResponse>::FResponseInspectorCallback::CreateLambda([Email](const FLootLockerLoginResponse& Response)
     {
         ULootLockerStateData::SetWhiteLabelEmail(Email);
-    }), WhiteLabelHeaders());
+    }), DomainKeyHeaders());
 }
 
 void ULootLockerAuthenticationRequestHandler::GuestLogin(const FString& PlayerIdentifier, const FAuthResponseBP &OnCompletedRequestBP, const FLootLockerSessionResponse &OnCompletedRequest)
@@ -71,7 +70,6 @@ void ULootLockerAuthenticationRequestHandler::GuestLogin(const FString& PlayerId
 void ULootLockerAuthenticationRequestHandler::WhiteLabelLogin(const FString& Email, const FString& Password, const bool Remember, const FLootLockerLoginResponseDelegateBP& OnCompletedRequestBP, const FLootLockerLoginResponseDelegate& OnCompletedRequest)
 {
 	const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
-	ULootLockerStateData::SetDomainKey(Config->DomainKey);
 	FLootLockerWhiteLabelLoginRequest LoginRequest;
 	LoginRequest.email = Email;
 	LoginRequest.password = Password;
@@ -88,25 +86,41 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelLogin(const FString& Ema
 		{
 			ULootLockerCurrentPlatform::Reset();
 		}
-    }), WhiteLabelHeaders());
+    }), DomainKeyHeaders());
 }
 
-void ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(const FAuthResponseBP &OnCompletedRequestBP, const FLootLockerSessionResponse &OnCompletedRequest)
+void ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(const FAuthResponseBP& OnCompletedRequestBP, const FLootLockerSessionResponse& OnCompletedRequest)
 {
 	const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
-	ULootLockerStateData::SetDomainKey(Config->DomainKey);
+	if (Config->IsLegacyAPIKey()) // TODO: <Deprecated functionality, remove in v2.1>
+	{
+		FLootLockerWhiteLabelAuthRequestWithDevelopmentMode AuthRequest;
+		AuthRequest.development_mode = Config->OnDevelopmentMode;
+	    AuthRequest.game_key = Config->LootLockerGameKey;
+	    AuthRequest.game_version = Config->GameVersion;
+	    AuthRequest.email = ULootLockerStateData::GetWhiteLabelEmail();
+	    AuthRequest.token = ULootLockerStateData::GetWhiteLabelToken();
+	    LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::WhiteLabelAuthEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
+		{
+			if (Response.success)
+			{
+				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+			}
+		}));
+		return;
+	} // TODO: </Deprecated functionality, remove in v2.1>
 	FLootLockerWhiteLabelAuthRequest AuthRequest;
 	AuthRequest.game_key = Config->LootLockerGameKey;
 	AuthRequest.game_version = Config->GameVersion;
 	AuthRequest.email = ULootLockerStateData::GetWhiteLabelEmail();
 	AuthRequest.token = ULootLockerStateData::GetWhiteLabelToken();
-	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::WhiteLabelAuthEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
-    {
-        if(Response.success)
-        {
-            ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
-        }
-    }));
+	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::WhiteLabelAuthEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
+	{
+		if (Response.success)
+		{
+			ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+		}
+	}));
 }
 
 void ULootLockerAuthenticationRequestHandler::WhiteLabelLoginAndStartSession(const FString& Email, const FString& Password, bool bRemember, const FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP& LootLockerWhiteLabelLoginAndSessionResponseDelegateBP, const FLootLockerWhiteLabelLoginAndSessionResponseDelegate& LootLockerWhiteLabelLoginAndSessionResponseDelegate)
@@ -123,7 +137,7 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelLoginAndStartSession(con
 
     	WhiteLabelStartSession(FAuthResponseBP(), FLootLockerSessionResponse::CreateLambda([LootLockerWhiteLabelLoginAndSessionResponseDelegateBP, LootLockerWhiteLabelLoginAndSessionResponseDelegate, LoginResponse](FLootLockerAuthenticationResponse StartSessionResponse)
 		{
-			const FLootLockerWhiteLabelLoginAndSessionResponse FullResponse = FLootLockerWhiteLabelLoginAndSessionResponse(LoginResponse);
+			const FLootLockerWhiteLabelLoginAndSessionResponse FullResponse = FLootLockerWhiteLabelLoginAndSessionResponse(LoginResponse, StartSessionResponse);
 		    LootLockerWhiteLabelLoginAndSessionResponseDelegateBP.ExecuteIfBound(FullResponse);
 		    LootLockerWhiteLabelLoginAndSessionResponseDelegate.ExecuteIfBound(FullResponse);
 		}));
@@ -136,7 +150,7 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelVerifySession(const FLoo
 	VerifyRequest.email = ULootLockerStateData::GetWhiteLabelEmail();
 	VerifyRequest.token = ULootLockerStateData::GetWhiteLabelToken();
 	
-	LLAPI<FLootLockerWhiteLabelVerifySessionResponse>::CallAPI(HttpClient, VerifyRequest, ULootLockerGameEndpoints::WhiteLabelVerifySessionEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerWhiteLabelVerifySessionResponse>::FResponseInspectorCallback(), WhiteLabelHeaders());
+	LLAPI<FLootLockerWhiteLabelVerifySessionResponse>::CallAPI(HttpClient, VerifyRequest, ULootLockerGameEndpoints::WhiteLabelVerifySessionEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerWhiteLabelVerifySessionResponse>::FResponseInspectorCallback(), DomainKeyHeaders());
 }
 
 void ULootLockerAuthenticationRequestHandler::WhiteLabelRequestUserVerification(const int& UserId, const FLootLockerDefaultResponseBP& OnCompletedRequestBP, const FLootLockerDefaultDelegate& OnCompletedRequest)
@@ -144,7 +158,7 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelRequestUserVerification(
 	FLootLockerUserIdRequest UserIdRequest;
 	UserIdRequest.user_id = UserId;
 	
-	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, UserIdRequest, ULootLockerGameEndpoints::WhiteLabelRequestVerificationEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback(), WhiteLabelHeaders());
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, UserIdRequest, ULootLockerGameEndpoints::WhiteLabelRequestVerificationEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback(), DomainKeyHeaders());
 }
 
 void ULootLockerAuthenticationRequestHandler::WhiteLabelRequestPasswordReset(const FString& Email, const FLootLockerDefaultResponseBP& OnCompletedRequestBP, const FLootLockerDefaultDelegate& OnCompletedRequest)
@@ -152,7 +166,7 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelRequestPasswordReset(con
 	FLootLockerWhiteLabelResetPasswordRequest ResetPasswordRequest;
 	ResetPasswordRequest.email = Email;
 	
-	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, ResetPasswordRequest, ULootLockerGameEndpoints::WhiteLabelRequestPasswordResetEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback(), WhiteLabelHeaders());
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, ResetPasswordRequest, ULootLockerGameEndpoints::WhiteLabelRequestPasswordResetEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback(), DomainKeyHeaders());
 }
 
 //TODO: Deprecated method, remove in v2.1
@@ -538,22 +552,27 @@ void ULootLockerAuthenticationRequestHandler::VerifyPlayer(const FString& Platfo
 
 void ULootLockerAuthenticationRequestHandler::EndSession(const FAuthDefaultResponseBP& OnCompletedRequestBP, const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest)
 {
+	TMap<FString, FString> CustomHeaders;
+	if(ELootLockerPlatform::WhiteLabel == ULootLockerCurrentPlatform::Get())
+	{
+		CustomHeaders.Add(TEXT("logout"), TEXT("true"));
+	}
 	LLAPI<FLootLockerAuthenticationDefaultResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::EndSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationDefaultResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationDefaultResponse& Response)
     {
         if (Response.success) {
             ULootLockerStateData::ClearState();
 			ULootLockerCurrentPlatform::Reset();
         }
-    }));
+    }), CustomHeaders);
 }
 
-TMap<FString, FString> ULootLockerAuthenticationRequestHandler::WhiteLabelHeaders()
+TMap<FString, FString> ULootLockerAuthenticationRequestHandler::DomainKeyHeaders()
 {
+	const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
 	TMap<FString, FString> CustomHeaders = TMap<FString, FString>();
-	CustomHeaders.Add(TEXT("x-session-token"), ULootLockerStateData::GetWhiteLabelToken());
-    const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-	if (config->IsLegacyAPIKey()) {
-		CustomHeaders.Add(TEXT("is-development"), config->OnDevelopmentMode ? TEXT("true") : TEXT("false"));
+	CustomHeaders.Add(TEXT("domain-key"), Config->DomainKey);
+	if ((Config->IsLegacyAPIKey() && Config->OnDevelopmentMode) || Config->LootLockerGameKey.StartsWith("dev_")) {
+		CustomHeaders.Add(TEXT("is-development"), Config->OnDevelopmentMode ? TEXT("true") : TEXT("false"));
 	}
 	return CustomHeaders;
 }
