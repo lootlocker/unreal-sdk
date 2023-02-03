@@ -78,6 +78,7 @@ struct LLAPI
         
         // calculate endpoint
         FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, InOrderedArguments);
+        CustomHeaders.Add(TEXT("x-session-token"), ULootLockerStateData::GetToken());
 
         if (QueryParams.Num() != 0)
         {
@@ -138,6 +139,7 @@ struct LLAPI
         }
         
         const FString RequestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+        CustomHeaders.Add(TEXT("x-session-token"), GetDefault<ULootLockerConfig>()->LootLockerGameKey);
 
         // create callback lambda
         const FResponseCallback SessionResponse = CreateLambda<BluePrintDelegate, CppDelegate>(OnCompletedRequestBP, OnCompletedRequest, ResponseInspectorCallback);
