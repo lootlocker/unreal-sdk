@@ -8,7 +8,6 @@ USTRUCT(BlueprintType)
 struct FLootLockerResponse
 {
 	GENERATED_BODY()
-public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
     bool success = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -17,4 +16,28 @@ public:
     FString FullTextFromServer;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
     FString session_token;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerKeyBasedPagination
+{
+    GENERATED_BODY()
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+    int Total;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+    FString NextCursor;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+    FString PreviousCursor;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerIndexBasedPagination
+{
+    GENERATED_BODY()
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+    int32 Total;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+    int32 NextCursor;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+    int32 PreviousCursor;
 };
