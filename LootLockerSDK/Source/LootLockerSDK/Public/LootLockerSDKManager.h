@@ -22,6 +22,7 @@
 #include "GameAPI/LootLockerHeroRequestHandler.h"
 #include "GameAPI/LootLockerPlayerFilesRequestHandler.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
+#include "GameAPI/LootLockerProgressionsRequestHandler.h"
 #include "LootLockerSDKManager.generated.h"
 
 UCLASS(Blueprintable)
@@ -430,6 +431,76 @@ public:
      */
     static void DeletePlayerFile(const int32 FileID, const FLootLockerFileDeletedDelegate& OnComplete);
 
+    //==================================================
+    // Player Progressions
+    //==================================================
+
+    /**
+    * Returns multiple progressions the player is currently on.
+    *
+    * @param Count Amount of entries to receive
+    * @param After Used for pagination, id of the player progression from which the pagination starts from, use the next_cursor and previous_cursor values
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    */
+    static void GetPlayerProgressions(const int32& Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete);
+
+    /**
+    * Returns multiple progressions the player is currently on.
+    *
+    * @param Count Amount of entries to receive
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    */
+    static void GetPlayerProgressions(const int32& Count, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete);
+
+    /**
+    * Returns multiple progressions the player is currently on.
+    *
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    */
+    static void GetPlayerProgressions(const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete);
+
+    /**
+    * Returns a single progression the player is currently on.
+    *
+    * @param ProgressionKey Key of the progression you want to fetch
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerPlayerProgressionsResponse
+    */
+    static void GetPlayerProgression(const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseDelegate& OnComplete);
+
+    /**
+    * Adds points to the specified player progression.
+    *
+    * @param ProgressionKey Key of the progression you want to add points to
+    * @param Amount Amount of points to be added
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerPlayerProgressionWithRewardsResponse
+    */
+    static void AddPointsToPlayerProgression(const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseDelegate& OnComplete);
+
+    /**
+    * Subtracts points from the specified player progression.
+    *
+    * @param ProgressionKey Key of the progression you want to subtract points from
+    * @param Amount Amount of points to be subtracted
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerPlayerProgressionWithRewardsResponse
+    */
+    static void SubtractPointsFromPlayerProgression(const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseDelegate& OnComplete);
+
+    /**
+    * Resets the specified player progression.
+    *
+    * @param ProgressionKey Key of the progression you want to reset
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerPlayerProgressionWithRewardsResponse
+    */
+    static void ResetPlayerProgression(const FString& ProgressionKey, const FLootLockerPlayerProgressionWithRewardsResponseDelegate& OnComplete);
+
+    /**
+    * Returns multiple progressions the player is currently on.
+    *
+    * @param ProgressionKey Key of the progression you want to delete
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerResponse
+    */
+    static void DeletePlayerProgression(const FString& ProgressionKey, const FLootLockerDeleteProgressionDelegate& OnComplete);
+
 	//==================================================
 	//Heroes
 	//==================================================
@@ -706,6 +777,84 @@ public:
      * @param OnCompletedRequest Delegate for handling the server response.
      */
 	static void GetEquipableContextsByCharacterId(int OtherCharacterId, const FContextDelegate& OnCompletedRequest);
+
+    //==================================================
+    // Character Progressions
+    //==================================================
+
+    /**
+    * Returns multiple progressions the character is currently on.
+    *
+    * @param CharacterId Id of the character you want to fetch progressions for
+    * @param Count Amount of entries to receive
+    * @param After Used for pagination, id of the character progression from which the pagination starts from, use the next_cursor and previous_cursor values
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    */
+    static void GetCharacterProgressions(const int32& CharacterId, const int32& Count, const FString& After, const FLootLockerPaginatedCharacterProgressionsResponseDelegate& OnComplete);
+
+    /**
+    * Returns multiple progressions the character is currently on.
+    *
+    * @param CharacterId Id of the character you want to fetch progressions for
+    * @param Count Amount of entries to receive
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedCharacterProgressionsResponse
+    */
+    static void GetCharacterProgressions(const int32& CharacterId, const int32& Count, const FLootLockerPaginatedCharacterProgressionsResponseDelegate& OnComplete);
+
+    /**
+    * Returns multiple progressions the character is currently on.
+    *
+    * @param CharacterId Id of the character you want to fetch progressions for
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedCharacterProgressionsResponse
+    */
+    static void GetCharacterProgressions(const int32& CharacterId, const FLootLockerPaginatedCharacterProgressionsResponseDelegate& OnComplete);
+
+    /**
+    * Returns a single progression the character is currently on.
+    *
+    * @param CharacterId Id of the character you want to fetch progressions for
+    * @param ProgressionKey Key of the progression you want to fetch
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerCharacterProgressionsResponse
+    */
+    static void GetCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionResponseDelegate& OnComplete);
+
+    /**
+    * Adds points to the specified character progression.
+    *
+    * @param CharacterId Id of the character you want to fetch progressions for
+    * @param ProgressionKey Key of the progression you want to add points to
+    * @param Amount Amount of points to be added
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerCharacterProgressionWithRewardsResponse
+    */
+    static void AddPointsToCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseDelegate& OnComplete);
+
+    /**
+    * Subtracts points from the specified character progression.
+    *
+    * @param CharacterId Id of the character you want to fetch progressions for
+    * @param ProgressionKey Key of the progression you want to subtract points from
+    * @param Amount Amount of points to be subtracted
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerCharacterProgressionWithRewardsResponse
+    */
+    static void SubtractPointsFromCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseDelegate& OnComplete);
+
+    /**
+    * Resets the specified character progression.
+    *
+    * @param CharacterId Id of the character you want to fetch progressions for
+    * @param ProgressionKey Key of the progression you want to reset
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerCharacterProgressionWithRewardsResponse
+    */
+    static void ResetCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionWithRewardsResponseDelegate& OnComplete);
+
+    /**
+    * Returns multiple progressions the character is currently on.
+    *
+    * @param CharacterId Id of the character you want to fetch progressions for
+    * @param ProgressionKey Key of the progression you want to delete
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerResponse
+    */
+    static void DeleteCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const FLootLockerDeleteProgressionDelegate& OnComplete);
 
     //==================================================
     //Persistent Storage
@@ -1008,6 +1157,69 @@ public:
      * @param OnCompletedRequest Delegate for handling the server response.
      */
     static void DeleteFileFromAssetCandidate(int AssetCandidateId, int FileId, const FResponseCallback& OnCompletedRequest);
+
+    //==================================================
+    // Progressions
+    //==================================================
+
+    /**
+    * Returns multiple progressions.
+    *
+    * @param Count Amount of entries to receive
+    * @param After Used for pagination, id of the player progression from which the pagination starts from, use the next_cursor and previous_cursor values
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    */
+    static void GetProgressions(const int32& Count, const FString& After, const FLootLockerPaginatedProgressionsResponseDelegate& OnComplete);
+
+    /**
+    * Returns multiple progressions.
+    *
+    * @param Count Amount of entries to receive
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    */
+    static void GetProgressions(const int32& Count, const FLootLockerPaginatedProgressionsResponseDelegate& OnComplete);
+
+    /**
+    * Returns multiple progressions.
+    *
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    */
+    static void GetProgressions(const FLootLockerPaginatedProgressionsResponseDelegate& OnComplete);
+
+    /**
+    * Returns the specified progression
+    *
+    * @param ProgressionKey Key of the progression you want to fetch
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    */
+    static void GetProgression(const FString& ProgressionKey, const FLootLockerProgressionResponseDelegate& OnComplete);
+
+    /**
+    * Returns multiple progression tiers for the specified progression.
+    *
+    * @param ProgressionKey Key of the progression you want to fetch
+    * @param Count Amount of entries to receive
+    * @param After Used for pagination, id of the player progression from which the pagination starts from, use the next_cursor and previous_cursor values
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    */
+    static void GetProgressionTiers(const FString& ProgressionKey, const int32& Count, const int32& After, const FLootLockerPaginatedProgressionTiersResponseDelegate& OnComplete);
+
+    /**
+    * Returns multiple progression tiers for the specified progression.
+    *
+    * @param ProgressionKey Key of the progression you want to fetch
+    * @param Count Amount of entries to receive
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    */
+    static void GetProgressionTiers(const FString& ProgressionKey, const int32& Count, const FLootLockerPaginatedProgressionTiersResponseDelegate& OnComplete);
+
+    /**
+    * Returns multiple progression tiers for the specified progression.
+    *
+    * @param ProgressionKey Key of the progression you want to fetch
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    */
+    static void GetProgressionTiers(const FString& ProgressionKey, const FLootLockerPaginatedProgressionTiersResponseDelegate& OnComplete);
 
     //==================================================
     //Missions

@@ -205,7 +205,48 @@ void ULootLockerSDKManager::SetProfilePublic(const FResponseCallback& OnComplete
     ULootLockerPlayerRequestHandler::SetProfilePublic(FResponseCallbackBP(), OnCompletedRequest);
 }
 
-// heroes
+// Player Progressions
+void ULootLockerSDKManager::GetPlayerProgressions(const int32& Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::GetPlayerProgressions(Count, After, FLootLockerPaginatedPlayerProgressionsResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::GetPlayerProgressions(const int32& Count, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete)
+{
+    GetPlayerProgressions(Count, "", OnComplete);
+}
+
+void ULootLockerSDKManager::GetPlayerProgressions(const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete)
+{
+    GetPlayerProgressions(-1, "", OnComplete);
+}
+
+void ULootLockerSDKManager::GetPlayerProgression(const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::GetPlayerProgression(ProgressionKey, FLootLockerPlayerProgressionResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::AddPointsToPlayerProgression(const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::AddPointsToPlayerProgression(ProgressionKey, Amount, FLootLockerPlayerProgressionWithRewardsResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::SubtractPointsFromPlayerProgression(const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::SubtractPointsFromPlayerProgression(ProgressionKey, Amount, FLootLockerPlayerProgressionWithRewardsResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::ResetPlayerProgression(const FString& ProgressionKey, const FLootLockerPlayerProgressionWithRewardsResponseDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::ResetPlayerProgression(ProgressionKey, FLootLockerPlayerProgressionWithRewardsResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::DeletePlayerProgression(const FString& ProgressionKey, const FLootLockerDeleteProgressionDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::DeletePlayerProgression(ProgressionKey, FLootLockerDeleteProgressionBP(), OnComplete);
+}
+
+// Heroes
 void ULootLockerSDKManager::GetGameHeroes(const FLootLockerGameHeroListDelegate& OnCompleteRequest)
 {
 	ULootLockerHeroRequestHandler::GetGameHeroes(FLootLockerGameHeroListBP(), OnCompleteRequest);
@@ -347,6 +388,47 @@ void ULootLockerSDKManager::GetEquipableContextsToDefaultCharacter(const FContex
 void ULootLockerSDKManager::GetEquipableContextsByCharacterId(int OtherCharacterId, const FContextDelegate& OnCompletedRequest)
 {
 	ULootLockerCharacterRequestHandler::GetEquipableContextsByCharacterId(OtherCharacterId, FContextDelegateBP(), OnCompletedRequest);
+}
+
+// Character Progressions
+void ULootLockerSDKManager::GetCharacterProgressions(const int32& CharacterId, const int32& Count, const FString& After, const FLootLockerPaginatedCharacterProgressionsResponseDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::GetCharacterProgressions(CharacterId, Count, After, FLootLockerPaginatedCharacterProgressionsResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::GetCharacterProgressions(const int32& CharacterId, const int32& Count, const FLootLockerPaginatedCharacterProgressionsResponseDelegate& OnComplete)
+{
+    GetCharacterProgressions(CharacterId, Count, "", OnComplete);
+}
+
+void ULootLockerSDKManager::GetCharacterProgressions(const int32& CharacterId, const FLootLockerPaginatedCharacterProgressionsResponseDelegate& OnComplete)
+{
+    GetCharacterProgressions(CharacterId, -1, "", OnComplete);
+}
+
+void ULootLockerSDKManager::GetCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionResponseDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::GetCharacterProgression(CharacterId, ProgressionKey, FLootLockerCharacterProgressionResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::AddPointsToCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::AddPointsToCharacterProgression(CharacterId, ProgressionKey, Amount, FLootLockerCharacterProgressionWithRewardsResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::SubtractPointsFromCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::SubtractPointsFromCharacterProgression(CharacterId, ProgressionKey, Amount, FLootLockerCharacterProgressionWithRewardsResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::ResetCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionWithRewardsResponseDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::ResetCharacterProgression(CharacterId, ProgressionKey, FLootLockerCharacterProgressionWithRewardsResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::DeleteCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const FLootLockerDeleteProgressionDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::DeleteCharacterProgression(CharacterId, ProgressionKey, FLootLockerDeleteProgressionBP(), OnComplete);
 }
 
 //Persistent Storage
@@ -502,6 +584,42 @@ void ULootLockerSDKManager::AddFileToAssetCandidate(int AssetCandidateId, const 
 void ULootLockerSDKManager::DeleteFileFromAssetCandidate(int AssetCandidateId, int FileId, const FResponseCallback& OnCompletedRequest)
 {
     ULootLockerUserGeneratedContentRequestHandler::DeleteFileFromAssetCandidate(AssetCandidateId, FileId, FResponseCallbackBP(), OnCompletedRequest);
+}
+
+// Progressions
+void ULootLockerSDKManager::GetProgressions(const int32& Count, const FString& After, const FLootLockerPaginatedProgressionsResponseDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::GetProgressions(Count, After, FLootLockerPaginatedProgressionsResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::GetProgressions(const int32& Count, const FLootLockerPaginatedProgressionsResponseDelegate& OnComplete)
+{
+    GetProgressions(Count, "", OnComplete);
+}
+
+void ULootLockerSDKManager::GetProgressions(const FLootLockerPaginatedProgressionsResponseDelegate& OnComplete)
+{
+    GetProgressions(-1, "", OnComplete);
+}
+
+void ULootLockerSDKManager::GetProgression(const FString& ProgressionKey, const FLootLockerProgressionResponseDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::GetProgression(ProgressionKey, FLootLockerProgressionResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::GetProgressionTiers(const FString& ProgressionKey, const int32& Count, const int32& After, const FLootLockerPaginatedProgressionTiersResponseDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::GetProgressionTiers(ProgressionKey, Count, After, FLootLockerPaginatedProgressionTiersResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::GetProgressionTiers(const FString& ProgressionKey, const int32& Count, const FLootLockerPaginatedProgressionTiersResponseDelegate& OnComplete)
+{
+    GetProgressionTiers(ProgressionKey, Count, 0, OnComplete);
+}
+
+void ULootLockerSDKManager::GetProgressionTiers(const FString& ProgressionKey, const FLootLockerPaginatedProgressionTiersResponseDelegate& OnComplete)
+{
+    GetProgressionTiers(ProgressionKey, -1, 0, OnComplete);
 }
 
 //Missions
