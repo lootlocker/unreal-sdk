@@ -25,6 +25,7 @@
 #include "GameAPI/LootLockerHeroRequestHandler.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
 #include "GameAPI/LootLockerPlayerFilesRequestHandler.h"
+#include "GameAPI/LootLockerProgressionsRequestHandler.h"
 
 #include "LootLockerManager.generated.h"
 
@@ -465,6 +466,67 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files")
 	static void DeletePlayerFile(const int32 FileID, const FLootLockerFileDeletedBP& OnComplete);
 
+    //==================================================
+    // Player Progressions
+    //==================================================
+
+    /**
+    * Returns multiple progressions the player is currently on.
+    *
+    * @param Count Optional: Amount of entries to receive
+    * @param After Optional: Used for pagination, id of the player progression from which the pagination starts from, use the next_cursor and previous_cursor values
+    * @param OnCompletedRequest Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Progressions")
+    static void GetPlayerProgressions(const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest, const int32& Count = -1, const FString& After = "");
+
+    /**
+    * Returns a single progression the player is currently on.
+    *
+    * @param ProgressionKey Key of the progression you want to fetch
+    * @param OnCompletedRequest Action for handling the response of type FLootLockerPlayerProgressionsResponse
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Progressions")
+    static void GetPlayerProgression(const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseBP& OnCompletedRequest);
+
+    /**
+    * Adds points to the specified player progression.
+    *
+    * @param ProgressionKey Key of the progression you want to add points to
+    * @param Amount Amount of points to be added
+    * @param OnCompletedRequest Action for handling the response of type FLootLockerPlayerProgressionWithRewardsResponse
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Progressions")
+    static void AddPointsToPlayerProgression(const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest);
+
+    /**
+    * Subtracts points from the specified player progression.
+    *
+    * @param ProgressionKey Key of the progression you want to subtract points from
+    * @param Amount Amount of points to be subtracted
+    * @param OnCompletedRequest Action for handling the response of type FLootLockerPlayerProgressionWithRewardsResponse
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Progressions")
+    static void SubtractPointsFromPlayerProgression(const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest);
+
+    /**
+    * Resets the specified player progression.
+    *
+    * @param ProgressionKey Key of the progression you want to reset
+    * @param OnCompletedRequest Action for handling the response of type FLootLockerPlayerProgressionWithRewardsResponse
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Progressions")
+    static void ResetPlayerProgression(const FString& ProgressionKey, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest);
+
+    /**
+    * Returns multiple progressions the player is currently on.
+    *
+    * @param ProgressionKey Key of the progression you want to delete
+    * @param OnCompletedRequest Action for handling the response of type FLootLockerResponse
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Progressions")
+    static void DeletePlayerProgression(const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest);
+
 	//==================================================
 	//Heroes
     // https://ref.lootlocker.com/game-api/#heroes
@@ -769,6 +831,73 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
     static void GetEquipableContextsByCharacterId(int OtherCharacterId, const FContextDelegateBP& OnGetEquipableContextsByCharacterIdRequestCompleted);
+
+    //==================================================
+    // Character Progressions
+    //==================================================
+
+    /**
+    * Returns multiple progressions the character is currently on.
+    *
+    * @param CharacterId Id of the character you want to fetch progressions for
+    * @param Count Optional: Amount of entries to receive
+    * @param After Optional: Used for pagination, id of the character progression from which the pagination starts from, use the next_cursor and previous_cursor values
+    * @param OnCompletedRequest Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Character Progressions")
+    static void GetCharacterProgressions(const int32& CharacterId, const FLootLockerPaginatedCharacterProgressionsResponseBP& OnCompletedRequest, const int32& Count = -1, const FString& After = "");
+    
+    /**
+    * Returns a single progression the character is currently on.
+    *
+    * @param CharacterId Id of the character you want to fetch progressions for
+    * @param ProgressionKey Key of the progression you want to fetch
+    * @param OnCompletedRequest Action for handling the response of type FLootLockerCharacterProgressionsResponse
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Character Progressions")
+    static void GetCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionResponseBP& OnCompletedRequest);
+
+    /**
+    * Adds points to the specified character progression.
+    *
+    * @param CharacterId Id of the character you want to fetch progressions for
+    * @param ProgressionKey Key of the progression you want to add points to
+    * @param Amount Amount of points to be added
+    * @param OnCompletedRequest Action for handling the response of type FLootLockerCharacterProgressionWithRewardsResponse
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Character Progressions")
+    static void AddPointsToCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest);
+
+    /**
+    * Subtracts points from the specified character progression.
+    *
+    * @param CharacterId Id of the character you want to fetch progressions for
+    * @param ProgressionKey Key of the progression you want to subtract points from
+    * @param Amount Amount of points to be subtracted
+    * @param OnCompletedRequest Action for handling the response of type FLootLockerCharacterProgressionWithRewardsResponse
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Character Progressions")
+    static void SubtractPointsFromCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest);
+
+    /**
+    * Resets the specified character progression.
+    *
+    * @param CharacterId Id of the character you want to fetch progressions for
+    * @param ProgressionKey Key of the progression you want to reset
+    * @param OnCompletedRequest Action for handling the response of type FLootLockerCharacterProgressionWithRewardsResponse
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Character Progressions")
+    static void ResetCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest);
+
+    /**
+    * Returns multiple progressions the character is currently on.
+    *
+    * @param CharacterId Id of the character you want to fetch progressions for
+    * @param ProgressionKey Key of the progression you want to delete
+    * @param OnCompletedRequest Action for handling the response of type FLootLockerResponse
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Character Progressions")
+    static void DeleteCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest);
 
     //==================================================
     //Persistent Storage
@@ -1099,6 +1228,40 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
     static void DeleteFileFromAssetCandidate(int AssetCandidateId, int FileId, const FResponseCallbackBP& OnDeleteFileFromAssetCandidateCompleted);
+
+    //==================================================
+    // Progressions
+    //==================================================
+
+    /**
+    * Returns multiple progressions.
+    *
+    * @param Count Optional: Amount of entries to receive
+    * @param After Optional: Used for pagination, id of the player progression from which the pagination starts from, use the next_cursor and previous_cursor values
+    * @param OnCompletedRequest Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Progressions")
+    static void GetProgressions(const FLootLockerPaginatedProgressionsResponseBP& OnCompletedRequest, const int32& Count = -1, const FString& After = "");
+
+    /**
+    * Returns the specified progression
+    *
+    * @param ProgressionKey Key of the progression you want to fetch
+    * @param OnCompletedRequest Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Progressions")
+    static void GetProgression(const FString& ProgressionKey, const FLootLockerProgressionResponseBP& OnCompletedRequest);
+
+    /**
+    * Returns multiple progression tiers for the specified progression.
+    *
+    * @param ProgressionKey Key of the progression you want to fetch
+    * @param Count Optional: Amount of entries to receive
+    * @param After Optional: Used for pagination, id of the player progression from which the pagination starts from, use the next_cursor and previous_cursor values
+    * @param OnCompletedRequest Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Progressions")
+    static void GetProgressionTiers(const FString& ProgressionKey, const FLootLockerPaginatedProgressionTiersResponseBP& OnCompletedRequest, const int32& Count = -1, const int32& After = 0);
 
     //==================================================
     //Missions
