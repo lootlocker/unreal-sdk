@@ -207,7 +207,7 @@ void ULootLockerManager::DeletePlayerFile(const int32 FileID, const FLootLockerF
 }
 
 // Player Progressions
-void ULootLockerManager::GetPlayerProgressions(const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest, const int32& Count /*= -1*/, const FString& After /*= ""*/)
+void ULootLockerManager::GetPlayerProgressions(const int32 Count /*= -1*/, const FString& After /*= ""*/, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest)
 {
     ULootLockerProgressionsRequestHandler::GetPlayerProgressions(Count, After, OnCompletedRequest);
 }
@@ -382,7 +382,7 @@ void ULootLockerManager::GetEquipableContextsByCharacterId( int OtherCharacterId
 }
 
 // Character Progressions
-void ULootLockerManager::GetCharacterProgressions(const int32& CharacterId, const FLootLockerPaginatedCharacterProgressionsResponseBP& OnCompletedRequest, const int32& Count /*=-1*/, const FString& After /*=""*/)
+void ULootLockerManager::GetCharacterProgressions(const int32& CharacterId, const int32 Count /*=-1*/, const FString& After /*=""*/, const FLootLockerPaginatedCharacterProgressionsResponseBP& OnCompletedRequest)
 {
     ULootLockerProgressionsRequestHandler::GetCharacterProgressions(CharacterId, Count, After, OnCompletedRequest);
 }
@@ -565,7 +565,7 @@ void ULootLockerManager::DeleteFileFromAssetCandidate(int AssetCandidateId, int 
 }
 
 // Progressions
-void ULootLockerManager::GetProgressions(const FLootLockerPaginatedProgressionsResponseBP& OnCompletedRequest, const int32& Count /*= -1*/, const FString& After /*=""*/)
+void ULootLockerManager::GetProgressions(const int32 Count /*= -1*/, const FString& After /*=""*/, const FLootLockerPaginatedProgressionsResponseBP& OnCompletedRequest)
 {
     ULootLockerProgressionsRequestHandler::GetProgressions(Count, After, OnCompletedRequest);
 }
@@ -575,7 +575,7 @@ void ULootLockerManager::GetProgression(const FString& ProgressionKey, const FLo
     ULootLockerProgressionsRequestHandler::GetProgression(ProgressionKey, OnCompletedRequest);
 }
 
-void ULootLockerManager::GetProgressionTiers(const FString& ProgressionKey, const FLootLockerPaginatedProgressionTiersResponseBP& OnCompletedRequest, const int32& Count /*=-1*/, const int32& After /*=0*/)
+void ULootLockerManager::GetProgressionTiers(const FString& ProgressionKey, const int32 Count /*=-1*/, const int32 After /*=-1*/, const FLootLockerPaginatedProgressionTiersResponseBP& OnCompletedRequest)
 {
     ULootLockerProgressionsRequestHandler::GetProgressionTiers(ProgressionKey, Count, After, OnCompletedRequest);
 }
