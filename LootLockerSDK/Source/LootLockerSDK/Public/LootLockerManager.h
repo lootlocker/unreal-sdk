@@ -477,8 +477,8 @@ public:
     * @param After Optional: Used for pagination, id of the player progression from which the pagination starts from, use the next_cursor and previous_cursor values
     * @param OnCompletedRequest Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
     */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Progressions")
-    static void GetPlayerProgressions(const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest, const int32& Count = -1, const FString& After = "");
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Progressions", meta = (AdvancedDisplay = "Count,After", Count = -1, After = ""))
+    static void GetPlayerProgressions(const int32 Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest);
 
     /**
     * Returns a single progression the player is currently on.
@@ -844,8 +844,8 @@ public:
     * @param After Optional: Used for pagination, id of the character progression from which the pagination starts from, use the next_cursor and previous_cursor values
     * @param OnCompletedRequest Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
     */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Character Progressions")
-    static void GetCharacterProgressions(const int32& CharacterId, const FLootLockerPaginatedCharacterProgressionsResponseBP& OnCompletedRequest, const int32& Count = -1, const FString& After = "");
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Character Progressions", meta = (AdvancedDisplay = "Count,After", Count = -1, After = ""))
+    static void GetCharacterProgressions(const int32& CharacterId, const int32 Count, const FString& After, const FLootLockerPaginatedCharacterProgressionsResponseBP& OnCompletedRequest);
     
     /**
     * Returns a single progression the character is currently on.
@@ -1240,8 +1240,8 @@ public:
     * @param After Optional: Used for pagination, id of the player progression from which the pagination starts from, use the next_cursor and previous_cursor values
     * @param OnCompletedRequest Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
     */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Progressions")
-    static void GetProgressions(const FLootLockerPaginatedProgressionsResponseBP& OnCompletedRequest, const int32& Count = -1, const FString& After = "");
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Progressions", meta = (AdvancedDisplay = "Count,After", Count = -1, After = ""))
+    static void GetProgressions(const int32 Count, const FString& After, const FLootLockerPaginatedProgressionsResponseBP& OnCompletedRequest);
 
     /**
     * Returns the specified progression
@@ -1260,8 +1260,8 @@ public:
     * @param After Optional: Used for pagination, id of the player progression from which the pagination starts from, use the next_cursor and previous_cursor values
     * @param OnCompletedRequest Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
     */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Progressions")
-    static void GetProgressionTiers(const FString& ProgressionKey, const FLootLockerPaginatedProgressionTiersResponseBP& OnCompletedRequest, const int32& Count = -1, const int32& After = 0);
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Progressions", meta=(AdvancedDisplay="Count,After", Count=-1, After=-1))
+    static void GetProgressionTiers(const FString& ProgressionKey, const int32 Count, const int32 After, const FLootLockerPaginatedProgressionTiersResponseBP& OnCompletedRequest);
 
     //==================================================
     //Missions
