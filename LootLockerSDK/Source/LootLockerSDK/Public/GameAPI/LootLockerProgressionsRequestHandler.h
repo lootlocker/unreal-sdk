@@ -8,6 +8,7 @@
 #include "LootLockerHttpClient.h"
 #include "LootLockerProgressionsRequestHandler.generated.h"
 
+/* PURE DATA STRUCTS */
 USTRUCT(BlueprintType)
 struct FLootLockerProgression
 {
@@ -142,6 +143,8 @@ struct FLootLockerProgressionTier
     FLootLockerRewards Rewards;
 };
 
+/* RESPONSE STRUCTS */
+
 USTRUCT(BlueprintType)
 struct FLootLockerProgressionResponse : public FLootLockerResponse
 {
@@ -254,6 +257,15 @@ struct FLootLockerPaginatedProgressionTiersResponse : public FLootLockerResponse
     FLootLockerIndexBasedPagination Pagination;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerProgressionTier> Items;
+};
+
+/* REQUEST STRUCTS */
+USTRUCT()
+struct FLootLockerModifyScoreRequest
+{
+    GENERATED_BODY()
+    UPROPERTY()
+    int32 Amount;
 };
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerProgressionResponseBP, FLootLockerProgressionResponse, Response);
