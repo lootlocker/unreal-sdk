@@ -14,13 +14,13 @@ struct FLootLockerProgression
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Id;
+    FString Id = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Key;
+    FString Key = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Name;
+    FString Name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool Active;
+    bool Active = false;
 };
 
 USTRUCT(BlueprintType)
@@ -28,21 +28,21 @@ struct FLootLockerPlayerProgression
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Id;
+    FString Id = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString ProgressionKey;
+    FString Progression_Key = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString ProgressionName;
+    FString Progression_Name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 Step;
+    int32 Step = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 Points;
+    int32 Points = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 PreviousThreshold;
+    int32 Previous_Threshold = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 NextThreshold;
+    int32 Next_Threshold = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString LastLevelUp;
+    FString Last_Level_Up = "";
 };
 
 USTRUCT(BlueprintType)
@@ -50,21 +50,21 @@ struct FLootLockerCharacterProgression
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Id;
+    FString Id = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString ProgressionKey;
+    FString Progression_Key = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString ProgressionName;
+    FString Progression_Name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 Step;
+    int32 Step = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 Points;
+    int32 Points = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 PreviousThreshold;
+    int32 Previous_Threshold = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 NextThreshold;
+    int32 Next_Threshold = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString LastLevelUp;
+    FString Last_Level_Up = "";
 };
 
 USTRUCT(BlueprintType)
@@ -72,11 +72,11 @@ struct FLootLockerAssetReward
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int AssetId;
+    int Asset_Id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int AssetVariationId;
+    int Asset_Variation_Id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int AssetRentalOptionId;
+    int Asset_Rental_Option_Id = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -84,13 +84,11 @@ struct FLootLockerProgressionPointsReward
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString ProgressionId;
+    FString Progression_Key = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString ProgressionKey;
+    FString Progression_Name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString ProgressionName;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 Amount;
+    int32 Amount = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -98,11 +96,11 @@ struct FLootLockerProgressionResetReward
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString ProgressionId;
+    FString Progression_Id = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString ProgressionKey;
+    FString Progression_Key = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString ProgressionName;
+    FString Progression_Name = "";
 };
 
 USTRUCT(BlueprintType)
@@ -110,11 +108,11 @@ struct FLootLockerRewards
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerProgressionPointsReward> ProgressionPointsRewards;
+    TArray<FLootLockerProgressionPointsReward> Progression_Points_Rewards;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerProgressionResetReward> ProgressionResetRewards;
+    TArray<FLootLockerProgressionResetReward> Progression_Reset_Rewards;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerAssetReward> AssetRewards;
+    TArray<FLootLockerAssetReward> Asset_Rewards;
 };
 
 USTRUCT(BlueprintType)
@@ -122,9 +120,9 @@ struct FLootLockerAwardedTier
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 Step;
+    int32 Step = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 PointsThreshold;
+    int32 Points_Threshold = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerRewards Rewards;
 };
@@ -134,11 +132,9 @@ struct FLootLockerProgressionTier
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Id;
+    int32 Step = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 Step;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 PointsThreshold;
+    int32 Points_Threshold = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerRewards Rewards;
 };
@@ -150,13 +146,13 @@ struct FLootLockerProgressionResponse : public FLootLockerResponse
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString Id;
+	FString Id = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString Key;
+	FString Key = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString Name;
+	FString Name = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	bool Active;
+	bool Active = false;
 };
 
 USTRUCT(BlueprintType)
@@ -174,21 +170,21 @@ struct FLootLockerPlayerProgressionResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Id;
+    FString Id = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString ProgressionKey;
+    FString Progression_Key = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString ProgressionName;
+    FString Progression_Name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 Step;
+    int32 Step = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 Points;
+    int32 Points = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 PreviousThreshold;
+    int32 Previous_Threshold = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 NextThreshold;
+    int32 Next_Threshold = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString LastLevelUp;
+    FString Last_Level_Up = "";
 };
 
 USTRUCT(BlueprintType)
@@ -206,7 +202,7 @@ struct FLootLockerPlayerProgressionWithRewardsResponse : public FLootLockerPlaye
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerAwardedTier> AwardedTiers;
+    TArray<FLootLockerAwardedTier> Awarded_Tiers;
 };
 
 USTRUCT(BlueprintType)
@@ -214,21 +210,21 @@ struct FLootLockerCharacterProgressionResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Id;
+    FString Id = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString ProgressionKey;
+    FString Progression_Key = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString ProgressionName;
+    FString Progression_Name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 Step;
+    int32 Step = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 Points;
+    int32 Points = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 PreviousThreshold;
+    int32 Previous_Threshold = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 NextThreshold;
+    int32 Next_Threshold = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString LastLevelUp;
+    FString Last_Level_Up = "";
 };
 
 USTRUCT(BlueprintType)
@@ -246,7 +242,7 @@ struct FLootLockerCharacterProgressionWithRewardsResponse : public FLootLockerCh
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerAwardedTier> AwardedTiers;
+    TArray<FLootLockerAwardedTier> Awarded_Tiers;
 };
 
 USTRUCT(BlueprintType)
@@ -265,7 +261,7 @@ struct FLootLockerModifyScoreRequest
 {
     GENERATED_BODY()
     UPROPERTY()
-    int32 Amount;
+    int32 Amount = 0;
 };
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerProgressionResponseBP, FLootLockerProgressionResponse, Response);

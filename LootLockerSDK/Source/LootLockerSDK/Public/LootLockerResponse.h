@@ -23,11 +23,11 @@ struct FLootLockerKeyBasedPagination
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-    int Total;
+    int Total = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-    FString NextCursor;
+    FString Next_Cursor = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-    FString PreviousCursor;
+    FString Previous_Cursor = "";
 };
 
 USTRUCT(BlueprintType)
@@ -35,9 +35,9 @@ struct FLootLockerIndexBasedPagination
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-    int32 Total;
+    int32 Total = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-    int32 NextCursor;
+    int32 Next_Cursor = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-    int32 PreviousCursor;
+    int32 Previous_Cursor = 0;
 };
