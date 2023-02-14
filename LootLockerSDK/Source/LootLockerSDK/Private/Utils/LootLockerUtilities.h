@@ -89,9 +89,11 @@ struct LLAPI
                 Delimiter = "&";
             }
         }
+#if WITH_EDITOR
         UE_LOG(LogLootLockerGameSDK, Log, TEXT("Request:"));
         UE_LOG(LogLootLockerGameSDK, Log, TEXT("ContentString:%s"), *ContentString);
         UE_LOG(LogLootLockerGameSDK, Log, TEXT("EndpointWithArguments:%s"), *EndpointWithArguments);
+#endif //WITH_EDITOR
         const FString RequestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
 
         // create callback lambda
@@ -110,9 +112,11 @@ struct LLAPI
         
         const FString RequestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
         CustomHeaders.Add(TEXT("x-session-token"), ULootLockerStateData::GetToken());
-    
+
+#if WITH_EDITOR
         UE_LOG(LogLootLockerGameSDK, Log, TEXT("Request:"));
         UE_LOG(LogLootLockerGameSDK, Log, TEXT("EndpointWithArguments:%s"), *EndpointWithArguments);
+#endif //WITH_EDITOR
 
         // create callback lambda
         const FResponseCallback SessionResponse = CreateLambda<BluePrintDelegate, CppDelegate>(OnCompletedRequestBP, OnCompletedRequest, ResponseInspectorCallback);
