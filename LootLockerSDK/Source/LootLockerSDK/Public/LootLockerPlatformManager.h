@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include <cassert>
+#include <stdexcept>
 
 #include "CoreMinimal.h"
 #include "LootLockerConfig.h"

@@ -73,6 +73,7 @@ public:
     {
 		return LootLockerGameKey.Find("dev_", ESearchCase::CaseSensitive) == -1 && LootLockerGameKey.Find("prod_", ESearchCase::CaseSensitive) == -1;
     }
+#if WITH_EDITOR
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override
     {
         if(PropertyChangedEvent.GetPropertyName() == "LootLockerGameKey")
@@ -84,6 +85,7 @@ public:
         }
 		UObject::PostEditChangeProperty(PropertyChangedEvent);
     }
+#endif //WITH_EDITOR
 	virtual void PostInitProperties() override
     {
 		UObject::PostInitProperties();
@@ -113,8 +115,8 @@ public:
 	))
     ELootLockerPlatformType Platform = ELootLockerPlatformType::UNUSED;
 private:
-	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient)
+	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")
     bool IsLegacyKey;
-	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient)
+	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")
 	bool IsLegacyPlatform;
 };
