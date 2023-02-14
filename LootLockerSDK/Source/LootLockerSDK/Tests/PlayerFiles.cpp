@@ -28,7 +28,7 @@ void FLootLockerTestPlayerFiles::Define()
 
 			// Upload file
 			{
-				const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerFileResponse,FLootLockerUploadFileDelegate>();
+				const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerPlayerFileResponse,FLootLockerUploadFileDelegate>();
 
 				FLootLockerFileUploadRequest Request;
 				Request.file = "test-file.txt";
@@ -55,7 +55,7 @@ void FLootLockerTestPlayerFiles::Define()
 			
 			// Get File
 			{
-				const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerFileResponse,FLootLockerUploadFileDelegate>();
+				const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerPlayerFileResponse,FLootLockerUploadFileDelegate>();
 									
 				ULootLockerSDKManager::GetSingleFile(FileId, Delegate);
 			

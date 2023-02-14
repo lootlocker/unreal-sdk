@@ -436,6 +436,17 @@ public:
 	static void UploadFile(const FLootLockerFileUploadRequest& Request, const FLootLockerUploadFileBP& OnComplete);
 
     /**
+     * Update the specified file with the supplied content. The file will be owned by the currently active player.
+     * https://ref.lootlocker.com/game-api/#update-a-file
+     *
+     * @param FileId Id of the file, can be retrieved with ListFiles or when the file is uploaded
+     * @param Request Request of type FLootLockerFileUpdateRequest.
+     * @param OnComplete Delegate for handling the response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files")
+    static void UpdateFile(const int32 FileId, const FLootLockerFileUpdateRequest& Request, const FLootLockerUploadFileBP& OnComplete);
+
+    /**
      * Returns all the files that your currently active player own.
      * https://ref.lootlocker.com/game-api/#list-files
      *
