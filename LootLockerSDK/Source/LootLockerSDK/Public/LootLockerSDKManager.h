@@ -382,6 +382,14 @@ public:
     */
 	static void LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest);
 
+    /**
+    * This method will mark the player for deletion. After 30 days the player will be deleted from the system.
+    * https://ref.lootlocker.com/game-api/#delete-player
+    *
+    * @param OnCompletedRequest Delegate for handling the the server response.
+    */
+    static void DeletePlayer(const FLootLockerDefaultDelegate& OnCompletedRequest);
+
     //==================================================
 	//Files
 	// https://ref.lootlocker.io/game-api/#player-files

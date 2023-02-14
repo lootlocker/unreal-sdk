@@ -67,7 +67,7 @@ void ULLPlayerFilesRequestHandler::GetSingleFile(const int32 FileID, const FLoot
 
 void ULLPlayerFilesRequestHandler::DeletePlayerFile(const int32 FileID, const FLootLockerFileDeletedBP &OnCompleteBP, const FLootLockerFileDeletedDelegate &OnComplete)
 {
-	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteFileEndpoint, { FileID }, EmptyQueryParams, OnCompleteBP, OnComplete, LLAPI<FLootLockerResponse>::FResponseInspectorCallback());
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteFileEndpoint, { FileID }, EmptyQueryParams, OnCompleteBP, OnComplete);
 }
 
 void ULLPlayerFilesRequestHandler::ParsePublicFlagOnFileList(TArray<FLootLockerFileResponse>& ParsedFilesList, const TArray<TSharedPtr<FJsonValue>>& JsonFilesList)

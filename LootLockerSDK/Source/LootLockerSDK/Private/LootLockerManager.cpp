@@ -180,6 +180,11 @@ void ULootLockerManager::LookupMultiplePlayerNames1stPlatformIDs(const FLootLock
     ULootLockerPlayerRequestHandler::LookupMultiplePlayerNames1stPlatformIDs(Request, OnCompletedRequest);
 }
 
+void ULootLockerManager::DeletePlayer(const FLootLockerDefaultResponseBP& OnCompletedRequest)
+{
+    ULootLockerPlayerRequestHandler::DeletePlayer(OnCompletedRequest);
+}
+
 
 void ULootLockerManager::UploadFile(const FLootLockerFileUploadRequest &Request, const FLootLockerUploadFileBP &OnComplete)
 {
