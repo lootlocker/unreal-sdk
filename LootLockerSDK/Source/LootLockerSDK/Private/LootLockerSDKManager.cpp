@@ -164,6 +164,11 @@ void ULootLockerSDKManager::LookupMultiplePlayerNames1stPlatformIDs(const FLootL
     ULootLockerPlayerRequestHandler::LookupMultiplePlayerNames1stPlatformIDs(Request, FPMultiplePlayersPlatformIdsBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::DeletePlayer(const FLootLockerDefaultDelegate& OnCompletedRequest)
+{
+    ULootLockerPlayerRequestHandler::DeletePlayer(FLootLockerDefaultResponseBP(), OnCompletedRequest);
+}
+
 //Files
 void ULootLockerSDKManager::UploadFile(const FLootLockerFileUploadRequest& Request, const FLootLockerUploadFileDelegate& OnComplete)
 {

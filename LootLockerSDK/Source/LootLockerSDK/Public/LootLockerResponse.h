@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "CoreMinimal.h"
 #include "LootLockerResponse.generated.h"
 
 USTRUCT(BlueprintType)
@@ -17,6 +18,9 @@ struct FLootLockerResponse
     UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
     FString session_token;
 };
+
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerDefaultResponseBP, FLootLockerResponse, Var);
+DECLARE_DELEGATE_OneParam(FLootLockerDefaultDelegate, FLootLockerResponse);
 
 USTRUCT(BlueprintType)
 struct FLootLockerKeyBasedPagination
