@@ -411,6 +411,14 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
 	static void LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesAndPlatformsRequest &Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequest);
 
+    /**
+    * This method will mark the player for deletion. After 30 days the player will be deleted from the system.
+    * https://ref.lootlocker.com/game-api/#delete-player
+    *
+    * @param OnCompletedRequest Delegate for handling the the server response.
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
+    static void DeletePlayer(const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     //==================================================
     //Files

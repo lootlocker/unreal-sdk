@@ -126,6 +126,9 @@ void ULootLockerPlayerRequestHandler::LookupMultiplePlayerNames1stPlatformIDs(co
 	{
 		QueryParams.Add("player_public_uid", player_public_uid);
 	}
-	LLAPI<FLootLockerMultiplePlayersPlatformIdsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::LookupMultiplePlayer1stPlatformID, {  }, QueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerMultiplePlayersPlatformIdsResponse>::FResponseInspectorCallback());
+
+void ULootLockerPlayerRequestHandler::DeletePlayer(const FLootLockerDefaultResponseBP& OnCompletedRequestBP, const FLootLockerDefaultDelegate OnCompletedRequest)
+{
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::DeletePlayer, {}, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
