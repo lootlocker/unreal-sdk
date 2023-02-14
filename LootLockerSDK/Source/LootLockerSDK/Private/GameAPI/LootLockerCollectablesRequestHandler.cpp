@@ -15,10 +15,10 @@ ULootLockerCollectablesRequestHandler::ULootLockerCollectablesRequestHandler()
 
 void ULootLockerCollectablesRequestHandler::GetAllCollectables(const FCollectablesResponseDelegateBP& OnCompletedRequestBP, const FCollectablesResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerCollectablesResponse>::CallAPI(HttpClient, EmptyRequest, ULootLockerGameEndpoints::GetAllCollectablesEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerCollectablesResponse>::FResponseInspectorCallback());
+    LLAPI<FLootLockerCollectablesResponse>::CallAPI(HttpClient, EmptyRequest, ULootLockerGameEndpoints::GetAllCollectablesEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerCollectablesRequestHandler::CollectItem(const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegateBP& OnCompletedRequestBP, const FCollectablesResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerCollectablesResponse>::CallAPI(HttpClient, Item, ULootLockerGameEndpoints::CollectItemEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerCollectablesResponse>::FResponseInspectorCallback());
+    LLAPI<FLootLockerCollectablesResponse>::CallAPI(HttpClient, Item, ULootLockerGameEndpoints::CollectItemEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
