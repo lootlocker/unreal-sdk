@@ -34,7 +34,7 @@ void ULootLockerStateData::LoadStateFromDiskIfNeeded()
 		WhiteLabelEmail = LoadedState->WhiteLabelEmail;
 		WhiteLabelToken = LoadedState->WhiteLabelToken;
 
-		UE_LOG(LogLootLockerGameSDK, Log, TEXT("Loaded LootLocker state from disk for player with identifier %s"), *PlayerIdentifier);
+		UE_LOG(LogLootLockerGameSDK, Log, TEXT("Loaded LootLocker state from disk"));
 		StateLoaded = true;
 		return;
 	}
@@ -52,7 +52,7 @@ void ULootLockerStateData::SaveStateToDisk()
 		SavedState->WhiteLabelToken = WhiteLabelToken;
 
 		if (UGameplayStatics::SaveGameToSlot(SavedState, SaveSlot, SaveIndex)) {
-			UE_LOG(LogLootLockerGameSDK, Log, TEXT("Saved LootLocker state to disk for player with identifier %s"), *PlayerIdentifier);
+			UE_LOG(LogLootLockerGameSDK, Log, TEXT("Saved LootLocker state to disk"));
 			return;
 		}
 	}
