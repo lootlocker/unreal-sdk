@@ -27,7 +27,8 @@ public:
     static FLootLockerEndPoints WhiteLabelRequestVerificationEndpoint;
 	// Files
 	static FLootLockerEndPoints FileUploadEndpoint;
-	static FLootLockerEndPoints ListFilesEndpoint;
+    static FLootLockerEndPoints FileUpdateEndpoint;
+    static FLootLockerEndPoints ListFilesEndpoint;
 	static FLootLockerEndPoints GetSingleFileEndpoint;
 	static FLootLockerEndPoints DeleteFileEndpoint;
     static FLootLockerEndPoints ListOtherPlayersFilesEndpoint;

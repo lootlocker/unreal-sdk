@@ -24,6 +24,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelRequestVerificationEndp
 
 //Files
 FLootLockerEndPoints ULootLockerGameEndpoints::FileUploadEndpoint = InitEndpoint("player/files", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::FileUpdateEndpoint = InitEndpoint("player/files/{0}", ELootLockerHTTPMethod::PUT);
 FLootLockerEndPoints ULootLockerGameEndpoints::ListFilesEndpoint = InitEndpoint("player/files", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetSingleFileEndpoint = InitEndpoint("player/files/{0}", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::DeleteFileEndpoint = InitEndpoint("player/files/{0}", ELootLockerHTTPMethod::DELETE);

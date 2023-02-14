@@ -175,6 +175,11 @@ void ULootLockerSDKManager::UploadFile(const FLootLockerFileUploadRequest& Reque
 	ULLPlayerFilesRequestHandler::UploadFile(Request, FLootLockerUploadFileBP(), OnComplete);
 }
 
+void ULootLockerSDKManager::UpdateFile(const int32 FileId, const FLootLockerFileUpdateRequest& Request, const FLootLockerUploadFileDelegate& OnComplete)
+{
+    ULLPlayerFilesRequestHandler::UpdateFile(FileId, Request, FLootLockerUploadFileBP(), OnComplete);
+}
+
 void ULootLockerSDKManager::ListFiles(const FLootLockerFileListDelegate &OnComplete)
 {
 	ULLPlayerFilesRequestHandler::ListFiles(FLootLockerFileListBP(), OnComplete);

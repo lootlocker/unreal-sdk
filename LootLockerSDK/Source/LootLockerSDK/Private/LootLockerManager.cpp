@@ -188,7 +188,12 @@ void ULootLockerManager::DeletePlayer(const FLootLockerDefaultResponseBP& OnComp
 
 void ULootLockerManager::UploadFile(const FLootLockerFileUploadRequest &Request, const FLootLockerUploadFileBP &OnComplete)
 {
-	ULLPlayerFilesRequestHandler::UploadFile(Request, OnComplete, FLootLockerUploadFileDelegate());
+	ULLPlayerFilesRequestHandler::UploadFile(Request, OnComplete);
+}
+
+void ULootLockerManager::UpdateFile(const int32 FileId, const FLootLockerFileUpdateRequest& Request, const FLootLockerUploadFileBP& OnComplete)
+{
+    ULLPlayerFilesRequestHandler::UpdateFile(FileId, Request, OnComplete);
 }
 
 void ULootLockerManager::ListFiles(const FLootLockerFileListBP &OnComplete)
@@ -203,12 +208,12 @@ void ULootLockerManager::ListOtherPlayersPublicFiles(const int32 PlayerID, const
 
 void ULootLockerManager::GetSingleFile(const int32 FileID, const FLootLockerUploadFileBP &OnComplete)
 {
-	ULLPlayerFilesRequestHandler::GetSingleFile(FileID, OnComplete, FLootLockerUploadFileDelegate());
+	ULLPlayerFilesRequestHandler::GetSingleFile(FileID, OnComplete);
 }
 
 void ULootLockerManager::DeletePlayerFile(const int32 FileID, const FLootLockerFileDeletedBP &OnComplete)
 {
-	ULLPlayerFilesRequestHandler::DeletePlayerFile(FileID, OnComplete, FLootLockerFileDeletedDelegate());
+	ULLPlayerFilesRequestHandler::DeletePlayerFile(FileID, OnComplete);
 }
 
 // Player Progressions
