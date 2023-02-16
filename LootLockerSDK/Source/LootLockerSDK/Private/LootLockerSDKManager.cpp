@@ -79,6 +79,11 @@ void ULootLockerSDKManager::WhiteLabelRequestUserVerification(const int &UserId,
     ULootLockerAuthenticationRequestHandler::WhiteLabelRequestUserVerification(UserId, FLootLockerDefaultResponseBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::WhiteLabelRequestUserVerificationByEmail(const FString& Email, const FLootLockerDefaultDelegate& OnCompletedRequest)
+{
+    ULootLockerAuthenticationRequestHandler::WhiteLabelRequestUserVerificationByEmail(Email, FLootLockerDefaultResponseBP(), OnCompletedRequest);
+}
+
 void ULootLockerSDKManager::WhiteLabelRequestPasswordReset(const FString &Email, const FLootLockerDefaultDelegate &OnCompletedRequest)
 {
     ULootLockerAuthenticationRequestHandler::WhiteLabelRequestPasswordReset(Email, FLootLockerDefaultResponseBP(), OnCompletedRequest);
