@@ -23,9 +23,9 @@ jobs:
   build:
     name: Unreal Engine version ${{matrix.unrealVersion}}
     runs-on: ubuntu-latest
-    container: epicgames/unrealengine:dev-${{env.EngineVersion}}
+    container: epicgames/unrealengine:dev-4.27.2
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         unrealVersion:
           - 4.27.2
@@ -64,4 +64,3 @@ jobs:
       #    docker build -t local < ../Dockerfile
       #    docker run -it -v 
 
-      
