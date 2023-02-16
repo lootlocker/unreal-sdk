@@ -38,4 +38,4 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Add Engine version to uplugin
-        run: shortEngineVersion=" ${{env.EngineVersion}}" && shortEngineVersion="${shortEngineVersion%.*}" && insertString="\"EngineVersion\":${shortEngineVersion}," && sed -i "6i\  \  $insertString" ./LootLockerSDK/LootLockerSDK.uplugin && cat ./LootLockerSDK/LootLockerSDK.uplugin
+        run: shortEngineVersion=" ${{env.EngineVersion}}" && shortEngineVersion="${shortEngineVersion%.*}" && insertString="\"EngineVersion\":${shortEngineVersion}," && sed -i "6i\  \  $insertString" ./LootLockerSDK/LootLockerSDK.uplugin
