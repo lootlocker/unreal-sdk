@@ -39,3 +39,16 @@ jobs:
 
       - name: Add Engine version to uplugin
         run: shortEngineVersion=" ${{env.EngineVersion}}" && shortEngineVersion="${shortEngineVersion%.*}" && insertString="\"EngineVersion\":${shortEngineVersion}," && sed -i "6i\  \  $insertString" ./LootLockerSDK/LootLockerSDK.uplugin
+
+      - name: Create Dockerfile in place
+        run: |
+          sdkDirectory=$(pwd)
+          echo "FROM ghcr.io/epicgames/unreal-engine:dev-${{env.EngineVersion}}" >> /Dockerfile
+          echo "" >> /Dockerfile
+          echo "COPY $sdkDirectory/LICENSE /LootLockerSDK/LICENSE" >> /Dockerfile
+          echo "COPY $sdkDirectory/README.md /LootLockerSDK/README.md" >> /Dockerfile
+          echo "COPY $sdkDirectory/LootLockerSDK/Config /LootLockerSDK/LootLockerSDK/Config" >> /Dockerfile
+          echo "COPY $sdkDirectory/LootLockerSDK/Resources /LootLockerSDK/LootLockerSDK/Resources" >> /Dockerfile
+          echo "COPY $sdkDirectory/LootLockerSDK/Source /LootLockerSDK/LootLockerSDK/Source" >> /Dockerfile
+          echo "COPY $sdkDirectory/LootLockerSDK/LootLockerSDK.uplugin /LootLockerSDK/LootLockerSDK/LootLockerSDK.uplugin" >> /Dockerfile
+          cat /Dockerfile
