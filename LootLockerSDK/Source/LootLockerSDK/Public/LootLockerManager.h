@@ -215,6 +215,18 @@ public:
 	static void WhiteLabelRequestUserVerification(const int &UserId, const FLootLockerDefaultResponseBP &OnRequestWhiteLabelUserVerificationRequestCompleted);
 
     /**
+     * Request verify account email for the user.
+     * White Label platform must be enabled in the web console for this to work.
+     * Account verification must also be enabled.
+     * https://ref.lootlocker.com/game-api/#request-user-verification
+     *
+     * @param Email The Email of the user
+     * @param OnRequestWhiteLabelUserVerificationRequestCompleted Delegate for handling the response of type FLootLockerResponse
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    static void WhiteLabelRequestUserVerificationByEmail(const FString& Email, const FLootLockerDefaultResponseBP& OnRequestWhiteLabelUserVerificationRequestCompleted);
+
+    /**
      * Request a password reset email for the given email address.
      * White Label platform must be enabled in the web console for this to work.
      * https://ref.lootlocker.com/game-api/#request-reset-password
