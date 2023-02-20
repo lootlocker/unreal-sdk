@@ -68,6 +68,16 @@ public:
     static void StartAndroidSession(const FString& DeviceId, const FLootLockerSessionResponse& OnCompletedRequest);
 
     /**
+     * Start a session for a Google user
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * https://ref.lootlocker.io/game-api/#sign-in-with-google
+     *
+     * @param IdToken The Id Token from your Google Sign In
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
+    static void StartGoogleSession(const FString& IdToken, const FLootLockerSessionResponse& OnCompletedRequest);
+
+    /**
      * Start a session for a Amazon Luna user
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.
      * https://ref.lootlocker.io/game-api/#authentication-request

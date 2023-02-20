@@ -14,6 +14,7 @@ TMap<ELootLockerPlatform, FLootLockerPlatformRepresentation> ULootLockerCurrentP
 		, {ELootLockerPlatform::AmazonLuna, FLootLockerPlatformRepresentation(ELootLockerPlatform::AmazonLuna, "amazon_luna")}
 		, {ELootLockerPlatform::AppleSignIn, FLootLockerPlatformRepresentation(ELootLockerPlatform::AppleSignIn, "apple_sign_in")}
 		, {ELootLockerPlatform::Android, FLootLockerPlatformRepresentation(ELootLockerPlatform::Android, "android")}
+		, {ELootLockerPlatform::Google, FLootLockerPlatformRepresentation(ELootLockerPlatform::Google, "google")}
 };
 
 FLootLockerPlatformRepresentation& ULootLockerCurrentPlatform::CurrentPlatform = *PlatformRepresentations.Find(ELootLockerPlatform::None);
@@ -26,7 +27,7 @@ const FString FLootLockerPlatformRepresentation::GetFriendlyStringFromEnum(const
 void ULootLockerCurrentPlatform::Set(const ELootLockerPlatformType& LegacyPlatform)
 {
     switch (LegacyPlatform) {
-    case ELootLockerPlatformType::Android: CurrentPlatform = *PlatformRepresentations.Find(ELootLockerPlatform::Guest); break;
+    case ELootLockerPlatformType::Android: CurrentPlatform = *PlatformRepresentations.Find(ELootLockerPlatform::Android); break;
     case ELootLockerPlatformType::Ios: CurrentPlatform = *PlatformRepresentations.Find(ELootLockerPlatform::AppleSignIn); break;
     case ELootLockerPlatformType::Steam: CurrentPlatform = *PlatformRepresentations.Find(ELootLockerPlatform::Steam); break;
     case ELootLockerPlatformType::NintendoSwitch: CurrentPlatform = *PlatformRepresentations.Find(ELootLockerPlatform::NintendoSwitch); break;
