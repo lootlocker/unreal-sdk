@@ -29,6 +29,11 @@ void ULootLockerSDKManager::StartAndroidSession(const FString& DeviceId, const F
     ULootLockerAuthenticationRequestHandler::StartAndroidSession(DeviceId, FAuthResponseBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::StartGoogleSession(const FString& IdToken, const FLootLockerSessionResponse& OnCompletedRequest)
+{
+    ULootLockerAuthenticationRequestHandler::StartGoogleSession(IdToken, FAuthResponseBP(), OnCompletedRequest);
+}
+
 void ULootLockerSDKManager::StartAmazonLunaSession(const FString& AmazonLunaGuid,const FLootLockerSessionResponse& OnCompletedRequest)
 {
     ULootLockerAuthenticationRequestHandler::StartAmazonLunaSession(AmazonLunaGuid, FAuthResponseBP(), OnCompletedRequest);

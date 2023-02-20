@@ -21,7 +21,8 @@ enum class ELootLockerPlatform : uint8
 	AmazonLuna = 7			UMETA(DisplayName = "Amazon Luna"),
 	AppleSignIn = 8			UMETA(DisplayName = "Apple Sign In"),
 	Android = 9				UMETA(DisplayName = "Android"),
-	LastValue = 10			UMETA(DisplayName = "N/A")
+	Google = 10				UMETA(DisplayName = "Google"),
+	LastValue = 11			UMETA(DisplayName = "N/A")
 };
 
 
