@@ -371,7 +371,8 @@ public:
 	static void StartSession(const FString& PlayerId, const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
 	static void StartPlaystationNetworkSession(const FString& PsnOnlineId, const FAuthResponseBP& AuthResponseBP = FAuthResponseBP(), const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
 	static void StartAndroidSession(const FString& DeviceId, const FAuthResponseBP& AuthResponseBP = FAuthResponseBP(), const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
-	static void StartAmazonLunaSession(const FString& AmazonLunaGuid, const FAuthResponseBP& AuthResponseBP = FAuthResponseBP(), const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
+    static void StartGoogleSession(const FString& IdToken, const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
+    static void StartAmazonLunaSession(const FString& AmazonLunaGuid, const FAuthResponseBP& AuthResponseBP = FAuthResponseBP(), const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
     static void StartSteamSession(const FString& SteamId64, const FAuthResponseBP& AuthResponseBP = FAuthResponseBP(), const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
     static void StartNintendoSwitchSession(const FString& NSAIdToken, const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
 	static void StartXboxSession(const FString& XboxUserToken, const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
