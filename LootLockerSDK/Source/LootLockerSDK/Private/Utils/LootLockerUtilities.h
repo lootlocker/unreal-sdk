@@ -77,7 +77,9 @@ struct LLAPI
 #endif
         
         // calculate endpoint
-        FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, InOrderedArguments);
+        const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
+        FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, FStringFormatNamedArguments{ {"domainKey", Config && !Config->DomainKey.IsEmpty() ? Config->DomainKey + "." : ""} });
+        EndpointWithArguments = FString::Format(*EndpointWithArguments, InOrderedArguments);
         CustomHeaders.Add(TEXT("x-session-token"), ULootLockerStateData::GetToken());
 
         if (QueryParams.Num() != 0)
@@ -108,7 +110,9 @@ struct LLAPI
     {
         
         // calculate endpoint
-        const FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, InOrderedArguments);
+        const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
+        FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, FStringFormatNamedArguments{ {"domainKey", Config && !Config->DomainKey.IsEmpty() ? Config->DomainKey + "." : ""} });
+        EndpointWithArguments = FString::Format(*EndpointWithArguments, InOrderedArguments);
         
         const FString RequestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
         CustomHeaders.Add(TEXT("x-session-token"), ULootLockerStateData::GetToken());
@@ -130,7 +134,9 @@ struct LLAPI
     {
         
         // calculate endpoint
-        FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, InOrderedArguments);
+        const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
+        FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, FStringFormatNamedArguments{ {"domainKey", Config && !Config->DomainKey.IsEmpty() ? Config->DomainKey + "." : ""} });
+        EndpointWithArguments = FString::Format(*EndpointWithArguments, InOrderedArguments);
 
         if (QueryParams.Num() != 0)
         {
