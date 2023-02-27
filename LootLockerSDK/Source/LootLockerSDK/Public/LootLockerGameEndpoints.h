@@ -17,6 +17,7 @@ public:
     static FLootLockerEndPoints StartAppleSessionEndpoint;
     static FLootLockerEndPoints RefreshAppleSessionEndpoint;
     static FLootLockerEndPoints StartGoogleSessionEndpoint;
+    static FLootLockerEndPoints RefreshGoogleSessionEndpoint;
     static FLootLockerEndPoints VerifyPlayerIdEndPoint;
     static FLootLockerEndPoints EndSessionEndpoint;
     static FLootLockerEndPoints GuestloginEndpoint;

@@ -73,17 +73,6 @@ public:
     static void StartAndroidSession(const FString& DeviceId, const FAuthResponseBP& OnStartedSessionRequestCompleted);
 
     /**
-     * Start a session for a Google user
-     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
-     * https://ref.lootlocker.io/game-api/#sign-in-with-google
-     *
-     * @param IdToken The device id of the player
-     * @param OnStartedSessionRequestCompleted Delegate for handling the server response.
-     */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-    static void StartGoogleSession(const FString& IdToken, const FAuthResponseBP& OnStartedSessionRequestCompleted);
-
-    /**
      * Start a session for a Amazon Luna user
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.
      * https://ref.lootlocker.io/game-api/#authentication-request
@@ -143,11 +132,34 @@ public:
      * The Apple sign in platform must be enabled in the web console for this to work.
      * https://ref.lootlocker.com/game-api/#sign-in-with-apple
      *
-     * @param RefreshToken Token received in response from StartAppleSession request
+     * @param RefreshToken Optional: Token received in response from StartAppleSession request
      * @param OnRefreshAppleSessionCompleted Delegate for handling the response of type FLootLockerAppleSessionResponse
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken"))
     static void RefreshAppleSession(const FString& RefreshToken, const FAppleSessionResponseBP& OnRefreshAppleSessionCompleted);
+
+    /**
+     * Start a session for a Google user
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * https://ref.lootlocker.io/game-api/#sign-in-with-google
+     *
+     * @param IdToken The device id of the player
+     * @param OnStartedGoogleSessionRequestCompleted Delegate for handling the server response.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    static void StartGoogleSession(const FString& IdToken, const FGoogleSessionResponseBP& OnStartedGoogleSessionRequestCompleted);
+
+    /**
+     * Refresh a previous session signed in with Google
+     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
+     * The Google sign in platform must be enabled in the web console for this to work.
+     * https://ref.lootlocker.com/game-api/#sign-in-with-google
+     *
+     * @param RefreshToken Optional: Token received in response from StartGoogleSession request
+     * @param OnRefreshGoogleSessionCompleted Delegate for handling the response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken"))
+    static void RefreshGoogleSession(const FString& RefreshToken, const FGoogleSessionResponseBP& OnRefreshGoogleSessionCompleted);
 
     /**
      * Create a new user using the White Label login system.
