@@ -68,16 +68,6 @@ public:
     static void StartAndroidSession(const FString& DeviceId, const FLootLockerSessionResponse& OnCompletedRequest);
 
     /**
-     * Start a session for a Google user
-     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
-     * https://ref.lootlocker.io/game-api/#sign-in-with-google
-     *
-     * @param IdToken The Id Token from your Google Sign In
-     * @param OnCompletedRequest Delegate for handling the server response.
-     */
-    static void StartGoogleSession(const FString& IdToken, const FLootLockerSessionResponse& OnCompletedRequest);
-
-    /**
      * Start a session for a Amazon Luna user
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.
      * https://ref.lootlocker.io/game-api/#authentication-request
@@ -117,6 +107,27 @@ public:
     static void StartXboxSession(const FString& XboxUserToken, const FLootLockerSessionResponse& OnCompletedRequest);
 
     /**
+     * Start a session for a Google user
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * https://ref.lootlocker.io/game-api/#sign-in-with-google
+     *
+     * @param IdToken The Id Token from your Google Sign In
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
+    static void StartGoogleSession(const FString& IdToken, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest);
+
+    /**
+     * Refresh a previous session signed in with Google
+     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
+     * The Google sign in platform must be enabled in the web console for this to work.
+     * https://ref.lootlocker.com/game-api/#sign-in-with-google
+     *
+     * @param RefreshToken Optional: Token received in response from StartGoogleSession request
+     * @param OnCompletedRequest Delegate for handling the response
+     */
+    static void RefreshGoogleSession(const FString& RefreshToken, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest);
+
+    /**
      * Create a new session for Sign in with Apple
      * The Apple sign in platform must be enabled in the web console for this to work.
      * https://ref.lootlocker.com/game-api/#sign-in-with-apple
@@ -132,7 +143,7 @@ public:
      * The Apple sign in platform must be enabled in the web console for this to work.
      * https://ref.lootlocker.com/game-api/#sign-in-with-apple
      *
-     * @param RefreshToken Token received in response from StartAppleSession request
+     * @param RefreshToken Optional: Token received in response from StartAppleSession request
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAppleSessionResponse
      */
     static void RefreshAppleSession(const FString& RefreshToken, const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest);

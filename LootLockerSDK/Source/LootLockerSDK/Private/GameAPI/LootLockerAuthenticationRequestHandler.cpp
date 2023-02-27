@@ -319,7 +319,7 @@ void ULootLockerAuthenticationRequestHandler::StartAndroidSession(const FString&
 		}));
 }
 
-void ULootLockerAuthenticationRequestHandler::StartGoogleSession(const FString& IdToken, const FAuthResponseBP& OnCompletedRequestBP, const FLootLockerSessionResponse& OnCompletedRequest)
+void ULootLockerAuthenticationRequestHandler::StartGoogleSession(const FString& IdToken, const FGoogleSessionResponseBP& OnCompletedRequestBP, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest)
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	if (config->IsLegacyAPIKey()) // TODO: <Deprecated functionality, remove in v2.1>
@@ -331,11 +331,12 @@ void ULootLockerAuthenticationRequestHandler::StartGoogleSession(const FString& 
 
 		ULootLockerCurrentPlatform::Set(ELootLockerPlatform::Google);
 		AuthRequest.platform = ULootLockerCurrentPlatform::GetString();
-		LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
+		LLAPI<FLootLockerGoogleSessionResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerGoogleSessionResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerGoogleSessionResponse& Response)
 			{
 				if (Response.success)
 				{
 					ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+					ULootLockerStateData::SetRefreshToken(Response.refresh_token);
 				}
 				else
 				{
@@ -349,14 +350,59 @@ void ULootLockerAuthenticationRequestHandler::StartGoogleSession(const FString& 
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.player_identifier = IdToken;
 
-
 	ULootLockerCurrentPlatform::Set(ELootLockerPlatform::Google);
 	AuthRequest.platform = ULootLockerCurrentPlatform::GetString();
-	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartGoogleSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
+	LLAPI<FLootLockerGoogleSessionResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartGoogleSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerGoogleSessionResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerGoogleSessionResponse& Response)
 		{
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetRefreshToken(Response.refresh_token);
+			}
+			else
+			{
+				ULootLockerCurrentPlatform::Reset();
+			}
+		}));
+}
+
+void ULootLockerAuthenticationRequestHandler::RefreshGoogleSession(const FString& RefreshToken, const FGoogleSessionResponseBP& OnCompletedRequestBP, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest)
+{
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+	if (config->IsLegacyAPIKey()) // TODO: <Deprecated functionality, remove in v2.1>
+	{
+		FLootLockerRefreshGoogleSessionRequestWithDevelopmentMode AuthRequest(config->OnDevelopmentMode);
+		AuthRequest.game_key = config->LootLockerGameKey;
+		AuthRequest.game_version = config->GameVersion;
+		AuthRequest.refresh_token = RefreshToken.IsEmpty() ? ULootLockerStateData::GetRefreshToken(): RefreshToken;
+
+		ULootLockerCurrentPlatform::Set(ELootLockerPlatform::Google);
+		LLAPI<FLootLockerGoogleSessionResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::RefreshGoogleSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerGoogleSessionResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerGoogleSessionResponse& Response)
+			{
+				if (Response.success)
+				{
+					ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+					ULootLockerStateData::SetRefreshToken(Response.refresh_token);
+				}
+				else
+				{
+					ULootLockerCurrentPlatform::Reset();
+				}
+			}));
+		return;
+	} // TODO: </Deprecated functionality, remove in v2.1>
+	FLootLockerRefreshGoogleSessionRequest AuthRequest;
+	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_version = config->GameVersion;
+	AuthRequest.refresh_token = RefreshToken;
+
+	ULootLockerCurrentPlatform::Set(ELootLockerPlatform::Google);
+	LLAPI<FLootLockerGoogleSessionResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::RefreshGoogleSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerGoogleSessionResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerGoogleSessionResponse& Response)
+		{
+			if (Response.success)
+			{
+				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetRefreshToken(Response.refresh_token);
 			}
 			else
 			{
@@ -557,6 +603,7 @@ void ULootLockerAuthenticationRequestHandler::StartAppleSession(const FString& A
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetRefreshToken(Response.refresh_token);
 			}
 			else
 			{
@@ -576,6 +623,7 @@ void ULootLockerAuthenticationRequestHandler::StartAppleSession(const FString& A
         if (Response.success)
         {
             ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+			ULootLockerStateData::SetRefreshToken(Response.refresh_token);
         }
 		else
 		{
@@ -592,7 +640,7 @@ void ULootLockerAuthenticationRequestHandler::RefreshAppleSession(const FString&
 		FLootLockerRefreshAppleSessionRequestWithDevelopmentMode AuthRequest(config->OnDevelopmentMode);
 		AuthRequest.game_key = config->LootLockerGameKey;
 		AuthRequest.game_version = config->GameVersion;
-		AuthRequest.refresh_token = RefreshToken;
+		AuthRequest.refresh_token = RefreshToken.IsEmpty() ? ULootLockerStateData::GetRefreshToken() : RefreshToken;
 
 		ULootLockerCurrentPlatform::Set(ELootLockerPlatform::AppleSignIn);
 		LLAPI<FLootLockerAppleSessionResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::RefreshAppleSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAppleSessionResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAppleSessionResponse& Response)
@@ -600,6 +648,7 @@ void ULootLockerAuthenticationRequestHandler::RefreshAppleSession(const FString&
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetRefreshToken(Response.refresh_token);
 			}
 			else
 			{
@@ -619,6 +668,7 @@ void ULootLockerAuthenticationRequestHandler::RefreshAppleSession(const FString&
         if (Response.success)
         {
             ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+			ULootLockerStateData::SetRefreshToken(Response.refresh_token);
         }
 		else
 		{
