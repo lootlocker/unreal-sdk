@@ -11,6 +11,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::StartXboxSessionEndpoint = InitEn
 FLootLockerEndPoints ULootLockerGameEndpoints::StartAppleSessionEndpoint = InitEndpoint("session/apple", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::RefreshAppleSessionEndpoint = InitEndpoint("session/apple", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::StartGoogleSessionEndpoint = InitEndpoint("session/google", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::RefreshGoogleSessionEndpoint = InitEndpoint("session/google", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::VerifyPlayerIdEndPoint = InitEndpoint("v1/player/verify", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::EndSessionEndpoint = InitEndpoint("v1/session", ELootLockerHTTPMethod::DELETE);
 FLootLockerEndPoints ULootLockerGameEndpoints::GuestloginEndpoint = InitEndpoint("v2/session/guest", ELootLockerHTTPMethod::POST);

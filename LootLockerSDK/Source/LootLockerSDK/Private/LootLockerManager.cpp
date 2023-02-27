@@ -19,11 +19,6 @@ void ULootLockerManager::StartAndroidSession(const FString& DeviceId, const FAut
     ULootLockerAuthenticationRequestHandler::StartAndroidSession(DeviceId, OnStartedSessionRequestCompleted);
 }
 
-void ULootLockerManager::StartGoogleSession(const FString& IdToken, const FAuthResponseBP& OnStartedSessionRequestCompleted)
-{
-    ULootLockerAuthenticationRequestHandler::StartGoogleSession(IdToken, OnStartedSessionRequestCompleted);
-}
-
 void ULootLockerManager::StartAmazonLunaSession(const FString& AmazonLunaGuid, const FAuthResponseBP& OnStartedSessionRequestCompleted)
 {
     ULootLockerAuthenticationRequestHandler::StartAmazonLunaSession(AmazonLunaGuid, OnStartedSessionRequestCompleted);
@@ -52,6 +47,16 @@ void ULootLockerManager::StartAppleSession(const FString& AuthorizationCode, con
 void ULootLockerManager::RefreshAppleSession(const FString& RefreshToken, const FAppleSessionResponseBP& OnRefreshAppleSessionCompleted)
 {
     ULootLockerAuthenticationRequestHandler::RefreshAppleSession(RefreshToken, OnRefreshAppleSessionCompleted);
+}
+
+void ULootLockerManager::StartGoogleSession(const FString& IdToken, const FGoogleSessionResponseBP& OnStartedGoogleSessionRequestCompleted)
+{
+    ULootLockerAuthenticationRequestHandler::StartGoogleSession(IdToken, OnStartedGoogleSessionRequestCompleted);
+}
+
+void ULootLockerManager::RefreshGoogleSession(const FString& RefreshToken, const FGoogleSessionResponseBP& OnRefreshGoogleSessionCompleted)
+{
+    ULootLockerAuthenticationRequestHandler::RefreshGoogleSession(RefreshToken, OnRefreshGoogleSessionCompleted);
 }
 
 void ULootLockerManager::WhiteLabelStartSession(const FAuthResponseBP &OnStartWhiteLabelSessionRequestCompleted)

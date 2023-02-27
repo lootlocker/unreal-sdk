@@ -10,6 +10,7 @@
 
 FString ULootLockerStateData::Token = "";
 FString ULootLockerStateData::SteamToken = "";
+FString ULootLockerStateData::RefreshToken = "";
 FString ULootLockerStateData::PlayerIdentifier = FGenericPlatformMisc::GetDeviceId();
 FString ULootLockerStateData::WhiteLabelEmail = "";
 FString ULootLockerStateData::WhiteLabelToken = "";
@@ -31,6 +32,7 @@ void ULootLockerStateData::LoadStateFromDiskIfNeeded()
 		Token = LoadedState->Token;
 		PlayerIdentifier = LoadedState->PlayerIdentifier.IsEmpty() ? FPlatformMisc::GetDeviceId() : LoadedState->PlayerIdentifier;
 		SteamToken = LoadedState->SteamToken;
+		RefreshToken = LoadedState->RefreshToken;
 		WhiteLabelEmail = LoadedState->WhiteLabelEmail;
 		WhiteLabelToken = LoadedState->WhiteLabelToken;
 
@@ -48,6 +50,7 @@ void ULootLockerStateData::SaveStateToDisk()
 		SavedState->Token = Token;
 		SavedState->PlayerIdentifier = PlayerIdentifier;
 		SavedState->SteamToken = SteamToken;
+		SavedState->RefreshToken = RefreshToken;
 		SavedState->WhiteLabelEmail = WhiteLabelEmail;
 		SavedState->WhiteLabelToken = WhiteLabelToken;
 
@@ -69,6 +72,12 @@ FString ULootLockerStateData::GetSteamToken()
 {
 	LoadStateFromDiskIfNeeded();
 	return SteamToken;
+}
+
+FString ULootLockerStateData::GetRefreshToken()
+{
+	LoadStateFromDiskIfNeeded();
+	return RefreshToken;
 }
 
 FString ULootLockerStateData::GetPlayerIdentifier() 
@@ -105,6 +114,14 @@ void ULootLockerStateData::SetSteamToken(FString InSteamToken) {
 	SteamToken = InSteamToken;
 	SaveStateToDisk();
 }
+void ULootLockerStateData::SetRefreshToken(FString InRefreshToken) {
+	LoadStateFromDiskIfNeeded();
+	if (InRefreshToken.Equals(RefreshToken)) {
+		return;
+	}
+	RefreshToken = InRefreshToken;
+	SaveStateToDisk();
+}
 void ULootLockerStateData::SetPlayerIdentifier(FString InPlayerIdentifier) {
 	LoadStateFromDiskIfNeeded();
 	if (InPlayerIdentifier.Equals(PlayerIdentifier)) {
@@ -135,6 +152,7 @@ void ULootLockerStateData::ClearState()
 	LoadStateFromDiskIfNeeded();
 	Token = "";
 	SteamToken = "";
+	RefreshToken = "";
 	PlayerIdentifier = "";
 	WhiteLabelEmail = "";
 	WhiteLabelToken = "";

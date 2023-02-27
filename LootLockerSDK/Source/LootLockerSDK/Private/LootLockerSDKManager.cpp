@@ -29,11 +29,6 @@ void ULootLockerSDKManager::StartAndroidSession(const FString& DeviceId, const F
     ULootLockerAuthenticationRequestHandler::StartAndroidSession(DeviceId, FAuthResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::StartGoogleSession(const FString& IdToken, const FLootLockerSessionResponse& OnCompletedRequest)
-{
-    ULootLockerAuthenticationRequestHandler::StartGoogleSession(IdToken, FAuthResponseBP(), OnCompletedRequest);
-}
-
 void ULootLockerSDKManager::StartAmazonLunaSession(const FString& AmazonLunaGuid,const FLootLockerSessionResponse& OnCompletedRequest)
 {
     ULootLockerAuthenticationRequestHandler::StartAmazonLunaSession(AmazonLunaGuid, FAuthResponseBP(), OnCompletedRequest);
@@ -52,6 +47,16 @@ void ULootLockerSDKManager::StartNintendoSwitchSession(const FString& NSAIdToken
 void ULootLockerSDKManager::StartXboxSession(const FString& XboxUserToken, const FLootLockerSessionResponse& OnCompletedRequest)
 {
     ULootLockerAuthenticationRequestHandler::StartXboxSession(XboxUserToken, FAuthResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::StartGoogleSession(const FString& IdToken, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest)
+{
+    ULootLockerAuthenticationRequestHandler::StartGoogleSession(IdToken, FGoogleSessionResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::RefreshGoogleSession(const FString& RefreshToken, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest)
+{
+    ULootLockerAuthenticationRequestHandler::RefreshGoogleSession(RefreshToken, FGoogleSessionResponseBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::StartAppleSession(const FString& AuthorizationCode, const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest)
