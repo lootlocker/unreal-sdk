@@ -374,7 +374,7 @@ void ULootLockerAuthenticationRequestHandler::StartSteamSession(const FString& S
 		AuthRequest.game_version = config->GameVersion;
 		AuthRequest.player_identifier = SteamId64;
 
-		ULootLockerCurrentPlatform::Set(ELootLockerPlatform::AmazonLuna);
+		ULootLockerCurrentPlatform::Set(ELootLockerPlatform::Steam);
 		AuthRequest.platform = ULootLockerCurrentPlatform::GetString();
 		LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
 			{
@@ -394,7 +394,7 @@ void ULootLockerAuthenticationRequestHandler::StartSteamSession(const FString& S
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.player_identifier = SteamId64;
 
-	ULootLockerCurrentPlatform::Set(ELootLockerPlatform::AmazonLuna);
+	ULootLockerCurrentPlatform::Set(ELootLockerPlatform::Steam);
 	AuthRequest.platform = ULootLockerCurrentPlatform::GetString();
 	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
 		{
