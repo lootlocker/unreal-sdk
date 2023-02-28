@@ -132,7 +132,7 @@ public:
      * The Apple sign in platform must be enabled in the web console for this to work.
      * https://ref.lootlocker.com/game-api/#sign-in-with-apple
      *
-     * @param RefreshToken Optional: Token received in response from StartAppleSession request
+     * @param RefreshToken (Optional) Token received in response from StartAppleSession request. If not supplied we will attempt to resolve it from stored player data.
      * @param OnRefreshAppleSessionCompleted Delegate for handling the response of type FLootLockerAppleSessionResponse
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken"))
@@ -155,7 +155,7 @@ public:
      * The Google sign in platform must be enabled in the web console for this to work.
      * https://ref.lootlocker.com/game-api/#sign-in-with-google
      *
-     * @param RefreshToken Optional: Token received in response from StartGoogleSession request
+     * @param RefreshToken (Optional) Token received in response from StartGoogleSession request. If not supplied we will attempt to resolve it from stored player data.
      * @param OnRefreshGoogleSessionCompleted Delegate for handling the response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken"))
