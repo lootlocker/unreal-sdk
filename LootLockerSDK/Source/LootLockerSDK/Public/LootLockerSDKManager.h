@@ -122,7 +122,18 @@ public:
      * The Google sign in platform must be enabled in the web console for this to work.
      * https://ref.lootlocker.com/game-api/#sign-in-with-google
      *
-     * @param RefreshToken Optional: Token received in response from StartGoogleSession request
+     * @param OnCompletedRequest Delegate for handling the response
+     */
+    static void RefreshGoogleSession(const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest) { RefreshGoogleSession("", OnCompletedRequest); };
+
+    /**
+     * Refresh a previous session signed in with Google
+     * If you do not want to manually handle the refresh token we recommend using the RefreshGoogleSession(const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest) method.
+     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
+     * The Google sign in platform must be enabled in the web console for this to work.
+     * https://ref.lootlocker.com/game-api/#sign-in-with-google
+     *
+     * @param RefreshToken Token received in response from StartGoogleSession request
      * @param OnCompletedRequest Delegate for handling the response
      */
     static void RefreshGoogleSession(const FString& RefreshToken, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest);
@@ -143,7 +154,18 @@ public:
      * The Apple sign in platform must be enabled in the web console for this to work.
      * https://ref.lootlocker.com/game-api/#sign-in-with-apple
      *
-     * @param RefreshToken Optional: Token received in response from StartAppleSession request
+     * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAppleSessionResponse
+     */
+    static void RefreshAppleSession(const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest) { RefreshAppleSession("", OnCompletedRequest); };
+
+    /**
+     * Refresh a previous session signed in with Apple
+     * If you do not want to manually handle the refresh token we recommend using the RefreshAppleSession(const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest) method.
+     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
+     * The Apple sign in platform must be enabled in the web console for this to work.
+     * https://ref.lootlocker.com/game-api/#sign-in-with-apple
+     *
+     * @param RefreshToken Token received in response from StartAppleSession request
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAppleSessionResponse
      */
     static void RefreshAppleSession(const FString& RefreshToken, const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest);
