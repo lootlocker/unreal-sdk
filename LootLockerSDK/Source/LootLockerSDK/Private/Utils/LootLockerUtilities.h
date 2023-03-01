@@ -12,6 +12,10 @@ constexpr FLootLockerEmptyRequest LootLockerEmptyRequest;
 
 const TMultiMap<FString,FString> EmptyQueryParams;
 
+#if ENGINE_MAJOR_VERSION <= 4 && ENGINE_MINOR_VERSION <= 25
+typedef TMap<FString, FStringFormatArg> FStringFormatNamedArguments;
+#endif
+
 namespace LootLockerUtilities
 {
     FString AppendParameterToUrl(const FString& Url, const FString& Parameter);
