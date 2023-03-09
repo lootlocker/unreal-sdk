@@ -95,7 +95,11 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
 
     TArray<uint8> UpFileRawData;
     if (!FFileHelper::LoadFileToArray(UpFileRawData, *FilePath)) {
-        UE_LOG(LogLootLockerGameSDK, Error, TEXT("FILE NOT READ!"));
+        FLootLockerResponse FailResponse;
+        FailResponse.success = false;
+        FailResponse.FullTextFromServer = FString::Format(TEXT("Could not read file {0}"), { FilePath });
+
+        onCompleteRequest.ExecuteIfBound(FailResponse);
         return;
     }
 
