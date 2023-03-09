@@ -123,6 +123,9 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
 
     int32 LastSlashPos = 0;
     FilePath.FindLastChar('/', LastSlashPos);
+    if (LastSlashPos == -1) {
+        FilePath.FindLastChar('\\', LastSlashPos);
+    }
     FString FileName = FilePath.RightChop(LastSlashPos + 1);
 
     FileHeader.Append(FileName + "\"\r\n\r\n");
