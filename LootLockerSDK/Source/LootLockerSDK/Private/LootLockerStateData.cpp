@@ -11,7 +11,7 @@
 FString ULootLockerStateData::Token = "";
 FString ULootLockerStateData::SteamToken = "";
 FString ULootLockerStateData::RefreshToken = "";
-FString ULootLockerStateData::PlayerIdentifier = FGenericPlatformMisc::GetDeviceId();
+FString ULootLockerStateData::PlayerIdentifier = FGenericPlatformMisc::GetDeviceId != nullptr ? FGenericPlatformMisc::GetDeviceId() : FGuid::NewGuid().ToString();
 FString ULootLockerStateData::WhiteLabelEmail = "";
 FString ULootLockerStateData::WhiteLabelToken = "";
 bool ULootLockerStateData::StateLoaded = false;
