@@ -247,6 +247,11 @@ void ULootLockerManager::AddPointsToPlayerProgression(const FString& Progression
     ULootLockerProgressionsRequestHandler::AddPointsToPlayerProgression(ProgressionKey, Amount, OnCompletedRequest);
 }
 
+void ULootLockerManager::RegisterPlayerProgression(const FString& ProgressionKey, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest)
+{
+	AddPointsToPlayerProgression(ProgressionKey, 0, OnCompletedRequest);
+}
+
 void ULootLockerManager::SubtractPointsFromPlayerProgression(const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
     ULootLockerProgressionsRequestHandler::SubtractPointsFromPlayerProgression(ProgressionKey, Amount, OnCompletedRequest);

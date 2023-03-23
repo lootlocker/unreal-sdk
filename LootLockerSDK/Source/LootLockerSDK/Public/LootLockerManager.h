@@ -554,6 +554,15 @@ public:
     static void AddPointsToPlayerProgression(const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest);
 
     /**
+    * Register player progression, same as adding 0 points to a progression.
+    *
+    * @param ProgressionKey Key of the progression you want to add points to
+    * @param OnCompletedRequest Action for handling the response of type FLootLockerPlayerProgressionWithRewardsResponse
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Progressions")
+        static void RegisterPlayerProgression(const FString& ProgressionKey, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest);
+
+    /**
     * Subtracts points from the specified player progression.
     *
     * @param ProgressionKey Key of the progression you want to subtract points from
