@@ -549,6 +549,14 @@ public:
     static void AddPointsToPlayerProgression(const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseDelegate& OnComplete);
 
     /**
+    * Same as adding 0 points to a progression.
+    *
+    * @param ProgressionKey Key of the progression you want to add points to
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerPlayerProgressionWithRewardsResponse
+    */
+    static void RegisterPlayerProgression(const FString& ProgressionKey, const FLootLockerPlayerProgressionWithRewardsResponseDelegate& OnComplete);
+
+    /**
     * Subtracts points from the specified player progression.
     *
     * @param ProgressionKey Key of the progression you want to subtract points from
