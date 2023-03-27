@@ -83,3 +83,7 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DemoProject/DerivedDataCache/*
+
+# Local files
+LootLockerSDK/Binaries/*
+LootLockerSDK/Intermediate/*
