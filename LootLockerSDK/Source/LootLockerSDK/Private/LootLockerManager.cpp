@@ -753,3 +753,50 @@ void ULootLockerManager::GetServerTime(const FTimeResponseDelegateBP& OnComplete
 {
     ULootLockerMiscellaneousRequestHandler::GetServerTime(OnCompletedRequestBP);
 }
+
+// Server API
+void ULootLockerManager::Server_StartSession(const FServerAuthResponseDelegateBP& OnStartedSessionRequestCompleted)
+{
+	ULootLockerServerAuthenticationRequestHandler::StartSession(OnStartedSessionRequestCompleted);
+}
+
+void ULootLockerManager::Server_EndSession(const FServerEndSessionResponseDelegateBP& OnEndSessionRequestCompleted)
+{
+	ULootLockerServerAuthenticationRequestHandler::EndSession(OnEndSessionRequestCompleted);
+}
+
+void ULootLockerManager::Server_Ping(const FServerPingResponseDelegateBP& OnPingRequestCompleted)
+{
+	ULootLockerServerAuthenticationRequestHandler::Ping(OnPingRequestCompleted);
+}
+
+void ULootLockerManager::Server_AddItemsToPersistentStorage(const FString& PlayerId, const TArray<FLootLockerPersistentStorageItem>& Items, const FServerPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsAddRequestCompleted)
+{
+	ULootLockerServerPersistentStorageRequestHandler::AddItemsToPersistentStorage(PlayerId, Items, OnPersistentStorageItemsAddRequestCompleted);
+}
+
+void ULootLockerManager::Server_GetPlayerPersistentStorage(const FString& PlayerId, const  FServerPersistentStorageItemsResponseDelegateBP& OnGetPlayerPersistentStorageRequestCompleted)
+{
+	ULootLockerServerPersistentStorageRequestHandler::GetPlayerPersistentStorage(PlayerId, OnGetPlayerPersistentStorageRequestCompleted);
+}
+
+void ULootLockerManager::Server_ListPlayerFiles(const FString& PlayerId, const FLootLockerServerListPlayerFilesResponseDelegateBP& OnCompletedRequestBP)
+{
+	ULootLockerServerPlayerFileRequestHandler::ListPlayerFiles(PlayerId, OnCompletedRequestBP);
+}
+
+void ULootLockerManager::Server_GetPlayerFile(const FString& PlayerId, int FileId, const FLootLockerServerGetPlayerFileResponseDelegateBP& OnCompletedRequestBP)
+{
+	ULootLockerServerPlayerFileRequestHandler::GetPlayerFile(PlayerId, FileId, OnCompletedRequestBP);
+}
+
+void ULootLockerManager::Server_UploadPlayerFile(const FString& PlayerId, const FString& FileName, const FString& ContentAsString, const FString& Purpose, const FLootLockerServerUploadPlayerFileResponseDelegateBP& OnCompletedRequestBP)
+{
+	ULootLockerServerPlayerFileRequestHandler::UploadPlayerFile(PlayerId, FileName, ContentAsString, Purpose, OnCompletedRequestBP);
+}
+
+void ULootLockerManager::Server_DeletePlayerFile(const FString& PlayerId, int FileId, const FLootLockerServerDeletePlayerFileResponseDelegateBP& OnCompletedRequestBP)
+
+{
+	ULootLockerServerPlayerFileRequestHandler::DeletePlayerFile(PlayerId, FileId, OnCompletedRequestBP);
+}

@@ -39,15 +39,15 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
     Request->SetContentAsString(data);
 
 	Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this, endPoint, requestType, data](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
-		{
-			const FString ResponseString = Response->GetContentAsString();
-			FLootLockerResponse response;
-            
-	        response.success = ResponseIsValid(Response, bWasSuccessful, requestType, endPoint, data);
-			response.FullTextFromServer = Response->GetContentAsString();
-			response.ServerCallStatusCode = Response->GetResponseCode();
-			onCompleteRequest.ExecuteIfBound(response);
-		});
+	{
+		const FString ResponseString = Response->GetContentAsString();
+		FLootLockerResponse response;
+
+		response.success = ResponseIsValid(Response, bWasSuccessful, requestType, endPoint, data);
+		response.FullTextFromServer = Response->GetContentAsString();
+		response.ServerCallStatusCode = Response->GetResponseCode();
+		onCompleteRequest.ExecuteIfBound(response);
+	});
 	Request->ProcessRequest();
 }
 
@@ -72,6 +72,26 @@ bool ULootLockerHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, 
 
 void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString> AdditionalFields, const FResponseCallback& onCompleteRequest, TMap<FString, FString> customHeaders) const
 {
+	TArray<uint8> UpFileRawData;
+	if (!FFileHelper::LoadFileToArray(UpFileRawData, *FilePath))
+	{
+		FLootLockerResponse FailResponse;
+		FailResponse.success = false;
+		FailResponse.FullTextFromServer = FString::Format(TEXT("Could not read file {0}"), {FilePath});
+
+		onCompleteRequest.ExecuteIfBound(FailResponse);
+		return;
+	}
+
+	int32 LastSlashPos = 0;
+	FilePath.FindLastChar('/', LastSlashPos);
+	FString FileName = FilePath.RightChop(LastSlashPos + 1);
+
+	UploadRawData(endPoint, requestType, UpFileRawData, FileName, AdditionalFields, onCompleteRequest, customHeaders);
+}
+
+void ULootLockerHttpClient::UploadRawData(const FString& endPoint, const FString& requestType, TArray<uint8> UpFileRawData, const FString& FileName, const TMap<FString, FString> AdditionalFields, const FResponseCallback& onCompleteRequest, TMap<FString, FString> customHeaders) const
+{
     FHttpModule* HttpModule = &FHttpModule::Get();
 
 #if ENGINE_MAJOR_VERSION <= 4 && ENGINE_MINOR_VERSION <= 25
@@ -92,16 +112,6 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
     }
 
     Request->SetVerb(requestType);
-
-    TArray<uint8> UpFileRawData;
-    if (!FFileHelper::LoadFileToArray(UpFileRawData, *FilePath)) {
-        FLootLockerResponse FailResponse;
-        FailResponse.success = false;
-        FailResponse.FullTextFromServer = FString::Format(TEXT("Could not read file {0}"), { FilePath });
-
-        onCompleteRequest.ExecuteIfBound(FailResponse);
-        return;
-    }
 
     TArray<uint8> Data;
 
@@ -124,14 +134,6 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
 
     FString FileHeader = (TEXT("Content-Type: application/octet-stream\r\n"));
     FileHeader.Append(TEXT("Content-disposition: form-data; name=\"file\"; filename=\""));
-
-    int32 LastSlashPos = 0;
-    FilePath.FindLastChar('/', LastSlashPos);
-    if (LastSlashPos == -1) {
-        FilePath.FindLastChar('\\', LastSlashPos);
-    }
-    FString FileName = FilePath.RightChop(LastSlashPos + 1);
-
     FileHeader.Append(FileName + "\"\r\n\r\n");
 
     Data.Append((uint8*)TCHAR_TO_ANSI(*FileHeader), FileHeader.Len());

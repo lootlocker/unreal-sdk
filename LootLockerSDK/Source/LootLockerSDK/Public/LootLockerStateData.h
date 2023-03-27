@@ -12,7 +12,8 @@ UCLASS()
 class LOOTLOCKERSDK_API ULootLockerStateData : public UObject
 {
 	GENERATED_BODY()
-    static FString Token;
+	static FString Token;
+	static FString ServerToken;
 	static FString SteamToken;
 	static FString RefreshToken;
 	static FString PlayerIdentifier;
@@ -32,12 +33,14 @@ class LOOTLOCKERSDK_API ULootLockerStateData : public UObject
 	static void SaveStateToDisk();
 public:
 	static FString GetToken();
+	static FString GetServerToken();
 	static FString GetSteamToken();
 	static FString GetRefreshToken();
 	static FString GetPlayerIdentifier();
 	static FString GetWhiteLabelEmail();
 	static FString GetWhiteLabelToken();
 	static void SetToken(FString InToken);
+	static void SetServerToken(FString InServerToken);
 	static void SetSteamToken(FString InSteamToken);
 	static void SetRefreshToken(FString InRefreshToken);
 	static void SetPlayerIdentifier(FString InPlayerIdentifier);

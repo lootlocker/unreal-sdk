@@ -800,3 +800,55 @@ void ULootLockerSDKManager::GetServerTime(const FTimeResponseDelegate& OnComplet
 {
     ULootLockerMiscellaneousRequestHandler::GetServerTime(FTimeResponseDelegateBP(), OnCompletedRequest);
 }
+
+// Server API
+void ULootLockerSDKManager::Server_StartSession(const FServerAuthResponseDelegate& OnStartedSessionRequestCompleted)
+{
+	ULootLockerServerAuthenticationRequestHandler::StartSession(FServerAuthResponseDelegateBP(), OnStartedSessionRequestCompleted);
+}
+
+void ULootLockerSDKManager::Server_EndSession(const FServerEndSessionResponseDelegate& OnEndSessionRequestCompleted)
+{
+	ULootLockerServerAuthenticationRequestHandler::EndSession(FServerEndSessionResponseDelegateBP(), OnEndSessionRequestCompleted);
+}
+
+void ULootLockerSDKManager::Server_Ping(const FServerPingResponseDelegate& OnPingRequestCompleted)
+{
+	ULootLockerServerAuthenticationRequestHandler::Ping(FServerPingResponseDelegateBP(), OnPingRequestCompleted);
+}
+
+void ULootLockerSDKManager::Server_AddItemsToPersistentStorage(const FString& PlayerId, const TArray<FLootLockerPersistentStorageItem>& Items, const FServerPersistentStorageItemsResponseDelegate& OnPersistentStorageItemsAddRequestCompleted)
+{
+	ULootLockerServerPersistentStorageRequestHandler::AddItemsToPersistentStorage(PlayerId, Items, FServerPersistentStorageItemsResponseDelegateBP(), OnPersistentStorageItemsAddRequestCompleted);
+}
+
+void ULootLockerSDKManager::Server_DeleteItemFromPersistentStorage(const FString& PlayerId, const FString& Key, const FServerPersistentStorageDeleteItemResponseDelegate& OnPersistentStorageDeleteItemRequestCompleted)
+{
+	ULootLockerServerPersistentStorageRequestHandler::DeleteItemFromPersistentStorage(PlayerId, Key, FServerPersistentStorageDeleteItemResponseDelegateBP(), OnPersistentStorageDeleteItemRequestCompleted);
+}
+
+void ULootLockerSDKManager::Server_GetPlayerPersistentStorage(const FString& PlayerId, const  FServerPersistentStorageItemsResponseDelegate& OnGetPlayerPersistentStorageRequestCompleted)
+{
+	ULootLockerServerPersistentStorageRequestHandler::GetPlayerPersistentStorage(PlayerId, FServerPersistentStorageItemsResponseDelegateBP(), OnGetPlayerPersistentStorageRequestCompleted);
+}
+
+void ULootLockerSDKManager::Server_ListPlayerFiles(const FString& PlayerId, const FLootLockerServerListPlayerFilesResponseDelegate& OnCompletedRequest)
+{
+	ULootLockerServerPlayerFileRequestHandler::ListPlayerFiles(PlayerId, FLootLockerServerListPlayerFilesResponseDelegateBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::Server_GetPlayerFile(const FString& PlayerId, int FileId, const FLootLockerServerGetPlayerFileResponseDelegate& OnCompletedRequest)
+{
+	ULootLockerServerPlayerFileRequestHandler::GetPlayerFile(PlayerId, FileId, FLootLockerServerGetPlayerFileResponseDelegateBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::Server_UploadPlayerFile(const FString& PlayerId, const FString& FileName, const FString& ContentAsString, const FString& Purpose, const FLootLockerServerUploadPlayerFileResponseDelegate& OnCompletedRequest)
+{
+	ULootLockerServerPlayerFileRequestHandler::UploadPlayerFile(PlayerId, FileName, ContentAsString, Purpose, FLootLockerServerUploadPlayerFileResponseDelegateBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::Server_DeletePlayerFile(const FString& PlayerId, int FileId, const FLootLockerServerDeletePlayerFileResponseDelegate& OnCompletedRequest)
+
+{
+	ULootLockerServerPlayerFileRequestHandler::DeletePlayerFile(PlayerId, FileId, FLootLockerServerDeletePlayerFileResponseDelegateBP(), OnCompletedRequest);
+}

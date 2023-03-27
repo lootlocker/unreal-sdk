@@ -19,7 +19,8 @@ class LOOTLOCKERSDK_API ULootLockerHttpClient : public UObject
 public:
     ULootLockerHttpClient();
     void SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, TMap<FString, FString> customHeaders = TMap<FString, FString>()) const;
-    void UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString> AdditionalFields, const FResponseCallback& onCompleteRequest, TMap<FString, FString> customHeaders = TMap<FString, FString>()) const;
+	void UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString> AdditionalFields, const FResponseCallback& onCompleteRequest, TMap<FString, FString> customHeaders = TMap<FString, FString>()) const;
+	void UploadRawData(const FString& endPoint, const FString& requestType, TArray<uint8> UpFileRawData, const FString& FileName, const TMap<FString, FString> AdditionalFields, const FResponseCallback& onCompleteRequest,TMap<FString, FString> customHeaders = TMap<FString, FString>()) const;
 private:
     static bool ResponseIsValid(const FHttpResponsePtr& InResponse, bool bWasSuccessful, FString RequestMethod, FString Endpoint, FString Data);
 };

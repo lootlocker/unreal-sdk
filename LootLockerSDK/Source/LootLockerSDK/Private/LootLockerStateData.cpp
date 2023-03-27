@@ -9,6 +9,7 @@
 #include "Launch/Resources/Version.h"
 
 FString ULootLockerStateData::Token = "";
+FString ULootLockerStateData::ServerToken = "";
 FString ULootLockerStateData::SteamToken = "";
 FString ULootLockerStateData::RefreshToken = "";
 FString ULootLockerStateData::PlayerIdentifier = FGenericPlatformMisc::GetDeviceId != nullptr ? FGenericPlatformMisc::GetDeviceId() : FGuid::NewGuid().ToString();
@@ -30,6 +31,7 @@ void ULootLockerStateData::LoadStateFromDiskIfNeeded()
 	if (ULootLockerPersistedState* LoadedState = Cast<ULootLockerPersistedState>(UGameplayStatics::LoadGameFromSlot(SaveSlot, SaveIndex)))
 	{
 		Token = LoadedState->Token;
+		ServerToken = LoadedState->ServerToken;
 		PlayerIdentifier = LoadedState->PlayerIdentifier.IsEmpty() ? FPlatformMisc::GetDeviceId() : LoadedState->PlayerIdentifier;
 		SteamToken = LoadedState->SteamToken;
 		RefreshToken = LoadedState->RefreshToken;
@@ -48,6 +50,7 @@ void ULootLockerStateData::SaveStateToDisk()
 	if (ULootLockerPersistedState* SavedState = Cast<ULootLockerPersistedState>(UGameplayStatics::CreateSaveGameObject(ULootLockerPersistedState::StaticClass())))
 	{
 		SavedState->Token = Token;
+		SavedState->ServerToken = ServerToken;
 		SavedState->PlayerIdentifier = PlayerIdentifier;
 		SavedState->SteamToken = SteamToken;
 		SavedState->RefreshToken = RefreshToken;
@@ -66,6 +69,12 @@ FString ULootLockerStateData::GetToken()
 {
 	LoadStateFromDiskIfNeeded();
 	return Token;
+}
+
+FString ULootLockerStateData::GetServerToken()
+{
+	LoadStateFromDiskIfNeeded();
+	return ServerToken;
 }
 
 FString ULootLockerStateData::GetSteamToken() 
@@ -106,6 +115,19 @@ void ULootLockerStateData::SetToken(FString InToken) {
 	Token = InToken;
 	SaveStateToDisk();
 }
+
+void ULootLockerStateData::SetServerToken(FString InServerToken)
+{
+	LoadStateFromDiskIfNeeded();
+	if (InServerToken.Equals(ServerToken))
+	{
+		return;
+	}
+	ServerToken = InServerToken;
+	SaveStateToDisk();
+
+}
+
 void ULootLockerStateData::SetSteamToken(FString InSteamToken) {
 	LoadStateFromDiskIfNeeded();
 	if (InSteamToken.Equals(SteamToken)) {
@@ -114,6 +136,7 @@ void ULootLockerStateData::SetSteamToken(FString InSteamToken) {
 	SteamToken = InSteamToken;
 	SaveStateToDisk();
 }
+
 void ULootLockerStateData::SetRefreshToken(FString InRefreshToken) {
 	LoadStateFromDiskIfNeeded();
 	if (InRefreshToken.Equals(RefreshToken)) {
@@ -122,6 +145,7 @@ void ULootLockerStateData::SetRefreshToken(FString InRefreshToken) {
 	RefreshToken = InRefreshToken;
 	SaveStateToDisk();
 }
+
 void ULootLockerStateData::SetPlayerIdentifier(FString InPlayerIdentifier) {
 	LoadStateFromDiskIfNeeded();
 	if (InPlayerIdentifier.Equals(PlayerIdentifier)) {
@@ -130,6 +154,7 @@ void ULootLockerStateData::SetPlayerIdentifier(FString InPlayerIdentifier) {
 	PlayerIdentifier = InPlayerIdentifier;
 	SaveStateToDisk();
 }
+
 void ULootLockerStateData::SetWhiteLabelEmail(FString InWhiteLabelEmail) {
 	LoadStateFromDiskIfNeeded();
 	if (InWhiteLabelEmail.Equals(WhiteLabelEmail)) {
@@ -138,6 +163,7 @@ void ULootLockerStateData::SetWhiteLabelEmail(FString InWhiteLabelEmail) {
 	WhiteLabelEmail = InWhiteLabelEmail;
 	SaveStateToDisk();
 }
+
 void ULootLockerStateData::SetWhiteLabelToken(FString InWhiteLabelToken) {
 	LoadStateFromDiskIfNeeded();
 	if (InWhiteLabelToken.Equals(WhiteLabelToken)) {
@@ -151,6 +177,7 @@ void ULootLockerStateData::ClearState()
 {
 	LoadStateFromDiskIfNeeded();
 	Token = "";
+	ServerToken = "";
 	SteamToken = "";
 	RefreshToken = "";
 	PlayerIdentifier = "";
