@@ -27,6 +27,10 @@
 #include "GameAPI/LootLockerPlayerFilesRequestHandler.h"
 #include "GameAPI/LootLockerProgressionsRequestHandler.h"
 
+#include "ServerAPI/LootLockerServerAuthenticationRequestHandler.h"
+#include "ServerAPI/LootLockerServerPersistentStorageRequestHandler.h"
+#include "ServerAPI/LootLockerServerPlayerFileRequestHandler.h"
+
 #include "LootLockerManager.generated.h"
 
 UCLASS(Blueprintable)
@@ -1625,4 +1629,92 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous")
     static void GetServerTime(const FTimeResponseDelegateBP& OnCompletedRequestBP);
+
+	//==================================================
+	//Server API
+	//==================================================
+	/**
+	* Register a server session.
+	*
+	*  https://ref.lootlocker.io/server-api/#authentication
+	*/
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Server Methods | Authentication")
+	static void Server_StartSession(const FServerAuthResponseDelegateBP& OnStartedSessionRequestCompleted);
+
+	/**
+	* Unregister a server session.
+	*
+	*  https://ref.lootlocker.io/server-api/#authentication
+	*/
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Server Methods | Authentication")
+	static void Server_EndSession(const FServerEndSessionResponseDelegateBP& OnEndSessionRequestCompleted);
+
+	/**
+	* Ping a server session.
+	*
+	*  https://ref.lootlocker.com/server-api/#maintaining-a-server-session
+	*/
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Server Methods | Authentication")
+	static void Server_Ping(const FServerPingResponseDelegateBP& OnPingRequestCompleted);
+
+	/**
+	* Create/Update key/value pair(s).
+	*
+	* @param PlayerId - players id or their public UID.
+	* @param Items - array of items to be created/updated.
+	* https://ref.lootlocker.com/server-api/#update-persistent-storage
+	*/
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Server Methods | Persistent Storage")
+	static void Server_AddItemsToPersistentStorage(const FString& PlayerId, const TArray<FLootLockerPersistentStorageItem>& Items, const FServerPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsAddRequestCompleted);
+
+	/**
+	* Read another players key/value storage.
+	*
+	* @param PlayerId - players id or their public UID.
+	* @param Items - array of items to be created/updated.
+	* https://ref.lootlocker.com/server-api/#get-persistent-storage
+	*/
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Server Methods | Persistent Storage")
+	static void Server_GetPlayerPersistentStorage(const FString& PlayerId, const FServerPersistentStorageItemsResponseDelegateBP& OnGetPlayerPersistentStorageRequestCompleted);
+
+	/**
+	* Use this endpoint for listing the files that your currently active player own.
+	* 
+	* @param PlayerId - players id or their public UID.
+	* https://ref.lootlocker.com/server-api/#list-files-for-player
+	*/
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Files")
+	static void Server_ListPlayerFiles(const FString& PlayerId, const FLootLockerServerListPlayerFilesResponseDelegateBP& OnCompletedRequestBP);
+
+	/**
+	* Use this endpoint for listing the files that your currently active player own.
+	*
+	* @param PlayerId - players id or their public UID.
+	* @param FileId - FileId to receive.
+	* https://ref.lootlocker.com/server-api/#get-file-by-id-for-player
+	*/
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Files")
+	static void Server_GetPlayerFile(const FString& PlayerId, int FileId, const FLootLockerServerGetPlayerFileResponseDelegateBP& OnCompletedRequestBP);
+
+	/**
+	* Use this endpoint for listing the files that your currently active player own.
+	*
+	* @param PlayerId - players id or their public UID.
+	* @param FileName - file name
+	* @param ContentAsString - file content as string
+	* @param Purpose - file purpose
+	* https://ref.lootlocker.com/server-api/#upload-file-for-player
+	*/
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Files")
+	static void Server_UploadPlayerFile(const FString& PlayerId, const FString& FileName, const FString& ContentAsString, const FString& Purpose, const FLootLockerServerUploadPlayerFileResponseDelegateBP& OnCompletedRequestBP);
+
+	/**
+	* Use this endpoint for listing the files that your currently active player own.
+	*
+	* @param PlayerId - players id or their public UID.
+	* @param FileId - FileId to delete.
+	* https://ref.lootlocker.com/server-api/#delete-file-for-player
+	*/
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Files")
+	static void Server_DeletePlayerFile(const FString& PlayerId, int FileId, const FLootLockerServerDeletePlayerFileResponseDelegateBP& OnCompletedRequestBP);
 };

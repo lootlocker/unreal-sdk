@@ -15,6 +15,8 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
 	FString Token = "";
 	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
+	FString ServerToken = "";
+	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
 	FString SteamToken = "";
 	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
 	FString RefreshToken = "";
