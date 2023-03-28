@@ -15,6 +15,7 @@ TMap<ELootLockerPlatform, FLootLockerPlatformRepresentation> ULootLockerCurrentP
 		, {ELootLockerPlatform::AppleSignIn, FLootLockerPlatformRepresentation(ELootLockerPlatform::AppleSignIn, "apple_sign_in")}
 		, {ELootLockerPlatform::Android, FLootLockerPlatformRepresentation(ELootLockerPlatform::Android, "android")}
 		, {ELootLockerPlatform::Google, FLootLockerPlatformRepresentation(ELootLockerPlatform::Google, "google")}
+		, {ELootLockerPlatform::Epic, FLootLockerPlatformRepresentation(ELootLockerPlatform::Epic, "epic")}
 };
 
 FLootLockerPlatformRepresentation& ULootLockerCurrentPlatform::CurrentPlatform = *PlatformRepresentations.Find(ELootLockerPlatform::None);

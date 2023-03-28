@@ -22,7 +22,8 @@ enum class ELootLockerPlatform : uint8
 	AppleSignIn = 8			UMETA(DisplayName = "Apple Sign In"),
 	Android = 9				UMETA(DisplayName = "Android"),
 	Google = 10				UMETA(DisplayName = "Google"),
-	LastValue = 11			UMETA(DisplayName = "N/A")
+	Epic = 11				UMETA(DisplayName = "Epic Games / Epic Online Services (EOS)"),
+	LastValue = 12			UMETA(DisplayName = "N/A")
 };
 
 
