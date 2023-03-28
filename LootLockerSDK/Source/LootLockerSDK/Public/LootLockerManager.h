@@ -162,6 +162,30 @@ public:
     static void RefreshGoogleSession(const FString& RefreshToken, const FGoogleSessionResponseBP& OnRefreshGoogleSessionCompleted);
 
     /**
+     * Start a session for an Epic Online Services (EOS) user
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * The Epic Games platform must be enabled in the web console for this to work.
+     * https://ref.lootlocker.io/game-api/#sign-in-with-epic-games
+     *
+     * @param IdToken The device id of the player
+     * @param OnStartedEpicSessionRequestCompleted Delegate for handling the server response.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    static void StartEpicSession(const FString& IdToken, const FEpicSessionResponseBP& OnStartedEpicSessionRequestCompleted);
+
+    /**
+     * Refresh a previous session signed in with Epic
+     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
+     * The Epic Games platform must be enabled in the web console for this to work.
+     * https://ref.lootlocker.com/game-api/#sign-in-with-epic-games
+     *
+     * @param RefreshToken (Optional) Token received in response from StartEpicSession request. If not supplied we will attempt to resolve it from stored player data.
+     * @param OnRefreshEpicSessionCompleted Delegate for handling the response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken"))
+    static void RefreshEpicSession(const FString& RefreshToken, const FEpicSessionResponseBP& OnRefreshEpicSessionCompleted);
+
+    /**
      * Create a new user using the White Label login system.
      * White Label platform must be enabled in the web console for this to work.
      * https://ref.lootlocker.com/game-api/#sign-up

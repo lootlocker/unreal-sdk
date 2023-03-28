@@ -109,6 +109,7 @@ public:
     /**
      * Start a session for a Google user
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * The Google sign in platform must be enabled in the web console for this to work.
      * https://ref.lootlocker.io/game-api/#sign-in-with-google
      *
      * @param IdToken The Id Token from your Google Sign In
@@ -169,6 +170,39 @@ public:
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAppleSessionResponse
      */
     static void RefreshAppleSession(const FString& RefreshToken, const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest);
+
+    /**
+     * Start a session for an Epic Online Services (EOS) user
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * The Epic sign in platform must be enabled in the web console for this to work.
+     * https://ref.lootlocker.io/game-api/#sign-in-with-epic
+     *
+     * @param IdToken The Id Token from your Epic Sign In
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
+    static void StartEpicSession(const FString& IdToken, const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest);
+
+    /**
+     * Refresh a previous session signed in with an Epic Online Services (EOS) user
+     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
+     * The Epic sign in platform must be enabled in the web console for this to work.
+     * https://ref.lootlocker.com/game-api/#sign-in-with-epic
+     *
+     * @param OnCompletedRequest Delegate for handling the response
+     */
+    static void RefreshEpicSession(const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest) { RefreshEpicSession("", OnCompletedRequest); };
+
+    /**
+     * Refresh a previous session signed in with an Epic Online Services (EOS) user
+     * If you do not want to manually handle the refresh token we recommend using the RefreshEpicSession(const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest) method.
+     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
+     * The Epic sign in platform must be enabled in the web console for this to work.
+     * https://ref.lootlocker.com/game-api/#sign-in-with-epic
+     *
+     * @param RefreshToken Token received in response from StartEpicSession request
+     * @param OnCompletedRequest Delegate for handling the response
+     */
+    static void RefreshEpicSession(const FString& RefreshToken, const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest);
 
     /**
      * Start a guest session with an identifier, you can use something like a unique device identifier to tie the account to a device.
