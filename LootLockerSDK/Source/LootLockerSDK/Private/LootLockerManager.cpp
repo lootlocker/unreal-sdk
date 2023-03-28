@@ -59,6 +59,16 @@ void ULootLockerManager::RefreshGoogleSession(const FString& RefreshToken, const
     ULootLockerAuthenticationRequestHandler::RefreshGoogleSession(RefreshToken, OnRefreshGoogleSessionCompleted);
 }
 
+void ULootLockerManager::StartEpicSession(const FString& IdToken, const FEpicSessionResponseBP& OnStartedEpicSessionRequestCompleted)
+{
+    ULootLockerAuthenticationRequestHandler::StartEpicSession(IdToken, OnStartedEpicSessionRequestCompleted);
+}
+
+void ULootLockerManager::RefreshEpicSession(const FString& RefreshToken, const FEpicSessionResponseBP& OnRefreshEpicSessionCompleted)
+{
+    ULootLockerAuthenticationRequestHandler::RefreshEpicSession(RefreshToken, OnRefreshEpicSessionCompleted);
+}
+
 void ULootLockerManager::WhiteLabelStartSession(const FAuthResponseBP &OnStartWhiteLabelSessionRequestCompleted)
 {
 	ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(OnStartWhiteLabelSessionRequestCompleted);

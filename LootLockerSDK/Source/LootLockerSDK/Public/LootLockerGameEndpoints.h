@@ -18,6 +18,8 @@ public:
     static FLootLockerEndPoints RefreshAppleSessionEndpoint;
     static FLootLockerEndPoints StartGoogleSessionEndpoint;
     static FLootLockerEndPoints RefreshGoogleSessionEndpoint;
+    static FLootLockerEndPoints StartEpicSessionEndpoint;
+    static FLootLockerEndPoints RefreshEpicSessionEndpoint;
     static FLootLockerEndPoints VerifyPlayerIdEndPoint;
     static FLootLockerEndPoints EndSessionEndpoint;
     static FLootLockerEndPoints GuestloginEndpoint;
