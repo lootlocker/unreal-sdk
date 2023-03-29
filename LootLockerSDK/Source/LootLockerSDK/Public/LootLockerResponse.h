@@ -16,6 +16,8 @@ struct FLootLockerResponse
     UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
     FString FullTextFromServer;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+    FString Error;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
     FString session_token;
 };
 

@@ -54,6 +54,7 @@ struct LLAPI
             else
             {
                 ResponseStruct.success = false;
+                ResponseStruct.Error = response.Error;
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             ResponseInspectorCallback.ExecuteIfBound(ResponseStruct);

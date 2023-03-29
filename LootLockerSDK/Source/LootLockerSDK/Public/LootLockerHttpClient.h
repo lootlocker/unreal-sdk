@@ -11,6 +11,19 @@
 #include "Runtime/Launch/Resources/Version.h"
 #include "LootLockerHttpClient.generated.h"
 
+
+USTRUCT()
+struct FLootLockerErrorResponse
+{
+    GENERATED_BODY()
+    UPROPERTY()
+    FString Error;
+    UPROPERTY()
+    FString Message;
+    UPROPERTY()
+    FString trace_id;
+};
+
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerHttpClient : public UObject
 {
