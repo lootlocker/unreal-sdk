@@ -32,6 +32,9 @@ void ULootLockerServerPlayerFileRequestHandler::UploadPlayerFile(const FString& 
 	Bytes.SetNumUninitialized(ContentAsString.Len());
 	StringToBytes(ContentAsString, Bytes.GetData(), Bytes.Num());
 
+	TMap<FString, FString> CustomHeaders;
+	CustomHeaders.Add(TEXT("x-auth-token"), ULootLockerStateData::GetServerToken());
+
 	LLAPI<FLootLockerServerPlayerFileResponse>::UploadRawDataAPI(HttpClient, Bytes, FileName, ULootLockerServerEndpoints::UploadPlayerFile, {PlayerId}, AdditionalData, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerServerPlayerFileResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerServerPlayerFileResponse& Response)
 	{
 		if (Response.success)
@@ -39,7 +42,7 @@ void ULootLockerServerPlayerFileRequestHandler::UploadPlayerFile(const FString& 
 			// Add "public" to is_public field manually if it exists
 			const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
 		}
-	}));
+	}), CustomHeaders);
 }
 
 void ULootLockerServerPlayerFileRequestHandler::DeletePlayerFile(const FString& PlayerId, int FileId, const FLootLockerServerDeletePlayerFileResponseDelegateBP& OnCompletedRequestBP /*= FLootLockerServerDeletePlayerFileResponseDelegateBP()*/, const FLootLockerServerDeletePlayerFileResponseDelegate& OnCompletedRequest /*= FLootLockerServerDeletePlayerFileResponseDelegate()*/)
