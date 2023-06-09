@@ -139,6 +139,35 @@ public:
     static void RefreshAppleSession(const FString& RefreshToken, const FAppleSessionResponseBP& OnRefreshAppleSessionCompleted);
 
     /**
+    * Create a new session for Sign in with Apple Game Center
+    * The Apple sign in platform must be enabled in the web console for this to work.
+    * https://ref.lootlocker.com/game-api/#sign-in-with-apple-game-center
+    *
+    * @param BundleId the Apple Game Center bundle id of your app
+    * @param PlayerId the user's player id in Apple Game Center
+    * @param PublicKeyUrl The url of the public key generated from Apple Game Center Identity Verification
+    * @param Signature the signature generated from Apple Game Center Identity Verification
+    * @param Salt the salt of the signature generated from Apple Game Center Identity Verification
+    * @param Timestamp the timestamp of the verification generated from Apple Game Center Identity Verification
+    * @param OnStartedAppleGameCenterSessionCompleted Delegate for handling the response of type  for handling the response of type FLootLockerAppleGameCenterSessionResponse
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+       static void StartAppleGameCenterSession(const FString& BundleId, const FString& PlayerId, const FString& PublicKeyUrl, const FString& Signature, const FString& Salt, const FString& Timestamp, const FLootLockerAppleGameCenterSessionResponseBP& OnStartedAppleGameCenterSessionCompleted);
+
+    /**
+     * Refresh a previous session signed in with Apple Game Center
+     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
+     * The Apple sign in platform must be enabled in the web console for this to work.
+     * https://ref.lootlocker.com/game-api/#sign-in-with-apple-game-center
+     *
+     * @param RefreshToken (Optional) Token received in response from StartAppleSession request. If not supplied we will attempt to resolve it from stored player data.
+     * @param OnRefreshAppleGameCenterSessionCompleted Delegate for handling the response of type FLootLockerAppleGameCenterResponse
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken"))
+        static void RefreshAppleGameCenterSession(const FString& RefreshToken, const FLootLockerAppleGameCenterSessionResponseBP& OnRefreshAppleGameCenterSessionCompleted);
+
+
+    /**
      * Start a session for a Google user
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.
      * https://ref.lootlocker.io/game-api/#sign-in-with-google
@@ -316,7 +345,7 @@ public:
      * @param OnEndSessionRequestCompleted Delegate for handling the response of type LootLockerSessionResponse
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-    static void EndSession(const  FAuthDefaultResponseBP& OnEndSessionRequestCompleted);
+    static void EndSession(const FAuthDefaultResponseBP& OnEndSessionRequestCompleted);
 
     //==================================================
     //Players

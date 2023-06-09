@@ -17,6 +17,9 @@ FLootLockerEndPoints ULootLockerGameEndpoints::RefreshEpicSessionEndpoint = Init
 FLootLockerEndPoints ULootLockerGameEndpoints::VerifyPlayerIdEndPoint = InitEndpoint("v1/player/verify", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::EndSessionEndpoint = InitEndpoint("v1/session", ELootLockerHTTPMethod::DELETE);
 FLootLockerEndPoints ULootLockerGameEndpoints::GuestloginEndpoint = InitEndpoint("v2/session/guest", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::StartAppleGameCenterSessionEndpoint = InitEndpoint("session/apple/game-center", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::RefreshAppleGameCenterSessionEndpoint = InitEndpoint("session/apple/game-center", ELootLockerHTTPMethod::POST);
+
 
 // White Label
 FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelSignupEndpoint = InitEndpoint("white-label-login/sign-up", ELootLockerHTTPMethod::POST);

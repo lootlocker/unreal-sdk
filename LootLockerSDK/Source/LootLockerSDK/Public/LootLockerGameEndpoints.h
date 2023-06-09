@@ -29,6 +29,9 @@ public:
     static FLootLockerEndPoints WhiteLabelVerifySessionEndpoint;
     static FLootLockerEndPoints WhiteLabelRequestPasswordResetEndpoint;
     static FLootLockerEndPoints WhiteLabelRequestVerificationEndpoint;
+    static FLootLockerEndPoints StartAppleGameCenterSessionEndpoint;
+    static FLootLockerEndPoints RefreshAppleGameCenterSessionEndpoint;
+
 	// Files
 	static FLootLockerEndPoints FileUploadEndpoint;
     static FLootLockerEndPoints FileUpdateEndpoint;
