@@ -258,7 +258,10 @@ struct FLootLockerAsset : public FLootLockerHasKeyValueStorage
     // FLootLockerDefaultLoadouts default_loadouts;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker") //TODO:missing in Unity SDK
     TMap<FString, bool> default_loadouts;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerExternalIdentifiers external_identifiers;
+    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString drop_table_max_picks; //TODO:missing in Unity SDK    
     
