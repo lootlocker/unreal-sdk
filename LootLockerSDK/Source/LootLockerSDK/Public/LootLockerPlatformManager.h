@@ -23,7 +23,8 @@ enum class ELootLockerPlatform : uint8
 	Android = 9				UMETA(DisplayName = "Android"),
 	Google = 10				UMETA(DisplayName = "Google"),
 	Epic = 11				UMETA(DisplayName = "Epic Games / Epic Online Services (EOS)"),
-	LastValue = 12			UMETA(DisplayName = "N/A")
+	AppleGameCenter = 12	UMETA(DisplayName = "Apple Game Center"),
+	LastValue = 13			UMETA(DisplayName = "N/A")
 };
 
 

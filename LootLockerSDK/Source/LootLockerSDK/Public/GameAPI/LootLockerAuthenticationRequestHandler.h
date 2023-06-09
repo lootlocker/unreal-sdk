@@ -172,6 +172,35 @@ struct FLootLockerXboxSessionRequestWithDevelopmentMode : public FLootLockerXbox
 	}
 };
 
+
+USTRUCT(BlueprintType)
+struct FLootLockerAppleGameCenterSessionRequest : public FLootLockerBaseAuthRequest
+{
+	GENERATED_BODY()
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+		FString bundle_id;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+		FString player_id;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+		FString public_key_url;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+		FString signature;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+		FString salt;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+		FString timestamp;
+
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerRefreshAppleGameCenterSessionRequest : public FLootLockerBaseAuthRequest
+{
+	GENERATED_BODY()
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+		FString refresh_token;
+};
+
+
 USTRUCT(BlueprintType)
 struct FLootLockerAppleSessionRequest : public FLootLockerBaseAuthRequest
 {
@@ -192,6 +221,8 @@ struct FLootLockerAppleSessionRequestWithDevelopmentMode : public FLootLockerApp
 		development_mode = developmentMode;
 	}
 };
+
+
 
 USTRUCT(BlueprintType)
 struct FLootLockerRefreshAppleSessionRequest : public FLootLockerBaseAuthRequest
@@ -374,6 +405,15 @@ struct FLootLockerAppleSessionResponse : public FLootLockerAuthenticationRespons
 };
 
 USTRUCT(BlueprintType)
+struct FLootLockerAppleGameCenterSessionResponse : public FLootLockerAuthenticationResponse
+{
+	GENERATED_BODY()
+		UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+		FString refresh_token;
+};
+
+
+USTRUCT(BlueprintType)
 struct FLootLockerGoogleSessionResponse : public FLootLockerAuthenticationResponse
 {
 	GENERATED_BODY()
@@ -450,6 +490,7 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FAuthDefaultResponseBP, FLootLockerAuthenticat
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerLoginResponseDelegateBP, FLootLockerLoginResponse, AuthVar);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerVerifySessionResponseBP, FLootLockerWhiteLabelVerifySessionResponse, Response);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP, FLootLockerWhiteLabelLoginAndSessionResponse, Var);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAppleGameCenterSessionResponseBP, FLootLockerAppleGameCenterSessionResponse, Response);
 DECLARE_DELEGATE_OneParam(FLootLockerSessionResponse, FLootLockerAuthenticationResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerAppleSessionResponseDelegate, FLootLockerAppleSessionResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerGoogleSessionResponseDelegate, FLootLockerGoogleSessionResponse);
@@ -458,6 +499,7 @@ DECLARE_DELEGATE_OneParam(FLootLockerDefaultAuthenticationResponse, FLootLockerA
 DECLARE_DELEGATE_OneParam(FLootLockerLoginResponseDelegate, FLootLockerLoginResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerWhiteLabelVerifySessionDelegate, FLootLockerWhiteLabelVerifySessionResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerWhiteLabelLoginAndSessionResponseDelegate, FLootLockerWhiteLabelLoginAndSessionResponse);
+DECLARE_DELEGATE_OneParam(FLootLockerAppleGameCenterSessionResponseDelegate, FLootLockerAppleGameCenterSessionResponse);
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class LOOTLOCKERSDK_API ULootLockerAuthenticationRequestHandler : public UObject
@@ -490,7 +532,9 @@ public:
 	static void VerifyPlayer(const FString& PlatformToken, const FString& Platform, const FAuthDefaultResponseBP& OnCompletedRequestBP = FAuthDefaultResponseBP(), const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest = FLootLockerDefaultAuthenticationResponse());
 	static void EndSession(const FAuthDefaultResponseBP& OnCompletedRequestBP = FAuthDefaultResponseBP(), const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest = FLootLockerDefaultAuthenticationResponse());
     static void WhiteLabelLoginAndStartSession(const FString& Email, const FString& Password, bool bRemember, const FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP& LootLockerWhiteLabelLoginAndSessionResponseDelegateBP = FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP(), const FLootLockerWhiteLabelLoginAndSessionResponseDelegate& LootLockerWhiteLabelLoginAndSessionResponseDelegate = FLootLockerWhiteLabelLoginAndSessionResponseDelegate());
-    static ULootLockerHttpClient* HttpClient;
+	static void StartAppleGameCenterSession(const FString& BundleId, const FString& PlayerId, const FString& PublicKeyUrl, const FString& Signature, const FString& Salt, const FString& Timestamp, const FLootLockerAppleGameCenterSessionResponseBP& OnCompletedRequestBP = FLootLockerAppleGameCenterSessionResponseBP(), const FLootLockerAppleGameCenterSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleGameCenterSessionResponseDelegate()); 
+	static void RefreshAppleGameCenterSession(const FString& RefreshToken, const FLootLockerAppleGameCenterSessionResponseBP& OnCompletedRequestBP = FLootLockerAppleGameCenterSessionResponseBP(), const FLootLockerAppleGameCenterSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleGameCenterSessionResponseDelegate());
+	static ULootLockerHttpClient* HttpClient;
 private:
 	static TMap<FString, FString> DomainKeyHeaders();
 };
