@@ -16,6 +16,8 @@ public:
     static FLootLockerEndPoints StartXboxSessionEndpoint;
     static FLootLockerEndPoints StartAppleSessionEndpoint;
     static FLootLockerEndPoints RefreshAppleSessionEndpoint;
+    static FLootLockerEndPoints StartAppleGameCenterSessionEndpoint;
+    static FLootLockerEndPoints RefreshAppleGameCenterSessionEndpoint;
     static FLootLockerEndPoints StartGoogleSessionEndpoint;
     static FLootLockerEndPoints RefreshGoogleSessionEndpoint;
     static FLootLockerEndPoints StartEpicSessionEndpoint;
@@ -23,14 +25,21 @@ public:
     static FLootLockerEndPoints VerifyPlayerIdEndPoint;
     static FLootLockerEndPoints EndSessionEndpoint;
     static FLootLockerEndPoints GuestloginEndpoint;
+
+    // White Label
     static FLootLockerEndPoints WhiteLabelSignupEndpoint;
     static FLootLockerEndPoints WhiteLabelLoginEndpoint;
     static FLootLockerEndPoints WhiteLabelAuthEndpoint;
     static FLootLockerEndPoints WhiteLabelVerifySessionEndpoint;
     static FLootLockerEndPoints WhiteLabelRequestPasswordResetEndpoint;
     static FLootLockerEndPoints WhiteLabelRequestVerificationEndpoint;
-    static FLootLockerEndPoints StartAppleGameCenterSessionEndpoint;
-    static FLootLockerEndPoints RefreshAppleGameCenterSessionEndpoint;
+
+
+    // Account Linking TODO: NAME IS WIP
+    static FLootLockerEndPoints StartAccountLinkingProcess;
+    static FLootLockerEndPoints CheckStatusOfAccountLinkingProcess;
+    static FLootLockerEndPoints CancelAccountLinkingProcess;
+    static FLootLockerEndPoints UnlinkProviderFromAccount;
 
     // Files
     static FLootLockerEndPoints FileUploadEndpoint;
