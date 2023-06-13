@@ -324,13 +324,12 @@ void ULootLockerAuthenticationRequestHandler::StartGoogleSession(const FString& 
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	if (config->IsLegacyAPIKey()) // TODO: <Deprecated functionality, remove in v2.1>
 	{
-		FLootLockerAuthenticationRequestWithDevelopmentMode AuthRequest(config->OnDevelopmentMode);
+		FLootLockerGoogleSessionRequestWithDevelopmentMode AuthRequest(config->OnDevelopmentMode);
 		AuthRequest.game_key = config->LootLockerGameKey;
 		AuthRequest.game_version = config->GameVersion;
-		AuthRequest.player_identifier = IdToken;
+		AuthRequest.id_token = IdToken;
 
 		ULootLockerCurrentPlatform::Set(ELootLockerPlatform::Google);
-		AuthRequest.platform = ULootLockerCurrentPlatform::GetString();
 		LLAPI<FLootLockerGoogleSessionResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartGoogleSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerGoogleSessionResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerGoogleSessionResponse& Response)
 			{
 				if (Response.success)
@@ -345,13 +344,12 @@ void ULootLockerAuthenticationRequestHandler::StartGoogleSession(const FString& 
 			}));
 		return;
 	} // TODO: </Deprecated functionality, remove in v2.1>
-	FLootLockerAuthenticationRequest AuthRequest;
+	FLootLockerGoogleSessionRequest AuthRequest;
 	AuthRequest.game_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
-	AuthRequest.player_identifier = IdToken;
+	AuthRequest.id_token = IdToken;
 
 	ULootLockerCurrentPlatform::Set(ELootLockerPlatform::Google);
-	AuthRequest.platform = ULootLockerCurrentPlatform::GetString();
 	LLAPI<FLootLockerGoogleSessionResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartGoogleSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerGoogleSessionResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerGoogleSessionResponse& Response)
 		{
 			if (Response.success)
