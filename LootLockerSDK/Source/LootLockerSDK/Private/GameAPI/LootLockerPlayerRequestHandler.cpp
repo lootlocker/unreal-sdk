@@ -92,7 +92,7 @@ void ULootLockerPlayerRequestHandler::SetProfilePublic(const FResponseCallbackBP
 void ULootLockerPlayerRequestHandler::SetPlayerName(FString Name, const FPNameResponseBP& OnCompletedRequestBP, const FPNameResponse& OnCompletedRequest)
 {
 
-	if (Name.Equals(ULootLockerStateData::GetPlayerIdentifier(), ESearchCase::IgnoreCase) && ULootLockerCurrentPlatform::Get() == ELootLockerPlatform::Guest)
+	if (ULootLockerCurrentPlatform::Get() == ELootLockerPlatform::Guest && Name.Equals(ULootLockerStateData::GetPlayerIdentifier(), ESearchCase::IgnoreCase))
 	{
 		FLootLockerNameResponse FailResponse;
 		FailResponse.success = false;
