@@ -216,16 +216,15 @@ void ULootLockerAuthenticationRequestHandler::StartSession(const FString& Player
 	}
 	AuthRequest.platform = ULootLockerCurrentPlatform::GetString();
 	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
+    {
+        if (Response.success)
+        {
+            ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+        } else
 		{
-			if (Response.success)
-			{
-				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
-			}
-			else
-			{
-				ULootLockerCurrentPlatform::Reset();
-			}
-		}));
+			ULootLockerCurrentPlatform::Reset();
+		}
+    }));
 }
 
 void ULootLockerAuthenticationRequestHandler::StartPlaystationNetworkSession(const FString& PsnOnlineId, const FAuthResponseBP& OnCompletedRequestBP, const FLootLockerSessionResponse& OnCompletedRequest)
