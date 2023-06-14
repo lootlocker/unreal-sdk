@@ -26,8 +26,8 @@ void ULootLockerAccountLinkRequestHandler::CancelAccountLinkingProcess(const FSt
     LLAPI<FLootLockerCancelAccountLinkingProcessResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::CancelAccountLinkingProcess, { LinkID }, {}, OnResponseCompletedBP, OnResponseCompleted);
 }
 
-void ULootLockerAccountLinkRequestHandler::UnlinkProviderFromAccount(const FString& LinkID, const FLootLockerUnlinkProviderFromAccountResponseBP& OnResponseCompletedBP, const FLootLockerUnlinkProviderFromAccountResponseDelegate& OnResponseCompleted)
+void ULootLockerAccountLinkRequestHandler::UnlinkProviderFromAccount(const ELootLockerPlatform Provider, const FLootLockerUnlinkProviderFromAccountResponseBP& OnResponseCompletedBP, const FLootLockerUnlinkProviderFromAccountResponseDelegate& OnResponseCompleted)
 {
-    LLAPI<FLootLockerUnlinkProviderFromAccountResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::UnlinkProviderFromAccount, { LinkID }, {}, OnResponseCompletedBP, OnResponseCompleted);
+    LLAPI<FLootLockerUnlinkProviderFromAccountResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::UnlinkProviderFromAccount, { ULootLockerCurrentPlatform::GetPlatformRepresentationForPlatform(Provider).AuthenticationProviderString }, {}, OnResponseCompletedBP, OnResponseCompleted);
 }
 

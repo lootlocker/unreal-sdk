@@ -135,6 +135,27 @@ void ULootLockerManager::EndSession(const  FAuthDefaultResponseBP& OnEndSessionR
     ULootLockerAuthenticationRequestHandler::EndSession(OnEndSessionRequestCompleted);
 }
 
+// Account Linking
+void ULootLockerManager::StartAccountLinkingProcess(const FLootLockerAccountLinkStartResponseBP& OnResponseCompleted) 
+{
+    ULootLockerAccountLinkRequestHandler::StartAccountLinkingProcess(OnResponseCompleted);
+}
+
+void ULootLockerManager::CheckStatusOfAccountLinkingProcess(const FString& LinkID, const FLootLockerAccountLinkProcessStatusResponseBP& OnResponseCompleted) 
+{
+    ULootLockerAccountLinkRequestHandler::CheckStatusOfAccountLinkingProcess(LinkID, OnResponseCompleted);
+}
+
+void ULootLockerManager::CancelAccountLinkingProcess(const FString& LinkID, const FLootLockerCancelAccountLinkingProcessResponseBP& OnResponseCompleted) 
+{
+    ULootLockerAccountLinkRequestHandler::CancelAccountLinkingProcess(LinkID, OnResponseCompleted);
+}
+
+void ULootLockerManager::UnlinkProviderFromAccount(const ELootLockerPlatform Provider, const FLootLockerUnlinkProviderFromAccountResponseBP& OnResponseCompleted) 
+{
+    ULootLockerAccountLinkRequestHandler::UnlinkProviderFromAccount(Provider, OnResponseCompleted);
+}
+
 void ULootLockerManager::GetPlayerInfo(const FPInfoResponseBP& OnGetPlayerInfoRequestComplete)
 {
     ULootLockerPlayerRequestHandler::GetPlayerInfo(OnGetPlayerInfoRequestComplete);
