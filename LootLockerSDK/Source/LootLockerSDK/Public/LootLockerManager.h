@@ -3,29 +3,31 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "GameAPI/LootLockerAuthenticationRequestHandler.h"
-#include "LootLockerHttpClient.h"
-#include "LootLockerConfig.h"
 #include "Engine/DataAsset.h"
-#include "GameAPI/LootLockerPlayerRequestHandler.h"
-#include "GameAPI/LootLockerCharacterRequestHandler.h"
-#include "GameAPI/LootLockerPersistentStorageRequestHandler.h"
-#include "GameAPI/LootLockerAssetsRequestHandler.h"
+#include "GameAPI/LootLockerAccountLinkRequestHandler.h"
 #include "GameAPI/LootLockerAssetInstancesRequestHandler.h"
-#include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
-#include "GameAPI/LootLockerMissionsRequestHandler.h"
-#include "GameAPI/LootLockerMapsRequestHandler.h"
-#include "GameAPI/LootLockerPurchasesRequestHandler.h"
-#include "GameAPI/LootLockerTriggerEventsRequestHandler.h"
+#include "GameAPI/LootLockerAssetsRequestHandler.h"
+#include "GameAPI/LootLockerAuthenticationRequestHandler.h"
+#include "GameAPI/LootLockerCharacterRequestHandler.h"
 #include "GameAPI/LootLockerCollectablesRequestHandler.h"
-#include "GameAPI/LootLockerMessagesRequestHandler.h"
-#include "GameAPI/LootLockerLeaderboardRequestHandler.h"
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
 #include "GameAPI/LootLockerHeroRequestHandler.h"
+#include "GameAPI/LootLockerLeaderboardRequestHandler.h"
+#include "GameAPI/LootLockerMapsRequestHandler.h"
+#include "GameAPI/LootLockerMessagesRequestHandler.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
+#include "GameAPI/LootLockerMissionsRequestHandler.h"
+#include "GameAPI/LootLockerPersistentStorageRequestHandler.h"
 #include "GameAPI/LootLockerPlayerFilesRequestHandler.h"
+#include "GameAPI/LootLockerPlayerRequestHandler.h"
 #include "GameAPI/LootLockerProgressionsRequestHandler.h"
+#include "GameAPI/LootLockerPurchasesRequestHandler.h"
+#include "GameAPI/LootLockerTriggerEventsRequestHandler.h"
+#include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
+#include "LootLockerConfig.h"
+#include "LootLockerHttpClient.h"
+#include "LootLockerPlatformManager.h"
+#include "UObject/NoExportTypes.h"
 
 #include "LootLockerManager.generated.h"
 
@@ -346,6 +348,54 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void EndSession(const FAuthDefaultResponseBP& OnEndSessionRequestCompleted);
+
+    //==================================================
+	// Account Linking https://ref.lootlocker.com/game-api/#universal-auth
+    //==================================================
+
+    /**
+     * Start an account linking process on behalf of the currently signed in player
+     * When you want to link an additional provider to a player, you start by initiating an account link. The player can then navigate to the online link flow using the code_page_url and code, or the qr_code and continue the linking process.
+     * For the duration of the linking process you can check the status using the CheckStatusOfAccountLinkingProcess method.
+     * Returned from this method is the ID of the linking process, make sure to save that so that you can check the status of the process later.
+     * https://ref.lootlocker.com/game-api/#start-account-link
+     *
+     * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAccountLinkStartResponse
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Account Linking")
+    static void StartAccountLinkingProcess(const FLootLockerAccountLinkStartResponseBP& OnResponseCompleted);
+
+    /**
+     * Check the status of an ongoing account linking process
+     * https://ref.lootlocker.com/game-api/#check-account-link-status
+     *
+     * @param LinkID The ID of the account linking process which was returned when starting the linking process
+     * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAccountLinkProcessStatusResponse
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Account Linking")
+    static void CheckStatusOfAccountLinkingProcess(const FString& LinkID, const FLootLockerAccountLinkProcessStatusResponseBP& OnResponseCompleted);
+
+    /**
+     * Cancel an ongoing account linking process
+     * The response will be empty unless an error occurs
+     * https://ref.lootlocker.com/game-api/#cancel-account-link
+     *
+     * @param LinkID The ID of the account linking process which was returned when starting the linking process
+     * @param OnCompletedRequest Delegate for handling the response of type FLootLockerCancelAccountLinkingProcessResponse
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Account Linking")
+    static void CancelAccountLinkingProcess(const FString& LinkID, const FLootLockerCancelAccountLinkingProcessResponseBP& OnResponseCompleted);
+
+    /**
+     * Unlink a provider from the currently signed in player
+     * The response will be empty unless an error occurs
+     * https://ref.lootlocker.com/game-api/#unlink-provider
+     *
+     * @param Provider What provider to unlink from the currently logged in player
+     * @param OnCompletedRequest Delegate for handling the response of type FLootLockerUnlinkProviderFromAccountResponse
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Account Linking")
+    static void UnlinkProviderFromAccount(const ELootLockerPlatform Provider, const FLootLockerUnlinkProviderFromAccountResponseBP& OnResponseCompleted);
 
     //==================================================
     //Players

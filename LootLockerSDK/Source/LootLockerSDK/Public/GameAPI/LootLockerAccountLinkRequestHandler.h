@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerHttpClient.h"
+#include "LootLockerPlatformManager.h"
 #include "LootLockerAccountLinkRequestHandler.generated.h"
 
 //==================================================
@@ -143,7 +144,7 @@ public:
     static void StartAccountLinkingProcess(const FLootLockerAccountLinkStartResponseBP& OnResponseCompletedBP = FLootLockerAccountLinkStartResponseBP(), const FLootLockerAccountLinkStartResponseDelegate& OnResponseCompleted = FLootLockerAccountLinkStartResponseDelegate());
     static void CheckStatusOfAccountLinkingProcess(const FString& LinkID, const FLootLockerAccountLinkProcessStatusResponseBP& OnResponseCompletedBP = FLootLockerAccountLinkProcessStatusResponseBP(), const FLootLockerAccountLinkProcessStatusResponseDelegate& OnResponseCompleted = FLootLockerAccountLinkProcessStatusResponseDelegate());
     static void CancelAccountLinkingProcess(const FString& LinkID, const FLootLockerCancelAccountLinkingProcessResponseBP& OnResponseCompletedBP = FLootLockerCancelAccountLinkingProcessResponseBP(), const FLootLockerCancelAccountLinkingProcessResponseDelegate& OnResponseCompleted = FLootLockerCancelAccountLinkingProcessResponseDelegate());
-    static void UnlinkProviderFromAccount(const FString& LinkID, const FLootLockerUnlinkProviderFromAccountResponseBP& OnResponseCompletedBP = FLootLockerUnlinkProviderFromAccountResponseBP(), const FLootLockerUnlinkProviderFromAccountResponseDelegate& OnResponseCompleted = FLootLockerUnlinkProviderFromAccountResponseDelegate());
+    static void UnlinkProviderFromAccount(const ELootLockerPlatform Provider, const FLootLockerUnlinkProviderFromAccountResponseBP& OnResponseCompletedBP = FLootLockerUnlinkProviderFromAccountResponseBP(), const FLootLockerUnlinkProviderFromAccountResponseDelegate& OnResponseCompleted = FLootLockerUnlinkProviderFromAccountResponseDelegate());
     
     static ULootLockerHttpClient* HttpClient;
 };
