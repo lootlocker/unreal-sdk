@@ -133,6 +133,28 @@ void ULootLockerSDKManager::EndSession(const FLootLockerDefaultAuthenticationRes
 {
 	ULootLockerAuthenticationRequestHandler::EndSession(FAuthDefaultResponseBP(), OnCompleteRequest);
 }
+
+// Account Linking
+void ULootLockerSDKManager::StartAccountLinkingProcess(const FLootLockerAccountLinkStartResponseDelegate& OnResponseCompleted) 
+{
+    ULootLockerAccountLinkRequestHandler::StartAccountLinkingProcess(FLootLockerAccountLinkStartResponseBP(), OnResponseCompleted);
+}
+
+void ULootLockerSDKManager::CheckStatusOfAccountLinkingProcess(const FString& LinkID, const FLootLockerAccountLinkProcessStatusResponseDelegate& OnResponseCompleted) 
+{
+    ULootLockerAccountLinkRequestHandler::CheckStatusOfAccountLinkingProcess(LinkID, FLootLockerAccountLinkProcessStatusResponseBP(), OnResponseCompleted);
+}
+
+void ULootLockerSDKManager::CancelAccountLinkingProcess(const FString& LinkID, const FLootLockerCancelAccountLinkingProcessResponseDelegate& OnResponseCompleted) 
+{
+    ULootLockerAccountLinkRequestHandler::CancelAccountLinkingProcess(LinkID, FLootLockerCancelAccountLinkingProcessResponseBP(), OnResponseCompleted);
+}
+
+void ULootLockerSDKManager::UnlinkProviderFromAccount(const ELootLockerPlatform Provider, const FLootLockerUnlinkProviderFromAccountResponseDelegate& OnResponseCompleted) 
+{
+    ULootLockerAccountLinkRequestHandler::UnlinkProviderFromAccount(Provider, FLootLockerUnlinkProviderFromAccountResponseBP(), OnResponseCompleted);
+}
+
 //Player
 void ULootLockerSDKManager::GetPlayerInfo(const FLootLockerPlayerInformationResponse& OnCompletedRequest)
 {
