@@ -104,7 +104,7 @@ void ULootLockerPlayerRequestHandler::SetPlayerName(FString Name, const FPNameRe
 			OnCompletedRequestBP.ExecuteIfBound(FailResponse);
 			return;
 		}
-		if (Name.Equals("player"), ESearchCase::IgnoreCase) {
+		if (Name.Equals("player", ESearchCase::IgnoreCase)) {
 			FLootLockerNameResponse FailResponse;
 			FailResponse.success = false;
 			FailResponse.FullTextFromServer = "Cannot set the Player name to 'Player'";
