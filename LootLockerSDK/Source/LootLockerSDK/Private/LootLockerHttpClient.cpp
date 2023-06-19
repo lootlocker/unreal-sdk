@@ -9,6 +9,9 @@
 #include "Interfaces/IHttpResponse.h"
 #include "Launch/Resources/Version.h"
 #include "Misc/FileHelper.h"
+#include "Misc/Guid.h"
+
+const FString ULootLockerHttpClient::UserInstanceIdentifier = FGuid::NewGuid().ToString();
 
 ULootLockerHttpClient::ULootLockerHttpClient()
 {
@@ -27,6 +30,7 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 	Request->SetURL(endPoint);
 
 	Request->SetHeader(TEXT("User-Agent"), TEXT("X-UnrealEngine-Agent"));
+	Request->SetHeader(TEXT("User-Instance-Identifier"), UserInstanceIdentifier);
     Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
     Request->SetHeader(TEXT("Accepts"), TEXT("application/json"));
 
