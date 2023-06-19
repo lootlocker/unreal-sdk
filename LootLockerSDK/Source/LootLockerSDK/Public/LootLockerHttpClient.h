@@ -35,6 +35,7 @@ public:
     void UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString> AdditionalFields, const FResponseCallback& onCompleteRequest, TMap<FString, FString> customHeaders = TMap<FString, FString>()) const;
 private:
     static bool ResponseIsValid(const FHttpResponsePtr& InResponse, bool bWasSuccessful, FString RequestMethod, FString Endpoint, FString Data);
+    static const FString UserInstanceIdentifier;
 };
 
 
