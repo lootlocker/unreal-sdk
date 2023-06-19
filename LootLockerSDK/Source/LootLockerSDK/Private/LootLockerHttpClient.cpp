@@ -11,6 +11,7 @@
 #include "Misc/FileHelper.h"
 #include "Misc/Guid.h"
 
+const FString ULootLockerHttpClient::UserAgent = FString::Format(TEXT("X-UnrealEngine-Agent/{0}"), { ENGINE_VERSION_STRING });
 const FString ULootLockerHttpClient::UserInstanceIdentifier = FGuid::NewGuid().ToString();
 
 ULootLockerHttpClient::ULootLockerHttpClient()
@@ -29,7 +30,7 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 #endif
 	Request->SetURL(endPoint);
 
-	Request->SetHeader(TEXT("User-Agent"), TEXT("X-UnrealEngine-Agent"));
+	Request->SetHeader(TEXT("User-Agent"), UserAgent);
 	Request->SetHeader(TEXT("User-Instance-Identifier"), UserInstanceIdentifier);
     Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
     Request->SetHeader(TEXT("Accepts"), TEXT("application/json"));
@@ -92,7 +93,8 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
 
     FString Boundary = "lootlockerboundary";
 
-    Request->SetHeader(TEXT("User-Agent"), TEXT("X-UnrealEngine-Agent"));
+	Request->SetHeader(TEXT("User-Agent"), UserAgent);
+	Request->SetHeader(TEXT("User-Instance-Identifier"), UserInstanceIdentifier);
     Request->SetHeader(TEXT("Content-Type"), TEXT("multipart/form-data; boundary=" + Boundary));
 
     for (TTuple<FString, FString> CustomHeader : customHeaders)
