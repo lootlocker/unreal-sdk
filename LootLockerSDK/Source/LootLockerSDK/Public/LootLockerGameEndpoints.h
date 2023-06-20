@@ -37,7 +37,7 @@ public:
 
     // Account Linking TODO: NAME IS WIP
     static FLootLockerEndPoints StartAccountLinkingProcess;
-    static FLootLockerEndPoints CheckStatusOfAccountLinkingProcess;
+    static FLootLockerEndPoints CheckAccountLinkingProcessStatus;
     static FLootLockerEndPoints CancelAccountLinkingProcess;
     static FLootLockerEndPoints UnlinkProviderFromAccount;
 

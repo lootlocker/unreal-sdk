@@ -16,9 +16,9 @@ void ULootLockerAccountLinkRequestHandler::StartAccountLinkingProcess(const FLoo
     LLAPI<FLootLockerAccountLinkStartResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::StartAccountLinkingProcess, { }, {}, OnResponseCompletedBP, OnResponseCompleted);
 }
 
-void ULootLockerAccountLinkRequestHandler::CheckStatusOfAccountLinkingProcess(const FString& LinkID, const FLootLockerAccountLinkProcessStatusResponseBP& OnResponseCompletedBP, const FLootLockerAccountLinkProcessStatusResponseDelegate& OnResponseCompleted)
+void ULootLockerAccountLinkRequestHandler::CheckAccountLinkingProcessStatus(const FString& LinkID, const FLootLockerAccountLinkProcessStatusResponseBP& OnResponseCompletedBP, const FLootLockerAccountLinkProcessStatusResponseDelegate& OnResponseCompleted)
 {
-    LLAPI<FLootLockerAccountLinkProcessStatusResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::CheckStatusOfAccountLinkingProcess, { LinkID }, {}, OnResponseCompletedBP, OnResponseCompleted);
+    LLAPI<FLootLockerAccountLinkProcessStatusResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::CheckAccountLinkingProcessStatus, { LinkID }, {}, OnResponseCompletedBP, OnResponseCompleted);
 }
 
 void ULootLockerAccountLinkRequestHandler::CancelAccountLinkingProcess(const FString& LinkID, const FLootLockerCancelAccountLinkingProcessResponseBP& OnResponseCompletedBP, const FLootLockerCancelAccountLinkingProcessResponseDelegate& OnResponseCompleted)
