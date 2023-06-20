@@ -625,6 +625,38 @@ void ULootLockerManager::GetProgressionTiers(const FString& ProgressionKey, cons
     ULootLockerProgressionsRequestHandler::GetProgressionTiers(ProgressionKey, Count, After, OnCompletedRequest);
 }
 
+//Instance progression
+
+void ULootLockerManager::GetInstanceProgressions(const int32 AssetInstanceId, const int32 Count, const FString& After, const FLootLockerPaginatedInstanceProgressionsResponseBP& OnCompletedRequestBP)
+{
+    ULootLockerProgressionsRequestHandler::GetInstanceProgressions(AssetInstanceId, Count, After, OnCompletedRequestBP);
+}
+
+void ULootLockerManager::GetInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionResponseBP& OnCompletedRequestBP)
+{
+    ULootLockerProgressionsRequestHandler::GetInstanceProgression(AssetInstanceId, ProgressionKey, OnCompletedRequestBP);
+}
+
+void ULootLockerManager::AddPointsToInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP)
+{
+    ULootLockerProgressionsRequestHandler::AddPointsToInstanceProgression(AssetInstanceId, ProgressionKey, Amount, OnCompletedRequestBP);
+}
+
+void ULootLockerManager::SubtractPointsFromInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP)
+{
+    ULootLockerProgressionsRequestHandler::SubtractPointsFromInstanceProgression(AssetInstanceId, ProgressionKey, Amount, OnCompletedRequestBP);
+}
+
+void ULootLockerManager::ResetInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP)
+{
+    ULootLockerProgressionsRequestHandler::ResetInstanceProgression(AssetInstanceId, ProgressionKey, OnCompletedRequestBP);
+}
+
+void ULootLockerManager::DeleteInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequestBP)
+{
+    ULootLockerProgressionsRequestHandler::DeleteInstanceProgression(AssetInstanceId, ProgressionKey, OnCompletedRequestBP);
+}
+
 // Missions
 void ULootLockerManager::GetAllMissions(const FMissionsResponseDelegateBP& OnGetAllMissionsCompleted)
 {

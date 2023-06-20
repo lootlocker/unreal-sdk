@@ -476,6 +476,39 @@ void ULootLockerSDKManager::DeleteCharacterProgression(const int32& CharacterId,
     ULootLockerProgressionsRequestHandler::DeleteCharacterProgression(CharacterId, ProgressionKey, FLootLockerDeleteProgressionBP(), OnComplete);
 }
 
+//Asset Instance Progressions
+
+
+void ULootLockerSDKManager::GetInstanceProgressions(const int32 AssetInstanceId, const int32 Count, const FString& After, const FLootLockerPaginatedInstanceProgressionsResponseDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::GetInstanceProgressions(AssetInstanceId, Count, After, FLootLockerPaginatedInstanceProgressionsResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::GetInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionResponseDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::GetInstanceProgression(AssetInstanceId, ProgressionKey, FLootLockerInstanceProgressionResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::AddPointsToInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::AddPointsToInstanceProgression(AssetInstanceId, ProgressionKey, Amount, FLootLockerInstanceProgressionWithRewardsResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::SubtractPointsFromInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::SubtractPointsFromInstanceProgression::(AssetInstanceId, ProgressionKey, Amount, FLootLockerInstanceProgressionWithRewardsResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::ResetInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionWithRewardsResponseDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::ResetInstanceProgression(AssetInstanceId, ProgressionKey, FLootLockerInstanceProgressionWithRewardsResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::DeleteInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerDeleteProgressionDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::DeleteInstanceProgression(AssetInstanceId, ProgressionKey, FLootLockerDeleteProgressionBP(), OnComplete);
+}
+
 //Persistent Storage
 void ULootLockerSDKManager::GetEntirePersistentStorage(const FPersistentStorageItemsResponseDelegate& OnCompletedRequest)
 {

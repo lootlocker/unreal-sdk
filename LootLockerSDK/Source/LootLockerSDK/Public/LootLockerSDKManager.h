@@ -644,6 +644,24 @@ public:
     */
     static void DeletePlayerProgression(const FString& ProgressionKey, const FLootLockerDeleteProgressionDelegate& OnComplete);
 
+    //==================================================
+    //Asset Instance Progressions   
+    //==================================================
+
+    /**
+    * Returns multiple progressions the asset instance is currently on.
+    *
+    * @param AssetInstanceId Key of the progression you want
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerResponse
+    */
+    static void GetInstanceProgressions(const int32 AssetInstanceId, const int32 Count, const FString& After, const FLootLockerPaginatedInstanceProgressionsResponseDelegate& OnComplete = FLootLockerPaginatedInstanceProgressionsResponseDelegate());
+    static void GetInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionResponseDelegate& OnComplete = FLootLockerInstanceProgressionResponseDelegate());
+    static void AddPointsToInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseDelegate& OnComplete = FLootLockerInstanceProgressionWithRewardsResponseDelegate());
+    static void SubtractPointsFromInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseDelegate& OnComplete = FLootLockerInstanceProgressionWithRewardsResponseDelegate());
+    static void ResetInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionWithRewardsResponseDelegate& OnComplete = FLootLockerInstanceProgressionWithRewardsResponseDelegate());
+    static void DeleteInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerDeleteProgressionDelegate& OnComplete = FLootLockerDeleteProgressionDelegate());
+
+
 	//==================================================
 	//Heroes
 	//==================================================
