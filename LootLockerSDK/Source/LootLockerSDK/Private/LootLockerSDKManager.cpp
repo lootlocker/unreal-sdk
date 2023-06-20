@@ -134,15 +134,16 @@ void ULootLockerSDKManager::EndSession(const FLootLockerDefaultAuthenticationRes
 	ULootLockerAuthenticationRequestHandler::EndSession(FAuthDefaultResponseBP(), OnCompleteRequest);
 }
 
+#if defined LOOTLOCKER_ENABLE_ACCOUNT_LINKING
 // Account Linking
 void ULootLockerSDKManager::StartAccountLinkingProcess(const FLootLockerAccountLinkStartResponseDelegate& OnResponseCompleted) 
 {
     ULootLockerAccountLinkRequestHandler::StartAccountLinkingProcess(FLootLockerAccountLinkStartResponseBP(), OnResponseCompleted);
 }
 
-void ULootLockerSDKManager::CheckStatusOfAccountLinkingProcess(const FString& LinkID, const FLootLockerAccountLinkProcessStatusResponseDelegate& OnResponseCompleted) 
+void ULootLockerSDKManager::CheckAccountLinkingProcessStatus(const FString& LinkID, const FLootLockerAccountLinkProcessStatusResponseDelegate& OnResponseCompleted) 
 {
-    ULootLockerAccountLinkRequestHandler::CheckStatusOfAccountLinkingProcess(LinkID, FLootLockerAccountLinkProcessStatusResponseBP(), OnResponseCompleted);
+    ULootLockerAccountLinkRequestHandler::CheckAccountLinkingProcessStatus(LinkID, FLootLockerAccountLinkProcessStatusResponseBP(), OnResponseCompleted);
 }
 
 void ULootLockerSDKManager::CancelAccountLinkingProcess(const FString& LinkID, const FLootLockerCancelAccountLinkingProcessResponseDelegate& OnResponseCompleted) 
@@ -154,6 +155,7 @@ void ULootLockerSDKManager::UnlinkProviderFromAccount(const ELootLockerPlatform 
 {
     ULootLockerAccountLinkRequestHandler::UnlinkProviderFromAccount(Provider, FLootLockerUnlinkProviderFromAccountResponseBP(), OnResponseCompleted);
 }
+#endif //defined LOOTLOCKER_ENABLE_ACCOUNT_LINKING
 
 //Player
 void ULootLockerSDKManager::GetPlayerInfo(const FLootLockerPlayerInformationResponse& OnCompletedRequest)

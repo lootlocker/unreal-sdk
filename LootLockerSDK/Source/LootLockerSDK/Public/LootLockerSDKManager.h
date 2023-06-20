@@ -369,6 +369,7 @@ public:
      */
     static void WhiteLabelRequestPasswordReset(const FString& Email, const FLootLockerDefaultDelegate& OnCompletedRequest);
 
+#if defined LOOTLOCKER_ENABLE_ACCOUNT_LINKING
     //==================================================
 	// Account Linking https://ref.lootlocker.com/game-api/#universal-auth
     //==================================================
@@ -376,7 +377,7 @@ public:
     /**
      * Start an account linking process on behalf of the currently signed in player
      * When you want to link an additional provider to a player, you start by initiating an account link. The player can then navigate to the online link flow using the code_page_url and code, or the qr_code and continue the linking process.
-     * For the duration of the linking process you can check the status using the CheckStatusOfAccountLinkingProcess method.
+     * For the duration of the linking process you can check the status using the CheckAccountLinkingProcessStatus method.
      * Returned from this method is the ID of the linking process, make sure to save that so that you can check the status of the process later.
      * https://ref.lootlocker.com/game-api/#start-account-link
      *
@@ -391,7 +392,7 @@ public:
      * @param LinkID The ID of the account linking process which was returned when starting the linking process
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAccountLinkProcessStatusResponse
      */
-    static void CheckStatusOfAccountLinkingProcess(const FString& LinkID, const FLootLockerAccountLinkProcessStatusResponseDelegate& OnResponseCompleted);
+    static void CheckAccountLinkingProcessStatus(const FString& LinkID, const FLootLockerAccountLinkProcessStatusResponseDelegate& OnResponseCompleted);
 
     /**
      * Cancel an ongoing account linking process
@@ -412,6 +413,7 @@ public:
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerUnlinkProviderFromAccountResponse
      */
     static void UnlinkProviderFromAccount(const ELootLockerPlatform Provider, const FLootLockerUnlinkProviderFromAccountResponseDelegate& OnResponseCompleted);
+#endif //defined LOOTLOCKER_ENABLE_ACCOUNT_LINKING
 
     //==================================================
 	//Player calls
