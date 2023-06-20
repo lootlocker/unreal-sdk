@@ -23,21 +23,21 @@ public:
     static FLootLockerEndPoints VerifyPlayerIdEndPoint;
     static FLootLockerEndPoints EndSessionEndpoint;
     static FLootLockerEndPoints GuestloginEndpoint;
-	static FLootLockerEndPoints WhiteLabelSignupEndpoint;
-	static FLootLockerEndPoints WhiteLabelLoginEndpoint;
-	static FLootLockerEndPoints WhiteLabelAuthEndpoint;
+    static FLootLockerEndPoints WhiteLabelSignupEndpoint;
+    static FLootLockerEndPoints WhiteLabelLoginEndpoint;
+    static FLootLockerEndPoints WhiteLabelAuthEndpoint;
     static FLootLockerEndPoints WhiteLabelVerifySessionEndpoint;
     static FLootLockerEndPoints WhiteLabelRequestPasswordResetEndpoint;
     static FLootLockerEndPoints WhiteLabelRequestVerificationEndpoint;
     static FLootLockerEndPoints StartAppleGameCenterSessionEndpoint;
     static FLootLockerEndPoints RefreshAppleGameCenterSessionEndpoint;
 
-	// Files
-	static FLootLockerEndPoints FileUploadEndpoint;
+    // Files
+    static FLootLockerEndPoints FileUploadEndpoint;
     static FLootLockerEndPoints FileUpdateEndpoint;
     static FLootLockerEndPoints ListFilesEndpoint;
-	static FLootLockerEndPoints GetSingleFileEndpoint;
-	static FLootLockerEndPoints DeleteFileEndpoint;
+    static FLootLockerEndPoints GetSingleFileEndpoint;
+    static FLootLockerEndPoints DeleteFileEndpoint;
     static FLootLockerEndPoints ListOtherPlayersFilesEndpoint;
 
     //Player
@@ -56,22 +56,23 @@ public:
     static FLootLockerEndPoints SetPlayerName;
     static FLootLockerEndPoints GetPlayerName;
     static FLootLockerEndPoints LookupMultiplePlayerNamesUsingIDs;
-	static FLootLockerEndPoints LookupMultiplePlayer1stPlatformID;
+    static FLootLockerEndPoints LookupMultiplePlayer1stPlatformID;
     static FLootLockerEndPoints DeletePlayer;
-	//Heroes
-	static FLootLockerEndPoints GetGameHeroes;
-	static FLootLockerEndPoints ListPlayerHeroes;
-	static FLootLockerEndPoints ListOtherPlayersHeroesBySteamID64;
-	static FLootLockerEndPoints CreateHero;
-	static FLootLockerEndPoints GetHero;
-	static FLootLockerEndPoints GetOtherPlayersDefaultHeroBySteamID64;
-	static FLootLockerEndPoints UpdateHero;
-	static FLootLockerEndPoints DeleteHero;
-	static FLootLockerEndPoints GetHeroInventory;
-	static FLootLockerEndPoints GetHeroLoadout;
-	static FLootLockerEndPoints GetOtherPlayersHeroLoadout;
-	static FLootLockerEndPoints AddAssetToHeroLoadout;
-	static FLootLockerEndPoints RemoveAssetToHeroLoadout;
+
+    //Heroes
+    static FLootLockerEndPoints GetGameHeroes;
+    static FLootLockerEndPoints ListPlayerHeroes;
+    static FLootLockerEndPoints ListOtherPlayersHeroesBySteamID64;
+    static FLootLockerEndPoints CreateHero;
+    static FLootLockerEndPoints GetHero;
+    static FLootLockerEndPoints GetOtherPlayersDefaultHeroBySteamID64;
+    static FLootLockerEndPoints UpdateHero;
+    static FLootLockerEndPoints DeleteHero;
+    static FLootLockerEndPoints GetHeroInventory;
+    static FLootLockerEndPoints GetHeroLoadout;
+    static FLootLockerEndPoints GetOtherPlayersHeroLoadout;
+    static FLootLockerEndPoints AddAssetToHeroLoadout;
+    static FLootLockerEndPoints RemoveAssetToHeroLoadout;
 
     //Player Progressions
     static FLootLockerEndPoints GetAllPlayerProgressions;
@@ -118,7 +119,7 @@ public:
     static FLootLockerEndPoints GetFavouriteAssetIndicesEndpoint;
     static FLootLockerEndPoints AddAssetToFavouritesEndpoint;
     static FLootLockerEndPoints RemoveAssetFromFavouritesEndpoint;
-	static FLootLockerEndPoints GetUniversalAssetsEndpoint;
+    static FLootLockerEndPoints GetUniversalAssetsEndpoint;
 
     //Asset Instances
     static FLootLockerEndPoints GetAllKeyValuePairsForAssetInstance;
@@ -130,6 +131,14 @@ public:
     static FLootLockerEndPoints DeleteAKeyValuePairByIdForAssetInstanceEndpoint;
     static FLootLockerEndPoints InspectLootBoxEndpoint;
     static FLootLockerEndPoints OpenLootBoxEndpoint;
+
+    //Instance Progressions
+    static FLootLockerEndPoints GetAllInstanceProgressions;
+    static FLootLockerEndPoints GetSingleInstanceProgression;
+    static FLootLockerEndPoints AddPointsToInstanceProgression;
+    static FLootLockerEndPoints SubtractPointsFromInstanceProgression;
+    static FLootLockerEndPoints ResetInstanceProgression;
+    static FLootLockerEndPoints DeleteInstanceProgression;
 
     //User Generated Content
     static FLootLockerEndPoints CreateAssetCandidateEndpoint;
@@ -172,9 +181,9 @@ public:
     static FLootLockerEndPoints GetMemberRank;
     static FLootLockerEndPoints GetByListOfMembers;
     static FLootLockerEndPoints GetScoreList;
-	static FLootLockerEndPoints GetScoreListAfter;
+    static FLootLockerEndPoints GetScoreListAfter;
     static FLootLockerEndPoints SubmitScore;
-	static FLootLockerEndPoints GetAllMemberRanks;
+    static FLootLockerEndPoints GetAllMemberRanks;
 
     //Progressions
     static FLootLockerEndPoints GetAllProgressions;
@@ -185,11 +194,11 @@ public:
     static FLootLockerEndPoints ComputeAndLockDropTable;
     static FLootLockerEndPoints PickDropsFromDropTable;
 
-	// Miscellaneous
-	static FLootLockerEndPoints GetServerTimeEndpoint;
+    // Miscellaneous
+    static FLootLockerEndPoints GetServerTimeEndpoint;
 
-	// Crash
-	static FLootLockerEndPoints Crashes;
+    // Crash
+    static FLootLockerEndPoints Crashes;
 private:
     static FString GameBaseUrl;
 
