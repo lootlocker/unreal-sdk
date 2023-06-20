@@ -31,7 +31,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelRequestVerificationEndp
 
 // Account Linking
 FLootLockerEndPoints ULootLockerGameEndpoints::StartAccountLinkingProcess = InitEndpoint("upa/link/start", ELootLockerHTTPMethod::POST);
-FLootLockerEndPoints ULootLockerGameEndpoints::CheckStatusOfAccountLinkingProcess = InitEndpoint("upa/link/{0}", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::CheckAccountLinkingProcessStatus = InitEndpoint("upa/link/{0}", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::CancelAccountLinkingProcess = InitEndpoint("upa/link/{0}", ELootLockerHTTPMethod::DELETE);
 FLootLockerEndPoints ULootLockerGameEndpoints::UnlinkProviderFromAccount = InitEndpoint("player/providers/{0}", ELootLockerHTTPMethod::DELETE);
 
