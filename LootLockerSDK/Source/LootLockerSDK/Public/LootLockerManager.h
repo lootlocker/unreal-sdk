@@ -997,7 +997,7 @@ public:
     static void ResetCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest);
 
     /**
-    * Returns multiple progressions the character is currently on.
+    * deletes the specified character progression.
     *
     * @param CharacterId Id of the character you want to fetch progressions for
     * @param ProgressionKey Key of the progression you want to delete
