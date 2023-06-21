@@ -637,10 +637,10 @@ public:
     static void ResetPlayerProgression(const FString& ProgressionKey, const FLootLockerPlayerProgressionWithRewardsResponseDelegate& OnComplete);
 
     /**
-    * Returns multiple progressions the player is currently on.
-    *
-    * @param ProgressionKey Key of the progression you want to delete
-    * @param OnComplete onComplete Action for handling the response of type FLootLockerResponse
+    * Deletes the specified player progression.
+
+    * @param ProgressionKey Key of the progression you want to reset
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerDeleteProgression
     */
     static void DeletePlayerProgression(const FString& ProgressionKey, const FLootLockerDeleteProgressionDelegate& OnComplete);
 
@@ -655,10 +655,68 @@ public:
     * @param OnComplete onComplete Action for handling the response of type FLootLockerResponse
     */
     static void GetInstanceProgressions(const int32 AssetInstanceId, const int32 Count, const FString& After, const FLootLockerPaginatedInstanceProgressionsResponseDelegate& OnComplete = FLootLockerPaginatedInstanceProgressionsResponseDelegate());
+    /**
+    * Returns multiple progressions the instance is currently on.
+    *
+    * @param AssetInstanceId Key of the progression you want
+    * @param Count Amount of entries to receive
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedInstanceProgressionsResponse
+   */
+    static void GetInstanceProgressions(const int32 AssetInstanceId, const int32& Count, const FLootLockerPaginatedInstanceProgressionsResponseDelegate& OnComplete);
+
+    /**
+    * Returns multiple progressions the instance is currently on.
+    *
+    * @param AssetInstanceId Key of the progression you want
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedInstanceProgressionsResponse
+    */
+    static void GetInstanceProgressions(const int32 AssetInstanceId, const FLootLockerPaginatedInstanceProgressionsResponseDelegate& OnComplete);
+    
+    /**
+    * Returns a single progression the instance is currently on.
+    *
+    * @param AssetInstanceId Key of the progression you want
+    * @param ProgressionKey Key of the progression you want to fetch
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerInstanceProgressionResponse
+    */
     static void GetInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionResponseDelegate& OnComplete = FLootLockerInstanceProgressionResponseDelegate());
+ 
+    /**
+    * Adds points to the specified instance progression.
+    *
+    * @param AssetInstanceId Key of the progression you want
+    * @param ProgressionKey Key of the progression you want to add points to
+    * @param Amount Amount of points to be added
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerInstanceProgressionWithRewardsResponse
+    */
     static void AddPointsToInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseDelegate& OnComplete = FLootLockerInstanceProgressionWithRewardsResponseDelegate());
+  
+    /**
+    * Subtracts points from the specified instance progression.
+    *
+    * @param AssetInstanceId Key of the progression you want
+    * @param ProgressionKey Key of the progression you want to subtract points from
+    * @param Amount Amount of points to be subtracted
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerInstanceProgressionWithRewardsResponse
+    */
     static void SubtractPointsFromInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseDelegate& OnComplete = FLootLockerInstanceProgressionWithRewardsResponseDelegate());
+  
+    /**
+    * Resets the specified instance progression.
+    *    
+    * @param AssetInstanceId Key of the progression you want
+    * @param ProgressionKey Key of the progression you want to reset
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerInstanceProgressionWithRewardsResponse
+    */
     static void ResetInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionWithRewardsResponseDelegate& OnComplete = FLootLockerInstanceProgressionWithRewardsResponseDelegate());
+  
+    /**
+    * Deletes the specified instance progression.
+    *
+    * @param AssetInstanceId Key of the progression you want
+    * @param ProgressionKey Key of the progression you want to reset
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerDeleteProgression
+    */
     static void DeleteInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerDeleteProgressionDelegate& OnComplete = FLootLockerDeleteProgressionDelegate());
 
 
