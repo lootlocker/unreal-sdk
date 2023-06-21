@@ -1382,7 +1382,7 @@ public:
     * @param After Optional: Used for pagination, id of the instance progression from which the pagination starts from, use the next_cursor and previous_cursor values
     * @param OnCompletedRequest Action for handling the response of type FLootLockerPaginatedInstanceProgressionsResponse
     */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions", meta = (AdvancedDisplay = "Count,After", Count = -1, After = ""))
     static void GetInstanceProgressions(const int32 AssetInstanceId, const int32 Count, const FString& After, const FLootLockerPaginatedInstanceProgressionsResponseBP& OnCompletedRequestBP = FLootLockerPaginatedInstanceProgressionsResponseBP());
    
     /**
