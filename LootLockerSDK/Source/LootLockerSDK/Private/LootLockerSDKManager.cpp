@@ -484,6 +484,16 @@ void ULootLockerSDKManager::GetInstanceProgressions(const int32 AssetInstanceId,
     ULootLockerProgressionsRequestHandler::GetInstanceProgressions(AssetInstanceId, Count, After, FLootLockerPaginatedInstanceProgressionsResponseBP(), OnComplete);
 }
 
+void ULootLockerSDKManager::GetInstanceProgressions(const int32 AssetInstanceId, const int32& Count, const FLootLockerPaginatedInstanceProgressionsResponseDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::GetInstanceProgressions(AssetInstanceId, Count, FLootLockerPaginatedInstanceProgressionsResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::GetInstanceProgressions(const int32 AssetInstanceId, const FLootLockerPaginatedInstanceProgressionsResponseDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::GetInstanceProgressions(AssetInstanceId, FLootLockerPaginatedInstanceProgressionsResponseBP(), OnComplete);
+}
+
 void ULootLockerSDKManager::GetInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionResponseDelegate& OnComplete)
 {
     ULootLockerProgressionsRequestHandler::GetInstanceProgression(AssetInstanceId, ProgressionKey, FLootLockerInstanceProgressionResponseBP(), OnComplete);
