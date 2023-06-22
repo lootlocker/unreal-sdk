@@ -216,31 +216,58 @@ struct FLootLockerPaginatedProgressionTiersResponse : public FLootLockerResponse
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerCharacterProgressionResponse : public FLootLockerGenericProgressionResponse{};
+struct FLootLockerCharacterProgressionResponse : public FLootLockerGenericProgressionResponse
+{
+    GENERATED_BODY()
+};
 
 USTRUCT(BlueprintType)
-struct FLootLockerCharacterProgressionWithRewardsResponse : public FLootLockerGenericProgressionWithRewardsResponse{};
+struct FLootLockerCharacterProgressionWithRewardsResponse : public FLootLockerGenericProgressionWithRewardsResponse
+{
+    GENERATED_BODY()
+};
 
 USTRUCT(BlueprintType)
-struct FLootLockerPaginatedCharacterProgressionResponse : public FLootLockerPaginatedGenericProgressionResponse{};
+struct FLootLockerPaginatedCharacterProgressionResponse : public FLootLockerPaginatedGenericProgressionResponse
+{
+    GENERATED_BODY()
+};
 
 USTRUCT(BlueprintType)
-struct FLootLockerPlayerProgressionResponse : public FLootLockerGenericProgressionResponse{};
+struct FLootLockerPlayerProgressionResponse : public FLootLockerGenericProgressionResponse
+{
+    GENERATED_BODY()
+};
 
 USTRUCT(BlueprintType)
-struct FLootLockerPlayerProgressionWithRewardsResponse : public FLootLockerGenericProgressionWithRewardsResponse{};
+struct FLootLockerPlayerProgressionWithRewardsResponse : public FLootLockerGenericProgressionWithRewardsResponse
+{
+    GENERATED_BODY()
+};
 
 USTRUCT(BlueprintType)
-struct FLootLockerPaginatedPlayerProgressionResponse : public FLootLockerPaginatedGenericProgressionResponse{};
+struct FLootLockerPaginatedPlayerProgressionResponse : public FLootLockerPaginatedGenericProgressionResponse
+{
+    GENERATED_BODY()
+};
 
 USTRUCT(BlueprintType)
-struct FLootLockerInstanceProgressionResponse : public FLootLockerGenericProgressionResponse{};
+struct FLootLockerInstanceProgressionResponse : public FLootLockerGenericProgressionResponse
+{
+    GENERATED_BODY()
+};
 
 USTRUCT(BlueprintType)
-struct FLootLockerInstanceProgressionWithRewardsResponse : public FLootLockerGenericProgressionWithRewardsResponse{};
+struct FLootLockerInstanceProgressionWithRewardsResponse : public FLootLockerGenericProgressionWithRewardsResponse
+{
+    GENERATED_BODY()
+};
 
 USTRUCT(BlueprintType)
-struct FLootLockerPaginatedInstanceProgressionResponse : public FLootLockerPaginatedGenericProgressionResponse {};
+struct FLootLockerPaginatedInstanceProgressionResponse : public FLootLockerPaginatedGenericProgressionResponse
+{
+    GENERATED_BODY()
+};
 
 /* REQUEST STRUCTS */
 USTRUCT()
