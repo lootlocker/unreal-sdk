@@ -652,6 +652,8 @@ public:
     * Returns multiple progressions the asset instance is currently on.
     *
     * @param AssetInstanceId Key of the progression you want
+    * @param Count Amount of entries to receive
+    * @param After Used for pagination, id of the instance progression from which the pagination starts from, use the next_cursor and previous_cursor values
     * @param OnComplete onComplete Action for handling the response of type FLootLockerResponse
     */
     static void GetInstanceProgressions(const int32 AssetInstanceId, const int32 Count, const FString& After, const FLootLockerPaginatedInstanceProgressionsResponseDelegate& OnComplete = FLootLockerPaginatedInstanceProgressionsResponseDelegate());
