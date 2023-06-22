@@ -486,12 +486,12 @@ void ULootLockerSDKManager::GetInstanceProgressions(const int32 AssetInstanceId,
 
 void ULootLockerSDKManager::GetInstanceProgressions(const int32 AssetInstanceId, const int32& Count, const FLootLockerPaginatedInstanceProgressionsResponseDelegate& OnComplete)
 {
-    ULootLockerProgressionsRequestHandler::GetInstanceProgressions(AssetInstanceId, Count, FLootLockerPaginatedInstanceProgressionsResponseBP(), OnComplete);
+    ULootLockerProgressionsRequestHandler::GetInstanceProgressions(AssetInstanceId, Count, "", FLootLockerPaginatedInstanceProgressionsResponseBP(), OnComplete);
 }
 
 void ULootLockerSDKManager::GetInstanceProgressions(const int32 AssetInstanceId, const FLootLockerPaginatedInstanceProgressionsResponseDelegate& OnComplete)
 {
-    ULootLockerProgressionsRequestHandler::GetInstanceProgressions(AssetInstanceId, FLootLockerPaginatedInstanceProgressionsResponseBP(), OnComplete);
+    ULootLockerProgressionsRequestHandler::GetInstanceProgressions(AssetInstanceId, 0, "", FLootLockerPaginatedInstanceProgressionsResponseBP(), OnComplete);
 }
 
 void ULootLockerSDKManager::GetInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionResponseDelegate& OnComplete)
@@ -506,7 +506,7 @@ void ULootLockerSDKManager::AddPointsToInstanceProgression(const int32 AssetInst
 
 void ULootLockerSDKManager::SubtractPointsFromInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseDelegate& OnComplete)
 {
-    ULootLockerProgressionsRequestHandler::SubtractPointsFromInstanceProgression::(AssetInstanceId, ProgressionKey, Amount, FLootLockerInstanceProgressionWithRewardsResponseBP(), OnComplete);
+    ULootLockerProgressionsRequestHandler::SubtractPointsFromInstanceProgression(AssetInstanceId, ProgressionKey, Amount, FLootLockerInstanceProgressionWithRewardsResponseBP(), OnComplete);
 }
 
 void ULootLockerSDKManager::ResetInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionWithRewardsResponseDelegate& OnComplete)

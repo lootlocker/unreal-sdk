@@ -1383,7 +1383,7 @@ public:
     * @param OnCompletedRequest Action for handling the response of type FLootLockerPaginatedInstanceProgressionsResponse
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions", meta = (AdvancedDisplay = "Count,After", Count = -1, After = ""))
-    static void GetInstanceProgressions(const int32 AssetInstanceId, const int32 Count, const FString& After, const FLootLockerPaginatedInstanceProgressionsResponseBP& OnCompletedRequestBP = FLootLockerPaginatedInstanceProgressionsResponseBP());
+    static void GetInstanceProgressions(const int32 AssetInstanceId, const int32 Count, const FString& After, const FLootLockerPaginatedInstanceProgressionsResponseBP& OnCompletedRequestBP);
    
     /**
     * Returns a single progression the instance is currently on.
@@ -1393,7 +1393,7 @@ public:
     * @param OnCompletedRequest Action for handling the response of type FLootLockerInstanceProgressionsResponse
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions")
-    static void GetInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionResponseBP& OnCompletedRequestBP = FLootLockerInstanceProgressionResponseBP());
+    static void GetInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionResponseBP& OnCompletedRequestBP);
    
     /**
     * Adds points to the specified instance progression.
@@ -1404,7 +1404,7 @@ public:
     * @param OnCompletedRequest Action for handling the response of type FLootLockerinstanceProgressionWithRewardsResponse
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions")
-    static void AddPointsToInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP = FLootLockerInstanceProgressionWithRewardsResponseBP());
+    static void AddPointsToInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP);
    
     /**
     * Subtracts points from the specified instance progression.
@@ -1415,7 +1415,7 @@ public:
     * @param OnCompletedRequest Action for handling the response of type FLootLockerInstanceProgressionWithRewardsResponse
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions")
-    static void SubtractPointsFromInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP = FLootLockerInstanceProgressionWithRewardsResponseBP());
+    static void SubtractPointsFromInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP);
    
     /**
     * Resets the specified instance progression.
@@ -1425,7 +1425,7 @@ public:
     * @param OnCompletedRequest Action for handling the response of type FLootLockerInstanceProgressionWithRewardsResponse
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions")
-    static void ResetInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP = FLootLockerInstanceProgressionWithRewardsResponseBP());
+    static void ResetInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP);
    
     /**
     * Deletes the specified instance progression.
@@ -1435,7 +1435,7 @@ public:
     * @param OnCompletedRequest Action for handling the response of type FLootLockerResponse
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions")
-    static void DeleteInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequestBP = FLootLockerDeleteProgressionBP());
+    static void DeleteInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequestBP);
 
     //==================================================
     //Missions
