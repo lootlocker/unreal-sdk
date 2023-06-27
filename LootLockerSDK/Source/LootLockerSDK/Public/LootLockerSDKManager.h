@@ -1330,7 +1330,7 @@ public:
      * @param AssetCandidateData asset candidate data.
      * @param OnCompletedRequest Delegate for handling the server response.
      */
-    static void UpdateAssetCandidate(int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidateData, const FAssetCandidateResponseDelegate& OnCompletedRequest);
+    static void UpdateAssetCandidate(int AssetCandidateId, bool IsCompleted, const FLootLockerAssetCandidateData& AssetCandidateData, const FAssetCandidateResponseDelegate& OnCompletedRequest);
 
     /**
      * Delete an asset candidate.

@@ -1282,7 +1282,7 @@ public:
      * @param OnUpdateAssetCandidateCompleted Delegate for handling the server response.
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
-    static void UpdateAssetCandidate(int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidateData, const FAssetCandidateResponseDelegateBP& OnUpdateAssetCandidateCompleted);
+    static void UpdateAssetCandidate(int AssetCandidateId, bool IsCompleted, const FLootLockerAssetCandidateData& AssetCandidateData, const FAssetCandidateResponseDelegateBP& OnUpdateAssetCandidateCompleted);
 
     /**
      * Delete an asset candidate.
