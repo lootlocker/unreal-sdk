@@ -64,6 +64,11 @@ void ULootLockerManager::StartGoogleSession(const FString& IdToken, const FGoogl
     ULootLockerAuthenticationRequestHandler::StartGoogleSession(IdToken, OnStartedGoogleSessionRequestCompleted);
 }
 
+void ULootLockerManager::StartGoogleSessionForPlatform(const FString& IdToken, ELootLockerGoogleClientPlatform Platform, const FGoogleSessionResponseBP& OnStartedGoogleSessionRequestCompleted)
+{
+    ULootLockerAuthenticationRequestHandler::StartGoogleSession(IdToken, Platform, OnStartedGoogleSessionRequestCompleted);
+}
+
 void ULootLockerManager::RefreshGoogleSession(const FString& RefreshToken, const FGoogleSessionResponseBP& OnRefreshGoogleSessionCompleted)
 {
     ULootLockerAuthenticationRequestHandler::RefreshGoogleSession(RefreshToken, OnRefreshGoogleSessionCompleted);
