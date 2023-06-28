@@ -16,7 +16,7 @@ enum class ELootLockerGoogleClientPlatform : uint8
 {
 	Web = 0			UMETA(DisplayName = "Web"),
 	Android = 1		UMETA(DisplayName = "Android"),
-	iOS = 2			UMETA(DisplayName = "iOS"),
+	Ios = 2			UMETA(DisplayName = "iOS"),
 	Desktop = 3		UMETA(DisplayName = "Desktop")
 };
 
