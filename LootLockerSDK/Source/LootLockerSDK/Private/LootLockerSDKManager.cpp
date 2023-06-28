@@ -54,6 +54,11 @@ void ULootLockerSDKManager::StartGoogleSession(const FString& IdToken, const FLo
     ULootLockerAuthenticationRequestHandler::StartGoogleSession(IdToken, FGoogleSessionResponseBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::StartGoogleSessionForPlatform(const FString& IdToken, ELootLockerGoogleClientPlatform Platform, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest)
+{
+    ULootLockerAuthenticationRequestHandler::StartGoogleSession(IdToken, Platform, FGoogleSessionResponseBP(), OnCompletedRequest);
+}
+
 void ULootLockerSDKManager::RefreshGoogleSession(const FString& RefreshToken, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest)
 {
     ULootLockerAuthenticationRequestHandler::RefreshGoogleSession(RefreshToken, FGoogleSessionResponseBP(), OnCompletedRequest);

@@ -364,6 +364,53 @@ void ULootLockerAuthenticationRequestHandler::StartGoogleSession(const FString& 
 		}));
 }
 
+void ULootLockerAuthenticationRequestHandler::StartGoogleSession(const FString& IdToken, const ELootLockerGoogleClientPlatform Platform, const FGoogleSessionResponseBP& OnCompletedRequestBP, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest)
+{
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+	if (config->IsLegacyAPIKey()) // TODO: <Deprecated functionality, remove in v2.1>
+	{
+		FLootLockerGoogleSessionRequestWithPlatformAndDevelopmentMode AuthRequest(config->OnDevelopmentMode);
+		AuthRequest.game_key = config->LootLockerGameKey;
+		AuthRequest.game_version = config->GameVersion;
+		AuthRequest.id_token = IdToken;
+		AuthRequest.platform = Platform;
+
+		ULootLockerCurrentPlatform::Set(ELootLockerPlatform::Google);
+		LLAPI<FLootLockerGoogleSessionResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartGoogleSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerGoogleSessionResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerGoogleSessionResponse& Response)
+			{
+				if (Response.success)
+				{
+					ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+					ULootLockerStateData::SetRefreshToken(Response.refresh_token);
+				}
+				else
+				{
+					ULootLockerCurrentPlatform::Reset();
+				}
+			}));
+		return;
+	} // TODO: </Deprecated functionality, remove in v2.1>
+	FLootLockerGoogleSessionRequestWithPlatform AuthRequest;
+	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_version = config->GameVersion;
+	AuthRequest.id_token = IdToken;
+	AuthRequest.platform = Platform;
+
+	ULootLockerCurrentPlatform::Set(ELootLockerPlatform::Google);
+	LLAPI<FLootLockerGoogleSessionResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartGoogleSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerGoogleSessionResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerGoogleSessionResponse& Response)
+		{
+			if (Response.success)
+			{
+				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetRefreshToken(Response.refresh_token);
+			}
+			else
+			{
+				ULootLockerCurrentPlatform::Reset();
+			}
+		}));
+}
+
 void ULootLockerAuthenticationRequestHandler::RefreshGoogleSession(const FString& RefreshToken, const FGoogleSessionResponseBP& OnCompletedRequestBP, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest)
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
