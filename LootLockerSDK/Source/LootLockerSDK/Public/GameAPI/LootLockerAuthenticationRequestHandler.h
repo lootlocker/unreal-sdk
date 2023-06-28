@@ -8,6 +8,18 @@
 #include "JsonObjectConverter.h"
 #include "LootLockerAuthenticationRequestHandler.generated.h"
 
+/*
+ * Google OAuth2 Client platform
+ */
+UENUM(BlueprintType, Category = "LootLocker")
+enum class ELootLockerGoogleClientPlatform : uint8
+{
+	Web = 0			UMETA(DisplayName = "Web"),
+	Android = 1		UMETA(DisplayName = "Android"),
+	iOS = 2			UMETA(DisplayName = "iOS"),
+	Desktop = 3		UMETA(DisplayName = "Desktop")
+};
+
 USTRUCT(BlueprintType)
 struct FLootLockerLoginRequest
 {
@@ -269,6 +281,27 @@ struct FLootLockerGoogleSessionRequestWithDevelopmentMode : public FLootLockerGo
 	bool development_mode;
 
 	FLootLockerGoogleSessionRequestWithDevelopmentMode(bool developmentMode = false)
+	{
+		development_mode = developmentMode;
+	}
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerGoogleSessionRequestWithPlatform : public FLootLockerGoogleSessionRequest
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	ELootLockerGoogleClientPlatform platform;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerGoogleSessionRequestWithPlatformAndDevelopmentMode : public FLootLockerGoogleSessionRequestWithPlatform // TODO: Deprecated functionality, remove in v2.1
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	bool development_mode;
+
+	FLootLockerGoogleSessionRequestWithPlatformAndDevelopmentMode(bool developmentMode = false)
 	{
 		development_mode = developmentMode;
 	}
@@ -538,7 +571,8 @@ public:
 	static void StartSession(const FString& PlayerId, const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
 	static void StartPlaystationNetworkSession(const FString& PsnOnlineId, const FAuthResponseBP& AuthResponseBP = FAuthResponseBP(), const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
 	static void StartAndroidSession(const FString& DeviceId, const FAuthResponseBP& AuthResponseBP = FAuthResponseBP(), const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
-    static void StartGoogleSession(const FString& IdToken, const FGoogleSessionResponseBP& OnCompletedRequestBP = FGoogleSessionResponseBP(), const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest = FLootLockerGoogleSessionResponseDelegate());
+	static void StartGoogleSession(const FString& IdToken, const FGoogleSessionResponseBP& OnCompletedRequestBP = FGoogleSessionResponseBP(), const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest = FLootLockerGoogleSessionResponseDelegate());
+	static void StartGoogleSession(const FString& IdToken, const ELootLockerGoogleClientPlatform Platform, const FGoogleSessionResponseBP& OnCompletedRequestBP = FGoogleSessionResponseBP(), const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest = FLootLockerGoogleSessionResponseDelegate());
     static void RefreshGoogleSession(const FString& RefreshToken, const FGoogleSessionResponseBP& OnCompletedRequestBP = FGoogleSessionResponseBP(), const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest = FLootLockerGoogleSessionResponseDelegate());
 	static void StartEpicSession(const FString& IdToken, const FEpicSessionResponseBP& OnCompletedRequestBP = FEpicSessionResponseBP(), const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest = FLootLockerEpicSessionResponseDelegate());
 	static void RefreshEpicSession(const FString& RefreshToken, const FEpicSessionResponseBP& OnCompletedRequestBP = FEpicSessionResponseBP(), const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest = FLootLockerEpicSessionResponseDelegate());
