@@ -154,7 +154,7 @@ public:
     * @param OnStartedAppleGameCenterSessionCompleted Delegate for handling the response of type  for handling the response of type FLootLockerAppleGameCenterSessionResponse
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-       static void StartAppleGameCenterSession(const FString& BundleId, const FString& PlayerId, const FString& PublicKeyUrl, const FString& Signature, const FString& Salt, const FString& Timestamp, const FLootLockerAppleGameCenterSessionResponseBP& OnStartedAppleGameCenterSessionCompleted);
+    static void StartAppleGameCenterSession(const FString& BundleId, const FString& PlayerId, const FString& PublicKeyUrl, const FString& Signature, const FString& Salt, const FString& Timestamp, const FLootLockerAppleGameCenterSessionResponseBP& OnStartedAppleGameCenterSessionCompleted);
 
     /**
      * Refresh a previous session signed in with Apple Game Center
@@ -166,12 +166,12 @@ public:
      * @param OnRefreshAppleGameCenterSessionCompleted Delegate for handling the response of type FLootLockerAppleGameCenterResponse
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken"))
-        static void RefreshAppleGameCenterSession(const FString& RefreshToken, const FLootLockerAppleGameCenterSessionResponseBP& OnRefreshAppleGameCenterSessionCompleted);
-
+    static void RefreshAppleGameCenterSession(const FString& RefreshToken, const FLootLockerAppleGameCenterSessionResponseBP& OnRefreshAppleGameCenterSessionCompleted);
 
     /**
      * Start a session for a Google user
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * The Google sign in platform must be enabled in the web console for this to work.
      * https://ref.lootlocker.io/game-api/#sign-in-with-google
      *
      * @param IdToken The device id of the player
@@ -179,6 +179,19 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void StartGoogleSession(const FString& IdToken, const FGoogleSessionResponseBP& OnStartedGoogleSessionRequestCompleted);
+
+    /**
+     * Start a session for a Google user
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * The desired Google sign in platform must be enabled in the web console for this to work.
+     * https://ref.lootlocker.io/game-api/#sign-in-with-google
+     *
+     * @param IdToken The device id of the player
+     * @param Platform Google OAuth2 ClientID platform
+     * @param OnStartedGoogleSessionRequestCompleted Delegate for handling the server response.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    static void StartGoogleSessionForPlatform(const FString& IdToken, ELootLockerGoogleClientPlatform Platform, const FGoogleSessionResponseBP& OnStartedGoogleSessionRequestCompleted);
 
     /**
      * Refresh a previous session signed in with Google

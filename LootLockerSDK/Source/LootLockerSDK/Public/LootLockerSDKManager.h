@@ -120,6 +120,18 @@ public:
     static void StartGoogleSession(const FString& IdToken, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest);
 
     /**
+     * Start a session for a Google user
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * The desired Google sign in platform must be enabled in the web console for this to work.
+     * https://ref.lootlocker.io/game-api/#sign-in-with-google
+     *
+     * @param IdToken The Id Token from your Google Sign In
+     * @param Platform Google OAuth2 ClientID platform
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
+    static void StartGoogleSessionForPlatform(const FString& IdToken, ELootLockerGoogleClientPlatform Platform, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest);
+
+    /**
      * Refresh a previous session signed in with Google
      * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
      * The Google sign in platform must be enabled in the web console for this to work.
