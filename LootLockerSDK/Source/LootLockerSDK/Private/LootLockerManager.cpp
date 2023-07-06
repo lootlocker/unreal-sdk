@@ -415,6 +415,11 @@ void ULootLockerManager::ListCharacterTypes(const FPLootLockerListCharacterTypes
     ULootLockerCharacterRequestHandler::ListCharacterTypes(OnCompletedRequestBP);
 }
 
+void ULootLockerManager::ListPlayerCharacters(const FPLootLockerListPlayerCharactersResponseBP& OnCompletedRequestBP)
+{
+    ULootLockerCharacterRequestHandler::ListPlayerCharacters(OnCompletedRequestBP);
+}
+
 void ULootLockerManager::EquipAssetToDefaultCharacter(int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToDefaultCharacterRequestCompleted)
 {
     ULootLockerCharacterRequestHandler::EquipAssetToDefaultCharacter(InstanceId, OnEquipAssetToDefaultCharacterRequestCompleted);
