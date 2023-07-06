@@ -98,6 +98,7 @@ public:
     static FLootLockerEndPoints EquipAssetToDefaultCharacterEndpoint;
     static FLootLockerEndPoints EquipAssetToCharacterByIdEndpoint;
     static FLootLockerEndPoints CreateCharacterEndpoint;
+    static FLootLockerEndPoints ListPlayerCharactersEndpoint;
     static FLootLockerEndPoints ListCharacterTypesByIdEndpoint;
     static FLootLockerEndPoints UnEquipAssetToDefaultCharacterEndpoint;
     static FLootLockerEndPoints UnEquipAssetToCharacterByIdEndpoint;

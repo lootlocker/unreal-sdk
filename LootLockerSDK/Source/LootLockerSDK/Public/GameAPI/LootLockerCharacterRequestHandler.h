@@ -130,13 +130,23 @@ struct FLootLockerListCharacterTypesResponse : public FLootLockerResponse {
 	TArray<struct FLootLockerCharacterTypes> character_types;
 };
 
+USTRUCT(BlueprintType)
+struct FLootLockerListPlayerCharactersResponse : public FLootLockerResponse {
+	GENERATED_BODY()
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	TArray<FLootLockerListCharacterRequest> characters;
+
+};
+
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPCharacterLoadoutResponseBP, FLootLockerCharacterLoadoutResponse, Var);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPCharacterDefaultResponseBP, FLootLockerResponse, Var);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPLootLockerListCharacterTypesResponseBP, FLootLockerListCharacterTypesResponse, Var);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FPLootLockerListPlayerCharactersResponseBP, FLootLockerListPlayerCharactersResponse, Var);
 
 DECLARE_DELEGATE_OneParam(FCharacterLoadoutResponse, FLootLockerCharacterLoadoutResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerCharacterDefaultResponse, FLootLockerResponse);
 DECLARE_DELEGATE_OneParam(FPLootLockerListCharacterTypesResponse, FLootLockerListCharacterTypesResponse);
+DECLARE_DELEGATE_OneParam(FPLootLockerListPlayerCharactersResponse, FLootLockerListPlayerCharactersResponse);
 
 
 UCLASS()
@@ -148,6 +158,7 @@ public:
 	static void GetCharacterLoadout(const FPCharacterLoadoutResponseBP& OnCompleteRequestBP = FPCharacterLoadoutResponseBP(), const FCharacterLoadoutResponse& OnCompletedRequest = FCharacterLoadoutResponse());
 	static void UpdateCharacter(int CharacterId,bool IsDefault, FString Name, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP = FPCharacterLoadoutResponseBP(), const FCharacterLoadoutResponse& OnCompletedRequest = FCharacterLoadoutResponse());
 	static void CreateCharacter(bool IsDefault,  FString CharacterName, FString CharacterId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP = FPCharacterLoadoutResponseBP(), const FCharacterLoadoutResponse& OnCompletedRequest = FCharacterLoadoutResponse());
+	static void ListPlayerCharacters(const FPLootLockerListPlayerCharactersResponseBP& OnCompleteRequestBP = FPLootLockerListPlayerCharactersResponseBP(), const FPLootLockerListPlayerCharactersResponse & = FPLootLockerListPlayerCharactersResponse());
 	static void ListCharacterTypes(const FPLootLockerListCharacterTypesResponseBP& OnCompletedRequestBP = FPLootLockerListCharacterTypesResponseBP(), const FPLootLockerListCharacterTypesResponse& OnCompletedRequest = FPLootLockerListCharacterTypesResponse());
 	static void EquipAssetToDefaultCharacter(int InstanceId, const FPCharacterDefaultResponseBP& OnCompletedRequestBP = FPCharacterDefaultResponseBP(), const FLootLockerCharacterDefaultResponse& OnCompletedRequest = FLootLockerCharacterDefaultResponse());
 	static void EquipAssetToCharacterById(int CharacterId, int InstanceId, const FPCharacterDefaultResponseBP& OnCompletedRequestBP = FPCharacterDefaultResponseBP(), const FLootLockerCharacterDefaultResponse& OnCompletedRequest = FLootLockerCharacterDefaultResponse());
