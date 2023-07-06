@@ -1090,6 +1090,13 @@ public:
      */
 	static void GetEquipableContextsByCharacterId(int OtherCharacterId, const FContextDelegate& OnCompletedRequest);
 
+    /**
+    * Get list of Characters to a player
+    * https://ref.lootlocker.com/game-api/#list-player-characters
+    */
+    static void ListPlayerCharacters(const FPLootLockerListPlayerCharactersResponse& OnCompletedRequest);
+
+
     //==================================================
     // Character Progressions
     //==================================================

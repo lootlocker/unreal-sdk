@@ -93,3 +93,7 @@ void ULootLockerCharacterRequestHandler::GetEquipableContextsByCharacterId(int O
 {
 	LLAPI<FLootLockerGetContextResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetEquippableContextsByCharacterIDEndpoint, { OtherCharacterId },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
+
+void ULootLockerCharacterRequestHandler::ListPlayerCharacters(const FPLootLockerListPlayerCharactersResponseBP& OnCompletedRequestBP, const FPLootLockerListPlayerCharactersResponse& OnCompletedRequest) {
+	LLAPI<FLootLockerListPlayerCharactersResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ListPlayerCharactersEndpoint, {}, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+}

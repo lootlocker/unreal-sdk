@@ -937,6 +937,13 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
     static void ListCharacterTypes(const FPLootLockerListCharacterTypesResponseBP& OnCompletedRequestBP);
 
+
+    /**
+    * Get list of Characters to a player
+    * https://ref.lootlocker.com/game-api/#list-player-characters
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
+    static void ListPlayerCharacters(const FPLootLockerListPlayerCharactersResponseBP& OnCompletedRequestBP);
     /**
      * Equip an asset to the default character.
      * https://ref.lootlocker.io/game-api/#equip-asset-to-default-character

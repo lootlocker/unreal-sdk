@@ -474,6 +474,11 @@ void ULootLockerSDKManager::GetEquipableContextsByCharacterId(int OtherCharacter
 	ULootLockerCharacterRequestHandler::GetEquipableContextsByCharacterId(OtherCharacterId, FContextDelegateBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::ListPlayerCharacters(const FPLootLockerListPlayerCharactersResponse& OnCompletedRequest)
+{
+    ULootLockerCharacterRequestHandler::ListPlayerCharacters(FPLootLockerListPlayerCharactersResponseBP(), OnCompletedRequest);
+}
+
 // Character Progressions
 void ULootLockerSDKManager::GetCharacterProgressions(const int32& CharacterId, const int32& Count, const FString& After, const FLootLockerPaginatedCharacterProgressionsResponseDelegate& OnComplete)
 {
