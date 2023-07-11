@@ -1607,7 +1607,7 @@ public:
      * @param AssetId ID of the asset.
      * @param OnCompletedRequest Delegate for handling the server response.
      */
-    static void ActivateRentalAsset(int AssetId, const FActivateRentalAssetResponseDelegate& OnCompletedRequest);
+    static void ActivateRentalAsset(int AssetInstanceId, const FActivateRentalAssetResponseDelegate& OnCompletedRequest);
 
     /**
      * Get details on an order, like what products it contains as well as the order status.

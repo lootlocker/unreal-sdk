@@ -1617,11 +1617,11 @@ public:
      * Once you have purchased a rental asset, you need to activate the rental for it to become available for the player.
      * https://ref.lootlocker.io/game-api/#activating-a-rental-asset
      *
-     * @param AssetId ID of the asset.
+     * @param AssetInstanceId ID of the asset.
      * @param OnActivateRentalAssetCompleted Delegate for handling the server response.
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
-    static void ActivateRentalAsset(int AssetId, const FActivateRentalAssetResponseDelegateBP& OnActivateRentalAssetCompleted);
+    static void ActivateRentalAsset(int AssetInstanceId, const FActivateRentalAssetResponseDelegateBP& OnActivateRentalAssetCompleted);
 
     /**
      * Get details on an order, like what products it contains as well as the order status.
