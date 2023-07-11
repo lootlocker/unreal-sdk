@@ -740,9 +740,9 @@ void ULootLockerManager::PollingOrderStatus(int PurchaseId, const FPurchaseStatu
     ULootLockerPurchasesRequestHandler::PollingOrderStatus(PurchaseId, OnPollingStatusCompleted);
 }
 
-void ULootLockerManager::ActivateRentalAsset(int AssetId, const FActivateRentalAssetResponseDelegateBP& OnActivateRentalAssetCompleted)
+void ULootLockerManager::ActivateRentalAsset(int AssetInstanceId, const FActivateRentalAssetResponseDelegateBP& OnActivateRentalAssetCompleted)
 {
-    ULootLockerPurchasesRequestHandler::ActivateRentalAsset(AssetId, OnActivateRentalAssetCompleted);
+    ULootLockerPurchasesRequestHandler::ActivateRentalAsset(AssetInstanceId, OnActivateRentalAssetCompleted);
 }
 
 void ULootLockerManager::GetOrderDetails(int32 OrderId, const bool NoProducts, const FOrderStatusDetailsBP &OnCompleteBP)

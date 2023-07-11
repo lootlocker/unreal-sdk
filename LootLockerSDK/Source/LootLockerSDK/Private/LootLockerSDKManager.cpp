@@ -797,9 +797,9 @@ void ULootLockerSDKManager::PollingOrderStatus(int PurchaseId, const FPurchaseSt
     ULootLockerPurchasesRequestHandler::PollingOrderStatus(PurchaseId, FPurchaseStatusResponseDelegateBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::ActivateRentalAsset(int AssetId, const FActivateRentalAssetResponseDelegate& OnCompletedRequest)
+void ULootLockerSDKManager::ActivateRentalAsset(int AssetInstanceId, const FActivateRentalAssetResponseDelegate& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::ActivateRentalAsset(AssetId, FActivateRentalAssetResponseDelegateBP(), OnCompletedRequest);
+    ULootLockerPurchasesRequestHandler::ActivateRentalAsset(AssetInstanceId, FActivateRentalAssetResponseDelegateBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::GetOrderDetails(int32 OrderId, const bool NoProducts, const FOrderStatusDetailsDelegate& OnCompletedRequest)
