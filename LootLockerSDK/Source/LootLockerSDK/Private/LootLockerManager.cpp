@@ -842,3 +842,7 @@ void ULootLockerManager::GetServerTime(const FTimeResponseDelegateBP& OnComplete
 {
     ULootLockerMiscellaneousRequestHandler::GetServerTime(OnCompletedRequestBP);
 }
+
+FString ULootLockerManager::GetLastActivePlatform() {
+    return ULootLockerMiscellaneousRequestHandler::GetLastActivePlatform();
+}
