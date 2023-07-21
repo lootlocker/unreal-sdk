@@ -71,7 +71,11 @@ public:
     static const FLootLockerPlatformRepresentation& GetPlatformRepresentationForPlatform(const ELootLockerPlatform Platform) { return *PlatformRepresentations.Find(Platform); }
 
 	static void Reset() { CurrentPlatform = *PlatformRepresentations.Find(ELootLockerPlatform::None); }
-	static void Set(const ELootLockerPlatform& Platform) { CurrentPlatform = *PlatformRepresentations.Find(Platform); }
+	static void Set(const ELootLockerPlatform& Platform)
+	{
+		CurrentPlatform = *PlatformRepresentations.Find(Platform);
+		ULootLockerStateData::SetLastActivePlatform(CurrentPlatform.PlatformString);
+	}
 	static void Set(const ELootLockerPlatformType& LegacyPlatform);
 
 	virtual void PostInitProperties() override

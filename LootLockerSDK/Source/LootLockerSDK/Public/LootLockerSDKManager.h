@@ -1786,4 +1786,8 @@ public:
 	*/
 	static void GetServerTime(const FTimeResponseDelegate& OnCompletedRequest);
 
+    /**
+    * Get the last used platform from an earlier session.
+    */
+    static FString GetLastActivePlatform();
 };
