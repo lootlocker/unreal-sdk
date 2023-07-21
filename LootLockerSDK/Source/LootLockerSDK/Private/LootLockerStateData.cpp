@@ -14,6 +14,7 @@ FString ULootLockerStateData::RefreshToken = "";
 FString ULootLockerStateData::PlayerIdentifier = FGenericPlatformMisc::GetDeviceId != nullptr ? FGenericPlatformMisc::GetDeviceId() : FGuid::NewGuid().ToString();
 FString ULootLockerStateData::WhiteLabelEmail = "";
 FString ULootLockerStateData::WhiteLabelToken = "";
+FString ULootLockerStateData::LastActivePlatform = "";
 bool ULootLockerStateData::StateLoaded = false;
 
 #if ENGINE_MAJOR_VERSION < 5
@@ -35,6 +36,7 @@ void ULootLockerStateData::LoadStateFromDiskIfNeeded()
 		RefreshToken = LoadedState->RefreshToken;
 		WhiteLabelEmail = LoadedState->WhiteLabelEmail;
 		WhiteLabelToken = LoadedState->WhiteLabelToken;
+		LastActivePlatform = LoadedState->LastActivePlatform;
 
 		UE_LOG(LogLootLockerGameSDK, Log, TEXT("Loaded LootLocker state from disk"));
 		StateLoaded = true;
@@ -53,6 +55,7 @@ void ULootLockerStateData::SaveStateToDisk()
 		SavedState->RefreshToken = RefreshToken;
 		SavedState->WhiteLabelEmail = WhiteLabelEmail;
 		SavedState->WhiteLabelToken = WhiteLabelToken;
+		SavedState->LastActivePlatform = LastActivePlatform;
 
 		if (UGameplayStatics::SaveGameToSlot(SavedState, SaveSlot, SaveIndex)) {
 			UE_LOG(LogLootLockerGameSDK, Log, TEXT("Saved LootLocker state to disk"));
@@ -96,6 +99,12 @@ FString ULootLockerStateData::GetWhiteLabelToken()
 {
 	LoadStateFromDiskIfNeeded();
 	return WhiteLabelToken;
+}
+
+FString ULootLockerStateData::GetLastActivePlatform()
+{
+	LoadStateFromDiskIfNeeded();
+	return LastActivePlatform;
 }
 
 void ULootLockerStateData::SetToken(FString InToken) {
@@ -144,6 +153,15 @@ void ULootLockerStateData::SetWhiteLabelToken(FString InWhiteLabelToken) {
 		return;
 	}
 	WhiteLabelToken = InWhiteLabelToken;
+	SaveStateToDisk();
+}
+
+void ULootLockerStateData::SetLastActivePlatform(FString InLastActivePlatform) {
+	LoadStateFromDiskIfNeeded();
+	if (InLastActivePlatform.Equals(LastActivePlatform)) {
+		return;
+	}
+	LastActivePlatform = InLastActivePlatform;
 	SaveStateToDisk();
 }
 
