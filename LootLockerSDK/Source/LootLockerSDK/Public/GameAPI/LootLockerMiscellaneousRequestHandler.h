@@ -28,6 +28,7 @@ public:
 	ULootLockerMiscellaneousRequestHandler();
     
 	static void GetServerTime(const FTimeResponseDelegateBP& OnCompletedRequestBP = FTimeResponseDelegateBP(), const FTimeResponseDelegate& OnCompletedRequest = FTimeResponseDelegate());
+	static FString GetLastActivePlatform();
 public:
 	static ULootLockerHttpClient* HttpClient;
 };

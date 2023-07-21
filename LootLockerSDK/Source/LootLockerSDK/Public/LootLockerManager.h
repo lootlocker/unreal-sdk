@@ -1837,4 +1837,10 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous")
     static void GetServerTime(const FTimeResponseDelegateBP& OnCompletedRequestBP);
+
+    /**
+    * Get the last used platform from a prior session.
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous")
+    static FString GetLastActivePlatform();
 };

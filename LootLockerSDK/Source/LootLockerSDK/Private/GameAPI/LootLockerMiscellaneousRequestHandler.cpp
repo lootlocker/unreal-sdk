@@ -15,3 +15,7 @@ void ULootLockerMiscellaneousRequestHandler::GetServerTime(const FTimeResponseDe
 {
 	LLAPI<FLootLockerTimeResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetServerTimeEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
+
+FString ULootLockerMiscellaneousRequestHandler::GetLastActivePlatform() {
+	return ULootLockerStateData::GetLastActivePlatform();
+}
