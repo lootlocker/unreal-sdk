@@ -84,6 +84,16 @@ void ULootLockerManager::RefreshEpicSession(const FString& RefreshToken, const F
     ULootLockerAuthenticationRequestHandler::RefreshEpicSession(RefreshToken, OnRefreshEpicSessionCompleted);
 }
 
+void ULootLockerManager::StartMetaSession(const FString& UserId, const FString& Nonce, const FLootLockerMetaSessionResponseBP& OnMetaSessionRequestCompleted)
+{
+    ULootLockerAuthenticationRequestHandler::StartMetaSession(UserId, Nonce, OnMetaSessionRequestCompleted);
+}
+
+void ULootLockerManager::RefreshMetaSession(const FString& RefreshToken, const FLootLockerMetaSessionResponseBP& OnMetaSessionRequestCompleted)
+{
+    ULootLockerAuthenticationRequestHandler::RefreshMetaSession(RefreshToken, OnMetaSessionRequestCompleted);
+}
+
 void ULootLockerManager::WhiteLabelStartSession(const FAuthResponseBP &OnStartWhiteLabelSessionRequestCompleted)
 {
 	ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(OnStartWhiteLabelSessionRequestCompleted);
@@ -113,7 +123,6 @@ void ULootLockerManager::WhiteLabelResetPassword(const FString &Email, const FLo
 {
     ULootLockerAuthenticationRequestHandler::WhiteLabelRequestPasswordReset(Email, OnResetWhiteLabelPasswordRequestCompleted);
 }
-
 
 void ULootLockerManager::WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelLoginRequestCompleted, const bool Remember /* = false */)
 {

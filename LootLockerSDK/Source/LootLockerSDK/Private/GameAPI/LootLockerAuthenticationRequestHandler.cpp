@@ -861,6 +861,57 @@ void ULootLockerAuthenticationRequestHandler::RefreshAppleSession(const FString&
 		}));
 }
 
+void ULootLockerAuthenticationRequestHandler::StartMetaSession(const FString& UserId, const FString& Nonce, const FLootLockerMetaSessionResponseBP& OnCompletedRequestBP, const FLootLockerMetaSessionResponseDelegate& OnCompletedRequest)
+{
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+
+	FLootLockerStartMetaSessionRequest AuthRequest;
+	AuthRequest.user_id = UserId;
+	AuthRequest.nonce = Nonce;
+	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_version = config->GameVersion;
+
+	ULootLockerCurrentPlatform::Set(ELootLockerPlatform::Meta);
+	LLAPI<FLootLockerMetaSessionResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::MetaSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerMetaSessionResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerMetaSessionResponse& Response)
+		{
+			if (Response.success)
+			{
+				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetRefreshToken(Response.refresh_token);
+			}
+			else
+			{
+				ULootLockerCurrentPlatform::Reset();
+			}
+		}));
+
+}
+
+void ULootLockerAuthenticationRequestHandler::RefreshMetaSession(const FString& RefreshToken, const FLootLockerMetaSessionResponseBP& OnCompletedRequestBP, const FLootLockerMetaSessionResponseDelegate& OnCompletedRequest)
+{
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+
+	FLootLockerRefreshMetaSessionRequest AuthRequest;
+	AuthRequest.refresh_token = RefreshToken;
+	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_version = config->GameVersion;
+
+	ULootLockerCurrentPlatform::Set(ELootLockerPlatform::Meta);
+	LLAPI<FLootLockerMetaSessionResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::MetaSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerMetaSessionResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerMetaSessionResponse& Response)
+		{
+			if (Response.success)
+			{
+				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetRefreshToken(Response.refresh_token);
+			}
+			else
+			{
+				ULootLockerCurrentPlatform::Reset();
+			}
+		}));
+
+}
+
 void ULootLockerAuthenticationRequestHandler::VerifyPlayer(const FString& PlatformToken, const FString& Platform, const FAuthDefaultResponseBP& OnCompletedRequestBP, const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest)
 {
 	FLootLockerVerificationRequest AuthRequest;

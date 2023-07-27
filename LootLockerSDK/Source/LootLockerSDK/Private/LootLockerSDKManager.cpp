@@ -94,6 +94,16 @@ void ULootLockerSDKManager::RefreshEpicSession(const FString& RefreshToken, cons
     ULootLockerAuthenticationRequestHandler::RefreshEpicSession(RefreshToken, FEpicSessionResponseBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::StartMetaSession(const FString& UserId, const FString& Nonce, const FLootLockerMetaSessionResponseDelegate& OnCompletedRequest)
+{
+    ULootLockerAuthenticationRequestHandler::StartMetaSession(UserId, Nonce, FLootLockerMetaSessionResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::RefreshMetaSession(const FString& RefreshToken, const FLootLockerMetaSessionResponseDelegate& OnCompletedRequest)
+{
+    ULootLockerAuthenticationRequestHandler::RefreshMetaSession(RefreshToken, FLootLockerMetaSessionResponseBP(), OnCompletedRequest);
+}
+
 void ULootLockerSDKManager::WhiteLabelStartSession(const FLootLockerSessionResponse &OnCompletedRequest)
 {
 	ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(FAuthResponseBP(), OnCompletedRequest);
