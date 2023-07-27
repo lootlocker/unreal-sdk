@@ -17,6 +17,7 @@ TMap<ELootLockerPlatform, FLootLockerPlatformRepresentation> ULootLockerCurrentP
 		, {ELootLockerPlatform::Google, FLootLockerPlatformRepresentation(ELootLockerPlatform::Google, "google_sign_in", "google_sign_in")}
 		, {ELootLockerPlatform::Epic, FLootLockerPlatformRepresentation(ELootLockerPlatform::Epic, "epic_games", "epic_games")}
         , {ELootLockerPlatform::AppleGameCenter, FLootLockerPlatformRepresentation(ELootLockerPlatform::AppleGameCenter, "apple_game_center", "apple_game_center")}
+        , {ELootLockerPlatform::Meta, FLootLockerPlatformRepresentation(ELootLockerPlatform::Meta, "meta", "meta")}
 };
 
 FLootLockerPlatformRepresentation& ULootLockerCurrentPlatform::CurrentPlatform = *PlatformRepresentations.Find(ELootLockerPlatform::None);
