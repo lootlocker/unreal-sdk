@@ -6,6 +6,7 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerConfig.h"
+#include "LootLockerStateData.h"
 #include "LootLockerPlatformManager.generated.h"
 
 UENUM(BlueprintType)
