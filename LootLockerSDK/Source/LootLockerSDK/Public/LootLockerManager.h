@@ -217,6 +217,29 @@ public:
     static void RefreshEpicSession(const FString& RefreshToken, const FEpicSessionResponseBP& OnRefreshEpicSessionCompleted);
 
     /**
+     * Start a session for an Meta / Oculus user
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * The Meta platform must be enabled in the web console for this to work.
+     *
+     * @param UserId The id recieved from Oculus
+     * @param Nonce The nonce recieved from Oculus
+     * @param OnMetaSessionRequestCompleted Delegate for handling the server response.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    static void StartMetaSession(const FString& UserId, const FString& Nonce, const FLootLockerMetaSessionResponseBP& OnMetaSessionRequestCompleted);
+
+    /**
+     * Refresh a previous session signed in with Meta
+     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
+     * The Meta platform must be enabled in the web console for this to work.
+     *
+     * @param RefreshToken (Optional) Token received in response from StartMetaSession request. If not supplied we will attempt to resolve it from stored player data.
+     * @param OnRefreshEpicSessionCompleted Delegate for handling the response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken"))
+    static void RefreshMetaSession(const FString& RefreshToken, const FLootLockerMetaSessionResponseBP& OnRefreshMetaSessionCompleted);
+
+    /**
      * Create a new user using the White Label login system.
      * White Label platform must be enabled in the web console for this to work.
      * https://ref.lootlocker.com/game-api/#sign-up
