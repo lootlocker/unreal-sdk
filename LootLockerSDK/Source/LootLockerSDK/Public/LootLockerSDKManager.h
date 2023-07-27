@@ -244,6 +244,37 @@ public:
     static void RefreshEpicSession(const FString& RefreshToken, const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest);
 
     /**
+     * Start a session for an Meta / Oculus user
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * The Meta platform must be enabled in the web console for this to work.
+     *
+     * @param UserId The id recieved from Oculus
+     * @param Nonce The nonce recieved from Oculus
+     * @param OnMetaSessionRequestCompleted Delegate for handling the server response.
+     */
+    static void StartMetaSession(const FString& UserId, const FString& Nonce, const FLootLockerMetaSessionResponseDelegate& OncompletedRequest);
+
+    /**
+     * Refresh a previous session signed in with Meta
+     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
+     * The Meta platform must be enabled in the web console for this to work.
+     *
+     * @param RefreshToken (Optional) Token received in response from StartMetaSession request. If not supplied we will attempt to resolve it from stored player data.
+     * @param OnRefreshEpicSessionCompleted Delegate for handling the response
+     */
+    static void RefreshMetaSession(const FLootLockerMetaSessionResponseDelegate& OncompletedRequest) { RefreshMetaSession("", OncompletedRequest); };
+    
+    /**
+     * Refresh a previous session signed in with Meta
+     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
+     * The Meta platform must be enabled in the web console for this to work.
+     *
+     * @param RefreshToken (Optional) Token received in response from StartMetaSession request. If not supplied we will attempt to resolve it from stored player data.
+     * @param OnRefreshEpicSessionCompleted Delegate for handling the response
+     */
+    static void RefreshMetaSession(const FString& RefreshToken, const FLootLockerMetaSessionResponseDelegate& OncompletedRequest);
+
+    /**
      * Start a guest session with an identifier, you can use something like a unique device identifier to tie the account to a device.
      * https://ref.lootlocker.com/game-api/#guest-login
      *

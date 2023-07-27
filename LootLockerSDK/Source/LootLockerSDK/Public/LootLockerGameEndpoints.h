@@ -25,6 +25,7 @@ public:
     static FLootLockerEndPoints VerifyPlayerIdEndPoint;
     static FLootLockerEndPoints EndSessionEndpoint;
     static FLootLockerEndPoints GuestloginEndpoint;
+    static FLootLockerEndPoints MetaSessionEndpoint;
 
     // White Label
     static FLootLockerEndPoints WhiteLabelSignupEndpoint;
