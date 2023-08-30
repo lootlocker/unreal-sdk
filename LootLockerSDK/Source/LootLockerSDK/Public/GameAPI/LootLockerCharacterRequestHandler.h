@@ -22,6 +22,7 @@ struct FLootLockerCharacter {
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	bool is_default = false;
 };
+
 USTRUCT(BlueprintType)
 struct FLootLockerCharacterAsset
 {
@@ -29,6 +30,7 @@ struct FLootLockerCharacterAsset
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FLootLockerAsset asset;
 };
+
 USTRUCT(BlueprintType)
 struct FLootLockerCharacterRental {
 	GENERATED_BODY()
@@ -41,6 +43,7 @@ struct FLootLockerCharacterRental {
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString is_active;
 };
+
 USTRUCT(BlueprintType)
 struct FLootLockerCharacterLoadout {
 	GENERATED_BODY()
@@ -55,6 +58,7 @@ struct FLootLockerCharacterLoadout {
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FLootLockerCharacterRental rental;
 };
+
 USTRUCT(BlueprintType)
 struct FLootLockerCharacterLoadoutArray {
 	GENERATED_BODY()
@@ -86,7 +90,7 @@ struct FLootLockerUpdateCharacterRequest {
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerListCharacterRequest {
+struct FLootLockerListCharacterResponse {
 	GENERATED_BODY()
 		UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 		bool is_default = false;
@@ -102,6 +106,7 @@ struct FLootLockerEquipAssetToCharacterWithInstanceRequest {
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 instance_id = 0;
 };
+
 USTRUCT(BlueprintType)
 struct FLootLockerEquipUniversalAssetToCharacterRequest {
 	GENERATED_BODY()
@@ -134,8 +139,7 @@ USTRUCT(BlueprintType)
 struct FLootLockerListPlayerCharactersResponse : public FLootLockerResponse {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	TArray<FLootLockerListCharacterRequest> characters;
-
+	TArray<FLootLockerListCharacterResponse> characters;
 };
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPCharacterLoadoutResponseBP, FLootLockerCharacterLoadoutResponse, Var);
