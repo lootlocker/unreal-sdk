@@ -941,6 +941,7 @@ public:
     /**
     * Get list of Characters to a player
     * https://ref.lootlocker.com/game-api/#list-player-characters
+    * @param OnCompletedRequestBP Delegate for handling the server response.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters")
     static void ListPlayerCharacters(const FPLootLockerListPlayerCharactersResponseBP& OnCompletedRequestBP);
