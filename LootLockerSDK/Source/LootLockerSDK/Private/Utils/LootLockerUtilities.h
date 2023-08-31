@@ -16,6 +16,26 @@ const TMultiMap<FString,FString> EmptyQueryParams;
 typedef TMap<FString, FStringFormatArg> FStringFormatNamedArguments;
 #endif
 
+struct FObfuscationDetails
+{
+    FString key;
+    FString replacementChar;
+    int visibleCharsFromBeginning;
+    int visibleCharsFromEnd;
+    bool hideCharactersForShortStrings;
+
+    FObfuscationDetails(FString Key, FString ReplacementChar, int VisibleCharsFromBeginning, int VisibleCharsFromEnd, bool HideCharactersForShortStrings)
+        : key(Key), replacementChar(ReplacementChar), visibleCharsFromBeginning(VisibleCharsFromBeginning),
+        visibleCharsFromEnd(VisibleCharsFromEnd), hideCharactersForShortStrings(HideCharactersForShortStrings)
+    {
+    }
+};
+
+struct FUObfuscationSettings
+{
+    static const TArray<FObfuscationDetails> FieldsToObfuscate;
+};
+
 namespace LootLockerUtilities
 {
     FString AppendParameterToUrl(const FString& Url, const FString& Parameter);
@@ -24,7 +44,16 @@ namespace LootLockerUtilities
 
     TArray<TSharedPtr<FJsonValue>> SerializeMissionCheckpoints(const TArray<FLootLockerMissionCheckpoint>& Checkpoints);
 
+    static FString FStringFromJsonObject(const TSharedPtr<FJsonObject> JsonObject);
+
     TSharedPtr<FJsonObject> JsonObjectFromFString(const FString& JsonString);
+
+    static FString ObfuscateJsonStringForLogging(const FString& JsonBody);
+
+    static FString ObfuscateJsonStringForLogging(const TArray<FObfuscationDetails>& ObfuscationDetails, const FString& JsonBody);
+
+    static FString ObfuscateString(const FObfuscationDetails& ObfuscationDetail, const FString& StringToObfuscate);
+
 }
 
 template<typename ResponseType>
@@ -98,7 +127,7 @@ struct LLAPI
         }
 #if WITH_EDITOR
         UE_LOG(LogLootLockerGameSDK, Log, TEXT("Request:"));
-        UE_LOG(LogLootLockerGameSDK, Log, TEXT("ContentString:%s"), *ContentString);
+        UE_LOG(LogLootLockerGameSDK, Log, TEXT("ContentString:%s"), *LootLockerUtilities::ObfuscateJsonStringForLogging(ContentString));
         UE_LOG(LogLootLockerGameSDK, Log, TEXT("EndpointWithArguments:%s"), *EndpointWithArguments);
 #endif //WITH_EDITOR
         const FString RequestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));

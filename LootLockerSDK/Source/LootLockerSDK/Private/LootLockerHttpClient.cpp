@@ -75,7 +75,7 @@ bool ULootLockerHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, 
 		UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Http Response returned error code: %d"), InResponse->GetResponseCode());
 		UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Http Response content:\n%s"), *InResponse->GetContentAsString());
         UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Http Request endpoint: %s to %s"), *RequestMethod, *Endpoint);
-        UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Http Request data: %s"), *Data);
+        UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Http Request data: %s"), *LootLockerUtilities::ObfuscateJsonStringForLogging(Data));
 		return false;
 	}
 }
