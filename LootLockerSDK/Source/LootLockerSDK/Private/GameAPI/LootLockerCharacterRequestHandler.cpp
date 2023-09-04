@@ -29,7 +29,7 @@ void ULootLockerCharacterRequestHandler::UpdateCharacter(int CharacterId, bool I
 
 void ULootLockerCharacterRequestHandler::CreateCharacter(bool IsDefault,  FString CharacterName,  FString CharacterId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP, const FCharacterLoadoutResponse& OnCompletedRequest)
 {
-	FLootLockerListCharacterResponse characterRequest;
+	FLootLockerCreateCharacterRequest characterRequest;
 	characterRequest.is_default = IsDefault;
 	characterRequest.name = CharacterName;
 	characterRequest.character_type_id = CharacterId;
