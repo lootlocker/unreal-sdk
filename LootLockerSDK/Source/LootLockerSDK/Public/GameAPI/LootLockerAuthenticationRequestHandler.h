@@ -164,11 +164,21 @@ struct FLootLockerNintendoSwitchSessionRequestWithDevelopmentMode : public FLoot
 };
 
 USTRUCT(BlueprintType)
+struct FLootLockerStartMetaSessionRequest : public FLootLockerBaseAuthRequest
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FString user_id;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FString nonce;
+};
+
+USTRUCT(BlueprintType)
 struct FLootLockerRefreshMetaSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-		FString refresh_token;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FString refresh_token;
 };
 
 USTRUCT(BlueprintType)
