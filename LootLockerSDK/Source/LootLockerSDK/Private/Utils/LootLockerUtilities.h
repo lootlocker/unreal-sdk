@@ -31,7 +31,7 @@ struct FObfuscationDetails
     }
 };
 
-struct FUObfuscationSettings
+struct UObfuscationSettings
 {
     static const TArray<FObfuscationDetails> FieldsToObfuscate;
 };
