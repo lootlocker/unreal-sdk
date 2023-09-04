@@ -4,6 +4,16 @@
 
 #include "JsonObjectConverter.h"
 
+const TArray<FObfuscationDetails> UObfuscationSettings::FieldsToObfuscate =
+{
+    FObfuscationDetails(FString("game_key"), "*", 4, 3, false),
+    FObfuscationDetails(FString("email"), "*", 3, 3, true),
+    FObfuscationDetails(FString("password"), "*", 0, 0, true),
+    FObfuscationDetails(FString("domain_key"), "*", 3, 3, true),
+    FObfuscationDetails(FString("session_token"), "*", 3, 3, true),
+    FObfuscationDetails(FString("token"), "*", 3, 3, true)
+};
+
 namespace LootLockerUtilities
 {
     FString AppendParameterToUrl(const FString& Url, const FString& Parameter)
@@ -79,7 +89,7 @@ namespace LootLockerUtilities
 
     FString ObfuscateJsonStringForLogging(const FString& JsonBody)
     {
-        return ObfuscateJsonStringForLogging(FUObfuscationSettings::FieldsToObfuscate, JsonBody);
+        return ObfuscateJsonStringForLogging(UObfuscationSettings::FieldsToObfuscate, JsonBody);
     }
 
     FString ObfuscateJsonStringForLogging(const TArray<FObfuscationDetails>& ObfuscationDetails, const FString& JsonBody)
