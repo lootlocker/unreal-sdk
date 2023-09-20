@@ -42,6 +42,7 @@ void ULootLockerAuthenticationRequestHandler::GuestLogin(const FString& PlayerId
 				if (Response.success)
 				{
 					ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+					ULootLockerStateData::SetToken(Response.session_token);
 				}
 				else
 				{
@@ -60,6 +61,7 @@ void ULootLockerAuthenticationRequestHandler::GuestLogin(const FString& PlayerId
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetToken(Response.session_token);
 			}
 			else
 			{
@@ -106,6 +108,7 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(const FAuth
 				if (Response.success)
 				{
 					ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+					ULootLockerStateData::SetToken(Response.session_token);
 				}
 			}));
 		return;
@@ -120,6 +123,7 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(const FAuth
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetToken(Response.session_token);
 			}
 		}));
 }
@@ -136,12 +140,12 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelLoginAndStartSession(con
 				return;
 			}
 
-	WhiteLabelStartSession(FAuthResponseBP(), FLootLockerSessionResponse::CreateLambda([LootLockerWhiteLabelLoginAndSessionResponseDelegateBP, LootLockerWhiteLabelLoginAndSessionResponseDelegate, LoginResponse](FLootLockerAuthenticationResponse StartSessionResponse)
-		{
-			const FLootLockerWhiteLabelLoginAndSessionResponse FullResponse = FLootLockerWhiteLabelLoginAndSessionResponse(LoginResponse, StartSessionResponse);
-	LootLockerWhiteLabelLoginAndSessionResponseDelegateBP.ExecuteIfBound(FullResponse);
-	LootLockerWhiteLabelLoginAndSessionResponseDelegate.ExecuteIfBound(FullResponse);
-		}));
+			WhiteLabelStartSession(FAuthResponseBP(), FLootLockerSessionResponse::CreateLambda([LootLockerWhiteLabelLoginAndSessionResponseDelegateBP, LootLockerWhiteLabelLoginAndSessionResponseDelegate, LoginResponse](FLootLockerAuthenticationResponse StartSessionResponse)
+				{
+					const FLootLockerWhiteLabelLoginAndSessionResponse FullResponse = FLootLockerWhiteLabelLoginAndSessionResponse(LoginResponse, StartSessionResponse);
+					LootLockerWhiteLabelLoginAndSessionResponseDelegateBP.ExecuteIfBound(FullResponse);
+					LootLockerWhiteLabelLoginAndSessionResponseDelegate.ExecuteIfBound(FullResponse);
+				}));
 		}));
 }
 
@@ -198,6 +202,7 @@ void ULootLockerAuthenticationRequestHandler::StartSession(const FString& Player
 				if (Response.success)
 				{
 					ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+					ULootLockerStateData::SetToken(Response.session_token);
 				}
 				else
 				{
@@ -220,6 +225,7 @@ void ULootLockerAuthenticationRequestHandler::StartSession(const FString& Player
         if (Response.success)
         {
             ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+			ULootLockerStateData::SetToken(Response.session_token);
         } else
 		{
 			ULootLockerCurrentPlatform::Reset();
@@ -244,6 +250,7 @@ void ULootLockerAuthenticationRequestHandler::StartPlaystationNetworkSession(con
 				if (Response.success)
 				{
 					ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+					ULootLockerStateData::SetToken(Response.session_token);
 				}
 				else
 				{
@@ -265,6 +272,7 @@ void ULootLockerAuthenticationRequestHandler::StartPlaystationNetworkSession(con
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetToken(Response.session_token);
 			}
 			else
 			{
@@ -290,6 +298,7 @@ void ULootLockerAuthenticationRequestHandler::StartAndroidSession(const FString&
 				if (Response.success)
 				{
 					ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+					ULootLockerStateData::SetToken(Response.session_token);
 				}
 				else
 				{
@@ -311,6 +320,7 @@ void ULootLockerAuthenticationRequestHandler::StartAndroidSession(const FString&
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetToken(Response.session_token);
 			}
 			else
 			{
@@ -335,6 +345,7 @@ void ULootLockerAuthenticationRequestHandler::StartGoogleSession(const FString& 
 				if (Response.success)
 				{
 					ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+					ULootLockerStateData::SetToken(Response.session_token);
 					ULootLockerStateData::SetRefreshToken(Response.refresh_token);
 				}
 				else
@@ -355,6 +366,7 @@ void ULootLockerAuthenticationRequestHandler::StartGoogleSession(const FString& 
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetToken(Response.session_token);
 				ULootLockerStateData::SetRefreshToken(Response.refresh_token);
 			}
 			else
@@ -381,6 +393,7 @@ void ULootLockerAuthenticationRequestHandler::StartGoogleSession(const FString& 
 				if (Response.success)
 				{
 					ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+					ULootLockerStateData::SetToken(Response.session_token);
 					ULootLockerStateData::SetRefreshToken(Response.refresh_token);
 				}
 				else
@@ -402,6 +415,7 @@ void ULootLockerAuthenticationRequestHandler::StartGoogleSession(const FString& 
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetToken(Response.session_token);
 				ULootLockerStateData::SetRefreshToken(Response.refresh_token);
 			}
 			else
@@ -427,6 +441,7 @@ void ULootLockerAuthenticationRequestHandler::RefreshGoogleSession(const FString
 				if (Response.success)
 				{
 					ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+					ULootLockerStateData::SetToken(Response.session_token);
 					ULootLockerStateData::SetRefreshToken(Response.refresh_token);
 				}
 				else
@@ -447,6 +462,7 @@ void ULootLockerAuthenticationRequestHandler::RefreshGoogleSession(const FString
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetToken(Response.session_token);
 				ULootLockerStateData::SetRefreshToken(Response.refresh_token);
 			}
 			else
@@ -472,6 +488,7 @@ void ULootLockerAuthenticationRequestHandler::StartEpicSession(const FString& Id
 				if (Response.success)
 				{
 					ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+					ULootLockerStateData::SetToken(Response.session_token);
 					ULootLockerStateData::SetRefreshToken(Response.refresh_token);
 				}
 				else
@@ -492,6 +509,7 @@ void ULootLockerAuthenticationRequestHandler::StartEpicSession(const FString& Id
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetToken(Response.session_token);
 				ULootLockerStateData::SetRefreshToken(Response.refresh_token);
 			}
 			else
@@ -509,6 +527,7 @@ void ULootLockerAuthenticationRequestHandler::RefreshEpicSession(const FString& 
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetToken(Response.session_token);
 				ULootLockerStateData::SetRefreshToken(Response.refresh_token);
 			}
 			else
@@ -553,6 +572,7 @@ void ULootLockerAuthenticationRequestHandler::StartAmazonLunaSession(const FStri
 				if (Response.success)
 				{
 					ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+					ULootLockerStateData::SetToken(Response.session_token);
 				}
 				else
 				{
@@ -573,6 +593,7 @@ void ULootLockerAuthenticationRequestHandler::StartAmazonLunaSession(const FStri
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetToken(Response.session_token);
 			}
 			else
 			{
@@ -598,6 +619,7 @@ void ULootLockerAuthenticationRequestHandler::StartSteamSession(const FString& S
 				if (Response.success)
 				{
 					ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+					ULootLockerStateData::SetToken(Response.session_token);
 				}
 				else
 				{
@@ -618,6 +640,7 @@ void ULootLockerAuthenticationRequestHandler::StartSteamSession(const FString& S
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetToken(Response.session_token);
 			}
 			else
 			{
@@ -642,6 +665,7 @@ void ULootLockerAuthenticationRequestHandler::StartNintendoSwitchSession(const F
 				if (Response.success)
 				{
 					ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+					ULootLockerStateData::SetToken(Response.session_token);
 				}
 				else
 				{
@@ -661,6 +685,7 @@ void ULootLockerAuthenticationRequestHandler::StartNintendoSwitchSession(const F
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetToken(Response.session_token);
 			}
 			else
 			{
@@ -685,6 +710,7 @@ void ULootLockerAuthenticationRequestHandler::StartXboxSession(const FString& Xb
 				if (Response.success)
 				{
 					ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+					ULootLockerStateData::SetToken(Response.session_token);
 				}
 				else
 				{
@@ -704,6 +730,7 @@ void ULootLockerAuthenticationRequestHandler::StartXboxSession(const FString& Xb
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetToken(Response.session_token);
 			}
 			else
 			{
@@ -735,6 +762,7 @@ void ULootLockerAuthenticationRequestHandler::StartAppleGameCenterSession(const 
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
 				ULootLockerStateData::SetRefreshToken(Response.refresh_token);
+				ULootLockerStateData::SetToken(Response.session_token);
 			}
 			else
 			{
@@ -761,6 +789,7 @@ void ULootLockerAuthenticationRequestHandler::StartAppleSession(const FString& A
 				if (Response.success)
 				{
 					ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+					ULootLockerStateData::SetToken(Response.session_token);
 					ULootLockerStateData::SetRefreshToken(Response.refresh_token);
 				}
 				else
@@ -781,6 +810,7 @@ void ULootLockerAuthenticationRequestHandler::StartAppleSession(const FString& A
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetToken(Response.session_token);
 				ULootLockerStateData::SetRefreshToken(Response.refresh_token);
 			}
 			else
@@ -807,6 +837,7 @@ void ULootLockerAuthenticationRequestHandler::RefreshAppleGameCenterSession(cons
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetToken(Response.session_token);
 				ULootLockerStateData::SetRefreshToken(Response.refresh_token);
 			}
 			else
@@ -832,6 +863,7 @@ void ULootLockerAuthenticationRequestHandler::RefreshAppleSession(const FString&
 				if (Response.success)
 				{
 					ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+					ULootLockerStateData::SetToken(Response.session_token);
 					ULootLockerStateData::SetRefreshToken(Response.refresh_token);
 				}
 				else
@@ -852,6 +884,7 @@ void ULootLockerAuthenticationRequestHandler::RefreshAppleSession(const FString&
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetToken(Response.session_token);
 				ULootLockerStateData::SetRefreshToken(Response.refresh_token);
 			}
 			else
@@ -877,6 +910,7 @@ void ULootLockerAuthenticationRequestHandler::StartMetaSession(const FString& Us
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetToken(Response.session_token);
 				ULootLockerStateData::SetRefreshToken(Response.refresh_token);
 			}
 			else
@@ -902,6 +936,7 @@ void ULootLockerAuthenticationRequestHandler::RefreshMetaSession(const FString& 
 			if (Response.success)
 			{
 				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetToken(Response.session_token);
 				ULootLockerStateData::SetRefreshToken(Response.refresh_token);
 			}
 			else
@@ -922,7 +957,7 @@ void ULootLockerAuthenticationRequestHandler::VerifyPlayer(const FString& Platfo
 
 	FString RequestPlatform = Platform.IsEmpty() ? ULootLockerCurrentPlatform::GetString().IsEmpty() ? ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int>(Config->Platform)) : ULootLockerCurrentPlatform::GetString() : Platform;
 	AuthRequest.platform = RequestPlatform;
-	LLAPI<FLootLockerAuthenticationDefaultResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::VerifyPlayerIdEndPoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationDefaultResponse>::FResponseInspectorCallback::CreateLambda([RequestPlatform, PlatformToken](const FLootLockerAuthenticationDefaultResponse& Response)
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::VerifyPlayerIdEndPoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback::CreateLambda([RequestPlatform, PlatformToken](const FLootLockerResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -942,7 +977,7 @@ void ULootLockerAuthenticationRequestHandler::EndSession(const FAuthDefaultRespo
 	{
 		CustomHeaders.Add(TEXT("logout"), TEXT("true"));
 	}
-	LLAPI<FLootLockerAuthenticationDefaultResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::EndSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationDefaultResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationDefaultResponse& Response)
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::EndSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerResponse& Response)
 		{
 			if (Response.success) {
 				ULootLockerStateData::ClearState();

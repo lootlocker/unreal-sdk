@@ -71,17 +71,9 @@ struct LLAPI
             {
                 FJsonObjectConverter::JsonObjectStringToUStruct<ResponseType>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
-            if (response.ServerCallStatusCode == 200 || response.ServerCallStatusCode == 204)
+            ResponseStruct.success = response.ServerCallStatusCode >= 200 && response.ServerCallStatusCode <= 299;
+            if (!ResponseStruct.success)
             {
-                ResponseStruct.success = true;
-                if (ResponseStruct.session_token != "")
-                {
-                    ULootLockerStateData::SetToken(ResponseStruct.session_token);
-                }
-            }
-            else
-            {
-                ResponseStruct.success = false;
                 ResponseStruct.Error = response.Error;
             }
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
