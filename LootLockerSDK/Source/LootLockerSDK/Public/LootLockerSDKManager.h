@@ -305,7 +305,7 @@ public:
      * @param OnCompletedRequest Response Delegate to handle the response
      * @param Platform Optional parameter to call explicitly for a specific platform
      */
-    static void VerifyPlayer(const FString& PlatformToken, const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest, const FString Platform = FString(TEXT("")));
+    static void VerifyPlayer(const FString& PlatformToken, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString Platform = FString(TEXT("")));
 
     /**
      * End active session (if any exists)
@@ -315,7 +315,7 @@ public:
      *
      * @param OnCompletedRequest Delegate for handling the response of type LootLockerSessionResponse
      */
-    static void EndSession(const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest);
+    static void EndSession(const FLootLockerDefaultDelegate& OnCompletedRequest);
 
     //==================================================
     // White Label

@@ -139,12 +139,12 @@ void ULootLockerManager::GuestLogin(const FAuthResponseBP &OnCompletedRequestBP,
 	ULootLockerAuthenticationRequestHandler::GuestLogin(PlayerIdentifier, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::VerifyPlayer(const FString& PlatformToken, const FAuthDefaultResponseBP& OnVerifyPlayerRequestCompleted, const FString Platform /*= FString()*/)
+void ULootLockerManager::VerifyPlayer(const FString& PlatformToken, const FLootLockerDefaultResponseBP& OnVerifyPlayerRequestCompleted, const FString Platform /*= FString()*/)
 {
     ULootLockerAuthenticationRequestHandler::VerifyPlayer(PlatformToken, Platform, OnVerifyPlayerRequestCompleted);
 }
 
-void ULootLockerManager::EndSession(const  FAuthDefaultResponseBP& OnEndSessionRequestCompleted)
+void ULootLockerManager::EndSession(const  FLootLockerDefaultResponseBP& OnEndSessionRequestCompleted)
 {
     ULootLockerAuthenticationRequestHandler::EndSession(OnEndSessionRequestCompleted);
 }

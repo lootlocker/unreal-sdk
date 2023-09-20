@@ -72,11 +72,13 @@ struct LLAPI
                 FJsonObjectConverter::JsonObjectStringToUStruct<ResponseType>(response.FullTextFromServer, &ResponseStruct, 0, 0);
             }
             ResponseStruct.success = response.ServerCallStatusCode >= 200 && response.ServerCallStatusCode <= 299;
+            ResponseStruct.StatusCode = response.StatusCode;
+            ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             if (!ResponseStruct.success)
             {
-                ResponseStruct.Error = response.Error;
+                ResponseStruct.ErrorData = response.ErrorData;
+                ResponseStruct.Error = response.ErrorData.Message;
             }
-            ResponseStruct.FullTextFromServer = response.FullTextFromServer;
             ResponseInspectorCallback.ExecuteIfBound(ResponseStruct);
             OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
