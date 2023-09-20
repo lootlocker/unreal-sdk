@@ -95,22 +95,12 @@ void ULootLockerPlayerRequestHandler::SetPlayerName(FString Name, const FPNameRe
 	if (ULootLockerCurrentPlatform::Get() == ELootLockerPlatform::Guest)
 	{
 
-		if (Name.Equals(ULootLockerStateData::GetPlayerIdentifier(), ESearchCase::IgnoreCase)) {
-			FLootLockerNameResponse FailResponse;
-			FailResponse.success = false;
-			FailResponse.FullTextFromServer = "Cannot set the Player name to their Identifier";
-			FailResponse.Error = FailResponse.FullTextFromServer;
-
-			OnCompletedRequestBP.ExecuteIfBound(FailResponse);
+		if (Name.Equals(ULootLockerStateData::GetPlayerIdentifier(), ESearchCase::IgnoreCase)) 
+		{
+			OnCompletedRequestBP.ExecuteIfBound(LootLockerResponseFactory::Error<FLootLockerNameResponse>("Cannot set the Player name to their Identifier"));
 			return;
-		}
-		if (Name.Equals("player", ESearchCase::IgnoreCase)) {
-			FLootLockerNameResponse FailResponse;
-			FailResponse.success = false;
-			FailResponse.FullTextFromServer = "Cannot set the Player name to 'Player'";
-			FailResponse.Error = FailResponse.FullTextFromServer;
-
-			OnCompletedRequestBP.ExecuteIfBound(FailResponse);
+		} else if (Name.Equals("player", ESearchCase::IgnoreCase)) {
+			OnCompletedRequestBP.ExecuteIfBound(LootLockerResponseFactory::Error<FLootLockerNameResponse>("Cannot set the Player name to 'Player'"));
 			return;
 		}
 

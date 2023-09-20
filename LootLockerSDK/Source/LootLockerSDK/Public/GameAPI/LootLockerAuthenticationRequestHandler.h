@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerHttpClient.h"
-#include "JsonObjectConverter.h"
 #include "LootLockerAuthenticationRequestHandler.generated.h"
 
 /*
@@ -64,16 +63,6 @@ struct FLootLockerLoginResponse : public FLootLockerAuthResponse
 	FString deleted_at;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login Response")
 	FString validated_at;
-};
-
-USTRUCT(BlueprintType)
-struct FLootLockerErrorData
-{
-	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Error")
-	FString message;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Error")
-	FString error;
 };
 
 USTRUCT(BlueprintType)
@@ -511,25 +500,29 @@ struct FLootLockerWhiteLabelLoginAndSessionResponse : public FLootLockerAuthResp
 
 	FLootLockerWhiteLabelLoginAndSessionResponse() = default;
 
-	FLootLockerWhiteLabelLoginAndSessionResponse(FLootLockerLoginResponse LoginResponse)
+	FLootLockerWhiteLabelLoginAndSessionResponse(const FLootLockerLoginResponse& LoginResponse)
 	{
 		this->success = LoginResponse.success;
-		this->ServerCallStatusCode = LoginResponse.ServerCallStatusCode;
+		this->StatusCode = LoginResponse.StatusCode;
 		this->session_token = LoginResponse.session_token;
 		this->FullTextFromServer = LoginResponse.FullTextFromServer;
-		this->Error = LoginResponse.Error;
 		this->LoginResponse = LoginResponse;
+
+		this->Error = LoginResponse.Error;
+		this->ServerCallStatusCode = LoginResponse.ServerCallStatusCode;
 	}
 
-	FLootLockerWhiteLabelLoginAndSessionResponse(FLootLockerLoginResponse LoginResponse, FLootLockerAuthenticationResponse SessionResponse)
+	FLootLockerWhiteLabelLoginAndSessionResponse(const FLootLockerLoginResponse& LoginResponse, const FLootLockerAuthenticationResponse& SessionResponse)
 	{
 		this->success = SessionResponse.success;
-		this->ServerCallStatusCode = SessionResponse.ServerCallStatusCode;
+		this->StatusCode = SessionResponse.StatusCode;
 		this->session_token = SessionResponse.session_token;
 		this->FullTextFromServer = SessionResponse.FullTextFromServer;
-		this->Error = SessionResponse.Error;
 		this->LoginResponse = LoginResponse;
 		this->StartSessionResponse = SessionResponse;
+
+		this->ServerCallStatusCode = SessionResponse.ServerCallStatusCode;
+		this->Error = SessionResponse.Error;
 	}
 };
 
@@ -545,7 +538,6 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FAuthResponseBP, FLootLockerAuthenticationResp
 DECLARE_DYNAMIC_DELEGATE_OneParam(FAppleSessionResponseBP, FLootLockerAppleSessionResponse, Var);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FGoogleSessionResponseBP, FLootLockerGoogleSessionResponse, Var);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FEpicSessionResponseBP, FLootLockerEpicSessionResponse, Var);
-DECLARE_DYNAMIC_DELEGATE_OneParam(FAuthDefaultResponseBP, FLootLockerResponse, AuthVar);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerLoginResponseDelegateBP, FLootLockerLoginResponse, AuthVar);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerVerifySessionResponseBP, FLootLockerWhiteLabelVerifySessionResponse, Response);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP, FLootLockerWhiteLabelLoginAndSessionResponse, Var);
@@ -555,7 +547,6 @@ DECLARE_DELEGATE_OneParam(FLootLockerSessionResponse, FLootLockerAuthenticationR
 DECLARE_DELEGATE_OneParam(FLootLockerAppleSessionResponseDelegate, FLootLockerAppleSessionResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerGoogleSessionResponseDelegate, FLootLockerGoogleSessionResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerEpicSessionResponseDelegate, FLootLockerEpicSessionResponse);
-DECLARE_DELEGATE_OneParam(FLootLockerDefaultAuthenticationResponse, FLootLockerResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerLoginResponseDelegate, FLootLockerLoginResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerWhiteLabelVerifySessionDelegate, FLootLockerWhiteLabelVerifySessionResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerWhiteLabelLoginAndSessionResponseDelegate, FLootLockerWhiteLabelLoginAndSessionResponse);
@@ -592,8 +583,8 @@ public:
 	static void StartXboxSession(const FString& XboxUserToken, const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
 	static void StartAppleSession(const FString& AuthorizationCode, const FAppleSessionResponseBP& OnCompletedRequestBP = FAppleSessionResponseBP(), const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleSessionResponseDelegate());
 	static void RefreshAppleSession(const FString& RefreshToken, const FAppleSessionResponseBP& OnCompletedRequestBP = FAppleSessionResponseBP(), const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleSessionResponseDelegate());
-	static void VerifyPlayer(const FString& PlatformToken, const FString& Platform, const FAuthDefaultResponseBP& OnCompletedRequestBP = FAuthDefaultResponseBP(), const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest = FLootLockerDefaultAuthenticationResponse());
-	static void EndSession(const FAuthDefaultResponseBP& OnCompletedRequestBP = FAuthDefaultResponseBP(), const FLootLockerDefaultAuthenticationResponse& OnCompletedRequest = FLootLockerDefaultAuthenticationResponse());
+	static void VerifyPlayer(const FString& PlatformToken, const FString& Platform, const FLootLockerDefaultResponseBP& OnCompletedRequestBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
+	static void EndSession(const FLootLockerDefaultResponseBP& OnCompletedRequestBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
     static void WhiteLabelLoginAndStartSession(const FString& Email, const FString& Password, bool bRemember, const FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP& LootLockerWhiteLabelLoginAndSessionResponseDelegateBP = FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP(), const FLootLockerWhiteLabelLoginAndSessionResponseDelegate& LootLockerWhiteLabelLoginAndSessionResponseDelegate = FLootLockerWhiteLabelLoginAndSessionResponseDelegate());
 	static void StartAppleGameCenterSession(const FString& BundleId, const FString& PlayerId, const FString& PublicKeyUrl, const FString& Signature, const FString& Salt, const FString& Timestamp, const FLootLockerAppleGameCenterSessionResponseBP& OnCompletedRequestBP = FLootLockerAppleGameCenterSessionResponseBP(), const FLootLockerAppleGameCenterSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleGameCenterSessionResponseDelegate()); 
 	static void RefreshAppleGameCenterSession(const FString& RefreshToken, const FLootLockerAppleGameCenterSessionResponseBP& OnCompletedRequestBP = FLootLockerAppleGameCenterSessionResponseBP(), const FLootLockerAppleGameCenterSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleGameCenterSessionResponseDelegate());
