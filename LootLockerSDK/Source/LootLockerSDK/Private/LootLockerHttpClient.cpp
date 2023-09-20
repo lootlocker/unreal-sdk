@@ -1,10 +1,9 @@
-// Copyright (c) 2021 LootLocker
+﻿// Copyright (c) 2021 LootLocker
 
 
 #include "LootLockerHttpClient.h"
 #include "JsonObjectConverter.h"
 #include "LootLockerConfig.h"
-#include "LootLockerStateData.h"
 #include "GameAPI/LootLockerAuthenticationRequestHandler.h"
 #include "Interfaces/IHttpResponse.h"
 #include "Misc/FileHelper.h"
@@ -17,6 +16,39 @@ const FString ULootLockerHttpClient::UserInstanceIdentifier = FGuid::NewGuid().T
 ULootLockerHttpClient::ULootLockerHttpClient()
 {
 
+}
+
+void ULootLockerHttpClient::LogFailedRequestInformation(const FLootLockerResponse& Response, const FString& RequestMethod, const FString& Endpoint, const FString& Data)
+{
+    FString LogString = FString::Format(TEXT("{0} request to {1} failed"), { RequestMethod, Endpoint });
+    const bool IsInformativeError = !Response.ErrorData.Code.IsEmpty();
+    if(IsInformativeError)
+    {
+        LogString += FString::Format(TEXT("\n   {0}"), { Response.ErrorData.Message });
+        LogString += FString::Format(TEXT("\n    Error Code: {0}"), { Response.ErrorData.Code });
+        LogString += FString::Format(TEXT("\n    Further Information: {0}"), { Response.ErrorData.Doc_url });
+        LogString += FString::Format(TEXT("\n    Request ID: {0}"), { Response.ErrorData.Request_id });
+        LogString += FString::Format(TEXT("\n    Trace ID: {0}"), { Response.ErrorData.Trace_id });
+    }
+    LogString += FString::Format(TEXT("\n   HTTP Status code : {0}"), { Response.StatusCode });
+    if (!Data.IsEmpty()) {
+        LogString += FString::Format(TEXT("\n   Request Data: {0}"), { LootLockerUtilities::ObfuscateJsonStringForLogging(Data) });
+    }
+
+	if(!IsInformativeError)
+    {
+        LogString += FString::Format(TEXT("\n   Response Data: {0}"), { Response.FullTextFromServer });
+    }
+    LogString += "\n###";
+	UE_LOG(LogLootLockerGameSDK, Warning, TEXT("%s"), *LogString);
+}
+
+bool ULootLockerHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, bool bWasSuccessful)
+{
+    if (!bWasSuccessful || !InResponse.IsValid())
+        return false;
+
+    return EHttpResponseCodes::IsOk(InResponse->GetResponseCode());
 }
 
 void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, TMap<FString, FString> customHeaders) const
@@ -43,44 +75,25 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 	Request->SetVerb(requestType);
     Request->SetContentAsString(data);
 
-	Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this, endPoint, requestType, data](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
+	Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this, endPoint, requestType, data](FHttpRequestPtr Req, const FHttpResponsePtr& Response, bool bWasSuccessful)
 	{
 		FLootLockerResponse response;
         
-        response.success = ResponseIsValid(Response, bWasSuccessful, requestType, endPoint, data);
+        response.success = ResponseIsValid(Response, bWasSuccessful);
+        response.StatusCode = response.ServerCallStatusCode = Response->GetResponseCode();
 		response.FullTextFromServer = Response->GetContentAsString();
 		if (!response.success)
 		{
-            FLootLockerErrorResponse errorResponse;
-            FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerErrorResponse>(response.FullTextFromServer, &errorResponse, 0, 0);
-            response.Error = FString::Format(TEXT("{0}: {1}. Trace Id: {2}"), { errorResponse.Error.IsEmpty() ? "UNKNOWN" : errorResponse.Error, errorResponse.Message.IsEmpty() ? "N/A" : errorResponse.Message, errorResponse.trace_id.IsEmpty() ? "N/A" : errorResponse.trace_id });
+            FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerErrorData>(response.FullTextFromServer, &response.ErrorData, 0, 0);
+            response.Error = response.ErrorData.Message;
+            LogFailedRequestInformation(response, requestType, endPoint, data);
 		}
-		response.ServerCallStatusCode = Response->GetResponseCode();
 		onCompleteRequest.ExecuteIfBound(response);
 	});
 	Request->ProcessRequest();
 }
 
-bool ULootLockerHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, bool bWasSuccessful, FString RequestMethod, FString Endpoint, FString Data)
-{
-	if (!bWasSuccessful || !InResponse.IsValid())
-		return false;
-
-	if (EHttpResponseCodes::IsOk(InResponse->GetResponseCode()))
-	{
-		return true;
-	}
-	else
-	{
-		UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Http Response returned error code: %d"), InResponse->GetResponseCode());
-		UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Http Response content:\n%s"), *InResponse->GetContentAsString());
-        UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Http Request endpoint: %s to %s"), *RequestMethod, *Endpoint);
-        UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Http Request data: %s"), *LootLockerUtilities::ObfuscateJsonStringForLogging(Data));
-		return false;
-	}
-}
-
-void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString> AdditionalFields, const FResponseCallback& onCompleteRequest, TMap<FString, FString> customHeaders) const
+void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString>& AdditionalFields, const FResponseCallback& onCompleteRequest, TMap<FString, FString> customHeaders) const
 {
     FHttpModule* HttpModule = &FHttpModule::Get();
 
@@ -106,12 +119,7 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
 
     TArray<uint8> UpFileRawData;
     if (!FFileHelper::LoadFileToArray(UpFileRawData, *FilePath)) {
-        FLootLockerResponse FailResponse;
-        FailResponse.success = false;
-        FailResponse.FullTextFromServer = FString::Format(TEXT("Could not read file {0}"), { FilePath });
-        FailResponse.Error = FailResponse.FullTextFromServer;
-
-        onCompleteRequest.ExecuteIfBound(FailResponse);
+        onCompleteRequest.ExecuteIfBound(LootLockerResponseFactory::Error<FLootLockerResponse>(FString::Format(TEXT("Could not read file {0}"), { FilePath })));
         return;
     }
 
@@ -152,20 +160,18 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
 
     Request->SetContent(Data);
 
-    Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this, requestType, endPoint](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
+    Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this, requestType, endPoint](FHttpRequestPtr Req, const FHttpResponsePtr& Response, bool bWasSuccessful)
         {
-            const FString ResponseString = Response->GetContentAsString();
             FLootLockerResponse response;
 
+            response.success = ResponseIsValid(Response, bWasSuccessful);
+            response.StatusCode = response.ServerCallStatusCode = Response->GetResponseCode();
             response.FullTextFromServer = Response->GetContentAsString();
-            response.ServerCallStatusCode = Response->GetResponseCode();
-
-            response.success = ResponseIsValid(Response, bWasSuccessful, requestType, endPoint, FString("Data Stream"));
             if (!response.success)
             {
-                FLootLockerErrorResponse errorResponse;
-                FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerErrorResponse>(response.FullTextFromServer, &errorResponse, 0, 0);
-                response.Error = FString::Format(TEXT("{0}: {1}. Trace Id: {2}"), { errorResponse.Error.IsEmpty() ? "UNKNOWN" : errorResponse.Error, errorResponse.Message.IsEmpty() ? "N/A" : errorResponse.Message, errorResponse.trace_id.IsEmpty() ? "N/A" : errorResponse.trace_id });
+                FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerErrorData>(response.FullTextFromServer, &response.ErrorData, 0, 0);
+                response.Error = response.ErrorData.Message;
+                LogFailedRequestInformation(response, requestType, endPoint, FString("Data Stream"));
             }
 
             onCompleteRequest.ExecuteIfBound(response);

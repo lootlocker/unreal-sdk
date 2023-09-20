@@ -3,6 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "LootLockerConfig.h"
+#include "LootLockerHttpClient.h"
+#include "LootLockerPlatformManager.h"
 #include "Engine/DataAsset.h"
 #include "GameAPI/LootLockerAccountLinkRequestHandler.h"
 #include "GameAPI/LootLockerAssetInstancesRequestHandler.h"
@@ -24,9 +27,6 @@
 #include "GameAPI/LootLockerPurchasesRequestHandler.h"
 #include "GameAPI/LootLockerTriggerEventsRequestHandler.h"
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
-#include "LootLockerConfig.h"
-#include "LootLockerHttpClient.h"
-#include "LootLockerPlatformManager.h"
 #include "UObject/NoExportTypes.h"
 
 #include "LootLockerManager.generated.h"
@@ -372,7 +372,7 @@ public:
      * @param Platform Optional parameter to call explicitly for a specific platform
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-    static void VerifyPlayer(const FString& PlatformToken, const FAuthDefaultResponseBP& OnVerifyPlayerRequestCompleted, const FString Platform = FString(TEXT("")));
+    static void VerifyPlayer(const FString& PlatformToken, const FLootLockerDefaultResponseBP& OnVerifyPlayerRequestCompleted, const FString Platform = FString(TEXT("")));
 
     /**
      * End active session (if any exists)
@@ -383,7 +383,7 @@ public:
      * @param OnEndSessionRequestCompleted Delegate for handling the response of type LootLockerSessionResponse
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-    static void EndSession(const FAuthDefaultResponseBP& OnEndSessionRequestCompleted);
+    static void EndSession(const FLootLockerDefaultResponseBP& OnEndSessionRequestCompleted);
 
 #if defined LOOTLOCKER_ENABLE_ACCOUNT_LINKING
     //==================================================
