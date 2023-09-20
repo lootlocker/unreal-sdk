@@ -20,6 +20,14 @@ enum class ELootLockerGoogleClientPlatform : uint8
 	Desktop = 3		UMETA(DisplayName = "Desktop")
 };
 
+USTRUCT()
+struct FLootLockerAuthResponse : public FLootLockerResponse
+{
+	GENERATED_BODY()
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString session_token;	
+};
+
 USTRUCT(BlueprintType)
 struct FLootLockerLoginRequest
 {
@@ -39,7 +47,7 @@ struct FLootLockerWhiteLabelLoginRequest : public FLootLockerLoginRequest
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerLoginResponse : public FLootLockerResponse
+struct FLootLockerLoginResponse : public FLootLockerAuthResponse
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login Response")
@@ -424,7 +432,7 @@ struct FLootLockerLevelThresholds
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerAuthenticationResponse : public FLootLockerResponse
+struct FLootLockerAuthenticationResponse : public FLootLockerAuthResponse
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -492,16 +500,8 @@ struct FLootLockerWhiteLabelVerifySessionResponse : public FLootLockerResponse
 	FString email;
 };
 
-
-
 USTRUCT(BlueprintType)
-struct FLootLockerAuthenticationDefaultResponse : public FLootLockerResponse
-{
-	GENERATED_BODY()
-};
-
-USTRUCT(BlueprintType)
-struct FLootLockerWhiteLabelLoginAndSessionResponse : public FLootLockerResponse
+struct FLootLockerWhiteLabelLoginAndSessionResponse : public FLootLockerAuthResponse
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -545,7 +545,7 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FAuthResponseBP, FLootLockerAuthenticationResp
 DECLARE_DYNAMIC_DELEGATE_OneParam(FAppleSessionResponseBP, FLootLockerAppleSessionResponse, Var);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FGoogleSessionResponseBP, FLootLockerGoogleSessionResponse, Var);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FEpicSessionResponseBP, FLootLockerEpicSessionResponse, Var);
-DECLARE_DYNAMIC_DELEGATE_OneParam(FAuthDefaultResponseBP, FLootLockerAuthenticationDefaultResponse, AuthVar);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FAuthDefaultResponseBP, FLootLockerResponse, AuthVar);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerLoginResponseDelegateBP, FLootLockerLoginResponse, AuthVar);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerVerifySessionResponseBP, FLootLockerWhiteLabelVerifySessionResponse, Response);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP, FLootLockerWhiteLabelLoginAndSessionResponse, Var);
@@ -555,7 +555,7 @@ DECLARE_DELEGATE_OneParam(FLootLockerSessionResponse, FLootLockerAuthenticationR
 DECLARE_DELEGATE_OneParam(FLootLockerAppleSessionResponseDelegate, FLootLockerAppleSessionResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerGoogleSessionResponseDelegate, FLootLockerGoogleSessionResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerEpicSessionResponseDelegate, FLootLockerEpicSessionResponse);
-DECLARE_DELEGATE_OneParam(FLootLockerDefaultAuthenticationResponse, FLootLockerAuthenticationDefaultResponse);
+DECLARE_DELEGATE_OneParam(FLootLockerDefaultAuthenticationResponse, FLootLockerResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerLoginResponseDelegate, FLootLockerLoginResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerWhiteLabelVerifySessionDelegate, FLootLockerWhiteLabelVerifySessionResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerWhiteLabelLoginAndSessionResponseDelegate, FLootLockerWhiteLabelLoginAndSessionResponse);
