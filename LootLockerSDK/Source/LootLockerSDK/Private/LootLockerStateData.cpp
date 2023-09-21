@@ -2,11 +2,9 @@
 
 
 #include "LootLockerStateData.h"
-
 #include "LootLockerConfig.h"
 #include "LootLockerPersistedState.h"
 #include "Kismet/GameplayStatics.h"
-#include "Launch/Resources/Version.h"
 
 FString ULootLockerStateData::Token = "";
 FString ULootLockerStateData::SteamToken = "";
