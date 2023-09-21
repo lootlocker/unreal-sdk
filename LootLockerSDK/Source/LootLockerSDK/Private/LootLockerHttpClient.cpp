@@ -7,7 +7,6 @@
 #include "LootLockerStateData.h"
 #include "GameAPI/LootLockerAuthenticationRequestHandler.h"
 #include "Interfaces/IHttpResponse.h"
-#include "Launch/Resources/Version.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Guid.h"
 #include "Utils/LootLockerUtilities.h"
