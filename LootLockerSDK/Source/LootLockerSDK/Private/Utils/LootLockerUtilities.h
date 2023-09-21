@@ -6,7 +6,6 @@
 #include "LootLockerStateData.h"
 #include "GameAPI/LootLockerCharacterRequestHandler.h"
 #include "GameAPI/LootLockerMissionsRequestHandler.h"
-#include "Launch/Resources/Version.h"
 
 constexpr FLootLockerEmptyRequest LootLockerEmptyRequest;
 
