@@ -1,4 +1,6 @@
 #include "GameAPI/LootLockerPlayerFilesRequestHandler.h"
+
+#include "LootLockerGameEndpoints.h"
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
 #include "Utils/LootLockerUtilities.h"
 

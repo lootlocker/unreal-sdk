@@ -39,6 +39,8 @@ struct FLootLockerPlayerInfoResponse : public FLootLockerResponse
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 level = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString ulid;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FLootLockerLevelThresholds level_thresholds;
 };
 
@@ -188,9 +190,13 @@ struct FLootLockerMultiplePlayersNames
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString player_public_uid;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString player_ulid;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString name;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString last_active_platform;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString platform_player_id;
 };
 
 USTRUCT(BlueprintType)
