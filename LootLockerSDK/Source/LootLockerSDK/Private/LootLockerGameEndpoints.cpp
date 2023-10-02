@@ -197,6 +197,9 @@ FLootLockerEndPoints ULootLockerGameEndpoints::GetProgressionTiers = InitEndpoin
 FLootLockerEndPoints ULootLockerGameEndpoints::ComputeAndLockDropTable = InitEndpoint("v1/player/droptables/{0}/compute", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::PickDropsFromDropTable = InitEndpoint("v1/player/droptables/{0}/pick", ELootLockerHTTPMethod::POST);
 
+// Currencies
+FLootLockerEndPoints ULootLockerGameEndpoints::ListCurrencies = InitEndpoint("currencies", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetCurrencyDenominationsByCode = InitEndpoint("currency/code/{0}/denominations", ELootLockerHTTPMethod::GET);
 
 //Miscellaneous
 FLootLockerEndPoints ULootLockerGameEndpoints::GetServerTimeEndpoint = InitEndpoint("ping", ELootLockerHTTPMethod::GET);

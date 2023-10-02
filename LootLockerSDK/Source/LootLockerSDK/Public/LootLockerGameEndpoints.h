@@ -205,6 +205,10 @@ public:
     static FLootLockerEndPoints ComputeAndLockDropTable;
     static FLootLockerEndPoints PickDropsFromDropTable;
 
+    // Currencies
+    static FLootLockerEndPoints ListCurrencies;
+    static FLootLockerEndPoints GetCurrencyDenominationsByCode;
+
     // Miscellaneous
     static FLootLockerEndPoints GetServerTimeEndpoint;
 
