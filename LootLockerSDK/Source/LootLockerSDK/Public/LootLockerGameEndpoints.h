@@ -210,6 +210,14 @@ public:
     static FLootLockerEndPoints ListCurrencies;
     static FLootLockerEndPoints GetCurrencyDenominationsByCode;
 
+    // Balances
+    static FLootLockerEndPoints ListBalancesInWallet;
+    static FLootLockerEndPoints GetWalletByWalletId;
+    static FLootLockerEndPoints GetWalletByHolderId;
+    static FLootLockerEndPoints CreditBalanceToWallet;
+    static FLootLockerEndPoints DebitBalanceToWallet;
+    static FLootLockerEndPoints CreateWallet;
+
     // Miscellaneous
     static FLootLockerEndPoints GetServerTimeEndpoint;
 

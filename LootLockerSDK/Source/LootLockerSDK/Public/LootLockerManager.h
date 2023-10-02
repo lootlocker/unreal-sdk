@@ -26,6 +26,7 @@
 #include "GameAPI/LootLockerPurchasesRequestHandler.h"
 #include "GameAPI/LootLockerTriggerEventsRequestHandler.h"
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
+#include "GameAPI/LootLockerBalanceRequestHandler.h"
 #include "GameAPI/LootLockerCurrencyRequestHandler.h"
 
 #include "LootLockerManager.generated.h"
@@ -1864,6 +1865,61 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Currency")
     static void GetCurrencyDenominationsByCode(const FString& CurrencyCode, const FLootLockerListDenominationsResponseBP& OnCompletedRequest);
+
+    //==================================================
+    // Balances
+    // https://ref.lootlocker.com/game-api/#balances
+    //==================================================
+
+    /**
+     * Get a list of balances in a specified wallet
+     *
+     * @param WalletID Unique ID of the wallet to get balances for
+     * @param OnComplete Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Balance")
+    static void ListBalancesInWallet(const FString& WalletID, const FLootLockerListBalancesForWalletResponseBP& OnComplete);
+
+    /**
+     * Get information about a specified wallet
+     *
+     * @param WalletID Unique ID of the wallet to get information for
+     * @param OnComplete Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Balance")
+    static void GetWalletByWalletID(const FString& WalletID, const FLootLockerGetWalletResponseBP& OnComplete);
+
+    /**
+     * Get information about a wallet for a specified holder
+     *
+     * @param HolderULID ULID of the holder of the wallet you want to get information for
+     * @param HolderType The type of the holder to get the wallet for
+     * @param OnComplete Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Balance")
+    static void GetWalletByHolderID(const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerGetWalletResponseBP& OnComplete);
+
+    /**
+     * Credit (increase) the specified amount of the provided currency to the provided wallet
+     *
+     * @param WalletID Unique ID of the wallet to credit the given amount of the given currency to
+     * @param CurrencyID Unique ID of the currency to credit
+     * @param Amount The amount of the given currency to credit to the given wallet
+     * @param OnComplete Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Balance")
+    static void CreditBalanceToWallet(const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerCreditWalletResponseBP& OnComplete);
+
+    /**
+     * Debit (decrease) the specified amount of the provided currency to the provided wallet
+     *
+     * @param WalletID Unique ID of the wallet to debit the given amount of the given currency from
+     * @param CurrencyID Unique ID of the currency to debit
+     * @param Amount The amount of the given currency to debit from the given wallet
+     * @param OnComplete Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Balance")
+    static void DebitBalanceToWallet(const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerDebitWalletResponseBP& OnComplete);
 
     //==================================================
     // Miscellaneous
