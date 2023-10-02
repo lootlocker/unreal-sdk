@@ -176,6 +176,7 @@ public:
     static FLootLockerEndPoints PollingOrderStatusEndpoint;
     static FLootLockerEndPoints ActivateRentalAssetEndpoint;
     static FLootLockerEndPoints GetOrderDetailsEndpoint;
+    static FLootLockerEndPoints PurchaseCatalogItem;
 
     //Trigger Events
     static FLootLockerEndPoints TriggerEventEndpoint;

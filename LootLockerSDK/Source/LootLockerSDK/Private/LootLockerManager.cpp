@@ -755,6 +755,11 @@ void ULootLockerManager::GetOrderDetails(int32 OrderId, const bool NoProducts, c
 	ULootLockerPurchasesRequestHandler::GetOrderDetails(OrderId, NoProducts, OnCompleteBP, FOrderStatusDetailsDelegate());
 }
 
+void ULootLockerManager::LootLockerPurchaseCatalogItems(const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair> ItemsToPurchase, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+{
+    ULootLockerPurchasesRequestHandler::PurchaseCatalogItems(WalletId, ItemsToPurchase, OnCompletedRequest);
+}
+
 void ULootLockerManager::TriggerEvent(const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegateBP& OnTriggerEventCompleted)
 {
     ULootLockerTriggerEventsRequestHandler::TriggerEvent(Event, OnTriggerEventCompleted);

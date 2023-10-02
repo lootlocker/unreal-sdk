@@ -7,7 +7,6 @@
 #include "LootLockerHttpClient.h"
 #include "LootLockerPlatformManager.h"
 #include "Engine/DataAsset.h"
-#include "GameAPI/LootLockerAccountLinkRequestHandler.h"
 #include "GameAPI/LootLockerAssetInstancesRequestHandler.h"
 #include "GameAPI/LootLockerAssetsRequestHandler.h"
 #include "GameAPI/LootLockerAuthenticationRequestHandler.h"
@@ -28,7 +27,6 @@
 #include "GameAPI/LootLockerTriggerEventsRequestHandler.h"
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
 #include "GameAPI/LootLockerCurrencyRequestHandler.h"
-#include "UObject/NoExportTypes.h"
 
 #include "LootLockerManager.generated.h"
 
@@ -1665,6 +1663,16 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
     static void GetOrderDetails(int32 OrderId, const bool NoProducts, const FOrderStatusDetailsBP& OnCompleteBP);
+
+    /**
+     * Purchase one or more catalog items using a specified wallet
+     *
+     * @param WalletId The id of the wallet to use for the purchase
+     * @param ItemsToPurchase A list of items to purchase along with the quantity of each item to purchase
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
+    static void LootLockerPurchaseCatalogItems(const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair> ItemsToPurchase, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     //==================================================
     //Trigger Events
