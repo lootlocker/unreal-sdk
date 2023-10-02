@@ -43,6 +43,25 @@ namespace LootLockerUtilities
 
     TArray<TSharedPtr<FJsonValue>> SerializeMissionCheckpoints(const TArray<FLootLockerMissionCheckpoint>& Checkpoints);
 
+    template<typename T>
+    static FString JsonStringWithTopLevelArrayOfObjects(const TArray<T>& ItemArray)
+    {
+        TArray<TSharedPtr<FJsonValue>> ItemsJsonArray;
+        for (auto Item : ItemArray)
+        {
+            TSharedRef<FJsonObject> ItemJson = MakeShareable(new FJsonObject());
+            if (FJsonObjectConverter::UStructToJsonObject(T::StaticStruct(), &Item, ItemJson, 0, 0))
+            {
+                ItemsJsonArray.Push(MakeShareable(new FJsonValueObject(ItemJson)));
+            }
+        }
+
+        FString JsonString;
+        const TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&JsonString);
+        FJsonSerializer::Serialize(ItemsJsonArray, Writer);
+        return JsonString;
+    }
+
     static FString FStringFromJsonObject(const TSharedPtr<FJsonObject> JsonObject);
 
     TSharedPtr<FJsonObject> JsonObjectFromFString(const FString& JsonString);
