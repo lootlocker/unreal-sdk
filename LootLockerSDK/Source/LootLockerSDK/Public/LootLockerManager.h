@@ -27,6 +27,7 @@
 #include "GameAPI/LootLockerPurchasesRequestHandler.h"
 #include "GameAPI/LootLockerTriggerEventsRequestHandler.h"
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
+#include "GameAPI/LootLockerCurrencyRequestHandler.h"
 #include "UObject/NoExportTypes.h"
 
 #include "LootLockerManager.generated.h"
@@ -1832,6 +1833,28 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | DropTable")
     static void PickDropsFromDropTable(TArray<int> Picks, int TableId, const FFLootLockerPickDropsFromDropTableResponseBP& OnCompletedRequestBP);
+
+    //==================================================
+    // Currencies
+    // https://ref.lootlocker.com/game-api/#currencies
+    //==================================================
+
+    /**
+     * Get a list of available currencies for the game
+	 *
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Currency")
+    static void ListCurrencies(const FLootLockerListCurrenciesResponseBP& OnCompletedRequest);
+
+    /**
+     * Get a list of the denominations available for a specific currency
+     *
+     * @param CurrencyCode The code of the currency to fetch denominations for
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Currency")
+    static void GetCurrencyDenominationsByCode(const FString& CurrencyCode, const FLootLockerListDenominationsResponseBP& OnCompletedRequest);
 
     //==================================================
     // Miscellaneous
