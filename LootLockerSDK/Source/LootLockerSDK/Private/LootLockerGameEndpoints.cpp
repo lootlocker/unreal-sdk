@@ -202,6 +202,14 @@ FLootLockerEndPoints ULootLockerGameEndpoints::PickDropsFromDropTable = InitEndp
 FLootLockerEndPoints ULootLockerGameEndpoints::ListCurrencies = InitEndpoint("currencies", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetCurrencyDenominationsByCode = InitEndpoint("currency/code/{0}/denominations", ELootLockerHTTPMethod::GET);
 
+// Balances
+FLootLockerEndPoints ULootLockerGameEndpoints::ListBalancesInWallet = InitEndpoint("balances/wallet/{0}", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetWalletByWalletId = InitEndpoint("wallet/{0}", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetWalletByHolderId = InitEndpoint("wallet/holder/{0}", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::CreditBalanceToWallet = InitEndpoint("balances/credit", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::DebitBalanceToWallet = InitEndpoint("balances/debit", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::CreateWallet = InitEndpoint("wallet", ELootLockerHTTPMethod::POST);
+
 //Miscellaneous
 FLootLockerEndPoints ULootLockerGameEndpoints::GetServerTimeEndpoint = InitEndpoint("ping", ELootLockerHTTPMethod::GET);
 

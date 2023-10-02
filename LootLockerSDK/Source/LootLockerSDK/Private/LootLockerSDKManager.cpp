@@ -919,6 +919,33 @@ void ULootLockerSDKManager::GetCurrencyDenominationsByCode(const FString& Curren
     ULootLockerCurrencyRequestHandler::GetCurrencyDenominationsByCode(CurrencyCode, FLootLockerListDenominationsResponseBP(), OnCompletedRequest);
 }
 
+// Balances
+
+void ULootLockerSDKManager::ListBalancesInWallet(const FString& WalletID, const FLootLockerListBalancesForWalletResponseDelegate& OnComplete)
+{
+    ULootLockerBalanceRequestHandler::ListBalancesInWallet(WalletID, FLootLockerListBalancesForWalletResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::GetWalletByWalletID(const FString& WalletID, const FLootLockerGetWalletResponseDelegate& OnComplete)
+{
+    ULootLockerBalanceRequestHandler::GetWalletByWalletID(WalletID, FLootLockerGetWalletResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::GetWalletByHolderID(const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerGetWalletResponseDelegate& OnComplete)
+{
+    ULootLockerBalanceRequestHandler::GetWalletByHolderID(HolderULID, HolderType, FLootLockerGetWalletResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::CreditBalanceToWallet(const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerCreditWalletResponseDelegate& OnComplete)
+{
+    ULootLockerBalanceRequestHandler::CreditBalanceToWallet(WalletID, CurrencyID, Amount, FLootLockerCreditWalletResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::DebitBalanceToWallet(const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerDebitWalletResponseDelegate& OnComplete)
+{
+    ULootLockerBalanceRequestHandler::DebitBalanceToWallet(WalletID, CurrencyID, Amount, FLootLockerDebitWalletResponseBP(), OnComplete);
+}
+
 // Miscellaneous
 void ULootLockerSDKManager::GetServerTime(const FTimeResponseDelegate& OnCompletedRequest)
 {

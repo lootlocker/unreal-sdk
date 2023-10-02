@@ -858,6 +858,33 @@ void ULootLockerManager::GetCurrencyDenominationsByCode(const FString& CurrencyC
     ULootLockerCurrencyRequestHandler::GetCurrencyDenominationsByCode(CurrencyCode, OnCompletedRequest);
 }
 
+// Balances
+
+void ULootLockerManager::ListBalancesInWallet(const FString& WalletID, const FLootLockerListBalancesForWalletResponseBP& OnComplete)
+{
+    ULootLockerBalanceRequestHandler::ListBalancesInWallet(WalletID, OnComplete);
+}
+
+void ULootLockerManager::GetWalletByWalletID(const FString& WalletID, const FLootLockerGetWalletResponseBP& OnComplete)
+{
+    ULootLockerBalanceRequestHandler::GetWalletByWalletID(WalletID, OnComplete);
+}
+
+void ULootLockerManager::GetWalletByHolderID(const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerGetWalletResponseBP& OnComplete)
+{
+    ULootLockerBalanceRequestHandler::GetWalletByHolderID(HolderULID, HolderType, OnComplete);
+}
+
+void ULootLockerManager::CreditBalanceToWallet(const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerCreditWalletResponseBP& OnComplete)
+{
+    ULootLockerBalanceRequestHandler::CreditBalanceToWallet(WalletID, CurrencyID, Amount, OnComplete);
+}
+
+void ULootLockerManager::DebitBalanceToWallet(const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerDebitWalletResponseBP& OnComplete)
+{
+    ULootLockerBalanceRequestHandler::DebitBalanceToWallet(WalletID, CurrencyID, Amount, OnComplete);
+}
+
 // Miscellaneous
 void ULootLockerManager::GetServerTime(const FTimeResponseDelegateBP& OnCompletedRequestBP)
 {
