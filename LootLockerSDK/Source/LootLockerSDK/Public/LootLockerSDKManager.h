@@ -1658,6 +1658,15 @@ public:
      */
     static void GetOrderDetails(int32 OrderId, const bool NoProducts, const FOrderStatusDetailsDelegate& OnCompletedRequest);
 
+    /**
+     * Purchase one or more catalog items using a specified wallet
+     * 
+     * @param WalletId The id of the wallet to use for the purchase
+     * @param ItemsToPurchase A list of items to purchase along with the quantity of each item to purchase
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    static void LootLockerPurchaseCatalogItems(const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair> ItemsToPurchase, const FLootLockerDefaultDelegate& OnCompletedRequest);
+
     //==================================================
     //Trigger Events
     // https://ref.lootlocker.com/game-api/#trigger-events

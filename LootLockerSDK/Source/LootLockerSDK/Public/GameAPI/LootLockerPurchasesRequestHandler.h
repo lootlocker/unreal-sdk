@@ -3,9 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
 #include "LootLockerResponse.h"
-#include "JsonObjectConverter.h"
 #include "LootLockerHttpClient.h"
 #include "GameAPI/LootLockerAssetsRequestHandler.h"
 #include "LootLockerPurchasesRequestHandler.generated.h"
@@ -86,6 +84,40 @@ struct FLootLockerOrderDetailsResponse : public FLootLockerResponse
     TArray<FLootLockerProduct> products;
 };
 
+/**
+ * 
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerCatalogItemAndQuantityPair
+{
+    GENERATED_BODY()
+    /**
+     * The unique id of the catalog item to purchase
+     */
+    FString Catalog_item_id;
+    /**
+     * The quantity of the specified item to purchase
+     */
+    int Quantity = 0;
+};
+
+/**
+ * 
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct  FLootLockerPurchaseCatalogItemRequest
+{
+    GENERATED_BODY()
+    /**
+     * The id of the wallet to be used for the purchase
+     */
+    FString Wallet_id;
+    /**
+     * A list of items to purchase
+     */
+    TArray<FLootLockerCatalogItemAndQuantityPair> Items;
+};
+
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPurchaseResponseDelegateBP, FLootLockerPurchaseResponse, Response);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPurchaseStatusResponseDelegateBP, FLootLockerPurchaseStatusResponse, Response);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FActivateRentalAssetResponseDelegateBP, FLootLockerActivateRentalAssetResponse, Response);
@@ -111,6 +143,8 @@ public:
     static void ActivateRentalAsset(int AssetInstanceId, const FActivateRentalAssetResponseDelegateBP& OnCompletedRequestBP = FActivateRentalAssetResponseDelegateBP(), const FActivateRentalAssetResponseDelegate& OnCompletedRequest = FActivateRentalAssetResponseDelegate());
 
     static void GetOrderDetails(int32 OrderId, const bool noProducts = false, const FOrderStatusDetailsBP& OnCompleteBP = FOrderStatusDetailsBP(), const FOrderStatusDetailsDelegate& OnComplete = FOrderStatusDetailsDelegate());
+
+    static void PurchaseCatalogItems(const FString& WalletID, const TArray<FLootLockerCatalogItemAndQuantityPair>& ItemsToPurchase, const FLootLockerDefaultResponseBP& OnCompletedBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
 
 public:
     ULootLockerPurchasesRequestHandler();

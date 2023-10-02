@@ -90,3 +90,8 @@ void ULootLockerPurchasesRequestHandler::GetOrderDetails(int32 OrderId, const bo
     QueryParams.Add(TEXT("no_products"), noProducts ? TEXT("true") : TEXT("false"));
     LLAPI<FLootLockerOrderDetailsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOrderDetailsEndpoint, { OrderId }, QueryParams, OnCompleteBP, OnComplete);
 }
+
+void ULootLockerPurchasesRequestHandler::PurchaseCatalogItems(const FString& WalletID, const TArray<FLootLockerCatalogItemAndQuantityPair>& ItemsToPurchase, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
+{
+    LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerPurchaseCatalogItemRequest{ WalletID, ItemsToPurchase }, ULootLockerGameEndpoints::PurchaseCatalogItem, {}, {}, OnCompletedBP, OnCompleted);
+}
