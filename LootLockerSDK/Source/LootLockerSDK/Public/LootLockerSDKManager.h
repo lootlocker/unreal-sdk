@@ -25,6 +25,7 @@
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
 #include "LootLockerConfig.h"
 #include "LootLockerPlatformManager.h"
+#include "GameAPI/LootLockerBalanceRequestHandler.h"
 #include "GameAPI/LootLockerCurrencyRequestHandler.h"
 #include "LootLockerSDKManager.generated.h"
 
@@ -1841,6 +1842,56 @@ public:
      * @param OnCompletedRequest Delegate for handling the server response
      */
     static void GetCurrencyDenominationsByCode(const FString& CurrencyCode, const FLootLockerListDenominationsResponseDelegate& OnCompletedRequest);
+
+    //==================================================
+    // Balances
+    // https://ref.lootlocker.com/game-api/#balances
+    //==================================================
+
+    /**
+     * Get a list of balances in a specified wallet
+     *
+     * @param WalletID Unique ID of the wallet to get balances for
+     * @param OnComplete Delegate for handling the server response
+     */
+    static void ListBalancesInWallet(const FString& WalletID, const FLootLockerListBalancesForWalletResponseDelegate& OnComplete);
+
+    /**
+     * Get information about a specified wallet
+     *
+     * @param WalletID Unique ID of the wallet to get information for
+     * @param OnComplete Delegate for handling the server response
+     */
+    static void GetWalletByWalletID(const FString& WalletID, const FLootLockerGetWalletResponseDelegate& OnComplete);
+
+    /**
+     * Get information about a wallet for a specified holder
+     *
+     * @param HolderULID ULID of the holder of the wallet you want to get information for
+     * @param HolderType The type of the holder to get the wallet for
+     * @param OnComplete Delegate for handling the server response
+     */
+    static void GetWalletByHolderID(const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerGetWalletResponseDelegate& OnComplete);
+
+    /**
+     * Credit (increase) the specified amount of the provided currency to the provided wallet
+     *
+     * @param WalletID Unique ID of the wallet to credit the given amount of the given currency to
+     * @param CurrencyID Unique ID of the currency to credit
+     * @param Amount The amount of the given currency to credit to the given wallet
+     * @param OnComplete Delegate for handling the server response
+     */
+    static void CreditBalanceToWallet(const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerCreditWalletResponseDelegate& OnComplete);
+
+    /**
+     * Debit (decrease) the specified amount of the provided currency to the provided wallet
+     *
+     * @param WalletID Unique ID of the wallet to debit the given amount of the given currency from
+     * @param CurrencyID Unique ID of the currency to debit
+     * @param Amount The amount of the given currency to debit from the given wallet
+     * @param OnComplete Delegate for handling the server response
+     */
+    static void DebitBalanceToWallet(const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerDebitWalletResponseDelegate& OnComplete);
 
 	//==================================================
 	//Miscellaneous
