@@ -19,6 +19,8 @@ struct FLootLockerCharacter {
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString name;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	int32 ulid = 0;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	bool is_default = false;
 };
 
