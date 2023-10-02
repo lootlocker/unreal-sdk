@@ -842,6 +842,17 @@ void ULootLockerManager::PickDropsFromDropTable(TArray<int> Picks, int TableId, 
     ULootLockerDropTablesRequestHandler::PickDropsFromDropTable(request,TableId, OnCompletedRequestBP);
 }
 
+// Currencies
+void ULootLockerManager::ListCurrencies(const FLootLockerListCurrenciesResponseBP& OnCompletedRequest)
+{
+    ULootLockerCurrencyRequestHandler::ListCurrencies(OnCompletedRequest);
+}
+
+void ULootLockerManager::GetCurrencyDenominationsByCode(const FString& CurrencyCode, const FLootLockerListDenominationsResponseBP& OnCompletedRequest)
+{
+    ULootLockerCurrencyRequestHandler::GetCurrencyDenominationsByCode(CurrencyCode, OnCompletedRequest);
+}
+
 // Miscellaneous
 void ULootLockerManager::GetServerTime(const FTimeResponseDelegateBP& OnCompletedRequestBP)
 {

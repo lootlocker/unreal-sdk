@@ -25,6 +25,7 @@
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
 #include "LootLockerConfig.h"
 #include "LootLockerPlatformManager.h"
+#include "GameAPI/LootLockerCurrencyRequestHandler.h"
 #include "LootLockerSDKManager.generated.h"
 
 UCLASS(Blueprintable)
@@ -1787,7 +1788,7 @@ public:
     static void GetAllMemberRanks(FString MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseDelegate& OnCompletedRequest);
 	
     //==================================================
-    //Drop Table
+    // Drop Table
     // https://ref.lootlocker.com/game-api/#drop-tables
     //==================================================
 
@@ -1811,6 +1812,26 @@ public:
      * @param OnCompletedRequest Delegate for handling the server response
      */
     static void PickDropsFromDropTable(const TArray<int> Picks, const int TableId,const FFLootLockerPickDropsFromDropTableResponseDelegate& OnCompletedRequest);
+
+    //==================================================
+    // Currencies
+    // https://ref.lootlocker.com/game-api/#currencies
+    //==================================================
+
+    /**
+     * Get a list of available currencies for the game
+     *
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    static void ListCurrencies(const FLootLockerListCurrenciesResponseDelegate& OnCompletedRequest);
+
+    /**
+     * Get a list of the denominations available for a specific currency
+     *
+     * @param CurrencyCode The code of the currency to fetch denominations for
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    static void GetCurrencyDenominationsByCode(const FString& CurrencyCode, const FLootLockerListDenominationsResponseDelegate& OnCompletedRequest);
 
 	//==================================================
 	//Miscellaneous
