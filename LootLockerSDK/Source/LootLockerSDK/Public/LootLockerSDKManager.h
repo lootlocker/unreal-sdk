@@ -3,12 +3,16 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "LootLockerConfig.h"
 #include "GameAPI/LootLockerAccountLinkRequestHandler.h"
 #include "GameAPI/LootLockerAssetInstancesRequestHandler.h"
 #include "GameAPI/LootLockerAssetsRequestHandler.h"
 #include "GameAPI/LootLockerAuthenticationRequestHandler.h"
+#include "GameAPI/LootLockerBalanceRequestHandler.h"
+#include "GameAPI/LootLockerCatalogRequestHandler.h"
 #include "GameAPI/LootLockerCharacterRequestHandler.h"
 #include "GameAPI/LootLockerCollectablesRequestHandler.h"
+#include "GameAPI/LootLockerCurrencyRequestHandler.h"
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
 #include "GameAPI/LootLockerHeroRequestHandler.h"
 #include "GameAPI/LootLockerLeaderboardRequestHandler.h"
@@ -23,11 +27,6 @@
 #include "GameAPI/LootLockerPurchasesRequestHandler.h"
 #include "GameAPI/LootLockerTriggerEventsRequestHandler.h"
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
-#include "LootLockerConfig.h"
-#include "LootLockerPlatformManager.h"
-#include "GameAPI/LootLockerBalanceRequestHandler.h"
-#include "GameAPI/LootLockerCatalogRequestHandler.h"
-#include "GameAPI/LootLockerCurrencyRequestHandler.h"
 #include "LootLockerSDKManager.generated.h"
 
 UCLASS(Blueprintable)
