@@ -5,11 +5,6 @@
 #include "GameAPI/LootLockerCatalogRequestHandler.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
 
-void ULootLockerManager::StartSession(const FString& PlayerIdentifier, const FAuthResponseBP& OnStartedSessionRequestCompleted)
-{
-    ULootLockerAuthenticationRequestHandler::StartSession(PlayerIdentifier, OnStartedSessionRequestCompleted);
-}
-
 void ULootLockerManager::StartPlaystationNetworkSession(const FString& PsnOnlineId, const FAuthResponseBP& OnStartedSessionRequestCompleted)
 {
     ULootLockerAuthenticationRequestHandler::StartPlaystationNetworkSession(PsnOnlineId, OnStartedSessionRequestCompleted);

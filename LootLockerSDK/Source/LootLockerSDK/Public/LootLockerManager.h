@@ -41,17 +41,6 @@ public:
     //==================================================
 
     /**
-     * DEPRECATED: Start a session with the platform used in the platform selected in Project Settings -> Platform.
-     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
-     * https://ref.lootlocker.io/game-api/#authentication-request
-     *
-     * @param PlayerIdentifier The ID of the current device the player is on
-     * @param OnStartedSessionRequestCompleted Delegate for handling the response of type FLootLockerAuthenticationResponse
-     */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (DeprecatedFunction, DeprecationMessage = "This method has been deprecated. Please use the appropriate \"StartXSession\" instead.\nFor Android use StartAndroidSession. For iOS use StartAppleSession. For Steam use StartSteamSession. For PlayStation use StartPlaystationNetworkSession. For Amazon Luna use StartAmazonLunaSession. If you are unsure of what to use, use GuestLogin."))
-    static void StartSession(const FString& PlayerIdentifier, const FAuthResponseBP& OnStartedSessionRequestCompleted);
-
-    /**
      * Start a session for a Playstation Network user
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.
      * https://ref.lootlocker.io/game-api/#authentication-request
