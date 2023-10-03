@@ -60,7 +60,7 @@ void FLootLockerListCatalogPricesResponse::AppendCatalogItems(FLootLockerListCat
 FLootLockerListCatalogPricesResponse::FLootLockerListCatalogPricesResponse(const FInternalLootLockerListCatalogPricesResponse& ArrayResponse)
 {
 	success = ArrayResponse.success;
-	ServerCallStatusCode = ArrayResponse.ServerCallStatusCode;
+	StatusCode = ArrayResponse.StatusCode;
 	FullTextFromServer = ArrayResponse.FullTextFromServer;
 	ErrorData = ArrayResponse.ErrorData;
 	if (!success)

@@ -511,9 +511,7 @@ struct FLootLockerWhiteLabelLoginAndSessionResponse : public FLootLockerAuthResp
 		this->session_token = LoginResponse.session_token;
 		this->FullTextFromServer = LoginResponse.FullTextFromServer;
 		this->LoginResponse = LoginResponse;
-
-		this->Error = LoginResponse.Error;
-		this->ServerCallStatusCode = LoginResponse.ServerCallStatusCode;
+		this->ErrorData = ErrorData;
 	}
 
 	FLootLockerWhiteLabelLoginAndSessionResponse(const FLootLockerLoginResponse& LoginResponse, const FLootLockerAuthenticationResponse& SessionResponse)
@@ -524,9 +522,7 @@ struct FLootLockerWhiteLabelLoginAndSessionResponse : public FLootLockerAuthResp
 		this->FullTextFromServer = SessionResponse.FullTextFromServer;
 		this->LoginResponse = LoginResponse;
 		this->StartSessionResponse = SessionResponse;
-
-		this->ServerCallStatusCode = SessionResponse.ServerCallStatusCode;
-		this->Error = SessionResponse.Error;
+		this->ErrorData = ErrorData;
 	}
 };
 
