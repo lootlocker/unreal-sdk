@@ -86,19 +86,6 @@ struct FLootLockerAuthenticationRequest : public FLootLockerBaseAuthRequest
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerAuthenticationRequestWithDevelopmentMode : public FLootLockerAuthenticationRequest // TODO: Deprecated functionality, remove in v2.1
-{
-	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	bool development_mode;
-
-	FLootLockerAuthenticationRequestWithDevelopmentMode(bool developmentMode = false)
-	{
-		development_mode = developmentMode;
-	}
-};
-
-USTRUCT(BlueprintType)
 struct FLootLockerWhiteLabelAuthRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
@@ -106,19 +93,6 @@ struct FLootLockerWhiteLabelAuthRequest : public FLootLockerBaseAuthRequest
 	FString email;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString token;
-};
-
-USTRUCT(BlueprintType)
-struct FLootLockerWhiteLabelAuthRequestWithDevelopmentMode : public FLootLockerWhiteLabelAuthRequest // TODO: Deprecated functionality, remove in v2.1
-{
-	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	bool development_mode;
-
-	FLootLockerWhiteLabelAuthRequestWithDevelopmentMode(bool developmentMode = false)
-	{
-		development_mode = developmentMode;
-	}
 };
 
 USTRUCT(BlueprintType)
@@ -148,19 +122,6 @@ struct FLootLockerNintendoSwitchSessionRequest : public FLootLockerBaseAuthReque
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerNintendoSwitchSessionRequestWithDevelopmentMode : public FLootLockerNintendoSwitchSessionRequest // TODO: Deprecated functionality, remove in v2.1
-{
-	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	bool development_mode;
-
-	FLootLockerNintendoSwitchSessionRequestWithDevelopmentMode(bool developmentMode = false)
-	{
-		development_mode = developmentMode;
-	}
-};
-
-USTRUCT(BlueprintType)
 struct FLootLockerStartMetaSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
@@ -185,20 +146,6 @@ struct FLootLockerXboxSessionRequest : public FLootLockerBaseAuthRequest
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString xbox_user_token;
 };
-
-USTRUCT(BlueprintType)
-struct FLootLockerXboxSessionRequestWithDevelopmentMode : public FLootLockerXboxSessionRequest // TODO: Deprecated functionality, remove in v2.1
-{
-	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	bool development_mode;
-
-	FLootLockerXboxSessionRequestWithDevelopmentMode(bool developmentMode = false)
-	{
-		development_mode = developmentMode;
-	}
-};
-
 
 USTRUCT(BlueprintType)
 struct FLootLockerAppleGameCenterSessionRequest : public FLootLockerBaseAuthRequest
@@ -237,39 +184,11 @@ struct FLootLockerAppleSessionRequest : public FLootLockerBaseAuthRequest
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerAppleSessionRequestWithDevelopmentMode : public FLootLockerAppleSessionRequest // TODO: Deprecated functionality, remove in v2.1
-{
-	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	bool development_mode;
-
-	FLootLockerAppleSessionRequestWithDevelopmentMode(bool developmentMode = false)
-	{
-		development_mode = developmentMode;
-	}
-};
-
-
-
-USTRUCT(BlueprintType)
 struct FLootLockerRefreshAppleSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString refresh_token;
-};
-
-USTRUCT(BlueprintType)
-struct FLootLockerRefreshAppleSessionRequestWithDevelopmentMode : public FLootLockerRefreshAppleSessionRequest // TODO: Deprecated functionality, remove in v2.1
-{
-	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	bool development_mode;
-
-	FLootLockerRefreshAppleSessionRequestWithDevelopmentMode(bool developmentMode = false)
-	{
-		development_mode = developmentMode;
-	}
 };
 
 USTRUCT(BlueprintType)
@@ -281,37 +200,11 @@ struct FLootLockerGoogleSessionRequest : public FLootLockerBaseAuthRequest
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerGoogleSessionRequestWithDevelopmentMode : public FLootLockerGoogleSessionRequest // TODO: Deprecated functionality, remove in v2.1
-{
-	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	bool development_mode;
-
-	FLootLockerGoogleSessionRequestWithDevelopmentMode(bool developmentMode = false)
-	{
-		development_mode = developmentMode;
-	}
-};
-
-USTRUCT(BlueprintType)
 struct FLootLockerGoogleSessionRequestWithPlatform : public FLootLockerGoogleSessionRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	ELootLockerGoogleClientPlatform platform = ELootLockerGoogleClientPlatform::Android;
-};
-
-USTRUCT(BlueprintType)
-struct FLootLockerGoogleSessionRequestWithPlatformAndDevelopmentMode : public FLootLockerGoogleSessionRequestWithPlatform // TODO: Deprecated functionality, remove in v2.1
-{
-	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	bool development_mode;
-
-	FLootLockerGoogleSessionRequestWithPlatformAndDevelopmentMode(bool developmentMode = false)
-	{
-		development_mode = developmentMode;
-	}
 };
 
 USTRUCT(BlueprintType)
@@ -323,19 +216,6 @@ struct FLootLockerRefreshGoogleSessionRequest : public FLootLockerBaseAuthReques
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerRefreshGoogleSessionRequestWithDevelopmentMode : public FLootLockerRefreshGoogleSessionRequest // TODO: Deprecated functionality, remove in v2.1
-{
-	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	bool development_mode;
-
-	FLootLockerRefreshGoogleSessionRequestWithDevelopmentMode(bool developmentMode = false)
-	{
-		development_mode = developmentMode;
-	}
-};
-
-USTRUCT(BlueprintType)
 struct FLootLockerEpicSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
@@ -344,37 +224,11 @@ struct FLootLockerEpicSessionRequest : public FLootLockerBaseAuthRequest
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerEpicSessionRequestWithDevelopmentMode : public FLootLockerEpicSessionRequest // TODO: Deprecated functionality, remove in v2.1
-{
-	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	bool development_mode;
-
-	FLootLockerEpicSessionRequestWithDevelopmentMode(bool developmentMode = false)
-	{
-		development_mode = developmentMode;
-	}
-};
-
-USTRUCT(BlueprintType)
 struct FLootLockerRefreshEpicSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 		FString refresh_token;
-};
-
-USTRUCT(BlueprintType)
-struct FLootLockerRefreshEpicSessionRequestWithDevelopmentMode : public FLootLockerRefreshEpicSessionRequest // TODO: Deprecated functionality, remove in v2.1
-{
-	GENERATED_BODY()
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-		bool development_mode;
-
-	FLootLockerRefreshEpicSessionRequestWithDevelopmentMode(bool developmentMode = false)
-	{
-		development_mode = developmentMode;
-	}
 };
 
 USTRUCT(BlueprintType)
