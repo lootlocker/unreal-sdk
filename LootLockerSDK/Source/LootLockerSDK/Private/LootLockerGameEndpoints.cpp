@@ -210,6 +210,10 @@ FLootLockerEndPoints ULootLockerGameEndpoints::CreditBalanceToWallet = InitEndpo
 FLootLockerEndPoints ULootLockerGameEndpoints::DebitBalanceToWallet = InitEndpoint("balances/debit", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::CreateWallet = InitEndpoint("wallet", ELootLockerHTTPMethod::POST);
 
+// Catalogs
+FLootLockerEndPoints ULootLockerGameEndpoints::ListCatalogs = InitEndpoint("catalogs", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::ListCatalogItemsByKey = InitEndpoint("catalog/key/{0}/prices", ELootLockerHTTPMethod::GET);
+
 //Miscellaneous
 FLootLockerEndPoints ULootLockerGameEndpoints::GetServerTimeEndpoint = InitEndpoint("ping", ELootLockerHTTPMethod::GET);
 
