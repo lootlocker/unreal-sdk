@@ -4,14 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerConfig.h"
-#include "LootLockerHttpClient.h"
-#include "LootLockerPlatformManager.h"
 #include "Engine/DataAsset.h"
 #include "GameAPI/LootLockerAssetInstancesRequestHandler.h"
 #include "GameAPI/LootLockerAssetsRequestHandler.h"
 #include "GameAPI/LootLockerAuthenticationRequestHandler.h"
+#include "GameAPI/LootLockerBalanceRequestHandler.h"
+#include "GameAPI/LootLockerCatalogRequestHandler.h"
 #include "GameAPI/LootLockerCharacterRequestHandler.h"
 #include "GameAPI/LootLockerCollectablesRequestHandler.h"
+#include "GameAPI/LootLockerCurrencyRequestHandler.h"
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
 #include "GameAPI/LootLockerHeroRequestHandler.h"
 #include "GameAPI/LootLockerLeaderboardRequestHandler.h"
@@ -26,9 +27,6 @@
 #include "GameAPI/LootLockerPurchasesRequestHandler.h"
 #include "GameAPI/LootLockerTriggerEventsRequestHandler.h"
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
-#include "GameAPI/LootLockerBalanceRequestHandler.h"
-#include "GameAPI/LootLockerCatalogRequestHandler.h"
-#include "GameAPI/LootLockerCurrencyRequestHandler.h"
 
 #include "LootLockerManager.generated.h"
 
