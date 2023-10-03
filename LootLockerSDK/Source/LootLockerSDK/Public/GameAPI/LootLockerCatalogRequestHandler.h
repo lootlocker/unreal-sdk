@@ -6,6 +6,14 @@
 #include "LootLockerHttpClient.h"
 #include "LootLockerCatalogRequestHandler.generated.h"
 
+#if (ENGINE_MAJOR_VERSION >= 4 && ENGINE_MINOR_VERSION >= 27) || (ENGINE_MAJOR_VERSION >= 5)
+template <typename T>
+using TOptionalIfSupported=TOptional<T>;
+#else
+template <typename T>
+using TOptionalIfSupported=T;
+#endif
+
 //==================================================
 // Data Type Definitions
 //==================================================
@@ -309,6 +317,48 @@ struct FInternalLootLockerListCatalogPricesResponse : public FLootLockerResponse
 };
 
 /**
+ * A Convenience type to use when you need inlined catalog items
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerInlinedCatalogEntry : public FLootLockerCatalogEntry
+{
+    GENERATED_BODY()
+    /**
+     * Asset details inlined for this catalog entry, will be Empty if the entity_kind is not asset
+     */
+    TOptionalIfSupported<FLootLockerAssetDetails> AssetDetails;
+    /**
+     * Progression point details inlined for this catalog entry, will be Empty if the entity_kind is not progression_points
+     */
+    TOptionalIfSupported<FLootLockerProgressionPointDetails> ProgressionPointDetails;
+    /**
+     * Progression reset details inlined for this catalog entry, will be Empty if the entity_kind is not progression_reset
+     */
+    TOptionalIfSupported<FLootLockerProgressionResetDetails> ProgressionResetDetails;
+    /**
+     * Currency details inlined for this catalog entry, will be Empty if the entity_kind is not currency
+     */
+    TOptionalIfSupported<FLootLockerCurrencyDetails> CurrencyDetails;
+
+    FLootLockerInlinedCatalogEntry() {}
+
+    FLootLockerInlinedCatalogEntry(const FLootLockerCatalogEntry& Entry, const TOptionalIfSupported<FLootLockerAssetDetails>& AssetDetails, const TOptionalIfSupported<FLootLockerProgressionPointDetails>& ProgressionPointDetails, const TOptionalIfSupported<FLootLockerProgressionResetDetails>& ProgressionResetDetails, const TOptionalIfSupported<FLootLockerCurrencyDetails>& CurrencyDetails)
+    {
+        Created_at = Entry.Created_at;
+        Entity_kind = Entry.Entity_kind;
+        Entity_name = Entry.Entity_name;
+        Entity_id = Entry.Entity_id;
+        Prices = Entry.Prices;
+        Grouping_key = Entry.Grouping_key;
+        Purchasable = Entry.Purchasable;
+        this->AssetDetails = AssetDetails;
+        this->ProgressionPointDetails = ProgressionPointDetails;
+        this->ProgressionResetDetails = ProgressionResetDetails;
+        this->CurrencyDetails = CurrencyDetails;
+    }
+};
+
+/**
  *
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
@@ -386,7 +436,7 @@ struct FLootLockerListCatalogPricesResponse : public FLootLockerResponse
         }
     }
 
-    FLootLockerListCatalogPricesResponse() : Pagination() {};
+    FLootLockerListCatalogPricesResponse() : Pagination() {}
 
     explicit FLootLockerListCatalogPricesResponse(const FInternalLootLockerListCatalogPricesResponse& ArrayResponse)
     {
@@ -422,6 +472,34 @@ struct FLootLockerListCatalogPricesResponse : public FLootLockerResponse
         {
             Currency_Details.Add(Detail.Grouping_key, Detail);
         }
+    }
+
+    /**
+     * Get all the entries with details inlined into the entries themselves
+     */
+    TArray<FLootLockerInlinedCatalogEntry> GetLootLockerInlinedCatalogEntries()
+    {
+        TArray<FLootLockerInlinedCatalogEntry> InlinedEntries;
+        for (const auto& CatalogEntry : Entries)
+        {
+            const FString& GroupingKey = CatalogEntry.Grouping_key;
+            const auto& EntityKind = CatalogEntry.Entity_kind;
+            InlinedEntries.Add(FLootLockerInlinedCatalogEntry(
+                CatalogEntry,
+#if false && (ENGINE_MAJOR_VERSION >= 4 && ENGINE_MINOR_VERSION >= 27) || (ENGINE_MAJOR_VERSION >= 5)
+                ELootLockerCatalogEntryEntityKind::Asset == EntityKind && Asset_Details.Contains(GroupingKey) ? TOptional<FLootLockerAssetDetails>(Asset_Details.FindRef(GroupingKey)) : TOptional<FLootLockerAssetDetails>(),
+                ELootLockerCatalogEntryEntityKind::Progression_Points == EntityKind && Progression_Point_Details.Contains(GroupingKey) ? TOptional<FLootLockerProgressionPointDetails>(Progression_Point_Details.FindRef(GroupingKey)) : TOptional<FLootLockerProgressionPointDetails>(),
+                ELootLockerCatalogEntryEntityKind::Progression_Reset == EntityKind && Progression_Reset_Details.Contains(GroupingKey) ? TOptional<FLootLockerProgressionResetDetails>(Progression_Reset_Details.FindRef(GroupingKey)) : TOptional<FLootLockerProgressionResetDetails>(),
+                ELootLockerCatalogEntryEntityKind::Currency == EntityKind && Currency_Details.Contains(GroupingKey) ? TOptional<FLootLockerCurrencyDetails>(Currency_Details.FindRef(GroupingKey)) : TOptional<FLootLockerCurrencyDetails>()
+#else
+                ELootLockerCatalogEntryEntityKind::Asset == EntityKind && Asset_Details.Contains(GroupingKey) ? Asset_Details.FindRef(GroupingKey) : FLootLockerAssetDetails(),
+                ELootLockerCatalogEntryEntityKind::Progression_Points == EntityKind && Progression_Point_Details.Contains(GroupingKey) ? Progression_Point_Details.FindRef(GroupingKey) : FLootLockerProgressionPointDetails(),
+                ELootLockerCatalogEntryEntityKind::Progression_Reset == EntityKind && Progression_Reset_Details.Contains(GroupingKey) ? Progression_Reset_Details.FindRef(GroupingKey) : FLootLockerProgressionResetDetails(),
+                ELootLockerCatalogEntryEntityKind::Currency == EntityKind && Currency_Details.Contains(GroupingKey) ? Currency_Details.FindRef(GroupingKey) : FLootLockerCurrencyDetails()
+#endif
+            ));
+        }
+        return InlinedEntries;
     }
 };
 
