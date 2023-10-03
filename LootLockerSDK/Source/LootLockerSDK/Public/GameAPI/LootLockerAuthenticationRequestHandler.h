@@ -298,7 +298,7 @@ struct FLootLockerGoogleSessionRequestWithPlatform : public FLootLockerGoogleSes
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	ELootLockerGoogleClientPlatform platform;
+	ELootLockerGoogleClientPlatform platform = ELootLockerGoogleClientPlatform::Android;
 };
 
 USTRUCT(BlueprintType)
