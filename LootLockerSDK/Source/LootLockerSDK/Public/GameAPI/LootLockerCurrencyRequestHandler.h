@@ -3,9 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "LootLockerResponse.h"
 #include "LootLockerHttpClient.h"
-#include "LootLockerPlatformManager.h"
+#include "LootLockerResponse.h"
 #include "LootLockerCurrencyRequestHandler.generated.h"
 
 //==================================================
@@ -22,26 +21,32 @@ struct FLootLockerCurrency
     /**
      * The unique id of the currency
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Id;
     /**
      * The name of the currency
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Name;
     /**
      * The unique short code of the currency
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Code;
     /**
      * True if this currency can be awarded to the player from the game api
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool Game_api_writes_enabled = false;
     /**
      * The time that this currency was created
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Created_at;
     /**
      * The time that this currency was published
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Published_at;
 };
 
@@ -55,22 +60,27 @@ struct FLootLockerDenomination
     /**
      * The unique id of the denomination
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Id;
     /**
      * The id of the currency this is a denomination of
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Currency;
     /**
      * The name of this denomination
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Name;
     /**
      * The value of this denomination in units of the currency
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int Value = 0;
     /**
      * The time that this denomination was created
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Created_at;
 };
 
@@ -94,6 +104,7 @@ struct FLootLockerListCurrenciesResponse : public FLootLockerResponse
     /**
      * List of available currencies
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerCurrency> Currencies;
 };
 
@@ -107,6 +118,7 @@ struct FLootLockerListDenominationsResponse : public FLootLockerResponse
     /**
      * List of available denominations
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerDenomination> Denominations;
 };
 
