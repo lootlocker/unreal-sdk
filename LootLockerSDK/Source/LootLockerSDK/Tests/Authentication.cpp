@@ -35,7 +35,7 @@ void FTestLootLockerAuthentication::Define()
 			}
 			// end session
 			{
-				const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerResponse,FLootLockerDefaultAuthenticationResponse>();
+				const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerResponse, FLootLockerDefaultDelegate>();
 		
 				ULootLockerSDKManager::EndSession(Delegate);
 
