@@ -2,6 +2,7 @@
 
 #include "LootLockerManager.h"
 
+#include "GameAPI/LootLockerCatalogRequestHandler.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
 
 void ULootLockerManager::StartSession(const FString& PlayerIdentifier, const FAuthResponseBP& OnStartedSessionRequestCompleted)
@@ -883,6 +884,18 @@ void ULootLockerManager::CreditBalanceToWallet(const FString& WalletID, const FS
 void ULootLockerManager::DebitBalanceToWallet(const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerDebitWalletResponseBP& OnComplete)
 {
     ULootLockerBalanceRequestHandler::DebitBalanceToWallet(WalletID, CurrencyID, Amount, OnComplete);
+}
+
+// Catalogs
+
+void ULootLockerManager::ListCatalogs(const FLootLockerListCatalogsResponseBP& OnComplete)
+{
+    ULootLockerCatalogRequestHandler::ListCatalogs(OnComplete);
+}
+
+void ULootLockerManager::ListCatalogItems(const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnComplete)
+{
+    ULootLockerCatalogRequestHandler::ListCatalogItems(CatalogKey, Count, After, OnComplete);
 }
 
 // Miscellaneous

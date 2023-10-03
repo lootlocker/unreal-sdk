@@ -218,6 +218,10 @@ public:
     static FLootLockerEndPoints DebitBalanceToWallet;
     static FLootLockerEndPoints CreateWallet;
 
+    // Catalogs
+    static FLootLockerEndPoints ListCatalogs;
+    static FLootLockerEndPoints ListCatalogItemsByKey;
+
     // Miscellaneous
     static FLootLockerEndPoints GetServerTimeEndpoint;
 
