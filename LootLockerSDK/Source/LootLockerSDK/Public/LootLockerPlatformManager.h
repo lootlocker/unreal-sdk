@@ -93,10 +93,6 @@ private:
 	// Can't static assert, so we try and make it painfully obvious runtime that we've missed something
 	static void EnsureAllPlatformsAreRepresented()
 	{
-		if (PlatformRepresentations.Num() != static_cast<int>(ELootLockerPlatform::LastValue))
-		{
-			UE_LOG(LogLootLockerGameSDK, Error, TEXT("All platforms in the ELootLockerPlatform must have a representation in PlatformRepresentations"));
-			throw std::range_error("All platforms in the ELootLockerPlatform must have a representation in PlatformRepresentations");
-		}
+		checkf(PlatformRepresentations.Num() != static_cast<int>(ELootLockerPlatform::LastValue), TEXT("All platforms in the ELootLockerPlatform must have a representation in PlatformRepresentations"));
 	}
 };
