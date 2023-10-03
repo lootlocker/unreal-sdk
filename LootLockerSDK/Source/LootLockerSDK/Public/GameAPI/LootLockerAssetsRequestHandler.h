@@ -3,22 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
 #include "LootLockerResponse.h"
 #include "LootLockerHttpClient.h"
 #include "GameAPI/LootLockerPersistentStorageRequestHandler.h"
 #include "LootLockerAssetsRequestHandler.generated.h"
-
-//TODO: propably wrong, remove later
-// USTRUCT(BlueprintType)
-// struct FLootLockerDefaultLoadouts
-// {
-//     GENERATED_BODY()
-//     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-//     bool skier = false;
-//     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-//     bool snowboarder = false;
-// };
 
 USTRUCT(BlueprintType)
 struct FLootLockerPsn
@@ -135,19 +123,6 @@ struct FLootLockerVariation
     FString primary_color;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString secondary_color;
-  // TODO: properties not implemented
-  //
-    // "properties": [
-    //     {
-    //         "material_path": "CharacterAttachments\/hands\/lo2\/lo2-gloves-13-sven\/lo2-gloves-13-sven.mtl",
-    //         "binding_path": "CharacterAttachments\/hands\/shared-meshes\/gloves-a\/gloves-a.skin",
-    //         "bone_id": 12,
-    //         "bone_overrides": {
-    //
-    //         }
-    //     }
-    
-  //  TArray<FProperty> properties;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerLinks links;
 };
@@ -190,7 +165,7 @@ struct FLootLockerAsset : public FLootLockerHasKeyValueStorage
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 id = 0;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")  //TODO:missing in Unity SDK
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString uuid;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString name;
@@ -208,7 +183,7 @@ struct FLootLockerAsset : public FLootLockerHasKeyValueStorage
     FString display_price;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString context;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker") //TODO:missing in Unity SDK
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 context_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString unlocks_context;
@@ -252,23 +227,16 @@ struct FLootLockerAsset : public FLootLockerHasKeyValueStorage
     TArray<FString> data_entities;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<int> character_classes;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker") //TODO:missing in Unity SDK
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString shop_thumbnail;
-    // UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker") //TODO:replaced by map
-    // FLootLockerDefaultLoadouts default_loadouts;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker") //TODO:missing in Unity SDK
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TMap<FString, bool> default_loadouts;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerExternalIdentifiers external_identifiers;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString drop_table_max_picks; //TODO:missing in Unity SDK    
-    
-    //TODO: below seems to be unnecessary
-//     // TODO: this does not look correct 
-// //    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-// //    TArray<FString> package_contents; //TODO: check output
+    FString drop_table_max_picks;
 };
 
 USTRUCT(BlueprintType)
