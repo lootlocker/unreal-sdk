@@ -1272,17 +1272,6 @@ public:
     static void GetAllKeyValuePairsForAssetInstance(int AssetInstanceId, const  FAssetInstanceStorageItemsResponseDelegateBP& OnGetAllKeyValuePairsForAssetInstanceCompleted);
 
     /**
-     * DEPRECATED
-     * Get all key/value pairs for an asset instance.
-     * https://ref.lootlocker.io/game-api/#getting-all-key-value-pairs-to-an-instance
-     *
-     * @param AssetInstanceId asset instance ID.
-     * @param OnGetAllKeyValuePairsToAnInstanceForAssetInstanceCompleted Delegate for handling the server response.
-     */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances", meta = (DeprecatedFunction, DeprecationMessage = "Deprecated, Please use GetAllKeyValuePairsForAssetInstance"))
-    static void GetAllKeyValuePairsToAnInstanceForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItemsResponseDelegateBP& OnGetAllKeyValuePairsToAnInstanceForAssetInstanceCompleted);
-
-    /**
      * Get a key/value pair for an asset instance.
      * https://ref.lootlocker.io/game-api/#getting-a-key-value-pair-by-id
      *
