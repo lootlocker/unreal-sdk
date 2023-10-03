@@ -26,6 +26,7 @@
 #include "LootLockerConfig.h"
 #include "LootLockerPlatformManager.h"
 #include "GameAPI/LootLockerBalanceRequestHandler.h"
+#include "GameAPI/LootLockerCatalogRequestHandler.h"
 #include "GameAPI/LootLockerCurrencyRequestHandler.h"
 #include "LootLockerSDKManager.generated.h"
 
@@ -1892,6 +1893,34 @@ public:
      * @param OnComplete Delegate for handling the server response
      */
     static void DebitBalanceToWallet(const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerDebitWalletResponseDelegate& OnComplete);
+
+    //==================================================
+    // Catalogs
+    //==================================================
+    /**
+     * List the catalogs available for the game
+     *
+     * @param OnComplete Delegate for handling the server response
+     */
+    static void ListCatalogs(const FLootLockerListCatalogsResponseDelegate& OnComplete);
+
+    /**
+     * List the items available in a specific catalog
+     *
+     * @param CatalogKey Unique Key of the catalog that you want to get items for
+     * @param Count Optional: Amount of catalog items to receive. Use null to simply get the default amount.
+     * @param After Optional: Used for pagination, this is the cursor to start getting items from. Use null to get items from the beginning. Use the cursor from a previous call to get the next count of items in the list.
+     * @param OnComplete Delegate for handling the server response
+     */
+    static void ListCatalogItems(const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseDelegate& OnComplete);
+
+    /**
+     * List the items available in a specific catalog
+     *
+     * @param CatalogKey Unique Key of the catalog that you want to get items for
+     * @param OnComplete Delegate for handling the server response
+     */
+    static void ListCatalogItems(const FString& CatalogKey, const FLootLockerListCatalogPricesResponseDelegate& OnComplete) { ListCatalogItems(CatalogKey, -1, "", OnComplete);  }
 
 	//==================================================
 	//Miscellaneous

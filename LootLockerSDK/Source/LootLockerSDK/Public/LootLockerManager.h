@@ -27,6 +27,7 @@
 #include "GameAPI/LootLockerTriggerEventsRequestHandler.h"
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
 #include "GameAPI/LootLockerBalanceRequestHandler.h"
+#include "GameAPI/LootLockerCatalogRequestHandler.h"
 #include "GameAPI/LootLockerCurrencyRequestHandler.h"
 
 #include "LootLockerManager.generated.h"
@@ -1920,6 +1921,28 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Balance")
     static void DebitBalanceToWallet(const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerDebitWalletResponseBP& OnComplete);
+
+    //==================================================
+    // Catalogs
+    //==================================================
+    /**
+     * List the catalogs available for the game
+     *
+     * @param OnComplete Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Catalog")
+	static void ListCatalogs(const FLootLockerListCatalogsResponseBP& OnComplete);
+
+    /**
+     * List the items available in a specific catalog
+     *
+     * @param CatalogKey Unique Key of the catalog that you want to get items for
+     * @param Count Optional: Amount of catalog items to receive. Use null to simply get the default amount.
+     * @param After Optional: Used for pagination, this is the cursor to start getting items from. Use null to get items from the beginning. Use the cursor from a previous call to get the next count of items in the list.
+     * @param OnComplete Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Catalog", meta = (AdvancedDisplay = "Count,After", Count = -1, After = ""))
+	static void ListCatalogItems(const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnComplete);
 
     //==================================================
     // Miscellaneous

@@ -946,6 +946,18 @@ void ULootLockerSDKManager::DebitBalanceToWallet(const FString& WalletID, const 
     ULootLockerBalanceRequestHandler::DebitBalanceToWallet(WalletID, CurrencyID, Amount, FLootLockerDebitWalletResponseBP(), OnComplete);
 }
 
+// Catalogs
+
+void ULootLockerSDKManager::ListCatalogs(const FLootLockerListCatalogsResponseDelegate& OnComplete)
+{
+    ULootLockerCatalogRequestHandler::ListCatalogs(FLootLockerListCatalogsResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::ListCatalogItems(const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseDelegate& OnComplete)
+{
+    ULootLockerCatalogRequestHandler::ListCatalogItems(CatalogKey, Count, After, FLootLockerListCatalogPricesResponseBP(), OnComplete);
+}
+
 // Miscellaneous
 void ULootLockerSDKManager::GetServerTime(const FTimeResponseDelegate& OnCompletedRequest)
 {
