@@ -80,12 +80,11 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 		FLootLockerResponse response;
         
         response.success = ResponseIsValid(Response, bWasSuccessful);
-        response.StatusCode = response.ServerCallStatusCode = Response->GetResponseCode();
+        response.StatusCode = Response->GetResponseCode();
 		response.FullTextFromServer = Response->GetContentAsString();
 		if (!response.success)
 		{
             FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerErrorData>(response.FullTextFromServer, &response.ErrorData, 0, 0);
-            response.Error = response.ErrorData.Message;
             LogFailedRequestInformation(response, requestType, endPoint, data);
 		}
 		onCompleteRequest.ExecuteIfBound(response);
@@ -165,12 +164,11 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
             FLootLockerResponse response;
 
             response.success = ResponseIsValid(Response, bWasSuccessful);
-            response.StatusCode = response.ServerCallStatusCode = Response->GetResponseCode();
+            response.StatusCode = Response->GetResponseCode();
             response.FullTextFromServer = Response->GetContentAsString();
             if (!response.success)
             {
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerErrorData>(response.FullTextFromServer, &response.ErrorData, 0, 0);
-                response.Error = response.ErrorData.Message;
                 LogFailedRequestInformation(response, requestType, endPoint, FString("Data Stream"));
             }
 
