@@ -579,7 +579,7 @@ void ULootLockerAuthenticationRequestHandler::VerifyPlayer(const FString& Platfo
 	const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
 	AuthRequest.key = Config->LootLockerGameKey;
 
-	FString RequestPlatform = Platform.IsEmpty() ? ULootLockerCurrentPlatform::GetString().IsEmpty() ? ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatformType"), static_cast<int>(Config->Platform)) : ULootLockerCurrentPlatform::GetString() : Platform;
+	FString RequestPlatform = Platform.IsEmpty() ?  ULootLockerCurrentPlatform::GetString() : Platform;
 	AuthRequest.platform = RequestPlatform;
 	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::VerifyPlayerIdEndPoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback::CreateLambda([RequestPlatform, PlatformToken](const FLootLockerResponse& Response)
 		{
