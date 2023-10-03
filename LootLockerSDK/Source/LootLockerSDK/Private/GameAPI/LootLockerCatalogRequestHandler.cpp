@@ -6,6 +6,111 @@
 
 ULootLockerHttpClient* ULootLockerCatalogRequestHandler::HttpClient = nullptr;
 
+FLootLockerInlinedCatalogEntry::FLootLockerInlinedCatalogEntry(const FLootLockerCatalogEntry& Entry, const FLootLockerAssetDetails& AssetDetails, const FLootLockerProgressionPointDetails& ProgressionPointDetails, const FLootLockerProgressionResetDetails& ProgressionResetDetails, const FLootLockerCurrencyDetails& CurrencyDetails)
+{
+	Created_at = Entry.Created_at;
+	Entity_kind = Entry.Entity_kind;
+	Entity_name = Entry.Entity_name;
+	Entity_id = Entry.Entity_id;
+	Prices = Entry.Prices;
+	Grouping_key = Entry.Grouping_key;
+	Purchasable = Entry.Purchasable;
+	this->AssetDetails = AssetDetails;
+	this->ProgressionPointDetails = ProgressionPointDetails;
+	this->ProgressionResetDetails = ProgressionResetDetails;
+	this->CurrencyDetails = CurrencyDetails;
+}
+
+void FLootLockerListCatalogPricesResponse::AppendCatalogItems(FLootLockerListCatalogPricesResponse AdditionalCatalogPrices)
+{
+	if (!AdditionalCatalogPrices.success)
+	{
+		return;
+	}
+
+	Pagination.Total = AdditionalCatalogPrices.Pagination.Total;
+	Pagination.Cursor = AdditionalCatalogPrices.Pagination.Cursor;
+
+	for (auto& Entry : AdditionalCatalogPrices.Entries)
+	{
+		Entries.Add(Entry);
+	}
+
+	for (const auto& Detail : AdditionalCatalogPrices.Asset_Details)
+	{
+		Asset_Details.Add(Detail.Key, Detail.Value);
+	}
+
+	for (const auto& Detail : AdditionalCatalogPrices.Progression_Point_Details)
+	{
+		Progression_Point_Details.Add(Detail.Key, Detail.Value);
+	}
+
+	for (const auto& Detail : AdditionalCatalogPrices.Progression_Reset_Details)
+	{
+		Progression_Reset_Details.Add(Detail.Key, Detail.Value);
+	}
+
+	for (const auto& Detail : AdditionalCatalogPrices.Currency_Details)
+	{
+		Currency_Details.Add(Detail.Key, Detail.Value);
+	}
+}
+
+FLootLockerListCatalogPricesResponse::FLootLockerListCatalogPricesResponse(const FInternalLootLockerListCatalogPricesResponse& ArrayResponse)
+{
+	success = ArrayResponse.success;
+	ServerCallStatusCode = ArrayResponse.ServerCallStatusCode;
+	FullTextFromServer = ArrayResponse.FullTextFromServer;
+	ErrorData = ArrayResponse.ErrorData;
+	if (!success)
+	{
+		return;
+	}
+
+	Catalog = ArrayResponse.Catalog;
+	Entries = ArrayResponse.Entries;
+	Pagination = ArrayResponse.Pagination;
+
+	for (const auto& Detail : ArrayResponse.Assets_Details)
+	{
+		Asset_Details.Add(Detail.Grouping_key, Detail);
+	}
+
+	for (const auto& Detail : ArrayResponse.Progression_Points_Details)
+	{
+		Progression_Point_Details.Add(Detail.Grouping_key, Detail);
+	}
+
+	for (const auto& Detail : ArrayResponse.Progression_Resets_Details)
+	{
+		Progression_Reset_Details.Add(Detail.Grouping_key, Detail);
+	}
+
+	for (const auto& Detail : ArrayResponse.Currency_Details)
+	{
+		Currency_Details.Add(Detail.Grouping_key, Detail);
+	}
+}
+
+TArray<FLootLockerInlinedCatalogEntry> FLootLockerListCatalogPricesResponse::GetLootLockerInlinedCatalogEntries()
+{
+	TArray<FLootLockerInlinedCatalogEntry> InlinedEntries;
+	for (const auto& CatalogEntry : Entries)
+	{
+		const FString& GroupingKey = CatalogEntry.Grouping_key;
+		const auto& EntityKind = CatalogEntry.Entity_kind;
+		InlinedEntries.Add(FLootLockerInlinedCatalogEntry(
+			CatalogEntry,
+			ELootLockerCatalogEntryEntityKind::Asset == EntityKind && Asset_Details.Contains(GroupingKey) ? Asset_Details.FindRef(GroupingKey) : FLootLockerAssetDetails(),
+			ELootLockerCatalogEntryEntityKind::Progression_Points == EntityKind && Progression_Point_Details.Contains(GroupingKey) ? Progression_Point_Details.FindRef(GroupingKey) : FLootLockerProgressionPointDetails(),
+			ELootLockerCatalogEntryEntityKind::Progression_Reset == EntityKind && Progression_Reset_Details.Contains(GroupingKey) ? Progression_Reset_Details.FindRef(GroupingKey) : FLootLockerProgressionResetDetails(),
+			ELootLockerCatalogEntryEntityKind::Currency == EntityKind && Currency_Details.Contains(GroupingKey) ? Currency_Details.FindRef(GroupingKey) : FLootLockerCurrencyDetails()
+		));
+	}
+	return InlinedEntries;
+}
+
 ULootLockerCatalogRequestHandler::ULootLockerCatalogRequestHandler()
 {
     HttpClient = NewObject<ULootLockerHttpClient>();
