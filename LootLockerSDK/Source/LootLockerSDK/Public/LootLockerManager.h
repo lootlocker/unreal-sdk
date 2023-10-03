@@ -776,6 +776,7 @@ public:
      * @param Request Request specifying the hero id for the game hero to use for creation and the name of the hero to create, an asset variation id for this hero, and whether this hero should be the default
      * @param OnCompleteBP Delegate for handling the response
      */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
 	static void CreateHeroWithVariation(const FLootLockerCreateHeroWithVariationRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP);
 
     /**
