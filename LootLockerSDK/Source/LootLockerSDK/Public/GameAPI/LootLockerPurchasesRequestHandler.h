@@ -94,10 +94,12 @@ struct FLootLockerCatalogItemAndQuantityPair
     /**
      * The unique id of the catalog item to purchase
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Catalog_item_id;
     /**
      * The quantity of the specified item to purchase
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int Quantity = 0;
 };
 
@@ -111,10 +113,12 @@ struct  FLootLockerPurchaseCatalogItemRequest
     /**
      * The id of the wallet to be used for the purchase
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Wallet_id;
     /**
      * A list of items to purchase
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerCatalogItemAndQuantityPair> Items;
 };
 
