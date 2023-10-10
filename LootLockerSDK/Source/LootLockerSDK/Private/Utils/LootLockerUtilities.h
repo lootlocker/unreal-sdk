@@ -124,6 +124,12 @@ struct LLAPI
         
         // calculate endpoint
         const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
+        if (Config->IsEngineVersionOutOfMarketplaceSupport)
+        {
+            UE_LOG(LogLootLockerGameSDK, Warning, TEXT("%s"), *Config->EngineVersionOutOfMarketplaceSupportWarning);
+            UE_LOG(LogLootLockerGameSDK, Warning, TEXT("To suppress this warning, change LootLockerConfig.h#120 from IsEngineVersionOutOfMarketplaceSupport = true; to IsEngineVersionOutOfMarketplaceSupport = false;"), *Config->EngineVersionOutOfMarketplaceSupportWarning);
+        }
+
         FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, FStringFormatNamedArguments{ {"domainKey", Config && !Config->DomainKey.IsEmpty() ? Config->DomainKey + "." : ""} });
         EndpointWithArguments = FString::Format(*EndpointWithArguments, InOrderedArguments);
         CustomHeaders.Add(TEXT("x-session-token"), ULootLockerStateData::GetToken());

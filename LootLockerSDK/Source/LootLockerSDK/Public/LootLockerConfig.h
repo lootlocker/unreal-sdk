@@ -93,6 +93,8 @@ public:
 		IsLegacyPlatform = Platform != ELootLockerPlatformType::UNUSED;
     }
 public:
+	UPROPERTY(Config, VisibleAnywhere, BlueprintReadOnly, Category = "LootLocker", Meta = (EditCondition = "IsEngineVersionOutOfMarketplaceSupport", EditConditionHides), Meta = (MultiLine = true), Meta = (DisplayName = "WARNING:"), Transient)
+	FString EngineVersionOutOfMarketplaceSupportWarning = "Due to Unreal Marketplace restrictions LootLocker can no longer be updated through the marketplace for this Unreal Engine version. To get new features and fixes, see this guide https://docs.lootlocker.com/support/getting-help/unreal-marketplace-plugin-support or go directly to our github (https://github.com/LootLocker/unreal-sdk) to get the latest version.";
 	// API Key used to talk to LootLocker. The API key can be found in `Settings > API Keys` in the Web Console: https://console.lootlocker.com/settings/api-keys
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker", Meta = (DisplayName = "LootLocker API Key"))
 	FString LootLockerGameKey;
@@ -114,6 +116,8 @@ public:
 		ToolTip				= "The Platform property has been deprecated, please use the appropriate \"StartXSession\" instead and set this property to UNUSED.\nFor Android use GuestLogin. For iOS use StartAppleSession. For Steam use StartSteamSession. For PlayStation use StartPlaystationNetworkSession. For Amazon Luna use StartAmazonLunaSession. If you are unsure of what to use, use GuestLogin."
 	))
     ELootLockerPlatformType Platform = ELootLockerPlatformType::UNUSED;
+	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")
+	bool IsEngineVersionOutOfMarketplaceSupport = true;
 private:
 	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")
     bool IsLegacyKey;
