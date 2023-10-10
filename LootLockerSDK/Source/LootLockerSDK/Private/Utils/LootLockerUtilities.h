@@ -62,15 +62,15 @@ namespace LootLockerUtilities
         return JsonString;
     }
 
-    static FString FStringFromJsonObject(const TSharedPtr<FJsonObject> JsonObject);
+    FString FStringFromJsonObject(const TSharedPtr<FJsonObject> JsonObject);
 
     TSharedPtr<FJsonObject> JsonObjectFromFString(const FString& JsonString);
 
-    static FString ObfuscateJsonStringForLogging(const FString& JsonBody);
+    FString ObfuscateJsonStringForLogging(const FString& JsonBody);
 
-    static FString ObfuscateJsonStringForLogging(const TArray<FObfuscationDetails>& ObfuscationDetails, const FString& JsonBody);
+    FString ObfuscateJsonStringForLogging(const TArray<FObfuscationDetails>& ObfuscationDetails, const FString& JsonBody);
 
-    static FString ObfuscateString(const FObfuscationDetails& ObfuscationDetail, const FString& StringToObfuscate);
+    FString ObfuscateString(const FObfuscationDetails& ObfuscationDetail, const FString& StringToObfuscate);
 
 }
 
