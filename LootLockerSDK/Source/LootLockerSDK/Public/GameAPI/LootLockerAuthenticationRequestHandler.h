@@ -446,6 +446,8 @@ struct FLootLockerAuthenticationResponse : public FLootLockerAuthResponse
 	int32 account_balance = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString player_identifier;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString public_uid;
 };
 
 USTRUCT(BlueprintType)
