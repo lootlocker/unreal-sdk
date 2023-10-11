@@ -264,7 +264,7 @@ public:
      *
      * @param UserId The id recieved from Oculus
      * @param Nonce The nonce recieved from Oculus
-     * @param OnMetaSessionRequestCompleted Delegate for handling the server response.
+     * @param OncompletedRequest Delegate for handling the server response.
      */
     static void StartMetaSession(const FString& UserId, const FString& Nonce, const FLootLockerMetaSessionResponseDelegate& OncompletedRequest);
 
@@ -273,8 +273,7 @@ public:
      * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
      * The Meta platform must be enabled in the web console for this to work.
      *
-     * @param RefreshToken (Optional) Token received in response from StartMetaSession request. If not supplied we will attempt to resolve it from stored player data.
-     * @param OnRefreshEpicSessionCompleted Delegate for handling the response
+     * @param OncompletedRequest Delegate for handling the response
      */
     static void RefreshMetaSession(const FLootLockerMetaSessionResponseDelegate& OncompletedRequest) { RefreshMetaSession("", OncompletedRequest); };
     
@@ -284,7 +283,7 @@ public:
      * The Meta platform must be enabled in the web console for this to work.
      *
      * @param RefreshToken (Optional) Token received in response from StartMetaSession request. If not supplied we will attempt to resolve it from stored player data.
-     * @param OnRefreshEpicSessionCompleted Delegate for handling the response
+     * @param OncompletedRequest Delegate for handling the response
      */
     static void RefreshMetaSession(const FString& RefreshToken, const FLootLockerMetaSessionResponseDelegate& OncompletedRequest);
 
@@ -506,9 +505,8 @@ public:
     * Get Multiple Other Players XP And Level.
     * https://ref.lootlocker.com/game-api/#get-multiple-other-players-xp-and-level
     *
-    * @param Platform Specify which platform the Ids are for.
-    * @param PlayerIDs Lost of player ids on the specified platform.
-    * @param OnGetOtherPlayerInfoRequestCompleted Delegate to be invoked with the server response.
+    * @param Request Object specifying what ids to lookup
+    * @param OnCompletedRequest Delegate to be invoked with the server response.
     */
 	static void GetMultiplePlayersXp(FLootLockerMultiplePlayersXpRequest& Request, const FPMultiplePlayersXP& OnCompletedRequest);
 
@@ -942,15 +940,25 @@ public:
 	static void AddAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseDelegate& OnCompletedRequest);
 
     /**
-     * Equip the specified Asset Variation to the specified Hero that the current player owns
+     * Equip the specified Global Asset (default variation) to the specified Hero that the current player owns
      * https://ref.lootlocker.com/game-api/#add-asset-to-hero-loadout
      *
      * @param HeroID Id of the hero
-     * @param AssetID Desc
-     * @param AssetVariationID Desc
+     * @param AssetID The id of the global asset to equip
      * @param OnCompletedRequest Delegate for handling the response
      */
-	static void AddAssetVariationToHeroLoadout(const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseDelegate& OnCompletedRequest);
+	static void AddGlobalAssetToHeroLoadout(const int32 HeroID, const int32 AssetID, const FHeroLoadoutReseponseDelegate& OnCompletedRequest);
+ 
+    /**
+     * Equip the specified Global Asset Variation to the specified Hero that the current player owns
+     * https://ref.lootlocker.com/game-api/#add-asset-to-hero-loadout
+     *
+     * @param HeroID Id of the hero
+     * @param AssetID The id of the global asset to equip
+     * @param AssetVariationID The variation id of the global asset to equip
+     * @param OnCompletedRequest Delegate for handling the response
+     */
+	static void AddGlobalAssetVariationToHeroLoadout(const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseDelegate& OnCompletedRequest);
 
     /**
      * Unequip the specified Asset Instance to the specified Hero that the current player owns
@@ -1644,7 +1652,7 @@ public:
      * Once you have purchased a rental asset, you need to activate the rental for it to become available for the player.
      * https://ref.lootlocker.io/game-api/#activating-a-rental-asset
      *
-     * @param AssetId ID of the asset.
+     * @param AssetInstanceId ID of the asset.
      * @param OnCompletedRequest Delegate for handling the server response.
      */
     static void ActivateRentalAsset(int AssetInstanceId, const FActivateRentalAssetResponseDelegate& OnCompletedRequest);

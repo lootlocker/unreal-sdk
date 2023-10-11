@@ -153,13 +153,22 @@ struct FLootLockerHeroAssetInstance
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerHeroAsset
+struct FLootLockerHeroGlobalAsset
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker | Heroes")
 	int32 asset_id = 0;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerHeroGlobalAssetVariation : public FLootLockerHeroGlobalAsset
+{
+	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker | Heroes")
 	int32 asset_variation_id = 0;
+
+	FLootLockerHeroGlobalAssetVariation() {}
+	FLootLockerHeroGlobalAssetVariation(int32 AssetID, int32 AssetVariationID) : FLootLockerHeroGlobalAsset{ AssetID }, asset_variation_id(AssetVariationID) {}
 };
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerHeroBP, FLootLockerHeroResponse, Response);
@@ -198,7 +207,8 @@ public:
 	static void GetHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
 	static void GetOtherPlayersHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
 	static void AddAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
-	static void AddAssetVariationToHeroLoadout(const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
+	static void AddGlobalAssetToHeroLoadout(const int32 HeroID, const int32 AssetID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
+	static void AddGlobalAssetVariationToHeroLoadout(const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
 	static void RemoveAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
 
 	ULootLockerHeroRequestHandler();

@@ -246,7 +246,7 @@ public:
      * The Meta platform must be enabled in the web console for this to work.
      *
      * @param RefreshToken (Optional) Token received in response from StartMetaSession request. If not supplied we will attempt to resolve it from stored player data.
-     * @param OnRefreshEpicSessionCompleted Delegate for handling the response
+     * @param OnRefreshMetaSessionCompleted Delegate for handling the response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken"))
     static void RefreshMetaSession(const FString& RefreshToken, const FLootLockerMetaSessionResponseBP& OnRefreshMetaSessionCompleted);
@@ -859,23 +859,34 @@ public:
      * https://ref.lootlocker.com/game-api/#add-asset-to-hero-loadout
      *
      * @param HeroID Id of the hero
-     * @param AssetInstanceID Desc
+     * @param AssetInstanceID The ID of the already existing asset instance
      * @param OnCompleteBP Delegate for handling the response
      */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
 	static void AddAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP);
 
     /**
-     * Equip the specified Asset Variation to the specified Hero that the current player owns
+     * Equip the specified Global Asset (default variation) to the specified Hero that the current player owns
      * https://ref.lootlocker.com/game-api/#add-asset-to-hero-loadout
      *
      * @param HeroID Id of the hero
-     * @param AssetID Desc
-     * @param AssetVariationID Desc
+     * @param AssetID The id of the global asset to equip
      * @param OnCompleteBP Delegate for handling the response
      */
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
-	static void AddAssetVariationToHeroLoadout(const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseBP& OnCompleteBP);
+	static void AddGlobalAssetToHeroLoadout(const int32 HeroID, const int32 AssetID, const FHeroLoadoutReseponseBP& OnCompleteBP);
+ 
+    /**
+     * Equip the specified Global Asset Variation to the specified Hero that the current player owns
+     * https://ref.lootlocker.com/game-api/#add-asset-to-hero-loadout
+     *
+     * @param HeroID Id of the hero
+     * @param AssetID The id of the global asset to equip
+     * @param AssetVariationID The variation id of the global asset to equip
+     * @param OnCompleteBP Delegate for handling the response
+     */
+	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes")
+	static void AddGlobalAssetVariationToHeroLoadout(const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseBP& OnCompleteBP);
 
     /**
      * Unequip the specified Asset Instance to the specified Hero that the current player owns
@@ -1178,7 +1189,7 @@ public:
      * Get all the contexts the game has.
      * https://ref.lootlocker.io/game-api/#getting-contexts
      *
-     * @param OnCompletedRequest Delegate for handling the server response.
+     * @param OnGetContextsRequestCompleted Delegate for handling the server response.
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
     static void GetContexts(const FContextDelegateBP& OnGetContextsRequestCompleted);
@@ -1231,7 +1242,7 @@ public:
      * https://ref.lootlocker.io/game-api/#adding-favourite-assets
      *
      * @param AssetId Asset ID to be added.
-     * @param OnCompletedRequest Delegate for handling the server response.
+     * @param OnAddAssetToFavouritesRequestCompleted Delegate for handling the server response.
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
     static void AddAssetToFavourites(int AssetId, const FGetFavouriteAssetIndicesResponseDelegateBP& OnAddAssetToFavouritesRequestCompleted);
@@ -1241,7 +1252,7 @@ public:
      * https://ref.lootlocker.io/game-api/#removing-favourite-assets
      *
      * @param AssetId asset ID to be removed.
-     * @param OnCompletedRequest Delegate for handling the server response.
+     * @param OnRemoveAssetFromFavouritesRequestCompleted Delegate for handling the server response.
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
     static void RemoveAssetFromFavourites(int AssetId, const  FGetFavouriteAssetIndicesResponseDelegateBP& OnRemoveAssetFromFavouritesRequestCompleted);
@@ -1480,7 +1491,7 @@ public:
     * @param AssetInstanceId Id of the instance you want to fetch progressions for
     * @param Count Optional: Amount of entries to receive
     * @param After Optional: Used for pagination, id of the instance progression from which the pagination starts from, use the next_cursor and previous_cursor values
-    * @param OnCompletedRequest Action for handling the response of type FLootLockerPaginatedInstanceProgressionsResponse
+    * @param OnCompletedRequestBP Action for handling the response of type FLootLockerPaginatedInstanceProgressionsResponse
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions", meta = (AdvancedDisplay = "Count,After", Count = -1, After = ""))
     static void GetInstanceProgressions(const int32 AssetInstanceId, const int32 Count, const FString& After, const FLootLockerPaginatedInstanceProgressionsResponseBP& OnCompletedRequestBP);
@@ -1490,7 +1501,7 @@ public:
     *
     * @param AssetInstanceId Id of the instance you want to fetch progressions for
     * @param ProgressionKey Key of the progression you want to fetch
-    * @param OnCompletedRequest Action for handling the response of type FLootLockerInstanceProgressionsResponse
+    * @param OnCompletedRequestBP Action for handling the response of type FLootLockerInstanceProgressionsResponse
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions")
     static void GetInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionResponseBP& OnCompletedRequestBP);
@@ -1501,7 +1512,7 @@ public:
     * @param AssetInstanceId Id of the instance you want to fetch progressions for
     * @param ProgressionKey Key of the progression you want to add points to
     * @param Amount Amount of points to be added
-    * @param OnCompletedRequest Action for handling the response of type FLootLockerinstanceProgressionWithRewardsResponse
+    * @param OnCompletedRequestBP Action for handling the response of type FLootLockerinstanceProgressionWithRewardsResponse
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions")
     static void AddPointsToInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP);
@@ -1512,7 +1523,7 @@ public:
     * @param AssetInstanceId Id of the instance you want to fetch progressions for
     * @param ProgressionKey Key of the progression you want to subtract points from
     * @param Amount Amount of points to be subtracted
-    * @param OnCompletedRequest Action for handling the response of type FLootLockerInstanceProgressionWithRewardsResponse
+    * @param OnCompletedRequestBP Action for handling the response of type FLootLockerInstanceProgressionWithRewardsResponse
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions")
     static void SubtractPointsFromInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP);
@@ -1522,7 +1533,7 @@ public:
     *
     * @param AssetInstanceId Id of the instance you want to fetch progressions for
     * @param ProgressionKey Key of the progression you want to reset
-    * @param OnCompletedRequest Action for handling the response of type FLootLockerInstanceProgressionWithRewardsResponse
+    * @param OnCompletedRequestBP Action for handling the response of type FLootLockerInstanceProgressionWithRewardsResponse
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions")
     static void ResetInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP);
@@ -1532,7 +1543,7 @@ public:
     *
     * @param AssetInstanceId Id of the instance you want to fetch progressions for
     * @param ProgressionKey Key of the progression you want to delete
-    * @param OnCompletedRequest Action for handling the response of type FLootLockerResponse
+    * @param OnCompletedRequestBP Action for handling the response of type FLootLockerResponse
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions")
     static void DeleteInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequestBP);
