@@ -244,8 +244,14 @@ struct FLootLockerMultiplePlayersNamesResponse : public FLootLockerResponse {
 USTRUCT(BlueprintType)
 struct FLootLockerMultiplePlayersXpRequest {
 	GENERATED_BODY()
+	/**
+	 * Specify which platform the Ids are for
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString platform;
+	/**
+	 * Lost of player ids on the specified platform
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	TArray<FString> player_ids;
 };
