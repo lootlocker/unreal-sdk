@@ -92,10 +92,10 @@ struct FLootLockerCatalogItemAndQuantityPair
 {
     GENERATED_BODY()
     /**
-     * The unique id of the catalog item to purchase
+     * The unique listing id of the catalog item to purchase
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Catalog_item_id;
+    FString Catalog_listing_id;
     /**
      * The quantity of the specified item to purchase
      */
