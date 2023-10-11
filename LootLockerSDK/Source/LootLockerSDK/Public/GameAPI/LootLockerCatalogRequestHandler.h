@@ -139,7 +139,7 @@ struct FLootLockerCatalogEntry
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Created_at;
     /**
-     * The kind of entity that this entry is. This signifies in which lookup structure to find the details of this entry by using the grouping_key.
+     * The kind of entity that this entry is. This signifies in which lookup structure to find the details of this entry by using the Catalog_listing_id.
      */
     ELootLockerCatalogEntryEntityKind Entity_kind;
     /**
@@ -157,10 +157,10 @@ struct FLootLockerCatalogEntry
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Entity_id;
     /**
-     * A unique id for this entry in this catalog grouping the entity and the prices. This is the key you use to look up details about the entity in the structure signified by the entity_kind.
+     * A unique listing id for this entry in this catalog, grouping the entity and the prices. This is the key you use to look up details about the entity in the structure signified by the entity_kind.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Grouping_key;
+    FString Catalog_listing_id;
     /**
      * Whether this entry is currently purchasable
      */
@@ -206,10 +206,10 @@ struct FLootLockerAssetDetails
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Thumbnail;
     /**
-     * The grouping key for this asset detail
+     * The Catalog listing ID for this asset detail
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Grouping_key;
+    FString Catalog_listing_id;
 
 };
 
@@ -241,10 +241,10 @@ struct FLootLockerProgressionPointDetails
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Id;
     /**
-     * The grouping key for this progression point detail
+     * The Catalog listing ID for this progression point detail
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Grouping_key;
+    FString Catalog_listing_id;
 };
 
 /**
@@ -270,10 +270,10 @@ struct FLootLockerProgressionResetDetails
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Id;
     /**
-     * The grouping key for this progression reset detail
+     * The Catalog listing ID for this progression reset detail
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Grouping_key;
+    FString Catalog_listing_id;
 };
 
 /**
@@ -304,10 +304,10 @@ struct FLootLockerCurrencyDetails
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Id;
     /**
-     * The grouping key for this currency detail
+     * The Catalog listing ID for this currency detail
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Grouping_key;
+    FString Catalog_listing_id;
 };
 
 //==================================================
@@ -412,25 +412,25 @@ struct FLootLockerListCatalogPricesResponse : public FLootLockerResponse
      * Lookup map for details about entities of entity type assets
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TMap<FString /*Grouping_Key*/, FLootLockerAssetDetails> Asset_Details;
+    TMap<FString /*Catalog_listing_id*/, FLootLockerAssetDetails> Asset_Details;
 
     /**
      * Lookup map for details about entities of entity type progression_points
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TMap<FString /*Grouping_Key*/, FLootLockerProgressionPointDetails> Progression_Point_Details;
+    TMap<FString /*Catalog_listing_id*/, FLootLockerProgressionPointDetails> Progression_Point_Details;
 
     /**
      * Lookup map for details about entities of entity type progression_reset
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TMap<FString /*Grouping_Key*/, FLootLockerProgressionResetDetails> Progression_Reset_Details;
+    TMap<FString /*Catalog_listing_id*/, FLootLockerProgressionResetDetails> Progression_Reset_Details;
 
     /**
      * Lookup map for details about entities of entity type currency
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TMap<FString /*Grouping_Key*/, FLootLockerCurrencyDetails> Currency_Details;
+    TMap<FString /*Catalog_listing_id*/, FLootLockerCurrencyDetails> Currency_Details;
 
     /**
      * Pagination data to use for subsequent requests

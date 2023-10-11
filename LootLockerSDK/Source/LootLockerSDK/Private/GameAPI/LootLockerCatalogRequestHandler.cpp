@@ -13,7 +13,7 @@ FLootLockerInlinedCatalogEntry::FLootLockerInlinedCatalogEntry(const FLootLocker
 	Entity_name = Entry.Entity_name;
 	Entity_id = Entry.Entity_id;
 	Prices = Entry.Prices;
-	Grouping_key = Entry.Grouping_key;
+	Catalog_listing_id = Entry.Catalog_listing_id;
 	Purchasable = Entry.Purchasable;
 	this->AssetDetails = AssetDetails;
 	this->ProgressionPointDetails = ProgressionPointDetails;
@@ -74,22 +74,22 @@ FLootLockerListCatalogPricesResponse::FLootLockerListCatalogPricesResponse(const
 
 	for (const auto& Detail : ArrayResponse.Assets_Details)
 	{
-		Asset_Details.Add(Detail.Grouping_key, Detail);
+		Asset_Details.Add(Detail.Catalog_listing_id, Detail);
 	}
 
 	for (const auto& Detail : ArrayResponse.Progression_Points_Details)
 	{
-		Progression_Point_Details.Add(Detail.Grouping_key, Detail);
+		Progression_Point_Details.Add(Detail.Catalog_listing_id, Detail);
 	}
 
 	for (const auto& Detail : ArrayResponse.Progression_Resets_Details)
 	{
-		Progression_Reset_Details.Add(Detail.Grouping_key, Detail);
+		Progression_Reset_Details.Add(Detail.Catalog_listing_id, Detail);
 	}
 
 	for (const auto& Detail : ArrayResponse.Currency_Details)
 	{
-		Currency_Details.Add(Detail.Grouping_key, Detail);
+		Currency_Details.Add(Detail.Catalog_listing_id, Detail);
 	}
 }
 
@@ -98,14 +98,14 @@ TArray<FLootLockerInlinedCatalogEntry> FLootLockerListCatalogPricesResponse::Get
 	TArray<FLootLockerInlinedCatalogEntry> InlinedEntries;
 	for (const auto& CatalogEntry : Entries)
 	{
-		const FString& GroupingKey = CatalogEntry.Grouping_key;
+		const FString& CatalogListingID = CatalogEntry.Catalog_listing_id;
 		const auto& EntityKind = CatalogEntry.Entity_kind;
 		InlinedEntries.Add(FLootLockerInlinedCatalogEntry(
 			CatalogEntry,
-			ELootLockerCatalogEntryEntityKind::Asset == EntityKind && Asset_Details.Contains(GroupingKey) ? Asset_Details.FindRef(GroupingKey) : FLootLockerAssetDetails(),
-			ELootLockerCatalogEntryEntityKind::Progression_Points == EntityKind && Progression_Point_Details.Contains(GroupingKey) ? Progression_Point_Details.FindRef(GroupingKey) : FLootLockerProgressionPointDetails(),
-			ELootLockerCatalogEntryEntityKind::Progression_Reset == EntityKind && Progression_Reset_Details.Contains(GroupingKey) ? Progression_Reset_Details.FindRef(GroupingKey) : FLootLockerProgressionResetDetails(),
-			ELootLockerCatalogEntryEntityKind::Currency == EntityKind && Currency_Details.Contains(GroupingKey) ? Currency_Details.FindRef(GroupingKey) : FLootLockerCurrencyDetails()
+			ELootLockerCatalogEntryEntityKind::Asset == EntityKind && Asset_Details.Contains(CatalogListingID) ? Asset_Details.FindRef(CatalogListingID) : FLootLockerAssetDetails(),
+			ELootLockerCatalogEntryEntityKind::Progression_Points == EntityKind && Progression_Point_Details.Contains(CatalogListingID) ? Progression_Point_Details.FindRef(CatalogListingID) : FLootLockerProgressionPointDetails(),
+			ELootLockerCatalogEntryEntityKind::Progression_Reset == EntityKind && Progression_Reset_Details.Contains(CatalogListingID) ? Progression_Reset_Details.FindRef(CatalogListingID) : FLootLockerProgressionResetDetails(),
+			ELootLockerCatalogEntryEntityKind::Currency == EntityKind && Currency_Details.Contains(CatalogListingID) ? Currency_Details.FindRef(CatalogListingID) : FLootLockerCurrencyDetails()
 		));
 	}
 	return InlinedEntries;
