@@ -6,6 +6,7 @@
 #include "ISettingsSection.h"
 #include "LootLockerConfig.h"
 #endif
+DEFINE_LOG_CATEGORY(LogLootLockerGameSDK);
 
 #define LOCTEXT_NAMESPACE "FLootLockerSDKModule"
 void FLootLockerSDKModule::StartupModule()

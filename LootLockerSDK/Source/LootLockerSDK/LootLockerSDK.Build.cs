@@ -1,5 +1,6 @@
 // Copyright (c) 2021 LootLocker
 
+using System.IO;
 using UnrealBuildTool;
 
 public class LootLockerSDK : ModuleRules
@@ -11,25 +12,24 @@ public class LootLockerSDK : ModuleRules
 
         PublicIncludePaths.AddRange(
             new string[] {
-				// ... add public include paths required here ...
+                Path.Combine(ModuleDirectory, "Public")
 			}
             );
 
 
         PrivateIncludePaths.AddRange(
             new string[] {
-				// ... add other private include paths required here ...
-			}
+                Path.Combine(ModuleDirectory, "Private")
+            }
             );
 
 
         PublicDependencyModuleNames.AddRange(
             new string[]
             {
-                "Core",
-				// ... add other public dependencies that you statically link with here ...
+                "Core"
 			}
-            );
+        );
 
 
         PrivateDependencyModuleNames.AddRange(
@@ -41,13 +41,18 @@ public class LootLockerSDK : ModuleRules
                 "HTTP",
                 "Json",
                 "JsonUtilities"
-			}
+            }
+        );
+        if (Target.Type == TargetType.Editor)
+        {
+            PrivateDependencyModuleNames.AddRange(
+                new string[]
+                {
+                    "Slate",
+                    "SlateCore",
+                    "EditorStyle"
+                }
             );
-        DynamicallyLoadedModuleNames.AddRange(
-            new string[]
-            {
-				// ... add any modules that your module loads dynamically here ...
-			}
-            );
+        }
     }
 }
