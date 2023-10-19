@@ -28,12 +28,12 @@ public:
 	void ShowEngineVersionOutOfMarketplaceSupportNotification() const;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "LootLocker")
-	FString EngineVersionOutOfMarketplaceSupportWarning = "Due to Unreal Engine Marketplace restrictions you will no longer be able to update LootLocker through the Unreal Marketplace.\nPlease update using GitHub instead";
+	FString EngineVersionOutOfMarketplaceSupportWarning = "Due to Unreal Marketplace restrictions, LootLocker can no longer be updated through the marketplace for this Unreal Engine version. \nTo get new features and fixes, update using our GitHub (https://github.com/LootLocker/unreal-sdk) to get the latest version.";
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "LootLocker")
 	bool IsEngineVersionOutOfMarketplaceSupport = true;
 private:
 	int BackOff = 1;
 	int BackOffRate = 10;
-	float InitialTimer = 5.0f;
+	float InitialTimer = 60.0f;
 	float ShowNotificationInSeconds = 0.0f;
 };
