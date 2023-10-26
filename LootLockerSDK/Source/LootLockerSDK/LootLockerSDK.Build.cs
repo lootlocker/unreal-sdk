@@ -40,7 +40,8 @@ public class LootLockerSDK : ModuleRules
                 "Engine",
                 "HTTP",
                 "Json",
-                "JsonUtilities"
+                "JsonUtilities",
+                "Projects"
 			}
             );
         DynamicallyLoadedModuleNames.AddRange(

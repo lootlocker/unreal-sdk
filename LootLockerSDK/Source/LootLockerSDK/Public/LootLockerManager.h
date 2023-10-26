@@ -3,8 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "LootLockerConfig.h"
-#include "Engine/DataAsset.h"
 #include "GameAPI/LootLockerAssetInstancesRequestHandler.h"
 #include "GameAPI/LootLockerAssetsRequestHandler.h"
 #include "GameAPI/LootLockerAuthenticationRequestHandler.h"
@@ -27,7 +25,6 @@
 #include "GameAPI/LootLockerPurchasesRequestHandler.h"
 #include "GameAPI/LootLockerTriggerEventsRequestHandler.h"
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
-
 #include "LootLockerManager.generated.h"
 
 UCLASS(Blueprintable)
