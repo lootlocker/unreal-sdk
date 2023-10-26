@@ -1,6 +1,8 @@
 // Copyright (c) 2021 LootLocker
 
 #include "GameAPI/LootLockerAuthenticationRequestHandler.h"
+
+#include "LootLockerConfig.h"
 #include "LootLockerGameEndpoints.h"
 #include "LootLockerPlatformManager.h"
 #include "LootLockerStateData.h"
@@ -16,7 +18,6 @@ ULootLockerAuthenticationRequestHandler::ULootLockerAuthenticationRequestHandler
 
 void ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnCompletedRequestBP, const FLootLockerLoginResponseDelegate& OnCompletedRequest)
 {
-	const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
 	FLootLockerLoginRequest SignupRequest;
 	SignupRequest.email = Email;
 	SignupRequest.password = Password;

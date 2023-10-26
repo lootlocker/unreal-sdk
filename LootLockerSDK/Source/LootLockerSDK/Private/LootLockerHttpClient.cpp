@@ -5,7 +5,7 @@
 
 #include "HttpModule.h"
 #include "JsonObjectConverter.h"
-#include "LootLockerConfig.h"
+#include "LootLockerSDK.h"
 #include "GameAPI/LootLockerAuthenticationRequestHandler.h"
 #include "Interfaces/IHttpResponse.h"
 #include "Misc/FileHelper.h"
