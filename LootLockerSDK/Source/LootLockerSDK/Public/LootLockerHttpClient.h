@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "LootLockerResponse.h"
 #include "Interfaces/IHttpRequest.h"
-#include "LootLockerConfig.h"
 #include "Runtime/Launch/Resources/Version.h"
 #include "LootLockerHttpClient.generated.h"
 

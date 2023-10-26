@@ -41,7 +41,7 @@ void ULootLockerUserGeneratedContentRequestHandler::GetAssetCandidate(int AssetC
 
 void ULootLockerUserGeneratedContentRequestHandler::AddFileToAssetCandidate(int AssetCandidateId, const FString& FilePath, ELootLockerAssetFilePurpose FilePurpose, const FResponseCallbackBP& OnCompletedRequestBP, const FResponseCallback& OnCompletedRequest)
 {
-    FString purpose = ULootLockerConfig::GetEnum(TEXT("ELootLockerAssetFilePurpose"), static_cast<int32>(FilePurpose));
+    FString purpose = ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerAssetFilePurpose"), static_cast<int32>(FilePurpose));
     TMap<FString, FString> AdditionalData;
     AdditionalData.Add("purpose", purpose);
 	

@@ -47,6 +47,10 @@ struct FLootLockerResponse
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerDefaultResponseBP, FLootLockerResponse, Var);
 DECLARE_DELEGATE_OneParam(FLootLockerDefaultDelegate, FLootLockerResponse);
 
+DECLARE_DYNAMIC_DELEGATE_OneParam(FResponseCallbackBP, FLootLockerResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerResponseCallback, FLootLockerResponse, Response);
+DECLARE_DELEGATE_OneParam(FResponseCallback, FLootLockerResponse);
+
 USTRUCT(BlueprintType)
 struct FLootLockerKeyBasedPagination
 {

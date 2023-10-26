@@ -4,8 +4,11 @@
 
 #include "LootLockerConfig.h"
 #include "LootLockerStateData.h"
+#include "LootLockerGameEndpoints.h"
+#include "LootLockerSDK.h"
 #include "GameAPI/LootLockerCharacterRequestHandler.h"
 #include "GameAPI/LootLockerMissionsRequestHandler.h"
+#include "LootLockerUtilities.generated.h"
 
 constexpr FLootLockerEmptyRequest LootLockerEmptyRequest;
 
@@ -33,6 +36,14 @@ struct FObfuscationDetails
 struct UObfuscationSettings
 {
     static const TArray<FObfuscationDetails> FieldsToObfuscate;
+};
+
+UCLASS()
+class LOOTLOCKERSDK_API ULootLockerEnumUtils : public UObject
+{
+    GENERATED_BODY()
+public:
+    static FString GetEnum(const TCHAR* Enum, int32 EnumValue);
 };
 
 namespace LootLockerUtilities
@@ -136,7 +147,7 @@ struct LLAPI
                 Delimiter = "&";
             }
         }
-        const FString RequestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+        const FString RequestMethod = ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
 #if WITH_EDITOR
         UE_LOG(LogLootLockerGameSDK, Log, TEXT("Request:"));
         if (!ContentString.IsEmpty() && !IsEmptyJsonString(ContentString)) {
@@ -161,7 +172,7 @@ struct LLAPI
         FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, FStringFormatNamedArguments{ {"domainKey", Config && !Config->DomainKey.IsEmpty() ? Config->DomainKey + "." : ""} });
         EndpointWithArguments = FString::Format(*EndpointWithArguments, InOrderedArguments);
         
-        const FString RequestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+        const FString RequestMethod = ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
         CustomHeaders.Add(TEXT("x-session-token"), ULootLockerStateData::GetToken());
 
 #if WITH_EDITOR
@@ -195,7 +206,7 @@ struct LLAPI
             }
         }
         
-        const FString RequestMethod = ULootLockerConfig::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+        const FString RequestMethod = ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
         CustomHeaders.Add(TEXT("x-session-token"), ULootLockerStateData::GetToken());
 
         // create callback lambda
