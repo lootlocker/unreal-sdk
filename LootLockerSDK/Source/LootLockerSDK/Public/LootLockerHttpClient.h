@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "Interfaces/IHttpRequest.h"
-#include "Runtime/Launch/Resources/Version.h"
 #include "LootLockerHttpClient.generated.h"
 
 UCLASS()
@@ -23,6 +22,7 @@ private:
     static bool ResponseIsValid(const FHttpResponsePtr& InResponse, bool bWasSuccessful);
     static const FString UserAgent;
     static const FString UserInstanceIdentifier;
+    static FString SDKVersion;
 };
 
 
