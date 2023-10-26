@@ -28,18 +28,3 @@ FString FLootLockerPlatformRepresentation::GetFriendlyPlatformString()
 {
     return ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerPlatform"), static_cast<int>(Platform));
 }
-
-void ULootLockerCurrentPlatform::Set(const ELootLockerPlatformType& LegacyPlatform)
-{
-    switch (LegacyPlatform) {
-    case ELootLockerPlatformType::Android: CurrentPlatform = *PlatformRepresentations.Find(ELootLockerPlatform::Android); break;
-    case ELootLockerPlatformType::Ios: CurrentPlatform = *PlatformRepresentations.Find(ELootLockerPlatform::AppleSignIn); break;
-    case ELootLockerPlatformType::Steam: CurrentPlatform = *PlatformRepresentations.Find(ELootLockerPlatform::Steam); break;
-    case ELootLockerPlatformType::NintendoSwitch: CurrentPlatform = *PlatformRepresentations.Find(ELootLockerPlatform::NintendoSwitch); break;
-    case ELootLockerPlatformType::PlayStationNetwork: CurrentPlatform = *PlatformRepresentations.Find(ELootLockerPlatform::PlayStationNetwork); break;
-    case ELootLockerPlatformType::Xbox: CurrentPlatform = *PlatformRepresentations.Find(ELootLockerPlatform::Xbox); break;
-
-    case ELootLockerPlatformType::UNUSED:
-    default: CurrentPlatform = *PlatformRepresentations.Find(ELootLockerPlatform::None); break;
-    }
-}
