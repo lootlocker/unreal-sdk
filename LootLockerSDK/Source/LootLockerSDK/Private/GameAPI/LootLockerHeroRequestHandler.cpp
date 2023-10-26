@@ -87,6 +87,6 @@ void ULootLockerHeroRequestHandler::AddGlobalAssetVariationToHeroLoadout(const i
 
 void ULootLockerHeroRequestHandler::RemoveAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP &OnCompleteBP, const FHeroLoadoutReseponseDelegate &OnComplete)
 {
-	LLAPI<FLootLockerHeroLoadoutResponse>::CallAPI(HttpClient, FLootLockerHeroAssetInstance{ AssetInstanceID }, ULootLockerGameEndpoints::RemoveAssetToHeroLoadout,  { HeroID }, EmptyQueryParams, OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerHeroLoadoutResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::RemoveAssetToHeroLoadout,  { HeroID, AssetInstanceID }, EmptyQueryParams, OnCompleteBP, OnComplete);
 }
 
