@@ -7,18 +7,6 @@
 #include "LootLockerPlatformManager.generated.h"
 
 UENUM(BlueprintType)
-enum class ELootLockerPlatformType : uint8
-{
-	Android = 0				UMETA(DisplayName = "Android"),
-	Ios = 1					UMETA(DisplayName = "Ios"),
-	Steam = 2				UMETA(DisplayName = "Steam"),
-	NintendoSwitch = 3		UMETA(DisplayName = "NintendoSwitch"),
-	PlayStationNetwork = 4  UMETA(DisplayName = "PlayStationNetwork"),
-	Xbox = 5				UMETA(DisplayName = "Xbox"),
-	UNUSED = 6				UMETA(DisplayName = "Unused")
-};
-
-UENUM(BlueprintType)
 enum class ELootLockerPlatform : uint8
 {
 	None = 0				UMETA(DisplayName = "None"),
@@ -83,7 +71,6 @@ public:
 		CurrentPlatform = *PlatformRepresentations.Find(Platform);
 		ULootLockerStateData::SetLastActivePlatform(CurrentPlatform.PlatformString);
 	}
-	static void Set(const ELootLockerPlatformType& LegacyPlatform);
 
 	virtual void PostInitProperties() override
 	{
