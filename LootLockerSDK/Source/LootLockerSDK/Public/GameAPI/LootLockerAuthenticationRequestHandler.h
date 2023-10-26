@@ -259,7 +259,6 @@ struct FLootLockerEmailRequest
 	FString Email = "";
 };
 
-
 USTRUCT(BlueprintType)
 struct FLootLockerLevelThresholds
 {

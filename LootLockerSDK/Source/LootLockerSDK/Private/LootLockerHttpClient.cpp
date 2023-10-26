@@ -6,18 +6,18 @@
 #include "HttpModule.h"
 #include "JsonObjectConverter.h"
 #include "LootLockerSDK.h"
-#include "GameAPI/LootLockerAuthenticationRequestHandler.h"
 #include "Interfaces/IHttpResponse.h"
+#include "Interfaces/IPluginManager.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Guid.h"
 #include "Utils/LootLockerUtilities.h"
 
 const FString ULootLockerHttpClient::UserAgent = FString::Format(TEXT("X-UnrealEngine-Agent/{0}"), { ENGINE_VERSION_STRING });
 const FString ULootLockerHttpClient::UserInstanceIdentifier = FGuid::NewGuid().ToString();
+FString ULootLockerHttpClient::SDKVersion = "";
 
 ULootLockerHttpClient::ULootLockerHttpClient()
 {
-
 }
 
 void ULootLockerHttpClient::LogFailedRequestInformation(const FLootLockerResponse& Response, const FString& RequestMethod, const FString& Endpoint, const FString& Data)
@@ -56,6 +56,14 @@ bool ULootLockerHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, 
 void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, TMap<FString, FString> customHeaders) const
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
+    if(SDKVersion.IsEmpty())
+    {
+	    const TSharedPtr<IPlugin> Ptr = IPluginManager::Get().FindPlugin("LootLockerSDK");
+        if (Ptr.IsValid())
+        {
+            SDKVersion = Ptr->GetDescriptor().VersionName;
+        }
+    }
 
 #if ENGINE_MAJOR_VERSION <= 4 && ENGINE_MINOR_VERSION <= 25
 	TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
@@ -66,6 +74,7 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 
 	Request->SetHeader(TEXT("User-Agent"), UserAgent);
 	Request->SetHeader(TEXT("User-Instance-Identifier"), UserInstanceIdentifier);
+    Request->SetHeader(TEXT("SDK-Version"), SDKVersion);
     Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
     Request->SetHeader(TEXT("Accepts"), TEXT("application/json"));
 
@@ -97,6 +106,14 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString>& AdditionalFields, const FResponseCallback& onCompleteRequest, TMap<FString, FString> customHeaders) const
 {
     FHttpModule* HttpModule = &FHttpModule::Get();
+    if (SDKVersion.IsEmpty())
+    {
+        TSharedPtr<IPlugin> Ptr = IPluginManager::Get().FindPlugin("LootLockerSDK");
+        if (Ptr.IsValid())
+        {
+            SDKVersion = Ptr->GetDescriptor().VersionName;
+        }
+    }
 
 #if ENGINE_MAJOR_VERSION <= 4 && ENGINE_MINOR_VERSION <= 25
 	TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
@@ -109,6 +126,8 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
 
 	Request->SetHeader(TEXT("User-Agent"), UserAgent);
 	Request->SetHeader(TEXT("User-Instance-Identifier"), UserInstanceIdentifier);
+    Request->SetHeader(TEXT("SDK-Version"), SDKVersion);
+
     Request->SetHeader(TEXT("Content-Type"), TEXT("multipart/form-data; boundary=" + Boundary));
 
     for (TTuple<FString, FString> CustomHeader : customHeaders)
