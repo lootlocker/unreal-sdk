@@ -48,19 +48,15 @@ struct FLootLockerPlatformRepresentation
 	UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
     FString PlatformString;
 	UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
-    FString FriendlyPlatformString;
-	UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
     FString AuthenticationProviderString;
 
     FLootLockerPlatformRepresentation(const ELootLockerPlatform& Platform = ELootLockerPlatform::None, const FString& PlatformString = TEXT(""), const FString& AuthenticationProviderString = TEXT(""))
 	    : Platform(Platform),
 	    PlatformString(PlatformString),
-	    FriendlyPlatformString(GetFriendlyStringFromEnum(Platform)),
 		AuthenticationProviderString(AuthenticationProviderString)
 	{
 	}
-private:
-	static const FString GetFriendlyStringFromEnum(const ELootLockerPlatform& Platform);
+	FString GetFriendlyPlatformString();
 };
 
 UCLASS(BlueprintType)
@@ -74,8 +70,8 @@ public:
     };
 	static const ELootLockerPlatform& Get() { return CurrentPlatform.Platform; }
 	static const FString& GetString() { return CurrentPlatform.PlatformString; }
-	static const FString& GetFriendlyString() { return CurrentPlatform.FriendlyPlatformString; }
-	static const FString& GetAuthenticationProviderString() { return CurrentPlatform.FriendlyPlatformString; }
+	static FString GetFriendlyString() { return CurrentPlatform.GetFriendlyPlatformString(); }
+	static FString GetAuthenticationProviderString() { return GetFriendlyString(); }
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous")
 	static const FLootLockerPlatformRepresentation& GetPlatformRepresentation() { return CurrentPlatform; }
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous")

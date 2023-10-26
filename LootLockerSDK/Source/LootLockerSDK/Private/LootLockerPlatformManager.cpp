@@ -24,7 +24,7 @@ TMap<ELootLockerPlatform, FLootLockerPlatformRepresentation> ULootLockerCurrentP
 
 FLootLockerPlatformRepresentation& ULootLockerCurrentPlatform::CurrentPlatform = *PlatformRepresentations.Find(ELootLockerPlatform::None);
 
-const FString FLootLockerPlatformRepresentation::GetFriendlyStringFromEnum(const ELootLockerPlatform& Platform)
+FString FLootLockerPlatformRepresentation::GetFriendlyPlatformString()
 {
     return ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerPlatform"), static_cast<int>(Platform));
 }
