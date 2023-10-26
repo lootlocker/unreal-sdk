@@ -4,10 +4,11 @@
 #if WITH_EDITOR
 #include "ISettingsModule.h"
 #include "ISettingsSection.h"
-#include "LootLockerConfig.h"
 #endif
+#include "LootLockerConfig.h"
 
 #define LOCTEXT_NAMESPACE "FLootLockerSDKModule"
+DEFINE_LOG_CATEGORY(LogLootLockerGameSDK);
 void FLootLockerSDKModule::StartupModule()
 {
 	// This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module

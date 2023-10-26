@@ -3,10 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
 #include "LootLockerResponse.h"
-#include "LootLockerConfig.h"
-#include "JsonObjectConverter.h"
 #include "GameAPI/LootLockerAuthenticationRequestHandler.h"
 #include "GameAPI/LootLockerAssetsRequestHandler.h"
 #include "LootLockerPlayerRequestHandler.generated.h"

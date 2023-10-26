@@ -2,8 +2,9 @@
 
 
 #include "LootLockerStateData.h"
-#include "LootLockerConfig.h"
+
 #include "LootLockerPersistedState.h"
+#include "LootLockerSDK.h"
 #include "Kismet/GameplayStatics.h"
 
 FString ULootLockerStateData::Token = "";

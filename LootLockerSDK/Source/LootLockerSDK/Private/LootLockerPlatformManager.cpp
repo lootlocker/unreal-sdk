@@ -3,6 +3,8 @@
 
 #include "LootLockerPlatformManager.h"
 
+#include "Utils/LootLockerUtilities.h"
+
 TMap<ELootLockerPlatform, FLootLockerPlatformRepresentation> ULootLockerCurrentPlatform::PlatformRepresentations = TMap<ELootLockerPlatform, FLootLockerPlatformRepresentation>{
         {ELootLockerPlatform::None, FLootLockerPlatformRepresentation(ELootLockerPlatform::None, "", "")}
 		, {ELootLockerPlatform::Guest, FLootLockerPlatformRepresentation(ELootLockerPlatform::Guest, "guest", "guest")}
@@ -24,7 +26,7 @@ FLootLockerPlatformRepresentation& ULootLockerCurrentPlatform::CurrentPlatform =
 
 const FString FLootLockerPlatformRepresentation::GetFriendlyStringFromEnum(const ELootLockerPlatform& Platform)
 {
-    return ULootLockerConfig::GetEnum(TEXT("ELootLockerPlatform"), static_cast<int>(Platform));
+    return ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerPlatform"), static_cast<int>(Platform));
 }
 
 void ULootLockerCurrentPlatform::Set(const ELootLockerPlatformType& LegacyPlatform)
