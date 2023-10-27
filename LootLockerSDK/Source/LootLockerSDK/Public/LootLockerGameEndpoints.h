@@ -59,13 +59,6 @@ public:
     static FLootLockerEndPoints WhiteLabelRequestPasswordResetEndpoint;
     static FLootLockerEndPoints WhiteLabelRequestVerificationEndpoint;
 
-
-    // Account Linking TODO: NAME IS WIP
-    static FLootLockerEndPoints StartAccountLinkingProcess;
-    static FLootLockerEndPoints CheckAccountLinkingProcessStatus;
-    static FLootLockerEndPoints CancelAccountLinkingProcess;
-    static FLootLockerEndPoints UnlinkProviderFromAccount;
-
     // Files
     static FLootLockerEndPoints FileUploadEndpoint;
     static FLootLockerEndPoints FileUpdateEndpoint;
