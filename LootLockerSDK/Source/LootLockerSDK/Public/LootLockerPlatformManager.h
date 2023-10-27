@@ -23,7 +23,8 @@ enum class ELootLockerPlatform : uint8
 	Epic = 11				UMETA(DisplayName = "Epic Games / Epic Online Services (EOS)"),
 	AppleGameCenter = 12	UMETA(DisplayName = "Apple Game Center"),
 	Meta = 13				UMETA(DisplayName = "Apple Game Center"),
-	LastValue = 14			UMETA(DisplayName = "N/A")
+	Remote = 14				UMETA(DisplayName = "Remote Session"),
+	LastValue = 15			UMETA(DisplayName = "N/A")
 };
 
 

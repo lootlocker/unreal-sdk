@@ -23,6 +23,7 @@
 #include "GameAPI/LootLockerPlayerRequestHandler.h"
 #include "GameAPI/LootLockerProgressionsRequestHandler.h"
 #include "GameAPI/LootLockerPurchasesRequestHandler.h"
+#include "GameAPI/LootLockerRemoteSessionRequestHandler.h"
 #include "GameAPI/LootLockerTriggerEventsRequestHandler.h"
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
 #include "LootLockerSDKManager.generated.h"
@@ -304,6 +305,31 @@ public:
      * @param OnCompletedRequest Delegate for handling the response of type LootLockerSessionResponse
      */
     static void EndSession(const FLootLockerDefaultDelegate& OnCompletedRequest);
+
+    //==================================================
+    // Remote Sessions
+    //==================================================
+
+    /**
+     * Start a remote session
+     * If you want to let your local user sign in using another device then you use this method. First you will get the lease information needed to allow a secondary device to authenticate.
+     * While the process is ongoing, the remoteSessionLeaseStatusUpdate action (if one is provided) will be invoked intermittently (about once a second) to update you on the status of the process.
+     * When the process has come to an end (whether successfully or not), the onComplete action will be invoked with the updated information.
+     *
+     * @param RemoteSessionLeaseInformation Will be invoked once to provide the lease information that the secondary device can use to authenticate
+     * @param RemoteSessionLeaseStatusUpdate Will be invoked intermittently to update the status lease process
+     * @param OnComplete Invoked when the remote session process has run to completion containing either a valid session or information on why the process failed
+     * @param PollingIntervalSeconds Optional: How often to poll the status of the remote session process
+     * @param TimeOutAfterMinutes Optional: How long to allow the process to take in it's entirety
+     */
+    static FString StartRemoteSession(const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegate& OnComplete, float PollingIntervalSeconds = 1.0f, float TimeOutAfterMinutes = 5.0f);
+
+    /**
+     * Cancel an ongoing remote session process
+     *
+     * @param ProcessID The id of the remote session process that you want to cancel
+     */
+    static void CancelRemoteSessionProcess(const FString& ProcessID);
 
     //==================================================
     // White Label
