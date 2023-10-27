@@ -30,12 +30,6 @@ FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelVerifySessionEndpoint =
 FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelRequestPasswordResetEndpoint = InitEndpoint("white-label-login/request-reset-password", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelRequestVerificationEndpoint = InitEndpoint("white-label-login/request-verification", ELootLockerHTTPMethod::POST);
 
-// Account Linking
-FLootLockerEndPoints ULootLockerGameEndpoints::StartAccountLinkingProcess = InitEndpoint("upa/link/start", ELootLockerHTTPMethod::POST);
-FLootLockerEndPoints ULootLockerGameEndpoints::CheckAccountLinkingProcessStatus = InitEndpoint("upa/link/{0}", ELootLockerHTTPMethod::GET);
-FLootLockerEndPoints ULootLockerGameEndpoints::CancelAccountLinkingProcess = InitEndpoint("upa/link/{0}", ELootLockerHTTPMethod::DELETE);
-FLootLockerEndPoints ULootLockerGameEndpoints::UnlinkProviderFromAccount = InitEndpoint("player/providers/{0}", ELootLockerHTTPMethod::DELETE);
-
 //Files
 FLootLockerEndPoints ULootLockerGameEndpoints::FileUploadEndpoint = InitEndpoint("player/files", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::FileUpdateEndpoint = InitEndpoint("player/files/{0}", ELootLockerHTTPMethod::PUT);

@@ -145,29 +145,6 @@ void ULootLockerManager::EndSession(const  FLootLockerDefaultResponseBP& OnEndSe
     ULootLockerAuthenticationRequestHandler::EndSession(OnEndSessionRequestCompleted);
 }
 
-#if defined LOOTLOCKER_ENABLE_ACCOUNT_LINKING
-// Account Linking
-void ULootLockerManager::StartAccountLinkingProcess(const FLootLockerAccountLinkStartResponseBP& OnResponseCompleted) 
-{
-    ULootLockerAccountLinkRequestHandler::StartAccountLinkingProcess(OnResponseCompleted);
-}
-
-void ULootLockerManager::CheckAccountLinkingProcessStatus(const FString& LinkID, const FLootLockerAccountLinkProcessStatusResponseBP& OnResponseCompleted) 
-{
-    ULootLockerAccountLinkRequestHandler::CheckAccountLinkingProcessStatus(LinkID, OnResponseCompleted);
-}
-
-void ULootLockerManager::CancelAccountLinkingProcess(const FString& LinkID, const FLootLockerCancelAccountLinkingProcessResponseBP& OnResponseCompleted) 
-{
-    ULootLockerAccountLinkRequestHandler::CancelAccountLinkingProcess(LinkID, OnResponseCompleted);
-}
-
-void ULootLockerManager::UnlinkProviderFromAccount(const ELootLockerPlatform Provider, const FLootLockerUnlinkProviderFromAccountResponseBP& OnResponseCompleted) 
-{
-    ULootLockerAccountLinkRequestHandler::UnlinkProviderFromAccount(Provider, OnResponseCompleted);
-}
-#endif //defined LOOTLOCKER_ENABLE_ACCOUNT_LINKING
-
 void ULootLockerManager::GetPlayerInfo(const FPInfoResponseBP& OnGetPlayerInfoRequestComplete)
 {
     ULootLockerPlayerRequestHandler::GetPlayerInfo(OnGetPlayerInfoRequestComplete);
