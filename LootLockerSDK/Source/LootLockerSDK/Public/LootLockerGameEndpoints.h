@@ -51,6 +51,10 @@ public:
     static FLootLockerEndPoints GuestloginEndpoint;
     static FLootLockerEndPoints MetaSessionEndpoint;
 
+    // Remote Sessions
+    static FLootLockerEndPoints LeaseRemoteSession;
+    static FLootLockerEndPoints StartRemoteSession;
+
     // White Label
     static FLootLockerEndPoints WhiteLabelSignupEndpoint;
     static FLootLockerEndPoints WhiteLabelLoginEndpoint;

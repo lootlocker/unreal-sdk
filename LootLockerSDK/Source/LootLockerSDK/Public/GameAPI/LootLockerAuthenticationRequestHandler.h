@@ -23,6 +23,9 @@ USTRUCT()
 struct FLootLockerAuthResponse : public FLootLockerResponse
 {
 	GENERATED_BODY()
+	/**
+	 * The session token that can now be used to use further LootLocker functionality. We store and use this for you.
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString session_token;	
 };
@@ -277,26 +280,59 @@ USTRUCT(BlueprintType)
 struct FLootLockerAuthenticationResponse : public FLootLockerAuthResponse
 {
 	GENERATED_BODY()
+	/**
+	 * The player id
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 player_id = 0;
+	/**
+	 * The public UID for this player
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString public_uid;
+	/**
+	 * The player ULID for this player
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString player_ulid;
+	/**
+	 * Whether this player has been seen before (true) or is new (false)
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	bool seen_before = false;
+	/**
+	 * Whether this player has new information to check in grants
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	bool check_grant_notifications = false;
+	/**
+	 * Whether this player has new information to check in deactivations
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	bool check_deactivation_notifications = false;
+	/**
+	 * The current xp of this player
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 xp = 0;
+	/**
+	 * The current level of this player
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 level = 0;
+	/**
+	 * The level_thresholds that the level and xp data relates to
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FLootLockerLevelThresholds level_thresholds;
+	/**
+	 * The current balance in this account
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 account_balance = 0;
+	/**
+	 * The player identifier of the player
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString player_identifier;
 };

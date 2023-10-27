@@ -20,6 +20,7 @@ TMap<ELootLockerPlatform, FLootLockerPlatformRepresentation> ULootLockerCurrentP
 		, {ELootLockerPlatform::Epic, FLootLockerPlatformRepresentation(ELootLockerPlatform::Epic, "epic_games", "epic_games")}
         , {ELootLockerPlatform::AppleGameCenter, FLootLockerPlatformRepresentation(ELootLockerPlatform::AppleGameCenter, "apple_game_center", "apple_game_center")}
         , {ELootLockerPlatform::Meta, FLootLockerPlatformRepresentation(ELootLockerPlatform::Meta, "meta", "meta")}
+        , {ELootLockerPlatform::Remote, FLootLockerPlatformRepresentation(ELootLockerPlatform::Remote, "remote", "remote")}
 };
 
 FLootLockerPlatformRepresentation& ULootLockerCurrentPlatform::CurrentPlatform = *PlatformRepresentations.Find(ELootLockerPlatform::None);
