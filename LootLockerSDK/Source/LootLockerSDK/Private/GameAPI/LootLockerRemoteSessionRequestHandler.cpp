@@ -124,7 +124,7 @@ void ULootLockerRemoteSessionRequestHandler::ContinualPollingAction(const FStrin
 	}
 
 	// Get the latest state of the process
-	StartRemoteSession(Process.LeaseCode, Process.LeaseNonce, LLAPI<FLootLockerStartRemoteSessionResponse>::FResponseInspectorCallback::CreateLambda([RemoteSessionLeaseInformationBP,RemoteSessionLeaseInformation, RemoteSessionLeaseStatusUpdateBP, RemoteSessionLeaseStatusUpdate, OnCompleteBP, OnComplete, ProcessID, _TimerManager](FLootLockerStartRemoteSessionResponse& RemoteSessionResponse)
+	StartRemoteSession(Process.LeaseCode, Process.LeaseNonce, LLAPI<FLootLockerStartRemoteSessionResponse>::FResponseInspectorCallback::CreateLambda([RemoteSessionLeaseInformationBP,RemoteSessionLeaseInformation, RemoteSessionLeaseStatusUpdateBP, RemoteSessionLeaseStatusUpdate, OnCompleteBP, OnComplete, ProcessID](FLootLockerStartRemoteSessionResponse& RemoteSessionResponse)
 	{
 		FLootLockerRemoteSessionProcess* ProcessPtr = RemoteSessionProcesses.Find(ProcessID);
 		if (nullptr == ProcessPtr)
@@ -133,7 +133,7 @@ void ULootLockerRemoteSessionRequestHandler::ContinualPollingAction(const FStrin
 		}
 		FLootLockerRemoteSessionProcess& Process = *ProcessPtr;
 
-		auto ScheduleNextPoll = [RemoteSessionLeaseInformationBP, RemoteSessionLeaseInformation, RemoteSessionLeaseStatusUpdateBP, RemoteSessionLeaseStatusUpdate, OnCompleteBP, OnComplete, _TimerManager](FTimerHandle& TimerHandle, const float& timeToNextPoll, const FString& ProcessID) {
+		auto ScheduleNextPoll = [RemoteSessionLeaseInformationBP, RemoteSessionLeaseInformation, RemoteSessionLeaseStatusUpdateBP, RemoteSessionLeaseStatusUpdate, OnCompleteBP, OnComplete](FTimerHandle& TimerHandle, const float& timeToNextPoll, const FString& ProcessID) {
 			FTimerDelegate TimerDelegate;
 			TimerDelegate.BindLambda([RemoteSessionLeaseInformationBP, RemoteSessionLeaseInformation, RemoteSessionLeaseStatusUpdateBP, RemoteSessionLeaseStatusUpdate, OnCompleteBP, OnComplete, ProcessID]()
 				{
