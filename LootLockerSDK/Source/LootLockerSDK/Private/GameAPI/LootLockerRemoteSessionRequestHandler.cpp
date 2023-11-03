@@ -8,7 +8,6 @@
 #include "Utils/LootLockerUtilities.h"
 
 ULootLockerHttpClient* ULootLockerRemoteSessionRequestHandler::HttpClient = nullptr;
-ULootLockerRemoteSessionTimerManager* ULootLockerRemoteSessionRequestHandler::TimerManager = nullptr;
 TMap<FString, FLootLockerRemoteSessionProcess> ULootLockerRemoteSessionRequestHandler::RemoteSessionProcesses = TMap<FString, FLootLockerRemoteSessionProcess>();
 
 FLootLockerRemoteSessionProcess::FLootLockerRemoteSessionProcess(const float _PollingIntervalSeconds, 
@@ -19,18 +18,9 @@ FLootLockerRemoteSessionProcess::FLootLockerRemoteSessionProcess(const float _Po
 {
 }
 
-FTimerManager* ULootLockerRemoteSessionTimerManager::GetTimerManager() const
-{
-	if (GEngine && GEngine->GameViewport && GEngine->GameViewport->GetWorld()) {
-		return &(GEngine->GameViewport->GetWorld()->GetTimerManager());
-	}
-	return nullptr;
-}
-
 ULootLockerRemoteSessionRequestHandler::ULootLockerRemoteSessionRequestHandler()
 {
     HttpClient = NewObject<ULootLockerHttpClient>();
-	TimerManager = NewObject<ULootLockerRemoteSessionTimerManager>(this, ULootLockerRemoteSessionTimerManager::StaticClass(), "RemoteSessionTimerManager");
 }
 
 void ULootLockerRemoteSessionRequestHandler::CancelRemoteSessionProcess(const FString& ProcessID)
@@ -133,7 +123,6 @@ void ULootLockerRemoteSessionRequestHandler::ContinualPollingAction(const FStrin
 		return;
 	}
 
-	ULootLockerRemoteSessionTimerManager* _TimerManager = TimerManager;
 	// Get the latest state of the process
 	StartRemoteSession(Process.LeaseCode, Process.LeaseNonce, LLAPI<FLootLockerStartRemoteSessionResponse>::FResponseInspectorCallback::CreateLambda([RemoteSessionLeaseInformationBP,RemoteSessionLeaseInformation, RemoteSessionLeaseStatusUpdateBP, RemoteSessionLeaseStatusUpdate, OnCompleteBP, OnComplete, ProcessID, _TimerManager](FLootLockerStartRemoteSessionResponse& RemoteSessionResponse)
 	{
