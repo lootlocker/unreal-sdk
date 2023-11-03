@@ -213,14 +213,6 @@ struct FLootLockerRemoteSessionProcess
 };
 
 UCLASS()
-class LOOTLOCKERSDK_API ULootLockerRemoteSessionTimerManager : public UObject
-{
-    GENERATED_BODY()
-public:
-    FTimerManager* GetTimerManager() const;
-};
-
-UCLASS()
 class LOOTLOCKERSDK_API ULootLockerRemoteSessionRequestHandler : public UObject
 {
     GENERATED_BODY()
@@ -244,6 +236,5 @@ protected:
     static void ClearTimer(FTimerHandle TimerHandle);
 private:
     static ULootLockerHttpClient* HttpClient;
-    static ULootLockerRemoteSessionTimerManager* TimerManager;
     static TMap<FString, FLootLockerRemoteSessionProcess> RemoteSessionProcesses;
 };
