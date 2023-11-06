@@ -104,6 +104,18 @@ struct FLootLockerProgressionResetReward
 };
 
 USTRUCT(BlueprintType)
+struct FLootLockerCurrencyReward
+{
+    GENERATED_BODY()
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Currency_Name = "";
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Currency_Code = "";
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Amount = "";
+};
+
+USTRUCT(BlueprintType)
 struct FLootLockerRewards
 {
     GENERATED_BODY()
@@ -113,6 +125,8 @@ struct FLootLockerRewards
         TArray<FLootLockerProgressionResetReward> Progression_Reset_Rewards;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
         TArray<FLootLockerAssetReward> Asset_Rewards;
+        UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+        TArray<FLootLockerCurrencyReward> Currency_Rewards;
 };
 
 USTRUCT(BlueprintType)
