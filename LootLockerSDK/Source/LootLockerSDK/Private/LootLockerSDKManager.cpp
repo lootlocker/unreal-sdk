@@ -154,6 +154,11 @@ void ULootLockerSDKManager::CancelRemoteSessionProcess(const FString& ProcessID)
     ULootLockerRemoteSessionRequestHandler::CancelRemoteSessionProcess(ProcessID);
 }
 
+void ULootLockerSDKManager::RefreshRemoteSession(const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegate& OnCompletedRequest)
+{
+    ULootLockerRemoteSessionRequestHandler::RefreshRemoteSession(RefreshToken, FLootLockerRefreshRemoteSessionResponseDelegateBP(), OnCompletedRequest);
+}
+
 //Player
 void ULootLockerSDKManager::GetPlayerInfo(const FLootLockerPlayerInformationResponse& OnCompletedRequest)
 {
