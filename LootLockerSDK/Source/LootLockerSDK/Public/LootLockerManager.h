@@ -398,6 +398,16 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Remote Session")
     static void CancelRemoteSessionProcess(FString ProcessID);
 
+    /**
+     * Refresh a previous session signed in remotely
+     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
+     *
+     * @param RefreshToken (OPTIONAL) Refresh token received in response from StartRemoteSession request
+     * @param OnCompletedRequest Delegate for handling the response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Remote Session", meta = (AdvancedDisplay = "RefreshToken"))
+    static void RefreshRemoteSession(const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegateBP& OnCompletedRequest);
+
     //==================================================
     //Players
     //==================================================

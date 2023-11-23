@@ -80,6 +80,14 @@ struct FLootLockerStartRemoteSessionRequest
     FString Nonce = "";
 };
 
+USTRUCT(BlueprintType)
+struct FLootLockerRefreshRemoteSessionRequest : public FLootLockerBaseAuthRequest
+{
+    GENERATED_BODY()
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+    FString refresh_token;
+};
+
 //==================================================
 // Response Definitions
 //==================================================
@@ -156,6 +164,20 @@ struct FLootLockerStartRemoteSessionResponse : public FLootLockerAuthenticationR
     FString Refresh_token;
 };
 
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerRefreshRemoteSessionResponse : public FLootLockerAuthenticationResponse
+{
+    GENERATED_BODY()
+    /**
+     * A refresh token that can be used to refresh the remote session instead of signing in each time the session token expires
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Refresh_token;
+};
+
 
 //==================================================
 // Blueprint Delegate Definitions
@@ -173,6 +195,10 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerRemoteSessionStatusPollingResponseD
  * Blueprint response delegate for receiving the finalized remote session data (whether successful or not)
  */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerStartRemoteSessionResponseDelegateBP, FLootLockerStartRemoteSessionResponse, Response);
+/**
+ * Blueprint response delegate for receiving the refreshed remote session
+ */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerRefreshRemoteSessionResponseDelegateBP, FLootLockerRefreshRemoteSessionResponse, Response);
 
 //==================================================
 // C++ Delegate Definitions
@@ -190,6 +216,10 @@ DECLARE_DELEGATE_OneParam(FLootLockerRemoteSessionStatusPollingResponseDelegate,
  * C++ response delegate for receiving the finalized remote session data (whether successful or not)
  */
 DECLARE_DELEGATE_OneParam(FLootLockerStartRemoteSessionResponseDelegate, FLootLockerStartRemoteSessionResponse);
+/**
+ * C++ response delegate for receiving the refreshed remote session
+ */
+DECLARE_DELEGATE_OneParam(FLootLockerRefreshRemoteSessionResponseDelegate, FLootLockerRefreshRemoteSessionResponse);
 
 
 //==================================================
@@ -221,6 +251,8 @@ public:
 
     static void CancelRemoteSessionProcess(const FString& ProcessID);
     static FString StartRemoteSession(const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformationBP = FLootLockerLeaseRemoteSessionResponseDelegateBP(), const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation = FLootLockerLeaseRemoteSessionResponseDelegate(), const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdateBP = FLootLockerRemoteSessionStatusPollingResponseDelegateBP(), const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate = FLootLockerRemoteSessionStatusPollingResponseDelegate(), const FLootLockerStartRemoteSessionResponseDelegateBP& OnCompleteBP = FLootLockerStartRemoteSessionResponseDelegateBP(), const FLootLockerStartRemoteSessionResponseDelegate& OnComplete = FLootLockerStartRemoteSessionResponseDelegate(), float PollingIntervalSeconds = 1.0f, float TimeOutAfterMinutes = 5.0f);
+    static void RefreshRemoteSession(const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegateBP& OnCompleteBP = FLootLockerRefreshRemoteSessionResponseDelegateBP(), const FLootLockerRefreshRemoteSessionResponseDelegate& OnComplete = FLootLockerRefreshRemoteSessionResponseDelegate());
+
 protected:
     static void ContinualPollingAction(const FString& ProcessID,
         const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformationBP = FLootLockerLeaseRemoteSessionResponseDelegateBP(),

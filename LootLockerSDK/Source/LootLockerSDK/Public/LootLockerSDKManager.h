@@ -331,6 +331,24 @@ public:
      */
     static void CancelRemoteSessionProcess(const FString& ProcessID);
 
+    /**
+     * Refresh a previous session signed in remotely
+     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
+     *
+     * @param OnCompletedRequest Delegate for handling the response
+     */
+    static void RefreshRemoteSession(const FLootLockerRefreshRemoteSessionResponseDelegate& OnCompletedRequest) { RefreshRemoteSession("", OnCompletedRequest); };
+
+    /**
+     * Refresh a previous session signed in remotely
+     * If you do not want to manually handle the refresh token we recommend using the RefreshRemoteSession(const FLootLockerRefreshRemoteSessionResponseDelegate& OnCompletedRequest) method.
+     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
+     *
+     * @param RefreshToken Token received in response from StartRemoteSession request
+     * @param OnCompletedRequest Delegate for handling the response
+     */
+    static void RefreshRemoteSession(const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegate& OnCompletedRequest);
+
     //==================================================
     // White Label
     //==================================================
