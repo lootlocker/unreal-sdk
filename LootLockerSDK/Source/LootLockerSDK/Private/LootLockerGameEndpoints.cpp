@@ -22,8 +22,9 @@ FLootLockerEndPoints ULootLockerGameEndpoints::RefreshAppleGameCenterSessionEndp
 FLootLockerEndPoints ULootLockerGameEndpoints::MetaSessionEndpoint = InitEndpoint("session/meta", ELootLockerHTTPMethod::POST);
 
 // Remote Sessions
-FLootLockerEndPoints ULootLockerGameEndpoints::LeaseRemoteSession = InitEndpoint("session/remote/lease", ELootLockerHTTPMethod::POST);
-FLootLockerEndPoints ULootLockerGameEndpoints::StartRemoteSession = InitEndpoint("session/remote", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::LeaseRemoteSessionEndpoint = InitEndpoint("session/remote/lease", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::StartRemoteSessionEndpoint = InitEndpoint("session/remote", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::RefreshRemoteSessionEndpoint = InitEndpoint("session/remote", ELootLockerHTTPMethod::POST);
 
 // White Label
 FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelSignupEndpoint = InitEndpoint("white-label-login/sign-up", ELootLockerHTTPMethod::POST);

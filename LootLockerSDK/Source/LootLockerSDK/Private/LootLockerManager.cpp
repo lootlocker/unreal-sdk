@@ -155,6 +155,11 @@ void ULootLockerManager::CancelRemoteSessionProcess(FString ProcessID)
     ULootLockerRemoteSessionRequestHandler::CancelRemoteSessionProcess(ProcessID);
 }
 
+void ULootLockerManager::RefreshRemoteSession(const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegateBP& OnCompletedRequest)
+{
+    ULootLockerRemoteSessionRequestHandler::RefreshRemoteSession(RefreshToken, OnCompletedRequest);
+}
+
 void ULootLockerManager::GetPlayerInfo(const FPInfoResponseBP& OnGetPlayerInfoRequestComplete)
 {
     ULootLockerPlayerRequestHandler::GetPlayerInfo(OnGetPlayerInfoRequestComplete);
