@@ -615,6 +615,7 @@ TMap<FString, FString> ULootLockerAuthenticationRequestHandler::DomainKeyHeaders
 {
 	const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
 	TMap<FString, FString> CustomHeaders = TMap<FString, FString>();
+	CustomHeaders.Add(TEXT("domain-key"), Config->DomainKey);
 	CustomHeaders.Add(TEXT("is-development"), Config->LootLockerGameKey.StartsWith("dev_") ? TEXT("true") : TEXT("false"));
 	return CustomHeaders;
 }
