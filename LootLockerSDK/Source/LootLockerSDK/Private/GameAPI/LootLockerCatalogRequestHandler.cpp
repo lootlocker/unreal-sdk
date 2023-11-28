@@ -29,7 +29,7 @@ void FLootLockerListCatalogPricesResponse::AppendCatalogItems(FLootLockerListCat
 	}
 
 	Pagination.Total = AdditionalCatalogPrices.Pagination.Total;
-	Pagination.Cursor = AdditionalCatalogPrices.Pagination.Cursor;
+	Pagination.Next_Cursor = AdditionalCatalogPrices.Pagination.Next_Cursor;
 
 	for (auto& Entry : AdditionalCatalogPrices.Entries)
 	{
