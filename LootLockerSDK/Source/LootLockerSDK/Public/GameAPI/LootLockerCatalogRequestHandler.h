@@ -64,33 +64,6 @@ struct FLootLockerCatalog
  *
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
-struct FLootLockerCatalogPagination
-{
-    GENERATED_BODY()
-    /**
-     *
-     * The total available items in this catalog
-     */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int Total;
-    /**
-     *
-     * The cursor that points to the next item in the catalog list. Use this in subsequent requests to get additional items from the catalog.
-     */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Cursor;
-    /**
-     *
-     * The cursor that points to the first item in this batch of items.
-     */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Previous_cursor;
-};
-
-/**
- *
- */
-USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerCatalogEntryPrice
 {
     GENERATED_BODY()
@@ -353,7 +326,7 @@ struct FInternalLootLockerListCatalogPricesResponse : public FLootLockerResponse
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerCurrencyDetails> Currency_Details;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FLootLockerCatalogPagination Pagination;
+    FLootLockerKeyBasedPagination Pagination;
 };
 
 /**
@@ -436,11 +409,11 @@ struct FLootLockerListCatalogPricesResponse : public FLootLockerResponse
      * Pagination data to use for subsequent requests
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FLootLockerCatalogPagination Pagination;
+    FLootLockerKeyBasedPagination Pagination;
 
     void AppendCatalogItems(FLootLockerListCatalogPricesResponse AdditionalCatalogPrices);
 
-    FLootLockerListCatalogPricesResponse() : Pagination() {}
+    FLootLockerListCatalogPricesResponse() {}
 
     explicit FLootLockerListCatalogPricesResponse(const FInternalLootLockerListCatalogPricesResponse& ArrayResponse);
 
