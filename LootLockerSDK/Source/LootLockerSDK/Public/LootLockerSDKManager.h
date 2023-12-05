@@ -1307,6 +1307,17 @@ public:
      */
     static void RemoveAssetFromFavourites(int AssetId, const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest);
 
+    /**
+    * Grant an asset to the player.
+    * https://ref.lootlocker.com/game-api/#grant-an-asset-to-the-player
+    *
+    * @param AssetID asset ID to be granted.
+    * @param AssetVariationID The ID of the Asset Variation you want to grant
+    * @param AssetRentalOptionID the rental option ID you want to give the Asset Instance
+    */
+    static void GrantAssetToPlayerInventory(const int AssetID, const int AssetVariationID, const int AssetRentalOptionID, const FGrantAssetResponseDelegate& OnCompletedRequest);
+
+
     //==================================================
     //Asset Instances
     // https://ref.lootlocker.com/game-api/#asset-instances
@@ -1390,6 +1401,15 @@ public:
      * @param OnCompletedRequest Delegate for handling the server response.
      */
     static void OpenLootBox(int AssetInstanceId, const FOpenLootBoxResponseDelegate& OnCompletedRequest);
+
+    /**
+    * Delete an Asset Instance permanently from the active Player's Inventory.
+    *
+    * @param AssetInstanceID asset instance ID.
+    * @param OnCompletedRequest Delegate for handling the server response.
+    */
+    static void DeleteAssetInstanceFromPlayerInventory(int AssetInstanceID, const FDeleteAssetInstanceResponseDelegate& OnCompletedRequest);
+
 
     //==================================================
     //User Generated Content

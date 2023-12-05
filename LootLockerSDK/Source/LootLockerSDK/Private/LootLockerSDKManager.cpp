@@ -626,6 +626,11 @@ void ULootLockerSDKManager::RemoveAssetFromFavourites(int AssetId, const FGetFav
     ULootLockerAssetsRequestHandler::RemoveAssetFromFavourites(AssetId, FGetFavouriteAssetIndicesResponseDelegateBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::GrantAssetToPlayerInventory(const int AssetID, const int AssetVariationID, const int AssetRentalOptionID, const FGrantAssetResponseDelegate& OnCompletedRequest)
+{
+    ULootLockerAssetsRequestHandler::GrantAssetToPlayerInventory(AssetID, AssetVariationID, AssetRentalOptionID, FGrantAssetResponseDelegateBP(), OnCompletedRequest);
+}
+
 //Asset Instance
 
 void ULootLockerSDKManager::GetAllKeyValuePairsForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest)
@@ -666,6 +671,11 @@ void ULootLockerSDKManager::InspectLootBox(int AssetInstanceId, const FLootBoxCo
 void ULootLockerSDKManager::OpenLootBox(int AssetInstanceId, const FOpenLootBoxResponseDelegate& OnCompletedRequest)
 {
     ULootLockerAssetInstancesRequestHandler::OpenLootBox(AssetInstanceId, FOpenLootBoxResponseDelegateBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::DeleteAssetInstanceFromPlayerInventory(int AssetInstanceID, const FDeleteAssetInstanceResponseDelegate& OnCompletedRequest)
+{
+    ULootLockerAssetInstancesRequestHandler::DeleteAssetInstanceFromPlayerInventory(AssetInstanceID, FDeleteAssetInstanceResponseDelegateBP(), OnCompletedRequest);
 }
 
 //User Generated Candidate
