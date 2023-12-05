@@ -55,3 +55,8 @@ void ULootLockerAssetInstancesRequestHandler::OpenLootBox(int AssetInstanceId, c
 {
     LLAPI<FLootLockerOpenLootBoxResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::OpenLootBoxEndpoint, { AssetInstanceId },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
+
+void ULootLockerAssetInstancesRequestHandler::DeleteAssetInstanceFromPlayerInventory(int AssetInstanceID, const FDeleteAssetInstanceResponseDelegateBP& OnCompletedRequestBP, const FDeleteAssetInstanceResponseDelegate& OnCompletedRequest)
+{
+    LLAPI<FLootLockerDeleteAssetInstanceResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteAssetInstanceFromPlayerInventory, { AssetInstanceID }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+}

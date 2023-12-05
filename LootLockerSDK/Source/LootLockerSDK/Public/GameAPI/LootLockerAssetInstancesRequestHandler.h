@@ -77,14 +77,24 @@ struct FLootLockerOpenLootBoxResponse : public FLootLockerResponse
     bool check_grant_notifications = false;
 };
 
+USTRUCT(BlueprintType)
+struct FLootLockerDeleteAssetInstanceResponse : public FLootLockerResponse
+{
+    GENERATED_BODY()
+};
+
 DECLARE_DYNAMIC_DELEGATE_OneParam(FAssetInstanceStorageItemsResponseDelegateBP, FLootLockerAssetInstanceStorageItemsResponse, Response);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FAssetInstanceStorageItemResponseDelegateBP, FLootLockerAssetInstanceStorageItemResponse, Response);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootBoxContentResponseDelegateBP, FLootLockerLootBoxContentResponse, Response);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FOpenLootBoxResponseDelegateBP, FLootLockerOpenLootBoxResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FDeleteAssetInstanceResponseDelegateBP, FLootLockerDeleteAssetInstanceResponse, Response);
+
 DECLARE_DELEGATE_OneParam(FAssetInstanceStorageItemsResponseDelegate, FLootLockerAssetInstanceStorageItemsResponse);
 DECLARE_DELEGATE_OneParam(FAssetInstanceStorageItemResponseDelegate, FLootLockerAssetInstanceStorageItemResponse);
 DECLARE_DELEGATE_OneParam(FLootBoxContentResponseDelegate, FLootLockerLootBoxContentResponse);
 DECLARE_DELEGATE_OneParam(FOpenLootBoxResponseDelegate, FLootLockerOpenLootBoxResponse);
+DECLARE_DELEGATE_OneParam(FDeleteAssetInstanceResponseDelegate, FLootLockerDeleteAssetInstanceResponse);
+
 
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerAssetInstancesRequestHandler : public UObject
@@ -112,7 +122,9 @@ public:
     static void InspectLootBox(int AssetInstanceId, const FLootBoxContentResponseDelegateBP& OnCompletedRequestBP = FLootBoxContentResponseDelegateBP(), const FLootBoxContentResponseDelegate& OnCompletedRequest = FLootBoxContentResponseDelegate());
     
     static void OpenLootBox(int AssetInstanceId, const FOpenLootBoxResponseDelegateBP& OnCompletedRequestBP = FOpenLootBoxResponseDelegateBP(), const FOpenLootBoxResponseDelegate& OnCompletedRequest = FOpenLootBoxResponseDelegate());
-    
+
+    static void DeleteAssetInstanceFromPlayerInventory(int AssetInstanceID, const FDeleteAssetInstanceResponseDelegateBP& OnCompletedRequestBP = FDeleteAssetInstanceResponseDelegateBP(), const FDeleteAssetInstanceResponseDelegate& OnCompletedRequest = FDeleteAssetInstanceResponseDelegate());
+
 public:
     ULootLockerAssetInstancesRequestHandler();
 

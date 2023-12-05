@@ -153,6 +153,7 @@ public:
     static FLootLockerEndPoints AddAssetToFavouritesEndpoint;
     static FLootLockerEndPoints RemoveAssetFromFavouritesEndpoint;
     static FLootLockerEndPoints GetUniversalAssetsEndpoint;
+    static FLootLockerEndPoints GrantAssetToPlayerInventory;
 
     //Asset Instances
     static FLootLockerEndPoints GetAllKeyValuePairsForAssetInstance;
@@ -164,6 +165,7 @@ public:
     static FLootLockerEndPoints DeleteAKeyValuePairByIdForAssetInstanceEndpoint;
     static FLootLockerEndPoints InspectLootBoxEndpoint;
     static FLootLockerEndPoints OpenLootBoxEndpoint;
+    static FLootLockerEndPoints DeleteAssetInstanceFromPlayerInventory;
 
     //Instance Progressions
     static FLootLockerEndPoints GetAllInstanceProgressions;
