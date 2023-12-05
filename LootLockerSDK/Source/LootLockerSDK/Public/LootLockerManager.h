@@ -1238,6 +1238,17 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
 	static void GetUniversalAssets(int After, int ItemsCount, const FUniversalAssetResponseDelegateBP &OnCompletedRequest);
 
+    /**
+    * Grant an asset to the Player
+    * https://ref.lootlocker.com/game-api/#grant-an-asset-to-the-player
+    *
+    * @param AssetID asset ID to be granted.
+    * @param AssetVariationID The ID of the Asset Variation you want to grant
+    * @param AssetRentalOptionID the rental option ID you want to give the Asset Instance
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
+    static void GrantAssetToPlayerInventory(const int AssetID, const int AssetVariationID, const int AssetRentalOptionID, const FGrantAssetResponseDelegateBP& OnCompletedRequest);
+
     //==================================================
     //Asset Instances
     //==================================================
@@ -1328,6 +1339,16 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
     static void OpenLootBox(int AssetInstanceId, const FOpenLootBoxResponseDelegateBP& OnOpenLootBoxCompleted);
+
+    /**
+    * Delete an Asset Instance permanently from a Player's Inventory.
+    * https://ref.lootlocker.com/game-api/#remove-an-asset-from-the-player-inventory
+    *
+    * @param AssetInstanceID asset instance ID.
+    * @param OnCompleted Delegate for handling the server response.
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
+    static void DeleteAssetInstanceFromPlayerInventory(int AssetInstanceID, const FDeleteAssetInstanceResponseDelegateBP& OnCompleted);
 
     //==================================================
     //User Generated Content
