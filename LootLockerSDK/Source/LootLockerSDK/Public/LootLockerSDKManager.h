@@ -1308,14 +1308,26 @@ public:
     static void RemoveAssetFromFavourites(int AssetId, const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest);
 
     /**
-    * Grant an asset to the player.
+    * Grant an asset to the current Player.
     * https://ref.lootlocker.com/game-api/#grant-an-asset-to-the-player
     *
-    * @param AssetID asset ID to be granted.
+    * @param AssetID ID of the asset to be granted
     * @param AssetVariationID The ID of the Asset Variation you want to grant
-    * @param AssetRentalOptionID the rental option ID you want to give the Asset Instance
+    * @param AssetRentalOptionID The ID of the rental option you want to grant
     */
     static void GrantAssetToPlayerInventory(const int AssetID, const int AssetVariationID, const int AssetRentalOptionID, const FGrantAssetResponseDelegate& OnCompletedRequest);
+
+    /**
+    * Grant an asset to the current Player.
+    * https://ref.lootlocker.com/game-api/#grant-an-asset-to-the-player
+    *
+    * @param AssetID ID of the asset to be granted
+    * @param AssetVariationID The ID of the Asset Variation you want to grant
+    * @param AssetRentalOptionID The ID of the rental option you want to grant
+    */
+    static void GrantAssetToPlayerInventory(const int AssetID, const FGrantAssetResponseDelegate& OnCompletedRequest) {
+        GrantAssetToPlayerInventory(AssetID, 0, 0, OnCompletedRequest);
+    }
 
 
     //==================================================
