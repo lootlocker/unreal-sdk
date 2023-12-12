@@ -1244,10 +1244,21 @@ public:
     *
     * @param AssetID asset ID to be granted.
     * @param AssetVariationID The ID of the Asset Variation you want to grant
-    * @param AssetRentalOptionID the rental option ID you want to give the Asset Instance
+    * @param AssetRentalOptionID The ID of the rental option you want to grant
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
     static void GrantAssetToPlayerInventory(const int AssetID, const int AssetVariationID, const int AssetRentalOptionID, const FGrantAssetResponseDelegateBP& OnCompletedRequest);
+
+    /**
+    * Grant an asset to the Player
+    * https://ref.lootlocker.com/game-api/#grant-an-asset-to-the-player
+    *
+    * @param AssetID asset ID to be granted.
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
+    static void GrantAssetToPlayerInventory(const int AssetID, const FGrantAssetResponseDelegateBP& OnCompletedRequest) {
+        GrantAssetToPlayerInventory(AssetID, 0, 0, OnCompletedRequest);
+    }
 
     //==================================================
     //Asset Instances
