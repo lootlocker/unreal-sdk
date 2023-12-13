@@ -8,6 +8,7 @@
 #include "GameAPI/LootLockerAssetsRequestHandler.h"
 #include "LootLockerPurchasesRequestHandler.generated.h"
 
+// Legacy Purchasing -- TODO: Deprecate
 USTRUCT(BlueprintType)
 struct FLootLockerAssetPurchaseData {
     GENERATED_BODY()
@@ -84,6 +85,8 @@ struct FLootLockerOrderDetailsResponse : public FLootLockerResponse
     TArray<FLootLockerProduct> products;
 };
 
+// </> Legacy Purchasing -- TODO: Deprecate
+
 /**
  * 
  */
@@ -107,7 +110,7 @@ struct FLootLockerCatalogItemAndQuantityPair
  * 
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
-struct  FLootLockerPurchaseCatalogItemRequest
+struct FLootLockerPurchaseCatalogItemRequest
 {
     GENERATED_BODY()
     /**
@@ -120,6 +123,72 @@ struct  FLootLockerPurchaseCatalogItemRequest
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerCatalogItemAndQuantityPair> Items;
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerRedeemAppleAppStorePurchaseForPlayerRequest
+{
+    GENERATED_BODY()
+    /**
+     * Whether or not to use the app store sandbox for this redemption
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool Sandboxed = false;
+    /**
+     * The id of the transaction successfully made towards the Apple App Store
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Transaction_id;
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerRedeemAppleAppStorePurchaseForCharacterRequest : public FLootLockerRedeemAppleAppStorePurchaseForPlayerRequest
+{
+    GENERATED_BODY()
+    /**
+     * The id of the character to redeem this transaction for
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int Character_id;
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerRedeemGooglePlayStorePurchaseForPlayerRequest
+{
+    GENERATED_BODY()
+    /**
+     * The id of the product that this redemption refers to
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Product_id;
+    /**
+     * The token from the purchase successfully made towards the Google Play Store
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Purchase_token;
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerRedeemGooglePlayStorePurchaseForCharacterRequest : public FLootLockerRedeemGooglePlayStorePurchaseForPlayerRequest
+{
+    GENERATED_BODY()
+    /**
+     * The id of the character to redeem this purchase for
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int Character_id;
 };
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPurchaseResponseDelegateBP, FLootLockerPurchaseResponse, Response);
@@ -149,6 +218,14 @@ public:
     static void GetOrderDetails(int32 OrderId, const bool noProducts = false, const FOrderStatusDetailsBP& OnCompleteBP = FOrderStatusDetailsBP(), const FOrderStatusDetailsDelegate& OnComplete = FOrderStatusDetailsDelegate());
 
     static void PurchaseCatalogItems(const FString& WalletID, const TArray<FLootLockerCatalogItemAndQuantityPair>& ItemsToPurchase, const FLootLockerDefaultResponseBP& OnCompletedBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
+
+    static void RedeemAppleAppStorePurchaseForPlayer(const FString& TransactionId, const bool Sandboxed = false, const FLootLockerDefaultResponseBP& OnCompletedBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
+
+	static void RedeemAppleAppStorePurchaseForCharacter(const int CharacterId, const FString& TransactionId, const bool Sandboxed = false, const FLootLockerDefaultResponseBP& OnCompletedBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
+
+    static void RedeemGooglePlayStorePurchaseForPlayer(const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
+
+    static void RedeemGooglePlayStorePurchaseForCharacter(const int CharacterId, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
 
 public:
     ULootLockerPurchasesRequestHandler();
