@@ -1682,6 +1682,44 @@ public:
      */
     static void LootLockerPurchaseCatalogItems(const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair> ItemsToPurchase, const FLootLockerDefaultDelegate& OnCompletedRequest);
 
+    /**
+     * Redeem a purchase that was made successfully towards the Apple App Store for the current player
+     *
+     * @param TransactionId The id of the transaction successfully made towards the Apple App Store
+     * @param Sandboxed Optional: Should this redemption be made towards sandbox App Store
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    static void RedeemAppleAppStorePurchaseForPlayer(const FString& TransactionId, const FLootLockerDefaultDelegate& OnCompletedRequest, bool Sandboxed = false);
+
+    /**
+     * Redeem a purchase that was made successfully towards the Apple App Store for the current player
+     *
+     * @param TransactionId The id of the transaction successfully made towards the Apple App Store
+     * @param CharacterId The id of the character to redeem this transaction for
+     * @param Sandboxed Optional: Should this redemption be made towards sandbox App Store
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    static void RedeemAppleAppStorePurchaseForCharacter(const int CharacterId, const FString& TransactionId, const FLootLockerDefaultDelegate& OnCompletedRequest, bool Sandboxed = false);
+
+    /**
+     * Redeem a purchase that was made successfully towards the Google Play Store for the current player
+     *
+     * @param ProductId The id of the product that this redemption refers to
+     * @param PurchaseToken The token from the purchase successfully made towards the Google Play Store
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    static void RedeemGooglePlayStorePurchaseForPlayer(const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultDelegate& OnCompletedRequest);
+
+    /**
+     * Redeem a purchase that was made successfully towards the Google Play Store for a character that the current player owns
+     *
+     * @param CharacterId The id of the character to redeem this purchase for
+     * @param ProductId The id of the product that this redemption refers to
+     * @param PurchaseToken The token from the purchase successfully made towards the Google Play Store
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    static void RedeemGooglePlayStorePurchaseForCharacter(const int CharacterId, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultDelegate& OnCompletedRequest);
+
     //==================================================
     //Trigger Events
     // https://ref.lootlocker.com/game-api/#trigger-events
