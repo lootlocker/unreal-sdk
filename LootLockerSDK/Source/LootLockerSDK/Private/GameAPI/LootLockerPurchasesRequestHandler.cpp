@@ -53,3 +53,31 @@ void ULootLockerPurchasesRequestHandler::PurchaseCatalogItems(const FString& Wal
 {
     LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerPurchaseCatalogItemRequest{ WalletID, ItemsToPurchase }, ULootLockerGameEndpoints::PurchaseCatalogItem, {}, {}, OnCompletedBP, OnCompleted);
 }
+
+void ULootLockerPurchasesRequestHandler::RedeemAppleAppStorePurchaseForPlayer(const FString& TransactionId, const bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
+{
+    LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerRedeemAppleAppStorePurchaseForPlayerRequest{ Sandboxed, TransactionId }, ULootLockerGameEndpoints::RedeemAppleAppStorePurchase, {}, {}, OnCompletedBP, OnCompleted);
+}
+
+void ULootLockerPurchasesRequestHandler::RedeemAppleAppStorePurchaseForCharacter(const int CharacterId, const FString& TransactionId, const bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
+{
+	FLootLockerRedeemAppleAppStorePurchaseForCharacterRequest PurchaseRequest =FLootLockerRedeemAppleAppStorePurchaseForCharacterRequest();
+    PurchaseRequest.Character_id = CharacterId;
+    PurchaseRequest.Sandboxed = Sandboxed;
+    PurchaseRequest.Transaction_id = TransactionId;
+    LLAPI<FLootLockerResponse>::CallAPI(HttpClient, PurchaseRequest, ULootLockerGameEndpoints::RedeemAppleAppStorePurchase, {}, {}, OnCompletedBP, OnCompleted);
+}
+
+void ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForPlayer(const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
+{
+    LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerRedeemGooglePlayStorePurchaseForPlayerRequest{ ProductId, PurchaseToken }, ULootLockerGameEndpoints::RedeemGooglePlayStorePurchase, {}, {}, OnCompletedBP, OnCompleted);
+}
+
+void ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForCharacter(const int CharacterId, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
+{
+    FLootLockerRedeemGooglePlayStorePurchaseForCharacterRequest PurchaseRequest = FLootLockerRedeemGooglePlayStorePurchaseForCharacterRequest();
+    PurchaseRequest.Character_id = CharacterId;
+    PurchaseRequest.Product_id = ProductId;
+    PurchaseRequest.Purchase_token = PurchaseToken;
+    LLAPI<FLootLockerResponse>::CallAPI(HttpClient, PurchaseRequest, ULootLockerGameEndpoints::RedeemGooglePlayStorePurchase, {}, {}, OnCompletedBP, OnCompleted);
+}

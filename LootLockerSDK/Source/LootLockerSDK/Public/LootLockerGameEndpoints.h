@@ -200,7 +200,10 @@ public:
     static FLootLockerEndPoints PollingOrderStatusEndpoint;
     static FLootLockerEndPoints ActivateRentalAssetEndpoint;
     static FLootLockerEndPoints GetOrderDetailsEndpoint;
+
     static FLootLockerEndPoints PurchaseCatalogItem;
+    static FLootLockerEndPoints RedeemAppleAppStorePurchase;
+    static FLootLockerEndPoints RedeemGooglePlayStorePurchase;
 
     //Trigger Events
     static FLootLockerEndPoints TriggerEventEndpoint;
@@ -253,6 +256,5 @@ public:
     static FLootLockerEndPoints Crashes;
 private:
     static FString GameBaseUrl;
-
     static FLootLockerEndPoints InitEndpoint(const FString& Endpoint, ELootLockerHTTPMethod Method);
 };

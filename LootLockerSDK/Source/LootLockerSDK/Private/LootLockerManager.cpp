@@ -757,6 +757,26 @@ void ULootLockerManager::LootLockerPurchaseCatalogItems(const FString& WalletId,
     ULootLockerPurchasesRequestHandler::PurchaseCatalogItems(WalletId, ItemsToPurchase, OnCompletedRequest);
 }
 
+void ULootLockerManager::RedeemAppleAppStorePurchaseForPlayer(const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+{
+    ULootLockerPurchasesRequestHandler::RedeemAppleAppStorePurchaseForPlayer(TransactionId, Sandboxed, OnCompletedRequest);
+}
+
+void ULootLockerManager::RedeemAppleAppStorePurchaseForCharacter(const int CharacterId, const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+{
+    ULootLockerPurchasesRequestHandler::RedeemAppleAppStorePurchaseForCharacter(CharacterId, TransactionId, Sandboxed, OnCompletedRequest);
+}
+
+void ULootLockerManager::RedeemGooglePlayStorePurchaseForPlayer(const FString& ProductId, const FString& PurchaseToken,	const FLootLockerDefaultResponseBP& OnCompletedRequest)
+{
+    ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForPlayer(ProductId, PurchaseToken, OnCompletedRequest);
+}
+
+void ULootLockerManager::RedeemGooglePlayStorePurchaseForCharacter(const int CharacterId, const FString& ProductId,	const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+{
+    ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForCharacter(CharacterId, ProductId, PurchaseToken, OnCompletedRequest);
+}
+
 void ULootLockerManager::TriggerEvent(const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegateBP& OnTriggerEventCompleted)
 {
     ULootLockerTriggerEventsRequestHandler::TriggerEvent(Event, OnTriggerEventCompleted);
