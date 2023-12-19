@@ -12,6 +12,7 @@ FLootLockerInlinedCatalogEntry::FLootLockerInlinedCatalogEntry(const FLootLocker
 	Entity_kind = Entry.Entity_kind;
 	Entity_name = Entry.Entity_name;
 	Entity_id = Entry.Entity_id;
+	Listings = Entry.Listings;
 	Prices = Entry.Prices;
 	Catalog_listing_id = Entry.Catalog_listing_id;
 	Purchasable = Entry.Purchasable;
