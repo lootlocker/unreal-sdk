@@ -762,9 +762,9 @@ void ULootLockerManager::RedeemAppleAppStorePurchaseForPlayer(const FString& Tra
     ULootLockerPurchasesRequestHandler::RedeemAppleAppStorePurchaseForPlayer(TransactionId, Sandboxed, OnCompletedRequest);
 }
 
-void ULootLockerManager::RedeemAppleAppStorePurchaseForCharacter(const int CharacterId, const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+void ULootLockerManager::RedeemAppleAppStorePurchaseForClass(const int ClassId, const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::RedeemAppleAppStorePurchaseForCharacter(CharacterId, TransactionId, Sandboxed, OnCompletedRequest);
+    ULootLockerPurchasesRequestHandler::RedeemAppleAppStorePurchaseForClass(ClassId, TransactionId, Sandboxed, OnCompletedRequest);
 }
 
 void ULootLockerManager::RedeemGooglePlayStorePurchaseForPlayer(const FString& ProductId, const FString& PurchaseToken,	const FLootLockerDefaultResponseBP& OnCompletedRequest)
@@ -772,9 +772,9 @@ void ULootLockerManager::RedeemGooglePlayStorePurchaseForPlayer(const FString& P
     ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForPlayer(ProductId, PurchaseToken, OnCompletedRequest);
 }
 
-void ULootLockerManager::RedeemGooglePlayStorePurchaseForCharacter(const int CharacterId, const FString& ProductId,	const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+void ULootLockerManager::RedeemGooglePlayStorePurchaseForClass(const int ClassId, const FString& ProductId,	const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForCharacter(CharacterId, ProductId, PurchaseToken, OnCompletedRequest);
+    ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForClass(ClassId, ProductId, PurchaseToken, OnCompletedRequest);
 }
 
 void ULootLockerManager::TriggerEvent(const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegateBP& OnTriggerEventCompleted)
