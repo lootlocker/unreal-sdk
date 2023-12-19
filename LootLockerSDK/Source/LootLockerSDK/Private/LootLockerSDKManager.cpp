@@ -818,9 +818,9 @@ void ULootLockerSDKManager::RedeemAppleAppStorePurchaseForPlayer(const FString& 
     ULootLockerPurchasesRequestHandler::RedeemAppleAppStorePurchaseForPlayer(TransactionId, Sandboxed, FLootLockerDefaultResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::RedeemAppleAppStorePurchaseForCharacter(const int CharacterId, const FString& TransactionId, const FLootLockerDefaultDelegate& OnCompletedRequest, bool Sandboxed)
+void ULootLockerSDKManager::RedeemAppleAppStorePurchaseForClass(const int ClassId, const FString& TransactionId, const FLootLockerDefaultDelegate& OnCompletedRequest, bool Sandboxed)
 {
-    ULootLockerPurchasesRequestHandler::RedeemAppleAppStorePurchaseForCharacter(CharacterId, TransactionId, Sandboxed, FLootLockerDefaultResponseBP(), OnCompletedRequest);
+    ULootLockerPurchasesRequestHandler::RedeemAppleAppStorePurchaseForClass(ClassId, TransactionId, Sandboxed, FLootLockerDefaultResponseBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::RedeemGooglePlayStorePurchaseForPlayer(const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultDelegate& OnCompletedRequest)
@@ -828,9 +828,9 @@ void ULootLockerSDKManager::RedeemGooglePlayStorePurchaseForPlayer(const FString
     ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForPlayer(ProductId, PurchaseToken, FLootLockerDefaultResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::RedeemGooglePlayStorePurchaseForCharacter(const int CharacterId, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultDelegate& OnCompletedRequest)
+void ULootLockerSDKManager::RedeemGooglePlayStorePurchaseForClass(const int ClassId, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultDelegate& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForCharacter(CharacterId, ProductId, PurchaseToken, FLootLockerDefaultResponseBP(), OnCompletedRequest);
+    ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForClass(ClassId, ProductId, PurchaseToken, FLootLockerDefaultResponseBP(), OnCompletedRequest);
 }
 
 //Trigger
