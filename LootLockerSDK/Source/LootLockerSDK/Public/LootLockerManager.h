@@ -1247,7 +1247,7 @@ public:
     * @param AssetRentalOptionID The ID of the rental option you want to grant
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
-    static void GrantAssetToPlayerInventory(const int AssetID, const int AssetVariationID, const int AssetRentalOptionID, const FGrantAssetResponseDelegateBP& OnCompletedRequest);
+    static void GrantAssetWithVariationToPlayerInventory(const int AssetID, const int AssetVariationID, const int AssetRentalOptionID, const FGrantAssetResponseDelegateBP& OnCompletedRequest);
 
     /**
     * Grant an asset to the Player
@@ -1257,7 +1257,7 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
     static void GrantAssetToPlayerInventory(const int AssetID, const FGrantAssetResponseDelegateBP& OnCompletedRequest) {
-        GrantAssetToPlayerInventory(AssetID, 0, 0, OnCompletedRequest);
+        GrantAssetWithVariationToPlayerInventory(AssetID, 0, 0, OnCompletedRequest);
     }
 
     //==================================================
