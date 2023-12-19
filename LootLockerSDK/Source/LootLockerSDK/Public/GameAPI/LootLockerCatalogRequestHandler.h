@@ -103,6 +103,53 @@ struct FLootLockerCatalogEntryPrice
  *
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerCatalogAppleAppStoreListing
+{
+    GENERATED_BODY()
+    /**
+     * The id of the product in Apple App Store that can be purchased and then used to redeem this catalog entry
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Product_id;
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerCatalogGooglePlayStoreListing
+{
+    GENERATED_BODY()
+    /**
+     * The id of the product in Apple App Store that can be purchased and then used to redeem this catalog entry
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Product_id;
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerCatalogEntryListings
+{
+    GENERATED_BODY()
+    /**
+     * The listing information (if configured) for Apple App Store
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerCatalogAppleAppStoreListing Apple_app_store;
+    /**
+     * The listing information (if configured) for Google Play Store
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerCatalogGooglePlayStoreListing Google_play_store;
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerCatalogEntry
 {
     GENERATED_BODY()
@@ -115,6 +162,10 @@ struct FLootLockerCatalogEntry
      * The kind of entity that this entry is. This signifies in which lookup structure to find the details of this entry by using the Catalog_listing_id.
      */
     ELootLockerCatalogEntryEntityKind Entity_kind;
+    /**
+     * All the listings configured for this catalog entry
+     */
+    FLootLockerCatalogEntryListings Listings;
     /**
      * The name of this entity
      */
