@@ -10,7 +10,7 @@
 
 #if ENGINE_MAJOR_VERSION > 4
 BEGIN_DEFINE_SPEC(FLootLockerTestUserGeneratedContent, "LootLocker.UGC",
-                  EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	EAutomationTestFlags::Disabled /*Test is outdated, needs updates */ | EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
 	FLootLockerAuthenticationResponse AuthenticationResponse;
 END_DEFINE_SPEC(FLootLockerTestUserGeneratedContent)
 

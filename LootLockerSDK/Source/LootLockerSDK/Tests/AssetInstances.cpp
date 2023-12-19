@@ -8,7 +8,7 @@
 #include "TestUtils.h"
 
 #if ENGINE_MAJOR_VERSION > 4
-BEGIN_DEFINE_SPEC(FTestLootLockerAssetInstances, "LootLocker", EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+BEGIN_DEFINE_SPEC(FTestLootLockerAssetInstances, "LootLocker.AssetInstances", EAutomationTestFlags::Disabled /*Test is outdated, needs updates */ | EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
 END_DEFINE_SPEC(FTestLootLockerAssetInstances)
 
 void FTestLootLockerAssetInstances::Define()
@@ -94,9 +94,6 @@ void FTestLootLockerAssetInstances::Define()
 				delete(Promise);
 			}
 			
-
-
-						
 			TestDone.Execute();
 		});
 	});

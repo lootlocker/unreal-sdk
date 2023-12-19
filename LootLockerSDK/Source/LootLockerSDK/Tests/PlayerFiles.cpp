@@ -9,7 +9,7 @@
 #include "TestUtils.h"
 
 #if ENGINE_MAJOR_VERSION > 4
-BEGIN_DEFINE_SPEC(FLootLockerTestPlayerFiles, "LootLocker", EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+BEGIN_DEFINE_SPEC(FLootLockerTestPlayerFiles, "LootLocker.Files", EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
 //	FLootLockerAuthenticationResponse AuthenticationResponse;
 END_DEFINE_SPEC(FLootLockerTestPlayerFiles)
 
