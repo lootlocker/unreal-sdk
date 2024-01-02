@@ -83,6 +83,14 @@ namespace LootLockerUtilities
 
     FString ObfuscateString(const FObfuscationDetails& ObfuscationDetail, const FString& StringToObfuscate);
 
+    static bool IsEmptyJsonString(const FString& JsonString)
+    {
+        return JsonString.Equals(FString("{}")) ||
+            JsonString.Equals(FString("{\r\n}")) ||
+            JsonString.Equals(FString("{\n}")) ||
+            JsonString.Equals(FString("{ }"));
+    }
+
     template<typename RequestType>
     static FString UStructToJsonString(RequestType RequestStruct)
     {
@@ -162,7 +170,7 @@ struct LLAPI
         const FString RequestMethod = ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
 #if WITH_EDITOR
         UE_LOG(LogLootLockerGameSDK, Log, TEXT("Request:"));
-        if (!ContentString.IsEmpty() && !IsEmptyJsonString(ContentString)) {
+        if (!ContentString.IsEmpty() && !LootLockerUtilities::IsEmptyJsonString(ContentString)) {
             UE_LOG(LogLootLockerGameSDK, Log, TEXT("ContentString:%s"), *LootLockerUtilities::ObfuscateJsonStringForLogging(ContentString));
         }
         UE_LOG(LogLootLockerGameSDK, Log, TEXT("EndpointWithArguments: %s to %s"), *RequestMethod, *EndpointWithArguments);
@@ -197,14 +205,5 @@ struct LLAPI
 
         // send request
         HttpClient->UploadFile(EndpointWithArguments, RequestMethod, File, AdditionalData, SessionResponse, CustomHeaders);
-    }
-
-private:
-    static bool IsEmptyJsonString(const FString& JsonString)
-    {
-        return JsonString.Equals(FString("{}")) ||
-            JsonString.Equals(FString("{\r\n}")) ||
-            JsonString.Equals(FString("{\n}")) ||
-            JsonString.Equals(FString("{ }"));
     }
 };
