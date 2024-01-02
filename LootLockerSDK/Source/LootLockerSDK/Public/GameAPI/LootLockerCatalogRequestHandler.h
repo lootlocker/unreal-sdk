@@ -161,10 +161,12 @@ struct FLootLockerCatalogEntry
     /**
      * The kind of entity that this entry is. This signifies in which lookup structure to find the details of this entry by using the Catalog_listing_id.
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     ELootLockerCatalogEntryEntityKind Entity_kind;
     /**
      * All the listings configured for this catalog entry
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerCatalogEntryListings Listings;
     /**
      * The name of this entity
@@ -174,6 +176,7 @@ struct FLootLockerCatalogEntry
     /**
      * A list of prices for this catalog entry
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerCatalogEntryPrice> Prices;
     /**
      * The unique id of the entity that this entry refers to.
