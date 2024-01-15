@@ -2,7 +2,10 @@
 
 #pragma once
 
+#include "Runtime/Launch/Resources/Version.h"
+#if ENGINE_MAJOR_VERSION >= 5
 #include <regex>
+#endif
 #include "CoreMinimal.h"
 #include "LootLockerConfig.generated.h"
 
@@ -15,7 +18,11 @@ public:
 	UFUNCTION()
 	static bool IsSemverString(const FString& str)
 	{
+#if ENGINE_MAJOR_VERSION >= 5
 		return std::regex_match(TCHAR_TO_UTF8(*str), SemverPattern);
+#else
+		return true;
+#endif
 	}
 #if WITH_EDITOR
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override
@@ -47,6 +54,8 @@ public:
 	FString DomainKey;
 private:
 	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")
-	bool IsValidGameVersion;
+	bool IsValidGameVersion = true;
+#if ENGINE_MAJOR_VERSION >= 5
 	inline static const std::regex SemverPattern = std::regex("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:\\.(0|[1-9]\\d*))?(?:\\.(0|[1-9]\\d*))?$");
+#endif
 };
