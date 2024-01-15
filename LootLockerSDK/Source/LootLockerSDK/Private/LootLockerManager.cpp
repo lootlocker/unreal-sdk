@@ -145,6 +145,37 @@ void ULootLockerManager::EndSession(const  FLootLockerDefaultResponseBP& OnEndSe
     ULootLockerAuthenticationRequestHandler::EndSession(OnEndSessionRequestCompleted);
 }
 
+//==================================================
+// Connected Accounts
+//==================================================
+void ULootLockerManager::ListConnectedAccounts(const FLootLockerListConnectedAccountsResponseBP& OnCompleteBP)
+{
+    ULootLockerConnectedAccountsRequestHandler::ListConnectedAccounts(OnCompleteBP);
+}
+
+void ULootLockerManager::DisconnectAccount(const ELootLockerAccountProvider AccountToDisconnect, const FLootLockerDefaultResponseBP& OnCompleteBP)
+{
+    ULootLockerConnectedAccountsRequestHandler::DisconnectAccount(AccountToDisconnect, OnCompleteBP);
+}
+
+void ULootLockerManager::ConnectGoogleAccount(const FString& IdToken, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+{
+    ULootLockerConnectedAccountsRequestHandler::ConnectGoogleAccount(IdToken, OnCompleteBP);
+}
+
+void ULootLockerManager::ConnectGoogleAccountWithPlatform(const FString& IdToken, EGoogleAccountProviderPlatform Platform, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+{
+    ULootLockerConnectedAccountsRequestHandler::ConnectGoogleAccount(IdToken, Platform, OnCompleteBP);
+}
+
+void ULootLockerManager::ConnectAppleAccountByRestSignIn(const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+{
+    ULootLockerConnectedAccountsRequestHandler::ConnectAppleAccountByRestSignIn(AuthorizationCode, OnCompleteBP);
+}
+
+//==================================================
+// Remote Sessions
+//==================================================
 FString ULootLockerManager::StartRemoteSession(const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegateBP& OnComplete, float PollingIntervalSeconds, float TimeOutAfterMinutes)
 {
     return ULootLockerRemoteSessionRequestHandler::StartRemoteSession(RemoteSessionLeaseInformation, FLootLockerLeaseRemoteSessionResponseDelegate(), RemoteSessionLeaseStatusUpdate, FLootLockerRemoteSessionStatusPollingResponseDelegate(), OnComplete, FLootLockerStartRemoteSessionResponseDelegate(), PollingIntervalSeconds, TimeOutAfterMinutes);

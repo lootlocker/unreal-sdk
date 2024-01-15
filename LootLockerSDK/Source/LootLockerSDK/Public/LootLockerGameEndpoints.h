@@ -51,6 +51,11 @@ public:
     static FLootLockerEndPoints GuestloginEndpoint;
     static FLootLockerEndPoints MetaSessionEndpoint;
 
+    // Connected Accounts
+    static FLootLockerEndPoints ListConnectedAccountsEndpoint;
+    static FLootLockerEndPoints DisconnectAccountEndpoint;
+    static FLootLockerEndPoints ConnectProviderToAccountEndpoint;
+
     // Remote Sessions
     static FLootLockerEndPoints LeaseRemoteSessionEndpoint;
     static FLootLockerEndPoints StartRemoteSessionEndpoint;
