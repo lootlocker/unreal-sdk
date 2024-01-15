@@ -10,6 +10,7 @@
 #include "GameAPI/LootLockerCatalogRequestHandler.h"
 #include "GameAPI/LootLockerCharacterRequestHandler.h"
 #include "GameAPI/LootLockerCollectablesRequestHandler.h"
+#include "GameAPI/LootLockerConnectedAccountsRequestHandler.h"
 #include "GameAPI/LootLockerCurrencyRequestHandler.h"
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
 #include "GameAPI/LootLockerHeroRequestHandler.h"
@@ -370,6 +371,56 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void EndSession(const FLootLockerDefaultResponseBP& OnEndSessionRequestCompleted);
+
+    //==================================================
+    // Connected Accounts
+    //==================================================
+    /**
+     * List identity providers (like Apple, Google, etc.) that are connected to the currently logged in account
+     *
+     * @param OnCompleteBP Delegate for handling the response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts")
+    static void ListConnectedAccounts(const FLootLockerListConnectedAccountsResponseBP& OnCompleteBP);
+    
+    /**
+     * Disconnect account from the currently logged in account
+     *
+     * Use this to disconnect an account (like a Google or Apple account) that can be used to start sessions for this LootLocker account so that it is no longer allowed to do that
+     *
+     * @param AccountToDisconnect What account to disconnect from this LootLocker Account
+     * @param OnCompleteBP Delegate for handling the response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts")
+    static void DisconnectAccount(const ELootLockerAccountProvider AccountToDisconnect, const FLootLockerDefaultResponseBP& OnCompleteBP);
+
+    /**
+     * Connect a Google Account to the currently logged in LootLocker account allowing that google account to start sessions for this player
+     *
+     * @param IdToken The Id Token from google sign in
+     * @param OnCompleteBP Delegate for handling the response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts")
+    static void ConnectGoogleAccount(const FString& IdToken, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+
+    /**
+     * Connect a Google Account (with a Google Platform specified) to the currently logged in LootLocker account allowing that google account to start sessions for this player
+     *
+     * @param IdToken The Id Token from google sign in
+     * @param Platform Google OAuth2 ClientID platform
+     * @param OnCompleteBP Delegate for handling the response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts")
+    static void ConnectGoogleAccountWithPlatform(const FString& IdToken, EGoogleAccountProviderPlatform Platform, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+
+    /**
+     * Connect an Apple Account (authorized by Rest Sign In) to the currently logged in LootLocker account allowing that google account to start sessions for this player
+     *
+     * @param AuthorizationCode Authorization code, provided by apple during Sign In
+     * @param OnCompleteBP Delegate for handling the response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts")
+    static void ConnectAppleAccountByRestSignIn(const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
 
     //==================================================
     // Remote Sessions
