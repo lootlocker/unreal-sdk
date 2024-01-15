@@ -80,14 +80,6 @@ struct FLootLockerRarity
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerLinks
-{
-    GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString thumbnail;
-};
-
-USTRUCT(BlueprintType)
 struct FLootLockerRentalOption
 {
     GENERATED_BODY()
@@ -102,7 +94,7 @@ struct FLootLockerRentalOption
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString sales_price;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FLootLockerLinks links;
+    TMap<FString, FString> links;
 };
 
 USTRUCT(BlueprintType)
@@ -124,7 +116,7 @@ struct FLootLockerVariation
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString secondary_color;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FLootLockerLinks links;
+    TMap<FString, FString> links;
 };
 
 USTRUCT(BlueprintType)
@@ -198,7 +190,7 @@ struct FLootLockerAsset : public FLootLockerHasKeyValueStorage
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString description;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FLootLockerLinks links;
+    TMap<FString, FString> links;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerRarity rarity;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
