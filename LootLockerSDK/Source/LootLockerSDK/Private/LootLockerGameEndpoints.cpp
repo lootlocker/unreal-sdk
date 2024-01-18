@@ -22,9 +22,9 @@ FLootLockerEndPoints ULootLockerGameEndpoints::RefreshAppleGameCenterSessionEndp
 FLootLockerEndPoints ULootLockerGameEndpoints::MetaSessionEndpoint = InitEndpoint("session/meta", ELootLockerHTTPMethod::POST);
 
 // Connected Accounts
-FLootLockerEndPoints ULootLockerGameEndpoints::ListConnectedAccountsEndpoint = InitEndpoint("connected-accounts", ELootLockerHTTPMethod::GET);
-FLootLockerEndPoints ULootLockerGameEndpoints::DisconnectAccountEndpoint = InitEndpoint("connected-accounts/{0}", ELootLockerHTTPMethod::DELETE);
-FLootLockerEndPoints ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint = InitEndpoint("connected-accounts/{0}", ELootLockerHTTPMethod::PUT);
+FLootLockerEndPoints ULootLockerGameEndpoints::ListConnectedAccountsEndpoint = InitEndpoint("v1/connected-accounts", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::DisconnectAccountEndpoint = InitEndpoint("v1/connected-accounts/{0}", ELootLockerHTTPMethod::DELETE);
+FLootLockerEndPoints ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint = InitEndpoint("v1/connected-accounts/{0}", ELootLockerHTTPMethod::PUT);
 
 // Remote Sessions
 FLootLockerEndPoints ULootLockerGameEndpoints::LeaseRemoteSessionEndpoint = InitEndpoint("session/remote/lease", ELootLockerHTTPMethod::POST);
