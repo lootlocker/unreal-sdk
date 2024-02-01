@@ -7,7 +7,7 @@
 #include "LootLockerHttpClient.h"
 #include "LootLockerResponse.h"
 #include "TimerManager.h"
-#include "Utils/LootLockerUtilities.h"
+#include "LootLockerSDK/Private/Utils/LootLockerUtilities.h"
 #include "LootLockerRemoteSessionRequestHandler.generated.h"
 
 //==================================================

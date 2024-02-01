@@ -1770,6 +1770,62 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
     static void RedeemGooglePlayStorePurchaseForClass(const int ClassId, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
+    /**
+     * Begin a Steam purchase with the given settings that when finalized will redeem the specified catalog item
+     *
+     * Steam in-app purchases need to be configured for this to work
+     * Steam in-app purchases works slightly different from other platforms, you begin a purchase with this call which initiates it in Steams backend
+     * While your app is waiting for the user to finalize that purchase you can use QuerySteamPurchaseRedemptionStatus to get the status, when that tells you that the purchase is Approved you can finalize the purchase using FinalizeSteamPurchaseRedemption
+     *
+     * @param SteamId Id of the Steam User that is making the purchase
+     * @param Currency The currency to use for the purchase
+     * @param Language The language to use for the purchase
+     * @param CatalogItemId The LootLocker Catalog Item Id for the item you wish to purchase
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
+    static void BeginSteamPurchaseRedemption(const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest);
+
+	/**
+     * Begin a Steam purchase with the given settings that when finalized will redeem the specified catalog item for the specified class
+     *
+     * Steam in-app purchases need to be configured for this to work
+     * Steam in-app purchases works slightly different from other platforms, you begin a purchase with this call which initiates it in Steams backend
+     * While your app is waiting for the user to finalize that purchase you can use QuerySteamPurchaseRedemptionStatus to get the status, when that tells you that the purchase is Approved you can finalize the purchase using FinalizeSteamPurchaseRedemption
+     *
+     * @param ClassId Id of the class to make the purchase for
+     * @param SteamId Id of the Steam User that is making the purchase
+     * @param Currency The currency to use for the purchase
+     * @param Language The language to use for the purchase
+     * @param CatalogItemId The LootLocker Catalog Item Id for the item you wish to purchase
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
+    static void BeginSteamPurchaseRedemptionForClass(const int ClassId, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest);
+
+    /**
+     * Check the Steam Purchase status for a given entitlement
+     *
+     * Use this to check the status of an ongoing purchase to know when it's ready to finalize or has been aborted
+     * or use this to get information for a completed purchase
+     *
+     * @param EntitlementId The id of the entitlement to check the status for
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
+    static void QuerySteamPurchaseRedemptionStatus(const FString& EntitlementId, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegateBP& OnCompletedRequest);
+
+    /**
+     * Finalize a started Steam Purchase and subsequently redeem the catalog items that the entitlement refers to
+     *
+     * The steam purchase needs to be in status Approved for this call to work
+     *
+     * @param EntitlementId The id of the entitlement to finalize the purchase for
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
+    static void FinalizeSteamPurchaseRedemption(const FString& EntitlementId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+
     //==================================================
     //Trigger Events
     // https://ref.lootlocker.com/game-api/#trigger-events
