@@ -210,6 +210,10 @@ public:
     static FLootLockerEndPoints RedeemAppleAppStorePurchase;
     static FLootLockerEndPoints RedeemGooglePlayStorePurchase;
 
+    static FLootLockerEndPoints BeginSteamPurchaseRedemption;
+    static FLootLockerEndPoints QuerySteamPurchaseRedemptionStatus;
+    static FLootLockerEndPoints FinalizeSteamPurchaseRedemption;
+
     //Trigger Events
     static FLootLockerEndPoints TriggerEventEndpoint;
     static FLootLockerEndPoints GetTriggeredEventsEndpoint;

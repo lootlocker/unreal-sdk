@@ -808,6 +808,26 @@ void ULootLockerManager::RedeemGooglePlayStorePurchaseForClass(const int ClassId
     ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForClass(ClassId, ProductId, PurchaseToken, OnCompletedRequest);
 }
 
+void ULootLockerManager::BeginSteamPurchaseRedemption(const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest)
+{
+    ULootLockerPurchasesRequestHandler::BeginSteamPurchaseRedemption(SteamId, Currency, Language, CatalogItemId, OnCompletedRequest);
+}
+
+void ULootLockerManager::BeginSteamPurchaseRedemptionForClass(const int ClassId, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest)
+{
+    ULootLockerPurchasesRequestHandler::BeginSteamPurchaseRedemptionForClass(ClassId, SteamId, Currency, Language, CatalogItemId, OnCompletedRequest);
+}
+
+void ULootLockerManager::QuerySteamPurchaseRedemptionStatus(const FString& EntitlementId, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegateBP& OnCompletedRequest)
+{
+    ULootLockerPurchasesRequestHandler::QuerySteamPurchaseRedemptionStatus(EntitlementId, OnCompletedRequest);
+}
+
+void ULootLockerManager::FinalizeSteamPurchaseRedemption(const FString& EntitlementId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+{
+    ULootLockerPurchasesRequestHandler::FinalizeSteamPurchaseRedemption(EntitlementId, OnCompletedRequest);
+}
+
 void ULootLockerManager::TriggerEvent(const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegateBP& OnTriggerEventCompleted)
 {
     ULootLockerTriggerEventsRequestHandler::TriggerEvent(Event, OnTriggerEventCompleted);
