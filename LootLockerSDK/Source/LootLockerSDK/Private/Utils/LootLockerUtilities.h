@@ -22,9 +22,9 @@ struct FObfuscationDetails
 {
     FString key;
     FString replacementChar;
-    int visibleCharsFromBeginning;
-    int visibleCharsFromEnd;
-    bool hideCharactersForShortStrings;
+    int visibleCharsFromBeginning = 0;
+    int visibleCharsFromEnd = 0;
+    bool hideCharactersForShortStrings = false;
 
     FObfuscationDetails(FString Key, FString ReplacementChar, int VisibleCharsFromBeginning, int VisibleCharsFromEnd, bool HideCharactersForShortStrings)
         : key(Key), replacementChar(ReplacementChar), visibleCharsFromBeginning(VisibleCharsFromBeginning),

@@ -71,7 +71,7 @@ struct FLootLockerCatalogEntryPrice
      * The amount (cost) set for this price
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int Amount;
+    int Amount = 0;
     /**
      * A prettified version of the amount to use for display
      */
@@ -162,7 +162,7 @@ struct FLootLockerCatalogEntry
      * The kind of entity that this entry is. This signifies in which lookup structure to find the details of this entry by using the Catalog_listing_id.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    ELootLockerCatalogEntryEntityKind Entity_kind;
+    ELootLockerCatalogEntryEntityKind Entity_kind = ELootLockerCatalogEntryEntityKind::Asset;
     /**
      * All the listings configured for this catalog entry
      */
@@ -192,7 +192,7 @@ struct FLootLockerCatalogEntry
      * Whether this entry is currently purchasable
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool Purchasable;
+    bool Purchasable = false;
 };
 
 /**
@@ -221,7 +221,7 @@ struct FLootLockerAssetDetails
      * The legacy id of this asset
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int Legacy_id;
+    int Legacy_id = 0;
     /**
      * The unique identifying id of this asset.
      */
@@ -261,7 +261,7 @@ struct FLootLockerProgressionPointDetails
      * The amount of points to be added to the progression in question
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int Amount;
+    int Amount = 0;
     /**
      * The unique id of the progression that this refers to
      */
