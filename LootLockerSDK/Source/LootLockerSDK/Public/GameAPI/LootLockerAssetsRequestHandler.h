@@ -348,12 +348,12 @@ struct FLootLockerAssetBone {
 USTRUCT(BlueprintType)
 struct FLootLockerGrantAssetRequest {
     GENERATED_BODY()
-        UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        int asset_id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        int asset_variation_id;
+    int asset_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        int asset_rental_option_id;
+    int asset_variation_id = 0;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int asset_rental_option_id = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -376,18 +376,18 @@ USTRUCT(BlueprintType)
 struct FLootLockerGrantAssetResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
-        UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        int id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        int asset_id;
+    int id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        int asset_variation_id;
+    int asset_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString asset_ulid;
+    int asset_variation_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString acquisition_source;
+    FString asset_ulid;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString acquisition_date;
+    FString acquisition_source;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString acquisition_date;
 };
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FContextDelegateBP, FLootLockerGetContextResponse, ContextsResponse);

@@ -166,7 +166,7 @@ struct FLootLockerGetWalletResponse : public FLootLockerResponse
      * The type of entity that holds this wallet
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    ELootLockerWalletHolderTypes type;
+    ELootLockerWalletHolderTypes type = ELootLockerWalletHolderTypes::player;
 };
 
 /**
