@@ -155,7 +155,7 @@ struct FLootLockerRedeemAppleAppStorePurchaseForClassRequest : public FLootLocke
      * The id of the class to redeem this transaction for
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int Class_id;
+    int Class_id = 0;
 };
 
 /**
@@ -188,7 +188,7 @@ struct FLootLockerRedeemGooglePlayStorePurchaseForClassRequest : public FLootLoc
      * The id of the class to redeem this purchase for
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int Class_id;
+    int Class_id = 0;
 };
 
 /**
@@ -248,7 +248,7 @@ struct FLootLockerBeginSteamPurchaseRedemptionForClassRequest : public FLootLock
      * Id of the class to make the purchase for
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int Class_id;
+    int Class_id = 0;
 };
 
 /**
@@ -262,7 +262,7 @@ struct FLootLockerBeginSteamPurchaseRedemptionResponse : public FLootLockerRespo
      * Was the purchase redemption process started successfully
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool isSuccess;
+    bool isSuccess = false;
     /**
      * The id of the entitlement this purchase relates to
      */
