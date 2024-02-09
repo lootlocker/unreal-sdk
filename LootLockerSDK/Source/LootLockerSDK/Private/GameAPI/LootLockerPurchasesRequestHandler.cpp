@@ -103,14 +103,13 @@ void ULootLockerPurchasesRequestHandler::BeginSteamPurchaseRedemption(const FStr
 
 void ULootLockerPurchasesRequestHandler::BeginSteamPurchaseRedemptionForClass(const int ClassId, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedBP, const FLootLockerBeginSteamPurchaseRedemptionDelegate& OnCompleted)
 {
-    const FLootLockerBeginSteamPurchaseRedemptionForClassRequest PurchaseRequest = FLootLockerBeginSteamPurchaseRedemptionForClassRequest{
-        SteamId,
-        Currency,
-        Language,
-        CatalogItemId,
-        ClassId
-    };
-    FString JsonString = LootLockerUtilities::UStructToJsonString(PurchaseRequest);
+    FLootLockerBeginSteamPurchaseRedemptionForClassRequest PurchaseRequest;
+	PurchaseRequest.Steam_id = SteamId;
+	PurchaseRequest.Currency = Currency;
+	PurchaseRequest.Language = Language;
+	PurchaseRequest.Catalog_item_id = CatalogItemId;
+	PurchaseRequest.Class_id = ClassId;
+	FString JsonString = LootLockerUtilities::UStructToJsonString(PurchaseRequest);
     JsonString.ReplaceInline(TEXT("Class_id"), TEXT("character_id"), ESearchCase::IgnoreCase);
     LLAPI<FLootLockerBeginSteamPurchaseRedemptionResponse>::CallAPIUsingRawJSON(HttpClient, JsonString, ULootLockerGameEndpoints::BeginSteamPurchaseRedemption, {}, {}, OnCompletedBP, OnCompleted, LLAPI<FLootLockerBeginSteamPurchaseRedemptionResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerBeginSteamPurchaseRedemptionResponse& Response)
     {
