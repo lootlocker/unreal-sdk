@@ -1720,6 +1720,15 @@ public:
     static void GetOrderDetails(int32 OrderId, const bool NoProducts, const FOrderStatusDetailsDelegate& OnCompletedRequest);
 
     /**
+     * Purchase one catalog item using a specified wallet
+     *
+     * @param WalletId The id of the wallet to use for the purchase
+     * @param CatalogItemListingId The unique listing id of the catalog item to purchase
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    static void LootLockerPurchaseSingleCatalogItem(const FString& WalletId, const FString& CatalogItemListingId, const FLootLockerDefaultDelegate& OnCompletedRequest);
+
+    /**
      * Purchase one or more catalog items using a specified wallet
      * 
      * @param WalletId The id of the wallet to use for the purchase
