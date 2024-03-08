@@ -10,6 +10,7 @@
 #include "GameAPI/LootLockerCatalogRequestHandler.h"
 #include "GameAPI/LootLockerCharacterRequestHandler.h"
 #include "GameAPI/LootLockerCollectablesRequestHandler.h"
+#include "GameAPI/LootLockerConnectedAccountsRequestHandler.h"
 #include "GameAPI/LootLockerCurrencyRequestHandler.h"
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
 #include "GameAPI/LootLockerHeroRequestHandler.h"
@@ -370,6 +371,56 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void EndSession(const FLootLockerDefaultResponseBP& OnEndSessionRequestCompleted);
+
+    //==================================================
+    // Connected Accounts
+    //==================================================
+    /**
+     * List identity providers (like Apple, Google, etc.) that are connected to the currently logged in account
+     *
+     * @param OnCompleteBP Delegate for handling the response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts")
+    static void ListConnectedAccounts(const FLootLockerListConnectedAccountsResponseBP& OnCompleteBP);
+    
+    /**
+     * Disconnect account from the currently logged in account
+     *
+     * Use this to disconnect an account (like a Google or Apple account) that can be used to start sessions for this LootLocker account so that it is no longer allowed to do that
+     *
+     * @param AccountToDisconnect What account to disconnect from this LootLocker Account
+     * @param OnCompleteBP Delegate for handling the response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts")
+    static void DisconnectAccount(const ELootLockerAccountProvider AccountToDisconnect, const FLootLockerDefaultResponseBP& OnCompleteBP);
+
+    /**
+     * Connect a Google Account to the currently logged in LootLocker account allowing that google account to start sessions for this player
+     *
+     * @param IdToken The Id Token from google sign in
+     * @param OnCompleteBP Delegate for handling the response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts")
+    static void ConnectGoogleAccount(const FString& IdToken, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+
+    /**
+     * Connect a Google Account (with a Google Platform specified) to the currently logged in LootLocker account allowing that google account to start sessions for this player
+     *
+     * @param IdToken The Id Token from google sign in
+     * @param Platform Google OAuth2 ClientID platform
+     * @param OnCompleteBP Delegate for handling the response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts")
+    static void ConnectGoogleAccountWithPlatform(const FString& IdToken, EGoogleAccountProviderPlatform Platform, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+
+    /**
+     * Connect an Apple Account (authorized by Rest Sign In) to the currently logged in LootLocker account allowing that google account to start sessions for this player
+     *
+     * @param AuthorizationCode Authorization code, provided by apple during Sign In
+     * @param OnCompleteBP Delegate for handling the response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts")
+    static void ConnectAppleAccountByRestSignIn(const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
 
     //==================================================
     // Remote Sessions
@@ -1238,6 +1289,28 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
 	static void GetUniversalAssets(int After, int ItemsCount, const FUniversalAssetResponseDelegateBP &OnCompletedRequest);
 
+    /**
+    * Grant an asset to the Player
+    * https://ref.lootlocker.com/game-api/#grant-an-asset-to-the-player
+    *
+    * @param AssetID asset ID to be granted.
+    * @param AssetVariationID The ID of the Asset Variation you want to grant
+    * @param AssetRentalOptionID The ID of the rental option you want to grant
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
+    static void GrantAssetWithVariationToPlayerInventory(const int AssetID, const int AssetVariationID, const int AssetRentalOptionID, const FGrantAssetResponseDelegateBP& OnCompletedRequest);
+
+    /**
+    * Grant an asset to the Player
+    * https://ref.lootlocker.com/game-api/#grant-an-asset-to-the-player
+    *
+    * @param AssetID asset ID to be granted.
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets")
+    static void GrantAssetToPlayerInventory(const int AssetID, const FGrantAssetResponseDelegateBP& OnCompletedRequest) {
+        GrantAssetWithVariationToPlayerInventory(AssetID, 0, 0, OnCompletedRequest);
+    }
+
     //==================================================
     //Asset Instances
     //==================================================
@@ -1328,6 +1401,16 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
     static void OpenLootBox(int AssetInstanceId, const FOpenLootBoxResponseDelegateBP& OnOpenLootBoxCompleted);
+
+    /**
+    * Delete an Asset Instance permanently from a Player's Inventory.
+    * https://ref.lootlocker.com/game-api/#remove-an-asset-from-the-player-inventory
+    *
+    * @param AssetInstanceID asset instance ID.
+    * @param OnCompleted Delegate for handling the server response.
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances")
+    static void DeleteAssetInstanceFromPlayerInventory(int AssetInstanceID, const FDeleteAssetInstanceResponseDelegateBP& OnCompleted);
 
     //==================================================
     //User Generated Content
@@ -1636,6 +1719,16 @@ public:
     static void GetOrderDetails(int32 OrderId, const bool NoProducts, const FOrderStatusDetailsBP& OnCompleteBP);
 
     /**
+     * Purchase one catalog item using a specified wallet
+     *
+     * @param WalletId The id of the wallet to use for the purchase
+     * @param CatalogItemListingId The unique listing id of the catalog item to purchase
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
+    static void LootLockerPurchaseSingleCatalogItem(const FString& WalletId, const FString& CatalogItemListingId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+
+    /**
      * Purchase one or more catalog items using a specified wallet
      *
      * @param WalletId The id of the wallet to use for the purchase
@@ -1644,6 +1737,104 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
     static void LootLockerPurchaseCatalogItems(const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair> ItemsToPurchase, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+
+    /**
+     * Redeem a purchase that was made successfully towards the Apple App Store for the current player
+     *
+     * @param TransactionId The id of the transaction successfully made towards the Apple App Store
+     * @param Sandboxed Optional: Should this redemption be made towards sandbox App Store
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "Sandboxed", Sandboxed = false))
+    static void RedeemAppleAppStorePurchaseForPlayer(const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+
+    /**
+     * Redeem a purchase that was made successfully towards the Apple App Store for a class that the current player owns
+     *
+     * @param TransactionId The id of the transaction successfully made towards the Apple App Store
+     * @param ClassId The id of the class to redeem this transaction for
+     * @param Sandboxed Optional: Should this redemption be made towards sandbox App Store
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "Sandboxed", Sandboxed = false))
+    static void RedeemAppleAppStorePurchaseForClass(const int ClassId, const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+
+    /**
+     * Redeem a purchase that was made successfully towards the Google Play Store for the current player
+     *
+     * @param ProductId The id of the product that this redemption refers to
+     * @param PurchaseToken The token from the purchase successfully made towards the Google Play Store
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
+    static void RedeemGooglePlayStorePurchaseForPlayer(const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+
+    /**
+     * Redeem a purchase that was made successfully towards the Google Play Store for a class that the current player owns
+     *
+     * @param ClassId The id of the class to redeem this purchase for
+     * @param ProductId The id of the product that this redemption refers to
+     * @param PurchaseToken The token from the purchase successfully made towards the Google Play Store
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
+    static void RedeemGooglePlayStorePurchaseForClass(const int ClassId, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+
+    /**
+     * Begin a Steam purchase with the given settings that when finalized will redeem the specified catalog item
+     *
+     * Steam in-app purchases need to be configured for this to work
+     * Steam in-app purchases works slightly different from other platforms, you begin a purchase with this call which initiates it in Steams backend
+     * While your app is waiting for the user to finalize that purchase you can use QuerySteamPurchaseRedemptionStatus to get the status, when that tells you that the purchase is Approved you can finalize the purchase using FinalizeSteamPurchaseRedemption
+     *
+     * @param SteamId Id of the Steam User that is making the purchase
+     * @param Currency The currency to use for the purchase
+     * @param Language The language to use for the purchase
+     * @param CatalogItemId The LootLocker Catalog Item Id for the item you wish to purchase
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
+    static void BeginSteamPurchaseRedemption(const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest);
+
+	/**
+     * Begin a Steam purchase with the given settings that when finalized will redeem the specified catalog item for the specified class
+     *
+     * Steam in-app purchases need to be configured for this to work
+     * Steam in-app purchases works slightly different from other platforms, you begin a purchase with this call which initiates it in Steams backend
+     * While your app is waiting for the user to finalize that purchase you can use QuerySteamPurchaseRedemptionStatus to get the status, when that tells you that the purchase is Approved you can finalize the purchase using FinalizeSteamPurchaseRedemption
+     *
+     * @param ClassId Id of the class to make the purchase for
+     * @param SteamId Id of the Steam User that is making the purchase
+     * @param Currency The currency to use for the purchase
+     * @param Language The language to use for the purchase
+     * @param CatalogItemId The LootLocker Catalog Item Id for the item you wish to purchase
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
+    static void BeginSteamPurchaseRedemptionForClass(const int ClassId, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest);
+
+    /**
+     * Check the Steam Purchase status for a given entitlement
+     *
+     * Use this to check the status of an ongoing purchase to know when it's ready to finalize or has been aborted
+     * or use this to get information for a completed purchase
+     *
+     * @param EntitlementId The id of the entitlement to check the status for
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
+    static void QuerySteamPurchaseRedemptionStatus(const FString& EntitlementId, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegateBP& OnCompletedRequest);
+
+    /**
+     * Finalize a started Steam Purchase and subsequently redeem the catalog items that the entitlement refers to
+     *
+     * The steam purchase needs to be in status Approved for this call to work
+     *
+     * @param EntitlementId The id of the entitlement to finalize the purchase for
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
+    static void FinalizeSteamPurchaseRedemption(const FString& EntitlementId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     //==================================================
     //Trigger Events

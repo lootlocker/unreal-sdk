@@ -21,6 +21,11 @@ FLootLockerEndPoints ULootLockerGameEndpoints::StartAppleGameCenterSessionEndpoi
 FLootLockerEndPoints ULootLockerGameEndpoints::RefreshAppleGameCenterSessionEndpoint = InitEndpoint("session/apple/game-center", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::MetaSessionEndpoint = InitEndpoint("session/meta", ELootLockerHTTPMethod::POST);
 
+// Connected Accounts
+FLootLockerEndPoints ULootLockerGameEndpoints::ListConnectedAccountsEndpoint = InitEndpoint("v1/connected-accounts", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::DisconnectAccountEndpoint = InitEndpoint("v1/connected-accounts/{0}", ELootLockerHTTPMethod::DELETE);
+FLootLockerEndPoints ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint = InitEndpoint("v1/connected-accounts/{0}", ELootLockerHTTPMethod::PUT);
+
 // Remote Sessions
 FLootLockerEndPoints ULootLockerGameEndpoints::LeaseRemoteSessionEndpoint = InitEndpoint("session/remote/lease", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::StartRemoteSessionEndpoint = InitEndpoint("session/remote", ELootLockerHTTPMethod::POST);
@@ -122,6 +127,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::GetAssetBonesEndpoint = InitEndpo
 FLootLockerEndPoints ULootLockerGameEndpoints::GetFavouriteAssetIndicesEndpoint = InitEndpoint("v1/asset/favourites", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::AddAssetToFavouritesEndpoint = InitEndpoint("v1/asset/{0}/favourite", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::RemoveAssetFromFavouritesEndpoint = InitEndpoint("v1/asset/{0}/favourite", ELootLockerHTTPMethod::DELETE);
+FLootLockerEndPoints ULootLockerGameEndpoints::GrantAssetToPlayerInventory = InitEndpoint("player/inventory/grant", ELootLockerHTTPMethod::POST);
 
 //Asset Instances
 FLootLockerEndPoints ULootLockerGameEndpoints::GetAllKeyValuePairsForAssetInstance = InitEndpoint("v1/asset/instance/{0}/storage", ELootLockerHTTPMethod::GET);
@@ -133,6 +139,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::UpdateAKeyValuePairByIdForAssetIn
 FLootLockerEndPoints ULootLockerGameEndpoints::DeleteAKeyValuePairByIdForAssetInstanceEndpoint = InitEndpoint("v1/asset/instance/{0}/storage/{1}", ELootLockerHTTPMethod::DELETE);
 FLootLockerEndPoints ULootLockerGameEndpoints::InspectLootBoxEndpoint = InitEndpoint("v1/asset/instance/{0}/inspect", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::OpenLootBoxEndpoint = InitEndpoint("v1/asset/instance/{0}/open", ELootLockerHTTPMethod::PUT);
+FLootLockerEndPoints ULootLockerGameEndpoints::DeleteAssetInstanceFromPlayerInventory = InitEndpoint("player/inventory/{0}", ELootLockerHTTPMethod::POST);
 
 FLootLockerEndPoints ULootLockerGameEndpoints::GetAllInstanceProgressions = InitEndpoint("player/assets/instances/{0}/progressions", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetSingleInstanceProgression = InitEndpoint("player/assets/instances/{0}/progressions/{1}", ELootLockerHTTPMethod::GET);
@@ -166,7 +173,14 @@ FLootLockerEndPoints ULootLockerGameEndpoints::AndroidPurchaseEndpoint = InitEnd
 FLootLockerEndPoints ULootLockerGameEndpoints::PollingOrderStatusEndpoint = InitEndpoint("v1/purchase/{0}", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::ActivateRentalAssetEndpoint = InitEndpoint("v1/asset/instance/{0}/activate", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetOrderDetailsEndpoint = InitEndpoint("v1/purchase/{0}/details", ELootLockerHTTPMethod::GET);
+
 FLootLockerEndPoints ULootLockerGameEndpoints::PurchaseCatalogItem = InitEndpoint("purchase", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::RedeemAppleAppStorePurchase = InitEndpoint("store/apple/redeem", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::RedeemGooglePlayStorePurchase = InitEndpoint("store/google/redeem", ELootLockerHTTPMethod::POST);
+
+FLootLockerEndPoints ULootLockerGameEndpoints::BeginSteamPurchaseRedemption = InitEndpoint("store/steam/redeem/begin", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::QuerySteamPurchaseRedemptionStatus = InitEndpoint("store/steam/redeem/query", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::FinalizeSteamPurchaseRedemption = InitEndpoint("store/steam/redeem/finalise", ELootLockerHTTPMethod::POST);
 
 //Trigger Events
 FLootLockerEndPoints ULootLockerGameEndpoints::TriggerEventEndpoint = InitEndpoint("v1/player/trigger", ELootLockerHTTPMethod::POST);

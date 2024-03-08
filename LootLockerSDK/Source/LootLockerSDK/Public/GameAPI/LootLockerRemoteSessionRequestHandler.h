@@ -7,7 +7,7 @@
 #include "LootLockerHttpClient.h"
 #include "LootLockerResponse.h"
 #include "TimerManager.h"
-#include "Utils/LootLockerUtilities.h"
+#include "LootLockerSDK/Private/Utils/LootLockerUtilities.h"
 #include "LootLockerRemoteSessionRequestHandler.generated.h"
 
 //==================================================
@@ -128,7 +128,7 @@ struct FLootLockerLeaseRemoteSessionResponse : public FLootLockerResponse
      * The status of this lease process
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    ELootLockerRemoteSessionLeaseStatus Status;
+    ELootLockerRemoteSessionLeaseStatus Status = ELootLockerRemoteSessionLeaseStatus::Created;
 };
 
 /**
@@ -142,7 +142,7 @@ struct FLootLockerRemoteSessionStatusPollingResponse : public FLootLockerRespons
      * The current status of this lease process.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    ELootLockerRemoteSessionLeaseStatus Lease_status;
+    ELootLockerRemoteSessionLeaseStatus Lease_status = ELootLockerRemoteSessionLeaseStatus::Created;
 };
 
 /**
@@ -156,7 +156,21 @@ struct FLootLockerStartRemoteSessionResponse : public FLootLockerAuthenticationR
      * The current status of this lease process. If this is not of the status Authorized, the rest of the fields in this object will be empty.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    ELootLockerRemoteSessionLeaseStatus Lease_Status;
+    ELootLockerRemoteSessionLeaseStatus Lease_Status = ELootLockerRemoteSessionLeaseStatus::Created;
+    /**
+     * A refresh token that can be used to refresh the remote session instead of signing in each time the session token expires
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Refresh_token;
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerRefreshRemoteSessionResponse : public FLootLockerAuthenticationResponse
+{
+    GENERATED_BODY()
     /**
      * A refresh token that can be used to refresh the remote session instead of signing in each time the session token expires
      */

@@ -51,6 +51,11 @@ public:
     static FLootLockerEndPoints GuestloginEndpoint;
     static FLootLockerEndPoints MetaSessionEndpoint;
 
+    // Connected Accounts
+    static FLootLockerEndPoints ListConnectedAccountsEndpoint;
+    static FLootLockerEndPoints DisconnectAccountEndpoint;
+    static FLootLockerEndPoints ConnectProviderToAccountEndpoint;
+
     // Remote Sessions
     static FLootLockerEndPoints LeaseRemoteSessionEndpoint;
     static FLootLockerEndPoints StartRemoteSessionEndpoint;
@@ -153,6 +158,7 @@ public:
     static FLootLockerEndPoints AddAssetToFavouritesEndpoint;
     static FLootLockerEndPoints RemoveAssetFromFavouritesEndpoint;
     static FLootLockerEndPoints GetUniversalAssetsEndpoint;
+    static FLootLockerEndPoints GrantAssetToPlayerInventory;
 
     //Asset Instances
     static FLootLockerEndPoints GetAllKeyValuePairsForAssetInstance;
@@ -164,6 +170,7 @@ public:
     static FLootLockerEndPoints DeleteAKeyValuePairByIdForAssetInstanceEndpoint;
     static FLootLockerEndPoints InspectLootBoxEndpoint;
     static FLootLockerEndPoints OpenLootBoxEndpoint;
+    static FLootLockerEndPoints DeleteAssetInstanceFromPlayerInventory;
 
     //Instance Progressions
     static FLootLockerEndPoints GetAllInstanceProgressions;
@@ -198,7 +205,14 @@ public:
     static FLootLockerEndPoints PollingOrderStatusEndpoint;
     static FLootLockerEndPoints ActivateRentalAssetEndpoint;
     static FLootLockerEndPoints GetOrderDetailsEndpoint;
+
     static FLootLockerEndPoints PurchaseCatalogItem;
+    static FLootLockerEndPoints RedeemAppleAppStorePurchase;
+    static FLootLockerEndPoints RedeemGooglePlayStorePurchase;
+
+    static FLootLockerEndPoints BeginSteamPurchaseRedemption;
+    static FLootLockerEndPoints QuerySteamPurchaseRedemptionStatus;
+    static FLootLockerEndPoints FinalizeSteamPurchaseRedemption;
 
     //Trigger Events
     static FLootLockerEndPoints TriggerEventEndpoint;
@@ -251,6 +265,5 @@ public:
     static FLootLockerEndPoints Crashes;
 private:
     static FString GameBaseUrl;
-
     static FLootLockerEndPoints InitEndpoint(const FString& Endpoint, ELootLockerHTTPMethod Method);
 };

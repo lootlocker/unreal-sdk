@@ -22,9 +22,9 @@ struct FObfuscationDetails
 {
     FString key;
     FString replacementChar;
-    int visibleCharsFromBeginning;
-    int visibleCharsFromEnd;
-    bool hideCharactersForShortStrings;
+    int visibleCharsFromBeginning = 0;
+    int visibleCharsFromEnd = 0;
+    bool hideCharactersForShortStrings = false;
 
     FObfuscationDetails(FString Key, FString ReplacementChar, int VisibleCharsFromBeginning, int VisibleCharsFromEnd, bool HideCharactersForShortStrings)
         : key(Key), replacementChar(ReplacementChar), visibleCharsFromBeginning(VisibleCharsFromBeginning),
@@ -83,6 +83,33 @@ namespace LootLockerUtilities
 
     FString ObfuscateString(const FObfuscationDetails& ObfuscationDetail, const FString& StringToObfuscate);
 
+    static bool IsEmptyJsonString(const FString& JsonString)
+    {
+        return JsonString.Equals(FString("{}")) ||
+            JsonString.Equals(FString("{\r\n}")) ||
+            JsonString.Equals(FString("{\n}")) ||
+            JsonString.Equals(FString("{ }"));
+    }
+
+    template<typename RequestType>
+    static FString UStructToJsonString(RequestType RequestStruct)
+    {
+        FString ContentString;
+#if ENGINE_MAJOR_VERSION < 5
+        FJsonObjectConverter::UStructToJsonObjectString(RequestType::StaticStruct(), &RequestStruct, ContentString, 0, 0);
+        if (IsEmptyJsonString(ContentString))
+        {
+            ContentString = FString();
+        }
+#else
+        if (!std::is_same_v<RequestType, FLootLockerEmptyRequest>)
+        {
+            FJsonObjectConverter::UStructToJsonObjectString(RequestType::StaticStruct(), &RequestStruct, ContentString, 0, 0);
+        }
+#endif
+        return ContentString;
+    }
+
 }
 
 template<typename ResponseType>
@@ -118,20 +145,13 @@ struct LLAPI
     template<typename RequestType, typename BluePrintDelegate , typename CppDelegate>
     static void CallAPI(ULootLockerHttpClient* HttpClient, RequestType RequestStruct, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const FResponseInspectorCallback& ResponseInspectorCallback = LLAPI<ResponseType>::FResponseInspectorCallback::CreateLambda([](const ResponseType& Ignored) {}), TMap<FString, FString> CustomHeaders = TMap<FString, FString>())
     {
-        FString ContentString;
-#if ENGINE_MAJOR_VERSION < 5
-        FJsonObjectConverter::UStructToJsonObjectString(RequestType::StaticStruct(), &RequestStruct, ContentString, 0, 0);
-        if (IsEmptyJsonString(ContentString))
-        {
-            ContentString = FString();
-        }
-#else
-        if (!std::is_same_v<RequestType, FLootLockerEmptyRequest>)
-        {
-            FJsonObjectConverter::UStructToJsonObjectString(RequestType::StaticStruct(), &RequestStruct, ContentString, 0, 0);
-        }
-#endif
-        
+        FString ContentString = LootLockerUtilities::UStructToJsonString(RequestStruct);
+        LLAPI<ResponseType>::CallAPIUsingRawJSON(HttpClient, ContentString, Endpoint, InOrderedArguments, QueryParams, OnCompletedRequestBP, OnCompletedRequest, ResponseInspectorCallback, CustomHeaders);
+    }
+
+    template<typename BluePrintDelegate, typename CppDelegate>
+    static void CallAPIUsingRawJSON(ULootLockerHttpClient* HttpClient, FString& ContentString, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const FResponseInspectorCallback& ResponseInspectorCallback = LLAPI<ResponseType>::FResponseInspectorCallback::CreateLambda([](const ResponseType& Ignored) {}), TMap<FString, FString> CustomHeaders = TMap<FString, FString>())
+    {
         // calculate endpoint
         const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
         FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, FStringFormatNamedArguments{ {"domainKey", Config && !Config->DomainKey.IsEmpty() ? Config->DomainKey + "." : ""} });
@@ -150,7 +170,7 @@ struct LLAPI
         const FString RequestMethod = ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
 #if WITH_EDITOR
         UE_LOG(LogLootLockerGameSDK, Log, TEXT("Request:"));
-        if (!ContentString.IsEmpty() && !IsEmptyJsonString(ContentString)) {
+        if (!ContentString.IsEmpty() && !LootLockerUtilities::IsEmptyJsonString(ContentString)) {
             UE_LOG(LogLootLockerGameSDK, Log, TEXT("ContentString:%s"), *LootLockerUtilities::ObfuscateJsonStringForLogging(ContentString));
         }
         UE_LOG(LogLootLockerGameSDK, Log, TEXT("EndpointWithArguments: %s to %s"), *RequestMethod, *EndpointWithArguments);
@@ -185,43 +205,5 @@ struct LLAPI
 
         // send request
         HttpClient->UploadFile(EndpointWithArguments, RequestMethod, File, AdditionalData, SessionResponse, CustomHeaders);
-    }
-
-    template<typename BluePrintDelegate , typename CppDelegate>
-    static void CallAPIUsingRawJSON(ULootLockerHttpClient* HttpClient, FString& ContentString, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const FResponseInspectorCallback& ResponseInspectorCallback = LLAPI<ResponseType>::FResponseInspectorCallback::CreateLambda([](const ResponseType& Ignored) {}), TMap<FString, FString> CustomHeaders = TMap<FString, FString>())
-    {
-        
-        // calculate endpoint
-        const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
-        FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, FStringFormatNamedArguments{ {"domainKey", Config && !Config->DomainKey.IsEmpty() ? Config->DomainKey + "." : ""} });
-        EndpointWithArguments = FString::Format(*EndpointWithArguments, InOrderedArguments);
-
-        if (QueryParams.Num() != 0)
-        {
-            FString Delimiter = "?";
-            for (const TPair<FString, FString>& Pair : QueryParams)
-            {
-                EndpointWithArguments = EndpointWithArguments + Delimiter + Pair.Key + "=" + Pair.Value;
-                Delimiter = "&";
-            }
-        }
-        
-        const FString RequestMethod = ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
-        CustomHeaders.Add(TEXT("x-session-token"), ULootLockerStateData::GetToken());
-
-        // create callback lambda
-        const FResponseCallback SessionResponse = CreateLambda<BluePrintDelegate, CppDelegate>(OnCompletedRequestBP, OnCompletedRequest, ResponseInspectorCallback);
-    
-        // send request
-        HttpClient->SendApi(EndpointWithArguments, RequestMethod, ContentString, SessionResponse, CustomHeaders);
-    }
-
-private:
-    static bool IsEmptyJsonString(const FString& JsonString)
-    {
-        return JsonString.Equals(FString("{}")) ||
-            JsonString.Equals(FString("{\r\n}")) ||
-            JsonString.Equals(FString("{\n}")) ||
-            JsonString.Equals(FString("{ }"));
     }
 };

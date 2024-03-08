@@ -8,7 +8,7 @@
 #include "TestUtils.h"
 
 #if ENGINE_MAJOR_VERSION > 4
-BEGIN_DEFINE_SPEC(FTestLootLockerAssets, "LootLocker", EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+BEGIN_DEFINE_SPEC(FTestLootLockerAssets, "LootLocker.Assets", EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
 END_DEFINE_SPEC(FTestLootLockerAssets)
 
 void FTestLootLockerAssets::Define()

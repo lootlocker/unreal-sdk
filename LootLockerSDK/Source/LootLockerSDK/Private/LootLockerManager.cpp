@@ -145,6 +145,37 @@ void ULootLockerManager::EndSession(const  FLootLockerDefaultResponseBP& OnEndSe
     ULootLockerAuthenticationRequestHandler::EndSession(OnEndSessionRequestCompleted);
 }
 
+//==================================================
+// Connected Accounts
+//==================================================
+void ULootLockerManager::ListConnectedAccounts(const FLootLockerListConnectedAccountsResponseBP& OnCompleteBP)
+{
+    ULootLockerConnectedAccountsRequestHandler::ListConnectedAccounts(OnCompleteBP);
+}
+
+void ULootLockerManager::DisconnectAccount(const ELootLockerAccountProvider AccountToDisconnect, const FLootLockerDefaultResponseBP& OnCompleteBP)
+{
+    ULootLockerConnectedAccountsRequestHandler::DisconnectAccount(AccountToDisconnect, OnCompleteBP);
+}
+
+void ULootLockerManager::ConnectGoogleAccount(const FString& IdToken, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+{
+    ULootLockerConnectedAccountsRequestHandler::ConnectGoogleAccount(IdToken, OnCompleteBP);
+}
+
+void ULootLockerManager::ConnectGoogleAccountWithPlatform(const FString& IdToken, EGoogleAccountProviderPlatform Platform, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+{
+    ULootLockerConnectedAccountsRequestHandler::ConnectGoogleAccount(IdToken, Platform, OnCompleteBP);
+}
+
+void ULootLockerManager::ConnectAppleAccountByRestSignIn(const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+{
+    ULootLockerConnectedAccountsRequestHandler::ConnectAppleAccountByRestSignIn(AuthorizationCode, OnCompleteBP);
+}
+
+//==================================================
+// Remote Sessions
+//==================================================
 FString ULootLockerManager::StartRemoteSession(const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegateBP& OnComplete, float PollingIntervalSeconds, float TimeOutAfterMinutes)
 {
     return ULootLockerRemoteSessionRequestHandler::StartRemoteSession(RemoteSessionLeaseInformation, FLootLockerLeaseRemoteSessionResponseDelegate(), RemoteSessionLeaseStatusUpdate, FLootLockerRemoteSessionStatusPollingResponseDelegate(), OnComplete, FLootLockerStartRemoteSessionResponseDelegate(), PollingIntervalSeconds, TimeOutAfterMinutes);
@@ -563,6 +594,10 @@ void ULootLockerManager::GetUniversalAssets(int After, int ItemsCount, const FUn
     ULootLockerAssetsRequestHandler::GetUniversalAssets(After, ItemsCount, OnCompletedRequest);
 }
 
+void ULootLockerManager::GrantAssetWithVariationToPlayerInventory(const int AssetID, const int AssetVariationID, const int AssetRentalOptionID, const FGrantAssetResponseDelegateBP& OnCompletedRequest)
+{
+    ULootLockerAssetsRequestHandler::GrantAssetToPlayerInventory(AssetID, AssetVariationID, AssetRentalOptionID, OnCompletedRequest);
+}
 
 void ULootLockerManager::GetAllKeyValuePairsForAssetInstance(int AssetInstanceId, const  FAssetInstanceStorageItemsResponseDelegateBP& OnGetAllKeyValuePairsForAssetInstanceCompleted)
 {
@@ -602,6 +637,11 @@ void ULootLockerManager::InspectLootBox(int AssetInstanceId, const  FLootBoxCont
 void ULootLockerManager::OpenLootBox(int AssetInstanceId, const  FOpenLootBoxResponseDelegateBP& OnOpenLootBoxCompleted)
 {
     ULootLockerAssetInstancesRequestHandler::OpenLootBox(AssetInstanceId, OnOpenLootBoxCompleted);
+}
+
+void ULootLockerManager::DeleteAssetInstanceFromPlayerInventory(int AssetInstanceID, const FDeleteAssetInstanceResponseDelegateBP& OnCompleted)
+{
+    ULootLockerAssetInstancesRequestHandler::DeleteAssetInstanceFromPlayerInventory(AssetInstanceID, OnCompleted);
 }
 
 void ULootLockerManager::CreateAssetCandidate(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted)
@@ -743,9 +783,54 @@ void ULootLockerManager::GetOrderDetails(int32 OrderId, const bool NoProducts, c
 	ULootLockerPurchasesRequestHandler::GetOrderDetails(OrderId, NoProducts, OnCompleteBP, FOrderStatusDetailsDelegate());
 }
 
+void ULootLockerManager::LootLockerPurchaseSingleCatalogItem(const FString& WalletId, const FString& CatalogItemListingId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+{
+    LootLockerPurchaseCatalogItems(WalletId, { { CatalogItemListingId, 1 } }, OnCompletedRequest);
+}
+
 void ULootLockerManager::LootLockerPurchaseCatalogItems(const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair> ItemsToPurchase, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
     ULootLockerPurchasesRequestHandler::PurchaseCatalogItems(WalletId, ItemsToPurchase, OnCompletedRequest);
+}
+
+void ULootLockerManager::RedeemAppleAppStorePurchaseForPlayer(const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+{
+    ULootLockerPurchasesRequestHandler::RedeemAppleAppStorePurchaseForPlayer(TransactionId, Sandboxed, OnCompletedRequest);
+}
+
+void ULootLockerManager::RedeemAppleAppStorePurchaseForClass(const int ClassId, const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+{
+    ULootLockerPurchasesRequestHandler::RedeemAppleAppStorePurchaseForClass(ClassId, TransactionId, Sandboxed, OnCompletedRequest);
+}
+
+void ULootLockerManager::RedeemGooglePlayStorePurchaseForPlayer(const FString& ProductId, const FString& PurchaseToken,	const FLootLockerDefaultResponseBP& OnCompletedRequest)
+{
+    ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForPlayer(ProductId, PurchaseToken, OnCompletedRequest);
+}
+
+void ULootLockerManager::RedeemGooglePlayStorePurchaseForClass(const int ClassId, const FString& ProductId,	const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+{
+    ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForClass(ClassId, ProductId, PurchaseToken, OnCompletedRequest);
+}
+
+void ULootLockerManager::BeginSteamPurchaseRedemption(const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest)
+{
+    ULootLockerPurchasesRequestHandler::BeginSteamPurchaseRedemption(SteamId, Currency, Language, CatalogItemId, OnCompletedRequest);
+}
+
+void ULootLockerManager::BeginSteamPurchaseRedemptionForClass(const int ClassId, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest)
+{
+    ULootLockerPurchasesRequestHandler::BeginSteamPurchaseRedemptionForClass(ClassId, SteamId, Currency, Language, CatalogItemId, OnCompletedRequest);
+}
+
+void ULootLockerManager::QuerySteamPurchaseRedemptionStatus(const FString& EntitlementId, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegateBP& OnCompletedRequest)
+{
+    ULootLockerPurchasesRequestHandler::QuerySteamPurchaseRedemptionStatus(EntitlementId, OnCompletedRequest);
+}
+
+void ULootLockerManager::FinalizeSteamPurchaseRedemption(const FString& EntitlementId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+{
+    ULootLockerPurchasesRequestHandler::FinalizeSteamPurchaseRedemption(EntitlementId, OnCompletedRequest);
 }
 
 void ULootLockerManager::TriggerEvent(const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegateBP& OnTriggerEventCompleted)

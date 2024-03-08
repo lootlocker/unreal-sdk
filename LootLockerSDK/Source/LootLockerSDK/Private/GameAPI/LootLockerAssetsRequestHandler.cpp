@@ -109,3 +109,13 @@ void ULootLockerAssetsRequestHandler::GetUniversalAssets(const int After, const 
     }
     LLAPI<FLootLockerUniversalAssetsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetUniversalAssetsEndpoint, {}, QueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
+
+void ULootLockerAssetsRequestHandler::GrantAssetToPlayerInventory(const int assetID, const int assetVariationID, const int assetRentalOptionID, const FGrantAssetResponseDelegateBP& OnCompletedRequestBP, const FGrantAssetResponseDelegate& OnCompletedRequest)
+{
+    FLootLockerGrantAssetRequest request;
+    request.asset_id = assetID;
+    request.asset_variation_id = assetVariationID;
+    request.asset_rental_option_id = assetRentalOptionID;
+
+    LLAPI<FLootLockerGrantAssetResponse>::CallAPI(HttpClient, request, ULootLockerGameEndpoints::GrantAssetToPlayerInventory, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+}
