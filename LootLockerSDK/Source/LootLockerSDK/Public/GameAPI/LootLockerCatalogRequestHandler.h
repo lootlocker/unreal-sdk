@@ -131,6 +131,44 @@ struct FLootLockerCatalogGooglePlayStoreListing
  *
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerCatalogSteamStoreListingPrice
+{
+    GENERATED_BODY()
+    /**
+     * Currency code of the currency to be used for purchasing this listing
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Currency;
+    /**
+     * Amount of the base value of the specified currency that this listing costs to purchase
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int amount;
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerCatalogSteamStoreListing
+{
+    GENERATED_BODY()
+    /**
+     * Description of this listing
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Description;
+    /**
+     * List of prices for this listing
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerCatalogSteamStoreListingPrice> Prices;
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerCatalogEntryListings
 {
     GENERATED_BODY()
@@ -144,6 +182,11 @@ struct FLootLockerCatalogEntryListings
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerCatalogGooglePlayStoreListing Google_play_store;
+    /**
+     * The listing information (if configured) for Steam Store
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerCatalogSteamStoreListing Steam_store;
 };
 
 /**
