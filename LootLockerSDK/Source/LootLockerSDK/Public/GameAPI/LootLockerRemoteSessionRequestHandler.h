@@ -178,20 +178,6 @@ struct FLootLockerRefreshRemoteSessionResponse : public FLootLockerAuthenticatio
     FString Refresh_token;
 };
 
-/**
- *
- */
-USTRUCT(BlueprintType, Category = "LootLocker")
-struct FLootLockerRefreshRemoteSessionResponse : public FLootLockerAuthenticationResponse
-{
-    GENERATED_BODY()
-    /**
-     * A refresh token that can be used to refresh the remote session instead of signing in each time the session token expires
-     */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Refresh_token;
-};
-
 
 //==================================================
 // Blueprint Delegate Definitions
