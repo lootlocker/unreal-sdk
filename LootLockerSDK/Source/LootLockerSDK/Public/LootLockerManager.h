@@ -1662,7 +1662,7 @@ public:
      * @param PurchaseData Data about the assets to be purchased.
      * @param OnPurchaseAssetsCompleted Delegate for handling the server response.
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (DeprecatedFunction, DeprecationMessage = "This purchasing system has been replaced with our new IAP system and will be removed at a later stage. Read more here: https://docs.lootlocker.com/content/in-app-purchases"))
     static void PurchaseAssets(const TArray<FLootLockerAssetPurchaseData>& PurchaseData, const FPurchaseResponseDelegateBP& OnPurchaseAssetsCompleted);
 
     /**
@@ -1672,7 +1672,7 @@ public:
      * @param PurchaseData Data about the assets to be purchased.
      * @param OnPurchaseAssetsAndroidCompleted Delegate for handling the server response.
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (DeprecatedFunction, DeprecationMessage = "This purchasing system has been replaced with our new IAP system and will be removed at a later stage. Read more here: https://docs.lootlocker.com/content/in-app-purchases"))
     static void PurchaseAssetsAndroid(const TArray<FLootLockerAndroidAssetPurchaseData>& PurchaseData, const  FPurchaseResponseDelegateBP& OnPurchaseAssetsAndroidCompleted);
 
     /**
@@ -1682,7 +1682,7 @@ public:
      * @param PurchaseData data about the assets to be purchased.
      * @param OnPurchaseAssetsIOSCompleted Delegate for handling the server response.
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (DeprecatedFunction, DeprecationMessage = "This purchasing system has been replaced with our new IAP system and will be removed at a later stage. Read more here: https://docs.lootlocker.com/content/in-app-purchases"))
     static void PurchaseAssetsIOS(const TArray<FLootLockerVerifyPurchaseIosData>& PurchaseData, const FPurchaseResponseDelegateBP& OnPurchaseAssetsIOSCompleted);
 
     /**
@@ -1693,7 +1693,7 @@ public:
      * @param PurchaseId ID of the purchase order.
      * @param OnPollingStatusCompleted Delegate for handling the server response.
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (DeprecatedFunction, DeprecationMessage = "This purchasing system has been replaced with our new IAP system and will be removed at a later stage. Read more here: https://docs.lootlocker.com/content/in-app-purchases"))
     static  void PollingOrderStatus(int PurchaseId, const FPurchaseStatusResponseDelegateBP& OnPollingStatusCompleted);
 
     /**
@@ -1715,7 +1715,7 @@ public:
      * @param NoProducts Set to true if you do not want products in the order returned in the response.
      * @param OnCompleteBP Delegate for handling the server response.
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (DeprecatedFunction, DeprecationMessage = "This purchasing system has been replaced with our new IAP system and will be removed at a later stage. Read more here: https://docs.lootlocker.com/content/in-app-purchases"))
     static void GetOrderDetails(int32 OrderId, const bool NoProducts, const FOrderStatusDetailsBP& OnCompleteBP);
 
     /**

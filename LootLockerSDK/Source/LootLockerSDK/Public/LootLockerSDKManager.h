@@ -1669,6 +1669,7 @@ public:
      * @param PurchaseData Data about the assets to be purchased.
      * @param OnCompletedRequest Delegate for handling the server response.
      */
+    [[deprecated("This purchasing system has been replaced with our new IAP system and will be removed at a later stage. Read more here: https://docs.lootlocker.com/content/in-app-purchases")]]
     static void PurchaseAssets(const TArray<FLootLockerAssetPurchaseData>& PurchaseData, const FPurchaseResponseDelegate& OnCompletedRequest);
 
     /**
@@ -1678,6 +1679,7 @@ public:
      * @param PurchaseData Data about the assets to be purchased.
      * @param OnCompletedRequest Delegate for handling the server response.
      */
+    [[deprecated("This purchasing system has been replaced with our new IAP system and will be removed at a later stage. Read more here: https://docs.lootlocker.com/content/in-app-purchases")]]
     static void PurchaseAssetsAndroid(const TArray<FLootLockerAndroidAssetPurchaseData>& PurchaseData, const FPurchaseResponseDelegate& OnCompletedRequest);
 
     /**
@@ -1687,6 +1689,7 @@ public:
      * @param PurchaseData data about the assets to be purchased.
      * @param OnCompletedRequest Delegate for handling the server response.
      */
+    [[deprecated("This purchasing system has been replaced with our new IAP system and will be removed at a later stage. Read more here: https://docs.lootlocker.com/content/in-app-purchases")]]
     static void PurchaseAssetsIOS(const TArray<FLootLockerVerifyPurchaseIosData>& PurchaseData, const FPurchaseResponseDelegate& OnCompletedRequest);
 
     /**
@@ -1697,6 +1700,7 @@ public:
      * @param PurchaseId ID of the purchase order.
      * @param OnCompletedRequest Delegate for handling the server response.
      */
+    [[deprecated("This purchasing system has been replaced with our new IAP system and will be removed at a later stage. Read more here: https://docs.lootlocker.com/content/in-app-purchases")]]
     static void PollingOrderStatus(int PurchaseId, const FPurchaseStatusResponseDelegate& OnCompletedRequest);
 
     /**
@@ -1717,6 +1721,7 @@ public:
      * @param NoProducts Set to true if you do not want products in the order returned in the response.
      * @param OnCompletedRequest Delegate for handling the server response.
      */
+    [[deprecated("This purchasing system has been replaced with our new IAP system and will be removed at a later stage. Read more here: https://docs.lootlocker.com/content/in-app-purchases")]]
     static void GetOrderDetails(int32 OrderId, const bool NoProducts, const FOrderStatusDetailsDelegate& OnCompletedRequest);
 
     /**
