@@ -143,7 +143,7 @@ struct FLootLockerCatalogSteamStoreListingPrice
      * Amount of the base value of the specified currency that this listing costs to purchase
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int amount;
+    int amount = 0;
 };
 
 /**
