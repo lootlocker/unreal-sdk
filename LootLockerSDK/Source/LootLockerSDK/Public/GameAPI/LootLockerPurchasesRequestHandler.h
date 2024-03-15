@@ -205,7 +205,8 @@ enum class ELootLockerSteamPurchaseRedemptionStatus : uint8
     PartialRefund = 5,
     ChargedBack = 6,
     RefundedSuspectedFraud = 7,
-    RefundedFriendlyFraud = 8
+    RefundedFriendlyFraud = 8,
+    Uninitialized = 9
 };
 
 /**
@@ -295,7 +296,7 @@ struct FLootLockerQuerySteamPurchaseRedemptionStatusResponse : public FLootLocke
      * The status of the steam purchase
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    ELootLockerSteamPurchaseRedemptionStatus Status;
+    ELootLockerSteamPurchaseRedemptionStatus Status = ELootLockerSteamPurchaseRedemptionStatus::Uninitialized;
 };
 
 /**
