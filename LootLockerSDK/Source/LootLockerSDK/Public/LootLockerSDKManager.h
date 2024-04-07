@@ -71,7 +71,19 @@ public:
     static void StartAmazonLunaSession(const FString& AmazonLunaGuid, const FLootLockerSessionResponse& OnCompletedRequest);
 
     /**
+     * Verify a Steam user and then start a session for that user
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * https://ref.lootlocker.io/game-api/#authentication-request
+     *
+     * @param SteamId64 The Steam 64 bit Id as an FString
+     * @param PlatformToken Platform-specific token.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
+    static void VerifyPlayerAndStartSteamSession(const FString& SteamId64, const FString& PlatformToken, const FLootLockerSessionResponse& OnCompletedRequest);
+
+    /**
      * Start a session for a Steam user
+     * Note: Steam requires that you verify the player before starting a steam session. See the method VerifyPlayer
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.
      * https://ref.lootlocker.io/game-api/#authentication-request
      *
