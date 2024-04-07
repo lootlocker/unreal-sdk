@@ -49,6 +49,11 @@ void ULootLockerSDKManager::VerifyPlayerAndStartSteamSession(const FString& Stea
         }));
 }
 
+void ULootLockerSDKManager::StartSteamSessionUsingSubsystem(int LocalUserNumber, const FLootLockerSessionResponse& OnCompletedRequest)
+{
+    ULootLockerAuthenticationRequestHandler::StartSteamSessionUsingSubsystem(LocalUserNumber, FAuthResponseBP(), OnCompletedRequest);
+}
+
 void ULootLockerSDKManager::StartSteamSession(const FString& SteamId64, const FLootLockerSessionResponse& OnCompletedRequest)
 {
     ULootLockerAuthenticationRequestHandler::StartSteamSession(SteamId64, FAuthResponseBP(), OnCompletedRequest);

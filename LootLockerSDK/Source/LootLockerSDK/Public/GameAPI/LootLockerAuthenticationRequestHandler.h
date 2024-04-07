@@ -467,6 +467,8 @@ public:
 	static void RefreshEpicSession(const FString& RefreshToken, const FEpicSessionResponseBP& OnCompletedRequestBP = FEpicSessionResponseBP(), const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest = FLootLockerEpicSessionResponseDelegate());
     static void StartAmazonLunaSession(const FString& AmazonLunaGuid, const FAuthResponseBP& AuthResponseBP = FAuthResponseBP(), const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
     static void StartSteamSession(const FString& SteamId64, const FAuthResponseBP& AuthResponseBP = FAuthResponseBP(), const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
+	static void StartSteamSessionUsingSubsystem(int LocalUserNumber, const FAuthResponseBP& AuthResponseBP = FAuthResponseBP(), const FLootLockerSessionResponse&
+		                              Delegate = FLootLockerSessionResponse());
     static void StartNintendoSwitchSession(const FString& NSAIdToken, const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
 	static void StartXboxSession(const FString& XboxUserToken, const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
 	static void StartAppleSession(const FString& AuthorizationCode, const FAppleSessionResponseBP& OnCompletedRequestBP = FAppleSessionResponseBP(), const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleSessionResponseDelegate());
@@ -478,7 +480,12 @@ public:
 	static void RefreshAppleGameCenterSession(const FString& RefreshToken, const FLootLockerAppleGameCenterSessionResponseBP& OnCompletedRequestBP = FLootLockerAppleGameCenterSessionResponseBP(), const FLootLockerAppleGameCenterSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleGameCenterSessionResponseDelegate());
 	static void StartMetaSession(const FString& UserId, const FString& Nonce, const FLootLockerMetaSessionResponseBP& OnCompletedRequestBP = FLootLockerMetaSessionResponseBP(), const FLootLockerMetaSessionResponseDelegate& OnCompletedRequest = FLootLockerMetaSessionResponseDelegate());
 	static void RefreshMetaSession(const FString& RefreshToken, const FLootLockerMetaSessionResponseBP& OnCompletedRequestBP = FLootLockerMetaSessionResponseBP(), const FLootLockerMetaSessionResponseDelegate& OnCompletedRequest = FLootLockerMetaSessionResponseDelegate());
+
 	static ULootLockerHttpClient* HttpClient;
 private:
 	static TMap<FString, FString> DomainKeyHeaders();
+	static FDelegateHandle SteamLoginDelegateHandle;
+	static void StartSteamSessionSignedIn(int LocalUserNumber, const FAuthResponseBP& BPDelegate, const FLootLockerSessionResponse& CPPDelegate);
+	static void InvokeCallbacksWithErrorResponse(const FString& Message, const FAuthResponseBP& BPDelegate,
+	                                             const FLootLockerSessionResponse& CPPDelegate);
 };

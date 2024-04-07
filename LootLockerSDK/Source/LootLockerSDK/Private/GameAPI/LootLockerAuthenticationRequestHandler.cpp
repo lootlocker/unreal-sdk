@@ -8,8 +8,12 @@
 #include "LootLockerStateData.h"
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
 #include "Utils/LootLockerUtilities.h"
+#include "Interfaces/OnlineIdentityInterface.h"
+#include "OnlineSubsystem.h"
 
 ULootLockerHttpClient* ULootLockerAuthenticationRequestHandler::HttpClient = nullptr;
+FDelegateHandle ULootLockerAuthenticationRequestHandler::SteamLoginDelegateHandle = FDelegateHandle();
+
 // Sets default values for this component's properties
 ULootLockerAuthenticationRequestHandler::ULootLockerAuthenticationRequestHandler()
 {
@@ -364,6 +368,98 @@ void ULootLockerAuthenticationRequestHandler::StartSteamSession(const FString& S
 		}));
 }
 
+void ULootLockerAuthenticationRequestHandler::StartSteamSessionUsingSubsystem(int LocalUserNumber, const FAuthResponseBP& AuthResponseBP, const FLootLockerSessionResponse& Delegate)
+{
+	const IOnlineSubsystem* OnlineSubsystem = IOnlineSubsystem::Get(STEAM_SUBSYSTEM);
+	if (OnlineSubsystem == nullptr || OnlineSubsystem->GetSubsystemName() != STEAM_SUBSYSTEM)
+	{
+		InvokeCallbacksWithErrorResponse("Could not get Steam Online Subsystem", AuthResponseBP, Delegate);
+		return;
+	}
+
+	const IOnlineIdentityPtr IdentityInterface = OnlineSubsystem->GetIdentityInterface();
+	if (IdentityInterface == nullptr || !IdentityInterface.IsValid())
+	{
+		InvokeCallbacksWithErrorResponse("Could not get Steam Online Subsystem Identity Interface", AuthResponseBP, Delegate);
+		return;
+	}
+
+	if(IdentityInterface->GetLoginStatus(LocalUserNumber) == ELoginStatus::LoggedIn)
+	{
+		StartSteamSessionSignedIn(LocalUserNumber, AuthResponseBP, Delegate);
+		return;
+	}
+
+	if(SteamLoginDelegateHandle.IsValid())
+	{
+		InvokeCallbacksWithErrorResponse("Steam Login is already in progress", AuthResponseBP, Delegate);
+		return;
+	}
+
+	SteamLoginDelegateHandle = IdentityInterface->AddOnLoginCompleteDelegate_Handle(
+		LocalUserNumber, FOnLoginCompleteDelegate::CreateLambda(
+			[AuthResponseBP, Delegate](int LocalUserNumber, bool wasSuccessful, const FUniqueNetId& UserId, const FString& Error)
+			{
+				if(!wasSuccessful)
+				{
+					InvokeCallbacksWithErrorResponse(Error, AuthResponseBP, Delegate);
+					return;
+				}
+				StartSteamSessionSignedIn(LocalUserNumber, AuthResponseBP, Delegate);
+			}));
+
+	IdentityInterface->Login(LocalUserNumber, FOnlineAccountCredentials() /*Ignored Parameter*/);
+}
+
+void ULootLockerAuthenticationRequestHandler::StartSteamSessionSignedIn(int LocalUserNumber, const FAuthResponseBP& BPDelegate, const FLootLockerSessionResponse& CPPDelegate)
+{
+	const IOnlineSubsystem* OnlineSubsystem = IOnlineSubsystem::Get(STEAM_SUBSYSTEM);
+	if (OnlineSubsystem == nullptr || OnlineSubsystem->GetSubsystemName() != STEAM_SUBSYSTEM)
+	{
+		InvokeCallbacksWithErrorResponse("Could not get Steam Online Subsystem", BPDelegate, CPPDelegate);
+		return;
+	}
+
+	const IOnlineIdentityPtr IdentityInterface = OnlineSubsystem->GetIdentityInterface();
+	if (IdentityInterface == nullptr || !IdentityInterface.IsValid())
+	{
+		InvokeCallbacksWithErrorResponse("Could not get Steam Online Subsystem Identity Interface", BPDelegate, CPPDelegate);
+		return;
+	}
+
+	const FString IdentityToken = IdentityInterface->GetAuthToken(LocalUserNumber);
+	if(IdentityToken.IsEmpty())
+	{
+		InvokeCallbacksWithErrorResponse("Could not get Steam Identity Token", BPDelegate, CPPDelegate);
+		return;
+	}
+
+	const TSharedPtr<const FUniqueNetId> UniqueIdPtr = IdentityInterface->GetUniquePlayerId(LocalUserNumber);
+	if (!UniqueIdPtr.IsValid())
+	{
+		InvokeCallbacksWithErrorResponse("Could not get Steam Player ID", BPDelegate, CPPDelegate);
+		return;
+	}
+
+	const FString SteamId64 = UniqueIdPtr->ToString();
+
+	VerifyPlayer(IdentityToken, ULootLockerCurrentPlatform::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Steam).AuthenticationProviderString, FLootLockerDefaultResponseBP(), FLootLockerDefaultDelegate::CreateLambda([SteamId64, BPDelegate, CPPDelegate](const FLootLockerResponse& VerifyPlayerResponse)
+	{
+		if (!VerifyPlayerResponse.success)
+		{
+			FLootLockerAuthenticationResponse AuthResponse;
+			AuthResponse.success = VerifyPlayerResponse.success;
+			AuthResponse.FullTextFromServer = VerifyPlayerResponse.FullTextFromServer;
+			AuthResponse.StatusCode = VerifyPlayerResponse.StatusCode;
+			AuthResponse.ErrorData = VerifyPlayerResponse.ErrorData;
+			BPDelegate.ExecuteIfBound(AuthResponse);
+			CPPDelegate.ExecuteIfBound(AuthResponse);
+			return;
+		}
+		StartSteamSession(SteamId64, BPDelegate, CPPDelegate);
+	}));
+}
+
 void ULootLockerAuthenticationRequestHandler::StartNintendoSwitchSession(const FString& NSAIdToken, const FAuthResponseBP& OnCompletedRequestBP, const FLootLockerSessionResponse& OnCompletedRequest)
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
@@ -618,4 +714,14 @@ TMap<FString, FString> ULootLockerAuthenticationRequestHandler::DomainKeyHeaders
 	CustomHeaders.Add(TEXT("domain-key"), Config->DomainKey);
 	CustomHeaders.Add(TEXT("is-development"), Config->LootLockerGameKey.StartsWith("dev_") ? TEXT("true") : TEXT("false"));
 	return CustomHeaders;
+}
+
+void ULootLockerAuthenticationRequestHandler::InvokeCallbacksWithErrorResponse(const FString& Message, const FAuthResponseBP& BPDelegate, const FLootLockerSessionResponse& CPPDelegate)
+{
+	FLootLockerAuthenticationResponse ErrorResponse;
+	ErrorResponse.success = false;
+	ErrorResponse.ErrorData = FLootLockerErrorData{ "", "", "", "", Message };
+	ErrorResponse.FullTextFromServer = Message;
+	BPDelegate.ExecuteIfBound(ErrorResponse);
+	CPPDelegate.ExecuteIfBound(ErrorResponse);
 }

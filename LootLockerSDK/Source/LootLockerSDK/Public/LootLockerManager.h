@@ -85,6 +85,19 @@ public:
     static void VerifyPlayerAndStartSteamSession(const FString& SteamId64, const FString& PlatformToken, const FAuthResponseBP& OnCompletedRequest);
 
     /**
+     * [BETA, this method is beta functionality ] Start a session for a Steam user
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * https://ref.lootlocker.io/game-api/#authentication-request
+     *
+     * NOTE: This requires that you have set up your project for Steam game development: https://dev.epicgames.com/documentation/en-us/unreal-engine/online-subsystem-steam-interface-in-unreal-engine
+     *
+     * @param LocalUserNumber The User Number for whom to start the steam session
+     * @param OnStartedSessionRequestCompleted Delegate for handling the server response.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    static void StartSteamSessionUsingSubsystem(int LocalUserNumber, const FAuthResponseBP& OnStartedSessionRequestCompleted);
+
+    /**
      * Start a session for a Steam user
      * Note: Steam requires that you verify the player before starting a steam session. See the method VerifyPlayer
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.

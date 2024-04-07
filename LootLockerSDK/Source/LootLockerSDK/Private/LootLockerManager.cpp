@@ -16,6 +16,11 @@ void ULootLockerManager::StartAndroidSession(const FString& DeviceId, const FAut
     ULootLockerAuthenticationRequestHandler::StartAndroidSession(DeviceId, OnStartedSessionRequestCompleted);
 }
 
+void ULootLockerManager::StartSteamSessionUsingSubsystem(int LocalUserNumber, const FAuthResponseBP& OnStartedSessionRequestCompleted)
+{
+    ULootLockerAuthenticationRequestHandler::StartSteamSessionUsingSubsystem(LocalUserNumber, OnStartedSessionRequestCompleted);
+}
+
 void ULootLockerManager::StartAmazonLunaSession(const FString& AmazonLunaGuid, const FAuthResponseBP& OnStartedSessionRequestCompleted)
 {
     ULootLockerAuthenticationRequestHandler::StartAmazonLunaSession(AmazonLunaGuid, OnStartedSessionRequestCompleted);
