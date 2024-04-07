@@ -41,8 +41,9 @@ public class LootLockerSDK : ModuleRules
                 "HTTP",
                 "Json",
                 "JsonUtilities",
-                "Projects"
-			}
+                "Projects", 
+                "OnlineSubsystem"
+            }
             );
         DynamicallyLoadedModuleNames.AddRange(
             new string[]
