@@ -3,6 +3,8 @@
 
 #include "LootLockerSDKManager.h"
 
+#include "LootLockerPlatformManager.h"
+
 //Authentication
 void ULootLockerSDKManager::WhiteLabelCreateAccount(const FString &Email, const FString &Password, const FLootLockerLoginResponseDelegate &OnCompletedRequest)
 {
@@ -27,6 +29,24 @@ void ULootLockerSDKManager::StartAndroidSession(const FString& DeviceId, const F
 void ULootLockerSDKManager::StartAmazonLunaSession(const FString& AmazonLunaGuid,const FLootLockerSessionResponse& OnCompletedRequest)
 {
     ULootLockerAuthenticationRequestHandler::StartAmazonLunaSession(AmazonLunaGuid, FAuthResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::VerifyPlayerAndStartSteamSession(const FString& SteamId64, const FString& PlatformToken, const FLootLockerSessionResponse& OnCompletedRequest)
+{
+    ULootLockerAuthenticationRequestHandler::VerifyPlayer(PlatformToken, ULootLockerCurrentPlatform::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Steam).AuthenticationProviderString, FLootLockerDefaultResponseBP(), FLootLockerDefaultDelegate::CreateLambda([SteamId64, OnCompletedRequest](FLootLockerResponse& VerifyPlayerResponse)
+        {
+            if(!VerifyPlayerResponse.success)
+            {
+                FLootLockerAuthenticationResponse AuthResponse;
+                AuthResponse.success = VerifyPlayerResponse.success;
+                AuthResponse.FullTextFromServer = VerifyPlayerResponse.FullTextFromServer;
+                AuthResponse.StatusCode = VerifyPlayerResponse.StatusCode;
+                AuthResponse.ErrorData = VerifyPlayerResponse.ErrorData;
+                OnCompletedRequest.ExecuteIfBound(AuthResponse);
+                return;
+            }
+            StartSteamSession(SteamId64, OnCompletedRequest);
+        }));
 }
 
 void ULootLockerSDKManager::StartSteamSession(const FString& SteamId64, const FLootLockerSessionResponse& OnCompletedRequest)
