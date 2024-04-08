@@ -927,6 +927,21 @@ void ULootLockerManager::SubmitScore(FString MemberId, FString LeaderboardKey, i
     ULootLockerLeaderboardRequestHandler::SubmitScore(SubmitScoreRequest, LeaderboardKey, OnCompletedRequestBP);
 }
 
+void ULootLockerManager::ListLeaderboardArchive(FString LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP)
+{
+    ULootLockerLeaderboardArchiveRequestHandler::ListLeaderboardArchive(LeaderboardKey, OnCompletedRequestBP);
+}
+
+void ULootLockerManager::GetLeaderboardArchive(FString Key, int Count, FString After, const FLootLockerLeaderboardArchiveDetailReponseBP& OnCompletedRequestBP)
+{
+    ULootLockerLeaderboardArchiveRequestHandler::GetLeaderboardArchive(Key, Count, After, OnCompletedRequestBP);
+}
+
+void ULootLockerManager::GetLeaderboardDetails(FString LeaderboardKey, const FLootLockerLeaderboardDetailsResponseBP& OnCompletedRequestBP)
+{
+    ULootLockerLeaderboardRequestHandler::GetLeaderboardDetails(LeaderboardKey, OnCompletedRequestBP);
+}
+
 void ULootLockerManager::ComputeAndLockDropTable(int TableId, const FLootLockerComputeAndLockDropTableResponseBP& OnCompletedRequestBP)
 {
     ULootLockerDropTablesRequestHandler::ComputeAndLockDropTable(TableId, OnCompletedRequestBP);

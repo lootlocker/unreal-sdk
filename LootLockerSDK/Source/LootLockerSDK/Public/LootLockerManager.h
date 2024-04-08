@@ -15,6 +15,7 @@
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
 #include "GameAPI/LootLockerHeroRequestHandler.h"
 #include "GameAPI/LootLockerLeaderboardRequestHandler.h"
+#include "GameAPI/LootLockerLeaderboardArchiveRequestHandler.h"
 #include "GameAPI/LootLockerMapsRequestHandler.h"
 #include "GameAPI/LootLockerMessagesRequestHandler.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
@@ -1989,6 +1990,30 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard")
     static void SubmitScore(FString MemberId, FString LeaderboardKey, int Score, FString Metadata, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP);
 
+    /**
+    * List the archive of a specific Leaderboard,
+    * @param LeaderboardKey the Key of the Leaderboard you want the list of archives
+    * @param OnCompletedRequestBP Delegate for handling the server response
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard")
+    static void ListLeaderboardArchive(FString LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP);
+    
+    /**
+    * Get the specified Archive which includes details such as ranks, scores and rewards.
+    * @param Key the Key of the Leaderboard you want the list of archives
+    * @param OnCompletedRequestBP Delegate for handling the server response
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard")
+    static void GetLeaderboardArchive(FString Key, int Count, FString After, const FLootLockerLeaderboardArchiveDetailReponseBP& OnCompletedRequestBP);
+    
+    /**
+    * Get details on a Leaderboard which contains the schedule, rewards and the details on rewards.
+    * @param LeaderboardKey the Key of the Leaderboard you want the list of archives
+    * @param OnCompletedRequestBP Delegate for handling the server response
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard")
+    static void GetLeaderboardDetails(FString LeaderboardKey, const FLootLockerLeaderboardDetailsResponseBP& OnCompletedRequestBP);
+    
     //==================================================
     //Drop Table
     // https://ref.lootlocker.com/game-api/#drop-tables
