@@ -232,6 +232,9 @@ public:
     static FLootLockerEndPoints GetScoreListAfter;
     static FLootLockerEndPoints SubmitScore;
     static FLootLockerEndPoints GetAllMemberRanks;
+    static FLootLockerEndPoints ListLeaderboardArchive;
+    static FLootLockerEndPoints GetLeaderboardArchive;
+    static FLootLockerEndPoints GetLeaderboardDetails;
 
     //Progressions
     static FLootLockerEndPoints GetAllProgressions;

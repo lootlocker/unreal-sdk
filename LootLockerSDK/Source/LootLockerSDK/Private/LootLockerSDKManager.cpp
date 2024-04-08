@@ -966,6 +966,21 @@ void ULootLockerSDKManager::GetAllMemberRanks(FString MemberId, const int Count,
     ULootLockerLeaderboardRequestHandler::GetAllMemberRanks(GetAllMemberRanksRequest, FLootLockerGetAllMemberRanksResponseBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::ListLeaderboardArchive(FString LeaderboardKey, const FLootLockerLeaderboardArchiveResponseDelegate& OnCompletedRequest)
+{
+    ULootLockerLeaderboardArchiveRequestHandler::ListLeaderboardArchive(LeaderboardKey, FLootLockerLeaderboardArchiveResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::GetLeaderboardArchive(FString Key, int Count, FString After, const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest)
+{
+    ULootLockerLeaderboardArchiveRequestHandler::GetLeaderboardArchive(Key, Count, After, FLootLockerLeaderboardArchiveDetailReponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::GetLeaderboardDetails(FString LeaderboardKey, const FLootLockerLeaderboardDetailsResponseDelegate& OnCompletedRequest)
+{
+    ULootLockerLeaderboardRequestHandler::GetLeaderboardDetails(LeaderboardKey, FLootLockerLeaderboardDetailsResponseBP(), OnCompletedRequest);
+}
+
 // Droptables
 void ULootLockerSDKManager::ComputeAndLockDropTable(const int TableId, const FLootLockerComputeAndLockDropTableResponseDelegate& OnCompletedRequest)
 {
