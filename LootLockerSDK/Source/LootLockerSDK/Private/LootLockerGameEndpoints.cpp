@@ -200,7 +200,9 @@ FLootLockerEndPoints ULootLockerGameEndpoints::GetScoreList = InitEndpoint("lead
 FLootLockerEndPoints ULootLockerGameEndpoints::GetScoreListAfter = InitEndpoint("leaderboards/{0}/list?count={1}&after={2}", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::SubmitScore = InitEndpoint("leaderboards/{0}/submit", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetAllMemberRanks = InitEndpoint("leaderboards/member/{0}", ELootLockerHTTPMethod::GET);
-
+FLootLockerEndPoints ULootLockerGameEndpoints::ListLeaderboardArchive = InitEndpoint("leaderboards/{0}/archive/list", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetLeaderboardArchive = InitEndpoint("leaderboards/archive/read?key={0}&count={1}&after={2}", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetLeaderboardDetails = InitEndpoint("leaderboards/{0}/info", ELootLockerHTTPMethod::GET);
 //Progressions
 FLootLockerEndPoints ULootLockerGameEndpoints::GetAllProgressions = InitEndpoint("progressions", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetSingleProgression = InitEndpoint("progressions/{0}", ELootLockerHTTPMethod::GET);

@@ -15,6 +15,7 @@
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
 #include "GameAPI/LootLockerHeroRequestHandler.h"
 #include "GameAPI/LootLockerLeaderboardRequestHandler.h"
+#include "GameAPI/LootLockerLeaderboardArchiveRequestHandler.h"
 #include "GameAPI/LootLockerMapsRequestHandler.h"
 #include "GameAPI/LootLockerMessagesRequestHandler.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
@@ -1973,7 +1974,28 @@ public:
      * @param OnCompletedRequest Delegate for handling the server response
      */
     static void GetAllMemberRanks(FString MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseDelegate& OnCompletedRequest);
-	
+    
+    /**
+    * List the archive of a specific Leaderboard,
+    * @param LeaderboardKey the Key of the Leaderboard you want the list of archives
+    * @param OnCompletedRequestBP Delegate for handling the server response
+    */
+    static void ListLeaderboardArchive(FString LeaderboardKey, const FLootLockerLeaderboardArchiveResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * Get the specified Archive which includes details such as ranks, scores and rewards.
+    * @param Key the Key of the Leaderboard you want the list of archives
+    * @param OnCompletedRequestBP Delegate for handling the server response
+    */
+    static void GetLeaderboardArchive(FString Key, int Count, FString After, const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest);
+
+    /**
+    * Get details on a Leaderboard which contains the schedule, rewards and the details on rewards.
+    * @param LeaderboardKey the Key of the Leaderboard you want the list of archives
+    * @param OnCompletedRequest Delegate for handling the server response
+    */
+    static void GetLeaderboardDetails(FString LeaderboardKey, const FLootLockerLeaderboardDetailsResponseDelegate& OnCompletedRequest);
+
     //==================================================
     // Drop Table
     // https://ref.lootlocker.com/game-api/#drop-tables
