@@ -73,8 +73,8 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 	Request->SetURL(endPoint);
 
 	Request->SetHeader(TEXT("User-Agent"), UserAgent);
-	Request->SetHeader(TEXT("User-Instance-Identifier"), UserInstanceIdentifier);
-    Request->SetHeader(TEXT("SDK-Version"), SDKVersion);
+	Request->SetHeader(TEXT("LL-Instance-Identifier"), UserInstanceIdentifier);
+    Request->SetHeader(TEXT("LL-SDK-Version"), SDKVersion);
     Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
     Request->SetHeader(TEXT("Accepts"), TEXT("application/json"));
 
@@ -125,8 +125,8 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
     FString Boundary = "lootlockerboundary";
 
 	Request->SetHeader(TEXT("User-Agent"), UserAgent);
-	Request->SetHeader(TEXT("User-Instance-Identifier"), UserInstanceIdentifier);
-    Request->SetHeader(TEXT("SDK-Version"), SDKVersion);
+	Request->SetHeader(TEXT("LL-Instance-Identifier"), UserInstanceIdentifier);
+    Request->SetHeader(TEXT("LL-SDK-Version"), SDKVersion);
 
     Request->SetHeader(TEXT("Content-Type"), TEXT("multipart/form-data; boundary=" + Boundary));
 
