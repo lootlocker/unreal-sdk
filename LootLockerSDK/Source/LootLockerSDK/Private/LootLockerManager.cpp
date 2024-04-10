@@ -23,7 +23,7 @@ void ULootLockerManager::StartAmazonLunaSession(const FString& AmazonLunaGuid, c
 
 void ULootLockerManager::VerifyPlayerAndStartSteamSession(const FString& SteamId64, const FString& PlatformToken, const FAuthResponseBP& OnCompletedRequest)
 {
-    ULootLockerAuthenticationRequestHandler::VerifyPlayer(PlatformToken, ULootLockerCurrentPlatform::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Steam).AuthenticationProviderString,  FLootLockerDefaultResponseBP(), FLootLockerDefaultDelegate::CreateLambda([SteamId64, OnCompletedRequest](FLootLockerResponse& VerifyPlayerResponse)
+    ULootLockerAuthenticationRequestHandler::VerifyPlayer(PlatformToken, ULootLockerCurrentPlatform::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Steam).AuthenticationProviderString,  FLootLockerDefaultResponseBP(), FLootLockerDefaultDelegate::CreateLambda([SteamId64, OnCompletedRequest](FLootLockerResponse VerifyPlayerResponse)
         {
             if (!VerifyPlayerResponse.success)
             {
