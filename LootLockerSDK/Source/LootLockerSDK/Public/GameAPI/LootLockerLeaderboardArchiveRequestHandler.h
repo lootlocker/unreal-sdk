@@ -14,76 +14,75 @@ USTRUCT(BlueprintType)
 struct FLootLockerLeaderboardArchivePlayer
 {
 	GENERATED_BODY()
-		UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		FString name;
+	// The name of the Player.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		FString public_uid;
+	FString name;
+	// The Public UID of the Player.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		int32 id;
+	FString public_uid;
+	// The ID of the Player.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		FString player_ulid;
-
-
+	int32 id;
+	// The ULID of the Player.
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString player_ulid;
 };
 
 USTRUCT(BlueprintType)
 struct FLootLockerLeaderboardArchiveDetails 
 {
 	GENERATED_BODY()
-		UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		FLootLockerLeaderboardArchivePlayer player;
+	// The Player on the archived Leaderboard.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		FString metadata;
+	FLootLockerLeaderboardArchivePlayer player;
+	// Metadata if any was supplied.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		FString member_id;
+	FString metadata;
+	// The Player's member ID on the Archived Leaderboard.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		int32 rank;
+	FString member_id;
+	// The Player's rank on the archived Leaderboard.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		int score;
-};
-
-USTRUCT(BlueprintType)
-struct FLootLockerLeaderboardArchiveRequest
-{
-	GENERATED_BODY()
-		UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		FString key;
+	int32 rank = 0;
+	// The Player's Score on the archived Leaderboard.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		int count;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		FString after;
+	int score = 0;
 };
 
 USTRUCT(BlueprintType)
 struct FLootLockerLeaderboardArchive
 {
 	GENERATED_BODY()
-		UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		FString last_modified;
+	// The date when the archived Leaderboard was modified.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		FString content_type;
+	FString last_modified;
+	// The type of content (application/json).
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		FString key;
+	FString content_type;
+	// The Key which is used to identify a json body of an old Leaderboard.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		int32 content_length;
+	FString key;
+	// Length of the archived Leaderboard.
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	int32 content_length = 0;
 };
 
 USTRUCT(BlueprintType)
 struct FLootLockerLeaderboardArchiveDetailsResponse : public FLootLockerResponse
 {
 	GENERATED_BODY()
-		UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		TArray<FLootLockerLeaderboardArchiveDetails> items;
-
+	// A list of players and details from the archived Leaderboard.
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	TArray<FLootLockerLeaderboardArchiveDetails> items;
 };
 
 USTRUCT(BlueprintType)
 struct FLootLockerLeaderboardArchiveResponse : public FLootLockerResponse
 {
 	GENERATED_BODY()
-		UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		TArray<FLootLockerLeaderboardArchive> archives;
-
+	// A List of past Leaderboards.
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	TArray<FLootLockerLeaderboardArchive> archives;
 };
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerLeaderboardArchiveResponseBP, FLootLockerLeaderboardArchiveResponse, Response);

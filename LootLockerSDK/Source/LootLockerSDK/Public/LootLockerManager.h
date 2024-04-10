@@ -2001,9 +2001,11 @@ public:
     /**
     * Get the specified Archive which includes details such as ranks, scores and rewards.
     * @param Key the Key of the Leaderboard you want the list of archives
+    * @param Count Optional: The count of tiems you want to retrieve.
+    * @param After Optional: Used for pagination, id from which the pagination starts from.
     * @param OnCompletedRequestBP Delegate for handling the server response
     */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "Count,After", Count = -1, After = ""))
     static void GetLeaderboardArchive(FString Key, int Count, FString After, const FLootLockerLeaderboardArchiveDetailReponseBP& OnCompletedRequestBP);
     
     /**
