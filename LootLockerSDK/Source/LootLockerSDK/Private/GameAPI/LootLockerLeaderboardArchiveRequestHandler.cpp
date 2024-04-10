@@ -20,16 +20,17 @@ void ULootLockerLeaderboardArchiveRequestHandler::ListLeaderboardArchive(FString
 void ULootLockerLeaderboardArchiveRequestHandler::GetLeaderboardArchive(FString Key, int Count, FString After, const FLootLockerLeaderboardArchiveDetailReponseBP& OnCompletedRequestBP, const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest)
 {
 
-	FLootLockerLeaderboardArchiveRequest makeRequest;
-	makeRequest.key = Key;
-	if (Count > 0) { 
-		makeRequest.count = Count;
+    TMultiMap<FString,FString> QueryParams;
+
+	if (!Key.IsEmpty()) {
+		QueryParams.Add("key", Key);
 	}
-	if (!After.IsEmpty()) {
-		makeRequest.after = After;
+	if(Count > 0){
+    	QueryParams.Add("count", FString::FromInt(Count));
 	}
-
-	LLAPI<FLootLockerLeaderboardArchiveDetailsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetLeaderboardArchive, { makeRequest.key, makeRequest.count, makeRequest.after  }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
-
-
+	if (!After.IsEmpty())
+	{
+		QueryParams.Add("after", After);
+	}
+	LLAPI<FLootLockerLeaderboardArchiveDetailsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetLeaderboardArchive, { Key }, QueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
