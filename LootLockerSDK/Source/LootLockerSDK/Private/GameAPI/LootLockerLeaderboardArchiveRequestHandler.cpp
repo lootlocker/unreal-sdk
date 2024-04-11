@@ -32,5 +32,5 @@ void ULootLockerLeaderboardArchiveRequestHandler::GetLeaderboardArchive(FString 
 	{
 		QueryParams.Add("after", After);
 	}
-	LLAPI<FLootLockerLeaderboardArchiveDetailsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetLeaderboardArchive, { Key }, QueryParams, OnCompletedRequestBP, OnCompletedRequest);
+	LLAPI<FLootLockerLeaderboardArchiveDetailsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetLeaderboardArchive, { }, QueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
