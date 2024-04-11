@@ -1975,7 +1975,7 @@ public:
     * @param Key the Key of the Leaderboard you want the list of archives
     * @param OnCompletedRequestBP Delegate for handling the server response
     */
-    static void GetLeaderboardArchive(FString Key, int Count, FString After, const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest);
+    static void GetLeaderboardArchive(FString Key, int Count = 0, FString After = "", const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest);
 
     /**
     * Get details on a Leaderboard which contains the schedule, rewards and the details on rewards.
