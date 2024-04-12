@@ -1973,6 +1973,8 @@ public:
     /**
     * Get the specified Archive which includes details such as ranks, scores and rewards.
     * @param Key the Key of the Leaderboard you want the list of archives
+    * @param Count Optional: the count of how many archive entries you want
+    * @param After Optional: cursor for pagination
     * @param OnCompletedRequestBP Delegate for handling the server response
     */
     static void GetLeaderboardArchive(FString Key, int Count = 0, FString After = "", const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest);
