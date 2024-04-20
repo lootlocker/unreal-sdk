@@ -927,17 +927,17 @@ void ULootLockerManager::SubmitScore(FString MemberId, FString LeaderboardKey, i
     ULootLockerLeaderboardRequestHandler::SubmitScore(SubmitScoreRequest, LeaderboardKey, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::ListLeaderboardArchive(FString LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::ListLeaderboardArchive(const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP)
 {
     ULootLockerLeaderboardArchiveRequestHandler::ListLeaderboardArchive(LeaderboardKey, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::GetLeaderboardArchive(FString Key, int Count, FString After, const FLootLockerLeaderboardArchiveDetailReponseBP& OnCompletedRequestBP)
+void ULootLockerManager::GetLeaderboardArchive(const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailReponseBP& OnCompletedRequestBP)
 {
     ULootLockerLeaderboardArchiveRequestHandler::GetLeaderboardArchive(Key, Count, After, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::GetLeaderboardDetails(FString LeaderboardKey, const FLootLockerLeaderboardDetailsResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::GetLeaderboardDetails(const FString& LeaderboardKey, const FLootLockerLeaderboardDetailsResponseBP& OnCompletedRequestBP)
 {
     ULootLockerLeaderboardRequestHandler::GetLeaderboardDetails(LeaderboardKey, OnCompletedRequestBP);
 }
@@ -1002,6 +1002,12 @@ void ULootLockerManager::ListCatalogs(const FLootLockerListCatalogsResponseBP& O
 void ULootLockerManager::ListCatalogItems(const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnComplete)
 {
     ULootLockerCatalogRequestHandler::ListCatalogItems(CatalogKey, Count, After, OnComplete);
+}
+
+// Entitlements
+void ULootLockerManager::ListEntitlements(int Count, const FString& After, const FLootLockerListEntitlementsResponseBP& OnComplete)
+{
+    ULootLockerEntitlementRequestHandler::ListEntitlements(Count, After, OnComplete);
 }
 
 // Miscellaneous

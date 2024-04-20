@@ -261,6 +261,9 @@ public:
     static FLootLockerEndPoints ListCatalogs;
     static FLootLockerEndPoints ListCatalogItemsByKey;
 
+    // Entitlements
+    static FLootLockerEndPoints ListEntitlements;
+
     // Miscellaneous
     static FLootLockerEndPoints GetServerTimeEndpoint;
 

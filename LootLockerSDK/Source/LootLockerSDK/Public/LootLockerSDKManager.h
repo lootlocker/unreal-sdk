@@ -13,6 +13,7 @@
 #include "GameAPI/LootLockerConnectedAccountsRequestHandler.h"
 #include "GameAPI/LootLockerCurrencyRequestHandler.h"
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
+#include "GameAPI/LootLockerEntitlementRequestHandler.h"
 #include "GameAPI/LootLockerHeroRequestHandler.h"
 #include "GameAPI/LootLockerLeaderboardRequestHandler.h"
 #include "GameAPI/LootLockerLeaderboardArchiveRequestHandler.h"
@@ -1980,23 +1981,30 @@ public:
     * @param LeaderboardKey the Key of the Leaderboard you want the list of archives
     * @param OnCompletedRequestBP Delegate for handling the server response
     */
-    static void ListLeaderboardArchive(FString LeaderboardKey, const FLootLockerLeaderboardArchiveResponseDelegate& OnCompletedRequest);
+    static void ListLeaderboardArchive(const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseDelegate& OnCompletedRequest);
     
     /**
     * Get the specified Archive which includes details such as ranks, scores and rewards.
     * @param Key the Key of the Leaderboard you want the list of archives
     * @param Count Optional: the count of how many archive entries you want
     * @param After Optional: cursor for pagination
-    * @param OnCompletedRequestBP Delegate for handling the server response
+    * @param OnCompletedRequest Delegate for handling the server response
     */
-    static void GetLeaderboardArchive(FString Key, int Count = 0, FString After = "", const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest);
+    static void GetLeaderboardArchive(const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest);
+
+    /**
+    * Get the specified Archive which includes details such as ranks, scores and rewards.
+    * @param Key the Key of the Leaderboard you want the list of archives
+    * @param OnCompletedRequest Delegate for handling the server response
+    */
+    static void GetLeaderboardArchive(const FString& Key, const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest) { GetLeaderboardArchive(Key, -1, "", OnCompletedRequest); }
 
     /**
     * Get details on a Leaderboard which contains the schedule, rewards and the details on rewards.
     * @param LeaderboardKey the Key of the Leaderboard you want the list of archives
     * @param OnCompletedRequest Delegate for handling the server response
     */
-    static void GetLeaderboardDetails(FString LeaderboardKey, const FLootLockerLeaderboardDetailsResponseDelegate& OnCompletedRequest);
+    static void GetLeaderboardDetails(const FString& LeaderboardKey, const FLootLockerLeaderboardDetailsResponseDelegate& OnCompletedRequest);
 
     //==================================================
     // Drop Table
@@ -2108,7 +2116,7 @@ public:
      * List the items available in a specific catalog
      *
      * @param CatalogKey Unique Key of the catalog that you want to get items for
-     * @param Count Optional: Amount of catalog items to receive. Use null to simply get the default amount.
+     * @param Count Optional: Amount of catalog items to receive. Use null to get the default amount.
      * @param After Optional: Used for pagination, this is the cursor to start getting items from. Use null to get items from the beginning. Use the cursor from a previous call to get the next count of items in the list.
      * @param OnComplete Delegate for handling the server response
      */
@@ -2121,6 +2129,28 @@ public:
      * @param OnComplete Delegate for handling the server response
      */
     static void ListCatalogItems(const FString& CatalogKey, const FLootLockerListCatalogPricesResponseDelegate& OnComplete) { ListCatalogItems(CatalogKey, -1, "", OnComplete);  }
+
+    //==================================================
+    // Entitlements
+    //==================================================
+
+    /**
+     * List this player's historical entitlements
+     * Use this to retrieve information on entitlements the player has received regardless of their origin (for example as an effect of progression, purchases, or leaderboard rewards)
+     *
+     * @param Count Optional: Amount of entitlement listings to receive. Use null to get the default amount.
+     * @param After Optional: Used for pagination, this is the cursor to start getting items from. Use null to get items from the beginning. Use the cursor from a previous call to get the next count of items in the list.
+     * @param OnComplete Delegate for handling the server response
+     */
+    static void ListEntitlements(int Count, const FString& After, const FLootLockerListEntitlementsResponseDelegate& OnComplete);
+
+    /**
+     * List this player's historical entitlements
+     * Use this to retrieve information on entitlements the player has received regardless of their origin (for example as an effect of progression, purchases, or leaderboard rewards)
+     *
+     * @param OnComplete Delegate for handling the server response
+     */
+    static void ListEntitlements(const FLootLockerListEntitlementsResponseDelegate& OnComplete) { ListEntitlements(-1, "", OnComplete); }
 
 	//==================================================
 	//Miscellaneous

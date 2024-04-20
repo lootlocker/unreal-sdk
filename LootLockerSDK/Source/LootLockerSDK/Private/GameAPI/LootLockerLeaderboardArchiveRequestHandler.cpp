@@ -13,11 +13,12 @@ ULootLockerLeaderboardArchiveRequestHandler::ULootLockerLeaderboardArchiveReques
 	HttpClient = NewObject<ULootLockerHttpClient>();
 }
 
-void ULootLockerLeaderboardArchiveRequestHandler::ListLeaderboardArchive(FString LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP, const FLootLockerLeaderboardArchiveResponseDelegate& OnCompletedRequest)
+void ULootLockerLeaderboardArchiveRequestHandler::ListLeaderboardArchive(const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP, const FLootLockerLeaderboardArchiveResponseDelegate& OnCompletedRequest)
 {
 	LLAPI<FLootLockerLeaderboardArchiveResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ListLeaderboardArchive, { LeaderboardKey }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
-void ULootLockerLeaderboardArchiveRequestHandler::GetLeaderboardArchive(FString Key, int Count, FString After, const FLootLockerLeaderboardArchiveDetailReponseBP& OnCompletedRequestBP, const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest)
+
+void ULootLockerLeaderboardArchiveRequestHandler::GetLeaderboardArchive(const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailReponseBP& OnCompletedRequestBP, const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest)
 {
 
     TMultiMap<FString,FString> QueryParams;
