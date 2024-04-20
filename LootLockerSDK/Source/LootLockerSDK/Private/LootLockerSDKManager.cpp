@@ -986,17 +986,17 @@ void ULootLockerSDKManager::GetAllMemberRanks(FString MemberId, const int Count,
     ULootLockerLeaderboardRequestHandler::GetAllMemberRanks(GetAllMemberRanksRequest, FLootLockerGetAllMemberRanksResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::ListLeaderboardArchive(FString LeaderboardKey, const FLootLockerLeaderboardArchiveResponseDelegate& OnCompletedRequest)
+void ULootLockerSDKManager::ListLeaderboardArchive(const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseDelegate& OnCompletedRequest)
 {
     ULootLockerLeaderboardArchiveRequestHandler::ListLeaderboardArchive(LeaderboardKey, FLootLockerLeaderboardArchiveResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::GetLeaderboardArchive(FString Key, int Count, FString After, const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest)
+void ULootLockerSDKManager::GetLeaderboardArchive(const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest)
 {
     ULootLockerLeaderboardArchiveRequestHandler::GetLeaderboardArchive(Key, Count, After, FLootLockerLeaderboardArchiveDetailReponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::GetLeaderboardDetails(FString LeaderboardKey, const FLootLockerLeaderboardDetailsResponseDelegate& OnCompletedRequest)
+void ULootLockerSDKManager::GetLeaderboardDetails(const FString& LeaderboardKey, const FLootLockerLeaderboardDetailsResponseDelegate& OnCompletedRequest)
 {
     ULootLockerLeaderboardRequestHandler::GetLeaderboardDetails(LeaderboardKey, FLootLockerLeaderboardDetailsResponseBP(), OnCompletedRequest);
 }
@@ -1063,6 +1063,12 @@ void ULootLockerSDKManager::ListCatalogs(const FLootLockerListCatalogsResponseDe
 void ULootLockerSDKManager::ListCatalogItems(const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseDelegate& OnComplete)
 {
     ULootLockerCatalogRequestHandler::ListCatalogItems(CatalogKey, Count, After, FLootLockerListCatalogPricesResponseBP(), OnComplete);
+}
+
+// Entitlements
+void ULootLockerSDKManager::ListEntitlements(const int Count, const FString& After, const FLootLockerListEntitlementsResponseDelegate& OnComplete)
+{
+ULootLockerEntitlementRequestHandler::ListEntitlements(Count, After, FLootLockerListEntitlementsResponseBP(), OnComplete);
 }
 
 // Miscellaneous

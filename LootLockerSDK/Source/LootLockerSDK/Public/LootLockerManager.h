@@ -13,6 +13,7 @@
 #include "GameAPI/LootLockerConnectedAccountsRequestHandler.h"
 #include "GameAPI/LootLockerCurrencyRequestHandler.h"
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
+#include "GameAPI/LootLockerEntitlementRequestHandler.h"
 #include "GameAPI/LootLockerHeroRequestHandler.h"
 #include "GameAPI/LootLockerLeaderboardRequestHandler.h"
 #include "GameAPI/LootLockerLeaderboardArchiveRequestHandler.h"
@@ -1996,17 +1997,17 @@ public:
     * @param OnCompletedRequestBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard")
-    static void ListLeaderboardArchive(FString LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP);
+    static void ListLeaderboardArchive(const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP);
     
     /**
     * Get the specified Archive which includes details such as ranks, scores and rewards.
     * @param Key the Key of the Leaderboard you want the list of archives
-    * @param Count Optional: The count of tiems you want to retrieve.
+    * @param Count Optional: The count of items you want to retrieve.
     * @param After Optional: Used for pagination, id from which the pagination starts from.
     * @param OnCompletedRequestBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "Count,After", Count = -1, After = ""))
-    static void GetLeaderboardArchive(FString Key, int Count, FString After, const FLootLockerLeaderboardArchiveDetailReponseBP& OnCompletedRequestBP);
+    static void GetLeaderboardArchive(const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailReponseBP& OnCompletedRequestBP);
     
     /**
     * Get details on a Leaderboard which contains the schedule, rewards and the details on rewards.
@@ -2014,7 +2015,7 @@ public:
     * @param OnCompletedRequestBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard")
-    static void GetLeaderboardDetails(FString LeaderboardKey, const FLootLockerLeaderboardDetailsResponseBP& OnCompletedRequestBP);
+    static void GetLeaderboardDetails(const FString& LeaderboardKey, const FLootLockerLeaderboardDetailsResponseBP& OnCompletedRequestBP);
     
     //==================================================
     //Drop Table
@@ -2142,6 +2143,21 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Catalog", meta = (AdvancedDisplay = "Count,After", Count = -1, After = ""))
 	static void ListCatalogItems(const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnComplete);
+
+    //==================================================
+    // Entitlements
+    //==================================================
+
+    /**
+     * List this player's historical entitlements
+     * Use this to retrieve information on entitlements the player has received regardless of their origin (for example as an effect of progression, purchases, or leaderboard rewards)
+     *
+     * @param Count Optional: Amount of entitlement listings to receive. Use null to get the default amount.
+     * @param After Optional: Used for pagination, this is the cursor to start getting items from. Use null to get items from the beginning. Use the cursor from a previous call to get the next count of items in the list.
+     * @param OnComplete Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Entitlements", meta = (AdvancedDisplay = "Count,After", Count = -1, After = ""))
+    static void ListEntitlements(int Count, const FString& After, const FLootLockerListEntitlementsResponseBP& OnComplete);
 
     //==================================================
     // Miscellaneous
