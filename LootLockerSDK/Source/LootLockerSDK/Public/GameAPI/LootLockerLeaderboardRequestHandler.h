@@ -430,7 +430,7 @@ public:
     static void GetScoreList(const FLootLockerGetScoreListRequest& GetScoreListRequests, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP = FLootLockerGetScoreListResponseBP(), const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest = FLootLockerGetScoreListResponseDelegate());
     static void SubmitScore(const FLootLockerSubmitScoreRequest& SubmitScoreRequests, FString LeaderboardKey, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP = FLootLockerSubmitScoreResponseBP(), const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest = FLootLockerSubmitScoreResponseDelegate());
     static void GetAllMemberRanks(const FLootLockerGetAllMemberRanksRequest& GetAllMemberRanksRequests, const FLootLockerGetAllMemberRanksResponseBP& OnCompletedRequestBP = FLootLockerGetAllMemberRanksResponseBP(), const FLootLockerGetAllMemberRanksResponseDelegate& OnCompletedRequest = FLootLockerGetAllMemberRanksResponseDelegate());
-    static void GetLeaderboardDetails(FString LeaderboardKey, const FLootLockerLeaderboardDetailsResponseBP& OnCompletedRequestBP = FLootLockerLeaderboardDetailsResponseBP(), const FLootLockerLeaderboardDetailsResponseDelegate& OnCompletedRequest = FLootLockerLeaderboardDetailsResponseDelegate());
+    static void GetLeaderboardDetails(const FString& LeaderboardKey, const FLootLockerLeaderboardDetailsResponseBP& OnCompletedRequestBP = FLootLockerLeaderboardDetailsResponseBP(), const FLootLockerLeaderboardDetailsResponseDelegate& OnCompletedRequest = FLootLockerLeaderboardDetailsResponseDelegate());
 public:
     ULootLockerLeaderboardRequestHandler();
     static ULootLockerHttpClient* HttpClient;
