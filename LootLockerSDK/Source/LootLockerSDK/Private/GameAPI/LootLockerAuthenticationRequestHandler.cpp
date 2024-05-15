@@ -572,27 +572,35 @@ void ULootLockerAuthenticationRequestHandler::RefreshMetaSession(const FString& 
 
 }
 
-void ULootLockerAuthenticationRequestHandler::VerifyPlayer(const FString& PlatformToken, const FString& Platform, const FLootLockerDefaultResponseBP& OnCompletedRequestBP, const FLootLockerDefaultDelegate& OnCompletedRequest)
+void ULootLockerAuthenticationRequestHandler::VerifyPlayer(const FString& PlatformToken, const FString& Platform, const int SteamAppId /* = -1 */, const FLootLockerDefaultResponseBP& OnCompletedRequestBP, const FLootLockerDefaultDelegate& OnCompletedRequest)
 {
-	FLootLockerVerificationRequest AuthRequest;
-	AuthRequest.token = PlatformToken;
-
 	const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
-	AuthRequest.key = Config->LootLockerGameKey;
-
-	FString RequestPlatform = Platform.IsEmpty() ?  ULootLockerCurrentPlatform::GetString() : Platform;
-	AuthRequest.platform = RequestPlatform;
-	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::VerifyPlayerIdEndPoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback::CreateLambda([RequestPlatform, PlatformToken](const FLootLockerResponse& Response)
+	const FString RequestPlatform = Platform.IsEmpty() ? ULootLockerCurrentPlatform::GetString() : Platform;
+	if(SteamAppId == -1)
+	{
+		LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerVerificationRequest{ Config->LootLockerGameKey, RequestPlatform }, ULootLockerGameEndpoints::VerifyPlayerIdEndPoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback::CreateLambda([RequestPlatform, PlatformToken](const FLootLockerResponse& Response)
 		{
 			if (Response.success)
 			{
-
 				if (RequestPlatform.Compare(ULootLockerCurrentPlatform::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Steam).PlatformString))
 				{
 					ULootLockerStateData::SetSteamToken(PlatformToken);
 				}
 			}
 		}));
+	} else
+	{
+		LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerVerificationWithSteamAppIdRequest{ Config->LootLockerGameKey, RequestPlatform, PlatformToken, SteamAppId }, ULootLockerGameEndpoints::VerifyPlayerIdEndPoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback::CreateLambda([RequestPlatform, PlatformToken](const FLootLockerResponse& Response)
+		{
+			if (Response.success)
+			{
+				if (RequestPlatform.Compare(ULootLockerCurrentPlatform::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Steam).PlatformString))
+				{
+					ULootLockerStateData::SetSteamToken(PlatformToken);
+				}
+			}
+		}));
+	}
 }
 
 void ULootLockerAuthenticationRequestHandler::EndSession(const FLootLockerDefaultResponseBP& OnCompletedRequestBP, const FLootLockerDefaultDelegate& OnCompletedRequest)
