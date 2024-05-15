@@ -230,8 +230,8 @@ USTRUCT(BlueprintType)
 struct FLootLockerRefreshEpicSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-		FString refresh_token;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FString refresh_token;
 };
 
 USTRUCT(BlueprintType)
@@ -244,6 +244,20 @@ struct FLootLockerVerificationRequest
 	FString platform;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString token;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerVerificationWithSteamAppIdRequest
+{
+	GENERATED_BODY()
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString key;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString platform;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString token;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	int Active_steam_app_id = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -471,7 +485,7 @@ public:
 	static void StartXboxSession(const FString& XboxUserToken, const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
 	static void StartAppleSession(const FString& AuthorizationCode, const FAppleSessionResponseBP& OnCompletedRequestBP = FAppleSessionResponseBP(), const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleSessionResponseDelegate());
 	static void RefreshAppleSession(const FString& RefreshToken, const FAppleSessionResponseBP& OnCompletedRequestBP = FAppleSessionResponseBP(), const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleSessionResponseDelegate());
-	static void VerifyPlayer(const FString& PlatformToken, const FString& Platform, const FLootLockerDefaultResponseBP& OnCompletedRequestBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
+	static void VerifyPlayer(const FString& PlatformToken, const FString& Platform, const int SteamAppId = -1, const FLootLockerDefaultResponseBP& OnCompletedRequestBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
 	static void EndSession(const FLootLockerDefaultResponseBP& OnCompletedRequestBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
     static void WhiteLabelLoginAndStartSession(const FString& Email, const FString& Password, bool bRemember, const FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP& LootLockerWhiteLabelLoginAndSessionResponseDelegateBP = FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP(), const FLootLockerWhiteLabelLoginAndSessionResponseDelegate& LootLockerWhiteLabelLoginAndSessionResponseDelegate = FLootLockerWhiteLabelLoginAndSessionResponseDelegate());
 	static void StartAppleGameCenterSession(const FString& BundleId, const FString& PlayerId, const FString& PublicKeyUrl, const FString& Signature, const FString& Salt, const FString& Timestamp, const FLootLockerAppleGameCenterSessionResponseBP& OnCompletedRequestBP = FLootLockerAppleGameCenterSessionResponseBP(), const FLootLockerAppleGameCenterSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleGameCenterSessionResponseDelegate()); 

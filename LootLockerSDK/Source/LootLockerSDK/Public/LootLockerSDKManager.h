@@ -74,14 +74,16 @@ public:
 
     /**
      * Verify a Steam user and then start a session for that user
+     * You can optionally specify a steam app id if you have multiple ones for your game and have configured this in the LootLocker console
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.
      * https://ref.lootlocker.io/game-api/#authentication-request
      *
      * @param SteamId64 The Steam 64 bit Id as an FString
      * @param PlatformToken Platform-specific token.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param SteamAppId (Optional) The specific Steam App Id to verify the player for
      */
-    static void VerifyPlayerAndStartSteamSession(const FString& SteamId64, const FString& PlatformToken, const FLootLockerSessionResponse& OnCompletedRequest);
+    static void VerifyPlayerAndStartSteamSession(const FString& SteamId64, const FString& PlatformToken, const FLootLockerSessionResponse& OnCompletedRequest, const int SteamAppId = -1);
 
     /**
      * Start a session for a Steam user
@@ -309,7 +311,7 @@ public:
      * @param OnCompletedRequest Response Delegate to handle the response
      * @param Platform Optional parameter to call explicitly for a specific platform
      */
-    static void VerifyPlayer(const FString& PlatformToken, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString Platform = FString(TEXT("")));
+    static void VerifyPlayer(const FString& PlatformToken, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& Platform = FString(TEXT("")));
 
     /**
      * End active session (if any exists)
