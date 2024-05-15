@@ -31,9 +31,9 @@ void ULootLockerSDKManager::StartAmazonLunaSession(const FString& AmazonLunaGuid
     ULootLockerAuthenticationRequestHandler::StartAmazonLunaSession(AmazonLunaGuid, FAuthResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::VerifyPlayerAndStartSteamSession(const FString& SteamId64, const FString& PlatformToken, const FLootLockerSessionResponse& OnCompletedRequest)
+void ULootLockerSDKManager::VerifyPlayerAndStartSteamSession(const FString& SteamId64, const FString& PlatformToken, const FLootLockerSessionResponse& OnCompletedRequest, const int SteamAppId /* = -1 */)
 {
-    ULootLockerAuthenticationRequestHandler::VerifyPlayer(PlatformToken, ULootLockerCurrentPlatform::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Steam).AuthenticationProviderString, FLootLockerDefaultResponseBP(), FLootLockerDefaultDelegate::CreateLambda([SteamId64, OnCompletedRequest](FLootLockerResponse VerifyPlayerResponse)
+    ULootLockerAuthenticationRequestHandler::VerifyPlayer(PlatformToken, ULootLockerCurrentPlatform::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Steam).AuthenticationProviderString, SteamAppId, FLootLockerDefaultResponseBP(), FLootLockerDefaultDelegate::CreateLambda([SteamId64, OnCompletedRequest](FLootLockerResponse VerifyPlayerResponse)
         {
             if(!VerifyPlayerResponse.success)
             {
@@ -154,9 +154,9 @@ void ULootLockerSDKManager::GuestLogin(const FLootLockerSessionResponse &OnCompl
 	ULootLockerAuthenticationRequestHandler::GuestLogin(PlayerIdentifier, FAuthResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::VerifyPlayer(const FString& PlatformToken, const FLootLockerDefaultDelegate& OnCompleteRequest, const FString Platform)
+void ULootLockerSDKManager::VerifyPlayer(const FString& PlatformToken, const FLootLockerDefaultDelegate& OnCompleteRequest, const FString& Platform)
 {
-	ULootLockerAuthenticationRequestHandler::VerifyPlayer(PlatformToken, Platform, FLootLockerDefaultResponseBP(), OnCompleteRequest);
+	ULootLockerAuthenticationRequestHandler::VerifyPlayer(PlatformToken, Platform, -1, FLootLockerDefaultResponseBP(), OnCompleteRequest);
 }
 
 void ULootLockerSDKManager::EndSession(const FLootLockerDefaultDelegate& OnCompleteRequest)

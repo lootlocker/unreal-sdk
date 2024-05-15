@@ -21,22 +21,22 @@ void ULootLockerManager::StartAmazonLunaSession(const FString& AmazonLunaGuid, c
     ULootLockerAuthenticationRequestHandler::StartAmazonLunaSession(AmazonLunaGuid, OnStartedSessionRequestCompleted);
 }
 
-void ULootLockerManager::VerifyPlayerAndStartSteamSession(const FString& SteamId64, const FString& PlatformToken, const FAuthResponseBP& OnCompletedRequest)
+void ULootLockerManager::VerifyPlayerAndStartSteamSession(const FString& SteamId64, const FString& PlatformToken, const int SteamAppId, const FAuthResponseBP& OnCompletedRequest)
 {
-    ULootLockerAuthenticationRequestHandler::VerifyPlayer(PlatformToken, ULootLockerCurrentPlatform::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Steam).AuthenticationProviderString,  FLootLockerDefaultResponseBP(), FLootLockerDefaultDelegate::CreateLambda([SteamId64, OnCompletedRequest](FLootLockerResponse VerifyPlayerResponse)
+    ULootLockerAuthenticationRequestHandler::VerifyPlayer(PlatformToken, ULootLockerCurrentPlatform::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Steam).AuthenticationProviderString, SteamAppId,  FLootLockerDefaultResponseBP(), FLootLockerDefaultDelegate::CreateLambda([SteamId64, OnCompletedRequest](FLootLockerResponse VerifyPlayerResponse)
+    {
+        if (!VerifyPlayerResponse.success)
         {
-            if (!VerifyPlayerResponse.success)
-            {
-                FLootLockerAuthenticationResponse AuthResponse;
-                AuthResponse.success = VerifyPlayerResponse.success;
-                AuthResponse.FullTextFromServer = VerifyPlayerResponse.FullTextFromServer;
-                AuthResponse.StatusCode = VerifyPlayerResponse.StatusCode;
-                AuthResponse.ErrorData = VerifyPlayerResponse.ErrorData;
-                OnCompletedRequest.ExecuteIfBound(AuthResponse);
-                return;
-            }
-            StartSteamSession(SteamId64, OnCompletedRequest);
-        }));
+            FLootLockerAuthenticationResponse AuthResponse;
+            AuthResponse.success = VerifyPlayerResponse.success;
+            AuthResponse.FullTextFromServer = VerifyPlayerResponse.FullTextFromServer;
+            AuthResponse.StatusCode = VerifyPlayerResponse.StatusCode;
+            AuthResponse.ErrorData = VerifyPlayerResponse.ErrorData;
+            OnCompletedRequest.ExecuteIfBound(AuthResponse);
+            return;
+        }
+        StartSteamSession(SteamId64, OnCompletedRequest);
+    }));
 }
 
 void ULootLockerManager::StartSteamSession(const FString& SteamId64, const FAuthResponseBP& OnStartedSessionRequestCompleted)
@@ -156,7 +156,7 @@ void ULootLockerManager::GuestLogin(const FAuthResponseBP &OnCompletedRequestBP,
 
 void ULootLockerManager::VerifyPlayer(const FString& PlatformToken, const FLootLockerDefaultResponseBP& OnVerifyPlayerRequestCompleted, const FString Platform /*= FString()*/)
 {
-    ULootLockerAuthenticationRequestHandler::VerifyPlayer(PlatformToken, Platform, OnVerifyPlayerRequestCompleted);
+    ULootLockerAuthenticationRequestHandler::VerifyPlayer(PlatformToken, Platform, -1, OnVerifyPlayerRequestCompleted);
 }
 
 void ULootLockerManager::EndSession(const  FLootLockerDefaultResponseBP& OnEndSessionRequestCompleted)
