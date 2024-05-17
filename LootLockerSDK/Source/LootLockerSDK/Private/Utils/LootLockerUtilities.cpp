@@ -31,16 +31,16 @@ namespace LootLockerUtilities
 {
     FString AppendParameterToUrl(const FString& Url, const FString& Parameter)
     {
-        FString AppendSymbol = Url.Contains("?") ? "&" : "?";
+	    const FString AppendSymbol = Url.Contains("?") ? "&" : "?";
         return Url + AppendSymbol + Parameter;
     }
 
     TArray<FLootLockerMissionCheckpoint> ParseMissionCheckpoints(const TSharedPtr<FJsonObject>& MissionJson)
     {
         TArray<FLootLockerMissionCheckpoint> Checkpoints;
-        if (MissionJson->HasTypedField<EJson::Array>("checkpoints"))
+        if (MissionJson->HasTypedField<EJson::Array>(TEXT("checkpoints")))
         {
-            TArray<TSharedPtr<FJsonValue>> CheckPointsJson = MissionJson->GetArrayField("checkpoints");
+            TArray<TSharedPtr<FJsonValue>> CheckPointsJson = MissionJson->GetArrayField(TEXT("checkpoints"));
             for (int i = 0; i < CheckPointsJson.Num(); i++) {
                 TSharedPtr<FJsonObject> temp = CheckPointsJson[i]->AsObject();
                 TMap<FString, FString> parameters;
@@ -71,8 +71,8 @@ namespace LootLockerUtilities
         TArray<TSharedPtr<FJsonValue>> ItemsJsonArray;
         for (int i = 0; i < Checkpoints.Num(); i++)
         {
-            TSharedPtr<FJsonObject> JsonCheckPoint = FJsonObjectConverter::UStructToJsonObject(Checkpoints[i]);
-            JsonCheckPoint->RemoveField("parameters");
+	        const TSharedPtr<FJsonObject> JsonCheckPoint = FJsonObjectConverter::UStructToJsonObject(Checkpoints[i]);
+            JsonCheckPoint->RemoveField(TEXT("parameters"));
             for (auto& KeyValuePair : Checkpoints[i].parameters) {
                 JsonCheckPoint->SetStringField(KeyValuePair.Key, KeyValuePair.Value);
             }
@@ -90,7 +90,7 @@ namespace LootLockerUtilities
         return JsonObject;
     }
 
-    FString FStringFromJsonObject(const TSharedPtr<FJsonObject> JsonObject)
+    FString FStringFromJsonObject(const TSharedPtr<FJsonObject>& JsonObject)
     {
         FString OutJsonString;
         TSharedRef<TJsonWriter<>> JsonWriter = TJsonWriterFactory<>::Create(&OutJsonString);
@@ -107,7 +107,7 @@ namespace LootLockerUtilities
 
     FString ObfuscateJsonStringForLogging(const TArray<FObfuscationDetails>& ObfuscationDetails, const FString& JsonBody)
     {
-        TSharedPtr<FJsonObject> jsonObject = JsonObjectFromFString(JsonBody);
+	    const TSharedPtr<FJsonObject> jsonObject = JsonObjectFromFString(JsonBody);
         if (!jsonObject.IsValid())
         {
             return JsonBody;
