@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "Dom/JsonValue.h"
 #include "LootLockerConfig.h"
 #include "LootLockerStateData.h"
 #include "LootLockerGameEndpoints.h"
@@ -26,7 +27,7 @@ struct FObfuscationDetails
     int visibleCharsFromEnd = 0;
     bool hideCharactersForShortStrings = false;
 
-    FObfuscationDetails(FString Key, FString ReplacementChar, int VisibleCharsFromBeginning, int VisibleCharsFromEnd, bool HideCharactersForShortStrings)
+    FObfuscationDetails(const FString& Key, const FString& ReplacementChar, int VisibleCharsFromBeginning, int VisibleCharsFromEnd, bool HideCharactersForShortStrings)
         : key(Key), replacementChar(ReplacementChar), visibleCharsFromBeginning(VisibleCharsFromBeginning),
         visibleCharsFromEnd(VisibleCharsFromEnd), hideCharactersForShortStrings(HideCharactersForShortStrings)
     {
@@ -73,7 +74,7 @@ namespace LootLockerUtilities
         return JsonString;
     }
 
-    FString FStringFromJsonObject(const TSharedPtr<FJsonObject> JsonObject);
+    FString FStringFromJsonObject(const TSharedPtr<FJsonObject>& JsonObject);
 
     TSharedPtr<FJsonObject> JsonObjectFromFString(const FString& JsonString);
 
