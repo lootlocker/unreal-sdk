@@ -231,6 +231,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::ListCatalogItemsByKey = InitEndpo
 
 // Entitlements
 FLootLockerEndPoints ULootLockerGameEndpoints::ListEntitlements = InitEndpoint("entitlements", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetSingleEntitlemnt = InitEndpoint("entitlements/{0}", ELootLockerHTTPMethod::GET);
 
 //Miscellaneous
 FLootLockerEndPoints ULootLockerGameEndpoints::GetServerTimeEndpoint = InitEndpoint("ping", ELootLockerHTTPMethod::GET);

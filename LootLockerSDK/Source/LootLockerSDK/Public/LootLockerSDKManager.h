@@ -2153,6 +2153,14 @@ public:
      * @param OnComplete Delegate for handling the server response
      */
     static void ListEntitlements(const FLootLockerListEntitlementsResponseDelegate& OnComplete) { ListEntitlements(-1, "", OnComplete); }
+    
+    /**
+    * Get information of an entitlement, its status and more data.
+    * 
+    * @param EntitlementID: Is the identifying ID which the entitlement is connected to
+    * @param OnCompelte delegate for handling the server response
+    */
+    static void GetSingleEntitlement(const FString& EntitlementID, FLootLockerSingleEntitlementResponseDelegate& OnComplete);
 
 	//==================================================
 	//Miscellaneous
