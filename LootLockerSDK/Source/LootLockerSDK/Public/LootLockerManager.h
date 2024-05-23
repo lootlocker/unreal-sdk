@@ -2161,6 +2161,15 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Entitlements", meta = (AdvancedDisplay = "Count,After", Count = -1, After = ""))
     static void ListEntitlements(int Count, const FString& After, const FLootLockerListEntitlementsResponseBP& OnComplete);
 
+    /**
+    * Get information of an entitlement, its status and more data.
+    *
+    * @param EntitlementID: Is the identifying ID which the entitlement is connected to
+    * @param OnCompelte delegate for handling the server response
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Entitlements")
+    static void GetSingleEntitlment(const FString& EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnComplete);
+
     //==================================================
     // Miscellaneous
     //==================================================

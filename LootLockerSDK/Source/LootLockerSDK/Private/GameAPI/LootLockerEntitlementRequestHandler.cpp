@@ -18,3 +18,9 @@ void ULootLockerEntitlementRequestHandler::ListEntitlements(const int Count, con
     if (!After.IsEmpty()) { QueryParams.Add("cursor", After); }
 	LLAPI<FLootLockerEntitlementHistoryResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListEntitlements, {}, QueryParams, OnCompleteBP, OnComplete);
 }
+
+void ULootLockerEntitlementRequestHandler::GetSingleEntitlement(FString EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnCompleteBP, const FLootLockerSingleEntitlementResponseDelegate& OnComplete)
+{
+    LLAPI<FLootLockerSingleEntitlementResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetWalletByWalletId, { EntitlementID }, {}, OnCompleteBP, OnComplete);
+
+}
