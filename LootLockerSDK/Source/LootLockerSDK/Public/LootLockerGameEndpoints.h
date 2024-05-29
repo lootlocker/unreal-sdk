@@ -148,6 +148,7 @@ public:
     static FLootLockerEndPoints UpdateOrCreateKeyValuePairToPersistentStorageEndpoint;
     static FLootLockerEndPoints DeleteAKeyValuePairFromPersistentStorageEndpoint;
     static FLootLockerEndPoints GetOtherPlayersPublicKeyValuePairs;
+    static FLootLockerEndPoints GetMultiplePlayersPublicPersistentStorageValues;
 
     //Assets
     static FLootLockerEndPoints GetContextsEndpoint;

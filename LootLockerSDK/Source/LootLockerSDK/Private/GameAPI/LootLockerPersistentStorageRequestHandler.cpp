@@ -51,3 +51,13 @@ void ULootLockerPersistentStorageRequestHandler::GetPlayerPersistentStorage(cons
 {
     LLAPI<FLootLockerPersistentStorageItemsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOtherPlayersPublicKeyValuePairs, { PlayerId },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
+
+void ULootLockerPersistentStorageRequestHandler::GetPublicPersistentStorageForPlayersAndKeys(TArray<FString> PlayerIDs, TArray<FString> Keys, const FLootLockerGetPublicPersistentStorageForPlayersAndKeysResponseBP& OnCompleteRequestBP, const FLootLockerGetPublicPersistentStorageForPlayersAndKeysResponseDelegate& OnCompleteResponse)
+{
+
+    FLootLockerGetPublicPersistentStorageForPlayersAndKeysRequest request;
+    request.keys = Keys;
+    request.player_ids = PlayerIDs;
+
+	LLAPI<FLootLockerGetPublicPersistentStorageForPlayersAndKeysResponse>::CallAPI(HttpClient, request, ULootLockerGameEndpoints::GetMultiplePlayersPublicPersistentStorageValues,{ }, EmptyQueryParams, OnCompleteRequestBP, OnCompleteResponse);
+}

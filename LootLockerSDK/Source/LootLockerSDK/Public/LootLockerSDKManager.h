@@ -1290,6 +1290,16 @@ public:
      */
     static void GetPlayerPersistentStorage(const FString& PlayerId, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest);
 
+    /**
+    * Read a list of other players key/value pair from specific keys.
+    * 
+    * @param PlayerIDs player ids or their public UIDs.
+    * @param Keys keys of the key/value pair to return.
+    * @param OnCompletedRequest Delegate for handling the server response.
+    */
+    static void GetPublicPersistentStorageForPlayersAndKeys(TArray<FString> PlayerIDs, TArray<FString> Keys, const FLootLockerGetPublicPersistentStorageForPlayersAndKeysResponseDelegate& OnCompleteRequest);
+
+
     //==================================================
     //Assets
     //==================================================
