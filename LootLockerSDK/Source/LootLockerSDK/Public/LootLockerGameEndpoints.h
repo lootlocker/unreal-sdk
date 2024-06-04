@@ -263,7 +263,7 @@ public:
 
     // Entitlements
     static FLootLockerEndPoints ListEntitlements;
-    static FLootLockerEndPoints GetSingleEntitlemnt;
+    static FLootLockerEndPoints GetEntitlement;
 
     // Miscellaneous
     static FLootLockerEndPoints GetServerTimeEndpoint;

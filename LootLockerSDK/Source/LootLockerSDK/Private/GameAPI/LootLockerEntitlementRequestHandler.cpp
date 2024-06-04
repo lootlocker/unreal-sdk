@@ -21,6 +21,6 @@ void ULootLockerEntitlementRequestHandler::ListEntitlements(const int Count, con
 
 void ULootLockerEntitlementRequestHandler::GetEntitlement(FString EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnCompleteBP, const FLootLockerSingleEntitlementResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerSingleEntitlementResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetWalletByWalletId, { EntitlementID }, {}, OnCompleteBP, OnComplete);
+    LLAPI<FLootLockerSingleEntitlementResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetEntitlement, { EntitlementID }, {}, OnCompleteBP, OnComplete);
 
 }
