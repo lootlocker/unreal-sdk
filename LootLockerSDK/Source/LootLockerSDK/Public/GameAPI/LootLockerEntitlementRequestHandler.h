@@ -288,7 +288,7 @@ class LOOTLOCKERSDK_API ULootLockerEntitlementRequestHandler : public UObject
 public:
     ULootLockerEntitlementRequestHandler();
     static void ListEntitlements(int Count, const FString& After, const FLootLockerListEntitlementsResponseBP& OnCompleteBP = FLootLockerListEntitlementsResponseBP(), const FLootLockerListEntitlementsResponseDelegate& OnComplete = FLootLockerListEntitlementsResponseDelegate());
-    static void GetEntitlement(FString EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnCompleteBP = FLootLockerSingleEntitlementResponseBP(), const FLootLockerSingleEntitlementResponseDelegate& OnComplete = FLootLockerSingleEntitlementResponseDelegate());
+    static void GetEntitlement(const FString& EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnCompleteBP = FLootLockerSingleEntitlementResponseBP(), const FLootLockerSingleEntitlementResponseDelegate& OnComplete = FLootLockerSingleEntitlementResponseDelegate());
 private:
     static ULootLockerHttpClient* HttpClient;
 };

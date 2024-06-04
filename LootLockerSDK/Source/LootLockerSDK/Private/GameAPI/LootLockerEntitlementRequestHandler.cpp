@@ -19,7 +19,7 @@ void ULootLockerEntitlementRequestHandler::ListEntitlements(const int Count, con
 	LLAPI<FLootLockerEntitlementHistoryResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListEntitlements, {}, QueryParams, OnCompleteBP, OnComplete);
 }
 
-void ULootLockerEntitlementRequestHandler::GetEntitlement(FString EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnCompleteBP, const FLootLockerSingleEntitlementResponseDelegate& OnComplete)
+void ULootLockerEntitlementRequestHandler::GetEntitlement(const FString& EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnCompleteBP, const FLootLockerSingleEntitlementResponseDelegate& OnComplete)
 {
     LLAPI<FLootLockerSingleEntitlementResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetEntitlement, { EntitlementID }, {}, OnCompleteBP, OnComplete);
 
