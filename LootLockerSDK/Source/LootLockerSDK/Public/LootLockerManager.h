@@ -2163,12 +2163,12 @@ public:
 
     /**
     * Get information of an entitlement, its status and more data.
-    *
+    * Use this to retrieve information on entitlements the player has received regardless of their origin (for example as an effect of progression, purchases, or leaderboard rewards)
     * @param EntitlementID: Is the identifying ID which the entitlement is connected to
     * @param OnCompelte delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Entitlements")
-    static void GetSingleEntitlment(const FString& EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnComplete);
+    static void GetEntitlment(const FString& EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnComplete);
 
     //==================================================
     // Miscellaneous

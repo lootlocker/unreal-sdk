@@ -198,56 +198,6 @@ struct FLootLockerEntitlementListing
     ELootLockerEntitlementHistoryListingType Type = ELootLockerEntitlementHistoryListingType::Undefined;
 };
 
-/*
-* Details of the entitlement item
-*/
-USTRUCT(BlueprintType, Category = "LootLocker")
-struct FLootLockerSingleEntitlementItem
-{
-    GENERATED_BODY()
-    /*
-    * When this entitlement was created
-    */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString created_at;
-    /*
-    * What type of reward (currency, asset, progression points, progression reset, etc.)
-    */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString reward_kind;
-    /*
-    * The id of the entitlement item
-    */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString id;
-    /*
-    * The reward id of the entitlement item
-    */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString reward_id;
-    /*
-    * The id of the catalog which contains the item
-    */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString catalog_id;
-    /*
-    * If the item is purchasable
-    */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool purchasable;
-};
-
-USTRUCT(BlueprintType, Category = "LootLocker")
-struct FLootLockerSingleEntitlementMetadata
-{
-    GENERATED_BODY()
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString key;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString value;
-
-};
-
 //==================================================
 // Response Definitions
 //==================================================
@@ -271,8 +221,6 @@ struct FLootLockerEntitlementHistoryResponse : public FLootLockerResponse
     FLootLockerKeyBasedPagination Pagination;
 };
 
-
-
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerSingleEntitlementResponse : public FLootLockerResponse
 {
@@ -283,30 +231,32 @@ struct FLootLockerSingleEntitlementResponse : public FLootLockerResponse
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString created_at;
     /*
-    * The type this entitlement is example is a one time purchase
-    */
+     * The status of this entitlement listing
+     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString type;
+    ELootLockerEntitlementHistoryListingStatus Status = ELootLockerEntitlementHistoryListingStatus::None;
+
     /*
-    * The status of the entitlement, (pending, active, canceled)
-    */
+     * Which store (if any) that this entitlement listing relates to
+     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString status;
+    ELootLockerEntitlementHistoryListingStore Store = ELootLockerEntitlementHistoryListingStore::None;
+
     /*
-    * The store connected to the entitlement
-    */
+     * Which type this entitlement listing is
+     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString store;
+    ELootLockerEntitlementHistoryListingType Type = ELootLockerEntitlementHistoryListingType::Undefined;
     /*
     * An array of the items connected to this entitlement
     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerSingleEntitlementItem> items;
+    TArray<FLootLockerEntitlementHistoryItem> Items;
     /*
     * Metadata of the entitlement
     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerSingleEntitlementMetadata> metadata;
+    TArray<FLootLockerEntitlementHistoryMetadata> Metadata;
 };
 
 //==================================================
@@ -338,7 +288,7 @@ class LOOTLOCKERSDK_API ULootLockerEntitlementRequestHandler : public UObject
 public:
     ULootLockerEntitlementRequestHandler();
     static void ListEntitlements(int Count, const FString& After, const FLootLockerListEntitlementsResponseBP& OnCompleteBP = FLootLockerListEntitlementsResponseBP(), const FLootLockerListEntitlementsResponseDelegate& OnComplete = FLootLockerListEntitlementsResponseDelegate());
-    static void GetSingleEntitlement(FString EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnCompleteBP = FLootLockerSingleEntitlementResponseBP(), const FLootLockerSingleEntitlementResponseDelegate& OnComplete = FLootLockerSingleEntitlementResponseDelegate());
+    static void GetEntitlement(FString EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnCompleteBP = FLootLockerSingleEntitlementResponseBP(), const FLootLockerSingleEntitlementResponseDelegate& OnComplete = FLootLockerSingleEntitlementResponseDelegate());
 private:
     static ULootLockerHttpClient* HttpClient;
 };
