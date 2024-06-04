@@ -2168,7 +2168,7 @@ public:
     * @param OnCompelte delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Entitlements")
-    static void GetEntitlment(const FString& EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnComplete);
+    static void GetEntitlement(const FString& EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnComplete);
 
     //==================================================
     // Miscellaneous
