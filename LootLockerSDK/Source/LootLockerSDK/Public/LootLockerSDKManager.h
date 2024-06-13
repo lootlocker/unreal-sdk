@@ -2153,6 +2153,15 @@ public:
      * @param OnComplete Delegate for handling the server response
      */
     static void ListEntitlements(const FLootLockerListEntitlementsResponseDelegate& OnComplete) { ListEntitlements(-1, "", OnComplete); }
+    
+    /**
+    * Get information of an entitlement
+    * Use this to retrieve information on entitlements the player has received regardless of their origin (for example as an effect of progression, purchases, or leaderboard rewards) 
+    *
+    * @param EntitlementID: Is the identifying ID which the entitlement is connected to
+    * @param OnCompelte delegate for handling the server response
+    */
+    static void GetEntitlement(const FString& EntitlementID, FLootLockerSingleEntitlementResponseDelegate& OnComplete);
 
 	//==================================================
 	//Miscellaneous

@@ -1010,6 +1010,11 @@ void ULootLockerManager::ListEntitlements(int Count, const FString& After, const
     ULootLockerEntitlementRequestHandler::ListEntitlements(Count, After, OnComplete);
 }
 
+void ULootLockerManager::GetEntitlement(const FString& EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnComplete)
+{
+    ULootLockerEntitlementRequestHandler::GetEntitlement(EntitlementID, OnComplete);
+}
+
 // Miscellaneous
 void ULootLockerManager::GetServerTime(const FTimeResponseDelegateBP& OnCompletedRequestBP)
 {
