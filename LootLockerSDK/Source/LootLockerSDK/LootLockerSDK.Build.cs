@@ -4,6 +4,7 @@ using UnrealBuildTool;
 
 public class LootLockerSDK : ModuleRules
 {
+    public static bool bEnableGoogleSubsystemHelper = false;
     public LootLockerSDK(ReadOnlyTargetRules Target) : base(Target)
     {
         PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
@@ -50,5 +51,11 @@ public class LootLockerSDK : ModuleRules
 				// ... add any modules that your module loads dynamically here ...
 			}
             );
+
+        if(bEnableGoogleSubsystemHelper)
+        {
+            PublicDefinitions.Add("LOOTLOCKER_ENABLE_GOOGLESUBSYSTEMHELPER");
+            PrivateDependencyModuleNames.AddRange(new string[] { "OnlineSubsystem" });
+        }
     }
 }
