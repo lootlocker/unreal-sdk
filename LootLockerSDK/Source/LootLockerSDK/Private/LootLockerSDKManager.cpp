@@ -636,6 +636,11 @@ void ULootLockerSDKManager::GetPlayerPersistentStorage(const FString& PlayerId, 
     ULootLockerPersistentStorageRequestHandler::GetPlayerPersistentStorage(PlayerId, FPersistentStorageItemsResponseDelegateBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::GetPublicPersistentStorageForPlayersAndKeys(TArray<FString> PlayerIDs, TArray<FString> Keys, const FLootLockerGetPublicPersistentStorageForPlayersAndKeysResponseDelegate& OnCompleteRequest)
+{
+    ULootLockerPersistentStorageRequestHandler::GetPublicPersistentStorageForPlayersAndKeys(PlayerIDs, Keys, FLootLockerGetPublicPersistentStorageForPlayersAndKeysResponseBP(), OnCompleteRequest);
+}
+
 //Assets
 void ULootLockerSDKManager::GetContexts(const FContextDelegate& OnCompletedRequest)
 {

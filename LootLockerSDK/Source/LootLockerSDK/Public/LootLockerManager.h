@@ -1219,6 +1219,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage")
     static void GetPlayerPersistentStorage(const FString& PlayerId, const  FPersistentStorageItemsResponseDelegateBP& OnGetPlayerPersistentStorageRequestCompleted);
 
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage")
+    static void GetPublicPersistentStorageForPlayersAndKeys(TArray<FString> PlayerIDs, TArray<FString> Keys, const FLootLockerGetPublicPersistentStorageForPlayersAndKeysResponseBP& OnCompleteRequestBP);
+
     //==================================================
     //Assets
     //==================================================
