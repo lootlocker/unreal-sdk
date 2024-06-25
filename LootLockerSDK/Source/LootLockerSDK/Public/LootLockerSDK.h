@@ -6,6 +6,7 @@
 #include "Modules/ModuleManager.h"
 
 DECLARE_LOG_CATEGORY_EXTERN(LogLootLockerGameSDK, Log, All);
+
 class FLootLockerSDKModule : public IModuleInterface
 {
 public:
