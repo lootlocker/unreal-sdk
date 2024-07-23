@@ -6,7 +6,7 @@
 
 ULootLockerHttpClient* ULootLockerCatalogRequestHandler::HttpClient = nullptr;
 
-FLootLockerInlinedCatalogEntry::FLootLockerInlinedCatalogEntry(const FLootLockerCatalogEntry& Entry, const FLootLockerAssetDetails& AssetDetails, const FLootLockerProgressionPointDetails& ProgressionPointDetails, const FLootLockerProgressionResetDetails& ProgressionResetDetails, const FLootLockerCurrencyDetails& CurrencyDetails)
+FLootLockerInlinedCatalogEntry::FLootLockerInlinedCatalogEntry(const FLootLockerCatalogEntry& Entry, const FLootLockerAssetDetails& AssetDetails, const FLootLockerProgressionPointDetails& ProgressionPointDetails, const FLootLockerProgressionResetDetails& ProgressionResetDetails, const FLootLockerCurrencyDetails& CurrencyDetails, const FLootLockerGroupDetails& GroupDetails)
 {
 	Created_at = Entry.Created_at;
 	Entity_kind = Entry.Entity_kind;
@@ -20,6 +20,7 @@ FLootLockerInlinedCatalogEntry::FLootLockerInlinedCatalogEntry(const FLootLocker
 	this->ProgressionPointDetails = ProgressionPointDetails;
 	this->ProgressionResetDetails = ProgressionResetDetails;
 	this->CurrencyDetails = CurrencyDetails;
+	this->GroupDetails = GroupDetails;
 }
 
 void FLootLockerListCatalogPricesResponse::AppendCatalogItems(FLootLockerListCatalogPricesResponse AdditionalCatalogPrices)
@@ -55,6 +56,10 @@ void FLootLockerListCatalogPricesResponse::AppendCatalogItems(FLootLockerListCat
 	for (const auto& Detail : AdditionalCatalogPrices.Currency_Details)
 	{
 		Currency_Details.Add(Detail.Key, Detail.Value);
+	}
+
+	for (const auto& Detail : AdditionalCatalogPrices.Group_Details) {
+		Group_Details.Add(Detail.Key, Detail.Value);
 	}
 }
 
@@ -92,6 +97,11 @@ FLootLockerListCatalogPricesResponse::FLootLockerListCatalogPricesResponse(const
 	{
 		Currency_Details.Add(Detail.Catalog_listing_id, Detail);
 	}
+
+	for (const auto& Detail : ArrayResponse.Group_Details) 
+	{
+		Group_Details.Add(Detail.id, Detail);
+	}
 }
 
 TArray<FLootLockerInlinedCatalogEntry> FLootLockerListCatalogPricesResponse::GetLootLockerInlinedCatalogEntries()
@@ -106,7 +116,8 @@ TArray<FLootLockerInlinedCatalogEntry> FLootLockerListCatalogPricesResponse::Get
 			ELootLockerCatalogEntryEntityKind::Asset == EntityKind && Asset_Details.Contains(CatalogListingID) ? Asset_Details.FindRef(CatalogListingID) : FLootLockerAssetDetails(),
 			ELootLockerCatalogEntryEntityKind::Progression_Points == EntityKind && Progression_Point_Details.Contains(CatalogListingID) ? Progression_Point_Details.FindRef(CatalogListingID) : FLootLockerProgressionPointDetails(),
 			ELootLockerCatalogEntryEntityKind::Progression_Reset == EntityKind && Progression_Reset_Details.Contains(CatalogListingID) ? Progression_Reset_Details.FindRef(CatalogListingID) : FLootLockerProgressionResetDetails(),
-			ELootLockerCatalogEntryEntityKind::Currency == EntityKind && Currency_Details.Contains(CatalogListingID) ? Currency_Details.FindRef(CatalogListingID) : FLootLockerCurrencyDetails()
+			ELootLockerCatalogEntryEntityKind::Currency == EntityKind && Currency_Details.Contains(CatalogListingID) ? Currency_Details.FindRef(CatalogListingID) : FLootLockerCurrencyDetails(),
+			ELootLockerCatalogEntryEntityKind::Group == EntityKind && Group_Details.Contains(CatalogListingID) ? Group_Details.FindRef(CatalogListingID) : FLootLockerGroupDetails()
 		));
 	}
 	return InlinedEntries;

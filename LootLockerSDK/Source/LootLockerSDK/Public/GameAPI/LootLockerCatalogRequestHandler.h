@@ -19,6 +19,7 @@ enum class ELootLockerCatalogEntryEntityKind : uint8
     Currency = 1,
     Progression_Points = 2,
     Progression_Reset = 3,
+    Group = 4,
 };
 
 /**
@@ -380,6 +381,44 @@ struct FLootLockerCurrencyDetails
     FString Catalog_listing_id;
 };
 
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerCatalogGroupMetadata
+{
+    GENERATED_BODY()
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString key;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString value;
+};
+
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerCatalogGroupAssociation
+{
+    GENERATED_BODY()
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    ELootLockerCatalogEntryEntityKind kind;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString id;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString catalog_listing_id;
+};
+
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerGroupDetails
+{
+    GENERATED_BODY()
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString name;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString description;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerCatalogGroupMetadata> metadata;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString id;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerCatalogGroupAssociation> associations;
+};
+
 //==================================================
 // Request Definitions
 //==================================================
@@ -423,6 +462,8 @@ struct FInternalLootLockerListCatalogPricesResponse : public FLootLockerResponse
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerCurrencyDetails> Currency_Details;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerGroupDetails> Group_Details;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerKeyBasedPagination Pagination;
 };
 
@@ -454,9 +495,12 @@ struct FLootLockerInlinedCatalogEntry : public FLootLockerCatalogEntry
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerCurrencyDetails CurrencyDetails;
 
-    FLootLockerInlinedCatalogEntry(): AssetDetails(), ProgressionPointDetails(), ProgressionResetDetails(), CurrencyDetails() {}
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerGroupDetails GroupDetails;
 
-    FLootLockerInlinedCatalogEntry(const FLootLockerCatalogEntry& Entry, const FLootLockerAssetDetails& AssetDetails, const FLootLockerProgressionPointDetails& ProgressionPointDetails, const FLootLockerProgressionResetDetails& ProgressionResetDetails, const FLootLockerCurrencyDetails& CurrencyDetails);
+    FLootLockerInlinedCatalogEntry(): AssetDetails(), ProgressionPointDetails(), ProgressionResetDetails(), CurrencyDetails(), GroupDetails() {}
+
+    FLootLockerInlinedCatalogEntry(const FLootLockerCatalogEntry& Entry, const FLootLockerAssetDetails& AssetDetails, const FLootLockerProgressionPointDetails& ProgressionPointDetails, const FLootLockerProgressionResetDetails& ProgressionResetDetails, const FLootLockerCurrencyDetails& CurrencyDetails, const FLootLockerGroupDetails& GroupDetails);
 };
 
 /**
@@ -502,6 +546,12 @@ struct FLootLockerListCatalogPricesResponse : public FLootLockerResponse
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TMap<FString /*Catalog_listing_id*/, FLootLockerCurrencyDetails> Currency_Details;
 
+    /**
+    * Lookup map for details about entities of entity type group
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TMap<FString /*Entity_id*/, FLootLockerGroupDetails> Group_Details;
+    
     /**
      * Pagination data to use for subsequent requests
      */
