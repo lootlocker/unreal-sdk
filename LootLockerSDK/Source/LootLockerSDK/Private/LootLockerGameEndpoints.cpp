@@ -239,6 +239,10 @@ FLootLockerEndPoints ULootLockerGameEndpoints::GetServerTimeEndpoint = InitEndpo
 // Crashes
 FLootLockerEndPoints ULootLockerGameEndpoints::Crashes = InitEndpoint("v1/crash", ELootLockerHTTPMethod::UPLOAD);
 
+//Feedback
+FLootLockerEndPoints ULootLockerGameEndpoints::ListFeedbackCategories = InitEndpoint("feedback/category/entity/{0}", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::SendFeedback = InitEndpoint("feedback", ELootLockerHTTPMethod::POST);
+
 FLootLockerEndPoints ULootLockerGameEndpoints::InitEndpoint(const FString& Endpoint, ELootLockerHTTPMethod Method)
 {
 	FLootLockerEndPoints Result;
