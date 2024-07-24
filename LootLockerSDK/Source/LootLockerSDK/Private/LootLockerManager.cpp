@@ -1015,6 +1015,16 @@ void ULootLockerManager::GetEntitlement(const FString& EntitlementID, const FLoo
     ULootLockerEntitlementRequestHandler::GetEntitlement(EntitlementID, OnComplete);
 }
 
+void ULootLockerManager::ListFeedbackCategories(const ELootLockerFeedbackType& Type, const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
+{
+    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(Type, OnComplete);
+}
+
+void ULootLockerManager::SendFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const ELootLockerFeedbackType& Type, const FLootLockerSendFeedbackResponseBP& OnComplete)
+{
+    ULootLockerFeedbackRequestHandler::SendFeedback(Ulid, Description, CategoryID, Type, OnComplete);
+}
+
 // Miscellaneous
 void ULootLockerManager::GetServerTime(const FTimeResponseDelegateBP& OnCompletedRequestBP)
 {
