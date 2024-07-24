@@ -15,18 +15,11 @@ void ULootLockerFeedbackRequestHandler::ListFeedbackCategories(const ELootLocker
 	FString type = FeedbackTypeEnumToString(Type);
 
 	LLAPI<FLootLockerFeedbackCategoryResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListFeedbackCategories, { type }, {}, OnCompleteBP, OnComplete);
-
 }
 
 void ULootLockerFeedbackRequestHandler::SendFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const ELootLockerFeedbackType& Type, const FLootLockerSendFeedbackResponseBP& OnCompleteBP, const FLootLockerSendFeedbackResponseDelegate& OnComplete)
 {
-	FLootLockerFeedbackRequest request = FLootLockerFeedbackRequest();
-	request.entity_id = Ulid;
-	request.description = Description;
-	request.category_id = CategoryID;
-	request.entity = FeedbackTypeEnumToString(Type);
-
-	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, request, ULootLockerGameEndpoints::ListFeedbackCategories, { }, {}, OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerFeedbackRequest{ Ulid, Description, CategoryID, FeedbackTypeEnumToString(Type) }, ULootLockerGameEndpoints::SendFeedback, {}, {}, OnCompleteBP, OnComplete);
 }
 
 
