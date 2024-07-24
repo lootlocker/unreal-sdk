@@ -29,6 +29,7 @@
 #include "GameAPI/LootLockerRemoteSessionRequestHandler.h"
 #include "GameAPI/LootLockerTriggerEventsRequestHandler.h"
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
+#include "GameAPI/LootLockerFeedbackRequestHandler.h"
 #include "LootLockerSDKManager.generated.h"
 
 UCLASS(Blueprintable)
@@ -2163,6 +2164,86 @@ public:
     */
     static void GetEntitlement(const FString& EntitlementID, FLootLockerSingleEntitlementResponseDelegate& OnComplete);
 
+    //==================================================
+    //Feedback
+    //==================================================
+
+    /**
+    * Get a list of Categories to use for feedback, this can be anything from reporting players, ugc, or giving feedback such as nice notes about a UGC
+    * @param Type: Is the Category Type you want to list (Player, UGC, Game)
+    * @param OnComplete delegate for handling the server response
+    */
+    static void ListFeedbackCategories(const ELootLockerFeedbackType& Type, const FLootLockerListFeedbackCategoryResponseDelegate& OnComplete);
+
+    /**
+    * Get a list of Categories to use for feedback to players, like reporting or giving feedback such as nice notes
+    * @param OnComplete delegate for handling the server response
+    */
+    static void ListPlayerFeedbackCategories(const FLootLockerListFeedbackCategoryResponseDelegate& OnComplete) 
+    {
+        ListFeedbackCategories(ELootLockerFeedbackType::Player, OnComplete);
+    }
+
+    /**
+    * Get a list of Categories to use for feedback to the game, like reporting or giving feedback such as nice notes
+    * @param OnComplete delegate for handling the server response
+    */
+    static void ListGameFeedbackCategories(const FLootLockerListFeedbackCategoryResponseDelegate& OnComplete) 
+    {
+        ListFeedbackCategories(ELootLockerFeedbackType::Game, OnComplete);
+    }
+
+    /**
+    * Get a list of Categories to use for feedback to a ugc asset, like reporting or giving feedback such as nice notes
+    * @param OnComplete delegate for handling the server response
+    */
+    static void ListUGCFeedbackCategories(const FLootLockerListFeedbackCategoryResponseDelegate& OnComplete) 
+    {
+        ListFeedbackCategories(ELootLockerFeedbackType::Ugc, OnComplete);
+    }
+
+    /**
+    * Send feedback about a player, the game or a ugc asset.
+    * @param Ulid is the ulid of what or who you're giving feedback about
+    * @param Description is the text/reason of your feedback ("He is hacking", "This ugc asset is amazing!")
+    * @param CategoryID is the ID of the category you're using for your feedback, use ListFeedbackCategories function to get the ids.
+    * @param Type is the type of report (player, game, ugc)
+    */
+    static void SendFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const ELootLockerFeedbackType& Type, const FLootLockerSendFeedbackResponseDelegate& OnComplete);
+
+    /**
+    * Send feedback about a player
+    * @param Ulid is the ulid of who you're giving feedback about
+    * @param Description is the text/reason of your feedback ("He is hacking", "He is a kind player!")
+    * @param CategoryID is the ID of the category you're using for your feedback, use ListFeedbackCategories function to get the ids.
+    */
+    static void SendPlayerFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseDelegate& OnComplete)
+    {
+        SendFeedback(Ulid, Description, CategoryID, ELootLockerFeedbackType::Player, OnComplete);
+    }
+
+    /**
+    * Send feedback about the game
+    * @param Ulid is the ulid of who you're giving feedback about
+    * @param Description is the text/reason of your feedback ("Amazing game", "I found a bug here!")
+    * @param CategoryID is the ID of the category you're using for your feedback, use ListFeedbackCategories function to get the ids.
+    */
+    static void SendGameFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseDelegate& OnComplete)
+    {
+        SendFeedback(Ulid, Description, CategoryID, ELootLockerFeedbackType::Game, OnComplete);
+    }
+
+    /**
+    * Send feedback about a ugc asset
+    * @param Ulid is the ulid of the asset you're giving feedback about
+    * @param Description is the text/reason of your feedback ("Amazing Level", "I found a bug here!")
+    * @param CategoryID is the ID of the category you're using for your feedback, use ListFeedbackCategories function to get the ids.
+    */
+    static void SendUGCFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseDelegate& OnComplete)
+    {
+        SendFeedback(Ulid, Description, CategoryID, ELootLockerFeedbackType::Ugc, OnComplete);
+    }
+
 	//==================================================
 	//Miscellaneous
 	//==================================================
@@ -2171,7 +2252,9 @@ public:
 	* Get the current time of the server. Can also be used to ping the server
 	* https://ref.lootlocker.com/game-api/#server-time
 	*
-	* @param OnCompletedRequest Delegate for handling the server response.
+	* @param OnCompleted
+    
+    Delegate for handling the server response.
 	*/
 	static void GetServerTime(const FTimeResponseDelegate& OnCompletedRequest);
 

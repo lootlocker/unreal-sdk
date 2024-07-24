@@ -1076,6 +1076,17 @@ void ULootLockerSDKManager::GetEntitlement(const FString& EntitlementID, FLootLo
     ULootLockerEntitlementRequestHandler::GetEntitlement(EntitlementID, FLootLockerSingleEntitlementResponseBP(), OnComplete);
 }
 
+// Feedback
+void ULootLockerSDKManager::ListFeedbackCategories(const ELootLockerFeedbackType& Type, const FLootLockerListFeedbackCategoryResponseDelegate& OnComplete)
+{
+    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(Type, FLootLockerListFeedbackCategoryResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::SendFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const ELootLockerFeedbackType& Type, const FLootLockerSendFeedbackResponseDelegate& OnComplete)
+{
+    ULootLockerFeedbackRequestHandler::SendFeedback(Ulid, Description, CategoryID, Type, FLootLockerSendFeedbackResponseBP(), OnComplete);
+}
+
 // Miscellaneous
 void ULootLockerSDKManager::GetServerTime(const FTimeResponseDelegate& OnCompletedRequest)
 {

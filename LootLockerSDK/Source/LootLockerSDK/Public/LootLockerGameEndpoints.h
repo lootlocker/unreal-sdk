@@ -270,6 +270,11 @@ public:
 
     // Crash
     static FLootLockerEndPoints Crashes;
+
+    // Feedback
+    static FLootLockerEndPoints ListFeedbackCategories;
+    static FLootLockerEndPoints SendFeedback;
+
 private:
     static FString GameBaseUrl;
     static FLootLockerEndPoints InitEndpoint(const FString& Endpoint, ELootLockerHTTPMethod Method);
