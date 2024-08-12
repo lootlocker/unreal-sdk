@@ -335,7 +335,7 @@ struct FLootLockerLeaderboardGroupReward
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString description;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerLeaderboardGroupRewardMetadata> metadata; //TODO:
+    TArray<FLootLockerLeaderboardGroupRewardMetadata> metadata;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerLeaderboardGroupRewardAssociation> associations;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
