@@ -22,6 +22,34 @@ enum class ELootLockerCatalogEntryEntityKind : uint8
     Group = 4,
 };
 
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerItemDetailsKey
+{
+    GENERATED_BODY()
+    /*
+    * The id of the catalog listing
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Catalog_listing_id;
+    /*
+    * The id of the item
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Item_id;
+
+public:
+
+    friend uint32 GetTypeHash(const FLootLockerItemDetailsKey& p) {
+        return HashCombine(GetTypeHash(p.Catalog_listing_id), GetTypeHash(p.Item_id));
+    }
+
+    bool operator==(const FLootLockerItemDetailsKey& Other) const
+    {
+        return Catalog_listing_id.Equals(Other.Catalog_listing_id) && Item_id.Equals(Other.Item_id);
+    }
+
+};
+
 /**
  * 
  */
@@ -237,6 +265,7 @@ struct FLootLockerCatalogEntry
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool Purchasable = false;
+
 };
 
 /**
@@ -345,6 +374,7 @@ struct FLootLockerProgressionResetDetails
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Catalog_listing_id;
+
 };
 
 /**
@@ -379,14 +409,21 @@ struct FLootLockerCurrencyDetails
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Catalog_listing_id;
+
 };
 
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerCatalogGroupMetadata
 {
     GENERATED_BODY()
+    /**
+     * The Key of a metadata
+     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString key;
+    /**
+     * The Value of a metadata
+     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString value;
 };
@@ -395,28 +432,55 @@ USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerCatalogGroupAssociation
 {
     GENERATED_BODY()
+    /**
+     * The kind of reward, (asset / currency / group / progression points / progression reset).
+     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    ELootLockerCatalogEntryEntityKind kind;
+    ELootLockerCatalogEntryEntityKind Kind;
+    /**
+     * The unique id of the group that this refers to
+     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString id;
+    FString Id;
+    /**
+     * The catalog listing id for this group detail.
+     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString catalog_listing_id;
+    FString Catalog_listing_id;
+
 };
 
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerGroupDetails
 {
     GENERATED_BODY()
+    /**
+     * The name of the Group.
+     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString name;
+    FString Name;
+    /** 
+     * The description of the Group.
+     */ 
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString description;
+    FString Description;
+    /**
+     * The metadata of the Group.
+     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerCatalogGroupMetadata> metadata;
+    TArray<FLootLockerCatalogGroupMetadata> Metadata;
+    /**
+     * The ID of the reward.
+     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString id;
+    FString Id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerCatalogGroupAssociation> associations;
+    FString Catalog_listing_id;
+    /**
+     * Associations for the Group reward.
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerCatalogGroupAssociation> Associations;
 };
 
 //==================================================
@@ -467,6 +531,32 @@ struct FInternalLootLockerListCatalogPricesResponse : public FLootLockerResponse
     FLootLockerKeyBasedPagination Pagination;
 };
 
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerInlinedGroupDetails : public FLootLockerGroupDetails
+{
+    GENERATED_BODY()
+    /**
+     * Asset details inlined for this catalog entry, will be Empty if the entity_kind is not asset
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerAssetDetails> AssetDetails;
+    /**
+     * Progression point details inlined for this catalog entry, will be Empty if the entity_kind is not progression_points
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerProgressionPointDetails> ProgressionPointDetails;
+    /**
+     * Progression reset details inlined for this catalog entry, will be Empty if the entity_kind is not progression_reset
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerProgressionResetDetails> ProgressionResetDetails;
+    /**
+     * Currency details inlined for this catalog entry, will be Empty if the entity_kind is not currency
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerCurrencyDetails> CurrencyDetails;
+};
+
 /**
  * A Convenience type to use when you need inlined catalog items
  */
@@ -494,13 +584,15 @@ struct FLootLockerInlinedCatalogEntry : public FLootLockerCatalogEntry
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerCurrencyDetails CurrencyDetails;
-
+    /**
+    * Group details inlined for this catalog entry, will be Empty if the entity_kind is not group
+    */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FLootLockerGroupDetails GroupDetails;
+    FLootLockerInlinedGroupDetails GroupDetails;
 
     FLootLockerInlinedCatalogEntry(): AssetDetails(), ProgressionPointDetails(), ProgressionResetDetails(), CurrencyDetails(), GroupDetails() {}
 
-    FLootLockerInlinedCatalogEntry(const FLootLockerCatalogEntry& Entry, const FLootLockerAssetDetails& AssetDetails, const FLootLockerProgressionPointDetails& ProgressionPointDetails, const FLootLockerProgressionResetDetails& ProgressionResetDetails, const FLootLockerCurrencyDetails& CurrencyDetails, const FLootLockerGroupDetails& GroupDetails);
+    FLootLockerInlinedCatalogEntry(const FLootLockerCatalogEntry& Entry, const FLootLockerListCatalogPricesResponse& CatalogListing);
 };
 
 /**
@@ -526,31 +618,31 @@ struct FLootLockerListCatalogPricesResponse : public FLootLockerResponse
      * Lookup map for details about entities of entity type assets
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TMap<FString /*Catalog_listing_id*/, FLootLockerAssetDetails> Asset_Details;
+    TMap<FLootLockerItemDetailsKey, FLootLockerAssetDetails> Asset_Details;
 
     /**
      * Lookup map for details about entities of entity type progression_points
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TMap<FString /*Catalog_listing_id*/, FLootLockerProgressionPointDetails> Progression_Point_Details;
+    TMap<FLootLockerItemDetailsKey, FLootLockerProgressionPointDetails> Progression_Point_Details;
 
     /**
      * Lookup map for details about entities of entity type progression_reset
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TMap<FString /*Catalog_listing_id*/, FLootLockerProgressionResetDetails> Progression_Reset_Details;
+    TMap<FLootLockerItemDetailsKey, FLootLockerProgressionResetDetails> Progression_Reset_Details;
 
     /**
      * Lookup map for details about entities of entity type currency
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TMap<FString /*Catalog_listing_id*/, FLootLockerCurrencyDetails> Currency_Details;
+    TMap<FLootLockerItemDetailsKey, FLootLockerCurrencyDetails> Currency_Details;
 
     /**
     * Lookup map for details about entities of entity type group
     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TMap<FString /*Entity_id*/, FLootLockerGroupDetails> Group_Details;
+    TMap<FLootLockerItemDetailsKey, FLootLockerGroupDetails> Group_Details;
     
     /**
      * Pagination data to use for subsequent requests
@@ -567,7 +659,7 @@ struct FLootLockerListCatalogPricesResponse : public FLootLockerResponse
     /**
      * Get all the entries with details inlined into the entries themselves
      */
-    TArray<FLootLockerInlinedCatalogEntry> GetLootLockerInlinedCatalogEntries();
+    TArray<FLootLockerInlinedCatalogEntry> GetLootLockerInlinedCatalogEntries() const;
 };
 
 //==================================================
@@ -618,6 +710,10 @@ public:
 
     static void ListCatalogs(const FLootLockerListCatalogsResponseBP& OnCompleteBP = FLootLockerListCatalogsResponseBP(), const FLootLockerListCatalogsResponseDelegate& OnComplete = FLootLockerListCatalogsResponseDelegate());
     static void ListCatalogItems(const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnCompleteBP = FLootLockerListCatalogPricesResponseBP(), const FLootLockerListCatalogPricesResponseDelegate& OnComplete = FLootLockerListCatalogPricesResponseDelegate());
+    static TArray<FLootLockerInlinedCatalogEntry> ConvertCatalogToInlineItems(const FLootLockerListCatalogPricesResponse& Catalog)
+    {
+        return Catalog.GetLootLockerInlinedCatalogEntries();
+    }
 
     static ULootLockerHttpClient* HttpClient;
 };
