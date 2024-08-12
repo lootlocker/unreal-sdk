@@ -1004,6 +1004,11 @@ void ULootLockerManager::ListCatalogItems(const FString& CatalogKey, int Count, 
     ULootLockerCatalogRequestHandler::ListCatalogItems(CatalogKey, Count, After, OnComplete);
 }
 
+TArray<FLootLockerInlinedCatalogEntry> ULootLockerManager::ConvertCatalogToInlineItems(const FLootLockerListCatalogPricesResponse& Catalog)
+{
+    return ULootLockerCatalogRequestHandler::ConvertCatalogToInlineItems(Catalog);
+}
+
 // Entitlements
 void ULootLockerManager::ListEntitlements(int Count, const FString& After, const FLootLockerListEntitlementsResponseBP& OnComplete)
 {
