@@ -2146,6 +2146,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Catalog", meta = (AdvancedDisplay = "Count,After", Count = -1, After = ""))
 	static void ListCatalogItems(const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnComplete);
 
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Catalog")
+    static TArray<FLootLockerInlinedCatalogEntry> ConvertCatalogToInlineItems(const FLootLockerListCatalogPricesResponse& Catalog);
+
     //==================================================
     // Entitlements
     //==================================================
