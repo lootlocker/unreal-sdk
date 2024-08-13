@@ -9,6 +9,15 @@
 #include "JsonObjectConverter.h"
 #include "LootLockerLeaderboardRequestHandler.generated.h"
 
+UENUM(BlueprintType, Category = "LootLocker")
+enum class ELootLockerLeaderboardRewardEntityKind : uint8
+{
+    Asset = 0,
+    Currency = 1,
+    Progression_Points = 2,
+    Progression_Reset = 3,
+    Group = 4,
+};
 
 USTRUCT(BlueprintType)
 struct FLootLockerPlayer
@@ -303,7 +312,7 @@ struct FLootLockerLeaderboardGroupRewardAssociation
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString kind;
+    ELootLockerLeaderboardRewardEntityKind kind;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerLeaderboardCurrencyReward currency;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -347,7 +356,7 @@ struct FLootLockerLeaderboardReward
 {
     GENERATED_BODY()
         UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString reward_kind;
+        ELootLockerLeaderboardRewardEntityKind reward_kind;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
         TArray<FLootLockerLeaderboardDetailPredicates> predicates;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
