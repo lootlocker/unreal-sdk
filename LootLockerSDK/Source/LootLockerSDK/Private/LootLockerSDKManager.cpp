@@ -1077,14 +1077,40 @@ void ULootLockerSDKManager::GetEntitlement(const FString& EntitlementID, FLootLo
 }
 
 // Feedback
-void ULootLockerSDKManager::ListFeedbackCategories(const ELootLockerFeedbackType& Type, const FLootLockerListFeedbackCategoryResponseDelegate& OnComplete)
+void ULootLockerSDKManager::ListPlayerFeedbackCategories(const FLootLockerListFeedbackCategoryResponseDelegate& OnComplete)
 {
-    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(Type, FLootLockerListFeedbackCategoryResponseBP(), OnComplete);
+    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(ELootLockerFeedbackType::Player, FLootLockerListFeedbackCategoryResponseBP(), OnComplete);
+
 }
 
-void ULootLockerSDKManager::SendFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const ELootLockerFeedbackType& Type, const FLootLockerSendFeedbackResponseDelegate& OnComplete)
+void ULootLockerSDKManager::ListGameFeedbackCategories(const FLootLockerListFeedbackCategoryResponseDelegate& OnComplete)
 {
-    ULootLockerFeedbackRequestHandler::SendFeedback(Ulid, Description, CategoryID, Type, FLootLockerSendFeedbackResponseBP(), OnComplete);
+    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(ELootLockerFeedbackType::Game, FLootLockerListFeedbackCategoryResponseBP(), OnComplete);
+
+}
+
+void ULootLockerSDKManager::ListUGCFeedbackCategories(const FLootLockerListFeedbackCategoryResponseDelegate& OnComplete)
+{
+    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(ELootLockerFeedbackType::Ugc, FLootLockerListFeedbackCategoryResponseBP(), OnComplete);
+
+}
+
+void ULootLockerSDKManager::SendPlayerFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseDelegate& OnComplete)
+{
+    ULootLockerFeedbackRequestHandler::SendFeedback(Ulid, Description, CategoryID, ELootLockerFeedbackType::Player, FLootLockerSendFeedbackResponseBP(), OnComplete);
+
+}
+
+void ULootLockerSDKManager::SendGameFeedback(const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseDelegate& OnComplete)
+{
+    ULootLockerFeedbackRequestHandler::SendFeedback("", Description, CategoryID, ELootLockerFeedbackType::Game, FLootLockerSendFeedbackResponseBP(), OnComplete);
+
+}
+
+void ULootLockerSDKManager::SendUGCFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseDelegate& OnComplete)
+{
+    ULootLockerFeedbackRequestHandler::SendFeedback(Ulid, Description, CategoryID, ELootLockerFeedbackType::Ugc, FLootLockerSendFeedbackResponseBP(), OnComplete);
+
 }
 
 // Miscellaneous

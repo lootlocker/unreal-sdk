@@ -2181,7 +2181,7 @@ public:
     * @param OnComplete delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback")
-    static void ListFeedbackCategories(const ELootLockerFeedbackType& Type, const FLootLockerListFeedbackCategoryResponseBP& OnComplete);
+    static void ListPlayerFeedbackCategory(const FLootLockerListFeedbackCategoryResponseBP& OnComplete);
 
     /**
     * Get a list of Categories to use for feedback, this can be anything from reporting players, ugc, or giving feedback such as nice notes about a UGC
@@ -2189,41 +2189,15 @@ public:
     * @param OnComplete delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback")
-    static void ListPlayerFeedbackCategory(const FLootLockerListFeedbackCategoryResponseBP& OnComplete) 
-    {
-        ListFeedbackCategories(ELootLockerFeedbackType::Player, OnComplete);
-    }
+    static void ListGameFeedbackCategory(const FLootLockerListFeedbackCategoryResponseBP& OnComplete);
 
-    /**
-    * Get a list of Categories to use for feedback, this can be anything from reporting players, ugc, or giving feedback such as nice notes about a UGC
-    * @param Type: Is the Category Type you want to list (Player, UGC, Game)
-    * @param OnComplete delegate for handling the server response
-    */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback")
-    static void ListGameFeedbackCategory(const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
-    {
-        ListFeedbackCategories(ELootLockerFeedbackType::Game, OnComplete);
-    }
     /**
     * Get a list of Categories to use for feedback, this can be anything from reporting players, ugc, or giving feedback such as nice notes about a UGC
     * @param OnComplete delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback")
-    static void ListUGCFeedbackCategory(const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
-    {
-        ListFeedbackCategories(ELootLockerFeedbackType::Ugc, OnComplete);
-    }
-
-    /**
-    * Send feedback about a player, the game or a ugc asset.
-    * @param Ulid is the ulid of what or who you're giving feedback about
-    * @param Description is the text/reason of your feedback ("He is hacking", "This ugc asset is amazing!")
-    * @param CategoryID is the ID of the category you're using for your feedback, use ListFeedbackCategories function to get the ids.
-    * @param Type is the type of report (player, game, ugc)
-    */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback")
-    static void SendFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const ELootLockerFeedbackType& Type, const FLootLockerSendFeedbackResponseBP& OnComplete);
-
+    static void ListUGCFeedbackCategory(const FLootLockerListFeedbackCategoryResponseBP& OnComplete);
+    
     /**
     * Send feedback about a player
     * @param Ulid is the ulid of who you're giving feedback about
@@ -2231,10 +2205,7 @@ public:
     * @param CategoryID is the ID of the category you're using for your feedback, use ListFeedbackCategories function to get the ids.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback")
-    static void SendPlayerFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete) 
-    {
-        SendFeedback(Ulid, Description, CategoryID, ELootLockerFeedbackType::Player, OnComplete);
-    }
+    static void SendPlayerFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete);
 
     /**
     * Send feedback about the game
@@ -2243,10 +2214,7 @@ public:
     * @param CategoryID is the ID of the category you're using for your feedback, use ListFeedbackCategories function to get the ids.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback")
-    static void SendGameFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete)
-    {
-        SendFeedback(Ulid, Description, CategoryID, ELootLockerFeedbackType::Game, OnComplete);
-    }
+    static void SendGameFeedback(const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete);
 
     /**
     * Send feedback about a ugc asset
@@ -2255,11 +2223,7 @@ public:
     * @param CategoryID is the ID of the category you're using for your feedback, use ListFeedbackCategories function to get the ids.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback")
-    static void SendUGCFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete)
-    {
-        SendFeedback(Ulid, Description, CategoryID, ELootLockerFeedbackType::Ugc, OnComplete);
-    }
-
+    static void SendUGCFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete);
 
     //==================================================
     // Miscellaneous

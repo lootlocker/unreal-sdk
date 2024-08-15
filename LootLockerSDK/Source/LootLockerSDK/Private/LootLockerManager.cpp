@@ -1015,14 +1015,35 @@ void ULootLockerManager::GetEntitlement(const FString& EntitlementID, const FLoo
     ULootLockerEntitlementRequestHandler::GetEntitlement(EntitlementID, OnComplete);
 }
 
-void ULootLockerManager::ListFeedbackCategories(const ELootLockerFeedbackType& Type, const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
+void ULootLockerManager::ListPlayerFeedbackCategory(const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
 {
-    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(Type, OnComplete);
+    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(ELootLockerFeedbackType::Player, OnComplete);
 }
 
-void ULootLockerManager::SendFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const ELootLockerFeedbackType& Type, const FLootLockerSendFeedbackResponseBP& OnComplete)
+void ULootLockerManager::ListGameFeedbackCategory(const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
 {
-    ULootLockerFeedbackRequestHandler::SendFeedback(Ulid, Description, CategoryID, Type, OnComplete);
+    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(ELootLockerFeedbackType::Game, OnComplete);
+}
+
+void ULootLockerManager::ListUGCFeedbackCategory(const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
+{
+    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(ELootLockerFeedbackType::Ugc, OnComplete);
+}
+
+void ULootLockerManager::SendPlayerFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete)
+{
+    ULootLockerFeedbackRequestHandler::SendFeedback(Ulid, Description, CategoryID, ELootLockerFeedbackType::Player, OnComplete);
+}
+
+void ULootLockerManager::SendGameFeedback(const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete)
+{
+    ULootLockerFeedbackRequestHandler::SendFeedback("", Description, CategoryID, ELootLockerFeedbackType::Game, OnComplete);
+}
+
+void ULootLockerManager::SendUGCFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete)
+{
+    ULootLockerFeedbackRequestHandler::SendFeedback(Ulid, Description, CategoryID, ELootLockerFeedbackType::Ugc, OnComplete);
+
 }
 
 // Miscellaneous
