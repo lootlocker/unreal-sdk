@@ -1020,17 +1020,17 @@ void ULootLockerManager::GetEntitlement(const FString& EntitlementID, const FLoo
     ULootLockerEntitlementRequestHandler::GetEntitlement(EntitlementID, OnComplete);
 }
 
-void ULootLockerManager::ListPlayerFeedbackCategory(const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
+void ULootLockerManager::ListPlayerFeedbackCategories(const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
 {
     ULootLockerFeedbackRequestHandler::ListFeedbackCategories(ELootLockerFeedbackType::Player, OnComplete);
 }
 
-void ULootLockerManager::ListGameFeedbackCategory(const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
+void ULootLockerManager::ListGameFeedbackCategories(const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
 {
     ULootLockerFeedbackRequestHandler::ListFeedbackCategories(ELootLockerFeedbackType::Game, OnComplete);
 }
 
-void ULootLockerManager::ListUGCFeedbackCategory(const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
+void ULootLockerManager::ListUGCFeedbackCategories(const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
 {
     ULootLockerFeedbackRequestHandler::ListFeedbackCategories(ELootLockerFeedbackType::Ugc, OnComplete);
 }
