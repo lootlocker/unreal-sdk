@@ -125,6 +125,5 @@ public:
     static void ListFeedbackCategories(const ELootLockerFeedbackType& Type, const FLootLockerListFeedbackCategoryResponseBP& OnCompletedRequestBP = FLootLockerListFeedbackCategoryResponseBP(), const FLootLockerListFeedbackCategoryResponseDelegate& OnCompletedRequest = FLootLockerListFeedbackCategoryResponseDelegate());
     static void SendFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const ELootLockerFeedbackType& Type, const FLootLockerSendFeedbackResponseBP& OnCompletedRequestBP = FLootLockerSendFeedbackResponseBP(), const FLootLockerSendFeedbackResponseDelegate& OnCompletedRequest = FLootLockerSendFeedbackResponseDelegate());
 private:
-    static FString FeedbackTypeEnumToString(ELootLockerFeedbackType e);
     static ULootLockerHttpClient* HttpClient;
 };
