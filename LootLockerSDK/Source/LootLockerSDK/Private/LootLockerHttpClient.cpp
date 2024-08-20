@@ -96,6 +96,11 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 		if (!response.success)
 		{
             FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerErrorData>(response.FullTextFromServer, &response.ErrorData, 0, 0);
+            FString RetryAfterHeader = Response->GetHeader("retry-after");
+            if(!RetryAfterHeader.IsEmpty()) {
+                response.ErrorData.Retry_after_seconds = FCString::Atoi(*RetryAfterHeader);
+            }
+            UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Retry-After: %s"), *RetryAfterHeader); 
             LogFailedRequestInformation(response, requestType, endPoint, data);
 		}
 		onCompleteRequest.ExecuteIfBound(response);
@@ -190,6 +195,10 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
             if (!response.success)
             {
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerErrorData>(response.FullTextFromServer, &response.ErrorData, 0, 0);
+                FString RetryAfterHeader = Response->GetHeader("retry-after");
+                if(!RetryAfterHeader.IsEmpty()) {
+                    response.ErrorData.Retry_after_seconds = FCString::Atoi(*RetryAfterHeader);
+                }
                 LogFailedRequestInformation(response, requestType, endPoint, FString("Data Stream"));
             }
 
