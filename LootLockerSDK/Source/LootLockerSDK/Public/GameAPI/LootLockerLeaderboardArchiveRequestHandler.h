@@ -22,7 +22,7 @@ struct FLootLockerLeaderboardArchivePlayer
 	FString public_uid;
 	// The ID of the Player.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int32 id;
+	int32 id = 0;
 	// The ULID of the Player.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString player_ulid;
