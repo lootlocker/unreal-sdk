@@ -436,7 +436,7 @@ struct FLootLockerCatalogGroupAssociation
      * The kind of reward, (asset / currency / group / progression points / progression reset).
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    ELootLockerCatalogEntryEntityKind Kind;
+    ELootLockerCatalogEntryEntityKind Kind = ELootLockerCatalogEntryEntityKind::Asset;
     /**
      * The unique id of the group that this refers to
      */
