@@ -35,7 +35,7 @@ struct FLootLockerFeedbackCategory
     * The type of a feedback category (Player, Game, UGC)
     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    ELootLockerFeedbackType entity;
+    ELootLockerFeedbackType entity = ELootLockerFeedbackType::Game;
     /*
     * The name of a feedback category
     */
