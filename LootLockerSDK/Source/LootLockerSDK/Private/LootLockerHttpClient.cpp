@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021 LootLocker
+// Copyright (c) 2021 LootLocker
 
 
 #include "LootLockerHttpClient.h"
@@ -100,7 +100,6 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
             if(!RetryAfterHeader.IsEmpty()) {
                 response.ErrorData.Retry_after_seconds = FCString::Atoi(*RetryAfterHeader);
             }
-            UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Retry-After: %s"), *RetryAfterHeader); 
             LogFailedRequestInformation(response, requestType, endPoint, data);
 		}
 		onCompleteRequest.ExecuteIfBound(response);
