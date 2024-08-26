@@ -13,6 +13,14 @@ ULootLockerLeaderboardRequestHandler::ULootLockerLeaderboardRequestHandler()
 	HttpClient = NewObject<ULootLockerHttpClient>();
 }
 
+void ULootLockerLeaderboardRequestHandler::ListLeaderboards(int Count, int After, const FLootLockerListLeaderboardsResponseBP& OnCompletedRequestBP, const FLootLockerListLeaderboardsResponseDelegate& OnCompletedRequest)
+{
+	TMultiMap<FString, FString> QueryParams;
+	if (Count > 0) { QueryParams.Add("count", FString::FromInt(Count)); }
+	if (After > 0) { QueryParams.Add("after", FString::FromInt(After)); }
+	LLAPI<FLootLockerListLeaderboardsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ListLeaderboards, {}, QueryParams, OnCompletedRequestBP, OnCompletedRequest);
+}
+
 void ULootLockerLeaderboardRequestHandler::GetMemberRank(const FLootLockerGetMemberRankRequest& MemberRequest, const FLootLockerGetMemberRankResponseBP& OnCompletedRequestBP, const FLootLockerGetMemberRankResponseDelegate& OnCompletedRequest)
 {
 	LLAPI<FLootLockerGetMemberRankResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetMemberRank, { MemberRequest.leaderboard_key, MemberRequest.member_id }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);

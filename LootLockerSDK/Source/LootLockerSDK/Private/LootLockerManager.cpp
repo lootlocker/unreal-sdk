@@ -877,6 +877,11 @@ void ULootLockerManager::GetMessages(const FMessagesResponseDelegateBP& OnGetMes
     ULootLockerMessagesRequestHandler::GetMessages(OnGetMessagesCompleted);
 }
 
+void ULootLockerManager::ListLeaderboards(int Count, int After, const FLootLockerListLeaderboardsResponseBP& OnCompletedRequestBP)
+{
+    ULootLockerLeaderboardRequestHandler::ListLeaderboards(Count, After, OnCompletedRequestBP);
+}
+
 void ULootLockerManager::GetMemberRank(FString LeaderboardKey, FString MemberId, const FLootLockerGetMemberRankResponseBP& OnCompletedRequestBP)
 {
     FLootLockerGetMemberRankRequest MemberRequest;
