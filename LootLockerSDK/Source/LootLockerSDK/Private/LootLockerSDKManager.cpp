@@ -937,6 +937,11 @@ void ULootLockerSDKManager::GetMessages(const FMessagesResponseDelegate& OnCompl
     ULootLockerMessagesRequestHandler::GetMessages(FMessagesResponseDelegateBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::ListLeaderboards(int Count, int After, const FLootLockerListLeaderboardsResponseDelegate& OnCompletedRequest)
+{
+    ULootLockerLeaderboardRequestHandler::ListLeaderboards(Count, After, FLootLockerListLeaderboardsResponseBP(), OnCompletedRequest);
+}
+
 // Leaderboards
 void ULootLockerSDKManager::GetMemberRank(FString LeaderboardKey, FString MemberId, const FLootLockerGetMemberRankResponseDelegate& OnCompletedRequest)
 {
