@@ -3,10 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
 #include "LootLockerResponse.h"
 #include "LootLockerHttpClient.h"
-#include "JsonObjectConverter.h"
 #include "LootLockerLeaderboardRequestHandler.generated.h"
 
 UENUM(BlueprintType, Category = "LootLocker")
@@ -375,36 +373,125 @@ struct FLootLockerLeaderboardReward
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerLeaderboardDetailsResponse : public FLootLockerResponse 
+struct FLootLockerLeaderboardDetails
 {
     GENERATED_BODY()
+    /*
+     * The date the Leaderboard was created.
+     **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString created_at;
+    FString Created_at;
+    /*
+     * The date the Leaderboard was last updated.
+     **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString updated_at;
+    FString Updated_at;
+    /*
+     * The Leaderboard's Key.
+     **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString key;
+    FString Key;
+    /*
+     * The direction of the Leaderboard (Ascending / Descending).
+     **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString direction_method;
+    FString Direction_method;
+    /*
+     * The name of the Leaderboard.
+     **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString name;
+    FString Name;
+    /*
+     * The type of the Leaderboard (Player / Generic).
+     **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString type;
+    FString Type;
+    /*
+     * TODO: Document
+     **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int id = 0;
+    int Id = 0;
+    /*
+     * Will the score be overwritten even if it was less than the original score.
+     **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int game_id = 0;
+    bool Overwrite_score_on_submit = false;
+    /*
+     * Does the Leaderboard have metadata.
+     **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool enable_game_api_writes = false;
+    bool Has_metadata = false;
+    /*
+     * Schedule of the Leaderboard.
+     **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool overwrite_score_on_submit = false;
+    FLootLockerLeaderboardSchedule Schedule;
+    /*
+     * A List of rewards tied to the Leaderboard.
+     **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool has_metadata = false;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FLootLockerLeaderboardSchedule schedule;
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerLeaderboardReward> rewards;
+    TArray<FLootLockerLeaderboardReward> Rewards;
+};
 
+USTRUCT(BlueprintType)
+struct FLootLockerLeaderboardDetailsResponse : public FLootLockerResponse
+{
+    GENERATED_BODY()
+    /*
+     * The date the Leaderboard was created.
+     **/
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Created_at;
+    /*
+     * The date the Leaderboard was last updated.
+     **/
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Updated_at;
+    /*
+     * The Leaderboard's Key.
+     **/
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Key;
+    /*
+     * The direction of the Leaderboard (Ascending / Descending).
+     **/
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Direction_method;
+    /*
+     * The name of the Leaderboard.
+     **/
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Name;
+    /*
+     * The type of the Leaderboard (Player / Generic).
+     **/
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Type;
+    /*
+     * TODO: Document
+     **/
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int Id = 0;
+    /*
+     * Will the score be overwritten even if it was less than the original score.
+     **/
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool Overwrite_score_on_submit = false;
+    /*
+     * Does the Leaderboard have metadata.
+     **/
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool Has_metadata = false;
+    /*
+     * Schedule of the Leaderboard.
+     **/
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerLeaderboardSchedule Schedule;
+    /*
+     * A List of rewards tied to the Leaderboard.
+     **/
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerLeaderboardReward> Rewards;
 };
 
 USTRUCT(BlueprintType)
@@ -461,6 +548,24 @@ struct FLootLockerGetByListMembersRequest
     TArray<FString> members;
 };
 
+USTRUCT()
+struct FLootLockerListLeaderboardsResponse : public FLootLockerResponse
+{
+    GENERATED_BODY()
+    /*
+     * Pagination data for this request
+     **/
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerIndexBasedPagination Pagination;
+    /*
+     * A list of players and details from the archived Leaderboard
+     **/
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerLeaderboardDetails> Items;
+
+};
+
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListLeaderboardsResponseBP, FLootLockerListLeaderboardsResponse, Response);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetMemberRankResponseBP, FLootLockerGetMemberRankResponse, Response);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetByListOfMembersResponseBP, FLootLockerGetByListOfMembersResponse, Response);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetScoreListResponseBP, FLootLockerGetScoreListResponse, Response);
@@ -468,6 +573,7 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerSubmitScoreResponseBP, FLootLockerS
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetAllMemberRanksResponseBP, FLootLockerGetAllMemberRanksResponse, Response);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerLeaderboardDetailsResponseBP, FLootLockerLeaderboardDetailsResponse, Response);
 
+DECLARE_DELEGATE_OneParam(FLootLockerListLeaderboardsResponseDelegate, FLootLockerListLeaderboardsResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerGetMemberRankResponseDelegate, FLootLockerGetMemberRankResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerGetByListOfMembersResponseDelegate, FLootLockerGetByListOfMembersResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerGetScoreListResponseDelegate, FLootLockerGetScoreListResponse);
@@ -480,6 +586,7 @@ class LOOTLOCKERSDK_API ULootLockerLeaderboardRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
+    static void ListLeaderboards(int Count, int After, const FLootLockerListLeaderboardsResponseBP& OnCompletedRequestBP = FLootLockerListLeaderboardsResponseBP(), const FLootLockerListLeaderboardsResponseDelegate& OnCompletedRequest = FLootLockerListLeaderboardsResponseDelegate());
     static void GetMemberRank(const FLootLockerGetMemberRankRequest& MemberRequest, const FLootLockerGetMemberRankResponseBP& OnCompletedRequestBP = FLootLockerGetMemberRankResponseBP(), const FLootLockerGetMemberRankResponseDelegate& OnCompletedRequest = FLootLockerGetMemberRankResponseDelegate());
     static void GetByListOfMembers(const FLootLockerGetByListMembersRequest& GetScoreByListRequests, FString LeaderboardKey, const FLootLockerGetByListOfMembersResponseBP& OnCompletedRequestBP = FLootLockerGetByListOfMembersResponseBP(), const FLootLockerGetByListOfMembersResponseDelegate& OnCompletedRequest = FLootLockerGetByListOfMembersResponseDelegate());
     static void GetScoreList(const FLootLockerGetScoreListRequest& GetScoreListRequests, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP = FLootLockerGetScoreListResponseBP(), const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest = FLootLockerGetScoreListResponseDelegate());

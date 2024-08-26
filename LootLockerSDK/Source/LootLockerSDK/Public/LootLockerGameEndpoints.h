@@ -226,6 +226,7 @@ public:
     static FLootLockerEndPoints GetMessagesEndpoint;
 
     //Leaderboard
+    static FLootLockerEndPoints ListLeaderboards;
     static FLootLockerEndPoints GetMemberRank;
     static FLootLockerEndPoints GetByListOfMembers;
     static FLootLockerEndPoints GetScoreList;
