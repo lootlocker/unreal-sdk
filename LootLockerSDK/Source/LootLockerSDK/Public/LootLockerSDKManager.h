@@ -1913,6 +1913,24 @@ public:
     //==================================================
 
     /**
+     * List leaderboards with details on each leaderboard
+     *
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    static void ListLeaderboards(const FLootLockerListLeaderboardsResponseDelegate& OnCompletedRequest) {
+        ListLeaderboards(-1, 0, OnCompletedRequest);
+    };
+
+    /**
+     * List leaderboards with details on each leaderboard
+     *
+    * @param Count Optional: The count of items you want to retrieve.
+    * @param After Optional: Used for pagination, id from which the pagination starts from.
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    static void ListLeaderboards(int Count, int After, const FLootLockerListLeaderboardsResponseDelegate& OnCompletedRequest);
+
+    /**
      * Get rank for single member for a leaderboard. If leaderboard is of type player a player will also be in the response.
      * https://ref.lootlocker.io/game-api/#get-member-rank
      *
