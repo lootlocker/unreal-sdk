@@ -407,7 +407,7 @@ struct FLootLockerLeaderboardDetails
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Type;
     /*
-     * TODO: Document
+     * The Id of this leaderboard
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int Id = 0;
@@ -468,7 +468,7 @@ struct FLootLockerLeaderboardDetailsResponse : public FLootLockerResponse
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Type;
     /*
-     * TODO: Document
+     * The id of this leaderboard
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int Id = 0;
