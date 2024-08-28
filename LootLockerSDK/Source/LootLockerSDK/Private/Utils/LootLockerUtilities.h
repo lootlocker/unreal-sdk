@@ -78,6 +78,8 @@ namespace LootLockerUtilities
 
     TSharedPtr<FJsonObject> JsonObjectFromFString(const FString& JsonString);
 
+    bool JsonArrayFromFString(const FString& JsonString, TArray<TSharedPtr<FJsonValue>>& JsonArrayOutput);
+
     FString ObfuscateJsonStringForLogging(const FString& JsonBody);
 
     FString ObfuscateJsonStringForLogging(const TArray<FObfuscationDetails>& ObfuscationDetails, const FString& JsonBody);
