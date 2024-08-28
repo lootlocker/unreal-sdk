@@ -276,6 +276,9 @@ public:
     static FLootLockerEndPoints ListFeedbackCategories;
     static FLootLockerEndPoints SendFeedback;
 
+    // Metadata
+    static FLootLockerEndPoints ListMetadata;
+
 private:
     static FString GameBaseUrl;
     static FLootLockerEndPoints InitEndpoint(const FString& Endpoint, ELootLockerHTTPMethod Method);
