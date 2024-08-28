@@ -60,10 +60,19 @@ USTRUCT(BlueprintType)
 struct FLootLockerKeyBasedPagination
 {
     GENERATED_BODY()
+    /*
+     * How many entries in total exists in the paginated list
+     **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int Total = 0;
+    /*
+     * The cursor to use for fetching the set of entries immediately succeeding this set of entries
+     **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Next_Cursor = "";
+    /*
+     * The cursor to use for fetching the set of entries immediately preceding this set of entries
+     **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Previous_Cursor = "";
 };
@@ -72,10 +81,19 @@ USTRUCT(BlueprintType)
 struct FLootLockerIndexBasedPagination
 {
     GENERATED_BODY()
+    /*
+     * How many entries in total exists in the paginated list
+     **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 Total = 0;
+    /*
+     * The cursor to use for fetching the set of entries immediately succeeding this set of entries
+     **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 Next_Cursor = 0;
+    /*
+     * The cursor to use for fetching the set of entries immediately preceding this set of entries
+     **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 Previous_Cursor = 0;
 };
