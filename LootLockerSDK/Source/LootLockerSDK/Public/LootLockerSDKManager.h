@@ -2209,14 +2209,15 @@ public:
     * @param Ulid is the ulid of who you're giving feedback about
     * @param Description is the text/reason of your feedback ("He is hacking", "He is a kind player!")
     * @param CategoryID is the ID of the category you're using for your feedback, use ListFeedbackCategories function to get the ids.
+    * @param OnComplete delegate for handling the server response
     */
     static void SendPlayerFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseDelegate& OnComplete);
 
     /**
     * Send feedback about the game
-    * @param Ulid is the ulid of who you're giving feedback about
     * @param Description is the text/reason of your feedback ("Amazing game", "I found a bug here!")
     * @param CategoryID is the ID of the category you're using for your feedback, use ListFeedbackCategories function to get the ids.
+    * @param OnComplete delegate for handling the server response
     */
     static void SendGameFeedback(const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseDelegate& OnComplete);
 
@@ -2225,6 +2226,7 @@ public:
     * @param Ulid is the ulid of the asset you're giving feedback about
     * @param Description is the text/reason of your feedback ("Amazing Level", "I found a bug here!")
     * @param CategoryID is the ID of the category you're using for your feedback, use ListFeedbackCategories function to get the ids.
+    * @param OnComplete delegate for handling the server response
     */
     static void SendUGCFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseDelegate& OnComplete);
 
