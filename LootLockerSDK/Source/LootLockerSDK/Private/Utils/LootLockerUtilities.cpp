@@ -86,7 +86,10 @@ namespace LootLockerUtilities
     {
         TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
         const TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(JsonString);
-        FJsonSerializer::Deserialize(JsonReader, JsonObject);
+        if(!FJsonSerializer::Deserialize(JsonReader, JsonObject))
+        {
+            JsonObject = nullptr;
+        };
         return JsonObject;
     }
 
