@@ -244,6 +244,10 @@ FLootLockerEndPoints ULootLockerGameEndpoints::Crashes = InitEndpoint("v1/crash"
 FLootLockerEndPoints ULootLockerGameEndpoints::ListFeedbackCategories = InitEndpoint("feedback/category/entity/{0}", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::SendFeedback = InitEndpoint("feedback", ELootLockerHTTPMethod::POST);
 
+// Metadata
+FLootLockerEndPoints ULootLockerGameEndpoints::ListMetadata = InitEndpoint("metadata/source/{0}/id/{1}", ELootLockerHTTPMethod::GET);
+
+
 FLootLockerEndPoints ULootLockerGameEndpoints::InitEndpoint(const FString& Endpoint, ELootLockerHTTPMethod Method)
 {
 	FLootLockerEndPoints Result;

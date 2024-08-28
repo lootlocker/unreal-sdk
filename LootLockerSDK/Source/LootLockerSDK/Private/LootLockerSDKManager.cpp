@@ -1118,6 +1118,33 @@ void ULootLockerSDKManager::SendUGCFeedback(const FString& Ulid, const FString& 
 
 }
 
+// Metadata
+
+void ULootLockerSDKManager::ListMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const FLootLockerListMetadataResponseDelegate& OnComplete, const bool IgnoreFiles)
+{
+    ULootLockerMetadataRequestHandler::ListMetadata(Source, SourceID, -1, -1, FString(), TArray<FString>(), IgnoreFiles, FLootLockerListMetadataResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::ListMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const FLootLockerListMetadataResponseDelegate& OnComplete, const bool IgnoreFiles)
+{
+    ULootLockerMetadataRequestHandler::ListMetadata(Source, SourceID, Page, PerPage, FString(), TArray<FString>(), IgnoreFiles, FLootLockerListMetadataResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::ListMetadataWithTags(const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FString>& Tags, const FLootLockerListMetadataResponseDelegate& OnComplete, const bool IgnoreFiles)
+{
+    ULootLockerMetadataRequestHandler::ListMetadata(Source, SourceID, -1, -1, FString(), Tags, IgnoreFiles, FLootLockerListMetadataResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::ListMetadataWithTags(const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FString>& Tags, const int Page, const int PerPage, const FLootLockerListMetadataResponseDelegate& OnComplete, const bool IgnoreFiles)
+{
+    ULootLockerMetadataRequestHandler::ListMetadata(Source, SourceID, Page, PerPage, FString(), Tags, IgnoreFiles, FLootLockerListMetadataResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::GetMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const FString& Key, const FLootLockerGetMetadataResponseDelegate& OnComplete, const bool IgnoreFiles)
+{
+    ULootLockerMetadataRequestHandler::GetMetadata(Source, SourceID, Key, IgnoreFiles, FLootLockerGetMetadataResponseBP(), OnComplete);
+}
+
 // Miscellaneous
 void ULootLockerSDKManager::GetServerTime(const FTimeResponseDelegate& OnCompletedRequest)
 {
