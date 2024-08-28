@@ -30,6 +30,7 @@
 #include "GameAPI/LootLockerTriggerEventsRequestHandler.h"
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
 #include "GameAPI/LootLockerFeedbackRequestHandler.h"
+#include "GameAPI/LootLockerMetadataRequestHandler.h"
 #include "LootLockerSDKManager.generated.h"
 
 UCLASS(Blueprintable)
@@ -2229,6 +2230,24 @@ public:
     * @param OnComplete delegate for handling the server response
     */
     static void SendUGCFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseDelegate& OnComplete);
+
+    //==================================================
+    // Metadata
+    //==================================================
+
+    /**
+    List Metadata for the specified source
+    
+    @param Source The source type for which to request metadata
+    @param SourceID The specific source id for which to request metadata
+    @param OnComplete delegate for handling the server response
+    @param Page Optional: Used together with PerPage to apply pagination to this request. Page designates which "page" of items to fetch
+    @param PerPage Optional: Used together with Page to apply pagination to this request. PerPage designates how many items are considered a "page"
+    @param Key Optional: The key of the metadata to fetch, use this to fetch a specific key for the specified source. This takes precedence over pagination and tags
+    @param Tags Optional: Used to filter which metadata is fetched. If set, then the metadata list will only contain keys that have all the specified tags.
+    @param IgnoreFiles Optional: Base64 values will be set to content_type "application/x-redacted" and the content will be an empty String. Use this to avoid accidentally fetching large data files.
+    */
+    static void ListMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const FLootLockerListMetadataResponse& OnComplete, const int Page = 0, const int PerPage = 0, const FString& Key = FString(), const TArray<FString>& Tags = TArray<FString>(), const bool IgnoreFiles = false);
 
 
 	//==================================================

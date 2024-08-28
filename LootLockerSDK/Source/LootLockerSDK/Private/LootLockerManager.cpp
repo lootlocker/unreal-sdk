@@ -4,6 +4,7 @@
 
 #include "LootLockerPlatformManager.h"
 #include "GameAPI/LootLockerCatalogRequestHandler.h"
+#include "GameAPI/LootLockerMetadataRequestHandler.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
 
 void ULootLockerManager::StartPlaystationNetworkSession(const FString& PsnOnlineId, const FAuthResponseBP& OnStartedSessionRequestCompleted)
@@ -1054,6 +1055,113 @@ void ULootLockerManager::SendUGCFeedback(const FString& Ulid, const FString& Des
 {
     ULootLockerFeedbackRequestHandler::SendFeedback(Ulid, Description, CategoryID, ELootLockerFeedbackType::Ugc, OnComplete);
 
+}
+
+// Metadata
+
+void ULootLockerManager::ListMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const FString& Key, const TArray<FString>& Tags, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnComplete)
+{
+    ULootLockerMetadataRequestHandler::ListMetadata(Source, SourceID, Page, PerPage, Key, Tags, IgnoreFiles, OnComplete);
+}
+
+void ULootLockerManager::ParseLootLockerMetadataEntry(const FLootLockerMetadataEntry& Entry,
+                                                      ELootLockerMetadataParserOutputTypes& MetadataTypeSwitch,
+                                                      FString& StringValue, int& IntegerValue,
+                                                      double& DoubleValue, FString& NumberString, bool& BoolValue,
+                                                      FString& JsonStringValue,
+                                                      FLootLockerMetadataBase64Value& Base64Value,
+                                                      FString& ErrorMessage, FLootLockerMetadataEntry& OutEntry)
+{
+    MetadataTypeSwitch = ELootLockerMetadataParserOutputTypes::OnError;
+    StringValue = "";
+    BoolValue = false;
+    IntegerValue = 0;
+    DoubleValue = 0.0f;
+    NumberString = "";
+    JsonStringValue = "";
+    Base64Value = FLootLockerMetadataBase64Value();
+    ErrorMessage = "Unknown Error";
+    OutEntry = Entry;
+    const FString& ValueToParse = Entry.Value;
+    switch (Entry.Type)
+    {
+    case ELootLockerMetadataTypes::String:
+    {
+        if (Entry.GetValueAsString(StringValue))
+        {
+            MetadataTypeSwitch = ELootLockerMetadataParserOutputTypes::OnString;
+            return;
+        }
+        ErrorMessage = "Value \"" + ValueToParse + "\" could not be parsed";
+        return;
+    }
+    case ELootLockerMetadataTypes::Number:
+    {
+        if (!FCString::IsNumeric(*ValueToParse))
+        {
+            ErrorMessage = "Could not parse value \"" + ValueToParse + "\" as Number because it is not numeric";
+            return;
+        }
+        // Parse as float
+        if (ValueToParse.Contains(".") && Entry.GetValueAsDouble(DoubleValue))
+        {
+            MetadataTypeSwitch = ELootLockerMetadataParserOutputTypes::OnDouble;
+            return;
+        }
+        // Parse as int
+        if (Entry.GetValueAsInteger(IntegerValue))
+        {
+            MetadataTypeSwitch = ELootLockerMetadataParserOutputTypes::OnInteger;
+            return;
+        }
+        //Treat as non int or float value, likely BigInt or BigDecimal
+        MetadataTypeSwitch = ELootLockerMetadataParserOutputTypes::OnNumber;
+        NumberString = ValueToParse;
+        return;
+    }
+    case ELootLockerMetadataTypes::Bool:
+    {
+        if (Entry.GetValueAsBool(BoolValue))
+        {
+            MetadataTypeSwitch = ELootLockerMetadataParserOutputTypes::OnBool;
+            return;
+        }
+        ErrorMessage = "Value \"" + ValueToParse + "\" could not be parsed as boolean value";
+        return;
+    }
+    case ELootLockerMetadataTypes::Json:
+    {
+        if (TSharedPtr<FJsonObject> JsonObject = nullptr; Entry.GetValueAsJsonObject(JsonObject) && JsonObject.IsValid())
+        {
+            MetadataTypeSwitch = ELootLockerMetadataParserOutputTypes::OnJson;
+            JsonStringValue = ValueToParse;
+            return;
+        }
+        if (TArray<TSharedPtr<FJsonValue>> OutputJsonArray; Entry.GetValueAsJsonArray(OutputJsonArray))
+        {
+            MetadataTypeSwitch = ELootLockerMetadataParserOutputTypes::OnJson;
+            JsonStringValue = ValueToParse;
+            return;
+        }
+        ErrorMessage = "Could not parse value \"" + ValueToParse + "\" because it is not a valid Json String";
+        return;
+    }
+    case ELootLockerMetadataTypes::Base64:
+    {
+        if (Entry.GetValueAsBase64(Base64Value) && !Base64Value.Content_type.IsEmpty())
+        {
+            MetadataTypeSwitch = ELootLockerMetadataParserOutputTypes::OnBase64;
+            return;
+        }
+        ErrorMessage = "Could not parse value \"" + ValueToParse + "\" because it is not a valid LootLocker Metadata Base64 Object";
+        return;
+    }
+    default:
+    {
+        ErrorMessage = "Could not parse value \"" + ValueToParse + "\" because the type \"" + ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerMetadataTypes"), static_cast<int32>(Entry.Type)) + "\" was not recognized by the parser";
+        return;
+    }
+    }
 }
 
 // Miscellaneous

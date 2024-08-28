@@ -19,6 +19,7 @@
 #include "GameAPI/LootLockerLeaderboardArchiveRequestHandler.h"
 #include "GameAPI/LootLockerMapsRequestHandler.h"
 #include "GameAPI/LootLockerMessagesRequestHandler.h"
+#include "GameAPI/LootLockerMetadataRequestHandler.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
 #include "GameAPI/LootLockerMissionsRequestHandler.h"
 #include "GameAPI/LootLockerPersistentStorageRequestHandler.h"
@@ -2237,6 +2238,59 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback")
     static void SendUGCFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete);
+
+    //==================================================
+    // Metadata
+    //==================================================
+
+    /**
+    List Metadata for the specified source
+    
+    On a successful response, you can use method ParseLootLockerMetadataEntry to parse each entry
+    
+    @param Source The source type for which to request metadata
+    @param SourceID The specific source id for which to request metadata
+    @param Page Optional: Used together with PerPage to apply pagination to this request. Page designates which "page" of items to fetch
+    @param PerPage Optional: Used together with Page to apply pagination to this request. PerPage designates how many items are considered a "page"
+    @param Key Optional: The key of the metadata to fetch, use this to fetch a specific key for the specified source. This takes precedence over pagination and tags
+    @param Tags Optional: Used to filter which metadata is fetched. If set, then the metadata list will only contain keys that have all the specified tags.
+    @param IgnoreFiles Optional: Base64 values will be set to content_type "application/x-redacted" and the content will be an empty String. Use this to avoid accidentally fetching large data files.
+    @param OnComplete delegate for handling the server response
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Metadata", meta = (AdvancedDisplay = "Page,PerPage,Key,Tags,IgnoreFiles"))
+    static void ListMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const FString& Key, const TArray<FString>& Tags, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnComplete);
+
+    /*
+     Parse a LootLocker Metadata Entry
+     
+     This is a convenience node that replaces switching on the metadata type and converting the values manually
+     The output execution pin corresponding to the Entry Type will be triggered at which point the corresponding value pin for that type will be populated.
+     If the entry could not be parsed, the OnError execution pin will be triggered and the ErrorMessage will be populated.
+     
+     @param Entry The entry to parse
+     @param MetadataTypeSwitch Generated output execution pins for the possible metadata types
+     @param StringValue The parsed String Value, populated if the OnString output pin was triggered
+     @param IntegerValue The parsed integer Value, populated if the OnInteger output pin was triggered
+     @param DoubleValue The parsed decimal Value, populated if the OnDouble output pin was triggered
+     @param NumberString The parsed Number String Value, populated if the OnNumber output pin was triggered
+     @param BoolValue The parsed boolean Value, populated if the OnBool output pin was triggered
+     @param JsonStringValue The parsed Json String Value, populated if the OnJsonString output pin was triggered
+     @param Base64Value The parsed Base64 Value, populated if the OnBase64 output pin was triggered
+     @param ErrorMessage An error message populated if the parsing failed and the OnError output pin was triggered
+     @param OutEntry Outputs a reference to the entry that was parsed for convenience
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Metadata", meta = (ExpandEnumAsExecs = "MetadataTypeSwitch", AdvancedDisplay="OutEntry"))
+    static void ParseLootLockerMetadataEntry(const FLootLockerMetadataEntry& Entry,
+                                             ELootLockerMetadataParserOutputTypes& MetadataTypeSwitch,
+                                             FString& StringValue,
+                                             int& IntegerValue,
+                                             double& DoubleValue,
+                                             FString& NumberString,
+                                             bool& BoolValue,
+                                             FString& JsonStringValue,
+                                             FLootLockerMetadataBase64Value& Base64Value,
+                                             FString& ErrorMessage,
+                                             FLootLockerMetadataEntry& OutEntry);
 
     //==================================================
     // Miscellaneous

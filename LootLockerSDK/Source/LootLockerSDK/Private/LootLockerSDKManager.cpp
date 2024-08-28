@@ -1118,6 +1118,13 @@ void ULootLockerSDKManager::SendUGCFeedback(const FString& Ulid, const FString& 
 
 }
 
+// Metadata
+
+void ULootLockerSDKManager::ListMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const FLootLockerListMetadataResponse& OnComplete, const int Page /*= 0*/, const int PerPage /*= 0*/, const FString& Key /*= FString()*/, const TArray<FString>& Tags /*= TArray<FString>()*/, const bool IgnoreFiles /*= false*/)
+{
+    ULootLockerMetadataRequestHandler::ListMetadata(Source, SourceID, Page, PerPage, Key, Tags, IgnoreFiles, FLootLockerListMetadataResponseBP(), OnComplete);
+}
+
 // Miscellaneous
 void ULootLockerSDKManager::GetServerTime(const FTimeResponseDelegate& OnCompletedRequest)
 {
