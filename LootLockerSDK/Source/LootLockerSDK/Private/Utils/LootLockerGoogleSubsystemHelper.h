@@ -80,7 +80,7 @@ public:
      *
      * NOTE: The online subsystem needs to be enabled, included and configured for the project for this to work
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker | GoogleSubsystemHelper")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | GoogleSubsystemHelper")
     static bool HasGoogleOnlineSubsystem();
 
     /**
@@ -88,7 +88,7 @@ public:
      *
      * NOTE: The online subsystem needs to be enabled, included and configured for the project for this to work
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker | GoogleSubsystemHelper")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | GoogleSubsystemHelper")
     static bool HasGooglePlayOnlineSubsystem();
 
     /**
@@ -96,7 +96,7 @@ public:
      * 
      * NOTE: The online subsystem needs to be enabled, included and configured for the project for this to work
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker | GoogleSubsystemHelper")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | GoogleSubsystemHelper")
     static void Initialize();
 
     /**
@@ -107,7 +107,7 @@ public:
      * <param name="LocalUserNumber">Which local user to do sign in for</param>
      * <param name="Callback">Callback that will be called when method completes</param>
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker | GoogleSubsystemHelper")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | GoogleSubsystemHelper")
     static void SignInWithGoogle(int LocalUserNumber, const FLootLockerGoogleSubsystemLoginCompletedCallback Callback);
 
     /**
@@ -118,7 +118,7 @@ public:
      * <param name="LocalUserNumber">Which local user to do sign in for</param>
      * <param name="Callback">Callback that will be called when method completes</param>
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker | GoogleSubsystemHelper")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | GoogleSubsystemHelper")
     static void SignOutWithGoogle(int LocalUserNumber, const FLootLockerGoogleSubsystemLogoutCompletedCallback Callback);
 
     /**
@@ -129,7 +129,7 @@ public:
      * <param name="LocalUserNumber">Which local user to do sign in for</param>
      * <param name="Callback">Callback that will be called when method completes</param>
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker | GoogleSubsystemHelper")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | GoogleSubsystemHelper")
     static void SignInWithGooglePlay(int LocalUserNumber, const FLootLockerGooglePlaySubsystemLoginCompletedCallback Callback);
 
     /**
@@ -140,7 +140,7 @@ public:
      * <param name="LocalUserNumber">Which local user to do sign in for</param>
      * <param name="Callback">Callback that will be called when method completes</param>
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker | GoogleSubsystemHelper")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | GoogleSubsystemHelper")
     static void SignOutWithGooglePlay(int LocalUserNumber, const FLootLockerGooglePlaySubsystemLogoutCompletedCallback Callback);
 
     /**
@@ -150,7 +150,7 @@ public:
      *
      * <param name="LocalUserNumber">Which local user to do sign in for</param>
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker | GoogleSubsystemHelper")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | GoogleSubsystemHelper")
     static FString GetIDToken(int LocalUserNumber);
 
     /**
@@ -162,7 +162,7 @@ public:
      * <param name="OfferId">The ID of the offer to purchase</param>
      * <param name="Callback">Callback that will be called when method completes</param>
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker | GoogleSubsystemHelper")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | GoogleSubsystemHelper")
     static void ReadOfferInformation(int LocalUserNumber, const FString& OfferId, FLootLockerGoogleSubsystemReadOfferCompletedCallback Callback);
 
     /**
@@ -175,7 +175,7 @@ public:
      * <param name="IsConsumable">Whether this offer is consumable or not</param>
      * <param name="Callback">Callback that will be called when method completes</param>
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker | GoogleSubsystemHelper")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | GoogleSubsystemHelper")
     static void PurchaseOffer(int LocalUserNumber, const FString& OfferId, bool IsConsumable, FLootLockerGoogleSubsystemPurchaseCompletedCallback Callback);
 private:
     static void InvokeGoogleLoginCallbackWithErrorResponseAndLog(const FString& Message, int LocalUserNumber, const FLootLockerGoogleSubsystemLoginCompletedCallback Callback);
