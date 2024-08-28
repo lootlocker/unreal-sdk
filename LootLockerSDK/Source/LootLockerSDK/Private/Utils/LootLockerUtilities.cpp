@@ -90,6 +90,18 @@ namespace LootLockerUtilities
         return JsonObject;
     }
 
+    bool JsonArrayFromFString(const FString& JsonString, TArray<TSharedPtr<FJsonValue>>& JsonArrayOutput)
+    {
+        TArray<TSharedPtr<FJsonValue>> JsonArray;
+        const TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(JsonString);
+        if (!FJsonSerializer::Deserialize(JsonReader, JsonArray))
+        {
+            return false;
+        };
+        JsonArrayOutput = JsonArray;
+        return true;
+    }
+
     FString FStringFromJsonObject(const TSharedPtr<FJsonObject>& JsonObject)
     {
         FString OutJsonString;
