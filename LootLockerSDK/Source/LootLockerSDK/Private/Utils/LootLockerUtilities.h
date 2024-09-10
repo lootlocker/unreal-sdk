@@ -76,6 +76,8 @@ namespace LootLockerUtilities
 
     FString FStringFromJsonObject(const TSharedPtr<FJsonObject>& JsonObject);
 
+    FString FStringFromJsonArray(const TArray<TSharedPtr<FJsonValue>>& JsonArray);
+
     TSharedPtr<FJsonObject> JsonObjectFromFString(const FString& JsonString);
 
     bool JsonArrayFromFString(const FString& JsonString, TArray<TSharedPtr<FJsonValue>>& JsonArrayOutput);
