@@ -102,6 +102,12 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
             }
             LogFailedRequestInformation(response, requestType, endPoint, data);
 		}
+        else
+        {
+#if WITH_EDITOR
+            LogSuccessfulRequestInformation(response, requestType, endPoint, data);
+#endif
+        }
 		onCompleteRequest.ExecuteIfBound(response);
 	});
 	Request->ProcessRequest();
@@ -204,4 +210,17 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
             onCompleteRequest.ExecuteIfBound(response);
         });
     Request->ProcessRequest();
+}
+
+void ULootLockerHttpClient::LogSuccessfulRequestInformation(const FLootLockerResponse& Response,	const FString& RequestMethod, const FString& Endpoint, const FString& Data)
+{
+    FString LogString = FString::Format(TEXT("{0} request to {1} succeeded"), { RequestMethod, Endpoint });
+    LogString += FString::Format(TEXT("\n   HTTP Status code : {0}"), { Response.StatusCode });
+    if (!Data.IsEmpty()) {
+        LogString += FString::Format(TEXT("\n   Request Data: {0}"), { LootLockerUtilities::ObfuscateJsonStringForLogging(Data) });
+    }
+    LogString += FString::Format(TEXT("\n   Response Data: {0}"), { Response.FullTextFromServer });
+    LogString += "\n###";
+    UE_LOG(LogLootLockerGameSDK, VeryVerbose, TEXT("%s"), *LogString);
+
 }
