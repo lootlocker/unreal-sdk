@@ -115,6 +115,16 @@ namespace LootLockerUtilities
         return OutJsonString;
     }
 
+    FString FStringFromJsonArray(const TArray<TSharedPtr<FJsonValue>>& JsonArray)
+    {
+        FString OutJsonString;
+        TSharedRef<TJsonWriter<>> JsonWriter = TJsonWriterFactory<>::Create(&OutJsonString);
+
+        FJsonSerializer::Serialize(JsonArray, JsonWriter, true);
+
+        return OutJsonString;
+    }
+
     FString ObfuscateJsonStringForLogging(const FString& JsonBody)
     {
         return ObfuscateJsonStringForLogging(UObfuscationSettings::FieldsToObfuscate, JsonBody);
