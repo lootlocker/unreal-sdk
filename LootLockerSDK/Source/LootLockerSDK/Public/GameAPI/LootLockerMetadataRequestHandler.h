@@ -119,6 +119,9 @@ struct FLootLockerMetadataEntry
      Get the value as an unparsed json value. Returns true if value could be found in which case Output contains the JsonValue, returns false if the value field was not present.
      */
     LOOTLOCKERSDK_API bool TryGetRawValue(TSharedPtr<FJsonValue>& Output) const;
+    /*
+     Get the value in a json string format. Returns true if the value was present and could be serialized, returns false otherwise
+     */
     LOOTLOCKERSDK_API bool TryGetSerializedValue(FString& Output) const;
     /*
      Get the value as an unparsed json value. Returns true if value could be found in which case Output contains the JsonValue, returns false if the value field was not present.
