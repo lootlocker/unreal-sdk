@@ -21,6 +21,7 @@ enum class ELootLockerMetadataSources : uint8
     leaderboard = 1,
     catalog_item = 2,
     progression = 3,
+    currency = 4,
 };
 
 /*
