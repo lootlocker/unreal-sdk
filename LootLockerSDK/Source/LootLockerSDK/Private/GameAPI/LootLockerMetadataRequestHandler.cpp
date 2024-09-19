@@ -100,7 +100,7 @@ void FLootLockerMetadataEntry::_INTERNAL_SetJsonRepresentation(const FJsonObject
 	EntryAsJson = obj;
 }
 
-int FLootLockerListMetadataResponse::__INTERNAL_GetEntryIndexByKey(const FString Key) const
+int FLootLockerListMetadataResponse::__INTERNAL_GetEntryIndexByKey(const FString& Key) const
 {
 	if(KeyToEntryIndex.Contains(Key))
 	{
@@ -116,6 +116,31 @@ int FLootLockerListMetadataResponse::__INTERNAL_GetEntryIndexByKey(const FString
 }
 
 void FLootLockerListMetadataResponse::__INTERNAL_GenerateKeyMap()
+{
+	KeyToEntryIndex = TMap<FString, int>();
+	int index = 0;
+	for (FLootLockerMetadataEntry& Entry : Entries)
+	{
+		KeyToEntryIndex.Add(Entry.Key, index++);
+	}
+}
+
+int FLootLockerMetadataSourceAndEntries::__INTERNAL_GetEntryIndexByKey(const FString& Key) const
+{
+	if (KeyToEntryIndex.Contains(Key))
+	{
+		const int* index = KeyToEntryIndex.Find(Key);
+		if (index != nullptr && *index >= 0 && *index < Entries.Num()) {
+			const FLootLockerMetadataEntry& EntryRef = Entries[*index];
+			if (EntryRef.Key.Equals(Key)) {
+				return *index;
+			}
+		}
+	}
+	return -1;
+}
+
+void FLootLockerMetadataSourceAndEntries::__INTERNAL_GenerateKeyMap()
 {
 	KeyToEntryIndex = TMap<FString, int>();
 	int index = 0;
@@ -153,7 +178,7 @@ void ULootLockerMetadataRequestHandler::ListMetadata(const ELootLockerMetadataSo
 	LLAPI<FLootLockerListMetadataResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListMetadata, { SourceAsString, SourceID }, QueryParams, FLootLockerListMetadataResponseBP(), FLootLockerListMetadataResponseDelegate(), LLAPI<FLootLockerListMetadataResponse>::FResponseInspectorCallback::CreateLambda([OnCompleteBP, OnComplete](FLootLockerListMetadataResponse& Response)
 	{
 		// Make sure we will have entries to parse before continuing
-		if(!Response.success || Response.Entries.IsEmpty() || Response.Entries.IsEmpty())
+		if(!Response.success || Response.Entries.IsEmpty())
 		{
 			OnCompleteBP.ExecuteIfBound(Response);
 			OnComplete.ExecuteIfBound(Response);
@@ -221,4 +246,86 @@ void ULootLockerMetadataRequestHandler::GetMetadata(const ELootLockerMetadataSou
 		OnCompleteBP.ExecuteIfBound(SingleEntryResponse);
 		OnComplete.ExecuteIfBound(SingleEntryResponse);
 	}));
+}
+
+void ULootLockerMetadataRequestHandler::GetMultisourceMetadata(const TArray<FLootLockerMetadataSourceAndKeys>& SourcesAndKeysToGet, const bool IgnoreFiles,	const FLootLockerGetMultisourceMetadataResponseBP& OnCompleteBP, const FLootLockerGetMultisourceMetadataResponseDelegate& OnComplete)
+{
+	TMultiMap<FString, FString> QueryParams;
+	if (IgnoreFiles) QueryParams.Add("ignore_files", "true");
+	LLAPI<FLootLockerGetMultisourceMetadataResponse>::CallAPI(HttpClient, FLootLockerGetMultisourceMetadataRequest{ SourcesAndKeysToGet }, ULootLockerGameEndpoints::GetMultisourceMetadata, {}, QueryParams, FLootLockerGetMultisourceMetadataResponseBP(), FLootLockerGetMultisourceMetadataResponseDelegate(), LLAPI<FLootLockerGetMultisourceMetadataResponse>::FResponseInspectorCallback::CreateLambda([OnComplete, OnCompleteBP](FLootLockerGetMultisourceMetadataResponse& Response)
+	{
+		// Make sure we will have source and entry combos to parse before continuing
+		if (!Response.success || Response.Metadata.IsEmpty())
+		{
+			OnCompleteBP.ExecuteIfBound(Response);
+			OnComplete.ExecuteIfBound(Response);
+			return;
+		}
+		TSharedPtr<FJsonObject> FullResponseObjectFromServer = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
+		// Ensure that the full response was parsed before continuing
+		if (!FullResponseObjectFromServer.IsValid())
+		{
+			OnCompleteBP.ExecuteIfBound(Response);
+			OnComplete.ExecuteIfBound(Response);
+			return;
+		}
+
+		const TArray<TSharedPtr<FJsonValue>>* JsonMetadataArray;
+		if(!FullResponseObjectFromServer->TryGetArrayField(TEXT("metadata"), JsonMetadataArray) 
+			|| JsonMetadataArray == nullptr 
+			|| JsonMetadataArray->Num() != Response.Metadata.Num())
+		{
+			FLootLockerGetMultisourceMetadataResponse Error = LootLockerResponseFactory::Error<
+				FLootLockerGetMultisourceMetadataResponse>("Could not parse metadata array");
+			OnCompleteBP.ExecuteIfBound(Error);
+			OnComplete.ExecuteIfBound(Error);
+			return;
+		}
+
+		// Iterate over each source and do manual entry parsing
+		for (int i = 0; i < Response.Metadata.Num(); ++i)
+		{
+			FLootLockerMetadataSourceAndEntries& Metadata = Response.Metadata[i];
+			FJsonObject& MetadaAsJson = *(*JsonMetadataArray)[i]->AsObject();
+			Metadata.__INTERNAL_GenerateKeyMap();
+
+			TArray<TSharedPtr<FJsonValue>> JsonEntries = MetadaAsJson.GetArrayField(TEXT("entries"));
+			// Make sure that the entries array was parsed before continuing
+			if (JsonEntries.Num() != Metadata.Entries.Num())
+			{
+				FLootLockerGetMultisourceMetadataResponse Error = LootLockerResponseFactory::Error<
+					FLootLockerGetMultisourceMetadataResponse>("Could not parse metadata entry array for metadata with source id " + Metadata.Source_id);
+				OnCompleteBP.ExecuteIfBound(Error);
+				OnComplete.ExecuteIfBound(Error);
+				return;
+			}
+
+			for (TSharedPtr<FJsonValue> JsonEntry : JsonEntries)
+			{
+				TSharedPtr<FJsonObject> JsonEntryObject = JsonEntry.Get()->AsObject();
+				FString EntryKey = JsonEntryObject.Get()->GetStringField(TEXT("key"));
+				int EntryIndex = Metadata.__INTERNAL_GetEntryIndexByKey(EntryKey);
+				// If the fetched entry index is out of range or if it points to the wrong key, try to find the entry the old-fashioned way before giving up
+				if (EntryIndex < 0 || EntryIndex >= Metadata.Entries.Num()
+					|| !Metadata.Entries[EntryIndex].Key.Equals(EntryKey)) {
+					for (FLootLockerMetadataEntry& ResponseEntry : Metadata.Entries)
+					{
+						if (ResponseEntry.Key.Equals(EntryKey))
+						{
+							ResponseEntry._INTERNAL_SetJsonRepresentation(*JsonEntryObject.Get());
+						}
+					}
+				}
+				else
+				{
+					Metadata.Entries[EntryIndex]._INTERNAL_SetJsonRepresentation(*JsonEntryObject.Get());
+				}
+			}
+			
+		}
+
+		OnCompleteBP.ExecuteIfBound(Response);
+		OnComplete.ExecuteIfBound(Response);
+	}));
+
 }
