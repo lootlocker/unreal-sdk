@@ -92,7 +92,7 @@ struct FLootLockerMetadataEntry
      The type of value this metadata contains. Use this to parse the value.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    ELootLockerMetadataTypes Type;
+    ELootLockerMetadataTypes Type = ELootLockerMetadataTypes::String;
     /*
      List of tags applied to this metadata
      */
@@ -148,9 +148,80 @@ private:
     FJsonObject EntryAsJson;
 };
 
+/*
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerMetadataSourceAndKeys
+{
+    GENERATED_BODY()
+    /*
+     The type of source that the source id refers to
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    ELootLockerMetadataSources Source = ELootLockerMetadataSources::leaderboard;
+    /*
+     The id of the specific source that the set operation was taken on
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Id;
+    /*
+     A list of keys existing on the specified source
+	 */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FString> Keys;
+};
+
+/*
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerMetadataSourceAndEntries
+{
+    GENERATED_BODY()
+    /*
+     The type of source that the source id refers to
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    ELootLockerMetadataSources Source = ELootLockerMetadataSources::leaderboard;
+    /*
+     The id of the specific source that the set operation was taken on
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Source_id;
+    /*
+     List of entries for this source
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerMetadataEntry> Entries;
+    /*
+
+     */
+    int __INTERNAL_GetEntryIndexByKey(const FString& Key) const;
+    /*
+
+     */
+    void __INTERNAL_GenerateKeyMap();
+private:
+    TMap<FString, int> KeyToEntryIndex = TMap<FString, int>();
+};
+
 //==================================================
 // Request Definitions
 //==================================================
+/*
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerGetMultisourceMetadataRequest
+{
+    GENERATED_BODY()
+    /*
+     The source & key combos to get
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerMetadataSourceAndKeys> Sources;
+};
 
 //==================================================
 // Response Definitions
@@ -175,7 +246,7 @@ struct FLootLockerListMetadataResponse : public FLootLockerResponse
     /*
     
      */
-    int __INTERNAL_GetEntryIndexByKey(const FString Key) const;
+    int __INTERNAL_GetEntryIndexByKey(const FString& Key) const;
     /*
     
      */
@@ -197,6 +268,19 @@ struct FLootLockerGetMetadataResponse : public FLootLockerResponse
     FLootLockerMetadataEntry Entry;
 };
 
+/*
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerGetMultisourceMetadataResponse : public FLootLockerResponse
+{
+    GENERATED_BODY()
+    /*
+     The requested sources with the requested entries for each source
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerMetadataSourceAndEntries> Metadata;
+};
+
 //==================================================
 // Blueprint Delegate Definitions
 //==================================================
@@ -209,6 +293,10 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListMetadataResponseBP, FLootLocker
  Blueprint response delegate for getting a single metadata entry
  */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetMetadataResponseBP, FLootLockerGetMetadataResponse, Response);
+/*
+ Blueprint response delegate for getting multi source metadata
+ */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetMultisourceMetadataResponseBP, FLootLockerGetMultisourceMetadataResponse, Response);
 
 //==================================================
 // C++ Delegate Definitions
@@ -222,6 +310,10 @@ DECLARE_DELEGATE_OneParam(FLootLockerListMetadataResponseDelegate, FLootLockerLi
  C++ response delegate for getting a single metadata entry
  */
 DECLARE_DELEGATE_OneParam(FLootLockerGetMetadataResponseDelegate, FLootLockerGetMetadataResponse);
+/*
+ Blueprint response delegate for getting multi source metadata
+ */
+DECLARE_DELEGATE_OneParam(FLootLockerGetMultisourceMetadataResponseDelegate, FLootLockerGetMultisourceMetadataResponse);
 
 //==================================================
 // API Class Definition
@@ -236,7 +328,7 @@ public:
 
     static void ListMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const FString& Key, const TArray<FString>& Tags, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnCompleteBP = FLootLockerListMetadataResponseBP(), const FLootLockerListMetadataResponseDelegate& OnComplete = FLootLockerListMetadataResponseDelegate());
     static void GetMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const FString& Key, const bool IgnoreFiles, const FLootLockerGetMetadataResponseBP& OnCompleteBP = FLootLockerGetMetadataResponseBP(), const FLootLockerGetMetadataResponseDelegate& OnComplete = FLootLockerGetMetadataResponseDelegate());
+    static void GetMultisourceMetadata(const TArray<FLootLockerMetadataSourceAndKeys>& SourcesAndKeysToGet, const bool IgnoreFiles, const FLootLockerGetMultisourceMetadataResponseBP& OnCompleteBP = FLootLockerGetMultisourceMetadataResponseBP(), const FLootLockerGetMultisourceMetadataResponseDelegate& OnComplete = FLootLockerGetMultisourceMetadataResponseDelegate());
 private:
-
     static ULootLockerHttpClient* HttpClient;
 };

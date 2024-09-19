@@ -2276,11 +2276,21 @@ public:
     @param Source The source type for which to request metadata
     @param SourceID The specific source id for which to request metadata
     @param Key The key of the metadata to fetch, use this to fetch metadata for a specific key for the specified source.
-    @param OnComplete delegate for handling the server response
     @param IgnoreFiles Optional: Base64 values will be set to content_type "application/x-redacted" and the content will be an empty String. Use this to avoid accidentally fetching large data files.
+    @param OnComplete delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Metadata", meta = (AdvancedDisplay = "IgnoreFiles", IgnoreFiles = false))
     static void GetMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const FString& Key, const bool IgnoreFiles, const FLootLockerGetMetadataResponseBP& OnComplete);
+
+    /**
+    Get Metadata for the specified keys on the specified sources
+
+    @param SourcesAndKeysToGet The combination of sources to get keys for, and the keys to get for those sources
+    @param IgnoreFiles Optional: Base64 values will be set to content_type "application/x-redacted" and the content will be an empty String. Use this to avoid accidentally fetching large data files.
+    @param OnComplete delegate for handling the server response
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Metadata", meta = (AdvancedDisplay = "IgnoreFiles", IgnoreFiles = false))
+    static void GetMultisourceMetadata(const TArray<FLootLockerMetadataSourceAndKeys>& SourcesAndKeysToGet, const bool IgnoreFiles, const FLootLockerGetMultisourceMetadataResponseBP& OnComplete);
 
     /*
      Parse a LootLocker Metadata Entry

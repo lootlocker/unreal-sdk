@@ -278,6 +278,7 @@ public:
 
     // Metadata
     static FLootLockerEndPoints ListMetadata;
+    static FLootLockerEndPoints GetMultisourceMetadata;
 
 private:
     static FString GameBaseUrl;

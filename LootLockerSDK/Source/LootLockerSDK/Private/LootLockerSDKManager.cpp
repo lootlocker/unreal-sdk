@@ -1145,6 +1145,11 @@ void ULootLockerSDKManager::GetMetadata(const ELootLockerMetadataSources Source,
     ULootLockerMetadataRequestHandler::GetMetadata(Source, SourceID, Key, IgnoreFiles, FLootLockerGetMetadataResponseBP(), OnComplete);
 }
 
+void ULootLockerSDKManager::GetMultisourceMetadata(const TArray<FLootLockerMetadataSourceAndKeys>& SourcesAndKeysToGet,	const FLootLockerGetMultisourceMetadataResponseDelegate& OnComplete, const bool IgnoreFiles)
+{
+    ULootLockerMetadataRequestHandler::GetMultisourceMetadata(SourcesAndKeysToGet, IgnoreFiles, FLootLockerGetMultisourceMetadataResponseBP(), OnComplete);
+}
+
 // Miscellaneous
 void ULootLockerSDKManager::GetServerTime(const FTimeResponseDelegate& OnCompletedRequest)
 {
