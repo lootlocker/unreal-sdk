@@ -1074,6 +1074,11 @@ void ULootLockerManager::GetMetadata(const ELootLockerMetadataSources Source, co
     ULootLockerMetadataRequestHandler::GetMetadata(Source, SourceID, Key, IgnoreFiles, OnComplete);
 }
 
+void ULootLockerManager::GetMultisourceMetadata(const TArray<FLootLockerMetadataSourceAndKeys>& SourcesAndKeysToGet, const bool IgnoreFiles, const FLootLockerGetMultisourceMetadataResponseBP& OnComplete)
+{
+    ULootLockerMetadataRequestHandler::GetMultisourceMetadata(SourcesAndKeysToGet, IgnoreFiles, OnComplete);
+}
+
 void ULootLockerManager::ParseLootLockerMetadataEntry(const FLootLockerMetadataEntry& Entry,
                                                       ELootLockerMetadataParserOutputTypes& MetadataTypeSwitch,
                                                       FString& StringValue, int& IntegerValue,
