@@ -160,6 +160,8 @@ struct FLootLockerAsset : public FLootLockerHasKeyValueStorage
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString uuid;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString ulid;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString name;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool active = false;
