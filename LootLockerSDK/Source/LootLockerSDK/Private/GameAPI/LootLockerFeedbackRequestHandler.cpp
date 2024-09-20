@@ -17,5 +17,5 @@ void ULootLockerFeedbackRequestHandler::ListFeedbackCategories(const ELootLocker
 
 void ULootLockerFeedbackRequestHandler::SendFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const ELootLockerFeedbackType& Type, const FLootLockerSendFeedbackResponseBP& OnCompleteBP, const FLootLockerSendFeedbackResponseDelegate& OnComplete)
 {
-	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerFeedbackRequest{ Ulid, Description, CategoryID, ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerFeedbackType"), static_cast<int32>(Type)).ToLower() }, ULootLockerGameEndpoints::SendFeedback, {}, {}, OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerFeedbackRequest{ ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerFeedbackType"), static_cast<int32>(Type)).ToLower(), Ulid, CategoryID, Description }, ULootLockerGameEndpoints::SendFeedback, {}, {}, OnCompleteBP, OnComplete);
 }
