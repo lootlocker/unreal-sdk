@@ -45,8 +45,8 @@ enum class ELootLockerMetadataParserOutputTypes : uint8
 {
     OnString = 0 UMETA(ToolTip="Triggered when the parsed entry is of type String. The String Value field will be populated"),
     OnInteger = 1 UMETA(ToolTip = "Triggered when the parsed entry is of type Integer (non decimal number). The Integer Value field will be populated"),
-    OnDouble = 2 UMETA(ToolTip = "Triggered when the parsed entry is of type Double (decimal number). The Double Value field will be populated"),
-    OnNumber = 3 UMETA(ToolTip = "Triggered when the parsed entry is a number but not a regular integer or double (could for example be too big to fit in either of those types, or the decimal precision is higher than can be solved with either of the types). The NumberString value field will be populated"),
+    OnFloat = 2 UMETA(ToolTip = "Triggered when the parsed entry is of type Float (decimal number). The Float Value field will be populated"),
+    OnNumber = 3 UMETA(ToolTip = "Triggered when the parsed entry is a number but not a regular integer or float (could for example be too big to fit in either of those types, or the decimal precision is higher than can be solved with either of the types). The NumberString value field will be populated"),
     OnBool = 4 UMETA(ToolTip = "Triggered when the parsed entry is of type Bool. The Bool Value field will be populated"),
     OnJson = 5 UMETA(ToolTip = "Triggered when the parsed entry is of type Json. The JsonString Value field will be populated with the string representation of the json, convert to a JSON object or straight to a USTRUCT of your design"),
     OnBase64 = 6 UMETA(ToolTip = "Triggered when the parsed entry is of type Base64. The Base64 Value field will be populated"),
@@ -105,9 +105,9 @@ struct FLootLockerMetadataEntry
      */
     LOOTLOCKERSDK_API bool TryGetValueAsString(FString& Output) const;
     /*
-     Get the value as a double. Returns true if value could be parsed in which case Output contains the double, returns false if parsing failed which can happen if the value is not numeric, the conversion under or overflows, or the string value precision is larger than can be dealt within a double.
+     Get the value as a float. Returns true if value could be parsed in which case Output contains the float, returns false if parsing failed which can happen if the value is not numeric, the conversion under or overflows, or the string value precision is larger than can be dealt within a float.
      */
-    LOOTLOCKERSDK_API bool TryGetValueAsDouble(double& Output) const;
+    LOOTLOCKERSDK_API bool TryGetValueAsFloat(float& Output) const;
     /*
      Get the value as an integer. TReturns true if value could be parsed in which case Output contains the int, returns false if parsing failed which can happen if
      */
