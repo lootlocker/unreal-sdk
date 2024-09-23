@@ -2303,7 +2303,7 @@ public:
      @param MetadataTypeSwitch Generated output execution pins for the possible metadata types
      @param StringValue The parsed String Value, populated if the OnString output pin was triggered
      @param IntegerValue The parsed integer Value, populated if the OnInteger output pin was triggered
-     @param DoubleValue The parsed decimal Value, populated if the OnDouble output pin was triggered
+     @param FloatValue The parsed decimal Value, populated if the OnFloat output pin was triggered
      @param NumberString The parsed Number String Value, populated if the OnNumber output pin was triggered
      @param BoolValue The parsed boolean Value, populated if the OnBool output pin was triggered
      @param JsonStringValue The parsed Json String Value, populated if the OnJsonString output pin was triggered
@@ -2316,7 +2316,7 @@ public:
         ELootLockerMetadataParserOutputTypes& MetadataTypeSwitch,
         FString& StringValue,
         int& IntegerValue,
-        double& DoubleValue,
+        float& FloatValue,
         FString& NumberString,
         bool& BoolValue,
         FString& JsonStringValue,

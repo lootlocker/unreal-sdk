@@ -15,7 +15,7 @@ bool FLootLockerMetadataEntry::TryGetValueAsString(FString& Output) const
 	return EntryAsJson.TryGetStringField(TEXT("value"), Output);
 }
 
-bool FLootLockerMetadataEntry::TryGetValueAsDouble(double& Output) const
+bool FLootLockerMetadataEntry::TryGetValueAsFloat(float& Output) const
 {
 	return EntryAsJson.TryGetNumberField(TEXT("value"), Output);
 }

@@ -1082,7 +1082,7 @@ void ULootLockerManager::GetMultisourceMetadata(const TArray<FLootLockerMetadata
 void ULootLockerManager::ParseLootLockerMetadataEntry(const FLootLockerMetadataEntry& Entry,
                                                       ELootLockerMetadataParserOutputTypes& MetadataTypeSwitch,
                                                       FString& StringValue, int& IntegerValue,
-                                                      double& DoubleValue, FString& NumberString, bool& BoolValue,
+                                                      float& FloatValue, FString& NumberString, bool& BoolValue,
                                                       FString& JsonStringValue,
                                                       FLootLockerMetadataBase64Value& Base64Value,
                                                       FString& ErrorMessage, FLootLockerMetadataEntry& OutEntry)
@@ -1091,7 +1091,7 @@ void ULootLockerManager::ParseLootLockerMetadataEntry(const FLootLockerMetadataE
     StringValue = "";
     BoolValue = false;
     IntegerValue = 0;
-    DoubleValue = 0.0f;
+    FloatValue = 0.0f;
     NumberString = "";
     JsonStringValue = "";
     Base64Value = FLootLockerMetadataBase64Value();
@@ -1123,9 +1123,9 @@ void ULootLockerManager::ParseLootLockerMetadataEntry(const FLootLockerMetadataE
             return;
         }
         // Parse as float
-        if (ValueToParse.Contains(".") && Entry.TryGetValueAsDouble(DoubleValue))
+        if (ValueToParse.Contains(".") && Entry.TryGetValueAsFloat(FloatValue))
         {
-            MetadataTypeSwitch = ELootLockerMetadataParserOutputTypes::OnDouble;
+            MetadataTypeSwitch = ELootLockerMetadataParserOutputTypes::OnFloat;
             return;
         }
         // Parse as int
