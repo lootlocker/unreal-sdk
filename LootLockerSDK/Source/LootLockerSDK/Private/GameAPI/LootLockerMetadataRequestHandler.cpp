@@ -165,7 +165,7 @@ void ULootLockerMetadataRequestHandler::ListMetadata(const ELootLockerMetadataSo
 	if (Page > 0) QueryParams.Add("page", FString::FromInt(Page));
 	if (PerPage > 0) QueryParams.Add("per_page", FString::FromInt(PerPage));
 	if (!Key.IsEmpty()) QueryParams.Add("key", Key);
-	if (!Tags.IsEmpty()) {
+	if (Tags.Num() <= 0) {
 		for (FString Tag : Tags)
 		{
 			QueryParams.Add("tags", Tag);
@@ -178,7 +178,7 @@ void ULootLockerMetadataRequestHandler::ListMetadata(const ELootLockerMetadataSo
 	LLAPI<FLootLockerListMetadataResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListMetadata, { SourceAsString, SourceID }, QueryParams, FLootLockerListMetadataResponseBP(), FLootLockerListMetadataResponseDelegate(), LLAPI<FLootLockerListMetadataResponse>::FResponseInspectorCallback::CreateLambda([OnCompleteBP, OnComplete](FLootLockerListMetadataResponse& Response)
 	{
 		// Make sure we will have entries to parse before continuing
-		if(!Response.success || Response.Entries.IsEmpty())
+		if(!Response.success || Response.Entries.Num() <= 0)
 		{
 			OnCompleteBP.ExecuteIfBound(Response);
 			OnComplete.ExecuteIfBound(Response);
@@ -255,7 +255,7 @@ void ULootLockerMetadataRequestHandler::GetMultisourceMetadata(const TArray<FLoo
 	LLAPI<FLootLockerGetMultisourceMetadataResponse>::CallAPI(HttpClient, FLootLockerGetMultisourceMetadataRequest{ SourcesAndKeysToGet }, ULootLockerGameEndpoints::GetMultisourceMetadata, {}, QueryParams, FLootLockerGetMultisourceMetadataResponseBP(), FLootLockerGetMultisourceMetadataResponseDelegate(), LLAPI<FLootLockerGetMultisourceMetadataResponse>::FResponseInspectorCallback::CreateLambda([OnComplete, OnCompleteBP](FLootLockerGetMultisourceMetadataResponse& Response)
 	{
 		// Make sure we will have source and entry combos to parse before continuing
-		if (!Response.success || Response.Metadata.IsEmpty())
+		if (!Response.success || Response.Metadata.Num() <= 0)
 		{
 			OnCompleteBP.ExecuteIfBound(Response);
 			OnComplete.ExecuteIfBound(Response);
