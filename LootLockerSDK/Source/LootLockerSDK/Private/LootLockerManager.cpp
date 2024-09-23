@@ -1151,13 +1151,15 @@ void ULootLockerManager::ParseLootLockerMetadataEntry(const FLootLockerMetadataE
     }
     case ELootLockerMetadataTypes::Json:
     {
-        if (TSharedPtr<FJsonObject> JsonObject = nullptr; Entry.TryGetValueAsJsonObject(JsonObject) && JsonObject.IsValid())
+        TSharedPtr<FJsonObject> JsonObject = nullptr;
+        if (Entry.TryGetValueAsJsonObject(JsonObject) && JsonObject.IsValid())
         {
             MetadataTypeSwitch = ELootLockerMetadataParserOutputTypes::OnJson;
             JsonStringValue = ValueToParse;
             return;
         }
-        if (TArray<TSharedPtr<FJsonValue>> OutputJsonArray; Entry.TryGetValueAsJsonArray(OutputJsonArray))
+        TArray<TSharedPtr<FJsonValue>> OutputJsonArray;
+        if (Entry.TryGetValueAsJsonArray(OutputJsonArray))
         {
             MetadataTypeSwitch = ELootLockerMetadataParserOutputTypes::OnJson;
             JsonStringValue = ValueToParse;
