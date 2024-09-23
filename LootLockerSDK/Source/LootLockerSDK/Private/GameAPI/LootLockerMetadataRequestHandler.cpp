@@ -72,7 +72,7 @@ bool FLootLockerMetadataEntry::TryGetValueAsUStruct(T& Output) const
 
 bool FLootLockerMetadataEntry::TryGetValueAsJsonObject(TSharedPtr<FJsonObject>& Output) const
 {
-	if(!EntryAsJson.HasTypedField(TEXT("value"), EJson::Object))
+	if(!EntryAsJson.HasTypedField<EJson::Object>(TEXT("value")))
 	{
 		return false;
 	}
@@ -82,7 +82,7 @@ bool FLootLockerMetadataEntry::TryGetValueAsJsonObject(TSharedPtr<FJsonObject>& 
 
 bool FLootLockerMetadataEntry::TryGetValueAsJsonArray(TArray<TSharedPtr<FJsonValue>>& Output) const
 {
-	if (!EntryAsJson.HasTypedField(TEXT("value"), EJson::Array))
+	if (!EntryAsJson.HasTypedField<EJson::Array>(TEXT("value")))
 	{
 		return false;
 	}
