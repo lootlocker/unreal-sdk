@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
 #include "Runtime/Launch/Resources/Version.h"
 #include "LootLockerStateData.generated.h"
 
