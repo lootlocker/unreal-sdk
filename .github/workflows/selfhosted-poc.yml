@@ -38,3 +38,8 @@ jobs:
       - name: Ping stage
         run: |
           curl -X POST "https://${{ SECRETS.LL_STAGE_URL }}/game/v2/session/guest" -H "Content-Type: application/json" -d "{\"game_key\": \"dev_dc52acb52a8b49be81761e709f1df9fd\", \"game_version\": \"0.10.0.0\", \"player_identifier\": \"k8s-runner-guest\"}"
+      
+      - name: Docker Authorize
+        run: |
+          docker login ghcr.io -u ${{ SECRETS.UNREAL_DOCKER_PACKAGES_READ_USERNAME }} -p ${{ SECRETS.UNREAL_DOCKER_PACKAGES_READ_ACCESS_TOKEN }}
+          docker pull ghcr.io/epicgames/unreal-engine:dev-5.4
