@@ -1,6 +1,9 @@
 name: Selfhosted Runner Proof of Concept
 run-name: selfhosted-poc
 on:
+  push:
+    branches: # Made towards the following
+      - ci/*
   workflow_dispatch: {}
 
 jobs:
@@ -10,6 +13,12 @@ jobs:
     container:
       image: ubuntu:22.04
     steps:
+      - name: Setup Tailscale
+        uses: tailscale/github-action@v2
+        with:
+          oauth-client-id: ${{ SECRETS.CI_TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ SECRETS.CI_TS_OAUTH_SECRET }}
+          tags: tag:ci
       - name: Setup git
         run: |
           apt update
