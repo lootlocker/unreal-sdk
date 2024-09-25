@@ -1,0 +1,108 @@
+name: Build plugin using unreal conainer
+run-name: plugin-builder
+on:
+  pull_request:
+      branches: # Made towards the following
+      - main
+      types: # Only on the following activity
+      - opened
+      - synchronize # Changes to the branch like new commits, ammends, etc.
+  push:
+    branches:
+      - main
+    tags:
+      - v**
+  schedule:
+    - cron: "6 9,16,22 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  build-sdk:
+    name: Build SDK with ${{ matrix.UE_IMAGE }}
+    runs-on: ubuntu-22.04-4-core
+    strategy:
+      fail-fast: false
+      matrix:
+        UE_IMAGE: ${{ fromJson(VARS.CI_UNREAL_IMAGES) }}
+    steps:
+      - name: Setup git
+        run: |
+          git config --global --add safe.directory /__w/unreal-sdk/unreal-sdk
+
+      - name: Checkout dev for nightly build
+        if: ${{ github.event_name == 'schedule' }}
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+
+      - name: Checkout current branch for build
+        if: ${{ github.event_name != 'schedule' }}
+        uses: actions/checkout@v4
+
+      - name: Not a scheduled run, so should run
+        if: ${{ github.event_name != 'schedule' }}
+        run: |
+          echo "DO_RUN=false" >> $GITHUB_ENV
+
+      - name: Check if commits in last 24h
+        if: ${{ github.event_name == 'schedule' }}
+        run: |
+          _GIT_COMMIT_DATE=$(git log -1 --format=%cd --date=format:%Y-%m-%d)
+          COMMIT_DATE=$(date -d $_GIT_COMMIT_DATE +%s)
+          _SERVER_DATE=$(date +'%Y-%m-%d')
+          SERVER_DATE=$(date -d $_SERVER_DATE +%s)
+          if [ $COMMIT_DATE -ge $SERVER_DATE ]; then
+            echo "DO_RUN=true" >> $GITHUB_ENV
+          else
+            echo "DO_RUN=false" >> $GITHUB_ENV
+          fi
+      
+      - name: Pull unreal image ${{ matrix.UE_IMAGE }}
+        if: ${{ ENV.DO_RUN==true }}
+        run: |
+          docker login ghcr.io -u ${{ SECRETS.UNREAL_DOCKER_PACKAGES_READ_USERNAME }} -p ${{ SECRETS.UNREAL_DOCKER_PACKAGES_READ_ACCESS_TOKEN }}
+          docker pull ghcr.io/epicgames/unreal-engine:${{ matrix.UE_IMAGE }}
+      
+      - name: Make build & log locations
+        if: ${{ ENV.DO_RUN==true }}
+        run: |
+          mkdir -p tmp/build
+          mkdir -p tmp/logs
+
+      - name: Set plugin information variables
+        if: ${{ ENV.DO_RUN==true }}
+        run: |
+          SDK_PATH="$(pwd)"
+          echo "SDK_PATH=${SDK_PATH}" >> $GITHUB_ENV
+          SDK_NAME=`find "$SDK_PATH" -type f -name "*.uplugin" | sed -n -r "s/.*\/([-A-Za-z0-9_]+)\.uplugin/\1/p"`
+          echo "SDK_NAME=${SDK_NAME}" >> $GITHUB_ENV
+          SDK_VERSION=`sed -n -r 's/^ +\"VersionName\": \"([0-9]+.[0-9]+.[0-9]+)\",/\1/p' < "$SDK_PATH/$SDK_NAME/$SDK_NAME.uplugin"`
+          echo "SDK_VERSION=${SDK_VERSION}" >> $GITHUB_ENV
+          sed -i -r "s/^( +)(\"VersionName\": \"[0-9\.]+\",)/\1\2\n\1\"EngineVersion\": \"${{ matrix.UE_VERSION }}\",/g" "$SDK_PATH/$SDK_NAME/$SDK_NAME.uplugin"
+
+      - name: Build Plugin with Unreal Automation Tool in image ${{ matrix.UE_IMAGE }}
+        if: ${{ ENV.DO_RUN==true }}
+        continue-on-error: true
+        run: |
+          docker run --rm -v "$(pwd):/mnt/source" ghcr.io/epicgames/unreal-engine:${{ matrix.UE_IMAGE }} sh -c "/home/ue4/UnrealEngine/Engine/Build/BatchFiles/RunUAT.sh BuildPlugin -TargetPlatforms="Linux" -Plugin="/mnt/source/${SDK_NAME}/${SDK_NAME}.uplugin" -Package="/mnt/source/build" -Rocket -enablecodeanalysis" 2>&1 | tee tmp/logs/UAT.log
+          
+      - name: Expose log as artifact
+        if: ${{ ENV.DO_RUN==true }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.UE_IMAGE }}-UAT.log
+          path: ${{ ENV.SDK_PATH }}/tmp/logs/UAT.log
+
+      - name: Check build result
+        if: ${{ ENV.DO_RUN==true }}
+        run: |
+          grep -i -q -E -- 'AutomationTool exiting with ExitCode=0' ${{ ENV.SDK_PATH }}/tmp/logs/UAT.log
+          BUILD_RESULT=$?
+          if [ ! 0 -eq $BUILD_RESULT ]; then
+              echo "    ❌ Build failed for ${{ matrix.UE_IMAGE }}, see ${{ matrix.UE_IMAGE }}-UAT.log for more information. Potential causes below"
+              grep -i -E -- 'error' ${{ ENV.SDK_PATH }}/tmp/logs/UAT.log
+              grep -i -E -- 'warning' ${{ ENV.SDK_PATH }}/tmp/logs/UAT.log
+              grep -i -E -- 'ExitCode' ${{ ENV.SDK_PATH }}/tmp/logs/UAT.log
+              exit 666
+          fi
+          exit 0
