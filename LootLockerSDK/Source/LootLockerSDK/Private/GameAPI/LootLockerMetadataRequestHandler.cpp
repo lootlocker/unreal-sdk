@@ -172,7 +172,7 @@ void ULootLockerMetadataRequestHandler::ListMetadata(const ELootLockerMetadataSo
 	if (Page > 0) QueryParams.Add("page", FString::FromInt(Page));
 	if (PerPage > 0) QueryParams.Add("per_page", FString::FromInt(PerPage));
 	if (!Key.IsEmpty()) QueryParams.Add("key", Key);
-	if (Tags.Num() <= 0) {
+	if (Tags.Num() > 0) {
 		for (FString Tag : Tags)
 		{
 			QueryParams.Add("tags", Tag);
