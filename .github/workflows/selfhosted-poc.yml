@@ -19,17 +19,15 @@ jobs:
           tags: tag:ci
       - name: Setup git
         run: |
-          apt update
-          apt-get install -y git
           git config --global --add safe.directory /__w/unreal-sdk/unreal-sdk
           
-      - name: Setup curl
-        run: |
-          apt update
-          apt-get install -y curl
+      ##- name: Setup curl
+      ##  run: |
+      ##    sudo apt-get update
+      ##    apt-get install -y curl
 
       - name: Checkout this repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Cat uplugin file
         run: cat LootLockerSDK/LootLockerSDK.uplugin
