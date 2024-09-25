@@ -9,9 +9,7 @@ on:
 jobs:
   ping-stage-test:
     name: Ping stage backend
-    runs-on: [k8s]
-    container:
-      image: ubuntu:22.04
+    runs-on: ubuntu-latest
     steps:
       - name: Setup Tailscale
         uses: tailscale/github-action@v2
