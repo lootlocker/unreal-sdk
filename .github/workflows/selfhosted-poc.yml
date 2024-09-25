@@ -1,28 +1,29 @@
-name: Selfhosted Runner Proof of Concept
+name: Selfhosted POC
 run-name: selfhosted-poc
 on:
+  push:
+      branches: # Made towards the following
+        - ci/*
   workflow_dispatch: {}
 
 jobs:
   ping-stage-test:
     name: Ping stage backend
-    runs-on: [k8s]
-    container:
-      image: ubuntu:22.04
+    if: false
+    runs-on: ubuntu-latest
     steps:
+      - name: Setup Tailscale
+        uses: tailscale/github-action@v2
+        with:
+          oauth-client-id: ${{ SECRETS.CI_TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ SECRETS.CI_TS_OAUTH_SECRET }}
+          tags: tag:ci
       - name: Setup git
         run: |
-          apt update
-          apt-get install -y git
           git config --global --add safe.directory /__w/unreal-sdk/unreal-sdk
-          
-      - name: Setup curl
-        run: |
-          apt update
-          apt-get install -y curl
 
       - name: Checkout this repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Cat uplugin file
         run: cat LootLockerSDK/LootLockerSDK.uplugin
