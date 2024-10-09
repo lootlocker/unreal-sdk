@@ -1868,7 +1868,7 @@ public:
      * @param Event data of the event to be triggered.
      * @param OnTriggerEventCompleted Delegate for handling the server response.
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Trigger Events")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Trigger Events", meta = (DeprecatedFunction, DeprecationMessage = "The triggers system has been upgraded and replaced with a newer version. Read more here: https://docs.lootlocker.com/game-systems/triggers"))
     static void TriggerEvent(const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegateBP& OnTriggerEventCompleted);
 
     /**
@@ -1877,7 +1877,7 @@ public:
      *
      * @param OnGetTriggeredEventsCompleted Delegate for handling the server response.
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Trigger Events")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Trigger Events", meta = (DeprecatedFunction, DeprecationMessage = "The triggers system has been upgraded and replaced with a newer version. Read more here: https://docs.lootlocker.com/game-systems/triggers"))
     static void GetTriggeredEvents(const FTriggersResponseDelegateBP& OnGetTriggeredEventsCompleted);
 
     //==================================================
