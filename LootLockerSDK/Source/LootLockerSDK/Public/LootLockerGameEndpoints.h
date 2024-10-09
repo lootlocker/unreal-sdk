@@ -218,6 +218,9 @@ public:
     static FLootLockerEndPoints TriggerEventEndpoint;
     static FLootLockerEndPoints GetTriggeredEventsEndpoint;
 
+    //Triggers
+    static FLootLockerEndPoints InvokeTriggers;
+
     //Collectables
     static FLootLockerEndPoints GetAllCollectablesEndpoint;
     static FLootLockerEndPoints CollectItemEndpoint;
