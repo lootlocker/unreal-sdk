@@ -56,7 +56,7 @@ struct FLootLockerFailedKey
      * The reason for the key failing.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    ELootLockerTriggerFailureReasons Reason;
+    ELootLockerTriggerFailureReasons Reason = ELootLockerTriggerFailureReasons::Key_not_found;
 };
 
 //==================================================
