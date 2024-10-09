@@ -1864,6 +1864,7 @@ public:
      * @param Event data of the event to be triggered.
      * @param OnCompletedRequest Delegate for handling the server response.
      */
+    [[deprecated("The triggers system has been upgraded and replaced with a newer version. Read more here: https://docs.lootlocker.com/game-systems/triggers")]]
     static void TriggerEvent(const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegate& OnCompletedRequest);
 
     /**
@@ -1872,6 +1873,7 @@ public:
      *
      * @param OnCompletedRequest Delegate for handling the server response.
      */
+    [[deprecated("The triggers system has been upgraded and replaced with a newer version. Read more here: https://docs.lootlocker.com/game-systems/triggers")]]
     static void GetTriggeredEvents(const FTriggersResponseDelegate& OnCompletedRequest);
 
     //==================================================
