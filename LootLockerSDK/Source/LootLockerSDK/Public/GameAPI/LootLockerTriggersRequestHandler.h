@@ -71,7 +71,7 @@ struct FLootLockerInvokeTriggersByKeyRequest
 {
     GENERATED_BODY()
     /**
-     * The keys of the triggers that should be executed
+     * The keys of the triggers that should be invoked
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FString> Keys;
