@@ -34,7 +34,7 @@ struct FLootLockerSuccessfulKey
 {
     GENERATED_BODY()
     /**
-     * The key that was successfully executed
+     * The key of the trigger that was successfully invoked
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Key;
@@ -48,12 +48,12 @@ struct FLootLockerFailedKey
 {
     GENERATED_BODY()
     /**
-     * The key that failed
+     * The key of the trigger that failed invocation
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Key;
     /**
-     * The reason for the key failing.
+     * The reason that the trigger failed invocation
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     ELootLockerTriggerFailureReasons Reason = ELootLockerTriggerFailureReasons::Key_not_found;
