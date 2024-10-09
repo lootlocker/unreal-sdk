@@ -29,6 +29,7 @@
 #include "GameAPI/LootLockerPurchasesRequestHandler.h"
 #include "GameAPI/LootLockerRemoteSessionRequestHandler.h"
 #include "GameAPI/LootLockerTriggerEventsRequestHandler.h"
+#include "GameAPI/LootLockerTriggersRequestHandler.h"
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
 #include "GameAPI/LootLockerFeedbackRequestHandler.h"
 #include "LootLockerManager.generated.h"
@@ -1867,7 +1868,7 @@ public:
      * @param Event data of the event to be triggered.
      * @param OnTriggerEventCompleted Delegate for handling the server response.
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Trigger Events")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Trigger Events", meta = (DeprecatedFunction, DeprecationMessage = "The triggers system has been upgraded and replaced with a newer version. Read more here: https://docs.lootlocker.com/game-systems/triggers"))
     static void TriggerEvent(const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegateBP& OnTriggerEventCompleted);
 
     /**
@@ -1876,8 +1877,27 @@ public:
      *
      * @param OnGetTriggeredEventsCompleted Delegate for handling the server response.
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Trigger Events")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Trigger Events", meta = (DeprecatedFunction, DeprecationMessage = "The triggers system has been upgraded and replaced with a newer version. Read more here: https://docs.lootlocker.com/game-systems/triggers"))
     static void GetTriggeredEvents(const FTriggersResponseDelegateBP& OnGetTriggeredEventsCompleted);
+
+    //==================================================
+    // Triggers
+    //==================================================
+
+    /**
+     * Invoke a set of triggers by key
+     *
+     * Note that the response contains two lists:
+     * - One listing the keys of the triggers that were successfully executed
+     * - One listing the triggers that failed as well as the reason they did so
+     *
+     * This means that the request can "succeed" but still contain triggers that failed. So make sure to check the inner results.
+     *
+     * @param KeysToInvoke List of keys of the triggers to invoke
+     * @param OnComplete Delegate for handling the server response.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Triggers")
+    static void InvokeTriggersByKey(const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseBP& OnComplete);
 
     //==================================================
     //Collectables

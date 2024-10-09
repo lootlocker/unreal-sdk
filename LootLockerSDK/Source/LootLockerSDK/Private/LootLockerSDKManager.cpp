@@ -920,6 +920,12 @@ void ULootLockerSDKManager::GetTriggeredEvents(const FTriggersResponseDelegate& 
     ULootLockerTriggerEventsRequestHandler::GetTriggeredEvents(FTriggersResponseDelegateBP(), OnCompletedRequest);
 }
 
+//Triggers
+void ULootLockerSDKManager::InvokeTriggersByKey(const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseDelegate& OnComplete)
+{
+    ULootLockerTriggersRequestHandler::InvokeTriggersByKey(KeysToInvoke, FLootLockerInvokeTriggersByKeyResponseBP(), OnComplete);
+}
+
 //Collectables
 void ULootLockerSDKManager::GetAllCollectables(const FCollectablesResponseDelegate& OnCompletedRequest)
 {

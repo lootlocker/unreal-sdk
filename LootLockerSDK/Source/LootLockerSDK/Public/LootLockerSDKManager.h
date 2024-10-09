@@ -31,6 +31,7 @@
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
 #include "GameAPI/LootLockerFeedbackRequestHandler.h"
 #include "GameAPI/LootLockerMetadataRequestHandler.h"
+#include "GameAPI/LootLockerTriggersRequestHandler.h"
 #include "LootLockerSDKManager.generated.h"
 
 UCLASS(Blueprintable)
@@ -1863,6 +1864,7 @@ public:
      * @param Event data of the event to be triggered.
      * @param OnCompletedRequest Delegate for handling the server response.
      */
+    [[deprecated("The triggers system has been upgraded and replaced with a newer version. Read more here: https://docs.lootlocker.com/game-systems/triggers")]]
     static void TriggerEvent(const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegate& OnCompletedRequest);
 
     /**
@@ -1871,7 +1873,26 @@ public:
      *
      * @param OnCompletedRequest Delegate for handling the server response.
      */
+    [[deprecated("The triggers system has been upgraded and replaced with a newer version. Read more here: https://docs.lootlocker.com/game-systems/triggers")]]
     static void GetTriggeredEvents(const FTriggersResponseDelegate& OnCompletedRequest);
+
+    //==================================================
+    // Triggers
+    //==================================================
+
+    /**
+     * Invoke a set of triggers by key
+     *
+     * Note that the response contains two lists:
+     * - One listing the keys of the triggers that were successfully executed
+     * - One listing the triggers that failed as well as the reason they did so
+     *
+     * This means that the request can "succeed" but still contain triggers that failed. So make sure to check the inner results.
+     *
+     * @param KeysToInvoke List of keys of the triggers to invoke
+     * @param OnComplete Delegate for handling the server response.
+     */
+    static void InvokeTriggersByKey(const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseDelegate& OnComplete);
 
     //==================================================
     //Collectables

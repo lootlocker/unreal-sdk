@@ -2,7 +2,7 @@
 
 #include "LootLockerGameEndpoints.h"
 
-FString ULootLockerGameEndpoints::GameBaseUrl = "https://{domainKey}api.lootlocker.io/game/";
+FString ULootLockerGameEndpoints::GameBaseUrl = "https://{domainKey}api.stage.internal.dev.lootlocker.cloud/game/";
 
 //Auth
 FLootLockerEndPoints ULootLockerGameEndpoints::StartSessionEndpoint = InitEndpoint("v2/session", ELootLockerHTTPMethod::POST);
@@ -185,6 +185,9 @@ FLootLockerEndPoints ULootLockerGameEndpoints::FinalizeSteamPurchaseRedemption =
 //Trigger Events
 FLootLockerEndPoints ULootLockerGameEndpoints::TriggerEventEndpoint = InitEndpoint("v1/player/trigger", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetTriggeredEventsEndpoint = InitEndpoint("v1/player/triggers", ELootLockerHTTPMethod::GET);
+
+//Triggers
+FLootLockerEndPoints ULootLockerGameEndpoints::InvokeTriggers = InitEndpoint("triggers/v2", ELootLockerHTTPMethod::POST);
 
 //Collectables
 FLootLockerEndPoints ULootLockerGameEndpoints::GetAllCollectablesEndpoint = InitEndpoint("v1/collectable", ELootLockerHTTPMethod::GET);

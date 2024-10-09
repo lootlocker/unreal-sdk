@@ -863,6 +863,12 @@ void ULootLockerManager::GetTriggeredEvents(const FTriggersResponseDelegateBP& O
     ULootLockerTriggerEventsRequestHandler::GetTriggeredEvents(OnGetTriggeredEventsCompleted);
 }
 
+//Triggers
+void ULootLockerManager::InvokeTriggersByKey(const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseBP& OnComplete)
+{
+    ULootLockerTriggersRequestHandler::InvokeTriggersByKey(KeysToInvoke, OnComplete);
+}
+
 void ULootLockerManager::GetAllCollectables(const FCollectablesResponseDelegateBP& OnGetAllCollectablesCompleted)
 {
     ULootLockerCollectablesRequestHandler::GetAllCollectables(OnGetAllCollectablesCompleted);
