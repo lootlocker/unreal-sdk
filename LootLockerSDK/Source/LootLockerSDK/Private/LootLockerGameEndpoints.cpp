@@ -187,7 +187,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::TriggerEventEndpoint = InitEndpoi
 FLootLockerEndPoints ULootLockerGameEndpoints::GetTriggeredEventsEndpoint = InitEndpoint("v1/player/triggers", ELootLockerHTTPMethod::GET);
 
 //Triggers
-FLootLockerEndPoints ULootLockerGameEndpoints::InvokeTriggers = InitEndpoint("triggers/v2", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::InvokeTriggers = InitEndpoint("triggers/cozy-crusader/v1", ELootLockerHTTPMethod::POST);
 
 //Collectables
 FLootLockerEndPoints ULootLockerGameEndpoints::GetAllCollectablesEndpoint = InitEndpoint("v1/collectable", ELootLockerHTTPMethod::GET);
