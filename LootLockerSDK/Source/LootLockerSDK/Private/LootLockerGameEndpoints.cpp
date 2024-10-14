@@ -5,7 +5,7 @@
 #ifdef LOOTLOCKER_USE_STAGE_URL
 FString ULootLockerGameEndpoints::GameBaseUrl = "https://{domainKey}api.stage.internal.dev.lootlocker.cloud/game/";
 #else
-FString ULootLockerGameEndpoints::GameBaseUrl = "https://{domainKey}api.lootlocker.io/game/";
+FString ULootLockerGameEndpoints::GameBaseUrl = "https://{domainKey}api.lootlocker.com/game/";
 #endif
 
 //Auth
