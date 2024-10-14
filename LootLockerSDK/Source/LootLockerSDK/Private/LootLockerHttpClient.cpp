@@ -62,6 +62,7 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
         if (Ptr.IsValid())
         {
             SDKVersion = Ptr->GetDescriptor().VersionName;
+            UE_LOG(LogLootLockerGameSDK, Verbose, TEXT("LootLocker version: v%s"), *SDKVersion);
         }
     }
 
