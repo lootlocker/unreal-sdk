@@ -189,6 +189,11 @@ FLootLockerEndPoints ULootLockerGameEndpoints::GetTriggeredEventsEndpoint = Init
 //Triggers
 FLootLockerEndPoints ULootLockerGameEndpoints::InvokeTriggers = InitEndpoint("triggers/cozy-crusader/v1", ELootLockerHTTPMethod::POST);
 
+//Notifications
+FLootLockerEndPoints ULootLockerGameEndpoints::ListNotifications = InitEndpoint("notifications/v1", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::ReadNotifications = InitEndpoint("notifications/v1/read", ELootLockerHTTPMethod::PUT);
+FLootLockerEndPoints ULootLockerGameEndpoints::ReadAllNotifications = InitEndpoint("notifications/v1/read/all", ELootLockerHTTPMethod::PUT);
+
 //Collectables
 FLootLockerEndPoints ULootLockerGameEndpoints::GetAllCollectablesEndpoint = InitEndpoint("v1/collectable", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::CollectItemEndpoint = InitEndpoint("v1/collectable", ELootLockerHTTPMethod::POST);

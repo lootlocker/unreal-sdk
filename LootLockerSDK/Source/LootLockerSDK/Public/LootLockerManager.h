@@ -32,6 +32,7 @@
 #include "GameAPI/LootLockerTriggersRequestHandler.h"
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
 #include "GameAPI/LootLockerFeedbackRequestHandler.h"
+#include "GameAPI/LootLockerNotificationsRequestHandler.h"
 #include "LootLockerManager.generated.h"
 
 UCLASS(Blueprintable)
@@ -1898,6 +1899,64 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Triggers")
     static void InvokeTriggersByKey(const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseBP& OnComplete);
+
+    //==================================================
+    // Notifications
+    //==================================================
+
+    /**
+     List notifications without filters and with default pagination settings
+    
+     @param OnComplete Delegate for handling the server response
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications")
+    static void ListNotificationsWithDefaultParameters(const FLootLockerListNotificationsResponseBP& OnComplete);
+
+    /**
+     List notifications according to specified filters and with pagination settings
+
+     @param ShowRead Return previously read notifications
+     @param OfType (Optional) Return only notifications with the specified type
+     @param WithSource (Optional) Return only notifications with the specified source
+     @param PerPage (Optional) Used together with PerPage to apply pagination to this request. Page designates which "page" of items to fetch
+     @param Page (Optional) Used together with Page to apply pagination to this request. PerPage designates how many notifications are considered a "page"
+     @param OnComplete Delegate for handling the server response
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications")
+    static void ListNotifications(bool ShowRead, const FString& OfType, const FString& WithSource, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete);
+
+    /**
+     List notifications according to specified filters and with pagination settings
+
+     @param WithPriority Return only notifications with the specified priority
+     @param ShowRead Return previously read notifications
+     @param OfType (Optional) Return only notifications with the specified type
+     @param WithSource (Optional) Return only notifications with the specified source
+     @param PerPage (Optional) Used together with PerPage to apply pagination to this request. Page designates which "page" of items to fetch
+     @param Page (Optional) Used together with Page to apply pagination to this request. PerPage designates how many notifications are considered a "page"
+     @param OnComplete Delegate for handling the server response
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications")
+    static void ListNotificationsWithPriority(ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete);
+
+    /**
+     Mark all unread notifications as read
+
+	 Warning: This will mark ALL unread notifications as read, so if you have listed notifications but due to filters and/or pagination not pulled all of them you may have unviewed unread notifications
+
+     @param OnComplete Delegate for handling the server response
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications")
+    static void MarkAllNotificationsAsRead(const FLootLockerReadNotificationsResponseBP& OnComplete);
+
+    /**
+     Mark the specified notifications as read
+
+     @param NotificationIDs List of ids of notifications to mark as read
+     @param OnComplete Delegate for handling the server response
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications")
+    static void MarkNotificationsAsRead(const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseBP& OnComplete);
 
     //==================================================
     //Collectables
