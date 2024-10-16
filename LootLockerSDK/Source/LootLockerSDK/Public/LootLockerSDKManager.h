@@ -208,7 +208,7 @@ public:
     * @param Timestamp the timestamp of the verification generated from Apple Game Center Identity Verification
     * @param OnStartedAppleGameCenterSessionCompleted Delegate for handling the response of type  for handling the response of type FLootLockerAppleGameCenterSessionResponse
     */
-    static void StartAppleGameCenterSession(const FString& BundleId, const FString& PlayerId, const FString& PublicKeyUrl, const FString& Signature, const FString& Salt, const FString& Timestamp, const FLootLockerAppleGameCenterSessionResponseBP& OnStartedAppleGameCenterSessionCompleted);
+    static void StartAppleGameCenterSession(const FString& BundleId, const FString& PlayerId, const FString& PublicKeyUrl, const FString& Signature, const FString& Salt, const FString& Timestamp, const FLootLockerAppleGameCenterSessionResponseDelegate& OnStartedAppleGameCenterSessionCompleted);
 
     /**
     * Refresh a previous session signed in with Apple Game Center
@@ -2022,7 +2022,7 @@ public:
     /**
     * List the archive of a specific Leaderboard,
     * @param LeaderboardKey the Key of the Leaderboard you want the list of archives
-    * @param OnCompletedRequestBP Delegate for handling the server response
+    * @param OnCompletedRequest Delegate for handling the server response
     */
     static void ListLeaderboardArchive(const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseDelegate& OnCompletedRequest);
     
