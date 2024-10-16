@@ -869,6 +869,32 @@ void ULootLockerManager::InvokeTriggersByKey(const TArray<FString>& KeysToInvoke
     ULootLockerTriggersRequestHandler::InvokeTriggersByKey(KeysToInvoke, OnComplete);
 }
 
+//Notifications
+void ULootLockerManager::ListNotificationsWithDefaultParameters(const FLootLockerListNotificationsResponseBP& OnComplete)
+{
+    ULootLockerNotificationsRequestHandler::ListNotificationsWithDefaultParameters(OnComplete);
+}
+
+void ULootLockerManager::ListNotifications(bool ShowRead, const FString& OfType, const FString& WithSource, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete)
+{
+    ULootLockerNotificationsRequestHandler::ListNotifications(ShowRead, OfType, WithSource, PerPage, Page, OnComplete);
+}
+
+void ULootLockerManager::ListNotificationsWithPriority(ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete)
+{
+    ULootLockerNotificationsRequestHandler::ListNotifications(WithPriority, ShowRead, OfType, WithSource, PerPage, Page, OnComplete);
+}
+
+void ULootLockerManager::MarkAllNotificationsAsRead(const FLootLockerReadNotificationsResponseBP& OnComplete)
+{
+    ULootLockerNotificationsRequestHandler::MarkAllNotificationsAsRead(OnComplete);
+}
+
+void ULootLockerManager::MarkNotificationsAsRead(const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseBP& OnComplete)
+{
+    ULootLockerNotificationsRequestHandler::MarkNotificationsAsRead(NotificationIDs, OnComplete);
+}
+
 void ULootLockerManager::GetAllCollectables(const FCollectablesResponseDelegateBP& OnGetAllCollectablesCompleted)
 {
     ULootLockerCollectablesRequestHandler::GetAllCollectables(OnGetAllCollectablesCompleted);

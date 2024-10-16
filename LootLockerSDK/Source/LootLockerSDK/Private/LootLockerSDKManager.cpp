@@ -926,6 +926,32 @@ void ULootLockerSDKManager::InvokeTriggersByKey(const TArray<FString>& KeysToInv
     ULootLockerTriggersRequestHandler::InvokeTriggersByKey(KeysToInvoke, FLootLockerInvokeTriggersByKeyResponseBP(), OnComplete);
 }
 
+//Notifications
+void ULootLockerSDKManager::ListNotificationsWithDefaultParameters(const FLootLockerListNotificationsResponseDelegate& OnComplete)
+{
+    ULootLockerNotificationsRequestHandler::ListNotificationsWithDefaultParameters(FLootLockerListNotificationsResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::ListNotifications(bool ShowRead, const FString& OfType, const FString& WithSource, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate& OnComplete)
+{
+    ULootLockerNotificationsRequestHandler::ListNotifications(ShowRead, OfType, WithSource, PerPage, Page, FLootLockerListNotificationsResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::ListNotificationsWithPriority(ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate& OnComplete)
+{
+    ULootLockerNotificationsRequestHandler::ListNotifications(WithPriority, ShowRead, OfType, WithSource, PerPage, Page, FLootLockerListNotificationsResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::MarkAllNotificationsAsRead(const FLootLockerReadNotificationsResponseDelegate& OnComplete)
+{
+    ULootLockerNotificationsRequestHandler::MarkAllNotificationsAsRead(FLootLockerReadNotificationsResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::MarkNotificationsAsRead(const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseDelegate& OnComplete)
+{
+    ULootLockerNotificationsRequestHandler::MarkNotificationsAsRead(NotificationIDs, FLootLockerReadNotificationsResponseBP(), OnComplete);
+}
+
 //Collectables
 void ULootLockerSDKManager::GetAllCollectables(const FCollectablesResponseDelegate& OnCompletedRequest)
 {
