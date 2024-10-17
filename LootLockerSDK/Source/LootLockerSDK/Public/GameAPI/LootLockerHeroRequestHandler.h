@@ -123,7 +123,7 @@ struct FLootLockerHeroLoadout
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker | Heroes")
 	FString mounted_at;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker | Heroes")
-	TArray<FLootLockerAsset> asset;
+	FLootLockerAsset asset;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker | Heroes")
 	FLootLockerRental rental;
 };
@@ -133,15 +133,7 @@ struct FLootLockerHeroLoadoutResponse : public FLootLockerResponse
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker | Heroes")
-	int32 variation_id = 0;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker | Heroes")
-	int32 instance_id = 0;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker | Heroes")
-	FString mounted_at;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker | Heroes")
-	TArray<FLootLockerAsset> asset;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker | Heroes")
-	FLootLockerRental rental;
+	TArray<FLootLockerHeroLoadout> Loadout;
 };
 
 USTRUCT(BlueprintType)

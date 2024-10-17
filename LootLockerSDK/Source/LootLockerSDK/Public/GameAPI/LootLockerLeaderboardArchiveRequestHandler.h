@@ -3,10 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
 #include "LootLockerResponse.h"
 #include "LootLockerHttpClient.h"
-#include "JsonObjectConverter.h"
 
 #include "LootLockerLeaderboardArchiveRequestHandler.generated.h"
 
@@ -22,7 +20,7 @@ struct FLootLockerLeaderboardArchivePlayer
 	FString public_uid;
 	// The ID of the Player.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int32 id = 0;
+	int id = 0;
 	// The ULID of the Player.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString player_ulid;
@@ -43,7 +41,7 @@ struct FLootLockerLeaderboardArchiveDetails
 	FString member_id;
 	// The Player's rank on the archived Leaderboard.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int32 rank = 0;
+	int rank = 0;
 	// The Player's Score on the archived Leaderboard.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int score = 0;
@@ -64,7 +62,7 @@ struct FLootLockerLeaderboardArchive
 	FString key;
 	// Length of the archived Leaderboard.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	int32 content_length = 0;
+	int content_length = 0;
 };
 
 USTRUCT(BlueprintType)

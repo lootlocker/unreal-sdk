@@ -5,6 +5,7 @@ using UnrealBuildTool;
 public class LootLockerSDK : ModuleRules
 {
     public static bool bEnableGoogleSubsystemHelper = false;
+    public static bool bUseStageURL = false;
     public LootLockerSDK(ReadOnlyTargetRules Target) : base(Target)
     {
         PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
@@ -56,6 +57,11 @@ public class LootLockerSDK : ModuleRules
         {
             PublicDefinitions.Add("LOOTLOCKER_ENABLE_GOOGLESUBSYSTEMHELPER");
             PrivateDependencyModuleNames.AddRange(new string[] { "OnlineSubsystem" });
+        }
+
+        if (bUseStageURL)
+        {
+	        PublicDefinitions.Add("LOOTLOCKER_USE_STAGE_URL");
         }
     }
 }

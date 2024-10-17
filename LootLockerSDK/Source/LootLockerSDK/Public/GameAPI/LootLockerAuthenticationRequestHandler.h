@@ -48,6 +48,7 @@ struct FLootLockerWhiteLabelLoginRequest : public FLootLockerLoginRequest
 	bool remember = false;
 };
 
+// Used for WhiteLabel Login
 USTRUCT(BlueprintType)
 struct FLootLockerLoginResponse : public FLootLockerAuthResponse
 {
@@ -349,6 +350,11 @@ struct FLootLockerAuthenticationResponse : public FLootLockerAuthResponse
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString player_identifier;
+	/**
+	 The id of the wallet for this account
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString wallet_id;
 };
 
 USTRUCT(BlueprintType)
