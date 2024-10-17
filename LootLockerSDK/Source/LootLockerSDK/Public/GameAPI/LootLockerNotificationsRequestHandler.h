@@ -37,6 +37,213 @@ enum class ELootLockerNotificationContentKind : uint8
 };
 
 //==================================================
+// Static String Definitions
+//==================================================
+
+/**
+ * Set of static string definitions to use for matching in different Notification contexts
+ */
+struct LootLockerNotificationsStaticStrings
+{
+    /**
+     * Possible types of notifications
+     */
+    struct NotificationTypes
+    {
+        static const FString PullRewardAcquired;
+    };
+
+    /**
+     * Possible sources for notifications
+     */
+    struct NotificationSources
+    {
+        static const FString Triggers;
+        struct Purchasing
+        {
+            static const FString SteamStore;
+            static const FString AppleAppStore;
+            static const FString GooglePlayStore;
+            static const FString LootLocker;
+        };
+    };
+
+    /**
+     * The standard context keys to expect for different notification sources
+     */
+    struct StandardContextKeys
+    {
+        /**
+         * Standard context keys to expect when source is triggers
+         */
+        struct Triggers
+        {
+            static const FString Id;
+            static const FString Key;
+            static const FString Limit;
+        };
+
+        /**
+         * Standard context keys to expect when source is purchasing
+         */
+        struct Purchasing
+        {
+            /**
+             * Standard context keys to expect when source is purchasing from the Steam store
+             */
+            struct SteamStore
+            {
+                static const FString CatalogId;
+                static const FString CatalogItemId;
+                static const FString EntitlementId;
+                static const FString CharacterId;
+            };
+            /**
+             * Standard context keys to expect when source is purchasing from the Apple app store
+             */
+            struct AppleAppStore
+            {
+                static const FString CatalogId;
+                static const FString CatalogItemId;
+                static const FString TransactionId;
+            };
+            /**
+             * Standard context keys to expect when source is purchasing from the GooglePlay store
+             */
+            struct GooglePlayStore
+            {
+                static const FString CatalogId;
+                static const FString CatalogItemId;
+                static const FString ProductId;
+            };
+            /**
+             * Standard context keys to expect when source is purchasing from LootLocker
+             */
+            struct LootLocker
+            {
+                static const FString CatalogId;
+                static const FString CatalogItemId;
+            };
+        };
+    };
+};
+
+/**
+ * Blueprint exposure of the set of static string definitions to use for matching in different Notification contexts
+ */
+UCLASS(Blueprintable)
+class LOOTLOCKERSDK_API ULootLockerStaticNotificationStringBlueprintCallables : public UObject
+{
+    GENERATED_BODY()
+public:
+    /**
+     * Static String for use in Notifications -- Matching Notification type Pull Reward Acquired
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Types")
+    static FString GetTypePullRewardAcquiredString() { return LootLockerNotificationsStaticStrings::NotificationTypes::PullRewardAcquired; };
+    /**
+     * Static String for use in Notifications -- Matching Notification source Triggers
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Sources | Triggers")
+    static FString GetNotificationsSourceTriggersString() { return LootLockerNotificationsStaticStrings::NotificationSources::Triggers; };
+    /**
+     * Static String for use in Notifications -- Matching Notification source Purchasing SteamStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Sources | Purchasing")
+    static FString GetNotificationsSourcePurchasingSteamStoreString() { return LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::SteamStore; };
+    /**
+     * Static String for use in Notifications -- Matching Notification source Purchasing AppleAppStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Sources | Purchasing")
+    static FString GetNotificationsSourcePurchasingAppleAppStoreString() { return LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::AppleAppStore; };
+    /**
+     * Static String for use in Notifications -- Matching Notification source Purchasing GooglePlayStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Sources | Purchasing")
+    static FString GetNotificationsSourcePurchasingGooglePlayStoreString() { return LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::GooglePlayStore; };
+    /**
+     * Static String for use in Notifications -- Matching Notification source Purchasing LootLocker
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Sources | Purchasing")
+    static FString GetNotificationsSourcePurchasingLootLockerString() { return LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::LootLocker; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Triggers
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Triggers")
+    static FString GetStandardTriggersContextKeyIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Triggers::Id; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Triggers
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Triggers")
+    static FString GetStandardTriggersContextKeyKeyString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Triggers::Key; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Triggers
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Triggers")
+    static FString GetStandardTriggersContextKeyLimitString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Triggers::Limit; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Purchasing.SteamStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | SteamStore")
+    static FString GetStandardPurchasingSteamStoreContextKeyCatalogIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::SteamStore::CatalogId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Purchasing.SteamStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | SteamStore")
+    static FString GetStandardPurchasingSteamStoreContextKeyCatalogItemIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::SteamStore::CatalogItemId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Purchasing.SteamStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | SteamStore")
+    static FString GetStandardPurchasingSteamStoreContextKeyEntitlementIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::SteamStore::EntitlementId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Purchasing.SteamStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | SteamStore")
+    static FString GetStandardPurchasingSteamStoreContextKeyCharacterIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::SteamStore::CharacterId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Purchasing.AppleAppStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | AppleAppStore")
+    static FString GetStandardPurchasingAppleAppStoreContextKeyCatalogIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::AppleAppStore::CatalogId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Purchasing.AppleAppStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | AppleAppStore")
+    static FString GetStandardPurchasingAppleAppStoreContextKeyCatalogItemIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::AppleAppStore::CatalogItemId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Purchasing.AppleAppStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | AppleAppStore")
+    static FString GetStandardPurchasingAppleAppStoreContextKeyTransactionIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::AppleAppStore::TransactionId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Purchasing.GooglePlayStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | GooglePlayStore")
+    static FString GetStandardPurchasingGooglePlayStoreContextKeyCatalogIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::GooglePlayStore::CatalogId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Purchasing.GooglePlayStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | GooglePlayStore")
+    static FString GetStandardPurchasingGooglePlayStoreContextKeyCatalogItemIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::GooglePlayStore::CatalogItemId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Purchasing.GooglePlayStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | GooglePlayStore")
+    static FString GetStandardPurchasingGooglePlayStoreContextKeyProductIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::GooglePlayStore::ProductId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Purchasing.LootLocker
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | LootLocker")
+    static FString GetStandardPurchasingLootLockerContextKeyCatalogIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::LootLocker::CatalogId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Purchasing.LootLocker
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | LootLocker")
+    static FString GetStandardPurchasingLootLockerContextKeyCatalogItemIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::LootLocker::CatalogItemId; };
+};
+
+//==================================================
 // Data Type Definitions
 //==================================================
 
