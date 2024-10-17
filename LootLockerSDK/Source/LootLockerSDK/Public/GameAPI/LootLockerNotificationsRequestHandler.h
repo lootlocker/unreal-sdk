@@ -561,7 +561,17 @@ struct FLootLockerReadNotificationsRequest
 /**
  *
  */
-USTRUCT(BlueprintType, Category="LootLocker")
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerReadNotificationsResponse : public FLootLockerResponse
+{
+    GENERATED_BODY()
+    // Empty unless there are errors
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerListNotificationsResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
@@ -575,16 +585,6 @@ struct FLootLockerListNotificationsResponse : public FLootLockerResponse
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerExtendedIndexBasedPagination Pagination;
-};
-
-/**
- *
- */
-USTRUCT(BlueprintType, Category = "LootLocker")
-struct FLootLockerReadNotificationsResponse : public FLootLockerResponse
-{
-    GENERATED_BODY()
-    // Empty unless there are errors
 };
 
 
