@@ -1941,12 +1941,20 @@ public:
     static void MarkAllNotificationsAsRead(const FLootLockerReadNotificationsResponseDelegate& OnComplete);
 
     /**
+     Mark the specified notifications as read (if they are currently unread)
+
+     @param Notifications List of ids of notifications to mark as read
+     @param OnComplete Delegate for handling the server response
+    */
+    static void MarkNotificationsAsRead(const TArray<FLootLockerNotification>& Notifications, const FLootLockerReadNotificationsResponseDelegate& OnComplete);
+
+    /**
      Mark the specified notifications as read
 
      @param NotificationIDs List of ids of notifications to mark as read
      @param OnComplete Delegate for handling the server response
     */
-    static void MarkNotificationsAsRead(const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseDelegate& OnComplete);
+    static void MarkNotificationsAsReadByIds(const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseDelegate& OnComplete);
 
     //==================================================
     //Collectables

@@ -890,7 +890,20 @@ void ULootLockerManager::MarkAllNotificationsAsRead(const FLootLockerReadNotific
     ULootLockerNotificationsRequestHandler::MarkAllNotificationsAsRead(OnComplete);
 }
 
-void ULootLockerManager::MarkNotificationsAsRead(const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseBP& OnComplete)
+void ULootLockerManager::MarkNotificationsAsRead(const TArray<FLootLockerNotification>& Notifications, const FLootLockerReadNotificationsResponseBP& OnComplete)
+{
+    TArray<FString> UnreadNotificationIds;
+	for (const FLootLockerNotification& Notification : Notifications)
+	{
+		if(!Notification.Read)
+		{
+            UnreadNotificationIds.Add(Notification.Id);
+		}
+	}
+    MarkNotificationsAsReadByIds(UnreadNotificationIds, OnComplete);
+}
+
+void ULootLockerManager::MarkNotificationsAsReadByIds(const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseBP& OnComplete)
 {
     ULootLockerNotificationsRequestHandler::MarkNotificationsAsRead(NotificationIDs, OnComplete);
 }
