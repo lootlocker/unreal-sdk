@@ -6,6 +6,29 @@
 
 ULootLockerHttpClient* ULootLockerNotificationsRequestHandler::HttpClient = nullptr;
 
+const FString LootLockerNotificationsStaticStrings::NotificationTypes::PullRewardAcquired = "pull.reward.acquired";
+const FString LootLockerNotificationsStaticStrings::NotificationSources::Triggers = "triggers";
+const FString LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::SteamStore = "purchasing.steam_store";
+const FString LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::AppleAppStore = "purchasing.apple_app_store";
+const FString LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::GooglePlayStore = "purchasing.google_play_store";
+const FString LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::LootLocker = "purchasing.lootlocker";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Triggers::Id = "trigger_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Triggers::Key = "trigger_key";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Triggers::Limit = "trigger_limit";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::SteamStore::CatalogId = "catalog_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::SteamStore::CatalogItemId = "catalog_item_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::SteamStore::EntitlementId = "entitlement_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::SteamStore::CharacterId = "character_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::AppleAppStore::CatalogId = "catalog_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::AppleAppStore::CatalogItemId = "catalog_item_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::AppleAppStore::TransactionId = "transaction_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::GooglePlayStore::CatalogId = "catalog_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::GooglePlayStore::CatalogItemId = "catalog_item_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::GooglePlayStore::ProductId = "product_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::LootLocker::CatalogId = "catalog_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::LootLocker::CatalogItemId = "catalog_item_id";
+
+
 ULootLockerNotificationsRequestHandler::ULootLockerNotificationsRequestHandler()
 {
     HttpClient = NewObject<ULootLockerHttpClient>();
