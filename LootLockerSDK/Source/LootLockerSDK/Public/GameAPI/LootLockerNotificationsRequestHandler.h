@@ -29,11 +29,11 @@ enum class ELootLockerNotificationPriority : uint8
 UENUM(BlueprintType, Category = "LootLocker")
 enum class ELootLockerNotificationContentKind : uint8
 {
-    group_reward = 0,
-    currency_reward = 1,
-    asset_reward = 2,
-    progression_reset_reward = 3,
-    progression_points_reward = 4,
+    group = 0,
+    currency = 1,
+    asset = 2,
+    progression_reset = 3,
+    progression_points = 4,
 };
 
 //==================================================
@@ -560,7 +560,7 @@ struct FLootLockerNotificationGroupRewardAssociations
       The kind of reward, (asset / currency / progression points / progression reset). Note that a group is not allowed to contain another group
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    ELootLockerNotificationContentKind Kind = ELootLockerNotificationContentKind::asset_reward;
+    ELootLockerNotificationContentKind Kind = ELootLockerNotificationContentKind::asset;
 
     /**
       The details on the Asset.
@@ -632,10 +632,10 @@ struct FLootLockerNotificationContentBody
 {
     GENERATED_BODY()
     /**
-      The kind of notification body this contains. Use it to know which field in this object will be populated. If the kind is asset_reward for example, the asset field will be populated, the rest will be null.
+      The kind of notification body this contains. Use it to know which field in this object will be populated. If the kind is asset for example, the asset field will be populated, the rest will be null.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    ELootLockerNotificationContentKind Kind = ELootLockerNotificationContentKind::asset_reward;
+    ELootLockerNotificationContentKind Kind = ELootLockerNotificationContentKind::asset;
 
     /**
       The currency reward, will be null if the reward is of another type.
@@ -716,10 +716,12 @@ struct FLootLockerNotification
     /**
       The priority of this notification (default: medium)
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     ELootLockerNotificationPriority Priority = ELootLockerNotificationPriority::medium;
     /**
       The originating source of this notification (for example, did it originate from a purchase, a leaderboard reward, or a trigger?)
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Source = "";
     /**
       The actual content of this notification
