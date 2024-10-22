@@ -29,11 +29,11 @@ enum class ELootLockerNotificationPriority : uint8
 UENUM(BlueprintType, Category = "LootLocker")
 enum class ELootLockerNotificationContentKind : uint8
 {
-    group_reward = 0,
-    currency_reward = 1,
-    asset_reward = 2,
-    progression_reset_reward = 3,
-    progression_points_reward = 4,
+    group = 0,
+    currency = 1,
+    asset = 2,
+    progression_reset = 3,
+    progression_points = 4,
 };
 
 //==================================================
@@ -716,10 +716,12 @@ struct FLootLockerNotification
     /**
       The priority of this notification (default: medium)
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     ELootLockerNotificationPriority Priority = ELootLockerNotificationPriority::medium;
     /**
       The originating source of this notification (for example, did it originate from a purchase, a leaderboard reward, or a trigger?)
      */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Source = "";
     /**
       The actual content of this notification
