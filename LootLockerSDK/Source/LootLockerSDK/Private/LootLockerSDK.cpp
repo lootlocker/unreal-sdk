@@ -24,6 +24,9 @@ void FLootLockerSDKModule::StartupModule()
 			GetMutableDefault<ULootLockerConfig>()
 		);
 	}
+#ifdef LOOTLOCKER_SHOW_OUTDATED_SDK_MESSAGE
+	UE_LOG(LogLootLockerGameSDK, Warning, TEXT("This version of LootLocker is no longer updated through fab because of fab guidelines. Please use GitHub releases to update: https://github.com/lootlocker/unreal-sdk/releases. Add `LootLockerSDK.bShowOutdatedSDKMessage = false;` to your game's Build.cs file to hide this warning."));
+#endif
 #endif
 }
 

@@ -40,6 +40,8 @@ public:
 		UObject::PostInitProperties();
 	}
 
+	UPROPERTY(Config, VisibleAnywhere, BlueprintReadOnly, Category = "LootLocker", Meta = (EditCondition = "IsOutdatedSDK", EditConditionHides), Meta = (MultiLine = true), Meta = (DisplayName = "WARNING:"), Transient)
+	FString OutdatedSDKWarning = "This version of LootLocker is no longer updated through fab because of fab guidelines. Please use GitHub releases to update: https://github.com/lootlocker/unreal-sdk/releases";
 	// API Key used to talk to LootLocker. The API key can be found in `Settings > API Keys` in the Web Console: https://console.lootlocker.com/settings/api-keys
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker", Meta = (DisplayName = "LootLocker API Key"))
 	FString LootLockerGameKey;
@@ -55,6 +57,14 @@ public:
 private:
 	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")
 	bool IsValidGameVersion = true;
+	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")
+	bool IsOutdatedSDK /* Value in ifdef */
+#ifdef LOOTLOCKER_SHOW_OUTDATED_SDK_MESSAGE
+		= true
+#else
+		= false
+#endif
+	;
 #if ENGINE_MAJOR_VERSION >= 5
 	inline static const std::regex SemverPattern = std::regex("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:\\.(0|[1-9]\\d*))?(?:\\.(0|[1-9]\\d*))?$");
 #endif

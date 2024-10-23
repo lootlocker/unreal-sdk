@@ -2,7 +2,11 @@
 
 #include "LootLockerGameEndpoints.h"
 
-FString ULootLockerGameEndpoints::GameBaseUrl = "https://{domainKey}api.lootlocker.io/game/";
+#ifdef LOOTLOCKER_USE_STAGE_URL
+FString ULootLockerGameEndpoints::GameBaseUrl = "https://{domainKey}api.stage.internal.dev.lootlocker.cloud/game/";
+#else
+FString ULootLockerGameEndpoints::GameBaseUrl = "https://{domainKey}api.lootlocker.com/game/";
+#endif
 
 //Auth
 FLootLockerEndPoints ULootLockerGameEndpoints::StartSessionEndpoint = InitEndpoint("v2/session", ELootLockerHTTPMethod::POST);
@@ -185,6 +189,14 @@ FLootLockerEndPoints ULootLockerGameEndpoints::FinalizeSteamPurchaseRedemption =
 //Trigger Events
 FLootLockerEndPoints ULootLockerGameEndpoints::TriggerEventEndpoint = InitEndpoint("v1/player/trigger", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetTriggeredEventsEndpoint = InitEndpoint("v1/player/triggers", ELootLockerHTTPMethod::GET);
+
+//Triggers
+FLootLockerEndPoints ULootLockerGameEndpoints::InvokeTriggers = InitEndpoint("triggers/cozy-crusader/v1", ELootLockerHTTPMethod::POST);
+
+//Notifications
+FLootLockerEndPoints ULootLockerGameEndpoints::ListNotifications = InitEndpoint("notifications/v1", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::ReadNotifications = InitEndpoint("notifications/v1/read", ELootLockerHTTPMethod::PUT);
+FLootLockerEndPoints ULootLockerGameEndpoints::ReadAllNotifications = InitEndpoint("notifications/v1/read/all", ELootLockerHTTPMethod::PUT);
 
 //Collectables
 FLootLockerEndPoints ULootLockerGameEndpoints::GetAllCollectablesEndpoint = InitEndpoint("v1/collectable", ELootLockerHTTPMethod::GET);

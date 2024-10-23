@@ -129,22 +129,22 @@ USTRUCT(BlueprintType)
 struct FLootLockerAssetRewardDetails
 {
     GENERATED_BODY()
-        UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString name;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString name;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString thumbnail;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString variation_name;
+    FString variation_name;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString rental_option_name;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString variation_id;
+    FString variation_id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString rental_option_id;
+    FString rental_option_id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        int legacy_id = 0;
+    int legacy_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString id;
+    FString id;
 
 };
 
@@ -152,82 +152,82 @@ USTRUCT(BlueprintType)
 struct FLootLockerLeaderboardAssetReward
 {
     GENERATED_BODY()
-        UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString created_at;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString updated_at;
+    FString created_at;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FLootLockerAssetRewardDetails details;
+    FString updated_at;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString asset_variation_id;
+    FLootLockerAssetRewardDetails details;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString asset_rental_option_id;
+    FString asset_variation_id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        int asset_id = 0;
+    FString asset_rental_option_id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString reward_id;
+    int asset_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString asset_ulid;
+    FString reward_id;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString asset_ulid;
 };
 
 USTRUCT(BlueprintType)
 struct FLootLockerCurrencyRewardDetails
 {
     GENERATED_BODY()
-        UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString name;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString code;
+    FString name;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString amount;
+    FString code;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString id;
+    FString amount;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString id;
 };
 
 USTRUCT(BlueprintType)
 struct FLootLockerLeaderboardCurrencyReward
 {
     GENERATED_BODY()
-        UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString created_at;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString updated_at;
+    FString created_at;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString amount;
+    FString updated_at;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FLootLockerCurrencyRewardDetails details;
+    FString amount;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString reward_id;
+    FLootLockerCurrencyRewardDetails details;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString currency_id;
+    FString reward_id;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString currency_id;
 };
 
 USTRUCT(BlueprintType)
 struct FLootLockerProgressionResetRewardDetails
 {
     GENERATED_BODY()
-        UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString key;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString name;
+    FString key;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString id;
+    FString name;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString id;
 };
 
 USTRUCT(BlueprintType)
 struct FLootLockerLeaderboardProgressionResetReward
 {
     GENERATED_BODY()
-        UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString created_at;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString updated_at;
+    FString created_at;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString progression_id;
+    FString updated_at;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FLootLockerProgressionResetRewardDetails details;
+    FString progression_id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString reward_id;
+    FLootLockerProgressionResetRewardDetails details;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString reward_id;
 
 };
 
@@ -235,14 +235,14 @@ USTRUCT(BlueprintType)
 struct FLootLockerProgressionPointRewardDetails
 {
     GENERATED_BODY()
-        UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString key;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString name;
+    FString key;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        int amount = 0;
+    FString name;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString id;
+    int amount = 0;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString id;
 };
 
 
@@ -250,18 +250,18 @@ USTRUCT(BlueprintType)
 struct FLootLockerLeaderboardProgressionPointsReward
 {
     GENERATED_BODY()
-        UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString created_at;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString updated_at;
+    FString created_at;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString updated_at;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerProgressionPointRewardDetails details;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        int amount = 0;
+    int amount = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString progression_id;
+    FString progression_id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString reward_id;
+    FString reward_id;
 
 };
 
@@ -269,40 +269,40 @@ USTRUCT(BlueprintType)
 struct FLootLockerLeaderboardRewardArgs
 {
     GENERATED_BODY()
-        UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        int max = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        int min = 0;
+    int max = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString method;
+    int min = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString direction;
+    FString method;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString direction;
 };
 
 USTRUCT(BlueprintType)
 struct FLootLockerLeaderboardDetailPredicates
 {
     GENERATED_BODY()
-        UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString type;
+    FString id;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FLootLockerLeaderboardRewardArgs args;
+    FString type;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerLeaderboardRewardArgs args;
 };
 
 USTRUCT(BlueprintType)
 struct FLootLockerLeaderboardSchedule 
 {
     GENERATED_BODY()
-        UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString cron_expression;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString next_run;
+    FString cron_expression;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FString last_run;
+    FString next_run;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        TArray<FString> schedule;
+    FString last_run;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FString> schedule;
 };
 
 USTRUCT(BlueprintType)
