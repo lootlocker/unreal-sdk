@@ -25,10 +25,10 @@ ULootLockerRemoteSessionRequestHandler::ULootLockerRemoteSessionRequestHandler()
 
 void ULootLockerRemoteSessionRequestHandler::CancelRemoteSessionProcess(const FString& ProcessID)
 {
-	FLootLockerRemoteSessionProcess* ProcessPtr = RemoteSessionProcesses.Find(ProcessID);
-	if(nullptr != ProcessPtr)
+	FLootLockerRemoteSessionProcess* _processPtr = RemoteSessionProcesses.Find(ProcessID);
+	if(nullptr != _processPtr)
 	{
-		ProcessPtr->ShouldCancel = true;
+		_processPtr->ShouldCancel = true;
 	}
 }
 
@@ -61,12 +61,12 @@ FString ULootLockerRemoteSessionRequestHandler::StartRemoteSession(
 			OnComplete,
 			ProcessID](const FLootLockerLeaseRemoteSessionResponse& LeaseResponse)
 	{
-		FLootLockerRemoteSessionProcess* ProcessPtr = RemoteSessionProcesses.Find(ProcessID);
-		if (nullptr == ProcessPtr)
+		FLootLockerRemoteSessionProcess* _processPtr = RemoteSessionProcesses.Find(ProcessID);
+		if (nullptr == _processPtr)
 		{
 			return;
 		}
-		FLootLockerRemoteSessionProcess& Process = *ProcessPtr;
+		FLootLockerRemoteSessionProcess& _process = *_processPtr;
 		RemoteSessionLeaseInformationBP.ExecuteIfBound(LeaseResponse);
 		RemoteSessionLeaseInformation.ExecuteIfBound(LeaseResponse);
 		if(!LeaseResponse.success)
@@ -75,10 +75,10 @@ FString ULootLockerRemoteSessionRequestHandler::StartRemoteSession(
 			return;
 		}
 
-		Process.LeaseCode = LeaseResponse.Code;
-		Process.LeaseNonce = LeaseResponse.Nonce;
-		Process.LastUpdatedAt = FDateTime::UtcNow();
-		Process.LastUpdatedStatus = LeaseResponse.Status;
+		_process.LeaseCode = LeaseResponse.Code;
+		_process.LeaseNonce = LeaseResponse.Nonce;
+		_process.LastUpdatedAt = FDateTime::UtcNow();
+		_process.LastUpdatedStatus = LeaseResponse.Status;
 		ContinualPollingAction(ProcessID, RemoteSessionLeaseInformationBP, RemoteSessionLeaseInformation, RemoteSessionLeaseStatusUpdateBP, RemoteSessionLeaseStatusUpdate, OnCompleteBP, OnComplete);
 	}));
 	return ProcessID;
@@ -117,15 +117,15 @@ void ULootLockerRemoteSessionRequestHandler::ContinualPollingAction(const FStrin
                                                                     const FLootLockerStartRemoteSessionResponseDelegateBP& OnCompleteBP,
                                                                     const FLootLockerStartRemoteSessionResponseDelegate& OnComplete)
 {
-	FLootLockerRemoteSessionProcess* ProcessPtr = RemoteSessionProcesses.Find(ProcessID);
-	if (nullptr == ProcessPtr)
+	const FLootLockerRemoteSessionProcess* _processPtr = RemoteSessionProcesses.Find(ProcessID);
+	if (nullptr == _processPtr)
 	{
 		return;
 	}
-	const FLootLockerRemoteSessionProcess& Process = *ProcessPtr;
+	const FLootLockerRemoteSessionProcess& _process = *_processPtr;
 
 	// Are we timed out?
-	if(Process.LeasingProcessTimeoutTime <= FDateTime::UtcNow())
+	if(_process.LeasingProcessTimeoutTime <= FDateTime::UtcNow())
 	{
 		FLootLockerStartRemoteSessionResponse TimedOutResponse;
 		TimedOutResponse.Lease_Status = ELootLockerRemoteSessionLeaseStatus::Timed_out;
@@ -137,7 +137,7 @@ void ULootLockerRemoteSessionRequestHandler::ContinualPollingAction(const FStrin
 	}
 
 	// Should we cancel?
-	if(Process.ShouldCancel)
+	if(_process.ShouldCancel)
 	{
 		FLootLockerStartRemoteSessionResponse CanceledResponse;
 		CanceledResponse.Lease_Status = ELootLockerRemoteSessionLeaseStatus::Cancelled;
@@ -149,16 +149,16 @@ void ULootLockerRemoteSessionRequestHandler::ContinualPollingAction(const FStrin
 	}
 
 	// Get the latest state of the process
-	StartRemoteSession(Process.LeaseCode, Process.LeaseNonce, LLAPI<FLootLockerStartRemoteSessionResponse>::FResponseInspectorCallback::CreateLambda([RemoteSessionLeaseInformationBP,RemoteSessionLeaseInformation, RemoteSessionLeaseStatusUpdateBP, RemoteSessionLeaseStatusUpdate, OnCompleteBP, OnComplete, ProcessID](FLootLockerStartRemoteSessionResponse& RemoteSessionResponse)
+	StartRemoteSession(_process.LeaseCode, _process.LeaseNonce, LLAPI<FLootLockerStartRemoteSessionResponse>::FResponseInspectorCallback::CreateLambda([RemoteSessionLeaseInformationBP, RemoteSessionLeaseInformation, RemoteSessionLeaseStatusUpdateBP, RemoteSessionLeaseStatusUpdate, OnCompleteBP, OnComplete, ProcessID](FLootLockerStartRemoteSessionResponse& RemoteSessionResponse)
 	{
-		FLootLockerRemoteSessionProcess* ProcessPtr = RemoteSessionProcesses.Find(ProcessID);
-		if (nullptr == ProcessPtr)
+		FLootLockerRemoteSessionProcess* _innerProcessPtr = RemoteSessionProcesses.Find(ProcessID);
+		if (nullptr == _innerProcessPtr)
 		{
 			return;
 		}
-		FLootLockerRemoteSessionProcess& Process = *ProcessPtr;
+		FLootLockerRemoteSessionProcess& _innerProcess = *_innerProcessPtr;
 
-		auto ScheduleNextPoll = [RemoteSessionLeaseInformationBP, RemoteSessionLeaseInformation, RemoteSessionLeaseStatusUpdateBP, RemoteSessionLeaseStatusUpdate, OnCompleteBP, OnComplete](FTimerHandle& TimerHandle, const float& timeToNextPoll, const FString& ProcessID) {
+		auto _scheduleNextPoll = [RemoteSessionLeaseInformationBP, RemoteSessionLeaseInformation, RemoteSessionLeaseStatusUpdateBP, RemoteSessionLeaseStatusUpdate, OnCompleteBP, OnComplete](FTimerHandle& TimerHandle, const float& timeToNextPoll, const FString& ProcessID) {
 			FTimerDelegate TimerDelegate;
 			TimerDelegate.BindLambda([RemoteSessionLeaseInformationBP, RemoteSessionLeaseInformation, RemoteSessionLeaseStatusUpdateBP, RemoteSessionLeaseStatusUpdate, OnCompleteBP, OnComplete, ProcessID]()
 				{
@@ -171,10 +171,10 @@ void ULootLockerRemoteSessionRequestHandler::ContinualPollingAction(const FStrin
 		if(!RemoteSessionResponse.success)
 		{
 			// Check if it's a recoverable error and if so, schedule poller again
-			if(RemoteSessionResponse.StatusCode >= 500 && RemoteSessionResponse.StatusCode <= 599 && Process.Retries <= Process.RetryLimit)
+			if(RemoteSessionResponse.StatusCode >= 500 && RemoteSessionResponse.StatusCode <= 599 && _innerProcess.Retries <= _innerProcess.RetryLimit)
 			{
-				Process.Retries++;
-				ScheduleNextPoll(Process.RemoteSessionProcessTimerHandle, Process.PollingIntervalSeconds, ProcessID);
+				_innerProcess.Retries++;
+				_scheduleNextPoll(_innerProcess.RemoteSessionProcessTimerHandle, _innerProcess.PollingIntervalSeconds, ProcessID);
 				return;
 			}
 
@@ -208,22 +208,22 @@ void ULootLockerRemoteSessionRequestHandler::ContinualPollingAction(const FStrin
 		UpdateResponse.ErrorData = RemoteSessionResponse.ErrorData;
 		RemoteSessionLeaseStatusUpdateBP.ExecuteIfBound(UpdateResponse);
 		RemoteSessionLeaseStatusUpdate.ExecuteIfBound(UpdateResponse);
-		Process.LastUpdatedAt = FDateTime::UtcNow();
-		Process.LastUpdatedStatus = UpdateResponse.Lease_status;		
-		ScheduleNextPoll(Process.RemoteSessionProcessTimerHandle, Process.PollingIntervalSeconds, ProcessID);
+		_innerProcess.LastUpdatedAt = FDateTime::UtcNow();
+		_innerProcess.LastUpdatedStatus = UpdateResponse.Lease_status;		
+		_scheduleNextPoll(_innerProcess.RemoteSessionProcessTimerHandle, _innerProcess.PollingIntervalSeconds, ProcessID);
 	}));
 }
 
 void ULootLockerRemoteSessionRequestHandler::KillProcess(const FString& ProcessID)
 {
-	FLootLockerRemoteSessionProcess* ProcessPtr = RemoteSessionProcesses.Find(ProcessID);
-	if (nullptr == ProcessPtr)
+	FLootLockerRemoteSessionProcess* _processPtr = RemoteSessionProcesses.Find(ProcessID);
+	if (nullptr == _processPtr)
 	{
 		return;
 	}
-	FLootLockerRemoteSessionProcess& Process = *ProcessPtr;
+	FLootLockerRemoteSessionProcess& _process = *_processPtr;
 
-	ClearTimer(Process.RemoteSessionProcessTimerHandle);
+	ClearTimer(_process.RemoteSessionProcessTimerHandle);
 	RemoteSessionProcesses.Remove(ProcessID);
 }
 
