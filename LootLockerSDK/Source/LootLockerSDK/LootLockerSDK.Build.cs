@@ -6,6 +6,7 @@ public class LootLockerSDK : ModuleRules
 {
     public static bool bEnableGoogleSubsystemHelper = false;
     public static bool bUseStageURL = false;
+    public static bool bShowOutdatedSDKMessage = false; // Set to true when submitting to fab for engine versions < the last 3
     public LootLockerSDK(ReadOnlyTargetRules Target) : base(Target)
     {
         PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
@@ -62,6 +63,11 @@ public class LootLockerSDK : ModuleRules
         if (bUseStageURL)
         {
 	        PublicDefinitions.Add("LOOTLOCKER_USE_STAGE_URL");
+        }
+
+        if (bShowOutdatedSDKMessage)
+        {
+	        PublicDefinitions.Add("LOOTLOCKER_SHOW_OUTDATED_SDK_MESSAGE");
         }
     }
 }
