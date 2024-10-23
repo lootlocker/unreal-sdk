@@ -1028,6 +1028,7 @@ public:
 
     /**
      * This call will return all characters loadouts for a game, and have some additional information on the characters.
+     * Note that the request will succeed even if there are no characters so make sure to inspect the response for it's content.
      * https://ref.lootlocker.com/game-api/#character-loadouts
      *
      * @param OnCompletedRequest Delegate for handling the server response.
