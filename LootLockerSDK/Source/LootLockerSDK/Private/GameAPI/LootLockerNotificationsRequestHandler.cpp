@@ -29,6 +29,97 @@ const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchas
 const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::LootLocker::CatalogItemId = "catalog_item_id";
 
 
+void FLootLockerListNotificationsResponse::PopulateConvenienceStructures()
+{
+    if (Notifications.Num() == 0)
+    {
+        return;
+    }
+
+    int i = 0;
+    for(FLootLockerNotification& Notification : Notifications)
+    {
+        for (const FLootLockerNotificationContextEntry& ContextEntry : Notification.Content.Context)
+        {
+            Notification.Content.ContextAsDictionary.Add(ContextEntry.Key, ContextEntry.Value);
+        }
+
+        FString IdentifyingKey = "";
+        if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::Triggers, ESearchCase::IgnoreCase))
+        {
+            IdentifyingKey = LootLockerNotificationsStaticStrings::StandardContextKeys::Triggers::Key;
+        }
+        else if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::LootLocker, ESearchCase::IgnoreCase))
+        {
+            IdentifyingKey = LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::LootLocker::CatalogItemId;
+        }
+        else if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::GooglePlayStore, ESearchCase::IgnoreCase))
+        {
+            IdentifyingKey = LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::GooglePlayStore::ProductId;
+        }
+        else if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::AppleAppStore, ESearchCase::IgnoreCase))
+        {
+            IdentifyingKey = LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::AppleAppStore::TransactionId;
+        }
+
+        if (!IdentifyingKey.IsEmpty())
+        {
+            if(Notification.Content.ContextAsDictionary.Contains(IdentifyingKey))
+            {
+                const FString& IdentifyingValue = *Notification.Content.ContextAsDictionary.Find(IdentifyingKey);
+
+                FLootLockerNotificationIdentifyingValueLookupStruct LookupStruct
+                {
+                    IdentifyingKey,
+                    Notification.Id,
+                    i
+                };
+
+                if(NotificationLookupTable.Contains(IdentifyingValue))
+                {
+                    NotificationLookupTable.Find(IdentifyingKey)->Add(LookupStruct);
+                }
+                else
+                {
+                    NotificationLookupTable.Add(IdentifyingValue, TArray<FLootLockerNotificationIdentifyingValueLookupStruct>{LookupStruct});
+                }
+            }
+        }
+        ++i;
+    }	    
+}
+
+bool FLootLockerListNotificationsResponse::TryGetNotificationsByIdentifyingValue(const FString& IdentifyingValue, TArray<FLootLockerNotification>& OutNotifications) const
+{
+    OutNotifications.Empty();
+
+    if (!NotificationLookupTable.Contains(IdentifyingValue))
+    {
+        return false;
+    }
+
+    const TArray<FLootLockerNotificationIdentifyingValueLookupStruct>& LookupStructs = *NotificationLookupTable.Find(IdentifyingValue);
+    for(const FLootLockerNotificationIdentifyingValueLookupStruct& LookupStruct : LookupStructs)
+    {
+        if (LookupStruct.NotificationArrayIndex < 0 || LookupStruct.NotificationArrayIndex >= Notifications.Num())
+        {
+            // The notifications array is not the same as when the lookup table was populated
+            return false;
+        }
+        const FLootLockerNotification& notification = Notifications[LookupStruct.NotificationArrayIndex];
+        if(!LookupStruct.NotificationULID.Equals(notification.Id, ESearchCase::IgnoreCase) 
+            || !notification.Content.ContextAsDictionary.Contains(LookupStruct.IdentifyingContextKey) 
+            || !notification.Content.ContextAsDictionary.Find(LookupStruct.IdentifyingContextKey)->Equals(IdentifyingValue))
+        {
+            // The notifications array is not the same as when the lookup table was populated
+            return false;
+        }
+        OutNotifications.Add(notification);
+    }
+
+    return true;
+}
+
 ULootLockerNotificationsRequestHandler::ULootLockerNotificationsRequestHandler()
 {
     HttpClient = NewObject<ULootLockerHttpClient>();
@@ -78,15 +169,9 @@ void ULootLockerNotificationsRequestHandler::ListNotifications(const TMultiMap<F
 {
     LLAPI<FLootLockerListNotificationsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListNotifications, {}, QueryParams, FLootLockerListNotificationsResponseBP(), FLootLockerListNotificationsResponseDelegate(), LLAPI<FLootLockerListNotificationsResponse>::FResponseInspectorCallback::CreateLambda([OnComplete, OnCompleteBP] (FLootLockerListNotificationsResponse& Response)
     {
-        if(Response.success)
+        if(Response.success && Response.Notifications.Num() > 0)
         {
-            for (FLootLockerNotification& Notification : Response.Notifications)
-            {
-                for (const FLootLockerNotificationContextEntry& ContextEntry : Notification.Content.Context)
-                {
-                    Notification.Content.ContextAsDictionary.Add(ContextEntry.Key, ContextEntry.Value);
-                }
-            }			
+            Response.PopulateConvenienceStructures();
         }
 
         OnCompleteBP.ExecuteIfBound(Response);

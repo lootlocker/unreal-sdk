@@ -908,6 +908,11 @@ void ULootLockerManager::MarkNotificationsAsReadByIds(const TArray<FString>& Not
     ULootLockerNotificationsRequestHandler::MarkNotificationsAsRead(NotificationIDs, OnComplete);
 }
 
+bool ULootLockerManager::TryGetNotificationsByIdentifyingValue(const FLootLockerListNotificationsResponse& NotificationsResponse, const FString& IdentifyingValue, TArray<FLootLockerNotification>& Notifications)
+{
+    return NotificationsResponse.TryGetNotificationsByIdentifyingValue(IdentifyingValue, Notifications);
+}
+
 void ULootLockerManager::GetAllCollectables(const FCollectablesResponseDelegateBP& OnGetAllCollectablesCompleted)
 {
     ULootLockerCollectablesRequestHandler::GetAllCollectables(OnGetAllCollectablesCompleted);

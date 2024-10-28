@@ -247,6 +247,13 @@ public:
 // Data Type Definitions
 //==================================================
 
+struct FLootLockerNotificationIdentifyingValueLookupStruct
+{
+    FString IdentifyingContextKey = "";
+    FString NotificationULID = "";
+    int NotificationArrayIndex = -1;
+};
+
 
 /**
 */
@@ -794,6 +801,24 @@ struct FLootLockerListNotificationsResponse : public FLootLockerResponse
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerExtendedIndexBasedPagination Pagination;
+
+    void PopulateConvenienceStructures();
+
+    /**
+    * Get notifications by their identifying value. The out is an array because many notifications are not unique. For example triggers that can be triggered multiple times.
+    * For Triggers the identifying value is the key of the trigger
+    * For Google Play Store purchases it is the product id
+    * For Apple App Store purchases it is the transaction id
+    * For LootLocker virtual purchases it is the catalog item id
+    * 
+    * @param IdentifyingValue The identifying value of the notification you want to fetch.
+    * @param OutNotifications A list of notifications that were found for the given identifying value or null if none were found.
+    * @returns True if notifications were found for the identifying value. False if notifications couldn't be found for this value or if the underlying lookup table is corrupt.
+    */
+    bool TryGetNotificationsByIdentifyingValue(const FString& IdentifyingValue, TArray<FLootLockerNotification>& OutNotifications) const;
+
+private:
+    TMap<FString, TArray<FLootLockerNotificationIdentifyingValueLookupStruct>> NotificationLookupTable;
 };
 
 
