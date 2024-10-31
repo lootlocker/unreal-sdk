@@ -1,0 +1,68 @@
+name: Unreal SDK Packager
+run-name: sdk-packager
+on:
+  push:
+      branches: # Made towards the following
+        - main
+        - ci/*
+      tags:
+        - v**
+  workflow_dispatch: {}
+
+jobs: 
+  package-sdk:
+    name: Package Unreal SDK
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        UE_VERSION: ${{ fromJson(VARS.CI_UNREAL_VERSIONS) }}
+    steps:
+      - name: Setup git
+        run: |
+          git config --global --add safe.directory /__w/unreal-sdk/unreal-sdk
+          
+      - name: Checkout this repository
+        uses: actions/checkout@v4
+        
+      - name: Package SDK for UE_${{ matrix.UE_VERSION }}
+        run: |
+          SDK_PATH="$(pwd)"
+          SDK_NAME=`find "$SDK_PATH" -type f -name "*.uplugin" | sed -n -r "s/.*\/([-A-Za-z0-9_]+)\.uplugin/\1/p"`
+          SDK_VERSION=`sed -n -r 's/^ +\"VersionName\": \"([0-9]+.[0-9]+.[0-9]+)\",/\1/p' < "$SDK_PATH/$SDK_NAME/$SDK_NAME.uplugin"`
+          sed -i -r "s/^( +)(\"VersionName\": \"[0-9\.]+\",)/\1\2\n\1\"EngineVersion\": \"${{ matrix.UE_VERSION }}\",/g" "$SDK_PATH/$SDK_NAME/$SDK_NAME.uplugin"
+          CURRENT_PACKAGE_DIR="Packaged"
+          echo "PACKAGE_DIR=${CURRENT_PACKAGE_DIR}" >> $GITHUB_ENV
+          mkdir -p "$CURRENT_PACKAGE_DIR"
+          PACKAGE_NAME="${SDK_NAME}v${SDK_VERSION}_for_Unreal_Engine_${{ matrix.UE_VERSION }}.zip"
+          echo "PACKAGE_NAME=${PACKAGE_NAME}" >> $GITHUB_ENV
+          tar -a -cf "$CURRENT_PACKAGE_DIR/$PACKAGE_NAME" -C "$SDK_PATH" "$SDK_NAME"
+          echo "  Package $PACKAGE_NAME produced to path $CURRENT_PACKAGE_DIR"
+          
+      - name: Expose packaged artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ ENV.PACKAGE_NAME }}
+          path: ${{ ENV.PACKAGE_DIR }}/${{ ENV.PACKAGE_NAME }}
+        
+      - name: Package SDKs with Outdated Engine Version Warning
+        if: ${{ contains(fromJSON(VARS.OUTDATED_ENGINE_VERSIONS), matrix.UE_VERSION) }}
+        run: |
+          SDK_PATH="$(pwd)"
+          SDK_NAME=`find "$SDK_PATH" -type f -name "*.uplugin" | sed -n -r "s/.*\/([-A-Za-z0-9_]+)\.uplugin/\1/p"`
+          SDK_VERSION=`sed -n -r 's/^ +\"VersionName\": \"([0-9]+.[0-9]+.[0-9]+)\",/\1/p' < "$SDK_PATH/$SDK_NAME/$SDK_NAME.uplugin"`
+          sed -i -r "s/bool bShowOutdatedSDKMessage = false/bool bShowOutdatedSDKMessage = true/g" "$SDK_PATH/$SDK_NAME/Source/$SDK_NAME/$SDK_NAME.Build.cs"
+          CURRENT_PACKAGE_DIR="Packaged"
+          echo "PACKAGE_DIR=${CURRENT_PACKAGE_DIR}" >> $GITHUB_ENV
+          mkdir -p "$CURRENT_PACKAGE_DIR"
+          PACKAGE_NAME="${SDK_NAME}v${SDK_VERSION}_for_Unreal_Engine_${{ matrix.UE_VERSION }}_with_outdated_version_warning.zip"
+          echo "PACKAGE_NAME=${PACKAGE_NAME}" >> $GITHUB_ENV
+          tar -a -cf "$CURRENT_PACKAGE_DIR/$PACKAGE_NAME" -C "$SDK_PATH" "$SDK_NAME"
+          echo "  Package $PACKAGE_NAME produced to path $CURRENT_PACKAGE_DIR"
+          
+      - name: Expose packaged artifact with outdated engine version warning
+        if: ${{ contains(fromJSON(VARS.OUTDATED_ENGINE_VERSIONS), matrix.UE_VERSION) }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ ENV.PACKAGE_NAME }}
+          path: ${{ ENV.PACKAGE_DIR }}/${{ ENV.PACKAGE_NAME }}
