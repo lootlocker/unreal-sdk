@@ -42,7 +42,7 @@ jobs:
       - name: Not a scheduled run, so should run
         if: ${{ github.event_name != 'schedule' }}
         run: |
-          echo "DO_RUN=false" >> $GITHUB_ENV
+          echo "DO_RUN=true" >> $GITHUB_ENV
 
       - name: Check if commits in last 24h
         if: ${{ github.event_name == 'schedule' }}
