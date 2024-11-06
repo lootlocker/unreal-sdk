@@ -79,7 +79,7 @@ void FLootLockerListNotificationsResponse::PopulateConvenienceStructures()
 
                 if(NotificationLookupTable.Contains(IdentifyingValue))
                 {
-                    NotificationLookupTable.Find(IdentifyingKey)->Add(LookupStruct);
+                    NotificationLookupTable.Find(IdentifyingValue)->Add(LookupStruct);
                 }
                 else
                 {
