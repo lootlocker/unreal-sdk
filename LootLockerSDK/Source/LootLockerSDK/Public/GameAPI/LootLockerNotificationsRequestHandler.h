@@ -568,30 +568,26 @@ struct FLootLockerNotificationGroupRewardAssociations
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     ELootLockerNotificationContentKind Kind = ELootLockerNotificationContentKind::asset;
-
-    /**
-      The details on the Asset.
-     */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FLootLockerNotificationRewardAssetDetails Asset;
-
     /**
       The details on the Currency.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FLootLockerNotificationRewardCurrencyDetails Currency;
-
+    FLootLockerNotificationRewardCurrency Currency;
     /**
-      The Progression Points reward, will be null if the reward is of another type.
+      The details on the Asset.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FLootLockerNotificationRewardProgression Progression_points;
-
+    FLootLockerNotificationRewardAsset Asset;
     /**
       The Progression Reset reward, will be null if the reward is of another type.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerNotificationRewardProgressionReset Progression_reset;
+    /**
+      The Progression Points reward, will be null if the reward is of another type.
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerNotificationRewardProgression Progression_points;
 
 };
 
@@ -643,12 +639,21 @@ struct FLootLockerNotificationContentBody
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     ELootLockerNotificationContentKind Kind = ELootLockerNotificationContentKind::asset;
-
+    /**
+      The Group reward, will be null if the reward is of another type.
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerNotificationRewardGroup Group;
     /**
       The currency reward, will be null if the reward is of another type.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerNotificationRewardCurrency Currency;
+    /**
+      The Asset reward, will be null if the reward is of another type.
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerNotificationRewardAsset Asset;
     /**
       The Progression Reset reward, will be null if the reward is of another type.
      */
@@ -659,16 +664,6 @@ struct FLootLockerNotificationContentBody
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerNotificationRewardProgression Progression_points;
-    /**
-      The Asset reward, will be null if the reward is of another type.
-     */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FLootLockerNotificationRewardAsset Asset;
-    /**
-      The Group reward, will be null if the reward is of another type.
-     */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FLootLockerNotificationRewardGroup Group;
 };
 
 /**
