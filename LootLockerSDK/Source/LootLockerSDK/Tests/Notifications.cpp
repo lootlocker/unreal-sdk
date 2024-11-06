@@ -96,6 +96,8 @@ FLootLockerNotification GenerateLootLockerNotification(const FString& notificati
         ELootLockerNotificationPriority::medium,
         /*Source*/
         source,
+        /*SourceEnum*/
+        ELootLockerNotificationSource::triggers,
         /*Content*/
         FLootLockerNotificationContent {
             /*Context*/
