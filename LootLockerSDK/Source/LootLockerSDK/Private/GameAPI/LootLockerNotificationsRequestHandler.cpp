@@ -44,35 +44,36 @@ void FLootLockerListNotificationsResponse::PopulateConvenienceStructures()
             Notification.Content.ContextAsDictionary.Add(ContextEntry.Key, ContextEntry.Value);
         }
 
-        FString IdentifyingKey = "";
         if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::Triggers, ESearchCase::IgnoreCase))
         {
+            Notification.Content.IdentifyingContextKey = LootLockerNotificationsStaticStrings::StandardContextKeys::Triggers::Key;
         }
         else if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::SteamStore, ESearchCase::IgnoreCase))
         {
+            Notification.Content.IdentifyingContextKey = LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::SteamStore::EntitlementId;
         }
         else if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::LootLocker, ESearchCase::IgnoreCase))
         {
-            IdentifyingKey = LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::LootLocker::CatalogItemId;
+            Notification.Content.IdentifyingContextKey = LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::LootLocker::CatalogItemId;
         }
         else if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::GooglePlayStore, ESearchCase::IgnoreCase))
         {
-            IdentifyingKey = LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::GooglePlayStore::ProductId;
+            Notification.Content.IdentifyingContextKey = LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::GooglePlayStore::ProductId;
         }
         else if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::AppleAppStore, ESearchCase::IgnoreCase))
         {
-            IdentifyingKey = LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::AppleAppStore::TransactionId;
+            Notification.Content.IdentifyingContextKey = LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::AppleAppStore::TransactionId;
         }
 
-        if (!IdentifyingKey.IsEmpty())
+        if (!Notification.Content.IdentifyingContextKey.IsEmpty())
         {
-            if(Notification.Content.ContextAsDictionary.Contains(IdentifyingKey))
+            if(Notification.Content.ContextAsDictionary.Contains(Notification.Content.IdentifyingContextKey))
             {
-                const FString& IdentifyingValue = *Notification.Content.ContextAsDictionary.Find(IdentifyingKey);
+                const FString& IdentifyingValue = *Notification.Content.ContextAsDictionary.Find(Notification.Content.IdentifyingContextKey);
 
                 FLootLockerNotificationIdentifyingValueLookupStruct LookupStruct
                 {
-                    IdentifyingKey,
+                    Notification.Content.IdentifyingContextKey,
                     Notification.Id,
                     i
                 };
