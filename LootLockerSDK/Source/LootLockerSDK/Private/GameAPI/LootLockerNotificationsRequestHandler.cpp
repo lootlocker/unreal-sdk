@@ -47,7 +47,9 @@ void FLootLockerListNotificationsResponse::PopulateConvenienceStructures()
         FString IdentifyingKey = "";
         if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::Triggers, ESearchCase::IgnoreCase))
         {
-            IdentifyingKey = LootLockerNotificationsStaticStrings::StandardContextKeys::Triggers::Key;
+        }
+        else if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::SteamStore, ESearchCase::IgnoreCase))
+        {
         }
         else if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::LootLocker, ESearchCase::IgnoreCase))
         {
