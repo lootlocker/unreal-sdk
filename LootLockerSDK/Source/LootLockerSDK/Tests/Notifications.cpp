@@ -102,6 +102,8 @@ FLootLockerNotification GenerateLootLockerNotification(const FString& notificati
             context,
             /*ContextAsDictionary*/
             TMap<FString, FString>(),
+            /*IdentifyingContextKey*/
+            "",
             /*Body*/
             FLootLockerNotificationContentBody {
                 /*Kind*/

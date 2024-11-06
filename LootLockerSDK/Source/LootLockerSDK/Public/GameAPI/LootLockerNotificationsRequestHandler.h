@@ -683,6 +683,11 @@ struct FLootLockerNotificationContent
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TMap<FString, FString> ContextAsDictionary;
     /**
+      The key from the context that will most likely help in identifying this notification
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString IdentifyingContextKey = "";
+    /**
       The body for this notification content, use the kind variable to know which field will be filled with data.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
