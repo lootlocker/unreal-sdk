@@ -24,6 +24,19 @@ enum class ELootLockerNotificationPriority : uint8
 };
 
 /**
+ * Enum of the different available sources for notifications
+ */
+UENUM(BlueprintType, Category = "LootLocker")
+enum class ELootLockerNotificationSource : uint8
+{
+    triggers = 0,
+    purchasing_steam_store = 1,
+    purchasing_apple_app_store = 2,
+    purchasing_google_play_store = 3,
+    purchasing_lootlocker_store = 4,
+};
+
+/**
  * Enum of the different kinds of notification bodies possible, use this to figure out how to parse the notification body
  */
 UENUM(BlueprintType, Category = "LootLocker")
@@ -730,6 +743,11 @@ struct FLootLockerNotification
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Source = "";
+    /**
+      The originating source of this notification (for example, did it originate from a purchase, a leaderboard reward, or a trigger?) packaged in an enum
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    ELootLockerNotificationSource SourceEnum = ELootLockerNotificationSource::triggers;
     /**
       The actual content of this notification
      */
