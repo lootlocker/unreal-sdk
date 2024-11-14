@@ -1972,6 +1972,7 @@ public:
     * For Triggers the identifying value is the key of the trigger
     * For Google Play Store purchases it is the product id
     * For Apple App Store purchases it is the transaction id
+    * For Steam Store purchases it is the entitlement id
     * For LootLocker virtual purchases it is the catalog item id
     *
     * @param NotificationsResponse The response from which you want to find the notifications.
