@@ -1525,7 +1525,16 @@ public:
     static void CreateAssetCandidate(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest);
 
     /**
-     * Update an asset candidate.
+     * Create an asset candidate and immediately mark it as completed meaning it will become an asset and can not be updated anymore.
+     * https://ref.lootlocker.com/game-api/#creating-an-asset-candidate
+     *
+     * @param AssetCandidateData asset candidate data.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
+    static void CreateAssetCandidateAndMarkComplete(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest);
+
+    /**
+     * Update an asset candidate and immediately mark it as completed meaning it will become an asset and can not be updated anymore.
      * https://ref.lootlocker.com/game-api/#updating-an-asset-candidate
      *
      * @param AssetCandidateId ID of the asset candidate.
