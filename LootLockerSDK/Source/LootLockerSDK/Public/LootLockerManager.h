@@ -509,6 +509,7 @@ public:
      *
      * @param OnGetPlayerInfoRequestComplete Delegate for handling the response
      */
+    [[deprecated("This function is deprecated, use GetCurrentPlayerInfo instead")]]
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
     static void GetPlayerInfo(const FPInfoResponseBP& OnGetPlayerInfoRequestComplete);
 
@@ -528,6 +529,7 @@ public:
     * @param Points Number of XP points to grant to the player.
     * @param OnSubmitXPRequestCompleted Delegate for handling the the server response.
     */
+    [[deprecated("This function will be removed at a later stage, use the new progression system instead")]]
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
     static void SubmitXP(int Points, const FPSubmitResponseBP& OnSubmitXPRequestCompleted);
 
@@ -539,6 +541,7 @@ public:
     * @param OnGetOtherPlayersXpAndLevelRequestCompleted Delegate for handling the the server response.
     * @param OtherPlayerPlatform Optional parameter to specify which platform the Id is for.
     */
+    [[deprecated("This function is deprecated, use ListPlayerInfo instead")]]
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
     static void GetOtherPlayersXpAndLevel(FString OtherPlayerId, const FPOtherPlayersXpAndLevelBP& OnGetOtherPlayersXpAndLevelRequestCompleted, FString OtherPlayerPlatform = FString(TEXT("")));
 
@@ -550,6 +553,7 @@ public:
     * @param PlayerIDs Lost of player ids on the specified platform.
     * @param OnGetOtherPlayerInfoRequestCompleted Delegate for handling the the server response.
 	*/
+    [[deprecated("This function is deprecated, use ListPlayerInfo instead")]]
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
      static void GetMultiplePlayersXp(FString Platform, TArray<FString> PlayerIDs, const  FPMultiplePlayersXPBP& OnGetOtherPlayerInfoRequestCompleted);
 
