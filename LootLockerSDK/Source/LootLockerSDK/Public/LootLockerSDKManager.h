@@ -515,6 +515,23 @@ public:
     //==================================================
 
     /**
+    * Get information about the currently logged in player such as name and different ids to use for subsequent calls to LootLocker methods
+    *
+    * @param OnCompletedRequest Delegate for handling the server response
+    */
+    static void GetCurrentPlayerInfo(const FLootLockerGetCurrentPlayerInfoResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * List information for one or more other players
+    *
+    * @param PlayerIdsToLookUp A list of ULID ids of players to look up. These ids are in the form of ULIDs and are sometimes called player_ulid or similar
+    * @param LegacyPlayerIdsToLookUp A list of legacy ids of players to look up. These ids are in the form of integers and are sometimes called simply player_id or id
+    * @param PlayerPublicUidsToLookUp A list of public uids to look up. These ids are in the form of UIDs
+    * @param OnCompletedRequest Delegate for handling the server response
+    */
+    static void ListPlayerInfo(TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseDelegate& OnCompletedRequest);
+
+    /**
      * Get general information about the current current player, such as the XP, Level information and their account balance.
      * https://ref.lootlocker.com/game-api/#get-player-info
      *

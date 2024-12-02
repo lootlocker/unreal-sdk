@@ -78,6 +78,8 @@ public:
     static FLootLockerEndPoints ListOtherPlayersFilesEndpoint;
 
     //Player
+    static FLootLockerEndPoints GetInfoFromSession;
+    static FLootLockerEndPoints ListPlayerInfo;
     static FLootLockerEndPoints GetPlayerInfoEndPoint;
     static FLootLockerEndPoints GetPlayerInventoryEndPoint;
     static FLootLockerEndPoints SubmitXpEndpoint;
