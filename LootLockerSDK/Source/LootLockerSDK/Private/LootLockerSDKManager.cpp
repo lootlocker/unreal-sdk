@@ -739,10 +739,15 @@ void ULootLockerSDKManager::DeleteAssetInstanceFromPlayerInventory(int AssetInst
     ULootLockerAssetInstancesRequestHandler::DeleteAssetInstanceFromPlayerInventory(AssetInstanceID, FDeleteAssetInstanceResponseDelegateBP(), OnCompletedRequest);
 }
 
-//User Generated Candidate
+//User Generated Content
 void ULootLockerSDKManager::CreateAssetCandidate(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest)
 {
     ULootLockerUserGeneratedContentRequestHandler::CreateAssetCandidate(AssetCandidateData, FCreateAssetCandidateResponseDelegateBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::CreateAssetCandidateAndMarkComplete(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest)
+{
+    ULootLockerUserGeneratedContentRequestHandler::CreateAssetCandidateAndMarkComplete(AssetCandidateData, FCreateAssetCandidateResponseDelegateBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::UpdateAssetCandidate(int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidateData, const FAssetCandidateResponseDelegate& OnCompletedRequest)
