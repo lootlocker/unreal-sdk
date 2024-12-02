@@ -23,6 +23,8 @@ enum class ELootLockerMetadataSources : uint8
     catalog_item = 2,
     progression = 3,
     currency = 4,
+    // Player metadata will go in here
+    asset = 7,
 };
 
 /*
