@@ -211,6 +211,16 @@ void ULootLockerSDKManager::RefreshRemoteSession(const FString& RefreshToken, co
 }
 
 //Player
+void ULootLockerSDKManager::GetCurrentPlayerInfo(const FLootLockerGetCurrentPlayerInfoResponseDelegate& OnCompletedRequest)
+{
+    ULootLockerPlayerRequestHandler::GetCurrentPlayerInfo(FLootLockerGetCurrentPlayerInfoResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::ListPlayerInfo(TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseDelegate& OnCompletedRequest)
+{
+    ULootLockerPlayerRequestHandler::ListPlayerInfo(PlayerIdsToLookUp, PlayerLegacyIdsToLookUp, PlayerPublicUidsToLookUp, FLootLockerListPlayerInfoResponseBP(), OnCompletedRequest);
+}
+
 void ULootLockerSDKManager::GetPlayerInfo(const FLootLockerPlayerInformationResponse& OnCompletedRequest)
 {
     ULootLockerPlayerRequestHandler::GetPlayerInfo(FPInfoResponseBP(), OnCompletedRequest);

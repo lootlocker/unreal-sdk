@@ -8,6 +8,88 @@
 #include "GameAPI/LootLockerAssetsRequestHandler.h"
 #include "LootLockerPlayerRequestHandler.generated.h"
 
+/**
+A set of important information about a player
+*/
+USTRUCT(BlueprintType)
+struct FLootLockerPlayerInfo 
+{
+	GENERATED_BODY()
+	/**
+	When this player was first created
+	*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+	FString Created_at = "";
+	/**
+	The name of the player expressly configured through a SetPlayerName call
+	*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+	FString Name = "";
+	/**
+	The public uid of the player. This id is in the form of a UID
+	*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+	FString Public_uid = "";
+	/**
+	The legacy id of the player. This id is in the form of an integer and are sometimes called simply player_id or id
+	*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+	int Legacy_id = 0;
+	/**
+	The id of the player. This id is in the form a ULID and is sometimes called player_ulid or similar
+	*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+	FString Id = "";
+};
+
+/**
+*/
+USTRUCT(BlueprintType)
+struct FLootLockerListPlayerInfoRequest
+{
+	GENERATED_BODY()
+	/**
+	A list of ULID ids of players to look up. These ids are in the form of ULIDs and are sometimes called player_ulid or similar
+	*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+	TArray<FString> Player_id;
+	/**
+	A list of legacy ids of players to look up. These ids are in the form of integers and are sometimes called simply player_id or id
+	*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+	TArray<int> Player_legacy_id;
+	/**
+	A list of public uids to look up. These ids are in the form of UIDs
+	*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+	TArray<FString> Player_public_uid;
+};
+
+/**
+*/
+USTRUCT(BlueprintType)
+struct FLootLockerGetCurrentPlayerInfoResponse : public FLootLockerResponse
+{
+	GENERATED_BODY()
+	/**
+	Important player information for the currently logged in player
+	*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+	FLootLockerPlayerInfo Info;
+};
+
+/**
+*/
+USTRUCT(BlueprintType)
+struct FLootLockerListPlayerInfoResponse : public FLootLockerResponse
+{
+	GENERATED_BODY()
+	/**
+	A list of important player information for the successfully looked up players
+	*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+	TArray<FLootLockerPlayerInfo> Info;
+};
 
 USTRUCT(BlueprintType)
 struct FLootLockerBalanceResponse : public FLootLockerResponse
@@ -279,6 +361,10 @@ struct FLootLockerMultiplePlayerNamesAndPlatformsRequest {
 };
 
 
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetCurrentPlayerInfoResponseBP, FLootLockerGetCurrentPlayerInfoResponse, Value);
+
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListPlayerInfoResponseBP, FLootLockerListPlayerInfoResponse, Value);
+
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPInfoResponseBP, FLootLockerPlayerInfoResponse, Value);
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPInventoryResponseBP, FLootLockerInventoryResponse, Value);
@@ -300,6 +386,10 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FPMultiplePlayerNamesBP, FLootLockerMultiplePl
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPMultiplePlayersPlatformIdsBP, FLootLockerMultiplePlayersPlatformIdsResponse, Value);
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPOtherPlayersXpAndLevelBP, FLootLockerOtherPlayersXpAndLevelResponse, Value);
+
+DECLARE_DELEGATE_OneParam(FLootLockerGetCurrentPlayerInfoResponseDelegate, FLootLockerGetCurrentPlayerInfoResponse);
+
+DECLARE_DELEGATE_OneParam(FLootLockerListPlayerInfoResponseDelegate, FLootLockerListPlayerInfoResponse);
 
 DECLARE_DELEGATE_OneParam(FPMultiplePlayersXP, FLootLockerMultiplePlayerXpResponse);
 
@@ -329,6 +419,9 @@ class LOOTLOCKERSDK_API ULootLockerPlayerRequestHandler : public UObject
 	GENERATED_BODY()
 public:
 	ULootLockerPlayerRequestHandler();
+	static void GetCurrentPlayerInfo(const FLootLockerGetCurrentPlayerInfoResponseBP& OnCompletedRequestBP = FLootLockerGetCurrentPlayerInfoResponseBP(), const FLootLockerGetCurrentPlayerInfoResponseDelegate& OnCompletedRequest = FLootLockerGetCurrentPlayerInfoResponseDelegate());
+	static void ListPlayerInfo(TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseBP& OnCompletedRequestBP = FLootLockerListPlayerInfoResponseBP(), const FLootLockerListPlayerInfoResponseDelegate& OnCompletedRequest = FLootLockerListPlayerInfoResponseDelegate());
+
 	static void GetPlayerInfo(const FPInfoResponseBP& OnCompletedRequestBP = FPInfoResponseBP(), const FLootLockerPlayerInformationResponse& OnCompletedRequest = FLootLockerPlayerInformationResponse());
 	static void GetInventory(const FPInventoryResponseBP& OnCompletedRequestBP = FPInventoryResponseBP(), const FInventoryResponse& OnCompletedRequest = FInventoryResponse());
 	static void GetFullInventory(const FPInventoryResponseBP& OnCompletedRequestBP, const FInventoryResponse& OnCompletedRequest = FInventoryResponse(), int32
