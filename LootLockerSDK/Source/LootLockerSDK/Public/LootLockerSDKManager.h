@@ -537,6 +537,7 @@ public:
      *
      * @param OnCompletedRequest Delegate for handling the response
      */
+    [[deprecated("This function is deprecated, use GetCurrentPlayerInfo instead")]]
 	static void GetPlayerInfo(const FLootLockerPlayerInformationResponse& OnCompletedRequest);
 
     /**
@@ -557,6 +558,7 @@ public:
     * @param Points Number of XP points to grant to the player.
     * @param OnCompletedRequest Delegate to be invoked with the server response.
     */
+    [[deprecated("This function will be removed at a later stage, use the new progression system instead")]]
 	static void SubmitXP(int Points, const FSubmitXpResponse& OnCompletedRequest);
 
     /**
@@ -567,6 +569,7 @@ public:
     * @param OnCompletedRequest Delegate to be invoked with the server response.
     * @param OtherPlayerPlatform Optional parameter to specify which platform the Id is for.
     */
+    [[deprecated("This function is deprecated, use ListPlayerInfo instead")]]
 	static void GetOtherPlayersXpAndLevel(FString OtherPlayerId, const FOtherPlayersXpAndLevelResponse & OnCompletedRequest, FString OtherPlayerPlatform = FString(TEXT("")));
 
     /**
@@ -576,6 +579,7 @@ public:
     * @param Request Object specifying what ids to lookup
     * @param OnCompletedRequest Delegate to be invoked with the server response.
     */
+    [[deprecated("This function is deprecated, use ListPlayerInfo instead")]]
 	static void GetMultiplePlayersXp(FLootLockerMultiplePlayersXpRequest& Request, const FPMultiplePlayersXP& OnCompletedRequest);
 
     /**
