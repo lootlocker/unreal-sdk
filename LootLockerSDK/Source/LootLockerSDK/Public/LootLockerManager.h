@@ -89,8 +89,21 @@ public:
      * @param SteamAppId (Optional) The specific Steam App Id to verify the player for
      * @param OnCompletedRequest Delegate for handling the server response.
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = ( AdvancedDisplay = "SteamAppId", SteamAppId=-1 ))
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = ( AdvancedDisplay = "SteamAppId", SteamAppId=-1, DeprecatedFunction, DeprecationMessage = "This method has been deprecated, please use StartSteamSessionUsingTicket(SteamSessionTicket, <optional>SteamAppId) instead"))
     static void VerifyPlayerAndStartSteamSession(const FString& SteamId64, const FString& PlatformToken, const int SteamAppId, const FAuthResponseBP& OnCompletedRequest);
+
+    /**
+     * Start a session for a steam user
+     * You can optionally specify a steam app id if you have multiple ones for your game and have configured this in the LootLocker console
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * https://ref.lootlocker.com/game-api/#authentication-request
+     *
+     * @param SteamSessionTicket Platform-specific token.
+     * @param SteamAppId (Optional) The specific Steam App Id to verify the player for
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = ( AdvancedDisplay = "SteamAppId", SteamAppId=""))
+    static void StartSteamSessionUsingTicket(const FString& SteamSessionTicket, const FString& SteamAppId, const FAuthResponseBP& OnCompletedRequest);
 
     /**
      * Start a session for a Steam user
@@ -101,7 +114,7 @@ public:
      * @param SteamId64 The Steam 64 bit Id as an FString
      * @param OnStartedSessionRequestCompleted Delegate for handling the server response.
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (DeprecatedFunction, DeprecationMessage = "This method has been deprecated, please use StartSteamSessionUsingTicket(SteamSessionToken, <optional>SteamAppId) instead"))
     static void StartSteamSession(const FString& SteamId64, const FAuthResponseBP& OnStartedSessionRequestCompleted);
 
     /**

@@ -364,6 +364,30 @@ void ULootLockerAuthenticationRequestHandler::StartSteamSession(const FString& S
 		}));
 }
 
+void ULootLockerAuthenticationRequestHandler::StartSteamSession(const FString& SteamSessionTicket, const FString& SteamAppId, const FAuthResponseBP& OnCompletedRequestBP, const FLootLockerSessionResponse& OnCompletedRequest)
+{
+	ULootLockerCurrentPlatform::Set(ELootLockerPlatform::Steam);
+	auto responseHandler = LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
+		{
+			if (Response.success)
+			{
+				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
+				ULootLockerStateData::SetToken(Response.session_token);
+			}
+			else
+			{
+				ULootLockerCurrentPlatform::Reset();
+			}
+		});
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+	if(SteamAppId.IsEmpty()) {
+		LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, FLootLockerSteamSessionRequest{ config->LootLockerGameKey, config->GameVersion, SteamSessionTicket }, ULootLockerGameEndpoints::SteamSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, responseHandler);
+	}
+	else {
+        LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, FLootLockerSteamSessionWithAppIdRequest{ { config->LootLockerGameKey, config->GameVersion, SteamSessionTicket }, SteamAppId }, ULootLockerGameEndpoints::SteamSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, responseHandler);
+	}
+}
+
 void ULootLockerAuthenticationRequestHandler::StartNintendoSwitchSession(const FString& NSAIdToken, const FAuthResponseBP& OnCompletedRequestBP, const FLootLockerSessionResponse& OnCompletedRequest)
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();

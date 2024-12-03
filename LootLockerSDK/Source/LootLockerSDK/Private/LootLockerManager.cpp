@@ -40,6 +40,11 @@ void ULootLockerManager::VerifyPlayerAndStartSteamSession(const FString& SteamId
     }));
 }
 
+void ULootLockerManager::StartSteamSessionUsingTicket(const FString& SteamSessionTicket, const FString& SteamAppId, const FAuthResponseBP& OnCompletedRequest)
+{
+    ULootLockerAuthenticationRequestHandler::StartSteamSession(SteamSessionTicket, SteamAppId, OnCompletedRequest);
+}
+
 void ULootLockerManager::StartSteamSession(const FString& SteamId64, const FAuthResponseBP& OnStartedSessionRequestCompleted)
 {
     ULootLockerAuthenticationRequestHandler::StartSteamSession(SteamId64, OnStartedSessionRequestCompleted);
