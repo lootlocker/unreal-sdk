@@ -50,6 +50,7 @@ public:
     static FLootLockerEndPoints EndSessionEndpoint;
     static FLootLockerEndPoints GuestloginEndpoint;
     static FLootLockerEndPoints MetaSessionEndpoint;
+    static FLootLockerEndPoints SteamSessionEndpoint;
 
     // Connected Accounts
     static FLootLockerEndPoints ListConnectedAccountsEndpoint;
