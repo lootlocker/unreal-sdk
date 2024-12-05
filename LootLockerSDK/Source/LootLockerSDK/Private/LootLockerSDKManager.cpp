@@ -49,6 +49,11 @@ void ULootLockerSDKManager::VerifyPlayerAndStartSteamSession(const FString& Stea
         }));
 }
 
+void ULootLockerSDKManager::StartSteamSessionUsingTicket(const FString& SteamSessionTicket, const FLootLockerSessionResponse& OnCompletedRequest, const FString& SteamAppId /* = "" */)
+{
+    ULootLockerAuthenticationRequestHandler::StartSteamSession(SteamSessionTicket, SteamAppId, FAuthResponseBP(), OnCompletedRequest);
+}
+
 void ULootLockerSDKManager::StartSteamSession(const FString& SteamId64, const FLootLockerSessionResponse& OnCompletedRequest)
 {
     ULootLockerAuthenticationRequestHandler::StartSteamSession(SteamId64, FAuthResponseBP(), OnCompletedRequest);
@@ -211,6 +216,16 @@ void ULootLockerSDKManager::RefreshRemoteSession(const FString& RefreshToken, co
 }
 
 //Player
+void ULootLockerSDKManager::GetCurrentPlayerInfo(const FLootLockerGetCurrentPlayerInfoResponseDelegate& OnCompletedRequest)
+{
+    ULootLockerPlayerRequestHandler::GetCurrentPlayerInfo(FLootLockerGetCurrentPlayerInfoResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::ListPlayerInfo(TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseDelegate& OnCompletedRequest)
+{
+    ULootLockerPlayerRequestHandler::ListPlayerInfo(PlayerIdsToLookUp, PlayerLegacyIdsToLookUp, PlayerPublicUidsToLookUp, FLootLockerListPlayerInfoResponseBP(), OnCompletedRequest);
+}
+
 void ULootLockerSDKManager::GetPlayerInfo(const FLootLockerPlayerInformationResponse& OnCompletedRequest)
 {
     ULootLockerPlayerRequestHandler::GetPlayerInfo(FPInfoResponseBP(), OnCompletedRequest);
@@ -729,10 +744,15 @@ void ULootLockerSDKManager::DeleteAssetInstanceFromPlayerInventory(int AssetInst
     ULootLockerAssetInstancesRequestHandler::DeleteAssetInstanceFromPlayerInventory(AssetInstanceID, FDeleteAssetInstanceResponseDelegateBP(), OnCompletedRequest);
 }
 
-//User Generated Candidate
+//User Generated Content
 void ULootLockerSDKManager::CreateAssetCandidate(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest)
 {
     ULootLockerUserGeneratedContentRequestHandler::CreateAssetCandidate(AssetCandidateData, FCreateAssetCandidateResponseDelegateBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::CreateAssetCandidateAndMarkComplete(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest)
+{
+    ULootLockerUserGeneratedContentRequestHandler::CreateAssetCandidateAndMarkComplete(AssetCandidateData, FCreateAssetCandidateResponseDelegateBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::UpdateAssetCandidate(int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidateData, const FAssetCandidateResponseDelegate& OnCompletedRequest)

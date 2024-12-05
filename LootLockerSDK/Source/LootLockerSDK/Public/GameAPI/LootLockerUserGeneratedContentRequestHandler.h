@@ -45,7 +45,7 @@ struct FLootLockerCreateAssetCandidateData {
     GENERATED_BODY()
 
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-        FLootLockerAssetCandidateData data;
+    FLootLockerAssetCandidateData data;
 };
 
 USTRUCT(BlueprintType)
@@ -124,6 +124,10 @@ class LOOTLOCKERSDK_API ULootLockerUserGeneratedContentRequestHandler : public U
     GENERATED_BODY()
 public:
     static void CreateAssetCandidate(const FLootLockerCreateAssetCandidateData& AssetCandidate, const FCreateAssetCandidateResponseDelegateBP&
+                                         OnCompletedRequestBP = FCreateAssetCandidateResponseDelegateBP(), const FCreateAssetCandidateResponseDelegate&
+                                         OnCompletedRequest = FCreateAssetCandidateResponseDelegate());
+
+    static void CreateAssetCandidateAndMarkComplete(const FLootLockerCreateAssetCandidateData& AssetCandidate, const FCreateAssetCandidateResponseDelegateBP&
                                          OnCompletedRequestBP = FCreateAssetCandidateResponseDelegateBP(), const FCreateAssetCandidateResponseDelegate&
                                          OnCompletedRequest = FCreateAssetCandidateResponseDelegate());
     

@@ -1,5 +1,4 @@
-﻿#include <future>
-
+#include <future>
 #include "LootLockerManager.h"
 #include "LootLockerSDKManager.h"
 #include "GameAPI/LootLockerAuthenticationRequestHandler.h"

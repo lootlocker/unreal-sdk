@@ -155,18 +155,18 @@ USTRUCT(BlueprintType)
 struct FLootLockerAppleGameCenterSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-		FString bundle_id;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-		FString player_id;
+	FString bundle_id;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-		FString public_key_url;
+	FString player_id;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-		FString signature;
+	FString public_key_url;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-		FString salt;
+	FString signature;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-		FString timestamp;
+	FString salt;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FString timestamp;
 
 };
 
@@ -174,8 +174,8 @@ USTRUCT(BlueprintType)
 struct FLootLockerRefreshAppleGameCenterSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-		FString refresh_token;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FString refresh_token;
 };
 
 
@@ -245,6 +245,26 @@ struct FLootLockerVerificationRequest
 	FString platform;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString token;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerSteamSessionRequest
+{
+	GENERATED_BODY()
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString game_api_key;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString game_version;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString steam_ticket;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerSteamSessionWithAppIdRequest : public FLootLockerSteamSessionRequest
+{
+	GENERATED_BODY()
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString steam_app_id;
 };
 
 USTRUCT(BlueprintType)
@@ -487,6 +507,7 @@ public:
 	static void RefreshEpicSession(const FString& RefreshToken, const FEpicSessionResponseBP& OnCompletedRequestBP = FEpicSessionResponseBP(), const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest = FLootLockerEpicSessionResponseDelegate());
     static void StartAmazonLunaSession(const FString& AmazonLunaGuid, const FAuthResponseBP& AuthResponseBP = FAuthResponseBP(), const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
     static void StartSteamSession(const FString& SteamId64, const FAuthResponseBP& AuthResponseBP = FAuthResponseBP(), const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
+    static void StartSteamSession(const FString& SteamSessionTicket, const FString& SteamAppId, const FAuthResponseBP& AuthResponseBP = FAuthResponseBP(), const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
     static void StartNintendoSwitchSession(const FString& NSAIdToken, const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
 	static void StartXboxSession(const FString& XboxUserToken, const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
 	static void StartAppleSession(const FString& AuthorizationCode, const FAppleSessionResponseBP& OnCompletedRequestBP = FAppleSessionResponseBP(), const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleSessionResponseDelegate());

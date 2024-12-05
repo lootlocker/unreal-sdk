@@ -50,6 +50,7 @@ public:
     static FLootLockerEndPoints EndSessionEndpoint;
     static FLootLockerEndPoints GuestloginEndpoint;
     static FLootLockerEndPoints MetaSessionEndpoint;
+    static FLootLockerEndPoints SteamSessionEndpoint;
 
     // Connected Accounts
     static FLootLockerEndPoints ListConnectedAccountsEndpoint;
@@ -78,6 +79,8 @@ public:
     static FLootLockerEndPoints ListOtherPlayersFilesEndpoint;
 
     //Player
+    static FLootLockerEndPoints GetInfoFromSession;
+    static FLootLockerEndPoints ListPlayerInfo;
     static FLootLockerEndPoints GetPlayerInfoEndPoint;
     static FLootLockerEndPoints GetPlayerInventoryEndPoint;
     static FLootLockerEndPoints SubmitXpEndpoint;

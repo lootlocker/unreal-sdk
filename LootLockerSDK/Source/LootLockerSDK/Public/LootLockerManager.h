@@ -89,8 +89,21 @@ public:
      * @param SteamAppId (Optional) The specific Steam App Id to verify the player for
      * @param OnCompletedRequest Delegate for handling the server response.
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = ( AdvancedDisplay = "SteamAppId", SteamAppId=-1 ))
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = ( AdvancedDisplay = "SteamAppId", SteamAppId=-1, DeprecatedFunction, DeprecationMessage = "This method has been deprecated, please use StartSteamSessionUsingTicket(SteamSessionTicket, <optional>SteamAppId) instead"))
     static void VerifyPlayerAndStartSteamSession(const FString& SteamId64, const FString& PlatformToken, const int SteamAppId, const FAuthResponseBP& OnCompletedRequest);
+
+    /**
+     * Start a session for a steam user
+     * You can optionally specify a steam app id if you have multiple ones for your game and have configured this in the LootLocker console
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * https://ref.lootlocker.com/game-api/#authentication-request
+     *
+     * @param SteamSessionTicket Platform-specific token.
+     * @param SteamAppId (Optional) The specific Steam App Id to verify the player for
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = ( AdvancedDisplay = "SteamAppId", SteamAppId=""))
+    static void StartSteamSessionUsingTicket(const FString& SteamSessionTicket, const FString& SteamAppId, const FAuthResponseBP& OnCompletedRequest);
 
     /**
      * Start a session for a Steam user
@@ -101,7 +114,7 @@ public:
      * @param SteamId64 The Steam 64 bit Id as an FString
      * @param OnStartedSessionRequestCompleted Delegate for handling the server response.
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (DeprecatedFunction, DeprecationMessage = "This method has been deprecated, please use StartSteamSessionUsingTicket(SteamSessionToken, <optional>SteamAppId) instead"))
     static void StartSteamSession(const FString& SteamId64, const FAuthResponseBP& OnStartedSessionRequestCompleted);
 
     /**
@@ -485,11 +498,31 @@ public:
     //==================================================
 
     /**
+    * Get information about the currently logged in player such as name and different ids to use for subsequent calls to LootLocker methods
+    *
+    * @param OnCompletedRequest Delegate for handling the server response
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
+    static void GetCurrentPlayerInfo(const FLootLockerGetCurrentPlayerInfoResponseBP& OnCompletedRequest);
+
+    /**
+    * List information for one or more other players
+    *
+    * @param PlayerIdsToLookUp A list of ULID ids of players to look up. These ids are in the form of ULIDs and are sometimes called player_ulid or similar
+    * @param LegacyPlayerIdsToLookUp A list of legacy ids of players to look up. These ids are in the form of integers and are sometimes called simply player_id or id
+    * @param PlayerPublicUidsToLookUp A list of public uids to look up. These ids are in the form of UIDs
+    * @param OnCompletedRequest Delegate for handling the server response
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
+    static void ListPlayerInfo(TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseBP& OnCompletedRequest);
+
+    /**
      * Get general information about the current current player, such as the XP, Level information and their account balance.
      * https://ref.lootlocker.com/game-api/#get-player-info
      *
      * @param OnGetPlayerInfoRequestComplete Delegate for handling the response
      */
+    [[deprecated("This function is deprecated, use GetCurrentPlayerInfo instead")]]
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
     static void GetPlayerInfo(const FPInfoResponseBP& OnGetPlayerInfoRequestComplete);
 
@@ -509,6 +542,7 @@ public:
     * @param Points Number of XP points to grant to the player.
     * @param OnSubmitXPRequestCompleted Delegate for handling the the server response.
     */
+    [[deprecated("This function will be removed at a later stage, use the new progression system instead")]]
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
     static void SubmitXP(int Points, const FPSubmitResponseBP& OnSubmitXPRequestCompleted);
 
@@ -520,6 +554,7 @@ public:
     * @param OnGetOtherPlayersXpAndLevelRequestCompleted Delegate for handling the the server response.
     * @param OtherPlayerPlatform Optional parameter to specify which platform the Id is for.
     */
+    [[deprecated("This function is deprecated, use ListPlayerInfo instead")]]
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
     static void GetOtherPlayersXpAndLevel(FString OtherPlayerId, const FPOtherPlayersXpAndLevelBP& OnGetOtherPlayersXpAndLevelRequestCompleted, FString OtherPlayerPlatform = FString(TEXT("")));
 
@@ -531,6 +566,7 @@ public:
     * @param PlayerIDs Lost of player ids on the specified platform.
     * @param OnGetOtherPlayerInfoRequestCompleted Delegate for handling the the server response.
 	*/
+    [[deprecated("This function is deprecated, use ListPlayerInfo instead")]]
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
      static void GetMultiplePlayersXp(FString Platform, TArray<FString> PlayerIDs, const  FPMultiplePlayersXPBP& OnGetOtherPlayerInfoRequestCompleted);
 
@@ -1448,6 +1484,16 @@ public:
     static void CreateAssetCandidate(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted);
 
     /**
+     * Create an asset candidate and immediately mark it as completed meaning it will become an asset and can not be updated anymore.
+     * https://ref.lootlocker.com/game-api/#creating-an-asset-candidate
+     *
+     * @param AssetCandidateData asset candidate data.
+     * @param OnCreateAssetCandidateCompleted Delegate for handling the server response.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content")
+    static void CreateAssetCandidateAndMarkComplete(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted);
+
+    /**
      * Update an asset candidate.
      * https://ref.lootlocker.com/game-api/#updating-an-asset-candidate
      *
@@ -1972,6 +2018,7 @@ public:
     * For Triggers the identifying value is the key of the trigger
     * For Google Play Store purchases it is the product id
     * For Apple App Store purchases it is the transaction id
+    * For Steam Store purchases it is the entitlement id
     * For LootLocker virtual purchases it is the catalog item id
     *
     * @param NotificationsResponse The response from which you want to find the notifications.

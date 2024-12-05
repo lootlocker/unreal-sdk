@@ -1,4 +1,4 @@
-﻿#include <future>
+#include <future>
 
 #include "LootLockerManager.h"
 #include "LootLockerSDKManager.h"
@@ -96,16 +96,22 @@ FLootLockerNotification GenerateLootLockerNotification(const FString& notificati
         ELootLockerNotificationPriority::medium,
         /*Source*/
         source,
+        /*SourceEnum*/
+        ELootLockerNotificationSource::triggers,
         /*Content*/
         FLootLockerNotificationContent {
             /*Context*/
             context,
             /*ContextAsDictionary*/
             TMap<FString, FString>(),
+            /*IdentifyingContextKey*/
+            "",
             /*Body*/
             FLootLockerNotificationContentBody {
                 /*Kind*/
                 ELootLockerNotificationContentKind::currency,
+                /*Group*/
+                FLootLockerNotificationRewardGroup(),
                 /*Currency*/
                 FLootLockerNotificationRewardCurrency {
                     /*Created_at*/
@@ -130,14 +136,12 @@ FLootLockerNotification GenerateLootLockerNotification(const FString& notificati
                     /*Currency_id*/
                     FGuid::NewGuid().ToString()
                 },
+                /*Asset*/
+                FLootLockerNotificationRewardAsset(),
                 /*Progression_reset*/
                 FLootLockerNotificationRewardProgressionReset(),
                 /*Progression_points*/
-                FLootLockerNotificationRewardProgression(),
-                /*Asset*/
-                FLootLockerNotificationRewardAsset(),
-                /*Group*/
-                FLootLockerNotificationRewardGroup()
+                FLootLockerNotificationRewardProgression()
             }
         },
         /*Id*/

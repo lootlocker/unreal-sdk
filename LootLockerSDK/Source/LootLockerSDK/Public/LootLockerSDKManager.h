@@ -87,7 +87,20 @@ public:
      * @param OnCompletedRequest Delegate for handling the server response.
      * @param SteamAppId (Optional) The specific Steam App Id to verify the player for
      */
+    [[deprecated("This method has been deprecated, please use StartSteamSessionUsingTicket(SteamSessionTicket, <optional>SteamAppId) instead")]]
     static void VerifyPlayerAndStartSteamSession(const FString& SteamId64, const FString& PlatformToken, const FLootLockerSessionResponse& OnCompletedRequest, const int SteamAppId = -1);
+
+    /**
+     * Start a session for a steam user
+     * You can optionally specify a steam app id if you have multiple ones for your game and have configured this in the LootLocker console
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     * https://ref.lootlocker.com/game-api/#authentication-request
+     *
+     * @param SteamSessionTicket Platform-specific token.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     * @param SteamAppId (Optional) The specific Steam App Id to verify the player for
+     */
+    static void StartSteamSessionUsingTicket(const FString& SteamSessionTicket, const FLootLockerSessionResponse& OnCompletedRequest, const FString& SteamAppId = "");
 
     /**
      * Start a session for a Steam user
@@ -98,6 +111,7 @@ public:
      * @param SteamId64 The Steam 64 bit Id as an FString
      * @param OnCompletedRequest Delegate for handling the server response.
      */
+    [[deprecated("This method has been deprecated, please use StartSteamSessionUsingTicket(SteamSessionTicket, <optional>SteamAppId) instead")]]
     static void StartSteamSession(const FString& SteamId64, const FLootLockerSessionResponse& OnCompletedRequest);
 
     /**
@@ -515,11 +529,29 @@ public:
     //==================================================
 
     /**
+    * Get information about the currently logged in player such as name and different ids to use for subsequent calls to LootLocker methods
+    *
+    * @param OnCompletedRequest Delegate for handling the server response
+    */
+    static void GetCurrentPlayerInfo(const FLootLockerGetCurrentPlayerInfoResponseDelegate& OnCompletedRequest);
+    
+    /**
+    * List information for one or more other players
+    *
+    * @param PlayerIdsToLookUp A list of ULID ids of players to look up. These ids are in the form of ULIDs and are sometimes called player_ulid or similar
+    * @param LegacyPlayerIdsToLookUp A list of legacy ids of players to look up. These ids are in the form of integers and are sometimes called simply player_id or id
+    * @param PlayerPublicUidsToLookUp A list of public uids to look up. These ids are in the form of UIDs
+    * @param OnCompletedRequest Delegate for handling the server response
+    */
+    static void ListPlayerInfo(TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseDelegate& OnCompletedRequest);
+
+    /**
      * Get general information about the current current player, such as the XP, Level information and their account balance.
      * https://ref.lootlocker.com/game-api/#get-player-info
      *
      * @param OnCompletedRequest Delegate for handling the response
      */
+    [[deprecated("This function is deprecated, use GetCurrentPlayerInfo instead")]]
 	static void GetPlayerInfo(const FLootLockerPlayerInformationResponse& OnCompletedRequest);
 
     /**
@@ -540,6 +572,7 @@ public:
     * @param Points Number of XP points to grant to the player.
     * @param OnCompletedRequest Delegate to be invoked with the server response.
     */
+    [[deprecated("This function will be removed at a later stage, use the new progression system instead")]]
 	static void SubmitXP(int Points, const FSubmitXpResponse& OnCompletedRequest);
 
     /**
@@ -550,6 +583,7 @@ public:
     * @param OnCompletedRequest Delegate to be invoked with the server response.
     * @param OtherPlayerPlatform Optional parameter to specify which platform the Id is for.
     */
+    [[deprecated("This function is deprecated, use ListPlayerInfo instead")]]
 	static void GetOtherPlayersXpAndLevel(FString OtherPlayerId, const FOtherPlayersXpAndLevelResponse & OnCompletedRequest, FString OtherPlayerPlatform = FString(TEXT("")));
 
     /**
@@ -559,6 +593,7 @@ public:
     * @param Request Object specifying what ids to lookup
     * @param OnCompletedRequest Delegate to be invoked with the server response.
     */
+    [[deprecated("This function is deprecated, use ListPlayerInfo instead")]]
 	static void GetMultiplePlayersXp(FLootLockerMultiplePlayersXpRequest& Request, const FPMultiplePlayersXP& OnCompletedRequest);
 
     /**
@@ -1504,7 +1539,16 @@ public:
     static void CreateAssetCandidate(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest);
 
     /**
-     * Update an asset candidate.
+     * Create an asset candidate and immediately mark it as completed meaning it will become an asset and can not be updated anymore.
+     * https://ref.lootlocker.com/game-api/#creating-an-asset-candidate
+     *
+     * @param AssetCandidateData asset candidate data.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
+    static void CreateAssetCandidateAndMarkComplete(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest);
+
+    /**
+     * Update an asset candidate and immediately mark it as completed meaning it will become an asset and can not be updated anymore.
      * https://ref.lootlocker.com/game-api/#updating-an-asset-candidate
      *
      * @param AssetCandidateId ID of the asset candidate.

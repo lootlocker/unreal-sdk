@@ -13,6 +13,34 @@ ULootLockerPlayerRequestHandler::ULootLockerPlayerRequestHandler()
 	HttpClient = NewObject<ULootLockerHttpClient>();
 }
 
+void ULootLockerPlayerRequestHandler::GetCurrentPlayerInfo(const FLootLockerGetCurrentPlayerInfoResponseBP& OnCompletedRequestBP, const FLootLockerGetCurrentPlayerInfoResponseDelegate& OnCompletedRequest)
+{
+	LLAPI<FLootLockerGetCurrentPlayerInfoResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetInfoFromSession, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+}
+
+void ULootLockerPlayerRequestHandler::ListPlayerInfo(TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseBP& OnCompletedRequestBP, const FLootLockerListPlayerInfoResponseDelegate& OnCompletedRequest)
+{
+	if(PlayerIdsToLookUp.Num() == 0 && PlayerLegacyIdsToLookUp.Num() == 0 && PlayerPublicUidsToLookUp.Num() == 0)
+	{
+		FLootLockerListPlayerInfoResponse emptySuccess;
+		emptySuccess.success = true;
+		emptySuccess.StatusCode = 200;
+		emptySuccess.FullTextFromServer = "{}";
+		OnCompletedRequestBP.ExecuteIfBound(emptySuccess);
+		OnCompletedRequest.ExecuteIfBound(emptySuccess);
+		return;
+	}
+
+	FLootLockerListPlayerInfoRequest request 
+	{
+		PlayerIdsToLookUp,
+		PlayerLegacyIdsToLookUp,
+		PlayerPublicUidsToLookUp
+    };
+	
+	LLAPI<FLootLockerListPlayerInfoResponse>::CallAPI(HttpClient, request, ULootLockerGameEndpoints::ListPlayerInfo, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+}
+
 void ULootLockerPlayerRequestHandler::GetPlayerInfo(const FPInfoResponseBP& OnCompletedRequestBP, const FLootLockerPlayerInformationResponse& OnCompletedRequest)
 {
 	LLAPI<FLootLockerPlayerInfoResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetPlayerInfoEndPoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);

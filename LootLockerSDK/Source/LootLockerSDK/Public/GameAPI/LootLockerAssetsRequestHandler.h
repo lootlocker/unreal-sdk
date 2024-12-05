@@ -248,6 +248,8 @@ struct FLootLockerContext {
     bool user_facing = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 dependent_asset_id = 0;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int32 max_equip_count = 0;
 };
 
 USTRUCT(BlueprintType)

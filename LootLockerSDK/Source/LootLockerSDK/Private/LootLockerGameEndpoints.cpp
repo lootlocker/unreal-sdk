@@ -24,6 +24,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::GuestloginEndpoint = InitEndpoint
 FLootLockerEndPoints ULootLockerGameEndpoints::StartAppleGameCenterSessionEndpoint = InitEndpoint("session/apple/game-center", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::RefreshAppleGameCenterSessionEndpoint = InitEndpoint("session/apple/game-center", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::MetaSessionEndpoint = InitEndpoint("session/meta", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::SteamSessionEndpoint = InitEndpoint("session/steam", ELootLockerHTTPMethod::POST);
 
 // Connected Accounts
 FLootLockerEndPoints ULootLockerGameEndpoints::ListConnectedAccountsEndpoint = InitEndpoint("v1/connected-accounts", ELootLockerHTTPMethod::GET);
@@ -52,6 +53,8 @@ FLootLockerEndPoints ULootLockerGameEndpoints::DeleteFileEndpoint = InitEndpoint
 FLootLockerEndPoints ULootLockerGameEndpoints::ListOtherPlayersFilesEndpoint = InitEndpoint("player/{0}/files", ELootLockerHTTPMethod::GET);
 
 //Player
+FLootLockerEndPoints ULootLockerGameEndpoints::GetInfoFromSession = InitEndpoint("player/hazy-hammock/v1/info", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::ListPlayerInfo = InitEndpoint("player/hazy-hammock/v1/info", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetPlayerInfoEndPoint = InitEndpoint("v1/player/info", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetPlayerInventoryEndPoint = InitEndpoint("v1/player/inventory/list", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::SubmitXpEndpoint = InitEndpoint("v1/player/xp", ELootLockerHTTPMethod::POST);
