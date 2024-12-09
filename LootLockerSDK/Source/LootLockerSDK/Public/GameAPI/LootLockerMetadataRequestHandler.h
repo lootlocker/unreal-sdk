@@ -23,7 +23,8 @@ enum class ELootLockerMetadataSources : uint8
     catalog_item = 2,
     progression = 3,
     currency = 4,
-    // Player metadata will go in here
+    player = 5,
+    self = 6,
     asset = 7,
 };
 
@@ -38,6 +39,17 @@ enum class ELootLockerMetadataTypes : uint8
     Bool = 2,
     Json = 3,
     Base64 = 4,
+};
+
+/*
+ Possible metadata actions
+ */
+UENUM(BlueprintType, Category = "LootLocker")
+enum class ELootLockerMetadataActions : uint8
+{
+    Create = 0,
+    Update = 1,
+    Delete = 2
 };
 
 /*
@@ -102,7 +114,12 @@ struct FLootLockerMetadataEntry
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FString> Tags;
-
+    /*
+     The access level set for this metadata entry. Valid values are game_api.read, game_api.write and player.read (only applicable for player metadata and means that the metadata entry is readable for players except the owner), though no values are required.
+     Note that different sources can allow or disallow a subset of these values.
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FString> Access;
     /*
      Get the value as a String. Returns true if value could be parsed in which case Output contains the string value untouched, returns false if parsing failed.
      */
@@ -146,10 +163,131 @@ struct FLootLockerMetadataEntry
     LOOTLOCKERSDK_API bool TryGetValueAsBase64(FLootLockerMetadataBase64Value& Output) const;
 
     /*
+     Set the value as a String.
+     */
+    LOOTLOCKERSDK_API void SetValueAsString(const FString& Value);
+    /*
+     Set the value as a float.
+     */
+    LOOTLOCKERSDK_API void SetValueAsFloat(const float& Value);
+    /*
+     Set the value as an integer.
+     */
+    LOOTLOCKERSDK_API void SetValueAsInteger(const int& Value);
+    /*
+     Set the value as a bool.
+     */
+    LOOTLOCKERSDK_API void SetValueAsBool(const bool& Value);
+    /*
+     Set the value as a JsonValue.
+     */
+    LOOTLOCKERSDK_API void SetRawValue(const TSharedPtr<FJsonValue>& Value);
+    /*
+     Set the value as the provided UStruct object. Returns true if value could be serialized.
+     */
+    template<typename T>
+    LOOTLOCKERSDK_API bool SetValueAsUStruct(const T& Value);
+    /*
+     Set the value as a Json Object.
+     */
+    LOOTLOCKERSDK_API void SetValueAsJsonObject(const FJsonObject& Value);
+    /*
+     Set the value as a Json Array.
+     */
+    LOOTLOCKERSDK_API void SetValueAsJsonArray(const TArray<TSharedPtr<FJsonValue>>& Value);
+    /*
+     Set the value as a Base64 object.
+     */
+    LOOTLOCKERSDK_API void SetValueAsBase64(const FLootLockerMetadataBase64Value& Value);
+
+    /*
+     Factory method that makes an FLootLockerMetadataEntry with a String Value
+     */
+	static LOOTLOCKERSDK_API FLootLockerMetadataEntry MakeStringEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const FString& Value);
+    /*
+     Factory method that makes an FLootLockerMetadataEntry with a Float Value
+     */
+    static LOOTLOCKERSDK_API FLootLockerMetadataEntry MakeFloatEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const float& Value);
+    /*
+     Factory method that makes an FLootLockerMetadataEntry with an Integer Value
+     */
+    static LOOTLOCKERSDK_API FLootLockerMetadataEntry MakeIntegerEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const int Value);
+    /*
+     Factory method that makes an FLootLockerMetadataEntry with a Bool Value
+     */
+    static LOOTLOCKERSDK_API FLootLockerMetadataEntry MakeBoolEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const bool Value);
+    /*
+     Factory method that makes an FLootLockerMetadataEntry with a JsonValue Value
+     */
+    static LOOTLOCKERSDK_API FLootLockerMetadataEntry MakeJsonValueEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const ELootLockerMetadataTypes Type, const TSharedPtr<FJsonValue> Value);
+    /*
+     Factory method that makes an FLootLockerMetadataEntry with a UStruct Value
+     */
+    template<typename T>
+    static LOOTLOCKERSDK_API FLootLockerMetadataEntry MakeUStructEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const T& Value);
+    /*
+     Factory method that makes an FLootLockerMetadataEntry with a JsonObject Value
+     */
+    static LOOTLOCKERSDK_API FLootLockerMetadataEntry MakeJsonObjectEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const FJsonObject& Value);
+    /*
+     Factory method that makes an FLootLockerMetadataEntry with a JsonArray Value
+     */
+    static LOOTLOCKERSDK_API FLootLockerMetadataEntry MakeJsonArrayEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const TArray<TSharedPtr<FJsonValue>>& Value);
+    /*
+     Factory method that makes an FLootLockerMetadataEntry with a Base64 Value
+     */
+    static LOOTLOCKERSDK_API FLootLockerMetadataEntry MakeBase64Entry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const FLootLockerMetadataBase64Value& Value);
+
+    /*
      */
     void _INTERNAL_SetJsonRepresentation(const FJsonObject& obj);
 private:
+    static FLootLockerMetadataEntry MakeEntryExceptValue(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const ELootLockerMetadataTypes Type);
+
     FJsonObject EntryAsJson;
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerSetMetadataErrorEntry
+{
+    GENERATED_BODY()
+    /*
+     The metadata key that the set operation error refers to
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Key;
+    /*
+     The type of value that the set operation was for
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    ELootLockerMetadataTypes Type = ELootLockerMetadataTypes::String;
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerSetMetadataError
+{
+    GENERATED_BODY()
+    /*
+     The type of action that this set metadata operation was
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    ELootLockerMetadataActions Action = ELootLockerMetadataActions::Create;
+    /*
+     The type of value that the set operation was for
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerSetMetadataErrorEntry Entry;
+    /*
+     The error message describing why this metadata set operation failed
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Error;
 };
 
 /*
@@ -165,7 +303,7 @@ struct FLootLockerMetadataSourceAndKeys
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     ELootLockerMetadataSources Source = ELootLockerMetadataSources::leaderboard;
     /*
-     The id of the specific source that the set operation was taken on
+     The id of the specific source that the set operation was taken on, note that if the source is self then this too should be set to "self"
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Id;
@@ -227,6 +365,25 @@ struct FLootLockerGetMultisourceMetadataRequest
     TArray<FLootLockerMetadataSourceAndKeys> Sources;
 };
 
+/*
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerSetMetadataAction
+{
+    GENERATED_BODY()
+    /*
+     The type of action to take for setting this metadata entry
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    ELootLockerMetadataActions Action = ELootLockerMetadataActions::Create;
+    /*
+     The metadata entry to take the designated action for
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerMetadataEntry Entry;
+};
+
 //==================================================
 // Response Definitions
 //==================================================
@@ -275,6 +432,29 @@ struct FLootLockerGetMetadataResponse : public FLootLockerResponse
 /*
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerSetMetadataResponse : public FLootLockerResponse
+{
+    GENERATED_BODY()
+    /*
+     A list of any errors that occurred when executing the provided metadata actions
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerSetMetadataError> Errors;
+    /*
+     The type of source that the source id refers to
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    ELootLockerMetadataSources Source = ELootLockerMetadataSources::reward;
+    /*
+     The id of the specific source that the set operation was taken on
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Source_id;
+};
+
+/*
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerGetMultisourceMetadataResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
@@ -301,6 +481,10 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetMetadataResponseBP, FLootLockerG
  Blueprint response delegate for getting multi source metadata
  */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetMultisourceMetadataResponseBP, FLootLockerGetMultisourceMetadataResponse, Response);
+/*
+ Blueprint response delegate for setting metadata
+ */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerSetMetadataResponseBP, FLootLockerSetMetadataResponse, Response);
 
 //==================================================
 // C++ Delegate Definitions
@@ -318,6 +502,10 @@ DECLARE_DELEGATE_OneParam(FLootLockerGetMetadataResponseDelegate, FLootLockerGet
  Blueprint response delegate for getting multi source metadata
  */
 DECLARE_DELEGATE_OneParam(FLootLockerGetMultisourceMetadataResponseDelegate, FLootLockerGetMultisourceMetadataResponse);
+/*
+ Blueprint response delegate for setting metadata
+ */
+DECLARE_DELEGATE_OneParam(FLootLockerSetMetadataResponseDelegate, FLootLockerSetMetadataResponse);
 
 //==================================================
 // API Class Definition
@@ -333,6 +521,7 @@ public:
     static void ListMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const FString& Key, const TArray<FString>& Tags, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnCompleteBP = FLootLockerListMetadataResponseBP(), const FLootLockerListMetadataResponseDelegate& OnComplete = FLootLockerListMetadataResponseDelegate());
     static void GetMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const FString& Key, const bool IgnoreFiles, const FLootLockerGetMetadataResponseBP& OnCompleteBP = FLootLockerGetMetadataResponseBP(), const FLootLockerGetMetadataResponseDelegate& OnComplete = FLootLockerGetMetadataResponseDelegate());
     static void GetMultisourceMetadata(const TArray<FLootLockerMetadataSourceAndKeys>& SourcesAndKeysToGet, const bool IgnoreFiles, const FLootLockerGetMultisourceMetadataResponseBP& OnCompleteBP = FLootLockerGetMultisourceMetadataResponseBP(), const FLootLockerGetMultisourceMetadataResponseDelegate& OnComplete = FLootLockerGetMultisourceMetadataResponseDelegate());
+    static void SetMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FLootLockerSetMetadataAction>& MetadataToActionsToPerform, const FLootLockerSetMetadataResponseBP& OnCompleteBP = FLootLockerSetMetadataResponseBP(), const FLootLockerSetMetadataResponseDelegate& OnComplete = FLootLockerSetMetadataResponseDelegate());
 private:
     static ULootLockerHttpClient* HttpClient;
 };
