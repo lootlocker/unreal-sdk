@@ -71,6 +71,8 @@ struct FLootLockerLeaderboard
     FString leaderboard_key;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerGetMemberRankResponse rank;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString ulid = "";
 };
 
 USTRUCT(BlueprintType)
@@ -411,6 +413,11 @@ struct FLootLockerLeaderboardDetails
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int Id = 0;
+    /*
+     * The ulid of this leaderboard
+     **/
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString ulid = "";
     /*
      * Will the score be overwritten even if it was less than the original score.
      **/
