@@ -102,6 +102,147 @@ bool FLootLockerMetadataEntry::TryGetValueAsBase64(FLootLockerMetadataBase64Valu
 	return TryGetValueAsUStruct(Output);
 }
 
+void FLootLockerMetadataEntry::SetValueAsString(const FString& Value) 
+{
+	EntryAsJson.SetStringField(TEXT("value"), Value);
+	Type = ELootLockerMetadataTypes::String;
+}
+
+void FLootLockerMetadataEntry::SetValueAsFloat(const float& Value) 
+{
+	EntryAsJson.SetNumberField(TEXT("value"), Value);
+	Type = ELootLockerMetadataTypes::Number;
+}
+
+void FLootLockerMetadataEntry::SetValueAsInteger(const int& Value) 
+{
+	EntryAsJson.SetNumberField(TEXT("value"), Value);
+	Type = ELootLockerMetadataTypes::Number;
+}
+
+void FLootLockerMetadataEntry::SetValueAsBool(const bool& Value) 
+{
+	EntryAsJson.SetBoolField(TEXT("value"), Value);
+	Type = ELootLockerMetadataTypes::Bool;
+}
+
+void FLootLockerMetadataEntry::SetRawValue(const TSharedPtr<FJsonValue>& Value) 
+{
+	EntryAsJson.SetField(TEXT("value"), Value);
+	Type = ELootLockerMetadataTypes::Json;
+}
+
+template<typename T>
+bool FLootLockerMetadataEntry::SetValueAsUStruct(const T& Value) 
+{
+	TSharedPtr<FJsonObject> JsonObject = FJsonObjectConverter::UStructToJsonObject(Value);
+	if(!JsonObject.IsValid())
+	{
+		return false;
+	}
+	SetValueAsJsonObject(*JsonObject);
+	return true;
+}
+
+void FLootLockerMetadataEntry::SetValueAsJsonObject(const FJsonObject& Value) 
+{
+	EntryAsJson.SetObjectField(TEXT("value"), MakeShared<FJsonObject>(Value));
+	Type = ELootLockerMetadataTypes::Json;
+}
+
+void FLootLockerMetadataEntry::SetValueAsJsonArray(const TArray<TSharedPtr<FJsonValue>>& Value) 
+{
+	EntryAsJson.SetArrayField(TEXT("value"), Value);
+	Type = ELootLockerMetadataTypes::Json;
+}
+
+void FLootLockerMetadataEntry::SetValueAsBase64(const FLootLockerMetadataBase64Value& Value) 
+{
+	SetValueAsUStruct(Value);
+}
+
+FLootLockerMetadataEntry FLootLockerMetadataEntry::MakeStringEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const FString& Value)
+{
+	FLootLockerMetadataEntry Entry = MakeEntryExceptValue(Key, Tags, Access, ELootLockerMetadataTypes::String);
+	Entry.SetValueAsString(Value);
+	return Entry;
+}
+
+FLootLockerMetadataEntry FLootLockerMetadataEntry::MakeFloatEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const float& Value)
+{
+	FLootLockerMetadataEntry Entry = MakeEntryExceptValue(Key, Tags, Access, ELootLockerMetadataTypes::Number);
+	Entry.SetValueAsFloat(Value);
+	return Entry;
+}
+
+FLootLockerMetadataEntry FLootLockerMetadataEntry::MakeIntegerEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const int Value)
+{
+	FLootLockerMetadataEntry Entry = MakeEntryExceptValue(Key, Tags, Access, ELootLockerMetadataTypes::Number);
+	Entry.SetValueAsInteger(Value);
+	return Entry;
+}
+
+FLootLockerMetadataEntry FLootLockerMetadataEntry::MakeBoolEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const bool Value)
+{
+	FLootLockerMetadataEntry Entry = MakeEntryExceptValue(Key, Tags, Access, ELootLockerMetadataTypes::Bool);
+	Entry.SetValueAsBool(Value);
+	return Entry;
+}
+
+FLootLockerMetadataEntry FLootLockerMetadataEntry::MakeJsonValueEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const ELootLockerMetadataTypes Type, const TSharedPtr<FJsonValue> Value)
+{
+	FLootLockerMetadataEntry Entry = MakeEntryExceptValue(Key, Tags, Access, ELootLockerMetadataTypes::Json);
+	Entry.SetRawValue(Value);
+	return Entry;
+}
+
+template<typename T>
+FLootLockerMetadataEntry FLootLockerMetadataEntry::MakeUStructEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const T& Value)
+{
+	FLootLockerMetadataEntry Entry = MakeEntryExceptValue(Key, Tags, Access, ELootLockerMetadataTypes::Json);
+	Entry.SetValueAsUStruct(Value);
+	return Entry;
+}
+
+FLootLockerMetadataEntry FLootLockerMetadataEntry::MakeJsonObjectEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const FJsonObject& Value)
+{
+	FLootLockerMetadataEntry Entry = MakeEntryExceptValue(Key, Tags, Access, ELootLockerMetadataTypes::Json);
+	Entry.SetValueAsJsonObject(Value);
+	return Entry;
+}
+
+FLootLockerMetadataEntry FLootLockerMetadataEntry::MakeJsonArrayEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const TArray<TSharedPtr<FJsonValue>>& Value)
+{
+	FLootLockerMetadataEntry Entry = MakeEntryExceptValue(Key, Tags, Access, ELootLockerMetadataTypes::Json);
+	Entry.SetValueAsJsonArray(Value);
+	return Entry;
+}
+
+FLootLockerMetadataEntry FLootLockerMetadataEntry::MakeBase64Entry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const FLootLockerMetadataBase64Value& Value)
+{
+	return MakeUStructEntry(Key, Tags, Access, Value);
+}
+
+FLootLockerMetadataEntry FLootLockerMetadataEntry::MakeEntryExceptValue(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const ELootLockerMetadataTypes Type)
+{
+	FLootLockerMetadataEntry Entry;
+	Entry.Key = Key;
+	Entry.Tags = Tags;
+	Entry.Type = Type;
+	Entry.Access = Access;
+	FJsonObject JsonRepresentation;
+	JsonRepresentation.SetStringField(TEXT("key"), Key);
+	TArray<TSharedPtr<FJsonValue>> TagArray;
+	for (const FString& Tag : Tags)
+	{
+		TagArray.Add(MakeShared<FJsonValueString>(Tag));
+	}
+	JsonRepresentation.SetArrayField(TEXT("tags"), TagArray);
+	JsonRepresentation.SetStringField(TEXT("type"), ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerMetadataTypes"), static_cast<int32>(Type)).ToLower());
+	Entry.EntryAsJson = JsonRepresentation;
+	return Entry;
+}
+
 void FLootLockerMetadataEntry::_INTERNAL_SetJsonRepresentation(const FJsonObject& obj)
 {
 	EntryAsJson = obj;
@@ -168,6 +309,19 @@ ULootLockerMetadataRequestHandler::ULootLockerMetadataRequestHandler()
 
 void ULootLockerMetadataRequestHandler::ListMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const FString& Key, const TArray<FString>& Tags, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnCompleteBP, const FLootLockerListMetadataResponseDelegate& OnComplete)
 {
+	FString _SourceID = SourceID;
+	if(Source == ELootLockerMetadataSources::self) 
+	{
+		_SourceID = "self";
+	}
+
+	if (_SourceID.IsEmpty())
+	{
+        FLootLockerListMetadataResponse Error = LootLockerResponseFactory::Error<FLootLockerListMetadataResponse>("Can not list metadata for source with empty id");
+		OnCompleteBP.ExecuteIfBound(Error);
+		OnComplete.ExecuteIfBound(Error);
+		return;
+	}
 	TMultiMap<FString, FString> QueryParams;
 	if (Page > 0) QueryParams.Add("page", FString::FromInt(Page));
 	if (PerPage > 0) QueryParams.Add("per_page", FString::FromInt(PerPage));
@@ -182,7 +336,7 @@ void ULootLockerMetadataRequestHandler::ListMetadata(const ELootLockerMetadataSo
 
 	FString SourceAsString = ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerMetadataSources"), static_cast<int32>(Source)).ToLower();
 	SourceAsString.ReplaceCharInline(' ', '_');
-	LLAPI<FLootLockerListMetadataResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListMetadata, { SourceAsString, SourceID }, QueryParams, FLootLockerListMetadataResponseBP(), FLootLockerListMetadataResponseDelegate(), LLAPI<FLootLockerListMetadataResponse>::FResponseInspectorCallback::CreateLambda([OnCompleteBP, OnComplete](FLootLockerListMetadataResponse& Response)
+	LLAPI<FLootLockerListMetadataResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListMetadata, { SourceAsString, _SourceID }, QueryParams, FLootLockerListMetadataResponseBP(), FLootLockerListMetadataResponseDelegate(), LLAPI<FLootLockerListMetadataResponse>::FResponseInspectorCallback::CreateLambda([OnCompleteBP, OnComplete](FLootLockerListMetadataResponse& Response)
 	{
 		// Make sure we will have entries to parse before continuing
 		if(!Response.success || Response.Entries.Num() <= 0)
@@ -239,7 +393,19 @@ void ULootLockerMetadataRequestHandler::ListMetadata(const ELootLockerMetadataSo
 
 void ULootLockerMetadataRequestHandler::GetMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const FString& Key, const bool IgnoreFiles, const FLootLockerGetMetadataResponseBP& OnCompleteBP, const FLootLockerGetMetadataResponseDelegate& OnComplete)
 {
-	ListMetadata(Source, SourceID, 1, 1, Key, TArray<FString>(), IgnoreFiles, FLootLockerListMetadataResponseBP(), FLootLockerListMetadataResponseDelegate::CreateLambda([OnCompleteBP, OnComplete, Key](const FLootLockerListMetadataResponse& ListResponse)
+	FString _SourceID = SourceID;
+	if(Source == ELootLockerMetadataSources::self) 
+	{
+		_SourceID = "self";
+	}
+	if (_SourceID.IsEmpty())
+	{
+        FLootLockerGetMetadataResponse Error = LootLockerResponseFactory::Error<FLootLockerGetMetadataResponse>("Can not list metadata for source with empty id");
+		OnCompleteBP.ExecuteIfBound(Error);
+		OnComplete.ExecuteIfBound(Error);
+		return;
+	}
+	ListMetadata(Source, _SourceID, 1, 1, Key, TArray<FString>(), IgnoreFiles, FLootLockerListMetadataResponseBP(), FLootLockerListMetadataResponseDelegate::CreateLambda([OnCompleteBP, OnComplete, Key](const FLootLockerListMetadataResponse& ListResponse)
 	{
 		FLootLockerGetMetadataResponse SingleEntryResponse;
 		SingleEntryResponse.success = ListResponse.success;
@@ -334,5 +500,70 @@ void ULootLockerMetadataRequestHandler::GetMultisourceMetadata(const TArray<FLoo
 		OnCompleteBP.ExecuteIfBound(Response);
 		OnComplete.ExecuteIfBound(Response);
 	}));
+}
 
+void ULootLockerMetadataRequestHandler::SetMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FLootLockerSetMetadataAction>& MetadataToActionsToPerform, const FLootLockerSetMetadataResponseBP& OnCompleteBP, const FLootLockerSetMetadataResponseDelegate& OnComplete)
+{
+	FString _SourceID = SourceID;
+	if(Source == ELootLockerMetadataSources::self)
+	{
+		_SourceID = "self";
+	}
+	if (_SourceID.IsEmpty())
+	{
+        FLootLockerSetMetadataResponse Error = LootLockerResponseFactory::Error<FLootLockerSetMetadataResponse>("Can not perform actions for source with empty id");
+		OnCompleteBP.ExecuteIfBound(Error);
+		OnComplete.ExecuteIfBound(Error);
+		return;
+	}
+
+	// Set source and source id
+	FJsonObject ManuallySerializedRequest;
+	FString SourceAsString = ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerMetadataSources"), static_cast<int32>(Source)).ToLower();
+	SourceAsString.ReplaceCharInline(' ', '_');
+	ManuallySerializedRequest.SetStringField(TEXT("source"), SourceAsString);
+	ManuallySerializedRequest.SetStringField(TEXT("source_id"), _SourceID);
+
+	// Iterate over actions to perform and manually construct json since there's a ton of magic to it
+	TArray<TSharedPtr<FJsonValue>> entries;
+	for (const FLootLockerSetMetadataAction& ActionToPerform : MetadataToActionsToPerform)
+	{
+		// Serialize the brunt of the entry automatically
+		// Should handle the fields key, tags, and access
+		TSharedPtr<FJsonObject> JsonEntry = FJsonObjectConverter::UStructToJsonObject(ActionToPerform.Entry);
+		if (!JsonEntry.IsValid())
+		{
+			FLootLockerSetMetadataResponse Error = LootLockerResponseFactory::Error<
+				FLootLockerSetMetadataResponse>("Could not serialize action for key " + ActionToPerform.Entry.Key);
+			OnCompleteBP.ExecuteIfBound(Error);
+			OnComplete.ExecuteIfBound(Error);
+			return;
+		}
+
+		// Make type lowercase
+		JsonEntry->SetStringField(TEXT("type"), ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerMetadataTypes"), static_cast<int32>(ActionToPerform.Entry.Type)).ToLower());
+
+		// Add the action that should be performed to the entry
+		JsonEntry->SetStringField(TEXT("action"), ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerMetadataActions"), static_cast<int32>(ActionToPerform.Action)).ToLower());
+
+		// Manually set the field "value"
+		TSharedPtr<FJsonValue> RawEntryValue;
+		if (!ActionToPerform.Entry.TryGetRawValue(RawEntryValue))
+		{
+			FLootLockerSetMetadataResponse Error = LootLockerResponseFactory::Error<
+				FLootLockerSetMetadataResponse>("Could not get value to perform action " + JsonEntry->GetStringField(TEXT("action")) + " for key " + ActionToPerform.Entry.Key);
+			OnCompleteBP.ExecuteIfBound(Error);
+			OnComplete.ExecuteIfBound(Error);
+			return;
+		}
+		JsonEntry->SetField(TEXT("value"), RawEntryValue);
+
+		// Add manually serialized to entries array
+		entries.Add(MakeShared<FJsonValueObject>(JsonEntry));
+	}
+
+	// Add entries to manually serialized request
+	ManuallySerializedRequest.SetArrayField(TEXT("entries"), entries);
+	FString SerializedRequest = LootLockerUtilities::FStringFromJsonObject(MakeShared<FJsonObject>(ManuallySerializedRequest));
+	LLAPI<FLootLockerSetMetadataResponse>::CallAPIUsingRawJSON(HttpClient, SerializedRequest, ULootLockerGameEndpoints::MetadataActions, {}, {}, OnCompleteBP, OnComplete);
 }
