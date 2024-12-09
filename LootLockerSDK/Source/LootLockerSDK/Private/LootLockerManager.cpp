@@ -1259,6 +1259,56 @@ void ULootLockerManager::ParseLootLockerMetadataEntry(const FLootLockerMetadataE
     }
 }
 
+void ULootLockerManager::SetMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FLootLockerSetMetadataAction>& MetadataToActionsToPerform, const FLootLockerSetMetadataResponseBP& OnComplete)
+{
+    ULootLockerMetadataRequestHandler::SetMetadata(Source, SourceID, MetadataToActionsToPerform, OnComplete);
+}
+
+FLootLockerSetMetadataAction ULootLockerManager::MakeMetadataActionString(ELootLockerMetadataActions Action, const FString& Key, const FString& Value, const TArray<FString>& Tags, const TArray<FString>& Access)
+{
+    return FLootLockerSetMetadataAction{ Action, FLootLockerMetadataEntry::MakeStringEntry(Key, Tags, Access, Value) };
+}
+
+FLootLockerSetMetadataAction ULootLockerManager::MakeMetadataActionFloat(ELootLockerMetadataActions Action, const FString& Key, const float& Value, const TArray<FString>& Tags, const TArray<FString>& Access)
+{
+    return FLootLockerSetMetadataAction{ Action, FLootLockerMetadataEntry::MakeFloatEntry(Key, Tags, Access, Value) };
+}
+
+FLootLockerSetMetadataAction ULootLockerManager::MakeMetadataActionInteger(ELootLockerMetadataActions Action, const FString& Key, const int Value, const TArray<FString>& Tags, const TArray<FString>& Access)
+{
+    return FLootLockerSetMetadataAction{Action, FLootLockerMetadataEntry::MakeIntegerEntry(Key, Tags, Access, Value)};
+}
+
+FLootLockerSetMetadataAction ULootLockerManager::MakeMetadataActionBool(ELootLockerMetadataActions Action, const FString& Key, const bool Value, const TArray<FString>& Tags, const TArray<FString>& Access)
+{
+    return FLootLockerSetMetadataAction{Action, FLootLockerMetadataEntry::MakeBoolEntry(Key, Tags, Access, Value)};
+}
+
+void ULootLockerManager::MakeMetadataActionJson(ELootLockerMetadataActions Action, const FString& Key, const FString& Value, const TArray<FString>& Tags, const TArray<FString>& Access, bool& Succeeded, FLootLockerSetMetadataAction& ConstructedEntry)
+{
+    TArray<TSharedPtr<FJsonValue>> JsonArrayValue;
+    if(LootLockerUtilities::JsonArrayFromFString(Value, JsonArrayValue))
+    {
+        ConstructedEntry = FLootLockerSetMetadataAction{Action, FLootLockerMetadataEntry::MakeJsonArrayEntry(Key, Tags, Access, JsonArrayValue)};
+        Succeeded = true;
+        return;
+    }
+
+    TSharedPtr<FJsonObject> JsonObjectValue = LootLockerUtilities::JsonObjectFromFString(Value);
+    if(JsonObjectValue.IsValid())
+    {
+         ConstructedEntry = FLootLockerSetMetadataAction{Action, FLootLockerMetadataEntry::MakeJsonObjectEntry(Key, Tags, Access, *JsonObjectValue)};
+         Succeeded = true;
+         return;
+    }
+    Succeeded = false;
+}
+
+FLootLockerSetMetadataAction ULootLockerManager::MakeMetadataActionBase64(ELootLockerMetadataActions Action, const FString& Key, const FLootLockerMetadataBase64Value& Value, const TArray<FString>& Tags, const TArray<FString>& Access)
+{
+    return FLootLockerSetMetadataAction{Action, FLootLockerMetadataEntry::MakeBase64Entry(Key, Tags, Access, Value)};
+}
+
 // Miscellaneous
 void ULootLockerManager::GetServerTime(const FTimeResponseDelegateBP& OnCompletedRequestBP)
 {
