@@ -115,7 +115,7 @@ struct FLootLockerMetadataEntry
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FString> Tags;
     /*
-     The access level set for this metadata entry. Valid values are game_api.read, game_api.write and player.read (only applicable for player metadata and means that the metadata entry is readable for players except the owner), though no values are required.
+     The access level set for this metadata entry. Valid values are game_api.read, game_api.write and player.read (only applicable for player metadata and means that the metadata entry is readable for all players, not only for the owner), though no values are required.
      Note that different sources can allow or disallow a subset of these values.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
