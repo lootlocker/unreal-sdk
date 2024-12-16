@@ -231,6 +231,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::PickDropsFromDropTable = InitEndp
 
 // Currencies
 FLootLockerEndPoints ULootLockerGameEndpoints::ListCurrencies = InitEndpoint("currencies", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetCurrencyDetails = InitEndpoint("currency/code/{0}", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetCurrencyDenominationsByCode = InitEndpoint("currency/code/{0}/denominations", ELootLockerHTTPMethod::GET);
 
 // Balances

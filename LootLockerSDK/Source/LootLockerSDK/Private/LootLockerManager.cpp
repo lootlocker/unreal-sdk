@@ -1039,6 +1039,11 @@ void ULootLockerManager::ListCurrencies(const FLootLockerListCurrenciesResponseB
     ULootLockerCurrencyRequestHandler::ListCurrencies(OnCompletedRequest);
 }
 
+void ULootLockerManager::GetCurrencyDetails(const FString& CurrencyCode, const FLootLockerGetCurrencyDetailsResponseBP& OnCompletedRequest)
+{
+    ULootLockerCurrencyRequestHandler::GetCurrencyDenominationsByCode(CurrencyCode, OnCompletedRequest);
+}
+
 void ULootLockerManager::GetCurrencyDenominationsByCode(const FString& CurrencyCode, const FLootLockerListDenominationsResponseBP& OnCompletedRequest)
 {
     ULootLockerCurrencyRequestHandler::GetCurrencyDenominationsByCode(CurrencyCode, OnCompletedRequest);
