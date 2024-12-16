@@ -259,6 +259,7 @@ public:
 
     // Currencies
     static FLootLockerEndPoints ListCurrencies;
+    static FLootLockerEndPoints GetCurrencyDetails;
     static FLootLockerEndPoints GetCurrencyDenominationsByCode;
 
     // Balances
