@@ -2223,6 +2223,15 @@ public:
     static void ListCurrencies(const FLootLockerListCurrenciesResponseBP& OnCompletedRequest);
 
     /**
+     * Get details about the specified currency
+     *
+     * @param CurrencyCode The code of the currency to get details for
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Currency")
+    static void GetCurrencyDetails(const FString& CurrencyCode, const FLootLockerGetCurrencyDetailsResponseBP& OnCompletedRequest);
+
+    /**
      * Get a list of the denominations available for a specific currency
      *
      * @param CurrencyCode The code of the currency to fetch denominations for

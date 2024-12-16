@@ -2195,6 +2195,14 @@ public:
     static void ListCurrencies(const FLootLockerListCurrenciesResponseDelegate& OnCompletedRequest);
 
     /**
+     * Get details about the specified currency
+     *
+     * @param CurrencyCode The code of the currency to get details for
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    static void GetCurrencyDetails(const FString& CurrencyCode, const FLootLockerGetCurrencyDetailsResponseDelegate& OnCompletedRequest);
+
+    /**
      * Get a list of the denominations available for a specific currency
      *
      * @param CurrencyCode The code of the currency to fetch denominations for

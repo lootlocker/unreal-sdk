@@ -122,6 +122,40 @@ struct FLootLockerListDenominationsResponse : public FLootLockerResponse
     TArray<FLootLockerDenomination> Denominations;
 };
 
+/**
+ * Response with details about a particular currency
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerGetCurrencyDetailsResponse : public FLootLockerResponse
+{
+    GENERATED_BODY()
+    /**
+     * The unique id of the currency
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Id;
+    /**
+     * The name of the currency
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Name;
+    /**
+     * The unique short code of the currency
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Code;
+    /**
+     * True if this currency can be awarded to the player from the game api
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool Game_api_writes_enabled = false;
+    /**
+     * The time that this currency was created
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Created_at;
+};
+
 
 //==================================================
 // Blueprint Delegate Definitions
@@ -131,6 +165,10 @@ struct FLootLockerListDenominationsResponse : public FLootLockerResponse
  * Blueprint response delegate for listing currencies
  */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListCurrenciesResponseBP, FLootLockerListCurrenciesResponse, Response);
+/**
+ * Blueprint response delegate for getting details for a single currency
+ */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetCurrencyDetailsResponseBP, FLootLockerGetCurrencyDetailsResponse, Response);
 /**
  * Blueprint response delegate for listing denominations on a currency
  */
@@ -144,6 +182,10 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListDenominationsResponseBP, FLootL
  * C++ response delegate for listing currencies
  */
 DECLARE_DELEGATE_OneParam(FLootLockerListCurrenciesResponseDelegate, FLootLockerListCurrenciesResponse);
+/**
+ * C++ response delegate for getting details for a single currency
+ */
+DECLARE_DELEGATE_OneParam(FLootLockerGetCurrencyDetailsResponseDelegate, FLootLockerGetCurrencyDetailsResponse);
 /**
  * C++ response delegate for listing denominations on a currency
  */
@@ -162,6 +204,7 @@ public:
     ULootLockerCurrencyRequestHandler();
 
     static void ListCurrencies(const FLootLockerListCurrenciesResponseBP& OnResponseCompletedBP = FLootLockerListCurrenciesResponseBP(), const FLootLockerListCurrenciesResponseDelegate& OnResponseCompleted = FLootLockerListCurrenciesResponseDelegate());
+    static void GetCurrencyDetails(const FString& CurrencyCode, const FLootLockerGetCurrencyDetailsResponseBP& OnResponseCompletedBP = FLootLockerGetCurrencyDetailsResponseBP(), const FLootLockerGetCurrencyDetailsResponse& OnResponseCompleted = FLootLockerGetCurrencyDetailsResponse());
     static void GetCurrencyDenominationsByCode(const FString& CurrencyCode, const FLootLockerListDenominationsResponseBP& OnResponseCompletedBP = FLootLockerListDenominationsResponseBP(), const FLootLockerListDenominationsResponseDelegate& OnResponseCompleted = FLootLockerListDenominationsResponseDelegate());
 
     static ULootLockerHttpClient* HttpClient;
