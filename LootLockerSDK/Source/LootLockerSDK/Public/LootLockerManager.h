@@ -1203,6 +1203,8 @@ public:
     /**
      * This call returns all key/value pairs on record for the current player, beware that it may be a lot of data.
      * https://ref.lootlocker.com/game-api/#get-entire-persistent-storage
+     * Note: The Player Metadata feature will over time replace Player Persistent Storage.
+     * If you are not already deeply integrated with the Player Persistent Storage in your game, consider moving to Player Metadata. 
      *
      * @param OnPersistentStorageItemsRequestCompleted Delegate for handling the server response.
      */
@@ -1212,6 +1214,8 @@ public:
     /**
      * Get Key/Value pair from the player's persistent storage.
      * https://ref.lootlocker.com/game-api/#get-a-single-key-from-persistent-storage
+     * Note: The Player Metadata feature will over time replace Player Persistent Storage.
+     * If you are not already deeply integrated with the Player Persistent Storage in your game, consider moving to Player Metadata.
      *
      * @param Key Key of the key/value pair.
      * @param OnPersistentStorageItemRequestCompleted Delegate for handling the server response.
@@ -1222,6 +1226,8 @@ public:
     /**
      * Create/Update key/value pair(s).
      * https://ref.lootlocker.com/game-api/#updating-creating-key-value-pairs
+     * Note: The Player Metadata feature will over time replace Player Persistent Storage.
+     * If you are not already deeply integrated with the Player Persistent Storage in your game, consider moving to Player Metadata.
      *
      * @param Items array of items to be created/updated.
      * @param OnPersistentStorageItemsAddRequestCompleted Delegate for handling the server response.
@@ -1232,6 +1238,8 @@ public:
     /**
      * Create/Update a key/value pair.
      * https://ref.lootlocker.com/game-api/#updating-creating-key-value-pairs
+     * Note: The Player Metadata feature will over time replace Player Persistent Storage.
+     * If you are not already deeply integrated with the Player Persistent Storage in your game, consider moving to Player Metadata.
      *
      * @param Item item to be created/updated.
      * @param OnPersistentStorageItemAddRequestCompleted Delegate for handling the server response.
@@ -1242,6 +1250,8 @@ public:
     /**
      * Delete a key/value pair.
      * https://ref.lootlocker.com/game-api/#deleting-a-key-value-pair
+     * Note: The Player Metadata feature will over time replace Player Persistent Storage.
+     * If you are not already deeply integrated with the Player Persistent Storage in your game, consider moving to Player Metadata.
      *
      * @param Key key of a key/value pair.
      * @param OnPersistentStorageItemDeleteRequestCompleted Delegate for handling the server response.
@@ -1252,6 +1262,8 @@ public:
     /**
      * Read another players public key/value storage.
      * https://ref.lootlocker.com/game-api/#getting-other-players-public-key-value-pairs
+     * Note: The Player Metadata feature will over time replace Player Persistent Storage.
+     * If you are not already deeply integrated with the Player Persistent Storage in your game, consider moving to Player Metadata.
      *
      * @param PlayerId players id or their public UID.
      * @param OnGetPlayerPersistentStorageRequestCompleted Delegate for handling the server response.
