@@ -1496,7 +1496,7 @@ public:
     static void CreateAssetCandidate(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted);
 
     /**
-     * Create an asset candidate and immediately mark it as completed meaning it will become an asset and can not be updated anymore.
+     * Create an asset candidate and immediately mark it as completed meaning it will become an asset and can not be edited anymore.
      * https://ref.lootlocker.com/game-api/#creating-an-asset-candidate
      *
      * @param AssetCandidateData asset candidate data.
