@@ -56,7 +56,7 @@ jobs:
         run: |
           mkdir build
           chmod 666 build
-          docker run --rm -v "$(pwd):/mnt/source" ghcr.io/epicgames/unreal-engine:${{ matrix.UE_IMAGE }} sh -c ls -als /mnt/source 2>&1 | tee tmp/logs/UAT.log
+          docker run --rm -v "$(pwd):/mnt/source" ghcr.io/epicgames/unreal-engine:${{ matrix.UE_IMAGE }} sh -c "ls -als /mnt/source" 2>&1 | tee tmp/logs/UAT.log
 #          "/home/ue4/UnrealEngine/Engine/Build/BatchFiles/RunUAT.sh BuildPlugin -TargetPlatforms="Linux" -Plugin="/mnt/source/${SDK_NAME}/${SDK_NAME}.uplugin" -Package="/mnt/source/build" -Rocket -enablecodeanalysis" 2>&1 | tee tmp/logs/UAT.log
           
       - name: Expose log as artifact
