@@ -1093,7 +1093,7 @@ void ULootLockerSDKManager::ListCurrencies(const FLootLockerListCurrenciesRespon
 
 void ULootLockerSDKManager::GetCurrencyDetails(const FString& CurrencyCode, const FLootLockerGetCurrencyDetailsResponseDelegate& OnCompletedRequest)
 {
-    ULootLockerCurrencyRequestHandler::GetCurrencyDenominationsByCode(CurrencyCode, FLootLockerGetCurrencyDetailsResponseBP(), OnCompletedRequest);
+    ULootLockerCurrencyRequestHandler::GetCurrencyDetails(CurrencyCode, FLootLockerGetCurrencyDetailsResponseBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::GetCurrencyDenominationsByCode(const FString& CurrencyCode, const FLootLockerListDenominationsResponseDelegate& OnCompletedRequest)
