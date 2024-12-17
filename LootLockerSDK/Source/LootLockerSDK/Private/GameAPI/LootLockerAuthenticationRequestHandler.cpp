@@ -384,7 +384,12 @@ void ULootLockerAuthenticationRequestHandler::StartSteamSession(const FString& S
 		LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, FLootLockerSteamSessionRequest{ config->LootLockerGameKey, config->GameVersion, SteamSessionTicket }, ULootLockerGameEndpoints::SteamSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, responseHandler);
 	}
 	else {
-        LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, FLootLockerSteamSessionWithAppIdRequest{ { config->LootLockerGameKey, config->GameVersion, SteamSessionTicket }, SteamAppId }, ULootLockerGameEndpoints::SteamSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, responseHandler);
+        FLootLockerSteamSessionWithAppIdRequest request;
+        request.steam_app_id = SteamAppId;
+        request.game_api_key = config->LootLockerGameKey;
+        request.game_version = config->GameVersion;
+        request.steam_ticket = SteamSessionTicket;
+        LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, request, ULootLockerGameEndpoints::SteamSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, responseHandler);
 	}
 }
 
