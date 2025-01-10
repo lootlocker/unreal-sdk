@@ -316,6 +316,11 @@ struct FLootLockerAuthenticationResponse : public FLootLockerAuthResponse
 {
 	GENERATED_BODY()
 	/**
+	 * The player's name if it has been set by using SetPlayerName().
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString player_name = 0;
+	/**
 	 * The player id
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
