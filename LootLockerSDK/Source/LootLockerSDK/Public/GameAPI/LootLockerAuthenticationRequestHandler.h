@@ -319,7 +319,7 @@ struct FLootLockerAuthenticationResponse : public FLootLockerAuthResponse
 	 * The player's name if it has been set by using SetPlayerName().
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString player_name = 0;
+	FString player_name = "";
 	/**
 	 * The player id
 	 */
