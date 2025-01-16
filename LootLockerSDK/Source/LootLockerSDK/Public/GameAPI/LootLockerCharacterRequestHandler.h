@@ -75,6 +75,7 @@ struct FLootLockerCharacterLoadoutResponse : public FLootLockerResponse {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	TArray<FLootLockerCharacterLoadoutArray> loadouts;
+    static const LLAPI<FLootLockerCharacterLoadoutResponse>::FResponseInspectorCallback ManualDeserializer;
 };
 
 USTRUCT(BlueprintType)
@@ -148,6 +149,7 @@ struct FLootLockerListPlayerCharactersResponse : public FLootLockerResponse {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	TArray<FLootLockerListCharacterResponseItem> items;
+    static const LLAPI<FLootLockerListPlayerCharactersResponse>::FResponseInspectorCallback ManualDeserializer;
 };
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPCharacterLoadoutResponseBP, FLootLockerCharacterLoadoutResponse, Var);
