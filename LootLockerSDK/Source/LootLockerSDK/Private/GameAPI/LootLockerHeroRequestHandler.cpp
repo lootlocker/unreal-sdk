@@ -12,17 +12,17 @@ ULootLockerHeroRequestHandler::ULootLockerHeroRequestHandler()
 
 void ULootLockerHeroRequestHandler::GetGameHeroes(const FLootLockerGameHeroListBP &OnCompleteBP, const FLootLockerGameHeroListDelegate &OnComplete)
 {
-	LLAPI<FLootLockerGameHeroListResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetGameHeroes, { },EmptyQueryParams, OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerGameHeroListResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetGameHeroes, { },EmptyQueryParams, OnCompleteBP, OnComplete);
 }
 
 void ULootLockerHeroRequestHandler::ListPlayerHeroes(const FLootLockerHeroListBP &OnCompleteBP, const FLootLockerHeroListDelegate &OnComplete)
 {
-	LLAPI<FLootLockerHeroListResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ListPlayerHeroes, { },EmptyQueryParams, OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerHeroListResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListPlayerHeroes, { },EmptyQueryParams, OnCompleteBP, OnComplete);
 }
 
 void ULootLockerHeroRequestHandler::ListOtherPlayersHeroesBySteamID64(const int64 SteamID64, const FLootLockerHeroListBP &OnCompleteBP, const FLootLockerHeroListDelegate &OnComplete)
 {
-	LLAPI<FLootLockerHeroListResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ListOtherPlayersHeroesBySteamID64, { SteamID64 },EmptyQueryParams, OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerHeroListResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListOtherPlayersHeroesBySteamID64, { SteamID64 },EmptyQueryParams, OnCompleteBP, OnComplete);
 }
 
 void ULootLockerHeroRequestHandler::CreateHero(const FLootLockerCreateHeroRequest &Request, const FLootLockerPlayerHeroBP &OnCompleteBP, const FLootLockerPlayerHeroDelegate &OnComplete)
@@ -37,12 +37,12 @@ void ULootLockerHeroRequestHandler::CreateHeroWithVariation(const FLootLockerCre
 
 void ULootLockerHeroRequestHandler::GetHero(const int32 HeroID, const FLootLockerPlayerHeroBP &OnCompleteBP, const FLootLockerPlayerHeroDelegate &OnComplete)
 {
-	LLAPI<FLootLockerPlayerHeroResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetHero,  { HeroID },EmptyQueryParams, OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerPlayerHeroResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetHero,  { HeroID },EmptyQueryParams, OnCompleteBP, OnComplete);
 }
 
 void ULootLockerHeroRequestHandler::GetOtherPlayersDefaultHeroBySteamID64(const int64 SteamID64, const FLootLockerPlayerHeroBP &OnCompleteBP, const FLootLockerPlayerHeroDelegate &OnComplete)
 {
-	LLAPI<FLootLockerPlayerHeroResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOtherPlayersDefaultHeroBySteamID64,  { SteamID64 },EmptyQueryParams, OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerPlayerHeroResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetOtherPlayersDefaultHeroBySteamID64,  { SteamID64 },EmptyQueryParams, OnCompleteBP, OnComplete);
 }
 
 void ULootLockerHeroRequestHandler::UpdateHero(const int32 HeroID, const FLootLockerUpdateHeroRequest &Request, const FLootLockerPlayerHeroBP &OnCompleteBP, const FLootLockerPlayerHeroDelegate &OnComplete)
@@ -52,22 +52,22 @@ void ULootLockerHeroRequestHandler::UpdateHero(const int32 HeroID, const FLootLo
 
 void ULootLockerHeroRequestHandler::DeleteHero(const int32 HeroID, const FLLHeroDefaultResponseBP &OnCompleteBP, const FLLHeroDefaultResponseDelegate &OnComplete)
 {
-	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteHero, { HeroID },EmptyQueryParams, OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::DeleteHero, { HeroID },EmptyQueryParams, OnCompleteBP, OnComplete);
 }
 
 void ULootLockerHeroRequestHandler::GetHeroInventory(const int32 HeroID, const FPInventoryResponseBP &OnCompleteBp, const FInventoryResponse &OnComplete)
 {
-	LLAPI<FLootLockerInventoryResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetHeroInventory, { HeroID },EmptyQueryParams, OnCompleteBp, OnComplete);
+	LLAPI<FLootLockerInventoryResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetHeroInventory, { HeroID },EmptyQueryParams, OnCompleteBp, OnComplete);
 }
 
 void ULootLockerHeroRequestHandler::GetHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseBP &OnCompleteBP, const FHeroLoadoutReseponseDelegate &OnComplete)
 {
-	LLAPI<FLootLockerHeroLoadoutResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetHeroLoadout,  { HeroID },EmptyQueryParams, OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerHeroLoadoutResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetHeroLoadout,  { HeroID },EmptyQueryParams, OnCompleteBP, OnComplete);
 }
 
 void ULootLockerHeroRequestHandler::GetOtherPlayersHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseBP &OnCompleteBP, const FHeroLoadoutReseponseDelegate &OnComplete)
 {
-	LLAPI<FLootLockerHeroLoadoutResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOtherPlayersHeroLoadout,  { HeroID },EmptyQueryParams, OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerHeroLoadoutResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetOtherPlayersHeroLoadout,  { HeroID },EmptyQueryParams, OnCompleteBP, OnComplete);
 }
 
 void ULootLockerHeroRequestHandler::AddAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP &OnCompleteBP, const FHeroLoadoutReseponseDelegate &OnComplete)
@@ -87,6 +87,6 @@ void ULootLockerHeroRequestHandler::AddGlobalAssetVariationToHeroLoadout(const i
 
 void ULootLockerHeroRequestHandler::RemoveAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP &OnCompleteBP, const FHeroLoadoutReseponseDelegate &OnComplete)
 {
-	LLAPI<FLootLockerHeroLoadoutResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::RemoveAssetToHeroLoadout,  { HeroID, AssetInstanceID }, EmptyQueryParams, OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerHeroLoadoutResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::RemoveAssetToHeroLoadout,  { HeroID, AssetInstanceID }, EmptyQueryParams, OnCompleteBP, OnComplete);
 }
 

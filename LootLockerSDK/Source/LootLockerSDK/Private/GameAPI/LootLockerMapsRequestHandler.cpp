@@ -15,5 +15,5 @@ ULootLockerMapsRequestHandler::ULootLockerMapsRequestHandler()
 
 void ULootLockerMapsRequestHandler::GetMaps(const FGetMapsResponseDelegateBP& OnCompletedRequestBP, const FGetMapsResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerGetMapsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAllMapsEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerGetMapsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetAllMapsEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }

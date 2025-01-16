@@ -13,7 +13,7 @@ ULootLockerMiscellaneousRequestHandler::ULootLockerMiscellaneousRequestHandler()
 
 void ULootLockerMiscellaneousRequestHandler::GetServerTime(const FTimeResponseDelegateBP& OnCompletedRequestBP, const FTimeResponseDelegate& OnCompletedRequest)
 {
-	LLAPI<FLootLockerTimeResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetServerTimeEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+	LLAPI<FLootLockerTimeResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetServerTimeEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
 FString ULootLockerMiscellaneousRequestHandler::GetLastActivePlatform() {

@@ -6,6 +6,7 @@
 #include "LootLockerAssetsRequestHandler.h"
 #include "LootLockerHttpClient.h"
 #include "LootLockerResponse.h"
+#include "../Private/Utils/LootLockerUtilities.h"
 #include "LootLockerCharacterRequestHandler.generated.h"
 
 
@@ -67,11 +68,6 @@ struct FLootLockerCharacterLoadoutArray {
 	FLootLockerCharacter character;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	TArray<FLootLockerCharacterLoadout> loadout;
-};
-
-USTRUCT(BlueprintType)
-struct FLootLockerEmptyRequest {
-	GENERATED_BODY()
 };
 
 USTRUCT(BlueprintType)

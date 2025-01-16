@@ -7,11 +7,14 @@
 #include "LootLockerStateData.h"
 #include "LootLockerGameEndpoints.h"
 #include "LootLockerSDK.h"
-#include "GameAPI/LootLockerCharacterRequestHandler.h"
 #include "GameAPI/LootLockerMissionsRequestHandler.h"
 #include "LootLockerUtilities.generated.h"
 
-constexpr FLootLockerEmptyRequest LootLockerEmptyRequest;
+
+USTRUCT(BlueprintType)
+struct FLootLockerEmptyRequest {
+    GENERATED_BODY()
+};
 
 const TMultiMap<FString,FString> EmptyQueryParams;
 

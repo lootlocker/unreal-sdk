@@ -639,7 +639,7 @@ void ULootLockerAuthenticationRequestHandler::EndSession(const FLootLockerDefaul
 	{
 		CustomHeaders.Add(TEXT("logout"), TEXT("true"));
 	}
-	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::EndSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerResponse& Response)
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::EndSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerResponse& Response)
 		{
 			if (Response.success) {
 				ULootLockerStateData::ClearState();

@@ -16,7 +16,7 @@ ULootLockerPersistentStorageRequestHandler::ULootLockerPersistentStorageRequestH
 
 void ULootLockerPersistentStorageRequestHandler::GetEntirePersistentStorage(const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerPersistentStorageItemsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetEntirePersistentStorageEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerPersistentStorageItemsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetEntirePersistentStorageEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerPersistentStorageRequestHandler::GetItemFromPersistentStorage(const FString& Key, const FPersistentStorageItemResponseDelegateBP& OnCompletedRequestBP, const FPersistentStorageItemResponseDelegate& OnCompletedRequest)
@@ -24,7 +24,7 @@ void ULootLockerPersistentStorageRequestHandler::GetItemFromPersistentStorage(co
     TMultiMap<FString, FString> QueryParams;
 
     QueryParams.Add("key",Key);
-    LLAPI<FLootLockerPersistentStorageItemResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetASingleKeyFromPersistentStorageEndpoint, {  }, QueryParams, OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerPersistentStorageItemResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetASingleKeyFromPersistentStorageEndpoint, {  }, QueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerPersistentStorageRequestHandler::AddItemsToPersistentStorage(const FLootLockerPersistentStorageItems payload, const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest)
@@ -44,10 +44,10 @@ void ULootLockerPersistentStorageRequestHandler::DeleteItemFromPersistentStorage
     TMultiMap<FString, FString> QueryParams;
 
     QueryParams.Add("key",Key);
-    LLAPI<FLootLockerPersistentStorageItemsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteAKeyValuePairFromPersistentStorageEndpoint, {  }, QueryParams, OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerPersistentStorageItemsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::DeleteAKeyValuePairFromPersistentStorageEndpoint, {  }, QueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerPersistentStorageRequestHandler::GetPlayerPersistentStorage(const FString& PlayerId, const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerPersistentStorageItemsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOtherPlayersPublicKeyValuePairs, { PlayerId },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerPersistentStorageItemsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetOtherPlayersPublicKeyValuePairs, { PlayerId },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }

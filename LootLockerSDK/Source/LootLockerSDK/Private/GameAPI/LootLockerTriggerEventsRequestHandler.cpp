@@ -18,5 +18,5 @@ void ULootLockerTriggerEventsRequestHandler::TriggerEvent(const FLootLockerTrigg
 
 void ULootLockerTriggerEventsRequestHandler::GetTriggeredEvents(const FTriggersResponseDelegateBP& OnCompletedRequestBP, const FTriggersResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerTriggersResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetTriggeredEventsEndpoint, {  },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerTriggersResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetTriggeredEventsEndpoint, {  },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
