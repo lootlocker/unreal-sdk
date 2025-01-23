@@ -75,7 +75,6 @@ struct FLootLockerCharacterLoadoutResponse : public FLootLockerResponse {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	TArray<FLootLockerCharacterLoadoutArray> loadouts;
-    static const LLAPI<FLootLockerCharacterLoadoutResponse>::FResponseInspectorCallback ManualDeserializer;
 };
 
 USTRUCT(BlueprintType)

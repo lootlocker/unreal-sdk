@@ -5,23 +5,6 @@
 #include "LootLockerPlatformManager.h"
 
 ULootLockerHttpClient* ULootLockerCharacterRequestHandler::HttpClient = nullptr;
-const LLAPI<FLootLockerCharacterLoadoutResponse>::FResponseInspectorCallback FLootLockerCharacterLoadoutResponse::ManualDeserializer =
-            LLAPI<FLootLockerCharacterLoadoutResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerCharacterLoadoutResponse& Response)
-            {
-                if(Response.success)
-                {
-                    // Add "default" to is_default field manually if it exists
-                    for(int i = 0; i < Response.loadouts.Num(); ++i)
-                    {
-                        auto& loadout = Response.loadouts[i];
-                        
-                        const TSharedPtr<FJsonObject> jsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
-                        auto jsonLoadouts = jsonObject->GetArrayField(TEXT("loadouts"));
-                        auto jsonLoadout = jsonLoadouts[i]->AsObject();
-                        loadout.character.is_default = jsonLoadout->GetBoolField(TEXT("default"));
-                    }
-                }
-            });
 
 const LLAPI<FLootLockerListPlayerCharactersResponse>::FResponseInspectorCallback FLootLockerListPlayerCharactersResponse::ManualDeserializer =
             LLAPI<FLootLockerListPlayerCharactersResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerListPlayerCharactersResponse& Response)
@@ -48,7 +31,7 @@ ULootLockerCharacterRequestHandler::ULootLockerCharacterRequestHandler()
 
 void ULootLockerCharacterRequestHandler::GetCharacterLoadout(const FPCharacterLoadoutResponseBP& OnCompletedRequestBP, const FCharacterLoadoutResponse& OnCompletedRequest)
 {
-	LLAPI<FLootLockerCharacterLoadoutResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetCharacterLoadoutEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, FLootLockerCharacterLoadoutResponse::ManualDeserializer);
+	LLAPI<FLootLockerCharacterLoadoutResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetCharacterLoadoutEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerCharacterRequestHandler::UpdateCharacter(int CharacterId, bool IsDefault,  FString Name, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP, const FCharacterLoadoutResponse& OnCompletedRequest)
@@ -58,7 +41,7 @@ void ULootLockerCharacterRequestHandler::UpdateCharacter(int CharacterId, bool I
 	characterRequest.is_default = IsDefault;
 	characterRequest.name = Name;
 	
-	LLAPI<FLootLockerCharacterLoadoutResponse>::CallAPI(HttpClient, characterRequest, ULootLockerGameEndpoints::UpdateCharacterEndpoint, { CharacterId }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, FLootLockerCharacterLoadoutResponse::ManualDeserializer);
+	LLAPI<FLootLockerCharacterLoadoutResponse>::CallAPI(HttpClient, characterRequest, ULootLockerGameEndpoints::UpdateCharacterEndpoint, { CharacterId }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerCharacterRequestHandler::CreateCharacter(bool IsDefault,  FString CharacterName,  FString CharacterId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP, const FCharacterLoadoutResponse& OnCompletedRequest)
@@ -68,7 +51,7 @@ void ULootLockerCharacterRequestHandler::CreateCharacter(bool IsDefault,  FStrin
 	characterRequest.name = CharacterName;
 	characterRequest.character_type_id = CharacterId;
 
-	LLAPI<FLootLockerCharacterLoadoutResponse>::CallAPI(HttpClient, characterRequest, ULootLockerGameEndpoints::CreateCharacterEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, FLootLockerCharacterLoadoutResponse::ManualDeserializer);
+	LLAPI<FLootLockerCharacterLoadoutResponse>::CallAPI(HttpClient, characterRequest, ULootLockerGameEndpoints::CreateCharacterEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerCharacterRequestHandler::ListCharacterTypes(const FPLootLockerListCharacterTypesResponseBP& OnCompletedRequestBP, const FPLootLockerListCharacterTypesResponse& OnCompletedRequest)
@@ -107,7 +90,7 @@ void ULootLockerCharacterRequestHandler::UnEquipAssetToCharacterById(int Charact
 
 void ULootLockerCharacterRequestHandler::GetCurrentLoadoutToDefaultCharacter(const FPCharacterLoadoutResponseBP& OnCompletedRequestBP, const FCharacterLoadoutResponse& OnCompletedRequest)
 {
-	LLAPI<FLootLockerCharacterLoadoutResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetCurrentLoadoutToDefaultCharacterEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, FLootLockerCharacterLoadoutResponse::ManualDeserializer);
+	LLAPI<FLootLockerCharacterLoadoutResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetCurrentLoadoutToDefaultCharacterEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerCharacterRequestHandler::GetOtherPlayersCurrentLoadoutToDefaultCharacter(FString& OtherPlayerId, const FString& OtherPlayerPlatform, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP,  const FCharacterLoadoutResponse& OnCompletedRequest)
@@ -115,7 +98,7 @@ void ULootLockerCharacterRequestHandler::GetOtherPlayersCurrentLoadoutToDefaultC
 	const FString Platform = !OtherPlayerPlatform.IsEmpty() ? OtherPlayerPlatform : ULootLockerCurrentPlatform::GetString();
 	TMultiMap<FString, FString> QueryParams;
 	QueryParams.Add("platform", Platform);
-	LLAPI<FLootLockerCharacterLoadoutResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetOtherPlayersLoadoutToDefaultCharacterEndpoint, { OtherPlayerId },QueryParams, OnCompletedRequestBP, OnCompletedRequest, FLootLockerCharacterLoadoutResponse::ManualDeserializer);
+	LLAPI<FLootLockerCharacterLoadoutResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetOtherPlayersLoadoutToDefaultCharacterEndpoint, { OtherPlayerId },QueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerCharacterRequestHandler::GetEquipableContextsToDefaultCharacter(const FContextDelegateBP& OnCompletedRequestBP, const FContextDelegate& OnCompletedRequest)
