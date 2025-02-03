@@ -45,7 +45,7 @@ void ULootLockerHttpClient::LogFailedRequestInformation(const FLootLockerRespons
 	UE_LOG(LogLootLockerGameSDK, Warning, TEXT("%s"), *LogString);
 }
 
-bool ULootLockerHttpClient::ResponseIsValid(const FHttpResponsePtr& InResponse, bool bWasSuccessful)
+bool ULootLockerHttpClient::ResponseIsSuccess(const FHttpResponsePtr& InResponse, bool bWasSuccessful)
 {
     if (!bWasSuccessful || !InResponse.IsValid())
         return false;
@@ -89,9 +89,21 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 
 	Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this, endPoint, requestType, data](FHttpRequestPtr Req, const FHttpResponsePtr& Response, bool bWasSuccessful)
 	{
+        if (!Response.IsValid())
+        {
+            FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>("HTTP Response was invalid");
+            LogFailedRequestInformation(Error, requestType, endPoint, data);
+            onCompleteRequest.ExecuteIfBound(Error);
+            return;
+        }
+
 		FLootLockerResponse response;
         
-        response.success = ResponseIsValid(Response, bWasSuccessful);
+        response.success = ResponseIsSuccess(Response, bWasSuccessful);
+        if (!Response.IsValid())
+        {
+	        
+        }
         response.StatusCode = Response->GetResponseCode();
 		response.FullTextFromServer = Response->GetContentAsString();
 		if (!response.success)
@@ -193,9 +205,16 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
 
     Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this, requestType, endPoint](FHttpRequestPtr Req, const FHttpResponsePtr& Response, bool bWasSuccessful)
         {
+            if (!Response.IsValid())
+            {
+                FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>("HTTP Response was invalid");
+                LogFailedRequestInformation(Error, requestType, endPoint, FString("Data Stream"));
+                onCompleteRequest.ExecuteIfBound(Error);
+                return;
+            }
             FLootLockerResponse response;
 
-            response.success = ResponseIsValid(Response, bWasSuccessful);
+            response.success = ResponseIsSuccess(Response, bWasSuccessful);
             response.StatusCode = Response->GetResponseCode();
             response.FullTextFromServer = Response->GetContentAsString();
             if (!response.success)
