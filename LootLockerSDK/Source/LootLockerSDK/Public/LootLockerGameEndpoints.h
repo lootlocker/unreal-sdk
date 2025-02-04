@@ -18,6 +18,13 @@ enum class ELootLockerHTTPMethod : uint8
     UPLOAD = 8      UMETA(DisplayName = "UPLOAD")
 };
 
+UENUM(BlueprintType)
+enum class ELootLockerApiType : uint8
+{
+    LL_GAME = 0         UMETA(DisplayName = "GAME"),
+    LL_WHITELABEL = 1   UMETA(DisplayName = "WL"),
+};
+
 USTRUCT(BlueprintType)
 struct FLootLockerEndPoints
 {
@@ -294,6 +301,7 @@ public:
     static FLootLockerEndPoints MetadataActions;
 
 private:
-    static FString GameBaseUrl;
-    static FLootLockerEndPoints InitEndpoint(const FString& Endpoint, ELootLockerHTTPMethod Method);
+    static FString BaseUrl;
+    static FString GameUrlSuffix;
+    static FLootLockerEndPoints InitEndpoint(const FString& Endpoint, ELootLockerHTTPMethod Method, ELootLockerApiType ApiType = ELootLockerApiType::LL_GAME);
 };
