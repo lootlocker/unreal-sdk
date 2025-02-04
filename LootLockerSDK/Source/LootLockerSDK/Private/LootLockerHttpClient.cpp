@@ -77,7 +77,7 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 	Request->SetHeader(TEXT("LL-Instance-Identifier"), UserInstanceIdentifier);
     Request->SetHeader(TEXT("LL-SDK-Version"), SDKVersion);
     Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
-    Request->SetHeader(TEXT("Accepts"), TEXT("application/json"));
+    Request->SetHeader(TEXT("Accept"), TEXT("application/json"));
 
     for (TTuple<FString, FString> CustomHeader : customHeaders)
     {
