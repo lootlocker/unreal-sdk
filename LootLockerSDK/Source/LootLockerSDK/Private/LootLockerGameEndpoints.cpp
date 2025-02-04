@@ -3,10 +3,11 @@
 #include "LootLockerGameEndpoints.h"
 
 #ifdef LOOTLOCKER_USE_STAGE_URL
-FString ULootLockerGameEndpoints::GameBaseUrl = "https://{domainKey}api.stage.internal.dev.lootlocker.cloud/game/";
+FString ULootLockerGameEndpoints::BaseUrl = "https://{domainKey}api.stage.internal.dev.lootlocker.cloud/";
 #else
-FString ULootLockerGameEndpoints::GameBaseUrl = "https://{domainKey}api.lootlocker.com/game/";
+FString ULootLockerGameEndpoints::BaseUrl = "https://{domainKey}api.lootlocker.com/";
 #endif
+FString ULootLockerGameEndpoints::GameUrlSuffix = "game/";
 
 //Auth
 FLootLockerEndPoints ULootLockerGameEndpoints::StartSessionEndpoint = InitEndpoint("v2/session", ELootLockerHTTPMethod::POST);
@@ -37,12 +38,12 @@ FLootLockerEndPoints ULootLockerGameEndpoints::StartRemoteSessionEndpoint = Init
 FLootLockerEndPoints ULootLockerGameEndpoints::RefreshRemoteSessionEndpoint = InitEndpoint("session/remote", ELootLockerHTTPMethod::POST);
 
 // White Label
-FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelSignupEndpoint = InitEndpoint("white-label-login/sign-up", ELootLockerHTTPMethod::POST);
-FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelLoginEndpoint = InitEndpoint("white-label-login/login", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelAuthEndpoint = InitEndpoint("v2/session/white-label", ELootLockerHTTPMethod::POST);
-FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelVerifySessionEndpoint = InitEndpoint("white-label-login/verify-session", ELootLockerHTTPMethod::POST);
-FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelRequestPasswordResetEndpoint = InitEndpoint("white-label-login/request-reset-password", ELootLockerHTTPMethod::POST);
-FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelRequestVerificationEndpoint = InitEndpoint("white-label-login/request-verification", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelSignupEndpoint = InitEndpoint("white-label-login/sign-up", ELootLockerHTTPMethod::POST, ELootLockerApiType::LL_WHITELABEL);
+FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelLoginEndpoint = InitEndpoint("white-label-login/login", ELootLockerHTTPMethod::POST, ELootLockerApiType::LL_WHITELABEL);
+FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelVerifySessionEndpoint = InitEndpoint("white-label-login/verify-session", ELootLockerHTTPMethod::POST, ELootLockerApiType::LL_WHITELABEL);
+FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelRequestPasswordResetEndpoint = InitEndpoint("white-label-login/request-reset-password", ELootLockerHTTPMethod::POST, ELootLockerApiType::LL_WHITELABEL);
+FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelRequestVerificationEndpoint = InitEndpoint("white-label-login/request-verification", ELootLockerHTTPMethod::POST, ELootLockerApiType::LL_WHITELABEL);
 
 //Files
 FLootLockerEndPoints ULootLockerGameEndpoints::FileUploadEndpoint = InitEndpoint("player/files", ELootLockerHTTPMethod::POST);
@@ -266,17 +267,20 @@ FLootLockerEndPoints ULootLockerGameEndpoints::GetMultisourceMetadata = InitEndp
 FLootLockerEndPoints ULootLockerGameEndpoints::MetadataActions = InitEndpoint("metadata", ELootLockerHTTPMethod::POST);
 
 
-FLootLockerEndPoints ULootLockerGameEndpoints::InitEndpoint(const FString& Endpoint, ELootLockerHTTPMethod Method)
+FLootLockerEndPoints ULootLockerGameEndpoints::InitEndpoint(const FString& Endpoint, ELootLockerHTTPMethod Method, ELootLockerApiType ApiType /*= ELootLockerApiType::LL_GAME*/)
 {
 	FLootLockerEndPoints Result;
-	Result.endpoint = GameBaseUrl + Endpoint;
+	FString UrlBase = BaseUrl;
+	switch (ApiType)
+	{
+		case ELootLockerApiType::LL_WHITELABEL:
+			break;
+		case ELootLockerApiType::LL_GAME:
+		default:
+			UrlBase += GameUrlSuffix;
+	}
+	Result.endpoint = UrlBase + Endpoint;
 	Result.requestMethod = Method;
 
-	// Todo: Do this cleanly lol
-	if (Endpoint.Contains("white-label-login"))
-	{
-		// White-label has its own endpoint but I'm too lazy to refactor this whole thing to support it so yolo
-		Result.endpoint = Result.endpoint.Replace(TEXT(".io/game/"), TEXT(".io/"));
-	}
 	return Result;
 }
