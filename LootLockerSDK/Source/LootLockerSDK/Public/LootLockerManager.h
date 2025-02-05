@@ -2032,6 +2032,7 @@ public:
     * For Apple App Store purchases it is the transaction id
     * For Steam Store purchases it is the entitlement id
     * For LootLocker virtual purchases it is the catalog item id
+    * Twitch Drops have no uniquely identifying information, so sending in "twitch_drop" returns all twitch drop notifications
     *
     * @param NotificationsResponse The response from which you want to find the notifications.
     * @param IdentifyingValue The identifying value of the notification you want to fetch.
