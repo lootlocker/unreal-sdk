@@ -34,6 +34,7 @@ enum class ELootLockerNotificationSource : uint8
     purchasing_apple_app_store = 2,
     purchasing_google_play_store = 3,
     purchasing_lootlocker_store = 4,
+    twitch_drop = 5,
 };
 
 /**
@@ -79,6 +80,7 @@ struct LootLockerNotificationsStaticStrings
             static const FString GooglePlayStore;
             static const FString LootLocker;
         };
+        static const FString TwitchDrop;
     };
 
     /**
@@ -138,6 +140,12 @@ struct LootLockerNotificationsStaticStrings
                 static const FString CatalogItemId;
             };
         };
+        /**
+         * Standard context keys to expect (none) when source is a Twitch Drop
+         */
+        struct TwitchDrop
+        {
+        };
     };
 };
 
@@ -179,6 +187,11 @@ public:
      */
     UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Sources | Purchasing")
     static FString GetNotificationsSourcePurchasingLootLockerString() { return LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::LootLocker; };
+    /**
+     * Static String for use in Notifications -- Matching Notification source Twitch Drop
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Sources | Twitch Drop")
+    static FString GetNotificationsSourceTwitchDropString() { return LootLockerNotificationsStaticStrings::NotificationSources::TwitchDrop; };
     /**
      * Static String for use in Notification contexts -- Standard Context Key for Triggers
      */
@@ -828,6 +841,7 @@ struct FLootLockerListNotificationsResponse : public FLootLockerResponse
     * For Google Play Store purchases it is the product id
     * For Apple App Store purchases it is the transaction id
     * For LootLocker virtual purchases it is the catalog item id
+    * Twitch Drops have no uniquely identifying information, so sending in "twitch_drop" returns all twitch drop notifications
     * 
     * @param IdentifyingValue The identifying value of the notification you want to fetch.
     * @param OutNotifications A list of notifications that were found for the given identifying value or null if none were found.
