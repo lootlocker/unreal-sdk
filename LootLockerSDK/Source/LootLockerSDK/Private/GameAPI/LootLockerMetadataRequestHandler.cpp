@@ -317,7 +317,7 @@ void ULootLockerMetadataRequestHandler::ListMetadata(const ELootLockerMetadataSo
 
 	if (_SourceID.IsEmpty())
 	{
-        FLootLockerListMetadataResponse Error = LootLockerResponseFactory::Error<FLootLockerListMetadataResponse>("Can not list metadata for source with empty id");
+        FLootLockerListMetadataResponse Error = LootLockerResponseFactory::Error<FLootLockerListMetadataResponse>("Can not list metadata for source with empty id", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT);
 		OnCompleteBP.ExecuteIfBound(Error);
 		OnComplete.ExecuteIfBound(Error);
 		return;
@@ -400,7 +400,7 @@ void ULootLockerMetadataRequestHandler::GetMetadata(const ELootLockerMetadataSou
 	}
 	if (_SourceID.IsEmpty())
 	{
-        FLootLockerGetMetadataResponse Error = LootLockerResponseFactory::Error<FLootLockerGetMetadataResponse>("Can not list metadata for source with empty id");
+        FLootLockerGetMetadataResponse Error = LootLockerResponseFactory::Error<FLootLockerGetMetadataResponse>("Can not list metadata for source with empty id", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT);
 		OnCompleteBP.ExecuteIfBound(Error);
 		OnComplete.ExecuteIfBound(Error);
 		return;
@@ -449,7 +449,7 @@ void ULootLockerMetadataRequestHandler::GetMultisourceMetadata(const TArray<FLoo
 			|| JsonMetadataArray->Num() != Response.Metadata.Num())
 		{
 			FLootLockerGetMultisourceMetadataResponse Error = LootLockerResponseFactory::Error<
-				FLootLockerGetMultisourceMetadataResponse>("Could not parse metadata array");
+				FLootLockerGetMultisourceMetadataResponse>("Could not parse metadata array", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_PARSE_ERROR);
 			OnCompleteBP.ExecuteIfBound(Error);
 			OnComplete.ExecuteIfBound(Error);
 			return;
@@ -467,7 +467,7 @@ void ULootLockerMetadataRequestHandler::GetMultisourceMetadata(const TArray<FLoo
 			if (JsonEntries.Num() != Metadata.Entries.Num())
 			{
 				FLootLockerGetMultisourceMetadataResponse Error = LootLockerResponseFactory::Error<
-					FLootLockerGetMultisourceMetadataResponse>("Could not parse metadata entry array for metadata with source id " + Metadata.Source_id);
+					FLootLockerGetMultisourceMetadataResponse>("Could not parse metadata entry array for metadata with source id " + Metadata.Source_id, LootLockerStaticRequestErrorStatusCodes::LL_ERROR_PARSE_ERROR);
 				OnCompleteBP.ExecuteIfBound(Error);
 				OnComplete.ExecuteIfBound(Error);
 				return;
@@ -511,7 +511,7 @@ void ULootLockerMetadataRequestHandler::SetMetadata(const ELootLockerMetadataSou
 	}
 	if (_SourceID.IsEmpty())
 	{
-        FLootLockerSetMetadataResponse Error = LootLockerResponseFactory::Error<FLootLockerSetMetadataResponse>("Can not perform actions for source with empty id");
+        FLootLockerSetMetadataResponse Error = LootLockerResponseFactory::Error<FLootLockerSetMetadataResponse>("Can not perform actions for source with empty id", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT);
 		OnCompleteBP.ExecuteIfBound(Error);
 		OnComplete.ExecuteIfBound(Error);
 		return;
@@ -534,7 +534,7 @@ void ULootLockerMetadataRequestHandler::SetMetadata(const ELootLockerMetadataSou
 		if (!JsonEntry.IsValid())
 		{
 			FLootLockerSetMetadataResponse Error = LootLockerResponseFactory::Error<
-				FLootLockerSetMetadataResponse>("Could not serialize action for key " + ActionToPerform.Entry.Key);
+				FLootLockerSetMetadataResponse>("Could not serialize action for key " + ActionToPerform.Entry.Key, LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT);
 			OnCompleteBP.ExecuteIfBound(Error);
 			OnComplete.ExecuteIfBound(Error);
 			return;
@@ -551,7 +551,7 @@ void ULootLockerMetadataRequestHandler::SetMetadata(const ELootLockerMetadataSou
 		if (!ActionToPerform.Entry.TryGetRawValue(RawEntryValue))
 		{
 			FLootLockerSetMetadataResponse Error = LootLockerResponseFactory::Error<
-				FLootLockerSetMetadataResponse>("Could not get value to perform action " + JsonEntry->GetStringField(TEXT("action")) + " for key " + ActionToPerform.Entry.Key);
+				FLootLockerSetMetadataResponse>("Could not get value to perform action " + JsonEntry->GetStringField(TEXT("action")) + " for key " + ActionToPerform.Entry.Key, LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT);
 			OnCompleteBP.ExecuteIfBound(Error);
 			OnComplete.ExecuteIfBound(Error);
 			return;

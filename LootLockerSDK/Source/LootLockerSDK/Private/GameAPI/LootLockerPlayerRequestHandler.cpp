@@ -125,10 +125,10 @@ void ULootLockerPlayerRequestHandler::SetPlayerName(FString Name, const FPNameRe
 
 		if (Name.Equals(ULootLockerStateData::GetPlayerIdentifier(), ESearchCase::IgnoreCase)) 
 		{
-			OnCompletedRequestBP.ExecuteIfBound(LootLockerResponseFactory::Error<FLootLockerNameResponse>("Cannot set the Player name to their Identifier"));
+			OnCompletedRequestBP.ExecuteIfBound(LootLockerResponseFactory::Error<FLootLockerNameResponse>("Cannot set the Player name to their Identifier", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT));
 			return;
 		} else if (Name.Equals("player", ESearchCase::IgnoreCase)) {
-			OnCompletedRequestBP.ExecuteIfBound(LootLockerResponseFactory::Error<FLootLockerNameResponse>("Cannot set the Player name to 'Player'"));
+			OnCompletedRequestBP.ExecuteIfBound(LootLockerResponseFactory::Error<FLootLockerNameResponse>("Cannot set the Player name to 'Player'", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT));
 			return;
 		}
 
