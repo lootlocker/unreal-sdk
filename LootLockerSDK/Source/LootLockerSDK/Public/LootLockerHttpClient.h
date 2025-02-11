@@ -20,7 +20,7 @@ public:
     static void LogSuccessfulRequestInformation(const FLootLockerResponse& Response, const FString& RequestMethod, const FString& Endpoint, const FString& Data);
     static void LogFailedRequestInformation(const FLootLockerResponse& Response, const FString& RequestMethod, const FString& Endpoint, const FString& Data);
 private:
-    static bool ResponseIsValid(const FHttpResponsePtr& InResponse, bool bWasSuccessful);
+    static bool ResponseIsSuccess(const FHttpResponsePtr& InResponse, bool bWasSuccessful);
     static const FString UserAgent;
     static const FString UserInstanceIdentifier;
     static FString SDKVersion;
