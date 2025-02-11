@@ -65,12 +65,7 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
             UE_LOG(LogLootLockerGameSDK, Verbose, TEXT("LootLocker version: v%s"), *SDKVersion);
         }
     }
-
-#if ENGINE_MAJOR_VERSION <= 4 && ENGINE_MINOR_VERSION <= 25
-	TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
-#else
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = HttpModule->CreateRequest();
-#endif
 	Request->SetURL(endPoint);
 
 	Request->SetHeader(TEXT("User-Agent"), UserAgent);
@@ -137,12 +132,7 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
             SDKVersion = Ptr->GetDescriptor().VersionName;
         }
     }
-
-#if ENGINE_MAJOR_VERSION <= 4 && ENGINE_MINOR_VERSION <= 25
-	TSharedRef<IHttpRequest> Request = HttpModule->CreateRequest();
-#else
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = HttpModule->CreateRequest();
-#endif
 	Request->SetURL(endPoint);
 
     FString Boundary = "lootlockerboundary";
