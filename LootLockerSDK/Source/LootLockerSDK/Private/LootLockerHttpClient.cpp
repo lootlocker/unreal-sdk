@@ -86,7 +86,7 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 	{
         if (!Response.IsValid())
         {
-            FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>("HTTP Response was invalid");
+            FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>("HTTP Response was invalid", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_HTTP);
             LogFailedRequestInformation(Error, requestType, endPoint, data);
             onCompleteRequest.ExecuteIfBound(Error);
             return;
@@ -95,10 +95,6 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 		FLootLockerResponse response;
         
         response.success = ResponseIsSuccess(Response, bWasSuccessful);
-        if (!Response.IsValid())
-        {
-	        
-        }
         response.StatusCode = Response->GetResponseCode();
 		response.FullTextFromServer = Response->GetContentAsString();
 		if (!response.success)
@@ -152,7 +148,7 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
 
     TArray<uint8> UpFileRawData;
     if (!FFileHelper::LoadFileToArray(UpFileRawData, *FilePath)) {
-        onCompleteRequest.ExecuteIfBound(LootLockerResponseFactory::Error<FLootLockerResponse>(FString::Format(TEXT("Could not read file {0}"), { FilePath })));
+        onCompleteRequest.ExecuteIfBound(LootLockerResponseFactory::Error<FLootLockerResponse>(FString::Format(TEXT("Could not read file {0}"), { FilePath }), LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT));
         return;
     }
 
@@ -197,7 +193,7 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
         {
             if (!Response.IsValid())
             {
-                FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>("HTTP Response was invalid");
+                FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>("HTTP Response was invalid", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_HTTP);
                 LogFailedRequestInformation(Error, requestType, endPoint, FString("Data Stream"));
                 onCompleteRequest.ExecuteIfBound(Error);
                 return;
