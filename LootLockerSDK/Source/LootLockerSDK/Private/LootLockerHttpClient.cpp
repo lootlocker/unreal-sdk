@@ -96,12 +96,16 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 	Request->SetVerb(requestType);
     Request->SetContentAsString(data);
 
+    FString playerUlid = PlayerData.PlayerUlid;
+    FString requestTime = FString::FromInt(FDateTime::Now().ToUnixTimestamp());
     FString DelimitedHeaders = "";
     TArray<FString> AllHeaders = Request->GetAllHeaders();
     for (auto Header : AllHeaders)
     {
         DelimitedHeaders += TEXT("    ") + Header + TEXT("\n");
     }
+
+	Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this, endPoint, requestType, data, playerUlid, requestTime, DelimitedHeaders](FHttpRequestPtr Req, const FHttpResponsePtr& Response, bool bWasSuccessful)
 	{
         if (!Response.IsValid())
         {
@@ -116,6 +120,8 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
         response.success = ResponseIsSuccess(Response, bWasSuccessful);
         response.StatusCode = Response->GetResponseCode();
 		response.FullTextFromServer = Response->GetContentAsString();
+        response.Context.PlayerUlid = playerUlid;
+        response.Context.RequestTime = requestTime;
 		if (!response.success)
 		{
             FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerErrorData>(response.FullTextFromServer, &response.ErrorData, 0, 0);
@@ -167,7 +173,7 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
 
     TArray<uint8> UpFileRawData;
     if (!FFileHelper::LoadFileToArray(UpFileRawData, *FilePath)) {
-        onCompleteRequest.ExecuteIfBound(LootLockerResponseFactory::Error<FLootLockerResponse>(FString::Format(TEXT("Could not read file {0}"), { FilePath }), LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT));
+        onCompleteRequest.ExecuteIfBound(LootLockerResponseFactory::Error<FLootLockerResponse>(FString::Format(TEXT("Could not read file {0}"), { FilePath }), LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, PlayerData.PlayerUlid));
         return;
     }
 
@@ -208,6 +214,8 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
 
     Request->SetContent(Data);
 
+    FString playerUlid = PlayerData.PlayerUlid;
+    FString requestTime = FString::FromInt(FDateTime::Now().ToUnixTimestamp());
     FString DelimitedHeaders = "";
     TArray<FString> AllHeaders = Request->GetAllHeaders();
     for (auto Header : AllHeaders)
@@ -215,6 +223,7 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
         DelimitedHeaders += TEXT("    ") + Header + TEXT("\n");
     }
 
+    Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this, requestType, endPoint, playerUlid, requestTime, DelimitedHeaders](FHttpRequestPtr Req, const FHttpResponsePtr& Response, bool bWasSuccessful)
         {
             if (!Response.IsValid())
             {
@@ -228,6 +237,8 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
             response.success = ResponseIsSuccess(Response, bWasSuccessful);
             response.StatusCode = Response->GetResponseCode();
             response.FullTextFromServer = Response->GetContentAsString();
+            response.Context.PlayerUlid = playerUlid;
+            response.Context.RequestTime = requestTime;
             if (!response.success)
             {
                 FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerErrorData>(response.FullTextFromServer, &response.ErrorData, 0, 0);
