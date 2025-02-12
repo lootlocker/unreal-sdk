@@ -132,6 +132,7 @@ struct LLAPI
             ResponseStruct.success = response.success;
             ResponseStruct.StatusCode = response.StatusCode;
             ResponseStruct.FullTextFromServer = response.FullTextFromServer;
+            ResponseStruct.Context = response.Context;
             if (!ResponseStruct.success)
             {
                 ResponseStruct.ErrorData = response.ErrorData;
