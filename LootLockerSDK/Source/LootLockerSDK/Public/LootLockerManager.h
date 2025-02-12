@@ -116,6 +116,23 @@ public:
     //==================================================
 
     /**
+    Add a player state manually from data sourced externally. Use this for example with the token exchange feature in a server context.
+
+    @param SessionToken The Session Token to use when making requests for this player
+    @param PlayerUlid The Ulid of the player, this is the identifier used to select which token to use for requests
+    @param CurrentPlatform The platform/authentication method used for this player
+    @param RefreshToken (Optional) The token to use when refreshing sessions for this player
+    @param PlayerIdentifier (Optional) The player identifier of the player
+    @param PlayerPublicUid (Optional) The public uid of the player
+    @param PlayerName (Optional) The name of the player if any has been set
+    @param WhiteLabelEmail (Optional) The email used for white label authentication (only if the platform is White Label)
+    @param WhiteLabelToken (Optional) The Token identifying the White Label Session
+    @param LastSignIn (Optional) When this player was last authenticated
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = 3, RefreshToken = "", PlayerIdentifier = "", PlayerUlid = "", PlayerPublicUid = "", PlayerName = "", WhiteLabelEmail = "", WhiteLabelToken = "", LastSignIn = ""))
+    static void StartSessionManual(const FString& SessionToken, const FString& PlayerUlid, FLootLockerPlatformRepresentation CurrentPlatform, const FString& RefreshToken, const FString& PlayerIdentifier, const FString& PlayerPublicUid, const FString& PlayerName, const FString& WhiteLabelEmail, const FString& WhiteLabelToken, const FString& LastSignIn);
+
+    /**
      * Start a session for a Playstation Network user
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.
      * https://ref.lootlocker.com/game-api/#authentication-request

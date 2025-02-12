@@ -107,6 +107,13 @@ public:
     //==================================================
 
     /**
+    Add a player state manually from data sourced externally. Use this for example with the token exchange feature in a server context.
+
+    @param ForPlayer The player state to store (and use for requests)
+     */
+    static void StartSessionManual(const FLootLockerPlayerData& ForPlayer);
+
+    /**
      * Start a session for a Playstation Network user
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.
      * https://ref.lootlocker.com/game-api/#authentication-request

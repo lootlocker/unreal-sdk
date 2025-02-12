@@ -48,6 +48,15 @@ void ULootLockerManager::ClearAllPlayerCaches()
     ULootLockerStateData::ClearAllSavedStates();
 }
 
+// Authentication
+void ULootLockerManager::StartSessionManual(const FString& SessionToken, const FString& PlayerUlid,
+    FLootLockerPlatformRepresentation CurrentPlatform, const FString& RefreshToken, const FString& PlayerIdentifier, const FString& PlayerPublicUid, const FString& PlayerName,
+    const FString& WhiteLabelEmail, const FString& WhiteLabelToken, const FString& LastSignIn)
+{
+    FLootLockerPlayerData Data = FLootLockerPlayerData::Create(SessionToken, RefreshToken, PlayerIdentifier, PlayerUlid, PlayerPublicUid, PlayerName, WhiteLabelEmail, WhiteLabelToken, CurrentPlatform, LastSignIn);
+    ULootLockerStateData::SavePlayerData(Data);
+}
+
 void ULootLockerManager::StartPlaystationNetworkSession(const FString& PsnOnlineId, const FAuthResponseBP& OnStartedSessionRequestCompleted)
 {
     ULootLockerAuthenticationRequestHandler::StartPlaystationNetworkSession(PsnOnlineId, OnStartedSessionRequestCompleted);
