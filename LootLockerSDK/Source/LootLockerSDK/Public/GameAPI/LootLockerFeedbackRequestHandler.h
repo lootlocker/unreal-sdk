@@ -122,8 +122,8 @@ class LOOTLOCKERSDK_API ULootLockerFeedbackRequestHandler : public UObject
     GENERATED_BODY()
 public:
     ULootLockerFeedbackRequestHandler();
-    static void ListFeedbackCategories(const ELootLockerFeedbackType& Type, const FLootLockerListFeedbackCategoryResponseBP& OnCompletedRequestBP = FLootLockerListFeedbackCategoryResponseBP(), const FLootLockerListFeedbackCategoryResponseDelegate& OnCompletedRequest = FLootLockerListFeedbackCategoryResponseDelegate());
-    static void SendFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const ELootLockerFeedbackType& Type, const FLootLockerSendFeedbackResponseBP& OnCompletedRequestBP = FLootLockerSendFeedbackResponseBP(), const FLootLockerSendFeedbackResponseDelegate& OnCompletedRequest = FLootLockerSendFeedbackResponseDelegate());
+    static void ListFeedbackCategories(const FLootLockerPlayerData& PlayerData, const ELootLockerFeedbackType& Type, const FLootLockerListFeedbackCategoryResponseBP& OnCompletedRequestBP = FLootLockerListFeedbackCategoryResponseBP(), const FLootLockerListFeedbackCategoryResponseDelegate& OnCompletedRequest = FLootLockerListFeedbackCategoryResponseDelegate());
+    static void SendFeedback(const FLootLockerPlayerData& PlayerData, const FString& Ulid, const FString& Description, const FString& CategoryID, const ELootLockerFeedbackType& Type, const FLootLockerSendFeedbackResponseBP& OnCompletedRequestBP = FLootLockerSendFeedbackResponseBP(), const FLootLockerSendFeedbackResponseDelegate& OnCompletedRequest = FLootLockerSendFeedbackResponseDelegate());
 private:
     static ULootLockerHttpClient* HttpClient;
 };

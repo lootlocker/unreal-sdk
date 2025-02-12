@@ -11,11 +11,12 @@ ULootLockerMiscellaneousRequestHandler::ULootLockerMiscellaneousRequestHandler()
 	HttpClient = NewObject<ULootLockerHttpClient>();
 }
 
-void ULootLockerMiscellaneousRequestHandler::GetServerTime(const FTimeResponseDelegateBP& OnCompletedRequestBP, const FTimeResponseDelegate& OnCompletedRequest)
+void ULootLockerMiscellaneousRequestHandler::GetServerTime(const FLootLockerPlayerData& PlayerData, const FTimeResponseDelegateBP& OnCompletedRequestBP, const FTimeResponseDelegate& OnCompletedRequest)
 {
-	LLAPI<FLootLockerTimeResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetServerTimeEndpoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+	LLAPI<FLootLockerTimeResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetServerTimeEndpoint, { },EmptyQueryParams, PlayerData, OnCompletedRequestBP, OnCompletedRequest);
 }
 
-FString ULootLockerMiscellaneousRequestHandler::GetLastActivePlatform() {
-	return ULootLockerStateData::GetLastActivePlatform();
+FString ULootLockerMiscellaneousRequestHandler::GetLastActivePlatform(const FLootLockerPlayerData& PlayerData)
+{
+	return PlayerData.CurrentPlatform.GetFriendlyPlatformString();
 }
