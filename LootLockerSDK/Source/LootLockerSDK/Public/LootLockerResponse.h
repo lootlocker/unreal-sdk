@@ -32,6 +32,18 @@ struct FLootLockerErrorData
 };
 
 USTRUCT(BlueprintType)
+struct FLootLockerRequestContext
+{
+    GENERATED_BODY()
+    // What player this request was made on behalf of
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString PlayerUlid;
+    // The time that this request was made
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString RequestTime;
+};
+
+USTRUCT(BlueprintType)
 struct FLootLockerResponse
 {
     GENERATED_BODY()
@@ -47,6 +59,9 @@ struct FLootLockerResponse
     // If this request was not a success, this structure holds all the information needed to identify the problem
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerErrorData ErrorData;
+    // Context for the request
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerRequestContext Context;
 };
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerDefaultResponseBP, FLootLockerResponse, Var);
@@ -176,13 +191,14 @@ class LootLockerResponseFactory
 public:
     // Construct a standardized error response
     template<typename T>
-    static T Error(FString ErrorMessage, int StatusCode = 0)
+    static T Error(FString ErrorMessage, int StatusCode = 0, const FString& PlayerUlid = "")
     {
         T ErrorResponse;
         ErrorResponse.success = false;
         ErrorResponse.StatusCode = StatusCode;
         ErrorResponse.FullTextFromServer = "{ \"message\": \"" + ErrorMessage + "\"}";
         ErrorResponse.ErrorData.Message = ErrorMessage;
+        ErrorResponse.Context.PlayerUlid = PlayerUlid;
         return ErrorResponse;
     }
 };
