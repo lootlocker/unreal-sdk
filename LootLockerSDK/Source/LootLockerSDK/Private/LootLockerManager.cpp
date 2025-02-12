@@ -2,10 +2,55 @@
 
 #include "LootLockerManager.h"
 
+#include "ImageUtils.h"
 #include "LootLockerPlatformManager.h"
 #include "GameAPI/LootLockerCatalogRequestHandler.h"
 #include "GameAPI/LootLockerMetadataRequestHandler.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
+
+
+UTexture2D* ULootLockerManager::GetTextureFromBase64(const FString& ContentType, const FString& Content)
+{
+    TArray<uint8> data_buffer;
+
+    if (bool isDecode = FBase64::Decode(Content, data_buffer)) {
+        return CreateBitTextureAtRuntime(data_buffer);
+    }
+    else {
+        return nullptr;
+    }
+}
+
+TMap<FString, int> ULootLockerManager::SortMap(TMap<FString, int> Map, bool sortDescending)
+{
+    if (sortDescending)
+    {
+        Map.ValueSort([](const int& a, const int& b) -> bool
+        {
+                return a > b;
+        });
+    } else
+    {
+        Map.ValueSort([](const int& a, const int& b) -> bool
+            {
+                return a < b;
+            });
+    }
+    return Map;
+}
+
+
+UTexture2D* ULootLockerManager::CreateBitTextureAtRuntime(TArray<uint8>& BGRA8PixelData)
+{
+    UTexture2D* Texture = FImageUtils::ImportBufferAsTexture2D(BGRA8PixelData);
+    //Texture->MipGenSettings = TMGS_NoMipmaps;
+    Texture->CompressionSettings = TextureCompressionSettings::TC_VectorDisplacementmap;
+    //Texture->MipGenSettings = TextureMipGenSettings::TMGS_NoMipmaps;
+    Texture->SRGB = false;
+    Texture->Filter = TextureFilter::TF_Nearest;
+    Texture->UpdateResource();
+    return Texture;
+}
 
 // Player State
 TArray<FString> ULootLockerManager::GetActivePlayerUlids()

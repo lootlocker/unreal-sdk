@@ -41,7 +41,16 @@ class LOOTLOCKERSDK_API ULootLockerManager : public UObject
 {
     GENERATED_BODY()
 
+    UFUNCTION(BlueprintCallable, Category = "Base 64 Helper Methods")
+    static UTexture2D* GetTextureFromBase64(const FString& ContentType, const FString& Content);
+
+    UFUNCTION(BlueprintCallable, Category = "Map helpers")
+    static TMap<FString, int> SortMap(TMap<FString, int> Map, bool sortDescending);
+private:
+    static UTexture2D* CreateBitTextureAtRuntime(TArray<uint8>& BGRA8PixelData);
+
 public:
+
 
     //==================================================
     // Player State
