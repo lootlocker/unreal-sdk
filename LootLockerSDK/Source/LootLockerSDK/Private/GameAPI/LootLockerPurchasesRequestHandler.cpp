@@ -14,38 +14,38 @@ ULootLockerPurchasesRequestHandler::ULootLockerPurchasesRequestHandler()
     HttpClient = NewObject<ULootLockerHttpClient>();
 }
 
-void ULootLockerPurchasesRequestHandler::ActivateRentalAsset(int AssetInstanceId, const FActivateRentalAssetResponseDelegateBP& OnCompletedRequestBP, const FActivateRentalAssetResponseDelegate& OnCompletedRequest)
+void ULootLockerPurchasesRequestHandler::ActivateRentalAsset(const FLootLockerPlayerData& PlayerData, int AssetInstanceId, const FActivateRentalAssetResponseDelegateBP& OnCompletedRequestBP, const FActivateRentalAssetResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerActivateRentalAssetResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ActivateRentalAssetEndpoint, { AssetInstanceId }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerActivateRentalAssetResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ActivateRentalAssetEndpoint, { AssetInstanceId }, EmptyQueryParams, PlayerData, OnCompletedRequestBP, OnCompletedRequest);
 }
 
-void ULootLockerPurchasesRequestHandler::PurchaseCatalogItems(const FString& WalletID, const TArray<FLootLockerCatalogItemAndQuantityPair>& ItemsToPurchase, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
+void ULootLockerPurchasesRequestHandler::PurchaseCatalogItems(const FLootLockerPlayerData& PlayerData, const FString& WalletID, const TArray<FLootLockerCatalogItemAndQuantityPair>& ItemsToPurchase, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
 {
-    LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerPurchaseCatalogItemRequest{ WalletID, ItemsToPurchase }, ULootLockerGameEndpoints::PurchaseCatalogItem, {}, {}, OnCompletedBP, OnCompleted);
+    LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerPurchaseCatalogItemRequest{ WalletID, ItemsToPurchase }, ULootLockerGameEndpoints::PurchaseCatalogItem, {}, {}, PlayerData, OnCompletedBP, OnCompleted);
 }
 
-void ULootLockerPurchasesRequestHandler::RedeemAppleAppStorePurchaseForPlayer(const FString& TransactionId, const bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
+void ULootLockerPurchasesRequestHandler::RedeemAppleAppStorePurchaseForPlayer(const FLootLockerPlayerData& PlayerData, const FString& TransactionId, const bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
 {
-    LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerRedeemAppleAppStorePurchaseForPlayerRequest{ Sandboxed, TransactionId }, ULootLockerGameEndpoints::RedeemAppleAppStorePurchase, {}, {}, OnCompletedBP, OnCompleted);
+    LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerRedeemAppleAppStorePurchaseForPlayerRequest{ Sandboxed, TransactionId }, ULootLockerGameEndpoints::RedeemAppleAppStorePurchase, {}, {}, PlayerData, OnCompletedBP, OnCompleted);
 }
 
-void ULootLockerPurchasesRequestHandler::RedeemAppleAppStorePurchaseForClass(const int ClassId, const FString& TransactionId, const bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
+void ULootLockerPurchasesRequestHandler::RedeemAppleAppStorePurchaseForClass(const FLootLockerPlayerData& PlayerData, const int ClassId, const FString& TransactionId, const bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
 {
-	FLootLockerRedeemAppleAppStorePurchaseForClassRequest PurchaseRequest =FLootLockerRedeemAppleAppStorePurchaseForClassRequest();
+    FLootLockerRedeemAppleAppStorePurchaseForClassRequest PurchaseRequest = FLootLockerRedeemAppleAppStorePurchaseForClassRequest();
     PurchaseRequest.Class_id = ClassId;
     PurchaseRequest.Sandboxed = Sandboxed;
     PurchaseRequest.Transaction_id = TransactionId;
     FString JsonString = LootLockerUtilities::UStructToJsonString(PurchaseRequest);
     JsonString.ReplaceInline(TEXT("Class_id"), TEXT("character_id"), ESearchCase::IgnoreCase);
-    LLAPI<FLootLockerResponse>::CallAPIUsingRawJSON(HttpClient, JsonString, ULootLockerGameEndpoints::RedeemAppleAppStorePurchase, {}, {}, OnCompletedBP, OnCompleted);
+    LLAPI<FLootLockerResponse>::CallAPIUsingRawJSON(HttpClient, JsonString, ULootLockerGameEndpoints::RedeemAppleAppStorePurchase, {}, {}, PlayerData, OnCompletedBP, OnCompleted);
 }
 
-void ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForPlayer(const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
+void ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForPlayer(const FLootLockerPlayerData& PlayerData, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
 {
-    LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerRedeemGooglePlayStorePurchaseForPlayerRequest{ ProductId, PurchaseToken }, ULootLockerGameEndpoints::RedeemGooglePlayStorePurchase, {}, {}, OnCompletedBP, OnCompleted);
+    LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerRedeemGooglePlayStorePurchaseForPlayerRequest{ ProductId, PurchaseToken }, ULootLockerGameEndpoints::RedeemGooglePlayStorePurchase, {}, {}, PlayerData, OnCompletedBP, OnCompleted);
 }
 
-void ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForClass(const int ClassId, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
+void ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForClass(const FLootLockerPlayerData& PlayerData, const int ClassId, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
 {
     FLootLockerRedeemGooglePlayStorePurchaseForClassRequest PurchaseRequest = FLootLockerRedeemGooglePlayStorePurchaseForClassRequest();
     PurchaseRequest.Class_id = ClassId;
@@ -53,10 +53,10 @@ void ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForClass(c
     PurchaseRequest.Purchase_token = PurchaseToken;
     FString JsonString = LootLockerUtilities::UStructToJsonString(PurchaseRequest);
     JsonString.ReplaceInline(TEXT("Class_id"), TEXT("character_id"), ESearchCase::IgnoreCase);
-    LLAPI<FLootLockerResponse>::CallAPIUsingRawJSON(HttpClient, JsonString, ULootLockerGameEndpoints::RedeemGooglePlayStorePurchase, {}, {}, OnCompletedBP, OnCompleted);
+    LLAPI<FLootLockerResponse>::CallAPIUsingRawJSON(HttpClient, JsonString, ULootLockerGameEndpoints::RedeemGooglePlayStorePurchase, {}, {}, PlayerData, OnCompletedBP, OnCompleted);
 }
 
-void ULootLockerPurchasesRequestHandler::BeginSteamPurchaseRedemption(const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedBP, const FLootLockerBeginSteamPurchaseRedemptionDelegate& OnCompleted)
+void ULootLockerPurchasesRequestHandler::BeginSteamPurchaseRedemption(const FLootLockerPlayerData& PlayerData, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedBP, const FLootLockerBeginSteamPurchaseRedemptionDelegate& OnCompleted)
 {
     const FLootLockerBeginSteamPurchaseRedemptionRequest PurchaseRequest = FLootLockerBeginSteamPurchaseRedemptionRequest{
         SteamId,
@@ -64,36 +64,36 @@ void ULootLockerPurchasesRequestHandler::BeginSteamPurchaseRedemption(const FStr
         Language,
         CatalogItemId
     };
-    LLAPI<FLootLockerBeginSteamPurchaseRedemptionResponse>::CallAPI(HttpClient, PurchaseRequest, ULootLockerGameEndpoints::BeginSteamPurchaseRedemption, {}, {}, OnCompletedBP, OnCompleted, LLAPI<FLootLockerBeginSteamPurchaseRedemptionResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerBeginSteamPurchaseRedemptionResponse& Response)
-    {
-        const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
-        Response.isSuccess = JsonObject->GetBoolField(TEXT("success"));
-    }));
+    LLAPI<FLootLockerBeginSteamPurchaseRedemptionResponse>::CallAPI(HttpClient, PurchaseRequest, ULootLockerGameEndpoints::BeginSteamPurchaseRedemption, {}, {}, PlayerData, OnCompletedBP, OnCompleted, LLAPI<FLootLockerBeginSteamPurchaseRedemptionResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerBeginSteamPurchaseRedemptionResponse& Response)
+        {
+            const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
+            Response.isSuccess = JsonObject->GetBoolField(TEXT("success"));
+        }));
 }
 
-void ULootLockerPurchasesRequestHandler::BeginSteamPurchaseRedemptionForClass(const int ClassId, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedBP, const FLootLockerBeginSteamPurchaseRedemptionDelegate& OnCompleted)
+void ULootLockerPurchasesRequestHandler::BeginSteamPurchaseRedemptionForClass(const FLootLockerPlayerData& PlayerData, const int ClassId, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedBP, const FLootLockerBeginSteamPurchaseRedemptionDelegate& OnCompleted)
 {
     FLootLockerBeginSteamPurchaseRedemptionForClassRequest PurchaseRequest;
-	PurchaseRequest.Steam_id = SteamId;
-	PurchaseRequest.Currency = Currency;
-	PurchaseRequest.Language = Language;
-	PurchaseRequest.Catalog_item_id = CatalogItemId;
-	PurchaseRequest.Class_id = ClassId;
-	FString JsonString = LootLockerUtilities::UStructToJsonString(PurchaseRequest);
+    PurchaseRequest.Steam_id = SteamId;
+    PurchaseRequest.Currency = Currency;
+    PurchaseRequest.Language = Language;
+    PurchaseRequest.Catalog_item_id = CatalogItemId;
+    PurchaseRequest.Class_id = ClassId;
+    FString JsonString = LootLockerUtilities::UStructToJsonString(PurchaseRequest);
     JsonString.ReplaceInline(TEXT("Class_id"), TEXT("character_id"), ESearchCase::IgnoreCase);
-    LLAPI<FLootLockerBeginSteamPurchaseRedemptionResponse>::CallAPIUsingRawJSON(HttpClient, JsonString, ULootLockerGameEndpoints::BeginSteamPurchaseRedemption, {}, {}, OnCompletedBP, OnCompleted, LLAPI<FLootLockerBeginSteamPurchaseRedemptionResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerBeginSteamPurchaseRedemptionResponse& Response)
-    {
-        const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
-        Response.isSuccess = JsonObject->GetBoolField(TEXT("success"));
-    }));
+    LLAPI<FLootLockerBeginSteamPurchaseRedemptionResponse>::CallAPIUsingRawJSON(HttpClient, JsonString, ULootLockerGameEndpoints::BeginSteamPurchaseRedemption, {}, {}, PlayerData, OnCompletedBP, OnCompleted, LLAPI<FLootLockerBeginSteamPurchaseRedemptionResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerBeginSteamPurchaseRedemptionResponse& Response)
+        {
+            const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
+            Response.isSuccess = JsonObject->GetBoolField(TEXT("success"));
+        }));
 }
 
-void ULootLockerPurchasesRequestHandler::QuerySteamPurchaseRedemptionStatus(const FString& EntitlementId, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegateBP& OnCompletedBP, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegate& OnCompleted)
+void ULootLockerPurchasesRequestHandler::QuerySteamPurchaseRedemptionStatus(const FLootLockerPlayerData& PlayerData, const FString& EntitlementId, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegateBP& OnCompletedBP, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegate& OnCompleted)
 {
-    LLAPI<FLootLockerQuerySteamPurchaseRedemptionStatusResponse>::CallAPI(HttpClient, FLootLockerQuerySteamPurchaseRedemptionStatusRequest{ EntitlementId }, ULootLockerGameEndpoints::QuerySteamPurchaseRedemptionStatus, {}, {}, OnCompletedBP, OnCompleted);
+    LLAPI<FLootLockerQuerySteamPurchaseRedemptionStatusResponse>::CallAPI(HttpClient, FLootLockerQuerySteamPurchaseRedemptionStatusRequest{ EntitlementId }, ULootLockerGameEndpoints::QuerySteamPurchaseRedemptionStatus, {}, {}, PlayerData, OnCompletedBP, OnCompleted);
 }
 
-void ULootLockerPurchasesRequestHandler::FinalizeSteamPurchaseRedemption(const FString& EntitlementId, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
+void ULootLockerPurchasesRequestHandler::FinalizeSteamPurchaseRedemption(const FLootLockerPlayerData& PlayerData, const FString& EntitlementId, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
 {
-    LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerFinalizeSteamPurchaseRedemptionRequest{ EntitlementId }, ULootLockerGameEndpoints::FinalizeSteamPurchaseRedemption, {}, {}, OnCompletedBP, OnCompleted);
+    LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerFinalizeSteamPurchaseRedemptionRequest{ EntitlementId }, ULootLockerGameEndpoints::FinalizeSteamPurchaseRedemption, {}, {}, PlayerData, OnCompletedBP, OnCompleted);
 }

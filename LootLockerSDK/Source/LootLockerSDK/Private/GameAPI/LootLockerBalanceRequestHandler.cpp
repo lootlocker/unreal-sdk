@@ -11,58 +11,58 @@ ULootLockerBalanceRequestHandler::ULootLockerBalanceRequestHandler()
     HttpClient = NewObject<ULootLockerHttpClient>();
 }
 
-void ULootLockerBalanceRequestHandler::ListBalancesInWallet(const FString& WalletID, const FLootLockerListBalancesForWalletResponseBP& OnCompleteBP, const FLootLockerListBalancesForWalletResponseDelegate& OnComplete)
+void ULootLockerBalanceRequestHandler::ListBalancesInWallet(const FLootLockerPlayerData& PlayerData, const FString& WalletID, const FLootLockerListBalancesForWalletResponseBP& OnCompleteBP, const FLootLockerListBalancesForWalletResponseDelegate& OnComplete)
 {
-	LLAPI<FLootLockerListBalancesForWalletResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListBalancesInWallet, { WalletID }, {}, OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerListBalancesForWalletResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListBalancesInWallet, { WalletID }, {}, PlayerData, OnCompleteBP, OnComplete);
 }
 
-void ULootLockerBalanceRequestHandler::GetWalletByWalletID(const FString& WalletID, const FLootLockerGetWalletResponseBP& OnCompleteBP, const FLootLockerGetWalletResponseDelegate& OnComplete)
+void ULootLockerBalanceRequestHandler::GetWalletByWalletID(const FLootLockerPlayerData& PlayerData, const FString& WalletID, const FLootLockerGetWalletResponseBP& OnCompleteBP, const FLootLockerGetWalletResponseDelegate& OnComplete)
 {
-	LLAPI<FLootLockerGetWalletResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetWalletByWalletId , { WalletID }, {}, OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerGetWalletResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetWalletByWalletId, { WalletID }, {}, PlayerData, OnCompleteBP, OnComplete);
 }
 
-void ULootLockerBalanceRequestHandler::GetWalletByHolderID(const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerGetWalletResponseBP& OnCompleteBP, const FLootLockerGetWalletResponseDelegate& OnComplete)
+void ULootLockerBalanceRequestHandler::GetWalletByHolderID(const FLootLockerPlayerData& PlayerData, const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerGetWalletResponseBP& OnCompleteBP, const FLootLockerGetWalletResponseDelegate& OnComplete)
 {
-	const auto Inspector = FLootLockerGetWalletResponseDelegate::CreateLambda([HolderULID, HolderType, OnCompleteBP, OnComplete](const FLootLockerGetWalletResponse& Response)
-	{
-		if(Response.success)
+	const auto Inspector = FLootLockerGetWalletResponseDelegate::CreateLambda([HolderULID, HolderType, PlayerData, OnCompleteBP, OnComplete](const FLootLockerGetWalletResponse& Response)
 		{
-			OnCompleteBP.ExecuteIfBound(Response);
-			OnComplete.ExecuteIfBound(Response);
-			return;
-		}
-
-		// Create Wallet and then get again
-		const auto CreateWalletResponseHandler = FLootLockerCreateWalletResponseDelegate::CreateLambda([HolderULID, OnCompleteBP, OnComplete, Response](const FLootLockerCreateWalletResponse& CreateWalletResponse)
-		{
-			if(!CreateWalletResponse.success)
+			if (Response.success)
 			{
 				OnCompleteBP.ExecuteIfBound(Response);
 				OnComplete.ExecuteIfBound(Response);
-				return;				
+				return;
 			}
 
-			LLAPI<FLootLockerGetWalletResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetWalletByHolderId, { HolderULID }, {}, OnCompleteBP, OnComplete);
+			// Create Wallet and then get again
+			const auto CreateWalletResponseHandler = FLootLockerCreateWalletResponseDelegate::CreateLambda([HolderULID, PlayerData, OnCompleteBP, OnComplete, Response](const FLootLockerCreateWalletResponse& CreateWalletResponse)
+				{
+					if (!CreateWalletResponse.success)
+					{
+						OnCompleteBP.ExecuteIfBound(Response);
+						OnComplete.ExecuteIfBound(Response);
+						return;
+					}
+
+					LLAPI<FLootLockerGetWalletResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetWalletByHolderId, { HolderULID }, {}, PlayerData, OnCompleteBP, OnComplete);
+				});
+			CreateWallet(PlayerData, HolderULID, HolderType, FLootLockerCreateWalletResponseBP(), CreateWalletResponseHandler);
 		});
-		CreateWallet(HolderULID, HolderType, FLootLockerCreateWalletResponseBP(), CreateWalletResponseHandler);
-	});
-	LLAPI<FLootLockerGetWalletResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetWalletByHolderId, { HolderULID }, {}, FLootLockerGetWalletResponseBP(), Inspector);
+	LLAPI<FLootLockerGetWalletResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetWalletByHolderId, { HolderULID }, {}, PlayerData, FLootLockerGetWalletResponseBP(), Inspector);
 }
 
-void ULootLockerBalanceRequestHandler::CreditBalanceToWallet(const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerCreditWalletResponseBP& OnCompleteBP, const FLootLockerCreditWalletResponseDelegate& OnComplete)
+void ULootLockerBalanceRequestHandler::CreditBalanceToWallet(const FLootLockerPlayerData& PlayerData, const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerCreditWalletResponseBP& OnCompleteBP, const FLootLockerCreditWalletResponseDelegate& OnComplete)
 {
 
-	LLAPI<FLootLockerCreditWalletResponse>::CallAPI(HttpClient, FLootLockerCreditRequest{ Amount, CurrencyID, WalletID }, ULootLockerGameEndpoints::CreditBalanceToWallet, {}, {}, OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerCreditWalletResponse>::CallAPI(HttpClient, FLootLockerCreditRequest{ Amount, CurrencyID, WalletID }, ULootLockerGameEndpoints::CreditBalanceToWallet, {}, {}, PlayerData, OnCompleteBP, OnComplete);
 }
 
-void ULootLockerBalanceRequestHandler::DebitBalanceToWallet(const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerDebitWalletResponseBP& OnCompleteBP, const FLootLockerDebitWalletResponseDelegate& OnComplete)
+void ULootLockerBalanceRequestHandler::DebitBalanceToWallet(const FLootLockerPlayerData& PlayerData, const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerDebitWalletResponseBP& OnCompleteBP, const FLootLockerDebitWalletResponseDelegate& OnComplete)
 {
-	LLAPI<FLootLockerDebitWalletResponse>::CallAPI(HttpClient, FLootLockerDebitRequest{ Amount , CurrencyID, WalletID }, ULootLockerGameEndpoints::DebitBalanceToWallet, {}, {}, OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerDebitWalletResponse>::CallAPI(HttpClient, FLootLockerDebitRequest{ Amount , CurrencyID, WalletID }, ULootLockerGameEndpoints::DebitBalanceToWallet, {}, {}, PlayerData, OnCompleteBP, OnComplete);
 }
 
-void ULootLockerBalanceRequestHandler::CreateWallet(const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerCreateWalletResponseBP& OnCompleteBP, const FLootLockerCreateWalletResponseDelegate& OnComplete)
+void ULootLockerBalanceRequestHandler::CreateWallet(const FLootLockerPlayerData& PlayerData, const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerCreateWalletResponseBP& OnCompleteBP, const FLootLockerCreateWalletResponseDelegate& OnComplete)
 {
 	LLAPI<FLootLockerCreateWalletResponse>::CallAPI(HttpClient, 
 		FLootLockerCreateWalletRequest{ HolderULID, ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerWalletHolderTypes"), static_cast<int32>(HolderType)).ToLower() }, 
-		ULootLockerGameEndpoints::CreateWallet, {}, EmptyQueryParams, OnCompleteBP, OnComplete);
+		ULootLockerGameEndpoints::CreateWallet, {}, EmptyQueryParams, PlayerData, OnCompleteBP, OnComplete);
 }

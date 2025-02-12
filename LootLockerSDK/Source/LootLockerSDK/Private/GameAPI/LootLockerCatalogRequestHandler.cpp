@@ -246,12 +246,12 @@ ULootLockerCatalogRequestHandler::ULootLockerCatalogRequestHandler()
     HttpClient = NewObject<ULootLockerHttpClient>();
 }
 
-void ULootLockerCatalogRequestHandler::ListCatalogs(const FLootLockerListCatalogsResponseBP& OnCompleteBP, const FLootLockerListCatalogsResponseDelegate& OnComplete)
+void ULootLockerCatalogRequestHandler::ListCatalogs(const FLootLockerPlayerData& PlayerData, const FLootLockerListCatalogsResponseBP& OnCompleteBP, const FLootLockerListCatalogsResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerListCatalogsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListCatalogs, {}, {}, OnCompleteBP, OnComplete);
+    LLAPI<FLootLockerListCatalogsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListCatalogs, {}, {}, PlayerData, OnCompleteBP, OnComplete);
 }
 
-void ULootLockerCatalogRequestHandler::ListCatalogItems(const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnCompleteBP, const FLootLockerListCatalogPricesResponseDelegate& OnComplete)
+void ULootLockerCatalogRequestHandler::ListCatalogItems(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnCompleteBP, const FLootLockerListCatalogPricesResponseDelegate& OnComplete)
 {
     TMultiMap<FString, FString> QueryParams;
     if (Count > 0) { QueryParams.Add("per_page", FString::FromInt(Count)); }
@@ -264,5 +264,5 @@ void ULootLockerCatalogRequestHandler::ListCatalogItems(const FString& CatalogKe
         OnComplete.ExecuteIfBound(MappedResponse);
     });
 
-    LLAPI<FInternalLootLockerListCatalogPricesResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListCatalogItemsByKey, { CatalogKey }, QueryParams, FInternalLootLockerListCatalogPricesResponseBP(), FInternalLootLockerListCatalogPricesResponseDelegate(), InternalResponseConverter);
+    LLAPI<FInternalLootLockerListCatalogPricesResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListCatalogItemsByKey, { CatalogKey }, QueryParams, PlayerData, FInternalLootLockerListCatalogPricesResponseBP(), FInternalLootLockerListCatalogPricesResponseDelegate(), InternalResponseConverter);
 }

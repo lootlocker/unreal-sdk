@@ -27,7 +27,7 @@ struct FLootLockerAuthResponse : public FLootLockerResponse
 	 * The session token that can now be used to use further LootLocker functionality. We store and use this for you.
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString session_token;	
+	FString session_token;
 };
 
 USTRUCT(BlueprintType)
@@ -55,6 +55,8 @@ struct FLootLockerLoginResponse : public FLootLockerAuthResponse
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login Response")
 	int32 id = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login Response")
+	FString player_name = "";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login Response")
 	int32 game_id = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login Response")
@@ -499,7 +501,7 @@ public:
 	static void WhiteLabelLogin(const FString& Email, const FString& Password, const bool Remember, const FLootLockerLoginResponseDelegateBP& OnCompletedRequestBP = FLootLockerLoginResponseDelegateBP(), const FLootLockerLoginResponseDelegate& OnCompletedRequest = FLootLockerLoginResponseDelegate());
 	static void GuestLogin(const FString& playerIdentifier, const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
 	static void WhiteLabelStartSession(const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
-	static void WhiteLabelVerifySession(const FLootLockerVerifySessionResponseBP& OnCompletedRequestBP = FLootLockerVerifySessionResponseBP(), const FLootLockerWhiteLabelVerifySessionDelegate& OnCompletedRequest = FLootLockerWhiteLabelVerifySessionDelegate());
+	static void WhiteLabelVerifySession(const FLootLockerPlayerData& ForPlayer, const FLootLockerVerifySessionResponseBP& OnCompletedRequestBP = FLootLockerVerifySessionResponseBP(), const FLootLockerWhiteLabelVerifySessionDelegate& OnCompletedRequest = FLootLockerWhiteLabelVerifySessionDelegate());
 	static void WhiteLabelRequestUserVerification(const int& UserId, const FLootLockerDefaultResponseBP& OnCompletedRequestBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
     static void WhiteLabelRequestUserVerificationByEmail(const FString& Email, const FLootLockerDefaultResponseBP& OnCompletedRequestBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
     static void WhiteLabelRequestPasswordReset(const FString& Email, const FLootLockerDefaultResponseBP& OnCompletedRequestBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
@@ -517,8 +519,8 @@ public:
 	static void StartXboxSession(const FString& XboxUserToken, const FAuthResponseBP& OnCompletedRequestBP = FAuthResponseBP(), const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
 	static void StartAppleSession(const FString& AuthorizationCode, const FAppleSessionResponseBP& OnCompletedRequestBP = FAppleSessionResponseBP(), const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleSessionResponseDelegate());
 	static void RefreshAppleSession(const FString& RefreshToken, const FAppleSessionResponseBP& OnCompletedRequestBP = FAppleSessionResponseBP(), const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleSessionResponseDelegate());
-	static void VerifyPlayer(const FString& PlatformToken, const FString& Platform, const int SteamAppId = -1, const FLootLockerDefaultResponseBP& OnCompletedRequestBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
-	static void EndSession(const FLootLockerDefaultResponseBP& OnCompletedRequestBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
+	static void VerifyPlayer(const FLootLockerPlayerData& ForPlayer, const FString& PlatformToken, const FString& Platform, const int SteamAppId = -1, const FLootLockerDefaultResponseBP& OnCompletedRequestBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
+	static void EndSession(const FLootLockerPlayerData& ForPlayer, const FLootLockerDefaultResponseBP& OnCompletedRequestBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
     static void WhiteLabelLoginAndStartSession(const FString& Email, const FString& Password, bool bRemember, const FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP& LootLockerWhiteLabelLoginAndSessionResponseDelegateBP = FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP(), const FLootLockerWhiteLabelLoginAndSessionResponseDelegate& LootLockerWhiteLabelLoginAndSessionResponseDelegate = FLootLockerWhiteLabelLoginAndSessionResponseDelegate());
 	static void StartAppleGameCenterSession(const FString& BundleId, const FString& PlayerId, const FString& PublicKeyUrl, const FString& Signature, const FString& Salt, const FString& Timestamp, const FLootLockerAppleGameCenterSessionResponseBP& OnCompletedRequestBP = FLootLockerAppleGameCenterSessionResponseBP(), const FLootLockerAppleGameCenterSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleGameCenterSessionResponseDelegate()); 
 	static void RefreshAppleGameCenterSession(const FString& RefreshToken, const FLootLockerAppleGameCenterSessionResponseBP& OnCompletedRequestBP = FLootLockerAppleGameCenterSessionResponseBP(), const FLootLockerAppleGameCenterSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleGameCenterSessionResponseDelegate());
@@ -526,5 +528,8 @@ public:
 	static void RefreshMetaSession(const FString& RefreshToken, const FLootLockerMetaSessionResponseBP& OnCompletedRequestBP = FLootLockerMetaSessionResponseBP(), const FLootLockerMetaSessionResponseDelegate& OnCompletedRequest = FLootLockerMetaSessionResponseDelegate());
 	static ULootLockerHttpClient* HttpClient;
 private:
+
+	static FString _TempWhiteLabelEmailHolder;
+	static FString _TempWhiteLabelTokenHolder;
 	static TMap<FString, FString> DomainKeyHeaders();
 };

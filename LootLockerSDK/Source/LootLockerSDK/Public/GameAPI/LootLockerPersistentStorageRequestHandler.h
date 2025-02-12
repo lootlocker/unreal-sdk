@@ -68,20 +68,20 @@ public:
 public:
     ULootLockerPersistentStorageRequestHandler();
     
-	static void GetEntirePersistentStorage(const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP = FPersistentStorageItemsResponseDelegateBP(), const FPersistentStorageItemsResponseDelegate& OnCompletedRequest = FPersistentStorageItemsResponseDelegate());
-    
-    static void GetItemFromPersistentStorage(const FString& Key, const FPersistentStorageItemResponseDelegateBP& OnCompletedRequestBP = FPersistentStorageItemResponseDelegateBP(), const FPersistentStorageItemResponseDelegate& OnCompletedRequest = FPersistentStorageItemResponseDelegate());
-    
-    static void AddItemsToPersistentStorage(const FLootLockerPersistentStorageItems Items, const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP =
-                                                FPersistentStorageItemsResponseDelegateBP(), const FPersistentStorageItemsResponseDelegate& OnCompletedRequest =
-                                                FPersistentStorageItemsResponseDelegate());
-    static void AddItemToPersistentStorage(const FLootLockerPersistentStorageItem Item, const FPersistentStorageItemResponseDelegateBP& OnCompletedRequestBP =
+	static void GetEntirePersistentStorage(const FLootLockerPlayerData& PlayerData, const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP = FPersistentStorageItemsResponseDelegateBP(), const FPersistentStorageItemsResponseDelegate& OnCompletedRequest = FPersistentStorageItemsResponseDelegate());
+
+    static void GetItemFromPersistentStorage(const FLootLockerPlayerData& PlayerData, const FString& Key, const FPersistentStorageItemResponseDelegateBP& OnCompletedRequestBP = FPersistentStorageItemResponseDelegateBP(), const FPersistentStorageItemResponseDelegate& OnCompletedRequest = FPersistentStorageItemResponseDelegate());
+
+    static void AddItemsToPersistentStorage(const FLootLockerPlayerData& PlayerData, const FLootLockerPersistentStorageItems& Items, const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP =
+        FPersistentStorageItemsResponseDelegateBP(), const FPersistentStorageItemsResponseDelegate& OnCompletedRequest =
+        FPersistentStorageItemsResponseDelegate());
+    static void AddItemToPersistentStorage(const FLootLockerPlayerData& PlayerData, const FLootLockerPersistentStorageItem& Item, const FPersistentStorageItemResponseDelegateBP& OnCompletedRequestBP =
         FPersistentStorageItemResponseDelegateBP(), const FPersistentStorageItemResponseDelegate& OnCompletedRequest =
         FPersistentStorageItemResponseDelegate());
-    
-    static void DeleteItemFromPersistentStorage(const FString& Key, const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP = FPersistentStorageItemsResponseDelegateBP(), const FPersistentStorageItemsResponseDelegate& OnCompletedRequest = FPersistentStorageItemsResponseDelegate());
-    
-    static void GetPlayerPersistentStorage(const FString& PlayerId, const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP = FPersistentStorageItemsResponseDelegateBP(), const FPersistentStorageItemsResponseDelegate& OnCompletedRequest = FPersistentStorageItemsResponseDelegate());
+
+    static void DeleteItemFromPersistentStorage(const FLootLockerPlayerData& PlayerData, const FString& Key, const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP = FPersistentStorageItemsResponseDelegateBP(), const FPersistentStorageItemsResponseDelegate& OnCompletedRequest = FPersistentStorageItemsResponseDelegate());
+
+    static void GetPlayerPersistentStorage(const FLootLockerPlayerData& PlayerData, const FString& PlayerId, const FPersistentStorageItemsResponseDelegateBP& OnCompletedRequestBP = FPersistentStorageItemsResponseDelegateBP(), const FPersistentStorageItemsResponseDelegate& OnCompletedRequest = FPersistentStorageItemsResponseDelegate());
     
     static ULootLockerHttpClient* HttpClient;
 };

@@ -42,6 +42,67 @@ class LOOTLOCKERSDK_API ULootLockerSDKManager : public UObject
 public:
 
     //==================================================
+    // Player State
+    //==================================================
+    /**
+    Get a list of player ulids that have been active since game start (or state initialization)
+
+    @returns Array of player ulids that are considered "active" since game start
+     */
+    static TArray<FString> GetActivePlayerUlids();
+
+    /**
+    Make the state for the player with the specified ulid to be "inactive"
+
+    @param PlayerUlid The ulid of the player to set to inactive
+     */
+    static void SetPlayerUlidToInactive(const FString& PlayerUlid);
+
+    /**
+    Get a list of player ulids that there is a stored state for
+
+    @returns Array of player ulids that there is a state stored for
+     */
+    static TArray<FString> GetCachedPlayerUlids();
+
+    /**
+    Get the ulid of the player state that is used as the default state for calls with no other player specified
+
+    @returns The Ulid of the "default" player (the player used for requests where no player is specified)
+     */
+	static FString GetDefaultPlayerUlid();
+
+    /**
+    Set the player state that is used as the default state for calls with no other player specified
+
+    @param PlayerUlid The ulid of the player to set as default
+    @returns If the operation was successful or not
+     */
+    static bool SetDefaultPlayer(const FString& PlayerUlid);
+
+    /**
+    Get the player state for the player with the specified ulid
+        or the default player state if the supplied player ulid is empty
+        or an empty state if none of the previous are present
+
+    @param PlayerUlid The ulid of the player to get state for
+    @returns The player state that was retrieved for the specified player, or the default player, or an empty state if none of the previous are present
+     */
+    static FLootLockerPlayerData GetSavedStateOrDefaultOrEmptyForPlayer(const FString& PlayerUlid);
+
+    /**
+    Remove stored state information for the specified player if present (player will need to re-authenticate)
+
+    @param PlayerUlid The ulid of the player to clear cache for
+     */
+    static void ClearCacheForPlayer(const FString& PlayerUlid);
+
+    /**
+    Remove all stored state information (players will need to re-authenticate)
+     */
+    static void ClearAllPlayerCaches();
+
+    //==================================================
     //Authentication
     //==================================================
 
@@ -136,8 +197,9 @@ public:
      * https://ref.lootlocker.com/game-api/#sign-in-with-google
      *
      * @param OnCompletedRequest Delegate for handling the response
+	 * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
      */
-    static void RefreshGoogleSession(const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest) { RefreshGoogleSession("", OnCompletedRequest); };
+    static void RefreshGoogleSession(const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "") { RefreshGoogleSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest); };
 
     /**
      * Refresh a previous session signed in with Google
@@ -168,8 +230,9 @@ public:
      * https://ref.lootlocker.com/game-api/#sign-in-with-apple
      *
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAppleSessionResponse
+	 * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
      */
-    static void RefreshAppleSession(const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest) { RefreshAppleSession("", OnCompletedRequest); };
+    static void RefreshAppleSession(const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "") { RefreshAppleSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest); };
 
     /**
      * Refresh a previous session signed in with Apple
@@ -205,8 +268,9 @@ public:
     * https://ref.lootlocker.com/game-api/#sign-in-with-apple-game-center
     *
     * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAppleSessionResponse
+    * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
     */
-    static void RefreshAppleGameCenterSession(const FLootLockerAppleGameCenterSessionResponseDelegate& OnCompletedRequest) { RefreshAppleGameCenterSession("", OnCompletedRequest); };
+    static void RefreshAppleGameCenterSession(const FLootLockerAppleGameCenterSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "") { RefreshAppleGameCenterSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest); };
 
     /**
     * Refresh a previous session signed in with Apple Game Center
@@ -238,8 +302,9 @@ public:
      * https://ref.lootlocker.com/game-api/#sign-in-with-epic
      *
      * @param OnCompletedRequest Delegate for handling the response
+     * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
      */
-    static void RefreshEpicSession(const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest) { RefreshEpicSession("", OnCompletedRequest); };
+    static void RefreshEpicSession(const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "") { RefreshEpicSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest); };
 
     /**
      * Refresh a previous session signed in with an Epic Online Services (EOS) user
@@ -270,8 +335,9 @@ public:
      * The Meta platform must be enabled in the web console for this to work.
      *
      * @param OncompletedRequest Delegate for handling the response
+     * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
      */
-    static void RefreshMetaSession(const FLootLockerMetaSessionResponseDelegate& OncompletedRequest) { RefreshMetaSession("", OncompletedRequest); };
+    static void RefreshMetaSession(const FLootLockerMetaSessionResponseDelegate& OncompletedRequest, const FString& ForPlayerWithUlid = "") { RefreshMetaSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OncompletedRequest); };
     
     /**
      * Refresh a previous session signed in with Meta
@@ -301,8 +367,9 @@ public:
      * @param PlatformToken Platform-specific token.
      * @param OnCompletedRequest Response Delegate to handle the response
      * @param Platform Optional parameter to call explicitly for a specific platform
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void VerifyPlayer(const FString& PlatformToken, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& Platform = FString(TEXT("")));
+    static void VerifyPlayer(const FString& PlatformToken, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& Platform = FString(TEXT("")), const FString ForPlayerWithUlid = "");
 
     /**
      * End active session (if any exists)
@@ -311,8 +378,9 @@ public:
      * https://ref.lootlocker.com/game-api/#ending-a-session
      *
      * @param OnCompletedRequest Delegate for handling the response of type LootLockerSessionResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void EndSession(const FLootLockerDefaultDelegate& OnCompletedRequest);
+    static void EndSession(const FLootLockerDefaultDelegate& OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     //==================================================
     // Connected Accounts
@@ -321,8 +389,9 @@ public:
      * List identity providers (like Apple, Google, etc.) that are connected to the currently logged in account
      *
      * @param OnComplete Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void ListConnectedAccounts(const FLootLockerListConnectedAccountsResponseDelegate& OnComplete);
+    static void ListConnectedAccounts(const FLootLockerListConnectedAccountsResponseDelegate& OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      * Disconnect account from the currently logged in account
@@ -331,16 +400,18 @@ public:
      *
      * @param AccountToDisconnect What account to disconnect from this LootLocker Account
      * @param OnComplete Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void DisconnectAccount(const ELootLockerAccountProvider AccountToDisconnect, const FLootLockerDefaultDelegate& OnComplete);
+    static void DisconnectAccount(const ELootLockerAccountProvider AccountToDisconnect, const FLootLockerDefaultDelegate& OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      * Connect a Google Account to the currently logged in LootLocker account allowing that google account to start sessions for this player
      *
      * @param IdToken The Id Token from google sign in
      * @param OnComplete Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void ConnectGoogleAccount(const FString& IdToken, const FLootLockerAccountConnectedResponseDelegate& OnComplete);
+    static void ConnectGoogleAccount(const FString& IdToken, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      * Connect a Google Account (with a Google Platform specified) to the currently logged in LootLocker account allowing that google account to start sessions for this player
@@ -348,16 +419,18 @@ public:
      * @param IdToken The Id Token from google sign in
      * @param Platform Google OAuth2 ClientID platform
      * @param OnComplete Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void ConnectGoogleAccount(const FString& IdToken, EGoogleAccountProviderPlatform Platform, const FLootLockerAccountConnectedResponseDelegate& OnComplete);
+    static void ConnectGoogleAccount(const FString& IdToken, EGoogleAccountProviderPlatform Platform, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      * Connect an Apple Account (authorized by Rest Sign In) to the currently logged in LootLocker account allowing that google account to start sessions for this player
      *
      * @param AuthorizationCode Authorization code, provided by apple during Sign In
      * @param OnComplete Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void ConnectAppleAccountByRestSignIn(const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseDelegate& OnComplete);
+    static void ConnectAppleAccountByRestSignIn(const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString ForPlayerWithUlid = "");
 
     //==================================================
     // Remote Sessions
@@ -374,23 +447,26 @@ public:
      * @param OnComplete Invoked when the remote session process has run to completion containing either a valid session or information on why the process failed
      * @param PollingIntervalSeconds Optional: How often to poll the status of the remote session process
      * @param TimeOutAfterMinutes Optional: How long to allow the process to take in it's entirety
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static FString StartRemoteSession(const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegate& OnComplete, float PollingIntervalSeconds = 1.0f, float TimeOutAfterMinutes = 5.0f);
+    static FString StartRemoteSession(const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegate& OnComplete, float PollingIntervalSeconds = 1.0f, float TimeOutAfterMinutes = 5.0f, const FString ForPlayerWithUlid = "");
 
     /**
      * Cancel an ongoing remote session process
      *
      * @param ProcessID The id of the remote session process that you want to cancel
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void CancelRemoteSessionProcess(const FString& ProcessID);
+    static void CancelRemoteSessionProcess(const FString& ProcessID, const FString ForPlayerWithUlid = "");
 
     /**
      * Refresh a previous session signed in remotely
      * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
      *
      * @param OnCompletedRequest Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void RefreshRemoteSession(const FLootLockerRefreshRemoteSessionResponseDelegate& OnCompletedRequest) { RefreshRemoteSession("", OnCompletedRequest); };
+    static void RefreshRemoteSession(const FLootLockerRefreshRemoteSessionResponseDelegate& OnCompletedRequest, const FString ForPlayerWithUlid = "") { RefreshRemoteSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest); };
 
     /**
      * Refresh a previous session signed in remotely
@@ -439,7 +515,7 @@ public:
      *
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAuthenticationResponse
      */
-	static void WhiteLabelStartSession(const FLootLockerSessionResponse& OnCompletedRequest);
+    static void WhiteLabelStartSession(const FLootLockerSessionResponse& OnCompletedRequest);
 
     /**
      * Login and Start a LootLocker Session using a White Label account
@@ -462,8 +538,9 @@ public:
      * https://ref.lootlocker.com/game-api/#verify-session
      *
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerWhiteLabelVerifySessionResponse
+    * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void WhiteLabelVerifySession(const FLootLockerWhiteLabelVerifySessionDelegate &OnCompletedRequest);
+    static void WhiteLabelVerifySession(const FLootLockerWhiteLabelVerifySessionDelegate& OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Request verify account email for the user.
@@ -498,16 +575,17 @@ public:
     static void WhiteLabelRequestPasswordReset(const FString& Email, const FLootLockerDefaultDelegate& OnCompletedRequest);
 
     //==================================================
-	//Player calls
+    //Player calls
     //==================================================
 
     /**
     * Get information about the currently logged in player such as name and different ids to use for subsequent calls to LootLocker methods
     *
     * @param OnCompletedRequest Delegate for handling the server response
+    * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetCurrentPlayerInfo(const FLootLockerGetCurrentPlayerInfoResponseDelegate& OnCompletedRequest);
-    
+    static void GetCurrentPlayerInfo(const FLootLockerGetCurrentPlayerInfoResponseDelegate& OnCompletedRequest, const FString ForPlayerWithUlid = "");
+
     /**
     * List information for one or more other players
     *
@@ -515,35 +593,45 @@ public:
     * @param LegacyPlayerIdsToLookUp A list of legacy ids of players to look up. These ids are in the form of integers and are sometimes called simply player_id or id
     * @param PlayerPublicUidsToLookUp A list of public uids to look up. These ids are in the form of UIDs
     * @param OnCompletedRequest Delegate for handling the server response
+    * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void ListPlayerInfo(TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseDelegate& OnCompletedRequest);
+    static void ListPlayerInfo(TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseDelegate& OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
     * Get a paginated list of the players inventory.
     * https://ref.lootlocker.com/game-api/#get-inventory-list
     *
     * @param OnCompletedRequest Delegate to be invoked with the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-	static void GetInventory(const FInventoryResponse& OnCompletedRequest);
+    static void GetInventory(const FInventoryResponse & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
-	// Same as above but actually gets your full inventory lol.
-	static void GetFullInventory(const FInventoryResponse& OnCompletedRequest, int32 StartIndex);
+    /**
+    * Get a paginated list of the players inventory.
+    * https://ref.lootlocker.com/game-api/#get-inventory-list
+    *
+    * @param OnCompletedRequest Delegate to be invoked with the server response.
+    * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+    */
+    static void GetFullInventory(const FInventoryResponse & OnCompletedRequest, int32 StartIndex, const FString ForPlayerWithUlid = "");
 
     /**
     * Get assets that have been granted to the player since the last time this endpoint was called.
     * https://ref.lootlocker.com/game-api/#player-asset-notifications
     *
     * @param OnCompletedRequest Delegate to be invoked with the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-	static void CheckPlayerAssetActivationNotification(const FLootLockerAssetNotificationResponse& OnCompletedRequest);
+    static void CheckPlayerAssetActivationNotification(const FLootLockerAssetNotificationResponse & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
     * This endpoint will return the amount of credits the current player have on their account.
     * https://ref.lootlocker.com/game-api/#get-currency-balance
     *
     * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetCurrencyBalance(const FPBalanceResponse& OnCompletedRequest);
+    static void GetCurrencyBalance(const FPBalanceResponse & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
     * This endpoint will initiate a DLC migration for the current player. 5 minutes after calling this endpoint you should issue
@@ -552,8 +640,9 @@ public:
     * https://ref.lootlocker.com/game-api/#initiate-dlc-migration
     *
     * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void InitiateDLCMigration(const FResponseCallback& OnCompletedRequest);
+    static void InitiateDLCMigration(const FResponseCallback & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
     * This endpoint will return a list of DLC's migrated for the player. The DLC identifiers returned
@@ -561,8 +650,9 @@ public:
     * https://ref.lootlocker.com/game-api/#get-dlcs-migrated
     *
     * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetDLCsMigration(const FPDlcResponse& OnCompletedRequest);
+    static void GetDLCsMigration(const FPDlcResponse & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
     * This endpoint will set the players profile to private. This means that their
@@ -570,8 +660,9 @@ public:
     * https://ref.lootlocker.com/game-api/#set-profile-private
     *
     * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void SetProfilePrivate(const FResponseCallback& OnCompletedRequest);
+    static void SetProfilePrivate(const FResponseCallback & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
     * This endpoint will set the players profile to public. This means that their inventory will be
@@ -579,25 +670,28 @@ public:
     * https://ref.lootlocker.com/game-api/#set-profile-public
     *
     * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void SetProfilePublic(const FResponseCallback& OnCompletedRequest);
+    static void SetProfilePublic(const FResponseCallback & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
-	/**
-	* This endpoint will set the players name.
-	* https://ref.lootlocker.com/game-api/#set-profile-public
-	*
-	* @param Name String player name
-	* @param OnCompletedRequest Delegate for handling the server response.
-	*/
-	static void SetPlayerName(FString Name, const FPNameResponse& OnCompletedRequest);
+    /**
+    * This endpoint will set the players name.
+    * https://ref.lootlocker.com/game-api/#set-profile-public
+    *
+    * @param Name String player name
+    * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+    */
+    static void SetPlayerName(FString Name, const FPNameResponse & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
-	/**
-	* This endpoint will get the players name.
-	* https://ref.lootlocker.com/game-api/#set-profile-public
-	*
-	* @param OnCompletedRequest Delegate for handling the server response.
-	*/
-	static void GetPlayerName(const FPNameResponse& OnCompletedRequest);
+    /**
+    * This endpoint will get the players name.
+    * https://ref.lootlocker.com/game-api/#set-profile-public
+    *
+    * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+    */
+    static void GetPlayerName(const FPNameResponse & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
     * This endpoint will return all known players 1st party platform id's.
@@ -605,17 +699,19 @@ public:
     *
     * @param Request Request array with platforms and Ids to search for.
     * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
 	[[deprecated("This method is deprecated in favor of method LookupMultiplePlayersDataUsingIDs")]] // Deprecation date 20250304
-	static void LookupMultiplePlayerNamesUsingIDs(const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayerNames& OnCompletedRequest);
+	static void LookupMultiplePlayerNamesUsingIDs(const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayerNames& OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
     * Look up multiple player's data using different identifiers
     *
     * @param Request Request array with platforms and Ids to lookup player data for.
     * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void LookupMultiplePlayersDataUsingIDs(const FLootLockerLookupMultiplePlayersDataRequest& Request, const FPMultiplePlayerNames& OnCompletedRequest);
+    static void LookupMultiplePlayersDataUsingIDs(const FLootLockerLookupMultiplePlayersDataRequest& Request, const FPMultiplePlayerNames& OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
     * This endpoint will return all known players 1st party platform id's.
@@ -623,20 +719,22 @@ public:
     *
     * @param Request Request array with player ids and/or player public uids to search for.
     * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-	static void LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest);
+    static void LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesAndPlatformsRequest & Request, const FPMultiplePlayersPlatformIdsNames & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
     * This method will mark the player for deletion. After 30 days the player will be deleted from the system.
     * https://ref.lootlocker.com/game-api/#delete-player
     *
     * @param OnCompletedRequest Delegate for handling the the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void DeletePlayer(const FLootLockerDefaultDelegate& OnCompletedRequest);
+    static void DeletePlayer(const FLootLockerDefaultDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     //==================================================
-	//Files
-	// https://ref.lootlocker.com/game-api/#player-files
+    //Files
+    // https://ref.lootlocker.com/game-api/#player-files
     //==================================================
 
     /**
@@ -645,8 +743,9 @@ public:
      *
      * @param Request Request of type FLootLockerFileUploadRequest.
      * @param OnComplete Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void UploadFile(const FLootLockerFileUploadRequest& Request, const FLootLockerUploadFileDelegate& OnComplete);
+    static void UploadFile(const FLootLockerFileUploadRequest & Request, const FLootLockerUploadFileDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      * Update the specified file with the supplied content. The file will be owned by the currently active player.
@@ -655,16 +754,18 @@ public:
      * @param FileId Id of the file, can be retrieved with ListFiles or when the file is uploaded
      * @param Request Request of type FLootLockerFileUpdateRequest.
      * @param OnComplete Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void UpdateFile(const int32 FileId, const FLootLockerFileUpdateRequest& Request, const FLootLockerUploadFileDelegate& OnComplete);
+    static void UpdateFile(const int32 FileId, const FLootLockerFileUpdateRequest & Request, const FLootLockerUploadFileDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      * Returns all the files that your currently active player own.
      * https://ref.lootlocker.com/game-api/#list-files
      *
      * @param OnComplete Delegate for handling the response of type LootLockerPlayerFilesResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void ListFiles(const FLootLockerFileListDelegate& OnComplete);
+    static void ListFiles(const FLootLockerFileListDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      * Returns all public files that the player with the provided playerID owns.
@@ -672,8 +773,9 @@ public:
      *
      * @param PlayerID Player ID of the player for whom to get the files
      * @param OnComplete Delegate for handling the response of type LootLockerPlayerFilesResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void ListOtherPlayersPublicFiles(const int32 PlayerID, const FLootLockerFileListDelegate& OnComplete);
+    static void ListOtherPlayersPublicFiles(const int32 PlayerID, const FLootLockerFileListDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      * Returns a URL where you can access the file. You can get the ID of files when you upload them, or call the list endpoint.
@@ -681,8 +783,9 @@ public:
      *
      * @param FileID Id of the file, can be retrieved with ListFiles or when the file is uploaded
      * @param OnComplete Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetSingleFile(const int32 FileID, const FLootLockerUploadFileDelegate& OnComplete);
+    static void GetSingleFile(const int32 FileID, const FLootLockerUploadFileDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      * The file will be deleted immediately and the action can not be reversed. You will get the ID of files when you upload a file, or with ListFiles.
@@ -690,8 +793,9 @@ public:
      *
      * @param FileID Id of the file. You can get the ID of files when you upload a file, or with GetAllPlayerFiles()
      * @param OnComplete Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void DeletePlayerFile(const int32 FileID, const FLootLockerFileDeletedDelegate& OnComplete);
+    static void DeletePlayerFile(const int32 FileID, const FLootLockerFileDeletedDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     //==================================================
     // Player Progressions
@@ -703,31 +807,35 @@ public:
     * @param Count Amount of entries to receive
     * @param After Used for pagination, id of the player progression from which the pagination starts from, use the next_cursor and previous_cursor values
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetPlayerProgressions(const int32& Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete);
+    static void GetPlayerProgressions(const int32 & Count, const FString & After, const FLootLockerPaginatedPlayerProgressionsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Returns multiple progressions the player is currently on.
     *
     * @param Count Amount of entries to receive
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetPlayerProgressions(const int32& Count, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete);
+    static void GetPlayerProgressions(const int32 & Count, const FLootLockerPaginatedPlayerProgressionsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Returns multiple progressions the player is currently on.
     *
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetPlayerProgressions(const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete);
+    static void GetPlayerProgressions(const FLootLockerPaginatedPlayerProgressionsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Returns a single progression the player is currently on.
     *
     * @param ProgressionKey Key of the progression you want to fetch
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPlayerProgressionsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetPlayerProgression(const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseDelegate& OnComplete);
+    static void GetPlayerProgression(const FString & ProgressionKey, const FLootLockerPlayerProgressionResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Adds points to the specified player progression.
@@ -735,8 +843,9 @@ public:
     * @param ProgressionKey Key of the progression you want to add points to
     * @param Amount Amount of points to be added
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPlayerProgressionWithRewardsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void AddPointsToPlayerProgression(const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseDelegate& OnComplete);
+    static void AddPointsToPlayerProgression(const FString & ProgressionKey, const int32 & Amount, const FLootLockerPlayerProgressionWithRewardsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Subtracts points from the specified player progression.
@@ -744,24 +853,27 @@ public:
     * @param ProgressionKey Key of the progression you want to subtract points from
     * @param Amount Amount of points to be subtracted
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPlayerProgressionWithRewardsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void SubtractPointsFromPlayerProgression(const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseDelegate& OnComplete);
+    static void SubtractPointsFromPlayerProgression(const FString & ProgressionKey, const int32 & Amount, const FLootLockerPlayerProgressionWithRewardsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Resets the specified player progression.
     *
     * @param ProgressionKey Key of the progression you want to reset
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPlayerProgressionWithRewardsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void ResetPlayerProgression(const FString& ProgressionKey, const FLootLockerPlayerProgressionWithRewardsResponseDelegate& OnComplete);
+    static void ResetPlayerProgression(const FString & ProgressionKey, const FLootLockerPlayerProgressionWithRewardsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Deletes the specified player progression.
 
     * @param ProgressionKey Key of the progression you want to reset
     * @param OnComplete onComplete Action for handling the response of type FLootLockerDeleteProgression
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void DeletePlayerProgression(const FString& ProgressionKey, const FLootLockerDeleteProgressionDelegate& OnComplete);
+    static void DeletePlayerProgression(const FString & ProgressionKey, const FLootLockerDeleteProgressionDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Returns multiple progressions that the specified player is currently on.
@@ -770,8 +882,9 @@ public:
     * @param Count Amount of entries to receive
     * @param After Used for pagination, id of the player progression from which the pagination starts from, use the next_cursor and previous_cursor values
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetOtherPlayersProgressions(const FString& PlayerUlid, const int32& Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete);
+    static void GetOtherPlayersProgressions(const FString& PlayerUlid, const int32& Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Returns multiple progressions that the specified player is currently on.
@@ -779,16 +892,18 @@ public:
     * @param PlayerUlid The ulid of the player you want to fetch progressions for
     * @param Count Amount of entries to receive
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetOtherPlayersProgressions(const FString& PlayerUlid, const int32& Count, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete);
+    static void GetOtherPlayersProgressions(const FString& PlayerUlid, const int32& Count, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Returns multiple progressions that the specified player is currently on.
     *
     * @param PlayerUlid The ulid of the player you want to fetch progressions for
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetOtherPlayersProgressions(const FString& PlayerUlid, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete);
+    static void GetOtherPlayersProgressions(const FString& PlayerUlid, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Returns a single progression that the specified player is currently on.
@@ -796,8 +911,9 @@ public:
     * @param PlayerUlid The ulid of the player you want to fetch the progression for
     * @param ProgressionKey Key of the progression you want to fetch
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPlayerProgressionsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetOtherPlayersProgression(const FString& PlayerUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseDelegate& OnComplete);
+    static void GetOtherPlayersProgression(const FString& PlayerUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseDelegate& OnComplete, const FString ForPlayerWithUlid = "");
 
     //==================================================
     //Asset Instance Progressions   
@@ -810,34 +926,38 @@ public:
     * @param Count Amount of entries to receive
     * @param After Used for pagination, id of the instance progression from which the pagination starts from, use the next_cursor and previous_cursor values
     * @param OnComplete onComplete Action for handling the response of type FLootLockerResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetInstanceProgressions(const int32 AssetInstanceId, const int32 Count, const FString& After, const FLootLockerPaginatedInstanceProgressionsResponseDelegate& OnComplete = FLootLockerPaginatedInstanceProgressionsResponseDelegate());
+    static void GetInstanceProgressions(const int32 AssetInstanceId, const int32 Count, const FString & After, const FLootLockerPaginatedInstanceProgressionsResponseDelegate & OnComplete = FLootLockerPaginatedInstanceProgressionsResponseDelegate(), const FString ForPlayerWithUlid = "");
     /**
     * Returns multiple progressions the instance is currently on.
     *
     * @param AssetInstanceId Key of the progression you want
     * @param Count Amount of entries to receive
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedInstanceProgressionsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
    */
-    static void GetInstanceProgressions(const int32 AssetInstanceId, const int32& Count, const FLootLockerPaginatedInstanceProgressionsResponseDelegate& OnComplete);
+    static void GetInstanceProgressions(const int32 AssetInstanceId, const int32 & Count, const FLootLockerPaginatedInstanceProgressionsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Returns multiple progressions the instance is currently on.
     *
     * @param AssetInstanceId Key of the progression you want
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedInstanceProgressionsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetInstanceProgressions(const int32 AssetInstanceId, const FLootLockerPaginatedInstanceProgressionsResponseDelegate& OnComplete);
-    
+    static void GetInstanceProgressions(const int32 AssetInstanceId, const FLootLockerPaginatedInstanceProgressionsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
+
     /**
     * Returns a single progression the instance is currently on.
     *
     * @param AssetInstanceId Key of the progression you want
     * @param ProgressionKey Key of the progression you want to fetch
     * @param OnComplete onComplete Action for handling the response of type FLootLockerInstanceProgressionResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionResponseDelegate& OnComplete = FLootLockerInstanceProgressionResponseDelegate());
- 
+    static void GetInstanceProgression(const int32 AssetInstanceId, const FString & ProgressionKey, const FLootLockerInstanceProgressionResponseDelegate & OnComplete = FLootLockerInstanceProgressionResponseDelegate(), const FString ForPlayerWithUlid = "");
+
     /**
     * Adds points to the specified instance progression.
     *
@@ -845,9 +965,10 @@ public:
     * @param ProgressionKey Key of the progression you want to add points to
     * @param Amount Amount of points to be added
     * @param OnComplete onComplete Action for handling the response of type FLootLockerInstanceProgressionWithRewardsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void AddPointsToInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseDelegate& OnComplete = FLootLockerInstanceProgressionWithRewardsResponseDelegate());
-  
+    static void AddPointsToInstanceProgression(const int32 AssetInstanceId, const FString & ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseDelegate & OnComplete = FLootLockerInstanceProgressionWithRewardsResponseDelegate(), const FString ForPlayerWithUlid = "");
+
     /**
     * Subtracts points from the specified instance progression.
     *
@@ -855,47 +976,52 @@ public:
     * @param ProgressionKey Key of the progression you want to subtract points from
     * @param Amount Amount of points to be subtracted
     * @param OnComplete onComplete Action for handling the response of type FLootLockerInstanceProgressionWithRewardsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void SubtractPointsFromInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseDelegate& OnComplete = FLootLockerInstanceProgressionWithRewardsResponseDelegate());
-  
+    static void SubtractPointsFromInstanceProgression(const int32 AssetInstanceId, const FString & ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseDelegate & OnComplete = FLootLockerInstanceProgressionWithRewardsResponseDelegate(), const FString ForPlayerWithUlid = "");
+
     /**
     * Resets the specified instance progression.
-    *    
+    *
     * @param AssetInstanceId Key of the progression you want
     * @param ProgressionKey Key of the progression you want to reset
     * @param OnComplete onComplete Action for handling the response of type FLootLockerInstanceProgressionWithRewardsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void ResetInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionWithRewardsResponseDelegate& OnComplete = FLootLockerInstanceProgressionWithRewardsResponseDelegate());
-  
+    static void ResetInstanceProgression(const int32 AssetInstanceId, const FString & ProgressionKey, const FLootLockerInstanceProgressionWithRewardsResponseDelegate & OnComplete = FLootLockerInstanceProgressionWithRewardsResponseDelegate(), const FString ForPlayerWithUlid = "");
+
     /**
     * Deletes the specified instance progression.
     *
     * @param AssetInstanceId Key of the progression you want
     * @param ProgressionKey Key of the progression you want to reset
     * @param OnComplete onComplete Action for handling the response of type FLootLockerDeleteProgression
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void DeleteInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerDeleteProgressionDelegate& OnComplete = FLootLockerDeleteProgressionDelegate());
+    static void DeleteInstanceProgression(const int32 AssetInstanceId, const FString & ProgressionKey, const FLootLockerDeleteProgressionDelegate & OnComplete = FLootLockerDeleteProgressionDelegate(), const FString ForPlayerWithUlid = "");
 
 
-	//==================================================
-	//Heroes
-	//==================================================
+    //==================================================
+    //Heroes
+    //==================================================
 
     /**
      * List heroes with names and character information
      * https://ref.lootlocker.com/game-api/#get-game-heroes
      *
      * @param OnCompleteRequest Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void GetGameHeroes(const FLootLockerGameHeroListDelegate& OnCompleteRequest);
+    static void GetGameHeroes(const FLootLockerGameHeroListDelegate & OnCompleteRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * List heroes that the current player owns
      * https://ref.lootlocker.com/game-api/#list-player-heroes
      *
      * @param OnCompleteRequest Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void ListPlayerHeroes(const FLootLockerHeroListDelegate& OnCompleteRequest);
+    static void ListPlayerHeroes(const FLootLockerHeroListDelegate & OnCompleteRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * List player that the player with the specified SteamID64 owns
@@ -903,8 +1029,9 @@ public:
      *
      * @param SteamID64 Steam Id of the requested player
      * @param OnCompleteRequest Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void ListOtherPlayersHeroesBySteamID64(const int64 SteamID64, const FLootLockerHeroListDelegate& OnCompleteRequest);
+    static void ListOtherPlayersHeroesBySteamID64(const int64 SteamID64, const FLootLockerHeroListDelegate & OnCompleteRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Create a hero for the current player with the supplied name from the game hero specified with the supplied hero id
@@ -912,8 +1039,9 @@ public:
      *
      * @param Request Request specifying the hero id for the game hero to use for creation and the name of the hero to create
      * @param OnCompleteRequest Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void CreateHero(const FLootLockerCreateHeroRequest& Request, const FLootLockerPlayerHeroDelegate& OnCompleteRequest);
+    static void CreateHero(const FLootLockerCreateHeroRequest & Request, const FLootLockerPlayerHeroDelegate & OnCompleteRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Create a hero for the current player with the supplied name from the game hero specified with the supplied hero id, asset variation id, and whether to set as default.
@@ -921,8 +1049,9 @@ public:
      *
      * @param Request Request specifying the hero id for the game hero to use for creation and the name of the hero to create, an asset variation id for this hero, and whether this hero should be the default
      * @param OnCompleteRequest Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void CreateHeroWithVariation(const FLootLockerCreateHeroWithVariationRequest& Request, const FLootLockerPlayerHeroDelegate& OnCompleteRequest);
+    static void CreateHeroWithVariation(const FLootLockerCreateHeroWithVariationRequest & Request, const FLootLockerPlayerHeroDelegate & OnCompleteRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Return information about the requested hero on the current player
@@ -930,8 +1059,9 @@ public:
      *
      * @param HeroID Id of the hero to get
      * @param OnCompletedRequest Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void GetHero(const int32 HeroID, const FLootLockerPlayerHeroDelegate& OnCompletedRequest);
+    static void GetHero(const int32 HeroID, const FLootLockerPlayerHeroDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Get the default hero for the player with the specified SteamID64
@@ -939,8 +1069,9 @@ public:
      *
      * @param SteamID64 Steam Id of the requested player
      * @param OnCompleteRequest Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void GetOtherPlayersDefaultHeroBySteamID64(const int64 SteamID64, const FLootLockerPlayerHeroDelegate& OnCompleteRequest);
+    static void GetOtherPlayersDefaultHeroBySteamID64(const int64 SteamID64, const FLootLockerPlayerHeroDelegate & OnCompleteRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Update the name of the hero with the specified id and/or set it as default for the current player
@@ -949,8 +1080,9 @@ public:
      * @param HeroID Id of the hero
      * @param Request Request specifying the new (or same) name to set for the hero and if it is to be the default hero for the player
      * @param OnCompletedRequest Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void UpdateHero(const int32 HeroID, const FLootLockerUpdateHeroRequest &Request, const FLootLockerPlayerHeroDelegate &OnCompletedRequest);
+    static void UpdateHero(const int32 HeroID, const FLootLockerUpdateHeroRequest & Request, const FLootLockerPlayerHeroDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Remove the hero with the specified id from the current players list of heroes.
@@ -960,8 +1092,9 @@ public:
      *
      * @param HeroID Id of the hero
      * @param OnCompletedRequest Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void DeleteHero(const int32 HeroID, const FLLHeroDefaultResponseDelegate& OnCompletedRequest);
+    static void DeleteHero(const int32 HeroID, const FLLHeroDefaultResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * List Asset Instances owned by the specified hero
@@ -971,8 +1104,9 @@ public:
      *
      * @param HeroID Id of the hero
      * @param OnCompleteRequest Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void GetHeroInventory(const int32 HeroID, const FInventoryResponse& OnCompleteRequest);
+    static void GetHeroInventory(const int32 HeroID, const FInventoryResponse & OnCompleteRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * List the loadout of the specified hero that the current player owns
@@ -981,8 +1115,9 @@ public:
      *
      * @param HeroID Id of the hero
      * @param OnCompletedRequest Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void GetHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseDelegate& OnCompletedRequest);
+    static void GetHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * List the loadout of the specified hero that the another player owns
@@ -990,8 +1125,9 @@ public:
      *
      * @param HeroID Id of the hero
      * @param OnCompletedRequest Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void GetOtherPlayersHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseDelegate& OnCompletedRequest);
+    static void GetOtherPlayersHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Equip the specified Asset Instance to the specified Hero that the current player owns
@@ -1000,8 +1136,9 @@ public:
      * @param HeroID Id of the hero
      * @param AssetInstanceID Desc
      * @param OnCompletedRequest Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void AddAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseDelegate& OnCompletedRequest);
+    static void AddAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Equip the specified Global Asset (default variation) to the specified Hero that the current player owns
@@ -1010,9 +1147,10 @@ public:
      * @param HeroID Id of the hero
      * @param AssetID The id of the global asset to equip
      * @param OnCompletedRequest Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void AddGlobalAssetToHeroLoadout(const int32 HeroID, const int32 AssetID, const FHeroLoadoutReseponseDelegate& OnCompletedRequest);
- 
+    static void AddGlobalAssetToHeroLoadout(const int32 HeroID, const int32 AssetID, const FHeroLoadoutReseponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
+
     /**
      * Equip the specified Global Asset Variation to the specified Hero that the current player owns
      * https://ref.lootlocker.com/game-api/#add-asset-to-hero-loadout
@@ -1021,8 +1159,9 @@ public:
      * @param AssetID The id of the global asset to equip
      * @param AssetVariationID The variation id of the global asset to equip
      * @param OnCompletedRequest Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void AddGlobalAssetVariationToHeroLoadout(const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseDelegate& OnCompletedRequest);
+    static void AddGlobalAssetVariationToHeroLoadout(const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Unequip the specified Asset Instance to the specified Hero that the current player owns
@@ -1031,11 +1170,12 @@ public:
      * @param HeroID Id of the hero
      * @param AssetInstanceID Desc
      * @param OnCompletedRequest Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void RemoveAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseDelegate& OnCompletedRequest);
-	
+    static void RemoveAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
+
     //==================================================
-	//Characters
+    //Characters
     // https://ref.lootlocker.com/game-api/#characters
     //==================================================
 
@@ -1045,8 +1185,9 @@ public:
      * https://ref.lootlocker.com/game-api/#character-loadouts
      *
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void GetCharacterLoadout(const FCharacterLoadoutResponse& OnCompletedRequest);
+    static void GetCharacterLoadout(const FCharacterLoadoutResponse & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * This endpoint lets you set a character as default, and set the name of the character.
@@ -1056,8 +1197,9 @@ public:
      * @param IsDefault Should the character be set as default
      * @param Name The name to set for the character
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void UpdateCharacter(int CharacterId, bool IsDefault, FString& Name, const FCharacterLoadoutResponse& OnCompletedRequest);
+    static void UpdateCharacter(int CharacterId, bool IsDefault, FString & Name, const FCharacterLoadoutResponse & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Create a character of the specified character type with the given name
@@ -1069,16 +1211,18 @@ public:
      * @param CharacterName The name of the character.
      * @param CharacterTypeId The ID of the character type.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void CreateCharacter(bool IsDefault, const FString& CharacterName, const FString& CharacterTypeId,  const FCharacterLoadoutResponse& OnCompletedRequest);
+    static void CreateCharacter(bool IsDefault, const FString & CharacterName, const FString & CharacterTypeId, const FCharacterLoadoutResponse & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Call this endpoint to list the character types configured for your game.
      * https://ref.lootlocker.com/game-api/#list-character-types
      *
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void ListCharacterTypes(const FPLootLockerListCharacterTypesResponse& OnCompletedRequest);
+    static void ListCharacterTypes(const FPLootLockerListCharacterTypesResponse & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
 
     /**
@@ -1087,8 +1231,9 @@ public:
      *
      * @param InstanceId The asset's instance_id that is returned from the inventory and loadout calls.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void EquipAssetToDefaultCharacter(int InstanceId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest);
+    static void EquipAssetToDefaultCharacter(int InstanceId, const FLootLockerCharacterDefaultResponse & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Equip an asset to the specified character.
@@ -1098,8 +1243,9 @@ public:
      * @param AssetId the asset's instance_id that is returned from the inventory and loadout calls.
      * @param AssetVariationId the asset_variation_id.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void EquipAssetToCharacterById(int CharacterId, int AssetId, int AssetVariationId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest);
+    static void EquipAssetToCharacterById(int CharacterId, int AssetId, int AssetVariationId, const FLootLockerCharacterDefaultResponse & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Equip an asset to the specified character.
@@ -1108,8 +1254,9 @@ public:
      * @param CharacterId ID of the character to equip an asset to.
      * @param InstanceId the asset's instance_id that is returned from the inventory and loadout calls.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void EquipAssetToCharacterById(int CharacterId, int InstanceId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest);
+    static void EquipAssetToCharacterById(int CharacterId, int InstanceId, const FLootLockerCharacterDefaultResponse & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Unequip an asset from the default character.
@@ -1117,8 +1264,9 @@ public:
      *
      * @param InstanceId the asset's instance id that is returned from the inventory and loadout calls.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void UnEquipAssetToDefaultCharacter(int InstanceId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest);
+    static void UnEquipAssetToDefaultCharacter(int InstanceId, const FLootLockerCharacterDefaultResponse & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Unequip an asset from the specified character.
@@ -1127,16 +1275,18 @@ public:
      * @param CharacterId ID of the character to unequip an asset from.
      * @param InstanceId the asset's instance id that is returned from the inventory and loadout calls.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void UnEquipAssetToCharacterById(int CharacterId, int InstanceId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest);
+    static void UnEquipAssetToCharacterById(int CharacterId, int InstanceId, const FLootLockerCharacterDefaultResponse & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Getting the current loadout will return an array of assets that the user currently has equipped.
      * https://ref.lootlocker.com/game-api/#get-current-loadout-to-default-character
      *
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void GetCurrentLoadoutToDefaultCharacter(const FCharacterLoadoutResponse& OnCompletedRequest);
+    static void GetCurrentLoadoutToDefaultCharacter(const FCharacterLoadoutResponse & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * This method will return the exact same response as the GetCharacterLoadout, except that it will be for another player.
@@ -1145,16 +1295,18 @@ public:
      * @param OtherPlayerId other player's ID on the requested platform.
      * @param OnCompletedRequest Delegate for handling the server response.
      * @param OtherPlayerPlatform Optional: the platform the id refers to if different than the current platform
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void GetOtherPlayersCurrentLoadoutToDefaultCharacter(FString OtherPlayerId, const FCharacterLoadoutResponse& OnCompletedRequest, const FString& OtherPlayerPlatform = FString(TEXT("")));
+    static void GetOtherPlayersCurrentLoadoutToDefaultCharacter(FString OtherPlayerId, const FCharacterLoadoutResponse & OnCompletedRequest, const FString & OtherPlayerPlatform = FString(TEXT("")), const FString ForPlayerWithUlid = "");
 
     /**
      * Get the contexts that the player's default character can equip.
      * https://ref.lootlocker.com/game-api/#get-equippable-contexts-to-default-character
      *
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void GetEquipableContextsToDefaultCharacter(const FContextDelegate& OnCompletedRequest);
+    static void GetEquipableContextsToDefaultCharacter(const FContextDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Get the contexts that the specified player's default character can equip.
@@ -1162,14 +1314,16 @@ public:
      *
      * @param OtherCharacterId other player's ID.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-	static void GetEquipableContextsByCharacterId(int OtherCharacterId, const FContextDelegate& OnCompletedRequest);
+    static void GetEquipableContextsByCharacterId(int OtherCharacterId, const FContextDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
     * Get list of Characters to a player
     * https://ref.lootlocker.com/game-api/#list-player-characters
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void ListPlayerCharacters(const FPLootLockerListPlayerCharactersResponse& OnCompletedRequest);
+    static void ListPlayerCharacters(const FPLootLockerListPlayerCharactersResponse & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
 
     //==================================================
@@ -1183,8 +1337,9 @@ public:
     * @param Count Amount of entries to receive
     * @param After Used for pagination, id of the character progression from which the pagination starts from, use the next_cursor and previous_cursor values
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetCharacterProgressions(const int32& CharacterId, const int32& Count, const FString& After, const FLootLockerPaginatedCharacterProgressionsResponseDelegate& OnComplete);
+    static void GetCharacterProgressions(const int32 & CharacterId, const int32 & Count, const FString & After, const FLootLockerPaginatedCharacterProgressionsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Returns multiple progressions the character is currently on.
@@ -1192,16 +1347,18 @@ public:
     * @param CharacterId Id of the character you want to fetch progressions for
     * @param Count Amount of entries to receive
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedCharacterProgressionsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetCharacterProgressions(const int32& CharacterId, const int32& Count, const FLootLockerPaginatedCharacterProgressionsResponseDelegate& OnComplete);
+    static void GetCharacterProgressions(const int32 & CharacterId, const int32 & Count, const FLootLockerPaginatedCharacterProgressionsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Returns multiple progressions the character is currently on.
     *
     * @param CharacterId Id of the character you want to fetch progressions for
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedCharacterProgressionsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetCharacterProgressions(const int32& CharacterId, const FLootLockerPaginatedCharacterProgressionsResponseDelegate& OnComplete);
+    static void GetCharacterProgressions(const int32 & CharacterId, const FLootLockerPaginatedCharacterProgressionsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Returns a single progression the character is currently on.
@@ -1209,8 +1366,9 @@ public:
     * @param CharacterId Id of the character you want to fetch progressions for
     * @param ProgressionKey Key of the progression you want to fetch
     * @param OnComplete onComplete Action for handling the response of type FLootLockerCharacterProgressionsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionResponseDelegate& OnComplete);
+    static void GetCharacterProgression(const int32 & CharacterId, const FString & ProgressionKey, const FLootLockerCharacterProgressionResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Adds points to the specified character progression.
@@ -1219,8 +1377,9 @@ public:
     * @param ProgressionKey Key of the progression you want to add points to
     * @param Amount Amount of points to be added
     * @param OnComplete onComplete Action for handling the response of type FLootLockerCharacterProgressionWithRewardsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void AddPointsToCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseDelegate& OnComplete);
+    static void AddPointsToCharacterProgression(const int32 & CharacterId, const FString & ProgressionKey, const int32 & Amount, const FLootLockerCharacterProgressionWithRewardsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Subtracts points from the specified character progression.
@@ -1229,8 +1388,9 @@ public:
     * @param ProgressionKey Key of the progression you want to subtract points from
     * @param Amount Amount of points to be subtracted
     * @param OnComplete onComplete Action for handling the response of type FLootLockerCharacterProgressionWithRewardsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void SubtractPointsFromCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseDelegate& OnComplete);
+    static void SubtractPointsFromCharacterProgression(const int32 & CharacterId, const FString & ProgressionKey, const int32 & Amount, const FLootLockerCharacterProgressionWithRewardsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Resets the specified character progression.
@@ -1238,8 +1398,9 @@ public:
     * @param CharacterId Id of the character you want to fetch progressions for
     * @param ProgressionKey Key of the progression you want to reset
     * @param OnComplete onComplete Action for handling the response of type FLootLockerCharacterProgressionWithRewardsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void ResetCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionWithRewardsResponseDelegate& OnComplete);
+    static void ResetCharacterProgression(const int32 & CharacterId, const FString & ProgressionKey, const FLootLockerCharacterProgressionWithRewardsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Returns multiple progressions the character is currently on.
@@ -1247,8 +1408,9 @@ public:
     * @param CharacterId Id of the character you want to fetch progressions for
     * @param ProgressionKey Key of the progression you want to delete
     * @param OnComplete onComplete Action for handling the response of type FLootLockerResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void DeleteCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const FLootLockerDeleteProgressionDelegate& OnComplete);
+    static void DeleteCharacterProgression(const int32 & CharacterId, const FString & ProgressionKey, const FLootLockerDeleteProgressionDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     //==================================================
     //Persistent Storage
@@ -1262,8 +1424,9 @@ public:
      * If you are not already deeply integrated with the Player Persistent Storage in your game, consider moving to Player Metadata.
      *
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetEntirePersistentStorage(const FPersistentStorageItemsResponseDelegate& OnCompletedRequest);
+    static void GetEntirePersistentStorage(const FPersistentStorageItemsResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Get Key/Value pair from the player's persistent storage.
@@ -1273,8 +1436,9 @@ public:
      *
      * @param Key Key of the key/value pair.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetItemFromPersistentStorage(const FString& Key, const FPersistentStorageItemResponseDelegate& OnCompletedRequest);
+    static void GetItemFromPersistentStorage(const FString & Key, const FPersistentStorageItemResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Create/Update key/value pair(s).
@@ -1284,8 +1448,9 @@ public:
      *
      * @param Items array of items to be created/updated.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void AddItemsToPersistentStorage(const FLootLockerPersistentStorageItems Items, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest);
+    static void AddItemsToPersistentStorage(const FLootLockerPersistentStorageItems Items, const FPersistentStorageItemsResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Create/Update a key/value pair.
@@ -1295,8 +1460,9 @@ public:
      *
      * @param Item item to be created/updated.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void AddItemsToPersistentStorage(const FLootLockerPersistentStorageItem Item, const FPersistentStorageItemResponseDelegate& OnCompletedRequest);
+    static void AddItemsToPersistentStorage(const FLootLockerPersistentStorageItem Item, const FPersistentStorageItemResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Delete a key/value pair.
@@ -1306,8 +1472,9 @@ public:
      *
      * @param Key key of a key/value pair.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void DeleteItemFromPersistentStorage(const FString& Key, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest);
+    static void DeleteItemFromPersistentStorage(const FString & Key, const FPersistentStorageItemsResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Read another players public key/value storage.
@@ -1317,8 +1484,9 @@ public:
      *
      * @param PlayerId players id or their public UID.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetPlayerPersistentStorage(const FString& PlayerId, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest);
+    static void GetPlayerPersistentStorage(const FString & PlayerId, const FPersistentStorageItemsResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     //==================================================
     //Assets
@@ -1329,8 +1497,9 @@ public:
      * https://ref.lootlocker.com/game-api/#getting-contexts
      *
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetContexts(const FContextDelegate& OnCompletedRequest);
+    static void GetContexts(const FContextDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Get all assets in a paginated form.
@@ -1342,18 +1511,20 @@ public:
      * @param AssetFilter Optional: Filter to apply, defaults to None
      * @param Context Optional: Context filter to apply, defaults to 0
      * @param IncludeUGC Optional: Whether to include UGC Assets, defaults to false
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetAssets(const FAssetsResponseDelegate& OnCompletedRequest, int StartFromIndex = 0, int ItemsCount = 50, ELootLockerAssetFilter AssetFilter = ELootLockerAssetFilter::None, int Context = 0, bool IncludeUGC = false);
+    static void GetAssets(const FAssetsResponseDelegate & OnCompletedRequest, int StartFromIndex = 0, int ItemsCount = 50, ELootLockerAssetFilter AssetFilter = ELootLockerAssetFilter::None, int Context = 0, bool IncludeUGC = false, const FString ForPlayerWithUlid = "");
 
-	/**
-	 * This call offers a paginated list of the games universal assets
-	 * https://ref.lootlocker.com/game-api/#get-universal-assets
-	 *
-	 * @param After Last universal id to start after.
-	 * @param ItemsCount Number of items to receive (50-200).
-	 * @param OnCompletedRequest Delegate for handling the server response.
-	 */
-	static void GetUniversalAssets(int After, int ItemsCount, const FUniversalAssetResponseDelegate &OnCompletedRequest);
+    /**
+     * This call offers a paginated list of the games universal assets
+     * https://ref.lootlocker.com/game-api/#get-universal-assets
+     *
+     * @param After Last universal id to start after.
+     * @param ItemsCount Number of items to receive (50-200).
+     * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     */
+    static void GetUniversalAssets(int After, int ItemsCount, const FUniversalAssetResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Retrieve only specific Assets by their ID's.
@@ -1361,8 +1532,9 @@ public:
      *
      * @param AssetIds Array of the asset ID's to be fetched.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetAssetsByIds(const TArray<int>& AssetIds, const FAssetsResponseDelegate& OnCompletedRequest);
+    static void GetAssetsByIds(const TArray<int>&AssetIds, const FAssetsResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * This call will return you all the default bones.
@@ -1370,16 +1542,18 @@ public:
      * https://ref.lootlocker.com/game-api/#getting-asset-bone-information
      *
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetAssetBones(const FAssetBonesResponseDelegate& OnCompletedRequest);
+    static void GetAssetBones(const FAssetBonesResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * List the current players favourite assets.
      * https://ref.lootlocker.com/game-api/#listing-favourite-assets
      *
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetFavouriteAssetIndices(const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest);
+    static void GetFavouriteAssetIndices(const FGetFavouriteAssetIndicesResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Add an asset to the list of favourites.
@@ -1387,8 +1561,9 @@ public:
      *
      * @param AssetId Asset ID to be added.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void AddAssetToFavourites(int AssetId, const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest);
+    static void AddAssetToFavourites(int AssetId, const FGetFavouriteAssetIndicesResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Remove an asset from the list of favourites.
@@ -1396,8 +1571,9 @@ public:
      *
      * @param AssetId asset ID to be removed.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void RemoveAssetFromFavourites(int AssetId, const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest);
+    static void RemoveAssetFromFavourites(int AssetId, const FGetFavouriteAssetIndicesResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
     * Grant an asset to the current Player.
@@ -1406,8 +1582,9 @@ public:
     * @param AssetID ID of the asset to be granted
     * @param AssetVariationID The ID of the Asset Variation you want to grant
     * @param AssetRentalOptionID The ID of the rental option you want to grant
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GrantAssetToPlayerInventory(const int AssetID, const int AssetVariationID, const int AssetRentalOptionID, const FGrantAssetResponseDelegate& OnCompletedRequest);
+    static void GrantAssetToPlayerInventory(const int AssetID, const int AssetVariationID, const int AssetRentalOptionID, const FGrantAssetResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
     * Grant an asset to the current Player.
@@ -1416,9 +1593,10 @@ public:
     * @param AssetID ID of the asset to be granted
     * @param AssetVariationID The ID of the Asset Variation you want to grant
     * @param AssetRentalOptionID The ID of the rental option you want to grant
+    * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GrantAssetToPlayerInventory(const int AssetID, const FGrantAssetResponseDelegate& OnCompletedRequest) {
-        GrantAssetToPlayerInventory(AssetID, 0, 0, OnCompletedRequest);
+    static void GrantAssetToPlayerInventory(const int AssetID, const FGrantAssetResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "") {
+        GrantAssetToPlayerInventory(AssetID, 0, 0, OnCompletedRequest, ForPlayerWithUlid);
     }
 
 
@@ -1433,8 +1611,9 @@ public:
      *
      * @param AssetInstanceId asset instance ID.
      * @param OnCompletedRequest Delegate for handling the server response.
+ * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetAllKeyValuePairsForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+    static void GetAllKeyValuePairsForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItemsResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Get a key/value pair for an asset instance.
@@ -1443,8 +1622,9 @@ public:
      * @param AssetInstanceId asset instance ID.
      * @param StorageItemId ID of the key/value pair.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemResponseDelegate& OnCompletedRequest);
+    static void GetAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Create a key/value pair for an asset instance.
@@ -1453,8 +1633,9 @@ public:
      * @param AssetInstanceId asset instance ID.
      * @param Item key/value pair.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void CreateAKeyValuePairForAssetInstance(int AssetInstanceId, const FLootLockerAssetInstanceStorageItem& Item, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+    static void CreateAKeyValuePairForAssetInstance(int AssetInstanceId, const FLootLockerAssetInstanceStorageItem & Item, const FAssetInstanceStorageItemsResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Update key/value pairs for an asset instance.
@@ -1463,8 +1644,9 @@ public:
      * @param AssetInstanceId asset instance ID.
      * @param Items key/value pairs.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void UpdateOneOrMoreKeyValuePairForAssetInstance(int AssetInstanceId, FLootLockerAssetInstanceStorageItems Items, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+    static void UpdateOneOrMoreKeyValuePairForAssetInstance(int AssetInstanceId, FLootLockerAssetInstanceStorageItems Items, const FAssetInstanceStorageItemsResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Update a key/value pair for an asset instance.
@@ -1472,10 +1654,11 @@ public:
      *
      * @param AssetInstanceId asset instance ID.
      * @param StorageItemId key/value pair ID.
-	 * @param Item Struct FLootLockerAssetInstanceStorageItem
+     * @param Item Struct FLootLockerAssetInstanceStorageItem
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void UpdateAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FLootLockerAssetInstanceStorageItem Item, const FAssetInstanceStorageItemResponseDelegate& OnCompletedRequest);
+    static void UpdateAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FLootLockerAssetInstanceStorageItem Item, const FAssetInstanceStorageItemResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Delete a key/value pair for an asset instance.
@@ -1484,8 +1667,9 @@ public:
      * @param AssetInstanceId asset instance ID.
      * @param StorageItemId key/value pair ID.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void DeleteAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest);
+    static void DeleteAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Get the drop rates for a loot box asset instance.
@@ -1493,8 +1677,9 @@ public:
      *
      * @param AssetInstanceId asset instance ID.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void InspectLootBox(int AssetInstanceId, const FLootBoxContentResponseDelegate& OnCompletedRequest);
+    static void InspectLootBox(int AssetInstanceId, const FLootBoxContentResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Open a loot box asset instance.
@@ -1503,16 +1688,18 @@ public:
      *
      * @param AssetInstanceId asset instance ID.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void OpenLootBox(int AssetInstanceId, const FOpenLootBoxResponseDelegate& OnCompletedRequest);
+    static void OpenLootBox(int AssetInstanceId, const FOpenLootBoxResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
     * Delete an Asset Instance permanently from the active Player's Inventory.
     *
     * @param AssetInstanceID asset instance ID.
     * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void DeleteAssetInstanceFromPlayerInventory(int AssetInstanceID, const FDeleteAssetInstanceResponseDelegate& OnCompletedRequest);
+    static void DeleteAssetInstanceFromPlayerInventory(int AssetInstanceID, const FDeleteAssetInstanceResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
 
     //==================================================
@@ -1525,8 +1712,9 @@ public:
      *
      * @param AssetCandidateData asset candidate data.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void CreateAssetCandidate(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest);
+    static void CreateAssetCandidate(const FLootLockerCreateAssetCandidateData & AssetCandidateData, const FCreateAssetCandidateResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Create an asset candidate and immediately mark it as completed
@@ -1534,8 +1722,9 @@ public:
      *
      * @param AssetCandidateData asset candidate data.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void CreateAssetCandidateAndMarkComplete(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest);
+    static void CreateAssetCandidateAndMarkComplete(const FLootLockerCreateAssetCandidateData & AssetCandidateData, const FCreateAssetCandidateResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Update an asset candidate
@@ -1544,8 +1733,9 @@ public:
      * @param AssetCandidateId ID of the asset candidate.
      * @param AssetCandidateData asset candidate data.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void UpdateAssetCandidate(int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidateData, const FAssetCandidateResponseDelegate& OnCompletedRequest);
+    static void UpdateAssetCandidate(int AssetCandidateId, const FLootLockerUpdateAssetCandidateData & AssetCandidateData, const FAssetCandidateResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Delete an asset candidate.
@@ -1553,16 +1743,18 @@ public:
      *
      * @param AssetCandidateId ID of the asset candidate.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void DeleteAssetCandidate(int AssetCandidateId, const FResponseCallback& OnCompletedRequest);
+    static void DeleteAssetCandidate(int AssetCandidateId, const FResponseCallback & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Get all asset candidates.
      * https://ref.lootlocker.com/game-api/#listing-asset-candidates
      *
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetAllAssetCandidates(const FAssetCandidatesResponseDelegate& OnCompletedRequest);
+    static void GetAllAssetCandidates(const FAssetCandidatesResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Get an asset candidate.
@@ -1570,8 +1762,9 @@ public:
      *
      * @param AssetCandidateId ID of the asset candidate.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetAssetCandidate(int AssetCandidateId, const FAssetCandidateResponseDelegate& OnCompletedRequest);
+    static void GetAssetCandidate(int AssetCandidateId, const FAssetCandidateResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Add a file to an asset candidate.
@@ -1581,8 +1774,9 @@ public:
      * @param FilePath full absolute path to a file.
      * @param FilePurpose purpose of the file.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void AddFileToAssetCandidate(int AssetCandidateId, const FString& FilePath, ELootLockerAssetFilePurpose FilePurpose, const FResponseCallback& OnCompletedRequest);
+    static void AddFileToAssetCandidate(int AssetCandidateId, const FString & FilePath, ELootLockerAssetFilePurpose FilePurpose, const FResponseCallback & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Remove a file from an asset candidate.
@@ -1591,8 +1785,9 @@ public:
      * @param AssetCandidateId ID of the asset candidate.
      * @param FileId ID of the file.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void DeleteFileFromAssetCandidate(int AssetCandidateId, int FileId, const FResponseCallback& OnCompletedRequest);
+    static void DeleteFileFromAssetCandidate(int AssetCandidateId, int FileId, const FResponseCallback & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     //==================================================
     // Progressions
@@ -1604,31 +1799,35 @@ public:
     * @param Count Amount of entries to receive
     * @param After Used for pagination, id of the player progression from which the pagination starts from, use the next_cursor and previous_cursor values
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetProgressions(const int32& Count, const FString& After, const FLootLockerPaginatedProgressionsResponseDelegate& OnComplete);
+    static void GetProgressions(const int32 & Count, const FString & After, const FLootLockerPaginatedProgressionsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Returns multiple progressions.
     *
     * @param Count Amount of entries to receive
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetProgressions(const int32& Count, const FLootLockerPaginatedProgressionsResponseDelegate& OnComplete);
+    static void GetProgressions(const int32 & Count, const FLootLockerPaginatedProgressionsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Returns multiple progressions.
     *
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetProgressions(const FLootLockerPaginatedProgressionsResponseDelegate& OnComplete);
+    static void GetProgressions(const FLootLockerPaginatedProgressionsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Returns the specified progression
     *
     * @param ProgressionKey Key of the progression you want to fetch
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetProgression(const FString& ProgressionKey, const FLootLockerProgressionResponseDelegate& OnComplete);
+    static void GetProgression(const FString & ProgressionKey, const FLootLockerProgressionResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Returns multiple progression tiers for the specified progression.
@@ -1637,8 +1836,9 @@ public:
     * @param Count Amount of entries to receive
     * @param After Used for pagination, id of the player progression from which the pagination starts from, use the next_cursor and previous_cursor values
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetProgressionTiers(const FString& ProgressionKey, const int32& Count, const int32& After, const FLootLockerPaginatedProgressionTiersResponseDelegate& OnComplete);
+    static void GetProgressionTiers(const FString & ProgressionKey, const int32 & Count, const int32 & After, const FLootLockerPaginatedProgressionTiersResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Returns multiple progression tiers for the specified progression.
@@ -1646,16 +1846,18 @@ public:
     * @param ProgressionKey Key of the progression you want to fetch
     * @param Count Amount of entries to receive
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetProgressionTiers(const FString& ProgressionKey, const int32& Count, const FLootLockerPaginatedProgressionTiersResponseDelegate& OnComplete);
+    static void GetProgressionTiers(const FString & ProgressionKey, const int32 & Count, const FLootLockerPaginatedProgressionTiersResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Returns multiple progression tiers for the specified progression.
     *
     * @param ProgressionKey Key of the progression you want to fetch
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetProgressionTiers(const FString& ProgressionKey, const FLootLockerPaginatedProgressionTiersResponseDelegate& OnComplete);
+    static void GetProgressionTiers(const FString & ProgressionKey, const FLootLockerPaginatedProgressionTiersResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     //==================================================
     //Missions
@@ -1666,8 +1868,9 @@ public:
      * https://ref.lootlocker.com/game-api/#getting-all-missions
      *
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetAllMissions(const FMissionsResponseDelegate& OnCompletedRequest);
+    static void GetAllMissions(const FMissionsResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Get a mission.
@@ -1675,8 +1878,9 @@ public:
      *
      * @param MissionId mission ID.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetMission(int MissionId, const FMissionResponseDelegate& OnCompletedRequest);
+    static void GetMission(int MissionId, const FMissionResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Start a mission.
@@ -1684,8 +1888,9 @@ public:
      *
      * @param MissionId mission ID.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void StartMission(int MissionId, const FStartMissionResponseDelegate& OnCompletedRequest);
+    static void StartMission(int MissionId, const FStartMissionResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Finish a mission.
@@ -1694,8 +1899,9 @@ public:
      * @param MissionId mission ID.
      * @param MissionData mission completion data.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void FinishMission(int MissionId, const FLootLockerFinishMissionData& MissionData, const FFinishMissionResponseDelegate& OnCompletedRequest);
+    static void FinishMission(int MissionId, const FLootLockerFinishMissionData & MissionData, const FFinishMissionResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     //==================================================
     //Maps
@@ -1707,8 +1913,9 @@ public:
      * https://ref.lootlocker.com/game-api/#getting-all-maps
      *
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetMaps(const FGetMapsResponseDelegate& OnCompletedRequest);
+    static void GetMaps(const FGetMapsResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     //==================================================
     //Purchases
@@ -1722,8 +1929,9 @@ public:
      *
      * @param AssetInstanceId ID of the asset.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void ActivateRentalAsset(int AssetInstanceId, const FActivateRentalAssetResponseDelegate& OnCompletedRequest);
+    static void ActivateRentalAsset(int AssetInstanceId, const FActivateRentalAssetResponseDelegate& OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Purchase one catalog item using a specified wallet
@@ -1731,17 +1939,19 @@ public:
      * @param WalletId The id of the wallet to use for the purchase
      * @param CatalogItemListingId The unique listing id of the catalog item to purchase
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void LootLockerPurchaseSingleCatalogItem(const FString& WalletId, const FString& CatalogItemListingId, const FLootLockerDefaultDelegate& OnCompletedRequest);
+    static void LootLockerPurchaseSingleCatalogItem(const FString & WalletId, const FString & CatalogItemListingId, const FLootLockerDefaultDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Purchase one or more catalog items using a specified wallet
-     * 
+     *
      * @param WalletId The id of the wallet to use for the purchase
      * @param ItemsToPurchase A list of items to purchase along with the quantity of each item to purchase
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void LootLockerPurchaseCatalogItems(const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair> ItemsToPurchase, const FLootLockerDefaultDelegate& OnCompletedRequest);
+    static void LootLockerPurchaseCatalogItems(const FString & WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair> ItemsToPurchase, const FLootLockerDefaultDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Redeem a purchase that was made successfully towards the Apple App Store for the current player
@@ -1749,8 +1959,9 @@ public:
      * @param TransactionId The id of the transaction successfully made towards the Apple App Store
      * @param Sandboxed Optional: Should this redemption be made towards sandbox App Store
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void RedeemAppleAppStorePurchaseForPlayer(const FString& TransactionId, const FLootLockerDefaultDelegate& OnCompletedRequest, bool Sandboxed = false);
+    static void RedeemAppleAppStorePurchaseForPlayer(const FString & TransactionId, const FLootLockerDefaultDelegate & OnCompletedRequest, bool Sandboxed = false, const FString ForPlayerWithUlid = "");
 
     /**
      * Redeem a purchase that was made successfully towards the Apple App Store for a class that the current player owns
@@ -1759,8 +1970,9 @@ public:
      * @param ClassId The id of the class to redeem this transaction for
      * @param Sandboxed Optional: Should this redemption be made towards sandbox App Store
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void RedeemAppleAppStorePurchaseForClass(const int ClassId, const FString& TransactionId, const FLootLockerDefaultDelegate& OnCompletedRequest, bool Sandboxed = false);
+    static void RedeemAppleAppStorePurchaseForClass(const int ClassId, const FString & TransactionId, const FLootLockerDefaultDelegate & OnCompletedRequest, bool Sandboxed = false, const FString ForPlayerWithUlid = "");
 
     /**
      * Redeem a purchase that was made successfully towards the Google Play Store for the current player
@@ -1768,8 +1980,9 @@ public:
      * @param ProductId The id of the product that this redemption refers to
      * @param PurchaseToken The token from the purchase successfully made towards the Google Play Store
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void RedeemGooglePlayStorePurchaseForPlayer(const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultDelegate& OnCompletedRequest);
+    static void RedeemGooglePlayStorePurchaseForPlayer(const FString & ProductId, const FString & PurchaseToken, const FLootLockerDefaultDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Redeem a purchase that was made successfully towards the Google Play Store for a class that the current player owns
@@ -1778,8 +1991,9 @@ public:
      * @param ProductId The id of the product that this redemption refers to
      * @param PurchaseToken The token from the purchase successfully made towards the Google Play Store
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void RedeemGooglePlayStorePurchaseForClass(const int ClassId, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultDelegate& OnCompletedRequest);
+    static void RedeemGooglePlayStorePurchaseForClass(const int ClassId, const FString & ProductId, const FString & PurchaseToken, const FLootLockerDefaultDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Begin a Steam purchase with the given settings that when finalized will redeem the specified catalog item
@@ -1793,8 +2007,9 @@ public:
      * @param Language The language to use for the purchase
      * @param CatalogItemId The LootLocker Catalog Item Id for the item you wish to purchase
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void BeginSteamPurchaseRedemption(const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegate& OnCompletedRequest);
+    static void BeginSteamPurchaseRedemption(const FString & SteamId, const FString & Currency, const FString & Language, const FString & CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Begin a Steam purchase with the given settings that when finalized will redeem the specified catalog item for the specified class
@@ -1809,8 +2024,9 @@ public:
      * @param Language The language to use for the purchase
      * @param CatalogItemId The LootLocker Catalog Item Id for the item you wish to purchase
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void BeginSteamPurchaseRedemptionForClass(const int ClassId, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegate& OnCompletedRequest);
+    static void BeginSteamPurchaseRedemptionForClass(const int ClassId, const FString & SteamId, const FString & Currency, const FString & Language, const FString & CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Check the Steam Purchase status for a given entitlement
@@ -1820,8 +2036,9 @@ public:
      *
      * @param EntitlementId The id of the entitlement to check the status for
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void QuerySteamPurchaseRedemptionStatus(const FString& EntitlementId, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegate& OnCompletedRequest);
+    static void QuerySteamPurchaseRedemptionStatus(const FString & EntitlementId, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Finalize a started Steam Purchase and subsequently redeem the catalog items that the entitlement refers to
@@ -1830,8 +2047,9 @@ public:
      *
      * @param EntitlementId The id of the entitlement to finalize the purchase for
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void FinalizeSteamPurchaseRedemption(const FString& EntitlementId, const FLootLockerDefaultDelegate& OnCompletedRequest);
+    static void FinalizeSteamPurchaseRedemption(const FString & EntitlementId, const FLootLockerDefaultDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     //==================================================
     // Triggers
@@ -1848,8 +2066,9 @@ public:
      *
      * @param KeysToInvoke List of keys of the triggers to invoke
      * @param OnComplete Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void InvokeTriggersByKey(const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseDelegate& OnComplete);
+    static void InvokeTriggersByKey(const TArray<FString>&KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     //==================================================
     // Notifications
@@ -1859,8 +2078,9 @@ public:
      List notifications without filters and with default pagination settings
 
      @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void ListNotificationsWithDefaultParameters(const FLootLockerListNotificationsResponseDelegate& OnComplete);
+    static void ListNotificationsWithDefaultParameters(const FLootLockerListNotificationsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      List notifications according to specified filters and with pagination settings
@@ -1871,8 +2091,9 @@ public:
      @param PerPage (Optional) Used together with PerPage to apply pagination to this request. Page designates which "page" of items to fetch
      @param Page (Optional) Used together with Page to apply pagination to this request. PerPage designates how many notifications are considered a "page"
      @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void ListNotifications(bool ShowRead, const FString& OfType, const FString& WithSource, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate& OnComplete);
+    static void ListNotifications(bool ShowRead, const FString & OfType, const FString & WithSource, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      List notifications according to specified filters and with pagination settings
@@ -1884,8 +2105,9 @@ public:
      @param PerPage (Optional) Used together with PerPage to apply pagination to this request. Page designates which "page" of items to fetch
      @param Page (Optional) Used together with Page to apply pagination to this request. PerPage designates how many notifications are considered a "page"
      @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void ListNotificationsWithPriority(ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate& OnComplete);
+    static void ListNotificationsWithPriority(ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString & OfType, const FString & WithSource, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      Mark all unread notifications as read
@@ -1893,24 +2115,27 @@ public:
      Warning: This will mark ALL unread notifications as read, so if you have listed notifications but due to filters and/or pagination not pulled all of them you may have unviewed unread notifications
 
      @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void MarkAllNotificationsAsRead(const FLootLockerReadNotificationsResponseDelegate& OnComplete);
+    static void MarkAllNotificationsAsRead(const FLootLockerReadNotificationsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      Mark the specified notifications as read (if they are currently unread)
 
      @param Notifications List of ids of notifications to mark as read
      @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void MarkNotificationsAsRead(const TArray<FLootLockerNotification>& Notifications, const FLootLockerReadNotificationsResponseDelegate& OnComplete);
+    static void MarkNotificationsAsRead(const TArray<FLootLockerNotification>&Notifications, const FLootLockerReadNotificationsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      Mark the specified notifications as read
 
      @param NotificationIDs List of ids of notifications to mark as read
      @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void MarkNotificationsAsReadByIds(const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseDelegate& OnComplete);
+    static void MarkNotificationsAsReadByIds(const TArray<FString>&NotificationIDs, const FLootLockerReadNotificationsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     //==================================================
     //Collectables
@@ -1922,8 +2147,9 @@ public:
      * https://ref.lootlocker.com/game-api/#getting-collectables
      *
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetAllCollectables(const FCollectablesResponseDelegate& OnCompletedRequest);
+    static void GetAllCollectables(const FCollectablesResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Collect an item.
@@ -1931,8 +2157,9 @@ public:
      *
      * @param Item The slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void CollectItem(const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegate& OnCompletedRequest);
+    static void CollectItem(const FLootLockerCollectItemPayload & Item, const FCollectablesResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     //==================================================
     //Messages
@@ -1944,8 +2171,9 @@ public:
      * https://ref.lootlocker.com/game-api/#get-messages
      *
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetMessages(const FMessagesResponseDelegate& OnCompletedRequest);
+    static void GetMessages(const FMessagesResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     //==================================================
     //Leaderboard
@@ -1956,9 +2184,10 @@ public:
      * List leaderboards with details on each leaderboard
      *
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void ListLeaderboards(const FLootLockerListLeaderboardsResponseDelegate& OnCompletedRequest) {
-        ListLeaderboards(-1, 0, OnCompletedRequest);
+    static void ListLeaderboards(const FLootLockerListLeaderboardsResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "") {
+        ListLeaderboards(-1, 0, OnCompletedRequest, ForPlayerWithUlid);
     };
 
     /**
@@ -1967,8 +2196,9 @@ public:
     * @param Count Optional: The count of items you want to retrieve.
     * @param After Optional: Used for pagination, id from which the pagination starts from.
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void ListLeaderboards(int Count, int After, const FLootLockerListLeaderboardsResponseDelegate& OnCompletedRequest);
+    static void ListLeaderboards(int Count, int After, const FLootLockerListLeaderboardsResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Get rank for single member for a leaderboard. If leaderboard is of type player a player will also be in the response.
@@ -1977,8 +2207,9 @@ public:
      * @param LeaderboardKey the key of the leaderboard you need to connect to.
      * @param MemberId the id of player in the leaderboard
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetMemberRank(FString LeaderboardKey, FString MemberId, const FLootLockerGetMemberRankResponseDelegate& OnCompletedRequest);
+    static void GetMemberRank(FString LeaderboardKey, FString MemberId, const FLootLockerGetMemberRankResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Get rank for a set of members for a leaderboard. If leaderboard is of type player a player will also be in the response.
@@ -1987,8 +2218,9 @@ public:
      * @param Members The ids of all leaderboard members you want to get info on.
      * @param LeaderboardKey the key of the leaderboard you need to connect to.
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetByListOfMembers(TArray<FString> Members, FString LeaderboardKey, const FLootLockerGetByListOfMembersResponseDelegate& OnCompletedRequest);
+    static void GetByListOfMembers(TArray<FString> Members, FString LeaderboardKey, const FLootLockerGetByListOfMembersResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Get list of members in rank range.
@@ -1999,8 +2231,9 @@ public:
      * @param Count Number of members returned per page
      * @param After Cursor for pagination, a cursor will be returned in the response
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetScoreList(FString LeaderboardKey, int Count, int After, const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest);
+    static void GetScoreList(FString LeaderboardKey, int Count, int After, const FLootLockerGetScoreListResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Get list of members in rank range.
@@ -2010,8 +2243,9 @@ public:
      * @param LeaderboardKey the key of the leaderboard you need to connect to.
      * @param Count Number of members returned per page
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetScoreListInitial(FString LeaderboardKey, int Count, const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest);
+    static void GetScoreListInitial(FString LeaderboardKey, int Count, const FLootLockerGetScoreListResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Submit score for member on leaderboard.
@@ -2022,8 +2256,9 @@ public:
      * @param Score The score to be submitted.
      * @param Metadata Metadata for the score, will be used if metadata is enabled for the leaderboard
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void SubmitScore(FString MemberId, const FString LeaderboardKey, const int Score, FString Metadata, const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest);
+    static void SubmitScore(FString MemberId, const FString LeaderboardKey, const int Score, FString Metadata, const FLootLockerSubmitScoreResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Get all leaderboards with member information on the ones the member is on, with rank and score, as well as player information if the leaderboard is of type player.
@@ -2034,38 +2269,43 @@ public:
      * @param Count Number of members returned per page
      * @param After Cursor for pagination, a cursor will be returned in the response
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetAllMemberRanks(FString MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseDelegate& OnCompletedRequest);
-    
+    static void GetAllMemberRanks(FString MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
+
     /**
     * List the archive of a specific Leaderboard,
     * @param LeaderboardKey the Key of the Leaderboard you want the list of archives
     * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void ListLeaderboardArchive(const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseDelegate& OnCompletedRequest);
-    
+    static void ListLeaderboardArchive(const FString & LeaderboardKey, const FLootLockerLeaderboardArchiveResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
+
     /**
     * Get the specified Archive which includes details such as ranks, scores and rewards.
     * @param Key the Key of the Leaderboard you want the list of archives
     * @param Count Optional: the count of how many archive entries you want
     * @param After Optional: cursor for pagination
     * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetLeaderboardArchive(const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest);
+    static void GetLeaderboardArchive(const FString & Key, int Count, const FString & After, const FLootLockerLeaderboardArchiveDetailResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
     * Get the specified Archive which includes details such as ranks, scores and rewards.
     * @param Key the Key of the Leaderboard you want the list of archives
     * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetLeaderboardArchive(const FString& Key, const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest) { GetLeaderboardArchive(Key, -1, "", OnCompletedRequest); }
+    static void GetLeaderboardArchive(const FString & Key, const FLootLockerLeaderboardArchiveDetailResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "") { GetLeaderboardArchive(Key, -1, "", OnCompletedRequest); }
 
     /**
     * Get details on a Leaderboard which contains the schedule, rewards and the details on rewards.
     * @param LeaderboardKey the Key of the Leaderboard you want the list of archives
     * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetLeaderboardDetails(const FString& LeaderboardKey, const FLootLockerLeaderboardDetailsResponseDelegate& OnCompletedRequest);
+    static void GetLeaderboardDetails(const FString & LeaderboardKey, const FLootLockerLeaderboardDetailsResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     //==================================================
     // Drop Table
@@ -2080,8 +2320,9 @@ public:
      *
      * @param TableId Drop table ID
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void ComputeAndLockDropTable(const int TableId, const FLootLockerComputeAndLockDropTableResponseDelegate& OnCompletedRequest);
+    static void ComputeAndLockDropTable(const int TableId, const FLootLockerComputeAndLockDropTableResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Picks drops from a locked drop table.
@@ -2090,8 +2331,9 @@ public:
      * @param Picks List of the item IDs you want to pick. Submit empty list for no picks
      * @param TableId Drop table ID, needs to have been locked prior to this call
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void PickDropsFromDropTable(const TArray<int> Picks, const int TableId,const FFLootLockerPickDropsFromDropTableResponseDelegate& OnCompletedRequest);
+    static void PickDropsFromDropTable(const TArray<int> Picks, const int TableId, const FFLootLockerPickDropsFromDropTableResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     //==================================================
     // Currencies
@@ -2102,24 +2344,27 @@ public:
      * Get a list of available currencies for the game
      *
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void ListCurrencies(const FLootLockerListCurrenciesResponseDelegate& OnCompletedRequest);
+    static void ListCurrencies(const FLootLockerListCurrenciesResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Get details about the specified currency
      *
      * @param CurrencyCode The code of the currency to get details for
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetCurrencyDetails(const FString& CurrencyCode, const FLootLockerGetCurrencyDetailsResponseDelegate& OnCompletedRequest);
+    static void GetCurrencyDetails(const FString & CurrencyCode, const FLootLockerGetCurrencyDetailsResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
      * Get a list of the denominations available for a specific currency
      *
      * @param CurrencyCode The code of the currency to fetch denominations for
      * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetCurrencyDenominationsByCode(const FString& CurrencyCode, const FLootLockerListDenominationsResponseDelegate& OnCompletedRequest);
+    static void GetCurrencyDenominationsByCode(const FString & CurrencyCode, const FLootLockerListDenominationsResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     //==================================================
     // Balances
@@ -2131,16 +2376,18 @@ public:
      *
      * @param WalletID Unique ID of the wallet to get balances for
      * @param OnComplete Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void ListBalancesInWallet(const FString& WalletID, const FLootLockerListBalancesForWalletResponseDelegate& OnComplete);
+    static void ListBalancesInWallet(const FString & WalletID, const FLootLockerListBalancesForWalletResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      * Get information about a specified wallet
      *
      * @param WalletID Unique ID of the wallet to get information for
      * @param OnComplete Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetWalletByWalletID(const FString& WalletID, const FLootLockerGetWalletResponseDelegate& OnComplete);
+    static void GetWalletByWalletID(const FString & WalletID, const FLootLockerGetWalletResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      * Get information about a wallet for a specified holder
@@ -2148,8 +2395,9 @@ public:
      * @param HolderULID ULID of the holder of the wallet you want to get information for
      * @param HolderType The type of the holder to get the wallet for
      * @param OnComplete Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void GetWalletByHolderID(const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerGetWalletResponseDelegate& OnComplete);
+    static void GetWalletByHolderID(const FString & HolderULID, const ELootLockerWalletHolderTypes & HolderType, const FLootLockerGetWalletResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      * Credit (increase) the specified amount of the provided currency to the provided wallet
@@ -2158,8 +2406,9 @@ public:
      * @param CurrencyID Unique ID of the currency to credit
      * @param Amount The amount of the given currency to credit to the given wallet
      * @param OnComplete Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void CreditBalanceToWallet(const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerCreditWalletResponseDelegate& OnComplete);
+    static void CreditBalanceToWallet(const FString & WalletID, const FString & CurrencyID, const FString & Amount, const FLootLockerCreditWalletResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      * Debit (decrease) the specified amount of the provided currency to the provided wallet
@@ -2168,8 +2417,9 @@ public:
      * @param CurrencyID Unique ID of the currency to debit
      * @param Amount The amount of the given currency to debit from the given wallet
      * @param OnComplete Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void DebitBalanceToWallet(const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerDebitWalletResponseDelegate& OnComplete);
+    static void DebitBalanceToWallet(const FString & WalletID, const FString & CurrencyID, const FString & Amount, const FLootLockerDebitWalletResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     //==================================================
     // Catalogs
@@ -2178,8 +2428,9 @@ public:
      * List the catalogs available for the game
      *
      * @param OnComplete Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void ListCatalogs(const FLootLockerListCatalogsResponseDelegate& OnComplete);
+    static void ListCatalogs(const FLootLockerListCatalogsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      * List the items available in a specific catalog
@@ -2188,16 +2439,18 @@ public:
      * @param Count Optional: Amount of catalog items to receive. Use null to get the default amount.
      * @param After Optional: Used for pagination, this is the cursor to start getting items from. Use null to get items from the beginning. Use the cursor from a previous call to get the next count of items in the list.
      * @param OnComplete Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void ListCatalogItems(const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseDelegate& OnComplete);
+    static void ListCatalogItems(const FString & CatalogKey, int Count, const FString & After, const FLootLockerListCatalogPricesResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      * List the items available in a specific catalog
      *
      * @param CatalogKey Unique Key of the catalog that you want to get items for
      * @param OnComplete Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void ListCatalogItems(const FString& CatalogKey, const FLootLockerListCatalogPricesResponseDelegate& OnComplete) { ListCatalogItems(CatalogKey, -1, "", OnComplete);  }
+    static void ListCatalogItems(const FString & CatalogKey, const FLootLockerListCatalogPricesResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "") { ListCatalogItems(CatalogKey, -1, "", OnComplete); }
 
     //==================================================
     // Entitlements
@@ -2210,25 +2463,28 @@ public:
      * @param Count Optional: Amount of entitlement listings to receive. Use null to get the default amount.
      * @param After Optional: Used for pagination, this is the cursor to start getting items from. Use null to get items from the beginning. Use the cursor from a previous call to get the next count of items in the list.
      * @param OnComplete Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void ListEntitlements(int Count, const FString& After, const FLootLockerListEntitlementsResponseDelegate& OnComplete);
+    static void ListEntitlements(int Count, const FString & After, const FLootLockerListEntitlementsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      * List this player's historical entitlements
      * Use this to retrieve information on entitlements the player has received regardless of their origin (for example as an effect of progression, purchases, or leaderboard rewards)
      *
      * @param OnComplete Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void ListEntitlements(const FLootLockerListEntitlementsResponseDelegate& OnComplete) { ListEntitlements(-1, "", OnComplete); }
-    
+    static void ListEntitlements(const FLootLockerListEntitlementsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "") { ListEntitlements(-1, "", OnComplete, ForPlayerWithUlid); }
+
     /**
     * Get information of an entitlement
-    * Use this to retrieve information on entitlements the player has received regardless of their origin (for example as an effect of progression, purchases, or leaderboard rewards) 
+    * Use this to retrieve information on entitlements the player has received regardless of their origin (for example as an effect of progression, purchases, or leaderboard rewards)
     *
     * @param EntitlementID: Is the identifying ID which the entitlement is connected to
     * @param OnCompelte delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetEntitlement(const FString& EntitlementID, FLootLockerSingleEntitlementResponseDelegate& OnComplete);
+    static void GetEntitlement(const FString & EntitlementID, FLootLockerSingleEntitlementResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     //==================================================
     //Feedback
@@ -2237,20 +2493,23 @@ public:
     /**
     * Get a list of Categories to use for feedback to players, like reporting or giving feedback such as nice notes
     * @param OnComplete delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void ListPlayerFeedbackCategories(const FLootLockerListFeedbackCategoryResponseDelegate& OnComplete);
+    static void ListPlayerFeedbackCategories(const FLootLockerListFeedbackCategoryResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Get a list of Categories to use for feedback to the game, like reporting or giving feedback such as nice notes
     * @param OnComplete delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void ListGameFeedbackCategories(const FLootLockerListFeedbackCategoryResponseDelegate& OnComplete);
+    static void ListGameFeedbackCategories(const FLootLockerListFeedbackCategoryResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Get a list of Categories to use for feedback to a ugc asset, like reporting or giving feedback such as nice notes
     * @param OnComplete delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void ListUGCFeedbackCategories(const FLootLockerListFeedbackCategoryResponseDelegate& OnComplete);
+    static void ListUGCFeedbackCategories(const FLootLockerListFeedbackCategoryResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Send feedback about a player
@@ -2258,16 +2517,18 @@ public:
     * @param Description is the text/reason of your feedback ("He is hacking", "He is a kind player!")
     * @param CategoryID is the ID of the category you're using for your feedback, use ListFeedbackCategories function to get the ids.
     * @param OnComplete delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void SendPlayerFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseDelegate& OnComplete);
+    static void SendPlayerFeedback(const FString & Ulid, const FString & Description, const FString & CategoryID, const FLootLockerSendFeedbackResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Send feedback about the game
     * @param Description is the text/reason of your feedback ("Amazing game", "I found a bug here!")
     * @param CategoryID is the ID of the category you're using for your feedback, use ListFeedbackCategories function to get the ids.
     * @param OnComplete delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void SendGameFeedback(const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseDelegate& OnComplete);
+    static void SendGameFeedback(const FString & Description, const FString & CategoryID, const FLootLockerSendFeedbackResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
     * Send feedback about a ugc asset
@@ -2275,8 +2536,9 @@ public:
     * @param Description is the text/reason of your feedback ("Amazing Level", "I found a bug here!")
     * @param CategoryID is the ID of the category you're using for your feedback, use ListFeedbackCategories function to get the ids.
     * @param OnComplete delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void SendUGCFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseDelegate& OnComplete);
+    static void SendUGCFeedback(const FString & Ulid, const FString & Description, const FString & CategoryID, const FLootLockerSendFeedbackResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     //==================================================
     // Metadata
@@ -2289,20 +2551,22 @@ public:
     @param SourceID The specific source id for which to request metadata, note that if the source is self then this too should be set to "self"
     @param OnComplete delegate for handling the server response
     @param IgnoreFiles Optional: Base64 values will be set to content_type "application/x-redacted" and the content will be an empty String. Use this to avoid accidentally fetching large data files.
+     @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void ListMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const FLootLockerListMetadataResponseDelegate& OnComplete, const bool IgnoreFiles = false);
+    static void ListMetadata(const ELootLockerMetadataSources Source, const FString & SourceID, const FLootLockerListMetadataResponseDelegate & OnComplete, const bool IgnoreFiles = false, const FString ForPlayerWithUlid = "");
 
     /**
     List the requested page of Metadata for the specified source with the specified pagination
-    
+
     @param Source The source type for which to request metadata
     @param SourceID The specific source id for which to request metadata, note that if the source is self then this too should be set to "self"
     @param Page Used together with PerPage to apply pagination to this request. Page designates which "page" of items to fetch
     @param PerPage Used together with Page to apply pagination to this request.PerPage designates how many items are considered a "page"
     @param OnComplete delegate for handling the server response
     @param IgnoreFiles Optional: Base64 values will be set to content_type "application/x-redacted" and the content will be an empty String. Use this to avoid accidentally fetching large data files.
+     @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void ListMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const FLootLockerListMetadataResponseDelegate& OnComplete, const bool IgnoreFiles = false);
+    static void ListMetadata(const ELootLockerMetadataSources Source, const FString & SourceID, const int Page, const int PerPage, const FLootLockerListMetadataResponseDelegate & OnComplete, const bool IgnoreFiles = false, const FString ForPlayerWithUlid = "");
 
     /**
     List Metadata for the specified source that has all of the provided tags, use default pagination
@@ -2312,8 +2576,9 @@ public:
     @param Tags The tags that the requested metadata should have, only metadata matching *all of* the given tags will be returned
     @param OnComplete delegate for handling the server response
     @param IgnoreFiles Optional: Base64 values will be set to content_type "application/x-redacted" and the content will be an empty String. Use this to avoid accidentally fetching large data files.
+     @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void ListMetadataWithTags(const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FString>& Tags, const FLootLockerListMetadataResponseDelegate& OnComplete, const bool IgnoreFiles = false);
+    static void ListMetadataWithTags(const ELootLockerMetadataSources Source, const FString & SourceID, const TArray<FString>&Tags, const FLootLockerListMetadataResponseDelegate & OnComplete, const bool IgnoreFiles = false, const FString ForPlayerWithUlid = "");
 
     /**
     List the requested page of Metadata for the specified source that has all of the provided tags and paginate according to the supplied pagination settings
@@ -2325,8 +2590,9 @@ public:
     @param PerPage Used together with Page to apply pagination to this request.PerPage designates how many items are considered a "page"
     @param OnComplete delegate for handling the server response
     @param IgnoreFiles Optional: Base64 values will be set to content_type "application/x-redacted" and the content will be an empty String. Use this to avoid accidentally fetching large data files.
+     @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void ListMetadataWithTags(const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FString>& Tags, const int Page, const int PerPage, const FLootLockerListMetadataResponseDelegate& OnComplete, const bool IgnoreFiles = false);
+    static void ListMetadataWithTags(const ELootLockerMetadataSources Source, const FString & SourceID, const TArray<FString>&Tags, const int Page, const int PerPage, const FLootLockerListMetadataResponseDelegate & OnComplete, const bool IgnoreFiles = false, const FString ForPlayerWithUlid = "");
 
     /**
     Get Metadata for the specified source with the given key
@@ -2336,8 +2602,9 @@ public:
     @param Key The key of the metadata to fetch, use this to fetch metadata for a specific key for the specified source.
     @param OnComplete delegate for handling the server response
     @param IgnoreFiles Optional: Base64 values will be set to content_type "application/x-redacted" and the content will be an empty String. Use this to avoid accidentally fetching large data files.
+     @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const FString& Key, const FLootLockerGetMetadataResponseDelegate& OnComplete, const bool IgnoreFiles = false);
+    static void GetMetadata(const ELootLockerMetadataSources Source, const FString & SourceID, const FString & Key, const FLootLockerGetMetadataResponseDelegate & OnComplete, const bool IgnoreFiles = false, const FString ForPlayerWithUlid = "");
 
     /**
     Get Metadata for the specified keys on the specified sources
@@ -2345,8 +2612,9 @@ public:
     @param SourcesAndKeysToGet The combination of sources to get keys for, and the keys to get for those sources
     @param OnComplete delegate for handling the server response
     @param IgnoreFiles Optional: Base64 values will be set to content_type "application/x-redacted" and the content will be an empty String. Use this to avoid accidentally fetching large data files.
+     @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void GetMultisourceMetadata(const TArray<FLootLockerMetadataSourceAndKeys>& SourcesAndKeysToGet, const FLootLockerGetMultisourceMetadataResponseDelegate& OnComplete, const bool IgnoreFiles = false);
+    static void GetMultisourceMetadata(const TArray<FLootLockerMetadataSourceAndKeys>&SourcesAndKeysToGet, const FLootLockerGetMultisourceMetadataResponseDelegate & OnComplete, const bool IgnoreFiles = false, const FString ForPlayerWithUlid = "");
 
     /**
     Set the provided metadata for the specified source
@@ -2357,25 +2625,28 @@ public:
     @param SourceID The specific source id for which to set metadata, note that if the source is self then this too should be set to "self"
     @param MetadataToActionsToPerform List of actions to take during this set operation.
     @param OnComplete delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void SetMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FLootLockerSetMetadataAction>& MetadataToActionsToPerform, const FLootLockerSetMetadataResponseDelegate& OnComplete);
+    static void SetMetadata(const ELootLockerMetadataSources Source, const FString & SourceID, const TArray<FLootLockerSetMetadataAction>&MetadataToActionsToPerform, const FLootLockerSetMetadataResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
-	//==================================================
-	//Miscellaneous
-	//==================================================
+    //==================================================
+    //Miscellaneous
+    //==================================================
 
-	/**
-	* Get the current time of the server. Can also be used to ping the server
-	* https://ref.lootlocker.com/game-api/#server-time
-	*
-	* @param OnCompleted
-    
+    /**
+    * Get the current time of the server. Can also be used to ping the server
+    * https://ref.lootlocker.com/game-api/#server-time
+    *
+    * @param OnCompleted
+
     Delegate for handling the server response.
-	*/
-	static void GetServerTime(const FTimeResponseDelegate& OnCompletedRequest);
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+    */
+    static void GetServerTime(const FTimeResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
     * Get the last used platform from an earlier session.
+    * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static FString GetLastActivePlatform();
+    static FString GetLastActivePlatform(const FString ForPlayerWithUlid = "");
 };

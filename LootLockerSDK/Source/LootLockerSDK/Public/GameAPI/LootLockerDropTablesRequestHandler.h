@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
 #include "LootLockerResponse.h"
 #include "LootLockerHttpClient.h"
 #include "GameAPI/LootLockerAssetsRequestHandler.h"
@@ -80,7 +79,7 @@ class LOOTLOCKERSDK_API ULootLockerDropTablesRequestHandler : public UObject
 public:
     ULootLockerDropTablesRequestHandler();
     static ULootLockerHttpClient* HttpClient;
-    static void ComputeAndLockDropTable(int TableId,const FLootLockerComputeAndLockDropTableResponseBP& OnCompletedRequestBP = FLootLockerComputeAndLockDropTableResponseBP(), const FLootLockerComputeAndLockDropTableResponseDelegate& OnCompletedRequest = FLootLockerComputeAndLockDropTableResponseDelegate());
-    static void PickDropsFromDropTable(const FLootLockerPickDropsFromDropTableRequest& request, int TableId,const FFLootLockerPickDropsFromDropTableResponseBP& OnCompletedRequestBP = FFLootLockerPickDropsFromDropTableResponseBP(), const FFLootLockerPickDropsFromDropTableResponseDelegate& OnCompletedRequest = FFLootLockerPickDropsFromDropTableResponseDelegate());
+    static void ComputeAndLockDropTable(const FLootLockerPlayerData& PlayerData, int TableId,const FLootLockerComputeAndLockDropTableResponseBP& OnCompletedRequestBP = FLootLockerComputeAndLockDropTableResponseBP(), const FLootLockerComputeAndLockDropTableResponseDelegate& OnCompletedRequest = FLootLockerComputeAndLockDropTableResponseDelegate());
+    static void PickDropsFromDropTable(const FLootLockerPlayerData& PlayerData, const FLootLockerPickDropsFromDropTableRequest& request, int TableId,const FFLootLockerPickDropsFromDropTableResponseBP& OnCompletedRequestBP = FFLootLockerPickDropsFromDropTableResponseBP(), const FFLootLockerPickDropsFromDropTableResponseDelegate& OnCompletedRequest = FFLootLockerPickDropsFromDropTableResponseDelegate());
 	
 };

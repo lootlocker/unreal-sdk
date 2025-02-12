@@ -3,9 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
 #include "LootLockerResponse.h"
-#include "JsonObjectConverter.h"
 #include "LootLockerHttpClient.h"
 #include "LootLockerMapsRequestHandler.generated.h"
 
@@ -62,7 +60,7 @@ class LOOTLOCKERSDK_API ULootLockerMapsRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
-    static void GetMaps(const FGetMapsResponseDelegateBP& OnCompletedRequestBP = FGetMapsResponseDelegateBP(), const FGetMapsResponseDelegate& OnCompletedRequest = FGetMapsResponseDelegate());
+    static void GetMaps(const FLootLockerPlayerData& PlayerData, const FGetMapsResponseDelegateBP& OnCompletedRequestBP = FGetMapsResponseDelegateBP(), const FGetMapsResponseDelegate& OnCompletedRequest = FGetMapsResponseDelegate());
 public:
     ULootLockerMapsRequestHandler();
     
