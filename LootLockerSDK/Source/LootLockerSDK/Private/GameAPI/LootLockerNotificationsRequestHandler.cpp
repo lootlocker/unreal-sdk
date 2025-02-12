@@ -88,7 +88,7 @@ void FLootLockerListNotificationsResponse::PopulateConvenienceStructures()
             }
             else
             {
-                NotificationLookupTable.Add(LootLockerNotificationsStaticStrings::NotificationSources::TwitchDrop, TArray{LookupStruct});
+                NotificationLookupTable.Add(LootLockerNotificationsStaticStrings::NotificationSources::TwitchDrop, TArray<FLootLockerNotificationIdentifyingValueLookupStruct>{LookupStruct});
             }
         }
 
