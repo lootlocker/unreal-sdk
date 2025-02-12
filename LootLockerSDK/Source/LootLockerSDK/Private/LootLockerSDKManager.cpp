@@ -47,6 +47,11 @@ void ULootLockerSDKManager::ClearAllPlayerCaches()
 }
 
 //Authentication
+void ULootLockerSDKManager::StartSessionManual(const FLootLockerPlayerData& ForPlayer)
+{
+    ULootLockerStateData::SavePlayerData(ForPlayer);
+}
+
 void ULootLockerSDKManager::WhiteLabelCreateAccount(const FString &Email, const FString &Password, const FLootLockerLoginResponseDelegate &OnCompletedRequest)
 {
     ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(Email, Password, FLootLockerLoginResponseDelegateBP(), OnCompletedRequest);
