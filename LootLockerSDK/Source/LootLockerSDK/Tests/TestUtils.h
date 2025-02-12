@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "LootLockerPlatformManager.h"
 #include "LootLockerStateData.h"
 
 #if ENGINE_MAJOR_VERSION > 4
@@ -26,8 +27,9 @@ namespace test_util
 
 		ULootLockerSDKManager::GuestLogin(Delegate, TEXT("unreal_unit_test_user"));
 
-		const auto Response = Promise ->get_future().get();
-		ULootLockerStateData::SetToken(Response.session_token);
+		const auto Response = Promise->get_future().get();
+		FLootLockerPlayerData NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, "", "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Guest), FDateTime::Now().ToString());
+		ULootLockerStateData::SavePlayerData(NewPlayerData);
 		delete(Promise);
 	}
 

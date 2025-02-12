@@ -186,22 +186,22 @@ class LOOTLOCKERSDK_API ULootLockerHeroRequestHandler : public UObject
 {
 	GENERATED_BODY()
 public:
-	static void GetGameHeroes(const FLootLockerGameHeroListBP& OnCompleteBP, const FLootLockerGameHeroListDelegate& OnComplete);
-	static void ListPlayerHeroes(const FLootLockerHeroListBP& OnCompleteBP, const FLootLockerHeroListDelegate& OnComplete);
-	static void ListOtherPlayersHeroesBySteamID64(const int64 SteamID64, const FLootLockerHeroListBP& OnCompleteBP, const FLootLockerHeroListDelegate& OnComplete);
-	static void CreateHero(const FLootLockerCreateHeroRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP, const FLootLockerPlayerHeroDelegate& OnComplete);
-	static void CreateHeroWithVariation(const FLootLockerCreateHeroWithVariationRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP, const FLootLockerPlayerHeroDelegate& OnComplete);
-	static void GetHero(const int32 HeroID, const FLootLockerPlayerHeroBP& OnCompleteBP, const FLootLockerPlayerHeroDelegate& OnComplete);
-	static void GetOtherPlayersDefaultHeroBySteamID64(const int64 SteamID64, const FLootLockerPlayerHeroBP& OnCompleteBP, const FLootLockerPlayerHeroDelegate& OnComplete);
-	static void UpdateHero(const int32 HeroID, const FLootLockerUpdateHeroRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP, const FLootLockerPlayerHeroDelegate& OnComplete);
-	static void DeleteHero(const int32 HeroID, const FLLHeroDefaultResponseBP& OnCompleteBP, const FLLHeroDefaultResponseDelegate& OnComplete);
-	static void GetHeroInventory(const int32 HeroID, const FPInventoryResponseBP& OnCompleteBp, const FInventoryResponse& OnComplete);
-	static void GetHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
-	static void GetOtherPlayersHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
-	static void AddAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
-	static void AddGlobalAssetToHeroLoadout(const int32 HeroID, const int32 AssetID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
-	static void AddGlobalAssetVariationToHeroLoadout(const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
-	static void RemoveAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
+	static void GetGameHeroes(const FLootLockerPlayerData& PlayerData, const FLootLockerGameHeroListBP& OnCompleteBP, const FLootLockerGameHeroListDelegate& OnComplete);
+	static void ListPlayerHeroes(const FLootLockerPlayerData& PlayerData, const FLootLockerHeroListBP& OnCompleteBP, const FLootLockerHeroListDelegate& OnComplete);
+	static void ListOtherPlayersHeroesBySteamID64(const FLootLockerPlayerData& PlayerData, const int64 SteamID64, const FLootLockerHeroListBP& OnCompleteBP, const FLootLockerHeroListDelegate& OnComplete);
+	static void CreateHero(const FLootLockerPlayerData& PlayerData, const FLootLockerCreateHeroRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP, const FLootLockerPlayerHeroDelegate& OnComplete);
+	static void CreateHeroWithVariation(const FLootLockerPlayerData& PlayerData, const FLootLockerCreateHeroWithVariationRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP, const FLootLockerPlayerHeroDelegate& OnComplete);
+	static void GetHero(const FLootLockerPlayerData& PlayerData, const int32 HeroID, const FLootLockerPlayerHeroBP& OnCompleteBP, const FLootLockerPlayerHeroDelegate& OnComplete);
+	static void GetOtherPlayersDefaultHeroBySteamID64(const FLootLockerPlayerData& PlayerData, const int64 SteamID64, const FLootLockerPlayerHeroBP& OnCompleteBP, const FLootLockerPlayerHeroDelegate& OnComplete);
+	static void UpdateHero(const FLootLockerPlayerData& PlayerData, const int32 HeroID, const FLootLockerUpdateHeroRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP, const FLootLockerPlayerHeroDelegate& OnComplete);
+	static void DeleteHero(const FLootLockerPlayerData& PlayerData, const int32 HeroID, const FLLHeroDefaultResponseBP& OnCompleteBP, const FLLHeroDefaultResponseDelegate& OnComplete);
+	static void GetHeroInventory(const FLootLockerPlayerData& PlayerData, const int32 HeroID, const FPInventoryResponseBP& OnCompleteBp, const FInventoryResponse& OnComplete);
+	static void GetHeroLoadout(const FLootLockerPlayerData& PlayerData, const int32 HeroID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
+	static void GetOtherPlayersHeroLoadout(const FLootLockerPlayerData& PlayerData, const int32 HeroID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
+	static void AddAssetToHeroLoadout(const FLootLockerPlayerData& PlayerData, const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
+	static void AddGlobalAssetToHeroLoadout(const FLootLockerPlayerData& PlayerData, const int32 HeroID, const int32 AssetID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
+	static void AddGlobalAssetVariationToHeroLoadout(const FLootLockerPlayerData& PlayerData, const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
+	static void RemoveAssetToHeroLoadout(const FLootLockerPlayerData& PlayerData, const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP, const FHeroLoadoutReseponseDelegate& OnComplete);
 
 	ULootLockerHeroRequestHandler();
 	static ULootLockerHttpClient* HttpClient;
