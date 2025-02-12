@@ -25,6 +25,7 @@ void FTestLootLockerPlayer::Define()
 			// Get player info
 			{
 				const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerPlayerInfoResponse,FLootLockerPlayerInformationResponse>();
+#pragma warning(suppress:4996)
 				ULootLockerSDKManager::GetPlayerInfo(Delegate);
 
 				const auto Response = Promise ->get_future().get();

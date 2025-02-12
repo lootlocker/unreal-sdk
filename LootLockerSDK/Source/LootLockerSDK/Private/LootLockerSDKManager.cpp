@@ -92,6 +92,7 @@ void ULootLockerSDKManager::VerifyPlayerAndStartSteamSession(const FString& Stea
                 OnCompletedRequest.ExecuteIfBound(AuthResponse);
                 return;
             }
+#pragma warning(suppress:4996)
             StartSteamSession(SteamId64, OnCompletedRequest);
         }));
 }
