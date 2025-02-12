@@ -7,6 +7,47 @@
 #include "GameAPI/LootLockerMetadataRequestHandler.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
 
+// Player State
+TArray<FString> ULootLockerManager::GetActivePlayerUlids()
+{
+    return ULootLockerStateData::GetActivePlayerUlids();
+}
+
+void ULootLockerManager::SetPlayerUlidToInactive(const FString& PlayerUlid)
+{
+    return ULootLockerStateData::SetPlayerUlidToInactive(PlayerUlid);
+}
+
+TArray<FString> ULootLockerManager::GetCachedPlayerUlids()
+{
+    return ULootLockerStateData::GetCachedPlayerUlids();
+}
+
+FString ULootLockerManager::GetDefaultPlayerUlid()
+{
+    return ULootLockerStateData::GetDefaultPlayerUlid();
+}
+
+bool ULootLockerManager::SetDefaultPlayer(const FString& PlayerUlid)
+{
+    return ULootLockerStateData::SetDefaultPlayerUlid(PlayerUlid);
+}
+
+FLootLockerPlayerData ULootLockerManager::GetSavedStateOrDefaultOrEmptyForPlayer(const FString& PlayerUlid)
+{
+    return ULootLockerStateData::GetSavedStateOrDefaultOrEmptyForPlayer(PlayerUlid);
+}
+
+void ULootLockerManager::ClearCacheForPlayer(const FString& PlayerUlid)
+{
+    ULootLockerStateData::ClearSavedStateForPlayer(PlayerUlid);
+}
+
+void ULootLockerManager::ClearAllPlayerCaches()
+{
+    ULootLockerStateData::ClearAllSavedStates();
+}
+
 void ULootLockerManager::StartPlaystationNetworkSession(const FString& PsnOnlineId, const FAuthResponseBP& OnStartedSessionRequestCompleted)
 {
     ULootLockerAuthenticationRequestHandler::StartPlaystationNetworkSession(PsnOnlineId, OnStartedSessionRequestCompleted);
@@ -42,9 +83,9 @@ void ULootLockerManager::StartAppleSession(const FString& AuthorizationCode, con
     ULootLockerAuthenticationRequestHandler::StartAppleSession(AuthorizationCode, OnStartedAppleSessionCompleted);
 }
 
-void ULootLockerManager::RefreshAppleSession(const FString& RefreshToken, const FAppleSessionResponseBP& OnRefreshAppleSessionCompleted)
+void ULootLockerManager::RefreshAppleSession(const FLootLockerPlayerData& ForPlayer, const FString& RefreshToken, const FAppleSessionResponseBP& OnRefreshAppleSessionCompleted)
 {
-    ULootLockerAuthenticationRequestHandler::RefreshAppleSession(RefreshToken, OnRefreshAppleSessionCompleted);
+    ULootLockerAuthenticationRequestHandler::RefreshAppleSession(RefreshToken.IsEmpty() ? ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("").RefreshToken : ForPlayer.RefreshToken : RefreshToken, OnRefreshAppleSessionCompleted);
 }
 
 void ULootLockerManager::StartAppleGameCenterSession(const FString& BundleId, const FString& PlayerId, const FString& PublicKeyUrl, const FString& Signature, const FString& Salt, const FString& Timestamp, const FLootLockerAppleGameCenterSessionResponseBP& OnStartedAppleGameCenterSessionCompleted)
@@ -52,9 +93,9 @@ void ULootLockerManager::StartAppleGameCenterSession(const FString& BundleId, co
     ULootLockerAuthenticationRequestHandler::StartAppleGameCenterSession(BundleId, PlayerId, PublicKeyUrl, Signature, Salt, Timestamp, OnStartedAppleGameCenterSessionCompleted);
 }
 
-void ULootLockerManager::RefreshAppleGameCenterSession(const FString& RefreshToken, const FLootLockerAppleGameCenterSessionResponseBP& OnRefreshAppleGameCenterSessionCompleted)
+void ULootLockerManager::RefreshAppleGameCenterSession(const FLootLockerPlayerData& ForPlayer, const FString& RefreshToken, const FLootLockerAppleGameCenterSessionResponseBP& OnRefreshAppleGameCenterSessionCompleted)
 {
-    ULootLockerAuthenticationRequestHandler::RefreshAppleGameCenterSession(RefreshToken, OnRefreshAppleGameCenterSessionCompleted);
+    ULootLockerAuthenticationRequestHandler::RefreshAppleGameCenterSession(RefreshToken.IsEmpty() ? ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("").RefreshToken : ForPlayer.RefreshToken : RefreshToken, OnRefreshAppleGameCenterSessionCompleted);
 }
 
 void ULootLockerManager::StartGoogleSession(const FString& IdToken, const FGoogleSessionResponseBP& OnStartedGoogleSessionRequestCompleted)
@@ -67,9 +108,9 @@ void ULootLockerManager::StartGoogleSessionForPlatform(const FString& IdToken, E
     ULootLockerAuthenticationRequestHandler::StartGoogleSession(IdToken, Platform, OnStartedGoogleSessionRequestCompleted);
 }
 
-void ULootLockerManager::RefreshGoogleSession(const FString& RefreshToken, const FGoogleSessionResponseBP& OnRefreshGoogleSessionCompleted)
+void ULootLockerManager::RefreshGoogleSession(const FLootLockerPlayerData& ForPlayer, const FString& RefreshToken, const FGoogleSessionResponseBP& OnRefreshGoogleSessionCompleted)
 {
-    ULootLockerAuthenticationRequestHandler::RefreshGoogleSession(RefreshToken, OnRefreshGoogleSessionCompleted);
+    ULootLockerAuthenticationRequestHandler::RefreshGoogleSession(RefreshToken.IsEmpty() ? ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("").RefreshToken : ForPlayer.RefreshToken : RefreshToken, OnRefreshGoogleSessionCompleted);
 }
 
 void ULootLockerManager::StartEpicSession(const FString& IdToken, const FEpicSessionResponseBP& OnStartedEpicSessionRequestCompleted)
@@ -77,9 +118,9 @@ void ULootLockerManager::StartEpicSession(const FString& IdToken, const FEpicSes
     ULootLockerAuthenticationRequestHandler::StartEpicSession(IdToken, OnStartedEpicSessionRequestCompleted);
 }
 
-void ULootLockerManager::RefreshEpicSession(const FString& RefreshToken, const FEpicSessionResponseBP& OnRefreshEpicSessionCompleted)
+void ULootLockerManager::RefreshEpicSession(const FLootLockerPlayerData& ForPlayer, const FString& RefreshToken, const FEpicSessionResponseBP& OnRefreshEpicSessionCompleted)
 {
-    ULootLockerAuthenticationRequestHandler::RefreshEpicSession(RefreshToken, OnRefreshEpicSessionCompleted);
+    ULootLockerAuthenticationRequestHandler::RefreshEpicSession(RefreshToken.IsEmpty() ? ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("").RefreshToken : ForPlayer.RefreshToken : RefreshToken, OnRefreshEpicSessionCompleted);
 }
 
 void ULootLockerManager::StartMetaSession(const FString& UserId, const FString& Nonce, const FLootLockerMetaSessionResponseBP& OnMetaSessionRequestCompleted)
@@ -87,14 +128,14 @@ void ULootLockerManager::StartMetaSession(const FString& UserId, const FString& 
     ULootLockerAuthenticationRequestHandler::StartMetaSession(UserId, Nonce, OnMetaSessionRequestCompleted);
 }
 
-void ULootLockerManager::RefreshMetaSession(const FString& RefreshToken, const FLootLockerMetaSessionResponseBP& OnMetaSessionRequestCompleted)
+void ULootLockerManager::RefreshMetaSession(const FLootLockerPlayerData& ForPlayer, const FString& RefreshToken, const FLootLockerMetaSessionResponseBP& OnMetaSessionRequestCompleted)
 {
-    ULootLockerAuthenticationRequestHandler::RefreshMetaSession(RefreshToken, OnMetaSessionRequestCompleted);
+    ULootLockerAuthenticationRequestHandler::RefreshMetaSession(RefreshToken.IsEmpty() ? ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("").RefreshToken : ForPlayer.RefreshToken : RefreshToken, OnMetaSessionRequestCompleted);
 }
 
-void ULootLockerManager::WhiteLabelStartSession(const FAuthResponseBP &OnStartWhiteLabelSessionRequestCompleted)
+void ULootLockerManager::WhiteLabelStartSession(const FAuthResponseBP& OnStartWhiteLabelSessionRequestCompleted)
 {
-	ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(OnStartWhiteLabelSessionRequestCompleted);
+    ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(OnStartWhiteLabelSessionRequestCompleted);
 }
 
 void ULootLockerManager::WhiteLabelLoginAndStartSession(const FString& Email, const FString& Password, const FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP& OnWhiteLabelLoginAndStartSessionRequestCompleted, const bool Remember)
@@ -102,12 +143,12 @@ void ULootLockerManager::WhiteLabelLoginAndStartSession(const FString& Email, co
     ULootLockerAuthenticationRequestHandler::WhiteLabelLoginAndStartSession(Email, Password, Remember, OnWhiteLabelLoginAndStartSessionRequestCompleted);
 }
 
-void ULootLockerManager::WhiteLabelVerifySession(const FLootLockerVerifySessionResponseBP &OnVerifyWhiteLabelSessionRequestCompleted)
+void ULootLockerManager::WhiteLabelVerifySession(const FLootLockerPlayerData& ForPlayer, const FLootLockerVerifySessionResponseBP& OnVerifyWhiteLabelSessionRequestCompleted)
 {
-    ULootLockerAuthenticationRequestHandler::WhiteLabelVerifySession(OnVerifyWhiteLabelSessionRequestCompleted);
+    ULootLockerAuthenticationRequestHandler::WhiteLabelVerifySession(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnVerifyWhiteLabelSessionRequestCompleted);
 }
 
-void ULootLockerManager::WhiteLabelRequestUserVerification(const int &UserId, const FLootLockerDefaultResponseBP &OnRequestWhiteLabelUserVerificationRequestCompleted)
+void ULootLockerManager::WhiteLabelRequestUserVerification(const int& UserId, const FLootLockerDefaultResponseBP& OnRequestWhiteLabelUserVerificationRequestCompleted)
 {
     ULootLockerAuthenticationRequestHandler::WhiteLabelRequestUserVerification(UserId, OnRequestWhiteLabelUserVerificationRequestCompleted);
 }
@@ -117,7 +158,7 @@ void ULootLockerManager::WhiteLabelRequestUserVerificationByEmail(const FString&
     ULootLockerAuthenticationRequestHandler::WhiteLabelRequestUserVerificationByEmail(Email, OnRequestWhiteLabelUserVerificationRequestCompleted);
 }
 
-void ULootLockerManager::WhiteLabelResetPassword(const FString &Email, const FLootLockerDefaultResponseBP &OnResetWhiteLabelPasswordRequestCompleted)
+void ULootLockerManager::WhiteLabelResetPassword(const FString& Email, const FLootLockerDefaultResponseBP& OnResetWhiteLabelPasswordRequestCompleted)
 {
     ULootLockerAuthenticationRequestHandler::WhiteLabelRequestPasswordReset(Email, OnResetWhiteLabelPasswordRequestCompleted);
 }
@@ -127,742 +168,744 @@ void ULootLockerManager::WhiteLabelLogin(const FString& Email, const FString& Pa
     ULootLockerAuthenticationRequestHandler::WhiteLabelLogin(Email, Password, Remember, OnWhiteLabelLoginRequestCompleted);
 }
 
-void ULootLockerManager::WhiteLabelCreateAccount(const FString &Email, const FString &Password, const FLootLockerLoginResponseDelegateBP &OnWhiteLabelAccountCreationRequestCompleted)
+void ULootLockerManager::WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelAccountCreationRequestCompleted)
 {
-	ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(Email, Password, OnWhiteLabelAccountCreationRequestCompleted);
+    ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(Email, Password, OnWhiteLabelAccountCreationRequestCompleted);
 }
 
-void ULootLockerManager::GuestLogin(const FAuthResponseBP &OnCompletedRequestBP, const FString& PlayerIdentifier)
+void ULootLockerManager::GuestLogin(const FAuthResponseBP& OnCompletedRequestBP, const FString& PlayerIdentifier)
 {
-	ULootLockerAuthenticationRequestHandler::GuestLogin(PlayerIdentifier, OnCompletedRequestBP);
+    ULootLockerAuthenticationRequestHandler::GuestLogin(PlayerIdentifier, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::VerifyPlayer(const FString& PlatformToken, const FLootLockerDefaultResponseBP& OnVerifyPlayerRequestCompleted, const FString Platform /*= FString()*/)
+void ULootLockerManager::VerifyPlayer(const FLootLockerPlayerData& ForPlayer, const FString& PlatformToken, const FLootLockerDefaultResponseBP& OnVerifyPlayerRequestCompleted, const FString Platform /*= FString()*/)
 {
-    ULootLockerAuthenticationRequestHandler::VerifyPlayer(PlatformToken, Platform, -1, OnVerifyPlayerRequestCompleted);
+    ULootLockerAuthenticationRequestHandler::VerifyPlayer(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, PlatformToken, Platform, -1, OnVerifyPlayerRequestCompleted);
 }
 
-void ULootLockerManager::EndSession(const  FLootLockerDefaultResponseBP& OnEndSessionRequestCompleted)
+void ULootLockerManager::EndSession(const FLootLockerPlayerData& ForPlayer, const FLootLockerDefaultResponseBP& OnEndSessionRequestCompleted)
 {
-    ULootLockerAuthenticationRequestHandler::EndSession(OnEndSessionRequestCompleted);
+    ULootLockerAuthenticationRequestHandler::EndSession(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnEndSessionRequestCompleted);
 }
 
 //==================================================
 // Connected Accounts
 //==================================================
-void ULootLockerManager::ListConnectedAccounts(const FLootLockerListConnectedAccountsResponseBP& OnCompleteBP)
+void ULootLockerManager::ListConnectedAccounts(const FLootLockerPlayerData& ForPlayer, const FLootLockerListConnectedAccountsResponseBP& OnCompleteBP)
 {
-    ULootLockerConnectedAccountsRequestHandler::ListConnectedAccounts(OnCompleteBP);
+    ULootLockerConnectedAccountsRequestHandler::ListConnectedAccounts(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnCompleteBP);
 }
 
-void ULootLockerManager::DisconnectAccount(const ELootLockerAccountProvider AccountToDisconnect, const FLootLockerDefaultResponseBP& OnCompleteBP)
+void ULootLockerManager::DisconnectAccount(const FLootLockerPlayerData& ForPlayer, const ELootLockerAccountProvider AccountToDisconnect, const FLootLockerDefaultResponseBP& OnCompleteBP)
 {
-    ULootLockerConnectedAccountsRequestHandler::DisconnectAccount(AccountToDisconnect, OnCompleteBP);
+    ULootLockerConnectedAccountsRequestHandler::DisconnectAccount(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AccountToDisconnect, OnCompleteBP);
 }
 
-void ULootLockerManager::ConnectGoogleAccount(const FString& IdToken, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+void ULootLockerManager::ConnectGoogleAccount(const FLootLockerPlayerData& ForPlayer, const FString& IdToken, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
 {
-    ULootLockerConnectedAccountsRequestHandler::ConnectGoogleAccount(IdToken, OnCompleteBP);
+    ULootLockerConnectedAccountsRequestHandler::ConnectGoogleAccount(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, IdToken, OnCompleteBP);
 }
 
-void ULootLockerManager::ConnectGoogleAccountWithPlatform(const FString& IdToken, EGoogleAccountProviderPlatform Platform, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+void ULootLockerManager::ConnectGoogleAccountWithPlatform(const FLootLockerPlayerData& ForPlayer, const FString& IdToken, EGoogleAccountProviderPlatform Platform, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
 {
-    ULootLockerConnectedAccountsRequestHandler::ConnectGoogleAccount(IdToken, Platform, OnCompleteBP);
+    ULootLockerConnectedAccountsRequestHandler::ConnectGoogleAccount(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, IdToken, Platform, OnCompleteBP);
 }
 
-void ULootLockerManager::ConnectAppleAccountByRestSignIn(const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+void ULootLockerManager::ConnectAppleAccountByRestSignIn(const FLootLockerPlayerData& ForPlayer, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
 {
-    ULootLockerConnectedAccountsRequestHandler::ConnectAppleAccountByRestSignIn(AuthorizationCode, OnCompleteBP);
+    ULootLockerConnectedAccountsRequestHandler::ConnectAppleAccountByRestSignIn(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AuthorizationCode, OnCompleteBP);
 }
 
 //==================================================
 // Remote Sessions
 //==================================================
-FString ULootLockerManager::StartRemoteSession(const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegateBP& OnComplete, float PollingIntervalSeconds, float TimeOutAfterMinutes)
+FString ULootLockerManager::StartRemoteSession(const FLootLockerPlayerData& ForPlayer, const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegateBP& OnComplete, float PollingIntervalSeconds, float TimeOutAfterMinutes)
 {
-    return ULootLockerRemoteSessionRequestHandler::StartRemoteSession(RemoteSessionLeaseInformation, FLootLockerLeaseRemoteSessionResponseDelegate(), RemoteSessionLeaseStatusUpdate, FLootLockerRemoteSessionStatusPollingResponseDelegate(), OnComplete, FLootLockerStartRemoteSessionResponseDelegate(), PollingIntervalSeconds, TimeOutAfterMinutes);
+    return ULootLockerRemoteSessionRequestHandler::StartRemoteSession(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, RemoteSessionLeaseInformation, FLootLockerLeaseRemoteSessionResponseDelegate(), RemoteSessionLeaseStatusUpdate, FLootLockerRemoteSessionStatusPollingResponseDelegate(), OnComplete, FLootLockerStartRemoteSessionResponseDelegate(), PollingIntervalSeconds, TimeOutAfterMinutes);
 }
 
-void ULootLockerManager::CancelRemoteSessionProcess(FString ProcessID)
+void ULootLockerManager::CancelRemoteSessionProcess(const FLootLockerPlayerData& ForPlayer, FString ProcessID)
 {
     ULootLockerRemoteSessionRequestHandler::CancelRemoteSessionProcess(ProcessID);
 }
 
-void ULootLockerManager::RefreshRemoteSession(const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegateBP& OnCompletedRequest)
+void ULootLockerManager::RefreshRemoteSession(const FLootLockerPlayerData& ForPlayer, const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegateBP& OnCompletedRequest)
 {
-    ULootLockerRemoteSessionRequestHandler::RefreshRemoteSession(RefreshToken, OnCompletedRequest);
+    ULootLockerRemoteSessionRequestHandler::RefreshRemoteSession(RefreshToken.IsEmpty() ? ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("").RefreshToken : ForPlayer.RefreshToken : RefreshToken, OnCompletedRequest);
 }
 
 //==================================================
 // Player
 //==================================================
-void ULootLockerManager::GetCurrentPlayerInfo(const FLootLockerGetCurrentPlayerInfoResponseBP& OnCompletedRequest)
+void ULootLockerManager::GetCurrentPlayerInfo(const FLootLockerPlayerData& ForPlayer, const FLootLockerGetCurrentPlayerInfoResponseBP& OnCompletedRequest)
 {
-    ULootLockerPlayerRequestHandler::GetCurrentPlayerInfo(OnCompletedRequest);
+    ULootLockerPlayerRequestHandler::GetCurrentPlayerInfo(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnCompletedRequest);
 }
 
-void ULootLockerManager::ListPlayerInfo(TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseBP& OnCompletedRequest)
+void ULootLockerManager::ListPlayerInfo(const FLootLockerPlayerData& ForPlayer, TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseBP& OnCompletedRequest)
 {
-    ULootLockerPlayerRequestHandler::ListPlayerInfo(PlayerIdsToLookUp, PlayerLegacyIdsToLookUp, PlayerPublicUidsToLookUp, OnCompletedRequest);
+    ULootLockerPlayerRequestHandler::ListPlayerInfo(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, PlayerIdsToLookUp, PlayerLegacyIdsToLookUp, PlayerPublicUidsToLookUp, OnCompletedRequest);
 }
 
-void ULootLockerManager::GetInventory(const FPInventoryResponseBP& OnGetInventoryRequestCompleted)
+void ULootLockerManager::GetInventory(const FLootLockerPlayerData& ForPlayer, const FPInventoryResponseBP& OnGetInventoryRequestCompleted)
 {
-    ULootLockerPlayerRequestHandler::GetInventory(OnGetInventoryRequestCompleted);
+    ULootLockerPlayerRequestHandler::GetInventory(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnGetInventoryRequestCompleted);
 }
 
-void ULootLockerManager::CheckPlayerAssetActivationNotification(const FPAssetNotificationResponseBP& OnCheckPlayerAssetDeactivationNotificationRequestCompleted)
+void ULootLockerManager::CheckPlayerAssetActivationNotification(const FLootLockerPlayerData& ForPlayer, const FPAssetNotificationResponseBP& OnCheckPlayerAssetDeactivationNotificationRequestCompleted)
 {
-    ULootLockerPlayerRequestHandler::CheckPlayerAssetNotification(OnCheckPlayerAssetDeactivationNotificationRequestCompleted);
+    ULootLockerPlayerRequestHandler::CheckPlayerAssetNotification(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnCheckPlayerAssetDeactivationNotificationRequestCompleted);
 }
 
-void ULootLockerManager::GetCurrencyBalance(const FPBalanceResponseBP& OnGetCurrencyBalance)
+void ULootLockerManager::GetCurrencyBalance(const FLootLockerPlayerData& ForPlayer, const FPBalanceResponseBP& OnGetCurrencyBalance)
 {
-    ULootLockerPlayerRequestHandler::GetCurrencyBalance(OnGetCurrencyBalance);
-}
-
-
-void ULootLockerManager::InitiateDLCMigration(const FResponseCallbackBP& OnInitiateDlcMigration)
-{
-    ULootLockerPlayerRequestHandler::InitiateDLCMigration(OnInitiateDlcMigration);
+    ULootLockerPlayerRequestHandler::GetCurrencyBalance(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnGetCurrencyBalance);
 }
 
 
-void ULootLockerManager::GetDLCsMigration(const FPDlcResponseBP& OnGotDlcMigration)
+void ULootLockerManager::InitiateDLCMigration(const FLootLockerPlayerData& ForPlayer, const FResponseCallbackBP& OnInitiateDlcMigration)
 {
-    ULootLockerPlayerRequestHandler::GetDLCsMigration(OnGotDlcMigration);
+    ULootLockerPlayerRequestHandler::InitiateDLCMigration(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnInitiateDlcMigration);
 }
 
 
-void ULootLockerManager::SetProfilePrivate(const FResponseCallbackBP& OnProfileSetPrivate)
+void ULootLockerManager::GetDLCsMigration(const FLootLockerPlayerData& ForPlayer, const FPDlcResponseBP& OnGotDlcMigration)
 {
-    ULootLockerPlayerRequestHandler::SetProfilePrivate(OnProfileSetPrivate);
-}
-
-void ULootLockerManager::SetProfilePublic(const FResponseCallbackBP& OnProfileSetPublic)
-{
-    ULootLockerPlayerRequestHandler::SetProfilePublic(OnProfileSetPublic);
-}
-void ULootLockerManager::SetPlayerName(FString Name, const FPNameResponseBP& OnSetPlayerName)
-{
-    ULootLockerPlayerRequestHandler::SetPlayerName(Name, OnSetPlayerName);
-}
-
-void ULootLockerManager::GetPlayerName(const FPNameResponseBP& OnGetPlayerName)
-{
-    ULootLockerPlayerRequestHandler::GetPlayerName(OnGetPlayerName);
-}
-
-void ULootLockerManager::LookupMultiplePlayerNamesUsingIDs(const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayerNamesBP& OnCompletedRequest)
-{
-    ULootLockerPlayerRequestHandler::LookupMultiplePlayerNamesUsingIDs(Request, OnCompletedRequest);
-}
-
-void ULootLockerManager::LookupMultiplePlayersDataUsingIDs(const FLootLockerLookupMultiplePlayersDataRequest& Request, const FPMultiplePlayerNamesBP& OnCompletedRequest)
-{
-    ULootLockerPlayerRequestHandler::LookupMultiplePlayersDataUsingIDs(Request, OnCompletedRequest);
-}
-
-void ULootLockerManager::LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequest)
-{
-    ULootLockerPlayerRequestHandler::LookupMultiplePlayerNames1stPlatformIDs(Request, OnCompletedRequest);
-}
-
-void ULootLockerManager::DeletePlayer(const FLootLockerDefaultResponseBP& OnCompletedRequest)
-{
-    ULootLockerPlayerRequestHandler::DeletePlayer(OnCompletedRequest);
+    ULootLockerPlayerRequestHandler::GetDLCsMigration(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnGotDlcMigration);
 }
 
 
-void ULootLockerManager::UploadFile(const FLootLockerFileUploadRequest &Request, const FLootLockerUploadFileBP &OnComplete)
+void ULootLockerManager::SetProfilePrivate(const FLootLockerPlayerData& ForPlayer, const FResponseCallbackBP& OnProfileSetPrivate)
 {
-	ULLPlayerFilesRequestHandler::UploadFile(Request, OnComplete);
+    ULootLockerPlayerRequestHandler::SetProfilePrivate(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnProfileSetPrivate);
 }
 
-void ULootLockerManager::UpdateFile(const int32 FileId, const FLootLockerFileUpdateRequest& Request, const FLootLockerUploadFileBP& OnComplete)
+void ULootLockerManager::SetProfilePublic(const FLootLockerPlayerData& ForPlayer, const FResponseCallbackBP& OnProfileSetPublic)
 {
-    ULLPlayerFilesRequestHandler::UpdateFile(FileId, Request, OnComplete);
+    ULootLockerPlayerRequestHandler::SetProfilePublic(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnProfileSetPublic);
+}
+void ULootLockerManager::SetPlayerName(const FLootLockerPlayerData& ForPlayer, FString Name, const FPNameResponseBP& OnSetPlayerName)
+{
+    ULootLockerPlayerRequestHandler::SetPlayerName(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Name, OnSetPlayerName);
 }
 
-void ULootLockerManager::ListFiles(const FLootLockerFileListBP &OnComplete)
+void ULootLockerManager::GetPlayerName(const FLootLockerPlayerData& ForPlayer, const FPNameResponseBP& OnGetPlayerName)
 {
-	ULLPlayerFilesRequestHandler::ListFiles(OnComplete, FLootLockerFileListDelegate());
+    ULootLockerPlayerRequestHandler::GetPlayerName(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnGetPlayerName);
 }
 
-void ULootLockerManager::ListOtherPlayersPublicFiles(const int32 PlayerID, const FLootLockerFileListBP& OnCompleteBP)
+void ULootLockerManager::LookupMultiplePlayerNamesUsingIDs(const FLootLockerPlayerData& ForPlayer, const FLootLockerMultiplePlayerNamesRequest& Request, const FPMultiplePlayerNamesBP& OnCompletedRequest)
 {
-    ULLPlayerFilesRequestHandler::ListOtherPlayersPublicFiles(PlayerID, OnCompleteBP);
+    ULootLockerPlayerRequestHandler::LookupMultiplePlayerNamesUsingIDs(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Request, OnCompletedRequest);
 }
 
-void ULootLockerManager::GetSingleFile(const int32 FileID, const FLootLockerUploadFileBP &OnComplete)
+void ULootLockerManager::LookupMultiplePlayersDataUsingIDs(const FLootLockerPlayerData& ForPlayer, const FLootLockerLookupMultiplePlayersDataRequest& Request, const FPMultiplePlayerNamesBP& OnCompletedRequest)
 {
-	ULLPlayerFilesRequestHandler::GetSingleFile(FileID, OnComplete);
+    ULootLockerPlayerRequestHandler::LookupMultiplePlayersDataUsingIDs(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Request, OnCompletedRequest);
 }
 
-void ULootLockerManager::DeletePlayerFile(const int32 FileID, const FLootLockerFileDeletedBP &OnComplete)
+void ULootLockerManager::LookupMultiplePlayersDataUsingIDs(const FLootLockerPlayerData& ForPlayer, const FLootLockerLookupMultiplePlayersDataRequest& Request, const FPMultiplePlayerNamesBP& OnCompletedRequest)
 {
-	ULLPlayerFilesRequestHandler::DeletePlayerFile(FileID, OnComplete);
+    ULootLockerPlayerRequestHandler::LookupMultiplePlayersDataUsingIDs(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Request, OnCompletedRequest);
+}
+
+void ULootLockerManager::LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerPlayerData& ForPlayer, const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequest)
+{
+    ULootLockerPlayerRequestHandler::LookupMultiplePlayerNames1stPlatformIDs(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Request, OnCompletedRequest);
+}
+
+void ULootLockerManager::DeletePlayer(const FLootLockerPlayerData& ForPlayer, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+{
+    ULootLockerPlayerRequestHandler::DeletePlayer(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnCompletedRequest);
+}
+
+
+void ULootLockerManager::UploadFile(const FLootLockerPlayerData& ForPlayer, const FLootLockerFileUploadRequest& Request, const FLootLockerUploadFileBP& OnComplete)
+{
+    ULLPlayerFilesRequestHandler::UploadFile(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Request, OnComplete);
+}
+
+void ULootLockerManager::UpdateFile(const FLootLockerPlayerData& ForPlayer, const int32 FileId, const FLootLockerFileUpdateRequest& Request, const FLootLockerUploadFileBP& OnComplete)
+{
+    ULLPlayerFilesRequestHandler::UpdateFile(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, FileId, Request, OnComplete);
+}
+
+void ULootLockerManager::ListFiles(const FLootLockerPlayerData& ForPlayer, const FLootLockerFileListBP& OnComplete)
+{
+    ULLPlayerFilesRequestHandler::ListFiles(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnComplete, FLootLockerFileListDelegate());
+}
+
+void ULootLockerManager::ListOtherPlayersPublicFiles(const FLootLockerPlayerData& ForPlayer, const int32 PlayerID, const FLootLockerFileListBP& OnCompleteBP)
+{
+    ULLPlayerFilesRequestHandler::ListOtherPlayersPublicFiles(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, PlayerID, OnCompleteBP);
+}
+
+void ULootLockerManager::GetSingleFile(const FLootLockerPlayerData& ForPlayer, const int32 FileID, const FLootLockerUploadFileBP& OnComplete)
+{
+    ULLPlayerFilesRequestHandler::GetSingleFile(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, FileID, OnComplete);
+}
+
+void ULootLockerManager::DeletePlayerFile(const FLootLockerPlayerData& ForPlayer, const int32 FileID, const FLootLockerFileDeletedBP& OnComplete)
+{
+    ULLPlayerFilesRequestHandler::DeletePlayerFile(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, FileID, OnComplete);
 }
 
 // Player Progressions
-void ULootLockerManager::GetPlayerProgressions(const int32 Count /*= -1*/, const FString& After /*= ""*/, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest)
+void ULootLockerManager::GetPlayerProgressions(const FLootLockerPlayerData& ForPlayer, const int32 Count /*= -1*/, const FString& After /*= ""*/, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::GetPlayerProgressions(Count, After, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::GetPlayerProgressions(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Count, After, OnCompletedRequest);
 }
 
-void ULootLockerManager::GetPlayerProgression(const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseBP& OnCompletedRequest)
+void ULootLockerManager::GetPlayerProgression(const FLootLockerPlayerData& ForPlayer, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::GetPlayerProgression(ProgressionKey, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::GetPlayerProgression(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, ProgressionKey, OnCompletedRequest);
 }
 
-void ULootLockerManager::AddPointsToPlayerProgression(const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest)
+void ULootLockerManager::AddPointsToPlayerProgression(const FLootLockerPlayerData& ForPlayer, const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::AddPointsToPlayerProgression(ProgressionKey, Amount, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::AddPointsToPlayerProgression(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, ProgressionKey, Amount, OnCompletedRequest);
 }
 
-void ULootLockerManager::SubtractPointsFromPlayerProgression(const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest)
+void ULootLockerManager::SubtractPointsFromPlayerProgression(const FLootLockerPlayerData& ForPlayer, const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::SubtractPointsFromPlayerProgression(ProgressionKey, Amount, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::SubtractPointsFromPlayerProgression(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, ProgressionKey, Amount, OnCompletedRequest);
 }
 
-void ULootLockerManager::ResetPlayerProgression(const FString& ProgressionKey, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest)
+void ULootLockerManager::ResetPlayerProgression(const FLootLockerPlayerData& ForPlayer, const FString& ProgressionKey, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::ResetPlayerProgression(ProgressionKey, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::ResetPlayerProgression(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, ProgressionKey, OnCompletedRequest);
 }
 
-void ULootLockerManager::DeletePlayerProgression(const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest)
+void ULootLockerManager::DeletePlayerProgression(const FLootLockerPlayerData& ForPlayer, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::DeletePlayerProgression(ProgressionKey, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::DeletePlayerProgression(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, ProgressionKey, OnCompletedRequest);
 }
 
-void ULootLockerManager::GetOtherPlayersProgressions(const FString& PlayerUlid, const int32 Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest)
+void ULootLockerManager::GetOtherPlayersProgressions(const FLootLockerPlayerData& ForPlayer, const FString& PlayerUlid, const int32 Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::GetOtherPlayersProgressions(PlayerUlid, Count, After, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::GetOtherPlayersProgressions(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, PlayerUlid, Count, After, OnCompletedRequest);
 }
 
-void ULootLockerManager::GetOtherPlayersProgression(const FString& PlayerUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseBP& OnCompletedRequest)
+void ULootLockerManager::GetOtherPlayersProgression(const FLootLockerPlayerData& ForPlayer, const FString& PlayerUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::GetOtherPlayersProgression(PlayerUlid, ProgressionKey, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::GetOtherPlayersProgression(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, PlayerUlid, ProgressionKey, OnCompletedRequest);
 }
 
 // Heroes
-void ULootLockerManager::GetGameHeroes(const FLootLockerGameHeroListBP &OnCompleteBP)
+void ULootLockerManager::GetGameHeroes(const FLootLockerPlayerData& ForPlayer, const FLootLockerGameHeroListBP& OnCompleteBP)
 {
-	ULootLockerHeroRequestHandler::GetGameHeroes(OnCompleteBP, FLootLockerGameHeroListDelegate());
+    ULootLockerHeroRequestHandler::GetGameHeroes(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnCompleteBP, FLootLockerGameHeroListDelegate());
 }
 
-void ULootLockerManager::ListPlayerHeroes(const FLootLockerHeroListBP &OnCompleteBP)
+void ULootLockerManager::ListPlayerHeroes(const FLootLockerPlayerData& ForPlayer, const FLootLockerHeroListBP& OnCompleteBP)
 {
-	ULootLockerHeroRequestHandler::ListPlayerHeroes(OnCompleteBP, FLootLockerHeroListDelegate());
+    ULootLockerHeroRequestHandler::ListPlayerHeroes(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnCompleteBP, FLootLockerHeroListDelegate());
 }
 
-void ULootLockerManager::ListOtherPlayersHeroesBySteamID64(const int64 SteamID64, const FLootLockerHeroListBP &OnCompleteBP)
+void ULootLockerManager::ListOtherPlayersHeroesBySteamID64(const FLootLockerPlayerData& ForPlayer, const int64 SteamID64, const FLootLockerHeroListBP& OnCompleteBP)
 {
-	ULootLockerHeroRequestHandler::ListOtherPlayersHeroesBySteamID64(SteamID64, OnCompleteBP, FLootLockerHeroListDelegate());
+    ULootLockerHeroRequestHandler::ListOtherPlayersHeroesBySteamID64(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, SteamID64, OnCompleteBP, FLootLockerHeroListDelegate());
 }
 
-void ULootLockerManager::CreateHero(const FLootLockerCreateHeroRequest &Request, const FLootLockerPlayerHeroBP &OnCompleteBP)
+void ULootLockerManager::CreateHero(const FLootLockerPlayerData& ForPlayer, const FLootLockerCreateHeroRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP)
 {
-	ULootLockerHeroRequestHandler::CreateHero(Request, OnCompleteBP, FLootLockerPlayerHeroDelegate());
+    ULootLockerHeroRequestHandler::CreateHero(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Request, OnCompleteBP, FLootLockerPlayerHeroDelegate());
 }
 
-void ULootLockerManager::CreateHeroWithVariation(const FLootLockerCreateHeroWithVariationRequest &Request, const FLootLockerPlayerHeroBP &OnCompleteBP)
+void ULootLockerManager::CreateHeroWithVariation(const FLootLockerPlayerData& ForPlayer, const FLootLockerCreateHeroWithVariationRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP)
 {
-	ULootLockerHeroRequestHandler::CreateHeroWithVariation(Request, OnCompleteBP, FLootLockerPlayerHeroDelegate());
+    ULootLockerHeroRequestHandler::CreateHeroWithVariation(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Request, OnCompleteBP, FLootLockerPlayerHeroDelegate());
 }
 
-void ULootLockerManager::GetHero(const int32 HeroID, const FLootLockerPlayerHeroBP &OnCompleteBP)
+void ULootLockerManager::GetHero(const FLootLockerPlayerData& ForPlayer, const int32 HeroID, const FLootLockerPlayerHeroBP& OnCompleteBP)
 {
-	ULootLockerHeroRequestHandler::GetHero(HeroID, OnCompleteBP, FLootLockerPlayerHeroDelegate());
+    ULootLockerHeroRequestHandler::GetHero(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, HeroID, OnCompleteBP, FLootLockerPlayerHeroDelegate());
 }
 
-void ULootLockerManager::GetOtherPlayersDefaultHeroBySteamID64(const int32 SteamID64, const FLootLockerPlayerHeroBP &OnCompleteBP)
+void ULootLockerManager::GetOtherPlayersDefaultHeroBySteamID64(const FLootLockerPlayerData& ForPlayer, const int32 SteamID64, const FLootLockerPlayerHeroBP& OnCompleteBP)
 {
-	ULootLockerHeroRequestHandler::GetOtherPlayersDefaultHeroBySteamID64(SteamID64, OnCompleteBP, FLootLockerPlayerHeroDelegate());
+    ULootLockerHeroRequestHandler::GetOtherPlayersDefaultHeroBySteamID64(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, SteamID64, OnCompleteBP, FLootLockerPlayerHeroDelegate());
 }
 
-void ULootLockerManager::UpdateHero(const int32 HeroID, const FLootLockerUpdateHeroRequest &Request, const FLootLockerPlayerHeroBP &OnCompleteBP)
+void ULootLockerManager::UpdateHero(const FLootLockerPlayerData& ForPlayer, const int32 HeroID, const FLootLockerUpdateHeroRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP)
 {
-	ULootLockerHeroRequestHandler::UpdateHero(HeroID, Request, OnCompleteBP, FLootLockerPlayerHeroDelegate());
+    ULootLockerHeroRequestHandler::UpdateHero(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, HeroID, Request, OnCompleteBP, FLootLockerPlayerHeroDelegate());
 }
 
-void ULootLockerManager::DeleteHero(const int32 HeroID, const FLLHeroDefaultResponseBP &OnCompleteBP)
+void ULootLockerManager::DeleteHero(const FLootLockerPlayerData& ForPlayer, const int32 HeroID, const FLLHeroDefaultResponseBP& OnCompleteBP)
 {
-	ULootLockerHeroRequestHandler::DeleteHero(HeroID, OnCompleteBP, FLLHeroDefaultResponseDelegate());
+    ULootLockerHeroRequestHandler::DeleteHero(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, HeroID, OnCompleteBP, FLLHeroDefaultResponseDelegate());
 }
 
-void ULootLockerManager::GetHeroInventory(const int32 HeroID, const FPInventoryResponseBP &OnCompleteBP)
+void ULootLockerManager::GetHeroInventory(const FLootLockerPlayerData& ForPlayer, const int32 HeroID, const FPInventoryResponseBP& OnCompleteBP)
 {
-	ULootLockerHeroRequestHandler::GetHeroInventory(HeroID, OnCompleteBP, FInventoryResponse());
+    ULootLockerHeroRequestHandler::GetHeroInventory(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, HeroID, OnCompleteBP, FInventoryResponse());
 }
 
-void ULootLockerManager::GetHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseBP &OnCompleteBP)
+void ULootLockerManager::GetHeroLoadout(const FLootLockerPlayerData& ForPlayer, const int32 HeroID, const FHeroLoadoutReseponseBP& OnCompleteBP)
 {
-	ULootLockerHeroRequestHandler::GetHeroLoadout(HeroID, OnCompleteBP, FHeroLoadoutReseponseDelegate());
+    ULootLockerHeroRequestHandler::GetHeroLoadout(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, HeroID, OnCompleteBP, FHeroLoadoutReseponseDelegate());
 }
 
-void ULootLockerManager::GetOtherPlayersHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseBP &OnCompleteBP)
+void ULootLockerManager::GetOtherPlayersHeroLoadout(const FLootLockerPlayerData& ForPlayer, const int32 HeroID, const FHeroLoadoutReseponseBP& OnCompleteBP)
 {
-	ULootLockerHeroRequestHandler::GetOtherPlayersHeroLoadout(HeroID, OnCompleteBP, FHeroLoadoutReseponseDelegate());
+    ULootLockerHeroRequestHandler::GetOtherPlayersHeroLoadout(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, HeroID, OnCompleteBP, FHeroLoadoutReseponseDelegate());
 }
 
-void ULootLockerManager::AddAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP &OnCompleteBP)
+void ULootLockerManager::AddAssetToHeroLoadout(const FLootLockerPlayerData& ForPlayer, const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP)
 {
-	ULootLockerHeroRequestHandler::AddAssetToHeroLoadout(HeroID, AssetInstanceID, OnCompleteBP,  FHeroLoadoutReseponseDelegate());
+    ULootLockerHeroRequestHandler::AddAssetToHeroLoadout(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, HeroID, AssetInstanceID, OnCompleteBP, FHeroLoadoutReseponseDelegate());
 }
 
-void ULootLockerManager::AddGlobalAssetToHeroLoadout(const int32 HeroID, const int32 AssetID, const FHeroLoadoutReseponseBP& OnCompleteBP)
+void ULootLockerManager::AddGlobalAssetToHeroLoadout(const FLootLockerPlayerData& ForPlayer, const int32 HeroID, const int32 AssetID, const FHeroLoadoutReseponseBP& OnCompleteBP)
 {
-	ULootLockerHeroRequestHandler::AddGlobalAssetToHeroLoadout(HeroID, AssetID, OnCompleteBP, FHeroLoadoutReseponseDelegate());
+    ULootLockerHeroRequestHandler::AddGlobalAssetToHeroLoadout(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, HeroID, AssetID, OnCompleteBP, FHeroLoadoutReseponseDelegate());
 }
 
-void ULootLockerManager::AddGlobalAssetVariationToHeroLoadout(const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseBP& OnCompleteBP)
+void ULootLockerManager::AddGlobalAssetVariationToHeroLoadout(const FLootLockerPlayerData& ForPlayer, const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseBP& OnCompleteBP)
 {
-	ULootLockerHeroRequestHandler::AddGlobalAssetVariationToHeroLoadout(HeroID, AssetID, AssetVariationID, OnCompleteBP, FHeroLoadoutReseponseDelegate());
+    ULootLockerHeroRequestHandler::AddGlobalAssetVariationToHeroLoadout(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, HeroID, AssetID, AssetVariationID, OnCompleteBP, FHeroLoadoutReseponseDelegate());
 }
 
-void ULootLockerManager::RemoveAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP &OnCompleteBP)
+void ULootLockerManager::RemoveAssetToHeroLoadout(const FLootLockerPlayerData& ForPlayer, const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP)
 {
-	ULootLockerHeroRequestHandler::RemoveAssetToHeroLoadout(HeroID, AssetInstanceID, OnCompleteBP, FHeroLoadoutReseponseDelegate());
+    ULootLockerHeroRequestHandler::RemoveAssetToHeroLoadout(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, HeroID, AssetInstanceID, OnCompleteBP, FHeroLoadoutReseponseDelegate());
 }
 
-void ULootLockerManager::GetCharacterLoadout(const FPCharacterLoadoutResponseBP& OnGetCharacterLoadoutRequestCompleted)
+void ULootLockerManager::GetCharacterLoadout(const FLootLockerPlayerData& ForPlayer, const FPCharacterLoadoutResponseBP& OnGetCharacterLoadoutRequestCompleted)
 {
-    ULootLockerCharacterRequestHandler::GetCharacterLoadout(OnGetCharacterLoadoutRequestCompleted);
+    ULootLockerCharacterRequestHandler::GetCharacterLoadout(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnGetCharacterLoadoutRequestCompleted);
 }
 
-void ULootLockerManager::UpdateCharacter(int CharacterId, bool IsDefault, FString Name, const FPCharacterLoadoutResponseBP& OnCompletedRequest)
+void ULootLockerManager::UpdateCharacter(const FLootLockerPlayerData& ForPlayer, int CharacterId, bool IsDefault, FString Name, const FPCharacterLoadoutResponseBP& OnCompletedRequest)
 {
-    ULootLockerCharacterRequestHandler::UpdateCharacter(CharacterId,IsDefault, Name, OnCompletedRequest);
+    ULootLockerCharacterRequestHandler::UpdateCharacter(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, CharacterId, IsDefault, Name, OnCompletedRequest);
 }
 
-void ULootLockerManager::CreateCharacter(bool IsDefault,  FString CharacterName,  FString CharacterTypeId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::CreateCharacter(const FLootLockerPlayerData& ForPlayer, bool IsDefault, FString CharacterName, FString CharacterTypeId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerCharacterRequestHandler::CreateCharacter(IsDefault, CharacterName, CharacterTypeId, OnCompletedRequestBP);
+    ULootLockerCharacterRequestHandler::CreateCharacter(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, IsDefault, CharacterName, CharacterTypeId, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::ListCharacterTypes(const FPLootLockerListCharacterTypesResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::ListCharacterTypes(const FLootLockerPlayerData& ForPlayer, const FPLootLockerListCharacterTypesResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerCharacterRequestHandler::ListCharacterTypes(OnCompletedRequestBP);
+    ULootLockerCharacterRequestHandler::ListCharacterTypes(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::ListPlayerCharacters(const FPLootLockerListPlayerCharactersResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::ListPlayerCharacters(const FLootLockerPlayerData& ForPlayer, const FPLootLockerListPlayerCharactersResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerCharacterRequestHandler::ListPlayerCharacters(OnCompletedRequestBP);
+    ULootLockerCharacterRequestHandler::ListPlayerCharacters(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::EquipAssetToDefaultCharacter(int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToDefaultCharacterRequestCompleted)
+void ULootLockerManager::EquipAssetToDefaultCharacter(const FLootLockerPlayerData& ForPlayer, int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToDefaultCharacterRequestCompleted)
 {
-    ULootLockerCharacterRequestHandler::EquipAssetToDefaultCharacter(InstanceId, OnEquipAssetToDefaultCharacterRequestCompleted);
+    ULootLockerCharacterRequestHandler::EquipAssetToDefaultCharacter(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, InstanceId, OnEquipAssetToDefaultCharacterRequestCompleted);
 }
 
-void ULootLockerManager::EquipAssetToCharacterById(int CharacterId, int AssetId, int AssetVariationId, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted)
+void ULootLockerManager::EquipAssetToCharacterById(const FLootLockerPlayerData& ForPlayer, int CharacterId, int AssetId, int AssetVariationId, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted)
 {
-    ULootLockerCharacterRequestHandler::EquipAssetToCharacterById(CharacterId, AssetId, AssetVariationId, OnEquipAssetToCharacterByIdRequestCompleted);
+    ULootLockerCharacterRequestHandler::EquipAssetToCharacterById(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, CharacterId, AssetId, AssetVariationId, OnEquipAssetToCharacterByIdRequestCompleted);
 }
 
-void ULootLockerManager::EquipAssetToCharacterByIdAndInstance(int CharacterId, int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted)
+void ULootLockerManager::EquipAssetToCharacterByIdAndInstance(const FLootLockerPlayerData& ForPlayer, int CharacterId, int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted)
 {
-    ULootLockerCharacterRequestHandler::EquipAssetToCharacterById(CharacterId, InstanceId, OnEquipAssetToCharacterByIdRequestCompleted);
+    ULootLockerCharacterRequestHandler::EquipAssetToCharacterById(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, CharacterId, InstanceId, OnEquipAssetToCharacterByIdRequestCompleted);
 }
 
-void ULootLockerManager::UnEquipAssetToDefaultCharacter(int InstanceId, const FPCharacterDefaultResponseBP& OnUnEquipAssetToDefaultCharacterRequestCompleted)
+void ULootLockerManager::UnEquipAssetToDefaultCharacter(const FLootLockerPlayerData& ForPlayer, int InstanceId, const FPCharacterDefaultResponseBP& OnUnEquipAssetToDefaultCharacterRequestCompleted)
 {
-    ULootLockerCharacterRequestHandler::UnEquipAssetToDefaultCharacter(InstanceId, OnUnEquipAssetToDefaultCharacterRequestCompleted);
+    ULootLockerCharacterRequestHandler::UnEquipAssetToDefaultCharacter(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, InstanceId, OnUnEquipAssetToDefaultCharacterRequestCompleted);
 }
 
-void ULootLockerManager::UnEquipAssetToCharacterById(int CharacterId,int InstanceId,const  FPCharacterDefaultResponseBP& OnUnEquipAssetToCharacterByIdRequestCompleted)
+void ULootLockerManager::UnEquipAssetToCharacterById(const FLootLockerPlayerData& ForPlayer, int CharacterId, int InstanceId, const  FPCharacterDefaultResponseBP& OnUnEquipAssetToCharacterByIdRequestCompleted)
 {
-    // FLootLockerGetRequests GetRequests;
-    // GetRequests.args.Add(CharacterId);
-    // GetRequests.args.Add(InstanceId);
-    ULootLockerCharacterRequestHandler::UnEquipAssetToCharacterById(CharacterId,InstanceId, OnUnEquipAssetToCharacterByIdRequestCompleted);
+    ULootLockerCharacterRequestHandler::UnEquipAssetToCharacterById(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, CharacterId, InstanceId, OnUnEquipAssetToCharacterByIdRequestCompleted);
 }
 
-void ULootLockerManager::GetCurrentLoadoutToDefaultCharacter(const  FPCharacterLoadoutResponseBP& OnGetCurrentLoadoutToDefaultCharacterRequestCompleted)
+void ULootLockerManager::GetCurrentLoadoutToDefaultCharacter(const FLootLockerPlayerData& ForPlayer, const  FPCharacterLoadoutResponseBP& OnGetCurrentLoadoutToDefaultCharacterRequestCompleted)
 {
-    ULootLockerCharacterRequestHandler::GetCurrentLoadoutToDefaultCharacter(OnGetCurrentLoadoutToDefaultCharacterRequestCompleted);
+    ULootLockerCharacterRequestHandler::GetCurrentLoadoutToDefaultCharacter(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnGetCurrentLoadoutToDefaultCharacterRequestCompleted);
 }
 
-void ULootLockerManager::GetOtherPlayersCurrentLoadoutToDefaultCharacter( FString OtherPlayerId, const FPCharacterLoadoutResponseBP& OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted, const FString& OtherPlayerPlatform /*= FString(TEXT(""))*/)
+void ULootLockerManager::GetOtherPlayersCurrentLoadoutToDefaultCharacter(const FLootLockerPlayerData& ForPlayer, FString OtherPlayerId, const FPCharacterLoadoutResponseBP& OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted, const FString& OtherPlayerPlatform /*= FString(TEXT(""))*/)
 {
-    ULootLockerCharacterRequestHandler::GetOtherPlayersCurrentLoadoutToDefaultCharacter(OtherPlayerId, OtherPlayerPlatform, OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted);
+    ULootLockerCharacterRequestHandler::GetOtherPlayersCurrentLoadoutToDefaultCharacter(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OtherPlayerId, OtherPlayerPlatform, OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted);
 }
 
-void ULootLockerManager::GetEquipableContextsToDefaultCharacter(const FContextDelegateBP& OnGetEquipableContextsToDefaultCharacterRequestCompleted)
+void ULootLockerManager::GetEquipableContextsToDefaultCharacter(const FLootLockerPlayerData& ForPlayer, const FContextDelegateBP& OnGetEquipableContextsToDefaultCharacterRequestCompleted)
 {
-    ULootLockerCharacterRequestHandler::GetEquipableContextsToDefaultCharacter(OnGetEquipableContextsToDefaultCharacterRequestCompleted);
+    ULootLockerCharacterRequestHandler::GetEquipableContextsToDefaultCharacter(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnGetEquipableContextsToDefaultCharacterRequestCompleted);
 }
 
-void ULootLockerManager::GetEquipableContextsByCharacterId( int OtherCharacterId, const  FContextDelegateBP& OnGetEquipableContextsByCharacterIdRequestCompleted)
+void ULootLockerManager::GetEquipableContextsByCharacterId(const FLootLockerPlayerData& ForPlayer, int OtherCharacterId, const  FContextDelegateBP& OnGetEquipableContextsByCharacterIdRequestCompleted)
 {
-    ULootLockerCharacterRequestHandler::GetEquipableContextsByCharacterId(OtherCharacterId, OnGetEquipableContextsByCharacterIdRequestCompleted);
+    ULootLockerCharacterRequestHandler::GetEquipableContextsByCharacterId(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OtherCharacterId, OnGetEquipableContextsByCharacterIdRequestCompleted);
 }
 
 // Character Progressions
-void ULootLockerManager::GetCharacterProgressions(const int32& CharacterId, const int32 Count /*=-1*/, const FString& After /*=""*/, const FLootLockerPaginatedCharacterProgressionsResponseBP& OnCompletedRequest)
+void ULootLockerManager::GetCharacterProgressions(const FLootLockerPlayerData& ForPlayer, const int32& CharacterId, const int32 Count /*=-1*/, const FString& After /*=""*/, const FLootLockerPaginatedCharacterProgressionsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::GetCharacterProgressions(CharacterId, Count, After, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::GetCharacterProgressions(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, CharacterId, Count, After, OnCompletedRequest);
 }
 
-void ULootLockerManager::GetCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionResponseBP& OnCompletedRequest)
+void ULootLockerManager::GetCharacterProgression(const FLootLockerPlayerData& ForPlayer, const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::GetCharacterProgression(CharacterId, ProgressionKey, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::GetCharacterProgression(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, CharacterId, ProgressionKey, OnCompletedRequest);
 }
 
-void ULootLockerManager::AddPointsToCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest)
+void ULootLockerManager::AddPointsToCharacterProgression(const FLootLockerPlayerData& ForPlayer, const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::AddPointsToCharacterProgression(CharacterId, ProgressionKey, Amount, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::AddPointsToCharacterProgression(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, CharacterId, ProgressionKey, Amount, OnCompletedRequest);
 }
 
-void ULootLockerManager::SubtractPointsFromCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest)
+void ULootLockerManager::SubtractPointsFromCharacterProgression(const FLootLockerPlayerData& ForPlayer, const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::SubtractPointsFromCharacterProgression(CharacterId, ProgressionKey, Amount, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::SubtractPointsFromCharacterProgression(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, CharacterId, ProgressionKey, Amount, OnCompletedRequest);
 }
 
-void ULootLockerManager::ResetCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest)
+void ULootLockerManager::ResetCharacterProgression(const FLootLockerPlayerData& ForPlayer, const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::ResetCharacterProgression(CharacterId, ProgressionKey, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::ResetCharacterProgression(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, CharacterId, ProgressionKey, OnCompletedRequest);
 }
 
-void ULootLockerManager::DeleteCharacterProgression(const int32& CharacterId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest)
+void ULootLockerManager::DeleteCharacterProgression(const FLootLockerPlayerData& ForPlayer, const int32& CharacterId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::DeleteCharacterProgression(CharacterId, ProgressionKey, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::DeleteCharacterProgression(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, CharacterId, ProgressionKey, OnCompletedRequest);
 }
 
 // Persistent Storage
-void ULootLockerManager::GetEntirePersistentStorage(const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsRequestCompleted)
+void ULootLockerManager::GetEntirePersistentStorage(const FLootLockerPlayerData& ForPlayer, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsRequestCompleted)
 {
-    ULootLockerPersistentStorageRequestHandler::GetEntirePersistentStorage(OnPersistentStorageItemsRequestCompleted);
+    ULootLockerPersistentStorageRequestHandler::GetEntirePersistentStorage(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnPersistentStorageItemsRequestCompleted);
 }
 
-void ULootLockerManager::GetItemFromPersistentStorage(const FString& Key, const FPersistentStorageItemResponseDelegateBP& OnPersistentStorageItemRequestCompleted)
+void ULootLockerManager::GetItemFromPersistentStorage(const FLootLockerPlayerData& ForPlayer, const FString& Key, const FPersistentStorageItemResponseDelegateBP& OnPersistentStorageItemRequestCompleted)
 {
-    ULootLockerPersistentStorageRequestHandler::GetItemFromPersistentStorage(Key, OnPersistentStorageItemRequestCompleted);
+    ULootLockerPersistentStorageRequestHandler::GetItemFromPersistentStorage(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Key, OnPersistentStorageItemRequestCompleted);
 }
 
-void ULootLockerManager::AddItemsToPersistentStorage(FLootLockerPersistentStorageItems Items, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsAddRequestCompleted)
+void ULootLockerManager::AddItemsToPersistentStorage(const FLootLockerPlayerData& ForPlayer, FLootLockerPersistentStorageItems Items, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsAddRequestCompleted)
 {
-    ULootLockerPersistentStorageRequestHandler::AddItemsToPersistentStorage(Items, OnPersistentStorageItemsAddRequestCompleted);
+    ULootLockerPersistentStorageRequestHandler::AddItemsToPersistentStorage(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Items, OnPersistentStorageItemsAddRequestCompleted);
 }
 
-void ULootLockerManager::AddItemToPersistentStorage(FLootLockerPersistentStorageItem Item, const FPersistentStorageItemResponseDelegateBP& OnPersistentStorageItemAddRequestCompleted)
+void ULootLockerManager::AddItemToPersistentStorage(const FLootLockerPlayerData& ForPlayer, FLootLockerPersistentStorageItem Item, const FPersistentStorageItemResponseDelegateBP& OnPersistentStorageItemAddRequestCompleted)
 {
-    ULootLockerPersistentStorageRequestHandler::AddItemToPersistentStorage(Item, OnPersistentStorageItemAddRequestCompleted);
+    ULootLockerPersistentStorageRequestHandler::AddItemToPersistentStorage(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Item, OnPersistentStorageItemAddRequestCompleted);
 }
 
-void ULootLockerManager::DeleteItemFromPersistentStorage(const FString& Key, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemDeleteRequestCompleted)
+void ULootLockerManager::DeleteItemFromPersistentStorage(const FLootLockerPlayerData& ForPlayer, const FString& Key, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemDeleteRequestCompleted)
 {
-    ULootLockerPersistentStorageRequestHandler::DeleteItemFromPersistentStorage(Key, OnPersistentStorageItemDeleteRequestCompleted);
+    ULootLockerPersistentStorageRequestHandler::DeleteItemFromPersistentStorage(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Key, OnPersistentStorageItemDeleteRequestCompleted);
 }
 
-void ULootLockerManager::GetPlayerPersistentStorage(const FString& PlayerId, const  FPersistentStorageItemsResponseDelegateBP& OnGetPlayerPersistentStorageRequestCompleted)
+void ULootLockerManager::GetPlayerPersistentStorage(const FLootLockerPlayerData& ForPlayer, const FString& PlayerId, const  FPersistentStorageItemsResponseDelegateBP& OnGetPlayerPersistentStorageRequestCompleted)
 {
-    ULootLockerPersistentStorageRequestHandler::GetPlayerPersistentStorage(PlayerId, OnGetPlayerPersistentStorageRequestCompleted);
+    ULootLockerPersistentStorageRequestHandler::GetPlayerPersistentStorage(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, PlayerId, OnGetPlayerPersistentStorageRequestCompleted);
 }
 
-void ULootLockerManager::GetContexts(const FContextDelegateBP& OnGetContextsRequestCompleted)
+void ULootLockerManager::GetContexts(const FLootLockerPlayerData& ForPlayer, const FContextDelegateBP& OnGetContextsRequestCompleted)
 {
-    ULootLockerAssetsRequestHandler::GetContexts(OnGetContextsRequestCompleted);
+    ULootLockerAssetsRequestHandler::GetContexts(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnGetContextsRequestCompleted);
 }
 
-void ULootLockerManager::GetAssets(const FAssetsResponseDelegateBP& OnGetAssetsRequestCompleted,int StartFromIndex, int ItemsCount, ELootLockerAssetFilter AssetFilter, int Context, bool IncludeUGC)
+void ULootLockerManager::GetAssets(const FLootLockerPlayerData& ForPlayer, const FAssetsResponseDelegateBP& OnGetAssetsRequestCompleted, int StartFromIndex, int ItemsCount, ELootLockerAssetFilter AssetFilter, int Context, bool IncludeUGC)
 {
-    ULootLockerAssetsRequestHandler::GetAssets(StartFromIndex, ItemsCount, AssetFilter, Context, IncludeUGC, OnGetAssetsRequestCompleted);
+    ULootLockerAssetsRequestHandler::GetAssets(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, StartFromIndex, ItemsCount, AssetFilter, Context, IncludeUGC, OnGetAssetsRequestCompleted);
 }
 
-void ULootLockerManager::GetAssetsByIds(const TArray<int>& AssetIds, const FAssetsResponseDelegateBP& OnGetAssetsByIdsRequestCompleted)
+void ULootLockerManager::GetAssetsByIds(const FLootLockerPlayerData& ForPlayer, const TArray<int>& AssetIds, const FAssetsResponseDelegateBP& OnGetAssetsByIdsRequestCompleted)
 {
-    ULootLockerAssetsRequestHandler::GetAssetsByIds(AssetIds, OnGetAssetsByIdsRequestCompleted);
+    ULootLockerAssetsRequestHandler::GetAssetsByIds(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetIds, OnGetAssetsByIdsRequestCompleted);
 }
 
-void ULootLockerManager::GetAssetBones(const  FAssetBonesResponseDelegateBP& OnGetAssetBonesRequestCompleted)
+void ULootLockerManager::GetAssetBones(const FLootLockerPlayerData& ForPlayer, const  FAssetBonesResponseDelegateBP& OnGetAssetBonesRequestCompleted)
 {
-    ULootLockerAssetsRequestHandler::GetAssetBones(OnGetAssetBonesRequestCompleted);
+    ULootLockerAssetsRequestHandler::GetAssetBones(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnGetAssetBonesRequestCompleted);
 }
 
-void ULootLockerManager::GetFavouriteAssetIndices(const FGetFavouriteAssetIndicesResponseDelegateBP& OnGetFavouriteAssetIndicesRequestCompleted)
+void ULootLockerManager::GetFavouriteAssetIndices(const FLootLockerPlayerData& ForPlayer, const FGetFavouriteAssetIndicesResponseDelegateBP& OnGetFavouriteAssetIndicesRequestCompleted)
 {
-    ULootLockerAssetsRequestHandler::GetFavouriteAssetIndices(OnGetFavouriteAssetIndicesRequestCompleted);
+    ULootLockerAssetsRequestHandler::GetFavouriteAssetIndices(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnGetFavouriteAssetIndicesRequestCompleted);
 }
 
-void ULootLockerManager::AddAssetToFavourites(int AssetId, const FGetFavouriteAssetIndicesResponseDelegateBP& OnAddAssetToFavouritesRequestCompleted)
+void ULootLockerManager::AddAssetToFavourites(const FLootLockerPlayerData& ForPlayer, int AssetId, const FGetFavouriteAssetIndicesResponseDelegateBP& OnAddAssetToFavouritesRequestCompleted)
 {
-    ULootLockerAssetsRequestHandler::AddAssetToFavourites(AssetId, OnAddAssetToFavouritesRequestCompleted);
+    ULootLockerAssetsRequestHandler::AddAssetToFavourites(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetId, OnAddAssetToFavouritesRequestCompleted);
 }
 
-void ULootLockerManager::RemoveAssetFromFavourites(int AssetId, const  FGetFavouriteAssetIndicesResponseDelegateBP& OnRemoveAssetFromFavouritesRequestCompleted)
+void ULootLockerManager::RemoveAssetFromFavourites(const FLootLockerPlayerData& ForPlayer, int AssetId, const  FGetFavouriteAssetIndicesResponseDelegateBP& OnRemoveAssetFromFavouritesRequestCompleted)
 {
-    ULootLockerAssetsRequestHandler::RemoveAssetFromFavourites(AssetId, OnRemoveAssetFromFavouritesRequestCompleted);
+    ULootLockerAssetsRequestHandler::RemoveAssetFromFavourites(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetId, OnRemoveAssetFromFavouritesRequestCompleted);
 }
 
-void ULootLockerManager::GetUniversalAssets(int After, int ItemsCount, const FUniversalAssetResponseDelegateBP &OnCompletedRequest)
+void ULootLockerManager::GetUniversalAssets(const FLootLockerPlayerData& ForPlayer, int After, int ItemsCount, const FUniversalAssetResponseDelegateBP& OnCompletedRequest)
 {
-    ULootLockerAssetsRequestHandler::GetUniversalAssets(After, ItemsCount, OnCompletedRequest);
+    ULootLockerAssetsRequestHandler::GetUniversalAssets(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, After, ItemsCount, OnCompletedRequest);
 }
 
-void ULootLockerManager::GrantAssetWithVariationToPlayerInventory(const int AssetID, const int AssetVariationID, const int AssetRentalOptionID, const FGrantAssetResponseDelegateBP& OnCompletedRequest)
+void ULootLockerManager::GrantAssetWithVariationToPlayerInventory(const FLootLockerPlayerData& ForPlayer, const int AssetID, const int AssetVariationID, const int AssetRentalOptionID, const FGrantAssetResponseDelegateBP& OnCompletedRequest)
 {
-    ULootLockerAssetsRequestHandler::GrantAssetToPlayerInventory(AssetID, AssetVariationID, AssetRentalOptionID, OnCompletedRequest);
+    ULootLockerAssetsRequestHandler::GrantAssetToPlayerInventory(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetID, AssetVariationID, AssetRentalOptionID, OnCompletedRequest);
 }
 
-void ULootLockerManager::GetAllKeyValuePairsForAssetInstance(int AssetInstanceId, const  FAssetInstanceStorageItemsResponseDelegateBP& OnGetAllKeyValuePairsForAssetInstanceCompleted)
+void ULootLockerManager::GetAllKeyValuePairsForAssetInstance(const FLootLockerPlayerData& ForPlayer, int AssetInstanceId, const  FAssetInstanceStorageItemsResponseDelegateBP& OnGetAllKeyValuePairsForAssetInstanceCompleted)
 {
-    ULootLockerAssetInstancesRequestHandler::GetAllKeyValuePairsForAssetInstance(AssetInstanceId, OnGetAllKeyValuePairsForAssetInstanceCompleted);
+    ULootLockerAssetInstancesRequestHandler::GetAllKeyValuePairsForAssetInstance(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetInstanceId, OnGetAllKeyValuePairsForAssetInstanceCompleted);
 }
 
-void ULootLockerManager::GetAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemResponseDelegateBP& OnGetAKeyValuePairByIdForAssetInstanceCompleted)
+void ULootLockerManager::GetAKeyValuePairByIdForAssetInstance(const FLootLockerPlayerData& ForPlayer, int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemResponseDelegateBP& OnGetAKeyValuePairByIdForAssetInstanceCompleted)
 {
-    ULootLockerAssetInstancesRequestHandler::GetAKeyValuePairByIdForAssetInstance(AssetInstanceId, StorageItemId, OnGetAKeyValuePairByIdForAssetInstanceCompleted);
+    ULootLockerAssetInstancesRequestHandler::GetAKeyValuePairByIdForAssetInstance(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetInstanceId, StorageItemId, OnGetAKeyValuePairByIdForAssetInstanceCompleted);
 }
 
-void ULootLockerManager::CreateAKeyValuePairForAssetInstance(int AssetInstanceId, const FLootLockerAssetInstanceStorageItem& Item, const FAssetInstanceStorageItemsResponseDelegateBP& OnCreateAKeyValuePairForAssetInstanceCompleted)
+void ULootLockerManager::CreateAKeyValuePairForAssetInstance(const FLootLockerPlayerData& ForPlayer, int AssetInstanceId, const FLootLockerAssetInstanceStorageItem& Item, const FAssetInstanceStorageItemsResponseDelegateBP& OnCreateAKeyValuePairForAssetInstanceCompleted)
 {
-    ULootLockerAssetInstancesRequestHandler::CreateAKeyValuePairForAssetInstance(AssetInstanceId, Item, OnCreateAKeyValuePairForAssetInstanceCompleted);
+    ULootLockerAssetInstancesRequestHandler::CreateAKeyValuePairForAssetInstance(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetInstanceId, Item, OnCreateAKeyValuePairForAssetInstanceCompleted);
 }
 
-void ULootLockerManager::UpdateOneOrMoreKeyValuePairForAssetInstance(int AssetInstanceId, FLootLockerAssetInstanceStorageItems Items, const FAssetInstanceStorageItemsResponseDelegateBP& OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted)
+void ULootLockerManager::UpdateOneOrMoreKeyValuePairForAssetInstance(const FLootLockerPlayerData& ForPlayer, int AssetInstanceId, FLootLockerAssetInstanceStorageItems Items, const FAssetInstanceStorageItemsResponseDelegateBP& OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted)
 {
-    ULootLockerAssetInstancesRequestHandler::UpdateOneOrMoreKeyValuePairForAssetInstance(AssetInstanceId, Items, OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted);
+    ULootLockerAssetInstancesRequestHandler::UpdateOneOrMoreKeyValuePairForAssetInstance(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetInstanceId, Items, OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted);
 }
 
-void ULootLockerManager::UpdateAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FLootLockerAssetInstanceStorageItem Item, const FAssetInstanceStorageItemResponseDelegateBP& OnUpdateAKeyValuePairByIdForAssetInstanceCompleted)
+void ULootLockerManager::UpdateAKeyValuePairByIdForAssetInstance(const FLootLockerPlayerData& ForPlayer, int AssetInstanceId, int StorageItemId, const FLootLockerAssetInstanceStorageItem Item, const FAssetInstanceStorageItemResponseDelegateBP& OnUpdateAKeyValuePairByIdForAssetInstanceCompleted)
 {
-    ULootLockerAssetInstancesRequestHandler::UpdateAKeyValuePairByIdForAssetInstance(AssetInstanceId, StorageItemId, Item, OnUpdateAKeyValuePairByIdForAssetInstanceCompleted);
+    ULootLockerAssetInstancesRequestHandler::UpdateAKeyValuePairByIdForAssetInstance(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetInstanceId, StorageItemId, Item, OnUpdateAKeyValuePairByIdForAssetInstanceCompleted);
 }
 
-void ULootLockerManager::DeleteAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegateBP& OnDeleteAKeyValuePairByIdForAssetInstanceCompleted)
+void ULootLockerManager::DeleteAKeyValuePairByIdForAssetInstance(const FLootLockerPlayerData& ForPlayer, int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegateBP& OnDeleteAKeyValuePairByIdForAssetInstanceCompleted)
 {
-    ULootLockerAssetInstancesRequestHandler::DeleteAKeyValuePairByIdForAssetInstance(AssetInstanceId, StorageItemId, OnDeleteAKeyValuePairByIdForAssetInstanceCompleted);
+    ULootLockerAssetInstancesRequestHandler::DeleteAKeyValuePairByIdForAssetInstance(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetInstanceId, StorageItemId, OnDeleteAKeyValuePairByIdForAssetInstanceCompleted);
 }
 
-void ULootLockerManager::InspectLootBox(int AssetInstanceId, const  FLootBoxContentResponseDelegateBP& OnInspectLootBoxCompleted)
+void ULootLockerManager::InspectLootBox(const FLootLockerPlayerData& ForPlayer, int AssetInstanceId, const  FLootBoxContentResponseDelegateBP& OnInspectLootBoxCompleted)
 {
-    ULootLockerAssetInstancesRequestHandler::InspectLootBox(AssetInstanceId, OnInspectLootBoxCompleted);
+    ULootLockerAssetInstancesRequestHandler::InspectLootBox(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetInstanceId, OnInspectLootBoxCompleted);
 }
 
-void ULootLockerManager::OpenLootBox(int AssetInstanceId, const  FOpenLootBoxResponseDelegateBP& OnOpenLootBoxCompleted)
+void ULootLockerManager::OpenLootBox(const FLootLockerPlayerData& ForPlayer, int AssetInstanceId, const  FOpenLootBoxResponseDelegateBP& OnOpenLootBoxCompleted)
 {
-    ULootLockerAssetInstancesRequestHandler::OpenLootBox(AssetInstanceId, OnOpenLootBoxCompleted);
+    ULootLockerAssetInstancesRequestHandler::OpenLootBox(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetInstanceId, OnOpenLootBoxCompleted);
 }
 
-void ULootLockerManager::DeleteAssetInstanceFromPlayerInventory(int AssetInstanceID, const FDeleteAssetInstanceResponseDelegateBP& OnCompleted)
+void ULootLockerManager::DeleteAssetInstanceFromPlayerInventory(const FLootLockerPlayerData& ForPlayer, int AssetInstanceID, const FDeleteAssetInstanceResponseDelegateBP& OnCompleted)
 {
-    ULootLockerAssetInstancesRequestHandler::DeleteAssetInstanceFromPlayerInventory(AssetInstanceID, OnCompleted);
+    ULootLockerAssetInstancesRequestHandler::DeleteAssetInstanceFromPlayerInventory(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetInstanceID, OnCompleted);
 }
 
-void ULootLockerManager::CreateAssetCandidate(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted)
+void ULootLockerManager::CreateAssetCandidate(const FLootLockerPlayerData& ForPlayer, const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted)
 {
-    ULootLockerUserGeneratedContentRequestHandler::CreateAssetCandidate(AssetCandidateData, OnCreateAssetCandidateCompleted);
+    ULootLockerUserGeneratedContentRequestHandler::CreateAssetCandidate(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetCandidateData, OnCreateAssetCandidateCompleted);
 }
 
-void ULootLockerManager::CreateAssetCandidateAndMarkComplete(const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted)
+void ULootLockerManager::CreateAssetCandidateAndMarkComplete(const FLootLockerPlayerData& ForPlayer, const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted)
 {
-    ULootLockerUserGeneratedContentRequestHandler::CreateAssetCandidateAndMarkComplete(AssetCandidateData, OnCreateAssetCandidateCompleted);
+    ULootLockerUserGeneratedContentRequestHandler::CreateAssetCandidateAndMarkComplete(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetCandidateData, OnCreateAssetCandidateCompleted);
 }
 
-void ULootLockerManager::UpdateAssetCandidate(int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidateData, const  FAssetCandidateResponseDelegateBP& OnUpdateAssetCandidateCompleted)
+void ULootLockerManager::UpdateAssetCandidate(const FLootLockerPlayerData& ForPlayer, int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidateData, const  FAssetCandidateResponseDelegateBP& OnUpdateAssetCandidateCompleted)
 {
-    ULootLockerUserGeneratedContentRequestHandler::UpdateAssetCandidate(AssetCandidateId, AssetCandidateData, OnUpdateAssetCandidateCompleted);
+    ULootLockerUserGeneratedContentRequestHandler::UpdateAssetCandidate(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetCandidateId, AssetCandidateData, OnUpdateAssetCandidateCompleted);
 }
 
-void ULootLockerManager::DeleteAssetCandidate(int AssetCandidateId, const FResponseCallbackBP& OnDeleteAssetCandidateCompleted)
+void ULootLockerManager::DeleteAssetCandidate(const FLootLockerPlayerData& ForPlayer, int AssetCandidateId, const FResponseCallbackBP& OnDeleteAssetCandidateCompleted)
 {
-    ULootLockerUserGeneratedContentRequestHandler::DeleteAssetCandidate(AssetCandidateId, OnDeleteAssetCandidateCompleted);
+    ULootLockerUserGeneratedContentRequestHandler::DeleteAssetCandidate(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetCandidateId, OnDeleteAssetCandidateCompleted);
 }
 
-void ULootLockerManager::GetAllAssetCandidates(const FAssetCandidatesResponseDelegateBP& OnGetAllAssetCandidatesCompleted)
+void ULootLockerManager::GetAllAssetCandidates(const FLootLockerPlayerData& ForPlayer, const FAssetCandidatesResponseDelegateBP& OnGetAllAssetCandidatesCompleted)
 {
-    ULootLockerUserGeneratedContentRequestHandler::GetAllAssetCandidates(OnGetAllAssetCandidatesCompleted);
+    ULootLockerUserGeneratedContentRequestHandler::GetAllAssetCandidates(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnGetAllAssetCandidatesCompleted);
 }
 
-void ULootLockerManager::GetAssetCandidate(int AssetCandidateId, const FAssetCandidateResponseDelegateBP& OnGetAssetCandidateCompleted)
+void ULootLockerManager::GetAssetCandidate(const FLootLockerPlayerData& ForPlayer, int AssetCandidateId, const FAssetCandidateResponseDelegateBP& OnGetAssetCandidateCompleted)
 {
-    ULootLockerUserGeneratedContentRequestHandler::GetAssetCandidate(AssetCandidateId, OnGetAssetCandidateCompleted);
+    ULootLockerUserGeneratedContentRequestHandler::GetAssetCandidate(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetCandidateId, OnGetAssetCandidateCompleted);
 }
 
-void ULootLockerManager::AddFileToAssetCandidate(int AssetCandidateId, const FString& FilePath, ELootLockerAssetFilePurpose FilePurpose, const FResponseCallbackBP& OnAddFileToAssetCandidateCompleted)
+void ULootLockerManager::AddFileToAssetCandidate(const FLootLockerPlayerData& ForPlayer, int AssetCandidateId, const FString& FilePath, ELootLockerAssetFilePurpose FilePurpose, const FResponseCallbackBP& OnAddFileToAssetCandidateCompleted)
 {
-    ULootLockerUserGeneratedContentRequestHandler::AddFileToAssetCandidate(AssetCandidateId, FilePath, FilePurpose, OnAddFileToAssetCandidateCompleted);
+    ULootLockerUserGeneratedContentRequestHandler::AddFileToAssetCandidate(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetCandidateId, FilePath, FilePurpose, OnAddFileToAssetCandidateCompleted);
 }
 
-void ULootLockerManager::DeleteFileFromAssetCandidate(int AssetCandidateId, int FileId, const FResponseCallbackBP& OnDeleteFileFromAssetCandidateCompleted)
+void ULootLockerManager::DeleteFileFromAssetCandidate(const FLootLockerPlayerData& ForPlayer, int AssetCandidateId, int FileId, const FResponseCallbackBP& OnDeleteFileFromAssetCandidateCompleted)
 {
-    ULootLockerUserGeneratedContentRequestHandler::DeleteFileFromAssetCandidate(AssetCandidateId, FileId, OnDeleteFileFromAssetCandidateCompleted);
+    ULootLockerUserGeneratedContentRequestHandler::DeleteFileFromAssetCandidate(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetCandidateId, FileId, OnDeleteFileFromAssetCandidateCompleted);
 }
 
 // Progressions
-void ULootLockerManager::GetProgressions(const int32 Count /*= -1*/, const FString& After /*=""*/, const FLootLockerPaginatedProgressionsResponseBP& OnCompletedRequest)
+void ULootLockerManager::GetProgressions(const FLootLockerPlayerData& ForPlayer, const int32 Count /*= -1*/, const FString& After /*=""*/, const FLootLockerPaginatedProgressionsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::GetProgressions(Count, After, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::GetProgressions(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Count, After, OnCompletedRequest);
 }
 
-void ULootLockerManager::GetProgression(const FString& ProgressionKey, const FLootLockerProgressionResponseBP& OnCompletedRequest)
+void ULootLockerManager::GetProgression(const FLootLockerPlayerData& ForPlayer, const FString& ProgressionKey, const FLootLockerProgressionResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::GetProgression(ProgressionKey, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::GetProgression(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, ProgressionKey, OnCompletedRequest);
 }
 
-void ULootLockerManager::GetProgressionTiers(const FString& ProgressionKey, const int32 Count /*=-1*/, const int32 After /*=-1*/, const FLootLockerPaginatedProgressionTiersResponseBP& OnCompletedRequest)
+void ULootLockerManager::GetProgressionTiers(const FLootLockerPlayerData& ForPlayer, const FString& ProgressionKey, const int32 Count /*=-1*/, const int32 After /*=-1*/, const FLootLockerPaginatedProgressionTiersResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::GetProgressionTiers(ProgressionKey, Count, After, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::GetProgressionTiers(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, ProgressionKey, Count, After, OnCompletedRequest);
 }
 
 //Instance progression
 
-void ULootLockerManager::GetInstanceProgressions(const int32 AssetInstanceId, const int32 Count, const FString& After, const FLootLockerPaginatedInstanceProgressionsResponseBP& OnCompletedRequest)
+void ULootLockerManager::GetInstanceProgressions(const FLootLockerPlayerData& ForPlayer, const int32 AssetInstanceId, const int32 Count, const FString& After, const FLootLockerPaginatedInstanceProgressionsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::GetInstanceProgressions(AssetInstanceId, Count, After, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::GetInstanceProgressions(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetInstanceId, Count, After, OnCompletedRequest);
 }
 
-void ULootLockerManager::GetInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionResponseBP& OnCompletedRequest)
+void ULootLockerManager::GetInstanceProgression(const FLootLockerPlayerData& ForPlayer, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::GetInstanceProgression(AssetInstanceId, ProgressionKey, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::GetInstanceProgression(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetInstanceId, ProgressionKey, OnCompletedRequest);
 }
 
-void ULootLockerManager::AddPointsToInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequest)
+void ULootLockerManager::AddPointsToInstanceProgression(const FLootLockerPlayerData& ForPlayer, const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::AddPointsToInstanceProgression(AssetInstanceId, ProgressionKey, Amount, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::AddPointsToInstanceProgression(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetInstanceId, ProgressionKey, Amount, OnCompletedRequest);
 }
 
-void ULootLockerManager::SubtractPointsFromInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequest)
+void ULootLockerManager::SubtractPointsFromInstanceProgression(const FLootLockerPlayerData& ForPlayer, const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::SubtractPointsFromInstanceProgression(AssetInstanceId, ProgressionKey, Amount, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::SubtractPointsFromInstanceProgression(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetInstanceId, ProgressionKey, Amount, OnCompletedRequest);
 }
 
-void ULootLockerManager::ResetInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequest)
+void ULootLockerManager::ResetInstanceProgression(const FLootLockerPlayerData& ForPlayer, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::ResetInstanceProgression(AssetInstanceId, ProgressionKey, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::ResetInstanceProgression(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetInstanceId, ProgressionKey, OnCompletedRequest);
 }
 
-void ULootLockerManager::DeleteInstanceProgression(const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest)
+void ULootLockerManager::DeleteInstanceProgression(const FLootLockerPlayerData& ForPlayer, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::DeleteInstanceProgression(AssetInstanceId, ProgressionKey, OnCompletedRequest);
+    ULootLockerProgressionsRequestHandler::DeleteInstanceProgression(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetInstanceId, ProgressionKey, OnCompletedRequest);
 }
 
 // Missions
-void ULootLockerManager::GetAllMissions(const FMissionsResponseDelegateBP& OnGetAllMissionsCompleted)
+void ULootLockerManager::GetAllMissions(const FLootLockerPlayerData& ForPlayer, const FMissionsResponseDelegateBP& OnGetAllMissionsCompleted)
 {
-    ULootLockerMissionsRequestHandler::GetAllMissions(OnGetAllMissionsCompleted);
+    ULootLockerMissionsRequestHandler::GetAllMissions(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnGetAllMissionsCompleted);
 }
 
-void ULootLockerManager::GetMission(int MissionId, const FMissionResponseDelegateBP& OnGetMissionCompleted)
+void ULootLockerManager::GetMission(const FLootLockerPlayerData& ForPlayer, int MissionId, const FMissionResponseDelegateBP& OnGetMissionCompleted)
 {
-    ULootLockerMissionsRequestHandler::GetMission(MissionId, OnGetMissionCompleted);
+    ULootLockerMissionsRequestHandler::GetMission(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, MissionId, OnGetMissionCompleted);
 }
 
-void ULootLockerManager::StartMission(int MissionId, const  FStartMissionResponseDelegateBP& OnStartMissionCompleted)
+void ULootLockerManager::StartMission(const FLootLockerPlayerData& ForPlayer, int MissionId, const  FStartMissionResponseDelegateBP& OnStartMissionCompleted)
 {
-    ULootLockerMissionsRequestHandler::StartMission(MissionId, OnStartMissionCompleted);
+    ULootLockerMissionsRequestHandler::StartMission(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, MissionId, OnStartMissionCompleted);
 }
 
-void ULootLockerManager::FinishMission(int MissionId, const FLootLockerFinishMissionData& MissionData, const FFinishMissionResponseDelegateBP& OnFinishMissionCompleted)
+void ULootLockerManager::FinishMission(const FLootLockerPlayerData& ForPlayer, int MissionId, const FLootLockerFinishMissionData& MissionData, const FFinishMissionResponseDelegateBP& OnFinishMissionCompleted)
 {
-    ULootLockerMissionsRequestHandler::FinishMission(MissionId, MissionData, OnFinishMissionCompleted);
+    ULootLockerMissionsRequestHandler::FinishMission(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, MissionId, MissionData, OnFinishMissionCompleted);
 }
 
-void ULootLockerManager::GetMaps(const FGetMapsResponseDelegateBP& OnGetMapsCompleted)
+void ULootLockerManager::GetMaps(const FLootLockerPlayerData& ForPlayer, const FGetMapsResponseDelegateBP& OnGetMapsCompleted)
 {
-    ULootLockerMapsRequestHandler::GetMaps(OnGetMapsCompleted);
+    ULootLockerMapsRequestHandler::GetMaps(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnGetMapsCompleted);
 }
 
-void ULootLockerManager::ActivateRentalAsset(int AssetInstanceId, const FActivateRentalAssetResponseDelegateBP& OnActivateRentalAssetCompleted)
+void ULootLockerManager::ActivateRentalAsset(const FLootLockerPlayerData& ForPlayer, int AssetInstanceId, const FActivateRentalAssetResponseDelegateBP& OnActivateRentalAssetCompleted)
 {
-    ULootLockerPurchasesRequestHandler::ActivateRentalAsset(AssetInstanceId, OnActivateRentalAssetCompleted);
+    ULootLockerPurchasesRequestHandler::ActivateRentalAsset(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, AssetInstanceId, OnActivateRentalAssetCompleted);
 }
 
-void ULootLockerManager::LootLockerPurchaseSingleCatalogItem(const FString& WalletId, const FString& CatalogItemListingId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+void ULootLockerManager::LootLockerPurchaseSingleCatalogItem(const FLootLockerPlayerData& ForPlayer, const FString& WalletId, const FString& CatalogItemListingId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    LootLockerPurchaseCatalogItems(WalletId, { { CatalogItemListingId, 1 } }, OnCompletedRequest);
+    LootLockerPurchaseCatalogItems(ForPlayer, WalletId, { { CatalogItemListingId, 1 } }, OnCompletedRequest);
 }
 
-void ULootLockerManager::LootLockerPurchaseCatalogItems(const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair> ItemsToPurchase, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+void ULootLockerManager::LootLockerPurchaseCatalogItems(const FLootLockerPlayerData& ForPlayer, const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair> ItemsToPurchase, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::PurchaseCatalogItems(WalletId, ItemsToPurchase, OnCompletedRequest);
+    ULootLockerPurchasesRequestHandler::PurchaseCatalogItems(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, WalletId, ItemsToPurchase, OnCompletedRequest);
 }
 
-void ULootLockerManager::RedeemAppleAppStorePurchaseForPlayer(const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+void ULootLockerManager::RedeemAppleAppStorePurchaseForPlayer(const FLootLockerPlayerData& ForPlayer, const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::RedeemAppleAppStorePurchaseForPlayer(TransactionId, Sandboxed, OnCompletedRequest);
+    ULootLockerPurchasesRequestHandler::RedeemAppleAppStorePurchaseForPlayer(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, TransactionId, Sandboxed, OnCompletedRequest);
 }
 
-void ULootLockerManager::RedeemAppleAppStorePurchaseForClass(const int ClassId, const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+void ULootLockerManager::RedeemAppleAppStorePurchaseForClass(const FLootLockerPlayerData& ForPlayer, const int ClassId, const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::RedeemAppleAppStorePurchaseForClass(ClassId, TransactionId, Sandboxed, OnCompletedRequest);
+    ULootLockerPurchasesRequestHandler::RedeemAppleAppStorePurchaseForClass(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, ClassId, TransactionId, Sandboxed, OnCompletedRequest);
 }
 
-void ULootLockerManager::RedeemGooglePlayStorePurchaseForPlayer(const FString& ProductId, const FString& PurchaseToken,	const FLootLockerDefaultResponseBP& OnCompletedRequest)
+void ULootLockerManager::RedeemGooglePlayStorePurchaseForPlayer(const FLootLockerPlayerData& ForPlayer, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForPlayer(ProductId, PurchaseToken, OnCompletedRequest);
+    ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForPlayer(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, ProductId, PurchaseToken, OnCompletedRequest);
 }
 
-void ULootLockerManager::RedeemGooglePlayStorePurchaseForClass(const int ClassId, const FString& ProductId,	const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+void ULootLockerManager::RedeemGooglePlayStorePurchaseForClass(const FLootLockerPlayerData& ForPlayer, const int ClassId, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForClass(ClassId, ProductId, PurchaseToken, OnCompletedRequest);
+    ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForClass(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, ClassId, ProductId, PurchaseToken, OnCompletedRequest);
 }
 
-void ULootLockerManager::BeginSteamPurchaseRedemption(const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest)
+void ULootLockerManager::BeginSteamPurchaseRedemption(const FLootLockerPlayerData& ForPlayer, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::BeginSteamPurchaseRedemption(SteamId, Currency, Language, CatalogItemId, OnCompletedRequest);
+    ULootLockerPurchasesRequestHandler::BeginSteamPurchaseRedemption(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, SteamId, Currency, Language, CatalogItemId, OnCompletedRequest);
 }
 
-void ULootLockerManager::BeginSteamPurchaseRedemptionForClass(const int ClassId, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest)
+void ULootLockerManager::BeginSteamPurchaseRedemptionForClass(const FLootLockerPlayerData& ForPlayer, const int ClassId, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::BeginSteamPurchaseRedemptionForClass(ClassId, SteamId, Currency, Language, CatalogItemId, OnCompletedRequest);
+    ULootLockerPurchasesRequestHandler::BeginSteamPurchaseRedemptionForClass(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, ClassId, SteamId, Currency, Language, CatalogItemId, OnCompletedRequest);
 }
 
-void ULootLockerManager::QuerySteamPurchaseRedemptionStatus(const FString& EntitlementId, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegateBP& OnCompletedRequest)
+void ULootLockerManager::QuerySteamPurchaseRedemptionStatus(const FLootLockerPlayerData& ForPlayer, const FString& EntitlementId, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegateBP& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::QuerySteamPurchaseRedemptionStatus(EntitlementId, OnCompletedRequest);
+    ULootLockerPurchasesRequestHandler::QuerySteamPurchaseRedemptionStatus(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, EntitlementId, OnCompletedRequest);
 }
 
-void ULootLockerManager::FinalizeSteamPurchaseRedemption(const FString& EntitlementId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+void ULootLockerManager::FinalizeSteamPurchaseRedemption(const FLootLockerPlayerData& ForPlayer, const FString& EntitlementId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::FinalizeSteamPurchaseRedemption(EntitlementId, OnCompletedRequest);
+    ULootLockerPurchasesRequestHandler::FinalizeSteamPurchaseRedemption(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, EntitlementId, OnCompletedRequest);
 }
 
 //Triggers
-void ULootLockerManager::InvokeTriggersByKey(const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseBP& OnComplete)
+void ULootLockerManager::InvokeTriggersByKey(const FLootLockerPlayerData& ForPlayer, const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseBP& OnComplete)
 {
-    ULootLockerTriggersRequestHandler::InvokeTriggersByKey(KeysToInvoke, OnComplete);
+    ULootLockerTriggersRequestHandler::InvokeTriggersByKey(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, KeysToInvoke, OnComplete);
 }
 
 //Notifications
-void ULootLockerManager::ListNotificationsWithDefaultParameters(const FLootLockerListNotificationsResponseBP& OnComplete)
+void ULootLockerManager::ListNotificationsWithDefaultParameters(const FLootLockerPlayerData& ForPlayer, const FLootLockerListNotificationsResponseBP& OnComplete)
 {
-    ULootLockerNotificationsRequestHandler::ListNotificationsWithDefaultParameters(OnComplete);
+    ULootLockerNotificationsRequestHandler::ListNotificationsWithDefaultParameters(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnComplete);
 }
 
-void ULootLockerManager::ListNotifications(bool ShowRead, const FString& OfType, const FString& WithSource, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete)
+void ULootLockerManager::ListNotifications(const FLootLockerPlayerData& ForPlayer, bool ShowRead, const FString& OfType, const FString& WithSource, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete)
 {
-    ULootLockerNotificationsRequestHandler::ListNotifications(ShowRead, OfType, WithSource, PerPage, Page, OnComplete);
+    ULootLockerNotificationsRequestHandler::ListNotifications(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, ShowRead, OfType, WithSource, PerPage, Page, OnComplete);
 }
 
-void ULootLockerManager::ListNotificationsWithPriority(ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete)
+void ULootLockerManager::ListNotificationsWithPriority(const FLootLockerPlayerData& ForPlayer, ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete)
 {
-    ULootLockerNotificationsRequestHandler::ListNotifications(WithPriority, ShowRead, OfType, WithSource, PerPage, Page, OnComplete);
+    ULootLockerNotificationsRequestHandler::ListNotifications(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, WithPriority, ShowRead, OfType, WithSource, PerPage, Page, OnComplete);
 }
 
-void ULootLockerManager::MarkAllNotificationsAsRead(const FLootLockerReadNotificationsResponseBP& OnComplete)
+void ULootLockerManager::MarkAllNotificationsAsRead(const FLootLockerPlayerData& ForPlayer, const FLootLockerReadNotificationsResponseBP& OnComplete)
 {
-    ULootLockerNotificationsRequestHandler::MarkAllNotificationsAsRead(OnComplete);
+    ULootLockerNotificationsRequestHandler::MarkAllNotificationsAsRead(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnComplete);
 }
 
-void ULootLockerManager::MarkNotificationsAsRead(const TArray<FLootLockerNotification>& Notifications, const FLootLockerReadNotificationsResponseBP& OnComplete)
+void ULootLockerManager::MarkNotificationsAsRead(const FLootLockerPlayerData& ForPlayer, const TArray<FLootLockerNotification>& Notifications, const FLootLockerReadNotificationsResponseBP& OnComplete)
 {
     TArray<FString> UnreadNotificationIds;
-	for (const FLootLockerNotification& Notification : Notifications)
-	{
-		if(!Notification.Read)
-		{
+    for (const FLootLockerNotification& Notification : Notifications)
+    {
+        if (!Notification.Read)
+        {
             UnreadNotificationIds.Add(Notification.Id);
-		}
-	}
-    MarkNotificationsAsReadByIds(UnreadNotificationIds, OnComplete);
+        }
+    }
+    MarkNotificationsAsReadByIds(ForPlayer, UnreadNotificationIds, OnComplete);
 }
 
-void ULootLockerManager::MarkNotificationsAsReadByIds(const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseBP& OnComplete)
+void ULootLockerManager::MarkNotificationsAsReadByIds(const FLootLockerPlayerData& ForPlayer, const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseBP& OnComplete)
 {
-    ULootLockerNotificationsRequestHandler::MarkNotificationsAsRead(NotificationIDs, OnComplete);
+    ULootLockerNotificationsRequestHandler::MarkNotificationsAsRead(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, NotificationIDs, OnComplete);
 }
 
 bool ULootLockerManager::TryGetNotificationsByIdentifyingValue(const FLootLockerListNotificationsResponse& NotificationsResponse, const FString& IdentifyingValue, TArray<FLootLockerNotification>& Notifications)
@@ -870,156 +913,152 @@ bool ULootLockerManager::TryGetNotificationsByIdentifyingValue(const FLootLocker
     return NotificationsResponse.TryGetNotificationsByIdentifyingValue(IdentifyingValue, Notifications);
 }
 
-void ULootLockerManager::GetAllCollectables(const FCollectablesResponseDelegateBP& OnGetAllCollectablesCompleted)
+void ULootLockerManager::GetAllCollectables(const FLootLockerPlayerData& ForPlayer, const FCollectablesResponseDelegateBP& OnGetAllCollectablesCompleted)
 {
-    ULootLockerCollectablesRequestHandler::GetAllCollectables(OnGetAllCollectablesCompleted);
+    ULootLockerCollectablesRequestHandler::GetAllCollectables(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnGetAllCollectablesCompleted);
 }
 
-void ULootLockerManager::CollectItem(const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegateBP& OnCollectItemCompleted)
+void ULootLockerManager::CollectItem(const FLootLockerPlayerData& ForPlayer, const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegateBP& OnCollectItemCompleted)
 {
-    ULootLockerCollectablesRequestHandler::CollectItem(Item, OnCollectItemCompleted);
+    ULootLockerCollectablesRequestHandler::CollectItem(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Item, OnCollectItemCompleted);
 }
 
-void ULootLockerManager::GetMessages(const FMessagesResponseDelegateBP& OnGetMessagesCompleted)
+void ULootLockerManager::GetMessages(const FLootLockerPlayerData& ForPlayer, const FMessagesResponseDelegateBP& OnGetMessagesCompleted)
 {
-    ULootLockerMessagesRequestHandler::GetMessages(OnGetMessagesCompleted);
+    ULootLockerMessagesRequestHandler::GetMessages(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnGetMessagesCompleted);
 }
 
-void ULootLockerManager::ListLeaderboards(int Count, int After, const FLootLockerListLeaderboardsResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::ListLeaderboards(const FLootLockerPlayerData& ForPlayer, int Count, int After, const FLootLockerListLeaderboardsResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerLeaderboardRequestHandler::ListLeaderboards(Count, After, OnCompletedRequestBP);
+    ULootLockerLeaderboardRequestHandler::ListLeaderboards(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Count, After, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::GetMemberRank(FString LeaderboardKey, FString MemberId, const FLootLockerGetMemberRankResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::GetMemberRank(const FLootLockerPlayerData& ForPlayer, FString LeaderboardKey, FString MemberId, const FLootLockerGetMemberRankResponseBP& OnCompletedRequestBP)
 {
     FLootLockerGetMemberRankRequest MemberRequest;
     MemberRequest.leaderboard_key = LeaderboardKey;
     MemberRequest.member_id = MemberId;
 
-    ULootLockerLeaderboardRequestHandler::GetMemberRank(MemberRequest, OnCompletedRequestBP);
+    ULootLockerLeaderboardRequestHandler::GetMemberRank(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, MemberRequest, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::GetAllMemberRanks(FString MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::GetAllMemberRanks(const FLootLockerPlayerData& ForPlayer, FString MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseBP& OnCompletedRequestBP)
 {
     FLootLockerGetAllMemberRanksRequest MemberRanksRequest;
-    MemberRanksRequest.member_id = MemberId;
     MemberRanksRequest.after = After;
     MemberRanksRequest.count = Count;
 
-    ULootLockerLeaderboardRequestHandler::GetAllMemberRanks(MemberRanksRequest, OnCompletedRequestBP);
+    ULootLockerLeaderboardRequestHandler::GetAllMemberRanks(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, MemberRanksRequest, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::GetByListOfMembers(TArray<FString> Members, FString LeaderboardKey, const FLootLockerGetByListOfMembersResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::GetByListOfMembers(const FLootLockerPlayerData& ForPlayer, TArray<FString> Members, FString LeaderboardKey, const FLootLockerGetByListOfMembersResponseBP& OnCompletedRequestBP)
 {
     FLootLockerGetByListMembersRequest GetByListMembersRequest;
-    GetByListMembersRequest.members = Members;
-    ULootLockerLeaderboardRequestHandler::GetByListOfMembers(GetByListMembersRequest, LeaderboardKey, OnCompletedRequestBP);
+    ULootLockerLeaderboardRequestHandler::GetByListOfMembers(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, GetByListMembersRequest, LeaderboardKey, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::GetScoreList(FString LeaderboardKey, int Count, int After, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::GetScoreList(const FLootLockerPlayerData& ForPlayer, FString LeaderboardKey, int Count, int After, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP)
 {
     FLootLockerGetScoreListRequest GetScoreListRequest;
-    GetScoreListRequest.after = After;
     GetScoreListRequest.count = Count;
     GetScoreListRequest.leaderboard_key = LeaderboardKey;
-    ULootLockerLeaderboardRequestHandler::GetScoreList(GetScoreListRequest, OnCompletedRequestBP);
+    ULootLockerLeaderboardRequestHandler::GetScoreList(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, GetScoreListRequest, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::GetScoreListInitial(FString LeaderboardKey, int Count, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::GetScoreListInitial(const FLootLockerPlayerData& ForPlayer, FString LeaderboardKey, int Count, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP)
 {
-    GetScoreList(LeaderboardKey, Count, -1, OnCompletedRequestBP);
+    GetScoreList(ForPlayer, LeaderboardKey, Count, -1, OnCompletedRequestBP);
 }
 
 
-void ULootLockerManager::SubmitScore(FString MemberId, FString LeaderboardKey, int Score, FString Metadata, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::SubmitScore(const FLootLockerPlayerData& ForPlayer, FString MemberId, FString LeaderboardKey, int Score, FString Metadata, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP)
 {
     FLootLockerSubmitScoreRequest SubmitScoreRequest;
-    SubmitScoreRequest.member_id = MemberId;
     SubmitScoreRequest.score = Score;
     SubmitScoreRequest.metadata = Metadata;
-    ULootLockerLeaderboardRequestHandler::SubmitScore(SubmitScoreRequest, LeaderboardKey, OnCompletedRequestBP);
+    ULootLockerLeaderboardRequestHandler::SubmitScore(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, SubmitScoreRequest, LeaderboardKey, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::ListLeaderboardArchive(const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::ListLeaderboardArchive(const FLootLockerPlayerData& ForPlayer, const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerLeaderboardArchiveRequestHandler::ListLeaderboardArchive(LeaderboardKey, OnCompletedRequestBP);
+    ULootLockerLeaderboardArchiveRequestHandler::ListLeaderboardArchive(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, LeaderboardKey, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::GetLeaderboardArchive(const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailReponseBP& OnCompletedRequestBP)
+void ULootLockerManager::GetLeaderboardArchive(const FLootLockerPlayerData& ForPlayer, const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailReponseBP& OnCompletedRequestBP)
 {
-    ULootLockerLeaderboardArchiveRequestHandler::GetLeaderboardArchive(Key, Count, After, OnCompletedRequestBP);
+    ULootLockerLeaderboardArchiveRequestHandler::GetLeaderboardArchive(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Key, Count, After, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::GetLeaderboardDetails(const FString& LeaderboardKey, const FLootLockerLeaderboardDetailsResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::GetLeaderboardDetails(const FLootLockerPlayerData& ForPlayer, const FString& LeaderboardKey, const FLootLockerLeaderboardDetailsResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerLeaderboardRequestHandler::GetLeaderboardDetails(LeaderboardKey, OnCompletedRequestBP);
+    ULootLockerLeaderboardRequestHandler::GetLeaderboardDetails(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, LeaderboardKey, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::ComputeAndLockDropTable(int TableId, const FLootLockerComputeAndLockDropTableResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::ComputeAndLockDropTable(const FLootLockerPlayerData& ForPlayer, int TableId, const FLootLockerComputeAndLockDropTableResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerDropTablesRequestHandler::ComputeAndLockDropTable(TableId, OnCompletedRequestBP);
+    ULootLockerDropTablesRequestHandler::ComputeAndLockDropTable(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, TableId, OnCompletedRequestBP);
 }
 
-void ULootLockerManager::PickDropsFromDropTable(TArray<int> Picks, int TableId, const FFLootLockerPickDropsFromDropTableResponseBP& OnCompletedRequestBP)
+void ULootLockerManager::PickDropsFromDropTable(const FLootLockerPlayerData& ForPlayer, TArray<int> Picks, int TableId, const FFLootLockerPickDropsFromDropTableResponseBP& OnCompletedRequestBP)
 {
     FLootLockerPickDropsFromDropTableRequest request;
     request.picks = Picks;
-    ULootLockerDropTablesRequestHandler::PickDropsFromDropTable(request,TableId, OnCompletedRequestBP);
+    ULootLockerDropTablesRequestHandler::PickDropsFromDropTable(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, request, TableId, OnCompletedRequestBP);
 }
 
 // Currencies
-void ULootLockerManager::ListCurrencies(const FLootLockerListCurrenciesResponseBP& OnCompletedRequest)
+void ULootLockerManager::ListCurrencies(const FLootLockerPlayerData& ForPlayer, const FLootLockerListCurrenciesResponseBP& OnCompletedRequest)
 {
-    ULootLockerCurrencyRequestHandler::ListCurrencies(OnCompletedRequest);
+    ULootLockerCurrencyRequestHandler::ListCurrencies(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnCompletedRequest);
 }
 
-void ULootLockerManager::GetCurrencyDetails(const FString& CurrencyCode, const FLootLockerGetCurrencyDetailsResponseBP& OnCompletedRequest)
+void ULootLockerManager::GetCurrencyDetails(const FLootLockerPlayerData& ForPlayer, const FString& CurrencyCode, const FLootLockerGetCurrencyDetailsResponseBP& OnCompletedRequest)
 {
-    ULootLockerCurrencyRequestHandler::GetCurrencyDetails(CurrencyCode, OnCompletedRequest);
+    ULootLockerCurrencyRequestHandler::GetCurrencyDetails(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, CurrencyCode, OnCompletedRequest);
 }
 
-void ULootLockerManager::GetCurrencyDenominationsByCode(const FString& CurrencyCode, const FLootLockerListDenominationsResponseBP& OnCompletedRequest)
+void ULootLockerManager::GetCurrencyDenominationsByCode(const FLootLockerPlayerData& ForPlayer, const FString& CurrencyCode, const FLootLockerListDenominationsResponseBP& OnCompletedRequest)
 {
-    ULootLockerCurrencyRequestHandler::GetCurrencyDenominationsByCode(CurrencyCode, OnCompletedRequest);
+    ULootLockerCurrencyRequestHandler::GetCurrencyDenominationsByCode(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, CurrencyCode, OnCompletedRequest);
 }
 
 // Balances
 
-void ULootLockerManager::ListBalancesInWallet(const FString& WalletID, const FLootLockerListBalancesForWalletResponseBP& OnComplete)
+void ULootLockerManager::ListBalancesInWallet(const FLootLockerPlayerData& ForPlayer, const FString& WalletID, const FLootLockerListBalancesForWalletResponseBP& OnComplete)
 {
-    ULootLockerBalanceRequestHandler::ListBalancesInWallet(WalletID, OnComplete);
+    ULootLockerBalanceRequestHandler::ListBalancesInWallet(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, WalletID, OnComplete);
 }
 
-void ULootLockerManager::GetWalletByWalletID(const FString& WalletID, const FLootLockerGetWalletResponseBP& OnComplete)
+void ULootLockerManager::GetWalletByWalletID(const FLootLockerPlayerData& ForPlayer, const FString& WalletID, const FLootLockerGetWalletResponseBP& OnComplete)
 {
-    ULootLockerBalanceRequestHandler::GetWalletByWalletID(WalletID, OnComplete);
+    ULootLockerBalanceRequestHandler::GetWalletByWalletID(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, WalletID, OnComplete);
 }
 
-void ULootLockerManager::GetWalletByHolderID(const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerGetWalletResponseBP& OnComplete)
+void ULootLockerManager::GetWalletByHolderID(const FLootLockerPlayerData& ForPlayer, const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerGetWalletResponseBP& OnComplete)
 {
-    ULootLockerBalanceRequestHandler::GetWalletByHolderID(HolderULID, HolderType, OnComplete);
+    ULootLockerBalanceRequestHandler::GetWalletByHolderID(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, HolderULID, HolderType, OnComplete);
 }
 
-void ULootLockerManager::CreditBalanceToWallet(const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerCreditWalletResponseBP& OnComplete)
+void ULootLockerManager::CreditBalanceToWallet(const FLootLockerPlayerData& ForPlayer, const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerCreditWalletResponseBP& OnComplete)
 {
-    ULootLockerBalanceRequestHandler::CreditBalanceToWallet(WalletID, CurrencyID, Amount, OnComplete);
+    ULootLockerBalanceRequestHandler::CreditBalanceToWallet(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, WalletID, CurrencyID, Amount, OnComplete);
 }
 
-void ULootLockerManager::DebitBalanceToWallet(const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerDebitWalletResponseBP& OnComplete)
+void ULootLockerManager::DebitBalanceToWallet(const FLootLockerPlayerData& ForPlayer, const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerDebitWalletResponseBP& OnComplete)
 {
-    ULootLockerBalanceRequestHandler::DebitBalanceToWallet(WalletID, CurrencyID, Amount, OnComplete);
+    ULootLockerBalanceRequestHandler::DebitBalanceToWallet(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, WalletID, CurrencyID, Amount, OnComplete);
 }
 
 // Catalogs
 
-void ULootLockerManager::ListCatalogs(const FLootLockerListCatalogsResponseBP& OnComplete)
+void ULootLockerManager::ListCatalogs(const FLootLockerPlayerData& ForPlayer, const FLootLockerListCatalogsResponseBP& OnComplete)
 {
-    ULootLockerCatalogRequestHandler::ListCatalogs(OnComplete);
+    ULootLockerCatalogRequestHandler::ListCatalogs(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnComplete);
 }
 
-void ULootLockerManager::ListCatalogItems(const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnComplete)
+void ULootLockerManager::ListCatalogItems(const FLootLockerPlayerData& ForPlayer, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnComplete)
 {
-    ULootLockerCatalogRequestHandler::ListCatalogItems(CatalogKey, Count, After, OnComplete);
+    ULootLockerCatalogRequestHandler::ListCatalogItems(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, CatalogKey, Count, After, OnComplete);
 }
 
 TArray<FLootLockerInlinedCatalogEntry> ULootLockerManager::ConvertCatalogToInlineItems(const FLootLockerListCatalogPricesResponse& Catalog)
@@ -1028,76 +1067,76 @@ TArray<FLootLockerInlinedCatalogEntry> ULootLockerManager::ConvertCatalogToInlin
 }
 
 // Entitlements
-void ULootLockerManager::ListEntitlements(int Count, const FString& After, const FLootLockerListEntitlementsResponseBP& OnComplete)
+void ULootLockerManager::ListEntitlements(const FLootLockerPlayerData& ForPlayer, int Count, const FString& After, const FLootLockerListEntitlementsResponseBP& OnComplete)
 {
-    ULootLockerEntitlementRequestHandler::ListEntitlements(Count, After, OnComplete);
+    ULootLockerEntitlementRequestHandler::ListEntitlements(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Count, After, OnComplete);
 }
 
-void ULootLockerManager::GetEntitlement(const FString& EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnComplete)
+void ULootLockerManager::GetEntitlement(const FLootLockerPlayerData& ForPlayer, const FString& EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnComplete)
 {
-    ULootLockerEntitlementRequestHandler::GetEntitlement(EntitlementID, OnComplete);
+    ULootLockerEntitlementRequestHandler::GetEntitlement(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, EntitlementID, OnComplete);
 }
 
-void ULootLockerManager::ListPlayerFeedbackCategories(const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
+void ULootLockerManager::ListPlayerFeedbackCategories(const FLootLockerPlayerData& ForPlayer, const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
 {
-    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(ELootLockerFeedbackType::Player, OnComplete);
+    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, ELootLockerFeedbackType::Player, OnComplete);
 }
 
-void ULootLockerManager::ListGameFeedbackCategories(const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
+void ULootLockerManager::ListGameFeedbackCategories(const FLootLockerPlayerData& ForPlayer, const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
 {
-    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(ELootLockerFeedbackType::Game, OnComplete);
+    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, ELootLockerFeedbackType::Game, OnComplete);
 }
 
-void ULootLockerManager::ListUGCFeedbackCategories(const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
+void ULootLockerManager::ListUGCFeedbackCategories(const FLootLockerPlayerData& ForPlayer, const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
 {
-    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(ELootLockerFeedbackType::Ugc, OnComplete);
+    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, ELootLockerFeedbackType::Ugc, OnComplete);
 }
 
-void ULootLockerManager::SendPlayerFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete)
+void ULootLockerManager::SendPlayerFeedback(const FLootLockerPlayerData& ForPlayer, const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete)
 {
-    ULootLockerFeedbackRequestHandler::SendFeedback(Ulid, Description, CategoryID, ELootLockerFeedbackType::Player, OnComplete);
+    ULootLockerFeedbackRequestHandler::SendFeedback(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Ulid, Description, CategoryID, ELootLockerFeedbackType::Player, OnComplete);
 }
 
-void ULootLockerManager::SendGameFeedback(const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete)
+void ULootLockerManager::SendGameFeedback(const FLootLockerPlayerData& ForPlayer, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete)
 {
-    ULootLockerFeedbackRequestHandler::SendFeedback("", Description, CategoryID, ELootLockerFeedbackType::Game, OnComplete);
+    ULootLockerFeedbackRequestHandler::SendFeedback(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, "", Description, CategoryID, ELootLockerFeedbackType::Game, OnComplete);
 }
 
-void ULootLockerManager::SendUGCFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete)
+void ULootLockerManager::SendUGCFeedback(const FLootLockerPlayerData& ForPlayer, const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete)
 {
-    ULootLockerFeedbackRequestHandler::SendFeedback(Ulid, Description, CategoryID, ELootLockerFeedbackType::Ugc, OnComplete);
+    ULootLockerFeedbackRequestHandler::SendFeedback(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Ulid, Description, CategoryID, ELootLockerFeedbackType::Ugc, OnComplete);
 
 }
 
 // Metadata
 
-void ULootLockerManager::ListMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnComplete)
+void ULootLockerManager::ListMetadata(const FLootLockerPlayerData& ForPlayer, const ELootLockerMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnComplete)
 {
-    ULootLockerMetadataRequestHandler::ListMetadata(Source, SourceID, Page, PerPage, FString(), TArray<FString>(), IgnoreFiles, OnComplete);
+    ULootLockerMetadataRequestHandler::ListMetadata(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Source, SourceID, Page, PerPage, FString(), TArray<FString>(), IgnoreFiles, OnComplete);
 }
 
-void ULootLockerManager::ListMetadataWithTags(const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FString>& Tags, const int Page, const int PerPage, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnComplete)
+void ULootLockerManager::ListMetadataWithTags(const FLootLockerPlayerData& ForPlayer, const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FString>& Tags, const int Page, const int PerPage, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnComplete)
 {
-    ULootLockerMetadataRequestHandler::ListMetadata(Source, SourceID, Page, PerPage, FString(), Tags, IgnoreFiles, OnComplete);
+    ULootLockerMetadataRequestHandler::ListMetadata(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Source, SourceID, Page, PerPage, FString(), Tags, IgnoreFiles, OnComplete);
 }
 
-void ULootLockerManager::GetMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const FString& Key, const bool IgnoreFiles, const FLootLockerGetMetadataResponseBP& OnComplete)
+void ULootLockerManager::GetMetadata(const FLootLockerPlayerData& ForPlayer, const ELootLockerMetadataSources Source, const FString& SourceID, const FString& Key, const bool IgnoreFiles, const FLootLockerGetMetadataResponseBP& OnComplete)
 {
-    ULootLockerMetadataRequestHandler::GetMetadata(Source, SourceID, Key, IgnoreFiles, OnComplete);
+    ULootLockerMetadataRequestHandler::GetMetadata(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Source, SourceID, Key, IgnoreFiles, OnComplete);
 }
 
-void ULootLockerManager::GetMultisourceMetadata(const TArray<FLootLockerMetadataSourceAndKeys>& SourcesAndKeysToGet, const bool IgnoreFiles, const FLootLockerGetMultisourceMetadataResponseBP& OnComplete)
+void ULootLockerManager::GetMultisourceMetadata(const FLootLockerPlayerData& ForPlayer, const TArray<FLootLockerMetadataSourceAndKeys>& SourcesAndKeysToGet, const bool IgnoreFiles, const FLootLockerGetMultisourceMetadataResponseBP& OnComplete)
 {
-    ULootLockerMetadataRequestHandler::GetMultisourceMetadata(SourcesAndKeysToGet, IgnoreFiles, OnComplete);
+    ULootLockerMetadataRequestHandler::GetMultisourceMetadata(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, SourcesAndKeysToGet, IgnoreFiles, OnComplete);
 }
 
 void ULootLockerManager::ParseLootLockerMetadataEntry(const FLootLockerMetadataEntry& Entry,
-                                                      ELootLockerMetadataParserOutputTypes& MetadataTypeSwitch,
-                                                      FString& StringValue, int& IntegerValue,
-                                                      float& FloatValue, FString& NumberString, bool& BoolValue,
-                                                      FString& JsonStringValue,
-                                                      FLootLockerMetadataBase64Value& Base64Value,
-                                                      FString& ErrorMessage, FLootLockerMetadataEntry& OutEntry)
+    ELootLockerMetadataParserOutputTypes& MetadataTypeSwitch,
+    FString& StringValue, int& IntegerValue,
+    float& FloatValue, FString& NumberString, bool& BoolValue,
+    FString& JsonStringValue,
+    FLootLockerMetadataBase64Value& Base64Value,
+    FString& ErrorMessage, FLootLockerMetadataEntry& OutEntry)
 {
     MetadataTypeSwitch = ELootLockerMetadataParserOutputTypes::OnError;
     StringValue = "";
@@ -1110,10 +1149,10 @@ void ULootLockerManager::ParseLootLockerMetadataEntry(const FLootLockerMetadataE
     ErrorMessage = "Unknown Error";
     OutEntry = Entry;
     FString ValueToParse;
-    if(!Entry.TryGetSerializedValue(ValueToParse))
+    if (!Entry.TryGetSerializedValue(ValueToParse))
     {
         ErrorMessage = FString::Format(TEXT("Couldn't get serialized value for type: \"{0}\""), { static_cast<int>(Entry.Type) }); ;
-        return;	    
+        return;
     }
     switch (Entry.Type)
     {
@@ -1198,9 +1237,9 @@ void ULootLockerManager::ParseLootLockerMetadataEntry(const FLootLockerMetadataE
     }
 }
 
-void ULootLockerManager::SetMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FLootLockerSetMetadataAction>& MetadataToActionsToPerform, const FLootLockerSetMetadataResponseBP& OnComplete)
+void ULootLockerManager::SetMetadata(const FLootLockerPlayerData& ForPlayer, const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FLootLockerSetMetadataAction>& MetadataToActionsToPerform, const FLootLockerSetMetadataResponseBP& OnComplete)
 {
-    ULootLockerMetadataRequestHandler::SetMetadata(Source, SourceID, MetadataToActionsToPerform, OnComplete);
+    ULootLockerMetadataRequestHandler::SetMetadata(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, Source, SourceID, MetadataToActionsToPerform, OnComplete);
 }
 
 FLootLockerSetMetadataAction ULootLockerManager::MakeMetadataActionString(ELootLockerMetadataActions Action, const FString& Key, const FString& Value, const TArray<FString>& Tags, const TArray<FString>& Access)
@@ -1215,45 +1254,45 @@ FLootLockerSetMetadataAction ULootLockerManager::MakeMetadataActionFloat(ELootLo
 
 FLootLockerSetMetadataAction ULootLockerManager::MakeMetadataActionInteger(ELootLockerMetadataActions Action, const FString& Key, const int Value, const TArray<FString>& Tags, const TArray<FString>& Access)
 {
-    return FLootLockerSetMetadataAction{Action, FLootLockerMetadataEntry::MakeIntegerEntry(Key, Tags, Access, Value)};
+    return FLootLockerSetMetadataAction{ Action, FLootLockerMetadataEntry::MakeIntegerEntry(Key, Tags, Access, Value) };
 }
 
 FLootLockerSetMetadataAction ULootLockerManager::MakeMetadataActionBool(ELootLockerMetadataActions Action, const FString& Key, const bool Value, const TArray<FString>& Tags, const TArray<FString>& Access)
 {
-    return FLootLockerSetMetadataAction{Action, FLootLockerMetadataEntry::MakeBoolEntry(Key, Tags, Access, Value)};
+    return FLootLockerSetMetadataAction{ Action, FLootLockerMetadataEntry::MakeBoolEntry(Key, Tags, Access, Value) };
 }
 
 void ULootLockerManager::MakeMetadataActionJson(ELootLockerMetadataActions Action, const FString& Key, const FString& Value, const TArray<FString>& Tags, const TArray<FString>& Access, bool& Succeeded, FLootLockerSetMetadataAction& ConstructedEntry)
 {
     TArray<TSharedPtr<FJsonValue>> JsonArrayValue;
-    if(LootLockerUtilities::JsonArrayFromFString(Value, JsonArrayValue))
+    if (LootLockerUtilities::JsonArrayFromFString(Value, JsonArrayValue))
     {
-        ConstructedEntry = FLootLockerSetMetadataAction{Action, FLootLockerMetadataEntry::MakeJsonArrayEntry(Key, Tags, Access, JsonArrayValue)};
+        ConstructedEntry = FLootLockerSetMetadataAction{ Action, FLootLockerMetadataEntry::MakeJsonArrayEntry(Key, Tags, Access, JsonArrayValue) };
         Succeeded = true;
         return;
     }
 
     TSharedPtr<FJsonObject> JsonObjectValue = LootLockerUtilities::JsonObjectFromFString(Value);
-    if(JsonObjectValue.IsValid())
+    if (JsonObjectValue.IsValid())
     {
-         ConstructedEntry = FLootLockerSetMetadataAction{Action, FLootLockerMetadataEntry::MakeJsonObjectEntry(Key, Tags, Access, *JsonObjectValue)};
-         Succeeded = true;
-         return;
+        ConstructedEntry = FLootLockerSetMetadataAction{ Action, FLootLockerMetadataEntry::MakeJsonObjectEntry(Key, Tags, Access, *JsonObjectValue) };
+        Succeeded = true;
+        return;
     }
     Succeeded = false;
 }
 
 FLootLockerSetMetadataAction ULootLockerManager::MakeMetadataActionBase64(ELootLockerMetadataActions Action, const FString& Key, const FLootLockerMetadataBase64Value& Value, const TArray<FString>& Tags, const TArray<FString>& Access)
 {
-    return FLootLockerSetMetadataAction{Action, FLootLockerMetadataEntry::MakeBase64Entry(Key, Tags, Access, Value)};
+    return FLootLockerSetMetadataAction{ Action, FLootLockerMetadataEntry::MakeBase64Entry(Key, Tags, Access, Value) };
 }
 
 // Miscellaneous
-void ULootLockerManager::GetServerTime(const FTimeResponseDelegateBP& OnCompletedRequestBP)
+void ULootLockerManager::GetServerTime(const FLootLockerPlayerData& ForPlayer, const FTimeResponseDelegateBP& OnCompletedRequestBP)
 {
-    ULootLockerMiscellaneousRequestHandler::GetServerTime(OnCompletedRequestBP);
+    ULootLockerMiscellaneousRequestHandler::GetServerTime(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer, OnCompletedRequestBP);
 }
 
-FString ULootLockerManager::GetLastActivePlatform() {
-    return ULootLockerMiscellaneousRequestHandler::GetLastActivePlatform();
+FString ULootLockerManager::GetLastActivePlatform(const FLootLockerPlayerData& ForPlayer) {
+    return ULootLockerMiscellaneousRequestHandler::GetLastActivePlatform(ForPlayer.PlayerUlid.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer("") : ForPlayer);
 }

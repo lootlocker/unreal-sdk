@@ -11,17 +11,17 @@ ULootLockerCurrencyRequestHandler::ULootLockerCurrencyRequestHandler()
     HttpClient = NewObject<ULootLockerHttpClient>();
 }
 
-void ULootLockerCurrencyRequestHandler::ListCurrencies(const FLootLockerListCurrenciesResponseBP& OnResponseCompletedBP, const FLootLockerListCurrenciesResponseDelegate& OnResponseCompleted)
+void ULootLockerCurrencyRequestHandler::ListCurrencies(const FLootLockerPlayerData& PlayerData, const FLootLockerListCurrenciesResponseBP& OnResponseCompletedBP, const FLootLockerListCurrenciesResponseDelegate& OnResponseCompleted)
 {
-    LLAPI<FLootLockerListCurrenciesResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListCurrencies, { }, {}, OnResponseCompletedBP, OnResponseCompleted);
+    LLAPI<FLootLockerListCurrenciesResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListCurrencies, { }, {}, PlayerData, OnResponseCompletedBP, OnResponseCompleted);
 }
 
-void ULootLockerCurrencyRequestHandler::GetCurrencyDetails(const FString& CurrencyCode, const FLootLockerGetCurrencyDetailsResponseBP& OnResponseCompletedBP, const FLootLockerGetCurrencyDetailsResponseDelegate& OnResponseCompleted)
+void ULootLockerCurrencyRequestHandler::GetCurrencyDetails(const FLootLockerPlayerData& PlayerData, const FString& CurrencyCode, const FLootLockerGetCurrencyDetailsResponseBP& OnResponseCompletedBP, const FLootLockerGetCurrencyDetailsResponseDelegate& OnResponseCompleted)
 {
-    LLAPI<FLootLockerGetCurrencyDetailsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::GetCurrencyDetails, { CurrencyCode }, {}, OnResponseCompletedBP, OnResponseCompleted);
+    LLAPI<FLootLockerGetCurrencyDetailsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::GetCurrencyDetails, { CurrencyCode }, {}, PlayerData, OnResponseCompletedBP, OnResponseCompleted);
 }
 
-void ULootLockerCurrencyRequestHandler::GetCurrencyDenominationsByCode(const FString& CurrencyCode, const FLootLockerListDenominationsResponseBP& OnResponseCompletedBP, const FLootLockerListDenominationsResponseDelegate& OnResponseCompleted)
+void ULootLockerCurrencyRequestHandler::GetCurrencyDenominationsByCode(const FLootLockerPlayerData& PlayerData, const FString& CurrencyCode, const FLootLockerListDenominationsResponseBP& OnResponseCompletedBP, const FLootLockerListDenominationsResponseDelegate& OnResponseCompleted)
 {
-    LLAPI<FLootLockerListDenominationsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::GetCurrencyDenominationsByCode, { CurrencyCode }, {}, OnResponseCompletedBP, OnResponseCompleted);
+    LLAPI<FLootLockerListDenominationsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::GetCurrencyDenominationsByCode, { CurrencyCode }, {}, PlayerData, OnResponseCompletedBP, OnResponseCompleted);
 }

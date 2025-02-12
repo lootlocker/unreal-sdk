@@ -94,8 +94,8 @@ class LOOTLOCKERSDK_API ULootLockerLeaderboardArchiveRequestHandler : public UOb
 {
 	GENERATED_BODY()
 public:
-	static void ListLeaderboardArchive(const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP = FLootLockerLeaderboardArchiveResponseBP(), const FLootLockerLeaderboardArchiveResponseDelegate& OnCompletedRequest = FLootLockerLeaderboardArchiveResponseDelegate());
-	static void GetLeaderboardArchive(const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailReponseBP& OnCompletedRequestBP = FLootLockerLeaderboardArchiveDetailReponseBP(), const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest = FLootLockerLeaderboardArchiveDetailResponseDelegate());
+	static void ListLeaderboardArchive(const FLootLockerPlayerData& PlayerData, const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP = FLootLockerLeaderboardArchiveResponseBP(), const FLootLockerLeaderboardArchiveResponseDelegate& OnCompletedRequest = FLootLockerLeaderboardArchiveResponseDelegate());
+	static void GetLeaderboardArchive(const FLootLockerPlayerData& PlayerData, const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailReponseBP& OnCompletedRequestBP = FLootLockerLeaderboardArchiveDetailReponseBP(), const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest = FLootLockerLeaderboardArchiveDetailResponseDelegate());
 public:
 	ULootLockerLeaderboardArchiveRequestHandler();
 	static ULootLockerHttpClient* HttpClient;

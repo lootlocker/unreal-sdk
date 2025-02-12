@@ -203,9 +203,9 @@ class LOOTLOCKERSDK_API ULootLockerCurrencyRequestHandler : public UObject
 public:
     ULootLockerCurrencyRequestHandler();
 
-    static void ListCurrencies(const FLootLockerListCurrenciesResponseBP& OnResponseCompletedBP = FLootLockerListCurrenciesResponseBP(), const FLootLockerListCurrenciesResponseDelegate& OnResponseCompleted = FLootLockerListCurrenciesResponseDelegate());
-    static void GetCurrencyDetails(const FString& CurrencyCode, const FLootLockerGetCurrencyDetailsResponseBP& OnResponseCompletedBP = FLootLockerGetCurrencyDetailsResponseBP(), const FLootLockerGetCurrencyDetailsResponseDelegate& OnResponseCompleted = FLootLockerGetCurrencyDetailsResponseDelegate());
-    static void GetCurrencyDenominationsByCode(const FString& CurrencyCode, const FLootLockerListDenominationsResponseBP& OnResponseCompletedBP = FLootLockerListDenominationsResponseBP(), const FLootLockerListDenominationsResponseDelegate& OnResponseCompleted = FLootLockerListDenominationsResponseDelegate());
+    static void ListCurrencies(const FLootLockerPlayerData& PlayerData, const FLootLockerListCurrenciesResponseBP& OnResponseCompletedBP = FLootLockerListCurrenciesResponseBP(), const FLootLockerListCurrenciesResponseDelegate& OnResponseCompleted = FLootLockerListCurrenciesResponseDelegate());
+    static void GetCurrencyDetails(const FLootLockerPlayerData& PlayerData, const FString& CurrencyCode, const FLootLockerGetCurrencyDetailsResponseBP& OnResponseCompletedBP = FLootLockerGetCurrencyDetailsResponseBP(), const FLootLockerGetCurrencyDetailsResponseDelegate& OnResponseCompleted = FLootLockerGetCurrencyDetailsResponseDelegate());
+    static void GetCurrencyDenominationsByCode(const FLootLockerPlayerData& PlayerData, const FString& CurrencyCode, const FLootLockerListDenominationsResponseBP& OnResponseCompletedBP = FLootLockerListDenominationsResponseBP(), const FLootLockerListDenominationsResponseDelegate& OnResponseCompleted = FLootLockerListDenominationsResponseDelegate());
 
     static ULootLockerHttpClient* HttpClient;
 };
