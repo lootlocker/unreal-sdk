@@ -11,12 +11,12 @@ ULootLockerTriggerEventsRequestHandler::ULootLockerTriggerEventsRequestHandler()
     HttpClient = NewObject<ULootLockerHttpClient>();
 }
 
-void ULootLockerTriggerEventsRequestHandler::TriggerEvent(const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegateBP& OnCompletedRequestBP, const FTriggerEventResponseDelegate& OnCompletedRequest)
+void ULootLockerTriggerEventsRequestHandler::TriggerEvent(const FLootLockerPlayerData& PlayerData, const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegateBP& OnCompletedRequestBP, const FTriggerEventResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerTriggerEventResponse>::CallAPI(HttpClient, Event, ULootLockerGameEndpoints::TriggerEventEndpoint, {  },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerTriggerEventResponse>::CallAPI(HttpClient, Event, ULootLockerGameEndpoints::TriggerEventEndpoint, {  },EmptyQueryParams, PlayerData, OnCompletedRequestBP, OnCompletedRequest);
 }
 
-void ULootLockerTriggerEventsRequestHandler::GetTriggeredEvents(const FTriggersResponseDelegateBP& OnCompletedRequestBP, const FTriggersResponseDelegate& OnCompletedRequest)
+void ULootLockerTriggerEventsRequestHandler::GetTriggeredEvents(const FLootLockerPlayerData& PlayerData, const FTriggersResponseDelegateBP& OnCompletedRequestBP, const FTriggersResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerTriggersResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetTriggeredEventsEndpoint, {  },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+    LLAPI<FLootLockerTriggersResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetTriggeredEventsEndpoint, {  },EmptyQueryParams, PlayerData, OnCompletedRequestBP, OnCompletedRequest);
 }

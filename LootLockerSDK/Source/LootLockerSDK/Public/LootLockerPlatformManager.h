@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "LootLockerStateData.h"
 #include "LootLockerPlatformManager.generated.h"
 
 UENUM(BlueprintType)
@@ -24,7 +23,8 @@ enum class ELootLockerPlatform : uint8
 	AppleGameCenter = 12	UMETA(DisplayName = "Apple Game Center"),
 	Meta = 13				UMETA(DisplayName = "Apple Game Center"),
 	Remote = 14				UMETA(DisplayName = "Remote Session"),
-	LastValue = 15			UMETA(DisplayName = "N/A")
+	Server = 15				UMETA(DisplayName = "Server"),
+	LastValue = 16			UMETA(DisplayName = "N/A")
 };
 
 
@@ -45,33 +45,16 @@ struct FLootLockerPlatformRepresentation
 		AuthenticationProviderString(AuthenticationProviderString)
 	{
 	}
-	FString GetFriendlyPlatformString();
+	FString GetFriendlyPlatformString() const;
 };
 
 UCLASS(BlueprintType)
-class LOOTLOCKERSDK_API ULootLockerCurrentPlatform : public UObject
+class LOOTLOCKERSDK_API ULootLockerPlatforms : public UObject
 {
 	GENERATED_BODY()
 public:
-    ULootLockerCurrentPlatform()
-    {
-		EnsureAllPlatformsAreRepresented();
-    };
-	static const ELootLockerPlatform& Get() { return CurrentPlatform.Platform; }
-	static const FString& GetString() { return CurrentPlatform.PlatformString; }
-	static FString GetFriendlyString() { return CurrentPlatform.GetFriendlyPlatformString(); }
-	static FString GetAuthenticationProviderString() { return GetFriendlyString(); }
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous")
-	static const FLootLockerPlatformRepresentation& GetPlatformRepresentation() { return CurrentPlatform; }
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous")
-    static const FLootLockerPlatformRepresentation& GetPlatformRepresentationForPlatform(const ELootLockerPlatform Platform) { return *PlatformRepresentations.Find(Platform); }
-
-	static void Reset() { CurrentPlatform = *PlatformRepresentations.Find(ELootLockerPlatform::None); }
-	static void Set(const ELootLockerPlatform& Platform)
-	{
-		CurrentPlatform = *PlatformRepresentations.Find(Platform);
-		ULootLockerStateData::SetLastActivePlatform(CurrentPlatform.PlatformString);
-	}
+	static const FLootLockerPlatformRepresentation& GetPlatformRepresentationForPlatform(const ELootLockerPlatform Platform) { EnsureAllPlatformsAreRepresented(); return *PlatformRepresentations.Find(Platform); }
 
 	virtual void PostInitProperties() override
 	{
@@ -80,8 +63,6 @@ public:
 	}
 private:
 	static TMap<ELootLockerPlatform, FLootLockerPlatformRepresentation> PlatformRepresentations;
-
-	static FLootLockerPlatformRepresentation& CurrentPlatform;
 
 	// Can't static assert, so we try and make it painfully obvious runtime that we've missed something
 	static void EnsureAllPlatformsAreRepresented()

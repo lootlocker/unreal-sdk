@@ -26,6 +26,7 @@ void FTestLootLockerTriggerEvents::Define()
 				FLootLockerTriggerEvent Request;
 				Request.name = "triggername";
 
+#pragma warning(suppress:4996)
 				ULootLockerSDKManager::TriggerEvent(Request, Delegate);
 				
 				const auto Response = Promise ->get_future().get();
@@ -35,7 +36,8 @@ void FTestLootLockerTriggerEvents::Define()
 			
 			{
 				const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerTriggersResponse,FTriggersResponseDelegate>();
-			
+
+#pragma warning(suppress:4996)
 				ULootLockerSDKManager::GetTriggeredEvents(Delegate);
 			
 				const auto Response = Promise ->get_future().get();

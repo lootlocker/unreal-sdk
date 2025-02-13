@@ -3,47 +3,114 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "LootLockerPlayerData.h"
+#include "GameFramework/SaveGame.h"
 #include "Runtime/Launch/Resources/Version.h"
 #include "LootLockerStateData.generated.h"
 
+UCLASS()
+class ULootLockerStateMetaDataSaveGame : public USaveGame
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
+	TArray<FString> SavedPlayerStateUlids;
+	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
+	FString DefaultPlayer;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerStateMetaData
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
+	TArray<FString> SavedPlayerStateUlids;
+	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
+	FString DefaultPlayer;
+};
+
+UCLASS()
+class LOOTLOCKERSDK_API ULootLockerPlayerDataSaveGame : public USaveGame
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
+	FString Token = "";
+	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
+	FString RefreshToken = "";
+	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
+	FString PlayerIdentifier = "";
+	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
+	FString PlayerUlid = "";
+	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
+	FString PlayerPublicUid = "";
+	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
+	FString PlayerName = "";
+	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
+	FString WhiteLabelEmail = "";
+	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
+	FString WhiteLabelToken = "";
+	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
+	FLootLockerPlatformRepresentation CurrentPlatform;
+	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
+	FString LastSignIn = "";
+
+	static ULootLockerPlayerDataSaveGame* Create(const FLootLockerPlayerData& PlayerData)
+	{
+		return Create(PlayerData.Token, PlayerData.RefreshToken, PlayerData.PlayerIdentifier, PlayerData.PlayerUlid, PlayerData.PlayerPublicUid, PlayerData.PlayerName, PlayerData.WhiteLabelEmail, PlayerData.WhiteLabelToken, PlayerData.CurrentPlatform, PlayerData.LastSignIn);
+	}
+
+	static ULootLockerPlayerDataSaveGame* Create(const FString& token = "", const FString& refreshToken = "", const FString& playerIdentifier = "", const FString& playerUlid = "", const FString& playerPublicUid = "", const FString& playerName = "", const FString& whiteLabelEmail = "", const FString& whiteLabelToken = "", const FLootLockerPlatformRepresentation& currentPlatform = FLootLockerPlatformRepresentation(), const FString& lastSignIn = "")
+	{
+		ULootLockerPlayerDataSaveGame* newObj = NewObject<ULootLockerPlayerDataSaveGame>();
+		newObj->Token = token;
+		newObj->RefreshToken = refreshToken;
+		newObj->PlayerIdentifier = playerIdentifier;
+		newObj->PlayerUlid = playerUlid;
+		newObj->PlayerPublicUid = playerPublicUid;
+		newObj->PlayerName = playerName;
+		newObj->WhiteLabelEmail = whiteLabelEmail;
+		newObj->WhiteLabelToken = whiteLabelToken;
+		newObj->CurrentPlatform = currentPlatform;
+		newObj->LastSignIn = lastSignIn;
+		return newObj;
+	}
+};
 
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerStateData : public UObject
 {
 	GENERATED_BODY()
-    static FString Token;
-	static FString SteamToken;
-	static FString RefreshToken;
-	static FString PlayerIdentifier;
-	static FString WhiteLabelEmail;
-	static FString WhiteLabelToken;
-	static FString LastActivePlatform;
+private:
+	static FLootLockerPlayerData EmptyPlayerData;
+	static FLootLockerStateMetaData CachedMetaData;
+	static bool isMetadataLoaded;
+	static TMap<FString, FLootLockerPlayerData> CachedPlayerData;
 
 #if ENGINE_MAJOR_VERSION < 5
-	static const FString SaveSlot;
+	static const FString BaseSaveSlot;
     static constexpr int SaveIndex = 0;
 #else
-    inline static const FString SaveSlot = "LootLocker";
+    inline static const FString BaseSaveSlot = "LootLocker";
     inline static constexpr int SaveIndex = 0;
 #endif
-	static bool StateLoaded;
 
-	static void LoadStateFromDiskIfNeeded();
-	static void SaveStateToDisk();
+	static FLootLockerStateMetaData LoadMetaState();
+	static FLootLockerPlayerData* LoadPlayerData(const FString& PlayerUlid);
+	static void SetMetaState(FLootLockerStateMetaData& updatedMetaData);
 public:
-	static FString GetToken();
-	static FString GetSteamToken();
-	static FString GetRefreshToken();
-	static FString GetPlayerIdentifier();
-	static FString GetWhiteLabelEmail();
-	static FString GetWhiteLabelToken();
-	static FString GetLastActivePlatform();
-	static void SetToken(FString InToken);
-	static void SetSteamToken(FString InSteamToken);
-	static void SetRefreshToken(FString InRefreshToken);
-	static void SetPlayerIdentifier(FString InPlayerIdentifier);
-	static void SetWhiteLabelEmail(FString InWhiteLabelEmail);
-	static void SetWhiteLabelToken(FString InWhiteLabelToken);
-	static void SetLastActivePlatform(FString InLastActivePlatform);
-    static void ClearState();
+	ULootLockerStateData();
+
+	static FString GetNewUniqueIdentifier();
+	static bool SaveStateExistsForPlayer(const FString& PlayerUlid = "");
+	static const FLootLockerPlayerData& GetSavedStateOrDefaultOrEmptyForPlayer(const FString& PlayerUlid = "");
+	static FString GetDefaultPlayerUlid();
+	static bool SetDefaultPlayerUlid(const FString& PlayerUlid);
+	static void SavePlayerData(const FLootLockerPlayerData& PlayerData);
+	static bool ClearSavedStateForPlayer(const FString& PlayerUlid);
+	static void ClearAllSavedStates();
+	static TArray<FString> GetActivePlayerUlids();
+	static TArray<FString> GetCachedPlayerUlids();
+	static void SetPlayerUlidToInactive(const FString& PlayerUlid);	
 };

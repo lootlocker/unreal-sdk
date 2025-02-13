@@ -419,29 +419,29 @@ class LOOTLOCKERSDK_API ULootLockerPlayerRequestHandler : public UObject
 	GENERATED_BODY()
 public:
 	ULootLockerPlayerRequestHandler();
-	static void GetCurrentPlayerInfo(const FLootLockerGetCurrentPlayerInfoResponseBP& OnCompletedRequestBP = FLootLockerGetCurrentPlayerInfoResponseBP(), const FLootLockerGetCurrentPlayerInfoResponseDelegate& OnCompletedRequest = FLootLockerGetCurrentPlayerInfoResponseDelegate());
-	static void ListPlayerInfo(TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseBP& OnCompletedRequestBP = FLootLockerListPlayerInfoResponseBP(), const FLootLockerListPlayerInfoResponseDelegate& OnCompletedRequest = FLootLockerListPlayerInfoResponseDelegate());
+	static void GetCurrentPlayerInfo(const FLootLockerPlayerData& PlayerData, const FLootLockerGetCurrentPlayerInfoResponseBP& OnCompletedRequestBP = FLootLockerGetCurrentPlayerInfoResponseBP(), const FLootLockerGetCurrentPlayerInfoResponseDelegate& OnCompletedRequest = FLootLockerGetCurrentPlayerInfoResponseDelegate());
+	static void ListPlayerInfo(const FLootLockerPlayerData& PlayerData, TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseBP& OnCompletedRequestBP = FLootLockerListPlayerInfoResponseBP(), const FLootLockerListPlayerInfoResponseDelegate& OnCompletedRequest = FLootLockerListPlayerInfoResponseDelegate());
 
-	static void GetPlayerInfo(const FPInfoResponseBP& OnCompletedRequestBP = FPInfoResponseBP(), const FLootLockerPlayerInformationResponse& OnCompletedRequest = FLootLockerPlayerInformationResponse());
-	static void GetInventory(const FPInventoryResponseBP& OnCompletedRequestBP = FPInventoryResponseBP(), const FInventoryResponse& OnCompletedRequest = FInventoryResponse());
-	static void GetFullInventory(const FPInventoryResponseBP& OnCompletedRequestBP, const FInventoryResponse& OnCompletedRequest = FInventoryResponse(), int32
-	                             StartIndex = 0);
-	static void SubmitXp(int Points, const FPSubmitResponseBP& OnCompletedRequestBP = FPSubmitResponseBP(), const FSubmitXpResponse& OnCompletedRequest = FSubmitXpResponse());
-	static void GetOtherPlayersXpAndLevel(FString OtherPlayerId, FString OtherPlayerPlatform, const FPOtherPlayersXpAndLevelBP OnCompletedRequestBP = FPOtherPlayersXpAndLevelBP(), const
-	                               FOtherPlayersXpAndLevelResponse& OnCompletedRequest = FOtherPlayersXpAndLevelResponse());
-	static void GetMultiplePlayersXp(FLootLockerMultiplePlayersXpRequest Request, const FPMultiplePlayersXPBP& OnCompletedRequestBP =
-		                                 FPMultiplePlayersXPBP(), const FPMultiplePlayersXP& OnCompletedRequest = FPMultiplePlayersXP());
-	static void CheckPlayerAssetNotification(const FPAssetNotificationResponseBP& OnCompletedRequestBP = FPAssetNotificationResponseBP(), const FLootLockerAssetNotificationResponse& OnCompletedRequest = FLootLockerAssetNotificationResponse());
-	static void GetCurrencyBalance(const FPBalanceResponseBP& OnCompletedRequestBP = FPBalanceResponseBP(), const FPBalanceResponse& OnCompletedRequest = FPBalanceResponse());
-	static void InitiateDLCMigration(const FResponseCallbackBP& OnCompletedRequestBP = FResponseCallbackBP(), const FResponseCallback& OnCompletedRequest = FResponseCallback());
-	static void GetDLCsMigration(const FPDlcResponseBP& OnCompletedRequestBP = FPDlcResponseBP(), const FPDlcResponse& OnCompletedRequest = FPDlcResponse());
-	static void SetProfilePrivate(const FResponseCallbackBP& OnCompletedRequestBP = FResponseCallbackBP(), const FResponseCallback& OnCompletedRequest = FResponseCallback());
-	static void SetProfilePublic(const FResponseCallbackBP& OnCompletedRequestBP = FResponseCallbackBP(), const FResponseCallback& OnCompletedRequest = FResponseCallback());
-	static void SetPlayerName(FString Name, const FPNameResponseBP& OnCompletedRequestBP = FPNameResponseBP(), const FPNameResponse& OnCompletedRequest = FPNameResponse());
-	static void GetPlayerName(const FPNameResponseBP& OnCompletedRequestBP = FPNameResponseBP(), const FPNameResponse& OnCompletedRequest = FPNameResponse());
-	static void LookupMultiplePlayerNamesUsingIDs(FLootLockerMultiplePlayerNamesRequest Request, const FPMultiplePlayerNamesBP& OnCompletedRequestBP = FPMultiplePlayerNamesBP(), const FPMultiplePlayerNames& OnCompletedRequest = FPMultiplePlayerNames());
-	static void LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequestBP = FPMultiplePlayersPlatformIdsBP(), const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest = FPMultiplePlayersPlatformIdsNames());
-    static void DeletePlayer(const FLootLockerDefaultResponseBP& OnCompletedRequestBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate OnCompletedRequest = FLootLockerDefaultDelegate());
+	static void GetPlayerInfo(const FLootLockerPlayerData& PlayerData, const FPInfoResponseBP& OnCompletedRequestBP = FPInfoResponseBP(), const FLootLockerPlayerInformationResponse& OnCompletedRequest = FLootLockerPlayerInformationResponse());
+	static void GetInventory(const FLootLockerPlayerData& PlayerData, const FPInventoryResponseBP& OnCompletedRequestBP = FPInventoryResponseBP(), const FInventoryResponse& OnCompletedRequest = FInventoryResponse());
+	static void GetFullInventory(const FLootLockerPlayerData& PlayerData, const FPInventoryResponseBP& OnCompletedRequestBP, const FInventoryResponse& OnCompletedRequest = FInventoryResponse(), int32
+		StartIndex = 0);
+	static void SubmitXp(const FLootLockerPlayerData& PlayerData, int Points, const FPSubmitResponseBP& OnCompletedRequestBP = FPSubmitResponseBP(), const FSubmitXpResponse& OnCompletedRequest = FSubmitXpResponse());
+	static void GetOtherPlayersXpAndLevel(const FLootLockerPlayerData& PlayerData, FString OtherPlayerId, FString OtherPlayerPlatform, const FPOtherPlayersXpAndLevelBP OnCompletedRequestBP = FPOtherPlayersXpAndLevelBP(), const
+		FOtherPlayersXpAndLevelResponse& OnCompletedRequest = FOtherPlayersXpAndLevelResponse());
+	static void GetMultiplePlayersXp(const FLootLockerPlayerData& PlayerData, FLootLockerMultiplePlayersXpRequest Request, const FPMultiplePlayersXPBP& OnCompletedRequestBP =
+		FPMultiplePlayersXPBP(), const FPMultiplePlayersXP& OnCompletedRequest = FPMultiplePlayersXP());
+	static void CheckPlayerAssetNotification(const FLootLockerPlayerData& PlayerData, const FPAssetNotificationResponseBP& OnCompletedRequestBP = FPAssetNotificationResponseBP(), const FLootLockerAssetNotificationResponse& OnCompletedRequest = FLootLockerAssetNotificationResponse());
+	static void GetCurrencyBalance(const FLootLockerPlayerData& PlayerData, const FPBalanceResponseBP& OnCompletedRequestBP = FPBalanceResponseBP(), const FPBalanceResponse& OnCompletedRequest = FPBalanceResponse());
+	static void InitiateDLCMigration(const FLootLockerPlayerData& PlayerData, const FResponseCallbackBP& OnCompletedRequestBP = FResponseCallbackBP(), const FResponseCallback& OnCompletedRequest = FResponseCallback());
+	static void GetDLCsMigration(const FLootLockerPlayerData& PlayerData, const FPDlcResponseBP& OnCompletedRequestBP = FPDlcResponseBP(), const FPDlcResponse& OnCompletedRequest = FPDlcResponse());
+	static void SetProfilePrivate(const FLootLockerPlayerData& PlayerData, const FResponseCallbackBP& OnCompletedRequestBP = FResponseCallbackBP(), const FResponseCallback& OnCompletedRequest = FResponseCallback());
+	static void SetProfilePublic(const FLootLockerPlayerData& PlayerData, const FResponseCallbackBP& OnCompletedRequestBP = FResponseCallbackBP(), const FResponseCallback& OnCompletedRequest = FResponseCallback());
+	static void SetPlayerName(const FLootLockerPlayerData& PlayerData, FString Name, const FPNameResponseBP& OnCompletedRequestBP = FPNameResponseBP(), const FPNameResponse& OnCompletedRequest = FPNameResponse());
+	static void GetPlayerName(const FLootLockerPlayerData& PlayerData, const FPNameResponseBP& OnCompletedRequestBP = FPNameResponseBP(), const FPNameResponse& OnCompletedRequest = FPNameResponse());
+	static void LookupMultiplePlayerNamesUsingIDs(const FLootLockerPlayerData& PlayerData, FLootLockerMultiplePlayerNamesRequest Request, const FPMultiplePlayerNamesBP& OnCompletedRequestBP = FPMultiplePlayerNamesBP(), const FPMultiplePlayerNames& OnCompletedRequest = FPMultiplePlayerNames());
+	static void LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerPlayerData& PlayerData, const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequestBP = FPMultiplePlayersPlatformIdsBP(), const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest = FPMultiplePlayersPlatformIdsNames());
+	static void DeletePlayer(const FLootLockerPlayerData& PlayerData, const FLootLockerDefaultResponseBP& OnCompletedRequestBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate OnCompletedRequest = FLootLockerDefaultDelegate());
 
 public:
 	static ULootLockerHttpClient* HttpClient;

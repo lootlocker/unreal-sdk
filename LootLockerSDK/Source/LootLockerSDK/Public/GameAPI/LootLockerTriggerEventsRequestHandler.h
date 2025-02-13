@@ -3,9 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
 #include "LootLockerResponse.h"
-#include "JsonObjectConverter.h"
 #include "LootLockerHttpClient.h"
 #include "GameAPI/LootLockerPlayerRequestHandler.h"
 #include "GameAPI/LootLockerAssetsRequestHandler.h"
@@ -42,9 +40,9 @@ class LOOTLOCKERSDK_API ULootLockerTriggerEventsRequestHandler : public UObject
     GENERATED_BODY()
 public:
     
-    static void TriggerEvent(const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegateBP& OnCompletedRequestBP = FTriggerEventResponseDelegateBP(), const FTriggerEventResponseDelegate& OnCompletedRequest = FTriggerEventResponseDelegate());
-    
-    static void GetTriggeredEvents(const FTriggersResponseDelegateBP& OnCompletedRequestBP = FTriggersResponseDelegateBP(), const FTriggersResponseDelegate& OnCompletedRequest = FTriggersResponseDelegate());
+    static void TriggerEvent(const FLootLockerPlayerData& PlayerData, const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegateBP& OnCompletedRequestBP = FTriggerEventResponseDelegateBP(), const FTriggerEventResponseDelegate& OnCompletedRequest = FTriggerEventResponseDelegate());
+
+    static void GetTriggeredEvents(const FLootLockerPlayerData& PlayerData, const FTriggersResponseDelegateBP& OnCompletedRequestBP = FTriggersResponseDelegateBP(), const FTriggersResponseDelegate& OnCompletedRequest = FTriggersResponseDelegate());
 public:
     ULootLockerTriggerEventsRequestHandler();
     

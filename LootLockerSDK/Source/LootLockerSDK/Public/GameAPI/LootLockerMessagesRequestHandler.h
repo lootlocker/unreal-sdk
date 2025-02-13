@@ -48,7 +48,7 @@ class LOOTLOCKERSDK_API ULootLockerMessagesRequestHandler : public UObject
     GENERATED_BODY()
 public:
     
-    static void GetMessages(const FMessagesResponseDelegateBP& OnCompletedRequestBP = FMessagesResponseDelegateBP(), const FMessagesResponseDelegate& OnCompletedRequest = FMessagesResponseDelegate());
+    static void GetMessages(const FLootLockerPlayerData& PlayerData, const FMessagesResponseDelegateBP& OnCompletedRequestBP = FMessagesResponseDelegateBP(), const FMessagesResponseDelegate& OnCompletedRequest = FMessagesResponseDelegate());
 public:
     ULootLockerMessagesRequestHandler();
     

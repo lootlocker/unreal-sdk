@@ -12,12 +12,12 @@ ULootLockerDropTablesRequestHandler::ULootLockerDropTablesRequestHandler()
     HttpClient = NewObject<ULootLockerHttpClient>();
 }
 
-void ULootLockerDropTablesRequestHandler::ComputeAndLockDropTable(int TableId, const FLootLockerComputeAndLockDropTableResponseBP& OnCompletedRequestBP, const FLootLockerComputeAndLockDropTableResponseDelegate& OnCompletedRequest)
+void ULootLockerDropTablesRequestHandler::ComputeAndLockDropTable(const FLootLockerPlayerData& PlayerData, int TableId, const FLootLockerComputeAndLockDropTableResponseBP& OnCompletedRequestBP, const FLootLockerComputeAndLockDropTableResponseDelegate& OnCompletedRequest)
 {
-	LLAPI<FLootLockerComputeAndLockDropTableResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ComputeAndLockDropTable, { TableId},EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+	LLAPI<FLootLockerComputeAndLockDropTableResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ComputeAndLockDropTable, { TableId},EmptyQueryParams, PlayerData, OnCompletedRequestBP, OnCompletedRequest);
 }
 
-void ULootLockerDropTablesRequestHandler::PickDropsFromDropTable(const FLootLockerPickDropsFromDropTableRequest& request, int TableId, const FFLootLockerPickDropsFromDropTableResponseBP& OnCompletedRequestBP, const FFLootLockerPickDropsFromDropTableResponseDelegate& OnCompletedRequest)
+void ULootLockerDropTablesRequestHandler::PickDropsFromDropTable(const FLootLockerPlayerData& PlayerData, const FLootLockerPickDropsFromDropTableRequest& request, int TableId, const FFLootLockerPickDropsFromDropTableResponseBP& OnCompletedRequestBP, const FFLootLockerPickDropsFromDropTableResponseDelegate& OnCompletedRequest)
 {
-	LLAPI<FLootLockerPickDropsFromDropTableResponse>::CallAPI(HttpClient, request, ULootLockerGameEndpoints::PickDropsFromDropTable, { TableId },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+	LLAPI<FLootLockerPickDropsFromDropTableResponse>::CallAPI(HttpClient, request, ULootLockerGameEndpoints::PickDropsFromDropTable, { TableId },EmptyQueryParams, PlayerData, OnCompletedRequestBP, OnCompletedRequest);
 }

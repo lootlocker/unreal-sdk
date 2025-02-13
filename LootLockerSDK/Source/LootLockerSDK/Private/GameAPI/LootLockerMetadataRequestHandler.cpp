@@ -307,17 +307,17 @@ ULootLockerMetadataRequestHandler::ULootLockerMetadataRequestHandler()
     HttpClient = NewObject<ULootLockerHttpClient>();
 }
 
-void ULootLockerMetadataRequestHandler::ListMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const FString& Key, const TArray<FString>& Tags, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnCompleteBP, const FLootLockerListMetadataResponseDelegate& OnComplete)
+void ULootLockerMetadataRequestHandler::ListMetadata(const FLootLockerPlayerData& PlayerData, const ELootLockerMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const FString& Key, const TArray<FString>& Tags, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnCompleteBP, const FLootLockerListMetadataResponseDelegate& OnComplete)
 {
 	FString _SourceID = SourceID;
-	if(Source == ELootLockerMetadataSources::self) 
+	if (Source == ELootLockerMetadataSources::self)
 	{
 		_SourceID = "self";
 	}
 
 	if (_SourceID.IsEmpty())
 	{
-        FLootLockerListMetadataResponse Error = LootLockerResponseFactory::Error<FLootLockerListMetadataResponse>("Can not list metadata for source with empty id", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT);
+		FLootLockerListMetadataResponse Error = LootLockerResponseFactory::Error<FLootLockerListMetadataResponse>("Can not list metadata for source with empty id", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, PlayerData.PlayerUlid);
 		OnCompleteBP.ExecuteIfBound(Error);
 		OnComplete.ExecuteIfBound(Error);
 		return;
@@ -336,140 +336,31 @@ void ULootLockerMetadataRequestHandler::ListMetadata(const ELootLockerMetadataSo
 
 	FString SourceAsString = ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerMetadataSources"), static_cast<int32>(Source)).ToLower();
 	SourceAsString.ReplaceCharInline(' ', '_');
-	LLAPI<FLootLockerListMetadataResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListMetadata, { SourceAsString, _SourceID }, QueryParams, FLootLockerListMetadataResponseBP(), FLootLockerListMetadataResponseDelegate(), LLAPI<FLootLockerListMetadataResponse>::FResponseInspectorCallback::CreateLambda([OnCompleteBP, OnComplete](FLootLockerListMetadataResponse& Response)
-	{
-		// Make sure we will have entries to parse before continuing
-		if(!Response.success || Response.Entries.Num() <= 0)
+	LLAPI<FLootLockerListMetadataResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListMetadata, { SourceAsString, _SourceID }, QueryParams, PlayerData, FLootLockerListMetadataResponseBP(), FLootLockerListMetadataResponseDelegate(), LLAPI<FLootLockerListMetadataResponse>::FResponseInspectorCallback::CreateLambda([OnCompleteBP, OnComplete](FLootLockerListMetadataResponse& Response)
 		{
-			OnCompleteBP.ExecuteIfBound(Response);
-			OnComplete.ExecuteIfBound(Response);
-			return;
-		}
-		Response.__INTERNAL_GenerateKeyMap();
-		TSharedPtr<FJsonObject> obj = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
-		// Ensure that the full response was parsed before continuing
-		if(!obj.IsValid())
-		{
-			OnCompleteBP.ExecuteIfBound(Response);
-			OnComplete.ExecuteIfBound(Response);
-			return;			
-		}
-
-		TArray<TSharedPtr<FJsonValue>> JsonEntries = obj.Get()->GetArrayField(TEXT("entries"));
-		// Make sure that the entries array was parsed before continuing
-		if(JsonEntries.Num() != Response.Entries.Num())
-		{
-			OnCompleteBP.ExecuteIfBound(Response);
-			OnComplete.ExecuteIfBound(Response);
-			return;
-		}
-
-		for (TSharedPtr<FJsonValue> JsonEntry : JsonEntries)
-		{
-			TSharedPtr<FJsonObject> JsonEntryObject = JsonEntry.Get()->AsObject();
-			FString EntryKey = JsonEntryObject.Get()->GetStringField(TEXT("key"));
-			int EntryIndex = Response.__INTERNAL_GetEntryIndexByKey(EntryKey);
-			// If the fetched entry index is out of range or if it points to the wrong key, try to find the entry the old-fashioned way before giving up
-			if (EntryIndex < 0 || EntryIndex >= Response.Entries.Num() 
-				|| !Response.Entries[EntryIndex].Key.Equals(EntryKey)) {
-				for (FLootLockerMetadataEntry& ResponseEntry : Response.Entries)
-				{
-					if (ResponseEntry.Key.Equals(EntryKey))
-					{
-						ResponseEntry._INTERNAL_SetJsonRepresentation(*JsonEntryObject.Get());
-					}
-				}
-			}
-			else
+			// Make sure we will have entries to parse before continuing
+			if (!Response.success || Response.Entries.Num() <= 0)
 			{
-				Response.Entries[EntryIndex]._INTERNAL_SetJsonRepresentation(*JsonEntryObject.Get());
+				OnCompleteBP.ExecuteIfBound(Response);
+				OnComplete.ExecuteIfBound(Response);
+				return;
 			}
-		}
+			Response.__INTERNAL_GenerateKeyMap();
+			TSharedPtr<FJsonObject> obj = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
+			// Ensure that the full response was parsed before continuing
+			if (!obj.IsValid())
+			{
+				OnCompleteBP.ExecuteIfBound(Response);
+				OnComplete.ExecuteIfBound(Response);
+				return;
+			}
 
-		OnCompleteBP.ExecuteIfBound(Response);
-		OnComplete.ExecuteIfBound(Response);
-	}));
-}
-
-void ULootLockerMetadataRequestHandler::GetMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const FString& Key, const bool IgnoreFiles, const FLootLockerGetMetadataResponseBP& OnCompleteBP, const FLootLockerGetMetadataResponseDelegate& OnComplete)
-{
-	FString _SourceID = SourceID;
-	if(Source == ELootLockerMetadataSources::self) 
-	{
-		_SourceID = "self";
-	}
-	if (_SourceID.IsEmpty())
-	{
-        FLootLockerGetMetadataResponse Error = LootLockerResponseFactory::Error<FLootLockerGetMetadataResponse>("Can not list metadata for source with empty id", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT);
-		OnCompleteBP.ExecuteIfBound(Error);
-		OnComplete.ExecuteIfBound(Error);
-		return;
-	}
-	ListMetadata(Source, _SourceID, 1, 1, Key, TArray<FString>(), IgnoreFiles, FLootLockerListMetadataResponseBP(), FLootLockerListMetadataResponseDelegate::CreateLambda([OnCompleteBP, OnComplete, Key](const FLootLockerListMetadataResponse& ListResponse)
-	{
-		FLootLockerGetMetadataResponse SingleEntryResponse;
-		SingleEntryResponse.success = ListResponse.success;
-		SingleEntryResponse.StatusCode = ListResponse.StatusCode;
-		SingleEntryResponse.FullTextFromServer = ListResponse.FullTextFromServer;
-		SingleEntryResponse.ErrorData = ListResponse.ErrorData;
-		if(ListResponse.success && ListResponse.Entries.Num() == 1 && ListResponse.Entries[0].Key.Equals(Key))
-		{
-			SingleEntryResponse.Entry = ListResponse.Entries[0];
-		}
-		OnCompleteBP.ExecuteIfBound(SingleEntryResponse);
-		OnComplete.ExecuteIfBound(SingleEntryResponse);
-	}));
-}
-
-void ULootLockerMetadataRequestHandler::GetMultisourceMetadata(const TArray<FLootLockerMetadataSourceAndKeys>& SourcesAndKeysToGet, const bool IgnoreFiles,	const FLootLockerGetMultisourceMetadataResponseBP& OnCompleteBP, const FLootLockerGetMultisourceMetadataResponseDelegate& OnComplete)
-{
-	TMultiMap<FString, FString> QueryParams;
-	if (IgnoreFiles) QueryParams.Add("ignore_files", "true");
-	LLAPI<FLootLockerGetMultisourceMetadataResponse>::CallAPI(HttpClient, FLootLockerGetMultisourceMetadataRequest{ SourcesAndKeysToGet }, ULootLockerGameEndpoints::GetMultisourceMetadata, {}, QueryParams, FLootLockerGetMultisourceMetadataResponseBP(), FLootLockerGetMultisourceMetadataResponseDelegate(), LLAPI<FLootLockerGetMultisourceMetadataResponse>::FResponseInspectorCallback::CreateLambda([OnComplete, OnCompleteBP](FLootLockerGetMultisourceMetadataResponse& Response)
-	{
-		// Make sure we will have source and entry combos to parse before continuing
-		if (!Response.success || Response.Metadata.Num() <= 0)
-		{
-			OnCompleteBP.ExecuteIfBound(Response);
-			OnComplete.ExecuteIfBound(Response);
-			return;
-		}
-		TSharedPtr<FJsonObject> FullResponseObjectFromServer = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
-		// Ensure that the full response was parsed before continuing
-		if (!FullResponseObjectFromServer.IsValid())
-		{
-			OnCompleteBP.ExecuteIfBound(Response);
-			OnComplete.ExecuteIfBound(Response);
-			return;
-		}
-
-		const TArray<TSharedPtr<FJsonValue>>* JsonMetadataArray;
-		if(!FullResponseObjectFromServer->TryGetArrayField(TEXT("metadata"), JsonMetadataArray) 
-			|| JsonMetadataArray == nullptr 
-			|| JsonMetadataArray->Num() != Response.Metadata.Num())
-		{
-			FLootLockerGetMultisourceMetadataResponse Error = LootLockerResponseFactory::Error<
-				FLootLockerGetMultisourceMetadataResponse>("Could not parse metadata array", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_PARSE_ERROR);
-			OnCompleteBP.ExecuteIfBound(Error);
-			OnComplete.ExecuteIfBound(Error);
-			return;
-		}
-
-		// Iterate over each source and do manual entry parsing
-		for (int i = 0; i < Response.Metadata.Num(); ++i)
-		{
-			FLootLockerMetadataSourceAndEntries& Metadata = Response.Metadata[i];
-			FJsonObject& MetadaAsJson = *(*JsonMetadataArray)[i]->AsObject();
-			Metadata.__INTERNAL_GenerateKeyMap();
-
-			TArray<TSharedPtr<FJsonValue>> JsonEntries = MetadaAsJson.GetArrayField(TEXT("entries"));
+			TArray<TSharedPtr<FJsonValue>> JsonEntries = obj.Get()->GetArrayField(TEXT("entries"));
 			// Make sure that the entries array was parsed before continuing
-			if (JsonEntries.Num() != Metadata.Entries.Num())
+			if (JsonEntries.Num() != Response.Entries.Num())
 			{
-				FLootLockerGetMultisourceMetadataResponse Error = LootLockerResponseFactory::Error<
-					FLootLockerGetMultisourceMetadataResponse>("Could not parse metadata entry array for metadata with source id " + Metadata.Source_id, LootLockerStaticRequestErrorStatusCodes::LL_ERROR_PARSE_ERROR);
-				OnCompleteBP.ExecuteIfBound(Error);
-				OnComplete.ExecuteIfBound(Error);
+				OnCompleteBP.ExecuteIfBound(Response);
+				OnComplete.ExecuteIfBound(Response);
 				return;
 			}
 
@@ -477,11 +368,11 @@ void ULootLockerMetadataRequestHandler::GetMultisourceMetadata(const TArray<FLoo
 			{
 				TSharedPtr<FJsonObject> JsonEntryObject = JsonEntry.Get()->AsObject();
 				FString EntryKey = JsonEntryObject.Get()->GetStringField(TEXT("key"));
-				int EntryIndex = Metadata.__INTERNAL_GetEntryIndexByKey(EntryKey);
+				int EntryIndex = Response.__INTERNAL_GetEntryIndexByKey(EntryKey);
 				// If the fetched entry index is out of range or if it points to the wrong key, try to find the entry the old-fashioned way before giving up
-				if (EntryIndex < 0 || EntryIndex >= Metadata.Entries.Num()
-					|| !Metadata.Entries[EntryIndex].Key.Equals(EntryKey)) {
-					for (FLootLockerMetadataEntry& ResponseEntry : Metadata.Entries)
+				if (EntryIndex < 0 || EntryIndex >= Response.Entries.Num()
+					|| !Response.Entries[EntryIndex].Key.Equals(EntryKey)) {
+					for (FLootLockerMetadataEntry& ResponseEntry : Response.Entries)
 					{
 						if (ResponseEntry.Key.Equals(EntryKey))
 						{
@@ -491,18 +382,127 @@ void ULootLockerMetadataRequestHandler::GetMultisourceMetadata(const TArray<FLoo
 				}
 				else
 				{
-					Metadata.Entries[EntryIndex]._INTERNAL_SetJsonRepresentation(*JsonEntryObject.Get());
+					Response.Entries[EntryIndex]._INTERNAL_SetJsonRepresentation(*JsonEntryObject.Get());
 				}
 			}
-			
-		}
 
-		OnCompleteBP.ExecuteIfBound(Response);
-		OnComplete.ExecuteIfBound(Response);
-	}));
+			OnCompleteBP.ExecuteIfBound(Response);
+			OnComplete.ExecuteIfBound(Response);
+		}));
 }
 
-void ULootLockerMetadataRequestHandler::SetMetadata(const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FLootLockerSetMetadataAction>& MetadataToActionsToPerform, const FLootLockerSetMetadataResponseBP& OnCompleteBP, const FLootLockerSetMetadataResponseDelegate& OnComplete)
+void ULootLockerMetadataRequestHandler::GetMetadata(const FLootLockerPlayerData& PlayerData, const ELootLockerMetadataSources Source, const FString& SourceID, const FString& Key, const bool IgnoreFiles, const FLootLockerGetMetadataResponseBP& OnCompleteBP, const FLootLockerGetMetadataResponseDelegate& OnComplete)
+{
+	FString _SourceID = SourceID;
+	if (Source == ELootLockerMetadataSources::self)
+	{
+		_SourceID = "self";
+	}
+	if (_SourceID.IsEmpty())
+	{
+		FLootLockerGetMetadataResponse Error = LootLockerResponseFactory::Error<FLootLockerGetMetadataResponse>("Can not list metadata for source with empty id", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, PlayerData.PlayerUlid);
+		OnCompleteBP.ExecuteIfBound(Error);
+		OnComplete.ExecuteIfBound(Error);
+		return;
+	}
+	ListMetadata(PlayerData, Source, _SourceID, 1, 1, Key, TArray<FString>(), IgnoreFiles, FLootLockerListMetadataResponseBP(), FLootLockerListMetadataResponseDelegate::CreateLambda([OnCompleteBP, OnComplete, Key](const FLootLockerListMetadataResponse& ListResponse)
+		{
+			FLootLockerGetMetadataResponse SingleEntryResponse;
+			SingleEntryResponse.success = ListResponse.success;
+			SingleEntryResponse.StatusCode = ListResponse.StatusCode;
+			SingleEntryResponse.FullTextFromServer = ListResponse.FullTextFromServer;
+			SingleEntryResponse.ErrorData = ListResponse.ErrorData;
+			if (ListResponse.success && ListResponse.Entries.Num() == 1 && ListResponse.Entries[0].Key.Equals(Key))
+			{
+				SingleEntryResponse.Entry = ListResponse.Entries[0];
+			}
+			OnCompleteBP.ExecuteIfBound(SingleEntryResponse);
+			OnComplete.ExecuteIfBound(SingleEntryResponse);
+		}));
+}
+
+void ULootLockerMetadataRequestHandler::GetMultisourceMetadata(const FLootLockerPlayerData& PlayerData, const TArray<FLootLockerMetadataSourceAndKeys>& SourcesAndKeysToGet, const bool IgnoreFiles, const FLootLockerGetMultisourceMetadataResponseBP& OnCompleteBP, const FLootLockerGetMultisourceMetadataResponseDelegate& OnComplete)
+{
+	TMultiMap<FString, FString> QueryParams;
+	if (IgnoreFiles) QueryParams.Add("ignore_files", "true");
+	LLAPI<FLootLockerGetMultisourceMetadataResponse>::CallAPI(HttpClient, FLootLockerGetMultisourceMetadataRequest{ SourcesAndKeysToGet }, ULootLockerGameEndpoints::GetMultisourceMetadata, {}, QueryParams, PlayerData, FLootLockerGetMultisourceMetadataResponseBP(), FLootLockerGetMultisourceMetadataResponseDelegate(), LLAPI<FLootLockerGetMultisourceMetadataResponse>::FResponseInspectorCallback::CreateLambda([OnComplete, OnCompleteBP, PlayerData](FLootLockerGetMultisourceMetadataResponse& Response)
+		{
+			// Make sure we will have source and entry combos to parse before continuing
+			if (!Response.success || Response.Metadata.Num() <= 0)
+			{
+				OnCompleteBP.ExecuteIfBound(Response);
+				OnComplete.ExecuteIfBound(Response);
+				return;
+			}
+			TSharedPtr<FJsonObject> FullResponseObjectFromServer = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
+			// Ensure that the full response was parsed before continuing
+			if (!FullResponseObjectFromServer.IsValid())
+			{
+				OnCompleteBP.ExecuteIfBound(Response);
+				OnComplete.ExecuteIfBound(Response);
+				return;
+			}
+
+			const TArray<TSharedPtr<FJsonValue>>* JsonMetadataArray;
+			if (!FullResponseObjectFromServer->TryGetArrayField(TEXT("metadata"), JsonMetadataArray)
+				|| JsonMetadataArray == nullptr
+				|| JsonMetadataArray->Num() != Response.Metadata.Num())
+			{
+				FLootLockerGetMultisourceMetadataResponse Error = LootLockerResponseFactory::Error<
+					FLootLockerGetMultisourceMetadataResponse>("Could not parse metadata array", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_PARSE_ERROR, PlayerData.PlayerUlid);
+				OnCompleteBP.ExecuteIfBound(Error);
+				OnComplete.ExecuteIfBound(Error);
+				return;
+			}
+
+			// Iterate over each source and do manual entry parsing
+			for (int i = 0; i < Response.Metadata.Num(); ++i)
+			{
+				FLootLockerMetadataSourceAndEntries& Metadata = Response.Metadata[i];
+				FJsonObject& MetadaAsJson = *(*JsonMetadataArray)[i]->AsObject();
+				Metadata.__INTERNAL_GenerateKeyMap();
+
+				TArray<TSharedPtr<FJsonValue>> JsonEntries = MetadaAsJson.GetArrayField(TEXT("entries"));
+				// Make sure that the entries array was parsed before continuing
+				if (JsonEntries.Num() != Metadata.Entries.Num())
+				{
+					FLootLockerGetMultisourceMetadataResponse Error = LootLockerResponseFactory::Error<
+						FLootLockerGetMultisourceMetadataResponse>("Could not parse metadata entry array for metadata with source id " + Metadata.Source_id, LootLockerStaticRequestErrorStatusCodes::LL_ERROR_PARSE_ERROR, PlayerData.PlayerUlid);
+					OnCompleteBP.ExecuteIfBound(Error);
+					OnComplete.ExecuteIfBound(Error);
+					return;
+				}
+
+				for (TSharedPtr<FJsonValue> JsonEntry : JsonEntries)
+				{
+					TSharedPtr<FJsonObject> JsonEntryObject = JsonEntry.Get()->AsObject();
+					FString EntryKey = JsonEntryObject.Get()->GetStringField(TEXT("key"));
+					int EntryIndex = Metadata.__INTERNAL_GetEntryIndexByKey(EntryKey);
+					// If the fetched entry index is out of range or if it points to the wrong key, try to find the entry the old-fashioned way before giving up
+					if (EntryIndex < 0 || EntryIndex >= Metadata.Entries.Num()
+						|| !Metadata.Entries[EntryIndex].Key.Equals(EntryKey)) {
+						for (FLootLockerMetadataEntry& ResponseEntry : Metadata.Entries)
+						{
+							if (ResponseEntry.Key.Equals(EntryKey))
+							{
+								ResponseEntry._INTERNAL_SetJsonRepresentation(*JsonEntryObject.Get());
+							}
+						}
+					}
+					else
+					{
+						Metadata.Entries[EntryIndex]._INTERNAL_SetJsonRepresentation(*JsonEntryObject.Get());
+					}
+				}
+
+			}
+
+			OnCompleteBP.ExecuteIfBound(Response);
+			OnComplete.ExecuteIfBound(Response);
+		}));
+}
+
+void ULootLockerMetadataRequestHandler::SetMetadata(const FLootLockerPlayerData& PlayerData, const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FLootLockerSetMetadataAction>& MetadataToActionsToPerform, const FLootLockerSetMetadataResponseBP& OnCompleteBP, const FLootLockerSetMetadataResponseDelegate& OnComplete)
 {
 	FString _SourceID = SourceID;
 	if(Source == ELootLockerMetadataSources::self)
@@ -511,7 +511,7 @@ void ULootLockerMetadataRequestHandler::SetMetadata(const ELootLockerMetadataSou
 	}
 	if (_SourceID.IsEmpty())
 	{
-        FLootLockerSetMetadataResponse Error = LootLockerResponseFactory::Error<FLootLockerSetMetadataResponse>("Can not perform actions for source with empty id", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT);
+        FLootLockerSetMetadataResponse Error = LootLockerResponseFactory::Error<FLootLockerSetMetadataResponse>("Can not perform actions for source with empty id", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, PlayerData.PlayerUlid);
 		OnCompleteBP.ExecuteIfBound(Error);
 		OnComplete.ExecuteIfBound(Error);
 		return;
@@ -534,7 +534,7 @@ void ULootLockerMetadataRequestHandler::SetMetadata(const ELootLockerMetadataSou
 		if (!JsonEntry.IsValid())
 		{
 			FLootLockerSetMetadataResponse Error = LootLockerResponseFactory::Error<
-				FLootLockerSetMetadataResponse>("Could not serialize action for key " + ActionToPerform.Entry.Key, LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT);
+				FLootLockerSetMetadataResponse>("Could not serialize action for key " + ActionToPerform.Entry.Key, LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, PlayerData.PlayerUlid);
 			OnCompleteBP.ExecuteIfBound(Error);
 			OnComplete.ExecuteIfBound(Error);
 			return;
@@ -551,7 +551,7 @@ void ULootLockerMetadataRequestHandler::SetMetadata(const ELootLockerMetadataSou
 		if (!ActionToPerform.Entry.TryGetRawValue(RawEntryValue))
 		{
 			FLootLockerSetMetadataResponse Error = LootLockerResponseFactory::Error<
-				FLootLockerSetMetadataResponse>("Could not get value to perform action " + JsonEntry->GetStringField(TEXT("action")) + " for key " + ActionToPerform.Entry.Key, LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT);
+				FLootLockerSetMetadataResponse>("Could not get value to perform action " + JsonEntry->GetStringField(TEXT("action")) + " for key " + ActionToPerform.Entry.Key, LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, PlayerData.PlayerUlid);
 			OnCompleteBP.ExecuteIfBound(Error);
 			OnComplete.ExecuteIfBound(Error);
 			return;
@@ -565,5 +565,5 @@ void ULootLockerMetadataRequestHandler::SetMetadata(const ELootLockerMetadataSou
 	// Add entries to manually serialized request
 	ManuallySerializedRequest.SetArrayField(TEXT("entries"), entries);
 	FString SerializedRequest = LootLockerUtilities::FStringFromJsonObject(MakeShared<FJsonObject>(ManuallySerializedRequest));
-	LLAPI<FLootLockerSetMetadataResponse>::CallAPIUsingRawJSON(HttpClient, SerializedRequest, ULootLockerGameEndpoints::MetadataActions, {}, {}, OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerSetMetadataResponse>::CallAPIUsingRawJSON(HttpClient, SerializedRequest, ULootLockerGameEndpoints::MetadataActions, {}, {}, PlayerData, OnCompleteBP, OnComplete);
 }
