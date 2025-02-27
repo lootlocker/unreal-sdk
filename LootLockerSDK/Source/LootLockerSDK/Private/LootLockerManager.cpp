@@ -335,6 +335,16 @@ void ULootLockerManager::DeletePlayerProgression(const FString& ProgressionKey, 
     ULootLockerProgressionsRequestHandler::DeletePlayerProgression(ProgressionKey, OnCompletedRequest);
 }
 
+void ULootLockerManager::GetOtherPlayersProgressions(const FString& PlayerUlid, const int32 Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest)
+{
+    ULootLockerProgressionsRequestHandler::GetOtherPlayersProgressions(PlayerUlid, Count, After, OnCompletedRequest);
+}
+
+void ULootLockerManager::GetOtherPlayersProgression(const FString& PlayerUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseBP& OnCompletedRequest)
+{
+    ULootLockerProgressionsRequestHandler::GetOtherPlayersProgression(PlayerUlid, ProgressionKey, OnCompletedRequest);
+}
+
 // Heroes
 void ULootLockerManager::GetGameHeroes(const FLootLockerGameHeroListBP &OnCompleteBP)
 {
