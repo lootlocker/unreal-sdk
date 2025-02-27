@@ -91,7 +91,9 @@ FLootLockerEndPoints ULootLockerGameEndpoints::RemoveAssetToHeroLoadout = InitEn
 
 //Player Progressions
 FLootLockerEndPoints ULootLockerGameEndpoints::GetAllPlayerProgressions = InitEndpoint("player/progressions", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetAllOtherPlayersProgressions = InitEndpoint("player/progressions/player/{0}", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetSinglePlayerProgression = InitEndpoint("player/progressions/{0}", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetSingleOtherPlayersProgression = InitEndpoint("player/progressions/{0}/player/{1}", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::AddPointsToPlayerProgression = InitEndpoint("player/progressions/{0}/points/add", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::SubtractPointsFromPlayerProgression = InitEndpoint("player/progressions/{0}/points/subtract", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::ResetPlayerProgression = InitEndpoint("player/progressions/{0}/reset", ELootLockerHTTPMethod::POST);

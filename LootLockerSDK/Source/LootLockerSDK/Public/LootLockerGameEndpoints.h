@@ -123,7 +123,9 @@ public:
 
     //Player Progressions
     static FLootLockerEndPoints GetAllPlayerProgressions;
+    static FLootLockerEndPoints GetAllOtherPlayersProgressions;
     static FLootLockerEndPoints GetSinglePlayerProgression;
+    static FLootLockerEndPoints GetSingleOtherPlayersProgression;
     static FLootLockerEndPoints AddPointsToPlayerProgression;
     static FLootLockerEndPoints SubtractPointsFromPlayerProgression;
     static FLootLockerEndPoints ResetPlayerProgression;

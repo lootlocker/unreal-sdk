@@ -803,6 +803,27 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Progressions")
     static void DeletePlayerProgression(const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest);
 
+    /**
+    * Returns multiple progressions that the specified player is currently on.
+    *
+    * @param PlayerUlid The ulid of the player you want to fetch progressions for
+    * @param Count Optional: Amount of entries to receive
+    * @param After Optional: Used for pagination, id of the player progression from which the pagination starts from, use the next_cursor and previous_cursor values
+    * @param OnCompletedRequest Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Progressions", meta = (AdvancedDisplay = "Count,After", Count = -1, After = ""))
+    static void GetOtherPlayersProgressions(const FString& PlayerUlid, const int32 Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest);
+
+    /**
+    * Returns a single progression that the specified player is currently on.
+    *
+    * @param PlayerUlid The ulid of the player you want to fetch the progression for
+    * @param ProgressionKey Key of the progression you want to fetch
+    * @param OnCompletedRequest Action for handling the response of type FLootLockerPlayerProgressionsResponse
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Progressions")
+    static void GetOtherPlayersProgression(const FString& PlayerUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseBP& OnCompletedRequest);
+
 	//==================================================
 	//Heroes
     // https://ref.lootlocker.com/game-api/#heroes

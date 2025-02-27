@@ -383,6 +383,26 @@ void ULootLockerSDKManager::DeletePlayerProgression(const FString& ProgressionKe
     ULootLockerProgressionsRequestHandler::DeletePlayerProgression(ProgressionKey, FLootLockerDeleteProgressionBP(), OnComplete);
 }
 
+void ULootLockerSDKManager::GetOtherPlayersProgressions(const FString& PlayerUlid, const int32& Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::GetOtherPlayersProgressions(PlayerUlid, Count, After, FLootLockerPaginatedPlayerProgressionsResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::GetOtherPlayersProgressions(const FString& PlayerUlid, const int32& Count, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete)
+{
+    GetOtherPlayersProgressions(PlayerUlid, Count, "", OnComplete);
+}
+
+void ULootLockerSDKManager::GetOtherPlayersProgressions(const FString& PlayerUlid, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete)
+{
+    GetOtherPlayersProgressions(PlayerUlid, -1, "", OnComplete);
+}
+
+void ULootLockerSDKManager::GetOtherPlayersProgression(const FString& PlayerUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseDelegate& OnComplete)
+{
+    ULootLockerProgressionsRequestHandler::GetOtherPlayersProgression(PlayerUlid, ProgressionKey, FLootLockerPlayerProgressionResponseBP(), OnComplete);
+}
+
 // Heroes
 void ULootLockerSDKManager::GetGameHeroes(const FLootLockerGameHeroListDelegate& OnCompleteRequest)
 {
