@@ -88,11 +88,7 @@ public:
     //Player
     static FLootLockerEndPoints GetInfoFromSession;
     static FLootLockerEndPoints ListPlayerInfo;
-    static FLootLockerEndPoints GetPlayerInfoEndPoint;
     static FLootLockerEndPoints GetPlayerInventoryEndPoint;
-    static FLootLockerEndPoints SubmitXpEndpoint;
-    static FLootLockerEndPoints GetOtherPlayersXpAndLevelEndpoint;
-    static FLootLockerEndPoints GetMultipleOtherPlayersXPAndLevel;
     static FLootLockerEndPoints GetCurrencyBalance;
     static FLootLockerEndPoints CheckPlayerAssetActivationEndpoint;
     static FLootLockerEndPoints CheckPlayerAssetDeactivationEndpoint;
@@ -209,12 +205,7 @@ public:
     static FLootLockerEndPoints GetAllMapsEndpoint;
 
     //Purchases
-    static FLootLockerEndPoints PurchaseEndpoint;
-    static FLootLockerEndPoints IOSPurchaseEndpoint;
-    static FLootLockerEndPoints AndroidPurchaseEndpoint;
-    static FLootLockerEndPoints PollingOrderStatusEndpoint;
     static FLootLockerEndPoints ActivateRentalAssetEndpoint;
-    static FLootLockerEndPoints GetOrderDetailsEndpoint;
 
     static FLootLockerEndPoints PurchaseCatalogItem;
     static FLootLockerEndPoints RedeemAppleAppStorePurchase;

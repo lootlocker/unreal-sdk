@@ -18,24 +18,6 @@ void FTestLootLockerPlayer::Define()
 {
 	Describe("Player", [this]()
 	{
-		LatentIt("When GetPlayerInfo", EAsyncExecution::ThreadPool, [this](const FDoneDelegate TestDone)
-		{
-			test_util::StartSession();
-
-			// Get player info
-			{
-				const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerPlayerInfoResponse,FLootLockerPlayerInformationResponse>();
-				ULootLockerSDKManager::GetPlayerInfo(Delegate);
-
-				const auto Response = Promise ->get_future().get();
-				TestTrue("GetPlayerInfo ok", Response.success);
-				delete(Promise);
-			}
-			
-
-			test_util::EndSession();
-			TestDone.Execute();			
-		});
 		
 		LatentIt("When PlayerName", EAsyncExecution::ThreadPool, [this](const FDoneDelegate TestDone)
 		{

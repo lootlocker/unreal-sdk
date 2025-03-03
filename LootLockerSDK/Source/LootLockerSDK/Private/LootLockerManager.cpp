@@ -22,32 +22,9 @@ void ULootLockerManager::StartAmazonLunaSession(const FString& AmazonLunaGuid, c
     ULootLockerAuthenticationRequestHandler::StartAmazonLunaSession(AmazonLunaGuid, OnStartedSessionRequestCompleted);
 }
 
-void ULootLockerManager::VerifyPlayerAndStartSteamSession(const FString& SteamId64, const FString& PlatformToken, const int SteamAppId, const FAuthResponseBP& OnCompletedRequest)
-{
-    ULootLockerAuthenticationRequestHandler::VerifyPlayer(PlatformToken, ULootLockerCurrentPlatform::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Steam).AuthenticationProviderString, SteamAppId,  FLootLockerDefaultResponseBP(), FLootLockerDefaultDelegate::CreateLambda([SteamId64, OnCompletedRequest](FLootLockerResponse VerifyPlayerResponse)
-    {
-        if (!VerifyPlayerResponse.success)
-        {
-            FLootLockerAuthenticationResponse AuthResponse;
-            AuthResponse.success = VerifyPlayerResponse.success;
-            AuthResponse.FullTextFromServer = VerifyPlayerResponse.FullTextFromServer;
-            AuthResponse.StatusCode = VerifyPlayerResponse.StatusCode;
-            AuthResponse.ErrorData = VerifyPlayerResponse.ErrorData;
-            OnCompletedRequest.ExecuteIfBound(AuthResponse);
-            return;
-        }
-        StartSteamSession(SteamId64, OnCompletedRequest);
-    }));
-}
-
 void ULootLockerManager::StartSteamSessionUsingTicket(const FString& SteamSessionTicket, const FString& SteamAppId, const FAuthResponseBP& OnCompletedRequest)
 {
     ULootLockerAuthenticationRequestHandler::StartSteamSession(SteamSessionTicket, SteamAppId, OnCompletedRequest);
-}
-
-void ULootLockerManager::StartSteamSession(const FString& SteamId64, const FAuthResponseBP& OnStartedSessionRequestCompleted)
-{
-    ULootLockerAuthenticationRequestHandler::StartSteamSession(SteamId64, OnStartedSessionRequestCompleted);
 }
 
 void ULootLockerManager::StartNintendoSwitchSession(const FString& NSAIdToken, const FAuthResponseBP& OnStartedNintendoSwitchSessionRequestCompleted)
@@ -229,32 +206,9 @@ void ULootLockerManager::ListPlayerInfo(TArray<FString> PlayerIdsToLookUp, TArra
     ULootLockerPlayerRequestHandler::ListPlayerInfo(PlayerIdsToLookUp, PlayerLegacyIdsToLookUp, PlayerPublicUidsToLookUp, OnCompletedRequest);
 }
 
-void ULootLockerManager::GetPlayerInfo(const FPInfoResponseBP& OnGetPlayerInfoRequestComplete)
-{
-    ULootLockerPlayerRequestHandler::GetPlayerInfo(OnGetPlayerInfoRequestComplete);
-}
-
 void ULootLockerManager::GetInventory(const FPInventoryResponseBP& OnGetInventoryRequestCompleted)
 {
     ULootLockerPlayerRequestHandler::GetInventory(OnGetInventoryRequestCompleted);
-}
-
-void ULootLockerManager::SubmitXP(int Points, const FPSubmitResponseBP& OnSubmitXPRequestCompleted)
-{
-    ULootLockerPlayerRequestHandler::SubmitXp(Points, OnSubmitXPRequestCompleted);
-}
-
-void ULootLockerManager::GetOtherPlayersXpAndLevel(FString OtherPlayerId, const FPOtherPlayersXpAndLevelBP& OnGetOtherPlayersXpAndLevelRequestCompleted, FString OtherPlayerPlatform)
-{
-    ULootLockerPlayerRequestHandler::GetOtherPlayersXpAndLevel(OtherPlayerId, OtherPlayerPlatform, OnGetOtherPlayersXpAndLevelRequestCompleted);
-}
-
-void ULootLockerManager::GetMultiplePlayersXp(FString Platform, TArray<FString> PlayerIDs, const FPMultiplePlayersXPBP& OnGetOtherPlayerInfoRequestCompleted)
-{
-    FLootLockerMultiplePlayersXpRequest request;
-    request.platform = Platform;
-    request.player_ids = PlayerIDs;
-	ULootLockerPlayerRequestHandler::GetMultiplePlayersXp(request, OnGetOtherPlayerInfoRequestCompleted);
 }
 
 void ULootLockerManager::CheckPlayerAssetActivationNotification(const FPAssetNotificationResponseBP& OnCheckPlayerAssetDeactivationNotificationRequestCompleted)
@@ -801,34 +755,9 @@ void ULootLockerManager::GetMaps(const FGetMapsResponseDelegateBP& OnGetMapsComp
     ULootLockerMapsRequestHandler::GetMaps(OnGetMapsCompleted);
 }
 
-void ULootLockerManager::PurchaseAssets(const TArray<FLootLockerAssetPurchaseData>& PurchaseData, const FPurchaseResponseDelegateBP& OnPurchaseAssetsCompleted)
-{
-    ULootLockerPurchasesRequestHandler::PurchaseAssets(PurchaseData, OnPurchaseAssetsCompleted);
-}
-
-void ULootLockerManager::PurchaseAssetsAndroid(const TArray<FLootLockerAndroidAssetPurchaseData>& PurchaseData, const  FPurchaseResponseDelegateBP& OnPurchaseAssetsAndroidCompleted)
-{
-    ULootLockerPurchasesRequestHandler::PurchaseAssetsAndroid(PurchaseData, OnPurchaseAssetsAndroidCompleted);
-}
-
-void ULootLockerManager::PurchaseAssetsIOS(const TArray<FLootLockerVerifyPurchaseIosData>& PurchaseData, const FPurchaseResponseDelegateBP& OnPurchaseAssetsIOSCompleted)
-{
-    ULootLockerPurchasesRequestHandler::PurchaseAssetsIOS(PurchaseData, OnPurchaseAssetsIOSCompleted);
-}
-
-void ULootLockerManager::PollingOrderStatus(int PurchaseId, const FPurchaseStatusResponseDelegateBP& OnPollingStatusCompleted)
-{
-    ULootLockerPurchasesRequestHandler::PollingOrderStatus(PurchaseId, OnPollingStatusCompleted);
-}
-
 void ULootLockerManager::ActivateRentalAsset(int AssetInstanceId, const FActivateRentalAssetResponseDelegateBP& OnActivateRentalAssetCompleted)
 {
     ULootLockerPurchasesRequestHandler::ActivateRentalAsset(AssetInstanceId, OnActivateRentalAssetCompleted);
-}
-
-void ULootLockerManager::GetOrderDetails(int32 OrderId, const bool NoProducts, const FOrderStatusDetailsBP &OnCompleteBP)
-{
-	ULootLockerPurchasesRequestHandler::GetOrderDetails(OrderId, NoProducts, OnCompleteBP, FOrderStatusDetailsDelegate());
 }
 
 void ULootLockerManager::LootLockerPurchaseSingleCatalogItem(const FString& WalletId, const FString& CatalogItemListingId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
@@ -879,16 +808,6 @@ void ULootLockerManager::QuerySteamPurchaseRedemptionStatus(const FString& Entit
 void ULootLockerManager::FinalizeSteamPurchaseRedemption(const FString& EntitlementId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
     ULootLockerPurchasesRequestHandler::FinalizeSteamPurchaseRedemption(EntitlementId, OnCompletedRequest);
-}
-
-void ULootLockerManager::TriggerEvent(const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegateBP& OnTriggerEventCompleted)
-{
-    ULootLockerTriggerEventsRequestHandler::TriggerEvent(Event, OnTriggerEventCompleted);
-}
-
-void ULootLockerManager::GetTriggeredEvents(const FTriggersResponseDelegateBP& OnGetTriggeredEventsCompleted)
-{
-    ULootLockerTriggerEventsRequestHandler::GetTriggeredEvents(OnGetTriggeredEventsCompleted);
 }
 
 //Triggers

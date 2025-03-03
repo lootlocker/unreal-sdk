@@ -27,7 +27,6 @@
 #include "GameAPI/LootLockerProgressionsRequestHandler.h"
 #include "GameAPI/LootLockerPurchasesRequestHandler.h"
 #include "GameAPI/LootLockerRemoteSessionRequestHandler.h"
-#include "GameAPI/LootLockerTriggerEventsRequestHandler.h"
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
 #include "GameAPI/LootLockerFeedbackRequestHandler.h"
 #include "GameAPI/LootLockerMetadataRequestHandler.h"
@@ -77,20 +76,6 @@ public:
     static void StartAmazonLunaSession(const FString& AmazonLunaGuid, const FLootLockerSessionResponse& OnCompletedRequest);
 
     /**
-     * Verify a Steam user and then start a session for that user
-     * You can optionally specify a steam app id if you have multiple ones for your game and have configured this in the LootLocker console
-     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
-     * https://ref.lootlocker.com/game-api/#authentication-request
-     *
-     * @param SteamId64 The Steam 64 bit Id as an FString
-     * @param PlatformToken Platform-specific token.
-     * @param OnCompletedRequest Delegate for handling the server response.
-     * @param SteamAppId (Optional) The specific Steam App Id to verify the player for
-     */
-    [[deprecated("This method has been deprecated, please use StartSteamSessionUsingTicket(SteamSessionTicket, <optional>SteamAppId) instead")]]
-    static void VerifyPlayerAndStartSteamSession(const FString& SteamId64, const FString& PlatformToken, const FLootLockerSessionResponse& OnCompletedRequest, const int SteamAppId = -1);
-
-    /**
      * Start a session for a steam user
      * You can optionally specify a steam app id if you have multiple ones for your game and have configured this in the LootLocker console
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.
@@ -101,18 +86,6 @@ public:
      * @param SteamAppId (Optional) The specific Steam App Id to verify the player for
      */
     static void StartSteamSessionUsingTicket(const FString& SteamSessionTicket, const FLootLockerSessionResponse& OnCompletedRequest, const FString& SteamAppId = "");
-
-    /**
-     * Start a session for a Steam user
-     * Note: Steam requires that you verify the player before starting a steam session. See the method VerifyPlayer
-     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
-     * https://ref.lootlocker.com/game-api/#authentication-request
-     *
-     * @param SteamId64 The Steam 64 bit Id as an FString
-     * @param OnCompletedRequest Delegate for handling the server response.
-     */
-    [[deprecated("This method has been deprecated, please use StartSteamSessionUsingTicket(SteamSessionTicket, <optional>SteamAppId) instead")]]
-    static void StartSteamSession(const FString& SteamId64, const FLootLockerSessionResponse& OnCompletedRequest);
 
     /**
      * Create a new session for a Nintendo Switch user
@@ -546,15 +519,6 @@ public:
     static void ListPlayerInfo(TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseDelegate& OnCompletedRequest);
 
     /**
-     * Get general information about the current current player, such as the XP, Level information and their account balance.
-     * https://ref.lootlocker.com/game-api/#get-player-info
-     *
-     * @param OnCompletedRequest Delegate for handling the response
-     */
-    [[deprecated("This function is deprecated, use GetCurrentPlayerInfo instead")]]
-	static void GetPlayerInfo(const FLootLockerPlayerInformationResponse& OnCompletedRequest);
-
-    /**
     * Get a paginated list of the players inventory.
     * https://ref.lootlocker.com/game-api/#get-inventory-list
     *
@@ -564,37 +528,6 @@ public:
 
 	// Same as above but actually gets your full inventory lol.
 	static void GetFullInventory(const FInventoryResponse& OnCompletedRequest, int32 StartIndex);
-
-    /**
-    * Receive xp, and award it to the player.
-    * https://ref.lootlocker.com/game-api/#submit-xp
-    *
-    * @param Points Number of XP points to grant to the player.
-    * @param OnCompletedRequest Delegate to be invoked with the server response.
-    */
-    [[deprecated("This function will be removed at a later stage, use the new progression system instead")]]
-	static void SubmitXP(int Points, const FSubmitXpResponse& OnCompletedRequest);
-
-    /**
-    * Get other players XP and level.
-    * https://ref.lootlocker.com/game-api/#get-other-players-xp-and-level
-    *
-    * @param OtherPlayerId Other players id.
-    * @param OnCompletedRequest Delegate to be invoked with the server response.
-    * @param OtherPlayerPlatform Optional parameter to specify which platform the Id is for.
-    */
-    [[deprecated("This function is deprecated, use ListPlayerInfo instead")]]
-	static void GetOtherPlayersXpAndLevel(FString OtherPlayerId, const FOtherPlayersXpAndLevelResponse & OnCompletedRequest, FString OtherPlayerPlatform = FString(TEXT("")));
-
-    /**
-    * Get Multiple Other Players XP And Level.
-    * https://ref.lootlocker.com/game-api/#get-multiple-other-players-xp-and-level
-    *
-    * @param Request Object specifying what ids to lookup
-    * @param OnCompletedRequest Delegate to be invoked with the server response.
-    */
-    [[deprecated("This function is deprecated, use ListPlayerInfo instead")]]
-	static void GetMultiplePlayersXp(FLootLockerMultiplePlayersXpRequest& Request, const FPMultiplePlayersXP& OnCompletedRequest);
 
     /**
     * Get assets that have been granted to the player since the last time this endpoint was called.
@@ -1747,49 +1680,6 @@ public:
     //==================================================
 
     /**
-     * Purchase an asset
-     * If your game uses soft currency, it will check the players account balance and grant the assets to the player if there is coverage.
-     * If there is no coverage, an error will be returned.
-     * https://ref.lootlocker.com/game-api/#purchase-call
-     *
-     * @param PurchaseData Data about the assets to be purchased.
-     * @param OnCompletedRequest Delegate for handling the server response.
-     */
-    [[deprecated("This purchasing system has been replaced with our new IAP system and will be removed at a later stage. Read more here: https://docs.lootlocker.com/content/in-app-purchases")]]
-    static void PurchaseAssets(const TArray<FLootLockerAssetPurchaseData>& PurchaseData, const FPurchaseResponseDelegate& OnCompletedRequest);
-
-    /**
-     * Platform-specific purchase call for Android.
-     * https://ref.lootlocker.com/game-api/#android-in-app-purchases
-     *
-     * @param PurchaseData Data about the assets to be purchased.
-     * @param OnCompletedRequest Delegate for handling the server response.
-     */
-    [[deprecated("This purchasing system has been replaced with our new IAP system and will be removed at a later stage. Read more here: https://docs.lootlocker.com/content/in-app-purchases")]]
-    static void PurchaseAssetsAndroid(const TArray<FLootLockerAndroidAssetPurchaseData>& PurchaseData, const FPurchaseResponseDelegate& OnCompletedRequest);
-
-    /**
-     * Platform-specific purchase call for iOS.
-     * https://ref.lootlocker.com/game-api/#ios-in-app-purchases
-     *
-     * @param PurchaseData data about the assets to be purchased.
-     * @param OnCompletedRequest Delegate for handling the server response.
-     */
-    [[deprecated("This purchasing system has been replaced with our new IAP system and will be removed at a later stage. Read more here: https://docs.lootlocker.com/content/in-app-purchases")]]
-    static void PurchaseAssetsIOS(const TArray<FLootLockerVerifyPurchaseIosData>& PurchaseData, const FPurchaseResponseDelegate& OnCompletedRequest);
-
-    /**
-     * Get the status of an order.
-     * If you get a response that is considered final, you should issue a call to the player inventory endpoint if you're in a context where the inventory might change.
-     *  https://ref.lootlocker.com/game-api/#polling-order-status
-     *
-     * @param PurchaseId ID of the purchase order.
-     * @param OnCompletedRequest Delegate for handling the server response.
-     */
-    [[deprecated("This purchasing system has been replaced with our new IAP system and will be removed at a later stage. Read more here: https://docs.lootlocker.com/content/in-app-purchases")]]
-    static void PollingOrderStatus(int PurchaseId, const FPurchaseStatusResponseDelegate& OnCompletedRequest);
-
-    /**
      * Activates specified rental asset
      * Once you have purchased a rental asset, you need to activate the rental for it to become available for the player.
      * https://ref.lootlocker.com/game-api/#activating-a-rental-asset
@@ -1798,17 +1688,6 @@ public:
      * @param OnCompletedRequest Delegate for handling the server response.
      */
     static void ActivateRentalAsset(int AssetInstanceId, const FActivateRentalAssetResponseDelegate& OnCompletedRequest);
-
-    /**
-     * Get details on an order, like what products it contains as well as the order status.
-     * https://ref.lootlocker.com/game-api/#get-order-details
-     *
-     * @param OrderId ID of the order.
-     * @param NoProducts Set to true if you do not want products in the order returned in the response.
-     * @param OnCompletedRequest Delegate for handling the server response.
-     */
-    [[deprecated("This purchasing system has been replaced with our new IAP system and will be removed at a later stage. Read more here: https://docs.lootlocker.com/content/in-app-purchases")]]
-    static void GetOrderDetails(int32 OrderId, const bool NoProducts, const FOrderStatusDetailsDelegate& OnCompletedRequest);
 
     /**
      * Purchase one catalog item using a specified wallet
@@ -1917,31 +1796,6 @@ public:
      * @param OnCompletedRequest Delegate for handling the server response
      */
     static void FinalizeSteamPurchaseRedemption(const FString& EntitlementId, const FLootLockerDefaultDelegate& OnCompletedRequest);
-
-
-    //==================================================
-    //Trigger Events
-    // https://ref.lootlocker.com/game-api/#trigger-events
-    //==================================================
-
-    /**
-     * Trigger an event.
-     * https://ref.lootlocker.com/game-api/#triggering-an-event
-     *
-     * @param Event data of the event to be triggered.
-     * @param OnCompletedRequest Delegate for handling the server response.
-     */
-    [[deprecated("The triggers system has been upgraded and replaced with a newer version. Read more here: https://docs.lootlocker.com/game-systems/triggers")]]
-    static void TriggerEvent(const FLootLockerTriggerEvent& Event, const FTriggerEventResponseDelegate& OnCompletedRequest);
-
-    /**
-     * This endpoint lists the triggers that a player have already completed.
-     * https://ref.lootlocker.com/game-api/#listing-triggered-trigger-events
-     *
-     * @param OnCompletedRequest Delegate for handling the server response.
-     */
-    [[deprecated("The triggers system has been upgraded and replaced with a newer version. Read more here: https://docs.lootlocker.com/game-systems/triggers")]]
-    static void GetTriggeredEvents(const FTriggersResponseDelegate& OnCompletedRequest);
 
     //==================================================
     // Triggers
