@@ -41,11 +41,6 @@ void ULootLockerPlayerRequestHandler::ListPlayerInfo(TArray<FString> PlayerIdsTo
 	LLAPI<FLootLockerListPlayerInfoResponse>::CallAPI(HttpClient, request, ULootLockerGameEndpoints::ListPlayerInfo, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
-void ULootLockerPlayerRequestHandler::GetPlayerInfo(const FPInfoResponseBP& OnCompletedRequestBP, const FLootLockerPlayerInformationResponse& OnCompletedRequest)
-{
-	LLAPI<FLootLockerPlayerInfoResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetPlayerInfoEndPoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
-}
-
 void ULootLockerPlayerRequestHandler::GetInventory(const FPInventoryResponseBP& OnCompletedRequestBP, const FInventoryResponse& OnCompletedRequest)
 {
 	LLAPI<FLootLockerInventoryResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetPlayerInventoryEndPoint, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
@@ -68,28 +63,6 @@ void ULootLockerPlayerRequestHandler::GetFullInventory(const FPInventoryResponse
 void ULootLockerPlayerRequestHandler::GetCurrencyBalance(const FPBalanceResponseBP& OnCompletedRequestBP, const FPBalanceResponse& OnCompletedRequest )
 {
 	LLAPI<FLootLockerBalanceResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetCurrencyBalance, { },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
-}
-
-void ULootLockerPlayerRequestHandler::SubmitXp(int Points,const FPSubmitResponseBP& OnCompletedRequestBP, const FSubmitXpResponse& OnCompletedRequest)
-{
-	FLootLockerSubmitXpRequest AuthRequest;
-	AuthRequest.points = Points;
-	
-	LLAPI<FLootLockerSubmitXpResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::SubmitXpEndpoint, {  },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
-}
-
-void ULootLockerPlayerRequestHandler::GetOtherPlayersXpAndLevel(FString OtherPlayerId, FString OtherPlayerPlatform, const FPOtherPlayersXpAndLevelBP OnCompletedRequestBP, const FOtherPlayersXpAndLevelResponse& OnCompletedRequest)
-{
-	const FString Platform = !OtherPlayerPlatform.IsEmpty() ? OtherPlayerPlatform : ULootLockerCurrentPlatform::GetString();
-	TMultiMap<FString, FString> QueryParams;
-	QueryParams.Add("platform", Platform);
-	
-	LLAPI<FLootLockerOtherPlayersXpAndLevelResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOtherPlayersXpAndLevelEndpoint, { OtherPlayerId }, QueryParams, OnCompletedRequestBP, OnCompletedRequest);
-}
-
-void ULootLockerPlayerRequestHandler::GetMultiplePlayersXp(FLootLockerMultiplePlayersXpRequest Request, const FPMultiplePlayersXPBP &OnCompletedRequestBP, const FPMultiplePlayersXP &OnCompletedRequest)
-{
-	LLAPI<FLootLockerMultiplePlayerXpResponse>::CallAPI(HttpClient, Request, ULootLockerGameEndpoints::GetMultipleOtherPlayersXPAndLevel, {  },EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerPlayerRequestHandler::CheckPlayerAssetNotification(const FPAssetNotificationResponseBP& OnCompletedRequestBP, const FLootLockerAssetNotificationResponse& OnCompletedRequest)

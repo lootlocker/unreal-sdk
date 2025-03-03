@@ -340,30 +340,6 @@ void ULootLockerAuthenticationRequestHandler::StartAmazonLunaSession(const FStri
 		}));
 }
 
-void ULootLockerAuthenticationRequestHandler::StartSteamSession(const FString& SteamId64, const FAuthResponseBP& OnCompletedRequestBP, const FLootLockerSessionResponse& OnCompletedRequest)
-{
-	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
-	FLootLockerAuthenticationRequest AuthRequest;
-	AuthRequest.game_key = config->LootLockerGameKey;
-	AuthRequest.game_version = config->GameVersion;
-	AuthRequest.player_identifier = SteamId64;
-
-	ULootLockerCurrentPlatform::Set(ELootLockerPlatform::Steam);
-	AuthRequest.platform = ULootLockerCurrentPlatform::GetString();
-	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerAuthenticationResponse& Response)
-		{
-			if (Response.success)
-			{
-				ULootLockerStateData::SetPlayerIdentifier(Response.player_identifier);
-				ULootLockerStateData::SetToken(Response.session_token);
-			}
-			else
-			{
-				ULootLockerCurrentPlatform::Reset();
-			}
-		}));
-}
-
 void ULootLockerAuthenticationRequestHandler::StartSteamSession(const FString& SteamSessionTicket, const FString& SteamAppId, const FAuthResponseBP& OnCompletedRequestBP, const FLootLockerSessionResponse& OnCompletedRequest)
 {
 	ULootLockerCurrentPlatform::Set(ELootLockerPlatform::Steam);
