@@ -335,6 +335,42 @@ struct FLootLockerMultiplePlayersXpRequest {
 	TArray<FString> player_ids;
 };
 
+/**
+ */
+UENUM(BlueprintType)
+enum class ELootLockerPlayerDataLookupIdType : uint8
+{
+	Player_id = 0,
+	Player_public_uid = 1,
+	Player_guest_login_id = 2,
+	Steam_id = 3,
+	Psn_id = 4,
+	Xbox_id = 5,
+	Player_ulid = 6,
+	Player_name = 7
+};
+
+/**
+ */
+USTRUCT(BlueprintType)
+struct FLootLockerPlayerDataLookupPair
+{
+	GENERATED_BODY()
+	/*
+	 The type of id that you want to look up
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	ELootLockerPlayerDataLookupIdType IdType = ELootLockerPlayerDataLookupIdType::Player_id;
+	/*
+	 The id you want to look up
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString Id = "";
+};
+
+/**
+ Deprecated date 20250304
+ */
 USTRUCT(BlueprintType)
 struct FLootLockerMultiplePlayerNameRequest {
 	GENERATED_BODY()
@@ -344,11 +380,21 @@ struct FLootLockerMultiplePlayerNameRequest {
 	FString player_id;
 };
 
+/**
+ Deprecated date 20250304
+ */
 USTRUCT(BlueprintType)
 struct FLootLockerMultiplePlayerNamesRequest {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	TArray<FLootLockerMultiplePlayerNameRequest> player_ids;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerLookupMultiplePlayersDataRequest {
+	GENERATED_BODY()
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	TArray<FLootLockerPlayerDataLookupPair> player_ids;
 };
 
 USTRUCT(BlueprintType)
@@ -439,7 +485,9 @@ public:
 	static void SetProfilePublic(const FResponseCallbackBP& OnCompletedRequestBP = FResponseCallbackBP(), const FResponseCallback& OnCompletedRequest = FResponseCallback());
 	static void SetPlayerName(FString Name, const FPNameResponseBP& OnCompletedRequestBP = FPNameResponseBP(), const FPNameResponse& OnCompletedRequest = FPNameResponse());
 	static void GetPlayerName(const FPNameResponseBP& OnCompletedRequestBP = FPNameResponseBP(), const FPNameResponse& OnCompletedRequest = FPNameResponse());
+	// Deprecated date 20250304
 	static void LookupMultiplePlayerNamesUsingIDs(FLootLockerMultiplePlayerNamesRequest Request, const FPMultiplePlayerNamesBP& OnCompletedRequestBP = FPMultiplePlayerNamesBP(), const FPMultiplePlayerNames& OnCompletedRequest = FPMultiplePlayerNames());
+	static void LookupMultiplePlayersDataUsingIDs(FLootLockerLookupMultiplePlayersDataRequest Request, const FPMultiplePlayerNamesBP& OnCompletedRequestBP = FPMultiplePlayerNamesBP(), const FPMultiplePlayerNames& OnCompletedRequest = FPMultiplePlayerNames());
 	static void LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequestBP = FPMultiplePlayersPlatformIdsBP(), const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest = FPMultiplePlayersPlatformIdsNames());
     static void DeletePlayer(const FLootLockerDefaultResponseBP& OnCompletedRequestBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate OnCompletedRequest = FLootLockerDefaultDelegate());
 
