@@ -655,8 +655,17 @@ public:
 	* @param Request Request array with platforms and Ids to search for.
 	* @param OnCompletedRequest Delegate for handling the the server response.
 	*/
-	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (DeprecatedFunction, DeprecationMessage = "This method is deprecated in favor of method LookupMultiplePlayersDataUsingIDs")) // Deprecation date 20250304
 	static void LookupMultiplePlayerNamesUsingIDs(const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayerNamesBP& OnCompletedRequest);
+    
+    /**
+    * Look up multiple player's data using different identifiers
+    *
+    * @param Request Request array with platforms and Ids to lookup player data for.
+    * @param OnCompletedRequest Delegate for handling the server response.
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players")
+    static void LookupMultiplePlayersDataUsingIDs(const FLootLockerLookupMultiplePlayersDataRequest& Request, const FPMultiplePlayerNamesBP& OnCompletedRequest);
 
     /**
     * This endpoint will return the names of the players on their last active platform.
