@@ -673,7 +673,16 @@ public:
     * @param Request Request array with platforms and Ids to search for.
     * @param OnCompletedRequest Delegate for handling the server response.
     */
+	[[deprecated("This method is deprecated in favor of method LookupMultiplePlayersDataUsingIDs")]] // Deprecation date 20250304
 	static void LookupMultiplePlayerNamesUsingIDs(const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayerNames& OnCompletedRequest);
+
+    /**
+    * Look up multiple player's data using different identifiers
+    *
+    * @param Request Request array with platforms and Ids to lookup player data for.
+    * @param OnCompletedRequest Delegate for handling the server response.
+    */
+    static void LookupMultiplePlayersDataUsingIDs(const FLootLockerLookupMultiplePlayersDataRequest& Request, const FPMultiplePlayerNames& OnCompletedRequest);
 
     /**
     * This endpoint will return all known players 1st party platform id's.

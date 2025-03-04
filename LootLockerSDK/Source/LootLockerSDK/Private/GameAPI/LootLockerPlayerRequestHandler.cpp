@@ -158,6 +158,17 @@ void ULootLockerPlayerRequestHandler::LookupMultiplePlayerNamesUsingIDs(FLootLoc
 	LLAPI<FLootLockerMultiplePlayersNamesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::LookupMultiplePlayerNamesUsingIDs, {  },QueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
+void ULootLockerPlayerRequestHandler::LookupMultiplePlayersDataUsingIDs(FLootLockerLookupMultiplePlayersDataRequest Request, const FPMultiplePlayerNamesBP& OnCompletedRequestBP, const FPMultiplePlayerNames& OnCompletedRequest)
+{
+	TMultiMap<FString, FString> QueryParams;
+	for (int i = 0; i < Request.player_ids.Num(); ++i) {
+		FString Key = ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerPlayerDataLookupIdType"), static_cast<int32_t>(Request.player_ids[i].IdType)).ToLower();
+		Key.ReplaceCharInline(TEXT(' '), TEXT('_'));
+		QueryParams.Add(Key, Request.player_ids[i].Id);
+	}
+	LLAPI<FLootLockerMultiplePlayersNamesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::LookupMultiplePlayerNamesUsingIDs, {  }, QueryParams, OnCompletedRequestBP, OnCompletedRequest);
+}
+
 void ULootLockerPlayerRequestHandler::LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequestBP, const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest)
 {
 	TMultiMap<FString,FString> QueryParams;
