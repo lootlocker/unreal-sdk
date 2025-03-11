@@ -291,7 +291,7 @@ void ULootLockerSDKManager::LookupMultiplePlayerNamesUsingIDs(const FLootLockerM
 
 void ULootLockerSDKManager::LookupMultiplePlayersDataUsingIDs(const FLootLockerLookupMultiplePlayersDataRequest& Request, const FPMultiplePlayerNames& OnCompletedRequest, const FString ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerPlayerRequestHandler::LookupMultiplePlayersDataUsingIDs(Request, FPMultiplePlayerNamesBP(), OnCompletedRequest);
+    ULootLockerPlayerRequestHandler::LookupMultiplePlayersDataUsingIDs(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, FPMultiplePlayerNamesBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest, const FString ForPlayerWithUlid /* = "" */)
@@ -308,11 +308,6 @@ void ULootLockerSDKManager::DeletePlayer(const FLootLockerDefaultDelegate& OnCom
 void ULootLockerSDKManager::UploadFile(const FLootLockerFileUploadRequest& Request, const FLootLockerUploadFileDelegate& OnComplete, const FString ForPlayerWithUlid /* = "" */)
 {
     ULLPlayerFilesRequestHandler::UploadFile(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, FLootLockerUploadFileBP(), OnComplete);
-}
-
-void ULootLockerSDKManager::LookupMultiplePlayersDataUsingIDs(const FLootLockerLookupMultiplePlayersDataRequest& Request, const FPMultiplePlayerNames& OnCompletedRequest, const FString ForPlayerWithUlid /* = "" */)
-{
-    ULootLockerPlayerRequestHandler::LookupMultiplePlayersDataUsingIDs(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, FPMultiplePlayerNamesBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::UpdateFile(const int32 FileId, const FLootLockerFileUpdateRequest& Request, const FLootLockerUploadFileDelegate& OnComplete, const FString ForPlayerWithUlid /* = "" */)
@@ -394,26 +389,6 @@ void ULootLockerSDKManager::ResetPlayerProgression(const FString& ProgressionKey
 void ULootLockerSDKManager::DeletePlayerProgression(const FString& ProgressionKey, const FLootLockerDeleteProgressionDelegate& OnComplete, const FString ForPlayerWithUlid /* = "" */)
 {
     ULootLockerProgressionsRequestHandler::DeletePlayerProgression(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ProgressionKey, FLootLockerDeleteProgressionBP(), OnComplete);
-}
-
-void ULootLockerSDKManager::GetOtherPlayersProgressions(const FString& PlayerUlid, const int32& Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete, const FString ForPlayerWithUlid /* = "" */)
-{
-    ULootLockerProgressionsRequestHandler::GetOtherPlayersProgressions(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlayerUlid, Count, After, FLootLockerPaginatedPlayerProgressionsResponseBP(), OnComplete);
-}
-
-void ULootLockerSDKManager::GetOtherPlayersProgressions(const FString& PlayerUlid, const int32& Count, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete, const FString ForPlayerWithUlid /* = "" */)
-{
-    GetOtherPlayersProgressions(PlayerUlid, Count, "", OnComplete, ForPlayerWithUlid);
-}
-
-void ULootLockerSDKManager::GetOtherPlayersProgressions(const FString& PlayerUlid, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete, const FString ForPlayerWithUlid /* = "" */)
-{
-    GetOtherPlayersProgressions(PlayerUlid, -1, "", OnComplete, ForPlayerWithUlid);
-}
-
-void ULootLockerSDKManager::GetOtherPlayersProgression(const FString& PlayerUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseDelegate& OnComplete, const FString ForPlayerWithUlid /* = "" */)
-{
-    ULootLockerProgressionsRequestHandler::GetOtherPlayersProgression(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlayerUlid, ProgressionKey, FLootLockerPlayerProgressionResponseBP(), OnComplete);
 }
 
 void ULootLockerSDKManager::GetOtherPlayersProgressions(const FString& PlayerUlid, const int32& Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete, const FString ForPlayerWithUlid /* = "" */)
