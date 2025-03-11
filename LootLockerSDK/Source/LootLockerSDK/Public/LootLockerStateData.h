@@ -84,9 +84,9 @@ class LOOTLOCKERSDK_API ULootLockerStateData : public UObject
 	GENERATED_BODY()
 private:
 	static FLootLockerPlayerData EmptyPlayerData;
-	static FLootLockerStateMetaData CachedMetaData;
+	static FLootLockerStateMetaData ActiveMetaData;
 	static bool isMetadataLoaded;
-	static TMap<FString, FLootLockerPlayerData> CachedPlayerData;
+	static TMap<FString, FLootLockerPlayerData> ActivePlayerData;
 
 #if ENGINE_MAJOR_VERSION < 5
 	static const FString BaseSaveSlot;

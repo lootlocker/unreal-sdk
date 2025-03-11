@@ -18,7 +18,7 @@ void ULootLockerSDKManager::SetPlayerUlidToInactive(const FString& PlayerUlid)
 
 TArray<FString> ULootLockerSDKManager::GetCachedPlayerUlids()
 {
-    return ULootLockerStateData::GetCachedPlayerUlids();
+    return ULootLockerStateData::GetActivePlayerUlids();
 }
 
 FString ULootLockerSDKManager::GetDefaultPlayerUlid()
