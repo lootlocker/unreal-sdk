@@ -58,20 +58,6 @@ void ULootLockerProgressionsRequestHandler::GetOtherPlayersProgression(const FLo
     LLAPI<FLootLockerPlayerProgressionResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetSingleOtherPlayersProgression, { ProgressionKey, PlayerUlid }, EmptyQueryParams, PlayerData, OnCompletedRequestBP, OnComplete);
 }
 
-void ULootLockerProgressionsRequestHandler::GetOtherPlayersProgressions(const FString& PlayerUlid, const int32 Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequestBP, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete)
-{
-    TMultiMap<FString, FString> QueryParams;
-    if (Count > 0) { QueryParams.Add("count", FString::FromInt(Count)); }
-    if (!After.IsEmpty()) { QueryParams.Add("after", After); }
-
-    LLAPI<FLootLockerPaginatedPlayerProgressionResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAllOtherPlayersProgressions, { PlayerUlid }, QueryParams, OnCompletedRequestBP, OnComplete);
-}
-
-void ULootLockerProgressionsRequestHandler::GetOtherPlayersProgression(const FString& PlayerUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseBP& OnCompletedRequestBP, const FLootLockerPlayerProgressionResponseDelegate& OnComplete)
-{
-    LLAPI<FLootLockerPlayerProgressionResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetSingleOtherPlayersProgression, { ProgressionKey, PlayerUlid }, EmptyQueryParams, OnCompletedRequestBP, OnComplete);
-}
-
 void ULootLockerProgressionsRequestHandler::GetCharacterProgressions(const FLootLockerPlayerData& PlayerData, const int32 CharacterId, const int32 Count, const FString& After, const FLootLockerPaginatedCharacterProgressionsResponseBP& OnCompletedRequestBP /*= FLootLockerPaginatedCharacterProgressionsResponseBP()*/, const FLootLockerPaginatedCharacterProgressionsResponseDelegate& OnComplete /*= FLootLockerPaginatedCharacterProgressionsResponseDelegate()*/)
 {
     TMultiMap<FString, FString> QueryParams;
