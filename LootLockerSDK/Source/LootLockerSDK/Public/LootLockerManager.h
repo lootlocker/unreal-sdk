@@ -882,7 +882,7 @@ public:
     * @param OnCompletedRequest Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetOtherPlayersProgressions(const FLootLockerPlayerData& ForPlayer, const FString& PlayerUlid, const int32 Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest);
+    static void GetOtherPlayersProgressions(const FString& ForPlayerWithUlid, const FString& PlayerUlid, const int32 Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest);
 
     /**
     * Returns a single progression that the specified player is currently on.
@@ -893,7 +893,7 @@ public:
     * @param OnCompletedRequest Action for handling the response of type FLootLockerPlayerProgressionsResponse
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Progressions", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid=""))
-    static void GetOtherPlayersProgression(const FLootLockerPlayerData& ForPlayer, const FString& PlayerUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseBP& OnCompletedRequest);
+    static void GetOtherPlayersProgression(const FString& ForPlayerWithUlid, const FString& PlayerUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseBP& OnCompletedRequest);
 
     //==================================================
     //Heroes

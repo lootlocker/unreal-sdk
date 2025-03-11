@@ -889,7 +889,7 @@ public:
     * @param Count Amount of entries to receive
     * @param After Used for pagination, id of the player progression from which the pagination starts from, use the next_cursor and previous_cursor values
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
-     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+    * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
     static void GetOtherPlayersProgressions(const FString& PlayerUlid, const int32& Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete, const FString ForPlayerWithUlid = "");
 
@@ -899,7 +899,7 @@ public:
     * @param PlayerUlid The ulid of the player you want to fetch progressions for
     * @param Count Amount of entries to receive
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
-     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+    * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
     static void GetOtherPlayersProgressions(const FString& PlayerUlid, const int32& Count, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete, const FString ForPlayerWithUlid = "");
 
@@ -908,7 +908,7 @@ public:
     *
     * @param PlayerUlid The ulid of the player you want to fetch progressions for
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
-     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+    * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
     static void GetOtherPlayersProgressions(const FString& PlayerUlid, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete, const FString ForPlayerWithUlid = "");
 
@@ -918,7 +918,7 @@ public:
     * @param PlayerUlid The ulid of the player you want to fetch the progression for
     * @param ProgressionKey Key of the progression you want to fetch
     * @param OnComplete onComplete Action for handling the response of type FLootLockerPlayerProgressionsResponse
-     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+    * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
     static void GetOtherPlayersProgression(const FString& PlayerUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseDelegate& OnComplete, const FString ForPlayerWithUlid = "");
 
