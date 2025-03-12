@@ -169,6 +169,7 @@ struct LootLockerStaticRequestErrorStatusCodes
     static const int LL_ERROR_INVALID_HTTP = -1;
     static const int LL_ERROR_INVALID_INPUT = -2;
     static const int LL_ERROR_PARSE_ERROR = -3;
+    static const int LL_ERROR_BAD_STATE = -4;
 };
 
 class LootLockerResponseFactory

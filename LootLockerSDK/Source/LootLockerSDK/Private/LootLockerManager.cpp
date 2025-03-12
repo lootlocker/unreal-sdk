@@ -6,6 +6,7 @@
 #include "GameAPI/LootLockerCatalogRequestHandler.h"
 #include "GameAPI/LootLockerMetadataRequestHandler.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
+#include "Utils/LootLockerSteamSubsystemHelper.h"
 
 void ULootLockerManager::StartPlaystationNetworkSession(const FString& PsnOnlineId, const FAuthResponseBP& OnStartedSessionRequestCompleted)
 {
@@ -25,6 +26,17 @@ void ULootLockerManager::StartAmazonLunaSession(const FString& AmazonLunaGuid, c
 void ULootLockerManager::StartSteamSessionUsingTicket(const FString& SteamSessionTicket, const FString& SteamAppId, const FAuthResponseBP& OnCompletedRequest)
 {
     ULootLockerAuthenticationRequestHandler::StartSteamSession(SteamSessionTicket, SteamAppId, OnCompletedRequest);
+}
+
+void ULootLockerManager::StartSteamSessionUsingSubsystem(const int LocalUserNumber, const FString& SteamAppId,	const FAuthResponseBP& OnCompletedRequest)
+{
+    FLootLockerSteamSubsystemAuthTokenResult AuthTokenResult = ULootLockerSteamSubsystemHelper::GetAuthToken(LocalUserNumber);
+    if (!AuthTokenResult.Success)
+    {
+        OnCompletedRequest.ExecuteIfBound(LootLockerResponseFactory::Error<FLootLockerAuthenticationResponse>(AuthTokenResult.Error, LootLockerStaticRequestErrorStatusCodes::LL_ERROR_BAD_STATE));
+        return;
+    }
+    StartSteamSessionUsingTicket(AuthTokenResult.AuthToken, SteamAppId, OnCompletedRequest);
 }
 
 void ULootLockerManager::StartNintendoSwitchSession(const FString& NSAIdToken, const FAuthResponseBP& OnStartedNintendoSwitchSessionRequestCompleted)

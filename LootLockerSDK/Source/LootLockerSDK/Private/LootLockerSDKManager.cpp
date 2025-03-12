@@ -4,6 +4,7 @@
 #include "LootLockerSDKManager.h"
 
 #include "LootLockerPlatformManager.h"
+#include "Utils/LootLockerSteamSubsystemHelper.h"
 
 //Authentication
 void ULootLockerSDKManager::WhiteLabelCreateAccount(const FString &Email, const FString &Password, const FLootLockerLoginResponseDelegate &OnCompletedRequest)
@@ -34,6 +35,17 @@ void ULootLockerSDKManager::StartAmazonLunaSession(const FString& AmazonLunaGuid
 void ULootLockerSDKManager::StartSteamSessionUsingTicket(const FString& SteamSessionTicket, const FLootLockerSessionResponse& OnCompletedRequest, const FString& SteamAppId /* = "" */)
 {
     ULootLockerAuthenticationRequestHandler::StartSteamSession(SteamSessionTicket, SteamAppId, FAuthResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::StartSteamSessionUsingSubsystem(const int LocalUserNumber, const FLootLockerSessionResponse& OnCompletedRequest, const FString& SteamAppId)
+{
+    FLootLockerSteamSubsystemAuthTokenResult AuthTokenResult = ULootLockerSteamSubsystemHelper::GetAuthToken(LocalUserNumber);
+    if (!AuthTokenResult.Success)
+    {
+        OnCompletedRequest.ExecuteIfBound(LootLockerResponseFactory::Error<FLootLockerAuthenticationResponse>(AuthTokenResult.Error, LootLockerStaticRequestErrorStatusCodes::LL_ERROR_BAD_STATE));
+        return;
+    }
+    StartSteamSessionUsingTicket(AuthTokenResult.AuthToken, OnCompletedRequest, SteamAppId);    
 }
 
 void ULootLockerSDKManager::StartNintendoSwitchSession(const FString& NSAIdToken, const FLootLockerSessionResponse& OnCompletedRequest)

@@ -79,13 +79,25 @@ public:
      * Start a session for a steam user
      * You can optionally specify a steam app id if you have multiple ones for your game and have configured this in the LootLocker console
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.
-     * https://ref.lootlocker.com/game-api/#authentication-request
      *
      * @param SteamSessionTicket Platform-specific token.
      * @param OnCompletedRequest Delegate for handling the server response.
      * @param SteamAppId (Optional) The specific Steam App Id to verify the player for
      */
     static void StartSteamSessionUsingTicket(const FString& SteamSessionTicket, const FLootLockerSessionResponse& OnCompletedRequest, const FString& SteamAppId = "");
+
+    /**
+     * Start a session for a steam user using the online subsystem for steam
+     * Note: You need to have properly set up and integrated the steam subsystem. You also need to have added `LootLockerSDK.bEnableSteamSubsystemHelper = true;` to your games Build.cs file.
+     *
+     * You can optionally specify a steam app id if you have multiple ones for your game and have configured this in the LootLocker console
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     *
+     * @param LocalUserNumber Which local user to start the steam session for.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     * @param SteamAppId (Optional) The specific Steam App Id to verify the player for
+     */
+    static void StartSteamSessionUsingSubsystem(const int LocalUserNumber, const FLootLockerSessionResponse& OnCompletedRequest, const FString& SteamAppId = "");
 
     /**
      * Create a new session for a Nintendo Switch user
