@@ -66,6 +66,23 @@ bool ULootLockerSteamSubsystemHelper::HasSteamOnlineSubsystem()
 	return true;
 }
 
+bool ULootLockerSteamSubsystemHelper::IsLoggedIn(int LocalUserNumber)
+{
+	const IOnlineSubsystem* OnlineSubsystemSteam = IOnlineSubsystem::Get(STEAM_SUBSYSTEM);
+	if (OnlineSubsystemSteam == nullptr)
+	{
+		return false;
+	}
+
+	const IOnlineIdentityPtr IdentityInterface = OnlineSubsystemSteam->GetIdentityInterface();
+	if (IdentityInterface == nullptr || !IdentityInterface.IsValid())
+	{
+		return false;
+	}
+
+	return (IdentityInterface->GetLoginStatus(LocalUserNumber) != ELoginStatus::LoggedIn);
+}
+
 void ULootLockerSteamSubsystemHelper::SignInWithSteam(int LocalUserNumber, const FLootLockerSteamSubsystemLoginCompletedCallback Callback)
 {
 	if (!IsInitialized)
@@ -270,6 +287,13 @@ void ULootLockerSteamSubsystemHelper::Initialize()
 
 bool ULootLockerSteamSubsystemHelper::HasSteamOnlineSubsystem()
 {
+	UE_LOG(LogLootLockerSDKSteamSubsystemHelper, Warning, TEXT("%s"), *NOT_ENABLED_WARNING);
+	return false;
+}
+
+bool ULootLockerSteamSubsystemHelper::IsLoggedIn(int LocalUserNumber)
+{
+	UE_LOG(LogLootLockerSDKSteamSubsystemHelper, Warning, TEXT("%s"), *NOT_ENABLED_WARNING);
 	return false;
 }
 
@@ -285,6 +309,7 @@ void ULootLockerSteamSubsystemHelper::SignOutWithSteam(int LocalUserNumber, cons
 
 FLootLockerSteamSubsystemAuthTokenResult ULootLockerSteamSubsystemHelper::GetAuthToken(int LocalUserNumber)
 {
+	UE_LOG(LogLootLockerSDKSteamSubsystemHelper, Warning, TEXT("%s"), *NOT_ENABLED_WARNING);
 	FLootLockerSteamSubsystemAuthTokenResult Result
 	{
 		false,

@@ -8,7 +8,7 @@
 DECLARE_LOG_CATEGORY_EXTERN(LogLootLockerSDKSteamSubsystemHelper, Log, All);
 
 /**
- * Offer entry for display from online store
+ * Object containing the relevant information from an attempt to get the steam auth token
  */
 USTRUCT(BlueprintType)
 struct FLootLockerSteamSubsystemAuthTokenResult
@@ -62,6 +62,16 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Helpers | SteamSubsystemHelper")
     static void Initialize();
+
+    /**
+     * Check whether the specified local user has an active steam user
+     *
+     * NOTE: The online subsystem needs to be enabled, included and configured for the project for this to work
+     *
+     * <param name="LocalUserNumber">Which local user to do sign in for</param>
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Helpers | SteamSubsystemHelper")
+    static bool IsLoggedIn(int LocalUserNumber);
 
     /**
      * Do sign in using Steam asynchronously and call callback on completion
