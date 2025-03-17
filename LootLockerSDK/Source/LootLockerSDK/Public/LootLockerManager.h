@@ -2821,4 +2821,10 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static FString GetLastActivePlatform(const FString& ForPlayerWithUlid);
+
+    /**
+    * Get SDK Version.
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Miscellaneous")
+    static FString GetSDKVersionString();
 };

@@ -32,12 +32,20 @@ public:
 		{
 			IsValidGameVersion = IsSemverString(GameVersion);
 		}
+		if (SDKVersion.IsEmpty())
+		{
+			SDKVersion = ReadSDKVersionFromPlugin();
+		}
 		UObject::PostEditChangeProperty(PropertyChangedEvent);
 	}
 #endif //WITH_EDITOR
 	virtual void PostInitProperties() override
 	{
 		IsValidGameVersion = IsSemverString(GameVersion);
+		if (SDKVersion.IsEmpty())
+		{
+			SDKVersion = ReadSDKVersionFromPlugin();
+		}
 		UObject::PostInitProperties();
 	}
 
@@ -55,6 +63,8 @@ public:
 	// Domain Key used to talk to LootLocker. The Domain key can be found in `Settings > API Keys` in the Web Console: https://console.lootlocker.com/settings/api-keys
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString DomainKey;
+
+	static FString GetSDKVersionString();
 	// Allow LootLocker to log non error logs outside the editor. This is false by default to avoid log spamming and unintentional logging of data (as LootLocker logs requests and responses vs LootLocker).
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	bool LogOutsideOfEditor = false;
@@ -69,6 +79,7 @@ public:
 #endif
 	}
 private:
+	static FString ReadSDKVersionFromPlugin();
 	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")
 	bool IsValidGameVersion = true;
 	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")
@@ -82,4 +93,5 @@ private:
 #if ENGINE_MAJOR_VERSION >= 5
 	inline static const std::regex SemverPattern = std::regex("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:\\.(0|[1-9]\\d*))?(?:\\.(0|[1-9]\\d*))?$");
 #endif
+	static FString SDKVersion;
 };

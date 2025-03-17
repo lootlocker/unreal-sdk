@@ -1,7 +1,6 @@
 // Copyright (c) 2021 LootLocker
 
 #pragma once
-
 #include "CoreMinimal.h"
 #include "LootLockerSteamSubsystemHelper.generated.h"
 
@@ -16,19 +15,19 @@ struct FLootLockerSteamSubsystemAuthTokenResult
     GENERATED_BODY()
     /** Whether the auth token could be successfully retrieved */
     UPROPERTY(BlueprintReadOnly, Category = "LootLocker | Helpers | SteamSubsystemHelper")
-    bool Success;
+    bool Success = false;
     /** The Auth token for the specified local user */
     UPROPERTY(BlueprintReadOnly, Category = "LootLocker | Helpers | SteamSubsystemHelper")
-    FString AuthToken;
+    FString AuthToken = "";
     /** The Steam id for the specified local user */
     UPROPERTY(BlueprintReadOnly, Category = "LootLocker | Helpers | SteamSubsystemHelper")
-    FString SteamID;
+    FString SteamID = "";
     /** The local user number that this auth token is for */
     UPROPERTY(BlueprintReadOnly, Category = "LootLocker | Helpers | SteamSubsystemHelper")
-    int LocalUserNumber;
+    int LocalUserNumber = 0;
     /** If the auth token could not be retrieved, this holds the corresponding error message */
     UPROPERTY(BlueprintReadOnly, Category = "LootLocker | Helpers | SteamSubsystemHelper")
-    FString Error;
+    FString Error = "";
 };
 
 
@@ -56,14 +55,6 @@ public:
     static bool HasSteamOnlineSubsystem();
 
     /**
-     * Initialize Steam Subsystem Helper
-     *
-     * NOTE: The online subsystem needs to be enabled, included and configured for the project for this to work
-     */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Helpers | SteamSubsystemHelper")
-    static void Initialize();
-
-    /**
      * Check whether the specified local user has an active steam user
      *
      * NOTE: The online subsystem needs to be enabled, included and configured for the project for this to work
@@ -71,7 +62,7 @@ public:
      * <param name="LocalUserNumber">Which local user to do sign in for</param>
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Helpers | SteamSubsystemHelper")
-    static bool IsLoggedIn(int LocalUserNumber);
+    static bool IsLoggedInWithSteam(int LocalUserNumber);
 
     /**
      * Do sign in using Steam asynchronously and call callback on completion
@@ -82,7 +73,7 @@ public:
      * <param name="Callback">Callback that will be called when method completes</param>
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Helpers | SteamSubsystemHelper")
-    static void SignInWithSteam(int LocalUserNumber, const FLootLockerSteamSubsystemLoginCompletedCallback Callback);
+    static void LogInWithSteam(int LocalUserNumber, const FLootLockerSteamSubsystemLoginCompletedCallback Callback);
 
     /**
      * Do sign out using Steam asynchronously and call callback on completion
@@ -93,7 +84,7 @@ public:
      * <param name="Callback">Callback that will be called when method completes</param>
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Helpers | SteamSubsystemHelper")
-    static void SignOutWithSteam(int LocalUserNumber, const FLootLockerSteamSubsystemLogoutCompletedCallback Callback);
+    static void LogOutWithSteam(int LocalUserNumber, const FLootLockerSteamSubsystemLogoutCompletedCallback Callback);
 
     /**
      * Get the Auth Token for the google user signed in for the provided local user number
@@ -103,11 +94,12 @@ public:
      * <param name="LocalUserNumber">Which local user to do sign in for</param>
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Helpers | SteamSubsystemHelper")
-    static FLootLockerSteamSubsystemAuthTokenResult GetAuthToken(int LocalUserNumber);
+    static FLootLockerSteamSubsystemAuthTokenResult GetSteamAuthToken(int LocalUserNumber);
 private:
     static void InvokeSteamLoginCallbackWithErrorResponseAndLog(const FString& Message, int LocalUserNumber, const FLootLockerSteamSubsystemLoginCompletedCallback Callback);
     static void InvokeSteamLogoutCallbackWithErrorResponseAndLog(const FString& Message, int LocalUserNumber, const FLootLockerSteamSubsystemLogoutCompletedCallback Callback);
     static FDelegateHandle LoginDelegateHandle;
     static FDelegateHandle LogoutDelegateHandle;
     static bool IsInitialized;
+    static FString NOT_ENABLED_WARNING;
 };

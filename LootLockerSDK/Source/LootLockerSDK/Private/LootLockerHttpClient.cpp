@@ -7,14 +7,12 @@
 #include "JsonObjectConverter.h"
 #include "LootLockerSDK.h"
 #include "Interfaces/IHttpResponse.h"
-#include "Interfaces/IPluginManager.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Guid.h"
 #include "Utils/LootLockerUtilities.h"
 
 const FString ULootLockerHttpClient::UserAgent = FString::Format(TEXT("X-UnrealEngine-Agent/{0}"), { ENGINE_VERSION_STRING });
 const FString ULootLockerHttpClient::UserInstanceIdentifier = FGuid::NewGuid().ToString();
-FString ULootLockerHttpClient::SDKVersion = "";
 
 ULootLockerHttpClient::ULootLockerHttpClient()
 {
@@ -80,21 +78,12 @@ bool ULootLockerHttpClient::ResponseIsSuccess(const FHttpResponsePtr& InResponse
 void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders) const
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
-    if(SDKVersion.IsEmpty())
-    {
-	    const TSharedPtr<IPlugin> Ptr = IPluginManager::Get().FindPlugin("LootLockerSDK");
-        if (Ptr.IsValid())
-        {
-            SDKVersion = Ptr->GetDescriptor().VersionName;
-            UE_LOG(LogLootLockerGameSDK, Verbose, TEXT("LootLocker version: v%s"), *SDKVersion);
-        }
-    }
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = HttpModule->CreateRequest();
 	Request->SetURL(endPoint);
 
 	Request->SetHeader(TEXT("User-Agent"), UserAgent);
 	Request->SetHeader(TEXT("LL-Instance-Identifier"), UserInstanceIdentifier);
-    Request->SetHeader(TEXT("LL-SDK-Version"), SDKVersion);
+    Request->SetHeader(TEXT("LL-SDK-Version"), ULootLockerConfig::GetSDKVersionString());
     Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
     Request->SetHeader(TEXT("Accept"), TEXT("application/json"));
 
@@ -154,14 +143,6 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString>& AdditionalFields, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders) const
 {
     FHttpModule* HttpModule = &FHttpModule::Get();
-    if (SDKVersion.IsEmpty())
-    {
-        TSharedPtr<IPlugin> Ptr = IPluginManager::Get().FindPlugin("LootLockerSDK");
-        if (Ptr.IsValid())
-        {
-            SDKVersion = Ptr->GetDescriptor().VersionName;
-        }
-    }
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = HttpModule->CreateRequest();
 	Request->SetURL(endPoint);
 
@@ -169,7 +150,7 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
 
 	Request->SetHeader(TEXT("User-Agent"), UserAgent);
 	Request->SetHeader(TEXT("LL-Instance-Identifier"), UserInstanceIdentifier);
-    Request->SetHeader(TEXT("LL-SDK-Version"), SDKVersion);
+    Request->SetHeader(TEXT("LL-SDK-Version"), ULootLockerConfig::GetSDKVersionString());
 
     Request->SetHeader(TEXT("Content-Type"), TEXT("multipart/form-data; boundary=" + Boundary));
 

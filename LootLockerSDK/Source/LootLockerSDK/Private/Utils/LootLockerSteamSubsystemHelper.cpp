@@ -4,9 +4,7 @@
 
 #ifdef LOOTLOCKER_ENABLE_STEAMSUBSYSTEMHELPER
 #include "OnlineSubsystem.h"
-#include "OnlineError.h"
 #include "Interfaces/OnlineIdentityInterface.h"
-#include "Interfaces/OnlinePurchaseInterface.h"
 #endif
 
 DEFINE_LOG_CATEGORY(LogLootLockerSDKSteamSubsystemHelper);
@@ -14,6 +12,7 @@ DEFINE_LOG_CATEGORY(LogLootLockerSDKSteamSubsystemHelper);
 bool ULootLockerSteamSubsystemHelper::IsInitialized = false;
 FDelegateHandle ULootLockerSteamSubsystemHelper::LoginDelegateHandle = FDelegateHandle();
 FDelegateHandle ULootLockerSteamSubsystemHelper::LogoutDelegateHandle = FDelegateHandle();
+FString ULootLockerSteamSubsystemHelper::NOT_ENABLED_WARNING = "Steam Subsystem is not enabled in LootLocker. To enable it, set `bEnableSteamSubsystemHelper = true;` in the LootLockerSDK.Build.cs file";
 
 #pragma region Logging Functions
 
@@ -32,27 +31,6 @@ void ULootLockerSteamSubsystemHelper::InvokeSteamLogoutCallbackWithErrorResponse
 #pragma endregion
 
 #ifdef LOOTLOCKER_ENABLE_STEAMSUBSYSTEMHELPER
-void ULootLockerSteamSubsystemHelper::Initialize()
-{
-	if (IsInitialized)
-	{
-		UE_LOG(LogLootLockerSDKSteamSubsystemHelper, Verbose, TEXT("ULootLockerSteamSubsystemHelper already initialized"));
-		return;
-	}
-
-	if (HasSteamOnlineSubsystem())
-	{
-		UE_LOG(LogLootLockerSDKSteamSubsystemHelper, Warning, TEXT("Could not get Steam Subsystem, Steam connected functionality will not work"));
-		return;
-	}
-	IOnlineSubsystem* OnlineSubsystemSteam = IOnlineSubsystem::Get(STEAM_SUBSYSTEM);
-	if (OnlineSubsystemSteam == nullptr || !OnlineSubsystemSteam->Init())
-	{
-		UE_LOG(LogLootLockerSDKSteamSubsystemHelper, Warning, TEXT("Steam Subsystem could not be initialized, Steam connected functionality will not work"));
-	}
-
-	IsInitialized = true;
-}
 
 bool ULootLockerSteamSubsystemHelper::HasSteamOnlineSubsystem()
 {
@@ -63,16 +41,34 @@ bool ULootLockerSteamSubsystemHelper::HasSteamOnlineSubsystem()
 		return false;
 	}
 
+	if (!OnlineSubsystemSteam->IsLoaded(STEAM_SUBSYSTEM))
+	{
+		UE_LOG(LogLootLockerSDKSteamSubsystemHelper, Warning, TEXT("Steam subsystem is not loaded"));
+		return false;		
+	}
+
+	if (!OnlineSubsystemSteam->IsEnabled(STEAM_SUBSYSTEM))
+	{
+		UE_LOG(LogLootLockerSDKSteamSubsystemHelper, Warning, TEXT("Steam subsystem is not enabled"));
+		return false;
+	}
+
 	return true;
 }
 
-bool ULootLockerSteamSubsystemHelper::IsLoggedIn(int LocalUserNumber)
+bool ULootLockerSteamSubsystemHelper::IsLoggedInWithSteam(int LocalUserNumber)
 {
 	const IOnlineSubsystem* OnlineSubsystemSteam = IOnlineSubsystem::Get(STEAM_SUBSYSTEM);
 	if (OnlineSubsystemSteam == nullptr)
 	{
 		return false;
 	}
+
+	if (!HasSteamOnlineSubsystem())
+	{
+		return false;
+	}
+	
 
 	const IOnlineIdentityPtr IdentityInterface = OnlineSubsystemSteam->GetIdentityInterface();
 	if (IdentityInterface == nullptr || !IdentityInterface.IsValid())
@@ -83,13 +79,8 @@ bool ULootLockerSteamSubsystemHelper::IsLoggedIn(int LocalUserNumber)
 	return (IdentityInterface->GetLoginStatus(LocalUserNumber) != ELoginStatus::LoggedIn);
 }
 
-void ULootLockerSteamSubsystemHelper::SignInWithSteam(int LocalUserNumber, const FLootLockerSteamSubsystemLoginCompletedCallback Callback)
+void ULootLockerSteamSubsystemHelper::LogInWithSteam(int LocalUserNumber, const FLootLockerSteamSubsystemLoginCompletedCallback Callback)
 {
-	if (!IsInitialized)
-	{
-		Initialize();
-	}
-
 	if (LoginDelegateHandle.IsValid())
 	{
 		InvokeSteamLoginCallbackWithErrorResponseAndLog("A Login is already in progress", LocalUserNumber, Callback);
@@ -113,7 +104,7 @@ void ULootLockerSteamSubsystemHelper::SignInWithSteam(int LocalUserNumber, const
 	if (IdentityInterface->GetLoginStatus(LocalUserNumber) == ELoginStatus::LoggedIn)
 	{
 		// User already signed in, treat it as a successful login attempt
-		Callback.ExecuteIfBound(true, LocalUserNumber, "", GetAuthToken(LocalUserNumber).AuthToken);
+		Callback.ExecuteIfBound(true, LocalUserNumber, "", GetSteamAuthToken(LocalUserNumber).AuthToken);
 		return;
 	}
 
@@ -127,7 +118,7 @@ void ULootLockerSteamSubsystemHelper::SignInWithSteam(int LocalUserNumber, const
 				}
 				else
 				{
-					Callback.ExecuteIfBound(true, LocalUserNumber, "", GetAuthToken(LocalUserNumber).AuthToken);
+					Callback.ExecuteIfBound(true, LocalUserNumber, "", GetSteamAuthToken(LocalUserNumber).AuthToken);
 				}
 
 				// Clear state
@@ -150,13 +141,8 @@ void ULootLockerSteamSubsystemHelper::SignInWithSteam(int LocalUserNumber, const
 	IdentityInterface->Login(LocalUserNumber, FOnlineAccountCredentials{});
 }
 
-void ULootLockerSteamSubsystemHelper::SignOutWithSteam(int LocalUserNumber, const FLootLockerSteamSubsystemLogoutCompletedCallback Callback)
+void ULootLockerSteamSubsystemHelper::LogOutWithSteam(int LocalUserNumber, const FLootLockerSteamSubsystemLogoutCompletedCallback Callback)
 {
-	if (!IsInitialized)
-	{
-		Initialize();
-	}
-
 	if (LoginDelegateHandle.IsValid())
 	{
 		InvokeSteamLogoutCallbackWithErrorResponseAndLog("Don't log out when logging in", LocalUserNumber, Callback);
@@ -217,7 +203,7 @@ void ULootLockerSteamSubsystemHelper::SignOutWithSteam(int LocalUserNumber, cons
 	);
 }
 
-FLootLockerSteamSubsystemAuthTokenResult ULootLockerSteamSubsystemHelper::GetAuthToken(int LocalUserNumber)
+FLootLockerSteamSubsystemAuthTokenResult ULootLockerSteamSubsystemHelper::GetSteamAuthToken(int LocalUserNumber)
 {
 	FLootLockerSteamSubsystemAuthTokenResult Result
 		{
@@ -227,6 +213,14 @@ FLootLockerSteamSubsystemAuthTokenResult ULootLockerSteamSubsystemHelper::GetAut
 			LocalUserNumber,
 			""
 		};
+
+	if (!HasSteamOnlineSubsystem())
+	{
+		Result.Success = false;
+		Result.Error = "Could not get Steam Subsystem";
+		UE_LOG(LogLootLockerSDKSteamSubsystemHelper, Error, TEXT("%s"), *Result.Error);
+		return Result;		
+	}
 	const IOnlineSubsystem* OnlineSubsystemSteam = IOnlineSubsystem::Get(STEAM_SUBSYSTEM);
 	if (OnlineSubsystemSteam == nullptr)
 	{
@@ -277,37 +271,29 @@ FLootLockerSteamSubsystemAuthTokenResult ULootLockerSteamSubsystemHelper::GetAut
 
 #else //LOOTLOCKER_ENABLE_STEAMSUBSYSTEMHELPER
 
-const FString NOT_ENABLED_WARNING = "Steam Subsystem is not enabled in LootLocker. To enable it, add `LootLockerSDK.bEnableSteamSubsystemHelper = true;` to your games Build.cs file";
-
-void ULootLockerSteamSubsystemHelper::Initialize()
-{
-	UE_LOG(LogLootLockerSDKSteamSubsystemHelper, Warning, TEXT("%s"), *NOT_ENABLED_WARNING);
-	return;
-}
-
 bool ULootLockerSteamSubsystemHelper::HasSteamOnlineSubsystem()
 {
 	UE_LOG(LogLootLockerSDKSteamSubsystemHelper, Warning, TEXT("%s"), *NOT_ENABLED_WARNING);
 	return false;
 }
 
-bool ULootLockerSteamSubsystemHelper::IsLoggedIn(int LocalUserNumber)
+bool ULootLockerSteamSubsystemHelper::IsLoggedInWithSteam(int LocalUserNumber)
 {
 	UE_LOG(LogLootLockerSDKSteamSubsystemHelper, Warning, TEXT("%s"), *NOT_ENABLED_WARNING);
 	return false;
 }
 
-void ULootLockerSteamSubsystemHelper::SignInWithSteam(int LocalUserNumber, const FLootLockerSteamSubsystemLoginCompletedCallback Callback)
+void ULootLockerSteamSubsystemHelper::LogInWithSteam(int LocalUserNumber, const FLootLockerSteamSubsystemLoginCompletedCallback Callback)
 {
 	InvokeSteamLoginCallbackWithErrorResponseAndLog(NOT_ENABLED_WARNING, LocalUserNumber, Callback);
 }
 
-void ULootLockerSteamSubsystemHelper::SignOutWithSteam(int LocalUserNumber, const FLootLockerSteamSubsystemLogoutCompletedCallback Callback)
+void ULootLockerSteamSubsystemHelper::LogOutWithSteam(int LocalUserNumber, const FLootLockerSteamSubsystemLogoutCompletedCallback Callback)
 {
 	InvokeSteamLogoutCallbackWithErrorResponseAndLog(NOT_ENABLED_WARNING, LocalUserNumber, Callback);
 }
 
-FLootLockerSteamSubsystemAuthTokenResult ULootLockerSteamSubsystemHelper::GetAuthToken(int LocalUserNumber)
+FLootLockerSteamSubsystemAuthTokenResult ULootLockerSteamSubsystemHelper::GetSteamAuthToken(int LocalUserNumber)
 {
 	UE_LOG(LogLootLockerSDKSteamSubsystemHelper, Warning, TEXT("%s"), *NOT_ENABLED_WARNING);
 	FLootLockerSteamSubsystemAuthTokenResult Result

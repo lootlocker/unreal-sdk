@@ -24,7 +24,6 @@ private:
     static bool ResponseIsSuccess(const FHttpResponsePtr& InResponse, bool bWasSuccessful);
     static const FString UserAgent;
     static const FString UserInstanceIdentifier;
-    static FString SDKVersion;
 };
 
 

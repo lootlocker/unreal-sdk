@@ -2759,4 +2759,9 @@ public:
     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
     static FString GetLastActivePlatform(const FString ForPlayerWithUlid = "");
+
+    /**
+    * Get SDK Version.
+    */
+    static FString GetSDKVersionString();
 };
