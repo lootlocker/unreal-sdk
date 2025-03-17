@@ -39,7 +39,7 @@ void ULootLockerSDKManager::StartSteamSessionUsingTicket(const FString& SteamSes
 
 void ULootLockerSDKManager::StartSteamSessionUsingSubsystem(const int LocalUserNumber, const FLootLockerSessionResponse& OnCompletedRequest, const FString& SteamAppId)
 {
-    FLootLockerSteamSubsystemAuthTokenResult AuthTokenResult = ULootLockerSteamSubsystemHelper::GetAuthToken(LocalUserNumber);
+    FLootLockerSteamSubsystemAuthTokenResult AuthTokenResult = ULootLockerSteamSubsystemHelper::GetSteamAuthToken(LocalUserNumber);
     if (!AuthTokenResult.Success)
     {
         OnCompletedRequest.ExecuteIfBound(LootLockerResponseFactory::Error<FLootLockerAuthenticationResponse>(AuthTokenResult.Error, LootLockerStaticRequestErrorStatusCodes::LL_ERROR_BAD_STATE));
@@ -1192,4 +1192,9 @@ void ULootLockerSDKManager::GetServerTime(const FTimeResponseDelegate& OnComplet
 
 FString ULootLockerSDKManager::GetLastActivePlatform() {
     return ULootLockerMiscellaneousRequestHandler::GetLastActivePlatform();
+}
+
+FString ULootLockerSDKManager::GetSDKVersionString()
+{
+    return ULootLockerConfig::GetSDKVersionString();
 }

@@ -2390,4 +2390,9 @@ public:
     * Get the last used platform from an earlier session.
     */
     static FString GetLastActivePlatform();
+
+    /**
+    * Get SDK Version.
+    */
+    static FString GetSDKVersionString();
 };

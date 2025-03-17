@@ -2501,4 +2501,10 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous")
     static FString GetLastActivePlatform();
+
+    /**
+    * Get SDK Version.
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Miscellaneous")
+    static FString GetSDKVersionString();
 };

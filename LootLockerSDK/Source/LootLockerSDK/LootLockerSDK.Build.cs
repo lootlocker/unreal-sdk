@@ -5,7 +5,7 @@ using UnrealBuildTool;
 public class LootLockerSDK : ModuleRules
 {
     public static bool bEnableGoogleSubsystemHelper = false;
-    public static bool bEnableSteamSubsystemHelper = false;
+    private static bool bEnableSteamSubsystemHelper = false;
     public static bool bUseStageURL = false;
     public static bool bShowOutdatedSDKMessage = false; // Set to true when submitting to fab for engine versions < the last 3
     public LootLockerSDK(ReadOnlyTargetRules Target) : base(Target)

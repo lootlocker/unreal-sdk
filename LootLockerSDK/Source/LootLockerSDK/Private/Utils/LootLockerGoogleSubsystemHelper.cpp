@@ -15,6 +15,7 @@ bool ULootLockerGoogleSubsystemHelper::IsPurchaseInProgress = false;
 bool ULootLockerGoogleSubsystemHelper::IsInitialized = false;
 FDelegateHandle ULootLockerGoogleSubsystemHelper::LoginDelegateHandle = FDelegateHandle();
 FDelegateHandle ULootLockerGoogleSubsystemHelper::LogoutDelegateHandle = FDelegateHandle();
+FString ULootLockerGoogleSubsystemHelper::NOT_ENABLED_WARNING = "Google Subsystem is not enabled in LootLocker. To enable it, add LootLockerSDK.bEnableGoogleSubsystemHelper = true; to your games Build.cs file";
 
 #pragma region Logging Functions
 
@@ -628,8 +629,6 @@ void ULootLockerGoogleSubsystemHelper::PurchaseOffer(int LocalUserNumber, const 
 }
 
 #else //LOOTLOCKER_ENABLE_GOOGLESUBSYSTEMHELPER
-
-const FString NOT_ENABLED_WARNING = "Google Subsystem is not enabled in LootLocker. To enable it, add LootLockerSDK.bEnableGoogleSubsystemHelper = true; to your games Build.cs file";
 
 void ULootLockerGoogleSubsystemHelper::Initialize()
 {

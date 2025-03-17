@@ -188,4 +188,5 @@ private:
     static FDelegateHandle LogoutDelegateHandle;
     static bool IsPurchaseInProgress;
     static bool IsInitialized;
+	static FString NOT_ENABLED_WARNING;
 };

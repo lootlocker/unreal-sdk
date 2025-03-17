@@ -31,12 +31,20 @@ public:
 		{
 			IsValidGameVersion = IsSemverString(GameVersion);
 		}
+		if (SDKVersion.IsEmpty())
+		{
+			SDKVersion = ReadSDKVersionFromPlugin();
+		}
 		UObject::PostEditChangeProperty(PropertyChangedEvent);
 	}
 #endif //WITH_EDITOR
 	virtual void PostInitProperties() override
 	{
 		IsValidGameVersion = IsSemverString(GameVersion);
+		if (SDKVersion.IsEmpty())
+		{
+			SDKVersion = ReadSDKVersionFromPlugin();
+		}
 		UObject::PostInitProperties();
 	}
 
@@ -54,7 +62,10 @@ public:
 	// Domain Key used to talk to LootLocker. The Domain key can be found in `Settings > API Keys` in the Web Console: https://console.lootlocker.com/settings/api-keys
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString DomainKey;
+
+	static FString GetSDKVersionString();
 private:
+	static FString ReadSDKVersionFromPlugin();
 	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")
 	bool IsValidGameVersion = true;
 	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")
@@ -68,4 +79,5 @@ private:
 #if ENGINE_MAJOR_VERSION >= 5
 	inline static const std::regex SemverPattern = std::regex("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:\\.(0|[1-9]\\d*))?(?:\\.(0|[1-9]\\d*))?$");
 #endif
+	static FString SDKVersion;
 };
