@@ -28,7 +28,7 @@ const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchas
 const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::GooglePlayStore::ProductId = "product_id";
 const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::LootLocker::CatalogId = "catalog_id";
 const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::LootLocker::CatalogItemId = "catalog_item_id";
-
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::TwitchDrop::TwitchRewardId = "twitch_reward_id";
 
 void FLootLockerListNotificationsResponse::PopulateConvenienceStructures()
 {
@@ -73,23 +73,7 @@ void FLootLockerListNotificationsResponse::PopulateConvenienceStructures()
         else if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::TwitchDrop, ESearchCase::IgnoreCase))
         {
             Notification.SourceEnum = ELootLockerNotificationSource::twitch_drop;
-            Notification.Content.IdentifyingContextKey = LootLockerNotificationsStaticStrings::NotificationSources::TwitchDrop;
-
-            FLootLockerNotificationIdentifyingValueLookupStruct LookupStruct
-            {
-                Notification.Content.IdentifyingContextKey,
-                Notification.Id,
-                i
-            };
-
-            if (NotificationLookupTable.Contains(LootLockerNotificationsStaticStrings::NotificationSources::TwitchDrop))
-            {
-                NotificationLookupTable.Find(LootLockerNotificationsStaticStrings::NotificationSources::TwitchDrop)->Add(LookupStruct);
-            }
-            else
-            {
-                NotificationLookupTable.Add(LootLockerNotificationsStaticStrings::NotificationSources::TwitchDrop, TArray<FLootLockerNotificationIdentifyingValueLookupStruct>{LookupStruct});
-            }
+            Notification.Content.IdentifyingContextKey = LootLockerNotificationsStaticStrings::StandardContextKeys::TwitchDrop::TwitchRewardId;
         }
 
         if (!Notification.Content.IdentifyingContextKey.IsEmpty())
@@ -138,11 +122,9 @@ bool FLootLockerListNotificationsResponse::TryGetNotificationsByIdentifyingValue
         }
         const FLootLockerNotification& notification = Notifications[LookupStruct.NotificationArrayIndex];
         if(!LookupStruct.NotificationULID.Equals(notification.Id, ESearchCase::IgnoreCase)
-			|| (notification.SourceEnum != ELootLockerNotificationSource::twitch_drop && (
-				!notification.Content.ContextAsDictionary.Contains(LookupStruct.IdentifyingContextKey) 
-				|| !notification.Content.ContextAsDictionary.Find(LookupStruct.IdentifyingContextKey)->Equals(IdentifyingValue)
+			|| !notification.Content.ContextAsDictionary.Contains(LookupStruct.IdentifyingContextKey) 
+			|| !notification.Content.ContextAsDictionary.Find(LookupStruct.IdentifyingContextKey)->Equals(IdentifyingValue)
             )
-        ))
         {
             // The notifications array is not the same as when the lookup table was populated
             return false;
