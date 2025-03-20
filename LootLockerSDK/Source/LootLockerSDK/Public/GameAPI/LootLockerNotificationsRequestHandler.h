@@ -141,10 +141,11 @@ struct LootLockerNotificationsStaticStrings
             };
         };
         /**
-         * Standard context keys to expect (none) when source is a Twitch Drop
+         * Standard context keys to expect when source is a Twitch Drop
          */
         struct TwitchDrop
         {
+            static const FString TwitchRewardId;
         };
     };
 };
@@ -267,6 +268,11 @@ public:
      */
     UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | LootLocker")
     static FString GetStandardPurchasingLootLockerContextKeyCatalogItemIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::LootLocker::CatalogItemId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Twitch Drops
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | LootLocker")
+    static FString GetStandardTwitchDropContextKeyTwitchRewardIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::TwitchDrop::TwitchRewardId; };
 };
 
 //==================================================
