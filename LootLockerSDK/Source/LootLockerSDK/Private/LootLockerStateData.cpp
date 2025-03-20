@@ -5,10 +5,14 @@
 
 #include "LootLockerPlayerData.h"
 #include "LootLockerSDK.h"
+#include "GameAPI/LootLockerPlayerRequestHandler.h"
 #include "Kismet/GameplayStatics.h"
+#include "LootLockerSDK/Public/LootLockerPersistedState.h"
 
 #if ENGINE_MAJOR_VERSION < 5
 const FString ULootLockerStateData::BaseSaveSlot = "LootLocker";
+const FString ULootLockerStateData::MetaDataSaveSlot = BaseSaveSlot+"_META";
+const FString ULootLockerStateData::PlayerDataSaveSlot = BaseSaveSlot + "_pd_";;
 #endif
 
 FLootLockerStateMetaData ULootLockerStateData::ActiveMetaData = FLootLockerStateMetaData();
@@ -26,25 +30,96 @@ FString ULootLockerStateData::GetNewUniqueIdentifier()
 	return FGenericPlatformMisc::GetDeviceId != nullptr ? FGenericPlatformMisc::GetDeviceId() : FGuid::NewGuid().ToString();
 }
 
+bool ULootLockerStateData::TransferPlayerCacheToMultiUserSystem()
+{
+	if (!UGameplayStatics::DoesSaveGameExist(BaseSaveSlot, SaveIndex))
+	{
+		return false;
+	}
+	auto GetPlatformRepresentationFromPlatformString = [](const FString& PlatformString) -> const FLootLockerPlatformRepresentation&
+		{
+			TArray<TMap<ELootLockerPlatform, FLootLockerPlatformRepresentation>::ElementType> platformRepresentations =
+				ULootLockerPlatforms::GetAllPlatformRepresentations();
+			for (TPair<ELootLockerPlatform, FLootLockerPlatformRepresentation> PlatformRepresentation : platformRepresentations)
+			{
+				if (PlatformRepresentation.Value.PlatformString.Equals(PlatformString, ESearchCase::IgnoreCase))
+				{
+					return PlatformRepresentation.Value;
+				}
+			}
+			return ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::None);
+		};
+
+	if (ULootLockerPersistedState* PreMultiUserLoadedState = Cast<ULootLockerPersistedState>(UGameplayStatics::LoadGameFromSlot(BaseSaveSlot, SaveIndex)))
+	{
+		FLootLockerPlayerData DataToTransfer{
+			PreMultiUserLoadedState->Token,
+			PreMultiUserLoadedState->RefreshToken,
+			PreMultiUserLoadedState->PlayerIdentifier,
+			"pre-multi-user-fake-ulid",
+			"",
+			"",
+			PreMultiUserLoadedState->WhiteLabelEmail,
+			PreMultiUserLoadedState->WhiteLabelToken,
+			GetPlatformRepresentationFromPlatformString(PreMultiUserLoadedState->LastActivePlatform),
+			""
+		};
+		SavePlayerData(DataToTransfer);
+		ULootLockerPlayerRequestHandler::GetCurrentPlayerInfo(DataToTransfer, FLootLockerGetCurrentPlayerInfoResponseBP(), FLootLockerGetCurrentPlayerInfoResponseDelegate::CreateLambda([TempUlidCopy = DataToTransfer.PlayerUlid](const FLootLockerGetCurrentPlayerInfoResponse& Response)
+			{
+				FLootLockerPlayerData* transferredPlayerData = LoadPlayerData(TempUlidCopy);
+				if (transferredPlayerData != nullptr && Response.success)
+				{
+					transferredPlayerData->PlayerUlid = Response.Info.Id;
+					transferredPlayerData->PlayerPublicUid = Response.Info.Public_uid;
+					transferredPlayerData->PlayerName = Response.Info.Name;
+					SavePlayerData(*transferredPlayerData);
+					SetPlayerUlidToInactive(transferredPlayerData->PlayerUlid);
+				}
+				ClearSavedStateForPlayer(TempUlidCopy);
+				}));
+
+		UGameplayStatics::DeleteGameInSlot(BaseSaveSlot, 0);
+		return true;
+	}
+	return false;
+}
+
 FLootLockerStateMetaData ULootLockerStateData::LoadMetaState()
 {
 	if (isMetadataLoaded)
 	{
 		return ActiveMetaData;
 	}
-	if (ULootLockerStateMetaDataSaveGame* LoadedMetaState = Cast<ULootLockerStateMetaDataSaveGame>(UGameplayStatics::LoadGameFromSlot(BaseSaveSlot, SaveIndex)))
+	if (ULootLockerStateMetaDataSaveGame* LoadedMetaState = Cast<ULootLockerStateMetaDataSaveGame>(UGameplayStatics::LoadGameFromSlot(MetaDataSaveSlot, SaveIndex)))
 	{
 		ActiveMetaData.SavedPlayerStateUlids = LoadedMetaState->SavedPlayerStateUlids;
 		ActiveMetaData.DefaultPlayer = LoadedMetaState->DefaultPlayer;
+		if (ActiveMetaData.DefaultPlayer.IsEmpty() && ActiveMetaData.SavedPlayerStateUlids.Num() == 1)
+		{
+			ActiveMetaData.DefaultPlayer = ActiveMetaData.SavedPlayerStateUlids[0];
+		}
+		ActiveMetaData.MultiuserInitialLoadCompleted = LoadedMetaState->MultiuserInitialLoadCompleted;
 		isMetadataLoaded = true;
+
+		if (!ActiveMetaData.MultiuserInitialLoadCompleted && UGameplayStatics::DoesSaveGameExist(BaseSaveSlot, SaveIndex))
+		{
+			TransferPlayerCacheToMultiUserSystem();
+			ActiveMetaData.MultiuserInitialLoadCompleted = true;
+		}
 
 		return ActiveMetaData;
 	}
 
-	//No state stored, return
-	UE_LOG(LogLootLockerGameSDK, Warning, TEXT("No persisted LootLocker state found, this is fine if this is the first run on a device or state has been cleared"));
-
-	return FLootLockerStateMetaData();
+	FLootLockerStateMetaData NewMetaState = FLootLockerStateMetaData{ TArray<FString>(), "", true };
+	SetMetaState(NewMetaState);
+	bool preMultiUserStateFound = TransferPlayerCacheToMultiUserSystem();
+	if (!preMultiUserStateFound)
+	{
+		//No state stored, return
+		UE_LOG(LogLootLockerGameSDK, Warning, TEXT("No persisted LootLocker state found, this is fine if this is the first run on a device or state has been cleared"));
+	}
+	return ActiveMetaData;
 }
 
 void ULootLockerStateData::SetMetaState(FLootLockerStateMetaData& updatedMetaData)
@@ -52,10 +127,12 @@ void ULootLockerStateData::SetMetaState(FLootLockerStateMetaData& updatedMetaDat
 	ULootLockerStateMetaDataSaveGame* newSave = NewObject<ULootLockerStateMetaDataSaveGame>();
 	newSave->DefaultPlayer = updatedMetaData.DefaultPlayer;
 	newSave->SavedPlayerStateUlids = updatedMetaData.SavedPlayerStateUlids;
-	if (UGameplayStatics::SaveGameToSlot(newSave, BaseSaveSlot, SaveIndex))
+	newSave->MultiuserInitialLoadCompleted = updatedMetaData.MultiuserInitialLoadCompleted;
+	if (UGameplayStatics::SaveGameToSlot(newSave, MetaDataSaveSlot, SaveIndex))
 	{
 		ActiveMetaData.DefaultPlayer = updatedMetaData.DefaultPlayer;
 		ActiveMetaData.SavedPlayerStateUlids = updatedMetaData.SavedPlayerStateUlids;
+		ActiveMetaData.MultiuserInitialLoadCompleted = updatedMetaData.MultiuserInitialLoadCompleted;
 		isMetadataLoaded = true;
 		UE_LOG(LogLootLockerGameSDK, VeryVerbose, TEXT("Saved LootLocker meta state to disk"));
 		return;
@@ -87,7 +164,7 @@ FLootLockerPlayerData* ULootLockerStateData::LoadPlayerData(const FString& Playe
 				
 	}
 
-	FString TargetSaveSlot = BaseSaveSlot + "_" + TargetPlayerUlid;
+	FString TargetSaveSlot = PlayerDataSaveSlot + "_" + TargetPlayerUlid;
 	if (ULootLockerPlayerDataSaveGame* LoadedState = Cast<ULootLockerPlayerDataSaveGame>(UGameplayStatics::LoadGameFromSlot(TargetSaveSlot, SaveIndex)))
 	{
 		if (DefaultPlayerUlid.IsEmpty())
@@ -110,7 +187,7 @@ void ULootLockerStateData::SavePlayerData(const FLootLockerPlayerData& PlayerDat
 		return;
 	}
 
-	FString TargetSaveSlot = BaseSaveSlot + "_" + PlayerData.PlayerUlid;
+	FString TargetSaveSlot = PlayerDataSaveSlot + "_" + PlayerData.PlayerUlid;
 	if (!UGameplayStatics::SaveGameToSlot(ULootLockerPlayerDataSaveGame::Create(PlayerData), TargetSaveSlot, SaveIndex)) {
 		UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Failed to save LootLocker state to disk for player with ulid %s"), *PlayerData.PlayerUlid);
 		return;
@@ -133,12 +210,7 @@ void ULootLockerStateData::SavePlayerData(const FLootLockerPlayerData& PlayerDat
 
 FString ULootLockerStateData::GetDefaultPlayerUlid()
 {
-	FLootLockerStateMetaData metaState = LoadMetaState();
-	if (!metaState.DefaultPlayer.IsEmpty())
-	{
-		return metaState.DefaultPlayer;
-	}
-	return "";
+	return LoadMetaState().DefaultPlayer;
 }
 
 bool ULootLockerStateData::SetDefaultPlayerUlid(const FString& PlayerUlid)
@@ -202,7 +274,7 @@ bool ULootLockerStateData::ClearSavedStateForPlayer(const FString& PlayerUlid)
 		return false;
 	}
 
-	FString TargetSaveSlot = BaseSaveSlot + "_" + PlayerUlid;
+	FString TargetSaveSlot = PlayerDataSaveSlot + "_" + PlayerUlid;
 	UGameplayStatics::DeleteGameInSlot(TargetSaveSlot, SaveIndex);
 
 	FLootLockerStateMetaData metaState = LoadMetaState();

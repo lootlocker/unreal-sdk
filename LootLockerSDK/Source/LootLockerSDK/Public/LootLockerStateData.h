@@ -17,6 +17,8 @@ public:
 	TArray<FString> SavedPlayerStateUlids;
 	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
 	FString DefaultPlayer;
+	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
+	bool MultiuserInitialLoadCompleted; //TODO: Deprecated (or rather temporary) - Remove after 20250901
 };
 
 USTRUCT(BlueprintType)
@@ -28,6 +30,8 @@ public:
 	TArray<FString> SavedPlayerStateUlids;
 	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
 	FString DefaultPlayer;
+	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
+	bool MultiuserInitialLoadCompleted; //TODO: Deprecated (or rather temporary) - Remove after 20250901
 };
 
 UCLASS()
@@ -90,12 +94,18 @@ private:
 
 #if ENGINE_MAJOR_VERSION < 5
 	static const FString BaseSaveSlot;
+	inline static const FString MetaDataSaveSlot;
+	inline static const FString PlayerDataSaveSlot;
     static constexpr int SaveIndex = 0;
 #else
     inline static const FString BaseSaveSlot = "LootLocker";
+	inline static const FString MetaDataSaveSlot = BaseSaveSlot+"_md";
+	inline static const FString PlayerDataSaveSlot = BaseSaveSlot+"_pd";
     inline static constexpr int SaveIndex = 0;
 #endif
 
+	//TODO: Deprecated (or rather temporary) - Remove after 20250901
+	static bool TransferPlayerCacheToMultiUserSystem();
 	static FLootLockerStateMetaData LoadMetaState();
 	static FLootLockerPlayerData* LoadPlayerData(const FString& PlayerUlid);
 	static void SetMetaState(FLootLockerStateMetaData& updatedMetaData);
@@ -112,5 +122,5 @@ public:
 	static void ClearAllSavedStates();
 	static TArray<FString> GetActivePlayerUlids();
 	static TArray<FString> GetCachedPlayerUlids();
-	static void SetPlayerUlidToInactive(const FString& PlayerUlid);	
+	static void SetPlayerUlidToInactive(const FString& PlayerUlid);
 };
