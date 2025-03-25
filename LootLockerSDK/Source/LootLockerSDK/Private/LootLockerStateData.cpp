@@ -38,13 +38,13 @@ bool ULootLockerStateData::TransferPlayerCacheToMultiUserSystem()
 	}
 	auto GetPlatformRepresentationFromPlatformString = [](const FString& PlatformString) -> const FLootLockerPlatformRepresentation&
 		{
-			TArray<TMap<ELootLockerPlatform, FLootLockerPlatformRepresentation>::ElementType> platformRepresentations =
+			TArray<FLootLockerPlatformRepresentation> platformRepresentations =
 				ULootLockerPlatforms::GetAllPlatformRepresentations();
-			for (TPair<ELootLockerPlatform, FLootLockerPlatformRepresentation> PlatformRepresentation : platformRepresentations)
+			for (FLootLockerPlatformRepresentation& PlatformRepresentation : platformRepresentations)
 			{
-				if (PlatformRepresentation.Value.PlatformString.Equals(PlatformString, ESearchCase::IgnoreCase))
+				if (PlatformRepresentation.PlatformString.Equals(PlatformString, ESearchCase::IgnoreCase))
 				{
-					return PlatformRepresentation.Value;
+					return ULootLockerPlatforms::GetPlatformRepresentationForPlatform(PlatformRepresentation.Platform);
 				}
 			}
 			return ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::None);
@@ -195,7 +195,7 @@ void ULootLockerStateData::SavePlayerData(const FLootLockerPlayerData& PlayerDat
 	UE_LOG(LogLootLockerGameSDK, Verbose, TEXT("Saved LootLocker player state to disk for player with ulid %s"), *PlayerData.PlayerUlid);
 
 	FLootLockerStateMetaData metaState = LoadMetaState();
-	if (metaState.DefaultPlayer.IsEmpty() || ActivePlayerData.IsEmpty())
+	if (metaState.DefaultPlayer.IsEmpty() || ActivePlayerData.Num() == 0)
 	{
 		metaState.DefaultPlayer = PlayerData.PlayerUlid;
 		SetDefaultPlayerUlid(PlayerData.PlayerUlid);

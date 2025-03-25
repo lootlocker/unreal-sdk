@@ -94,8 +94,8 @@ private:
 
 #if ENGINE_MAJOR_VERSION < 5
 	static const FString BaseSaveSlot;
-	inline static const FString MetaDataSaveSlot;
-	inline static const FString PlayerDataSaveSlot;
+	static const FString MetaDataSaveSlot;
+	static const FString PlayerDataSaveSlot;
     static constexpr int SaveIndex = 0;
 #else
     inline static const FString BaseSaveSlot = "LootLocker";
