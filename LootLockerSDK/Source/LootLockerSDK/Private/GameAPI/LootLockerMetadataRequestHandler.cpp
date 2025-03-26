@@ -504,12 +504,7 @@ void ULootLockerMetadataRequestHandler::GetMultisourceMetadata(const FLootLocker
 
 void ULootLockerMetadataRequestHandler::SetMetadata(const FLootLockerPlayerData& PlayerData, const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FLootLockerSetMetadataAction>& MetadataToActionsToPerform, const FLootLockerSetMetadataResponseBP& OnCompleteBP, const FLootLockerSetMetadataResponseDelegate& OnComplete)
 {
-	FString _SourceID = SourceID;
-	if(Source == ELootLockerMetadataSources::self)
-	{
-		_SourceID = "self";
-	}
-	if (_SourceID.IsEmpty())
+	if (Source != ELootLockerMetadataSources::self && SourceID.IsEmpty())
 	{
         FLootLockerSetMetadataResponse Error = LootLockerResponseFactory::Error<FLootLockerSetMetadataResponse>("Can not perform actions for source with empty id", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, PlayerData.PlayerUlid);
 		OnCompleteBP.ExecuteIfBound(Error);
@@ -521,8 +516,14 @@ void ULootLockerMetadataRequestHandler::SetMetadata(const FLootLockerPlayerData&
 	FJsonObject ManuallySerializedRequest;
 	FString SourceAsString = ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerMetadataSources"), static_cast<int32>(Source)).ToLower();
 	SourceAsString.ReplaceCharInline(' ', '_');
-	ManuallySerializedRequest.SetStringField(TEXT("source"), SourceAsString);
-	ManuallySerializedRequest.SetStringField(TEXT("source_id"), _SourceID);
+	if (Source == ELootLockerMetadataSources::self)
+	{
+		ManuallySerializedRequest.SetBoolField(TEXT("self"), true);
+	}
+	else {
+		ManuallySerializedRequest.SetStringField(TEXT("source"), SourceAsString);
+		ManuallySerializedRequest.SetStringField(TEXT("source_id"), SourceID);
+	}
 
 	// Iterate over actions to perform and manually construct json since there's a ton of magic to it
 	TArray<TSharedPtr<FJsonValue>> entries;
