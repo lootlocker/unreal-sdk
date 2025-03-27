@@ -101,6 +101,25 @@ struct FLootLockerConnectAppleRestProviderToAccountRequest
     FString Authorization_code = "";
 };
 
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerConnectRemoteSessionToAccountRequest
+{
+    GENERATED_BODY()
+    /**
+     * The unique code for this leasing process, this is what identifies the leasing process and that is used to interact with it
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Code = "";
+    /**
+     * The nonce used to sign usage of the lease code
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Nonce = "";
+};
+
 //==================================================
 // Response Definitions
 //==================================================
@@ -177,6 +196,7 @@ public:
     static void ConnectGoogleAccount(const FLootLockerPlayerData& PlayerData, const FString& IdToken, const FLootLockerAccountConnectedResponseBP& OnCompleteBP = FLootLockerAccountConnectedResponseBP(), const FLootLockerAccountConnectedResponseDelegate& OnComplete = FLootLockerAccountConnectedResponseDelegate());
     static void ConnectGoogleAccount(const FLootLockerPlayerData& PlayerData, const FString& IdToken, EGoogleAccountProviderPlatform Platform, const FLootLockerAccountConnectedResponseBP& OnCompleteBP = FLootLockerAccountConnectedResponseBP(), const FLootLockerAccountConnectedResponseDelegate& OnComplete = FLootLockerAccountConnectedResponseDelegate());
     static void ConnectAppleAccountByRestSignIn(const FLootLockerPlayerData& PlayerData, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP = FLootLockerAccountConnectedResponseBP(), const FLootLockerAccountConnectedResponseDelegate& OnComplete = FLootLockerAccountConnectedResponseDelegate());
+    static void ConnectRemoteSessionAccount(const FLootLockerPlayerData& PlayerData, const FString& Code, const FString& Nonce, const FLootLockerAccountConnectedResponseBP& OnCompleteBP = FLootLockerAccountConnectedResponseBP(), const FLootLockerAccountConnectedResponseDelegate& OnComplete = FLootLockerAccountConnectedResponseDelegate());
 private:
     static ULootLockerHttpClient* HttpClient;
 };
