@@ -7,6 +7,7 @@
 #include "LootLockerHttpClient.h"
 #include "LootLockerResponse.h"
 #include "TimerManager.h"
+#include "Kismet/BlueprintAsyncActionBase.h"
 #include "LootLockerSDK/Private/Utils/LootLockerUtilities.h"
 #include "LootLockerRemoteSessionRequestHandler.generated.h"
 
@@ -26,6 +27,130 @@ enum class ELootLockerRemoteSessionLeaseStatus : uint8
     Cancelled = 4,
     Timed_out = 5,
     Failed = 6
+};
+
+/**
+ * Possible intents for remote sessions
+ */
+UENUM(BlueprintType, Category = "LootLocker")
+enum class ELootLockerRemoteSessionLeaseIntent : uint8
+{
+    /**
+     * Intent is to log in using a leased remote session
+     */
+    login = 0,
+    /**
+     * Intent is to link different providers
+     */
+    link = 1
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerRemoteSessionPlayerData
+{
+    GENERATED_BODY()
+    /**
+     * The player's name if it has been set by using SetPlayerName().
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString player_name = "";
+    /**
+     * The player id
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int32 player_id = 0;
+    /**
+     * The public UID for this player
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString public_uid;
+    /**
+     * The player ULID for this player
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString player_ulid;
+    /**
+     * Whether this player has been seen before (true) or is new (false)
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool seen_before = false;
+    /**
+     * Whether this player has new information to check in grants
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool check_grant_notifications = false;
+    /**
+     * Whether this player has new information to check in deactivations
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool check_deactivation_notifications = false;
+    /**
+     * The current xp of this player
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int32 xp = 0;
+    /**
+     * The current level of this player
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int32 level = 0;
+    /**
+     * The level_thresholds that the level and xp data relates to
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerLevelThresholds level_thresholds;
+    /**
+     * The current balance in this account
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int32 account_balance = 0;
+    /**
+     * The player identifier of the player
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString player_identifier;
+    /**
+     The id of the wallet for this account
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString wallet_id;
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerRemoteSessionLeaseData
+{
+    GENERATED_BODY()
+    /**
+     * The unique code for this leasing process, this is what identifies the leasing process and that is used to interact with it
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Code = "";
+    /**
+     * The nonce used to sign usage of the lease code
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Nonce = "";
+    /**
+     * A url with the code and nonce baked in that can be used to immediately start the remote authentication process on the device that uses it
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Redirect_url = "";
+    /**
+     * A QR code representation of the redirect_url encoded in Base64
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Redirect_url_qr_base64 = "";
+    /**
+     * A clean version of the redirect_url without the code visible that you can use in your UI
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Display_url = "";
 };
 
 //==================================================
@@ -49,6 +174,11 @@ struct FLootLockerLeaseRemoteSessionRequest
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Game_version = "";
+    /**
+     * The intent for this lease request
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    ELootLockerRemoteSessionLeaseIntent Intent = ELootLockerRemoteSessionLeaseIntent::login;
 };
 
 /**
@@ -103,32 +233,37 @@ struct FLootLockerLeaseRemoteSessionResponse : public FLootLockerResponse
      * The unique code for this leasing process, this is what identifies the leasing process and that is used to interact with it
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Code;
+    FString Code = "";
     /**
      * The nonce used to sign usage of the lease code
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Nonce;
+    FString Nonce = "";
     /**
      * A url with the code and nonce baked in that can be used to immediately start the remote authentication process on the device that uses it
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Redirect_url;
+    FString Redirect_url = "";
     /**
      * A QR code representation of the redirect_url encoded in Base64
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Redirect_url_qr_base64;
+    FString Redirect_url_qr_base64 = "";
     /**
      * A clean version of the redirect_url without the code visible that you can use in your UI
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Display_url;
+    FString Display_url = "";
     /**
      * The status of this lease process
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     ELootLockerRemoteSessionLeaseStatus Status = ELootLockerRemoteSessionLeaseStatus::Created;
+    /**
+     * The intent for this lease request
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    ELootLockerRemoteSessionLeaseIntent Intent = ELootLockerRemoteSessionLeaseIntent::login;
 };
 
 /**
@@ -161,7 +296,12 @@ struct FLootLockerStartRemoteSessionResponse : public FLootLockerAuthenticationR
      * A refresh token that can be used to refresh the remote session instead of signing in each time the session token expires
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Refresh_token;
+    FString Refresh_token = "";
+    /**
+     * The intent for this lease request
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    ELootLockerRemoteSessionLeaseIntent Intent = ELootLockerRemoteSessionLeaseIntent::login;
 };
 
 /**
@@ -175,9 +315,8 @@ struct FLootLockerRefreshRemoteSessionResponse : public FLootLockerAuthenticatio
      * A refresh token that can be used to refresh the remote session instead of signing in each time the session token expires
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Refresh_token;
+    FString Refresh_token = "";
 };
-
 
 //==================================================
 // Blueprint Delegate Definitions
@@ -250,23 +389,104 @@ public:
     ULootLockerRemoteSessionRequestHandler();
 
     static void CancelRemoteSessionProcess(const FString& ProcessID);
-    static FString StartRemoteSession(const FLootLockerPlayerData& PlayerData, const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformationBP = FLootLockerLeaseRemoteSessionResponseDelegateBP(), const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation = FLootLockerLeaseRemoteSessionResponseDelegate(), const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdateBP = FLootLockerRemoteSessionStatusPollingResponseDelegateBP(), const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate = FLootLockerRemoteSessionStatusPollingResponseDelegate(), const FLootLockerStartRemoteSessionResponseDelegateBP& OnCompleteBP = FLootLockerStartRemoteSessionResponseDelegateBP(), const FLootLockerStartRemoteSessionResponseDelegate& OnComplete = FLootLockerStartRemoteSessionResponseDelegate(), float PollingIntervalSeconds = 1.0f, float TimeOutAfterMinutes = 5.0f);
+    static FString StartRemoteSession(const FLootLockerPlayerData& PlayerData, ELootLockerRemoteSessionLeaseIntent Intent = ELootLockerRemoteSessionLeaseIntent::login, const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformationBP = FLootLockerLeaseRemoteSessionResponseDelegateBP(), const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation = FLootLockerLeaseRemoteSessionResponseDelegate(), const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdateBP = FLootLockerRemoteSessionStatusPollingResponseDelegateBP(), const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate = FLootLockerRemoteSessionStatusPollingResponseDelegate(), const FLootLockerStartRemoteSessionResponseDelegateBP& OnCompleteBP = FLootLockerStartRemoteSessionResponseDelegateBP(), const FLootLockerStartRemoteSessionResponseDelegate& OnComplete = FLootLockerStartRemoteSessionResponseDelegate(), float PollingIntervalSeconds = 1.0f, float TimeOutAfterMinutes = 5.0f);
     static void RefreshRemoteSession(const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegateBP& OnCompleteBP = FLootLockerRefreshRemoteSessionResponseDelegateBP(), const FLootLockerRefreshRemoteSessionResponseDelegate& OnComplete = FLootLockerRefreshRemoteSessionResponseDelegate());
 
 protected:
     static void ContinualPollingAction(const FLootLockerPlayerData& PlayerData, const FString& ProcessID,
-        const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformationBP = FLootLockerLeaseRemoteSessionResponseDelegateBP(),
-        const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation = FLootLockerLeaseRemoteSessionResponseDelegate(),
         const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdateBP = FLootLockerRemoteSessionStatusPollingResponseDelegateBP(),
         const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate = FLootLockerRemoteSessionStatusPollingResponseDelegate(),
         const FLootLockerStartRemoteSessionResponseDelegateBP& OnCompleteBP = FLootLockerStartRemoteSessionResponseDelegateBP(),
         const FLootLockerStartRemoteSessionResponseDelegate& OnComplete = FLootLockerStartRemoteSessionResponseDelegate());
     static void KillProcess(const FString& ProcessID);
-    static void LeaseRemoteSession(const FLootLockerPlayerData& PlayerData, const LLAPI<FLootLockerLeaseRemoteSessionResponse>::FResponseInspectorCallback& OnCompleteCallback);
+    static void LeaseRemoteSession(const FLootLockerPlayerData& PlayerData, ELootLockerRemoteSessionLeaseIntent Intent, const LLAPI<FLootLockerLeaseRemoteSessionResponse>::FResponseInspectorCallback& OnCompleteCallback);
     static void StartRemoteSession(const FLootLockerPlayerData& PlayerData, const FString& LeaseCode, const FString& LeaseNonce, const LLAPI<FLootLockerStartRemoteSessionResponse>::FResponseInspectorCallback& OnCompleteCallback);
     static void SetTimer(FTimerHandle TimerHandle, const FTimerDelegate& BaseDelegate, float TimeToNextPoll);
     static void ClearTimer(FTimerHandle TimerHandle);
 private:
     static ULootLockerHttpClient* HttpClient;
     static TMap<FString, FLootLockerRemoteSessionProcess> RemoteSessionProcesses;
+};
+
+//==================================================
+// Async Blueprint Delegate Definitions
+//==================================================
+
+/**
+ * TODO: Document
+ */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_SixParams(FLootLockerAsyncRemoteSessionMulticastDelegate, FString, LeaseProcessID, FLootLockerRemoteSessionLeaseData, LeaseData, FString, SessionTokenOnSuccess, FString, RefreshTokenOnSuccess, FLootLockerRemoteSessionPlayerData, PlayerDataOnSuccess, FLootLockerResponse, ResponseOnFailure);
+
+//==================================================
+// Async Blueprint Node Definitions
+//==================================================
+
+/***/
+UCLASS()
+class ULootLockerAsyncStartRemoteSession : public UBlueprintAsyncActionBase
+{
+    GENERATED_BODY()
+public:
+    /**
+     * TODO: Document
+     * @param WorldContextObject 
+     * @param ForPlayerWithUlid 
+     * @param PollingIntervalSeconds 
+     * @param TimeOutAfterMinutes 
+     * @return 
+     */
+    UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", Category = "LootLocker Methods | Remote Session", WorldContext = "WorldContextObject", AdvancedDisplay = "PollingIntervalSeconds,TimeOutAfterMinutes,ForPlayerWithUlid", PollingIntervalSeconds = 1.0f, TimeOutAfterMinutes = 5.0f, ForPlayerWithUlid = ""))
+    static LOOTLOCKERSDK_API ULootLockerAsyncStartRemoteSession* AsyncStartRemoteSession(UObject* WorldContextObject, const FString& ForPlayerWithUlid, float PollingIntervalSeconds, float TimeOutAfterMinutes);
+
+    /**
+     * TODO: Document
+     * @param WorldContextObject
+     * @param ForPlayerWithUlid
+     * @param PollingIntervalSeconds
+     * @param TimeOutAfterMinutes
+     * @return
+     */
+    UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", Category = "LootLocker Methods | Remote Session", WorldContext = "WorldContextObject", AdvancedDisplay = "PollingIntervalSeconds,TimeOutAfterMinutes,ForPlayerWithUlid", PollingIntervalSeconds = 1.0f, TimeOutAfterMinutes = 5.0f, ForPlayerWithUlid = ""))
+    static LOOTLOCKERSDK_API ULootLockerAsyncStartRemoteSession* AsyncStartRemoteSessionForLinking(UObject* WorldContextObject, const FString& ForPlayerWithUlid, float PollingIntervalSeconds, float TimeOutAfterMinutes);
+
+
+	/** TODO: Document */
+    UPROPERTY(BlueprintAssignable)
+    FLootLockerAsyncRemoteSessionMulticastDelegate OnProcessStarted;
+    /** TODO: Document */
+    UPROPERTY(BlueprintAssignable)
+    FLootLockerAsyncRemoteSessionMulticastDelegate OnLeaseClaimed;
+    /** TODO: Document */
+    UPROPERTY(BlueprintAssignable)
+    FLootLockerAsyncRemoteSessionMulticastDelegate OnLeaseVerified;
+    /** TODO: Document */
+    UPROPERTY(BlueprintAssignable)
+    FLootLockerAsyncRemoteSessionMulticastDelegate OnProcessCancelled;
+    /** TODO: Document */
+    UPROPERTY(BlueprintAssignable)
+    FLootLockerAsyncRemoteSessionMulticastDelegate OnProcessTimedOut;
+    /** TODO: Document */
+    UPROPERTY(BlueprintAssignable)
+    FLootLockerAsyncRemoteSessionMulticastDelegate OnProcessFailed;
+    /** TODO: Document */
+    UPROPERTY(BlueprintAssignable)
+    FLootLockerAsyncRemoteSessionMulticastDelegate OnProcessFinished;
+
+    /** Execute the actual operation */
+    LOOTLOCKERSDK_API virtual void Activate() override;
+
+protected:
+    ELootLockerRemoteSessionLeaseIntent Intent = ELootLockerRemoteSessionLeaseIntent::login;
+    FString LeaseProcessID = "";
+    FString ForPlayerWithUlid = "";
+    float PollingIntervalInSeconds = 0.0f;
+    float TimeoutAfterMinutes = 0.0f;
+    FLootLockerRemoteSessionLeaseData LeaseData;
+
+    UFUNCTION()
+    LOOTLOCKERSDK_API virtual void HandleLeaseProcessStarted(const FLootLockerLeaseRemoteSessionResponse& LeaseProcessStartedResponse);
+    UFUNCTION()
+    LOOTLOCKERSDK_API virtual void HandleLeaseProcessUpdate(const FLootLockerRemoteSessionStatusPollingResponse& LeaseProcessUpdateResponse);
+    UFUNCTION()
+    LOOTLOCKERSDK_API virtual void HandleLeaseProcessCompleted(const FLootLockerStartRemoteSessionResponse& LeaseProcessCompletedResponse);
 };
