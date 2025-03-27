@@ -423,7 +423,7 @@ private:
 //==================================================
 
 /**
- * TODO: Document
+ * Multicast Delegate for events triggered from the Async Remote Session node
  */
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_SixParams(FLootLockerAsyncRemoteSessionMulticastDelegate, FString, LeaseProcessID, FLootLockerRemoteSessionLeaseData, LeaseData, FString, SessionTokenOnSuccess, FString, RefreshTokenOnSuccess, FLootLockerRemoteSessionPlayerData, PlayerDataOnSuccess, FLootLockerResponse, ResponseOnFailure);
 
@@ -438,45 +438,70 @@ class ULootLockerAsyncStartRemoteSession : public UBlueprintAsyncActionBase
     GENERATED_BODY()
 public:
     /**
-     * TODO: Document
-     * @param WorldContextObject  
-     * @param PollingIntervalSeconds 
-     * @param TimeOutAfterMinutes 
-     * @return 
+     * Start a remote session
+     * If you want to let your local user sign in using another device then you use this method.
+     * First you will get the lease information (the LeaseData property will be populated) needed to allow a secondary device to authenticate and the OnProcessStarted event will trigger.
+     *
+     * Once the lease process status changes, the corresponding event will be triggered.
+     * 
+     * When the process has come to an end successfully, the OnProcessFinished event will trigger and the SessionTokenOnSuccess, RefreshTokenOnSuccess, and PlayerDataOnSuccess properties will be populated if present in the response.
+     *
+     * If the process is cancelled by the user, the OnProcessCanceled event will trigger.
+     *
+     * If the process times out, the OnProcessTimedOut event will trigger.
+     * 
+     * If the process fails, the OnProcessFailed event will trigger and the ResponseOnFailure property will be populated and contain error data.
+     *
+     * @param WorldContextObject Non input: Automatic context for async node
+     * @param PollingIntervalSeconds Optional: How often to poll the status of the remote session process
+     * @param TimeOutAfterMinutes Optional: How long to allow the process to take in its entirety
      */
     UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", Category = "LootLocker Methods | Remote Session", WorldContext = "WorldContextObject", AdvancedDisplay = "PollingIntervalSeconds,TimeOutAfterMinutes,ForPlayerWithUlid", PollingIntervalSeconds = 1.0f, TimeOutAfterMinutes = 5.0f, ForPlayerWithUlid = ""))
     static LOOTLOCKERSDK_API ULootLockerAsyncStartRemoteSession* AsyncStartRemoteSession(UObject* WorldContextObject, float PollingIntervalSeconds, float TimeOutAfterMinutes);
 
     /**
-     * TODO: Document
-     * @param WorldContextObject
-     * @param PollingIntervalSeconds
-     * @param TimeOutAfterMinutes
+     * Start a remote session with the intent to use the remote session for connecting accounts
+     * If you want to let your local user sign in using another device then you use this method.
+     * First you will get the lease information (the LeaseData property will be populated) needed to allow a secondary device to authenticate and the OnProcessStarted event will trigger.
+     *
+     * Once the lease process status changes, the corresponding event will be triggered.
+     * 
+     * When the process has come to an end successfully, the OnProcessFinished event will trigger and the SessionTokenOnSuccess, RefreshTokenOnSuccess, and PlayerDataOnSuccess properties will be populated if present in the response.
+     *
+     * If the process is cancelled by the user, the OnProcessCanceled event will trigger.
+     *
+     * If the process times out, the OnProcessTimedOut event will trigger.
+     * 
+     * If the process fails, the OnProcessFailed event will trigger and the ResponseOnFailure property will be populated and contain error data.
+     *
+     * @param WorldContextObject Non input: Automatic context for async node
+     * @param PollingIntervalSeconds Optional: How often to poll the status of the remote session process
+     * @param TimeOutAfterMinutes Optional: How long to allow the process to take in its entirety
      * @return
      */
     UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", Category = "LootLocker Methods | Remote Session", WorldContext = "WorldContextObject", AdvancedDisplay = "PollingIntervalSeconds,TimeOutAfterMinutes,ForPlayerWithUlid", PollingIntervalSeconds = 1.0f, TimeOutAfterMinutes = 5.0f, ForPlayerWithUlid = ""))
     static LOOTLOCKERSDK_API ULootLockerAsyncStartRemoteSession* AsyncStartRemoteSessionForLinking(UObject* WorldContextObject, float PollingIntervalSeconds, float TimeOutAfterMinutes);
 
 
-	/** TODO: Document */
+	/** Triggered once the lease process has successfully been started and the LeaseData property has been populated with the necessary information */
     UPROPERTY(BlueprintAssignable)
     FLootLockerAsyncRemoteSessionMulticastDelegate OnProcessStarted;
-    /** TODO: Document */
+    /** Triggered once the remote lease has been claimed (external process) */
     UPROPERTY(BlueprintAssignable)
     FLootLockerAsyncRemoteSessionMulticastDelegate OnLeaseClaimed;
-    /** TODO: Document */
+    /** Triggered once the remote lease has been verified (external process) */
     UPROPERTY(BlueprintAssignable)
     FLootLockerAsyncRemoteSessionMulticastDelegate OnLeaseVerified;
-    /** TODO: Document */
+    /** Triggered if the process was canceled using the CancelRemoteSessionProcess method */
     UPROPERTY(BlueprintAssignable)
     FLootLockerAsyncRemoteSessionMulticastDelegate OnProcessCancelled;
-    /** TODO: Document */
+    /** Triggered if the process times out */
     UPROPERTY(BlueprintAssignable)
     FLootLockerAsyncRemoteSessionMulticastDelegate OnProcessTimedOut;
-    /** TODO: Document */
+    /** Triggered if the process has concluded and was not a success. The ResponseOnFailure will be populated with the relevant error information */
     UPROPERTY(BlueprintAssignable)
     FLootLockerAsyncRemoteSessionMulticastDelegate OnProcessFailed;
-    /** TODO: Document */
+    /** Triggered if the process concluded successfully. The SessionTokenOnSuccess, RefreshTokenOnSuccess, and PlayerDataOnSuccess properties will be populated (if present in the response).*/
     UPROPERTY(BlueprintAssignable)
     FLootLockerAsyncRemoteSessionMulticastDelegate OnProcessFinished;
 
