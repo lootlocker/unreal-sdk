@@ -552,15 +552,14 @@ public:
      * While the process is ongoing, the remoteSessionLeaseStatusUpdate action (if one is provided) will be invoked intermittently (about once a second) to update you on the status of the process.
      * When the process has come to an end (whether successfully or not), the onComplete action will be invoked with the updated information.
      *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      * @param RemoteSessionLeaseInformation Will be invoked once to provide the lease information that the secondary device can use to authenticate
      * @param RemoteSessionLeaseStatusUpdate Will be invoked intermittently to update the status lease process
      * @param OnComplete Invoked when the remote session process has run to completion containing either a valid session or information on why the process failed
      * @param PollingIntervalSeconds Optional: How often to poll the status of the remote session process
      * @param TimeOutAfterMinutes Optional: How long to allow the process to take in its entirety
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Remote Session", meta = (AdvancedDisplay = "PollingIntervalSeconds,TimeOutAfterMinutes,ForPlayerWithUlid", PollingIntervalSeconds = 1.0f, TimeOutAfterMinutes = 5.0f, ForPlayerWithUlid = "", DeprecatedFunction, DeprecationMessage = "This method is deprecated in favor of either method AsyncStartRemoteSession or AsyncStartRemoteSessionForLinking depending on your use case")) // Deprecation date 20250327
-    static FString StartRemoteSession(const FString& ForPlayerWithUlid, const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegateBP& OnComplete, float PollingIntervalSeconds, float TimeOutAfterMinutes);
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Remote Session", meta = (AdvancedDisplay = "PollingIntervalSeconds,TimeOutAfterMinutes", PollingIntervalSeconds = 1.0f, TimeOutAfterMinutes = 5.0f, DeprecatedFunction, DeprecationMessage = "This method is deprecated in favor of either method AsyncStartRemoteSession or AsyncStartRemoteSessionForLinking depending on your use case")) // Deprecation date 20250327
+    static FString StartRemoteSession(const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegateBP& OnComplete, float PollingIntervalSeconds, float TimeOutAfterMinutes);
 
     /**
      * Cancel an ongoing remote session process
@@ -574,7 +573,6 @@ public:
      * Refresh a previous session signed in remotely
      * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
      *
-     * @param ForPlayerWithUlid (OPTIONAL) Execute the request for player with the the ulidplayer. If not supplied, the default player will be used.
      * @param RefreshToken (OPTIONAL) Refresh token received in response from StartRemoteSession request
      * @param OnCompletedRequest Delegate for handling the response
      */
