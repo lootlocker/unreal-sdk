@@ -531,6 +531,17 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ConnectAppleAccountByRestSignIn(const FString& ForPlayerWithUlid, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
 
+    /**
+     * Connect an account (authorized using a remote session) to the currently logged in LootLocker account allowing that authentication method to start sessions for this player
+     *
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     * @param Code The lease code returned with the response when starting a lease process
+     * @param Nonce The nonce returned with the response when starting a lease process
+     * @param OnCompleteBP Delegate for handling the response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static void ConnectRemoteSessionAccount(const FString& ForPlayerWithUlid, const FString& Code, const FString& Nonce, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+
     //==================================================
     // Remote Sessions
     //==================================================
@@ -546,19 +557,18 @@ public:
      * @param RemoteSessionLeaseStatusUpdate Will be invoked intermittently to update the status lease process
      * @param OnComplete Invoked when the remote session process has run to completion containing either a valid session or information on why the process failed
      * @param PollingIntervalSeconds Optional: How often to poll the status of the remote session process
-     * @param TimeOutAfterMinutes Optional: How long to allow the process to take in it's entirety
+     * @param TimeOutAfterMinutes Optional: How long to allow the process to take in its entirety
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Remote Session", meta = (AdvancedDisplay = "PollingIntervalSeconds,TimeOutAfterMinutes,ForPlayerWithUlid", Count = 1.0f, After = 5.0f, ForPlayerWithUlid=""))
-    static FString StartRemoteSession(const FString& ForPlayerWithUlid, const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegateBP& OnComplete, float PollingIntervalSeconds = 1.0f, float TimeOutAfterMinutes = 5.0f);
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Remote Session", meta = (AdvancedDisplay = "PollingIntervalSeconds,TimeOutAfterMinutes,ForPlayerWithUlid", PollingIntervalSeconds = 1.0f, TimeOutAfterMinutes = 5.0f, ForPlayerWithUlid = "", DeprecatedFunction, DeprecationMessage = "This method is deprecated in favor of either method AsyncStartRemoteSession or AsyncStartRemoteSessionForLinking depending on your use case")) // Deprecation date 20250327
+    static FString StartRemoteSession(const FString& ForPlayerWithUlid, const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegateBP& OnComplete, float PollingIntervalSeconds, float TimeOutAfterMinutes);
 
     /**
      * Cancel an ongoing remote session process
      *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      * @param ProcessID The id of the remote session process that you want to cancel
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Remote Session", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void CancelRemoteSessionProcess(const FString& ForPlayerWithUlid, FString ProcessID);
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Remote Session")
+    static void CancelRemoteSessionProcess(FString ProcessID);
 
     /**
      * Refresh a previous session signed in remotely
@@ -587,7 +597,7 @@ public:
     /**
     * List information for one or more other players
     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
     * @param PlayerIdsToLookUp A list of ULID ids of players to look up. These ids are in the form of ULIDs and are sometimes called player_ulid or similar
     * @param PlayerLegacyIdsToLookUp A list of legacy ids of players to look up. These ids are in the form of integers and are sometimes called simply player_id or id
     * @param PlayerPublicUidsToLookUp A list of public uids to look up. These ids are in the form of UIDs
@@ -696,7 +706,7 @@ public:
 	* This endpoint will return the names of the players on their last active platform.
 	* https://ref.lootlocker.com/game-api/#lookup-multiple-player-names-using-ids
 	*
-    * @param ForPlayer Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
 	* @param Request Request array with platforms and Ids to search for.
 	* @param OnCompletedRequest Delegate for handling the the server response.
 	*/

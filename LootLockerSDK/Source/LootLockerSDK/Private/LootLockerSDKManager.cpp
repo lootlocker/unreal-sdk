@@ -220,15 +220,25 @@ void ULootLockerSDKManager::ConnectAppleAccountByRestSignIn(const FString& Autho
     ULootLockerConnectedAccountsRequestHandler::ConnectAppleAccountByRestSignIn(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AuthorizationCode, FLootLockerAccountConnectedResponseBP(), OnComplete);
 }
 
+void ULootLockerSDKManager::ConnectRemoteSessionAccount(const FString& Code, const FString& Nonce, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString ForPlayerWithUlid /* = "" */)
+{
+    ULootLockerConnectedAccountsRequestHandler::ConnectRemoteSessionAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Code, Nonce, FLootLockerAccountConnectedResponseBP(), OnComplete);
+}
+
 //==================================================
 // Remote Sessions
 //==================================================
 FString ULootLockerSDKManager::StartRemoteSession(const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegate& OnComplete, float PollingIntervalSeconds, float TimeOutAfterMinutes, const FString ForPlayerWithUlid /* = "" */)
 {
-    return ULootLockerRemoteSessionRequestHandler::StartRemoteSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FLootLockerLeaseRemoteSessionResponseDelegateBP(), RemoteSessionLeaseInformation, FLootLockerRemoteSessionStatusPollingResponseDelegateBP(), RemoteSessionLeaseStatusUpdate, FLootLockerStartRemoteSessionResponseDelegateBP(), OnComplete, PollingIntervalSeconds, TimeOutAfterMinutes);
+    return ULootLockerRemoteSessionRequestHandler::StartRemoteSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ELootLockerRemoteSessionLeaseIntent::login, FLootLockerLeaseRemoteSessionResponseDelegateBP(), RemoteSessionLeaseInformation, FLootLockerRemoteSessionStatusPollingResponseDelegateBP(), RemoteSessionLeaseStatusUpdate, FLootLockerStartRemoteSessionResponseDelegateBP(), OnComplete, PollingIntervalSeconds, TimeOutAfterMinutes);
 }
 
-void ULootLockerSDKManager::CancelRemoteSessionProcess(const FString& ProcessID, const FString ForPlayerWithUlid /* = "" */)
+FString ULootLockerSDKManager::StartRemoteSessionForLinking(const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegate& OnComplete, float PollingIntervalSeconds, float TimeOutAfterMinutes, const FString ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerRemoteSessionRequestHandler::StartRemoteSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ELootLockerRemoteSessionLeaseIntent::link, FLootLockerLeaseRemoteSessionResponseDelegateBP(), RemoteSessionLeaseInformation, FLootLockerRemoteSessionStatusPollingResponseDelegateBP(), RemoteSessionLeaseStatusUpdate, FLootLockerStartRemoteSessionResponseDelegateBP(), OnComplete, PollingIntervalSeconds, TimeOutAfterMinutes);
+}
+
+void ULootLockerSDKManager::CancelRemoteSessionProcess(const FString& ProcessID)
 {
     ULootLockerRemoteSessionRequestHandler::CancelRemoteSessionProcess(ProcessID);
 }
