@@ -389,18 +389,28 @@ public:
     ULootLockerRemoteSessionRequestHandler();
 
     static void CancelRemoteSessionProcess(const FString& ProcessID);
-    static FString StartRemoteSession(const FLootLockerPlayerData& PlayerData, ELootLockerRemoteSessionLeaseIntent Intent = ELootLockerRemoteSessionLeaseIntent::login, const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformationBP = FLootLockerLeaseRemoteSessionResponseDelegateBP(), const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation = FLootLockerLeaseRemoteSessionResponseDelegate(), const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdateBP = FLootLockerRemoteSessionStatusPollingResponseDelegateBP(), const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate = FLootLockerRemoteSessionStatusPollingResponseDelegate(), const FLootLockerStartRemoteSessionResponseDelegateBP& OnCompleteBP = FLootLockerStartRemoteSessionResponseDelegateBP(), const FLootLockerStartRemoteSessionResponseDelegate& OnComplete = FLootLockerStartRemoteSessionResponseDelegate(), float PollingIntervalSeconds = 1.0f, float TimeOutAfterMinutes = 5.0f);
+    static FString StartRemoteSession(ELootLockerRemoteSessionLeaseIntent Intent = ELootLockerRemoteSessionLeaseIntent::login, const
+                                      FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformationBP =
+	                                      FLootLockerLeaseRemoteSessionResponseDelegateBP(), const FLootLockerLeaseRemoteSessionResponseDelegate&
+	                                      RemoteSessionLeaseInformation = FLootLockerLeaseRemoteSessionResponseDelegate(), const
+                                      FLootLockerRemoteSessionStatusPollingResponseDelegateBP&
+	                                      RemoteSessionLeaseStatusUpdateBP = FLootLockerRemoteSessionStatusPollingResponseDelegateBP(), const
+                                      FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate =
+	                                      FLootLockerRemoteSessionStatusPollingResponseDelegate(), const FLootLockerStartRemoteSessionResponseDelegateBP&
+	                                      OnCompleteBP = FLootLockerStartRemoteSessionResponseDelegateBP(), const
+                                      FLootLockerStartRemoteSessionResponseDelegate& OnComplete = FLootLockerStartRemoteSessionResponseDelegate(), float
+                                      PollingIntervalSeconds = 1.0f, float TimeOutAfterMinutes = 5.0f);
     static void RefreshRemoteSession(const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegateBP& OnCompleteBP = FLootLockerRefreshRemoteSessionResponseDelegateBP(), const FLootLockerRefreshRemoteSessionResponseDelegate& OnComplete = FLootLockerRefreshRemoteSessionResponseDelegate());
 
 protected:
-    static void ContinualPollingAction(const FLootLockerPlayerData& PlayerData, const FString& ProcessID,
-        const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdateBP = FLootLockerRemoteSessionStatusPollingResponseDelegateBP(),
-        const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate = FLootLockerRemoteSessionStatusPollingResponseDelegate(),
-        const FLootLockerStartRemoteSessionResponseDelegateBP& OnCompleteBP = FLootLockerStartRemoteSessionResponseDelegateBP(),
-        const FLootLockerStartRemoteSessionResponseDelegate& OnComplete = FLootLockerStartRemoteSessionResponseDelegate());
+    static void ContinualPollingAction(const FString& ProcessID,
+                                       const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdateBP = FLootLockerRemoteSessionStatusPollingResponseDelegateBP(),
+                                       const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate = FLootLockerRemoteSessionStatusPollingResponseDelegate(),
+                                       const FLootLockerStartRemoteSessionResponseDelegateBP& OnCompleteBP = FLootLockerStartRemoteSessionResponseDelegateBP(),
+                                       const FLootLockerStartRemoteSessionResponseDelegate& OnComplete = FLootLockerStartRemoteSessionResponseDelegate());
     static void KillProcess(const FString& ProcessID);
-    static void LeaseRemoteSession(const FLootLockerPlayerData& PlayerData, ELootLockerRemoteSessionLeaseIntent Intent, const LLAPI<FLootLockerLeaseRemoteSessionResponse>::FResponseInspectorCallback& OnCompleteCallback);
-    static void StartRemoteSession(const FLootLockerPlayerData& PlayerData, const FString& LeaseCode, const FString& LeaseNonce, const LLAPI<FLootLockerStartRemoteSessionResponse>::FResponseInspectorCallback& OnCompleteCallback);
+    static void LeaseRemoteSession(ELootLockerRemoteSessionLeaseIntent Intent, const LLAPI<FLootLockerLeaseRemoteSessionResponse>::FResponseInspectorCallback& OnCompleteCallback);
+    static void StartRemoteSession(const FString& LeaseCode, const FString& LeaseNonce, const LLAPI<FLootLockerStartRemoteSessionResponse>::FResponseInspectorCallback& OnCompleteCallback);
     static void SetTimer(FTimerHandle TimerHandle, const FTimerDelegate& BaseDelegate, float TimeToNextPoll);
     static void ClearTimer(FTimerHandle TimerHandle);
 private:
@@ -429,25 +439,23 @@ class ULootLockerAsyncStartRemoteSession : public UBlueprintAsyncActionBase
 public:
     /**
      * TODO: Document
-     * @param WorldContextObject 
-     * @param ForPlayerWithUlid 
+     * @param WorldContextObject  
      * @param PollingIntervalSeconds 
      * @param TimeOutAfterMinutes 
      * @return 
      */
     UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", Category = "LootLocker Methods | Remote Session", WorldContext = "WorldContextObject", AdvancedDisplay = "PollingIntervalSeconds,TimeOutAfterMinutes,ForPlayerWithUlid", PollingIntervalSeconds = 1.0f, TimeOutAfterMinutes = 5.0f, ForPlayerWithUlid = ""))
-    static LOOTLOCKERSDK_API ULootLockerAsyncStartRemoteSession* AsyncStartRemoteSession(UObject* WorldContextObject, const FString& ForPlayerWithUlid, float PollingIntervalSeconds, float TimeOutAfterMinutes);
+    static LOOTLOCKERSDK_API ULootLockerAsyncStartRemoteSession* AsyncStartRemoteSession(UObject* WorldContextObject, float PollingIntervalSeconds, float TimeOutAfterMinutes);
 
     /**
      * TODO: Document
      * @param WorldContextObject
-     * @param ForPlayerWithUlid
      * @param PollingIntervalSeconds
      * @param TimeOutAfterMinutes
      * @return
      */
     UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", Category = "LootLocker Methods | Remote Session", WorldContext = "WorldContextObject", AdvancedDisplay = "PollingIntervalSeconds,TimeOutAfterMinutes,ForPlayerWithUlid", PollingIntervalSeconds = 1.0f, TimeOutAfterMinutes = 5.0f, ForPlayerWithUlid = ""))
-    static LOOTLOCKERSDK_API ULootLockerAsyncStartRemoteSession* AsyncStartRemoteSessionForLinking(UObject* WorldContextObject, const FString& ForPlayerWithUlid, float PollingIntervalSeconds, float TimeOutAfterMinutes);
+    static LOOTLOCKERSDK_API ULootLockerAsyncStartRemoteSession* AsyncStartRemoteSessionForLinking(UObject* WorldContextObject, float PollingIntervalSeconds, float TimeOutAfterMinutes);
 
 
 	/** TODO: Document */
@@ -478,7 +486,6 @@ public:
 protected:
     ELootLockerRemoteSessionLeaseIntent Intent = ELootLockerRemoteSessionLeaseIntent::login;
     FString LeaseProcessID = "";
-    FString ForPlayerWithUlid = "";
     float PollingIntervalInSeconds = 0.0f;
     float TimeoutAfterMinutes = 0.0f;
     FLootLockerRemoteSessionLeaseData LeaseData;

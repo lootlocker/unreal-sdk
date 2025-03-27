@@ -472,9 +472,8 @@ public:
      * @param OnComplete Invoked when the remote session process has run to completion containing either a valid session or information on why the process failed
      * @param PollingIntervalSeconds Optional: How often to poll the status of the remote session process
      * @param TimeOutAfterMinutes Optional: How long to allow the process to take in its entirety
-     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static FString StartRemoteSession(const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegate& OnComplete, float PollingIntervalSeconds = 1.0f, float TimeOutAfterMinutes = 5.0f, const FString ForPlayerWithUlid = "");
+    static FString StartRemoteSession(const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegate& OnComplete, float PollingIntervalSeconds = 1.0f, float TimeOutAfterMinutes = 5.0f);
 
     /**
      * Start a remote session
@@ -487,9 +486,8 @@ public:
      * @param OnComplete Invoked when the remote session process has run to completion containing either a valid session or information on why the process failed
      * @param PollingIntervalSeconds Optional: How often to poll the status of the remote session process
      * @param TimeOutAfterMinutes Optional: How long to allow the process to take in its entirety
-     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static FString StartRemoteSessionForLinking(const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegate& OnComplete, float PollingIntervalSeconds = 1.0f, float TimeOutAfterMinutes = 5.0f, const FString ForPlayerWithUlid = "");
+    static FString StartRemoteSessionForLinking(const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegate& OnComplete, float PollingIntervalSeconds = 1.0f, float TimeOutAfterMinutes = 5.0f);
 
     /**
      * Cancel an ongoing remote session process
