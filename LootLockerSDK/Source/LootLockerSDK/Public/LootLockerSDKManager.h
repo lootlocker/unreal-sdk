@@ -2636,6 +2636,46 @@ public:
     */
     static void SetMetadata(const ELootLockerMetadataSources Source, const FString & SourceID, const TArray<FLootLockerSetMetadataAction>&MetadataToActionsToPerform, const FLootLockerSetMetadataResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
+    /*
+    Get the value as a UStruct of your choice. Returns true if value could be found in which case Output contains the parsed UStruct, returns false if the value field was not present or not parseable.
+
+    @param Entry The entry for which you want to get the UStruct value.
+    @param Output The UStruct object that you want to be filled with data if the value was successfully parsed.
+    @return True if the value could be parsed as the provided UStruct
+     */
+    template<typename T>
+    static bool TryGetMetadataValueAsUStruct(const FLootLockerMetadataEntry& Entry, T& Output)
+	{
+        TSharedPtr<FJsonObject> jsonObject = MakeShared<FJsonObject>();
+        if (!Entry.TryGetValueAsJsonObject(jsonObject))
+        {
+            return false;
+        }
+        return FJsonObjectConverter::JsonObjectToUStruct<T>(jsonObject.ToSharedRef(), &Output, 0, 0);
+    }
+
+    /*
+    Factory method that makes an FLootLockerMetadataEntry with a UStruct Value
+
+    @param Entry The key you want for this entry
+    @param Tags The tags you want for this entry
+    @param Access The access level you want to set for this entry
+    @param Value The UStruct object that you to be converted to json and set as the value for this metadata entry
+    @return The filled out metadata entry (or empty if it could not be constructed).
+     */
+    template<typename T>
+    static FLootLockerMetadataEntry MakeMetadataEntryWithUStructValue(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const T& Value)
+    {
+        TSharedPtr<FJsonObject> JsonObject = FJsonObjectConverter::UStructToJsonObject(Value);
+        if (!JsonObject.IsValid())
+        {
+            return FLootLockerMetadataEntry();
+        }
+        FLootLockerMetadataEntry Entry = FLootLockerMetadataEntry::MakeEntryExceptValue(Key, Tags, Access, ELootLockerMetadataTypes::Json);
+        Entry.SetValueAsJsonObject(*JsonObject);
+        return Entry;
+    }
+
     //==================================================
     //Miscellaneous
     //==================================================

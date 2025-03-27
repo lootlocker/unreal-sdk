@@ -4,9 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "Dom/JsonObject.h"
+#include "JsonObjectConverter.h"
 #include "LootLockerResponse.h"
 #include "LootLockerHttpClient.h"
 #include "LootLockerMetadataRequestHandler.generated.h"
+
+class ULootLockerMetadataRequestHandler;
 
 //==================================================
 // Enum Definitions
@@ -145,11 +148,6 @@ struct FLootLockerMetadataEntry
      */
     LOOTLOCKERSDK_API bool TryGetSerializedValue(FString& Output) const;
     /*
-     Get the value as an unparsed json value. Returns true if value could be found in which case Output contains the JsonValue, returns false if the value field was not present.
-     */
-    template<typename T>
-    LOOTLOCKERSDK_API bool TryGetValueAsUStruct(T& Output) const;
-    /*
      Get the value as a Json Object. Returns true if value could be parsed in which case Output contains the Json Object, returns false if parsing failed which can happen if the value is not a valid json object string.
      */
     LOOTLOCKERSDK_API bool TryGetValueAsJsonObject(TSharedPtr<FJsonObject>& Output) const;
@@ -221,11 +219,6 @@ struct FLootLockerMetadataEntry
      */
     static LOOTLOCKERSDK_API FLootLockerMetadataEntry MakeJsonValueEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const ELootLockerMetadataTypes Type, const TSharedPtr<FJsonValue> Value);
     /*
-     Factory method that makes an FLootLockerMetadataEntry with a UStruct Value
-     */
-    template<typename T>
-    static LOOTLOCKERSDK_API FLootLockerMetadataEntry MakeUStructEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const T& Value);
-    /*
      Factory method that makes an FLootLockerMetadataEntry with a JsonObject Value
      */
     static LOOTLOCKERSDK_API FLootLockerMetadataEntry MakeJsonObjectEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const FJsonObject& Value);
@@ -241,8 +234,8 @@ struct FLootLockerMetadataEntry
     /*
      */
     void _INTERNAL_SetJsonRepresentation(const FJsonObject& obj);
+    static LOOTLOCKERSDK_API FLootLockerMetadataEntry MakeEntryExceptValue(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const ELootLockerMetadataTypes Type);
 private:
-    static FLootLockerMetadataEntry MakeEntryExceptValue(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const ELootLockerMetadataTypes Type);
 
     FJsonObject EntryAsJson;
 };

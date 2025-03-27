@@ -66,17 +66,6 @@ bool FLootLockerMetadataEntry::TryGetSerializedValue(FString& Output) const
 	return Val->TryGetString(Output);
 }
 
-template<typename T>
-bool FLootLockerMetadataEntry::TryGetValueAsUStruct(T& Output) const
-{
-	TSharedPtr<FJsonObject> jsonObject = MakeShared<FJsonObject>();
-	if (!TryGetValueAsJsonObject(jsonObject))
-	{
-		return false;
-	}
-	return FJsonObjectConverter::JsonObjectToUStruct<T>(jsonObject.ToSharedRef(), &Output, 0, 0);		
-}
-
 bool FLootLockerMetadataEntry::TryGetValueAsJsonObject(TSharedPtr<FJsonObject>& Output) const
 {
 	if(!EntryAsJson.HasTypedField<EJson::Object>(TEXT("value")))
@@ -99,7 +88,12 @@ bool FLootLockerMetadataEntry::TryGetValueAsJsonArray(TArray<TSharedPtr<FJsonVal
 
 bool FLootLockerMetadataEntry::TryGetValueAsBase64(FLootLockerMetadataBase64Value& Output) const
 {
-	return TryGetValueAsUStruct(Output);
+	TSharedPtr<FJsonObject> jsonObject = MakeShared<FJsonObject>();
+	if (!TryGetValueAsJsonObject(jsonObject))
+	{
+		return false;
+	}
+	return FJsonObjectConverter::JsonObjectToUStruct<FLootLockerMetadataBase64Value>(jsonObject.ToSharedRef(), &Output, 0, 0);
 }
 
 void FLootLockerMetadataEntry::SetValueAsString(const FString& Value) 
@@ -196,14 +190,6 @@ FLootLockerMetadataEntry FLootLockerMetadataEntry::MakeJsonValueEntry(const FStr
 	return Entry;
 }
 
-template<typename T>
-FLootLockerMetadataEntry FLootLockerMetadataEntry::MakeUStructEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const T& Value)
-{
-	FLootLockerMetadataEntry Entry = MakeEntryExceptValue(Key, Tags, Access, ELootLockerMetadataTypes::Json);
-	Entry.SetValueAsUStruct(Value);
-	return Entry;
-}
-
 FLootLockerMetadataEntry FLootLockerMetadataEntry::MakeJsonObjectEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const FJsonObject& Value)
 {
 	FLootLockerMetadataEntry Entry = MakeEntryExceptValue(Key, Tags, Access, ELootLockerMetadataTypes::Json);
@@ -220,7 +206,14 @@ FLootLockerMetadataEntry FLootLockerMetadataEntry::MakeJsonArrayEntry(const FStr
 
 FLootLockerMetadataEntry FLootLockerMetadataEntry::MakeBase64Entry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const FLootLockerMetadataBase64Value& Value)
 {
-	return MakeUStructEntry(Key, Tags, Access, Value);
+	TSharedPtr<FJsonObject> JsonObject = FJsonObjectConverter::UStructToJsonObject(Value);
+	if (!JsonObject.IsValid())
+	{
+		return FLootLockerMetadataEntry();
+	}
+	FLootLockerMetadataEntry Entry = MakeEntryExceptValue(Key, Tags, Access, ELootLockerMetadataTypes::Json);
+	Entry.SetValueAsJsonObject(*JsonObject);
+	return Entry;
 }
 
 FLootLockerMetadataEntry FLootLockerMetadataEntry::MakeEntryExceptValue(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const ELootLockerMetadataTypes Type)
