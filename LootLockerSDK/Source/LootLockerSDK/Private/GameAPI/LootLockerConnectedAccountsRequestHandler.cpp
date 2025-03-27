@@ -35,3 +35,8 @@ void ULootLockerConnectedAccountsRequestHandler::ConnectAppleAccountByRestSignIn
 {
     LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(HttpClient, FLootLockerConnectAppleRestProviderToAccountRequest{ AuthorizationCode }, ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint, { FString("apple-rest") }, {}, PlayerData, OnCompleteBP, OnComplete);
 }
+
+void ULootLockerConnectedAccountsRequestHandler::ConnectRemoteSessionAccount(const FLootLockerPlayerData& PlayerData, const FString& Code, const FString& Nonce,	const FLootLockerAccountConnectedResponseBP& OnCompleteBP, const FLootLockerAccountConnectedResponseDelegate& OnComplete)
+{
+    LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(HttpClient, FLootLockerConnectRemoteSessionToAccountRequest{ Code, Nonce }, ULootLockerGameEndpoints::AttachRemoteSessionToAccountEndpoint, {}, {}, PlayerData, OnCompleteBP, OnComplete);
+}

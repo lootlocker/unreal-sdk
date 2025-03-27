@@ -226,15 +226,20 @@ void ULootLockerManager::ConnectAppleAccountByRestSignIn(const FString& ForPlaye
     ULootLockerConnectedAccountsRequestHandler::ConnectAppleAccountByRestSignIn(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AuthorizationCode, OnCompleteBP);
 }
 
+void ULootLockerManager::ConnectRemoteSessionAccount(const FString& ForPlayerWithUlid, const FString& Code, const FString& Nonce, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+{
+    ULootLockerConnectedAccountsRequestHandler::ConnectRemoteSessionAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Code, Nonce, OnCompleteBP);
+}
+
 //==================================================
 // Remote Sessions
 //==================================================
 FString ULootLockerManager::StartRemoteSession(const FString& ForPlayerWithUlid, const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegateBP& OnComplete, float PollingIntervalSeconds, float TimeOutAfterMinutes)
 {
-    return ULootLockerRemoteSessionRequestHandler::StartRemoteSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), RemoteSessionLeaseInformation, FLootLockerLeaseRemoteSessionResponseDelegate(), RemoteSessionLeaseStatusUpdate, FLootLockerRemoteSessionStatusPollingResponseDelegate(), OnComplete, FLootLockerStartRemoteSessionResponseDelegate(), PollingIntervalSeconds, TimeOutAfterMinutes);
+    return ULootLockerRemoteSessionRequestHandler::StartRemoteSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ELootLockerRemoteSessionLeaseIntent::login, RemoteSessionLeaseInformation, FLootLockerLeaseRemoteSessionResponseDelegate(), RemoteSessionLeaseStatusUpdate, FLootLockerRemoteSessionStatusPollingResponseDelegate(), OnComplete, FLootLockerStartRemoteSessionResponseDelegate(), PollingIntervalSeconds, TimeOutAfterMinutes);
 }
 
-void ULootLockerManager::CancelRemoteSessionProcess(const FString& ForPlayerWithUlid, FString ProcessID)
+void ULootLockerManager::CancelRemoteSessionProcess(FString ProcessID)
 {
     ULootLockerRemoteSessionRequestHandler::CancelRemoteSessionProcess(ProcessID);
 }
