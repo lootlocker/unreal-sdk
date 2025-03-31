@@ -9,6 +9,7 @@
 #include "LootLockerSDK.h"
 #include "GameAPI/LootLockerCharacterRequestHandler.h"
 #include "GameAPI/LootLockerMissionsRequestHandler.h"
+#include "GenericPlatform/GenericPlatformHttp.h"
 #include "LootLockerUtilities.generated.h"
 
 constexpr FLootLockerEmptyRequest LootLockerEmptyRequest;
@@ -157,7 +158,12 @@ struct LLAPI
         // calculate endpoint
         const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
         FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, FStringFormatNamedArguments{ {"domainKey", Config && !Config->DomainKey.IsEmpty() ? Config->DomainKey + "." : ""} });
-        EndpointWithArguments = FString::Format(*EndpointWithArguments, InOrderedArguments);
+        TArray<FStringFormatArg> UrlEncodedPathParams;
+        for (const FStringFormatArg& InOrderedArgument : InOrderedArguments)
+        {
+            UrlEncodedPathParams.Add(FGenericPlatformHttp::UrlEncode(InOrderedArgument.StringValue));
+        }
+        EndpointWithArguments = FString::Format(*EndpointWithArguments, UrlEncodedPathParams);
         if (!PlayerData.Token.IsEmpty())
         {
             CustomHeaders.Add(TEXT("x-session-token"), PlayerData.Token);	        
@@ -168,7 +174,7 @@ struct LLAPI
             FString Delimiter = "?";
             for (const TPair<FString, FString>& Pair : QueryParams)
             {
-                EndpointWithArguments = EndpointWithArguments + Delimiter + Pair.Key + "=" + Pair.Value;
+                EndpointWithArguments = EndpointWithArguments + Delimiter + FGenericPlatformHttp::UrlEncode(Pair.Key) + "=" + FGenericPlatformHttp::UrlEncode(Pair.Value);
                 Delimiter = "&";
             }
         }
@@ -195,7 +201,12 @@ struct LLAPI
         // calculate endpoint
         const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
         FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, FStringFormatNamedArguments{ {"domainKey", Config && !Config->DomainKey.IsEmpty() ? Config->DomainKey + "." : ""} });
-        EndpointWithArguments = FString::Format(*EndpointWithArguments, InOrderedArguments);
+        TArray<FStringFormatArg> UrlEncodedPathParams;
+        for (const FStringFormatArg& InOrderedArgument : InOrderedArguments)
+        {
+            UrlEncodedPathParams.Add(FGenericPlatformHttp::UrlEncode(InOrderedArgument.StringValue));
+        }
+        EndpointWithArguments = FString::Format(*EndpointWithArguments, UrlEncodedPathParams);
         
         const FString RequestMethod = ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
         if (!PlayerData.Token.IsEmpty())
