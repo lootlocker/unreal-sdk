@@ -399,7 +399,7 @@ public:
 	                                      FLootLockerRemoteSessionStatusPollingResponseDelegate(), const FLootLockerStartRemoteSessionResponseDelegateBP&
 	                                      OnCompleteBP = FLootLockerStartRemoteSessionResponseDelegateBP(), const
                                       FLootLockerStartRemoteSessionResponseDelegate& OnComplete = FLootLockerStartRemoteSessionResponseDelegate(), float
-                                      PollingIntervalSeconds = 1.0f, float TimeOutAfterMinutes = 5.0f);
+                                      PollingIntervalSeconds = 1.0f, float TimeOutAfterMinutes = 5.0f, const FString& ForPlayerWithUlid = "");
     static void RefreshRemoteSession(const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegateBP& OnCompleteBP = FLootLockerRefreshRemoteSessionResponseDelegateBP(), const FLootLockerRefreshRemoteSessionResponseDelegate& OnComplete = FLootLockerRefreshRemoteSessionResponseDelegate());
 
 protected:
@@ -409,7 +409,7 @@ protected:
                                        const FLootLockerStartRemoteSessionResponseDelegateBP& OnCompleteBP = FLootLockerStartRemoteSessionResponseDelegateBP(),
                                        const FLootLockerStartRemoteSessionResponseDelegate& OnComplete = FLootLockerStartRemoteSessionResponseDelegate());
     static void KillProcess(const FString& ProcessID);
-    static void LeaseRemoteSession(ELootLockerRemoteSessionLeaseIntent Intent, const LLAPI<FLootLockerLeaseRemoteSessionResponse>::FResponseInspectorCallback& OnCompleteCallback);
+    static void LeaseRemoteSession(ELootLockerRemoteSessionLeaseIntent Intent, const FString& ForPlayerWithUlid, const LLAPI<FLootLockerLeaseRemoteSessionResponse>::FResponseInspectorCallback& OnCompleteCallback);
     static void StartRemoteSession(const FString& LeaseCode, const FString& LeaseNonce, const LLAPI<FLootLockerStartRemoteSessionResponse>::FResponseInspectorCallback& OnCompleteCallback);
     static void SetTimer(FTimerHandle TimerHandle, const FTimerDelegate& BaseDelegate, float TimeToNextPoll);
     static void ClearTimer(FTimerHandle TimerHandle);
@@ -480,7 +480,7 @@ public:
      * @return
      */
     UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", Category = "LootLocker Methods | Remote Session", WorldContext = "WorldContextObject", AdvancedDisplay = "PollingIntervalSeconds,TimeOutAfterMinutes,ForPlayerWithUlid", PollingIntervalSeconds = 1.0f, TimeOutAfterMinutes = 5.0f, ForPlayerWithUlid = ""))
-    static LOOTLOCKERSDK_API ULootLockerAsyncStartRemoteSession* AsyncStartRemoteSessionForLinking(UObject* WorldContextObject, float PollingIntervalSeconds, float TimeOutAfterMinutes);
+    static LOOTLOCKERSDK_API ULootLockerAsyncStartRemoteSession* AsyncStartRemoteSessionForLinking(UObject* WorldContextObject, FString ForPlayerWithUlid, float PollingIntervalSeconds, float TimeOutAfterMinutes);
 
 
 	/** Triggered once the lease process has successfully been started and the LeaseData property has been populated with the necessary information */
@@ -509,6 +509,7 @@ public:
     LOOTLOCKERSDK_API virtual void Activate() override;
 
 protected:
+    FString ForPlayerWithUlid = "";
     ELootLockerRemoteSessionLeaseIntent Intent = ELootLockerRemoteSessionLeaseIntent::login;
     FString LeaseProcessID = "";
     float PollingIntervalInSeconds = 0.0f;
