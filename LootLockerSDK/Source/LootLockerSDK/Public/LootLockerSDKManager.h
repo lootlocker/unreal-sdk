@@ -481,13 +481,14 @@ public:
      * While the process is ongoing, the remoteSessionLeaseStatusUpdate action (if one is provided) will be invoked intermittently (about once a second) to update you on the status of the process.
      * When the process has come to an end (whether successfully or not), the onComplete action will be invoked with the updated information.
      *
+     * @param ForPlayerWithUlid Execute the request for the specified player (the player that you intend to link the remote account into).
      * @param RemoteSessionLeaseInformation Will be invoked once to provide the lease information that the secondary device can use to authenticate
      * @param RemoteSessionLeaseStatusUpdate Will be invoked intermittently to update the status lease process
      * @param OnComplete Invoked when the remote session process has run to completion containing either a valid session or information on why the process failed
      * @param PollingIntervalSeconds Optional: How often to poll the status of the remote session process
      * @param TimeOutAfterMinutes Optional: How long to allow the process to take in its entirety
      */
-    static FString StartRemoteSessionForLinking(const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegate& OnComplete, float PollingIntervalSeconds = 1.0f, float TimeOutAfterMinutes = 5.0f);
+    static FString StartRemoteSessionForLinking(const FString& ForPlayerWithUlid, const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegate& OnComplete, float PollingIntervalSeconds = 1.0f, float TimeOutAfterMinutes = 5.0f);
 
     /**
      * Cancel an ongoing remote session process
