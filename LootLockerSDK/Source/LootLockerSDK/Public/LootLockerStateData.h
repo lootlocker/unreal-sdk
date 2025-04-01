@@ -59,13 +59,15 @@ public:
 	FLootLockerPlatformRepresentation CurrentPlatform;
 	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
 	FString LastSignIn = "";
+	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
+	FString PlayerCreatedAt = "";
 
 	static ULootLockerPlayerDataSaveGame* Create(const FLootLockerPlayerData& PlayerData)
 	{
-		return Create(PlayerData.Token, PlayerData.RefreshToken, PlayerData.PlayerIdentifier, PlayerData.PlayerUlid, PlayerData.PlayerPublicUid, PlayerData.PlayerName, PlayerData.WhiteLabelEmail, PlayerData.WhiteLabelToken, PlayerData.CurrentPlatform, PlayerData.LastSignIn);
+		return Create(PlayerData.Token, PlayerData.RefreshToken, PlayerData.PlayerIdentifier, PlayerData.PlayerUlid, PlayerData.PlayerPublicUid, PlayerData.PlayerName, PlayerData.WhiteLabelEmail, PlayerData.WhiteLabelToken, PlayerData.CurrentPlatform, PlayerData.LastSignIn, PlayerData.PlayerCreatedAt);
 	}
 
-	static ULootLockerPlayerDataSaveGame* Create(const FString& token = "", const FString& refreshToken = "", const FString& playerIdentifier = "", const FString& playerUlid = "", const FString& playerPublicUid = "", const FString& playerName = "", const FString& whiteLabelEmail = "", const FString& whiteLabelToken = "", const FLootLockerPlatformRepresentation& currentPlatform = FLootLockerPlatformRepresentation(), const FString& lastSignIn = "")
+	static ULootLockerPlayerDataSaveGame* Create(const FString& token = "", const FString& refreshToken = "", const FString& playerIdentifier = "", const FString& playerUlid = "", const FString& playerPublicUid = "", const FString& playerName = "", const FString& whiteLabelEmail = "", const FString& whiteLabelToken = "", const FLootLockerPlatformRepresentation& currentPlatform = FLootLockerPlatformRepresentation(), const FString& lastSignIn = "", const FString& playerCreatedAt = "")
 	{
 		ULootLockerPlayerDataSaveGame* newObj = NewObject<ULootLockerPlayerDataSaveGame>();
 		newObj->Token = token;
@@ -78,6 +80,7 @@ public:
 		newObj->WhiteLabelToken = whiteLabelToken;
 		newObj->CurrentPlatform = currentPlatform;
 		newObj->LastSignIn = lastSignIn;
+		newObj->PlayerCreatedAt = playerCreatedAt;
 		return newObj;
 	}
 };

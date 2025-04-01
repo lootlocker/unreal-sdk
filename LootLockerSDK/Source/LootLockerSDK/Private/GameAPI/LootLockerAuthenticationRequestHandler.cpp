@@ -48,7 +48,7 @@ void ULootLockerAuthenticationRequestHandler::GuestLogin(const FString& PlayerId
 		{
 			if (Response.success)
 			{
-				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Guest), FDateTime::Now().ToString());
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Guest), FDateTime::Now().ToString(), Response.player_created_at);
 				ULootLockerStateData::SavePlayerData(NewPlayerData);
 			}
 		}));
@@ -90,7 +90,7 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(const FAuth
 			if (Response.success)
 			{
 				Response.Context.PlayerUlid = Response.player_ulid;
-				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, _TempWhiteLabelEmailHolder, _TempWhiteLabelTokenHolder, ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::WhiteLabel), FDateTime::Now().ToString());
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, _TempWhiteLabelEmailHolder, _TempWhiteLabelTokenHolder, ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::WhiteLabel), FDateTime::Now().ToString(), Response.player_created_at);
 				ULootLockerStateData::SavePlayerData(NewPlayerData);
 				_TempWhiteLabelEmailHolder = "";
 				_TempWhiteLabelTokenHolder = "";
@@ -175,7 +175,7 @@ void ULootLockerAuthenticationRequestHandler::StartPlaystationNetworkSession(con
 			if (Response.success)
 			{
 				Response.Context.PlayerUlid = Response.player_ulid;
-				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::PlayStationNetwork), FDateTime::Now().ToString());
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::PlayStationNetwork), FDateTime::Now().ToString(), Response.player_created_at);
 				ULootLockerStateData::SavePlayerData(NewPlayerData);
 			}
 		}));
@@ -195,7 +195,7 @@ void ULootLockerAuthenticationRequestHandler::StartAndroidSession(const FString&
 			if (Response.success)
 			{
 				Response.Context.PlayerUlid = Response.player_ulid;
-				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Android), FDateTime::Now().ToString());
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Android), FDateTime::Now().ToString(), Response.player_created_at);
 				ULootLockerStateData::SavePlayerData(NewPlayerData);
 			}
 		}));
@@ -214,7 +214,7 @@ void ULootLockerAuthenticationRequestHandler::StartGoogleSession(const FString& 
 			if (Response.success)
 			{
 				Response.Context.PlayerUlid = Response.player_ulid;
-				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Google), FDateTime::Now().ToString());
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Google), FDateTime::Now().ToString(), Response.player_created_at);
 				ULootLockerStateData::SavePlayerData(NewPlayerData);
 			}
 		}));
@@ -234,7 +234,7 @@ void ULootLockerAuthenticationRequestHandler::StartGoogleSession(const FString& 
 			if (Response.success)
 			{
 				Response.Context.PlayerUlid = Response.player_ulid;
-				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Google), FDateTime::Now().ToString());
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Google), FDateTime::Now().ToString(), Response.player_created_at);
 				ULootLockerStateData::SavePlayerData(NewPlayerData);
 			}
 		}));
@@ -253,7 +253,7 @@ void ULootLockerAuthenticationRequestHandler::RefreshGoogleSession(const FString
 			if (Response.success)
 			{
 				Response.Context.PlayerUlid = Response.player_ulid;
-				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Google), FDateTime::Now().ToString());
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Google), FDateTime::Now().ToString(), Response.player_created_at);
 				ULootLockerStateData::SavePlayerData(NewPlayerData);
 			}
 		}));
@@ -272,7 +272,7 @@ void ULootLockerAuthenticationRequestHandler::StartEpicSession(const FString& Id
 			if (Response.success)
 			{
 				Response.Context.PlayerUlid = Response.player_ulid;
-				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Epic), FDateTime::Now().ToString());
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Epic), FDateTime::Now().ToString(), Response.player_created_at);
 				ULootLockerStateData::SavePlayerData(NewPlayerData);
 			}
 		}));
@@ -285,7 +285,7 @@ void ULootLockerAuthenticationRequestHandler::RefreshEpicSession(const FString& 
 		{
 			if (Response.success)
 			{
-				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Epic), FDateTime::Now().ToString());
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Epic), FDateTime::Now().ToString(), Response.player_created_at);
 				ULootLockerStateData::SavePlayerData(NewPlayerData);
 			}
 		});
@@ -311,7 +311,7 @@ void ULootLockerAuthenticationRequestHandler::StartAmazonLunaSession(const FStri
 			if (Response.success)
 			{
 				Response.Context.PlayerUlid = Response.player_ulid;
-				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::AmazonLuna), FDateTime::Now().ToString());
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::AmazonLuna), FDateTime::Now().ToString(), Response.player_created_at);
 				ULootLockerStateData::SavePlayerData(NewPlayerData);
 			}
 		}));
@@ -324,7 +324,7 @@ void ULootLockerAuthenticationRequestHandler::StartSteamSession(const FString& S
 			if (Response.success)
 			{
 				Response.Context.PlayerUlid = Response.player_ulid;
-				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Steam), FDateTime::Now().ToString());
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Steam), FDateTime::Now().ToString(), Response.player_created_at);
 				ULootLockerStateData::SavePlayerData(NewPlayerData);
 			}
 		});
@@ -355,7 +355,7 @@ void ULootLockerAuthenticationRequestHandler::StartNintendoSwitchSession(const F
 			if (Response.success)
 			{
 				Response.Context.PlayerUlid = Response.player_ulid;
-				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::NintendoSwitch), FDateTime::Now().ToString());
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::NintendoSwitch), FDateTime::Now().ToString(), Response.player_created_at);
 				ULootLockerStateData::SavePlayerData(NewPlayerData);
 			}
 		}));
@@ -374,7 +374,7 @@ void ULootLockerAuthenticationRequestHandler::StartXboxSession(const FString& Xb
 			if (Response.success)
 			{
 				Response.Context.PlayerUlid = Response.player_ulid;
-				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Xbox), FDateTime::Now().ToString());
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Xbox), FDateTime::Now().ToString(), Response.player_created_at);
 				ULootLockerStateData::SavePlayerData(NewPlayerData);
 			}
 		}));
@@ -400,7 +400,7 @@ void ULootLockerAuthenticationRequestHandler::StartAppleGameCenterSession(const 
 			if (Response.success)
 			{
 				Response.Context.PlayerUlid = Response.player_ulid;
-				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::AppleGameCenter), FDateTime::Now().ToString());
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::AppleGameCenter), FDateTime::Now().ToString(), Response.player_created_at);
 				ULootLockerStateData::SavePlayerData(NewPlayerData);
 			}
 		}));
@@ -420,7 +420,7 @@ void ULootLockerAuthenticationRequestHandler::StartAppleSession(const FString& A
 			if (Response.success)
 			{
 				Response.Context.PlayerUlid = Response.player_ulid;
-				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::AppleSignIn), FDateTime::Now().ToString());
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::AppleSignIn), FDateTime::Now().ToString(), Response.player_created_at);
 				ULootLockerStateData::SavePlayerData(NewPlayerData);
 			}
 		}));
@@ -441,7 +441,7 @@ void ULootLockerAuthenticationRequestHandler::RefreshAppleGameCenterSession(cons
 			if (Response.success)
 			{
 				Response.Context.PlayerUlid = Response.player_ulid;
-				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, "", "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::AppleGameCenter), FDateTime::Now().ToString());
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, "", "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::AppleGameCenter), FDateTime::Now().ToString(), Response.player_created_at);
 				ULootLockerStateData::SavePlayerData(NewPlayerData);
 			}
 		}));
@@ -461,7 +461,7 @@ void ULootLockerAuthenticationRequestHandler::RefreshAppleSession(const FString&
 			if (Response.success)
 			{
 				Response.Context.PlayerUlid = Response.player_ulid;
-				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::AppleSignIn), FDateTime::Now().ToString());
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::AppleSignIn), FDateTime::Now().ToString(), Response.player_created_at);
 				ULootLockerStateData::SavePlayerData(NewPlayerData);
 			}
 		}));
@@ -482,7 +482,7 @@ void ULootLockerAuthenticationRequestHandler::StartMetaSession(const FString& Us
 			if (Response.success)
 			{
 				Response.Context.PlayerUlid = Response.player_ulid;
-				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Meta), FDateTime::Now().ToString());
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Meta), FDateTime::Now().ToString(), Response.player_created_at);
 				ULootLockerStateData::SavePlayerData(NewPlayerData);
 			}
 		}));
@@ -503,7 +503,7 @@ void ULootLockerAuthenticationRequestHandler::RefreshMetaSession(const FString& 
 			if (Response.success)
 			{
 				Response.Context.PlayerUlid = Response.player_ulid;
-				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Meta), FDateTime::Now().ToString());
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Meta), FDateTime::Now().ToString(), Response.player_created_at);
 				ULootLockerStateData::SavePlayerData(NewPlayerData);
 			}
 		}));
