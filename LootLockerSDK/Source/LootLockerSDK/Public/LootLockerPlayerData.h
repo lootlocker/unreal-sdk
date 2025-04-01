@@ -58,8 +58,13 @@ public:
 	*/
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "LootLocker")
 	FString LastSignIn = "";
+	/**
+	When this player was first created
+	*/
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "LootLocker")
+	FString PlayerCreatedAt = "";
 
-	static FLootLockerPlayerData Create(const FString& token = "", const FString& refreshToken = "", const FString& playerIdentifier = "", const FString& playerUlid = "", const FString& playerPublicUid = "", const FString& playerName = "", const FString& whiteLabelEmail = "", const FString& whiteLabelToken = "", const FLootLockerPlatformRepresentation& currentPlatform = FLootLockerPlatformRepresentation(), const FString& lastSignIn = "")
+	static FLootLockerPlayerData Create(const FString& token = "", const FString& refreshToken = "", const FString& playerIdentifier = "", const FString& playerUlid = "", const FString& playerPublicUid = "", const FString& playerName = "", const FString& whiteLabelEmail = "", const FString& whiteLabelToken = "", const FLootLockerPlatformRepresentation& currentPlatform = FLootLockerPlatformRepresentation(), const FString& lastSignIn = "", const FString& playerCreatedAt = "")
 	{
 		FLootLockerPlayerData NewObj;
 		NewObj.Token = token;
@@ -72,6 +77,7 @@ public:
 		NewObj.WhiteLabelToken = whiteLabelToken;
 		NewObj.CurrentPlatform = currentPlatform;
 		NewObj.LastSignIn = lastSignIn;
+		NewObj.PlayerCreatedAt = playerCreatedAt;
 		return NewObj;
 	}
 };

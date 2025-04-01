@@ -338,6 +338,11 @@ struct FLootLockerAuthenticationResponse : public FLootLockerAuthResponse
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString player_ulid;
 	/**
+	 * The date that this player was created
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString player_created_at = "";
+	/**
 	 * Whether this player has been seen before (true) or is new (false)
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
