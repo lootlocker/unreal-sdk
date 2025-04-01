@@ -28,7 +28,7 @@ namespace test_util
 		ULootLockerSDKManager::GuestLogin(Delegate, TEXT("unreal_unit_test_user"));
 
 		const auto Response = Promise->get_future().get();
-		FLootLockerPlayerData NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, "", "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Guest), FDateTime::Now().ToString());
+		FLootLockerPlayerData NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, "", "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Guest), FDateTime::Now().ToString(), Response.player_created_at);
 		ULootLockerStateData::SavePlayerData(NewPlayerData);
 		delete(Promise);
 	}

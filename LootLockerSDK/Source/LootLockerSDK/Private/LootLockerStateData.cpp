@@ -171,7 +171,7 @@ FLootLockerPlayerData* ULootLockerStateData::LoadPlayerData(const FString& Playe
 		{
 			SetDefaultPlayerUlid(TargetPlayerUlid);
 		}
-		ActivePlayerData.Add(LoadedState->PlayerUlid, FLootLockerPlayerData::Create(LoadedState->Token, LoadedState->RefreshToken, LoadedState->PlayerIdentifier, LoadedState->PlayerUlid, LoadedState->PlayerPublicUid, LoadedState->PlayerName, LoadedState->WhiteLabelEmail, LoadedState->WhiteLabelToken, LoadedState->CurrentPlatform, LoadedState->LastSignIn));
+		ActivePlayerData.Add(LoadedState->PlayerUlid, FLootLockerPlayerData::Create(LoadedState->Token, LoadedState->RefreshToken, LoadedState->PlayerIdentifier, LoadedState->PlayerUlid, LoadedState->PlayerPublicUid, LoadedState->PlayerName, LoadedState->WhiteLabelEmail, LoadedState->WhiteLabelToken, LoadedState->CurrentPlatform, LoadedState->LastSignIn, LoadedState->PlayerCreatedAt));
 		UE_LOG(LogLootLockerGameSDK, Verbose, TEXT("Loaded LootLocker state from disk for player with ulid %s"), *TargetPlayerUlid);
 		return ActivePlayerData.Find(LoadedState->PlayerUlid);
 	}

@@ -98,7 +98,7 @@ void ULootLockerRemoteSessionRequestHandler::RefreshRemoteSession(const FString&
 		{
 			if (Response.success)
 			{
-				FLootLockerPlayerData NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.Refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Guest), FDateTime::Now().ToString());
+				FLootLockerPlayerData NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.Refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Guest), FDateTime::Now().ToString(), Response.player_created_at);
 				ULootLockerStateData::SavePlayerData(NewPlayerData);
 			}
 		}));
@@ -187,7 +187,7 @@ void ULootLockerRemoteSessionRequestHandler::ContinualPollingAction(const FLootL
 			// Check if process is completed
 			if (ELootLockerRemoteSessionLeaseStatus::Authorized == RemoteSessionResponse.Lease_Status)
 			{
-				FLootLockerPlayerData NewPlayerData = FLootLockerPlayerData::Create(RemoteSessionResponse.session_token, RemoteSessionResponse.Refresh_token, RemoteSessionResponse.player_identifier, RemoteSessionResponse.player_ulid, RemoteSessionResponse.public_uid, RemoteSessionResponse.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Guest), FDateTime::Now().ToString());
+				FLootLockerPlayerData NewPlayerData = FLootLockerPlayerData::Create(RemoteSessionResponse.session_token, RemoteSessionResponse.Refresh_token, RemoteSessionResponse.player_identifier, RemoteSessionResponse.player_ulid, RemoteSessionResponse.public_uid, RemoteSessionResponse.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Guest), FDateTime::Now().ToString(), RemoteSessionResponse.player_created_at);
 				ULootLockerStateData::SavePlayerData(NewPlayerData);
 				OnCompleteBP.ExecuteIfBound(RemoteSessionResponse);
 				OnComplete.ExecuteIfBound(RemoteSessionResponse);
