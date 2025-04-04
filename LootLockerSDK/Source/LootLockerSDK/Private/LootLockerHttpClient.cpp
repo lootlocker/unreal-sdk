@@ -22,7 +22,10 @@ ULootLockerHttpClient::ULootLockerHttpClient()
 
 void ULootLockerHttpClient::LogFailedRequestInformation(const FLootLockerResponse& Response, const FString& RequestMethod, const FString& Endpoint, const FString& Data, const FString& AllHeadersDelimited)
 {
-    FString LogString = FString::Format(TEXT("{0} request to {1} failed"), { RequestMethod, Endpoint });
+    FDateTime requestTime;
+    FDateTime::Parse(Response.Context.RequestTime, requestTime);
+    double requestDuration = (FDateTime::Now() - requestTime).GetTotalSeconds();
+    FString LogString = FString::Format(TEXT("{0} request to {1} failed in {2}s"), { RequestMethod, Endpoint, requestDuration });
     const bool IsInformativeError = !Response.ErrorData.Code.IsEmpty();
     if(IsInformativeError)
     {
@@ -48,7 +51,14 @@ void ULootLockerHttpClient::LogFailedRequestInformation(const FLootLockerRespons
 
 void ULootLockerHttpClient::LogSuccessfulRequestInformation(const FLootLockerResponse& Response, const FString& RequestMethod, const FString& Endpoint, const FString& Data, const FString& AllHeadersDelimited)
 {
-    FString LogString = FString::Format(TEXT("{0} request to {1} succeeded"), { RequestMethod, Endpoint });
+    if (!ULootLockerConfig::ShouldLog())
+    {
+        return;	    
+    }
+    FDateTime requestTime;
+    FDateTime::Parse(Response.Context.RequestTime, requestTime);
+    double requestDuration = (FDateTime::Now() - requestTime).GetTotalSeconds();
+    FString LogString = FString::Format(TEXT("{0} request to {1} succeeded in {2}s"), { RequestMethod, Endpoint, requestDuration });
     LogString += FString::Format(TEXT("\n   HTTP Status code : {0}"), { Response.StatusCode });
     if (!Data.IsEmpty()) {
         LogString += FString::Format(TEXT("\n   Request Data: {0}"), { LootLockerUtilities::ObfuscateJsonStringForLogging(Data) });
@@ -97,7 +107,7 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
     Request->SetContentAsString(data);
 
     FString playerUlid = PlayerData.PlayerUlid;
-    FString requestTime = FString::FromInt(FDateTime::Now().ToUnixTimestamp());
+    FString requestTime = FDateTime::Now().ToString();
     FString DelimitedHeaders = "";
     TArray<FString> AllHeaders = Request->GetAllHeaders();
     for (auto Header : AllHeaders)
@@ -110,6 +120,7 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
         if (!Response.IsValid())
         {
             FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>("HTTP Response was invalid", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_HTTP);
+            Error.Context.RequestTime = requestTime;
             LogFailedRequestInformation(Error, requestType, endPoint, data, DelimitedHeaders);
             onCompleteRequest.ExecuteIfBound(Error);
             return;
@@ -133,9 +144,7 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
 		}
         else
         {
-#if WITH_EDITOR
             LogSuccessfulRequestInformation(response, requestType, endPoint, data, DelimitedHeaders);
-#endif
         }
 		onCompleteRequest.ExecuteIfBound(response);
 	});
@@ -215,7 +224,7 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
     Request->SetContent(Data);
 
     FString playerUlid = PlayerData.PlayerUlid;
-    FString requestTime = FString::FromInt(FDateTime::Now().ToUnixTimestamp());
+    FString requestTime = FDateTime::Now().ToString();
     FString DelimitedHeaders = "";
     TArray<FString> AllHeaders = Request->GetAllHeaders();
     for (auto Header : AllHeaders)
@@ -228,6 +237,7 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
             if (!Response.IsValid())
             {
                 FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>("HTTP Response was invalid", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_HTTP);
+                Error.Context.RequestTime = requestTime;
                 LogFailedRequestInformation(Error, requestType, endPoint, FString("Data Stream"), DelimitedHeaders);
                 onCompleteRequest.ExecuteIfBound(Error);
                 return;
@@ -248,9 +258,10 @@ void ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& r
                 }
                 LogFailedRequestInformation(response, requestType, endPoint, FString("Data Stream"), DelimitedHeaders);
             }
-#if WITH_EDITOR
-            LogSuccessfulRequestInformation(response, requestType, endPoint, FString("Data Stream"), DelimitedHeaders);
-#endif
+    		else
+            {
+                LogSuccessfulRequestInformation(response, requestType, endPoint, FString("Data Stream"), DelimitedHeaders);
+            }
             onCompleteRequest.ExecuteIfBound(response);
         });
     Request->ProcessRequest();

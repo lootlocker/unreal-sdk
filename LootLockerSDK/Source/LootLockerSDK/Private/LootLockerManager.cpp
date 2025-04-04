@@ -3,6 +3,7 @@
 #include "LootLockerManager.h"
 
 #include "LootLockerPlatformManager.h"
+#include "LootLockerStateData.h"
 #include "GameAPI/LootLockerCatalogRequestHandler.h"
 #include "GameAPI/LootLockerMetadataRequestHandler.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
