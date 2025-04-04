@@ -4,9 +4,7 @@
 
 #include "Dom/JsonValue.h"
 #include "LootLockerConfig.h"
-#include "LootLockerStateData.h"
 #include "LootLockerGameEndpoints.h"
-#include "LootLockerSDK.h"
 #include "GameAPI/LootLockerCharacterRequestHandler.h"
 #include "GameAPI/LootLockerMissionsRequestHandler.h"
 #include "GenericPlatform/GenericPlatformHttp.h"
@@ -179,13 +177,6 @@ struct LLAPI
             }
         }
         const FString RequestMethod = ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
-#if WITH_EDITOR
-        UE_LOG(LogLootLockerGameSDK, Log, TEXT("Request:"));
-        if (!ContentString.IsEmpty() && !LootLockerUtilities::IsEmptyJsonString(ContentString)) {
-            UE_LOG(LogLootLockerGameSDK, Log, TEXT("ContentString:%s"), *LootLockerUtilities::ObfuscateJsonStringForLogging(ContentString));
-        }
-        UE_LOG(LogLootLockerGameSDK, Log, TEXT("EndpointWithArguments: %s to %s"), *RequestMethod, *EndpointWithArguments);
-#endif //WITH_EDITOR
 
         // create callback lambda
         const FResponseCallback SessionResponse = CreateLambda<BluePrintDelegate, CppDelegate>(OnCompletedRequestBP, OnCompletedRequest, ResponseInspectorCallback);
@@ -213,11 +204,6 @@ struct LLAPI
         {
             CustomHeaders.Add(TEXT("x-session-token"), PlayerData.Token);
         }
-
-#if WITH_EDITOR
-        UE_LOG(LogLootLockerGameSDK, Log, TEXT("Request:"));
-        UE_LOG(LogLootLockerGameSDK, Log, TEXT("EndpointWithArguments:%s"), *EndpointWithArguments);
-#endif //WITH_EDITOR
 
         // create callback lambda
         const FResponseCallback SessionResponse = CreateLambda<BluePrintDelegate, CppDelegate>(OnCompletedRequestBP, OnCompletedRequest, ResponseInspectorCallback);

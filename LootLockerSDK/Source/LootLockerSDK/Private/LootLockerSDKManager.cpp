@@ -3,7 +3,7 @@
 
 #include "LootLockerSDKManager.h"
 
-#include "LootLockerPlatformManager.h"
+#include "LootLockerStateData.h"
 
 // Player State
 TArray<FString> ULootLockerSDKManager::GetActivePlayerUlids()
