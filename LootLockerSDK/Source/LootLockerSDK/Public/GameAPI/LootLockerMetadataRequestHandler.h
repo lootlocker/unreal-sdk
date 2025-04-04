@@ -4,12 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Dom/JsonObject.h"
-#include "JsonObjectConverter.h"
 #include "LootLockerResponse.h"
 #include "LootLockerHttpClient.h"
 #include "LootLockerMetadataRequestHandler.generated.h"
-
-class ULootLockerMetadataRequestHandler;
 
 //==================================================
 // Enum Definitions

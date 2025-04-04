@@ -3,6 +3,7 @@
 #include "GameAPI/LootLockerRemoteSessionRequestHandler.h"
 #include "LootLockerGameEndpoints.h"
 #include "LootLockerPlatformManager.h"
+#include "LootLockerStateData.h"
 #include "Engine/Engine.h"
 #include "Engine/GameViewportClient.h"
 #include "Utils/LootLockerUtilities.h"
