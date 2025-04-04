@@ -24,6 +24,7 @@ public:
 		return true;
 #endif
 	}
+
 #if WITH_EDITOR
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override
 	{
@@ -54,6 +55,19 @@ public:
 	// Domain Key used to talk to LootLocker. The Domain key can be found in `Settings > API Keys` in the Web Console: https://console.lootlocker.com/settings/api-keys
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString DomainKey;
+	// Allow LootLocker to log non error logs outside the editor. This is false by default to avoid log spamming and unintentional logging of data (as LootLocker logs requests and responses vs LootLocker).
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	bool LogOutsideOfEditor = false;
+
+	UFUNCTION()
+	static bool ShouldLog()
+	{
+#if WITH_EDITOR
+		return true;
+#else
+		return GetDefault<ULootLockerConfig>()->LogOutsideOfEditor;
+#endif
+	}
 private:
 	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")
 	bool IsValidGameVersion = true;
