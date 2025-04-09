@@ -21,7 +21,7 @@ enum class ELootLockerPlatform : uint8
 	Google = 10				UMETA(DisplayName = "Google"),
 	Epic = 11				UMETA(DisplayName = "Epic Games / Epic Online Services (EOS)"),
 	AppleGameCenter = 12	UMETA(DisplayName = "Apple Game Center"),
-	Meta = 13				UMETA(DisplayName = "Apple Game Center"),
+	Meta = 13				UMETA(DisplayName = "Meta"),
 	Remote = 14				UMETA(DisplayName = "Remote Session"),
 	Server = 15				UMETA(DisplayName = "Server"),
 	LastValue = 16			UMETA(DisplayName = "N/A")
