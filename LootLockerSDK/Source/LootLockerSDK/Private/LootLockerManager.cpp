@@ -231,6 +231,13 @@ void ULootLockerManager::ConnectRemoteSessionAccount(const FString& ForPlayerWit
     ULootLockerConnectedAccountsRequestHandler::ConnectRemoteSessionAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Code, Nonce, OnCompleteBP);
 }
 
+void ULootLockerManager::TransferIdentityProvidersBetweenAccounts(const FString& FromPlayerWithUlid, const FString& ToPlayerWithUlid, TArray<ELootLockerAccountProvider> ProvidersToTransfer, const FLootLockerListConnectedAccountsResponseBP& OnCompleteBP)
+{
+    const auto& fromPlayer = GetSavedStateOrDefaultOrEmptyForPlayer(FromPlayerWithUlid);
+    const auto& toPlayer = GetSavedStateOrDefaultOrEmptyForPlayer(ToPlayerWithUlid);
+    ULootLockerConnectedAccountsRequestHandler::TransferIdentityProvidersBetweenAccounts(fromPlayer, toPlayer, ProvidersToTransfer, OnCompleteBP);
+}
+
 //==================================================
 // Remote Sessions
 //==================================================

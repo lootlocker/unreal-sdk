@@ -457,6 +457,26 @@ public:
      */
     static void ConnectRemoteSessionAccount(const FString& Code, const FString& Nonce, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString ForPlayerWithUlid = "");
 
+    /**
+     This endpoint lets you transfer identity providers between two players, provided you have a valid session for both.
+     The designated identity providers will be transferred FROM the player designated by the `FromPlayerWithUlid` parameter and TO the player designated by the `ToPlayerWithUlid` parameter.
+     If any of the providers can not be transferred the whole operation will fail and NO identity providers will be transferred.
+
+     IMPORTANT: This is a destructive action. Once an identity provider has been transferred they will allow authentication for the target player and no longer authenticate for the source player.
+     This can leave the source player without means of authentication and thus unusable from the game.
+	
+	 ** Limitations **
+      - You can not move an identity provider that the source player does not have
+      - You can not move an identity provider to a player that already has an account from said identity provider associated with their account.
+	  - You can not move an identity provider which isn't active in your game settings.
+     *
+     * @param FromPlayerWithUlid The ULID of an authenticated player that you wish to move identity providers FROM
+     * @param ToPlayerWithUlid The ULID of an authenticated player that you wish to move identity providers TO
+     * @param ProvidersToTransfer Which identity providers you wish to transfer
+     * @param OnComplete Delegate for handling the response
+     */
+    static void TransferIdentityProvidersBetweenAccounts(const FString& FromPlayerWithUlid, const FString& ToPlayerWithUlid, TArray<ELootLockerAccountProvider> ProvidersToTransfer, const FLootLockerListConnectedAccountsResponseDelegate& OnComplete);
+
     //==================================================
     // Remote Sessions
     //==================================================

@@ -64,6 +64,7 @@ public:
     static FLootLockerEndPoints DisconnectAccountEndpoint;
     static FLootLockerEndPoints ConnectProviderToAccountEndpoint;
     static FLootLockerEndPoints AttachRemoteSessionToAccountEndpoint;
+    static FLootLockerEndPoints TransferProvidersBetweenAccountsEndpoint;
 
     // Remote Sessions
     static FLootLockerEndPoints LeaseRemoteSessionEndpoint;
