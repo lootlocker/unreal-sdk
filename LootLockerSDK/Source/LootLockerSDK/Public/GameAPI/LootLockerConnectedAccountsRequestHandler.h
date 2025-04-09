@@ -18,6 +18,13 @@ enum class ELootLockerAccountProvider : uint8
     Guest = 0,
     Google = 1,
     Apple = 2,
+    Steam = 3,
+    Epic = 4,
+    Credentials = 5, // White Label Login
+    Nintendo = 6,
+    Xbox = 7,
+    Playstation = 8,
+    Twitch = 9
 };
 
 /**
@@ -120,14 +127,35 @@ struct FLootLockerConnectRemoteSessionToAccountRequest
     FString Nonce = "";
 };
 
-//==================================================
-// Response Definitions
-//==================================================
 /**
  *
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
-struct FLootLockerAccountConnectedResponse : public FLootLockerResponse
+struct FLootLockerTransferProvidersBetweenAccountsRequest
+{
+    GENERATED_BODY()
+    /**
+     * Session token belonging to the player to move platforms FROM
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Source_token = "";
+    /**
+     * Session token belonging to the player to move platforms TO
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Target_token = "";
+    /**
+     * List of identity providers to move FROM the account authenticated by the source token TO the account authenticated by the target token
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FString> Identity_providers;
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerAccountConnectedStruct
 {
     GENERATED_BODY()
     /**
@@ -140,6 +168,24 @@ struct FLootLockerAccountConnectedResponse : public FLootLockerResponse
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Provider_name = "";
+};
+
+//==================================================
+// Response Definitions
+//==================================================
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerAccountConnectedResponse : public FLootLockerResponse
+{
+    GENERATED_BODY()
+    /**
+     * Information about the connected account
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerAccountConnectedStruct Connected_account;
 };
 
 /**
@@ -197,6 +243,7 @@ public:
     static void ConnectGoogleAccount(const FLootLockerPlayerData& PlayerData, const FString& IdToken, EGoogleAccountProviderPlatform Platform, const FLootLockerAccountConnectedResponseBP& OnCompleteBP = FLootLockerAccountConnectedResponseBP(), const FLootLockerAccountConnectedResponseDelegate& OnComplete = FLootLockerAccountConnectedResponseDelegate());
     static void ConnectAppleAccountByRestSignIn(const FLootLockerPlayerData& PlayerData, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP = FLootLockerAccountConnectedResponseBP(), const FLootLockerAccountConnectedResponseDelegate& OnComplete = FLootLockerAccountConnectedResponseDelegate());
     static void ConnectRemoteSessionAccount(const FLootLockerPlayerData& PlayerData, const FString& Code, const FString& Nonce, const FLootLockerAccountConnectedResponseBP& OnCompleteBP = FLootLockerAccountConnectedResponseBP(), const FLootLockerAccountConnectedResponseDelegate& OnComplete = FLootLockerAccountConnectedResponseDelegate());
+    static void TransferIdentityProvidersBetweenAccounts(const FLootLockerPlayerData& SourcePlayerData, const FLootLockerPlayerData& TargetPlayerData, TArray<ELootLockerAccountProvider> ProvidersToTransfer, const FLootLockerListConnectedAccountsResponseBP& OnCompleteBP = FLootLockerListConnectedAccountsResponseBP(), const FLootLockerListConnectedAccountsResponseDelegate& OnComplete = FLootLockerListConnectedAccountsResponseDelegate());
 private:
     static ULootLockerHttpClient* HttpClient;
 };
