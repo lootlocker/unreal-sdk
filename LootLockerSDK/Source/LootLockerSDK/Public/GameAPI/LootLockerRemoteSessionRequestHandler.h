@@ -425,7 +425,7 @@ private:
 /**
  * Multicast Delegate for events triggered from the Async Remote Session node
  */
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_SixParams(FLootLockerAsyncRemoteSessionMulticastDelegate, FString, LeaseProcessID, FLootLockerRemoteSessionLeaseData, LeaseData, FString, SessionTokenOnSuccess, FString, RefreshTokenOnSuccess, FLootLockerRemoteSessionPlayerData, PlayerDataOnSuccess, FLootLockerResponse, ResponseOnFailure);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_SevenParams(FLootLockerAsyncRemoteSessionMulticastDelegate, FString, LeaseProcessID, FLootLockerRemoteSessionLeaseData, LeaseData, bool, HasPlayerData, FString, SessionTokenOnSuccess, FString, RefreshTokenOnSuccess, FLootLockerRemoteSessionPlayerData, PlayerDataOnSuccess, FLootLockerResponse, ResponseOnFailure);
 
 //==================================================
 // Async Blueprint Node Definitions
