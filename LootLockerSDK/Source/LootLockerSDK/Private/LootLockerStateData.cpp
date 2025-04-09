@@ -25,9 +25,18 @@ ULootLockerStateData::ULootLockerStateData()
 	ActiveMetaData = LoadMetaState();
 }
 
-FString ULootLockerStateData::GetNewUniqueIdentifier() 
+FString ULootLockerStateData::GenerateNewGuestIdentifier() 
 {
-	return FGenericPlatformMisc::GetDeviceId != nullptr ? FGenericPlatformMisc::GetDeviceId() : FGuid::NewGuid().ToString();
+	if (!isMetadataLoaded)
+	{
+		LoadMetaState();
+	}
+	if (ActiveMetaData.SavedPlayerStateUlids.IsEmpty() && FGenericPlatformMisc::GetDeviceId != nullptr)
+	{
+		// For backwards compatibility, base the first guest user on the device id
+		return FGenericPlatformMisc::GetDeviceId();
+	}
+	return ""; // Let backend generate an identifier
 }
 
 bool ULootLockerStateData::TransferPlayerCacheToMultiUserSystem()
