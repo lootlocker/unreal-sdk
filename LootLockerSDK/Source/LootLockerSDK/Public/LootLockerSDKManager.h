@@ -413,6 +413,8 @@ public:
 
     /**
      * Connect a Google Account to the currently logged in LootLocker account allowing that google account to start sessions for this player
+     * 
+     * IMPORTANT: If you are using multiple users, be very sure to pass in the correct `ForPlayerWithUlid` parameter as that will be the account that the Google account is linked into
      *
      * @param IdToken The Id Token from google sign in
      * @param OnComplete Delegate for handling the response
@@ -422,6 +424,8 @@ public:
 
     /**
      * Connect a Google Account (with a Google Platform specified) to the currently logged in LootLocker account allowing that google account to start sessions for this player
+     * 
+     * IMPORTANT: If you are using multiple users, be very sure to pass in the correct `ForPlayerWithUlid` parameter as that will be the account that the Google account is linked into
      *
      * @param IdToken The Id Token from google sign in
      * @param Platform Google OAuth2 ClientID platform
@@ -432,12 +436,46 @@ public:
 
     /**
      * Connect an Apple Account (authorized by Rest Sign In) to the currently logged in LootLocker account allowing that google account to start sessions for this player
+     * 
+     * IMPORTANT: If you are using multiple users, be very sure to pass in the correct `ForPlayerWithUlid` parameter as that will be the account that the Apple account is linked into
      *
      * @param AuthorizationCode Authorization code, provided by apple during Sign In
      * @param OnComplete Delegate for handling the response
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
     static void ConnectAppleAccountByRestSignIn(const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString ForPlayerWithUlid = "");
+
+    /**
+     * Connect an account (authorized using a remote session) to the currently logged in LootLocker account allowing that authentication method to start sessions for this player
+     *
+     * IMPORTANT: If you are using multiple users, be very sure to pass in the correct `ForPlayerWithUlid` parameter as that will be the account that the Remote Session account is linked into
+     *
+     * @param Code The lease code returned with the response when starting a lease process
+     * @param Nonce The nonce returned with the response when starting a lease process
+     * @param OnComplete Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     */
+    static void ConnectRemoteSessionAccount(const FString& Code, const FString& Nonce, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString ForPlayerWithUlid = "");
+
+    /**
+     This endpoint lets you transfer identity providers between two players, provided you have a valid session for both.
+     The designated identity providers will be transferred FROM the player designated by the `FromPlayerWithUlid` parameter and TO the player designated by the `ToPlayerWithUlid` parameter.
+     If any of the providers can not be transferred the whole operation will fail and NO identity providers will be transferred.
+
+     IMPORTANT: This is a destructive action. Once an identity provider has been transferred they will allow authentication for the target player and no longer authenticate for the source player.
+     This can leave the source player without means of authentication and thus unusable from the game.
+	
+	 ** Limitations **
+      - You can not move an identity provider that the source player does not have
+      - You can not move an identity provider to a player that already has an account from said identity provider associated with their account.
+	  - You can not move an identity provider which isn't active in your game settings.
+     *
+     * @param FromPlayerWithUlid The ULID of an authenticated player that you wish to move identity providers FROM
+     * @param ToPlayerWithUlid The ULID of an authenticated player that you wish to move identity providers TO
+     * @param ProvidersToTransfer Which identity providers you wish to transfer
+     * @param OnComplete Delegate for handling the response
+     */
+    static void TransferIdentityProvidersBetweenAccounts(const FString& FromPlayerWithUlid, const FString& ToPlayerWithUlid, TArray<ELootLockerAccountProvider> ProvidersToTransfer, const FLootLockerListConnectedAccountsResponseDelegate& OnComplete);
 
     //==================================================
     // Remote Sessions
@@ -453,18 +491,31 @@ public:
      * @param RemoteSessionLeaseStatusUpdate Will be invoked intermittently to update the status lease process
      * @param OnComplete Invoked when the remote session process has run to completion containing either a valid session or information on why the process failed
      * @param PollingIntervalSeconds Optional: How often to poll the status of the remote session process
-     * @param TimeOutAfterMinutes Optional: How long to allow the process to take in it's entirety
-     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     * @param TimeOutAfterMinutes Optional: How long to allow the process to take in its entirety
      */
-    static FString StartRemoteSession(const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegate& OnComplete, float PollingIntervalSeconds = 1.0f, float TimeOutAfterMinutes = 5.0f, const FString ForPlayerWithUlid = "");
+    static FString StartRemoteSession(const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegate& OnComplete, float PollingIntervalSeconds = 1.0f, float TimeOutAfterMinutes = 5.0f);
+
+    /**
+     * Start a remote session
+     * If you want to let your local user sign in using another device then you use this method. First you will get the lease information needed to allow a secondary device to authenticate.
+     * While the process is ongoing, the remoteSessionLeaseStatusUpdate action (if one is provided) will be invoked intermittently (about once a second) to update you on the status of the process.
+     * When the process has come to an end (whether successfully or not), the onComplete action will be invoked with the updated information.
+     *
+     * @param ForPlayerWithUlid Execute the request for the specified player (the player that you intend to link the remote account into).
+     * @param RemoteSessionLeaseInformation Will be invoked once to provide the lease information that the secondary device can use to authenticate
+     * @param RemoteSessionLeaseStatusUpdate Will be invoked intermittently to update the status lease process
+     * @param OnComplete Invoked when the remote session process has run to completion containing either a valid session or information on why the process failed
+     * @param PollingIntervalSeconds Optional: How often to poll the status of the remote session process
+     * @param TimeOutAfterMinutes Optional: How long to allow the process to take in its entirety
+     */
+    static FString StartRemoteSessionForLinking(const FString& ForPlayerWithUlid, const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegate& OnComplete, float PollingIntervalSeconds = 1.0f, float TimeOutAfterMinutes = 5.0f);
 
     /**
      * Cancel an ongoing remote session process
      *
      * @param ProcessID The id of the remote session process that you want to cancel
-     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void CancelRemoteSessionProcess(const FString& ProcessID, const FString ForPlayerWithUlid = "");
+    static void CancelRemoteSessionProcess(const FString& ProcessID);
 
     /**
      * Refresh a previous session signed in remotely
@@ -597,7 +648,7 @@ public:
     * List information for one or more other players
     *
     * @param PlayerIdsToLookUp A list of ULID ids of players to look up. These ids are in the form of ULIDs and are sometimes called player_ulid or similar
-    * @param LegacyPlayerIdsToLookUp A list of legacy ids of players to look up. These ids are in the form of integers and are sometimes called simply player_id or id
+    * @param PlayerLegacyIdsToLookUp A list of legacy ids of players to look up. These ids are in the form of integers and are sometimes called simply player_id or id
     * @param PlayerPublicUidsToLookUp A list of public uids to look up. These ids are in the form of UIDs
     * @param OnCompletedRequest Delegate for handling the server response
     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.

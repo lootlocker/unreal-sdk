@@ -35,3 +35,47 @@ void ULootLockerConnectedAccountsRequestHandler::ConnectAppleAccountByRestSignIn
 {
     LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(HttpClient, FLootLockerConnectAppleRestProviderToAccountRequest{ AuthorizationCode }, ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint, { FString("apple-rest") }, {}, PlayerData, OnCompleteBP, OnComplete);
 }
+
+void ULootLockerConnectedAccountsRequestHandler::ConnectRemoteSessionAccount(const FLootLockerPlayerData& PlayerData, const FString& Code, const FString& Nonce, const FLootLockerAccountConnectedResponseBP& OnCompleteBP, const FLootLockerAccountConnectedResponseDelegate& OnComplete)
+{
+    LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(HttpClient, FLootLockerConnectRemoteSessionToAccountRequest{ Code, Nonce }, ULootLockerGameEndpoints::AttachRemoteSessionToAccountEndpoint, {}, {}, PlayerData, OnCompleteBP, OnComplete);
+}
+
+void ULootLockerConnectedAccountsRequestHandler::TransferIdentityProvidersBetweenAccounts(const FLootLockerPlayerData& SourcePlayerData, const FLootLockerPlayerData& TargetPlayerData,	TArray<ELootLockerAccountProvider> ProvidersToTransfer,	const FLootLockerListConnectedAccountsResponseBP& OnCompleteBP,	const FLootLockerListConnectedAccountsResponseDelegate& OnComplete)
+{
+    if (SourcePlayerData.Token.IsEmpty())
+    {
+        auto ErrorResponse = LootLockerResponseFactory::Error<FLootLockerListConnectedAccountsResponse>("No valid session token found for source player", 403, SourcePlayerData.PlayerUlid);
+        OnCompleteBP.ExecuteIfBound(ErrorResponse);
+        OnComplete.ExecuteIfBound(ErrorResponse);
+        return;
+    }
+    if (TargetPlayerData.Token.IsEmpty())
+    {
+        auto ErrorResponse = LootLockerResponseFactory::Error<FLootLockerListConnectedAccountsResponse>("No valid session token found for target player", 403, SourcePlayerData.PlayerUlid);
+        OnCompleteBP.ExecuteIfBound(ErrorResponse);
+        OnComplete.ExecuteIfBound(ErrorResponse);
+        return;
+    }
+    if (ProvidersToTransfer.IsEmpty())
+    {
+        auto ErrorResponse = LootLockerResponseFactory::Error<FLootLockerListConnectedAccountsResponse>("No providers submitted", 403, SourcePlayerData.PlayerUlid);
+        OnCompleteBP.ExecuteIfBound(ErrorResponse);
+        OnComplete.ExecuteIfBound(ErrorResponse);
+        return;
+    }
+
+    TArray<FString> providers;
+    for (const auto& Provider : ProvidersToTransfer)
+    {
+        providers.Add(ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerAccountProvider"), static_cast<int32>(Provider)).ToLower());
+    }
+
+    FLootLockerTransferProvidersBetweenAccountsRequest Request{
+        SourcePlayerData.Token,
+        TargetPlayerData.Token,
+        providers
+    };
+
+    LLAPI<FLootLockerListConnectedAccountsResponse>::CallAPI(HttpClient, Request, ULootLockerGameEndpoints::TransferProvidersBetweenAccountsEndpoint, {}, {}, SourcePlayerData, OnCompleteBP, OnComplete);
+}

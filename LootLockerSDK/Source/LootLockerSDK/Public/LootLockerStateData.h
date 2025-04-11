@@ -115,7 +115,7 @@ private:
 public:
 	ULootLockerStateData();
 
-	static FString GetNewUniqueIdentifier();
+	static FString GenerateNewGuestIdentifier();
 	static bool SaveStateExistsForPlayer(const FString& PlayerUlid = "");
 	static const FLootLockerPlayerData& GetSavedStateOrDefaultOrEmptyForPlayer(const FString& PlayerUlid = "");
 	static FString GetDefaultPlayerUlid();
