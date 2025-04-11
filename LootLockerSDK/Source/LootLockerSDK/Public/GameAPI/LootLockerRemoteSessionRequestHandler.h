@@ -113,6 +113,11 @@ struct FLootLockerRemoteSessionPlayerData
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString player_identifier;
     /**
+     * When this player was first created
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString player_created_at;
+    /**
      The id of the wallet for this account
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
