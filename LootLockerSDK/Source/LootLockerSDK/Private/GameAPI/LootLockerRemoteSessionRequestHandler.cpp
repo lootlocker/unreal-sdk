@@ -329,6 +329,7 @@ void ULootLockerAsyncStartRemoteSession::HandleLeaseProcessCompleted(const FLoot
 				LeaseProcessCompletedResponse.level_thresholds,
 				LeaseProcessCompletedResponse.account_balance,
 				LeaseProcessCompletedResponse.player_identifier,
+				LeaseProcessCompletedResponse.player_created_at,
 				LeaseProcessCompletedResponse.wallet_id,
 			},
 			static_cast<FLootLockerResponse>(LeaseProcessCompletedResponse));
@@ -338,23 +339,9 @@ void ULootLockerAsyncStartRemoteSession::HandleLeaseProcessCompleted(const FLoot
 			LeaseProcessID,
 			LeaseData, 
 			false,
-			LeaseProcessCompletedResponse.session_token,
-			LeaseProcessCompletedResponse.Refresh_token,
-			FLootLockerRemoteSessionPlayerData{
-				LeaseProcessCompletedResponse.player_name,
-				LeaseProcessCompletedResponse.player_id,
-				LeaseProcessCompletedResponse.public_uid,
-				LeaseProcessCompletedResponse.player_ulid,
-				LeaseProcessCompletedResponse.seen_before,
-				LeaseProcessCompletedResponse.check_grant_notifications,
-				LeaseProcessCompletedResponse.check_deactivation_notifications,
-				LeaseProcessCompletedResponse.xp,
-				LeaseProcessCompletedResponse.level,
-				LeaseProcessCompletedResponse.level_thresholds,
-				LeaseProcessCompletedResponse.account_balance,
-				LeaseProcessCompletedResponse.player_identifier,
-				LeaseProcessCompletedResponse.wallet_id,
-			},
+			"",
+			"",
+			FLootLockerRemoteSessionPlayerData(),
 			static_cast<FLootLockerResponse>(LeaseProcessCompletedResponse));
 		break;
 	case ELootLockerRemoteSessionLeaseStatus::Timed_out:
@@ -362,23 +349,9 @@ void ULootLockerAsyncStartRemoteSession::HandleLeaseProcessCompleted(const FLoot
 			LeaseProcessID,
 			LeaseData,
 			false,
-			LeaseProcessCompletedResponse.session_token,
-			LeaseProcessCompletedResponse.Refresh_token,
-			FLootLockerRemoteSessionPlayerData{
-				LeaseProcessCompletedResponse.player_name,
-				LeaseProcessCompletedResponse.player_id,
-				LeaseProcessCompletedResponse.public_uid,
-				LeaseProcessCompletedResponse.player_ulid,
-				LeaseProcessCompletedResponse.seen_before,
-				LeaseProcessCompletedResponse.check_grant_notifications,
-				LeaseProcessCompletedResponse.check_deactivation_notifications,
-				LeaseProcessCompletedResponse.xp,
-				LeaseProcessCompletedResponse.level,
-				LeaseProcessCompletedResponse.level_thresholds,
-				LeaseProcessCompletedResponse.account_balance,
-				LeaseProcessCompletedResponse.player_identifier,
-				LeaseProcessCompletedResponse.wallet_id,
-			},
+			"",
+			"",
+			FLootLockerRemoteSessionPlayerData(),
 			static_cast<FLootLockerResponse>(LeaseProcessCompletedResponse));
 		break;
 	case ELootLockerRemoteSessionLeaseStatus::Failed:
@@ -386,23 +359,9 @@ void ULootLockerAsyncStartRemoteSession::HandleLeaseProcessCompleted(const FLoot
 			LeaseProcessID,
 			LeaseData,
 			false,
-			LeaseProcessCompletedResponse.session_token,
-			LeaseProcessCompletedResponse.Refresh_token,
-			FLootLockerRemoteSessionPlayerData{
-				LeaseProcessCompletedResponse.player_name,
-				LeaseProcessCompletedResponse.player_id,
-				LeaseProcessCompletedResponse.public_uid,
-				LeaseProcessCompletedResponse.player_ulid,
-				LeaseProcessCompletedResponse.seen_before,
-				LeaseProcessCompletedResponse.check_grant_notifications,
-				LeaseProcessCompletedResponse.check_deactivation_notifications,
-				LeaseProcessCompletedResponse.xp,
-				LeaseProcessCompletedResponse.level,
-				LeaseProcessCompletedResponse.level_thresholds,
-				LeaseProcessCompletedResponse.account_balance,
-				LeaseProcessCompletedResponse.player_identifier,
-				LeaseProcessCompletedResponse.wallet_id,
-			},
+			"",
+			"",
+			FLootLockerRemoteSessionPlayerData(),
 			static_cast<FLootLockerResponse>(LeaseProcessCompletedResponse));
 		break;
 
