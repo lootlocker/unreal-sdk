@@ -29,7 +29,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::SteamSessionEndpoint = InitEndpoi
 
 // Connected Accounts
 FLootLockerEndPoints ULootLockerGameEndpoints::ListConnectedAccountsEndpoint = InitEndpoint("v1/connected-accounts", ELootLockerHTTPMethod::GET);
-FLootLockerEndPoints ULootLockerGameEndpoints::DisconnectAccountEndpoint = InitEndpoint("v1/connected-accounts/{0}", ELootLockerHTTPMethod::DELETE);
+FLootLockerEndPoints ULootLockerGameEndpoints::DisconnectAccountEndpoint = InitEndpoint("player/providers/{0}", ELootLockerHTTPMethod::DELETE);
 FLootLockerEndPoints ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint = InitEndpoint("v1/connected-accounts/{0}", ELootLockerHTTPMethod::PUT);
 FLootLockerEndPoints ULootLockerGameEndpoints::AttachRemoteSessionToAccountEndpoint = InitEndpoint("v1/connected-accounts/attach", ELootLockerHTTPMethod::PUT);
 FLootLockerEndPoints ULootLockerGameEndpoints::TransferProvidersBetweenAccountsEndpoint = InitEndpoint("v1/connected-accounts/transfer-providers", ELootLockerHTTPMethod::PUT);
