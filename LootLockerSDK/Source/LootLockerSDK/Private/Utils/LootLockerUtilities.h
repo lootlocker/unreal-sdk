@@ -159,7 +159,33 @@ struct LLAPI
         TArray<FStringFormatArg> UrlEncodedPathParams;
         for (const FStringFormatArg& InOrderedArgument : InOrderedArguments)
         {
-            UrlEncodedPathParams.Add(FGenericPlatformHttp::UrlEncode(InOrderedArgument.StringValue));
+            switch (InOrderedArgument.Type)
+            {
+            case FStringFormatArg::Int:
+                UrlEncodedPathParams.Add(FGenericPlatformHttp::UrlEncode(FString::FromInt(InOrderedArgument.IntValue)));
+                break;
+            case FStringFormatArg::UInt:
+                UrlEncodedPathParams.Add(FGenericPlatformHttp::UrlEncode(FString::FromInt(InOrderedArgument.UIntValue)));
+                break;
+            case FStringFormatArg::Double:
+                UrlEncodedPathParams.Add(FGenericPlatformHttp::UrlEncode(FString::SanitizeFloat(InOrderedArgument.DoubleValue)));
+                break;
+            case FStringFormatArg::String:
+                UrlEncodedPathParams.Add(FGenericPlatformHttp::UrlEncode(InOrderedArgument.StringValue));
+                break;
+            case FStringFormatArg::StringLiteralANSI:
+                UrlEncodedPathParams.Add(FGenericPlatformHttp::UrlEncode(FString(InOrderedArgument.StringLiteralANSIValue)));
+                break;
+            case FStringFormatArg::StringLiteralWIDE:
+                UrlEncodedPathParams.Add(FGenericPlatformHttp::UrlEncode(FString(InOrderedArgument.StringLiteralWIDEValue)));
+                break;
+            case FStringFormatArg::StringLiteralUCS2:
+                UrlEncodedPathParams.Add(FGenericPlatformHttp::UrlEncode(FString(InOrderedArgument.StringLiteralUCS2Value)));
+                break;
+            case FStringFormatArg::StringLiteralUTF8:
+                UrlEncodedPathParams.Add(FGenericPlatformHttp::UrlEncode(FString(InOrderedArgument.StringLiteralUTF8Value)));
+                break;
+            }
         }
         EndpointWithArguments = FString::Format(*EndpointWithArguments, UrlEncodedPathParams);
         if (!PlayerData.Token.IsEmpty())
@@ -195,7 +221,33 @@ struct LLAPI
         TArray<FStringFormatArg> UrlEncodedPathParams;
         for (const FStringFormatArg& InOrderedArgument : InOrderedArguments)
         {
-            UrlEncodedPathParams.Add(FGenericPlatformHttp::UrlEncode(InOrderedArgument.StringValue));
+            switch (InOrderedArgument.Type)
+            {
+            case FStringFormatArg::Int:
+                UrlEncodedPathParams.Add(FGenericPlatformHttp::UrlEncode(FString::FromInt(InOrderedArgument.IntValue)));
+                break;
+            case FStringFormatArg::UInt:
+                UrlEncodedPathParams.Add(FGenericPlatformHttp::UrlEncode(FString::FromInt(InOrderedArgument.UIntValue)));
+                break;
+            case FStringFormatArg::Double:
+                UrlEncodedPathParams.Add(FGenericPlatformHttp::UrlEncode(FString::SanitizeFloat(InOrderedArgument.DoubleValue)));
+                break;
+            case FStringFormatArg::String:
+                UrlEncodedPathParams.Add(FGenericPlatformHttp::UrlEncode(InOrderedArgument.StringValue));
+                break;
+            case FStringFormatArg::StringLiteralANSI:
+                UrlEncodedPathParams.Add(FGenericPlatformHttp::UrlEncode(FString(InOrderedArgument.StringLiteralANSIValue)));
+                break;
+            case FStringFormatArg::StringLiteralWIDE:
+                UrlEncodedPathParams.Add(FGenericPlatformHttp::UrlEncode(FString(InOrderedArgument.StringLiteralWIDEValue)));
+                break;
+            case FStringFormatArg::StringLiteralUCS2:
+                UrlEncodedPathParams.Add(FGenericPlatformHttp::UrlEncode(FString(InOrderedArgument.StringLiteralUCS2Value)));
+                break;
+            case FStringFormatArg::StringLiteralUTF8:
+                UrlEncodedPathParams.Add(FGenericPlatformHttp::UrlEncode(FString(InOrderedArgument.StringLiteralUTF8Value)));
+                break;
+            }
         }
         EndpointWithArguments = FString::Format(*EndpointWithArguments, UrlEncodedPathParams);
         
