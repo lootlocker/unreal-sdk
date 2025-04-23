@@ -52,6 +52,45 @@ struct FLootLockerBalance
     FString Created_at;
 };
 
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerBalanceModifiers
+{
+    GENERATED_BODY()
+    /**
+     * The id of the currency
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Currency_id;
+    /**
+     * The name of the currency
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Currency_name;
+    /**
+     * The currency code
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Currency_code;
+    /**
+     * The factor of this currency
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Factor;
+    /**
+     * When this currency modifier was created
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Created_at;
+    /**
+     * When this currency modifier expires
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Expires_at;
+};
+
 //==================================================
 // Request Definitions
 //==================================================
@@ -167,6 +206,11 @@ struct FLootLockerGetWalletResponse : public FLootLockerResponse
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     ELootLockerWalletHolderTypes type = ELootLockerWalletHolderTypes::player;
+    /**
+     * The modifiers for this wallet
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerBalanceModifiers Modifiers;
 };
 
 /**
