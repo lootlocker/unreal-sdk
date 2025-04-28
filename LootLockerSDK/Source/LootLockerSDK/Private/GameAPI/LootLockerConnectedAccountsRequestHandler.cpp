@@ -57,7 +57,7 @@ void ULootLockerConnectedAccountsRequestHandler::TransferIdentityProvidersBetwee
         OnComplete.ExecuteIfBound(ErrorResponse);
         return;
     }
-    if (ProvidersToTransfer.IsEmpty())
+    if (ProvidersToTransfer.Num() == 0)
     {
         auto ErrorResponse = LootLockerResponseFactory::Error<FLootLockerListConnectedAccountsResponse>("No providers submitted", 403, SourcePlayerData.PlayerUlid);
         OnCompleteBP.ExecuteIfBound(ErrorResponse);
