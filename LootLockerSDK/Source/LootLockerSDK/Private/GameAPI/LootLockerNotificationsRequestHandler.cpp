@@ -13,6 +13,8 @@ const FString LootLockerNotificationsStaticStrings::NotificationSources::Purchas
 const FString LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::GooglePlayStore = "purchasing.google_play_store";
 const FString LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::LootLocker = "purchasing.lootlocker";
 const FString LootLockerNotificationsStaticStrings::NotificationSources::TwitchDrop = "twitch_drop";
+const FString LootLockerNotificationsStaticStrings::NotificationSources::LootLockerConsole = "lootlocker.console";
+const FString LootLockerNotificationsStaticStrings::NotificationSources::LootLockerServerApi = "lootlocker.server_api";
 const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Triggers::Id = "trigger_id";
 const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Triggers::Key = "trigger_key";
 const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Triggers::Limit = "trigger_limit";
@@ -74,6 +76,16 @@ void FLootLockerListNotificationsResponse::PopulateConvenienceStructures()
         {
             Notification.SourceEnum = ELootLockerNotificationSource::twitch_drop;
             Notification.Content.IdentifyingContextKey = LootLockerNotificationsStaticStrings::StandardContextKeys::TwitchDrop::TwitchRewardId;
+        }
+        else if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::LootLockerConsole, ESearchCase::IgnoreCase))
+        {
+            Notification.SourceEnum = ELootLockerNotificationSource::lootlocker_console;
+            Notification.Content.IdentifyingContextKey = Notification.Notification_type;
+        }
+        else if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::LootLockerServerApi, ESearchCase::IgnoreCase))
+        {
+            Notification.SourceEnum = ELootLockerNotificationSource::lootlocker_server_api;
+            Notification.Content.IdentifyingContextKey = Notification.Notification_type;
         }
 
         if (!Notification.Content.IdentifyingContextKey.IsEmpty())
@@ -145,7 +157,7 @@ void ULootLockerNotificationsRequestHandler::ListNotificationsWithDefaultParamet
     ListNotifications(PlayerData, TMultiMap<FString, FString>(), OnCompleteBP, OnComplete);
 }
 
-void ULootLockerNotificationsRequestHandler::ListNotifications(const FLootLockerPlayerData& PlayerData, bool ShowRead, const FString& OfType, const FString& WithSource, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnCompleteBP, const FLootLockerListNotificationsResponseDelegate& OnComplete)
+void ULootLockerNotificationsRequestHandler::ListNotifications(const FLootLockerPlayerData& PlayerData, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnCompleteBP, const FLootLockerListNotificationsResponseDelegate& OnComplete)
 {
     TMultiMap<FString, FString> QueryParams;
     if (Page > 0) QueryParams.Add("page", FString::FromInt(Page));
@@ -153,19 +165,22 @@ void ULootLockerNotificationsRequestHandler::ListNotifications(const FLootLocker
     if (!WithSource.IsEmpty()) QueryParams.Add("source", WithSource);
     if (!OfType.IsEmpty()) QueryParams.Add("notification_type", OfType);
     if (ShowRead) QueryParams.Add("read", "true"); else QueryParams.Add("read", "false");
+    if (CustomNotificationsFilter != ELootLockerCustomNotificationFiltering::All) QueryParams.Add("custom", CustomNotificationsFilter == ELootLockerCustomNotificationFiltering::Custom_only ? "true" : "false");
 
     ListNotifications(PlayerData, QueryParams, OnCompleteBP, OnComplete);
 }
 
-void ULootLockerNotificationsRequestHandler::ListNotifications(const FLootLockerPlayerData& PlayerData, ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnCompleteBP, const FLootLockerListNotificationsResponseDelegate& OnComplete)
+void ULootLockerNotificationsRequestHandler::ListNotifications(const FLootLockerPlayerData& PlayerData, ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnCompleteBP, const FLootLockerListNotificationsResponseDelegate& OnComplete)
 {
     TMultiMap<FString, FString> QueryParams;
+    QueryParams.Add("priority", ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerNotificationPriority"), static_cast<int32>(WithPriority)));
+
     if (Page > 0) QueryParams.Add("page", FString::FromInt(Page));
     if (PerPage > 0) QueryParams.Add("per_page", FString::FromInt(PerPage));
     if (!WithSource.IsEmpty()) QueryParams.Add("source", WithSource);
     if (!OfType.IsEmpty()) QueryParams.Add("notification_type", OfType);
     if (ShowRead) QueryParams.Add("read", "true"); else QueryParams.Add("read", "false");
-    QueryParams.Add("priority", ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerNotificationPriority"), static_cast<int32>(WithPriority)));
+    if (CustomNotificationsFilter != ELootLockerCustomNotificationFiltering::All) QueryParams.Add("custom", CustomNotificationsFilter == ELootLockerCustomNotificationFiltering::Custom_only ? "true" : "false");
 
     ListNotifications(PlayerData, QueryParams, OnCompleteBP, OnComplete);
 }

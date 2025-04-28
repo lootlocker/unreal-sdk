@@ -2115,14 +2115,15 @@ public:
 
      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      @param ShowRead Return previously read notifications
-     @param OfType (Optional) Return only notifications with the specified type
+     @param CustomNotificationsFilter (Optional) Whether to filter for custom, non custom, or all notifications
+     @param OfType (Optional) Return only notifications with the specified type, if this is a custom notification then the type is set by the sender of the notification and must match pattern ^[a-z_-]+\.[a-z_-]+\.[a-z_-]+$
      @param WithSource (Optional) Return only notifications with the specified source
      @param PerPage (Optional) Used together with PerPage to apply pagination to this request. Page designates which "page" of items to fetch
      @param Page (Optional) Used together with Page to apply pagination to this request. PerPage designates how many notifications are considered a "page"
      @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListNotifications(const FString& ForPlayerWithUlid, bool ShowRead, const FString& OfType, const FString& WithSource, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete);
+    static void ListNotifications(const FString& ForPlayerWithUlid, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete);
 
     /**
      List notifications according to specified filters and with pagination settings
@@ -2130,14 +2131,15 @@ public:
      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      @param WithPriority Return only notifications with the specified priority
      @param ShowRead Return previously read notifications
-     @param OfType (Optional) Return only notifications with the specified type
+     @param CustomNotificationsFilter (Optional) Whether to filter for custom, non custom, or all notifications
+     @param OfType (Optional) Return only notifications with the specified type, if this is a custom notification then the type is set by the sender of the notification and must match pattern ^[a-z_-]+\.[a-z_-]+\.[a-z_-]+$
      @param WithSource (Optional) Return only notifications with the specified source
      @param PerPage (Optional) Used together with PerPage to apply pagination to this request. Page designates which "page" of items to fetch
      @param Page (Optional) Used together with Page to apply pagination to this request. PerPage designates how many notifications are considered a "page"
      @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListNotificationsWithPriority(const FString& ForPlayerWithUlid, ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete);
+    static void ListNotificationsWithPriority(const FString& ForPlayerWithUlid, ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete);
 
     /**
      Mark all unread notifications as read
@@ -2177,7 +2179,8 @@ public:
     * For Apple App Store purchases it is the transaction id
     * For Steam Store purchases it is the entitlement id
     * For LootLocker virtual purchases it is the catalog item id
-    * Twitch Drops have no uniquely identifying information, so sending in "twitch_drop" returns all twitch drop notifications
+    * For Twitch Drops it is the Twitch reward id
+    * For custom notifications (notifications with the field Custom = true and with the source being either LootLocker Console or LootLocker Server API) the content of the notification is defined by the sender, so the identifying value is simply the Notification type matching the pattern ^[a-z0-9_-]+\.[a-z0-9_-]+\.[a-z0-9_-]+$
     *
     * @param NotificationsResponse The response from which you want to find the notifications.
     * @param IdentifyingValue The identifying value of the notification you want to fetch.
