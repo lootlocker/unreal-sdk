@@ -31,7 +31,7 @@ FString ULootLockerStateData::GenerateNewGuestIdentifier()
 	{
 		LoadMetaState();
 	}
-	if (ActiveMetaData.SavedPlayerStateUlids.IsEmpty() && FGenericPlatformMisc::GetDeviceId != nullptr)
+	if (ActiveMetaData.SavedPlayerStateUlids.Num() == 0 && FGenericPlatformMisc::GetDeviceId != nullptr)
 	{
 		// For backwards compatibility, base the first guest user on the device id
 		return FGenericPlatformMisc::GetDeviceId();

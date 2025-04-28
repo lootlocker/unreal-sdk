@@ -1,6 +1,8 @@
 // Copyright (c) 2021 LootLocker
 
 #include "GameAPI/LootLockerRemoteSessionRequestHandler.h"
+#include "Engine/Engine.h"
+#include "Engine/GameViewportClient.h"
 #include "LootLockerSDK.h"
 #include "LootLockerGameEndpoints.h"
 #include "LootLockerPlatformManager.h"
