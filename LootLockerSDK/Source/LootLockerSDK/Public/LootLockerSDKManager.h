@@ -2143,29 +2143,31 @@ public:
     /**
      List notifications according to specified filters and with pagination settings
 
-     @param ShowRead Return previously read notifications
+     @param ShowRead Return only previously read notifications
      @param OfType (Optional) Return only notifications with the specified type
      @param WithSource (Optional) Return only notifications with the specified source
+     @param CustomNotificationsFilter (Optional) Whether to filter for custom, non custom, or all notifications
      @param PerPage (Optional) Used together with PerPage to apply pagination to this request. Page designates which "page" of items to fetch
      @param Page (Optional) Used together with Page to apply pagination to this request. PerPage designates how many notifications are considered a "page"
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void ListNotifications(bool ShowRead, const FString & OfType, const FString & WithSource, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
+    static void ListNotifications(bool ShowRead, const FString & OfType, const FString & WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      List notifications according to specified filters and with pagination settings
 
      @param WithPriority Return only notifications with the specified priority
-     @param ShowRead Return previously read notifications
+     @param ShowRead Return only previously read notifications
      @param OfType (Optional) Return only notifications with the specified type
      @param WithSource (Optional) Return only notifications with the specified source
+     @param CustomNotificationsFilter (Optional) Whether to filter for custom, non custom, or all notifications
      @param PerPage (Optional) Used together with PerPage to apply pagination to this request. Page designates which "page" of items to fetch
      @param Page (Optional) Used together with Page to apply pagination to this request. PerPage designates how many notifications are considered a "page"
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-    static void ListNotificationsWithPriority(ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString & OfType, const FString & WithSource, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
+    static void ListNotificationsWithPriority(ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString & OfType, const FString & WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
     /**
      Mark all unread notifications as read

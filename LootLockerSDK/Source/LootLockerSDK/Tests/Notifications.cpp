@@ -149,6 +149,8 @@ FLootLockerNotification GenerateLootLockerNotification(const FString& notificati
         /*Player_id*/
         FGuid::NewGuid().ToString(),
         /*Read*/
+        false,
+        /*Custom*/
         false
     };
 }
