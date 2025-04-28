@@ -35,6 +35,8 @@ enum class ELootLockerNotificationSource : uint8
     purchasing_google_play_store = 3,
     purchasing_lootlocker_store = 4,
     twitch_drop = 5,
+    lootlocker_console = 6,
+    lootlocker_server_api = 7,
 };
 
 /**
@@ -48,6 +50,17 @@ enum class ELootLockerNotificationContentKind : uint8
     asset = 2,
     progression_reset = 3,
     progression_points = 4,
+};
+
+/**
+ * Enum for custom notification filtering
+ */
+UENUM(BlueprintType, Category = "LootLocker")
+enum class ELootLockerCustomNotificationFiltering : uint8
+{
+    All = 0,
+    Custom_only = 1,
+    LootLocker_only = 2,
 };
 
 //==================================================
@@ -81,6 +94,8 @@ struct LootLockerNotificationsStaticStrings
             static const FString LootLocker;
         };
         static const FString TwitchDrop;
+        static const FString LootLockerConsole;
+        static const FString LootLockerServerApi;
     };
 
     /**
@@ -193,6 +208,16 @@ public:
      */
     UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Sources | Twitch Drop")
     static FString GetNotificationsSourceTwitchDropString() { return LootLockerNotificationsStaticStrings::NotificationSources::TwitchDrop; };
+    /**
+     * Static String for use in Notifications -- Matching Notification source LootLocker Console
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Sources | LootLocker Console")
+    static FString GetNotificationsSourceLootLockerConsoleString() { return LootLockerNotificationsStaticStrings::NotificationSources::LootLockerConsole; };
+    /**
+     * Static String for use in Notifications -- Matching Notification source LootLocker Server API
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Sources | LootLocker Server API")
+    static FString GetNotificationsSourceLootLockerServerAPIString() { return LootLockerNotificationsStaticStrings::NotificationSources::LootLockerServerApi; };
     /**
      * Static String for use in Notification contexts -- Standard Context Key for Triggers
      */
@@ -748,7 +773,7 @@ struct FLootLockerNotification
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Read_at = "";
     /**
-      The type of this notification
+      The type of this notification, if this is a custom notification then this is set by the sender of the notification and must match pattern ^[a-z_-]+\.[a-z_-]+\.[a-z_-]+$
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Notification_type = "";
@@ -787,6 +812,11 @@ struct FLootLockerNotification
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool Read = false;
+    /**
+      Whether this notification is a custom notification (custom defined by this game) or not (default defined by LootLocker)
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool Custom = false;
 };
 
 //==================================================
@@ -847,7 +877,8 @@ struct FLootLockerListNotificationsResponse : public FLootLockerResponse
     * For Google Play Store purchases it is the product id
     * For Apple App Store purchases it is the transaction id
     * For LootLocker virtual purchases it is the catalog item id
-    * Twitch Drops have no uniquely identifying information, so sending in "twitch_drop" returns all twitch drop notifications
+    * For Twitch Drops it is the Twitch reward id
+    * For custom notifications (notifications with the field Custom = true and with the source being either LootLocker Console or LootLocker Server API) the content of the notification is defined by the sender, so the identifying value is simply the Notification type matching the pattern ^[a-z0-9_-]+\.[a-z0-9_-]+\.[a-z0-9_-]+$
     * 
     * @param IdentifyingValue The identifying value of the notification you want to fetch.
     * @param OutNotifications A list of notifications that were found for the given identifying value or null if none were found.
@@ -896,8 +927,8 @@ class LOOTLOCKERSDK_API ULootLockerNotificationsRequestHandler : public UObject
 public:
     ULootLockerNotificationsRequestHandler();
     static void ListNotificationsWithDefaultParameters(const FLootLockerPlayerData& PlayerData, const FLootLockerListNotificationsResponseBP& OnCompleteBP = FLootLockerListNotificationsResponseBP(), const FLootLockerListNotificationsResponseDelegate& OnComplete = FLootLockerListNotificationsResponseDelegate());
-    static void ListNotifications(const FLootLockerPlayerData& PlayerData, bool ShowRead, const FString& OfType, const FString& WithSource, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnCompleteBP = FLootLockerListNotificationsResponseBP(), const FLootLockerListNotificationsResponseDelegate& OnComplete = FLootLockerListNotificationsResponseDelegate());
-    static void ListNotifications(const FLootLockerPlayerData& PlayerData, ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnCompleteBP = FLootLockerListNotificationsResponseBP(), const FLootLockerListNotificationsResponseDelegate& OnComplete = FLootLockerListNotificationsResponseDelegate());
+    static void ListNotifications(const FLootLockerPlayerData& PlayerData, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnCompleteBP = FLootLockerListNotificationsResponseBP(), const FLootLockerListNotificationsResponseDelegate& OnComplete = FLootLockerListNotificationsResponseDelegate());
+    static void ListNotifications(const FLootLockerPlayerData& PlayerData, ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnCompleteBP = FLootLockerListNotificationsResponseBP(), const FLootLockerListNotificationsResponseDelegate& OnComplete = FLootLockerListNotificationsResponseDelegate());
     static void MarkNotificationsAsRead(const FLootLockerPlayerData& PlayerData, const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseBP& OnCompleteBP = FLootLockerReadNotificationsResponseBP(), const FLootLockerReadNotificationsResponseDelegate& OnComplete = FLootLockerReadNotificationsResponseDelegate());
     static void MarkAllNotificationsAsRead(const FLootLockerPlayerData& PlayerData, const FLootLockerReadNotificationsResponseBP& OnCompleteBP = FLootLockerReadNotificationsResponseBP(), const FLootLockerReadNotificationsResponseDelegate& OnComplete = FLootLockerReadNotificationsResponseDelegate());
 private:
