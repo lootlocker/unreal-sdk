@@ -40,10 +40,33 @@ enum class ELootLockerNotificationSource : uint8
 };
 
 /**
+ * Enum of the different types of values that can be in the notification body. Use this to know how to parse the body.
+ */
+UENUM(BlueprintType, Category = "LootLocker")
+enum class ELootLockerNotificationContentBodyType : uint8
+{
+    none = 0,
+    null = 1,
+    reward = 2,
+    json_string = 3,
+    json_integer = 4,
+    json_decimal = 5,
+    json_bool = 6,
+    json_object = 7,
+    json_array = 8,
+    json_array_string = 9,
+    json_array_integer = 10,
+    json_array_decimal = 11,
+    json_array_bool = 12,
+    json_array_object = 13,
+    unknown = 14,
+};
+
+/**
  * Enum of the different kinds of notification bodies possible, use this to figure out how to parse the notification body
  */
 UENUM(BlueprintType, Category = "LootLocker")
-enum class ELootLockerNotificationContentKind : uint8
+enum class ELootLockerNotificationContentRewardKind : uint8
 {
     group = 0,
     currency = 1,
@@ -310,7 +333,6 @@ struct FLootLockerNotificationIdentifyingValueLookupStruct
     FString NotificationULID = "";
     int NotificationArrayIndex = -1;
 };
-
 
 /**
 */
@@ -624,7 +646,7 @@ struct FLootLockerNotificationGroupRewardAssociations
       The kind of reward, (asset / currency / progression points / progression reset). Note that a group is not allowed to contain another group
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    ELootLockerNotificationContentKind Kind = ELootLockerNotificationContentKind::asset;
+    ELootLockerNotificationContentRewardKind Kind = ELootLockerNotificationContentRewardKind::asset;
     /**
       The details on the Currency.
      */
@@ -645,7 +667,6 @@ struct FLootLockerNotificationGroupRewardAssociations
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerNotificationRewardProgression Progression_points;
-
 };
 
 /**
@@ -688,14 +709,14 @@ struct FLootLockerNotificationRewardGroup
 /**
 */
 USTRUCT(BlueprintType)
-struct FLootLockerNotificationContentBody
+struct FLootLockerNotificationContentRewardBody
 {
     GENERATED_BODY()
     /**
       The kind of notification body this contains. Use it to know which field in this object will be populated. If the kind is asset for example, the asset field will be populated, the rest will be null.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    ELootLockerNotificationContentKind Kind = ELootLockerNotificationContentKind::asset;
+    ELootLockerNotificationContentRewardKind Kind = ELootLockerNotificationContentRewardKind::asset;
     /**
       The Group reward, will be null if the reward is of another type.
      */
@@ -745,10 +766,68 @@ struct FLootLockerNotificationContent
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString IdentifyingContextKey = "";
     /**
-      The body for this notification content, use the kind variable to know which field will be filled with data.
+      The interpreted type of the content body. Use this as a hint on how to parse the body.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FLootLockerNotificationContentBody Body;
+    ELootLockerNotificationContentBodyType BodyType = ELootLockerNotificationContentBodyType::unknown;
+    /**
+      The body for this notification content as a json string, use the dedicated methods to parse this
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString BodyAsJsonString;
+    /**
+      The body for this notification content as a json value, use the dedicated methods to parse this
+     */
+    TSharedPtr<FJsonValue> BodyAsJsonValue;
+
+    /*
+     Get the body as a String. Returns true if body could be parsed in which case Output contains the string body untouched, returns false if parsing failed.
+     */
+    LOOTLOCKERSDK_API bool TryGetContentBodyAsString(FString& Output) const;
+    /*
+     Get the body as a float. Returns true if body could be parsed in which case Output contains the float, returns false if parsing failed which can happen if the body is not numeric, the conversion under or overflows, or the string body precision is larger than can be dealt within a float.
+     */
+    LOOTLOCKERSDK_API bool TryGetContentBodyAsFloat(float& Output) const;
+    /*
+     Get the body as an integer. TReturns true if body could be parsed in which case Output contains the int, returns false if parsing failed which can happen if
+     */
+    LOOTLOCKERSDK_API bool TryGetContentBodyAsInteger(int& Output) const;
+    /*
+     Get the body as a boolean. Returns true if body could be parsed in which case Output contains the bool, returns false if parsing failed which can happen if the string is not a convertible to a boolean (those are for example "0", "1", "true", "False", "yes", "NO", etc).
+     */
+    LOOTLOCKERSDK_API bool TryGetContentBodyAsBool(bool& Output) const;
+    /*
+     Get the body as a String. Returns true if body could be parsed in which case Output contains the string body untouched, returns false if parsing failed.
+     */
+    LOOTLOCKERSDK_API bool TryGetContentBodyAsStringArray(TArray<FString>& Output) const;
+    /*
+     Get the body as a float. Returns true if body could be parsed in which case Output contains the float, returns false if parsing failed which can happen if the body is not numeric, the conversion under or overflows, or the string body precision is larger than can be dealt within a float.
+     */
+    LOOTLOCKERSDK_API bool TryGetContentBodyAsFloatArray(TArray<float>& Output) const;
+    /*
+     Get the body as an integer. TReturns true if body could be parsed in which case Output contains the int, returns false if parsing failed which can happen if
+     */
+    LOOTLOCKERSDK_API bool TryGetContentBodyAsIntegerArray(TArray<int>& Output) const;
+    /*
+     Get the body as a boolean. Returns true if body could be parsed in which case Output contains the bool, returns false if parsing failed which can happen if the string is not a convertible to a boolean (those are for example "0", "1", "true", "False", "yes", "NO", etc).
+     */
+    LOOTLOCKERSDK_API bool TryGetContentBodyAsBoolArray(TArray<bool>& Output) const;
+    /*
+     Get the body as an unparsed json body. Returns true if body could be found in which case Output contains the JsonValue, returns false if the body field was not present.
+     */
+    LOOTLOCKERSDK_API bool TryGetRawValue(TSharedPtr<FJsonValue>& Output) const;
+    /*
+     Get the body as a Json Object. Returns true if body could be parsed in which case Output contains the Json Object, returns false if parsing failed which can happen if the body is not a valid json object string.
+     */
+    LOOTLOCKERSDK_API bool TryGetContentBodyAsJsonObject(TSharedPtr<FJsonObject>& Output) const;
+    /*
+     Get the body as a Json Array. Returns true if body could be parsed in which case Output contains the Json Array, returns false if parsing failed which can happen if the body is not a valid json array string
+     */
+    LOOTLOCKERSDK_API bool TryGetContentBodyAsJsonArray(TArray<TSharedPtr<FJsonValue>>& Output) const;
+    /*
+     Get the body as a LootLockerNotificationContentBody object. Returns true if body could be parsed in which case Output contains the FLootLockerMetadataBase64Value, returns false if parsing failed.
+     */
+    LOOTLOCKERSDK_API bool TryGetContentBodyAsRewardNotification(FLootLockerNotificationContentRewardBody& Output) const;
 };
 
 /**

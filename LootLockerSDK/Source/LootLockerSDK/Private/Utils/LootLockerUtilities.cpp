@@ -89,6 +89,17 @@ namespace LootLockerUtilities
         return JsonObject;
     }
 
+    TSharedPtr<FJsonValue> JsonValueFromFString(const FString& JsonString)
+    {
+        TSharedPtr<FJsonValue> JsonValue = MakeShareable(new FJsonValueNull());
+        const TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(JsonString);
+        if (!FJsonSerializer::Deserialize(JsonReader, JsonValue))
+        {
+            JsonValue = nullptr;
+        };
+        return JsonValue;
+    }
+
     bool JsonArrayFromFString(const FString& JsonString, TArray<TSharedPtr<FJsonValue>>& JsonArrayOutput)
     {
         TArray<TSharedPtr<FJsonValue>> JsonArray;
@@ -163,5 +174,30 @@ namespace LootLockerUtilities
             ++i;
         }
         return ObfuscatedString;
+    }
+
+    FString JsonObjectToString(const TSharedRef<FJsonObject>& JsonObject)
+    {
+	    FString OutJsonString;
+	    TSharedRef<TJsonWriter<TCHAR, TCondensedJsonPrintPolicy<TCHAR>> > JsonWriter = TJsonWriterFactory<TCHAR, TCondensedJsonPrintPolicy<TCHAR>>::Create(&OutJsonString, 0);
+	    bool bSuccess = FJsonSerializer::Serialize(JsonObject, JsonWriter);
+	    JsonWriter->Close();
+	    return bSuccess ? OutJsonString : "";
+    }
+
+    FString JsonValueToString(const TSharedRef<FJsonValue>& JsonValue)
+    {
+	    FString OutJsonString;
+	    TSharedRef<TJsonWriter<TCHAR, TCondensedJsonPrintPolicy<TCHAR>> > JsonWriter = TJsonWriterFactory<TCHAR, TCondensedJsonPrintPolicy<TCHAR>>::Create(&OutJsonString, 0);
+	    bool bSuccess = FJsonSerializer::Serialize(JsonValue, "", JsonWriter);
+	    JsonWriter->Close();
+        // The Unreal serializer in certain versions has a bug where it inserts a comma at the beginning of pure values
+        if (!bSuccess && OutJsonString.StartsWith(","))
+        {
+            bool charRemoved = false;
+            OutJsonString.TrimCharInline(',', &charRemoved);
+            bSuccess = charRemoved;
+        }
+	    return bSuccess ? OutJsonString : "";
     }
 }

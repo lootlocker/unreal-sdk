@@ -75,6 +75,8 @@ namespace LootLockerUtilities
 
     TSharedPtr<FJsonObject> JsonObjectFromFString(const FString& JsonString);
 
+	TSharedPtr<FJsonValue> JsonValueFromFString(const FString& JsonString);
+
     bool JsonArrayFromFString(const FString& JsonString, TArray<TSharedPtr<FJsonValue>>& JsonArrayOutput);
 
     FString ObfuscateJsonStringForLogging(const FString& JsonBody);
@@ -110,6 +112,9 @@ namespace LootLockerUtilities
         return ContentString;
     }
 
+	FString JsonObjectToString(const TSharedRef<FJsonObject>& JsonObject);
+
+	FString JsonValueToString(const TSharedRef<FJsonValue>& JsonValue);
 }
 
 template<typename ResponseType>
