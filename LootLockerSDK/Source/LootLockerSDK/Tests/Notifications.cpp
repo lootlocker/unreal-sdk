@@ -82,6 +82,45 @@ FLootLockerNotification GenerateLootLockerNotification(const FString& notificati
             }
         };
     }
+    auto contentRewardBody = FLootLockerNotificationContentRewardBody{
+        /*Kind*/
+        ELootLockerNotificationContentRewardKind::currency,
+        /*Group*/
+        FLootLockerNotificationRewardGroup(),
+        /*Currency*/
+        FLootLockerNotificationRewardCurrency {
+            /*Created_at*/
+            FDateTime::Now().ToString(),
+            /*Updated_at*/
+            FDateTime::Now().ToString(),
+            /*Amount*/
+            "100",
+            /*Details*/
+            FLootLockerNotificationRewardCurrencyDetails {
+	            /*Name*/
+	            "Gold",
+	            /*Code*/
+	            "GLD",
+	            /*Amount*/
+	            "100",
+	            /*Id*/
+	            FGuid::NewGuid().ToString()
+	        },
+	        /*Reward_id*/
+	        FGuid::NewGuid().ToString(),
+	        /*Currency_id*/
+	        FGuid::NewGuid().ToString()
+	    },
+        /*Asset*/
+        FLootLockerNotificationRewardAsset(),
+        /*Progression_reset*/
+        FLootLockerNotificationRewardProgressionReset(),
+        /*Progression_points*/
+        FLootLockerNotificationRewardProgression()
+    };
+    FString contentRewardBodyString;
+	FJsonObjectConverter::UStructToJsonObjectString(contentRewardBody, contentRewardBodyString);
+    TSharedPtr<FJsonValue> contentRewardBodyJson = LootLockerUtilities::JsonValueFromFString(contentRewardBodyString);
     return FLootLockerNotification
     {
         /*Created_at*/
@@ -107,42 +146,9 @@ FLootLockerNotification GenerateLootLockerNotification(const FString& notificati
             /*IdentifyingContextKey*/
             "",
             /*Body*/
-            FLootLockerNotificationContentBody {
-                /*Kind*/
-                ELootLockerNotificationContentKind::currency,
-                /*Group*/
-                FLootLockerNotificationRewardGroup(),
-                /*Currency*/
-                FLootLockerNotificationRewardCurrency {
-                    /*Created_at*/
-                    FDateTime::Now().ToString(),
-                    /*Updated_at*/
-                    FDateTime::Now().ToString(),
-                    /*Amount*/
-                    "100",
-                    /*Details*/
-                    FLootLockerNotificationRewardCurrencyDetails {
-                        /*Name*/
-                        "Gold",
-                        /*Code*/
-                        "GLD",
-                        /*Amount*/
-                        "100",
-                        /*Id*/
-                        FGuid::NewGuid().ToString()
-                    },
-                    /*Reward_id*/
-                    FGuid::NewGuid().ToString(),
-                    /*Currency_id*/
-                    FGuid::NewGuid().ToString()
-                },
-                /*Asset*/
-                FLootLockerNotificationRewardAsset(),
-                /*Progression_reset*/
-                FLootLockerNotificationRewardProgressionReset(),
-                /*Progression_points*/
-                FLootLockerNotificationRewardProgression()
-            }
+            ELootLockerNotificationContentBodyType::reward,
+			contentRewardBodyString,
+            contentRewardBodyJson            
         },
         /*Id*/
         notificationId,

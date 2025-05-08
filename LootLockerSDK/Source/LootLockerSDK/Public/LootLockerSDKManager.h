@@ -2169,6 +2169,24 @@ public:
     */
     static void ListNotificationsWithPriority(ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString & OfType, const FString & WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
 
+    /*
+     Get the content body as a UStruct of your choice. Returns true if value could be parsed in which case Output contains the parsed UStruct, returns false if the value field was not present or not parseable.
+
+     @param Content The notification content for which you want to get the body parsed as a UStruct.
+     @param Output The UStruct object that you want to be filled with data if the body was successfully parsed.
+     @return True if the body could be parsed as the provided UStruct
+     */
+    template<typename T>
+    static bool TryGetNotificationContentBodyAsUStruct(const FLootLockerNotificationContent& Content, T& Output)
+    {
+        TSharedPtr<FJsonObject> jsonObject = MakeShared<FJsonObject>();
+        if (!Content.TryGetContentBodyAsJsonObject(jsonObject))
+        {
+            return false;
+        }
+        return FJsonObjectConverter::JsonObjectToUStruct<T>(jsonObject.ToSharedRef(), &Output, 0, 0);
+    }
+
     /**
      Mark all unread notifications as read
 

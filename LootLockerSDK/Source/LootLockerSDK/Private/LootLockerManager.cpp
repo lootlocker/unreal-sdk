@@ -902,6 +902,46 @@ void ULootLockerManager::ListNotificationsWithPriority(const FString& ForPlayerW
     ULootLockerNotificationsRequestHandler::ListNotifications(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), WithPriority, ShowRead, OfType, WithSource, CustomNotificationsFilter, PerPage, Page, OnComplete);
 }
 
+bool ULootLockerManager::TryGetContentBodyAsString(const FLootLockerNotificationContent& Content, FString& OutValue)
+{
+    return Content.TryGetContentBodyAsString(OutValue);
+}
+
+bool ULootLockerManager::TryGetContentBodyAsFloat(const FLootLockerNotificationContent& Content, float& OutValue)
+{
+    return Content.TryGetContentBodyAsFloat(OutValue);
+}
+
+bool ULootLockerManager::TryGetContentBodyAsInteger(const FLootLockerNotificationContent& Content, int& OutValue)
+{
+    return Content.TryGetContentBodyAsInteger(OutValue);
+}
+
+bool ULootLockerManager::TryGetContentBodyAsBool(const FLootLockerNotificationContent& Content, bool& OutValue)
+{
+    return Content.TryGetContentBodyAsBool(OutValue);
+}
+
+bool ULootLockerManager::TryGetContentBodyAsFloatArray(const FLootLockerNotificationContent& Content, TArray<float>& OutValue)
+{
+    return Content.TryGetContentBodyAsFloatArray(OutValue);
+}
+
+bool ULootLockerManager::TryGetContentBodyAsIntegerArray(const FLootLockerNotificationContent& Content, TArray<int>& OutValue)
+{
+    return Content.TryGetContentBodyAsIntegerArray(OutValue);
+}
+
+bool ULootLockerManager::TryGetContentBodyAsBoolArray(const FLootLockerNotificationContent& Content, TArray<bool>& OutValue)
+{
+    return Content.TryGetContentBodyAsBoolArray(OutValue);
+}
+
+bool ULootLockerManager::TryGetContentBodyAsRewardNotification(const FLootLockerNotificationContent& Content, FLootLockerNotificationContentRewardBody& OutValue)
+{
+    return Content.TryGetContentBodyAsRewardNotification(OutValue);
+}
+
 void ULootLockerManager::MarkAllNotificationsAsRead(const FString& ForPlayerWithUlid, const FLootLockerReadNotificationsResponseBP& OnComplete)
 {
     ULootLockerNotificationsRequestHandler::MarkAllNotificationsAsRead(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnComplete);

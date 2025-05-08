@@ -2,6 +2,7 @@
 
 #include "GameAPI/LootLockerNotificationsRequestHandler.h"
 #include "LootLockerGameEndpoints.h"
+#include "LootLockerSDK.h"
 #include "Utils/LootLockerUtilities.h"
 
 ULootLockerHttpClient* ULootLockerNotificationsRequestHandler::HttpClient = nullptr;
@@ -39,12 +40,125 @@ void FLootLockerListNotificationsResponse::PopulateConvenienceStructures()
         return;
     }
 
+    TSharedPtr<FJsonObject> ResponseAsJson = LootLockerUtilities::JsonObjectFromFString(FullTextFromServer);
+    TArray<TSharedPtr<FJsonObject>> JsonNotifications;
+    if (ResponseAsJson.IsValid())
+    {
+        const TArray<TSharedPtr<FJsonValue>>* OutJsonNotifications;
+        if (!ResponseAsJson->TryGetArrayField(TEXT("notifications"), OutJsonNotifications)
+            || OutJsonNotifications == nullptr
+			|| OutJsonNotifications->Num() != Notifications.Num())
+        {
+            UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Failed to properly parse notification content"));
+        }
+    	else
+        {
+	        for (auto OutJsonNotification : *OutJsonNotifications)
+	        {
+                JsonNotifications.Add(OutJsonNotification->AsObject());
+	        }
+        }
+    }
+
     int i = 0;
     for(FLootLockerNotification& Notification : Notifications)
     {
         for (const FLootLockerNotificationContextEntry& ContextEntry : Notification.Content.Context)
         {
             Notification.Content.ContextAsDictionary.Add(ContextEntry.Key, ContextEntry.Value);
+        }
+
+        for (TSharedPtr<FJsonObject> jsonNotification : JsonNotifications)
+        {
+            if (!jsonNotification.IsValid())
+            {
+	            continue;
+            }
+            FString jsonNotificationId;
+            if (!jsonNotification->TryGetStringField(TEXT("id"), jsonNotificationId))
+            {
+                continue;
+            }
+	        if (Notification.Id.Equals(jsonNotificationId, ESearchCase::IgnoreCase))
+	        {
+                if (jsonNotification->HasField(TEXT("content"))) {
+	                TSharedPtr<FJsonObject> contentJson = jsonNotification->GetObjectField(TEXT("content"));
+                    if (contentJson.IsValid() && contentJson->HasField(TEXT("body"))) {
+                        TSharedPtr<FJsonValue> bodyJsonValue = contentJson->GetField(TEXT("body"), EJson::None);
+                        Notification.Content.BodyAsJsonValue = bodyJsonValue;
+                        Notification.Content.BodyAsJsonString = LootLockerUtilities::JsonValueToString(bodyJsonValue.ToSharedRef());
+                        if (bodyJsonValue.IsValid())
+                        {
+                            switch (bodyJsonValue->Type)
+                            {
+                            case EJson::Null:
+                                Notification.Content.BodyType = ELootLockerNotificationContentBodyType::null;
+                                break;
+                            case EJson::String:
+                                Notification.Content.BodyType = ELootLockerNotificationContentBodyType::json_string;
+                                break;
+                            case EJson::Number:
+                                Notification.Content.BodyType = Notification.Content.BodyAsJsonString.Contains(".") ? ELootLockerNotificationContentBodyType::json_decimal : ELootLockerNotificationContentBodyType::json_integer;
+                                break;
+                            case EJson::Boolean:
+                                Notification.Content.BodyType = ELootLockerNotificationContentBodyType::json_bool;
+                                break;
+                            case EJson::Object:
+                                Notification.Content.BodyType = ELootLockerNotificationContentBodyType::json_object;
+                                if (Notification.Content.BodyAsJsonValue->AsObject()->HasField(TEXT("kind")) && Notification.Notification_type.Equals(LootLockerNotificationsStaticStrings::NotificationTypes::PullRewardAcquired))
+                                {
+                                    Notification.Content.BodyType = ELootLockerNotificationContentBodyType::reward;
+                                }
+                                break;
+                            case EJson::Array:
+                            {
+                                TArray<TSharedPtr<FJsonValue>> bodyJsonArray = bodyJsonValue->AsArray();
+                                if (bodyJsonArray.IsEmpty() || !bodyJsonArray[0].IsValid())
+                                {
+                                    Notification.Content.BodyType = ELootLockerNotificationContentBodyType::json_array;
+                                }
+                                else
+                                {
+                                    switch (bodyJsonArray[0]->Type) {
+                                    case EJson::String:
+                                        Notification.Content.BodyType = ELootLockerNotificationContentBodyType::json_array_string;
+                                        break;
+                                    case EJson::Number:
+                                        Notification.Content.BodyType = LootLockerUtilities::JsonValueToString(bodyJsonArray[0].ToSharedRef()).Contains(".") ? ELootLockerNotificationContentBodyType::json_array_decimal : ELootLockerNotificationContentBodyType::json_array_integer;
+                                        break;
+                                    case EJson::Boolean:
+                                        Notification.Content.BodyType = ELootLockerNotificationContentBodyType::json_array_bool;
+                                        break;
+                                    case EJson::Object:
+                                        Notification.Content.BodyType = ELootLockerNotificationContentBodyType::json_array_object;
+                                        break;
+                                    default:
+                                    case EJson::Null:
+                                    case EJson::None:
+                                    case EJson::Array:
+                                        Notification.Content.BodyType = ELootLockerNotificationContentBodyType::json_array;
+                                        break;
+                                    };
+                                }
+                            }
+                            break;
+                            case EJson::None:
+                            default:
+                                Notification.Content.BodyType = ELootLockerNotificationContentBodyType::unknown;
+                                break;
+                            }
+                        }
+                    }
+                	else
+                    {
+                        Notification.Content.BodyType = ELootLockerNotificationContentBodyType::none;
+                    }
+                }
+	        	else
+                {
+                    Notification.Content.BodyType = ELootLockerNotificationContentBodyType::none;
+                }
+	        }
         }
 
         if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::Triggers, ESearchCase::IgnoreCase))
@@ -207,4 +321,179 @@ void ULootLockerNotificationsRequestHandler::ListNotifications(const FLootLocker
         OnCompleteBP.ExecuteIfBound(Response);
         OnComplete.ExecuteIfBound(Response);
     }));
+}
+
+bool FLootLockerNotificationContent::TryGetContentBodyAsString(FString& Output) const
+{
+    return BodyAsJsonValue.IsValid() && BodyAsJsonValue->TryGetString(Output);
+}
+
+bool FLootLockerNotificationContent::TryGetContentBodyAsFloat(float& Output) const
+{
+#if ENGINE_MAJOR_VERSION > 5
+    return BodyAsJsonValue.IsValid() && BodyAsJsonValue->TryGetNumber(Output);
+#else
+    double outDouble = 0.0f;
+    bool success = BodyAsJsonValue.IsValid() && BodyAsJsonValue->TryGetNumber(outDouble);
+    Output = static_cast<float>(outDouble);
+    return success;
+#endif
+}
+
+bool FLootLockerNotificationContent::TryGetContentBodyAsInteger(int& Output) const
+{
+    return BodyAsJsonValue.IsValid() && BodyAsJsonValue->TryGetNumber(Output);
+}
+
+bool FLootLockerNotificationContent::TryGetContentBodyAsBool(bool& Output) const
+{
+    return BodyAsJsonValue.IsValid() && BodyAsJsonValue->TryGetBool(Output);
+}
+
+bool FLootLockerNotificationContent::TryGetContentBodyAsStringArray(TArray<FString>& Output) const
+{
+    TArray<TSharedPtr<FJsonValue>> jsonArray;
+    if (!TryGetContentBodyAsJsonArray(jsonArray))
+    {
+        return false;
+    }
+
+    Output = TArray<FString>();
+    bool allSucceeded = true;
+    for (TSharedPtr<FJsonValue> JsonValue : jsonArray)
+    {
+        FString convertedValue;
+        if (JsonValue->TryGetString(convertedValue))
+        {
+            Output.Add(convertedValue);
+        }
+        else
+        {
+            allSucceeded = false;
+        }
+    }
+    return allSucceeded;
+}
+
+bool FLootLockerNotificationContent::TryGetContentBodyAsFloatArray(TArray<float>& Output) const
+{
+    TArray<TSharedPtr<FJsonValue>> jsonArray;
+    if (!TryGetContentBodyAsJsonArray(jsonArray))
+    {
+        return false;
+    }
+
+    Output = TArray<float>();
+    bool allSucceeded = true;
+    for (TSharedPtr<FJsonValue> JsonValue : jsonArray)
+    {
+        float convertedValue;
+#if ENGINE_MAJOR_VERSION > 5
+        if (!(BodyAsJsonValue.IsValid() && BodyAsJsonValue->TryGetNumber(convertedValue)))
+        {
+            allSucceeded = false;
+            continue;
+        }
+#else
+        double outDouble = 0.0f;
+        if (!(BodyAsJsonValue.IsValid() && BodyAsJsonValue->TryGetNumber(outDouble)))
+        {
+            allSucceeded = false;
+            continue;
+        }
+        convertedValue = static_cast<float>(outDouble);
+#endif
+        Output.Add(convertedValue);
+    }
+    return allSucceeded;
+}
+
+bool FLootLockerNotificationContent::TryGetContentBodyAsIntegerArray(TArray<int>& Output) const
+{
+    TArray<TSharedPtr<FJsonValue>> jsonArray;
+    if (!TryGetContentBodyAsJsonArray(jsonArray))
+    {
+        return false;
+    }
+
+    Output = TArray<int>();
+    bool allSucceeded = true;
+    for (TSharedPtr<FJsonValue> JsonValue : jsonArray)
+    {
+        int convertedValue;
+        if (JsonValue->TryGetNumber(convertedValue))
+        {
+            Output.Add(convertedValue);
+        }
+        else
+        {
+            allSucceeded = false;
+        }
+    }
+    return allSucceeded;
+}
+
+bool FLootLockerNotificationContent::TryGetContentBodyAsBoolArray(TArray<bool>& Output) const
+{
+    TArray<TSharedPtr<FJsonValue>> jsonArray;
+    if (!TryGetContentBodyAsJsonArray(jsonArray))
+    {
+        return false;
+    }
+
+    Output = TArray<bool>();
+    bool allSucceeded = true;
+    for (TSharedPtr<FJsonValue> JsonValue : jsonArray)
+    {
+        bool convertedValue;
+        if (JsonValue->TryGetBool(convertedValue))
+        {
+            Output.Add(convertedValue);
+        }
+        else
+        {
+            allSucceeded = false;
+        }
+    }
+    return allSucceeded;
+}
+
+bool FLootLockerNotificationContent::TryGetRawValue(TSharedPtr<FJsonValue>& Output) const
+{
+    if (BodyAsJsonValue.IsValid())
+    {
+        Output = BodyAsJsonValue;
+        return true;
+    }
+    return false;
+}
+
+bool FLootLockerNotificationContent::TryGetContentBodyAsJsonObject(TSharedPtr<FJsonObject>& Output) const
+{
+    if (BodyAsJsonValue.IsValid() && BodyAsJsonValue->Type == EJson::Object)
+    {
+        Output = BodyAsJsonValue->AsObject();
+        return Output.IsValid();
+    }
+    return false;
+}
+
+bool FLootLockerNotificationContent::TryGetContentBodyAsJsonArray(TArray<TSharedPtr<FJsonValue>>& Output) const
+{
+    if (BodyAsJsonValue.IsValid() && BodyAsJsonValue->Type == EJson::Array)
+    {
+        Output = BodyAsJsonValue->AsArray();
+        return true;
+    }
+    return false;
+}
+
+bool FLootLockerNotificationContent::TryGetContentBodyAsRewardNotification(FLootLockerNotificationContentRewardBody& Output) const
+{
+    TSharedPtr<FJsonObject> jsonObject;
+    if (!TryGetContentBodyAsJsonObject(jsonObject))
+    {
+        return false;
+    }
+    return FJsonObjectConverter::JsonObjectToUStruct<FLootLockerNotificationContentRewardBody>(jsonObject.ToSharedRef(), &Output, 0, 0);
 }
