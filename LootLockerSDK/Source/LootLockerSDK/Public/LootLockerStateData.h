@@ -16,9 +16,9 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
 	TArray<FString> SavedPlayerStateUlids;
 	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
-	FString DefaultPlayer;
+	FString DefaultPlayer = "";
 	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
-	bool MultiuserInitialLoadCompleted; //TODO: Deprecated (or rather temporary) - Remove after 20250901
+	bool MultiuserInitialLoadCompleted = false; //TODO: Deprecated (or rather temporary) - Remove after 20250901
 };
 
 USTRUCT(BlueprintType)
@@ -29,9 +29,9 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
 	TArray<FString> SavedPlayerStateUlids;
 	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
-	FString DefaultPlayer;
+	FString DefaultPlayer = "";
 	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
-	bool MultiuserInitialLoadCompleted; //TODO: Deprecated (or rather temporary) - Remove after 20250901
+	bool MultiuserInitialLoadCompleted = false; //TODO: Deprecated (or rather temporary) - Remove after 20250901
 };
 
 UCLASS()

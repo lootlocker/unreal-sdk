@@ -2122,7 +2122,7 @@ public:
      @param Page (Optional) Used together with Page to apply pagination to this request. PerPage designates how many notifications are considered a "page"
      @param OnComplete Delegate for handling the server response
     */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid = ""))
     static void ListNotifications(const FString& ForPlayerWithUlid, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete);
 
     /**
@@ -2140,6 +2140,87 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ListNotificationsWithPriority(const FString& ForPlayerWithUlid, ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete);
+
+    /*
+     Try to parse the body property from a notification content object as a String
+
+     @param Content The content object from which to parse the body
+     @param OutValue If parsing succeeded, this will be populated with the parsed value
+     @return Whether the parsing succeeded or not
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
+    static bool TryGetContentBodyAsString(const FLootLockerNotificationContent& Content, FString& OutValue);
+
+    /*
+     Try to parse the body property from a notification content object as a Float
+
+     @param Content The content object from which to parse the body
+     @param OutValue If parsing succeeded, this will be populated with the parsed value
+     @return Whether the parsing succeeded or not
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
+    static bool TryGetContentBodyAsFloat(const FLootLockerNotificationContent& Content, float& OutValue);
+
+    /*
+     Try to parse the body property from a notification content object as an Integer
+
+     @param Content The content object from which to parse the body
+     @param OutValue If parsing succeeded, this will be populated with the parsed value
+     @return Whether the parsing succeeded or not
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
+    static bool TryGetContentBodyAsInteger(const FLootLockerNotificationContent& Content, int& OutValue);
+
+    /*
+     Try to parse the body property from a notification content object as a Bool
+
+     @param Content The content object from which to parse the body
+     @param OutValue If parsing succeeded, this will be populated with the parsed value
+     @return Whether the parsing succeeded or not
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
+    static bool TryGetContentBodyAsBool(const FLootLockerNotificationContent& Content, bool& OutValue);
+
+    /*
+     Try to parse the body property from a notification content object as a Float Array
+
+     @param Content The content object from which to parse the body
+     @param OutValue If parsing succeeded, this will be populated with the parsed value
+     @return Whether the parsing succeeded or not
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
+    static bool TryGetContentBodyAsFloatArray(const FLootLockerNotificationContent& Content, TArray<float>& OutValue);
+
+    /*
+     Try to parse the body property from a notification content object as an Integer Array
+
+     @param Content The content object from which to parse the body
+     @param OutValue If parsing succeeded, this will be populated with the parsed value
+     @return Whether the parsing succeeded or not
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
+    static bool TryGetContentBodyAsIntegerArray(const FLootLockerNotificationContent& Content, TArray<int>& OutValue);
+
+    /*
+     Try to parse the body property from a notification content object as a Bool Array
+
+     @param Content The content object from which to parse the body
+     @param OutValue If parsing succeeded, this will be populated with the parsed value
+     @return Whether the parsing succeeded or not
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
+    static bool TryGetContentBodyAsBoolArray(const FLootLockerNotificationContent& Content, TArray<bool>& OutValue);
+
+    /*
+     Try to parse the body property from a notification content object as a Reward Notification
+
+     @param Content The content object from which to parse the body
+     @param OutValue If parsing succeeded, this will be populated with the parsed value
+     @return Whether the parsing succeeded or not
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
+	static bool TryGetContentBodyAsRewardNotification(const FLootLockerNotificationContent& Content, FLootLockerNotificationContentRewardBody& OutValue);
+
 
     /**
      Mark all unread notifications as read
