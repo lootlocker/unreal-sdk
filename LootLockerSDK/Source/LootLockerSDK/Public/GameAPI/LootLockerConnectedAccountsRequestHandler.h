@@ -19,7 +19,7 @@ enum class ELootLockerAccountProvider : uint8
     Google = 1,
     Apple = 2,
     Steam = 3,
-    Epic = 4,
+    Epic_games = 4,
     Credentials = 5, // White Label Login
     Nintendo = 6,
     Xbox = 7,
