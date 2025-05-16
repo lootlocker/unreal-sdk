@@ -38,6 +38,7 @@ enum class ELootLockerNotificationSource : uint8
     twitch_drop = 5,
     lootlocker_console = 6,
     lootlocker_server_api = 7,
+    lootlocker_admin_api = 8,
 };
 
 /**
@@ -120,6 +121,7 @@ struct LootLockerNotificationsStaticStrings
         static const FString TwitchDrop;
         static const FString LootLockerConsole;
         static const FString LootLockerServerApi;
+        static const FString LootLockerAdminApi;
     };
 
     /**

@@ -16,6 +16,7 @@ const FString LootLockerNotificationsStaticStrings::NotificationSources::Purchas
 const FString LootLockerNotificationsStaticStrings::NotificationSources::TwitchDrop = "twitch_drop";
 const FString LootLockerNotificationsStaticStrings::NotificationSources::LootLockerConsole = "lootlocker.console";
 const FString LootLockerNotificationsStaticStrings::NotificationSources::LootLockerServerApi = "lootlocker.server_api";
+const FString LootLockerNotificationsStaticStrings::NotificationSources::LootLockerAdminApi = "lootlocker.admin_api";
 const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Triggers::Id = "trigger_id";
 const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Triggers::Key = "trigger_key";
 const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Triggers::Limit = "trigger_limit";
@@ -201,6 +202,11 @@ void FLootLockerListNotificationsResponse::PopulateConvenienceStructures()
             Notification.SourceEnum = ELootLockerNotificationSource::lootlocker_server_api;
             Notification.Content.IdentifyingContextKey = Notification.Notification_type;
         }
+        else if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::LootLockerAdminApi, ESearchCase::IgnoreCase))
+        {
+            Notification.SourceEnum = ELootLockerNotificationSource::lootlocker_admin_api;
+            Notification.Content.IdentifyingContextKey = Notification.Notification_type;
+        }
 
         if (!Notification.Content.IdentifyingContextKey.IsEmpty())
         {
@@ -223,6 +229,25 @@ void FLootLockerListNotificationsResponse::PopulateConvenienceStructures()
                 {
                     NotificationLookupTable.Add(IdentifyingValue, TArray<FLootLockerNotificationIdentifyingValueLookupStruct>{LookupStruct});
                 }
+            }
+            else if (Notification.Content.IdentifyingContextKey.Equals(Notification.Notification_type))
+            {
+                FLootLockerNotificationIdentifyingValueLookupStruct LookupStruct
+                {
+                    Notification.Content.IdentifyingContextKey,
+                    Notification.Id,
+                    i
+                };
+
+                if (NotificationLookupTable.Contains(Notification.Notification_type))
+                {
+                    NotificationLookupTable.Find(Notification.Notification_type)->Add(LookupStruct);
+                }
+                else
+                {
+                    NotificationLookupTable.Add(Notification.Notification_type, TArray<FLootLockerNotificationIdentifyingValueLookupStruct>{LookupStruct});
+                }
+	            
             }
         }
         ++i;
@@ -248,8 +273,8 @@ bool FLootLockerListNotificationsResponse::TryGetNotificationsByIdentifyingValue
         }
         const FLootLockerNotification& notification = Notifications[LookupStruct.NotificationArrayIndex];
         if(!LookupStruct.NotificationULID.Equals(notification.Id, ESearchCase::IgnoreCase)
-			|| !notification.Content.ContextAsDictionary.Contains(LookupStruct.IdentifyingContextKey) 
-			|| !notification.Content.ContextAsDictionary.Find(LookupStruct.IdentifyingContextKey)->Equals(IdentifyingValue)
+			|| ((!notification.Content.ContextAsDictionary.Contains(LookupStruct.IdentifyingContextKey) || !notification.Content.ContextAsDictionary.Find(LookupStruct.IdentifyingContextKey)->Equals(IdentifyingValue)) 
+                && !notification.Notification_type.Equals(IdentifyingValue))
             )
         {
             // The notifications array is not the same as when the lookup table was populated
