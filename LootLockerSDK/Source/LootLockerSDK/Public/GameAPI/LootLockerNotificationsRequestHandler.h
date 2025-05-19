@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Dom/JsonObject.h"
 #include "LootLockerResponse.h"
 #include "LootLockerHttpClient.h"
 #include "LootLockerNotificationsRequestHandler.generated.h"
