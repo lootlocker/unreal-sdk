@@ -84,7 +84,7 @@ void FLootLockerListNotificationsResponse::PopulateConvenienceStructures()
                 if (jsonNotification->HasField(TEXT("content"))) {
 	                TSharedPtr<FJsonObject> contentJson = jsonNotification->GetObjectField(TEXT("content"));
                     if (contentJson.IsValid() && contentJson->HasField(TEXT("body"))) {
-                        TSharedPtr<FJsonValue> bodyJsonValue = contentJson->GetField(TEXT("body"), EJson::None);
+                        TSharedPtr<FJsonValue> bodyJsonValue = contentJson->GetField<EJson::None>(TEXT("body"));
                         Notification.Content.BodyAsJsonValue = bodyJsonValue;
                         Notification.Content.BodyAsJsonString = LootLockerUtilities::JsonValueToString(bodyJsonValue.ToSharedRef());
                         if (bodyJsonValue.IsValid())
@@ -113,7 +113,7 @@ void FLootLockerListNotificationsResponse::PopulateConvenienceStructures()
                             case EJson::Array:
                             {
                                 TArray<TSharedPtr<FJsonValue>> bodyJsonArray = bodyJsonValue->AsArray();
-                                if (bodyJsonArray.IsEmpty() || !bodyJsonArray[0].IsValid())
+                                if (bodyJsonArray.Num() == 0 || !bodyJsonArray[0].IsValid())
                                 {
                                     Notification.Content.BodyType = ELootLockerNotificationContentBodyType::json_array;
                                 }
