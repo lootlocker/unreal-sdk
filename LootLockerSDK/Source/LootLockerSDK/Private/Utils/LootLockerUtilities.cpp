@@ -3,7 +3,7 @@
 #include "LootLockerUtilities.h"
 
 #include "JsonObjectConverter.h"
-#include "Policies/JsonPrintPolicy.h"
+#include "Policies/CondensedJsonPrintPolicy.h"
 
 const TArray<FObfuscationDetails> UObfuscationSettings::FieldsToObfuscate =
 {
