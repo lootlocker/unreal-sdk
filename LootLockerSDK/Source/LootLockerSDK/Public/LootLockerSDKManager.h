@@ -487,20 +487,31 @@ public:
      * While the process is ongoing, the remoteSessionLeaseStatusUpdate action (if one is provided) will be invoked intermittently (about once a second) to update you on the status of the process.
      * When the process has come to an end (whether successfully or not), the onComplete action will be invoked with the updated information.
      *
+     * @param TitleId The title id for the game
+     * @param EnvironmentId The environment id for the game
      * @param RemoteSessionLeaseInformation Will be invoked once to provide the lease information that the secondary device can use to authenticate
      * @param RemoteSessionLeaseStatusUpdate Will be invoked intermittently to update the status lease process
      * @param OnComplete Invoked when the remote session process has run to completion containing either a valid session or information on why the process failed
      * @param PollingIntervalSeconds Optional: How often to poll the status of the remote session process
      * @param TimeOutAfterMinutes Optional: How long to allow the process to take in its entirety
      */
-    static FString StartRemoteSession(const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegate& OnComplete, float PollingIntervalSeconds = 1.0f, float TimeOutAfterMinutes = 5.0f);
+    static FString StartRemoteSession(
+        const FString& TitleId,
+        const FString& EnvironmentId,
+        const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation,
+        const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate,
+        const FLootLockerStartRemoteSessionResponseDelegate& OnComplete,
+        float PollingIntervalSeconds = 1.0f,
+        float TimeOutAfterMinutes = 5.0f);
 
     /**
-     * Start a remote session
+     * Start a remote session for linking
      * If you want to let your local user sign in using another device then you use this method. First you will get the lease information needed to allow a secondary device to authenticate.
      * While the process is ongoing, the remoteSessionLeaseStatusUpdate action (if one is provided) will be invoked intermittently (about once a second) to update you on the status of the process.
      * When the process has come to an end (whether successfully or not), the onComplete action will be invoked with the updated information.
      *
+     * @param TitleId The title id for the game
+     * @param EnvironmentId The environment id for the game
      * @param ForPlayerWithUlid Execute the request for the specified player (the player that you intend to link the remote account into).
      * @param RemoteSessionLeaseInformation Will be invoked once to provide the lease information that the secondary device can use to authenticate
      * @param RemoteSessionLeaseStatusUpdate Will be invoked intermittently to update the status lease process
@@ -508,7 +519,15 @@ public:
      * @param PollingIntervalSeconds Optional: How often to poll the status of the remote session process
      * @param TimeOutAfterMinutes Optional: How long to allow the process to take in its entirety
      */
-    static FString StartRemoteSessionForLinking(const FString& ForPlayerWithUlid, const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegate& OnComplete, float PollingIntervalSeconds = 1.0f, float TimeOutAfterMinutes = 5.0f);
+    static FString StartRemoteSessionForLinking(
+        const FString& TitleId,
+        const FString& EnvironmentId,
+        const FString& ForPlayerWithUlid,
+        const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation,
+        const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate,
+        const FLootLockerStartRemoteSessionResponseDelegate& OnComplete,
+        float PollingIntervalSeconds = 1.0f,
+        float TimeOutAfterMinutes = 5.0f);
 
     /**
      * Cancel an ongoing remote session process
@@ -1517,7 +1536,7 @@ public:
      * If you are not already deeply integrated with the Player Persistent Storage in your game, consider moving to Player Metadata.
      *
      * @param Item item to be created/updated.
-     * @param OnCompletedRequest Delegate for handling the server response.
+     * @param OnCompletedRequest Delegate for handling the response of type FLootLockerResponse
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
     static void AddItemsToPersistentStorage(const FLootLockerPersistentStorageItem Item, const FPersistentStorageItemResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
@@ -1529,7 +1548,7 @@ public:
      * If you are not already deeply integrated with the Player Persistent Storage in your game, consider moving to Player Metadata.
      *
      * @param Key key of a key/value pair.
-     * @param OnCompletedRequest Delegate for handling the server response.
+     * @param OnCompletedRequest Delegate for handling the response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
     static void DeleteItemFromPersistentStorage(const FString & Key, const FPersistentStorageItemsResponseDelegate & OnCompletedRequest, const FString ForPlayerWithUlid = "");
@@ -1855,8 +1874,8 @@ public:
     * Returns multiple progressions.
     *
     * @param Count Amount of entries to receive
-    * @param After Used for pagination, id of the player progression from which the pagination starts from, use the next_cursor and previous_cursor values
-    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    * @param After Used for pagination, id from which the pagination starts from.
+    * @param OnComplete Delegate for handling the server response
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
     static void GetProgressions(const int32 & Count, const FString & After, const FLootLockerPaginatedProgressionsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
@@ -2201,7 +2220,7 @@ public:
      Mark the specified notifications as read (if they are currently unread)
 
      @param Notifications List of ids of notifications to mark as read
-     @param OnComplete Delegate for handling the server response
+     @param OnComplete Delegate for handling the response
      @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
     static void MarkNotificationsAsRead(const TArray<FLootLockerNotification>&Notifications, const FLootLockerReadNotificationsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
@@ -2210,7 +2229,7 @@ public:
      Mark the specified notifications as read
 
      @param NotificationIDs List of ids of notifications to mark as read
-     @param OnComplete Delegate for handling the server response
+     @param OnComplete Delegate for handling the response
      @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
     static void MarkNotificationsAsReadByIds(const TArray<FString>&NotificationIDs, const FLootLockerReadNotificationsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
