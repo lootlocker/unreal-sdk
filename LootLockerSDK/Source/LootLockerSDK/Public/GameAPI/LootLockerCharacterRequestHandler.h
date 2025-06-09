@@ -25,14 +25,6 @@ struct FLootLockerCharacter {
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerCharacterAsset
-{
-	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FLootLockerAsset asset;
-};
-
-USTRUCT(BlueprintType)
 struct FLootLockerCharacterRental {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -55,7 +47,7 @@ struct FLootLockerCharacterLoadout {
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString mounted_at;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FLootLockerCharacterAsset asset;
+	FLootLockerAsset asset;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FLootLockerCharacterRental rental;
 };
