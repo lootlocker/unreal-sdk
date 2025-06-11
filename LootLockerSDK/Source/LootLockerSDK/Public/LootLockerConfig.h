@@ -35,7 +35,7 @@ public:
 		{
 			IsValidGameVersion = IsSemverString(GameVersion);
 		}
-		if (PropertyChangedEvent.GetPropertyName() == "bEnableFileLogging" || PropertyChangedEvent.GetPropertyName() == "LogFilePath")
+		if (PropertyChangedEvent.GetPropertyName() == "bEnableFileLogging" || PropertyChangedEvent.GetPropertyName() == "LogFileName")
 		{
 			if (bEnableFileLogging)
 			{
@@ -54,7 +54,7 @@ public:
 		IsValidGameVersion = IsSemverString(GameVersion);
 		if(bEnableFileLogging)
 		{
-				EnableFileLogging(LogFileName.IsEmpty() ? "LootLocker.log" : LogFileName);
+			EnableFileLogging(LogFileName.IsEmpty() ? "LootLocker.log" : LogFileName);
 		}
 		else
 		{

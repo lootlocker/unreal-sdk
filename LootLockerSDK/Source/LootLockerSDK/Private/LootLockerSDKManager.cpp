@@ -2,7 +2,6 @@
 
 
 #include "LootLockerSDKManager.h"
-#include "LootLockerLogger.h"
 
 #include "LootLockerStateData.h"
 

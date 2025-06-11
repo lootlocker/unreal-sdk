@@ -2,6 +2,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "LootLockerResponse.h"
 #include "Delegates/Delegate.h"
 #include "LootLockerConfig.h"
 #include "LootLockerLogger.generated.h"
@@ -28,19 +29,11 @@ struct FLootLockerHttpLogEntry
     UPROPERTY(BlueprintReadOnly)
     FString RequestHeaders;
     UPROPERTY(BlueprintReadOnly)
-    FString ErrorMessage;
-    UPROPERTY(BlueprintReadOnly)
-    FString ErrorCode;
-    UPROPERTY(BlueprintReadOnly)
-    FString ErrorDocUrl;
-    UPROPERTY(BlueprintReadOnly)
-    FString ErrorRequestId;
-    UPROPERTY(BlueprintReadOnly)
-    FString ErrorTraceId;
-    UPROPERTY(BlueprintReadOnly)
     bool bSuccess = false;
     UPROPERTY(BlueprintReadOnly)
     FDateTime Timestamp;
+    UPROPERTY(BlueprintReadOnly)
+    FLootLockerErrorData ErrorData;
 };
 
 DECLARE_MULTICAST_DELEGATE_TwoParams(FLootLockerOnLogMessage, const FString&, ELootLockerLogLevel);

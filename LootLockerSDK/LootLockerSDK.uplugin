@@ -22,8 +22,7 @@
       {
         "Name": "LootLockerSDKEditor",
         "Type": "Editor",
-        "LoadingPhase": "Default",
-        "AdditionalDependencies": [ "WebBrowser" ]
+        "LoadingPhase": "Default"
       }
     ]
 }
