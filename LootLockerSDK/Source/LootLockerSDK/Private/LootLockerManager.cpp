@@ -7,6 +7,7 @@
 #include "GameAPI/LootLockerCatalogRequestHandler.h"
 #include "GameAPI/LootLockerMetadataRequestHandler.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
+#include "LootLockerLogger.h"
 
 // Player State
 TArray<FString> ULootLockerManager::GetActivePlayerUlids()
