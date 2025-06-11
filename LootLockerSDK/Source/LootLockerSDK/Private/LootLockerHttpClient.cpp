@@ -2,6 +2,7 @@
 
 
 #include "LootLockerHttpClient.h"
+#include "LootLockerLogger.h"
 
 #include "HttpModule.h"
 #include "JsonObjectConverter.h"
@@ -25,48 +26,40 @@ void ULootLockerHttpClient::LogFailedRequestInformation(const FLootLockerRespons
     FDateTime requestTime;
     FDateTime::Parse(Response.Context.RequestTime, requestTime);
     double requestDuration = (FDateTime::Now() - requestTime).GetTotalSeconds();
-    FString LogString = FString::Format(TEXT("{0} request to {1} failed in {2}s"), { RequestMethod, Endpoint, requestDuration });
-    const bool IsInformativeError = !Response.ErrorData.Code.IsEmpty();
-    if(IsInformativeError)
-    {
-        LogString += FString::Format(TEXT("\n   {0}"), { Response.ErrorData.Message });
-        LogString += FString::Format(TEXT("\n    Error Code: {0}"), { Response.ErrorData.Code });
-        LogString += FString::Format(TEXT("\n    Further Information: {0}"), { Response.ErrorData.Doc_url });
-        LogString += FString::Format(TEXT("\n    Request ID: {0}"), { Response.ErrorData.Request_id });
-        LogString += FString::Format(TEXT("\n    Trace ID: {0}"), { Response.ErrorData.Trace_id });
-    }
-    LogString += FString::Format(TEXT("\n   HTTP Status code : {0}"), { Response.StatusCode });
-    if (!Data.IsEmpty()) {
-        LogString += FString::Format(TEXT("\n   Request Data: {0}"), { LootLockerUtilities::ObfuscateJsonStringForLogging(Data) });
-    }
-
-	if(!IsInformativeError)
-    {
-        LogString += FString::Format(TEXT("\n   Response Data: {0}"), { Response.FullTextFromServer });
-    }
-    LogString += FString::Format(TEXT("\n   Request Header: {0}"), { AllHeadersDelimited });
-    LogString += "\n###";
-	UE_LOG(LogLootLockerGameSDK, Warning, TEXT("%s"), *LogString);
+    FLootLockerHttpLogEntry Entry;
+    Entry.Method = RequestMethod;
+    Entry.Path = Endpoint;
+    Entry.StatusCode = Response.StatusCode;
+    Entry.Duration = requestDuration;
+    Entry.RequestData = Data;
+    Entry.ResponseData = Response.FullTextFromServer;
+    Entry.RequestHeaders = AllHeadersDelimited;
+    Entry.bSuccess = false;
+    Entry.Timestamp = FDateTime::Now();
+    if (!Response.ErrorData.Message.IsEmpty()) Entry.ErrorMessage = Response.ErrorData.Message;
+    if (!Response.ErrorData.Code.IsEmpty()) Entry.ErrorCode = Response.ErrorData.Code;
+    if (!Response.ErrorData.Doc_url.IsEmpty()) Entry.ErrorDocUrl = Response.ErrorData.Doc_url;
+    if (!Response.ErrorData.Request_id.IsEmpty()) Entry.ErrorRequestId = Response.ErrorData.Request_id;
+    if (!Response.ErrorData.Trace_id.IsEmpty()) Entry.ErrorTraceId = Response.ErrorData.Trace_id;
+    FLootLockerLogger::LogHttpRequest(Entry);
 }
 
 void ULootLockerHttpClient::LogSuccessfulRequestInformation(const FLootLockerResponse& Response, const FString& RequestMethod, const FString& Endpoint, const FString& Data, const FString& AllHeadersDelimited)
 {
-    if (!ULootLockerConfig::ShouldLog())
-    {
-        return;	    
-    }
     FDateTime requestTime;
     FDateTime::Parse(Response.Context.RequestTime, requestTime);
     double requestDuration = (FDateTime::Now() - requestTime).GetTotalSeconds();
-    FString LogString = FString::Format(TEXT("{0} request to {1} succeeded in {2}s"), { RequestMethod, Endpoint, requestDuration });
-    LogString += FString::Format(TEXT("\n   HTTP Status code : {0}"), { Response.StatusCode });
-    if (!Data.IsEmpty()) {
-        LogString += FString::Format(TEXT("\n   Request Data: {0}"), { LootLockerUtilities::ObfuscateJsonStringForLogging(Data) });
-    }
-    LogString += FString::Format(TEXT("\n   Response Data: {0}"), { Response.FullTextFromServer });
-    LogString += FString::Format(TEXT("\n   Request Headers: {0}"), { AllHeadersDelimited });
-    LogString += "\n###";
-    UE_LOG(LogLootLockerGameSDK, VeryVerbose, TEXT("%s"), *LogString);
+    FLootLockerHttpLogEntry Entry;
+    Entry.Method = RequestMethod;
+    Entry.Path = Endpoint;
+    Entry.StatusCode = Response.StatusCode;
+    Entry.Duration = requestDuration;
+    Entry.RequestData = Data;
+    Entry.ResponseData = Response.FullTextFromServer;
+    Entry.RequestHeaders = AllHeadersDelimited;
+    Entry.bSuccess = true;
+    Entry.Timestamp = FDateTime::Now();
+    FLootLockerLogger::LogHttpRequest(Entry);
 }
 
 bool ULootLockerHttpClient::ResponseIsSuccess(const FHttpResponsePtr& InResponse, bool bWasSuccessful)
@@ -86,7 +79,7 @@ void ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requ
         if (Ptr.IsValid())
         {
             SDKVersion = Ptr->GetDescriptor().VersionName;
-            UE_LOG(LogLootLockerGameSDK, Verbose, TEXT("LootLocker version: v%s"), *SDKVersion);
+            FLootLockerLogger::LogVerbose(FString::Printf(TEXT("LootLocker version: v%s"), *SDKVersion));
         }
     }
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = HttpModule->CreateRequest();

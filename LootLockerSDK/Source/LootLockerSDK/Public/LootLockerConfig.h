@@ -7,6 +7,9 @@
 #include <regex>
 #endif
 #include "CoreMinimal.h"
+#include "Logging/LogVerbosity.h"
+#include "LootLockerLogLevel.h"
+
 #include "LootLockerConfig.generated.h"
 
 UCLASS(Config = Game, DefaultConfig, meta = (DisplayName = "LootLocker SDK Settings"))
@@ -32,12 +35,31 @@ public:
 		{
 			IsValidGameVersion = IsSemverString(GameVersion);
 		}
+		if (PropertyChangedEvent.GetPropertyName() == "bEnableFileLogging" || PropertyChangedEvent.GetPropertyName() == "LogFilePath")
+		{
+			if (bEnableFileLogging)
+			{
+				EnableFileLogging(LogFileName.IsEmpty() ? "LootLocker.log" : LogFileName);
+			}
+			else
+			{
+				DisableFileLogging();
+			}
+		}
 		UObject::PostEditChangeProperty(PropertyChangedEvent);
 	}
 #endif //WITH_EDITOR
 	virtual void PostInitProperties() override
 	{
 		IsValidGameVersion = IsSemverString(GameVersion);
+		if(bEnableFileLogging)
+		{
+				EnableFileLogging(LogFileName.IsEmpty() ? "LootLocker.log" : LogFileName);
+		}
+		else
+		{
+			DisableFileLogging();
+		}
 		UObject::PostInitProperties();
 	}
 
@@ -56,8 +78,10 @@ public:
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString DomainKey;
 	// Allow LootLocker to log non error logs outside the editor. This is false by default to avoid log spamming and unintentional logging of data (as LootLocker logs requests and responses vs LootLocker).
-	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Logging")
 	bool LogOutsideOfEditor = false;
+    UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Logging", Meta = (DisplayName = "LootLocker Log Level"))
+    ELootLockerLogLevel LootLockerLogLevel;
 
 	UFUNCTION()
 	static bool ShouldLog()
@@ -68,7 +92,53 @@ public:
 		return GetDefault<ULootLockerConfig>()->LogOutsideOfEditor;
 #endif
 	}
+
+    // Returns the configured log level from config or ini
+    static ELootLockerLogLevel GetConfiguredLogLevel()
+    {
+        return GetDefault<ULootLockerConfig>()->LootLockerLogLevel;
+    }
+    /**
+     * Sets the log level at runtime (not persisted).
+     * @param NewLevel The new log level to use for this session.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker|Logging")
+    static void SetRuntimeLogLevel(ELootLockerLogLevel NewLevel);
+    /**
+     * Gets the current runtime log level (runtime override or config).
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker|Logging")
+    static ELootLockerLogLevel GetRuntimeLogLevel();
+    /**
+     * Enables file logging to the specified file name.
+     * @param FileName The log file name (relative to project log dir).
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker|Logging")
+    static void EnableFileLogging(const FString& FileName);
+    /**
+     * Disables file logging.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker|Logging")
+    static void DisableFileLogging();
+    /**
+     * Returns true if file logging is enabled and a log file name is set.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker|Logging")
+    static bool IsFileLoggingEnabled();
+    /**
+     * Returns the current log file path (may be empty if not enabled).
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker|Logging")
+    static FString GetLogFilePath();
+
+    UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Logging", Meta = (DisplayName = "Enable File Logging"))
+    bool bEnableFileLogging = false;
+    UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Logging", Meta = (DisplayName = "Name of LootLocker Log File", EditCondition = "bEnableFileLogging", EditConditionHides))
+    FString LogFileName = TEXT("LootLocker.log");
+	UPROPERTY(Config, VisibleAnywhere, BlueprintReadOnly, Category = "LootLocker|Logging", Meta = (EditCondition = "bEnableFileLogging", EditConditionHides), Meta = (MultiLine = true), Meta = (DisplayName = "Actual Log File (on current device)"), Transient)
+	FString LongLogFilePath = "";
 private:
+	FString LogFilePath = "";
 	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")
 	bool IsValidGameVersion = true;
 	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")
@@ -80,6 +150,13 @@ private:
 #endif
 	;
 #if ENGINE_MAJOR_VERSION >= 5
-	inline static const std::regex SemverPattern = std::regex("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:\\.(0|[1-9]\\d*))?(?:\\.(0|[1-9]\\d*))?$");
+// C++17 inline static is supported in UE5+
+	inline static const std::regex SemverPattern = std::regex("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:\\.(0|[1-9]\\d*))?(?:\\.(0|[1-9]\\d*))?$" );
+#else
+// UE4.27 compatibility: use a static in the .cpp file
 #endif
+
+public:
+    ULootLockerConfig();
+private:
 };
