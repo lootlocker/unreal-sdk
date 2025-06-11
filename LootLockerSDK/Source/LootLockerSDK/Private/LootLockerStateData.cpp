@@ -8,6 +8,7 @@
 #include "GameAPI/LootLockerPlayerRequestHandler.h"
 #include "Kismet/GameplayStatics.h"
 #include "LootLockerSDK/Public/LootLockerPersistedState.h"
+#include "LootLockerLogger.h"
 
 #if ENGINE_MAJOR_VERSION < 5
 const FString ULootLockerStateData::BaseSaveSlot = "LootLocker";
@@ -126,7 +127,7 @@ FLootLockerStateMetaData ULootLockerStateData::LoadMetaState()
 	if (!preMultiUserStateFound)
 	{
 		//No state stored, return
-		UE_LOG(LogLootLockerGameSDK, Warning, TEXT("No persisted LootLocker state found, this is fine if this is the first run on a device or state has been cleared"));
+		FLootLockerLogger::LogWarning(TEXT("No persisted LootLocker state found, this is fine if this is the first run on a device or state has been cleared"));
 	}
 	return ActiveMetaData;
 }
@@ -143,10 +144,10 @@ void ULootLockerStateData::SetMetaState(FLootLockerStateMetaData& updatedMetaDat
 		ActiveMetaData.SavedPlayerStateUlids = updatedMetaData.SavedPlayerStateUlids;
 		ActiveMetaData.MultiuserInitialLoadCompleted = updatedMetaData.MultiuserInitialLoadCompleted;
 		isMetadataLoaded = true;
-		UE_LOG(LogLootLockerGameSDK, VeryVerbose, TEXT("Saved LootLocker meta state to disk"));
+		FLootLockerLogger::LogVeryVerbose(TEXT("Saved LootLocker meta state to disk"));
 		return;
 	}
-	UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Failed to save LootLocker meta state to disk"));
+	FLootLockerLogger::LogWarning(TEXT("Failed to save LootLocker meta state to disk"));
 }
 
 FLootLockerPlayerData* ULootLockerStateData::LoadPlayerData(const FString& PlayerUlid /* = "" */)
@@ -181,10 +182,10 @@ FLootLockerPlayerData* ULootLockerStateData::LoadPlayerData(const FString& Playe
 			SetDefaultPlayerUlid(TargetPlayerUlid);
 		}
 		ActivePlayerData.Add(LoadedState->PlayerUlid, FLootLockerPlayerData::Create(LoadedState->Token, LoadedState->RefreshToken, LoadedState->PlayerIdentifier, LoadedState->PlayerUlid, LoadedState->PlayerPublicUid, LoadedState->PlayerName, LoadedState->WhiteLabelEmail, LoadedState->WhiteLabelToken, LoadedState->CurrentPlatform, LoadedState->LastSignIn, LoadedState->PlayerCreatedAt));
-		UE_LOG(LogLootLockerGameSDK, Verbose, TEXT("Loaded LootLocker state from disk for player with ulid %s"), *TargetPlayerUlid);
+		FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Loaded LootLocker state from disk for player with ulid %s"), *TargetPlayerUlid));
 		return ActivePlayerData.Find(LoadedState->PlayerUlid);
 	}
-	UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Found no persisted LootLocker state for player with ulid %s"), *TargetPlayerUlid);
+	FLootLockerLogger::LogWarning(FString::Printf(TEXT("Found no persisted LootLocker state for player with ulid %s"), *TargetPlayerUlid));
 	return nullptr;
 }
 
@@ -198,10 +199,10 @@ void ULootLockerStateData::SavePlayerData(const FLootLockerPlayerData& PlayerDat
 
 	FString TargetSaveSlot = PlayerDataSaveSlot + "_" + PlayerData.PlayerUlid;
 	if (!UGameplayStatics::SaveGameToSlot(ULootLockerPlayerDataSaveGame::Create(PlayerData), TargetSaveSlot, SaveIndex)) {
-		UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Failed to save LootLocker state to disk for player with ulid %s"), *PlayerData.PlayerUlid);
+		FLootLockerLogger::LogWarning(FString::Printf(TEXT("Failed to save LootLocker state to disk for player with ulid %s"), *PlayerData.PlayerUlid));
 		return;
 	}
-	UE_LOG(LogLootLockerGameSDK, Verbose, TEXT("Saved LootLocker player state to disk for player with ulid %s"), *PlayerData.PlayerUlid);
+	FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Saved LootLocker player state to disk for player with ulid %s"), *PlayerData.PlayerUlid));
 
 	FLootLockerStateMetaData metaState = LoadMetaState();
 	if (metaState.DefaultPlayer.IsEmpty() || ActivePlayerData.Num() == 0)
