@@ -36,11 +36,7 @@ void ULootLockerHttpClient::LogFailedRequestInformation(const FLootLockerRespons
     Entry.RequestHeaders = AllHeadersDelimited;
     Entry.bSuccess = false;
     Entry.Timestamp = FDateTime::Now();
-    if (!Response.ErrorData.Message.IsEmpty()) Entry.ErrorMessage = Response.ErrorData.Message;
-    if (!Response.ErrorData.Code.IsEmpty()) Entry.ErrorCode = Response.ErrorData.Code;
-    if (!Response.ErrorData.Doc_url.IsEmpty()) Entry.ErrorDocUrl = Response.ErrorData.Doc_url;
-    if (!Response.ErrorData.Request_id.IsEmpty()) Entry.ErrorRequestId = Response.ErrorData.Request_id;
-    if (!Response.ErrorData.Trace_id.IsEmpty()) Entry.ErrorTraceId = Response.ErrorData.Trace_id;
+    Entry.ErrorData = Response.ErrorData;
     FLootLockerLogger::LogHttpRequest(Entry);
 }
 

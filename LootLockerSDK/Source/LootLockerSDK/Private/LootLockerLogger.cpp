@@ -14,7 +14,6 @@ ELootLockerLogLevel FLootLockerLogger::GetEffectiveLogLevel()
     return ULootLockerConfig::GetRuntimeLogLevel();
 }
 
-// Note: SetRuntimeLogLevel is not recursive; it delegates to config static method.
 void FLootLockerLogger::SetRuntimeLogLevel(ELootLockerLogLevel NewLevel)
 {
     ULootLockerConfig::SetRuntimeLogLevel(NewLevel);
@@ -27,14 +26,12 @@ static bool ShouldLogAtLevel(ELootLockerLogLevel MessageLevel)
         return false;
     }
     ELootLockerLogLevel MinLevel = FLootLockerLogger::GetEffectiveLogLevel();
-    // Lower enum value = higher severity (e.g., Error < Warning < Log)
     return MessageLevel <= MinLevel;
 }
 
 void FLootLockerLogger::Log(const FString& Message, ELootLockerLogLevel Verbosity)
 {
     if (!ShouldLogAtLevel(Verbosity)) return;
-    // Log the message using Unreal's logging system
     LogInternal(Verbosity, *Message);
 }
 
@@ -117,7 +114,6 @@ FLootLockerOnHttpLogEntry FLootLockerLogger::OnHttpLogEntry;
 
 void FLootLockerLogger::LogHttpRequest(const FLootLockerHttpLogEntry& Entry)
 {
-    // Compose a log line for file/console (for legacy log output)
     FString LogLine = FString::Printf(TEXT("%s request to %s %s in %.6fs\n   HTTP Status code : %d"),
         *Entry.Method,
         *Entry.Path,
@@ -130,16 +126,16 @@ void FLootLockerLogger::LogHttpRequest(const FLootLockerHttpLogEntry& Entry)
         LogLine += FString::Printf(TEXT("\n   Response Data: %s"), *Entry.ResponseData);
     if (!Entry.RequestHeaders.IsEmpty())
         LogLine += FString::Printf(TEXT("\n   Request Headers: %s"), *Entry.RequestHeaders);
-    if (!Entry.ErrorMessage.IsEmpty())
-        LogLine += FString::Printf(TEXT("\n   Error Message: %s"), *Entry.ErrorMessage);
-    if (!Entry.ErrorCode.IsEmpty())
-        LogLine += FString::Printf(TEXT("\n   Error Code: %s"), *Entry.ErrorCode);
-    if (!Entry.ErrorDocUrl.IsEmpty())
-        LogLine += FString::Printf(TEXT("\n   Further Information: %s"), *Entry.ErrorDocUrl);
-    if (!Entry.ErrorRequestId.IsEmpty())
-        LogLine += FString::Printf(TEXT("\n   Request ID: %s"), *Entry.ErrorRequestId);
-    if (!Entry.ErrorTraceId.IsEmpty())
-        LogLine += FString::Printf(TEXT("\n   Trace ID: %s"), *Entry.ErrorTraceId);
+    if (!Entry.ErrorData.Message.IsEmpty())
+        LogLine += FString::Printf(TEXT("\n   Error Message: %s"), *Entry.ErrorData.Message);
+    if (!Entry.ErrorData.Code.IsEmpty())
+        LogLine += FString::Printf(TEXT("\n   Error Code: %s"), *Entry.ErrorData.Code);
+    if (!Entry.ErrorData.Doc_url.IsEmpty())
+        LogLine += FString::Printf(TEXT("\n   Further Information: %s"), *Entry.ErrorData.Doc_url);
+    if (!Entry.ErrorData.Request_id.IsEmpty())
+        LogLine += FString::Printf(TEXT("\n   Request ID: %s"), *Entry.ErrorData.Request_id);
+    if (!Entry.ErrorData.Trace_id.IsEmpty())
+        LogLine += FString::Printf(TEXT("\n   Trace ID: %s"), *Entry.ErrorData.Trace_id);
     LogLine += TEXT("\n###");
     // Log to file/console at appropriate level
     Log( LogLine, Entry.bSuccess ? ELootLockerLogLevel::Log : ELootLockerLogLevel::Error );
@@ -156,7 +152,6 @@ void FLootLockerLogger::LogInternal(ELootLockerLogLevel Verbosity, const TCHAR* 
     // Write to file if enabled
     if (IsFileLoggingEnabled())
     {
-        // Only print the value, not the enum type name
         const UEnum* EnumPtr = StaticEnum<ELootLockerLogLevel>();
         FString VerbosityString = EnumPtr ? EnumPtr->GetNameStringByValue((int64)Verbosity) : TEXT("Unknown");
         VerbosityString.RemoveFromStart(TEXT("ELootLockerLogLevel::"));

@@ -38,8 +38,8 @@ class SLootLockerLogViewerWidget : public SCompoundWidget
 public:
     SLATE_BEGIN_ARGS(SLootLockerLogViewerWidget) {}
     SLATE_END_ARGS()
-
     void Construct(const FArguments& InArgs);
+    ~SLootLockerLogViewerWidget();
     /**
      * Adds a log entry from a string message and log level. Only parses legacy or non-HTTP logs.
      * @param Message The log message.
