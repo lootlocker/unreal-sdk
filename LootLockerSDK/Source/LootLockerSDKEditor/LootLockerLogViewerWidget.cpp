@@ -1,5 +1,4 @@
 // Copyright (c) 2025 LootLocker
-// LootLockerLogViewerWidget.cpp
 #include "LootLockerLogViewerWidget.h"
 #include "Widgets/Input/SSearchBox.h"
 #include "Widgets/Views/SListView.h"
@@ -23,7 +22,6 @@
 #include "Widgets/Layout/SExpandableArea.h"
 #include "Widgets/Layout/SScrollBox.h"
 #include "Widgets/SBoxPanel.h"
-#include "SWebBrowser.h"
 #include "Framework/Application/SlateApplication.h"
 #include "Widgets/SWindow.h"
 #include "Widgets/Text/SRichTextBlock.h"
@@ -31,7 +29,6 @@
 
 void SLootLockerLogViewerWidget::Construct(const FArguments& InArgs)
 {
-    // Only subscribe to OnLogMessage for non-HTTP logs
     FLootLockerLogger::OnLogMessage.AddRaw(this, &SLootLockerLogViewerWidget::AddLogEntry);
     FLootLockerLogger::OnHttpLogEntry.AddRaw(this, &SLootLockerLogViewerWidget::AddHttpLogEntry);
     BindToPIEEvents();
@@ -104,22 +101,22 @@ void SLootLockerLogViewerWidget::AddHttpLogEntry(const FLootLockerHttpLogEntry& 
         *HttpEntry.RequestData,
         *HttpEntry.ResponseData,
         *HttpEntry.RequestHeaders);
-    Entry->ErrorDocUrl = HttpEntry.ErrorDocUrl; // <-- Copy doc_url for UI
+    Entry->ErrorDocUrl = HttpEntry.ErrorData.Doc_url;
     // Build summary
     if (!HttpEntry.bSuccess)
     {
         FString ErrorSummary;
-        if (!HttpEntry.ErrorCode.IsEmpty() && !HttpEntry.ErrorMessage.IsEmpty())
+        if (!HttpEntry.ErrorData.Code.IsEmpty() && !HttpEntry.ErrorData.Message.IsEmpty())
         {
-            ErrorSummary = FString::Printf(TEXT("\nError Code: %s\nError Message: %s"), *HttpEntry.ErrorCode, *HttpEntry.ErrorMessage);
+            ErrorSummary = FString::Printf(TEXT("\nError Code: %s\nError Message: %s"), *HttpEntry.ErrorData.Code, *HttpEntry.ErrorData.Message);
         }
-        else if (!HttpEntry.ErrorMessage.IsEmpty())
+        else if (!HttpEntry.ErrorData.Message.IsEmpty())
         {
-            ErrorSummary = FString::Printf(TEXT("\nError Message: %s"), *HttpEntry.ErrorMessage);
+            ErrorSummary = FString::Printf(TEXT("\nError Message: %s"), *HttpEntry.ErrorData.Message);
         }
-        else if (!HttpEntry.ErrorCode.IsEmpty())
+        else if (!HttpEntry.ErrorData.Code.IsEmpty())
         {
-            ErrorSummary = FString::Printf(TEXT("\nError Code: %s"), *HttpEntry.ErrorCode);
+            ErrorSummary = FString::Printf(TEXT("\nError Code: %s"), *HttpEntry.ErrorData.Code);
         }
         else
         {
@@ -380,4 +377,13 @@ void SLootLockerLogViewerWidget::OnBeginPIE(bool /*bIsSimulating*/)
     {
         ClearLog();
     }
+}
+
+SLootLockerLogViewerWidget::~SLootLockerLogViewerWidget()
+{
+    FLootLockerLogger::OnLogMessage.RemoveAll(this);
+    FLootLockerLogger::OnHttpLogEntry.RemoveAll(this);
+#if WITH_EDITOR
+    FEditorDelegates::BeginPIE.RemoveAll(this);
+#endif
 }

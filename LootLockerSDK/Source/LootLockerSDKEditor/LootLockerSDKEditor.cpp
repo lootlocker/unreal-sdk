@@ -13,7 +13,6 @@ class FLootLockerSDKEditorModule : public IModuleInterface
 public:
     virtual void StartupModule() override
     {
-        UE_LOG(LogTemp, Warning, TEXT("LootLockerSDKEditorModule::StartupModule called"));
         FGlobalTabmanager::Get()->RegisterNomadTabSpawner(LootLockerLogViewerTabName,
             FOnSpawnTab::CreateLambda([](const FSpawnTabArgs& Args) {
                 return SNew(SDockTab)
