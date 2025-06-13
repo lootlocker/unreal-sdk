@@ -5,7 +5,6 @@
 #include "Utils/LootLockerUtilities.h"
 #include "LootLockerGameEndpoints.h"
 
-
 ULootLockerHttpClient* ULootLockerLeaderboardRequestHandler::HttpClient = nullptr;
 // Sets default values for this component's properties
 ULootLockerLeaderboardRequestHandler::ULootLockerLeaderboardRequestHandler()

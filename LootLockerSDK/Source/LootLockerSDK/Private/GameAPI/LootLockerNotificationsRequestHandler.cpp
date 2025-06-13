@@ -4,6 +4,7 @@
 #include "LootLockerGameEndpoints.h"
 #include "LootLockerSDK.h"
 #include "Utils/LootLockerUtilities.h"
+#include "LootLockerLogger.h"
 
 ULootLockerHttpClient* ULootLockerNotificationsRequestHandler::HttpClient = nullptr;
 
@@ -50,7 +51,7 @@ void FLootLockerListNotificationsResponse::PopulateConvenienceStructures()
             || OutJsonNotifications == nullptr
 			|| OutJsonNotifications->Num() != Notifications.Num())
         {
-            UE_LOG(LogLootLockerGameSDK, Warning, TEXT("Failed to properly parse notification content"));
+            FLootLockerLogger::LogWarning("Failed to properly parse notification content");
         }
     	else
         {

@@ -18,6 +18,11 @@
         "Name": "LootLockerSDK",
         "Type": "Runtime",
         "LoadingPhase": "Default"
+      },
+      {
+        "Name": "LootLockerSDKEditor",
+        "Type": "Editor",
+        "LoadingPhase": "Default"
       }
     ]
 }

@@ -30,7 +30,9 @@ public class LootLockerSDK : ModuleRules
             new string[]
             {
                 "Core",
-				// ... add other public dependencies that you statically link with here ...
+                "CoreUObject",
+                "Engine",
+                // ... add other public dependencies that you statically link with here ...
 			}
             );
 
@@ -45,6 +47,7 @@ public class LootLockerSDK : ModuleRules
                 "Json",
                 "JsonUtilities",
                 "Projects"
+				// ... add other private dependencies that you statically link with here ...
 			}
             );
         DynamicallyLoadedModuleNames.AddRange(
