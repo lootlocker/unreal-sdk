@@ -40,7 +40,12 @@ void ULootLockerConfig::EnableFileLogging(const FString& FileName)
     Config->bEnableFileLogging = true;
     Config->LogFileName = FileName;
     FString LogDir = FPaths::ProjectLogDir();
-    Config->LogFilePath = FPaths::Combine(LogDir, FileName);
+    if (LogDir.IsEmpty())
+    {
+        LogDir = FPaths::EngineSavedDir() / TEXT("Logs");
+    }
+    FString DateAppendix = FDateTime::UtcNow().ToString(TEXT("%Y-%m-%d"));
+    Config->LogFilePath = FPaths::Combine(LogDir, FileName + TEXT("_") + DateAppendix + TEXT(".log"));
     Config->LongLogFilePath = FPaths::ConvertRelativePathToFull(Config->LogFilePath);
     Config->SaveConfig();
 }
