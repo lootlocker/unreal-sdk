@@ -283,6 +283,7 @@ public:
 
     // Miscellaneous
     static FLootLockerEndPoints GetServerTimeEndpoint;
+    static FLootLockerEndPoints GetGameInfoEndpoint;
 
     // Crash
     static FLootLockerEndPoints Crashes;

@@ -1291,7 +1291,7 @@ public:
     * @param CharacterId Id of the character you want to fetch progressions for
     * @param Count Optional: Amount of entries to receive
     * @param After Optional: Used for pagination, id of the character progression from which the pagination starts from, use the next_cursor and previous_cursor values
-    * @param OnCompletedRequest Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    * @param OnCompletedRequest Action for handling the response of type FLootLockerPaginatedCharacterProgressionsResponse
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Character Progressions", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid=""))
     static void GetCharacterProgressions(const FString& ForPlayerWithUlid, const int32& CharacterId, const int32 Count, const FString& After, const FLootLockerPaginatedCharacterProgressionsResponseBP& OnCompletedRequest);
@@ -2891,4 +2891,12 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static FString GetLastActivePlatform(const FString& ForPlayerWithUlid);
+
+    /**
+    * Get meta information about the game from LootLocker
+    * 
+    * @param OnCompletedRequestBP Blueprint delegate for handling the response
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous")
+    static void GetGameInfo(const FGameInfoResponseDelegateBP& OnCompletedRequestBP);
 };

@@ -487,8 +487,6 @@ public:
      * While the process is ongoing, the remoteSessionLeaseStatusUpdate action (if one is provided) will be invoked intermittently (about once a second) to update you on the status of the process.
      * When the process has come to an end (whether successfully or not), the onComplete action will be invoked with the updated information.
      *
-     * @param TitleId The title id for the game
-     * @param EnvironmentId The environment id for the game
      * @param RemoteSessionLeaseInformation Will be invoked once to provide the lease information that the secondary device can use to authenticate
      * @param RemoteSessionLeaseStatusUpdate Will be invoked intermittently to update the status lease process
      * @param OnComplete Invoked when the remote session process has run to completion containing either a valid session or information on why the process failed
@@ -496,8 +494,6 @@ public:
      * @param TimeOutAfterMinutes Optional: How long to allow the process to take in its entirety
      */
     static FString StartRemoteSession(
-        const FString& TitleId,
-        const FString& EnvironmentId,
         const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation,
         const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate,
         const FLootLockerStartRemoteSessionResponseDelegate& OnComplete,
@@ -510,8 +506,6 @@ public:
      * While the process is ongoing, the remoteSessionLeaseStatusUpdate action (if one is provided) will be invoked intermittently (about once a second) to update you on the status of the process.
      * When the process has come to an end (whether successfully or not), the onComplete action will be invoked with the updated information.
      *
-     * @param TitleId The title id for the game
-     * @param EnvironmentId The environment id for the game
      * @param ForPlayerWithUlid Execute the request for the specified player (the player that you intend to link the remote account into).
      * @param RemoteSessionLeaseInformation Will be invoked once to provide the lease information that the secondary device can use to authenticate
      * @param RemoteSessionLeaseStatusUpdate Will be invoked intermittently to update the status lease process
@@ -520,8 +514,6 @@ public:
      * @param TimeOutAfterMinutes Optional: How long to allow the process to take in its entirety
      */
     static FString StartRemoteSessionForLinking(
-        const FString& TitleId,
-        const FString& EnvironmentId,
         const FString& ForPlayerWithUlid,
         const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation,
         const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate,
@@ -1413,7 +1405,7 @@ public:
     * @param CharacterId Id of the character you want to fetch progressions for
     * @param Count Amount of entries to receive
     * @param After Used for pagination, id of the character progression from which the pagination starts from, use the next_cursor and previous_cursor values
-    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedCharacterProgressionsResponse
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
     static void GetCharacterProgressions(const int32 & CharacterId, const int32 & Count, const FString & After, const FLootLockerPaginatedCharacterProgressionsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
@@ -1884,7 +1876,7 @@ public:
     * Returns multiple progressions.
     *
     * @param Count Amount of entries to receive
-    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    * @param OnComplete onComplete Action for handling the response
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
     static void GetProgressions(const int32 & Count, const FLootLockerPaginatedProgressionsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
@@ -1892,7 +1884,7 @@ public:
     /**
     * Returns multiple progressions.
     *
-    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    * @param OnComplete onComplete Action for handling the response
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
     static void GetProgressions(const FLootLockerPaginatedProgressionsResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
@@ -1901,7 +1893,7 @@ public:
     * Returns the specified progression
     *
     * @param ProgressionKey Key of the progression you want to fetch
-    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    * @param OnComplete onComplete Action for handling the response
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
     static void GetProgression(const FString & ProgressionKey, const FLootLockerProgressionResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
@@ -1912,7 +1904,7 @@ public:
     * @param ProgressionKey Key of the progression you want to fetch
     * @param Count Amount of entries to receive
     * @param After Used for pagination, id of the player progression from which the pagination starts from, use the next_cursor and previous_cursor values
-    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    * @param OnComplete onComplete Action for handling the response
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
     static void GetProgressionTiers(const FString & ProgressionKey, const int32 & Count, const int32 & After, const FLootLockerPaginatedProgressionTiersResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
@@ -1922,7 +1914,7 @@ public:
     *
     * @param ProgressionKey Key of the progression you want to fetch
     * @param Count Amount of entries to receive
-    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    * @param OnComplete onComplete Action for handling the response
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
     static void GetProgressionTiers(const FString & ProgressionKey, const int32 & Count, const FLootLockerPaginatedProgressionTiersResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
@@ -1931,7 +1923,7 @@ public:
     * Returns multiple progression tiers for the specified progression.
     *
     * @param ProgressionKey Key of the progression you want to fetch
-    * @param OnComplete onComplete Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
+    * @param OnComplete onComplete Action for handling the response
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
     static void GetProgressionTiers(const FString & ProgressionKey, const FLootLockerPaginatedProgressionTiersResponseDelegate & OnComplete, const FString ForPlayerWithUlid = "");
@@ -2786,4 +2778,11 @@ public:
     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
     static FString GetLastActivePlatform(const FString ForPlayerWithUlid = "");
+
+    /**
+    * Get meta information about the game from LootLocker
+    * 
+    * @param OnComplete delegate for handling the server response
+    */
+    static void GetGameInfo(const FGameInfoResponseDelegate& OnComplete);
 };
