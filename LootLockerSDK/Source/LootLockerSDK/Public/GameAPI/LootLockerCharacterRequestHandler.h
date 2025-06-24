@@ -128,7 +128,7 @@ struct FLootLockerCharacterTypeDefaultLoadout {
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 asset_variation_id = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FLootLockerCharacterAsset asset;
+	FLootLockerAsset asset;
 };
 
 USTRUCT(BlueprintType)
