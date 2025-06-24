@@ -20,3 +20,19 @@ FString ULootLockerMiscellaneousRequestHandler::GetLastActivePlatform(const FLoo
 {
 	return PlayerData.CurrentPlatform.GetFriendlyPlatformString();
 }
+
+void ULootLockerMiscellaneousRequestHandler::GetGameInfo(const FGameInfoResponseDelegateBP& OnCompletedRequestBP, const FGameInfoResponseDelegate& OnCompletedRequest)
+{
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+	FLootLockerGameInfoRequest Request { config->LootLockerGameKey };
+    LLAPI<FLootLockerGameInfoResponse>::CallAPI(
+        HttpClient,
+        Request,
+        ULootLockerGameEndpoints::GetGameInfoEndpoint,
+        {},
+        EmptyQueryParams,
+        FLootLockerPlayerData(),
+        OnCompletedRequestBP,
+        OnCompletedRequest
+    );
+}

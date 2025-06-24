@@ -244,8 +244,6 @@ void ULootLockerManager::TransferIdentityProvidersBetweenAccounts(const FString&
 FString ULootLockerManager::StartRemoteSession(const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegateBP& OnComplete, float PollingIntervalSeconds, float TimeOutAfterMinutes)
 {
     return ULootLockerRemoteSessionRequestHandler::StartRemoteSession(
-        "",
-        "",
         ELootLockerRemoteSessionLeaseIntent::login,
         RemoteSessionLeaseInformation,
         FLootLockerLeaseRemoteSessionResponseDelegate(),
@@ -1364,4 +1362,8 @@ void ULootLockerManager::GetServerTime(const FString& ForPlayerWithUlid, const F
 
 FString ULootLockerManager::GetLastActivePlatform(const FString& ForPlayerWithUlid) {
     return ULootLockerMiscellaneousRequestHandler::GetLastActivePlatform(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid));
+}
+
+void ULootLockerManager::GetGameInfo(const FGameInfoResponseDelegateBP& OnCompletedRequestBP) {
+    ULootLockerMiscellaneousRequestHandler::GetGameInfo(OnCompletedRequestBP);
 }

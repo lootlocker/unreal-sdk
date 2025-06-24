@@ -236,8 +236,6 @@ void ULootLockerSDKManager::TransferIdentityProvidersBetweenAccounts(const FStri
 // Remote Sessions
 //==================================================
 FString ULootLockerSDKManager::StartRemoteSession(
-    const FString& TitleId,
-    const FString& EnvironmentId,
     const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation,
     const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate,
     const FLootLockerStartRemoteSessionResponseDelegate& OnComplete,
@@ -245,8 +243,6 @@ FString ULootLockerSDKManager::StartRemoteSession(
     float TimeOutAfterMinutes)
 {
     return ULootLockerRemoteSessionRequestHandler::StartRemoteSession(
-        TitleId,
-        EnvironmentId,
         ELootLockerRemoteSessionLeaseIntent::login,
         FLootLockerLeaseRemoteSessionResponseDelegateBP(),
         RemoteSessionLeaseInformation,
@@ -260,8 +256,6 @@ FString ULootLockerSDKManager::StartRemoteSession(
 }
 
 FString ULootLockerSDKManager::StartRemoteSessionForLinking(
-    const FString& TitleId,
-    const FString& EnvironmentId,
     const FString& ForPlayerWithUlid,
     const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation,
     const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate,
@@ -270,8 +264,6 @@ FString ULootLockerSDKManager::StartRemoteSessionForLinking(
     float TimeOutAfterMinutes)
 {
     return ULootLockerRemoteSessionRequestHandler::StartRemoteSession(
-        TitleId,
-        EnvironmentId,
         ELootLockerRemoteSessionLeaseIntent::link,
         FLootLockerLeaseRemoteSessionResponseDelegateBP(),
         RemoteSessionLeaseInformation,
@@ -1282,4 +1274,9 @@ void ULootLockerSDKManager::GetServerTime(const FTimeResponseDelegate& OnComplet
 
 FString ULootLockerSDKManager::GetLastActivePlatform(const FString ForPlayerWithUlid /* = "" */){
     return ULootLockerMiscellaneousRequestHandler::GetLastActivePlatform(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid));
+}
+
+void ULootLockerSDKManager::GetGameInfo(const FGameInfoResponseDelegate& OnComplete)
+{
+    ULootLockerMiscellaneousRequestHandler::GetGameInfo(FGameInfoResponseDelegateBP(), OnComplete);
 }
