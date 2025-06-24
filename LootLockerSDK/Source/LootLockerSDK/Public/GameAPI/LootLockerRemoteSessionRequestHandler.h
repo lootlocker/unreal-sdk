@@ -395,8 +395,6 @@ public:
 
     static void CancelRemoteSessionProcess(const FString& ProcessID);
     static FString StartRemoteSession(
-        const FString& TitleId,
-        const FString& EnvironmentId,
         ELootLockerRemoteSessionLeaseIntent Intent = ELootLockerRemoteSessionLeaseIntent::login,
         const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformationBP = FLootLockerLeaseRemoteSessionResponseDelegateBP(),
         const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation = FLootLockerLeaseRemoteSessionResponseDelegate(),
@@ -465,13 +463,11 @@ public:
      * If the process fails, the OnProcessFailed event will trigger and the ResponseOnFailure property will be populated and contain error data.
      *
      * @param WorldContextObject Non input: Automatic context for async node
-     * @param TitleId The title id for the game
-     * @param EnvironmentId The environment id for the game
      * @param PollingIntervalSeconds Optional: How often to poll the status of the remote session process
      * @param TimeOutAfterMinutes Optional: How long to allow the process to take in its entirety
      */
     UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", Category = "LootLocker Methods | Remote Session", WorldContext = "WorldContextObject", AdvancedDisplay = "PollingIntervalSeconds,TimeOutAfterMinutes,ForPlayerWithUlid", PollingIntervalSeconds = 1.0f, TimeOutAfterMinutes = 5.0f, ForPlayerWithUlid = ""))
-    static LOOTLOCKERSDK_API ULootLockerAsyncStartRemoteSession* AsyncStartRemoteSession(UObject* WorldContextObject, FString TitleId, FString EnvironmentId, float PollingIntervalSeconds, float TimeOutAfterMinutes);
+    static LOOTLOCKERSDK_API ULootLockerAsyncStartRemoteSession* AsyncStartRemoteSession(UObject* WorldContextObjectfloat, float PollingIntervalSeconds, float TimeOutAfterMinutes);
 
     /**
      * Start a remote session with the intent to use the remote session for connecting accounts
@@ -489,15 +485,13 @@ public:
      * If the process fails, the OnProcessFailed event will trigger and the ResponseOnFailure property will be populated and contain error data.
      *
      * @param WorldContextObject Non input: Automatic context for async node
-     * @param TitleId The title id for the game
-     * @param EnvironmentId The environment id for the game
      * @param ForPlayerWithUlid Execute the request for the specified player (the player that you intend to link the remote account into).
      * @param PollingIntervalSeconds Optional: How often to poll the status of the remote session process
      * @param TimeOutAfterMinutes Optional: How long to allow the process to take in its entirety
      * @return
      */
     UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", Category = "LootLocker Methods | Remote Session", WorldContext = "WorldContextObject", AdvancedDisplay = "PollingIntervalSeconds,TimeOutAfterMinutes,ForPlayerWithUlid", PollingIntervalSeconds = 1.0f, TimeOutAfterMinutes = 5.0f, ForPlayerWithUlid = ""))
-    static LOOTLOCKERSDK_API ULootLockerAsyncStartRemoteSession* AsyncStartRemoteSessionForLinking(UObject* WorldContextObject, FString TitleId, FString EnvironmentId, FString ForPlayerWithUlid, float PollingIntervalSeconds, float TimeOutAfterMinutes);
+    static LOOTLOCKERSDK_API ULootLockerAsyncStartRemoteSession* AsyncStartRemoteSessionForLinking(UObject* WorldContextObject, FString ForPlayerWithUlid, float PollingIntervalSeconds, float TimeOutAfterMinutes);
 
 
 	/** Triggered once the lease process has successfully been started and the LeaseData property has been populated with the necessary information */
@@ -527,8 +521,6 @@ public:
 
 protected:
     FString ForPlayerWithUlid = "";
-    FString TitleId = "";
-    FString EnvironmentId = "";
     ELootLockerRemoteSessionLeaseIntent Intent = ELootLockerRemoteSessionLeaseIntent::login;
     FString LeaseProcessID = "";
     float PollingIntervalInSeconds = 0.0f;

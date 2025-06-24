@@ -249,6 +249,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::GetEntitlement = InitEndpoint("en
 
 //Miscellaneous
 FLootLockerEndPoints ULootLockerGameEndpoints::GetServerTimeEndpoint = InitEndpoint("ping", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetGameInfoEndpoint = InitEndpoint("info/v1", ELootLockerHTTPMethod::POST);
 
 // Crashes
 FLootLockerEndPoints ULootLockerGameEndpoints::Crashes = InitEndpoint("v1/crash", ELootLockerHTTPMethod::UPLOAD);

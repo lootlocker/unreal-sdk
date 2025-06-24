@@ -9,6 +9,7 @@
 #include "LootLockerStateData.h"
 #include "Utils/LootLockerUtilities.h"
 #include "LootLockerLogger.h"
+#include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
 
 ULootLockerHttpClient* ULootLockerRemoteSessionRequestHandler::HttpClient = nullptr;
 TMap<FString, FLootLockerRemoteSessionProcess> ULootLockerRemoteSessionRequestHandler::RemoteSessionProcesses = TMap<FString, FLootLockerRemoteSessionProcess>();
@@ -36,8 +37,6 @@ void ULootLockerRemoteSessionRequestHandler::CancelRemoteSessionProcess(const FS
 }
 
 FString ULootLockerRemoteSessionRequestHandler::StartRemoteSession(
-    const FString& TitleId,
-    const FString& EnvironmentId,
 	ELootLockerRemoteSessionLeaseIntent Intent,
 	const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformationBP,
 	const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation,
@@ -58,40 +57,74 @@ FString ULootLockerRemoteSessionRequestHandler::StartRemoteSession(
 	FString ProcessID = FGuid::NewGuid().ToString();
 	const FLootLockerRemoteSessionProcess NewRemoteSessionProcess(PollingIntervalSeconds, TimeOutAfterMinutes);
 	RemoteSessionProcesses.Add(ProcessID, NewRemoteSessionProcess);
-	LeaseRemoteSession(
-        TitleId,
-        EnvironmentId,
-		Intent,
-		ForPlayerWithUlid, 
-		LLAPI<FLootLockerLeaseRemoteSessionResponse>::FResponseInspectorCallback::CreateLambda(
-			[RemoteSessionLeaseInformationBP,
-				RemoteSessionLeaseInformation,
-				RemoteSessionLeaseStatusUpdateBP,
-				RemoteSessionLeaseStatusUpdate,
-				OnCompleteBP,
-				OnComplete,
-				ProcessID](const FLootLockerLeaseRemoteSessionResponse& LeaseResponse)
-			{
+
+	ULootLockerMiscellaneousRequestHandler::GetGameInfo(FGameInfoResponseDelegateBP(), FGameInfoResponseDelegate::CreateLambda([
+			Intent, 
+			ForPlayerWithUlid, 
+			RemoteSessionLeaseInformationBP,
+			RemoteSessionLeaseInformation,
+			RemoteSessionLeaseStatusUpdateBP,
+			RemoteSessionLeaseStatusUpdate,
+			OnCompleteBP,
+			OnComplete,
+			ProcessID](const FLootLockerGameInfoResponse& GameInfoResponse) 
+	{
+		if(!GameInfoResponse.success) {
 				FLootLockerRemoteSessionProcess* _processPtr = RemoteSessionProcesses.Find(ProcessID);
 				if (nullptr == _processPtr)
 				{
 					return;
 				}
-				FLootLockerRemoteSessionProcess& _process = *_processPtr;
-				RemoteSessionLeaseInformationBP.ExecuteIfBound(LeaseResponse);
-				RemoteSessionLeaseInformation.ExecuteIfBound(LeaseResponse);
-				if (!LeaseResponse.success)
+				KillProcess(ProcessID);
 				{
-					KillProcess(ProcessID);
-					return;
+					FLootLockerLeaseRemoteSessionResponse Response;
+					Response.success = GameInfoResponse.success;
+					Response.FullTextFromServer = GameInfoResponse.FullTextFromServer;
+					Response.StatusCode = GameInfoResponse.StatusCode;
+					Response.ErrorData = GameInfoResponse.ErrorData;
+					Response.Context = GameInfoResponse.Context;
+					Response.Status = ELootLockerRemoteSessionLeaseStatus::Failed;
+					RemoteSessionLeaseInformationBP.ExecuteIfBound(Response);
+					RemoteSessionLeaseInformation.ExecuteIfBound(Response);
 				}
+				return;
+		}
+		LeaseRemoteSession(
+			GameInfoResponse.Info.Title_id,
+			GameInfoResponse.Info.Environment_id,
+			Intent,
+			ForPlayerWithUlid, 
+			LLAPI<FLootLockerLeaseRemoteSessionResponse>::FResponseInspectorCallback::CreateLambda(
+				[RemoteSessionLeaseInformationBP,
+					RemoteSessionLeaseInformation,
+					RemoteSessionLeaseStatusUpdateBP,
+					RemoteSessionLeaseStatusUpdate,
+					OnCompleteBP,
+					OnComplete,
+					ProcessID](const FLootLockerLeaseRemoteSessionResponse& LeaseResponse)
+				{
+					FLootLockerRemoteSessionProcess* _processPtr = RemoteSessionProcesses.Find(ProcessID);
+					if (nullptr == _processPtr)
+					{
+						return;
+					}
+					FLootLockerRemoteSessionProcess& _process = *_processPtr;
+					RemoteSessionLeaseInformationBP.ExecuteIfBound(LeaseResponse);
+					RemoteSessionLeaseInformation.ExecuteIfBound(LeaseResponse);
+					if (!LeaseResponse.success)
+					{
+						KillProcess(ProcessID);
+						return;
+					}
 
-				_process.LeaseCode = LeaseResponse.Code;
-				_process.LeaseNonce = LeaseResponse.Nonce;
-				_process.LastUpdatedAt = FDateTime::UtcNow();
-				_process.LastUpdatedStatus = LeaseResponse.Status;
-				ContinualPollingAction(ProcessID, RemoteSessionLeaseStatusUpdateBP, RemoteSessionLeaseStatusUpdate, OnCompleteBP, OnComplete);
-			}));
+					_process.LeaseCode = LeaseResponse.Code;
+					_process.LeaseNonce = LeaseResponse.Nonce;
+					_process.LastUpdatedAt = FDateTime::UtcNow();
+					_process.LastUpdatedStatus = LeaseResponse.Status;
+					ContinualPollingAction(ProcessID, RemoteSessionLeaseStatusUpdateBP, RemoteSessionLeaseStatusUpdate, OnCompleteBP, OnComplete);
+				}));
+				
+		}));
 	return ProcessID;
 }
 
@@ -393,22 +426,18 @@ void ULootLockerAsyncStartRemoteSession::HandleLeaseProcessCompleted(const FLoot
 	SetReadyToDestroy();
 }
 
-ULootLockerAsyncStartRemoteSession* ULootLockerAsyncStartRemoteSession::AsyncStartRemoteSession(UObject* WorldContextObject, FString TitleId, FString EnvironmentId, float PollingIntervalSeconds, float TimeOutAfterMinutes)
+ULootLockerAsyncStartRemoteSession* ULootLockerAsyncStartRemoteSession::AsyncStartRemoteSession(UObject* WorldContextObject, float PollingIntervalSeconds, float TimeOutAfterMinutes)
 {
 	ULootLockerAsyncStartRemoteSession* Action = NewObject<ULootLockerAsyncStartRemoteSession>();
-    Action->TitleId = TitleId;
-    Action->EnvironmentId = EnvironmentId;
 	Action->PollingIntervalInSeconds = PollingIntervalSeconds;
 	Action->TimeoutAfterMinutes = TimeOutAfterMinutes;
 	Action->RegisterWithGameInstance(WorldContextObject);
 	return Action;
 }
 
-ULootLockerAsyncStartRemoteSession* ULootLockerAsyncStartRemoteSession::AsyncStartRemoteSessionForLinking(UObject* WorldContextObject, FString TitleId, FString EnvironmentId, FString ForPlayerWithUlid, float PollingIntervalSeconds, float TimeOutAfterMinutes)
+ULootLockerAsyncStartRemoteSession* ULootLockerAsyncStartRemoteSession::AsyncStartRemoteSessionForLinking(UObject* WorldContextObject, FString ForPlayerWithUlid, float PollingIntervalSeconds, float TimeOutAfterMinutes)
 {
 	ULootLockerAsyncStartRemoteSession* Action = NewObject<ULootLockerAsyncStartRemoteSession>();
-    Action->TitleId = TitleId;
-    Action->EnvironmentId = EnvironmentId;
 	Action->PollingIntervalInSeconds = PollingIntervalSeconds;
 	Action->TimeoutAfterMinutes = TimeOutAfterMinutes;
 	Action->Intent = ELootLockerRemoteSessionLeaseIntent::link;
@@ -422,8 +451,6 @@ void ULootLockerAsyncStartRemoteSession::Activate()
 	Super::Activate();
 	
 	LeaseProcessID = ULootLockerRemoteSessionRequestHandler::StartRemoteSession(
-		TitleId,
-		EnvironmentId,
 		Intent,
 		FLootLockerLeaseRemoteSessionResponseDelegateBP(),
 		FLootLockerLeaseRemoteSessionResponseDelegate::CreateLambda([this](const FLootLockerLeaseRemoteSessionResponse& R) { HandleLeaseProcessStarted(R); }),
