@@ -150,10 +150,7 @@ private:
 #endif
 	;
 #if ENGINE_MAJOR_VERSION >= 5
-// C++17 inline static is supported in UE5+
 	inline static const std::regex SemverPattern = std::regex("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:\\.(0|[1-9]\\d*))?(?:\\.(0|[1-9]\\d*))?$" );
-#else
-// UE4.27 compatibility: use a static in the .cpp file
 #endif
 
 public:
