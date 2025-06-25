@@ -1,6 +1,8 @@
 // Copyright (c) 2021 LootLocker
 
 #include "LootLockerConfig.h"
+#include "Misc/Paths.h"
+#include "Misc/DateTime.h"
 
 namespace {
     // Used for runtime log level override
