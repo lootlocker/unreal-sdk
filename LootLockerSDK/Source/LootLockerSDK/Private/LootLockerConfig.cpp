@@ -8,11 +8,6 @@ namespace {
     // Used for runtime log level override
     static bool bRuntimeLogLevelOverrideSet = false;
     static ELootLockerLogLevel RuntimeLogLevelOverride = ELootLockerLogLevel::NoLogging;
-
-#if ENGINE_MAJOR_VERSION < 5
-    // UE4.27 compatibility: static regex pattern for semver
-    static const std::regex SemverPattern("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:\\.(0|[1-9]\\d*))?(?:\\.(0|[1-9]\\d*))?$" );
-#endif
 }
 
 ULootLockerConfig::ULootLockerConfig()

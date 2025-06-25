@@ -1,12 +1,9 @@
 // Copyright (c) 2025 LootLocker
+#include "LootLockerSDK.h"
 #include "LootLockerLogger.h"
 #include "LootLockerConfig.h"
 #include "Misc/FileHelper.h"
-#include "HAL/PlatformFilemanager.h"
 #include "Misc/Paths.h"
-
-// Define the log category for LootLocker SDK
-DEFINE_LOG_CATEGORY_STATIC(LogLootLockerGameSDK, Log, All);
 
 ELootLockerLogLevel FLootLockerLogger::GetEffectiveLogLevel()
 {
