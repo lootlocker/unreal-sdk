@@ -14,25 +14,25 @@ USTRUCT(BlueprintType)
 struct FLootLockerHttpLogEntry
 {
     GENERATED_BODY()
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
     FString Method;
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
     FString Path;
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
     int32 StatusCode = -1;
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
     float Duration = 0.0f;
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
     FString RequestData;
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
     FString ResponseData;
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
     FString RequestHeaders;
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
     bool bSuccess = false;
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
     FDateTime Timestamp;
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
     FLootLockerErrorData ErrorData;
 };
 
