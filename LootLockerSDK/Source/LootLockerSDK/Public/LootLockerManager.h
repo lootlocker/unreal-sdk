@@ -62,6 +62,20 @@ public:
     static void SetPlayerUlidToInactive(const FString& PlayerUlid);
 
     /**
+    Make the state for all currently active players to be "inactive"
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player State")
+    static void SetAllPlayersToInactive();
+
+    /**
+    Make the state for all currently active players except the specified player to be "inactive"
+
+    @param PlayerUlid The ulid of the player to keep active
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player State")
+    static void SetAllPlayersToInactiveExceptForPlayer(const FString& PlayerUlid);
+
+    /**
     Get a list of player ulids that there is a stored state for
 
     @returns Array of player ulids that there is a state stored for
@@ -104,6 +118,14 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player State")
     static void ClearCacheForPlayer(const FString& PlayerUlid);
+
+    /**
+    Remove all stored state information (players will need to re-authenticate) except for the specified player
+
+    @param PlayerUlid The ulid of the player to save the cache for
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player State")
+    static void ClearAllPlayerCachesExceptForPlayer(const FString& PlayerUlid);
 
     /**
     Remove all stored state information (players will need to re-authenticate)

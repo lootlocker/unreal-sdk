@@ -310,6 +310,19 @@ void ULootLockerStateData::ClearAllSavedStates()
 	ActivePlayerData.Empty();
 }
 
+void ULootLockerStateData::ClearAllSavedStatesExceptForPlayer(const FString& PlayerUlid) 
+{
+	FLootLockerStateMetaData metaState = LoadMetaState();
+	TArray<FString> localLoadedUlidListCopy = metaState.SavedPlayerStateUlids;
+	for (const FString& playerUlid : localLoadedUlidListCopy)
+	{
+		if (!playerUlid.Equals(PlayerUlid, ESearchCase::IgnoreCase))
+		{
+			ClearSavedStateForPlayer(playerUlid);
+		}
+	}
+}
+
 TArray<FString> ULootLockerStateData::GetActivePlayerUlids()
 {
 	TArray<FString> OutUlids;
@@ -331,4 +344,28 @@ void ULootLockerStateData::SetPlayerUlidToInactive(const FString& PlayerUlid)
 	}
 
 	ActivePlayerData.Remove(PlayerUlid);
+}
+
+void ULootLockerStateData::SetAllPlayersToInactive()
+{
+	ActivePlayerData.Empty();
+}
+
+void ULootLockerStateData::SetAllPlayersToInactiveExceptForPlayer(const FString& PlayerUlid)
+{
+	if (PlayerUlid.IsEmpty())
+	{
+		//Nothing more to load, return
+		return;
+	}
+
+	TArray<FString> ActiveKeys;
+	ActivePlayerData.GetKeys(ActiveKeys);
+	for (const FString& activePlayerUlid : ActiveKeys)
+	{
+		if (!activePlayerUlid.Equals(PlayerUlid, ESearchCase::IgnoreCase))
+		{
+			ActivePlayerData.Remove(activePlayerUlid);
+		}
+	}
 }

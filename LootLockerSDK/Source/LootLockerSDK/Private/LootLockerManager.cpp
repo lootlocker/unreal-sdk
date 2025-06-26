@@ -19,6 +19,16 @@ void ULootLockerManager::SetPlayerUlidToInactive(const FString& PlayerUlid)
     return ULootLockerStateData::SetPlayerUlidToInactive(PlayerUlid);
 }
 
+void ULootLockerManager::SetAllPlayersToInactive()
+{
+    ULootLockerStateData::SetAllPlayersToInactive();
+}
+
+void ULootLockerManager::SetAllPlayersToInactiveExceptForPlayer(const FString& PlayerUlid)
+{
+    ULootLockerStateData::SetAllPlayersToInactiveExceptForPlayer(PlayerUlid);
+}
+
 TArray<FString> ULootLockerManager::GetCachedPlayerUlids()
 {
     return ULootLockerStateData::GetActivePlayerUlids();
@@ -47,6 +57,11 @@ void ULootLockerManager::ClearCacheForPlayer(const FString& PlayerUlid)
 void ULootLockerManager::ClearAllPlayerCaches()
 {
     ULootLockerStateData::ClearAllSavedStates();
+}
+
+void ULootLockerManager::ClearAllPlayerCachesExceptForPlayer(const FString& PlayerUlid)
+{
+    ULootLockerStateData::ClearAllSavedStatesExceptForPlayer(PlayerUlid);
 }
 
 // Authentication
