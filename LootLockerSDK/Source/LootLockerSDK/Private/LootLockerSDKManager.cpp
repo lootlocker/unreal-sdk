@@ -16,6 +16,16 @@ void ULootLockerSDKManager::SetPlayerUlidToInactive(const FString& PlayerUlid)
     return ULootLockerStateData::SetPlayerUlidToInactive(PlayerUlid);
 }
 
+void ULootLockerSDKManager::SetAllPlayersToInactive()
+{
+    ULootLockerStateData::SetAllPlayersToInactive();
+}
+
+void ULootLockerSDKManager::SetAllPlayersToInactiveExceptForPlayer(const FString& PlayerUlid)
+{
+    ULootLockerStateData::SetAllPlayersToInactiveExceptForPlayer(PlayerUlid);
+}
+
 TArray<FString> ULootLockerSDKManager::GetCachedPlayerUlids()
 {
     return ULootLockerStateData::GetActivePlayerUlids();
@@ -44,6 +54,11 @@ void ULootLockerSDKManager::ClearCacheForPlayer(const FString& PlayerUlid)
 void ULootLockerSDKManager::ClearAllPlayerCaches()
 {
     ULootLockerStateData::ClearAllSavedStates();
+}
+
+void ULootLockerSDKManager::ClearAllPlayerCachesExceptForPlayer(const FString& PlayerUlid)
+{
+    ULootLockerStateData::ClearAllSavedStatesExceptForPlayer(PlayerUlid);
 }
 
 //Authentication
