@@ -122,8 +122,11 @@ public:
 	static bool SetDefaultPlayerUlid(const FString& PlayerUlid);
 	static void SavePlayerData(const FLootLockerPlayerData& PlayerData);
 	static bool ClearSavedStateForPlayer(const FString& PlayerUlid);
+    static void ClearAllSavedStatesExceptForPlayer(const FString& PlayerUlid);
 	static void ClearAllSavedStates();
 	static TArray<FString> GetActivePlayerUlids();
 	static TArray<FString> GetCachedPlayerUlids();
 	static void SetPlayerUlidToInactive(const FString& PlayerUlid);
+    static void SetAllPlayersToInactive();
+    static void SetAllPlayersToInactiveExceptForPlayer(const FString& PlayerUlid);
 };
