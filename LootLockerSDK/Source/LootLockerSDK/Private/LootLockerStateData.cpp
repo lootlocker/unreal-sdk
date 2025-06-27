@@ -321,6 +321,7 @@ void ULootLockerStateData::ClearAllSavedStatesExceptForPlayer(const FString& Pla
 			ClearSavedStateForPlayer(playerUlid);
 		}
 	}
+	SetDefaultPlayerUlid(PlayerUlid);
 }
 
 TArray<FString> ULootLockerStateData::GetActivePlayerUlids()
@@ -368,4 +369,5 @@ void ULootLockerStateData::SetAllPlayersToInactiveExceptForPlayer(const FString&
 			ActivePlayerData.Remove(activePlayerUlid);
 		}
 	}
+	SetDefaultPlayerUlid(PlayerUlid);
 }
