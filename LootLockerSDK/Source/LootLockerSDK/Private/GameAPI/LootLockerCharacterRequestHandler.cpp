@@ -97,3 +97,12 @@ void ULootLockerCharacterRequestHandler::GetEquipableContextsByCharacterId(const
 void ULootLockerCharacterRequestHandler::ListPlayerCharacters(const FLootLockerPlayerData& PlayerData, const FPLootLockerListPlayerCharactersResponseBP& OnCompletedRequestBP, const FPLootLockerListPlayerCharactersResponse& OnCompletedRequest) {
 	LLAPI<FLootLockerListPlayerCharactersResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ListPlayerCharactersEndpoint, {}, EmptyQueryParams, PlayerData, OnCompletedRequestBP, OnCompletedRequest);
 }
+
+void ULootLockerCharacterRequestHandler::GetOtherPlayersCharacterLoadouts(const FLootLockerPlayerData& PlayerData, const FString& OtherPlayerId, const FString& OtherPlayerPlatform, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP, const FCharacterLoadoutResponse& OnCompletedRequest) {
+	const FString Platform = !OtherPlayerPlatform.IsEmpty() ? OtherPlayerPlatform : PlayerData.CurrentPlatform.PlatformString;
+	LLAPI<FLootLockerCharacterLoadoutResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOtherPlayersCharacterLoadouts, { OtherPlayerId, Platform }, { }, PlayerData, OnCompletedRequestBP, OnCompletedRequest);
+}
+
+void ULootLockerCharacterRequestHandler::GetOtherPlayersCharacterLoadoutsByUid(const FLootLockerPlayerData& PlayerData, const FString& OtherPlayerUid, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP, const FCharacterLoadoutResponse& OnCompletedRequest) {
+	LLAPI<FLootLockerCharacterLoadoutResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOtherPlayersCharacterLoadoutsByUid, { OtherPlayerUid }, { }, PlayerData, OnCompletedRequestBP, OnCompletedRequest);
+}
