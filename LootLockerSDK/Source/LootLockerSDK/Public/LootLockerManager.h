@@ -56,7 +56,7 @@ public:
     /**
     Make the state for the player with the specified ulid to be "inactive"
 
-	@param PlayerUlid The ulid of the player to set to inactive
+    @param PlayerUlid The ulid of the player to set to inactive
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player State")
     static void SetPlayerUlidToInactive(const FString& PlayerUlid);
@@ -86,7 +86,7 @@ public:
     /**
     Get the ulid of the player state that is used as the default state for calls with no other player specified
 
-	@returns The Ulid of the "default" player (the player used for requests where no player is specified)
+    @returns The Ulid of the "default" player (the player used for requests where no player is specified)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player State")
     static FString GetDefaultPlayerUlid();
@@ -94,7 +94,7 @@ public:
     /**
     Set the player state that is used as the default state for calls with no other player specified
 
-	@param PlayerUlid The ulid of the player to set as default
+    @param PlayerUlid The ulid of the player to set as default
     @returns If the operation was successful or not
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player State")
@@ -102,10 +102,10 @@ public:
 
     /**
     Get the player state for the player with the specified ulid
-		or the default player state if the supplied player ulid is empty
-		or an empty state if none of the previous are present
+        or the default player state if the supplied player ulid is empty
+        or an empty state if none of the previous are present
 
-	@param PlayerUlid The ulid of the player to get state for
+    @param PlayerUlid The ulid of the player to get state for
     @returns The player state that was retrieved for the specified player, or the default player, or an empty state if none of the previous are present
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player State")
@@ -114,7 +114,7 @@ public:
     /**
     Remove stored state information for the specified player if present (player will need to re-authenticate)
 
-	@param PlayerUlid The ulid of the player to clear cache for
+    @param PlayerUlid The ulid of the player to clear cache for
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player State")
     static void ClearCacheForPlayer(const FString& PlayerUlid);
@@ -311,7 +311,29 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken,ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void RefreshGoogleSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FGoogleSessionResponseBP& OnRefreshGoogleSessionCompleted);
+    
+    /**
+    * Start a session for a Google Play Games user
+    * The Google Play Games sign in platform must be enabled in the web console for this to work.
+    *
+    * @param AuthCode The authorization code from your Google Play Games Sign In
+    * @param OnStartedGooglePlayGamesSessionRequestCompleted Delegate for handling the server response.
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    static void StartGooglePlayGamesSession(const FString& AuthCode, const FGooglePlayGamesSessionResponseBP& OnStartedGooglePlayGamesSessionRequestCompleted);
 
+    /**
+    * Refresh a previous session signed in with Google Play Games
+    * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
+    * The Google Play Games sign in platform must be enabled in the web console for this to work.
+    *
+    * @param ForPlayerWithUlid Optional : Execute the request for the specified player. If not supplied, the default player will be used.
+    * @param RefreshToken (Optional) Token received in response from StartGooglePlayGamesSession request. If not supplied we will attempt to resolve it from stored player data.
+    * @param OnRefreshGooglePlayGamesSessionCompleted Delegate for handling the response
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken,ForPlayerWithUlid", ForPlayerWithUlid="", RefreshToken=""))
+    static void RefreshGooglePlayGamesSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FGooglePlayGamesSessionResponseBP& OnRefreshGooglePlayGamesSessionCompleted);
+    
     /**
      * Start a session for an Epic Online Services (EOS) user
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.
@@ -743,16 +765,16 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetPlayerName(const FString& ForPlayerWithUlid, const FPNameResponseBP& OnGetPlayerName);
 
-	/**
-	* This endpoint will return the names of the players on their last active platform.
-	* https://ref.lootlocker.com/game-api/#lookup-multiple-player-names-using-ids
-	*
+    /**
+    * This endpoint will return the names of the players on their last active platform.
+    * https://ref.lootlocker.com/game-api/#lookup-multiple-player-names-using-ids
+    *
     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-	* @param Request Request array with platforms and Ids to search for.
-	* @param OnCompletedRequest Delegate for handling the the server response.
-	*/
+    * @param Request Request array with platforms and Ids to search for.
+    * @param OnCompletedRequest Delegate for handling the the server response.
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid="", DeprecatedFunction, DeprecationMessage = "This method is deprecated in favor of method LookupMultiplePlayersDataUsingIDs")) // Deprecation date 20250304
-	static void LookupMultiplePlayerNamesUsingIDs(const FString& ForPlayerWithUlid, const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayerNamesBP& OnCompletedRequest);
+    static void LookupMultiplePlayerNamesUsingIDs(const FString& ForPlayerWithUlid, const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayerNamesBP& OnCompletedRequest);
     
     /**
     * Look up multiple player's data using different identifiers
@@ -2263,7 +2285,7 @@ public:
      @return Whether the parsing succeeded or not
     */
     UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
-	static bool TryGetContentBodyAsRewardNotification(const FLootLockerNotificationContent& Content, FLootLockerNotificationContentRewardBody& OutValue);
+    static bool TryGetContentBodyAsRewardNotification(const FLootLockerNotificationContent& Content, FLootLockerNotificationContentRewardBody& OutValue);
 
 
     /**

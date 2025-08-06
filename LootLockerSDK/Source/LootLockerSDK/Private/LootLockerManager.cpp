@@ -138,6 +138,16 @@ void ULootLockerManager::RefreshGoogleSession(const FString& ForPlayerWithUlid, 
     ULootLockerAuthenticationRequestHandler::RefreshGoogleSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, OnRefreshGoogleSessionCompleted);
 }
 
+void ULootLockerManager::StartGooglePlayGamesSession(const FString& AuthCode, const FGooglePlayGamesSessionResponseBP& OnStartedGooglePlayGamesSessionRequestCompleted)
+{
+    ULootLockerAuthenticationRequestHandler::StartGooglePlayGamesSession(AuthCode, OnStartedGooglePlayGamesSessionRequestCompleted);
+}
+
+void ULootLockerManager::RefreshGooglePlayGamesSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FGooglePlayGamesSessionResponseBP& OnRefreshGooglePlayGamesSessionCompleted)
+{
+    ULootLockerAuthenticationRequestHandler::RefreshGooglePlayGamesSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, OnRefreshGooglePlayGamesSessionCompleted);
+}
+
 void ULootLockerManager::StartEpicSession(const FString& IdToken, const FEpicSessionResponseBP& OnStartedEpicSessionRequestCompleted)
 {
     ULootLockerAuthenticationRequestHandler::StartEpicSession(IdToken, OnStartedEpicSessionRequestCompleted);
