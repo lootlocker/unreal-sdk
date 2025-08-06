@@ -122,6 +122,16 @@ void ULootLockerSDKManager::RefreshGoogleSession(const FString& RefreshToken, co
     ULootLockerAuthenticationRequestHandler::RefreshGoogleSession(RefreshToken, FGoogleSessionResponseBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::StartGooglePlayGamesSession(const FString& AuthCode, const FLootLockerGooglePlayGamesSessionResponseDelegate& OnCompletedRequest)
+{
+    ULootLockerAuthenticationRequestHandler::StartGooglePlayGamesSession(AuthCode, FGooglePlayGamesSessionResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::RefreshGooglePlayGamesSession(const FString& RefreshToken, const FLootLockerGooglePlayGamesSessionResponseDelegate& OnCompletedRequest)
+{
+    ULootLockerAuthenticationRequestHandler::RefreshGooglePlayGamesSession(RefreshToken, FGooglePlayGamesSessionResponseBP(), OnCompletedRequest);
+}
+
 void ULootLockerSDKManager::StartAppleSession(const FString& AuthorizationCode, const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest)
 {
     ULootLockerAuthenticationRequestHandler::StartAppleSession(AuthorizationCode, FAppleSessionResponseBP(), OnCompletedRequest);

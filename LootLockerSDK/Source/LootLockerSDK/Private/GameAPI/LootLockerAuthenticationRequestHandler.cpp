@@ -259,6 +259,44 @@ void ULootLockerAuthenticationRequestHandler::RefreshGoogleSession(const FString
 		}));
 }
 
+void ULootLockerAuthenticationRequestHandler::StartGooglePlayGamesSession(const FString& AuthCode, const FGooglePlayGamesSessionResponseBP& OnCompletedRequestBP, const FLootLockerGooglePlayGamesSessionResponseDelegate& OnCompletedRequest)
+{
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+	FLootLockerGooglePlayGamesSessionRequest AuthRequest;
+	AuthRequest.game_api_key = config->LootLockerGameKey;
+	AuthRequest.game_version = config->GameVersion;
+	AuthRequest.auth_code = AuthCode;
+
+	LLAPI<FLootLockerGooglePlayGamesSessionResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartGooglePlayGamesSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerGooglePlayGamesSessionResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerGooglePlayGamesSessionResponse& Response)
+		{
+			if (Response.success)
+			{
+				Response.Context.PlayerUlid = Response.player_ulid;
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::GooglePlayGames), FDateTime::Now().ToString(), Response.player_created_at);
+				ULootLockerStateData::SavePlayerData(NewPlayerData);
+			}
+		}));
+}
+
+void ULootLockerAuthenticationRequestHandler::RefreshGooglePlayGamesSession(const FString& RefreshToken, const FGooglePlayGamesSessionResponseBP& OnCompletedRequestBP, const FLootLockerGooglePlayGamesSessionResponseDelegate& OnCompletedRequest)
+{
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+	FLootLockerRefreshGooglePlayGamesSessionRequest AuthRequest;
+	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_version = config->GameVersion;
+	AuthRequest.refresh_token = RefreshToken;
+
+	LLAPI<FLootLockerGooglePlayGamesSessionResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::RefreshGooglePlayGamesSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerGooglePlayGamesSessionResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerGooglePlayGamesSessionResponse& Response)
+		{
+			if (Response.success)
+			{
+				Response.Context.PlayerUlid = Response.player_ulid;
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::GooglePlayGames), FDateTime::Now().ToString(), Response.player_created_at);
+				ULootLockerStateData::SavePlayerData(NewPlayerData);
+			}
+		}));
+}
+
 void ULootLockerAuthenticationRequestHandler::StartEpicSession(const FString& IdToken, const FEpicSessionResponseBP& OnCompletedRequestBP, const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest)
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();

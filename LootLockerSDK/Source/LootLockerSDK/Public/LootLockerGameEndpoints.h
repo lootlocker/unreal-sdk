@@ -51,6 +51,8 @@ public:
     static FLootLockerEndPoints RefreshAppleGameCenterSessionEndpoint;
     static FLootLockerEndPoints StartGoogleSessionEndpoint;
     static FLootLockerEndPoints RefreshGoogleSessionEndpoint;
+    static FLootLockerEndPoints StartGooglePlayGamesSessionEndpoint;
+    static FLootLockerEndPoints RefreshGooglePlayGamesSessionEndpoint;
     static FLootLockerEndPoints StartEpicSessionEndpoint;
     static FLootLockerEndPoints RefreshEpicSessionEndpoint;
     static FLootLockerEndPoints VerifyPlayerIdEndPoint;

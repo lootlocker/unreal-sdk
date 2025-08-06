@@ -216,7 +216,7 @@ struct FLootLockerStartRemoteSessionRequest
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerRefreshRemoteSessionRequest : public FLootLockerBaseAuthRequest
+struct FLootLockerRefreshRemoteSessionRequest : public FLootLockerBaseAuthRequest_Old
 {
     GENERATED_BODY()
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
