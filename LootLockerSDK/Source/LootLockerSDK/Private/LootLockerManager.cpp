@@ -584,6 +584,16 @@ void ULootLockerManager::GetEquipableContextsByCharacterId(const FString& ForPla
     ULootLockerCharacterRequestHandler::GetEquipableContextsByCharacterId(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OtherCharacterId, OnGetEquipableContextsByCharacterIdRequestCompleted);
 }
 
+void ULootLockerManager::GetOtherPlayersCharacterLoadouts(const FString& ForPlayerWithUlid, const FString& OtherPlayerId, const FString& OtherPlayerPlatform, const FPCharacterLoadoutResponseBP& OnCompletedRequest)
+{
+    ULootLockerCharacterRequestHandler::GetOtherPlayersCharacterLoadouts(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OtherPlayerId, OtherPlayerPlatform, OnCompletedRequest);
+}
+
+void ULootLockerManager::GetOtherPlayersCharacterLoadoutsByUid(const FString& ForPlayerWithUlid, const FString& OtherPlayerUid, const FPCharacterLoadoutResponseBP& OnCompletedRequest)
+{
+    ULootLockerCharacterRequestHandler::GetOtherPlayersCharacterLoadoutsByUid(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OtherPlayerUid, OnCompletedRequest);
+}
+
 // Character Progressions
 void ULootLockerManager::GetCharacterProgressions(const FString& ForPlayerWithUlid, const int32& CharacterId, const int32 Count /*=-1*/, const FString& After /*=""*/, const FLootLockerPaginatedCharacterProgressionsResponseBP& OnCompletedRequest)
 {

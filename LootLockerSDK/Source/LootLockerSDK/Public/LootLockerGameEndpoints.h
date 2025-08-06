@@ -144,6 +144,8 @@ public:
     static FLootLockerEndPoints GetOtherPlayersLoadoutToDefaultCharacterEndpoint;
     static FLootLockerEndPoints GetEquippableContextstoDefaultCharacterEndpoint;
     static FLootLockerEndPoints GetEquippableContextsByCharacterIDEndpoint;
+    static FLootLockerEndPoints GetOtherPlayersCharacterLoadouts;
+    static FLootLockerEndPoints GetOtherPlayersCharacterLoadoutsByUid;
 
     //Character Progressions
     static FLootLockerEndPoints GetAllCharacterProgressions;

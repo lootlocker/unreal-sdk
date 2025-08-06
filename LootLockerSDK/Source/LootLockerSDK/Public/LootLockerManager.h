@@ -1302,6 +1302,28 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetEquipableContextsByCharacterId(const FString& ForPlayerWithUlid, int OtherCharacterId, const FContextDelegateBP& OnGetEquipableContextsByCharacterIdRequestCompleted);
 
+    /**
+     * Get a character loadout from a specific player and platform
+     *
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     * @param OtherPlayerId The platform specific id of the player you want to fetch the character loadouts for.
+     * @param OtherPlayerPlatform Optional: the platform the id refers to if different than the current platform
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid,OtherPlayerPlatform", ForPlayerWithUlid="", OtherPlayerPlatform=""))
+    static void GetOtherPlayersCharacterLoadouts(const FString& ForPlayerWithUlid, const FString& OtherPlayerId, const FString& OtherPlayerPlatform, const FPCharacterLoadoutResponseBP& OnCompletedRequest);
+
+    /**
+     * Get a character loadout from a specific player by their public uid.
+     *
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     * @param OtherPlayerUid The public uid of the player you want to fetch the character loadouts for.
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static void GetOtherPlayersCharacterLoadoutsByUid(const FString& ForPlayerWithUlid, const FString& OtherPlayerUid, const FPCharacterLoadoutResponseBP& OnCompletedRequest);
+
+
     //==================================================
     // Character Progressions
     //==================================================
