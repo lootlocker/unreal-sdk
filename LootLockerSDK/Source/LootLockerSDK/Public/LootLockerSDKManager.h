@@ -37,7 +37,7 @@
 UCLASS(Blueprintable)
 class LOOTLOCKERSDK_API ULootLockerSDKManager : public UObject
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:
 
@@ -82,7 +82,7 @@ public:
 
     @returns The Ulid of the "default" player (the player used for requests where no player is specified)
      */
-	static FString GetDefaultPlayerUlid();
+    static FString GetDefaultPlayerUlid();
 
     /**
     Set the player state that is used as the default state for calls with no other player specified
@@ -223,7 +223,7 @@ public:
      * https://ref.lootlocker.com/game-api/#sign-in-with-google
      *
      * @param OnCompletedRequest Delegate for handling the response
-	 * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
+     * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
      */
     static void RefreshGoogleSession(const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "") { RefreshGoogleSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest); };
 
@@ -238,6 +238,35 @@ public:
      * @param OnCompletedRequest Delegate for handling the response
      */
     static void RefreshGoogleSession(const FString& RefreshToken, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest);
+    
+    /**
+     * Start a session for a Google Play Games user
+     * The Google Play Games sign in platform must be enabled in the web console for this to work.
+     *
+     * @param AuthCode The Auth Code from your Google Play Games Sign In
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
+    static void StartGooglePlayGamesSession(const FString& AuthCode, const FLootLockerGooglePlayGamesSessionResponseDelegate& OnCompletedRequest);
+
+    /**
+     * Refresh a previous session signed in with Google Play Games
+     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
+     * The Google Play Games sign in platform must be enabled in the web console for this to work.
+     *
+     * @param OnCompletedRequest Delegate for handling the response
+     * @param ForPlayerWithUlid Optional : Execute the request for the specified player. If not supplied, the default player will be used.
+     */
+    static void RefreshGooglePlayGamesSession(const FLootLockerGooglePlayGamesSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "") { RefreshGooglePlayGamesSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest); };
+
+    /**
+     * Refresh a previous session signed in with Google Play Games
+     * If you do not want to manually handle the refresh token we recommend using the RefreshGooglePlayGamesSession(const FLootLockerGooglePlayGamesSessionResponseDelegate& OnCompletedRequest) method.
+     * The Google Play Games sign in platform must be enabled in the web console for this to work.
+     *
+     * @param RefreshToken Token received in response from StartGooglePlayGamesSession request
+     * @param OnCompletedRequest Delegate for handling the response
+     */
+    static void RefreshGooglePlayGamesSession(const FString& RefreshToken, const FLootLockerGooglePlayGamesSessionResponseDelegate& OnCompletedRequest);
 
     /**
      * Create a new session for Sign in with Apple
@@ -256,7 +285,7 @@ public:
      * https://ref.lootlocker.com/game-api/#sign-in-with-apple
      *
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAppleSessionResponse
-	 * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
+     * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
      */
     static void RefreshAppleSession(const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "") { RefreshAppleSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest); };
 
@@ -483,11 +512,11 @@ public:
 
      IMPORTANT: This is a destructive action. Once an identity provider has been transferred they will allow authentication for the target player and no longer authenticate for the source player.
      This can leave the source player without means of authentication and thus unusable from the game.
-	
-	 ** Limitations **
+    
+     ** Limitations **
       - You can not move an identity provider that the source player does not have
       - You can not move an identity provider to a player that already has an account from said identity provider associated with their account.
-	  - You can not move an identity provider which isn't active in your game settings.
+      - You can not move an identity provider which isn't active in your game settings.
      *
      * @param FromPlayerWithUlid The ULID of an authenticated player that you wish to move identity providers FROM
      * @param ToPlayerWithUlid The ULID of an authenticated player that you wish to move identity providers TO
@@ -2765,7 +2794,7 @@ public:
      */
     template<typename T>
     static bool TryGetMetadataValueAsUStruct(const FLootLockerMetadataEntry& Entry, T& Output)
-	{
+    {
         TSharedPtr<FJsonObject> jsonObject = MakeShared<FJsonObject>();
         if (!Entry.TryGetValueAsJsonObject(jsonObject))
         {
