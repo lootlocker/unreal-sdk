@@ -112,6 +112,9 @@ FLootLockerEndPoints ULootLockerGameEndpoints::GetCurrentLoadoutToDefaultCharact
 FLootLockerEndPoints ULootLockerGameEndpoints::GetOtherPlayersLoadoutToDefaultCharacterEndpoint = InitEndpoint("v1/player/loadout/{0}", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetEquippableContextstoDefaultCharacterEndpoint = InitEndpoint("v1/player/character/contexts", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetEquippableContextsByCharacterIDEndpoint = InitEndpoint("v1/player/character/{0}/contexts", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetOtherPlayersCharacterLoadouts = InitEndpoint("v1/player/character/loadout/{0}?platform={1}", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetOtherPlayersCharacterLoadoutsByUid = InitEndpoint("v1/player/character/loadout/puid/{0}", ELootLockerHTTPMethod::GET);
+
 
 //Character Progressions
 FLootLockerEndPoints ULootLockerGameEndpoints::GetAllCharacterProgressions = InitEndpoint("player/characters/{0}/progressions", ELootLockerHTTPMethod::GET);
