@@ -284,6 +284,22 @@ struct FLootLockerSteamSessionRequest: public FLootLockerBaseAuthRequest
 };
 
 USTRUCT(BlueprintType)
+struct FLootLockerDiscordSessionRequest : public FLootLockerBaseAuthRequest_Old
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FString access_token;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerRefreshDiscordSessionRequest : public FLootLockerBaseAuthRequest
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FString refresh_token;
+};
+
+USTRUCT(BlueprintType)
 struct FLootLockerSteamSessionWithAppIdRequest : public FLootLockerSteamSessionRequest
 {
 	GENERATED_BODY()
@@ -500,6 +516,14 @@ USTRUCT(BlueprintType)
 struct FLootLockerMetaSessionResponse : public FLootLockerAuthenticationResponse
 {
 	GENERATED_BODY()
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+		FString refresh_token;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerDiscordSessionResponse : public FLootLockerAuthenticationResponse
+{
+	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString refresh_token;
 };
@@ -514,6 +538,7 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerVerifySessionResponseBP, FLootLocke
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP, FLootLockerWhiteLabelLoginAndSessionResponse, Var);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAppleGameCenterSessionResponseBP, FLootLockerAppleGameCenterSessionResponse, Response);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerMetaSessionResponseBP, FLootLockerMetaSessionResponse, Var);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FDiscordSessionResponseBP, FLootLockerDiscordSessionResponse, Var);
 DECLARE_DELEGATE_OneParam(FLootLockerSessionResponse, FLootLockerAuthenticationResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerAppleSessionResponseDelegate, FLootLockerAppleSessionResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerGoogleSessionResponseDelegate, FLootLockerGoogleSessionResponse);
@@ -524,6 +549,7 @@ DECLARE_DELEGATE_OneParam(FLootLockerWhiteLabelVerifySessionDelegate, FLootLocke
 DECLARE_DELEGATE_OneParam(FLootLockerWhiteLabelLoginAndSessionResponseDelegate, FLootLockerWhiteLabelLoginAndSessionResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerAppleGameCenterSessionResponseDelegate, FLootLockerAppleGameCenterSessionResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerMetaSessionResponseDelegate, FLootLockerMetaSessionResponse);
+DECLARE_DELEGATE_OneParam(FLootLockerDiscordSessionResponseDelegate, FLootLockerDiscordSessionResponse);
 
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
@@ -564,6 +590,8 @@ public:
 	static void RefreshAppleGameCenterSession(const FString& RefreshToken, const FLootLockerAppleGameCenterSessionResponseBP& OnCompletedRequestBP = FLootLockerAppleGameCenterSessionResponseBP(), const FLootLockerAppleGameCenterSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleGameCenterSessionResponseDelegate());
 	static void StartMetaSession(const FString& UserId, const FString& Nonce, const FLootLockerMetaSessionResponseBP& OnCompletedRequestBP = FLootLockerMetaSessionResponseBP(), const FLootLockerMetaSessionResponseDelegate& OnCompletedRequest = FLootLockerMetaSessionResponseDelegate());
 	static void RefreshMetaSession(const FString& RefreshToken, const FLootLockerMetaSessionResponseBP& OnCompletedRequestBP = FLootLockerMetaSessionResponseBP(), const FLootLockerMetaSessionResponseDelegate& OnCompletedRequest = FLootLockerMetaSessionResponseDelegate());
+	static void StartDiscordSession(const FString& AccessToken, const FDiscordSessionResponseBP& OnCompletedRequestBP = FDiscordSessionResponseBP(), const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest = FLootLockerDiscordSessionResponseDelegate());
+	static void RefreshDiscordSession(const FString& RefreshToken, const FDiscordSessionResponseBP& OnCompletedRequestBP = FDiscordSessionResponseBP(), const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest = FLootLockerDiscordSessionResponseDelegate());
 	static ULootLockerHttpClient* HttpClient;
 private:
 

@@ -25,7 +25,8 @@ enum class ELootLockerPlatform : uint8
 	Remote = 14				UMETA(DisplayName = "Remote Session"),
 	Server = 15				UMETA(DisplayName = "Server"),
 	GooglePlayGames = 16	UMETA(DisplayName = "Google Play Games"),
-	LastValue = 17			UMETA(DisplayName = "N/A")
+	Discord = 17			UMETA(DisplayName = "Discord"),
+	LastValue = 18			UMETA(DisplayName = "N/A")
 };
 
 

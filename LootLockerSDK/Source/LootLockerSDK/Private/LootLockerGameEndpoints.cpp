@@ -28,6 +28,8 @@ FLootLockerEndPoints ULootLockerGameEndpoints::StartAppleGameCenterSessionEndpoi
 FLootLockerEndPoints ULootLockerGameEndpoints::RefreshAppleGameCenterSessionEndpoint = InitEndpoint("session/apple/game-center", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::MetaSessionEndpoint = InitEndpoint("session/meta", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::SteamSessionEndpoint = InitEndpoint("session/steam", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::StartDiscordSessionEndpoint = InitEndpoint("session/discord", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::RefreshDiscordSessionEndpoint = InitEndpoint("session/discord", ELootLockerHTTPMethod::POST);
 
 // Connected Accounts
 FLootLockerEndPoints ULootLockerGameEndpoints::ListConnectedAccountsEndpoint = InitEndpoint("v1/connected-accounts", ELootLockerHTTPMethod::GET);

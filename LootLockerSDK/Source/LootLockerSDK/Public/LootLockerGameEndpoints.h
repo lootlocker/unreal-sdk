@@ -60,6 +60,8 @@ public:
     static FLootLockerEndPoints GuestloginEndpoint;
     static FLootLockerEndPoints MetaSessionEndpoint;
     static FLootLockerEndPoints SteamSessionEndpoint;
+    static FLootLockerEndPoints StartDiscordSessionEndpoint;
+    static FLootLockerEndPoints RefreshDiscordSessionEndpoint;
 
     // Connected Accounts
     static FLootLockerEndPoints ListConnectedAccountsEndpoint;
