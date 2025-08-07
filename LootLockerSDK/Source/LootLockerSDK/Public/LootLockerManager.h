@@ -492,6 +492,26 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void GuestLogin(const FAuthResponseBP& OnCompletedRequestBP, const FString& PlayerIdentifier = "");
+    
+    /**
+    * Start a session for a Discord user
+    * The Discord sign in platform must be enabled in the web console for this to work.
+    *
+    * @param AccessToken The access token from Discord OAuth
+    * @param OnStartedDiscordSessionRequestCompleted Delegate for handling the server response.
+    */
+    static void StartDiscordSession(const FString& AccessToken, const FDiscordSessionResponseBP& OnStartedDiscordSessionRequestCompleted);
+
+    /**
+    * Refresh a previous session signed in with Discord
+    * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
+    * The Discord sign in platform must be enabled in the web console for this to work.
+    *
+    * @param ForPlayerWithUlid Optional : Execute the request for the specified player. If not supplied, the default player will be used.
+    * @param RefreshToken (Optional) Token received in response from StartDiscordSession request. If not supplied we will attempt to resolve it from stored player data.
+    * @param OnRefreshDiscordSessionCompleted Delegate for handling the response
+    */
+    static void RefreshDiscordSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FDiscordSessionResponseBP& OnRefreshDiscordSessionCompleted);
 
     /**
      * Verify the player's identity with the server and selected platform.
@@ -505,8 +525,7 @@ public:
      * @param Platform Optional parameter to call explicitly for a specific platform
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-    static void VerifyPlayer(const FString& ForPlayerWithUlid, const FString& PlatformToken, const FLootLockerDefaultResponseBP&
-        OnVerifyPlayerRequestCompleted, FString Platform = FString(TEXT("")));
+    static void VerifyPlayer(const FString& ForPlayerWithUlid, const FString& PlatformToken, const FLootLockerDefaultResponseBP& OnVerifyPlayerRequestCompleted, FString Platform = FString(TEXT("")));
 
     /**
      * End active session (if any exists)
