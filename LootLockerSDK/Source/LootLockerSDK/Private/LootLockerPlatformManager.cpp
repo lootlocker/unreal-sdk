@@ -22,6 +22,7 @@ TMap<ELootLockerPlatform, FLootLockerPlatformRepresentation> ULootLockerPlatform
         , {ELootLockerPlatform::Meta, FLootLockerPlatformRepresentation(ELootLockerPlatform::Meta, "meta", "meta")}
 		, {ELootLockerPlatform::Remote, FLootLockerPlatformRepresentation(ELootLockerPlatform::Remote, "remote", "remote")}
 		, {ELootLockerPlatform::Server, FLootLockerPlatformRepresentation(ELootLockerPlatform::Server, "server", "server")}
+		, {ELootLockerPlatform::Discord, FLootLockerPlatformRepresentation(ELootLockerPlatform::Discord, "discord", "discord")}
 };
 
 FString FLootLockerPlatformRepresentation::GetFriendlyPlatformString() const
