@@ -548,6 +548,44 @@ void ULootLockerAuthenticationRequestHandler::RefreshMetaSession(const FString& 
 
 }
 
+void ULootLockerAuthenticationRequestHandler::StartDiscordSession(const FString& AccessToken, const FDiscordSessionResponseBP& OnCompletedRequestBP, const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest)
+{
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+	FLootLockerDiscordSessionRequest AuthRequest;
+	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_version = config->GameVersion;
+	AuthRequest.access_token = AccessToken;
+
+	LLAPI<FLootLockerDiscordSessionResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartDiscordSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerDiscordSessionResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerDiscordSessionResponse& Response)
+		{
+			if (Response.success)
+			{
+				Response.Context.PlayerUlid = Response.player_ulid;
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Discord), FDateTime::Now().ToString(), Response.player_created_at);
+				ULootLockerStateData::SavePlayerData(NewPlayerData);
+			}
+		}));
+}
+
+void ULootLockerAuthenticationRequestHandler::RefreshDiscordSession(const FString& RefreshToken, const FDiscordSessionResponseBP& OnCompletedRequestBP, const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest)
+{
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+	FLootLockerRefreshDiscordSessionRequest AuthRequest;
+	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_version = config->GameVersion;
+	AuthRequest.refresh_token = RefreshToken;
+
+	LLAPI<FLootLockerDiscordSessionResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::RefreshDiscordSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequestBP, OnCompletedRequest, LLAPI<FLootLockerDiscordSessionResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerDiscordSessionResponse& Response)
+		{
+			if (Response.success)
+			{
+				Response.Context.PlayerUlid = Response.player_ulid;
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, Response.refresh_token, Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Discord), FDateTime::Now().ToString(), Response.player_created_at);
+				ULootLockerStateData::SavePlayerData(NewPlayerData);
+			}
+		}));
+}
+
 void ULootLockerAuthenticationRequestHandler::VerifyPlayer(const FLootLockerPlayerData& ForPlayer, const FString& PlatformToken, const FString& Platform, const int SteamAppId /* = -1 */, const FLootLockerDefaultResponseBP& OnCompletedRequestBP, const FLootLockerDefaultDelegate& OnCompletedRequest)
 {
 	const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();

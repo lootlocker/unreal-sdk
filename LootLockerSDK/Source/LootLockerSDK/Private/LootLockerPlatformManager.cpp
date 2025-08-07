@@ -23,6 +23,7 @@ TMap<ELootLockerPlatform, FLootLockerPlatformRepresentation> ULootLockerPlatform
 		, {ELootLockerPlatform::Remote, FLootLockerPlatformRepresentation(ELootLockerPlatform::Remote, "remote", "remote")}
 		, {ELootLockerPlatform::Server, FLootLockerPlatformRepresentation(ELootLockerPlatform::Server, "server", "server")}
 		, {ELootLockerPlatform::GooglePlayGames, FLootLockerPlatformRepresentation(ELootLockerPlatform::GooglePlayGames, "google_play_games", "google_play_games")}
+		, {ELootLockerPlatform::Discord, FLootLockerPlatformRepresentation(ELootLockerPlatform::Discord, "discord", "discord")}
 };
 
 FString FLootLockerPlatformRepresentation::GetFriendlyPlatformString() const

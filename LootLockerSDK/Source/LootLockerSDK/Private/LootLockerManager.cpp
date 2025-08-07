@@ -213,6 +213,17 @@ void ULootLockerManager::GuestLogin(const FAuthResponseBP& OnCompletedRequestBP,
     ULootLockerAuthenticationRequestHandler::GuestLogin(PlayerIdentifier, OnCompletedRequestBP);
 }
 
+void ULootLockerManager::StartDiscordSession(const FString& AccessToken, const FDiscordSessionResponseBP& OnStartedDiscordSessionRequestCompleted)
+{
+    ULootLockerAuthenticationRequestHandler::StartDiscordSession(AccessToken, OnStartedDiscordSessionRequestCompleted);
+}
+
+void ULootLockerManager::RefreshDiscordSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FDiscordSessionResponseBP& OnRefreshDiscordSessionCompleted)
+{
+    const FString& TokenToUse = RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken;
+    ULootLockerAuthenticationRequestHandler::RefreshDiscordSession(TokenToUse, OnRefreshDiscordSessionCompleted);
+}
+
 void ULootLockerManager::VerifyPlayer(const FString& ForPlayerWithUlid, const FString& PlatformToken, const FLootLockerDefaultResponseBP& OnVerifyPlayerRequestCompleted, const FString Platform /*= FString()*/)
 {
     ULootLockerAuthenticationRequestHandler::VerifyPlayer(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlatformToken, Platform, -1, OnVerifyPlayerRequestCompleted);
