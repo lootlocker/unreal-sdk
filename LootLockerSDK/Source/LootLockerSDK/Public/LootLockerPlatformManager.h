@@ -24,7 +24,8 @@ enum class ELootLockerPlatform : uint8
 	Meta = 13				UMETA(DisplayName = "Meta"),
 	Remote = 14				UMETA(DisplayName = "Remote Session"),
 	Server = 15				UMETA(DisplayName = "Server"),
-	LastValue = 16			UMETA(DisplayName = "N/A")
+	Discord = 17			UMETA(DisplayName = "Discord"),
+	LastValue = 18			UMETA(DisplayName = "N/A")
 };
 
 

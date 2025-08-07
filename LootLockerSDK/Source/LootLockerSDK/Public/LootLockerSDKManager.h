@@ -37,7 +37,7 @@
 UCLASS(Blueprintable)
 class LOOTLOCKERSDK_API ULootLockerSDKManager : public UObject
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:
 
@@ -82,7 +82,7 @@ public:
 
     @returns The Ulid of the "default" player (the player used for requests where no player is specified)
      */
-	static FString GetDefaultPlayerUlid();
+    static FString GetDefaultPlayerUlid();
 
     /**
     Set the player state that is used as the default state for calls with no other player specified
@@ -223,7 +223,7 @@ public:
      * https://ref.lootlocker.com/game-api/#sign-in-with-google
      *
      * @param OnCompletedRequest Delegate for handling the response
-	 * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
+     * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
      */
     static void RefreshGoogleSession(const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "") { RefreshGoogleSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest); };
 
@@ -256,7 +256,7 @@ public:
      * https://ref.lootlocker.com/game-api/#sign-in-with-apple
      *
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAppleSessionResponse
-	 * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
+     * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
      */
     static void RefreshAppleSession(const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "") { RefreshAppleSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest); };
 
@@ -383,6 +383,26 @@ public:
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAuthenticationResponse
      */
     static void GuestLogin(const FLootLockerSessionResponse& OnCompletedRequest, const FString& PlayerIdentifier = "");
+    
+    /**
+     * Start a session for a Discord user
+     * The Discord sign in platform must be enabled in the web console for this to work.
+     *
+     * @param AccessToken The access token from Discord OAuth
+     * @param OnCompletedRequest Delegate for handling the server response.
+     */
+    static void StartDiscordSession(const FString& AccessToken, const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest);
+
+    /**
+     * Refresh a previous session signed in with Discord
+     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
+     * The Discord sign in platform must be enabled in the web console for this to work.
+     *
+     * @param RefreshToken (Optional) Token received in response from StartDiscordSession request. If not supplied we will attempt to resolve it from stored player data.
+     * @param DevelopmentMode (Optional) Whether to use development mode for the refresh request.
+     * @param OnCompletedRequest Delegate for handling the response
+     */
+    static void RefreshDiscordSession(const FString& RefreshToken, const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest);
 
     /**
      * Verify the player's identity with the server and selected platform.
@@ -483,11 +503,11 @@ public:
 
      IMPORTANT: This is a destructive action. Once an identity provider has been transferred they will allow authentication for the target player and no longer authenticate for the source player.
      This can leave the source player without means of authentication and thus unusable from the game.
-	
-	 ** Limitations **
+    
+     ** Limitations **
       - You can not move an identity provider that the source player does not have
       - You can not move an identity provider to a player that already has an account from said identity provider associated with their account.
-	  - You can not move an identity provider which isn't active in your game settings.
+      - You can not move an identity provider which isn't active in your game settings.
      *
      * @param FromPlayerWithUlid The ULID of an authenticated player that you wish to move identity providers FROM
      * @param ToPlayerWithUlid The ULID of an authenticated player that you wish to move identity providers TO
@@ -789,8 +809,8 @@ public:
     * @param OnCompletedRequest Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
-	[[deprecated("This method is deprecated in favor of method LookupMultiplePlayersDataUsingIDs")]] // Deprecation date 20250304
-	static void LookupMultiplePlayerNamesUsingIDs(const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayerNames& OnCompletedRequest, const FString ForPlayerWithUlid = "");
+    [[deprecated("This method is deprecated in favor of method LookupMultiplePlayersDataUsingIDs")]] // Deprecation date 20250304
+    static void LookupMultiplePlayerNamesUsingIDs(const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayerNames& OnCompletedRequest, const FString ForPlayerWithUlid = "");
 
     /**
     * Look up multiple player's data using different identifiers
@@ -2746,7 +2766,7 @@ public:
      */
     template<typename T>
     static bool TryGetMetadataValueAsUStruct(const FLootLockerMetadataEntry& Entry, T& Output)
-	{
+    {
         TSharedPtr<FJsonObject> jsonObject = MakeShared<FJsonObject>();
         if (!Entry.TryGetValueAsJsonObject(jsonObject))
         {
