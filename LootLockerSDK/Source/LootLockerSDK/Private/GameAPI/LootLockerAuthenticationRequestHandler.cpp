@@ -368,7 +368,11 @@ void ULootLockerAuthenticationRequestHandler::StartSteamSession(const FString& S
 		});
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	if (SteamAppId.IsEmpty()) {
-		LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, FLootLockerSteamSessionRequest{ config->LootLockerGameKey, config->GameVersion, SteamSessionTicket }, ULootLockerGameEndpoints::SteamSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequestBP, OnCompletedRequest, responseHandler);
+		FLootLockerSteamSessionRequest request;
+		request.game_api_key = config->LootLockerGameKey;
+		request.game_version = config->GameVersion;
+		request.steam_ticket = SteamSessionTicket;
+		LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, request, ULootLockerGameEndpoints::SteamSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequestBP, OnCompletedRequest, responseHandler);
 	}
 	else {
 		FLootLockerSteamSessionWithAppIdRequest request;

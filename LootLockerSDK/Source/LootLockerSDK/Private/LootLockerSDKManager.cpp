@@ -217,16 +217,6 @@ void ULootLockerSDKManager::RefreshDiscordSession(const FString& RefreshToken, c
     ULootLockerAuthenticationRequestHandler::RefreshDiscordSession(RefreshToken, FDiscordSessionResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::StartDiscordSession(const FString& AccessToken, const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest)
-{
-    ULootLockerAuthenticationRequestHandler::StartDiscordSession(AccessToken, FDiscordSessionResponseBP(), OnCompletedRequest);
-}
-
-void ULootLockerSDKManager::RefreshDiscordSession(const FString& RefreshToken, const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest)
-{
-    ULootLockerAuthenticationRequestHandler::RefreshDiscordSession(RefreshToken, FDiscordSessionResponseBP(), OnCompletedRequest);
-}
-
 void ULootLockerSDKManager::VerifyPlayer(const FString& PlatformToken, const FLootLockerDefaultDelegate& OnCompleteRequest, const FString& Platform, const FString& ForPlayerWithUlid /* = "" */)
 {
     ULootLockerAuthenticationRequestHandler::VerifyPlayer(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlatformToken, Platform, -1, FLootLockerDefaultResponseBP(), OnCompleteRequest);

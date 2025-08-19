@@ -292,7 +292,7 @@ struct FLootLockerDiscordSessionRequest : public FLootLockerBaseAuthRequest_Old
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerRefreshDiscordSessionRequest : public FLootLockerBaseAuthRequest
+struct FLootLockerRefreshDiscordSessionRequest : public FLootLockerBaseAuthRequest_Old
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
