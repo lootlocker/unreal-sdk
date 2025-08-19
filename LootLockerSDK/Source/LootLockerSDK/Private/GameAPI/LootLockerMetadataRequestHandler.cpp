@@ -537,8 +537,14 @@ void ULootLockerMetadataRequestHandler::SetMetadata(const FLootLockerPlayerData&
 		// Make type lowercase
 		JsonEntry->SetStringField(TEXT("type"), ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerMetadataTypes"), static_cast<int32>(ActionToPerform.Entry.Type)).ToLower());
 
+		auto action = ActionToPerform.Action;
 		// Add the action that should be performed to the entry
-		JsonEntry->SetStringField(TEXT("action"), ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerMetadataActions"), static_cast<int32>(ActionToPerform.Action)).ToLower());
+		if(action == ELootLockerMetadataActions::Create_or_Update) 
+		{
+			action = ELootLockerMetadataActions::Upsert; // Convert to Upsert for consistency
+		}
+		
+		JsonEntry->SetStringField(TEXT("action"), ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerMetadataActions"), static_cast<int32>(action)).ToLower());
 
 		// Manually set the field "value"
 		TSharedPtr<FJsonValue> RawEntryValue;
