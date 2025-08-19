@@ -49,7 +49,9 @@ enum class ELootLockerMetadataActions : uint8
 {
     Create = 0,
     Update = 1,
-    Delete = 2
+    Delete = 2,
+    Create_or_Update = 3, // Alias for Upsert (same thing)
+    Upsert = 4
 };
 
 /*
