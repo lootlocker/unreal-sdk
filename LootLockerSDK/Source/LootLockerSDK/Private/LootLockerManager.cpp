@@ -687,6 +687,16 @@ void ULootLockerManager::GetAssets(const FString& ForPlayerWithUlid, const FAsse
     ULootLockerAssetsRequestHandler::GetAssets(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), StartFromIndex, ItemsCount, AssetFilter, Context, IncludeUGC, OnGetAssetsRequestCompleted);
 }
 
+void ULootLockerManager::ListAssetsWithDefaultParameters(const FString& ForPlayerWithUlid, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequest)
+{
+    ListAssets(ForPlayerWithUlid, FLootLockerListSimpleAssetsRequest(), 0, 0, OnCompletedRequest);
+}
+
+void ULootLockerManager::ListAssets(const FString& ForPlayerWithUlid, const FLootLockerListSimpleAssetsRequest& Request, int PerPage, int Page, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequest)
+{
+    ULootLockerAssetsRequestHandler::ListAssets(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, PerPage, Page, OnCompletedRequest);
+}
+
 void ULootLockerManager::GetAssetsByIds(const FString& ForPlayerWithUlid, const TArray<int>& AssetIds, const FAssetsResponseDelegateBP& OnGetAssetsByIdsRequestCompleted)
 {
     ULootLockerAssetsRequestHandler::GetAssetsByIds(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetIds, OnGetAssetsByIdsRequestCompleted);

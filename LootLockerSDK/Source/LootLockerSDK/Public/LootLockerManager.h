@@ -1639,6 +1639,27 @@ public:
         GrantAssetWithVariationToPlayerInventory(ForPlayerWithUlid, AssetID, 0, 0, OnCompletedRequest);
     }
 
+    /**
+    * List assets with default parameters (no filters, first page, default page size)
+    * Lightweight alternative for retrieving assets where only selected data is needed
+    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+    * @param OnCompletedRequest Delegate for handling the server response
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static void ListAssetsWithDefaultParameters(const FString& ForPlayerWithUlid, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequest);
+
+    /**
+    * List assets with configurable response data. Use this to limit the fields returned in the response and improve performance.
+    * Lightweight alternative for retrieving assets where only selected data is needed
+    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+    * @param Request Request object with settings on what fields to include, exclude, and what assets to filter
+    * @param PerPage Optional: Used together with Page to apply pagination to this Request. PerPage designates how many notifications are considered a "page". Set to 0 to not use this filter.
+    * @param Page Optional: Used together with PerPage to apply pagination to this Request. Page designates which "page" of items to fetch. Set to 0 to not use this filter.
+    * @param OnCompletedRequest Delegate for handling the server response
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "PerPage,Page,ForPlayerWithUlid", PerPage=0,Page=0,ForPlayerWithUlid=""))
+    static void ListAssets(const FString& ForPlayerWithUlid, const FLootLockerListSimpleAssetsRequest& Request, int PerPage, int Page, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequest);
+
     //==================================================
     //Asset Instances
     //==================================================

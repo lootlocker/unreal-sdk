@@ -818,6 +818,16 @@ void ULootLockerSDKManager::GrantAssetToPlayerInventory(const int AssetID, const
     ULootLockerAssetsRequestHandler::GrantAssetToPlayerInventory(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetID, AssetVariationID, AssetRentalOptionID, FGrantAssetResponseDelegateBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::ListAssetsWithDefaultParameters(const FListSimpleAssetsResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /*= ""*/)
+{
+    ListAssets(FLootLockerListSimpleAssetsRequest(), OnCompletedRequest, 0, 0, ForPlayerWithUlid);
+}
+
+void ULootLockerSDKManager::ListAssets(const FLootLockerListSimpleAssetsRequest& Request, const FListSimpleAssetsResponseDelegate& OnCompletedRequest, int PerPage /*=0*/, int Page /*=0*/, const FString& ForPlayerWithUlid /*= ""*/)
+{
+    ULootLockerAssetsRequestHandler::ListAssets(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, PerPage, Page, FListSimpleAssetsResponseDelegateBP(), OnCompletedRequest);
+}
+
 //Asset Instance
 
 void ULootLockerSDKManager::GetAllKeyValuePairsForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)

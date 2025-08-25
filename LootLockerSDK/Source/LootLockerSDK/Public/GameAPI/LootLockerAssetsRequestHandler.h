@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerHttpClient.h"
+#include "GameAPI/LootLockerMetadataRequestHandler.h"
 #include "GameAPI/LootLockerPersistentStorageRequestHandler.h"
 #include "LootLockerAssetsRequestHandler.generated.h"
 
@@ -384,12 +385,152 @@ struct FLootLockerGrantAssetResponse : public FLootLockerResponse
     FString acquisition_date;
 };
 
+/** Fields to include in the simple asset response */
+USTRUCT(BlueprintType)
+struct FLootLockerSimpleAssetIncludes
+{
+    GENERATED_BODY()
+    // If set to true, response will include storage key-value pairs.
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    bool storage = false;
+    // If set to true, response will include files.
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    bool files = false;
+    // If set to true, response will include asset data entities.
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    bool data_entities = false;
+    // If set to true, response will include asset metadata.
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    bool metadata = false;
+};
+
+/** Fields to exclude from the simple asset response */
+USTRUCT(BlueprintType)
+struct FLootLockerSimpleAssetExcludes
+{
+    GENERATED_BODY()
+    // If set to true, UGC assets authors will not be returned.
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    bool authors = false;
+};
+
+/** Filters to apply to simple asset listing */
+USTRUCT(BlueprintType)
+struct FLootLockerSimpleAssetFilters
+{
+    GENERATED_BODY()
+    // If true only UGC assets are returned
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    bool ugc_only = false;
+    // If provided only the requested ids will be returned (max 100, server enforced). Pagination ignored.
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    TArray<int> asset_ids;
+};
+
+/** Request payload for simple asset listing */
+USTRUCT(BlueprintType)
+struct FLootLockerListSimpleAssetsRequest
+{
+    GENERATED_BODY()
+    // Fields to include in the response.
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    FLootLockerSimpleAssetIncludes includes;
+    // Fields to exclude from the response.
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    FLootLockerSimpleAssetExcludes excludes;
+    // Filters to apply to the asset listing.
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    FLootLockerSimpleAssetFilters filters;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerSimpleAssetAuthor
+{
+    GENERATED_BODY()
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    int player_id = 0;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    FString player_ulid;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    FString public_uid;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    FString active_name;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerSimpleAssetFile
+{
+    GENERATED_BODY()
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    int size = 0;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    FString name;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    FString url;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    TArray<FString> tags;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerSimpleAssetDataEntity
+{
+    GENERATED_BODY()
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    FString name;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    FString data;
+};
+
+/** Simplified asset object */
+USTRUCT(BlueprintType)
+struct FLootLockerSimpleAsset
+{
+    GENERATED_BODY()
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    int asset_id = 0;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    FString asset_uuid;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    FString asset_ulid;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    FString asset_name;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    int context_id = 0;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    FString context_name;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    FLootLockerSimpleAssetAuthor author;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    TArray<FLootLockerPersistentStorageItem> storage;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    TArray<FLootLockerSimpleAssetFile> files;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    TArray<FLootLockerSimpleAssetDataEntity> data_entities;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    TArray<FLootLockerMetadataEntry> metadata;
+};
+
+/** Response payload for simple asset listing */
+USTRUCT(BlueprintType)
+struct FLootLockerListSimpleAssetsResponse : public FLootLockerResponse
+{
+    GENERATED_BODY()
+    // List of assets returned by the endpoint.
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    TArray<FLootLockerSimpleAsset> assets;
+    // Pagination data for this request
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    FLootLockerExtendedIndexBasedPagination pagination;
+};
+
+
 DECLARE_DYNAMIC_DELEGATE_OneParam(FContextDelegateBP, FLootLockerGetContextResponse, ContextsResponse);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FAssetsResponseDelegateBP, FLootLockerGetAssetsResponse, AssetsResponse);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FAssetBonesResponseDelegateBP, FLootLockerGetAssetBonesResponse, AssetBonesResponse);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FGetFavouriteAssetIndicesResponseDelegateBP, FLootLockerGetFavouriteAssetIndicesResponse, FavouriteAssetIndicesResponse);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FUniversalAssetResponseDelegateBP, FLootLockerUniversalAssetsResponse, UniversalAssetsResponse);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FGrantAssetResponseDelegateBP, FLootLockerGrantAssetResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FListSimpleAssetsResponseDelegateBP, FLootLockerListSimpleAssetsResponse, Response);
 
 DECLARE_DELEGATE_OneParam(FContextDelegate, FLootLockerGetContextResponse);
 DECLARE_DELEGATE_OneParam(FAssetsResponseDelegate, FLootLockerGetAssetsResponse);
@@ -397,6 +538,7 @@ DECLARE_DELEGATE_OneParam(FAssetBonesResponseDelegate, FLootLockerGetAssetBonesR
 DECLARE_DELEGATE_OneParam(FGetFavouriteAssetIndicesResponseDelegate, FLootLockerGetFavouriteAssetIndicesResponse);
 DECLARE_DELEGATE_OneParam(FUniversalAssetResponseDelegate, FLootLockerUniversalAssetsResponse);
 DECLARE_DELEGATE_OneParam(FGrantAssetResponseDelegate, FLootLockerGrantAssetResponse);
+DECLARE_DELEGATE_OneParam(FListSimpleAssetsResponseDelegate, FLootLockerListSimpleAssetsResponse);
 
 /**
  *
@@ -424,9 +566,10 @@ public:
 
     static void GrantAssetToPlayerInventory(const FLootLockerPlayerData& PlayerData, const int assetID, const int assetVariationID, const int assetRentalOptionID, const FGrantAssetResponseDelegateBP& OnCompletedRequestBP = FGrantAssetResponseDelegateBP(), const FGrantAssetResponseDelegate& OnCompletedRequest = FGrantAssetResponseDelegate());
 
+    static void ListAssets(const FLootLockerPlayerData& PlayerData, const FLootLockerListSimpleAssetsRequest& Request, int PerPage, int Page, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequestBP = FListSimpleAssetsResponseDelegateBP(), const FListSimpleAssetsResponseDelegate& OnCompletedRequest = FListSimpleAssetsResponseDelegate());
+
 public:
     ULootLockerAssetsRequestHandler();
 
     static ULootLockerHttpClient* HttpClient;
-	// static TMap<ELootLockerAssetFilter, FString>* AssetFilterMap;
 };
