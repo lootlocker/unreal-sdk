@@ -144,6 +144,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::GetFavouriteAssetIndicesEndpoint 
 FLootLockerEndPoints ULootLockerGameEndpoints::AddAssetToFavouritesEndpoint = InitEndpoint("v1/asset/{0}/favourite", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::RemoveAssetFromFavouritesEndpoint = InitEndpoint("v1/asset/{0}/favourite", ELootLockerHTTPMethod::DELETE);
 FLootLockerEndPoints ULootLockerGameEndpoints::GrantAssetToPlayerInventory = InitEndpoint("player/inventory/grant", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::ListAssetsEndpoint = InitEndpoint("assets/artful-alpaca/v1", ELootLockerHTTPMethod::POST);
 
 //Asset Instances
 FLootLockerEndPoints ULootLockerGameEndpoints::GetAllKeyValuePairsForAssetInstance = InitEndpoint("v1/asset/instance/{0}/storage", ELootLockerHTTPMethod::GET);

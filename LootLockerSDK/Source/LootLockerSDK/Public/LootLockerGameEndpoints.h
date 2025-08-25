@@ -176,6 +176,7 @@ public:
     static FLootLockerEndPoints RemoveAssetFromFavouritesEndpoint;
     static FLootLockerEndPoints GetUniversalAssetsEndpoint;
     static FLootLockerEndPoints GrantAssetToPlayerInventory;
+    static FLootLockerEndPoints ListAssetsEndpoint;
 
     //Asset Instances
     static FLootLockerEndPoints GetAllKeyValuePairsForAssetInstance;
