@@ -1754,6 +1754,27 @@ public:
     static void GrantAssetToPlayerInventory(const int AssetID, const FGrantAssetResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "") {
         GrantAssetToPlayerInventory(AssetID, 0, 0, OnCompletedRequest, ForPlayerWithUlid);
     }
+    
+    /**
+    List assets with default parameters (no filters, first page, default page size)
+    Lightweight alternative for retrieving assets where only selected data is needed
+
+    @param OnCompletedRequest Delegate for handling the server response
+    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+    */
+    static void ListAssetsWithDefaultParameters(const FListSimpleAssetsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+    List assets with configurable response data. Use this to limit the fields returned in the response and improve performance.
+    Lightweight alternative for retrieving assets where only selected data is needed
+
+    @param Request Request object with settings on what fields to include, exclude, and what assets to filter
+    @param OnCompletedRequest Delegate for handling the server response
+    @param PerPage Optional: Used together with Page to apply pagination to this Request. PerPage designates how many notifications are considered a "page". Set to 0 to not use this filter.
+    @param Page Optional: Used together with PerPage to apply pagination to this Request. Page designates which "page" of items to fetch. Set to 0 to not use this filter.
+    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+    */
+    static void ListAssets(const FLootLockerListSimpleAssetsRequest& Request, const FListSimpleAssetsResponseDelegate & OnCompletedRequest, int PerPage = 0, int Page = 0, const FString& ForPlayerWithUlid = "");
 
 
     //==================================================
