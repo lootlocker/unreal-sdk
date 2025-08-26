@@ -97,3 +97,40 @@ void ULootLockerPurchasesRequestHandler::FinalizeSteamPurchaseRedemption(const F
 {
     LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerFinalizeSteamPurchaseRedemptionRequest{ EntitlementId }, ULootLockerGameEndpoints::FinalizeSteamPurchaseRedemption, {}, {}, PlayerData, OnCompletedBP, OnCompleted);
 }
+
+void ULootLockerPurchasesRequestHandler::RedeemEpicStorePurchase(const FLootLockerPlayerData& PlayerData, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
+{
+    FLootLockerRedeemEpicStorePurchaseForPlayerRequest PurchaseRequest{
+        AccountId,
+        BearerToken,
+        EntitlementIds
+    };
+
+    TSharedPtr<FJsonObject> requestJson = FJsonObjectConverter::UStructToJsonObject(PurchaseRequest);
+    if (!SandboxId.IsEmpty())
+    {
+        requestJson->SetStringField(TEXT("sandbox_id"), SandboxId);
+    }
+    FString RawJson = LootLockerUtilities::JsonObjectToString(requestJson.ToSharedRef());
+    LLAPI<FLootLockerResponse>::CallAPIUsingRawJSON(HttpClient, RawJson, ULootLockerGameEndpoints::RedeemEpicStorePurchase, {}, {}, PlayerData, OnCompletedBP, OnCompleted);
+}
+
+void ULootLockerPurchasesRequestHandler::RedeemEpicStorePurchaseForCharacter(const FLootLockerPlayerData& PlayerData, const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
+{
+    FLootLockerRedeemEpicStorePurchaseForCharacterRequest PurchaseRequest {
+        {
+            AccountId,
+            BearerToken,
+            EntitlementIds
+        },
+        CharacterId
+    };
+
+    TSharedPtr<FJsonObject> requestJson = FJsonObjectConverter::UStructToJsonObject(PurchaseRequest);
+    if (!SandboxId.IsEmpty())
+    {
+        requestJson->SetStringField(TEXT("sandbox_id"), SandboxId);
+    }
+    FString RawJson = LootLockerUtilities::JsonObjectToString(requestJson.ToSharedRef());
+    LLAPI<FLootLockerResponse>::CallAPIUsingRawJSON(HttpClient, RawJson, ULootLockerGameEndpoints::RedeemEpicStorePurchase, {}, {}, PlayerData, OnCompletedBP, OnCompleted);
+}
