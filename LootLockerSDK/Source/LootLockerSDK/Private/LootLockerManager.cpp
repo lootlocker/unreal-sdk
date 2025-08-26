@@ -926,6 +926,16 @@ void ULootLockerManager::RedeemGooglePlayStorePurchaseForClass(const FString& Fo
     ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForClass(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ClassId, ProductId, PurchaseToken, OnCompletedRequest);
 }
 
+void ULootLockerManager::RedeemEpicStorePurchase(const FString& ForPlayerWithUlid, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+{
+    ULootLockerPurchasesRequestHandler::RedeemEpicStorePurchase(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AccountId, BearerToken, EntitlementIds, SandboxId, OnCompletedRequest);
+}
+
+void ULootLockerManager::RedeemEpicStorePurchaseForCharacter(const FString& ForPlayerWithUlid, const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+{
+    ULootLockerPurchasesRequestHandler::RedeemEpicStorePurchaseForCharacter(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CharacterId, AccountId, BearerToken, EntitlementIds, SandboxId, OnCompletedRequest);
+}
+
 void ULootLockerManager::BeginSteamPurchaseRedemption(const FString& ForPlayerWithUlid, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest)
 {
     ULootLockerPurchasesRequestHandler::BeginSteamPurchaseRedemption(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), SteamId, Currency, Language, CatalogItemId, OnCompletedRequest);

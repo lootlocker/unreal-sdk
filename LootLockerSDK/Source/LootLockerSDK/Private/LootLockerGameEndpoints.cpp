@@ -189,6 +189,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::ActivateRentalAssetEndpoint = Ini
 FLootLockerEndPoints ULootLockerGameEndpoints::PurchaseCatalogItem = InitEndpoint("purchase", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::RedeemAppleAppStorePurchase = InitEndpoint("store/apple/redeem", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::RedeemGooglePlayStorePurchase = InitEndpoint("store/google/redeem", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::RedeemEpicStorePurchase = InitEndpoint("store/epic/redeem", ELootLockerHTTPMethod::POST);
 
 FLootLockerEndPoints ULootLockerGameEndpoints::BeginSteamPurchaseRedemption = InitEndpoint("store/steam/redeem/begin", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::QuerySteamPurchaseRedemptionStatus = InitEndpoint("store/steam/redeem/query", ELootLockerHTTPMethod::POST);
