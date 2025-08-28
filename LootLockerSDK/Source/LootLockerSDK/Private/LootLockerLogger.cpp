@@ -1,6 +1,6 @@
 // Copyright (c) 2025 LootLocker
-#include "LootLockerSDK.h"
 #include "LootLockerLogger.h"
+#include "LootLockerSDK.h"
 #include "LootLockerConfig.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
