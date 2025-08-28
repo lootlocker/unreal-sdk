@@ -132,7 +132,7 @@ struct FLootLockerRedeemEpicStorePurchaseForPlayerRequest
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Account_id = "";
     /**
-     * This is the token from epic used to allow the LootLocker backend to verify ownership of the specified entitlements. This is sometimes referred to as the Access Token or the Auth Token
+     * This is the token from epic used to allow the LootLocker backend to verify ownership of the specified entitlements. This is sometimes referred to as the Server Auth Ticket or Auth Token depending on your Epic integration.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Bearer_token = "";

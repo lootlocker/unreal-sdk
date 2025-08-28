@@ -2128,7 +2128,7 @@ public:
      *
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      * @param AccountId The epic account id of the account that this purchase was made for
-     * @param BearerToken This is the token from epic used to allow the LootLocker backend to verify ownership of the specified entitlements. This is sometimes referred to as the Access Token or the Auth Token
+     * @param BearerToken This is the token from epic used to allow the LootLocker backend to verify ownership of the specified entitlements. This is sometimes referred to as the Server Auth Ticket or Auth Token depending on your Epic integration.
      * @param EntitlementIds The ids of the purchased entitlements that you wish to redeem
      * @param SandboxId Optional: The sandbox id to use for the request, only applicable for "sandbox purchases" (ie, fake development purchases)
      * @param OnCompletedRequest Delegate for handling the server response
@@ -2143,7 +2143,7 @@ public:
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      * @param CharacterId The ulid of the character to redeem this purchase for
      * @param AccountId The epic account id of the account that this purchase was made for
-     * @param BearerToken This is the token from epic used to allow the LootLocker backend to verify ownership of the specified entitlements. This is sometimes referred to as the Access Token or the Auth Token
+     * @param BearerToken This is the token from epic used to allow the LootLocker backend to verify ownership of the specified entitlements. This is sometimes referred to as the Server Auth Ticket or Auth Token depending on your Epic integration.
      * @param EntitlementIds The ids of the purchased entitlements that you wish to redeem
      * @param SandboxId Optional: The sandbox id to use for the request, only applicable for "sandbox purchases" (ie, fake development purchases)
      * @param OnCompletedRequest Delegate for handling the server response
