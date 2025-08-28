@@ -103,16 +103,11 @@ void ULootLockerPurchasesRequestHandler::RedeemEpicStorePurchase(const FLootLock
     FLootLockerRedeemEpicStorePurchaseForPlayerRequest PurchaseRequest{
         AccountId,
         BearerToken,
-        EntitlementIds
+        EntitlementIds,
+        SandboxId
     };
 
-    TSharedPtr<FJsonObject> requestJson = FJsonObjectConverter::UStructToJsonObject(PurchaseRequest);
-    if (!SandboxId.IsEmpty())
-    {
-        requestJson->SetStringField(TEXT("sandbox_id"), SandboxId);
-    }
-    FString RawJson = LootLockerUtilities::JsonObjectToString(requestJson.ToSharedRef());
-    LLAPI<FLootLockerResponse>::CallAPIUsingRawJSON(HttpClient, RawJson, ULootLockerGameEndpoints::RedeemEpicStorePurchase, {}, {}, PlayerData, OnCompletedBP, OnCompleted);
+    LLAPI<FLootLockerResponse>::CallAPI(HttpClient, PurchaseRequest, ULootLockerGameEndpoints::RedeemEpicStorePurchase, {}, {}, PlayerData, OnCompletedBP, OnCompleted);
 }
 
 void ULootLockerPurchasesRequestHandler::RedeemEpicStorePurchaseForCharacter(const FLootLockerPlayerData& PlayerData, const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
@@ -121,16 +116,11 @@ void ULootLockerPurchasesRequestHandler::RedeemEpicStorePurchaseForCharacter(con
         {
             AccountId,
             BearerToken,
-            EntitlementIds
+            EntitlementIds,
+            SandboxId
         },
         CharacterId
     };
 
-    TSharedPtr<FJsonObject> requestJson = FJsonObjectConverter::UStructToJsonObject(PurchaseRequest);
-    if (!SandboxId.IsEmpty())
-    {
-        requestJson->SetStringField(TEXT("sandbox_id"), SandboxId);
-    }
-    FString RawJson = LootLockerUtilities::JsonObjectToString(requestJson.ToSharedRef());
-    LLAPI<FLootLockerResponse>::CallAPIUsingRawJSON(HttpClient, RawJson, ULootLockerGameEndpoints::RedeemEpicStorePurchase, {}, {}, PlayerData, OnCompletedBP, OnCompleted);
+    LLAPI<FLootLockerResponse>::CallAPI(HttpClient, PurchaseRequest, ULootLockerGameEndpoints::RedeemEpicStorePurchase, {}, {}, PlayerData, OnCompletedBP, OnCompleted);
 }

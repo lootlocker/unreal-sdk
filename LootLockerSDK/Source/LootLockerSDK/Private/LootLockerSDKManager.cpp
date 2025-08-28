@@ -1017,12 +1017,12 @@ void ULootLockerSDKManager::RedeemGooglePlayStorePurchaseForClass(const int Clas
 }
 
 
-void ULootLockerSDKManager::RedeemEpicStorePurchase(const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& SandboxId, const FString& ForPlayerWithUlid)
+void ULootLockerSDKManager::RedeemEpicStorePurchase(const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid)
 {
     ULootLockerPurchasesRequestHandler::RedeemEpicStorePurchase(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AccountId, BearerToken, EntitlementIds, SandboxId, FLootLockerDefaultResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::RedeemEpicStorePurchaseForCharacter(const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& SandboxId, const FString& ForPlayerWithUlid)
+void ULootLockerSDKManager::RedeemEpicStorePurchaseForCharacter(const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid)
 {
     ULootLockerPurchasesRequestHandler::RedeemEpicStorePurchaseForCharacter(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CharacterId, AccountId, BearerToken, EntitlementIds, SandboxId, FLootLockerDefaultResponseBP(), OnCompletedRequest);
 }

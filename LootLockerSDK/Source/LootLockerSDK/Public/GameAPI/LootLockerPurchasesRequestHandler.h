@@ -141,6 +141,11 @@ struct FLootLockerRedeemEpicStorePurchaseForPlayerRequest
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FString> Entitlement_ids;
+    /**
+     * The Sandbox Id configured for the game making the purchase (this is the sandbox id from your epic online service configuration)
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Sandbox_id;
 };
 
 /**
