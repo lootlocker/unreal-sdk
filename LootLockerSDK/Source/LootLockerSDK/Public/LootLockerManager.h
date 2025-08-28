@@ -2130,10 +2130,10 @@ public:
      * @param AccountId The epic account id of the account that this purchase was made for
      * @param BearerToken This is the token from epic used to allow the LootLocker backend to verify ownership of the specified entitlements. This is sometimes referred to as the Server Auth Ticket or Auth Token depending on your Epic integration.
      * @param EntitlementIds The ids of the purchased entitlements that you wish to redeem
-     * @param SandboxId Optional: The sandbox id to use for the request, only applicable for "sandbox purchases" (ie, fake development purchases)
+     * @param SandboxId The Sandbox Id configured for the game making the purchase (this is the sandbox id from your epic online service configuration)
      * @param OnCompletedRequest Delegate for handling the server response
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid,SandboxId", ForPlayerWithUlid="", SandboxId=""))
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void RedeemEpicStorePurchase(const FString& ForPlayerWithUlid, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     /**
@@ -2145,10 +2145,10 @@ public:
      * @param AccountId The epic account id of the account that this purchase was made for
      * @param BearerToken This is the token from epic used to allow the LootLocker backend to verify ownership of the specified entitlements. This is sometimes referred to as the Server Auth Ticket or Auth Token depending on your Epic integration.
      * @param EntitlementIds The ids of the purchased entitlements that you wish to redeem
-     * @param SandboxId Optional: The sandbox id to use for the request, only applicable for "sandbox purchases" (ie, fake development purchases)
+     * @param SandboxId The Sandbox Id configured for the game making the purchase (this is the sandbox id from your epic online service configuration)
      * @param OnCompletedRequest Delegate for handling the server response
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid,SandboxId", SandboxId="", ForPlayerWithUlid=""))
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void RedeemEpicStorePurchaseForCharacter(const FString& ForPlayerWithUlid, const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     /**

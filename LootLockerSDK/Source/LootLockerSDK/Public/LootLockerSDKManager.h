@@ -2179,10 +2179,10 @@ public:
      * @param AccountId The epic account id of the account that this purchase was made for
      * @param BearerToken This is the token from epic used to allow the LootLocker backend to verify ownership of the specified entitlements. This is sometimes referred to as the Server Auth Ticket or Auth Token depending on your Epic integration.
      * @param EntitlementIds The ids of the purchased entitlements that you wish to redeem
-     * @param SandboxId Optional: The sandbox id to use for the request, only applicable for "sandbox purchases" (ie, fake development purchases)
+     * @param SandboxId The Sandbox Id configured for the game making the purchase (this is the sandbox id from your epic online service configuration)
      * @param OnCompletedRequest Delegate for handling the server response
      */
-    static void RedeemEpicStorePurchase(const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FLootLockerDefaultDelegate& OnCompletedRequest,const FString& SandboxId = "", const FString& ForPlayerWithUlid = "");
+    static void RedeemEpicStorePurchase(const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     /**
      * Redeem a purchase that was made successfully towards the Epic Store for a class that the current player owns
@@ -2193,10 +2193,10 @@ public:
      * @param AccountId The epic account id of the account that this purchase was made for
      * @param BearerToken This is the token from epic used to allow the LootLocker backend to verify ownership of the specified entitlements. This is sometimes referred to as the Server Auth Ticket or Auth Token depending on your Epic integration.
      * @param EntitlementIds The ids of the purchased entitlements that you wish to redeem
-     * @param SandboxId Optional: The sandbox id to use for the request, only applicable for "sandbox purchases" (ie, fake development purchases)
+     * @param SandboxId The sandbox id to use for the request, only applicable for "sandbox purchases" (ie, fake development purchases)
      * @param OnCompletedRequest Delegate for handling the server response
      */
-    static void RedeemEpicStorePurchaseForCharacter(const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& SandboxId = "", const FString& ForPlayerWithUlid = "");
+    static void RedeemEpicStorePurchaseForCharacter(const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     /**
      * Begin a Steam purchase with the given settings that when finalized will redeem the specified catalog item
