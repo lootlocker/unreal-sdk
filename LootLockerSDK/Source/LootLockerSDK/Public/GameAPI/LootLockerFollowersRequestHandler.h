@@ -29,11 +29,11 @@ struct FLootLockerFollower
 
     /** The public UID of the player. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Public_uid = "";
+    FString Publicuid = "";
 
     /** When the player's account was created. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Created_at = "";
+    FString Createdat = "";
 };
 
 //==================================================
@@ -55,7 +55,7 @@ struct FLootLockerListFollowersResponse : public FLootLockerResponse
 
     /** Pagination data for the request. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FLootLockerIndexBasedPagination Pagination;
+    FLootLockerKeyBasedPagination Pagination;
 };
 
 /**
