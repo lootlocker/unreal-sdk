@@ -70,6 +70,25 @@ public:
     static FLootLockerEndPoints AttachRemoteSessionToAccountEndpoint;
     static FLootLockerEndPoints TransferProvidersBetweenAccountsEndpoint;
 
+    // Friends
+    static FLootLockerEndPoints ListFriendsEndpoint;
+    static FLootLockerEndPoints ListIncomingFriendRequestsEndpoint;
+    static FLootLockerEndPoints ListOutgoingFriendRequestsEndpoint;
+    static FLootLockerEndPoints SendFriendRequestEndpoint;
+    static FLootLockerEndPoints DeleteFriendEndpoint;
+    static FLootLockerEndPoints CancelOutgoingFriendRequestEndpoint;
+    static FLootLockerEndPoints AcceptIncomingFriendRequestEndpoint;
+    static FLootLockerEndPoints DeclineIncomingFriendRequestEndpoint;
+    static FLootLockerEndPoints ListBlockedPlayersEndpoint;
+    static FLootLockerEndPoints BlockPlayerEndpoint;
+    static FLootLockerEndPoints UnblockPlayerEndpoint;
+
+    // Followers
+    static FLootLockerEndPoints ListFollowersEndpoint;
+    static FLootLockerEndPoints ListFollowingEndpoint;
+    static FLootLockerEndPoints FollowPlayerEndpoint;
+    static FLootLockerEndPoints UnfollowPlayerEndpoint;
+
     // Remote Sessions
     static FLootLockerEndPoints LeaseRemoteSessionEndpoint;
     static FLootLockerEndPoints LeaseRemoteSessionForLinkingEndpoint;
