@@ -14,6 +14,8 @@
 #include "GameAPI/LootLockerCurrencyRequestHandler.h"
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
 #include "GameAPI/LootLockerEntitlementRequestHandler.h"
+#include "GameAPI/LootLockerFollowersRequestHandler.h"
+#include "GameAPI/LootLockerFriendsRequestHandler.h"
 #include "GameAPI/LootLockerHeroRequestHandler.h"
 #include "GameAPI/LootLockerLeaderboardRequestHandler.h"
 #include "GameAPI/LootLockerLeaderboardArchiveRequestHandler.h"
@@ -2921,6 +2923,161 @@ public:
         Entry.SetValueAsJsonObject(*JsonObject);
         return Entry;
     }
+    
+    //==================================================
+    // Followers
+    //==================================================    
+
+    /**
+     * List followers for a specific player by public UID.
+     * 
+     * @param PlayerPublicId The public UID of the player to list followers for
+     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void ListFollowers(const FString& PlayerPublicId, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+
+    /**
+     * List followers for the requesting player.
+     * 
+     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void ListFollowers(const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+
+    /**
+     * List players that a specific player is following by public UID.
+     * 
+     * @param PlayerPublicId The public UID of the player to list following for
+     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void ListFollowing(const FString& PlayerPublicId, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+
+    /**
+     * List players that the requesting player is following.
+     * 
+     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void ListFollowing(const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+
+    /**
+     * Follow a player by public UID.
+     * 
+     * @param PlayerPublicId The public UID of the player to follow
+     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void FollowPlayer(const FString& PlayerPublicId, const FLootLockerFollowActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+
+    /**
+     * Unfollow a player by public UID.
+     * 
+     * @param PlayerPublicId The public UID of the player to unfollow
+     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void UnfollowPlayer(const FString& PlayerPublicId, const FLootLockerFollowActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+
+    //==================================================
+    // Friends
+    //==================================================
+
+    /** 
+     * List friends for the specified player
+     *
+     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void ListFriends(const FLootLockerListFriendsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+
+    /**
+     * List incoming friend requests for the specified player
+     *
+     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void ListIncomingFriendRequests(const FLootLockerListIncomingFriendRequestsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+
+    /**
+     * List outgoing friend requests for the specified player
+     *
+     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void ListOutgoingFriendRequests(const FLootLockerListOutgoingFriendRequestsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+
+    /**
+     * Send a friend request to another player
+     *
+     * @param PlayerULID The ULID of the player to send the friend request to
+     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void SendFriendRequest(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+
+    /**
+     * Delete a friend
+     *
+     * @param PlayerULID The ULID of the player to delete
+     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void DeleteFriend(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+
+    /**
+     * Cancel outgoing friend request
+     * 
+     * @param PlayerULID The ULID of the player to cancel the friend request for
+     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void CancelOutgoingFriendRequest(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+
+    /**
+     * Accept incoming friend request
+     * 
+     * @param PlayerULID The ULID of the player to accept the friend request from
+     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void AcceptIncomingFriendRequest(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+
+    /**
+     * Decline incoming friend request
+     *
+     * @param PlayerULID The ULID of the player to decline the friend request from
+     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void DeclineIncomingFriendRequest(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+
+    /**
+     * List blocked players
+     * 
+     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void ListBlockedPlayers(const FLootLockerListBlockedPlayersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+
+    /**
+     * Block a player
+     *
+     * @param PlayerULID The ULID of the player to block
+     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void BlockPlayer(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+
+    /**
+     * Unblock a player
+     *
+     * @param PlayerULID The ULID of the player to unblock
+     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void UnblockPlayer(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
     //==================================================
     //Miscellaneous

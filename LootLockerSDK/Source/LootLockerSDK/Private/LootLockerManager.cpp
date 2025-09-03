@@ -7,6 +7,7 @@
 #include "GameAPI/LootLockerCatalogRequestHandler.h"
 #include "GameAPI/LootLockerMetadataRequestHandler.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
+#include "LootLockerSDKManager.h"
 
 // Player State
 TArray<FString> ULootLockerManager::GetActivePlayerUlids()
@@ -1452,4 +1453,97 @@ FString ULootLockerManager::GetLastActivePlatform(const FString& ForPlayerWithUl
 
 void ULootLockerManager::GetGameInfo(const FGameInfoResponseDelegateBP& OnCompletedRequestBP) {
     ULootLockerMiscellaneousRequestHandler::GetGameInfo(OnCompletedRequestBP);
+}
+
+// Followers
+void ULootLockerManager::ListFollowersForPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP)
+{
+    FLootLockerPlayerData PlayerData = GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid);
+    ULootLockerFollowersRequestHandler::ListFollowers(PlayerData, PlayerPublicUid, OnResponseCompletedBP);
+}
+
+void ULootLockerManager::ListFollowers(const FString& ForPlayerWithUlid, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP)
+{
+    FLootLockerPlayerData PlayerData = GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid);
+    ULootLockerFollowersRequestHandler::ListFollowers(PlayerData, OnResponseCompletedBP);
+}
+
+void ULootLockerManager::ListFollowingForPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP)
+{
+    FLootLockerPlayerData PlayerData = GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid);
+    ULootLockerFollowersRequestHandler::ListFollowing(PlayerData, PlayerPublicUid, OnResponseCompletedBP);
+}
+
+void ULootLockerManager::ListFollowing(const FString& ForPlayerWithUlid, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP)
+{
+    FLootLockerPlayerData PlayerData = GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid);
+    ULootLockerFollowersRequestHandler::ListFollowing(PlayerData, OnResponseCompletedBP);
+}
+
+void ULootLockerManager::FollowPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FLootLockerFollowActionResponseBP& OnResponseCompletedBP)
+{
+    FLootLockerPlayerData PlayerData = GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid);
+    ULootLockerFollowersRequestHandler::FollowPlayer(PlayerData, PlayerPublicUid, OnResponseCompletedBP);
+}
+
+void ULootLockerManager::UnfollowPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FLootLockerFollowActionResponseBP& OnResponseCompletedBP)
+{
+    FLootLockerPlayerData PlayerData = GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid);
+    ULootLockerFollowersRequestHandler::UnfollowPlayer(PlayerData, PlayerPublicUid, OnResponseCompletedBP);
+}
+
+// Friends
+void ULootLockerManager::ListFriends(const FString& ForPlayerWithUlid, const FLootLockerListFriendsResponseBP& OnResponseCompletedBP)
+{
+    ULootLockerFriendsRequestHandler::ListFriends(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnResponseCompletedBP);
+}
+
+void ULootLockerManager::ListIncomingFriendRequests(const FString& ForPlayerWithUlid, const FLootLockerListIncomingFriendRequestsResponseBP& OnResponseCompletedBP)
+{
+    ULootLockerFriendsRequestHandler::ListIncomingFriendRequests(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnResponseCompletedBP);
+}
+
+void ULootLockerManager::ListOutgoingFriendRequests(const FString& ForPlayerWithUlid, const FLootLockerListOutgoingFriendRequestsResponseBP& OnResponseCompletedBP)
+{
+    ULootLockerFriendsRequestHandler::ListOutgoingFriendRequests(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnResponseCompletedBP);
+}
+
+void ULootLockerManager::SendFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerId, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP)
+{
+    ULootLockerFriendsRequestHandler::SendFriendRequest(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlayerId, OnResponseCompletedBP);
+}
+
+void ULootLockerManager::DeleteFriend(const FString& ForPlayerWithUlid, const FString& PlayerId, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP)
+{
+    ULootLockerFriendsRequestHandler::DeleteFriend(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlayerId, OnResponseCompletedBP);
+}
+
+void ULootLockerManager::CancelOutgoingFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerId, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP)
+{
+    ULootLockerFriendsRequestHandler::CancelOutgoingFriendRequest(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlayerId, OnResponseCompletedBP);
+}
+
+void ULootLockerManager::AcceptIncomingFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerId, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP)
+{
+    ULootLockerFriendsRequestHandler::AcceptIncomingFriendRequest(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlayerId, OnResponseCompletedBP);
+}
+
+void ULootLockerManager::DeclineIncomingFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerId, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP)
+{
+    ULootLockerFriendsRequestHandler::DeclineIncomingFriendRequest(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlayerId, OnResponseCompletedBP);
+}
+
+void ULootLockerManager::ListBlockedPlayers(const FString& ForPlayerWithUlid, const FLootLockerListBlockedPlayersResponseBP& OnResponseCompletedBP)
+{
+    ULootLockerFriendsRequestHandler::ListBlockedPlayers(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnResponseCompletedBP);
+}
+
+void ULootLockerManager::BlockPlayer(const FString& ForPlayerWithUlid, const FString& PlayerId, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP)
+{
+    ULootLockerFriendsRequestHandler::BlockPlayer(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlayerId, OnResponseCompletedBP);
+}
+
+void ULootLockerManager::UnblockPlayer(const FString& ForPlayerWithUlid, const FString& PlayerId, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP)
+{
+    ULootLockerFriendsRequestHandler::UnblockPlayer(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlayerId, OnResponseCompletedBP);
 }
