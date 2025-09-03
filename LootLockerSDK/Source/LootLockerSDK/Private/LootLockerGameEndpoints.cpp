@@ -38,6 +38,25 @@ FLootLockerEndPoints ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint 
 FLootLockerEndPoints ULootLockerGameEndpoints::AttachRemoteSessionToAccountEndpoint = InitEndpoint("v1/connected-accounts/attach", ELootLockerHTTPMethod::PUT);
 FLootLockerEndPoints ULootLockerGameEndpoints::TransferProvidersBetweenAccountsEndpoint = InitEndpoint("v1/connected-accounts/transfer-providers", ELootLockerHTTPMethod::PUT);
 
+// Friends Endpoints
+FLootLockerEndPoints ULootLockerGameEndpoints::ListFriendsEndpoint = InitEndpoint("player/friends", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::ListIncomingFriendRequestsEndpoint = InitEndpoint("player/friends/incoming", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::ListOutgoingFriendRequestsEndpoint = InitEndpoint("player/friends/outgoing", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::SendFriendRequestEndpoint = InitEndpoint("player/friends/{0}", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::DeleteFriendEndpoint = InitEndpoint("player/friends/{0}", ELootLockerHTTPMethod::DELETE);
+FLootLockerEndPoints ULootLockerGameEndpoints::CancelOutgoingFriendRequestEndpoint = InitEndpoint("player/friends/outgoing/{0}/cancel", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::AcceptIncomingFriendRequestEndpoint = InitEndpoint("player/friends/incoming/{0}/accept", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::DeclineIncomingFriendRequestEndpoint = InitEndpoint("player/friends/incoming/{0}/decline", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::ListBlockedPlayersEndpoint = InitEndpoint("player/friends/blocked", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::BlockPlayerEndpoint = InitEndpoint("player/friends/{0}/block", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::UnblockPlayerEndpoint = InitEndpoint("player/friends/{0}/unblock", ELootLockerHTTPMethod::POST);
+
+// Followers Endpoints
+FLootLockerEndPoints ULootLockerGameEndpoints::ListFollowersEndpoint = InitEndpoint("player/{0}/followers", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::ListFollowingEndpoint = InitEndpoint("player/{0}/following", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::FollowPlayerEndpoint = InitEndpoint("player/{0}/followers/follow", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::UnfollowPlayerEndpoint = InitEndpoint("player/{0}/followers/unfollow", ELootLockerHTTPMethod::DELETE);
+
 // Remote Sessions
 FLootLockerEndPoints ULootLockerGameEndpoints::LeaseRemoteSessionEndpoint = InitEndpoint("session/remote/lease", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::LeaseRemoteSessionForLinkingEndpoint = InitEndpoint("session/remote/link/lease", ELootLockerHTTPMethod::POST);
