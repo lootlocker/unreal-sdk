@@ -10,21 +10,69 @@
 //==================================================
 
 /**
- * Represents a single friend, matching API spec.
+ * Represents a single friend
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerFriend
 {
     GENERATED_BODY()
 
+    /**
+     * The ulid of the player
+     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Player_id = "";
+    /**
+     * The name (if any has been set) of the player
+     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Player_name = "";
+    /**
+     * The public uid of the player
+     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Public_uid = "";
+    /**
+     * The creation date of the player
+     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Created_at = "";
+};
+
+
+/**
+ * Represents a single friend with online status
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerFriendWithOnlineStatus : public FLootLockerFriend
+{
+    GENERATED_BODY()
+
+    /**
+     * The online status of the player
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool Online = false;
+    /**
+     * The creation date of the player
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Accepted_at = "";
+};
+
+/**
+ * Represents a single blocked player
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerBlockedPlayer : public FLootLockerFriend
+{
+    GENERATED_BODY()
+    
+    /**
+     * The creation date of the player
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Blocked_at = "";
 };
 
 //==================================================
@@ -47,7 +95,7 @@ struct FLootLockerListFriendsResponse : public FLootLockerResponse
     GENERATED_BODY()
 
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerFriend> Friends;
+    TArray<FLootLockerFriendWithOnlineStatus> Friends;
 };
 
 /**
@@ -59,7 +107,7 @@ struct FLootLockerListIncomingFriendRequestsResponse : public FLootLockerRespons
     GENERATED_BODY()
 
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerFriend> IncomingRequests;
+    TArray<FLootLockerFriend> Incoming;
 };
 
 /**
@@ -71,7 +119,7 @@ struct FLootLockerListOutgoingFriendRequestsResponse : public FLootLockerRespons
     GENERATED_BODY()
 
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerFriend> OutgoingRequests;
+    TArray<FLootLockerFriend> Outgoing;
 };
 
 USTRUCT(BlueprintType, Category = "LootLocker")
@@ -86,7 +134,7 @@ struct FLootLockerListBlockedPlayersResponse : public FLootLockerResponse
     GENERATED_BODY()
 
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerFriend> BlockedPlayers;
+    TArray<FLootLockerBlockedPlayer> Blocked;
 };
 
 
