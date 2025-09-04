@@ -3,6 +3,7 @@
 
 #include "GameAPI/LootLockerPlayerRequestHandler.h"
 #include "LootLockerGameEndpoints.h"
+#include "LootLockerLogger.h"
 #include "LootLockerPlatformManager.h"
 #include "Utils/LootLockerUtilities.h"
 
@@ -98,11 +99,17 @@ void ULootLockerPlayerRequestHandler::SetPlayerName(const FLootLockerPlayerData&
 	{
 		if (Name.Equals(PlayerData.PlayerIdentifier, ESearchCase::IgnoreCase))
 		{
-			OnCompletedRequestBP.ExecuteIfBound(LootLockerResponseFactory::Error<FLootLockerNameResponse>("Cannot set the Player name to their Identifier", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, PlayerData.PlayerUlid));
+			FLootLockerNameResponse Error = LootLockerResponseFactory::Error<FLootLockerNameResponse>("Cannot set the Player name to their Identifier", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, PlayerData.PlayerUlid);
+        	FLootLockerLogger::LogHttpRequest(Error, ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(ULootLockerGameEndpoints::SetPlayerName.requestMethod)), ULootLockerGameEndpoints::SetPlayerName.endpoint, "No Data", "No Headers");
+			OnCompletedRequestBP.ExecuteIfBound(Error);
+			OnCompletedRequest.ExecuteIfBound(Error);
 			return;
 		}
 		else if (Name.Equals("player", ESearchCase::IgnoreCase)) {
-			OnCompletedRequestBP.ExecuteIfBound(LootLockerResponseFactory::Error<FLootLockerNameResponse>("Cannot set the Player name to 'Player'", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, PlayerData.PlayerUlid));
+			FLootLockerNameResponse Error = LootLockerResponseFactory::Error<FLootLockerNameResponse>("Cannot set the Player name to 'Player'", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, PlayerData.PlayerUlid);
+        	FLootLockerLogger::LogHttpRequest(Error, ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(ULootLockerGameEndpoints::SetPlayerName.requestMethod)), ULootLockerGameEndpoints::SetPlayerName.endpoint, "No Data", "No Headers");
+			OnCompletedRequestBP.ExecuteIfBound(Error);
+			OnCompletedRequest.ExecuteIfBound(Error);
 			return;
 		}
 	}

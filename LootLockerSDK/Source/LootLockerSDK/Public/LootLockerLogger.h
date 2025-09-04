@@ -3,6 +3,8 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
+#include "LootLockerErrorData.h"
+#include "LootLockerRequestContext.h"
 #include "Delegates/Delegate.h"
 #include "LootLockerConfig.h"
 #include "LootLockerLogger.generated.h"
@@ -34,6 +36,8 @@ struct FLootLockerHttpLogEntry
     FDateTime Timestamp;
     UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
     FLootLockerErrorData ErrorData;
+    UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
+    FLootLockerRequestContext RequestContext;
 };
 
 DECLARE_MULTICAST_DELEGATE_TwoParams(FLootLockerOnLogMessage, const FString&, ELootLockerLogLevel);
@@ -138,6 +142,12 @@ public:
      * @param Entry The HTTP log entry.
      */
     static void LogHttpRequest(const FLootLockerHttpLogEntry& Entry);
+
+    /**
+     * Logs a structured HTTP request/response entry.
+     * @param Entry The HTTP log entry.
+     */
+    static void LogHttpRequest(const FLootLockerResponse& Response, const FString& RequestMethod = "N/A", const FString& RequestPath = "N/A", const FString& RequestData = "Data N/A", const FString& AllHeadersDelimited = "N/A");
 private:
     static void LogInternal(ELootLockerLogLevel Verbosity, const TCHAR* m);
     static void __LogInternalF(const TCHAR* m);
