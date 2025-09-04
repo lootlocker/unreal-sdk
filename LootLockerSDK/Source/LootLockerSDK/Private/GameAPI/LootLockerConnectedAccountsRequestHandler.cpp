@@ -1,6 +1,7 @@
 // Copyright (c) 2021 LootLocker
 
 #include "GameAPI/LootLockerConnectedAccountsRequestHandler.h"
+#include "LootLockerLogger.h"
 
 #include "Utils/LootLockerUtilities.h"
 
@@ -46,6 +47,7 @@ void ULootLockerConnectedAccountsRequestHandler::TransferIdentityProvidersBetwee
     if (SourcePlayerData.Token.IsEmpty())
     {
         auto ErrorResponse = LootLockerResponseFactory::Error<FLootLockerListConnectedAccountsResponse>("No valid session token found for source player", 403, SourcePlayerData.PlayerUlid);
+        FLootLockerLogger::LogHttpRequest(ErrorResponse, ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(ULootLockerGameEndpoints::TransferProvidersBetweenAccountsEndpoint.requestMethod)), ULootLockerGameEndpoints::TransferProvidersBetweenAccountsEndpoint.endpoint, "No Data", "No Headers");
         OnCompleteBP.ExecuteIfBound(ErrorResponse);
         OnComplete.ExecuteIfBound(ErrorResponse);
         return;
@@ -53,6 +55,7 @@ void ULootLockerConnectedAccountsRequestHandler::TransferIdentityProvidersBetwee
     if (TargetPlayerData.Token.IsEmpty())
     {
         auto ErrorResponse = LootLockerResponseFactory::Error<FLootLockerListConnectedAccountsResponse>("No valid session token found for target player", 403, SourcePlayerData.PlayerUlid);
+        FLootLockerLogger::LogHttpRequest(ErrorResponse, ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(ULootLockerGameEndpoints::TransferProvidersBetweenAccountsEndpoint.requestMethod)), ULootLockerGameEndpoints::TransferProvidersBetweenAccountsEndpoint.endpoint, "No Data", "No Headers");
         OnCompleteBP.ExecuteIfBound(ErrorResponse);
         OnComplete.ExecuteIfBound(ErrorResponse);
         return;
@@ -60,6 +63,7 @@ void ULootLockerConnectedAccountsRequestHandler::TransferIdentityProvidersBetwee
     if (ProvidersToTransfer.Num() == 0)
     {
         auto ErrorResponse = LootLockerResponseFactory::Error<FLootLockerListConnectedAccountsResponse>("No providers submitted", 403, SourcePlayerData.PlayerUlid);
+        FLootLockerLogger::LogHttpRequest(ErrorResponse, ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(ULootLockerGameEndpoints::TransferProvidersBetweenAccountsEndpoint.requestMethod)), ULootLockerGameEndpoints::TransferProvidersBetweenAccountsEndpoint.endpoint, "No Data", "No Headers");
         OnCompleteBP.ExecuteIfBound(ErrorResponse);
         OnComplete.ExecuteIfBound(ErrorResponse);
         return;
