@@ -1,6 +1,7 @@
 // Copyright (c) 2021 LootLocker
 
 #include "GameAPI/LootLockerMetadataRequestHandler.h"
+#include "LootLockerLogger.h"
 #include "Dom/JsonObject.h"
 #include "Utils/LootLockerUtilities.h"
 
@@ -311,6 +312,7 @@ void ULootLockerMetadataRequestHandler::ListMetadata(const FLootLockerPlayerData
 	if (_SourceID.IsEmpty())
 	{
 		FLootLockerListMetadataResponse Error = LootLockerResponseFactory::Error<FLootLockerListMetadataResponse>("Can not list metadata for source with empty id", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, PlayerData.PlayerUlid);
+        FLootLockerLogger::LogHttpRequest(Error, ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(ULootLockerGameEndpoints::ListMetadata.requestMethod)), ULootLockerGameEndpoints::ListMetadata.endpoint, "No Data", "No Headers");
 		OnCompleteBP.ExecuteIfBound(Error);
 		OnComplete.ExecuteIfBound(Error);
 		return;
@@ -394,6 +396,7 @@ void ULootLockerMetadataRequestHandler::GetMetadata(const FLootLockerPlayerData&
 	if (_SourceID.IsEmpty())
 	{
 		FLootLockerGetMetadataResponse Error = LootLockerResponseFactory::Error<FLootLockerGetMetadataResponse>("Can not list metadata for source with empty id", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, PlayerData.PlayerUlid);
+        FLootLockerLogger::LogHttpRequest(Error, ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(ULootLockerGameEndpoints::ListMetadata.requestMethod)), ULootLockerGameEndpoints::ListMetadata.endpoint, "No Data", "No Headers");
 		OnCompleteBP.ExecuteIfBound(Error);
 		OnComplete.ExecuteIfBound(Error);
 		return;
@@ -443,6 +446,7 @@ void ULootLockerMetadataRequestHandler::GetMultisourceMetadata(const FLootLocker
 			{
 				FLootLockerGetMultisourceMetadataResponse Error = LootLockerResponseFactory::Error<
 					FLootLockerGetMultisourceMetadataResponse>("Could not parse metadata array", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_PARSE_ERROR, PlayerData.PlayerUlid);
+        		FLootLockerLogger::LogHttpRequest(Error, ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(ULootLockerGameEndpoints::GetMultisourceMetadata.requestMethod)), ULootLockerGameEndpoints::GetMultisourceMetadata.endpoint, "No Data", "No Headers");
 				OnCompleteBP.ExecuteIfBound(Error);
 				OnComplete.ExecuteIfBound(Error);
 				return;
@@ -461,6 +465,7 @@ void ULootLockerMetadataRequestHandler::GetMultisourceMetadata(const FLootLocker
 				{
 					FLootLockerGetMultisourceMetadataResponse Error = LootLockerResponseFactory::Error<
 						FLootLockerGetMultisourceMetadataResponse>("Could not parse metadata entry array for metadata with source id " + Metadata.Source_id, LootLockerStaticRequestErrorStatusCodes::LL_ERROR_PARSE_ERROR, PlayerData.PlayerUlid);
+        			FLootLockerLogger::LogHttpRequest(Error, ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(ULootLockerGameEndpoints::GetMultisourceMetadata.requestMethod)), ULootLockerGameEndpoints::GetMultisourceMetadata.endpoint, "No Data", "No Headers");
 					OnCompleteBP.ExecuteIfBound(Error);
 					OnComplete.ExecuteIfBound(Error);
 					return;
@@ -500,6 +505,7 @@ void ULootLockerMetadataRequestHandler::SetMetadata(const FLootLockerPlayerData&
 	if (Source != ELootLockerMetadataSources::self && SourceID.IsEmpty())
 	{
         FLootLockerSetMetadataResponse Error = LootLockerResponseFactory::Error<FLootLockerSetMetadataResponse>("Can not perform actions for source with empty id", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, PlayerData.PlayerUlid);
+        FLootLockerLogger::LogHttpRequest(Error, ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(ULootLockerGameEndpoints::MetadataActions.requestMethod)), ULootLockerGameEndpoints::MetadataActions.endpoint, "No Data", "No Headers");
 		OnCompleteBP.ExecuteIfBound(Error);
 		OnComplete.ExecuteIfBound(Error);
 		return;
@@ -529,6 +535,7 @@ void ULootLockerMetadataRequestHandler::SetMetadata(const FLootLockerPlayerData&
 		{
 			FLootLockerSetMetadataResponse Error = LootLockerResponseFactory::Error<
 				FLootLockerSetMetadataResponse>("Could not serialize action for key " + ActionToPerform.Entry.Key, LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, PlayerData.PlayerUlid);
+        	FLootLockerLogger::LogHttpRequest(Error, ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(ULootLockerGameEndpoints::MetadataActions.requestMethod)), ULootLockerGameEndpoints::MetadataActions.endpoint, "No Data", "No Headers");
 			OnCompleteBP.ExecuteIfBound(Error);
 			OnComplete.ExecuteIfBound(Error);
 			return;
@@ -552,6 +559,7 @@ void ULootLockerMetadataRequestHandler::SetMetadata(const FLootLockerPlayerData&
 		{
 			FLootLockerSetMetadataResponse Error = LootLockerResponseFactory::Error<
 				FLootLockerSetMetadataResponse>("Could not get value to perform action " + JsonEntry->GetStringField(TEXT("action")) + " for key " + ActionToPerform.Entry.Key, LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, PlayerData.PlayerUlid);
+        	FLootLockerLogger::LogHttpRequest(Error, ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(ULootLockerGameEndpoints::MetadataActions.requestMethod)), ULootLockerGameEndpoints::MetadataActions.endpoint, "No Data", "No Headers");
 			OnCompleteBP.ExecuteIfBound(Error);
 			OnComplete.ExecuteIfBound(Error);
 			return;

@@ -1,31 +1,33 @@
-// Copyright (c) 2025 LootLocker
 #include "LootLockerLogViewerWidget.h"
-#include "Widgets/Input/SSearchBox.h"
-#include "Widgets/Views/SListView.h"
-#include "Widgets/Text/STextBlock.h"
-#include "Widgets/Layout/SBox.h"
-#include "Widgets/Layout/SBorder.h"
-#include "Widgets/Input/SComboBox.h"
-#include "Widgets/Input/SButton.h"
-#include "Widgets/Input/SCheckBox.h"
+
 #include "Editor.h"
 #include "Editor/EditorEngine.h"
-#include "LootLockerLogger.h"
-#include "LootLockerLogLevel.h"
-#include "Widgets/Input/SHyperlink.h"
+#include "Framework/Application/SlateApplication.h"
 #include "HttpModule.h"
 #include "Interfaces/IHttpRequest.h"
 #include "Interfaces/IHttpResponse.h"
+#include "LootLockerLogger.h"
+#include "LootLockerLogLevel.h"
+#include "LootLockerErrorData.h"
+#include "LootLockerRequestContext.h"
 #include "Widgets/Images/SImage.h"
-#include "Widgets/Layout/SSeparator.h"
-#include "Widgets/Layout/SWidgetSwitcher.h"
+#include "Widgets/Input/SButton.h"
+#include "Widgets/Input/SCheckBox.h"
+#include "Widgets/Input/SComboBox.h"
+#include "Widgets/Input/SHyperlink.h"
+#include "Widgets/Input/SMultiLineEditableTextBox.h"
+#include "Widgets/Input/SSearchBox.h"
+#include "Widgets/Layout/SBorder.h"
+#include "Widgets/Layout/SBox.h"
 #include "Widgets/Layout/SExpandableArea.h"
 #include "Widgets/Layout/SScrollBox.h"
+#include "Widgets/Layout/SSeparator.h"
+#include "Widgets/Layout/SWidgetSwitcher.h"
 #include "Widgets/SBoxPanel.h"
-#include "Framework/Application/SlateApplication.h"
 #include "Widgets/SWindow.h"
 #include "Widgets/Text/SRichTextBlock.h"
-#include "Widgets/Input/SMultiLineEditableTextBox.h"
+#include "Widgets/Text/STextBlock.h"
+#include "Widgets/Views/SListView.h"
 
 void SLootLockerLogViewerWidget::Construct(const FArguments& InArgs)
 {
@@ -94,14 +96,17 @@ void SLootLockerLogViewerWidget::AddHttpLogEntry(const FLootLockerHttpLogEntry& 
     Entry->HttpMethod = HttpEntry.Method;
     Entry->RequestPath = HttpEntry.Path;
     Entry->StatusCode = HttpEntry.StatusCode;
-    Entry->Duration = FString::Printf(TEXT("%.6f"), HttpEntry.Duration);
+    Entry->Duration = FString::Printf(TEXT("%.3fs"), HttpEntry.Duration);
     Entry->Timestamp = HttpEntry.Timestamp;
     Entry->Level = HttpEntry.bSuccess ? ELootLockerLogLevel::Log : ELootLockerLogLevel::Error;
-    Entry->Message = FString::Printf(TEXT("Request Data: %s\nResponse Data: %s\nRequest Headers: %s"),
+    Entry->ForPlayerWithUlid = HttpEntry.RequestContext.PlayerUlid.IsEmpty() ? TEXT("N/A") : HttpEntry.RequestContext.PlayerUlid;
+    Entry->Message = FString::Printf(TEXT("Request made for player with ULID: %s\nRequest Data: %s\nResponse Data: %s\nRequest Headers: %s"),
+        *Entry->ForPlayerWithUlid,
         *HttpEntry.RequestData,
         *HttpEntry.ResponseData,
         *HttpEntry.RequestHeaders);
     Entry->ErrorDocUrl = HttpEntry.ErrorData.Doc_url;
+    Entry->ForPlayerWithUlid = HttpEntry.RequestContext.PlayerUlid.IsEmpty() ? TEXT("N/A") : HttpEntry.RequestContext.PlayerUlid;
     // Build summary
     if (!HttpEntry.bSuccess)
     {
@@ -122,7 +127,7 @@ void SLootLockerLogViewerWidget::AddHttpLogEntry(const FLootLockerHttpLogEntry& 
         {
             ErrorSummary = TEXT("\nRequest failed");
         }
-        Entry->Summary = FString::Printf(TEXT("%s %s  Status: %d%s"), *Entry->HttpMethod, *Entry->RequestPath, Entry->StatusCode, *ErrorSummary);
+        Entry->Summary = FString::Printf(TEXT("%s %s Response code: %d %s"), *Entry->HttpMethod, *Entry->RequestPath, Entry->StatusCode, *ErrorSummary);
     }
     else
     {

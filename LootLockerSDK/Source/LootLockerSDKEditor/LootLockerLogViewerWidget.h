@@ -24,10 +24,9 @@ struct FLootLockerLogEntry
     FString HttpMethod;
     int32 StatusCode = -1;
     FString Summary;
-    FString Duration; // Add duration as a field for display in expanded body
-    // For expansion state in the UI (future use)
+    FString Duration;
+    FString ForPlayerWithUlid;
     bool bIsExpanded = false;
-    // Doc URL for error details (optional)
     FString ErrorDocUrl;
 };
 

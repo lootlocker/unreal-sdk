@@ -109,6 +109,25 @@ void FLootLockerLogger::WriteToFile(const FString& Message)
 FLootLockerOnLogMessage FLootLockerLogger::OnLogMessage;
 FLootLockerOnHttpLogEntry FLootLockerLogger::OnHttpLogEntry;
 
+void FLootLockerLogger::LogHttpRequest(const FLootLockerResponse& Response, const FString& RequestMethod, const FString& RequestPath, const FString& RequestData, const FString& AllHeadersDelimited)
+{
+    FLootLockerHttpLogEntry Entry;
+    Entry.Method = RequestMethod;
+    Entry.Path = RequestPath;
+    Entry.StatusCode = Response.StatusCode;
+    FDateTime requestTime;
+    FDateTime::Parse(Response.Context.RequestTime, requestTime);
+    Entry.Duration = (FDateTime::Now() - requestTime).GetTotalSeconds();
+    Entry.RequestData = RequestData;
+    Entry.ResponseData = Response.FullTextFromServer;
+    Entry.RequestHeaders = AllHeadersDelimited;
+    Entry.bSuccess = Response.success;
+    Entry.Timestamp = FDateTime::Now();
+    Entry.ErrorData = Response.ErrorData;
+    Entry.RequestContext = Response.Context;
+    FLootLockerLogger::LogHttpRequest(Entry);
+}
+
 void FLootLockerLogger::LogHttpRequest(const FLootLockerHttpLogEntry& Entry)
 {
     FString LogLine = FString::Printf(TEXT("%s request to %s %s in %.6fs\n   HTTP Status code : %d"),
@@ -133,6 +152,10 @@ void FLootLockerLogger::LogHttpRequest(const FLootLockerHttpLogEntry& Entry)
         LogLine += FString::Printf(TEXT("\n   Request ID: %s"), *Entry.ErrorData.Request_id);
     if (!Entry.ErrorData.Trace_id.IsEmpty())
         LogLine += FString::Printf(TEXT("\n   Trace ID: %s"), *Entry.ErrorData.Trace_id);
+    if (!Entry.RequestContext.PlayerUlid.IsEmpty())
+        LogLine += FString::Printf(TEXT("\n   For Player ULID: %s"), *Entry.RequestContext.PlayerUlid);
+    if (!Entry.RequestContext.RequestTime.IsEmpty())
+        LogLine += FString::Printf(TEXT("\n   Request Time: %s"), *Entry.RequestContext.RequestTime);
     LogLine += TEXT("\n###");
     // Log to file/console at appropriate level
     Log( LogLine, Entry.bSuccess ? ELootLockerLogLevel::Log : ELootLockerLogLevel::Error );
