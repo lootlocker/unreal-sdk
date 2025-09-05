@@ -41,18 +41,18 @@ struct FLootLockerFriend
 
 
 /**
- * Represents a single friend with online status
+ * Represents a single friend
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
-struct FLootLockerFriendWithOnlineStatus : public FLootLockerFriend
+struct FLootLockerAcceptedFriend : public FLootLockerFriend
 {
     GENERATED_BODY()
 
     /**
      * The online status of the player
      */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool Online = false;
+    //UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    //bool Online = false;
     /**
      * The creation date of the player
      */
@@ -95,7 +95,7 @@ struct FLootLockerListFriendsResponse : public FLootLockerResponse
     GENERATED_BODY()
 
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerFriendWithOnlineStatus> Friends;
+    TArray<FLootLockerAcceptedFriend> Friends;
 };
 
 /**
