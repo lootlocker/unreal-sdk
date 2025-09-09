@@ -1112,6 +1112,21 @@ void ULootLockerManager::SubmitScore(const FString& ForPlayerWithUlid, FString M
     ULootLockerLeaderboardRequestHandler::SubmitScore(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), SubmitScoreRequest, LeaderboardKey, OnCompletedRequestBP);
 }
 
+void ULootLockerManager::QueryScore(const FString LeaderboardKey, const int Score, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP, const FString& ForPlayerWithUlid /* = "" */)
+{
+    FLootLockerQueryScoreRequest QueryScoreRequest;
+    QueryScoreRequest.score = Score;
+    ULootLockerLeaderboardRequestHandler::QueryScore(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), QueryScoreRequest, LeaderboardKey, OnCompletedRequestBP);
+}
+
+void ULootLockerManager::IncrementScore(FString MemberId, const FString LeaderboardKey, const int Amount, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP, const FString& ForPlayerWithUlid /* = "" */)
+{
+    FLootLockerIncrementScoreRequest IncrementScoreRequest;
+    IncrementScoreRequest.member_id = MemberId;
+    IncrementScoreRequest.amount = Amount;
+    ULootLockerLeaderboardRequestHandler::IncrementScore(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), IncrementScoreRequest, LeaderboardKey, OnCompletedRequestBP);
+}
+
 void ULootLockerManager::ListLeaderboardArchive(const FString& ForPlayerWithUlid, const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP)
 {
     ULootLockerLeaderboardArchiveRequestHandler::ListLeaderboardArchive(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), LeaderboardKey, OnCompletedRequestBP);
