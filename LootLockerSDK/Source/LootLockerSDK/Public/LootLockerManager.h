@@ -2542,6 +2542,29 @@ public:
     static void SubmitScore(const FString& ForPlayerWithUlid, FString MemberId, FString LeaderboardKey, int Score, FString Metadata, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP);
 
     /**
+     * Query a leaderboard for which rank a specific score would achieve. Does not submit the score but returns the projected rank.
+     *
+     * @param LeaderboardKey The key of the leaderboard you need to connect to.
+     * @param Score The score to use for the query.
+     * @param OnCompletedRequestBP Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static void QueryScore(const FString LeaderboardKey, const int Score, const FLootLockerSubmitScoreResponseBP & OnCompletedRequestBP, const FString& ForPlayerWithUlid = "");
+
+    /**
+     * Increment an existing score on a leaderboard by the given amount.
+     *
+     * @param MemberId Can be left blank if it is a player leaderboard, otherwise this is the identifier you wish to use for this score
+     * @param LeaderboardKey The key of the leaderboard you need to connect to.
+     * @param Amount The amount with which to increment the current score on the given leaderboard (can be positive or negative)
+     * @param OnCompletedRequestBP Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static void IncrementScore(FString MemberId, const FString LeaderboardKey, const int Amount, const FLootLockerSubmitScoreResponseBP & OnCompletedRequestBP, const FString& ForPlayerWithUlid = "");
+
+    /**
     * List the archive of a specific Leaderboard,
     *
     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.

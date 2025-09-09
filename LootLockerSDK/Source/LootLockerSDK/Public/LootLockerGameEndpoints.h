@@ -254,6 +254,8 @@ public:
     static FLootLockerEndPoints GetScoreList;
     static FLootLockerEndPoints GetScoreListAfter;
     static FLootLockerEndPoints SubmitScore;
+    static FLootLockerEndPoints QueryScore;
+    static FLootLockerEndPoints IncrementScore;
     static FLootLockerEndPoints GetAllMemberRanks;
     static FLootLockerEndPoints ListLeaderboardArchive;
     static FLootLockerEndPoints GetLeaderboardArchive;

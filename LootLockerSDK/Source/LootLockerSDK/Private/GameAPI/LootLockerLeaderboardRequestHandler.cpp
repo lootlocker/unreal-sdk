@@ -41,6 +41,16 @@ void ULootLockerLeaderboardRequestHandler::SubmitScore(const FLootLockerPlayerDa
 	LLAPI<FLootLockerSubmitScoreResponse>::CallAPI(HttpClient, SubmitScoreRequests, ULootLockerGameEndpoints::SubmitScore, { LeaderboardKey }, EmptyQueryParams, PlayerData, OnCompletedRequestBP, OnCompletedRequest);
 }
 
+void ULootLockerLeaderboardRequestHandler::QueryScore(const FLootLockerPlayerData& PlayerData, const FLootLockerQueryScoreRequest& QueryScoreRequests, FString LeaderboardKey, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP, const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest)
+{
+	LLAPI<FLootLockerSubmitScoreResponse>::CallAPI(HttpClient, QueryScoreRequests, ULootLockerGameEndpoints::QueryScore, { LeaderboardKey }, EmptyQueryParams, PlayerData, OnCompletedRequestBP, OnCompletedRequest);
+}
+
+void ULootLockerLeaderboardRequestHandler::IncrementScore(const FLootLockerPlayerData& PlayerData, const FLootLockerIncrementScoreRequest& IncrementScoreRequest, FString LeaderboardKey, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP, const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest)
+{
+	LLAPI<FLootLockerSubmitScoreResponse>::CallAPI(HttpClient, IncrementScoreRequest, ULootLockerGameEndpoints::IncrementScore, { LeaderboardKey }, EmptyQueryParams, PlayerData, OnCompletedRequestBP, OnCompletedRequest);
+}
+
 void ULootLockerLeaderboardRequestHandler::GetAllMemberRanks(const FLootLockerPlayerData& PlayerData, const FLootLockerGetAllMemberRanksRequest& GetAllMemberRanksRequests, const FLootLockerGetAllMemberRanksResponseBP& OnCompletedRequestBP, const FLootLockerGetAllMemberRanksResponseDelegate& OnCompletedRequest)
 {
 	TMultiMap<FString, FString> QueryParams;

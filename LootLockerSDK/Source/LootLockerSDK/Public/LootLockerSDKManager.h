@@ -2484,6 +2484,27 @@ public:
     static void SubmitScore(FString MemberId, const FString LeaderboardKey, const int Score, FString Metadata, const FLootLockerSubmitScoreResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     /**
+     * Query a leaderboard for which rank a specific score would achieve. Does not submit the score but returns the projected rank.
+     *
+     * @param LeaderboardKey The key of the leaderboard you need to connect to.
+     * @param Score The score to use for the query.
+     * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     */
+    static void QueryScore(const FString LeaderboardKey, const int Score, const FLootLockerSubmitScoreResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     * Increment an existing score on a leaderboard by the given amount.
+     *
+     * @param MemberId Can be left blank if it is a player leaderboard, otherwise this is the identifier you wish to use for this score
+     * @param LeaderboardKey The key of the leaderboard you need to connect to.
+     * @param Amount The amount with which to increment the current score on the given leaderboard (can be positive or negative)
+     * @param OnCompletedRequest Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     */
+    static void IncrementScore(FString MemberId, const FString LeaderboardKey, const int Amount, const FLootLockerSubmitScoreResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
      * Get all leaderboards with member information on the ones the member is on, with rank and score, as well as player information if the leaderboard is of type player.
      * If metadata is enabled for the leaderboard, that will be returned in the response.
      * https://ref.lootlocker.com/game-api/#get-all-member-ranks
