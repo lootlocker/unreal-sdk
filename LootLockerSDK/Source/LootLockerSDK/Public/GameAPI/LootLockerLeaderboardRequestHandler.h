@@ -514,6 +514,24 @@ struct FLootLockerSubmitScoreRequest
 };
 
 USTRUCT(BlueprintType)
+struct FLootLockerQueryScoreRequest
+{
+    GENERATED_BODY()
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int score = 0;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerIncrementScoreRequest
+{
+    GENERATED_BODY()
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString member_id;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int amount = 0;
+};
+
+USTRUCT(BlueprintType)
 struct FLootLockerGetMemberRankRequest
 {
     GENERATED_BODY()
@@ -598,6 +616,8 @@ public:
     static void GetByListOfMembers(const FLootLockerPlayerData& PlayerData, const FLootLockerGetByListMembersRequest& GetScoreByListRequests, FString LeaderboardKey, const FLootLockerGetByListOfMembersResponseBP& OnCompletedRequestBP = FLootLockerGetByListOfMembersResponseBP(), const FLootLockerGetByListOfMembersResponseDelegate& OnCompletedRequest = FLootLockerGetByListOfMembersResponseDelegate());
     static void GetScoreList(const FLootLockerPlayerData& PlayerData, const FLootLockerGetScoreListRequest& GetScoreListRequests, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP = FLootLockerGetScoreListResponseBP(), const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest = FLootLockerGetScoreListResponseDelegate());
     static void SubmitScore(const FLootLockerPlayerData& PlayerData, const FLootLockerSubmitScoreRequest& SubmitScoreRequests, FString LeaderboardKey, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP = FLootLockerSubmitScoreResponseBP(), const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest = FLootLockerSubmitScoreResponseDelegate());
+    static void QueryScore(const FLootLockerPlayerData& PlayerData, const FLootLockerQueryScoreRequest& QueryScoreRequests, FString LeaderboardKey, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP = FLootLockerSubmitScoreResponseBP(), const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest = FLootLockerSubmitScoreResponseDelegate());
+    static void IncrementScore(const FLootLockerPlayerData& PlayerData, const FLootLockerIncrementScoreRequest& IncrementScoreRequests, FString LeaderboardKey, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP = FLootLockerSubmitScoreResponseBP(), const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest = FLootLockerSubmitScoreResponseDelegate());
     static void GetAllMemberRanks(const FLootLockerPlayerData& PlayerData, const FLootLockerGetAllMemberRanksRequest& GetAllMemberRanksRequests, const FLootLockerGetAllMemberRanksResponseBP& OnCompletedRequestBP = FLootLockerGetAllMemberRanksResponseBP(), const FLootLockerGetAllMemberRanksResponseDelegate& OnCompletedRequest = FLootLockerGetAllMemberRanksResponseDelegate());
     static void GetLeaderboardDetails(const FLootLockerPlayerData& PlayerData, const FString& LeaderboardKey, const FLootLockerLeaderboardDetailsResponseBP& OnCompletedRequestBP = FLootLockerLeaderboardDetailsResponseBP(), const FLootLockerLeaderboardDetailsResponseDelegate& OnCompletedRequest = FLootLockerLeaderboardDetailsResponseDelegate());
 public:
