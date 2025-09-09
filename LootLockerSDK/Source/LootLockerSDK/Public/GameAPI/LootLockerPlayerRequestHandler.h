@@ -20,6 +20,11 @@ struct FLootLockerPlayerInfo
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
 	FString Created_at = "";
 	/**
+	When this player was last seen (last time this player logged in)
+	*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+	FString Last_seen = "";
+	/**
 	The name of the player expressly configured through a SetPlayerName call
 	*/
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")

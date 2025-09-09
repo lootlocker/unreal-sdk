@@ -64,6 +64,8 @@ struct FLootLockerLoginResponse : public FLootLockerAuthResponse
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login Response")
 	FString created_at;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login Response")
+	FString last_seen;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login Response")
 	FString updated_at;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login Response")
 	FString deleted_at;
