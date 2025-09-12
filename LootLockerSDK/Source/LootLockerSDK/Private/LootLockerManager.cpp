@@ -550,6 +550,11 @@ void ULootLockerManager::CreateCharacter(const FString& ForPlayerWithUlid, bool 
     ULootLockerCharacterRequestHandler::CreateCharacter(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), IsDefault, CharacterName, CharacterTypeId, OnCompletedRequestBP);
 }
 
+void ULootLockerManager::DeleteCharacter(const FString& ForPlayerWithUlid, int CharacterId, const FPCharacterDefaultResponseBP& OnCompletedRequestBP)
+{
+    ULootLockerCharacterRequestHandler::DeleteCharacter(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CharacterId, OnCompletedRequestBP);
+}
+
 void ULootLockerManager::ListCharacterTypes(const FString& ForPlayerWithUlid, const FPLootLockerListCharacterTypesResponseBP& OnCompletedRequestBP)
 {
     ULootLockerCharacterRequestHandler::ListCharacterTypes(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequestBP);

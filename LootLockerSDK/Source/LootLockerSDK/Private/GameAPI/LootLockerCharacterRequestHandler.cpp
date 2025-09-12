@@ -37,6 +37,11 @@ void ULootLockerCharacterRequestHandler::CreateCharacter(const FLootLockerPlayer
 	LLAPI<FLootLockerCharacterLoadoutResponse>::CallAPI(HttpClient, characterRequest, ULootLockerGameEndpoints::CreateCharacterEndpoint, { }, EmptyQueryParams, PlayerData, OnCompletedRequestBP, OnCompletedRequest);
 }
 
+void ULootLockerCharacterRequestHandler::DeleteCharacter(const FLootLockerPlayerData& PlayerData, int CharacterId, const FPCharacterDefaultResponseBP& OnCompletedRequestBP, const FLootLockerCharacterDefaultResponse& OnCompletedRequest)
+{
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteCharacterEndpoint, { CharacterId }, EmptyQueryParams, PlayerData, OnCompletedRequestBP, OnCompletedRequest);
+}
+
 void ULootLockerCharacterRequestHandler::ListCharacterTypes(const FLootLockerPlayerData& PlayerData, const FPLootLockerListCharacterTypesResponseBP& OnCompletedRequestBP, const FPLootLockerListCharacterTypesResponse& OnCompletedRequest)
 {
 	LLAPI<FLootLockerListCharacterTypesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ListCharacterTypesByIdEndpoint, { }, EmptyQueryParams, PlayerData, OnCompletedRequestBP, OnCompletedRequest);

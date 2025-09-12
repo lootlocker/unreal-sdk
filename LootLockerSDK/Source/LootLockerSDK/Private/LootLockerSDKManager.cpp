@@ -592,6 +592,11 @@ void ULootLockerSDKManager::CreateCharacter(bool IsDefault, const FString& Chara
     ULootLockerCharacterRequestHandler::CreateCharacter(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), IsDefault, CharacterName, CharacterTypeId, FPCharacterLoadoutResponseBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::DeleteCharacter(int CharacterId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    ULootLockerCharacterRequestHandler::DeleteCharacter(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CharacterId, FPCharacterDefaultResponseBP(), OnCompletedRequest);
+}
+
 void ULootLockerSDKManager::ListCharacterTypes(const FPLootLockerListCharacterTypesResponse& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
     ULootLockerCharacterRequestHandler::ListCharacterTypes(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FPLootLockerListCharacterTypesResponseBP(), OnCompletedRequest);
