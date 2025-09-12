@@ -1221,6 +1221,16 @@ public:
     static void CreateCharacter(const FString& ForPlayerWithUlid, bool IsDefault, FString CharacterName, FString CharacterTypeId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP);
 
     /**
+     * Delete the character with the specified instance id.
+     *
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     * @param CharacterId The ID of the character to delete.
+     * @param OnCompletedRequestBP Delegate for handling the server response.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static void DeleteCharacter(const FString& ForPlayerWithUlid, int CharacterId, const FPCharacterDefaultResponseBP& OnCompletedRequestBP);
+
+    /**
      * Call this endpoint to list the character types configured for your game.
      * https://ref.lootlocker.com/game-api/#list-character-types
      *
@@ -1229,7 +1239,6 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ListCharacterTypes(const FString& ForPlayerWithUlid, const FPLootLockerListCharacterTypesResponseBP& OnCompletedRequestBP);
-
 
     /**
     * Get list of Characters to a player
