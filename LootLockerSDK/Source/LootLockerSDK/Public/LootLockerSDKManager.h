@@ -1228,6 +1228,7 @@ public:
      * This action is currently irreversible.
      * When deleting a hero, the heroes inventory is returned to the player, and their loadout is reset.
      * https://ref.lootlocker.com/game-api/#deleting-a-hero
+
      *
      * @param HeroID Id of the hero
      * @param OnCompletedRequest Delegate for handling the response
@@ -2303,8 +2304,8 @@ public:
      @param OfType (Optional) Return only notifications with the specified type
      @param WithSource (Optional) Return only notifications with the specified source
      @param CustomNotificationsFilter (Optional) Whether to filter for custom, non custom, or all notifications
-     @param PerPage (Optional) Used together with PerPage to apply pagination to this request. Page designates which "page" of items to fetch
-     @param Page (Optional) Used together with Page to apply pagination to this request. PerPage designates how many notifications are considered a "page"
+     @param PerPage (Optional) Used together with Page to apply pagination to this request. Page designates which "page" of items to fetch
+     @param Page (Optional) Used together with PerPage to apply pagination to this request. PerPage designates how many notifications are considered a "page". Set to 0 to not use this filter.
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
@@ -2318,8 +2319,8 @@ public:
      @param OfType (Optional) Return only notifications with the specified type
      @param WithSource (Optional) Return only notifications with the specified source
      @param CustomNotificationsFilter (Optional) Whether to filter for custom, non custom, or all notifications
-     @param PerPage (Optional) Used together with PerPage to apply pagination to this request. Page designates which "page" of items to fetch
-     @param Page (Optional) Used together with Page to apply pagination to this request. PerPage designates how many notifications are considered a "page"
+     @param PerPage (Optional) Used together with Page to apply pagination to this request. Page designates which "page" of items to fetch
+     @param Page (Optional) Used together with PerPage to apply pagination to this request. PerPage designates how many notifications are considered a "page". Set to 0 to not use this filter.
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
@@ -2449,7 +2450,7 @@ public:
      * Get rank for a set of members for a leaderboard. If leaderboard is of type player a player will also be in the response.
      * https://ref.lootlocker.com/game-api/#get-by-list-of-members
      *
-     * @param Members The ids of all leaderboard members you want to get info on.
+     * @param Members The ids of all leaderboard members that you want to get info on.
      * @param LeaderboardKey the key of the leaderboard you need to connect to.
      * @param OnCompletedRequest Delegate for handling the server response
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -2944,6 +2945,27 @@ public:
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      */
     static void ListFollowers(const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+    
+    /**
+     * List followers for the requesting player.
+     * 
+     * @param Cursor Optional: A cursor string returned from a previous paginated request (use empty string for first page).
+     * @param Count Optional: Number of items to request per page (if 0 or negative the server default is used).
+     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void ListFollowersPaginated(const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+    
+    /**
+     * List followers for a specific player by public UID using cursor-based pagination.
+     * 
+     * @param PlayerPublicId The public UID of the player whose followers to fetch.
+     * @param Cursor Optional: A cursor string returned from a previous paginated request (use empty string for first page).
+     * @param Count Optional: Number of items to request per page (if 0 or negative the server default is used).
+     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void ListFollowersPaginated(const FString& PlayerPublicId, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
     /**
      * List players that a specific player is following by public UID.
@@ -2961,6 +2983,25 @@ public:
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      */
     static void ListFollowing(const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+    /**
+     * List players that the requesting player is following using cursor-based pagination.
+     *
+     * @param Cursor Optional: A cursor string returned from a previous paginated request (use empty string for first page).
+     * @param Count Optional: Number of items to request per page (if 0 or negative the server default is used).
+     * @param OnResponseCompleted Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void ListFollowingPaginated(const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+    /**
+     * List players that a specific player is following using cursor-based pagination.
+     *
+     * @param PlayerPublicId The public UID of the player whose following list to fetch.
+     * @param Cursor Optional: A cursor string returned from a previous paginated request (use empty string for first page).
+     * @param Count Optional: Number of items to request per page (if 0 or negative the server default is used).
+     * @param OnResponseCompleted Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void ListFollowingPaginated(const FString& PlayerPublicId, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
     /**
      * Follow a player by public UID.
@@ -2985,96 +3026,141 @@ public:
     //==================================================
 
     /** 
-     * List friends for the specified player
+     * List friends for the specified (or default) player.
      *
-     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param OnResponseCompleted Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      */
     static void ListFriends(const FLootLockerListFriendsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+    /**
+     * List friends for the specified (or default) player with page-based pagination.
+     *
+     * @param Page Optional: 1-based page index. If <= 0 the server default (page 1) is used.
+     * @param PerPage Optional: Number of items per page. If <= 0 the server default is used.
+     * @param OnResponseCompleted Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void ListFriendsPaginated(int32 Page, int32 PerPage, const FLootLockerListFriendsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
     /**
-     * List incoming friend requests for the specified player
+     * List incoming friend requests for the specified (or default) player.
      *
-     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param OnResponseCompleted Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      */
     static void ListIncomingFriendRequests(const FLootLockerListIncomingFriendRequestsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+    /**
+     * List incoming friend requests with page-based pagination.
+     *
+     * @param Page Optional: 1-based page index. If <= 0 the server default (page 1) is used.
+     * @param PerPage Optional: Number of items per page. If <= 0 the server default is used.
+     * @param OnResponseCompleted Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void ListIncomingFriendRequestsPaginated(int32 Page, int32 PerPage, const FLootLockerListIncomingFriendRequestsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
     /**
-     * List outgoing friend requests for the specified player
+     * List outgoing friend requests for the specified (or default) player.
      *
-     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param OnResponseCompleted Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      */
     static void ListOutgoingFriendRequests(const FLootLockerListOutgoingFriendRequestsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+    /**
+     * List outgoing friend requests with page-based pagination.
+     *
+     * @param Page Optional: 1-based page index. If <= 0 the server default (page 1) is used.
+     * @param PerPage Optional: Number of items per page. If <= 0 the server default is used.
+     * @param OnResponseCompleted Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void ListOutgoingFriendRequestsPaginated(int32 Page, int32 PerPage, const FLootLockerListOutgoingFriendRequestsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
     /**
-     * Send a friend request to another player
+     * Send a friend request to another player.
      *
-     * @param PlayerULID The ULID of the player to send the friend request to
-     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param PlayerULID The ULID of the player to send the friend request to.
+     * @param OnResponseCompleted Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      */
     static void SendFriendRequest(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
     /**
-     * Delete a friend
+     * Delete a friend (remove from both players' friend lists if applicable).
      *
-     * @param PlayerULID The ULID of the player to delete
-     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param PlayerULID The ULID of the player to delete.
+     * @param OnResponseCompleted Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      */
     static void DeleteFriend(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
     /**
-     * Cancel outgoing friend request
+     * Cancel an outgoing friend request previously sent to a player.
      * 
-     * @param PlayerULID The ULID of the player to cancel the friend request for
-     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param PlayerULID The ULID of the player whose friend request should be cancelled.
+     * @param OnResponseCompleted Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      */
     static void CancelOutgoingFriendRequest(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
     /**
-     * Accept incoming friend request
+     * Accept an incoming friend request from another player.
      * 
-     * @param PlayerULID The ULID of the player to accept the friend request from
-     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param PlayerULID The ULID of the player whose friend request is being accepted.
+     * @param OnResponseCompleted Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      */
     static void AcceptIncomingFriendRequest(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
     /**
-     * Decline incoming friend request
+     * Decline an incoming friend request from another player.
      *
-     * @param PlayerULID The ULID of the player to decline the friend request from
-     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param PlayerULID The ULID of the player whose friend request is being declined.
+     * @param OnResponseCompleted Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      */
     static void DeclineIncomingFriendRequest(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
     /**
-     * List blocked players
+     * List blocked players for the specified (or default) player.
      * 
-     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param OnResponseCompleted Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      */
     static void ListBlockedPlayers(const FLootLockerListBlockedPlayersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+    /**
+     * List blocked players with page-based pagination.
+     *
+     * @param Page Optional: 1-based page index. If <= 0 the server default (page 1) is used.
+     * @param PerPage Optional: Number of items per page. If <= 0 the server default is used.
+     * @param OnResponseCompleted Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void ListBlockedPlayersPaginated(int32 Page, int32 PerPage, const FLootLockerListBlockedPlayersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
     /**
-     * Block a player
+     * Retrieve information about a specific friend relationship / friend player.
      *
-     * @param PlayerULID The ULID of the player to block
-     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param FriendUlid The ULID of the friend to fetch.
+     * @param OnResponseCompleted Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void GetFriend(const FString& FriendUlid, const FLootLockerGetFriendResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+
+    /**
+     * Block a player (prevents further friend interactions and hides presence depending on backend rules).
+     *
+     * @param PlayerULID The ULID of the player to block.
+     * @param OnResponseCompleted Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      */
     static void BlockPlayer(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
     /**
-     * Unblock a player
+     * Unblock a previously blocked player.
      *
-     * @param PlayerULID The ULID of the player to unblock
-     * @param OnResponseCompleted Delegate for handling the the server response.
+     * @param PlayerULID The ULID of the player to unblock.
+     * @param OnResponseCompleted Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      */
     static void UnblockPlayer(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");

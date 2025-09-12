@@ -96,6 +96,9 @@ struct FLootLockerListFriendsResponse : public FLootLockerResponse
 
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerAcceptedFriend> Friends;
+    /** Pagination info */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerExtendedIndexBasedPagination Pagination;
 };
 
 /**
@@ -108,6 +111,9 @@ struct FLootLockerListIncomingFriendRequestsResponse : public FLootLockerRespons
 
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerFriend> Incoming;
+    /** Pagination info */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerExtendedIndexBasedPagination Pagination;
 };
 
 /**
@@ -120,6 +126,9 @@ struct FLootLockerListOutgoingFriendRequestsResponse : public FLootLockerRespons
 
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerFriend> Outgoing;
+    /** Pagination info */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerExtendedIndexBasedPagination Pagination;
 };
 
 USTRUCT(BlueprintType, Category = "LootLocker")
@@ -135,6 +144,32 @@ struct FLootLockerListBlockedPlayersResponse : public FLootLockerResponse
 
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerBlockedPlayer> Blocked;
+    /** Pagination info */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerExtendedIndexBasedPagination Pagination;
+};
+
+/** Response struct for getting a single friend */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerGetFriendResponse : public FLootLockerResponse
+{
+    GENERATED_BODY()
+
+    /** The id of the player */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Player_id;
+    /** The name of the player */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Player_name;
+    /** The public uid of the player */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Public_uid;
+    /** When the player's account was created */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Created_at;
+    /** When the friend request was accepted */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Accepted_at;
 };
 
 
@@ -153,6 +188,8 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListOutgoingFriendRequestsResponseB
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerFriendActionResponseBP, FLootLockerFriendActionResponse, Response);
 /** Blueprint response delegate for listing blocked players */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListBlockedPlayersResponseBP, FLootLockerListBlockedPlayersResponse, Response);
+/** Blueprint response delegate for getting a friend */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetFriendResponseBP, FLootLockerGetFriendResponse, Response);
 
 //==================================================
 // C++ Delegate Definitions
@@ -169,6 +206,8 @@ DECLARE_DELEGATE_OneParam(FLootLockerListOutgoingFriendRequestsResponseDelegate,
 DECLARE_DELEGATE_OneParam(FLootLockerFriendActionResponseDelegate, FLootLockerFriendActionResponse);
 /** C++ response delegate for listing blocked players */
 DECLARE_DELEGATE_OneParam(FLootLockerListBlockedPlayersResponseDelegate, FLootLockerListBlockedPlayersResponse);
+/** C++ response delegate for getting a friend */
+DECLARE_DELEGATE_OneParam(FLootLockerGetFriendResponseDelegate, FLootLockerGetFriendResponse);
 
 
 //==================================================
@@ -183,10 +222,13 @@ public:
     ULootLockerFriendsRequestHandler();
 
     static void ListFriends(const FLootLockerPlayerData& PlayerData, const FLootLockerListFriendsResponseBP& OnResponseCompletedBP = FLootLockerListFriendsResponseBP(), const FLootLockerListFriendsResponseDelegate& OnResponseCompleted = FLootLockerListFriendsResponseDelegate());
+    static void ListFriendsPaginated(const FLootLockerPlayerData& PlayerData, int32 Page, int32 PerPage, const FLootLockerListFriendsResponseBP& OnResponseCompletedBP = FLootLockerListFriendsResponseBP(), const FLootLockerListFriendsResponseDelegate& OnResponseCompleted = FLootLockerListFriendsResponseDelegate());
 
     static void ListIncomingFriendRequests(const FLootLockerPlayerData& PlayerData, const FLootLockerListIncomingFriendRequestsResponseBP& OnResponseCompletedBP = FLootLockerListIncomingFriendRequestsResponseBP(), const FLootLockerListIncomingFriendRequestsResponseDelegate& OnResponseCompleted = FLootLockerListIncomingFriendRequestsResponseDelegate());
+    static void ListIncomingFriendRequestsPaginated(const FLootLockerPlayerData& PlayerData, int32 Page, int32 PerPage, const FLootLockerListIncomingFriendRequestsResponseBP& OnResponseCompletedBP = FLootLockerListIncomingFriendRequestsResponseBP(), const FLootLockerListIncomingFriendRequestsResponseDelegate& OnResponseCompleted = FLootLockerListIncomingFriendRequestsResponseDelegate());
 
     static void ListOutgoingFriendRequests(const FLootLockerPlayerData& PlayerData, const FLootLockerListOutgoingFriendRequestsResponseBP& OnResponseCompletedBP = FLootLockerListOutgoingFriendRequestsResponseBP(), const FLootLockerListOutgoingFriendRequestsResponseDelegate& OnResponseCompleted = FLootLockerListOutgoingFriendRequestsResponseDelegate());
+    static void ListOutgoingFriendRequestsPaginated(const FLootLockerPlayerData& PlayerData, int32 Page, int32 PerPage, const FLootLockerListOutgoingFriendRequestsResponseBP& OnResponseCompletedBP = FLootLockerListOutgoingFriendRequestsResponseBP(), const FLootLockerListOutgoingFriendRequestsResponseDelegate& OnResponseCompleted = FLootLockerListOutgoingFriendRequestsResponseDelegate());
 
     static void SendFriendRequest(const FLootLockerPlayerData& PlayerData, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP = FLootLockerFriendActionResponseBP(), const FLootLockerFriendActionResponseDelegate& OnResponseCompleted = FLootLockerFriendActionResponseDelegate());
 
@@ -199,6 +241,9 @@ public:
     static void DeclineIncomingFriendRequest(const FLootLockerPlayerData& PlayerData, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP = FLootLockerFriendActionResponseBP(), const FLootLockerFriendActionResponseDelegate& OnResponseCompleted = FLootLockerFriendActionResponseDelegate());
 
     static void ListBlockedPlayers(const FLootLockerPlayerData& PlayerData, const FLootLockerListBlockedPlayersResponseBP& OnResponseCompletedBP = FLootLockerListBlockedPlayersResponseBP(), const FLootLockerListBlockedPlayersResponseDelegate& OnResponseCompleted = FLootLockerListBlockedPlayersResponseDelegate());
+    static void ListBlockedPlayersPaginated(const FLootLockerPlayerData& PlayerData, int32 Page, int32 PerPage, const FLootLockerListBlockedPlayersResponseBP& OnResponseCompletedBP = FLootLockerListBlockedPlayersResponseBP(), const FLootLockerListBlockedPlayersResponseDelegate& OnResponseCompleted = FLootLockerListBlockedPlayersResponseDelegate());
+
+    static void GetFriend(const FLootLockerPlayerData& PlayerData, const FString& FriendUlid, const FLootLockerGetFriendResponseBP& OnResponseCompletedBP = FLootLockerGetFriendResponseBP(), const FLootLockerGetFriendResponseDelegate& OnResponseCompleted = FLootLockerGetFriendResponseDelegate());
 
     static void BlockPlayer(const FLootLockerPlayerData& PlayerData, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP = FLootLockerFriendActionResponseBP(), const FLootLockerFriendActionResponseDelegate& OnResponseCompleted = FLootLockerFriendActionResponseDelegate());
 
