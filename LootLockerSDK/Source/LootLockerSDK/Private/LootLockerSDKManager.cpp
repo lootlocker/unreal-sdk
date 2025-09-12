@@ -1364,6 +1364,16 @@ void ULootLockerSDKManager::ListFollowers(const FLootLockerListFollowersResponse
     ULootLockerFollowersRequestHandler::ListFollowers(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FLootLockerListFollowersResponseBP(), OnResponseCompleted);
 }
 
+void ULootLockerSDKManager::ListFollowersPaginated(const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid /* = "" */)
+{
+    ULootLockerFollowersRequestHandler::ListFollowersPaginated(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Cursor, Count, FLootLockerListFollowersResponseBP(), OnResponseCompleted);
+}
+
+void ULootLockerSDKManager::ListFollowersPaginated(const FString& PlayerPublicId, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid /* = "" */)
+{
+    ULootLockerFollowersRequestHandler::ListFollowersPaginated(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlayerPublicId, Cursor, Count, FLootLockerListFollowersResponseBP(), OnResponseCompleted);
+}
+
 void ULootLockerSDKManager::ListFollowing(const FString& PlayerPublicId, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid /* = "" */)
 {
     ULootLockerFollowersRequestHandler::ListFollowing(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlayerPublicId, FLootLockerListFollowersResponseBP(), OnResponseCompleted);
@@ -1372,6 +1382,16 @@ void ULootLockerSDKManager::ListFollowing(const FString& PlayerPublicId, const F
 void ULootLockerSDKManager::ListFollowing(const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid /* = "" */)
 {
     ULootLockerFollowersRequestHandler::ListFollowing(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FLootLockerListFollowersResponseBP(), OnResponseCompleted);
+}
+
+void ULootLockerSDKManager::ListFollowingPaginated(const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid /* = "" */)
+{
+    ULootLockerFollowersRequestHandler::ListFollowingPaginated(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Cursor, Count, FLootLockerListFollowersResponseBP(), OnResponseCompleted);
+}
+
+void ULootLockerSDKManager::ListFollowingPaginated(const FString& PlayerPublicId, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid /* = "" */)
+{
+    ULootLockerFollowersRequestHandler::ListFollowingPaginated(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlayerPublicId, Cursor, Count, FLootLockerListFollowersResponseBP(), OnResponseCompleted);
 }
 
 void ULootLockerSDKManager::FollowPlayer(const FString& PlayerPublicId, const FLootLockerFollowActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid /* = "" */)
@@ -1391,14 +1411,29 @@ void ULootLockerSDKManager::ListFriends(const FLootLockerListFriendsResponseDele
     ULootLockerFriendsRequestHandler::ListFriends(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FLootLockerListFriendsResponseBP(), OnResponseCompleted);
 }
 
+void ULootLockerSDKManager::ListFriendsPaginated(int32 Page, int32 PerPage, const FLootLockerListFriendsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid /* = "" */)
+{
+    ULootLockerFriendsRequestHandler::ListFriendsPaginated(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Page, PerPage, FLootLockerListFriendsResponseBP(), OnResponseCompleted);
+}
+
 void ULootLockerSDKManager::ListIncomingFriendRequests(const FLootLockerListIncomingFriendRequestsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid /* = "" */)
 {
     ULootLockerFriendsRequestHandler::ListIncomingFriendRequests(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FLootLockerListIncomingFriendRequestsResponseBP(), OnResponseCompleted);
 }
 
+void ULootLockerSDKManager::ListIncomingFriendRequestsPaginated(int32 Page, int32 PerPage, const FLootLockerListIncomingFriendRequestsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid /* = "" */)
+{
+    ULootLockerFriendsRequestHandler::ListIncomingFriendRequestsPaginated(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Page, PerPage, FLootLockerListIncomingFriendRequestsResponseBP(), OnResponseCompleted);
+}
+
 void ULootLockerSDKManager::ListOutgoingFriendRequests(const FLootLockerListOutgoingFriendRequestsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid /* = "" */)
 {
     ULootLockerFriendsRequestHandler::ListOutgoingFriendRequests(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FLootLockerListOutgoingFriendRequestsResponseBP(), OnResponseCompleted);
+}
+
+void ULootLockerSDKManager::ListOutgoingFriendRequestsPaginated(int32 Page, int32 PerPage, const FLootLockerListOutgoingFriendRequestsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid /* = "" */)
+{
+    ULootLockerFriendsRequestHandler::ListOutgoingFriendRequestsPaginated(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Page, PerPage, FLootLockerListOutgoingFriendRequestsResponseBP(), OnResponseCompleted);
 }
 
 void ULootLockerSDKManager::SendFriendRequest(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid /* = "" */)
@@ -1429,6 +1464,16 @@ void ULootLockerSDKManager::DeclineIncomingFriendRequest(const FString& PlayerUL
 void ULootLockerSDKManager::ListBlockedPlayers(const FLootLockerListBlockedPlayersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid /* = "" */)
 {
     ULootLockerFriendsRequestHandler::ListBlockedPlayers(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FLootLockerListBlockedPlayersResponseBP(), OnResponseCompleted);
+}
+
+void ULootLockerSDKManager::ListBlockedPlayersPaginated(int32 Page, int32 PerPage, const FLootLockerListBlockedPlayersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid /* = "" */)
+{
+    ULootLockerFriendsRequestHandler::ListBlockedPlayersPaginated(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Page, PerPage, FLootLockerListBlockedPlayersResponseBP(), OnResponseCompleted);
+}
+
+void ULootLockerSDKManager::GetFriend(const FString& FriendUlid, const FLootLockerGetFriendResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid /* = "" */)
+{
+    ULootLockerFriendsRequestHandler::GetFriend(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FriendUlid, FLootLockerGetFriendResponseBP(), OnResponseCompleted);
 }
 
 void ULootLockerSDKManager::BlockPlayer(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid /* = "" */)

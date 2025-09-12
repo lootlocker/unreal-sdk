@@ -72,6 +72,7 @@ public:
 
     // Friends
     static FLootLockerEndPoints ListFriendsEndpoint;
+    static FLootLockerEndPoints GetFriendEndpoint;
     static FLootLockerEndPoints ListIncomingFriendRequestsEndpoint;
     static FLootLockerEndPoints ListOutgoingFriendRequestsEndpoint;
     static FLootLockerEndPoints SendFriendRequestEndpoint;
