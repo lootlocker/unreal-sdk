@@ -40,6 +40,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::TransferProvidersBetweenAccountsE
 
 // Friends Endpoints
 FLootLockerEndPoints ULootLockerGameEndpoints::ListFriendsEndpoint = InitEndpoint("player/friends", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetFriendEndpoint = InitEndpoint("player/friends/{0}", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::ListIncomingFriendRequestsEndpoint = InitEndpoint("player/friends/incoming", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::ListOutgoingFriendRequestsEndpoint = InitEndpoint("player/friends/outgoing", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::SendFriendRequestEndpoint = InitEndpoint("player/friends/{0}", ELootLockerHTTPMethod::POST);

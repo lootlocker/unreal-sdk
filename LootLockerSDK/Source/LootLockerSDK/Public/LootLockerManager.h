@@ -1280,10 +1280,10 @@ public:
      * https://ref.lootlocker.com/game-api/#equip-asset-to-character-by-id
      *
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param CharacterId ID of the character to equip an asset to.
-     * @param InstanceId the asset's instance_id that is returned from the inventory and loadout calls.
-     * @param OnEquipAssetToCharacterByIdRequestCompleted Delegate for handling the server response.
-     */
+    * @param CharacterId ID of the character to equip an asset to.
+    * @param InstanceId the asset's instance_id that is returned from the inventory and loadout calls.
+    * @param OnEquipAssetToCharacterByIdRequestCompleted Delegate for handling the server response.
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void EquipAssetToCharacterByIdAndInstance(const FString& ForPlayerWithUlid, int CharacterId, int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted);
 
@@ -2491,7 +2491,7 @@ public:
      * https://ref.lootlocker.com/game-api/#get-all-member-ranks
      *
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param MemberId player_id if player type leaderboard, otherwise id used when submitting the score
+     * @param MemberId player_id if player type leaderboard, otherwise this is the identifier you wish to use for this score
      * @param Count Number of members returned per page
      * @param After Cursor for pagination, a cursor will be returned in the response
      * @param OnCompletedRequestBP Delegate for handling the server response
@@ -3043,59 +3043,63 @@ public:
     //==================================================    
 
     /**
-     * List followers for a specific player by public UID.
-     * 
-     * @param PlayerPublicUid The public UID of the player to list followers for
-     * @param OnResponseCompletedBP Delegate for handling the the server response.
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     * List followers for a specific player (cursor pagination supported).
+     * @param ForPlayerWithUlid Optional player ulid context (empty uses default player)
+     * @param PlayerPublicUid Public UID whose followers to list
+     * @param Cursor Optional: pagination cursor (empty for first page)
+     * @param Count Optional: items per page (<=0 uses backend default)
+     * @param OnResponseCompletedBP Delegate for server response
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Followers", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListFollowersForPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP);
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Followers", meta = (AdvancedDisplay = "Cursor,Count,ForPlayerWithUlid", Cursor="", Count=-1, ForPlayerWithUlid=""))
+    static void ListFollowersForPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP);
 
     /**
-     * List followers for the requesting player.
-     * 
-     * @param OnResponseCompletedBP Delegate for handling the the server response.
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     * List followers for the requesting player (cursor pagination supported).
+     * @param ForPlayerWithUlid Optional player ulid context
+     * @param Cursor Optional pagination cursor
+     * @param Count Optional items per page
+     * @param OnResponseCompletedBP Delegate
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Followers", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListFollowers(const FString& ForPlayerWithUlid, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP);
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Followers", meta = (AdvancedDisplay = "Cursor,Count,ForPlayerWithUlid", Cursor="", Count=-1, ForPlayerWithUlid=""))
+    static void ListFollowers(const FString& ForPlayerWithUlid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP);
 
     /**
-     * List players that a specific player is following by public UID.
-     * 
-     * @param PlayerPublicUid The public UID of the player to list following for
-     * @param OnResponseCompletedBP Delegate for handling the the server response.
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     * List players a specific player is following (cursor pagination supported).
+     * @param ForPlayerWithUlid Optional player ulid context
+     * @param PlayerPublicUid Public UID whose following list to fetch
+     * @param Cursor Optional pagination cursor
+     * @param Count Optional items per page
+     * @param OnResponseCompletedBP Delegate
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Followers", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListFollowingForPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP);
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Followers", meta = (AdvancedDisplay = "Cursor,Count,ForPlayerWithUlid", Cursor="", Count=-1, ForPlayerWithUlid=""))
+    static void ListFollowingForPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP);
 
     /**
-     * List players that the requesting player is following.
-     * 
-     * @param OnResponseCompletedBP Delegate for handling the the server response.
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     * List players the requesting player is following (cursor pagination supported).
+     * @param ForPlayerWithUlid Optional player ulid context
+     * @param Cursor Optional pagination cursor
+     * @param Count Optional items per page
+     * @param OnResponseCompletedBP Delegate
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Followers", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListFollowing(const FString& ForPlayerWithUlid, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP);
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Followers", meta = (AdvancedDisplay = "Cursor,Count,ForPlayerWithUlid", Cursor="", Count=-1, ForPlayerWithUlid=""))
+    static void ListFollowing(const FString& ForPlayerWithUlid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP);
 
-    /**
-     * Follow a player by public UID.
+    /** 
+     * Follow a player.
      * 
-     * @param PlayerPublicUid The public UID of the player to follow
-     * @param OnResponseCompletedBP Delegate for handling the the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     * @param PlayerPublicUid Public UID to follow
+     * @param OnResponseCompletedBP Delegate for handling the the server response.
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Followers", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void FollowPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FLootLockerFollowActionResponseBP& OnResponseCompletedBP);
-
-    /**
-     * Unfollow a player by public UID.
+    
+    /** 
+     * Unfollow a player.
      * 
-     * @param PlayerPublicUid The public UID of the player to unfollow
-     * @param OnResponseCompletedBP Delegate for handling the the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     * @param PlayerPublicUid Public UID to unfollow
+     * @param OnResponseCompletedBP Delegate for handling the the server response.
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Followers", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void UnfollowPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FLootLockerFollowActionResponseBP& OnResponseCompletedBP);
@@ -3105,107 +3109,121 @@ public:
     //==================================================
 
     /** 
-     * List friends for the requesting player.
-     *
-     * @param OnResponseCompletedBP Delegate for handling the the server response.
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     * List friends for the requesting player (page-based pagination supported).
+     * @param ForPlayerWithUlid Optional player ulid context
+     * @param Page Optional 1-based page index (<=0 = default)
+     * @param PerPage Optional items per page (<=0 backend default)
+     * @param OnResponseCompletedBP Delegate
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListFriends(const FString& ForPlayerWithUlid, const FLootLockerListFriendsResponseBP& OnResponseCompletedBP);
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "Page,PerPage,ForPlayerWithUlid", Page=-1, PerPage=-1, ForPlayerWithUlid=""))
+    static void ListFriends(const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListFriendsResponseBP& OnResponseCompletedBP);
 
-    /**
-     * List incoming friend requests for the requesting player.
-     *
-     * @param OnResponseCompletedBP Delegate for handling the the server response.
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+    /** 
+     * List incoming friend requests (page-based pagination supported).
+     * @param ForPlayerWithUlid Optional player ulid context
+     * @param Page Optional page index
+     * @param PerPage Optional items per page
+     * @param OnResponseCompletedBP Delegate
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListIncomingFriendRequests(const FString& ForPlayerWithUlid, const FLootLockerListIncomingFriendRequestsResponseBP& OnResponseCompletedBP);
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "Page,PerPage,ForPlayerWithUlid", Page=-1, PerPage=-1, ForPlayerWithUlid=""))
+    static void ListIncomingFriendRequests(const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListIncomingFriendRequestsResponseBP& OnResponseCompletedBP);
 
-    /**
-     * List outgoing friend requests for the requesting player.
-     *
-     * @param OnResponseCompletedBP Delegate for handling the the server response.
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+    /** 
+     * List outgoing friend requests (page-based pagination supported).
+     * @param ForPlayerWithUlid Optional player ulid context
+     * @param Page Optional page index
+     * @param PerPage Optional items per page
+     * @param OnResponseCompletedBP Delegate
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListOutgoingFriendRequests(const FString& ForPlayerWithUlid, const FLootLockerListOutgoingFriendRequestsResponseBP& OnResponseCompletedBP);
-
-    /**
-     * Send a friend request to another player
-     *
-     * @param PlayerId The player ulid of the player to send the friend request to
-     * @param OnResponseCompletedBP Delegate for handling the the server response.
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "Page,PerPage,ForPlayerWithUlid", Page=-1, PerPage=-1, ForPlayerWithUlid=""))
+    static void ListOutgoingFriendRequests(const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListOutgoingFriendRequestsResponseBP& OnResponseCompletedBP);
+    
+    /** 
+     * Send friend request.
+     * 
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     * @param PlayerULID ULID to send request to
+     * @param OnResponseCompletedBP Delegate for handling the the server response.
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void SendFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
-
-    /**
-     * Delete a friend
-     *
-     * @param PlayerULID The player ulid of the player to delete
-     * @param OnResponseCompletedBP Delegate for handling the the server response.
+    
+    /** 
+     * Delete friend.
+     * 
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     * @param PlayerULID ULID of friend to delete
+     * @param OnResponseCompletedBP Delegate for handling the the server response.
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void DeleteFriend(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
-
-    /**
-     * Cancel outgoing friend request
+    
+    /** 
+     * Cancel outgoing friend request.
      * 
-     * @param PlayerULID The player ulid of the player to cancel the friend request for
-     * @param OnResponseCompletedBP Delegate for handling the the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     * @param PlayerULID Target ULID
+     * @param OnResponseCompletedBP Delegate for handling the the server response.
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void CancelOutgoingFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
-
-    /**
-     * Accept incoming friend request
+    
+    /** 
+     * Accept incoming friend request.
      * 
-     * @param PlayerULID The player ulid of the player to accept the friend request from
-     * @param OnResponseCompletedBP Delegate for handling the the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     * @param PlayerULID ULID whose request is accepted
+     * @param OnResponseCompletedBP Delegate for handling the the server response.
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void AcceptIncomingFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
-
+    
     /**
-     * Decline incoming friend request
-     *
-     * @param PlayerULID The player ulid of the player to decline the friend request from
-     * @param OnResponseCompletedBP Delegate for handling the the server response.
+     * Decline incoming friend request.
+     * 
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     * @param PlayerULID ULID whose request is declined
+     * @param OnResponseCompletedBP Delegate for handling the the server response.
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void DeclineIncomingFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
-
-    /**
-     * List blocked players
+    
+    /** 
+     * List blocked players (page-based pagination supported).
+     * @param ForPlayerWithUlid Optional player ulid context
+     * @param Page Optional page index
+     * @param PerPage Optional items per page
+     * @param OnResponseCompletedBP Delegate
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "Page,PerPage,ForPlayerWithUlid", Page=-1, PerPage=-1, ForPlayerWithUlid=""))
+    static void ListBlockedPlayers(const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListBlockedPlayersResponseBP& OnResponseCompletedBP);
+    
+    /** 
+     * Get friend info.
      * 
-     * @param OnResponseCompletedBP Delegate for handling the the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     * @param FriendUlid Friend ULID
+     * @param OnResponseCompletedBP Delegate for handling the the server response.
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListBlockedPlayers(const FString& ForPlayerWithUlid, const FLootLockerListBlockedPlayersResponseBP& OnResponseCompletedBP);
-
-    /**
-     * Block a player
-     *
-     * @param PlayerULID The player ulid of the player to block
-     * @param OnResponseCompletedBP Delegate for handling the the server response.
+    static void GetFriend(const FString& ForPlayerWithUlid, const FString& FriendUlid, const FLootLockerGetFriendResponseBP& OnResponseCompletedBP);
+    
+    /** 
+     * Block player.
+     * 
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     * @param PlayerULID ULID to block
+     * @param OnResponseCompletedBP Delegate for handling the the server response.
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void BlockPlayer(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
-
-    /**
-     * Unblock a player
-     *
-     * @param PlayerULID The player ulid of the player to unblock
-     * @param OnResponseCompletedBP Delegate for handling the the server response.
+    
+    /** 
+     * Unblock player.
+     * 
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     * @param PlayerULID ULID to unblock
+     * @param OnResponseCompletedBP Delegate for handling the the server response.
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void UnblockPlayer(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
