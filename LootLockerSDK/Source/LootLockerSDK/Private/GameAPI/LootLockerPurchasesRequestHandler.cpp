@@ -112,15 +112,12 @@ void ULootLockerPurchasesRequestHandler::RedeemEpicStorePurchase(const FLootLock
 
 void ULootLockerPurchasesRequestHandler::RedeemEpicStorePurchaseForCharacter(const FLootLockerPlayerData& PlayerData, const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
 {
-    FLootLockerRedeemEpicStorePurchaseForCharacterRequest PurchaseRequest {
-        {
-            AccountId,
-            BearerToken,
-            EntitlementIds,
-            SandboxId
-        },
-        CharacterId
-    };
+    FLootLockerRedeemEpicStorePurchaseForCharacterRequest PurchaseRequest;
+    PurchaseRequest.Account_id = AccountId;
+	PurchaseRequest.Bearer_token = BearerToken;
+	PurchaseRequest.Entitlement_ids = EntitlementIds;
+	PurchaseRequest.Sandbox_id = SandboxId;
+	PurchaseRequest.Character_id = CharacterId;
 
     LLAPI<FLootLockerResponse>::CallAPI(HttpClient, PurchaseRequest, ULootLockerGameEndpoints::RedeemEpicStorePurchase, {}, {}, PlayerData, OnCompletedBP, OnCompleted);
 }
