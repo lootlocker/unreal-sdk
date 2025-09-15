@@ -418,7 +418,7 @@ void ULootLockerAsyncStartRemoteSession::HandleLeaseProcessCompleted(const FLoot
 	case ELootLockerRemoteSessionLeaseStatus::Claimed:
 	case ELootLockerRemoteSessionLeaseStatus::Verified:
 	default:
-		FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>(FString::Printf(TEXT("Unreachable branch was reached for remote session with lease completed %d"), LeaseProcessCompletedResponse.Lease_Status, LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, "N/A"));
+		FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>(FString::Printf(TEXT("Unreachable branch was reached for remote session with lease completed %d"), LeaseProcessCompletedResponse.Lease_Status), LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, "N/A");
 		FLootLockerLogger::LogHttpRequest(Error, ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(ULootLockerGameEndpoints::LeaseRemoteSessionEndpoint.requestMethod)), ULootLockerGameEndpoints::LeaseRemoteSessionEndpoint.endpoint, "No Data", "No Headers");
 		OnProcessFailed.Broadcast(LeaseProcessID, LeaseData, false, "", "", FLootLockerRemoteSessionPlayerData(), Error);
 		ULootLockerRemoteSessionRequestHandler::CancelRemoteSessionProcess(LeaseProcessID);
