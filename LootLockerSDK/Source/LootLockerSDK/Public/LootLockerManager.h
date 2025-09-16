@@ -597,6 +597,54 @@ public:
     static void ConnectAppleAccountByRestSignIn(const FString& ForPlayerWithUlid, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
 
     /**
+     * Connect a Twitch Account to the currently logged in LootLocker account allowing that Twitch account to start sessions for this player
+     * 
+     * IMPORTANT: If you are using multiple users, be very sure to pass in the correct `ForPlayerWithUlid` parameter as that will be the account that the Twitch account is linked into
+     *
+     * @param AuthorizationCode Authorization code, provided by Twitch during Sign In
+     * @param OnComplete Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static void ConnectTwitchAccount(const FString& ForPlayerWithUlid, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+
+    /**
+     * Connect a Epic Account to the currently logged in LootLocker account allowing that Epic account to start sessions for this player
+     * 
+     * IMPORTANT: If you are using multiple users, be very sure to pass in the correct `ForPlayerWithUlid` parameter as that will be the account that the Epic account is linked into
+     *
+     * @param Token Token, provided by Epic during Sign In
+     * @param OnComplete Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static void ConnectEpicAccount(const FString& ForPlayerWithUlid, const FString& Token, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+
+    /**
+     * Connect a Playstation Account to the currently logged in LootLocker account allowing that Playstation account to start sessions for this player
+     * 
+     * IMPORTANT: If you are using multiple users, be very sure to pass in the correct `ForPlayerWithUlid` parameter as that will be the account that the Playstation account is linked into
+     *
+     * @param Environment The Playstation environment the user signed in to (e.g. "prod", "dev", "qa")
+     * @param OnComplete Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static void ConnectPlaystationAccount(const FString& ForPlayerWithUlid, const FString& Environment, const FString& Code, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+
+    /**
+     * Connect a Discord Account to the currently logged in LootLocker account allowing that Discord account to start sessions for this player
+     * 
+     * IMPORTANT: If you are using multiple users, be very sure to pass in the correct `ForPlayerWithUlid` parameter as that will be the account that the Discord account is linked into
+     *
+     * @param Token Token, provided by Discord during Sign In
+     * @param OnComplete Delegate for handling the response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static void ConnectDiscordAccount(const FString& ForPlayerWithUlid, const FString& Token, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+
+    /**
      * Connect an account (authorized using a remote session) to the currently logged in LootLocker account allowing that authentication method to start sessions for this player
      *
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
