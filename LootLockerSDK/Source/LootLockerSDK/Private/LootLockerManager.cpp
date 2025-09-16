@@ -263,6 +263,26 @@ void ULootLockerManager::ConnectAppleAccountByRestSignIn(const FString& ForPlaye
     ULootLockerConnectedAccountsRequestHandler::ConnectAppleAccountByRestSignIn(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AuthorizationCode, OnCompleteBP);
 }
 
+void ULootLockerManager::ConnectTwitchAccount(const FString& ForPlayerWithUlid, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+{
+    ULootLockerConnectedAccountsRequestHandler::ConnectTwitchAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AuthorizationCode, OnCompleteBP);
+}
+
+void ULootLockerManager::ConnectEpicAccount(const FString& ForPlayerWithUlid, const FString& Token, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+{
+    ULootLockerConnectedAccountsRequestHandler::ConnectEpicAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Token, OnCompleteBP);
+}
+
+void ULootLockerManager::ConnectPlaystationAccount(const FString& ForPlayerWithUlid, const FString& Environment, const FString& Code, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+{
+    ULootLockerConnectedAccountsRequestHandler::ConnectPlaystationAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Environment, Code, OnCompleteBP);
+}
+
+void ULootLockerManager::ConnectDiscordAccount(const FString& ForPlayerWithUlid, const FString& Token, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+{
+    ULootLockerConnectedAccountsRequestHandler::ConnectDiscordAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Token, OnCompleteBP);
+}
+
 void ULootLockerManager::ConnectRemoteSessionAccount(const FString& ForPlayerWithUlid, const FString& Code, const FString& Nonce, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
 {
     ULootLockerConnectedAccountsRequestHandler::ConnectRemoteSessionAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Code, Nonce, OnCompleteBP);

@@ -256,6 +256,26 @@ void ULootLockerSDKManager::ConnectAppleAccountByRestSignIn(const FString& Autho
     ULootLockerConnectedAccountsRequestHandler::ConnectAppleAccountByRestSignIn(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AuthorizationCode, FLootLockerAccountConnectedResponseBP(), OnComplete);
 }
 
+void ULootLockerSDKManager::ConnectTwitchAccount(const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid)
+{
+    ULootLockerConnectedAccountsRequestHandler::ConnectTwitchAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AuthorizationCode, FLootLockerAccountConnectedResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::ConnectEpicAccount(const FString& Token, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid)
+{
+    ULootLockerConnectedAccountsRequestHandler::ConnectEpicAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Token, FLootLockerAccountConnectedResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::ConnectPlaystationAccount(const FString& Environment, const FString& Code, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid)
+{
+    ULootLockerConnectedAccountsRequestHandler::ConnectPlaystationAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Environment, Code, FLootLockerAccountConnectedResponseBP(), OnComplete);
+}
+
+void ULootLockerSDKManager::ConnectDiscordAccount(const FString& Token, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid)
+{
+    ULootLockerConnectedAccountsRequestHandler::ConnectDiscordAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Token, FLootLockerAccountConnectedResponseBP(), OnComplete);
+}
+
 void ULootLockerSDKManager::ConnectRemoteSessionAccount(const FString& Code, const FString& Nonce, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
     ULootLockerConnectedAccountsRequestHandler::ConnectRemoteSessionAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Code, Nonce, FLootLockerAccountConnectedResponseBP(), OnComplete);

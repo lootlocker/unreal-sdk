@@ -24,7 +24,9 @@ enum class ELootLockerAccountProvider : uint8
     Nintendo = 6,
     Xbox = 7,
     Playstation = 8,
-    Twitch = 9
+    Twitch = 9,
+    Epic = 10,
+    Discord = 11
 };
 
 /**
@@ -103,6 +105,67 @@ struct FLootLockerConnectAppleRestProviderToAccountRequest
     GENERATED_BODY()
     /**
      * Authorization code, provided by apple during Sign In
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Authorization_code = "";
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerConnectEpicProviderToAccountRequest
+{
+    GENERATED_BODY()
+    /**
+     * The token from epic sign in
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Token = "";
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerConnectPlaystationProviderToAccountRequest
+{
+    GENERATED_BODY()
+    /**
+     * The environment for the playstation account (dev, qa, prod)
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Environment = "";
+    /**
+     * The code from playstation sign in
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Code = "";
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerConnectDiscordProviderToAccountRequest
+{
+    GENERATED_BODY()
+    /**
+     * The token from discord sign in
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Token = "";
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerConnectTwitchProviderToAccountRequest
+{
+    GENERATED_BODY()
+    /**
+     * The authorization code from twitch sign in
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Authorization_code = "";
@@ -242,6 +305,10 @@ public:
     static void ConnectGoogleAccount(const FLootLockerPlayerData& PlayerData, const FString& IdToken, const FLootLockerAccountConnectedResponseBP& OnCompleteBP = FLootLockerAccountConnectedResponseBP(), const FLootLockerAccountConnectedResponseDelegate& OnComplete = FLootLockerAccountConnectedResponseDelegate());
     static void ConnectGoogleAccount(const FLootLockerPlayerData& PlayerData, const FString& IdToken, EGoogleAccountProviderPlatform Platform, const FLootLockerAccountConnectedResponseBP& OnCompleteBP = FLootLockerAccountConnectedResponseBP(), const FLootLockerAccountConnectedResponseDelegate& OnComplete = FLootLockerAccountConnectedResponseDelegate());
     static void ConnectAppleAccountByRestSignIn(const FLootLockerPlayerData& PlayerData, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP = FLootLockerAccountConnectedResponseBP(), const FLootLockerAccountConnectedResponseDelegate& OnComplete = FLootLockerAccountConnectedResponseDelegate());
+    static void ConnectEpicAccount(const FLootLockerPlayerData& PlayerData, const FString& Token, const FLootLockerAccountConnectedResponseBP& OnCompleteBP = FLootLockerAccountConnectedResponseBP(), const FLootLockerAccountConnectedResponseDelegate& OnComplete = FLootLockerAccountConnectedResponseDelegate());
+    static void ConnectPlaystationAccount(const FLootLockerPlayerData& PlayerData, const FString& Environment, const FString& Code, const FLootLockerAccountConnectedResponseBP& OnCompleteBP = FLootLockerAccountConnectedResponseBP(), const FLootLockerAccountConnectedResponseDelegate& OnComplete = FLootLockerAccountConnectedResponseDelegate());
+    static void ConnectDiscordAccount(const FLootLockerPlayerData& PlayerData, const FString& Token, const FLootLockerAccountConnectedResponseBP& OnCompleteBP = FLootLockerAccountConnectedResponseBP(), const FLootLockerAccountConnectedResponseDelegate& OnComplete = FLootLockerAccountConnectedResponseDelegate());
+    static void ConnectTwitchAccount(const FLootLockerPlayerData& PlayerData, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP = FLootLockerAccountConnectedResponseBP(), const FLootLockerAccountConnectedResponseDelegate& OnComplete = FLootLockerAccountConnectedResponseDelegate());
     static void ConnectRemoteSessionAccount(const FLootLockerPlayerData& PlayerData, const FString& Code, const FString& Nonce, const FLootLockerAccountConnectedResponseBP& OnCompleteBP = FLootLockerAccountConnectedResponseBP(), const FLootLockerAccountConnectedResponseDelegate& OnComplete = FLootLockerAccountConnectedResponseDelegate());
     static void TransferIdentityProvidersBetweenAccounts(const FLootLockerPlayerData& SourcePlayerData, const FLootLockerPlayerData& TargetPlayerData, TArray<ELootLockerAccountProvider> ProvidersToTransfer, const FLootLockerListConnectedAccountsResponseBP& OnCompleteBP = FLootLockerListConnectedAccountsResponseBP(), const FLootLockerListConnectedAccountsResponseDelegate& OnComplete = FLootLockerListConnectedAccountsResponseDelegate());
 private:
