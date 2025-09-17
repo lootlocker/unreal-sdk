@@ -13,9 +13,9 @@ USTRUCT(BlueprintType)
 struct FLootLockerAssetInstanceStorageItem {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString key;
+    FString key = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString value;
+    FString value = "";
 };
 
 USTRUCT(BlueprintType)

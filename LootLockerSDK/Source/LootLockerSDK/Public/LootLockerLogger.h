@@ -17,19 +17,19 @@ struct FLootLockerHttpLogEntry
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
-    FString Method;
+    FString Method = "";
     UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
-    FString Path;
+    FString Path = "";
     UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
     int32 StatusCode = -1;
     UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
     float Duration = 0.0f;
     UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
-    FString RequestData;
+    FString RequestData = "";
     UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
-    FString ResponseData;
+    FString ResponseData = "";
     UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
-    FString RequestHeaders;
+    FString RequestHeaders = "";
     UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
     bool bSuccess = false;
     UPROPERTY(BlueprintReadOnly, Category = "LootLocker")

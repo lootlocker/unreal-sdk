@@ -26,7 +26,7 @@ struct FLootLockerCatalogItemAndQuantityPair
      * The unique listing id of the catalog item to purchase
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Catalog_listing_id;
+    FString Catalog_listing_id = "";
     /**
      * The quantity of the specified item to purchase
      */
@@ -45,7 +45,7 @@ struct FLootLockerPurchaseCatalogItemRequest
      * The id of the wallet to be used for the purchase
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Wallet_id;
+    FString Wallet_id = "";
     /**
      * A list of items to purchase
      */
@@ -69,7 +69,7 @@ struct FLootLockerRedeemAppleAppStorePurchaseForPlayerRequest
      * The id of the transaction successfully made towards the Apple App Store
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Transaction_id;
+    FString Transaction_id = "";
 };
 
 /**
@@ -97,12 +97,12 @@ struct FLootLockerRedeemGooglePlayStorePurchaseForPlayerRequest
      * The id of the product that this redemption refers to
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Product_id;
+    FString Product_id = "";
     /**
      * The token from the purchase successfully made towards the Google Play Store
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Purchase_token;
+    FString Purchase_token = "";
 };
 
 /**
@@ -145,7 +145,7 @@ struct FLootLockerRedeemEpicStorePurchaseForPlayerRequest
      * The Sandbox Id configured for the game making the purchase (this is the sandbox id from your epic online service configuration)
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Sandbox_id;
+    FString Sandbox_id = "";
 };
 
 /**
@@ -190,22 +190,22 @@ struct FLootLockerBeginSteamPurchaseRedemptionRequest
      * Id of the Steam User that is making the purchase
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Steam_id;
+    FString Steam_id = "";
     /**
      * The currency to use for the purchase
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Currency;
+    FString Currency = "";
     /**
      * The language to use for the purchase
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Language;
+    FString Language = "";
     /**
      * The LootLocker Catalog Item Id for the item you wish to purchase
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Catalog_item_id;
+    FString Catalog_item_id = "";
 };
 
 /**
@@ -238,7 +238,7 @@ struct FLootLockerBeginSteamPurchaseRedemptionResponse : public FLootLockerRespo
      * The id of the entitlement this purchase relates to
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Entitlement_id;
+    FString Entitlement_id = "";
 };
 
 /**
@@ -252,7 +252,7 @@ struct FLootLockerQuerySteamPurchaseRedemptionStatusRequest
      * The id of the entitlement to check the status for
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Entitlement_id;
+    FString Entitlement_id = "";
 };
 
 /**
@@ -280,7 +280,7 @@ struct FLootLockerFinalizeSteamPurchaseRedemptionRequest
      * The id of the entitlement to finalize the purchase for
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Entitlement_id;
+    FString Entitlement_id = "";
 };
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FActivateRentalAssetResponseDelegateBP, FLootLockerActivateRentalAssetResponse, Response);
