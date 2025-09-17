@@ -912,9 +912,9 @@ void ULootLockerSDKManager::GetAssetCandidate(int AssetCandidateId, const FAsset
     ULootLockerUserGeneratedContentRequestHandler::GetAssetCandidate(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetCandidateId, FAssetCandidateResponseDelegateBP(), OnCompletedRequest);
 }
 
-void ULootLockerSDKManager::AddFileToAssetCandidate(int AssetCandidateId, const FString& FilePath, ELootLockerAssetFilePurpose FilePurpose, const FResponseCallback& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+void ULootLockerSDKManager::AddFileToAssetCandidate(int AssetCandidateId, const FString& FilePath, ELootLockerAssetFilePurpose FilePurpose, const FAssetCandidateResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerUserGeneratedContentRequestHandler::AddFileToAssetCandidate(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetCandidateId, FilePath, FilePurpose, FResponseCallbackBP(), OnCompletedRequest);
+    ULootLockerUserGeneratedContentRequestHandler::AddFileToAssetCandidate(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetCandidateId, FilePath, FilePurpose, FAssetCandidateResponseDelegateBP(), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::DeleteFileFromAssetCandidate(int AssetCandidateId, int FileId, const FResponseCallback& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
