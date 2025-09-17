@@ -1862,7 +1862,7 @@ public:
      * @param OnAddFileToAssetCandidateCompleted Delegate for handling the server response.
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void AddFileToAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FString& FilePath, ELootLockerAssetFilePurpose FilePurpose, const FResponseCallbackBP& OnAddFileToAssetCandidateCompleted);
+    static void AddFileToAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FString& FilePath, ELootLockerAssetFilePurpose FilePurpose, const FAssetCandidateResponseDelegateBP& OnAddFileToAssetCandidateCompleted);
 
     /**
      * Remove a file from an asset candidate.

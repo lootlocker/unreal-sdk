@@ -7,6 +7,14 @@
 #include "LootLockerHttpClient.h"
 #include "LootLockerUserGeneratedContentRequestHandler.generated.h"
 
+UENUM(BlueprintType)
+enum class ELootLockerAssetFilePurpose : uint8
+{
+    PRIMARY_THUMBNAIL = 0,
+    THUMBNAIL = 1,
+    FILE = 2
+};
+
 USTRUCT(BlueprintType)
 struct FLootLockerContentKeyValuePair {
     GENERATED_BODY()
@@ -20,9 +28,28 @@ USTRUCT(BlueprintType)
 struct FLootLockerAssetDataEntity {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString name;
+    FString name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString data;
+    FString data = "";
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerAssetFile {
+    GENERATED_BODY()
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int id = 0;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString url = "";
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString purpose = "";
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    ELootLockerAssetFilePurpose purpose_enum = ELootLockerAssetFilePurpose::FILE;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString filename = "";
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString content_type = "";
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int size = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -72,7 +99,7 @@ struct FLootLockerResponseAssetCandidate {
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerAssetCandidateData data;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FString> files; 
+    TArray<FLootLockerAssetFile> Files; 
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString created_at;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -103,14 +130,6 @@ struct FLootLockerAssetCandidatesResponse : public FLootLockerResponse
     TArray<FLootLockerResponseAssetCandidate> asset_candidates;
 };
 
-UENUM(BlueprintType)
-enum class ELootLockerAssetFilePurpose : uint8
-{
-    PRIMARY_THUMBNAIL = 0,
-    THUMBNAIL = 1,
-    FILE = 2
-};
-
 DECLARE_DYNAMIC_DELEGATE_OneParam(FCreateAssetCandidateResponseDelegateBP, FLootLockerCreateAssetCandidateResponse, Response);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FAssetCandidateResponseDelegateBP, FLootLockerAssetCandidateResponse, Response);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FAssetCandidatesResponseDelegateBP, FLootLockerAssetCandidatesResponse, Response);
@@ -139,9 +158,11 @@ public:
 
     static void GetAssetCandidate(const FLootLockerPlayerData& PlayerData, int AssetCandidateId, const FAssetCandidateResponseDelegateBP& OnCompletedRequestBP = FAssetCandidateResponseDelegateBP(), const FAssetCandidateResponseDelegate& OnCompletedRequest = FAssetCandidateResponseDelegate());
 
-    static void AddFileToAssetCandidate(const FLootLockerPlayerData& PlayerData, int AssetCandidateId, const FString& FilePath, ELootLockerAssetFilePurpose FilePurpose, const FResponseCallbackBP& OnCompletedRequestBP = FResponseCallbackBP(), const FResponseCallback& OnCompletedRequest = FResponseCallback());
+    static void AddFileToAssetCandidate(const FLootLockerPlayerData& PlayerData, int AssetCandidateId, const FString& FilePath, ELootLockerAssetFilePurpose FilePurpose, const FAssetCandidateResponseDelegateBP& OnCompletedRequestBP = FAssetCandidateResponseDelegateBP(), const FAssetCandidateResponseDelegate& OnCompletedRequest = FAssetCandidateResponseDelegate());
 
     static void DeleteFileFromAssetCandidate(const FLootLockerPlayerData& PlayerData, int AssetCandidateId, int FileId, const FResponseCallbackBP& OnCompletedRequestBP = FResponseCallbackBP(), const FResponseCallback& OnCompletedRequest = FResponseCallback());
+
+    static void ParseFilePurposeEnumsInline(TArray<FLootLockerAssetFile>& Files);
 public:
     ULootLockerUserGeneratedContentRequestHandler();
     

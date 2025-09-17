@@ -1965,7 +1965,7 @@ public:
      * @param OnCompletedRequest Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void AddFileToAssetCandidate(int AssetCandidateId, const FString & FilePath, ELootLockerAssetFilePurpose FilePurpose, const FResponseCallback & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+    static void AddFileToAssetCandidate(int AssetCandidateId, const FString & FilePath, ELootLockerAssetFilePurpose FilePurpose, const FAssetCandidateResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     /**
      * Remove a file from an asset candidate.
