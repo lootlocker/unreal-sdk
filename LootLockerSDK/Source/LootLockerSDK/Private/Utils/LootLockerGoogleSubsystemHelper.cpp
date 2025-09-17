@@ -44,7 +44,7 @@ void ULootLockerGoogleSubsystemHelper::InvokeReadOfferCallbackWithErrorResponseA
 
 void ULootLockerGoogleSubsystemHelper::InvokeGooglePlayLoginCallbackWithErrorResponseAndLog(const FString& Message, int LocalUserNumber, const FLootLockerGooglePlaySubsystemLoginCompletedCallback Callback)
 {
-	Callback.ExecuteIfBound(false, LocalUserNumber, Message);
+	Callback.ExecuteIfBound(false, LocalUserNumber, Message, "");
 	UE_LOG(LogLootLockerSDKGoogleSubsystemHelper, Warning, TEXT("%s"), *Message);
 }
 
@@ -270,7 +270,7 @@ void ULootLockerGoogleSubsystemHelper::SignInWithGooglePlay(int LocalUserNumber,
 	if (IdentityInterface->GetLoginStatus(LocalUserNumber) == ELoginStatus::LoggedIn)
 	{
 		// User already signed in, treat it as a successful login attempt
-		Callback.ExecuteIfBound(true, LocalUserNumber, "");
+		Callback.ExecuteIfBound(true, LocalUserNumber, "", GetAuthCode(LocalUserNumber));
 		return;
 	}
 
@@ -284,7 +284,7 @@ void ULootLockerGoogleSubsystemHelper::SignInWithGooglePlay(int LocalUserNumber,
 				}
 				else
 				{
-					Callback.ExecuteIfBound(true, LocalUserNumber, "");
+					Callback.ExecuteIfBound(true, LocalUserNumber, "", GetAuthCode(LocalUserNumber));
 				}
 
 				// Clear state
@@ -413,6 +413,47 @@ FString ULootLockerGoogleSubsystemHelper::GetIDToken(int LocalUserNumber)
 
 	UserAccount->GetAuthAttribute(AUTH_ATTR_ID_TOKEN, IdToken);
 	return IdToken;
+}
+
+FString ULootLockerGoogleSubsystemHelper::GetAuthCode(int LocalUserNumber)
+{
+	FString AuthCode;
+	const IOnlineSubsystem* OnlineSubsystemGooglePlay = IOnlineSubsystem::Get(GOOGLEPLAY_SUBSYSTEM);
+	if (OnlineSubsystemGooglePlay == nullptr)
+	{
+		UE_LOG(LogLootLockerSDKGoogleSubsystemHelper, Error, TEXT("Could not get Google Play Subsystem"));
+		return AuthCode;
+	}
+
+	const IOnlineIdentityPtr IdentityInterface = OnlineSubsystemGooglePlay->GetIdentityInterface();
+	if (IdentityInterface == nullptr || !IdentityInterface.IsValid())
+	{
+		UE_LOG(LogLootLockerSDKGoogleSubsystemHelper, Warning, TEXT("Could not get Google Play Identity Interface"));
+		return AuthCode;
+	}
+
+	if (IdentityInterface->GetLoginStatus(LocalUserNumber) != ELoginStatus::LoggedIn)
+	{
+		UE_LOG(LogLootLockerSDKGoogleSubsystemHelper, Warning, TEXT("No Google Play user logged in for local user number %d"), LocalUserNumber);
+		return AuthCode;
+	}
+
+	const FUniqueNetIdPtr UniqueNetIdPtr = IdentityInterface->GetUniquePlayerId(LocalUserNumber);
+	if (!UniqueNetIdPtr.IsValid() || UniqueNetIdPtr.Get() == nullptr)
+	{
+		UE_LOG(LogLootLockerSDKGoogleSubsystemHelper, Warning, TEXT("No valid user id found for local user number %d"), LocalUserNumber);
+		return AuthCode;
+	}
+
+	const TSharedPtr<FUserOnlineAccount> UserAccount = IdentityInterface->GetUserAccount(*UniqueNetIdPtr.Get());
+	if (UserAccount == nullptr || !UserAccount.IsValid())
+	{
+		UE_LOG(LogLootLockerSDKGoogleSubsystemHelper, Warning, TEXT("No valid Google Play User Account found for local user number %d"), LocalUserNumber);
+		return AuthCode;
+	}
+
+	UserAccount->GetAuthAttribute(AUTH_ATTR_AUTHORIZATION_CODE, AuthCode);
+	return AuthCode;
 }
 
 void ULootLockerGoogleSubsystemHelper::ReadOfferInformation(int LocalUserNumber, const FString& OfferId, FLootLockerGoogleSubsystemReadOfferCompletedCallback Callback)
@@ -668,6 +709,11 @@ void ULootLockerGoogleSubsystemHelper::SignOutWithGooglePlay(int LocalUserNumber
 }
 
 FString ULootLockerGoogleSubsystemHelper::GetIDToken(int LocalUserNumber)
+{
+	return "";
+}
+
+FString ULootLockerGoogleSubsystemHelper::GetAuthCode(int LocalUserNumber)
 {
 	return "";
 }
