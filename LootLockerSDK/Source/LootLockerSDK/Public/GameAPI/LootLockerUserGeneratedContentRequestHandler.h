@@ -19,9 +19,9 @@ USTRUCT(BlueprintType)
 struct FLootLockerContentKeyValuePair {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString key;
+    FString key = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString value;
+    FString value = "";
 };
 
 USTRUCT(BlueprintType)
@@ -56,7 +56,7 @@ USTRUCT(BlueprintType)
 struct FLootLockerAssetCandidateData {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString name;
+    FString name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int context_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -91,19 +91,19 @@ struct FLootLockerResponseAssetCandidate {
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int Id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int asset_id = 0;
+    int Asset_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString status;
+    FString Status = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString review_feedback;
+    FString Review_feedback = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FLootLockerAssetCandidateData data;
+    FLootLockerAssetCandidateData Data;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerAssetFile> Files; 
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString created_at;
+    FString Created_at = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString updated_at;
+    FString Updated_at = "";
 };
 
 USTRUCT(BlueprintType)

@@ -30,7 +30,7 @@ struct FLootLockerFeedbackCategory
     * The unique identifier of a feedback category
     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString id;
+    FString id = "";
     /*
     * The type of a feedback category (Player, Game, UGC)
     */
@@ -40,12 +40,12 @@ struct FLootLockerFeedbackCategory
     * The name of a feedback category
     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString name;
+    FString name = "";
     /*
     * The description of a feedback category
     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString description;
+    FString description = "";
 };
 
 //==================================================
@@ -75,25 +75,25 @@ struct FLootLockerFeedbackRequest
     * A string representation of the type of feedback, use ELootLockerFeedbackType
     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString entity;
+    FString entity = "";
     
     /*
     * The Ulid of what you're sending feedback about
     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString entity_id;
+    FString entity_id = "";
 
     /*
     * The category id of what kind of feedback you're sending, use ListFeedbackCategories for all the ids
     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString category_id;
+    FString category_id = "";
 
     /*
     * The description of feedback you're sending, this will be the reason
     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString description;
+    FString description = "";
 
 
 };

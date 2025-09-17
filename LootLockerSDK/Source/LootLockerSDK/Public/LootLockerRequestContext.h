@@ -11,8 +11,8 @@ struct FLootLockerRequestContext
     GENERATED_BODY()
     // What player this request was made on behalf of
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString PlayerUlid;
+    FString PlayerUlid = "";
     // The time that this request was made
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString RequestTime;
+    FString RequestTime = "";
 };

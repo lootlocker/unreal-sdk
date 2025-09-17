@@ -30,12 +30,12 @@ struct FLootLockerItemDetailsKey
     * The id of the catalog listing
     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Catalog_listing_id;
+    FString Catalog_listing_id = "";
     /*
     * The id of the item
     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Item_id;
+    FString Item_id = "";
 
 public:
 
@@ -62,31 +62,31 @@ struct FLootLockerCatalog
      * The time when this catalog was created
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Created_at;
+    FString Created_at = "";
     /**
      *
      * The name of the catalog
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Name;
+    FString Name = "";
     /**
      *
      * The unique identifying key of the catalog
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Key;
+    FString Key = "";
     /**
      *
      * The id of the catalog
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Id;
+    FString Id = "";
     /**
      *
      * The time when this catalog was deleted, should normally be null
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Deleted_at;
+    FString Deleted_at = "";
 };
 
 /**
@@ -105,27 +105,27 @@ struct FLootLockerCatalogEntryPrice
      * A prettified version of the amount to use for display
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Display_amount;
+    FString Display_amount = "";
     /**
      * The short code for the currency this price is in
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Currency_code;
+    FString Currency_code = "";
     /**
      * The name of the currency this price is in
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Currency_name;
+    FString Currency_name = "";
     /**
      * The unique id of this price
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Price_id;
+    FString Price_id = "";
     /**
      * The unique id of the currency this price is in
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Currency_id;
+    FString Currency_id = "";
 };
 
 /**
@@ -139,7 +139,7 @@ struct FLootLockerCatalogAppleAppStoreListing
      * The id of the product in Apple App Store that can be purchased and then used to redeem this catalog entry
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Product_id;
+    FString Product_id = "";
 };
 
 /**
@@ -153,7 +153,7 @@ struct FLootLockerCatalogGooglePlayStoreListing
      * The id of the product in Apple App Store that can be purchased and then used to redeem this catalog entry
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Product_id;
+    FString Product_id = "";
 };
 
 /**
@@ -167,7 +167,7 @@ struct FLootLockerCatalogSteamStoreListingPrice
      * Currency code of the currency to be used for purchasing this listing
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Currency;
+    FString Currency = "";
     /**
      * Amount of the base value of the specified currency that this listing costs to purchase
      */
@@ -186,7 +186,7 @@ struct FLootLockerCatalogSteamStoreListing
      * Description of this listing
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Description;
+    FString Description = "";
     /**
      * List of prices for this listing
      */
@@ -229,7 +229,7 @@ struct FLootLockerCatalogEntry
      * The time when this catalog entry was created
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Created_at;
+    FString Created_at = "";
     /**
      * The kind of entity that this entry is. This signifies in which lookup structure to find the details of this entry by using the Catalog_listing_id.
      */
@@ -244,7 +244,7 @@ struct FLootLockerCatalogEntry
      * The name of this entity
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Entity_name;
+    FString Entity_name = "";
     /**
      * A list of prices for this catalog entry
      */
@@ -254,12 +254,12 @@ struct FLootLockerCatalogEntry
      * The unique id of the entity that this entry refers to.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Entity_id;
+    FString Entity_id = "";
     /**
      * A unique listing id for this entry in this catalog, grouping the entity and the prices. This is the key you use to look up details about the entity in the structure signified by the entity_kind.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Catalog_listing_id;
+    FString Catalog_listing_id = "";
     /**
      * Whether this entry is currently purchasable
      */
@@ -279,17 +279,17 @@ struct FLootLockerAssetDetails
      * The name of this asset
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Name;
+    FString Name = "";
     /**
      * The id of the specific variation of this asset that this refers to
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Variation_id;
+    FString Variation_id = "";
     /**
      * The id of the specific rental option of this asset that this refers to
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Rental_option_id;
+    FString Rental_option_id = "";
     /**
      * The legacy id of this asset
      */
@@ -299,17 +299,17 @@ struct FLootLockerAssetDetails
      * The unique identifying id of this asset.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Id;
+    FString Id = "";
     /**
      * The thumbnail for this asset
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Thumbnail;
+    FString Thumbnail = "";
     /**
      * The Catalog listing ID for this asset detail
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Catalog_listing_id;
+    FString Catalog_listing_id = "";
 
 };
 
@@ -324,12 +324,12 @@ struct FLootLockerProgressionPointDetails
      * The unique key of the progression that this refers to
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Key;
+    FString Key = "";
     /**
      * The name of the progression that this refers to
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Name;
+    FString Name = "";
     /**
      * The amount of points to be added to the progression in question
      */
@@ -339,12 +339,12 @@ struct FLootLockerProgressionPointDetails
      * The unique id of the progression that this refers to
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Id;
+    FString Id = "";
     /**
      * The Catalog listing ID for this progression point detail
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Catalog_listing_id;
+    FString Catalog_listing_id = "";
 };
 
 /**
@@ -358,22 +358,22 @@ struct FLootLockerProgressionResetDetails
      * The unique key of the progression that this refers to
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Key;
+    FString Key = "";
     /**
      * The name of the progression that this refers to
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Name;
+    FString Name = "";
     /**
      * The unique id of the progression that this refers to
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Id;
+    FString Id = "";
     /**
      * The Catalog listing ID for this progression reset detail
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Catalog_listing_id;
+    FString Catalog_listing_id = "";
 
 };
 
@@ -388,27 +388,27 @@ struct FLootLockerCurrencyDetails
      * The name of the currency that this refers to
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Name;
+    FString Name = "";
     /**
      * The unique code of the currency that this refers to
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Code;
+    FString Code = "";
     /**
      * The amount of this currency to be awarded
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Amount;
+    FString Amount = "";
     /**
      * The unique id of the currency that this refers to
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Id;
+    FString Id = "";
     /**
      * The Catalog listing ID for this currency detail
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Catalog_listing_id;
+    FString Catalog_listing_id = "";
 
 };
 
@@ -420,12 +420,12 @@ struct FLootLockerCatalogGroupMetadata
      * The Key of a metadata
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString key;
+    FString key = "";
     /**
      * The Value of a metadata
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString value;
+    FString value = "";
 };
 
 USTRUCT(BlueprintType, Category = "LootLocker")
@@ -441,12 +441,12 @@ struct FLootLockerCatalogGroupAssociation
      * The unique id of the group that this refers to
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Id;
+    FString Id = "";
     /**
      * The catalog listing id for this group detail.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Catalog_listing_id;
+    FString Catalog_listing_id = "";
 
 };
 
@@ -458,12 +458,12 @@ struct FLootLockerGroupDetails
      * The name of the Group.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Name;
+    FString Name = "";
     /** 
      * The description of the Group.
      */ 
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Description;
+    FString Description = "";
     /**
      * The metadata of the Group.
      */
@@ -473,9 +473,9 @@ struct FLootLockerGroupDetails
      * The ID of the reward.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Id;
+    FString Id = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Catalog_listing_id;
+    FString Catalog_listing_id = "";
     /**
      * Associations for the Group reward.
      */

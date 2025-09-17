@@ -14,7 +14,7 @@ struct FLootLockerPsn
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString entitlement_id;
+    FString entitlement_id = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 service_label = 0;
 };
@@ -24,7 +24,7 @@ struct FLootLockerApple
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString product_id;
+    FString product_id = "";
 };
 
 USTRUCT(BlueprintType)
@@ -32,7 +32,7 @@ struct FLootLockerGoogle
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString product_id;
+    FString product_id = "";
 };
 
 
@@ -53,7 +53,7 @@ struct FLootLockerFile
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString url;
+    FString url = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FString> tags;
 };
@@ -63,9 +63,9 @@ struct FLootLockerFilter
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString value;
+    FString value = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString name;
+    FString name = "";
 };
 
 USTRUCT(BlueprintType)
@@ -73,11 +73,11 @@ struct FLootLockerRarity
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString name;
+    FString name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString short_name;
+    FString short_name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString color;
+    FString color = "";
 };
 
 USTRUCT(BlueprintType)
@@ -87,13 +87,13 @@ struct FLootLockerRentalOption
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString name;
+    FString name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 duration = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 price = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString sales_price;
+    FString sales_price = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TMap<FString, FString> links;
 };
@@ -111,11 +111,11 @@ struct FLootLockerVariation
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString name;
+    FString name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString primary_color;
+    FString primary_color = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString secondary_color;
+    FString secondary_color = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TMap<FString, FString> links;
 };
@@ -127,7 +127,7 @@ struct FLootLockerAssetCandidate
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int created_by_player_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString created_by_player_uid;
+    FString created_by_player_uid = "";
 };
 
 USTRUCT(BlueprintType)
@@ -159,39 +159,39 @@ struct FLootLockerAsset : public FLootLockerHasKeyValueStorage
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString uuid;
+    FString uuid = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString ulid;
+    FString ulid = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString name;
+    FString name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool active = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool purchasable = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString type;
+    FString type = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 price = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString sales_price;
+    FString sales_price = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString display_price;
+    FString display_price = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString context;
+    FString context = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 context_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString unlocks_context;
+    FString unlocks_context = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool detachable = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString updated;
+    FString updated = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString marked_new;
+    FString marked_new = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 default_variation_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString description;
+    FString description = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TMap<FString, FString> links;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -223,13 +223,13 @@ struct FLootLockerAsset : public FLootLockerHasKeyValueStorage
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<int> character_classes;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString shop_thumbnail;
+    FString shop_thumbnail = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TMap<FString, bool> default_loadouts;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerExternalIdentifiers external_identifiers;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString drop_table_max_picks;
+    FString drop_table_max_picks = "";
 };
 
 USTRUCT(BlueprintType)
@@ -238,11 +238,11 @@ struct FLootLockerContext {
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString uuid;
+	FString uuid = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString name;
+    FString name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString friendly_name;
+    FString friendly_name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool detachable = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -295,7 +295,7 @@ struct FLootLockerUniversalAssets
 	int rental_option_id = 0;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString acquisition_source;
+	FString acquisition_source = "";
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FLootLockerAsset asset;
@@ -316,26 +316,26 @@ USTRUCT(BlueprintType)
 struct FLootLockerAssetBoneParameters {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString rotation;
+    FString rotation = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString position;
+    FString position = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString boneName;
+    FString boneName = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString flags;
+    FString flags = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString mass;
+    FString mass = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString binding;
+    FString binding = "";
 };
 
 USTRUCT(BlueprintType)
 struct FLootLockerAssetBone {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString id;
+    FString id = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString name;
+    FString name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerAssetBoneParameters> parameters;
 };
@@ -378,11 +378,11 @@ struct FLootLockerGrantAssetResponse : public FLootLockerResponse
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int asset_variation_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString asset_ulid;
+    FString asset_ulid = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString acquisition_source;
+    FString acquisition_source = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString acquisition_date;
+    FString acquisition_date = "";
 };
 
 /** Fields to include in the simple asset response */
@@ -450,11 +450,11 @@ struct FLootLockerSimpleAssetAuthor
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     int player_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
-    FString player_ulid;
+    FString player_ulid = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
-    FString public_uid;
+    FString public_uid = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
-    FString active_name;
+    FString active_name = "";
 };
 
 USTRUCT(BlueprintType)
@@ -464,9 +464,9 @@ struct FLootLockerSimpleAssetFile
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     int size = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
-    FString name;
+    FString name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
-    FString url;
+    FString url = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     TArray<FString> tags;
 };
@@ -476,9 +476,9 @@ struct FLootLockerSimpleAssetDataEntity
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
-    FString name;
+    FString name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
-    FString data;
+    FString data = "";
 };
 
 /** Simplified asset object */
@@ -489,15 +489,15 @@ struct FLootLockerSimpleAsset
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     int asset_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
-    FString asset_uuid;
+    FString asset_uuid = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
-    FString asset_ulid;
+    FString asset_ulid = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
-    FString asset_name;
+    FString asset_name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     int context_id = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
-    FString context_name;
+    FString context_name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     FLootLockerSimpleAssetAuthor author;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")

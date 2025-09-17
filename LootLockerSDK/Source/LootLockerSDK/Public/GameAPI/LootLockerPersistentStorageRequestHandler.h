@@ -12,9 +12,9 @@ USTRUCT(BlueprintType)
 struct FLootLockerPersistentStorageItem {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString key;
+    FString key = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString value;
+    FString value = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool is_public = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")

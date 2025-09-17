@@ -229,7 +229,7 @@ struct FLootLockerSingleEntitlementResponse : public FLootLockerResponse
     * When this entitlement listing was created
     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString created_at;
+    FString created_at = "";
     /*
      * The status of this entitlement listing
      */

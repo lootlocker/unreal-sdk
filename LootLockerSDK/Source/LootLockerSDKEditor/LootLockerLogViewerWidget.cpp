@@ -110,7 +110,7 @@ void SLootLockerLogViewerWidget::AddHttpLogEntry(const FLootLockerHttpLogEntry& 
     // Build summary
     if (!HttpEntry.bSuccess)
     {
-        FString ErrorSummary;
+        FString ErrorSummary = "";
         if (!HttpEntry.ErrorData.Code.IsEmpty() && !HttpEntry.ErrorData.Message.IsEmpty())
         {
             ErrorSummary = FString::Printf(TEXT("\nError Code: %s\nError Message: %s"), *HttpEntry.ErrorData.Code, *HttpEntry.ErrorData.Message);

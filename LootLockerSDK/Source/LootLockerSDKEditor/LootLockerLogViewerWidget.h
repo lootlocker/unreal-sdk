@@ -15,19 +15,19 @@ class SSearchBox;
 
 struct FLootLockerLogEntry
 {
-    FString Message;
-    ELootLockerLogLevel Level;
+    FString Message = "";
+    ELootLockerLogLevel Level = ELootLockerLogLevel::Log;
     FDateTime Timestamp;
     // Request log summary fields
     bool bIsRequestLog = false;
-    FString RequestPath;
-    FString HttpMethod;
+    FString RequestPath = "";
+    FString HttpMethod = "";
     int32 StatusCode = -1;
-    FString Summary;
-    FString Duration;
-    FString ForPlayerWithUlid;
+    FString Summary = "";
+    FString Duration = "";
+    FString ForPlayerWithUlid = "";
     bool bIsExpanded = false;
-    FString ErrorDocUrl;
+    FString ErrorDocUrl = "";
 };
 
 typedef TSharedPtr<FLootLockerLogEntry> FLootLockerLogEntryPtr;
@@ -70,7 +70,7 @@ private:
     TArray<FLootLockerLogEntryPtr> FilteredEntries;
     TSharedPtr<SListView<FLootLockerLogEntryPtr>> LogListView;
     TSharedPtr<SSearchBox> SearchBox;
-    FString SearchText;
+    FString SearchText = "";
     ELootLockerLogLevel MinLevel = ELootLockerLogLevel::Verbose;
     bool bClearOnPIE = false;
     TSharedRef<ITableRow> OnGenerateRow(FLootLockerLogEntryPtr InItem, const TSharedRef<STableViewBase>& OwnerTable);

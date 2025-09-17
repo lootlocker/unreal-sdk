@@ -113,7 +113,7 @@ void FLootLockerTestUserGeneratedContent::Define()
 
 
 			int FileId=1;
-			FString FileName;
+			FString FileName = "";
 
 			FFileHelper::SaveStringToFile(TEXT("TestDataAbc123"), TEXT("test-file.txt"));
 			// add files to asset

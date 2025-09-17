@@ -115,7 +115,7 @@ namespace LootLockerUtilities
 
     FString FStringFromJsonObject(const TSharedPtr<FJsonObject>& JsonObject)
     {
-        FString OutJsonString;
+        FString OutJsonString = "";
         TSharedRef<TJsonWriter<>> JsonWriter = TJsonWriterFactory<>::Create(&OutJsonString);
 
         FJsonSerializer::Serialize(JsonObject.ToSharedRef(), JsonWriter, true);
@@ -125,7 +125,7 @@ namespace LootLockerUtilities
 
     FString FStringFromJsonArray(const TArray<TSharedPtr<FJsonValue>>& JsonArray)
     {
-        FString OutJsonString;
+        FString OutJsonString = "";
         TSharedRef<TJsonWriter<>> JsonWriter = TJsonWriterFactory<>::Create(&OutJsonString);
 
         FJsonSerializer::Serialize(JsonArray, JsonWriter, true);
@@ -145,7 +145,7 @@ namespace LootLockerUtilities
         {
             return JsonBody;
         }
-        FString valueToObfuscate;
+        FString valueToObfuscate = "";
         for (auto& obfuscationInfo : ObfuscationDetails) {
 
             if (jsonObject.Get()->TryGetStringField(obfuscationInfo.key, valueToObfuscate))
@@ -163,7 +163,7 @@ namespace LootLockerUtilities
             return StringToObfuscate;
         }
 
-        FString ObfuscatedString;
+        FString ObfuscatedString = "";
         int i = 0;
         for (auto& c : StringToObfuscate) {
             if (i >= ObfuscationDetail.visibleCharsFromBeginning && i < StringToObfuscate.Len() - ObfuscationDetail.visibleCharsFromEnd) {
@@ -179,7 +179,7 @@ namespace LootLockerUtilities
 
     FString JsonObjectToString(const TSharedRef<FJsonObject>& JsonObject)
     {
-	    FString OutJsonString;
+	    FString OutJsonString = "";
 	    TSharedRef<TJsonWriter<TCHAR, TCondensedJsonPrintPolicy<TCHAR>> > JsonWriter = TJsonWriterFactory<TCHAR, TCondensedJsonPrintPolicy<TCHAR>>::Create(&OutJsonString, 0);
 	    bool bSuccess = FJsonSerializer::Serialize(JsonObject, JsonWriter);
 	    JsonWriter->Close();
@@ -188,7 +188,7 @@ namespace LootLockerUtilities
 
     FString JsonValueToString(const TSharedRef<FJsonValue>& JsonValue)
     {
-	    FString OutJsonString;
+	    FString OutJsonString = "";
 	    TSharedRef<TJsonWriter<TCHAR, TCondensedJsonPrintPolicy<TCHAR>> > JsonWriter = TJsonWriterFactory<TCHAR, TCondensedJsonPrintPolicy<TCHAR>>::Create(&OutJsonString, 0);
 	    bool bSuccess = FJsonSerializer::Serialize(JsonValue, "", JsonWriter);
 	    JsonWriter->Close();

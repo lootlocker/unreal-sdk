@@ -86,12 +86,12 @@ struct FLootLockerMetadataBase64Value
      The type of content that the base64 string encodes. Could be for example "image/jpeg" if it is a base64 encoded jpeg, or "application/x-redacted" if loading of files has been disabled
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Content_type;
+    FString Content_type = "";
     /*
      The encoded content in the form of a Base64 String. If this is unexpectedly empty, check if Content_type is set to "application/x-redacted". If it is, then the request for metadata was made with the ignoreFiles parameter set to true
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Content;
+    FString Content = "";
 };
 
 /**
@@ -105,7 +105,7 @@ struct FLootLockerMetadataEntry
      The metadata key
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Key;
+    FString Key = "";
     /*
      The type of value this metadata contains. Use this to parse the value.
      */
@@ -250,7 +250,7 @@ struct FLootLockerSetMetadataErrorEntry
      The metadata key that the set operation error refers to
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Key;
+    FString Key = "";
     /*
      The type of value that the set operation was for
      */
@@ -279,7 +279,7 @@ struct FLootLockerSetMetadataError
      The error message describing why this metadata set operation failed
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Error;
+    FString Error = "";
 };
 
 /*
@@ -298,7 +298,7 @@ struct FLootLockerMetadataSourceAndKeys
      The id of the specific source that the set operation was taken on, note that if the source is self then this too should be set to "self"
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Id;
+    FString Id = "";
     /*
      A list of keys existing on the specified source
 	 */
@@ -322,7 +322,7 @@ struct FLootLockerMetadataSourceAndEntries
      The id of the specific source that the set operation was taken on
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Source_id;
+    FString Source_id = "";
     /*
      List of entries for this source
      */
@@ -441,7 +441,7 @@ struct FLootLockerSetMetadataResponse : public FLootLockerResponse
      The id of the specific source that the set operation was taken on
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Source_id;
+    FString Source_id = "";
 };
 
 /*

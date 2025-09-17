@@ -76,7 +76,7 @@ void FLootLockerListNotificationsResponse::PopulateConvenienceStructures()
             {
 	            continue;
             }
-            FString jsonNotificationId;
+            FString jsonNotificationId = "";
             if (!jsonNotification->TryGetStringField(TEXT("id"), jsonNotificationId))
             {
                 continue;
@@ -388,7 +388,7 @@ bool FLootLockerNotificationContent::TryGetContentBodyAsStringArray(TArray<FStri
     bool allSucceeded = true;
     for (TSharedPtr<FJsonValue> JsonValue : jsonArray)
     {
-        FString convertedValue;
+        FString convertedValue = "";
         if (JsonValue->TryGetString(convertedValue))
         {
             Output.Add(convertedValue);
@@ -413,7 +413,7 @@ bool FLootLockerNotificationContent::TryGetContentBodyAsFloatArray(TArray<float>
     bool allSucceeded = true;
     for (TSharedPtr<FJsonValue> JsonValue : jsonArray)
     {
-        float convertedValue;
+        float convertedValue = 0.0f;
 #if ENGINE_MAJOR_VERSION > 5
         if (!(BodyAsJsonValue.IsValid() && BodyAsJsonValue->TryGetNumber(convertedValue)))
         {
@@ -446,7 +446,7 @@ bool FLootLockerNotificationContent::TryGetContentBodyAsIntegerArray(TArray<int>
     bool allSucceeded = true;
     for (TSharedPtr<FJsonValue> JsonValue : jsonArray)
     {
-        int convertedValue;
+        int convertedValue = 0;
         if (JsonValue->TryGetNumber(convertedValue))
         {
             Output.Add(convertedValue);
@@ -471,7 +471,7 @@ bool FLootLockerNotificationContent::TryGetContentBodyAsBoolArray(TArray<bool>& 
     bool allSucceeded = true;
     for (TSharedPtr<FJsonValue> JsonValue : jsonArray)
     {
-        bool convertedValue;
+        bool convertedValue = false;
         if (JsonValue->TryGetBool(convertedValue))
         {
             Output.Add(convertedValue);

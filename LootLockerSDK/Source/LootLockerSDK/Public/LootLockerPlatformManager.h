@@ -37,9 +37,9 @@ struct FLootLockerPlatformRepresentation
     UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
     ELootLockerPlatform Platform;
 	UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
-    FString PlatformString;
+    FString PlatformString = "";
 	UPROPERTY(BlueprintReadOnly, Category = "LootLocker")
-    FString AuthenticationProviderString;
+    FString AuthenticationProviderString = "";
 
     FLootLockerPlatformRepresentation(const ELootLockerPlatform& Platform = ELootLockerPlatform::None, const FString& PlatformString = TEXT(""), const FString& AuthenticationProviderString = TEXT(""))
 	    : Platform(Platform),

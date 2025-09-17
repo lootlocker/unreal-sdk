@@ -1302,7 +1302,7 @@ void ULootLockerManager::ParseLootLockerMetadataEntry(const FLootLockerMetadataE
     Base64Value = FLootLockerMetadataBase64Value();
     ErrorMessage = "Unknown Error";
     OutEntry = Entry;
-    FString ValueToParse;
+    FString ValueToParse = "";
     if (!Entry.TryGetSerializedValue(ValueToParse))
     {
         ErrorMessage = FString::Format(TEXT("Couldn't get serialized value for type: \"{0}\""), { static_cast<int>(Entry.Type) }); ;

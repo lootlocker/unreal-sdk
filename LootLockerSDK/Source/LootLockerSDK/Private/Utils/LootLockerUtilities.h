@@ -16,8 +16,8 @@ const TMultiMap<FString,FString> EmptyQueryParams;
 
 struct FObfuscationDetails
 {
-    FString key;
-    FString replacementChar;
+    FString key = "";
+    FString replacementChar = "";
     int visibleCharsFromBeginning = 0;
     int visibleCharsFromEnd = 0;
     bool hideCharactersForShortStrings = false;
@@ -63,7 +63,7 @@ namespace LootLockerUtilities
             }
         }
 
-        FString JsonString;
+        FString JsonString = "";
         const TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&JsonString);
         FJsonSerializer::Serialize(ItemsJsonArray, Writer);
         return JsonString;
@@ -96,7 +96,7 @@ namespace LootLockerUtilities
     template<typename RequestType>
     static FString UStructToJsonString(RequestType RequestStruct)
     {
-        FString ContentString;
+        FString ContentString = "";
 #if ENGINE_MAJOR_VERSION < 5
         FJsonObjectConverter::UStructToJsonObjectString(RequestType::StaticStruct(), &RequestStruct, ContentString, 0, 0);
         if (IsEmptyJsonString(ContentString))

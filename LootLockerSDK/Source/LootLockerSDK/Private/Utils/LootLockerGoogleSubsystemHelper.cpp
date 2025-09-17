@@ -376,7 +376,7 @@ void ULootLockerGoogleSubsystemHelper::SignOutWithGooglePlay(int LocalUserNumber
 
 FString ULootLockerGoogleSubsystemHelper::GetIDToken(int LocalUserNumber)
 {
-	FString IdToken;
+	FString IdToken = "";
 	const IOnlineSubsystem* OnlineSubsystemGoogle = IOnlineSubsystem::Get(GOOGLE_SUBSYSTEM);
 	if (OnlineSubsystemGoogle == nullptr)
 	{

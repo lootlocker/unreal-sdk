@@ -66,7 +66,7 @@ void ULootLockerAssetsRequestHandler::GetAssetsByIds(const FLootLockerPlayerData
 
     if (AssetIds.Num() > 0)
     {
-        FString ItemsParameterString;
+        FString ItemsParameterString = "";
         for (const auto& Id : AssetIds)
         {
             ItemsParameterString += FString::FromInt(Id) + ",";

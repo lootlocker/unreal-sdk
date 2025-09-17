@@ -22,17 +22,17 @@ struct FLootLockerCurrency
      * The unique id of the currency
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Id;
+    FString Id = "";
     /**
      * The name of the currency
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Name;
+    FString Name = "";
     /**
      * The unique short code of the currency
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Code;
+    FString Code = "";
     /**
      * True if this currency can be awarded to the player from the game api
      */
@@ -42,12 +42,12 @@ struct FLootLockerCurrency
      * The time that this currency was created
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Created_at;
+    FString Created_at = "";
     /**
      * The time that this currency was published
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Published_at;
+    FString Published_at = "";
 };
 
 /**
@@ -61,17 +61,17 @@ struct FLootLockerDenomination
      * The unique id of the denomination
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Id;
+    FString Id = "";
     /**
      * The id of the currency this is a denomination of
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Currency;
+    FString Currency = "";
     /**
      * The name of this denomination
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Name;
+    FString Name = "";
     /**
      * The value of this denomination in units of the currency
      */
@@ -81,7 +81,7 @@ struct FLootLockerDenomination
      * The time that this denomination was created
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Created_at;
+    FString Created_at = "";
 };
 
 //==================================================
@@ -133,17 +133,17 @@ struct FLootLockerGetCurrencyDetailsResponse : public FLootLockerResponse
      * The unique id of the currency
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Id;
+    FString Id = "";
     /**
      * The name of the currency
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Name;
+    FString Name = "";
     /**
      * The unique short code of the currency
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Code;
+    FString Code = "";
     /**
      * True if this currency can be awarded to the player from the game api
      */
@@ -153,7 +153,7 @@ struct FLootLockerGetCurrencyDetailsResponse : public FLootLockerResponse
      * The time that this currency was created
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Created_at;
+    FString Created_at = "";
 };
 
 

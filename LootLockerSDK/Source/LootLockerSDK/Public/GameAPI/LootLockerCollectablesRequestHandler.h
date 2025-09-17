@@ -23,7 +23,7 @@ USTRUCT(BlueprintType)
 struct FLootLockerCollectableItem {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString name;
+    FString name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool collected = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -38,7 +38,7 @@ USTRUCT(BlueprintType)
 struct FLootLockerCollectableItemGroup {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString name;
+    FString name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int completion_percentage = 0;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -53,7 +53,7 @@ USTRUCT(BlueprintType)
 struct FLootLockerCollectable {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString name;
+    FString name = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerCollectableItemGroup> groups;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -68,7 +68,7 @@ USTRUCT(BlueprintType)
 struct FLootLockerCollectItemPayload {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString slug;
+    FString slug = "";
 };
 
 USTRUCT(BlueprintType)

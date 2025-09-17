@@ -157,19 +157,19 @@ struct FLootLockerGetFriendResponse : public FLootLockerResponse
 
     /** The id of the player */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Player_id;
+    FString Player_id = "";
     /** The name of the player */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Player_name;
+    FString Player_name = "";
     /** The public uid of the player */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Public_uid;
+    FString Public_uid = "";
     /** When the player's account was created */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Created_at;
+    FString Created_at = "";
     /** When the friend request was accepted */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Accepted_at;
+    FString Accepted_at = "";
 };
 
 

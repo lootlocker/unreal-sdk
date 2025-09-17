@@ -37,7 +37,7 @@ struct FLootLockerSuccessfulKey
      * The key of the trigger that was successfully invoked
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Key;
+    FString Key = "";
 };
 
 /**
@@ -51,7 +51,7 @@ struct FLootLockerFailedKey
      * The key of the trigger that failed invocation
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Key;
+    FString Key = "";
     /**
      * The reason that the trigger failed invocation
      */

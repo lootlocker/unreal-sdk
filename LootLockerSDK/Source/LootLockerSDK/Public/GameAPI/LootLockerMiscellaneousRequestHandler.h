@@ -21,16 +21,16 @@ struct FLootLockerGameInfo
     GENERATED_BODY()
     // The title ID of the game (uniquely identifies the game in LootLocker)
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Title_id;
+    FString Title_id = "";
     // The environment ID of the game (identifies which environment instance of the title this game refers to in LootLocker)
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Environment_id;
+    FString Environment_id = "";
     // The id of the game (uniquely identifies the game in LootLocker)
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 Game_id = 0;
     // The name of the game as configured in LootLocker
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Name;
+    FString Name = "";
 };
 
 //==================================================
@@ -43,7 +43,7 @@ struct FLootLockerGameInfoRequest
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString api_key;
+    FString api_key = "";
 };
 
 //==================================================
@@ -56,7 +56,7 @@ struct FLootLockerTimeResponse : public FLootLockerResponse
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString date;
+	FString date = "";
 };
 
 /*
