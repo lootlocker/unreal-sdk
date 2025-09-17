@@ -13,9 +13,9 @@ struct FLootLockerFileUploadRequest
     GENERATED_BODY()
 	// Path to the file
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString file;
+	FString file = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString purpose;
+	FString purpose = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool IsPublic = false;
 };
@@ -26,7 +26,7 @@ struct FLootLockerFileUpdateRequest
 	GENERATED_BODY()
 	// Path to the file
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString file;
+	FString file = "";
 };
 
 USTRUCT(BlueprintType)
@@ -34,23 +34,23 @@ struct FLootLockerPlayerFileResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString message;
+    FString message = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 id = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString revision_id;
+	FString revision_id = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString name;
+    FString name = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 size = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString purpose;
+    FString purpose = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString url;
+    FString url = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString url_expires_at;
+    FString url_expires_at = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString created_at;
+	FString created_at = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	bool IsPublic = false;
 };
@@ -62,19 +62,19 @@ struct FLootLockerPlayerFile
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 id = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString revision_id;
+	FString revision_id = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString name;
+	FString name = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 size = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString purpose;
+	FString purpose = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString url;
+	FString url = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString url_expires_at;
+	FString url_expires_at = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString created_at;
+	FString created_at = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	bool IsPublic = false;
 };

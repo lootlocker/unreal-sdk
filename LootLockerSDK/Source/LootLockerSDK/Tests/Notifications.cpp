@@ -118,7 +118,7 @@ FLootLockerNotification GenerateLootLockerNotification(const FString& notificati
         /*Progression_points*/
         FLootLockerNotificationRewardProgression()
     };
-    FString contentRewardBodyString;
+    FString contentRewardBodyString = "";
 	FJsonObjectConverter::UStructToJsonObjectString(contentRewardBody, contentRewardBodyString);
     TSharedPtr<FJsonValue> contentRewardBodyJson = LootLockerUtilities::JsonValueFromFString(contentRewardBodyString);
     return FLootLockerNotification

@@ -27,7 +27,7 @@ struct FLootLockerAuthResponse : public FLootLockerResponse
 	 * The session token that can now be used to use further LootLocker functionality. We store and use this for you.
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString session_token;
+	FString session_token = "";
 };
 
 USTRUCT(BlueprintType)
@@ -35,9 +35,9 @@ struct FLootLockerLoginRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login")
-	FString email;
+	FString email = "";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login")
-	FString password;
+	FString password = "";
 };
 
 USTRUCT(BlueprintType)
@@ -60,17 +60,17 @@ struct FLootLockerLoginResponse : public FLootLockerAuthResponse
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login Response")
 	int32 game_id = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login Response")
-	FString email;
+	FString email = "";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login Response")
-	FString created_at;
+	FString created_at = "";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login Response")
-	FString last_seen;
+	FString last_seen = "";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login Response")
-	FString updated_at;
+	FString updated_at = "";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login Response")
-	FString deleted_at;
+	FString deleted_at = "";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login Response")
-	FString validated_at;
+	FString validated_at = "";
 };
 
 USTRUCT(BlueprintType)
@@ -78,9 +78,9 @@ struct FLootLockerBaseAuthRequest_Old
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	FString game_key;
+	FString game_key = "";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	FString game_version;
+	FString game_version = "";
 };
 
 USTRUCT(BlueprintType)
@@ -88,9 +88,9 @@ struct FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	FString game_api_key;
+	FString game_api_key = "";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	FString game_version;
+	FString game_version = "";
 };
 
 USTRUCT(BlueprintType)
@@ -98,9 +98,9 @@ struct FLootLockerAuthenticationRequest : public FLootLockerBaseAuthRequest_Old
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	FString platform;
+	FString platform = "";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	FString player_identifier;
+	FString player_identifier = "";
 };
 
 USTRUCT(BlueprintType)
@@ -108,9 +108,9 @@ struct FLootLockerWhiteLabelAuthRequest : public FLootLockerBaseAuthRequest_Old
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString email;
+	FString email = "";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString token;
+	FString token = "";
 };
 
 USTRUCT(BlueprintType)
@@ -118,9 +118,9 @@ struct FLootLockerWhiteLabelVerifySessionRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString email;
+	FString email = "";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString token;
+	FString token = "";
 };
 
 USTRUCT(BlueprintType)
@@ -128,7 +128,7 @@ struct FLootLockerWhiteLabelResetPasswordRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString email;
+	FString email = "";
 };
 
 USTRUCT(BlueprintType)
@@ -136,7 +136,7 @@ struct FLootLockerNintendoSwitchSessionRequest : public FLootLockerBaseAuthReque
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString nsa_id_token;
+	FString nsa_id_token = "";
 };
 
 USTRUCT(BlueprintType)
@@ -144,9 +144,9 @@ struct FLootLockerStartMetaSessionRequest : public FLootLockerBaseAuthRequest_Ol
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString user_id;
+	FString user_id = "";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString nonce;
+	FString nonce = "";
 };
 
 USTRUCT(BlueprintType)
@@ -154,7 +154,7 @@ struct FLootLockerRefreshMetaSessionRequest : public FLootLockerBaseAuthRequest_
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString refresh_token;
+	FString refresh_token = "";
 };
 
 USTRUCT(BlueprintType)
@@ -162,7 +162,7 @@ struct FLootLockerXboxSessionRequest : public FLootLockerBaseAuthRequest_Old
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString xbox_user_token;
+	FString xbox_user_token = "";
 };
 
 USTRUCT(BlueprintType)
@@ -170,17 +170,17 @@ struct FLootLockerAppleGameCenterSessionRequest : public FLootLockerBaseAuthRequ
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString bundle_id;
+	FString bundle_id = "";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString player_id;
+	FString player_id = "";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString public_key_url;
+	FString public_key_url = "";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString signature;
+	FString signature = "";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString salt;
+	FString salt = "";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString timestamp;
+	FString timestamp = "";
 
 };
 
@@ -189,7 +189,7 @@ struct FLootLockerRefreshAppleGameCenterSessionRequest : public FLootLockerBaseA
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString refresh_token;
+	FString refresh_token = "";
 };
 
 
@@ -198,7 +198,7 @@ struct FLootLockerAppleSessionRequest : public FLootLockerBaseAuthRequest_Old
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString apple_authorization_code;
+	FString apple_authorization_code = "";
 };
 
 USTRUCT(BlueprintType)
@@ -206,7 +206,7 @@ struct FLootLockerRefreshAppleSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString refresh_token;
+	FString refresh_token = "";
 };
 
 USTRUCT(BlueprintType)
@@ -214,7 +214,7 @@ struct FLootLockerGoogleSessionRequest : public FLootLockerBaseAuthRequest_Old
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString id_token;
+	FString id_token = "";
 };
 
 USTRUCT(BlueprintType)
@@ -230,7 +230,7 @@ struct FLootLockerRefreshGoogleSessionRequest : public FLootLockerBaseAuthReques
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString refresh_token;
+	FString refresh_token = "";
 };
 
 USTRUCT(BlueprintType)
@@ -238,7 +238,7 @@ struct FLootLockerGooglePlayGamesSessionRequest : public FLootLockerBaseAuthRequ
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString auth_code;
+	FString auth_code = "";
 };
 
 USTRUCT(BlueprintType)
@@ -246,7 +246,7 @@ struct FLootLockerRefreshGooglePlayGamesSessionRequest : public FLootLockerBaseA
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString refresh_token;
+	FString refresh_token = "";
 };
 
 USTRUCT(BlueprintType)
@@ -254,7 +254,7 @@ struct FLootLockerEpicSessionRequest : public FLootLockerBaseAuthRequest_Old
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString id_token;
+	FString id_token = "";
 };
 
 USTRUCT(BlueprintType)
@@ -262,7 +262,7 @@ struct FLootLockerRefreshEpicSessionRequest : public FLootLockerBaseAuthRequest_
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString refresh_token;
+	FString refresh_token = "";
 };
 
 USTRUCT(BlueprintType)
@@ -270,11 +270,11 @@ struct FLootLockerVerificationRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString key;
+	FString key = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString platform;
+	FString platform = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString token;
+	FString token = "";
 };
 
 USTRUCT(BlueprintType)
@@ -282,7 +282,7 @@ struct FLootLockerSteamSessionRequest: public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString steam_ticket;
+	FString steam_ticket = "";
 };
 
 USTRUCT(BlueprintType)
@@ -290,7 +290,7 @@ struct FLootLockerDiscordSessionRequest : public FLootLockerBaseAuthRequest_Old
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString access_token;
+	FString access_token = "";
 };
 
 USTRUCT(BlueprintType)
@@ -298,7 +298,7 @@ struct FLootLockerRefreshDiscordSessionRequest : public FLootLockerBaseAuthReque
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString refresh_token;
+	FString refresh_token = "";
 };
 
 USTRUCT(BlueprintType)
@@ -306,7 +306,7 @@ struct FLootLockerSteamSessionWithAppIdRequest : public FLootLockerSteamSessionR
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString steam_app_id;
+	FString steam_app_id = "";
 };
 
 USTRUCT(BlueprintType)
@@ -314,11 +314,11 @@ struct FLootLockerVerificationWithSteamAppIdRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString key;
+	FString key = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString platform;
+	FString platform = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString token;
+	FString token = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int Active_steam_app_id = 0;
 };
@@ -371,12 +371,12 @@ struct FLootLockerAuthenticationResponse : public FLootLockerAuthResponse
 	 * The public UID for this player
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString public_uid;
+	FString public_uid = "";
 	/**
 	 * The player ULID for this player
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString player_ulid;
+	FString player_ulid = "";
 	/**
 	 * The date that this player was created
 	 */
@@ -421,12 +421,12 @@ struct FLootLockerAuthenticationResponse : public FLootLockerAuthResponse
 	 * The player identifier of the player
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString player_identifier;
+	FString player_identifier = "";
 	/**
 	 The id of the wallet for this account
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString wallet_id;
+	FString wallet_id = "";
 };
 
 USTRUCT(BlueprintType)
@@ -434,7 +434,7 @@ struct FLootLockerAppleSessionResponse : public FLootLockerAuthenticationRespons
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString refresh_token;
+	FString refresh_token = "";
 };
 
 USTRUCT(BlueprintType)
@@ -442,7 +442,7 @@ struct FLootLockerAppleGameCenterSessionResponse : public FLootLockerAuthenticat
 {
 	GENERATED_BODY()
 		UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-		FString refresh_token;
+		FString refresh_token = "";
 };
 
 USTRUCT(BlueprintType)
@@ -450,7 +450,7 @@ struct FLootLockerGoogleSessionResponse : public FLootLockerAuthenticationRespon
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString refresh_token;
+	FString refresh_token = "";
 };
 
 USTRUCT(BlueprintType)
@@ -458,7 +458,7 @@ struct FLootLockerGooglePlayGamesSessionResponse : public FLootLockerAuthenticat
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString refresh_token;
+	FString refresh_token = "";
 };
 
 USTRUCT(BlueprintType)
@@ -466,7 +466,7 @@ struct FLootLockerEpicSessionResponse : public FLootLockerAuthenticationResponse
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString refresh_token;
+	FString refresh_token = "";
 };
 
 USTRUCT(BlueprintType)
@@ -478,7 +478,7 @@ struct FLootLockerWhiteLabelVerifySessionResponse : public FLootLockerResponse
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 user_id = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString email;
+	FString email = "";
 };
 
 USTRUCT(BlueprintType)
@@ -519,7 +519,7 @@ struct FLootLockerMetaSessionResponse : public FLootLockerAuthenticationResponse
 {
 	GENERATED_BODY()
 		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-		FString refresh_token;
+		FString refresh_token = "";
 };
 
 USTRUCT(BlueprintType)
@@ -527,7 +527,7 @@ struct FLootLockerDiscordSessionResponse : public FLootLockerAuthenticationRespo
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-	FString refresh_token;
+	FString refresh_token = "";
 };
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FAuthResponseBP, FLootLockerAuthenticationResponse, Var);
