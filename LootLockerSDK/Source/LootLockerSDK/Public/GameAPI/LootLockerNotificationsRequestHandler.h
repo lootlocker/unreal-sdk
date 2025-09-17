@@ -777,7 +777,7 @@ struct FLootLockerNotificationContent
       The body for this notification content as a json string, use the dedicated methods to parse this
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString BodyAsJsonString;
+    FString BodyAsJsonString = "";
     /**
       The body for this notification content as a json value, use the dedicated methods to parse this
      */

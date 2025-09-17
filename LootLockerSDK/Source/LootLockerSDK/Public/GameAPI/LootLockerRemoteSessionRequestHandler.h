@@ -66,12 +66,12 @@ struct FLootLockerRemoteSessionPlayerData
      * The public UID for this player
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString public_uid;
+    FString public_uid = "";
     /**
      * The player ULID for this player
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString player_ulid;
+    FString player_ulid = "";
     /**
      * Whether this player has been seen before (true) or is new (false)
      */
@@ -111,17 +111,17 @@ struct FLootLockerRemoteSessionPlayerData
      * The player identifier of the player
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString player_identifier;
+    FString player_identifier = "";
     /**
      * When this player was first created
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString player_created_at;
+    FString player_created_at = "";
     /**
      The id of the wallet for this account
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString wallet_id;
+    FString wallet_id = "";
 };
 
 /**
@@ -173,17 +173,17 @@ struct FLootLockerLeaseRemoteSessionRequest
      * The title id for the game, this is the same as the Title ID in the LootLocker dashboard
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Title_id;
+    FString Title_id = "";
     /**
      * The environment id for the game, this is the same as the Environment ID in the LootLocker dashboard
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Environment_id;
+    FString Environment_id = "";
     /**
      * The Game Version configured for the game
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Game_version;
+    FString Game_version = "";
 };
 
 /**
@@ -220,7 +220,7 @@ struct FLootLockerRefreshRemoteSessionRequest : public FLootLockerBaseAuthReques
 {
     GENERATED_BODY()
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-    FString refresh_token;
+    FString refresh_token = "";
 };
 
 //==================================================

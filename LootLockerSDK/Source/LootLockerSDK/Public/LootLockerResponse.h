@@ -19,7 +19,7 @@ struct FLootLockerResponse
     int StatusCode = 0;
     // Raw text/http body from the server response
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString FullTextFromServer;
+    FString FullTextFromServer = "";
     // If this request was not a success, this structure holds all the information needed to identify the problem
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerErrorData ErrorData;
@@ -85,12 +85,12 @@ struct FLootLockerExtendedPaginationError
      * Which field in the pagination that this error relates to
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Field;
+    FString Field = "";
     /*
      * The error message in question
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Message;
+    FString Message = "";
 };
 
 USTRUCT(BlueprintType)
@@ -126,12 +126,12 @@ struct FLootLockerExtendedIndexBasedPagination
      * The page index to use for fetching the page of entries immediately succeeding this page of entries
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Next_page;
+    FString Next_page = "";
     /*
      * The page index to use for fetching the page of entries immediately preceding this page of entries
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Prev_page;
+    FString Prev_page = "";
     /*
      * List of pagination errors (if any). These are errors specifically related to the pagination of the entry set.
      **/

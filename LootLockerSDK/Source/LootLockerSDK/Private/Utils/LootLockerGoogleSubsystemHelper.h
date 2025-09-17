@@ -15,7 +15,7 @@ struct FLootLockerGoogleSubsystemStoreOffer
     GENERATED_BODY()
     /** Unique offer identifier */
     UPROPERTY(BlueprintReadOnly, Category = "LootLocker | GoogleSubsystemHelper")
-    FString OfferId;
+    FString OfferId = "";
     /** Title for display */
     UPROPERTY(BlueprintReadOnly, Category = "LootLocker | GoogleSubsystemHelper")
     FText Title;
@@ -39,7 +39,7 @@ struct FLootLockerGoogleSubsystemStoreOffer
     int32 NumericPrice = 0;
     /** Price currency code */
     UPROPERTY(BlueprintReadOnly, Category = "LootLocker | GoogleSubsystemHelper")
-    FString CurrencyCode;
+    FString CurrencyCode = "";
 };
 
 
