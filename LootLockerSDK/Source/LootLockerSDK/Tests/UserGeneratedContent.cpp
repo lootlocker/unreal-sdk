@@ -121,7 +121,7 @@ void FLootLockerTestUserGeneratedContent::Define()
 				//const auto [Promise , Delegate] = test_util::CreateDelegate<void,FLootLockerFileDeletedDelegate>();
 				std::promise<void>* Promise = new std::promise<void>();
 
-				auto Delegate = FResponseCallback::CreateLambda([Promise](FLootLockerResponse){Promise->set_value();});
+				auto Delegate = FAssetCandidateResponseDelegate::CreateLambda([Promise](FLootLockerAssetCandidateResponse){Promise->set_value();});
 
 				ELootLockerAssetFilePurpose FilePurpose;
 				FilePurpose = ELootLockerAssetFilePurpose::FILE;
