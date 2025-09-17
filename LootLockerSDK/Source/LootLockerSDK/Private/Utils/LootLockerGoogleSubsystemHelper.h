@@ -63,7 +63,7 @@ DECLARE_DYNAMIC_DELEGATE_FourParams(FLootLockerGoogleSubsystemReadOfferCompleted
 /*
  * Delegate for responses upon login process completion
  */
-DECLARE_DYNAMIC_DELEGATE_ThreeParams(FLootLockerGooglePlaySubsystemLoginCompletedCallback, bool, Success, int, LocalUserNumber, const FString&, ErrorMsg);
+DECLARE_DYNAMIC_DELEGATE_FourParams(FLootLockerGooglePlaySubsystemLoginCompletedCallback, bool, Success, int, LocalUserNumber, const FString&, ErrorMsg, const FString&, AuthCode);
 /*
  * Delegate for responses upon logout process completion
  */
@@ -152,6 +152,16 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | GoogleSubsystemHelper")
     static FString GetIDToken(int LocalUserNumber);
+
+    /**
+     * Get the AuthCode for the google play user signed in for the provided local user number
+     * 
+     * NOTE: The online subsystem needs to be enabled, included and configured for the project for this to work
+     *
+     * <param name="LocalUserNumber">Which local user to do sign in for</param>
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | GoogleSubsystemHelper")
+    static FString GetAuthCode(int LocalUserNumber);
 
     /**
      * Read info about the specified offering from Google Play
