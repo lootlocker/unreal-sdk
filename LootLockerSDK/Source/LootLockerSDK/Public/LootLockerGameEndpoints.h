@@ -31,7 +31,7 @@ struct FLootLockerEndPoints
     GENERATED_BODY()
 public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
-    FString endpoint;
+    FString endpoint = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
     ELootLockerHTTPMethod requestMethod = ELootLockerHTTPMethod::GET;
 };

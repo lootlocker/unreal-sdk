@@ -13,23 +13,23 @@ USTRUCT(BlueprintType)
 struct FLootLockerMessage {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString title;
+    FString title = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString published_at;
+    FString published_at = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString body;
+    FString body = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString summary;
+    FString summary = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString category;
+    FString category = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool alert = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool New = false;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString action;
+    FString action = "";
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString image;
+    FString image = "";
 };
 
 USTRUCT(BlueprintType)
