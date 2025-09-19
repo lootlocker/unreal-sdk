@@ -778,7 +778,7 @@ public:
     * https://ref.lootlocker.com/game-api/#get-inventory-list
     *
     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
-    * @param StartIndex From where to get the first item in the list. Continue from the last entry you got in previous call.
+    * @param StartIndex Used for pagination to set the pointer at the next asset instance after the ID (asset instance_id) supplied here.
     * @param OnGetInventoryRequestCompleted Delegate to be invoked with the server response.
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
