@@ -691,7 +691,7 @@ public:
     static void ListPlayerInfo(const FString& ForPlayerWithUlid, TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseBP& OnCompletedRequest);
 
     /**
-    * Get a paginated list of the players inventory.
+    * Get a list of the players inventory.
     * https://ref.lootlocker.com/game-api/#get-inventory-list
     *
     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
@@ -699,6 +699,17 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetInventory(const FString& ForPlayerWithUlid, const FPInventoryResponseBP& OnGetInventoryRequestCompleted);
+
+    /**
+    * Get a paginated list of the players inventory.
+    * https://ref.lootlocker.com/game-api/#get-inventory-list
+    *
+    * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+    * @param StartIndex From where to get the first item in the list. Continue from the last entry you got in previous call.
+    * @param OnGetInventoryRequestCompleted Delegate to be invoked with the server response.
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static void GetFullInventory(const FString ForPlayerWithUlid, int32 StartIndex, const FPInventoryResponseBP& OnGetInventoryRequestCompleted);
 
     /**
     * Get assets that have been granted to the player since the last time this endpoint was called.

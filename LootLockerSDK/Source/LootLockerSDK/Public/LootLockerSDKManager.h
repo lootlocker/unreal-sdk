@@ -737,11 +737,11 @@ public:
     static void ListPlayerInfo(TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     /**
-    * Get a paginated list of the players inventory.
+    * Get a list of the players inventory.
     * https://ref.lootlocker.com/game-api/#get-inventory-list
     *
     * @param OnCompletedRequest Delegate to be invoked with the server response.
-     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+    * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
     static void GetInventory(const FInventoryResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -750,6 +750,7 @@ public:
     * https://ref.lootlocker.com/game-api/#get-inventory-list
     *
     * @param OnCompletedRequest Delegate to be invoked with the server response.
+    * @param StartIndex Used for pagination to set the pointer at the next asset instance after the ID supplied here.
     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
     static void GetFullInventory(const FInventoryResponse & OnCompletedRequest, int32 StartIndex, const FString& ForPlayerWithUlid = "");

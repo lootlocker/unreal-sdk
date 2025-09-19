@@ -321,6 +321,11 @@ void ULootLockerManager::GetInventory(const FString& ForPlayerWithUlid, const FP
     ULootLockerPlayerRequestHandler::GetInventory(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnGetInventoryRequestCompleted);
 }
 
+void ULootLockerManager::GetFullInventory(const FString ForPlayerWithUlid, int32 StartIndex, const FPInventoryResponseBP& OnGetInventoryRequestCompleted)
+{
+	ULootLockerPlayerRequestHandler::GetFullInventory(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnGetInventoryRequestCompleted, FInventoryResponse(), StartIndex);
+}
+
 void ULootLockerManager::CheckPlayerAssetActivationNotification(const FString& ForPlayerWithUlid, const FPAssetNotificationResponseBP& OnCheckPlayerAssetDeactivationNotificationRequestCompleted)
 {
     ULootLockerPlayerRequestHandler::CheckPlayerAssetNotification(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCheckPlayerAssetDeactivationNotificationRequestCompleted);
