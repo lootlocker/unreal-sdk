@@ -750,7 +750,7 @@ public:
     * https://ref.lootlocker.com/game-api/#get-inventory-list
     *
     * @param OnCompletedRequest Delegate to be invoked with the server response.
-    * @param StartIndex Used for pagination to set the pointer at the next asset instance after the ID supplied here.
+    * @param StartIndex Used for pagination to set the pointer at the next asset instance after the ID (asset instance_id) supplied here.
     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
     static void GetFullInventory(const FInventoryResponse & OnCompletedRequest, int32 StartIndex, const FString& ForPlayerWithUlid = "");
