@@ -142,7 +142,31 @@ public:
      * @param PsnOnlineId The PSN Online ID of the player
      * @param OnCompletedRequest Delegate for handling the server response.
      */
+    [[deprecated("This method is deprecated, please use VerifyPlayerAndStartPlaystationNetworkSession instead.")]] // Deprecation date 20250922
     static void StartPlaystationNetworkSession(const FString& PsnOnlineId, const FLootLockerSessionResponse& OnCompletedRequest);
+
+    /**
+     * Start a Playstation Network session. If your token starts with v3, then you should use VerifyPlayerAndStartPlaystationNetworkV3Session instead.
+     * 
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     *
+     * @param AuthCode The authorization code received from PSN after a successful login
+     * @param AccountID The numeric representation of the account id received from PSN after a successful login
+     * @param OnCompletedRequest Delegate for handling the server response.
+     * @param PsnIssuerId (Optional) The PSN issuer id to use when verifying the player towards PSN. If not supplied, will be defaulted to 256=production.
+     */
+    static void VerifyPlayerAndStartPlaystationNetworkSession(const FString& AuthCode, const FString& AccountID, const FLootLockerSessionResponse& OnCompletedRequest, int PsnIssuerId = 256);
+
+    /**
+    * Start a Playstation Network session using the v3 version of PSN authentication. If your token starts with v3, then you're using this version.
+    * 
+    * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+    * 
+    * @param AuthCode The authorization code received from PSN after a successful login</param>
+    * @param EnvIssuerId Optional: The PSN Environment issuer id to use when verifying the player towards PSN. If not supplied, will be defaulted to 256=production.</param>
+    * @param OnCompletedRequest onComplete Action for handling the response</param>
+    */
+    static void VerifyPlayerAndStartPlaystationNetworkV3Session(const FString& AuthCode, const FLootLockerSessionResponse& OnCompletedRequest, int EnvIssuerId = 256);
 
     /**
      * Start a session for an Android user
@@ -168,7 +192,6 @@ public:
      * Start a session for a steam user
      * You can optionally specify a steam app id if you have multiple ones for your game and have configured this in the LootLocker console
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.
-     * https://ref.lootlocker.com/game-api/#authentication-request
      *
      * @param SteamSessionTicket Platform-specific token.
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -446,6 +469,7 @@ public:
      * @param Platform Optional parameter to call explicitly for a specific platform
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
+    [[deprecated("This method is deprecated, please use VerifyPlayerAndStartPlaystationNetworkSession or VerifyPlayerAndStartSteamSession instead.")]] // Deprecation date 20250922
     static void VerifyPlayer(const FString& PlatformToken, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& Platform = FString(TEXT("")), const FString& ForPlayerWithUlid = "");
 
     /**

@@ -83,6 +83,16 @@ void ULootLockerSDKManager::StartPlaystationNetworkSession(const FString& PsnOnl
     ULootLockerAuthenticationRequestHandler::StartPlaystationNetworkSession(PsnOnlineId, FAuthResponseBP(), OnCompletedRequest);
 }
 
+void ULootLockerSDKManager::VerifyPlayerAndStartPlaystationNetworkSession(const FString& AuthCode, const FString& AccountID, const FLootLockerSessionResponse& OnCompletedRequest, int PsnIssuerId /*= 256*/)
+{
+    ULootLockerAuthenticationRequestHandler::VerifyPlayerAndStartPlaystationNetworkSession(AuthCode, AccountID, PsnIssuerId, FAuthResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerSDKManager::VerifyPlayerAndStartPlaystationNetworkV3Session(const FString& AuthCode, const FLootLockerSessionResponse& OnCompletedRequest, int EnvIssuerId /*= 256*/)
+{
+    ULootLockerAuthenticationRequestHandler::VerifyPlayerAndStartPlaystationNetworkV3Session(AuthCode, EnvIssuerId, FAuthResponseBP(), OnCompletedRequest);
+}
+
 void ULootLockerSDKManager::StartAndroidSession(const FString& DeviceId, const FLootLockerSessionResponse& OnCompletedRequest)
 {
     ULootLockerAuthenticationRequestHandler::StartAndroidSession(DeviceId, FAuthResponseBP(), OnCompletedRequest);

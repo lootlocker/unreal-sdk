@@ -62,6 +62,7 @@ public:
     static FLootLockerEndPoints SteamSessionEndpoint;
     static FLootLockerEndPoints StartDiscordSessionEndpoint;
     static FLootLockerEndPoints RefreshDiscordSessionEndpoint;
+    static FLootLockerEndPoints PlaystationNetworkV3SessionEndpoint;
 
     // Connected Accounts
     static FLootLockerEndPoints ListConnectedAccountsEndpoint;

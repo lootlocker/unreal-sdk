@@ -164,8 +164,33 @@ public:
      * @param PsnOnlineId The PSN Online ID of the player
      * @param OnStartedSessionRequestCompleted Delegate for handling the server response.
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (DeprecationMessage="This method is deprecated, please use VerifyPlayerAndStartPlaystationNetworkSession instead.")) // Deprecation date 2025-09-24
     static void StartPlaystationNetworkSession(const FString& PsnOnlineId, const FAuthResponseBP& OnStartedSessionRequestCompleted);
+
+    /**
+     * Start a Playstation Network session. If your token starts with v3, then you should use VerifyPlayerAndStartPlaystationNetworkV3Session instead.
+     * 
+     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+     *
+     * @param AuthCode The authorization code received from PSN after a successful login
+     * @param AccountID The numeric representation of the account id received from PSN after a successful login
+     * @param OnCompletedRequest Delegate for handling the server response.
+     * @param PsnIssuerId (Optional) The PSN issuer id to use when verifying the player towards PSN. If not supplied, will be defaulted to 256=production.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "PsnIssuerId", PsnIssuerId = 256))
+    static void VerifyPlayerAndStartPlaystationNetworkSession(const FString& AuthCode, const FString& AccountID, const FAuthResponseBP& OnCompletedRequest, int PsnIssuerId);
+
+    /**
+    * Start a Playstation Network session using the v3 version of PSN authentication. If your token starts with v3, then you're using this version.
+    * 
+    * A game can support multiple platforms, but it is recommended that a build only supports one platform.
+    *
+    * @param AuthCode The authorization code received from PSN after a successful login
+    * @param EnvIssuerId Optional: The PSN Environment issuer id to use when verifying the player towards PSN. If not supplied, will be defaulted to 256=production.
+    * @param OnCompletedRequest Delegate for handling the response
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "EnvIssuerId", EnvIssuerId = 256))
+    static void VerifyPlayerAndStartPlaystationNetworkV3Session(const FString& AuthCode, const FAuthResponseBP& OnCompletedRequest, int EnvIssuerId);
 
     /**
      * Start a session for an Android user
@@ -526,7 +551,7 @@ public:
      * @param OnVerifyPlayerRequestCompleted Response Delegate to handle the response
      * @param Platform Optional parameter to call explicitly for a specific platform
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (DeprecationMessage="This method is deprecated, please use VerifyPlayerAndStartPlaystationNetworkSession or VerifyPlayerAndStartSteamSession instead.")) // Deprecation date 2025-09-24
     static void VerifyPlayer(const FString& ForPlayerWithUlid, const FString& PlatformToken, const FLootLockerDefaultResponseBP& OnVerifyPlayerRequestCompleted, FString Platform = FString(TEXT("")));
 
     /**

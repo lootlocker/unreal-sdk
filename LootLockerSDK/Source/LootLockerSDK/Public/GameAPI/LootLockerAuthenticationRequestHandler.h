@@ -278,6 +278,34 @@ struct FLootLockerVerificationRequest
 };
 
 USTRUCT(BlueprintType)
+struct FLootLockerPlaystationNetworkVerificationRequest
+{
+	GENERATED_BODY()
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString Key;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString Platform = "psn";
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString Token;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	int Psn_issuer_id = 256; // Default to production
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerPlaystationNetworkV3SessionRequest
+{
+	GENERATED_BODY()
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString Game_api_key;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString Game_version;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString Auth_code;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	int Env_iss_id = 256; // Default to production
+};
+
+USTRUCT(BlueprintType)
 struct FLootLockerSteamSessionRequest: public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
@@ -570,6 +598,8 @@ public:
 	static void WhiteLabelRequestUserVerificationByEmail(const FString& Email, const FLootLockerDefaultResponseBP& OnCompletedRequestBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
 	static void WhiteLabelRequestPasswordReset(const FString& Email, const FLootLockerDefaultResponseBP& OnCompletedRequestBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
 	static void StartPlaystationNetworkSession(const FString& PsnOnlineId, const FAuthResponseBP& AuthResponseBP = FAuthResponseBP(), const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
+	static void VerifyPlayerAndStartPlaystationNetworkSession(const FString& AuthCode, const FString& AccountID, int PsnIssuerId, const FAuthResponseBP& AuthResponseBP = FAuthResponseBP(), const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
+	static void VerifyPlayerAndStartPlaystationNetworkV3Session(const FString& AuthCode, int EnvIssuerId, const FAuthResponseBP& AuthResponseBP = FAuthResponseBP(), const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
 	static void StartAndroidSession(const FString& DeviceId, const FAuthResponseBP& AuthResponseBP = FAuthResponseBP(), const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
 	static void StartGoogleSession(const FString& IdToken, const FGoogleSessionResponseBP& OnCompletedRequestBP = FGoogleSessionResponseBP(), const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest = FLootLockerGoogleSessionResponseDelegate());
 	static void StartGoogleSession(const FString& IdToken, const ELootLockerGoogleClientPlatform Platform, const FGoogleSessionResponseBP& OnCompletedRequestBP = FGoogleSessionResponseBP(), const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest = FLootLockerGoogleSessionResponseDelegate());
