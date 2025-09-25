@@ -30,6 +30,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::MetaSessionEndpoint = InitEndpoin
 FLootLockerEndPoints ULootLockerGameEndpoints::SteamSessionEndpoint = InitEndpoint("session/steam", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::StartDiscordSessionEndpoint = InitEndpoint("session/discord", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::RefreshDiscordSessionEndpoint = InitEndpoint("session/discord", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::PlaystationNetworkV3SessionEndpoint = InitEndpoint("session/psn-v3/v1/login", ELootLockerHTTPMethod::POST);
 
 // Connected Accounts
 FLootLockerEndPoints ULootLockerGameEndpoints::ListConnectedAccountsEndpoint = InitEndpoint("v1/connected-accounts", ELootLockerHTTPMethod::GET);

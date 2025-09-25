@@ -181,6 +181,64 @@ void ULootLockerAuthenticationRequestHandler::StartPlaystationNetworkSession(con
 		}));
 }
 
+void ULootLockerAuthenticationRequestHandler::VerifyPlayerAndStartPlaystationNetworkSession(const FString& AuthCode, const FString& AccountID, int PsnIssuerId, const FAuthResponseBP& AuthResponseBP, const FLootLockerSessionResponse& Delegate)
+{
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+	FLootLockerPlaystationNetworkVerificationRequest VerificationRequest;
+	VerificationRequest.Key = config->LootLockerGameKey;
+	VerificationRequest.Token = AuthCode;
+	VerificationRequest.Psn_issuer_id = PsnIssuerId;
+	VerificationRequest.Platform = ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::PlayStationNetwork).PlatformString;
+
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, VerificationRequest, ULootLockerGameEndpoints::VerifyPlayerIdEndPoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FLootLockerDefaultResponseBP(), FLootLockerDefaultDelegate(), LLAPI<FLootLockerResponse>::FResponseInspectorCallback::CreateLambda([AccountID, AuthResponseBP, Delegate](FLootLockerResponse& Response)
+		{
+			if (!Response.success)
+			{
+				FLootLockerAuthenticationResponse TranslatedError = LootLockerResponseFactory::ErrorFromError<FLootLockerAuthenticationResponse>(Response);
+				AuthResponseBP.ExecuteIfBound(TranslatedError);
+				Delegate.ExecuteIfBound(TranslatedError);
+				return;
+			}
+		const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+		FLootLockerAuthenticationRequest AuthRequest;
+		AuthRequest.game_key = config->LootLockerGameKey;
+		AuthRequest.game_version = config->GameVersion;
+		AuthRequest.player_identifier = AccountID;
+		AuthRequest.platform = ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::PlayStationNetwork).PlatformString;
+		LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), AuthResponseBP, Delegate, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerAuthenticationResponse& Response)
+		{
+			if (Response.success)
+			{
+				Response.Context.PlayerUlid = Response.player_ulid;
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::PlayStationNetwork), FDateTime::Now().ToString(), Response.player_created_at);
+				ULootLockerStateData::SavePlayerData(NewPlayerData);
+			}
+		}));
+	}));
+
+}
+
+void ULootLockerAuthenticationRequestHandler::VerifyPlayerAndStartPlaystationNetworkV3Session(const FString& AuthCode, int EnvIssuerId, const FAuthResponseBP& AuthResponseBP, const FLootLockerSessionResponse& Delegate)
+{
+	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
+	FLootLockerPlaystationNetworkV3SessionRequest AuthRequest {
+		config->LootLockerGameKey,
+		config->GameVersion,
+		AuthCode,
+		EnvIssuerId
+	};
+	
+	LLAPI<FLootLockerAuthenticationResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::PlaystationNetworkV3SessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), AuthResponseBP, Delegate, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerAuthenticationResponse& Response)
+		{
+			if (Response.success)
+			{
+				Response.Context.PlayerUlid = Response.player_ulid;
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::PlayStationNetwork), FDateTime::Now().ToString(), Response.player_created_at);
+				ULootLockerStateData::SavePlayerData(NewPlayerData);
+			}
+		}));
+}
+
 void ULootLockerAuthenticationRequestHandler::StartAndroidSession(const FString& DeviceId, const FAuthResponseBP& OnCompletedRequestBP, const FLootLockerSessionResponse& OnCompletedRequest)
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
