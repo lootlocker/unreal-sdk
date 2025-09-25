@@ -167,4 +167,24 @@ public:
         
         return ErrorResponse;
     }
+
+    // Construct an error response based on an existing error response, but of a different type
+    template<typename T>
+    static T ErrorFromError(FLootLockerResponse ExistingError) 
+    {
+        T ErrorResponse;
+        ErrorResponse.success = ExistingError.success;
+        ErrorResponse.StatusCode = ExistingError.StatusCode;
+        ErrorResponse.FullTextFromServer = ExistingError.FullTextFromServer;
+        ErrorResponse.ErrorData.Message = ExistingError.ErrorData.Message;
+        ErrorResponse.ErrorData.Code = ExistingError.ErrorData.Code;
+        ErrorResponse.ErrorData.Doc_url = ExistingError.ErrorData.Doc_url;
+        ErrorResponse.ErrorData.Request_id = ExistingError.ErrorData.Request_id;
+        ErrorResponse.ErrorData.Trace_id = ExistingError.ErrorData.Trace_id;
+        ErrorResponse.ErrorData.Retry_after_seconds = ExistingError.ErrorData.Retry_after_seconds;
+        ErrorResponse.Context.PlayerUlid = ExistingError.Context.PlayerUlid;
+        ErrorResponse.Context.RequestTime = ExistingError.Context.RequestTime;
+
+        return ErrorResponse;
+    }
 };
