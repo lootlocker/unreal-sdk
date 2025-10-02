@@ -725,12 +725,12 @@ void ULootLockerManager::GetAssets(const FString& ForPlayerWithUlid, const FAsse
 
 void ULootLockerManager::ListAssetsWithDefaultParameters(const FString& ForPlayerWithUlid, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequest)
 {
-    ListAssets(ForPlayerWithUlid, FLootLockerListSimpleAssetsRequest(), 0, 0, OnCompletedRequest);
+    ListAssets(ForPlayerWithUlid, FLootLockerListSimpleAssetsRequest(), 0, 0, ELootLockerOrderAssetListBy::None, ELootLockerOrderAssetListDirection::None, OnCompletedRequest);
 }
 
-void ULootLockerManager::ListAssets(const FString& ForPlayerWithUlid, const FLootLockerListSimpleAssetsRequest& Request, int PerPage, int Page, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequest)
+void ULootLockerManager::ListAssets(const FString& ForPlayerWithUlid, const FLootLockerListSimpleAssetsRequest& Request, int PerPage, int Page, ELootLockerOrderAssetListBy OrderBy, ELootLockerOrderAssetListDirection OrderDirection, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequest)
 {
-    ULootLockerAssetsRequestHandler::ListAssets(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, PerPage, Page, OnCompletedRequest);
+    ULootLockerAssetsRequestHandler::ListAssets(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, PerPage, Page, OrderBy, OrderDirection, OnCompletedRequest);
 }
 
 void ULootLockerManager::GetAssetsByIds(const FString& ForPlayerWithUlid, const TArray<int>& AssetIds, const FAssetsResponseDelegateBP& OnGetAssetsByIdsRequestCompleted)
