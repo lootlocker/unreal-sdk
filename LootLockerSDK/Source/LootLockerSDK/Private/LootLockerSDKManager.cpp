@@ -856,12 +856,12 @@ void ULootLockerSDKManager::GrantAssetToPlayerInventory(const int AssetID, const
 
 void ULootLockerSDKManager::ListAssetsWithDefaultParameters(const FListSimpleAssetsResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /*= ""*/)
 {
-    ListAssets(FLootLockerListSimpleAssetsRequest(), OnCompletedRequest, 0, 0, ForPlayerWithUlid);
+    ListAssets(FLootLockerListSimpleAssetsRequest(), OnCompletedRequest, 0, 0, ELootLockerOrderAssetListBy::None, ELootLockerOrderAssetListDirection::None, ForPlayerWithUlid);
 }
 
-void ULootLockerSDKManager::ListAssets(const FLootLockerListSimpleAssetsRequest& Request, const FListSimpleAssetsResponseDelegate& OnCompletedRequest, int PerPage /*=0*/, int Page /*=0*/, const FString& ForPlayerWithUlid /*= ""*/)
+void ULootLockerSDKManager::ListAssets(const FLootLockerListSimpleAssetsRequest& Request, const FListSimpleAssetsResponseDelegate& OnCompletedRequest, int PerPage /*=0*/, int Page /*=0*/, ELootLockerOrderAssetListBy OrderBy /*=ELootLockerOrderAssetListBy::None*/, ELootLockerOrderAssetListDirection OrderDirection /*=ELootLockerOrderAssetListDirection::None*/, const FString& ForPlayerWithUlid /*= ""*/)
 {
-    ULootLockerAssetsRequestHandler::ListAssets(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, PerPage, Page, FListSimpleAssetsResponseDelegateBP(), OnCompletedRequest);
+    ULootLockerAssetsRequestHandler::ListAssets(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, PerPage, Page, OrderBy, OrderDirection, FListSimpleAssetsResponseDelegateBP(), OnCompletedRequest);
 }
 
 //Asset Instance
