@@ -281,6 +281,24 @@ enum class ELootLockerAssetFilter : uint8
     UnPopular = 6
 };
 
+UENUM(BlueprintType)
+enum class ELootLockerOrderAssetListBy : uint8
+{
+    None = 0,
+    Id = 1,
+    Name = 2,
+    Created_at = 3,
+    Updated_at = 4
+};
+
+UENUM(BlueprintType)
+enum class ELootLockerOrderAssetListDirection : uint8
+{
+    None = 0,
+    Asc = 1,
+    Desc = 2
+};
+
 USTRUCT(BlueprintType)
 struct FLootLockerUniversalAssets
 {
@@ -414,6 +432,19 @@ struct FLootLockerSimpleAssetExcludes
     bool authors = false;
 };
 
+/** Filters to apply to the asset listing based on key-value pairs */
+USTRUCT(BlueprintType)
+struct FLootLockerSimpleAssetFilter
+{
+    GENERATED_BODY()
+    // The key for which to look for the filtered values
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    FString key = "";
+    // A list of values to filter by. If the asset has any of these values for the given key, it will be included in the results.
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    TArray<FString> values;
+};
+
 /** Filters to apply to simple asset listing */
 USTRUCT(BlueprintType)
 struct FLootLockerSimpleAssetFilters
@@ -425,6 +456,9 @@ struct FLootLockerSimpleAssetFilters
     // If provided only the requested ids will be returned (max 100, server enforced). Pagination ignored.
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     TArray<int> asset_ids;
+    // Filters to apply to the asset listing based on key-value pairs.
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    TArray<FLootLockerSimpleAssetFilter> asset_filters;
 };
 
 /** Request payload for simple asset listing */
@@ -566,7 +600,7 @@ public:
 
     static void GrantAssetToPlayerInventory(const FLootLockerPlayerData& PlayerData, const int assetID, const int assetVariationID, const int assetRentalOptionID, const FGrantAssetResponseDelegateBP& OnCompletedRequestBP = FGrantAssetResponseDelegateBP(), const FGrantAssetResponseDelegate& OnCompletedRequest = FGrantAssetResponseDelegate());
 
-    static void ListAssets(const FLootLockerPlayerData& PlayerData, const FLootLockerListSimpleAssetsRequest& Request, int PerPage, int Page, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequestBP = FListSimpleAssetsResponseDelegateBP(), const FListSimpleAssetsResponseDelegate& OnCompletedRequest = FListSimpleAssetsResponseDelegate());
+    static void ListAssets(const FLootLockerPlayerData& PlayerData, const FLootLockerListSimpleAssetsRequest& Request, int PerPage, int Page, ELootLockerOrderAssetListBy OrderBy, ELootLockerOrderAssetListDirection OrderDirection, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequestBP = FListSimpleAssetsResponseDelegateBP(), const FListSimpleAssetsResponseDelegate& OnCompletedRequest = FListSimpleAssetsResponseDelegate());
 
 public:
     ULootLockerAssetsRequestHandler();

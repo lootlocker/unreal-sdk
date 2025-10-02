@@ -120,11 +120,22 @@ void ULootLockerAssetsRequestHandler::GrantAssetToPlayerInventory(const FLootLoc
     LLAPI<FLootLockerGrantAssetResponse>::CallAPI(HttpClient, request, ULootLockerGameEndpoints::GrantAssetToPlayerInventory, { }, EmptyQueryParams, PlayerData, OnCompletedRequestBP, OnCompletedRequest);
 }
 
-void ULootLockerAssetsRequestHandler::ListAssets(const FLootLockerPlayerData& PlayerData, const FLootLockerListSimpleAssetsRequest& Request, int PerPage, int Page, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequestBP, const FListSimpleAssetsResponseDelegate& OnCompletedRequest)
+void ULootLockerAssetsRequestHandler::ListAssets(const FLootLockerPlayerData& PlayerData, const FLootLockerListSimpleAssetsRequest& Request, int PerPage, int Page, ELootLockerOrderAssetListBy OrderBy, ELootLockerOrderAssetListDirection OrderDirection, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequestBP, const FListSimpleAssetsResponseDelegate& OnCompletedRequest)
 {
     TMultiMap<FString, FString> QueryParams;
     if(Page > 0) QueryParams.Add("page", FString::FromInt(Page));
     if(PerPage > 0) QueryParams.Add("per_page", FString::FromInt(PerPage));
+    
+    // Add ordering parameters
+    if(OrderBy != ELootLockerOrderAssetListBy::None)
+    {
+        QueryParams.Add("order_by", ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerOrderAssetListBy"), static_cast<int32>(OrderBy)));
+    }
+    
+    if(OrderDirection != ELootLockerOrderAssetListDirection::None)
+    {
+        QueryParams.Add("order_direction", ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerOrderAssetListDirection"), static_cast<int32>(OrderDirection)));
+    }
 
     LLAPI<FLootLockerListSimpleAssetsResponse>::CallAPI(HttpClient, Request, ULootLockerGameEndpoints::ListAssetsEndpoint, {}, QueryParams, PlayerData, OnCompletedRequestBP, OnCompletedRequest);
 }

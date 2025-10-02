@@ -1739,10 +1739,12 @@ public:
     * @param Request Request object with settings on what fields to include, exclude, and what assets to filter
     * @param PerPage Optional: Used together with Page to apply pagination to this Request. PerPage designates how many notifications are considered a "page". Set to 0 to not use this filter.
     * @param Page Optional: Used together with PerPage to apply pagination to this Request. Page designates which "page" of items to fetch. Set to 0 to not use this filter.
+    * @param OrderBy Optional: Order the list by a specific field. Default is unordered.
+    * @param OrderDirection Optional: Order the list in ascending or descending order. Default is unordered.
     * @param OnCompletedRequest Delegate for handling the server response
     */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "PerPage,Page,ForPlayerWithUlid", PerPage=0,Page=0,ForPlayerWithUlid=""))
-    static void ListAssets(const FString& ForPlayerWithUlid, const FLootLockerListSimpleAssetsRequest& Request, int PerPage, int Page, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequest);
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "PerPage,Page,OrderBy,OrderDirection,ForPlayerWithUlid", PerPage=0,Page=0,ForPlayerWithUlid=""))
+    static void ListAssets(const FString& ForPlayerWithUlid, const FLootLockerListSimpleAssetsRequest& Request, int PerPage, int Page, ELootLockerOrderAssetListBy OrderBy, ELootLockerOrderAssetListDirection OrderDirection, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequest);
 
     //==================================================
     //Asset Instances
