@@ -139,7 +139,6 @@ public:
     /**
      * Start a session for a Playstation Network user
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.
-     * https://ref.lootlocker.com/game-api/#authentication-request
      *
      * @param PsnOnlineId The PSN Online ID of the player
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -176,7 +175,6 @@ public:
     /**
      * Start a session for an Android user
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.
-     * https://ref.lootlocker.com/game-api/#authentication-request
      *
      * @param DeviceId The device id of the player
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -187,7 +185,6 @@ public:
     /**
      * Start a session for a Amazon Luna user
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.
-     * https://ref.lootlocker.com/game-api/#authentication-request
      *
      * @param AmazonLunaGuid The Amazon Luna GUID of the player
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -210,7 +207,6 @@ public:
     /**
      * Create a new session for a Nintendo Switch user
      * The Nintendo Switch platform must be enabled in the web console for this to work.
-     * https://ref.lootlocker.com/game-api/#nintendo-switch
      *
      * @param NSAIdToken NSA (Nintendo Switch Account) id token as a string
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAuthenticationResponse
@@ -232,7 +228,6 @@ public:
      * Start a session for a Google user
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.
      * The Google sign in platform must be enabled in the web console for this to work.
-     * https://ref.lootlocker.com/game-api/#sign-in-with-google
      *
      * @param IdToken The Id Token from your Google Sign In
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -244,7 +239,6 @@ public:
      * Start a session for a Google user
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.
      * The desired Google sign in platform must be enabled in the web console for this to work.
-     * https://ref.lootlocker.com/game-api/#sign-in-with-google
      *
      * @param IdToken The Id Token from your Google Sign In
      * @param Platform Google OAuth2 ClientID platform
@@ -257,7 +251,6 @@ public:
      * Refresh a previous session signed in with Google
      * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
      * The Google sign in platform must be enabled in the web console for this to work.
-     * https://ref.lootlocker.com/game-api/#sign-in-with-google
      *
      * @param OnCompletedRequest Delegate for handling the response
      * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
@@ -270,7 +263,6 @@ public:
      * If you do not want to manually handle the refresh token we recommend using the RefreshGoogleSession(const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest) method.
      * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
      * The Google sign in platform must be enabled in the web console for this to work.
-     * https://ref.lootlocker.com/game-api/#sign-in-with-google
      *
      * @param RefreshToken Token received in response from StartGoogleSession request
      * @param OnCompletedRequest Delegate for handling the response
@@ -313,7 +305,6 @@ public:
     /**
      * Create a new session for Sign in with Apple
      * The Apple sign in platform must be enabled in the web console for this to work.
-     * https://ref.lootlocker.com/game-api/#sign-in-with-apple
      *
      * @param AuthorizationCode Authorization code, provided by apple
      * @param OnCompletedRequest Delegate for handling the response of type  for handling the response of type FLootLockerAppleSessio
@@ -325,7 +316,6 @@ public:
      * Refresh a previous session signed in with Apple
      * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
      * The Apple sign in platform must be enabled in the web console for this to work.
-     * https://ref.lootlocker.com/game-api/#sign-in-with-apple
      *
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAppleSessionResponse
      * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
@@ -338,7 +328,6 @@ public:
      * If you do not want to manually handle the refresh token we recommend using the RefreshAppleSession(const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest) method.
      * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
      * The Apple sign in platform must be enabled in the web console for this to work.
-     * https://ref.lootlocker.com/game-api/#sign-in-with-apple
      *
      * @param RefreshToken Token received in response from StartAppleSession request
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAppleSessionResponse
@@ -349,7 +338,6 @@ public:
     /**
     * Create a new session for Sign in with Apple Game Center
     * The Apple sign in platform must be enabled in the web console for this to work.
-    * https://ref.lootlocker.com/game-api/#sign-in-with-apple-game-center
     *
     * @param BundleId the Apple Game Center bundle id of your app
     * @param PlayerId the user's player id in Apple Game Center
@@ -366,7 +354,6 @@ public:
     * Refresh a previous session signed in with Apple Game Center
      * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
     * The Apple sign in platform must be enabled in the web console for this to work.
-    * https://ref.lootlocker.com/game-api/#sign-in-with-apple-game-center
     *
     * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAppleSessionResponse
     * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
@@ -378,7 +365,6 @@ public:
     * Refresh a previous session signed in with Apple Game Center
     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
     * The Apple sign in platform must be enabled in the web console for this to work.
-    * https://ref.lootlocker.com/game-api/#sign-in-with-apple-game-center
     *
     * @param RefreshToken (Optional) Token received in response from StartAppleSession request. If not supplied we will attempt to resolve it from stored player data.
     * @param OnRefreshAppleGameCenterSessionCompleted Delegate for handling the response of type FLootLockerAppleGameCenterResponse
@@ -391,7 +377,6 @@ public:
      * Start a session for an Epic Online Services (EOS) user
      * A game can support multiple platforms, but it is recommended that a build only supports one platform.
      * The Epic sign in platform must be enabled in the web console for this to work.
-     * https://ref.lootlocker.com/game-api/#sign-in-with-epic
      *
      * @param IdToken The Id Token from your Epic Sign In
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -403,7 +388,6 @@ public:
      * Refresh a previous session signed in with an Epic Online Services (EOS) user
      * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
      * The Epic sign in platform must be enabled in the web console for this to work.
-     * https://ref.lootlocker.com/game-api/#sign-in-with-epic
      *
      * @param OnCompletedRequest Delegate for handling the response
      * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
@@ -416,7 +400,6 @@ public:
      * If you do not want to manually handle the refresh token we recommend using the RefreshEpicSession(const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest) method.
      * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
      * The Epic sign in platform must be enabled in the web console for this to work.
-     * https://ref.lootlocker.com/game-api/#sign-in-with-epic
      *
      * @param RefreshToken Token received in response from StartEpicSession request
      * @param OnCompletedRequest Delegate for handling the response
@@ -460,7 +443,6 @@ public:
 
     /**
      * Start a guest session with an identifier, you can use something like a unique device identifier to tie the account to a device.
-     * https://ref.lootlocker.com/game-api/#guest-login
      *
      * @param PlayerIdentifier Optional: Identifier for the player. Needs to be unique for each player, so only set this explicitly if you want to set a specific name for the guest player. Otherwise, an id will be generated for the player.
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAuthenticationResponse
@@ -504,7 +486,6 @@ public:
     /**
      * Verify the player's identity with the server and selected platform.
      * If your game uses Player Verification, you need to call this endpoint before you can register a session.
-     * https://ref.lootlocker.com/game-api/#player-verification
      *
      *
      * @param PlatformToken Platform-specific token.
@@ -519,7 +500,6 @@ public:
      * End active session (if any exists)
      * Terminates the session on the LootLocker servers. Any further requests with this session's token will be rejected with an 401 Unauthorized error.
      * Succeeds if a session was ended or no sessions were active
-     * https://ref.lootlocker.com/game-api/#ending-a-session
      *
      * @param OnCompletedRequest Delegate for handling the response of type LootLockerSessionResponse
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -735,7 +715,6 @@ public:
     /**
      * Create a new user using the White Label login system.
      * White Label platform must be enabled in the web console for this to work.
-     * https://ref.lootlocker.com/game-api/#sign-up
      *
      * @param Email E-mail for the new user
      * @param Password Password for the new user
@@ -747,7 +726,6 @@ public:
      * Log in a White Label user with the given email and password combination, verify user, and start a White Label Session.
      * Note: Use WhiteLabelLoginAndStartSession unless there's a specific purpose to use this method instead.
      * Set remember=true to prolong the session lifetime
-     * https://ref.lootlocker.com/game-api/#login
      *
      * White Label platform must be enabled in the web console for this to work.
      * @param Email - The Email for the white label account
@@ -761,7 +739,6 @@ public:
      * Start a LootLocker Session using the cached White Label token and email if any exist
      * Note: Use WhiteLabelLoginAndStartSession unless there's a specific purpose to use this method instead.
      * White Label platform must be enabled in the web console for this to work.
-     * https://ref.lootlocker.com/game-api/#white-label-authentication
      *
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAuth
      * @param Optionals (Optional) Additional session options to use when starting the sessionenticationResponse
@@ -771,7 +748,6 @@ public:
     /**
      * Login and Start a LootLocker Session using a White Label account
      * White Label platform must be enabled in the web console for this to work.
-     * https://ref.lootlocker.com/game-api/#white-label-authentication
      *
      * @param Email - The Email for the white label account
      * @param Password - The Password for the white label account
@@ -787,7 +763,6 @@ public:
      * Depending on response of this method the developer can either start a session using the token, or show a login form.
      *
      * White Label platform must be enabled in the web console for this to work.
-     * https://ref.lootlocker.com/game-api/#verify-session
      *
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerWhiteLabelVerifySessionResponse
     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -798,7 +773,6 @@ public:
      * Request verify account email for the user.
      * White Label platform must be enabled in the web console for this to work.
      * Account verification must also be enabled.
-     * https://ref.lootlocker.com/game-api/#request-user-verification
      *
      * @param UserId The UserId for the white label user
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerResponse
@@ -809,7 +783,6 @@ public:
      * Request verify account email for the user.
      * White Label platform must be enabled in the web console for this to work.
      * Account verification must also be enabled.
-     * https://ref.lootlocker.com/game-api/#request-user-verification
      *
      * @param Email The Email for the white label user
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerResponse
@@ -819,7 +792,6 @@ public:
     /**
      * Request a password reset email for the given email address.
      * White Label platform must be enabled in the web console for this to work.
-     * https://ref.lootlocker.com/game-api/#request-reset-password
      *
      * @param Email The email for the white label user
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerResponse
@@ -851,7 +823,6 @@ public:
 
     /**
     * Get a list of the players inventory.
-    * https://ref.lootlocker.com/game-api/#get-inventory-list
     *
     * @param OnCompletedRequest Delegate to be invoked with the server response.
     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -860,7 +831,6 @@ public:
 
     /**
     * Get a paginated list of the players inventory.
-    * https://ref.lootlocker.com/game-api/#get-inventory-list
     *
     * @param OnCompletedRequest Delegate to be invoked with the server response.
     * @param StartIndex Used for pagination to set the pointer at the next asset instance after the ID (asset instance_id) supplied here.
@@ -870,7 +840,6 @@ public:
 
     /**
     * Get assets that have been granted to the player since the last time this endpoint was called.
-    * https://ref.lootlocker.com/game-api/#player-asset-notifications
     *
     * @param OnCompletedRequest Delegate to be invoked with the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -879,7 +848,6 @@ public:
 
     /**
     * This endpoint will return the amount of credits the current player have on their account.
-    * https://ref.lootlocker.com/game-api/#get-currency-balance
     *
     * @param OnCompletedRequest Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -890,7 +858,6 @@ public:
     * This endpoint will initiate a DLC migration for the current player. 5 minutes after calling this endpoint you should issue
     * a call to the Player Asset Notifications call, to get the results of the migration, if any.
     *
-    * https://ref.lootlocker.com/game-api/#initiate-dlc-migration
     *
     * @param OnCompletedRequest Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -900,7 +867,6 @@ public:
     /**
     * This endpoint will return a list of DLC's migrated for the player. The DLC identifiers returned
     * will be the ones of the platform the DLC belongs to. The identifier will always be a string, even if the identifier is numeric.
-    * https://ref.lootlocker.com/game-api/#get-dlcs-migrated
     *
     * @param OnCompletedRequest Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -910,7 +876,6 @@ public:
     /**
     * This endpoint will set the players profile to private. This means that their
     * inventory will not be displayed publicly on Steam and other places.
-    * https://ref.lootlocker.com/game-api/#set-profile-private
     *
     * @param OnCompletedRequest Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -920,7 +885,6 @@ public:
     /**
     * This endpoint will set the players profile to public. This means that their inventory will be
     * displayed publicly on Steam and other places.
-    * https://ref.lootlocker.com/game-api/#set-profile-public
     *
     * @param OnCompletedRequest Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -929,7 +893,6 @@ public:
 
     /**
     * This endpoint will set the players name.
-    * https://ref.lootlocker.com/game-api/#set-profile-public
     *
     * @param Name String player name
     * @param OnCompletedRequest Delegate for handling the server response.
@@ -939,7 +902,6 @@ public:
 
     /**
     * This endpoint will get the players name.
-    * https://ref.lootlocker.com/game-api/#set-profile-public
     *
     * @param OnCompletedRequest Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -948,7 +910,6 @@ public:
 
     /**
     * This endpoint will return all known players 1st party platform id's.
-    * https://ref.lootlocker.com/game-api/#lookup-multiple-player-names-using-ids
     *
     * @param Request Request array with platforms and Ids to search for.
     * @param OnCompletedRequest Delegate for handling the server response.
@@ -968,7 +929,6 @@ public:
 
     /**
     * This endpoint will return all known players 1st party platform id's.
-    * https://ref.lootlocker.com/game-api/#lookup-multiple-player-1st-platform-ids-using-lootlocker-player-ids
     *
     * @param Request Request array with player ids and/or player public uids to search for.
     * @param OnCompletedRequest Delegate for handling the server response.
@@ -978,7 +938,6 @@ public:
 
     /**
     * This method will mark the player for deletion. After 30 days the player will be deleted from the system.
-    * https://ref.lootlocker.com/game-api/#delete-player
     *
     * @param OnCompletedRequest Delegate for handling the the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -987,12 +946,10 @@ public:
 
     //==================================================
     //Files
-    // https://ref.lootlocker.com/game-api/#player-files
     //==================================================
 
     /**
      * Upload a file with the provided name and content. The file will be owned by the currently active player.
-     * https://ref.lootlocker.com/game-api/#upload-a-file
      *
      * @param Request Request of type FLootLockerFileUploadRequest.
      * @param OnComplete Delegate for handling the response
@@ -1002,7 +959,6 @@ public:
 
     /**
      * Update the specified file with the supplied content. The file will be owned by the currently active player.
-     * https://ref.lootlocker.com/game-api/#update-a-file
      *
      * @param FileId Id of the file, can be retrieved with ListFiles or when the file is uploaded
      * @param Request Request of type FLootLockerFileUpdateRequest.
@@ -1013,7 +969,6 @@ public:
 
     /**
      * Returns all the files that your currently active player own.
-     * https://ref.lootlocker.com/game-api/#list-files
      *
      * @param OnComplete Delegate for handling the response of type LootLockerPlayerFilesResponse
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -1022,7 +977,6 @@ public:
 
     /**
      * Returns all public files that the player with the provided playerID owns.
-     * https://ref.lootlocker.com/game-api/#list-another-players-public-files
      *
      * @param PlayerID Player ID of the player for whom to get the files
      * @param OnComplete Delegate for handling the response of type LootLockerPlayerFilesResponse
@@ -1032,7 +986,6 @@ public:
 
     /**
      * Returns a URL where you can access the file. You can get the ID of files when you upload them, or call the list endpoint.
-     * https://ref.lootlocker.com/game-api/#get-single-file
      *
      * @param FileID Id of the file, can be retrieved with ListFiles or when the file is uploaded
      * @param OnComplete Delegate for handling the response
@@ -1042,7 +995,6 @@ public:
 
     /**
      * The file will be deleted immediately and the action can not be reversed. You will get the ID of files when you upload a file, or with ListFiles.
-     * https://ref.lootlocker.com/game-api/#delete-file
      *
      * @param FileID Id of the file. You can get the ID of files when you upload a file, or with GetAllPlayerFiles()
      * @param OnComplete Delegate for handling the response
@@ -1260,7 +1212,6 @@ public:
 
     /**
      * List heroes with names and character information
-     * https://ref.lootlocker.com/game-api/#get-game-heroes
      *
      * @param OnCompleteRequest Delegate for handling the response
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -1269,7 +1220,6 @@ public:
 
     /**
      * List heroes that the current player owns
-     * https://ref.lootlocker.com/game-api/#list-player-heroes
      *
      * @param OnCompleteRequest Delegate for handling the response
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -1278,7 +1228,6 @@ public:
 
     /**
      * List player that the player with the specified SteamID64 owns
-     * https://ref.lootlocker.com/game-api/#list-other-players-heroes-by-steamid64
      *
      * @param SteamID64 Steam Id of the requested player
      * @param OnCompleteRequest Delegate for handling the response
@@ -1288,7 +1237,6 @@ public:
 
     /**
      * Create a hero for the current player with the supplied name from the game hero specified with the supplied hero id
-     * https://ref.lootlocker.com/game-api/#creating-a-hero
      *
      * @param Request Request specifying the hero id for the game hero to use for creation and the name of the hero to create
      * @param OnCompleteRequest Delegate for handling the response
@@ -1298,7 +1246,6 @@ public:
 
     /**
      * Create a hero for the current player with the supplied name from the game hero specified with the supplied hero id, asset variation id, and whether to set as default.
-     * https://ref.lootlocker.com/game-api/#creating-a-hero
      *
      * @param Request Request specifying the hero id for the game hero to use for creation and the name of the hero to create, an asset variation id for this hero, and whether this hero should be the default
      * @param OnCompleteRequest Delegate for handling the response
@@ -1308,7 +1255,6 @@ public:
 
     /**
      * Return information about the requested hero on the current player
-     * https://ref.lootlocker.com/game-api/#getting-a-hero
      *
      * @param HeroID Id of the hero to get
      * @param OnCompletedRequest Delegate for handling the response
@@ -1318,7 +1264,6 @@ public:
 
     /**
      * Get the default hero for the player with the specified SteamID64
-     * https://ref.lootlocker.com/game-api/#get-other-players-default-hero-by-steamid64
      *
      * @param SteamID64 Steam Id of the requested player
      * @param OnCompleteRequest Delegate for handling the response
@@ -1328,7 +1273,6 @@ public:
 
     /**
      * Update the name of the hero with the specified id and/or set it as default for the current player
-     * https://ref.lootlocker.com/game-api/#updating-a-hero
      *
      * @param HeroID Id of the hero
      * @param Request Request specifying the new (or same) name to set for the hero and if it is to be the default hero for the player
@@ -1341,7 +1285,6 @@ public:
      * Remove the hero with the specified id from the current players list of heroes.
      * This action is currently irreversible.
      * When deleting a hero, the heroes inventory is returned to the player, and their loadout is reset.
-     * https://ref.lootlocker.com/game-api/#deleting-a-hero
 
      *
      * @param HeroID Id of the hero
@@ -1354,7 +1297,6 @@ public:
      * List Asset Instances owned by the specified hero
      *
      * Note that this endpoint is paginated and will return the first 50 entries
-     * https://ref.lootlocker.com/game-api/#get-hero-inventory
      *
      * @param HeroID Id of the hero
      * @param OnCompleteRequest Delegate for handling the response
@@ -1365,7 +1307,6 @@ public:
     /**
      * List the loadout of the specified hero that the current player owns
      *
-     * https://ref.lootlocker.com/game-api/#get-hero-loadout
      *
      * @param HeroID Id of the hero
      * @param OnCompletedRequest Delegate for handling the response
@@ -1375,7 +1316,6 @@ public:
 
     /**
      * List the loadout of the specified hero that the another player owns
-     * https://ref.lootlocker.com/game-api/#get-other-players-hero-loadout
      *
      * @param HeroID Id of the hero
      * @param OnCompletedRequest Delegate for handling the response
@@ -1385,7 +1325,6 @@ public:
 
     /**
      * Equip the specified Asset Instance to the specified Hero that the current player owns
-     * https://ref.lootlocker.com/game-api/#add-asset-to-hero-loadout
      *
      * @param HeroID Id of the hero
      * @param AssetInstanceID Desc
@@ -1396,7 +1335,6 @@ public:
 
     /**
      * Equip the specified Global Asset (default variation) to the specified Hero that the current player owns
-     * https://ref.lootlocker.com/game-api/#add-asset-to-hero-loadout
      *
      * @param HeroID Id of the hero
      * @param AssetID The id of the global asset to equip
@@ -1407,7 +1345,6 @@ public:
 
     /**
      * Equip the specified Global Asset Variation to the specified Hero that the current player owns
-     * https://ref.lootlocker.com/game-api/#add-asset-to-hero-loadout
      *
      * @param HeroID Id of the hero
      * @param AssetID The id of the global asset to equip
@@ -1419,7 +1356,6 @@ public:
 
     /**
      * Unequip the specified Asset Instance to the specified Hero that the current player owns
-     * https://ref.lootlocker.com/game-api/#remove-asset-from-hero-loadout
      *
      * @param HeroID Id of the hero
      * @param AssetInstanceID Desc
@@ -1430,13 +1366,11 @@ public:
 
     //==================================================
     //Characters
-    // https://ref.lootlocker.com/game-api/#characters
     //==================================================
 
     /**
      * This call will return all characters loadouts for a game, and have some additional information on the characters.
      * Note that the request will succeed even if there are no characters so make sure to inspect the response for it's content.
-     * https://ref.lootlocker.com/game-api/#character-loadouts
      *
      * @param OnCompletedRequest Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -1445,7 +1379,6 @@ public:
 
     /**
      * This endpoint lets you set a character as default, and set the name of the character.
-     * https://ref.lootlocker.com/game-api/#update-character
      *
      * @param CharacterId Id of the character to make the update for
      * @param IsDefault Should the character be set as default
@@ -1459,7 +1392,6 @@ public:
      * Create a character of the specified character type with the given name
      * If IsDefault is set to true, the new character will be made the default character.
      * See List Character Types to get your games Character Types.
-     * https://ref.lootlocker.com/game-api/#create-character
      *
      * @param IsDefault If this should be set as the default character.
      * @param CharacterName The name of the character.
@@ -1480,7 +1412,6 @@ public:
 
     /**
      * Call this endpoint to list the character types configured for your game.
-     * https://ref.lootlocker.com/game-api/#list-character-types
      *
      * @param OnCompletedRequest Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -1490,7 +1421,6 @@ public:
 
     /**
      * Equip an asset to the default character.
-     * https://ref.lootlocker.com/game-api/#equip-asset-to-default-character
      *
      * @param InstanceId The asset's instance_id that is returned from the inventory and loadout calls.
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -1500,7 +1430,6 @@ public:
 
     /**
      * Equip an asset to the specified character.
-     * https://ref.lootlocker.com/game-api/#equip-asset-to-character-by-id
      *
      * @param CharacterId ID of the character to equip an asset to.
      * @param AssetId the asset's instance_id that is returned from the inventory and loadout calls.
@@ -1512,7 +1441,6 @@ public:
 
     /**
      * Equip an asset to the specified character.
-     * https://ref.lootlocker.com/game-api/#equip-asset-to-character-by-id
      *
      * @param CharacterId ID of the character to equip an asset to.
      * @param InstanceId the asset's instance_id that is returned from the inventory and loadout calls.
@@ -1523,7 +1451,6 @@ public:
 
     /**
      * Unequip an asset from the default character.
-     * https://ref.lootlocker.com/game-api/#unequip-asset-to-default-character
      *
      * @param InstanceId the asset's instance id that is returned from the inventory and loadout calls.
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -1533,7 +1460,6 @@ public:
 
     /**
      * Unequip an asset from the specified character.
-     * https://ref.lootlocker.com/game-api/#unequip-asset-to-character-by-id
      *
      * @param CharacterId ID of the character to unequip an asset from.
      * @param InstanceId the asset's instance id that is returned from the inventory and loadout calls.
@@ -1544,7 +1470,6 @@ public:
 
     /**
      * Getting the current loadout will return an array of assets that the user currently has equipped.
-     * https://ref.lootlocker.com/game-api/#get-current-loadout-to-default-character
      *
      * @param OnCompletedRequest Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -1553,7 +1478,6 @@ public:
 
     /**
      * This method will return the exact same response as the GetCharacterLoadout, except that it will be for another player.
-     * https://ref.lootlocker.com/game-api/#get-other-players-loadout-to-default-character
      *
      * @param OtherPlayerId other player's ID on the requested platform.
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -1564,7 +1488,6 @@ public:
 
     /**
      * Get the contexts that the player's default character can equip.
-     * https://ref.lootlocker.com/game-api/#get-equippable-contexts-to-default-character
      *
      * @param OnCompletedRequest Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -1573,7 +1496,6 @@ public:
 
     /**
      * Get the contexts that the specified player's default character can equip.
-     * https://ref.lootlocker.com/game-api/#get-equippable-contexts-by-character-id
      *
      * @param OtherCharacterId other player's ID.
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -1583,7 +1505,6 @@ public:
 
     /**
     * Get list of Characters to a player
-    * https://ref.lootlocker.com/game-api/#list-player-characters
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
     */
     static void ListPlayerCharacters(const FPLootLockerListPlayerCharactersResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
@@ -1696,12 +1617,10 @@ public:
 
     //==================================================
     //Persistent Storage
-    // https://ref.lootlocker.com/game-api/#persistent-player-storage
     //==================================================
 
     /**
      * This call returns all key/value pairs on record for the current player, beware that it may be a lot of data.
-     * https://ref.lootlocker.com/game-api/#get-entire-persistent-storage
      * Note: The Player Metadata feature will over time replace Player Persistent Storage.
      * If you are not already deeply integrated with the Player Persistent Storage in your game, consider moving to Player Metadata.
      *
@@ -1712,7 +1631,6 @@ public:
 
     /**
      * Get Key/Value pair from the player's persistent storage.
-     * https://ref.lootlocker.com/game-api/#get-a-single-key-from-persistent-storage
      * Note: The Player Metadata feature will over time replace Player Persistent Storage.
      * If you are not already deeply integrated with the Player Persistent Storage in your game, consider moving to Player Metadata.
      *
@@ -1724,7 +1642,6 @@ public:
 
     /**
      * Create/Update key/value pair(s).
-     * https://ref.lootlocker.com/game-api/#updating-creating-key-value-pairs
      * Note: The Player Metadata feature will over time replace Player Persistent Storage.
      * If you are not already deeply integrated with the Player Persistent Storage in your game, consider moving to Player Metadata.
      *
@@ -1736,7 +1653,6 @@ public:
 
     /**
      * Create/Update a key/value pair.
-     * https://ref.lootlocker.com/game-api/#updating-creating-key-value-pairs
      * Note: The Player Metadata feature will over time replace Player Persistent Storage.
      * If you are not already deeply integrated with the Player Persistent Storage in your game, consider moving to Player Metadata.
      *
@@ -1748,7 +1664,6 @@ public:
 
     /**
      * Delete a key/value pair.
-     * https://ref.lootlocker.com/game-api/#deleting-a-key-value-pair
      * Note: The Player Metadata feature will over time replace Player Persistent Storage.
      * If you are not already deeply integrated with the Player Persistent Storage in your game, consider moving to Player Metadata.
      *
@@ -1760,7 +1675,6 @@ public:
 
     /**
      * Read another players public key/value storage.
-     * https://ref.lootlocker.com/game-api/#getting-other-players-public-key-value-pairs
      * Note: The Player Metadata feature will over time replace Player Persistent Storage.
      * If you are not already deeply integrated with the Player Persistent Storage in your game, consider moving to Player Metadata.
      *
@@ -1776,7 +1690,6 @@ public:
 
     /**
      * Get all the contexts the game has.
-     * https://ref.lootlocker.com/game-api/#getting-contexts
      *
      * @param OnCompletedRequest Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -1785,7 +1698,6 @@ public:
 
     /**
      * Get all assets in a paginated form.
-     * https://ref.lootlocker.com/game-api/#getting-asset-list
      *
      * @param OnCompletedRequest Delegate for handling the server response.
      * @param StartFromIndex Optional: Index of the item to start from, defaults to 0
@@ -1799,7 +1711,6 @@ public:
 
     /**
      * This call offers a paginated list of the games universal assets
-     * https://ref.lootlocker.com/game-api/#get-universal-assets
      *
      * @param After Last universal id to start after.
      * @param ItemsCount Number of items to receive (50-200).
@@ -1810,7 +1721,6 @@ public:
 
     /**
      * Retrieve only specific Assets by their ID's.
-     * https://ref.lootlocker.com/game-api/#getting-assets-by-ids
      *
      * @param AssetIds Array of the asset ID's to be fetched.
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -1821,7 +1731,6 @@ public:
     /**
      * This call will return you all the default bones.
      * If a binding overrides anything on a bone, it will be returned along with the binding.
-     * https://ref.lootlocker.com/game-api/#getting-asset-bone-information
      *
      * @param OnCompletedRequest Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -1830,7 +1739,6 @@ public:
 
     /**
      * List the current players favourite assets.
-     * https://ref.lootlocker.com/game-api/#listing-favourite-assets
      *
      * @param OnCompletedRequest Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -1839,7 +1747,6 @@ public:
 
     /**
      * Add an asset to the list of favourites.
-     * https://ref.lootlocker.com/game-api/#adding-favourite-assets
      *
      * @param AssetId Asset ID to be added.
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -1849,7 +1756,6 @@ public:
 
     /**
      * Remove an asset from the list of favourites.
-     * https://ref.lootlocker.com/game-api/#removing-favourite-assets
      *
      * @param AssetId asset ID to be removed.
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -1859,7 +1765,6 @@ public:
 
     /**
     * Grant an asset to the current Player.
-    * https://ref.lootlocker.com/game-api/#grant-an-asset-to-the-player
     *
     * @param AssetID ID of the asset to be granted
     * @param AssetVariationID The ID of the Asset Variation you want to grant
@@ -1870,7 +1775,6 @@ public:
 
     /**
     * Grant an asset to the current Player.
-    * https://ref.lootlocker.com/game-api/#grant-an-asset-to-the-player
     *
     * @param AssetID ID of the asset to be granted
     * @param AssetVariationID The ID of the Asset Variation you want to grant
@@ -1907,12 +1811,10 @@ public:
 
     //==================================================
     //Asset Instances
-    // https://ref.lootlocker.com/game-api/#asset-instances
     //==================================================
 
     /**
      * Get all key/value pairs for an asset instance.
-     * https://ref.lootlocker.com/game-api/#getting-all-key-value-pairs-to-an-instance
      *
      * @param AssetInstanceId asset instance ID.
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -1922,7 +1824,6 @@ public:
 
     /**
      * Get a key/value pair for an asset instance.
-     * https://ref.lootlocker.com/game-api/#getting-a-key-value-pair-by-id
      *
      * @param AssetInstanceId asset instance ID.
      * @param StorageItemId ID of the key/value pair.
@@ -1933,7 +1834,6 @@ public:
 
     /**
      * Create a key/value pair for an asset instance.
-     * https://ref.lootlocker.com/game-api/#creating-a-key-value-pair
      *
      * @param AssetInstanceId asset instance ID.
      * @param Item key/value pair.
@@ -1944,7 +1844,6 @@ public:
 
     /**
      * Update key/value pairs for an asset instance.
-     * https://ref.lootlocker.com/game-api/#updating-one-or-more-key-value-pairs
      *
      * @param AssetInstanceId asset instance ID.
      * @param Items key/value pairs.
@@ -1955,7 +1854,6 @@ public:
 
     /**
      * Update a key/value pair for an asset instance.
-     * https://ref.lootlocker.com/game-api/#updating-a-key-value-pair-by-id
      *
      * @param AssetInstanceId asset instance ID.
      * @param StorageItemId key/value pair ID.
@@ -1967,7 +1865,6 @@ public:
 
     /**
      * Delete a key/value pair for an asset instance.
-     * https://ref.lootlocker.com/game-api/#delete-a-key-value-pair
      *
      * @param AssetInstanceId asset instance ID.
      * @param StorageItemId key/value pair ID.
@@ -1978,7 +1875,6 @@ public:
 
     /**
      * Get the drop rates for a loot box asset instance.
-     * https://ref.lootlocker.com/game-api/#inspect-a-loot-box
      *
      * @param AssetInstanceId asset instance ID.
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -1989,7 +1885,6 @@ public:
     /**
      * Open a loot box asset instance.
      * The loot box will be consumed and the contents will be added to the player's inventory.
-     * https://ref.lootlocker.com/game-api/#open-a-loot-box
      *
      * @param AssetInstanceId asset instance ID.
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -2013,7 +1908,6 @@ public:
 
     /**
      * Create an asset candidate.
-     * https://ref.lootlocker.com/game-api/#creating-an-asset-candidate
      *
      * @param AssetCandidateData asset candidate data.
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -2023,7 +1917,6 @@ public:
 
     /**
      * Create an asset candidate and immediately mark it as completed
-     * https://ref.lootlocker.com/game-api/#creating-an-asset-candidate
      *
      * @param AssetCandidateData asset candidate data.
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -2033,7 +1926,6 @@ public:
 
     /**
      * Update an asset candidate
-     * https://ref.lootlocker.com/game-api/#updating-an-asset-candidate
      *
      * @param AssetCandidateId ID of the asset candidate.
      * @param AssetCandidateData asset candidate data.
@@ -2044,7 +1936,6 @@ public:
 
     /**
      * Delete an asset candidate.
-     * https://ref.lootlocker.com/game-api/#deleting-an-asset-candidate
      *
      * @param AssetCandidateId ID of the asset candidate.
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -2054,7 +1945,6 @@ public:
 
     /**
      * Get all asset candidates.
-     * https://ref.lootlocker.com/game-api/#listing-asset-candidates
      *
      * @param OnCompletedRequest Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -2063,7 +1953,6 @@ public:
 
     /**
      * Get an asset candidate.
-     * https://ref.lootlocker.com/game-api/#getting-a-single-asset-candidate
      *
      * @param AssetCandidateId ID of the asset candidate.
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -2073,7 +1962,6 @@ public:
 
     /**
      * Add a file to an asset candidate.
-     * https://ref.lootlocker.com/game-api/#adding-files-to-asset-candidates
      *
      * @param AssetCandidateId ID of the asset candidate.
      * @param FilePath full absolute path to a file.
@@ -2085,7 +1973,6 @@ public:
 
     /**
      * Remove a file from an asset candidate.
-     * https://ref.lootlocker.com/game-api/#removing-files-from-an-asset-candidate
      *
      * @param AssetCandidateId ID of the asset candidate.
      * @param FileId ID of the file.
@@ -2170,7 +2057,6 @@ public:
 
     /**
      * Get all missions.
-     * https://ref.lootlocker.com/game-api/#getting-all-missions
      *
      * @param OnCompletedRequest Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -2179,7 +2065,6 @@ public:
 
     /**
      * Get a mission.
-     * https://ref.lootlocker.com/game-api/#getting-a-single-mission
      *
      * @param MissionId mission ID.
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -2189,7 +2074,6 @@ public:
 
     /**
      * Start a mission.
-     * https://ref.lootlocker.com/game-api/#starting-mission
      *
      * @param MissionId mission ID.
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -2199,7 +2083,6 @@ public:
 
     /**
      * Finish a mission.
-     * https://ref.lootlocker.com/game-api/#finishing-mission
      *
      * @param MissionId mission ID.
      * @param MissionData mission completion data.
@@ -2210,12 +2093,10 @@ public:
 
     //==================================================
     //Maps
-    // https://ref.lootlocker.com/game-api/#maps
     //==================================================
 
     /**
      * Get maps data.
-     * https://ref.lootlocker.com/game-api/#getting-all-maps
      *
      * @param OnCompletedRequest Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -2224,13 +2105,11 @@ public:
 
     //==================================================
     //Purchases
-    // https://ref.lootlocker.com/game-api/#purchasing
     //==================================================
 
     /**
      * Activates specified rental asset
      * Once you have purchased a rental asset, you need to activate the rental for it to become available for the player.
-     * https://ref.lootlocker.com/game-api/#activating-a-rental-asset
      *
      * @param AssetInstanceId ID of the asset.
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -2554,12 +2433,10 @@ public:
 
     //==================================================
     //Collectables
-    // https://ref.lootlocker.com/game-api/#collectables
     //==================================================
 
     /**
      * This endpoint will return all the collectables a game has set up. It will hold a set of Collectables, with Groups inside which in turn contain Items.
-     * https://ref.lootlocker.com/game-api/#getting-collectables
      *
      * @param OnCompletedRequest Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -2568,7 +2445,6 @@ public:
 
     /**
      * Collect an item.
-     * https://ref.lootlocker.com/game-api/#collecting-an-item
      *
      * @param Item The slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
      * @param OnCompletedRequest Delegate for handling the server response.
@@ -2578,12 +2454,10 @@ public:
 
     //==================================================
     //Messages
-    // https://ref.lootlocker.com/game-api/#messages
     //==================================================
 
     /**
      * Get all messages for a player.
-     * https://ref.lootlocker.com/game-api/#get-messages
      *
      * @param OnCompletedRequest Delegate for handling the server response.
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -2592,7 +2466,6 @@ public:
 
     //==================================================
     //Leaderboard
-    // https://ref.lootlocker.com/game-api/#leaderboards
     //==================================================
 
     /**
@@ -2617,7 +2490,6 @@ public:
 
     /**
      * Get rank for single member for a leaderboard. If leaderboard is of type player a player will also be in the response.
-     * https://ref.lootlocker.com/game-api/#get-member-rank
      *
      * @param LeaderboardKey the key of the leaderboard you need to connect to.
      * @param MemberId the id of player in the leaderboard
@@ -2628,7 +2500,6 @@ public:
 
     /**
      * Get rank for a set of members for a leaderboard. If leaderboard is of type player a player will also be in the response.
-     * https://ref.lootlocker.com/game-api/#get-by-list-of-members
      *
      * @param Members The ids of all leaderboard members that you want to get info on.
      * @param LeaderboardKey the key of the leaderboard you need to connect to.
@@ -2640,7 +2511,6 @@ public:
     /**
      * Get list of members in rank range.
      * Maximum allowed members to query for at a time is currently 2000. If leaderboard is of type player a player will also be in the response.
-     * https://ref.lootlocker.com/game-api/#get-score-list
      *
      * @param LeaderboardKey the key of the leaderboard you need to connect to.
      * @param Count Number of members returned per page
@@ -2653,7 +2523,6 @@ public:
     /**
      * Get list of members in rank range.
      * Maximum allowed members to query for at a time is currently 2000. If leaderboard is of type player a player will also be in the response.
-     * https://ref.lootlocker.com/game-api/#get-score-list
      *
      * @param LeaderboardKey the key of the leaderboard you need to connect to.
      * @param Count Number of members returned per page
@@ -2664,7 +2533,6 @@ public:
 
     /**
      * Submit score for member on leaderboard.
-     * https://ref.lootlocker.com/game-api/#submit-score
      *
      * @param MemberId The id of player in the leaderboard.
      * @param LeaderboardKey The key of the leaderboard you need to connect to.
@@ -2699,7 +2567,6 @@ public:
     /**
      * Get all leaderboards with member information on the ones the member is on, with rank and score, as well as player information if the leaderboard is of type player.
      * If metadata is enabled for the leaderboard, that will be returned in the response.
-     * https://ref.lootlocker.com/game-api/#get-all-member-ranks
      *
      * @param MemberId player_id if player type leaderboard, otherwise id used when submitting the score
      * @param Count Number of members returned per page
@@ -2745,14 +2612,12 @@ public:
 
     //==================================================
     // Drop Table
-    // https://ref.lootlocker.com/game-api/#drop-tables
     //==================================================
 
     /**
      * Compute and lock the specified drop table.
      * When you wish to evaluate a drop table and lock the drops from it in place, you call this method.
      * The response will hold information on the assets that are dropped, and can be picked up using the Pick endpoint.
-     * https://ref.lootlocker.com/game-api/#compute-and-lock-drop-table
      *
      * @param TableId Drop table ID
      * @param OnCompletedRequest Delegate for handling the server response
@@ -2762,7 +2627,6 @@ public:
 
     /**
      * Picks drops from a locked drop table.
-     * https://ref.lootlocker.com/game-api/#pick-drops-from-drop-table
      *
      * @param Picks List of the item IDs you want to pick. Submit empty list for no picks
      * @param TableId Drop table ID, needs to have been locked prior to this call
@@ -2773,7 +2637,6 @@ public:
 
     //==================================================
     // Currencies
-    // https://ref.lootlocker.com/game-api/#currencies
     //==================================================
 
     /**
@@ -2804,7 +2667,6 @@ public:
 
     //==================================================
     // Balances
-    // https://ref.lootlocker.com/game-api/#balances
     //==================================================
 
     /**
@@ -3378,7 +3240,6 @@ public:
 
     /**
     * Get the current time of the server. Can also be used to ping the server
-    * https://ref.lootlocker.com/game-api/#server-time
     *
     * @param OnCompleted
 
