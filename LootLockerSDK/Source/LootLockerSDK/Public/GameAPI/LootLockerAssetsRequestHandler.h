@@ -582,25 +582,25 @@ class LOOTLOCKERSDK_API ULootLockerAssetsRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
-    static void GetContexts(const FLootLockerPlayerData& PlayerData, const FContextDelegateBP& OnCompletedRequestBP = FContextDelegateBP(), const FContextDelegate& OnCompletedRequest = FContextDelegate());
+    static void GetContexts(const FLootLockerPlayerData& PlayerData, const FContextDelegate& OnCompletedRequest = FContextDelegate());
 
-    static void GetAssets(const FLootLockerPlayerData& PlayerData, int StartFromIndex, int ItemsCount, ELootLockerAssetFilter AssetFilter, int Context, bool IncludeUGC, const FAssetsResponseDelegateBP& OnCompletedRequestBP = FAssetsResponseDelegateBP(), const FAssetsResponseDelegate& OnCompletedRequest = FAssetsResponseDelegate());
+    static void GetAssets(const FLootLockerPlayerData& PlayerData, int StartFromIndex, int ItemsCount, ELootLockerAssetFilter AssetFilter, int Context, bool IncludeUGC, const FAssetsResponseDelegate& OnCompletedRequest = FAssetsResponseDelegate());
 
-    static void GetAssetsByIds(const FLootLockerPlayerData& PlayerData, const TArray<int>& AssetIds, const FAssetsResponseDelegateBP& OnCompletedRequestBP = FAssetsResponseDelegateBP(), const FAssetsResponseDelegate& OnCompletedRequest = FAssetsResponseDelegate());
+    static void GetAssetsByIds(const FLootLockerPlayerData& PlayerData, const TArray<int>& AssetIds, const FAssetsResponseDelegate& OnCompletedRequest = FAssetsResponseDelegate());
 
-    static void GetAssetBones(const FLootLockerPlayerData& PlayerData, const FAssetBonesResponseDelegateBP& OnCompletedRequestBP = FAssetBonesResponseDelegateBP(), const FAssetBonesResponseDelegate& OnCompletedRequest = FAssetBonesResponseDelegate());
+    static void GetAssetBones(const FLootLockerPlayerData& PlayerData, const FAssetBonesResponseDelegate& OnCompletedRequest = FAssetBonesResponseDelegate());
 
-    static void GetFavouriteAssetIndices(const FLootLockerPlayerData& PlayerData, const FGetFavouriteAssetIndicesResponseDelegateBP& OnCompletedRequestBP = FGetFavouriteAssetIndicesResponseDelegateBP(), const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest = FGetFavouriteAssetIndicesResponseDelegate());
+    static void GetFavouriteAssetIndices(const FLootLockerPlayerData& PlayerData, const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest = FGetFavouriteAssetIndicesResponseDelegate());
 
-    static void AddAssetToFavourites(const FLootLockerPlayerData& PlayerData, int AssetId, const FGetFavouriteAssetIndicesResponseDelegateBP& OnCompletedRequestBP = FGetFavouriteAssetIndicesResponseDelegateBP(), const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest = FGetFavouriteAssetIndicesResponseDelegate());
+    static void AddAssetToFavourites(const FLootLockerPlayerData& PlayerData, int AssetId, const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest = FGetFavouriteAssetIndicesResponseDelegate());
 
-    static void RemoveAssetFromFavourites(const FLootLockerPlayerData& PlayerData, int AssetId, const FGetFavouriteAssetIndicesResponseDelegateBP& OnCompletedRequestBP = FGetFavouriteAssetIndicesResponseDelegateBP(), const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest = FGetFavouriteAssetIndicesResponseDelegate());
+    static void RemoveAssetFromFavourites(const FLootLockerPlayerData& PlayerData, int AssetId, const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest = FGetFavouriteAssetIndicesResponseDelegate());
 
-    static void GetUniversalAssets(const FLootLockerPlayerData& PlayerData, int After, int Count, const FUniversalAssetResponseDelegateBP& OnCompletedRequestBP = FUniversalAssetResponseDelegateBP(), const FUniversalAssetResponseDelegate& OnCompletedRequest = FUniversalAssetResponseDelegate());
+    static void GetUniversalAssets(const FLootLockerPlayerData& PlayerData, int After, int Count, const FUniversalAssetResponseDelegate& OnCompletedRequest = FUniversalAssetResponseDelegate());
 
-    static void GrantAssetToPlayerInventory(const FLootLockerPlayerData& PlayerData, const int assetID, const int assetVariationID, const int assetRentalOptionID, const FGrantAssetResponseDelegateBP& OnCompletedRequestBP = FGrantAssetResponseDelegateBP(), const FGrantAssetResponseDelegate& OnCompletedRequest = FGrantAssetResponseDelegate());
+    static void GrantAssetToPlayerInventory(const FLootLockerPlayerData& PlayerData, const int assetID, const int assetVariationID, const int assetRentalOptionID, const FGrantAssetResponseDelegate& OnCompletedRequest = FGrantAssetResponseDelegate());
 
-    static void ListAssets(const FLootLockerPlayerData& PlayerData, const FLootLockerListSimpleAssetsRequest& Request, int PerPage, int Page, ELootLockerOrderAssetListBy OrderBy, ELootLockerOrderAssetListDirection OrderDirection, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequestBP = FListSimpleAssetsResponseDelegateBP(), const FListSimpleAssetsResponseDelegate& OnCompletedRequest = FListSimpleAssetsResponseDelegate());
+    static void ListAssets(const FLootLockerPlayerData& PlayerData, const FLootLockerListSimpleAssetsRequest& Request, int PerPage, int Page, ELootLockerOrderAssetListBy OrderBy, ELootLockerOrderAssetListDirection OrderDirection, const FListSimpleAssetsResponseDelegate& OnCompletedRequest = FListSimpleAssetsResponseDelegate());
 
 public:
     ULootLockerAssetsRequestHandler();
