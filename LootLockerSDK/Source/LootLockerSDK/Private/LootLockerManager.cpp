@@ -773,50 +773,81 @@ void ULootLockerManager::GrantAssetWithVariationToPlayerInventory(const FString&
     ULootLockerAssetsRequestHandler::GrantAssetToPlayerInventory(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetID, AssetVariationID, AssetRentalOptionID, OnCompletedRequest);
 }
 
+
+// Asset Instances
 void ULootLockerManager::GetAllKeyValuePairsForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, const  FAssetInstanceStorageItemsResponseDelegateBP& OnGetAllKeyValuePairsForAssetInstanceCompleted)
 {
-    ULootLockerAssetInstancesRequestHandler::GetAllKeyValuePairsForAssetInstance(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, OnGetAllKeyValuePairsForAssetInstanceCompleted);
+    ULootLockerSDKManager::GetAllKeyValuePairsForAssetInstance(AssetInstanceId, FAssetInstanceStorageItemsResponseDelegate::CreateLambda([OnGetAllKeyValuePairsForAssetInstanceCompleted](const FLootLockerAssetInstanceStorageItemsResponse& Response)
+        {
+            OnGetAllKeyValuePairsForAssetInstanceCompleted.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetAKeyValuePairByIdForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemResponseDelegateBP& OnGetAKeyValuePairByIdForAssetInstanceCompleted)
 {
-    ULootLockerAssetInstancesRequestHandler::GetAKeyValuePairByIdForAssetInstance(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, StorageItemId, OnGetAKeyValuePairByIdForAssetInstanceCompleted);
+    ULootLockerSDKManager::GetAKeyValuePairByIdForAssetInstance(AssetInstanceId, StorageItemId, FAssetInstanceStorageItemResponseDelegate::CreateLambda([OnGetAKeyValuePairByIdForAssetInstanceCompleted](const FLootLockerAssetInstanceStorageItemResponse& Response)
+        {
+            OnGetAKeyValuePairByIdForAssetInstanceCompleted.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::CreateAKeyValuePairForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, const FLootLockerAssetInstanceStorageItem& Item, const FAssetInstanceStorageItemsResponseDelegateBP& OnCreateAKeyValuePairForAssetInstanceCompleted)
 {
-    ULootLockerAssetInstancesRequestHandler::CreateAKeyValuePairForAssetInstance(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, Item, OnCreateAKeyValuePairForAssetInstanceCompleted);
+    ULootLockerSDKManager::CreateAKeyValuePairForAssetInstance(AssetInstanceId, Item, FAssetInstanceStorageItemsResponseDelegate::CreateLambda([OnCreateAKeyValuePairForAssetInstanceCompleted](const FLootLockerAssetInstanceStorageItemsResponse& Response)
+        {
+            OnCreateAKeyValuePairForAssetInstanceCompleted.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::UpdateOneOrMoreKeyValuePairForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, FLootLockerAssetInstanceStorageItems Items, const FAssetInstanceStorageItemsResponseDelegateBP& OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted)
 {
-    ULootLockerAssetInstancesRequestHandler::UpdateOneOrMoreKeyValuePairForAssetInstance(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, Items, OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted);
+    ULootLockerSDKManager::UpdateOneOrMoreKeyValuePairForAssetInstance(AssetInstanceId, Items, FAssetInstanceStorageItemsResponseDelegate::CreateLambda([OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted](const FLootLockerAssetInstanceStorageItemsResponse& Response)
+        {
+            OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::UpdateAKeyValuePairByIdForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, int StorageItemId, const FLootLockerAssetInstanceStorageItem Item, const FAssetInstanceStorageItemResponseDelegateBP& OnUpdateAKeyValuePairByIdForAssetInstanceCompleted)
 {
-    ULootLockerAssetInstancesRequestHandler::UpdateAKeyValuePairByIdForAssetInstance(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, StorageItemId, Item, OnUpdateAKeyValuePairByIdForAssetInstanceCompleted);
+    ULootLockerSDKManager::UpdateAKeyValuePairByIdForAssetInstance(AssetInstanceId, StorageItemId, Item, FAssetInstanceStorageItemResponseDelegate::CreateLambda([OnUpdateAKeyValuePairByIdForAssetInstanceCompleted](const FLootLockerAssetInstanceStorageItemResponse& Response)
+        {
+            OnUpdateAKeyValuePairByIdForAssetInstanceCompleted.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::DeleteAKeyValuePairByIdForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegateBP& OnDeleteAKeyValuePairByIdForAssetInstanceCompleted)
 {
-    ULootLockerAssetInstancesRequestHandler::DeleteAKeyValuePairByIdForAssetInstance(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, StorageItemId, OnDeleteAKeyValuePairByIdForAssetInstanceCompleted);
+    ULootLockerSDKManager::DeleteAKeyValuePairByIdForAssetInstance(AssetInstanceId, StorageItemId, FAssetInstanceStorageItemsResponseDelegate::CreateLambda([OnDeleteAKeyValuePairByIdForAssetInstanceCompleted](const FLootLockerAssetInstanceStorageItemsResponse& Response)
+        {
+            OnDeleteAKeyValuePairByIdForAssetInstanceCompleted.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::InspectLootBox(const FString& ForPlayerWithUlid, int AssetInstanceId, const  FLootBoxContentResponseDelegateBP& OnInspectLootBoxCompleted)
 {
-    ULootLockerAssetInstancesRequestHandler::InspectLootBox(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, OnInspectLootBoxCompleted);
+    ULootLockerSDKManager::InspectLootBox(AssetInstanceId, FLootBoxContentResponseDelegate::CreateLambda([OnInspectLootBoxCompleted](const FLootLockerLootBoxContentResponse& Response)
+        {
+            OnInspectLootBoxCompleted.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::OpenLootBox(const FString& ForPlayerWithUlid, int AssetInstanceId, const  FOpenLootBoxResponseDelegateBP& OnOpenLootBoxCompleted)
 {
-    ULootLockerAssetInstancesRequestHandler::OpenLootBox(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, OnOpenLootBoxCompleted);
+    ULootLockerSDKManager::OpenLootBox(AssetInstanceId, FOpenLootBoxResponseDelegate::CreateLambda([OnOpenLootBoxCompleted](const FLootLockerOpenLootBoxResponse& Response)
+        {
+            OnOpenLootBoxCompleted.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::DeleteAssetInstanceFromPlayerInventory(const FString& ForPlayerWithUlid, int AssetInstanceID, const FDeleteAssetInstanceResponseDelegateBP& OnCompleted)
 {
-    ULootLockerAssetInstancesRequestHandler::DeleteAssetInstanceFromPlayerInventory(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceID, OnCompleted);
+    ULootLockerSDKManager::DeleteAssetInstanceFromPlayerInventory(AssetInstanceID, FDeleteAssetInstanceResponseDelegate::CreateLambda([OnCompleted](const FLootLockerDeleteAssetInstanceResponse& Response)
+        {
+            OnCompleted.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
+
+// User Generated Content - Asset Candidates
 
 void ULootLockerManager::CreateAssetCandidate(const FString& ForPlayerWithUlid, const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted)
 {
