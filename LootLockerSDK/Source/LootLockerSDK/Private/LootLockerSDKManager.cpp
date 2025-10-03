@@ -1290,27 +1290,27 @@ void ULootLockerSDKManager::GetCurrencyDenominationsByCode(const FString& Curren
 
 void ULootLockerSDKManager::ListBalancesInWallet(const FString& WalletID, const FLootLockerListBalancesForWalletResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerBalanceRequestHandler::ListBalancesInWallet(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), WalletID, FLootLockerListBalancesForWalletResponseBP(), OnComplete);
+    ULootLockerBalanceRequestHandler::ListBalancesInWallet(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), WalletID, OnComplete);
 }
 
 void ULootLockerSDKManager::GetWalletByWalletID(const FString& WalletID, const FLootLockerGetWalletResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerBalanceRequestHandler::GetWalletByWalletID(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), WalletID, FLootLockerGetWalletResponseBP(), OnComplete);
+    ULootLockerBalanceRequestHandler::GetWalletByWalletID(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), WalletID, OnComplete);
 }
 
 void ULootLockerSDKManager::GetWalletByHolderID(const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerGetWalletResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerBalanceRequestHandler::GetWalletByHolderID(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HolderULID, HolderType, FLootLockerGetWalletResponseBP(), OnComplete);
+    ULootLockerBalanceRequestHandler::GetWalletByHolderID(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HolderULID, HolderType, OnComplete);
 }
 
 void ULootLockerSDKManager::CreditBalanceToWallet(const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerCreditWalletResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerBalanceRequestHandler::CreditBalanceToWallet(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), WalletID, CurrencyID, Amount, FLootLockerCreditWalletResponseBP(), OnComplete);
+    ULootLockerBalanceRequestHandler::CreditBalanceToWallet(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), WalletID, CurrencyID, Amount, OnComplete);
 }
 
 void ULootLockerSDKManager::DebitBalanceToWallet(const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerDebitWalletResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerBalanceRequestHandler::DebitBalanceToWallet(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), WalletID, CurrencyID, Amount, FLootLockerDebitWalletResponseBP(), OnComplete);
+    ULootLockerBalanceRequestHandler::DebitBalanceToWallet(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), WalletID, CurrencyID, Amount, OnComplete);
 }
 
 // Catalogs
