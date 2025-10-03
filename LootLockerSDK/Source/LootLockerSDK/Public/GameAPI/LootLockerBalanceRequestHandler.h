@@ -345,13 +345,13 @@ class LOOTLOCKERSDK_API ULootLockerBalanceRequestHandler : public UObject
     GENERATED_BODY()
 public:
     ULootLockerBalanceRequestHandler();
-    static void ListBalancesInWallet(const FLootLockerPlayerData& PlayerData, const FString& WalletID, const FLootLockerListBalancesForWalletResponseBP& OnCompleteBP = FLootLockerListBalancesForWalletResponseBP(), const FLootLockerListBalancesForWalletResponseDelegate& OnComplete = FLootLockerListBalancesForWalletResponseDelegate());
-    static void GetWalletByWalletID(const FLootLockerPlayerData& PlayerData, const FString& WalletID, const FLootLockerGetWalletResponseBP& OnCompleteBP = FLootLockerGetWalletResponseBP(), const FLootLockerGetWalletResponseDelegate& OnComplete = FLootLockerGetWalletResponseDelegate());
-    static void GetWalletByHolderID(const FLootLockerPlayerData& PlayerData, const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerGetWalletResponseBP& OnCompleteBP = FLootLockerGetWalletResponseBP(), const FLootLockerGetWalletResponseDelegate& OnComplete = FLootLockerGetWalletResponseDelegate());
-    static void CreditBalanceToWallet(const FLootLockerPlayerData& PlayerData, const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerCreditWalletResponseBP& OnCompleteBP = FLootLockerCreditWalletResponseBP(), const FLootLockerCreditWalletResponseDelegate& OnComplete = FLootLockerCreditWalletResponseDelegate());
-    static void DebitBalanceToWallet(const FLootLockerPlayerData& PlayerData, const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerDebitWalletResponseBP& OnCompleteBP = FLootLockerDebitWalletResponseBP(), const FLootLockerDebitWalletResponseDelegate& OnComplete = FLootLockerDebitWalletResponseDelegate());
+    static void ListBalancesInWallet(const FLootLockerPlayerData& PlayerData, const FString& WalletID, const FLootLockerListBalancesForWalletResponseDelegate& OnComplete = FLootLockerListBalancesForWalletResponseDelegate());
+    static void GetWalletByWalletID(const FLootLockerPlayerData& PlayerData, const FString& WalletID, const FLootLockerGetWalletResponseDelegate& OnComplete = FLootLockerGetWalletResponseDelegate());
+    static void GetWalletByHolderID(const FLootLockerPlayerData& PlayerData, const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerGetWalletResponseDelegate& OnComplete = FLootLockerGetWalletResponseDelegate());
+    static void CreditBalanceToWallet(const FLootLockerPlayerData& PlayerData, const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerCreditWalletResponseDelegate& OnComplete = FLootLockerCreditWalletResponseDelegate());
+    static void DebitBalanceToWallet(const FLootLockerPlayerData& PlayerData, const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerDebitWalletResponseDelegate& OnComplete = FLootLockerDebitWalletResponseDelegate());
 private:
-    static void CreateWallet(const FLootLockerPlayerData& PlayerData, const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerCreateWalletResponseBP& OnCompleteBP = FLootLockerCreateWalletResponseBP(), const FLootLockerCreateWalletResponseDelegate& OnComplete = FLootLockerCreateWalletResponseDelegate());
+    static void CreateWallet(const FLootLockerPlayerData& PlayerData, const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerCreateWalletResponseDelegate& OnComplete = FLootLockerCreateWalletResponseDelegate());
 
     static ULootLockerHttpClient* HttpClient;
 };
