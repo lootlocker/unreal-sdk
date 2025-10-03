@@ -1267,27 +1267,42 @@ void ULootLockerManager::GetCurrencyDenominationsByCode(const FString& ForPlayer
 
 void ULootLockerManager::ListBalancesInWallet(const FString& ForPlayerWithUlid, const FString& WalletID, const FLootLockerListBalancesForWalletResponseBP& OnComplete)
 {
-    ULootLockerBalanceRequestHandler::ListBalancesInWallet(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), WalletID, OnComplete);
+    ULootLockerSDKManager::ListBalancesInWallet(WalletID, FLootLockerListBalancesForWalletResponseDelegate::CreateLambda([OnComplete](const FLootLockerListBalancesForWalletResponse& Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetWalletByWalletID(const FString& ForPlayerWithUlid, const FString& WalletID, const FLootLockerGetWalletResponseBP& OnComplete)
 {
-    ULootLockerBalanceRequestHandler::GetWalletByWalletID(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), WalletID, OnComplete);
+    ULootLockerSDKManager::GetWalletByWalletID(WalletID, FLootLockerGetWalletResponseDelegate::CreateLambda([OnComplete](const FLootLockerGetWalletResponse& Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetWalletByHolderID(const FString& ForPlayerWithUlid, const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerGetWalletResponseBP& OnComplete)
 {
-    ULootLockerBalanceRequestHandler::GetWalletByHolderID(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HolderULID, HolderType, OnComplete);
+    ULootLockerSDKManager::GetWalletByHolderID(HolderULID, HolderType, FLootLockerGetWalletResponseDelegate::CreateLambda([OnComplete](const FLootLockerGetWalletResponse& Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::CreditBalanceToWallet(const FString& ForPlayerWithUlid, const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerCreditWalletResponseBP& OnComplete)
 {
-    ULootLockerBalanceRequestHandler::CreditBalanceToWallet(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), WalletID, CurrencyID, Amount, OnComplete);
+    ULootLockerSDKManager::CreditBalanceToWallet(WalletID, CurrencyID, Amount, FLootLockerCreditWalletResponseDelegate::CreateLambda([OnComplete](const FLootLockerCreditWalletResponse& Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::DebitBalanceToWallet(const FString& ForPlayerWithUlid, const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerDebitWalletResponseBP& OnComplete)
 {
-    ULootLockerBalanceRequestHandler::DebitBalanceToWallet(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), WalletID, CurrencyID, Amount, OnComplete);
+    ULootLockerSDKManager::DebitBalanceToWallet(WalletID, CurrencyID, Amount, FLootLockerDebitWalletResponseDelegate::CreateLambda([OnComplete](const FLootLockerDebitWalletResponse& Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 // Catalogs
