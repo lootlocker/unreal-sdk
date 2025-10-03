@@ -720,12 +720,18 @@ void ULootLockerManager::GetPlayerPersistentStorage(const FString& ForPlayerWith
 
 void ULootLockerManager::GetContexts(const FString& ForPlayerWithUlid, const FContextDelegateBP& OnGetContextsRequestCompleted)
 {
-    ULootLockerAssetsRequestHandler::GetContexts(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnGetContextsRequestCompleted);
+    ULootLockerSDKManager::GetContexts(FContextDelegate::CreateLambda([OnGetContextsRequestCompleted](const FLootLockerGetContextResponse& Response)
+    {
+        OnGetContextsRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetAssets(const FString& ForPlayerWithUlid, const FAssetsResponseDelegateBP& OnGetAssetsRequestCompleted, int StartFromIndex, int ItemsCount, ELootLockerAssetFilter AssetFilter, int Context, bool IncludeUGC)
 {
-    ULootLockerAssetsRequestHandler::GetAssets(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), StartFromIndex, ItemsCount, AssetFilter, Context, IncludeUGC, OnGetAssetsRequestCompleted);
+    ULootLockerSDKManager::GetAssets(FAssetsResponseDelegate::CreateLambda([OnGetAssetsRequestCompleted](const FLootLockerGetAssetsResponse& Response)
+    {
+        OnGetAssetsRequestCompleted.ExecuteIfBound(Response);
+    }), StartFromIndex, ItemsCount, AssetFilter, Context, IncludeUGC, ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ListAssetsWithDefaultParameters(const FString& ForPlayerWithUlid, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequest)
@@ -735,42 +741,66 @@ void ULootLockerManager::ListAssetsWithDefaultParameters(const FString& ForPlaye
 
 void ULootLockerManager::ListAssets(const FString& ForPlayerWithUlid, const FLootLockerListSimpleAssetsRequest& Request, int PerPage, int Page, ELootLockerOrderAssetListBy OrderBy, ELootLockerOrderAssetListDirection OrderDirection, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequest)
 {
-    ULootLockerAssetsRequestHandler::ListAssets(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, PerPage, Page, OrderBy, OrderDirection, OnCompletedRequest);
+    ULootLockerSDKManager::ListAssets(Request, FListSimpleAssetsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerListSimpleAssetsResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), PerPage, Page, OrderBy, OrderDirection, ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetAssetsByIds(const FString& ForPlayerWithUlid, const TArray<int>& AssetIds, const FAssetsResponseDelegateBP& OnGetAssetsByIdsRequestCompleted)
 {
-    ULootLockerAssetsRequestHandler::GetAssetsByIds(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetIds, OnGetAssetsByIdsRequestCompleted);
+    ULootLockerSDKManager::GetAssetsByIds(AssetIds, FAssetsResponseDelegate::CreateLambda([OnGetAssetsByIdsRequestCompleted](const FLootLockerGetAssetsResponse& Response)
+    {
+        OnGetAssetsByIdsRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetAssetBones(const FString& ForPlayerWithUlid, const  FAssetBonesResponseDelegateBP& OnGetAssetBonesRequestCompleted)
 {
-    ULootLockerAssetsRequestHandler::GetAssetBones(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnGetAssetBonesRequestCompleted);
+    ULootLockerSDKManager::GetAssetBones(FAssetBonesResponseDelegate::CreateLambda([OnGetAssetBonesRequestCompleted](const FLootLockerGetAssetBonesResponse& Response)
+    {
+        OnGetAssetBonesRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetFavouriteAssetIndices(const FString& ForPlayerWithUlid, const FGetFavouriteAssetIndicesResponseDelegateBP& OnGetFavouriteAssetIndicesRequestCompleted)
 {
-    ULootLockerAssetsRequestHandler::GetFavouriteAssetIndices(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnGetFavouriteAssetIndicesRequestCompleted);
+    ULootLockerSDKManager::GetFavouriteAssetIndices(FGetFavouriteAssetIndicesResponseDelegate::CreateLambda([OnGetFavouriteAssetIndicesRequestCompleted](const FLootLockerGetFavouriteAssetIndicesResponse& Response)
+    {
+        OnGetFavouriteAssetIndicesRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::AddAssetToFavourites(const FString& ForPlayerWithUlid, int AssetId, const FGetFavouriteAssetIndicesResponseDelegateBP& OnAddAssetToFavouritesRequestCompleted)
 {
-    ULootLockerAssetsRequestHandler::AddAssetToFavourites(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetId, OnAddAssetToFavouritesRequestCompleted);
+    ULootLockerSDKManager::AddAssetToFavourites(AssetId, FGetFavouriteAssetIndicesResponseDelegate::CreateLambda([OnAddAssetToFavouritesRequestCompleted](const FLootLockerGetFavouriteAssetIndicesResponse& Response)
+    {
+        OnAddAssetToFavouritesRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::RemoveAssetFromFavourites(const FString& ForPlayerWithUlid, int AssetId, const  FGetFavouriteAssetIndicesResponseDelegateBP& OnRemoveAssetFromFavouritesRequestCompleted)
 {
-    ULootLockerAssetsRequestHandler::RemoveAssetFromFavourites(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetId, OnRemoveAssetFromFavouritesRequestCompleted);
+    ULootLockerSDKManager::RemoveAssetFromFavourites(AssetId, FGetFavouriteAssetIndicesResponseDelegate::CreateLambda([OnRemoveAssetFromFavouritesRequestCompleted](const FLootLockerGetFavouriteAssetIndicesResponse& Response)
+    {
+        OnRemoveAssetFromFavouritesRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetUniversalAssets(const FString& ForPlayerWithUlid, int After, int ItemsCount, const FUniversalAssetResponseDelegateBP& OnCompletedRequest)
 {
-    ULootLockerAssetsRequestHandler::GetUniversalAssets(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), After, ItemsCount, OnCompletedRequest);
+    ULootLockerSDKManager::GetUniversalAssets(After, ItemsCount, FUniversalAssetResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerUniversalAssetsResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GrantAssetWithVariationToPlayerInventory(const FString& ForPlayerWithUlid, const int AssetID, const int AssetVariationID, const int AssetRentalOptionID, const FGrantAssetResponseDelegateBP& OnCompletedRequest)
 {
-    ULootLockerAssetsRequestHandler::GrantAssetToPlayerInventory(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetID, AssetVariationID, AssetRentalOptionID, OnCompletedRequest);
+    ULootLockerSDKManager::GrantAssetToPlayerInventory(AssetID, AssetVariationID, AssetRentalOptionID, FGrantAssetResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerGrantAssetResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 
