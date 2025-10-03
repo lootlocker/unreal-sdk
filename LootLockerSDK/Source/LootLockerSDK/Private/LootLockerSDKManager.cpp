@@ -864,51 +864,50 @@ void ULootLockerSDKManager::ListAssets(const FLootLockerListSimpleAssetsRequest&
     ULootLockerAssetsRequestHandler::ListAssets(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, PerPage, Page, OrderBy, OrderDirection, FListSimpleAssetsResponseDelegateBP(), OnCompletedRequest);
 }
 
-//Asset Instance
-
+//Asset Instances
 void ULootLockerSDKManager::GetAllKeyValuePairsForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerAssetInstancesRequestHandler::GetAllKeyValuePairsForAssetInstance(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, FAssetInstanceStorageItemsResponseDelegateBP(), OnCompletedRequest);
+    ULootLockerAssetInstancesRequestHandler::GetAllKeyValuePairsForAssetInstance(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::GetAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerAssetInstancesRequestHandler::GetAKeyValuePairByIdForAssetInstance(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, StorageItemId, FAssetInstanceStorageItemResponseDelegateBP(), OnCompletedRequest);
+    ULootLockerAssetInstancesRequestHandler::GetAKeyValuePairByIdForAssetInstance(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, StorageItemId, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::CreateAKeyValuePairForAssetInstance(int AssetInstanceId, const FLootLockerAssetInstanceStorageItem& Item, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerAssetInstancesRequestHandler::CreateAKeyValuePairForAssetInstance(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, Item, FAssetInstanceStorageItemsResponseDelegateBP(), OnCompletedRequest);
+    ULootLockerAssetInstancesRequestHandler::CreateAKeyValuePairForAssetInstance(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, Item, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::UpdateOneOrMoreKeyValuePairForAssetInstance(int AssetInstanceId, FLootLockerAssetInstanceStorageItems Items, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerAssetInstancesRequestHandler::UpdateOneOrMoreKeyValuePairForAssetInstance(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, Items, FAssetInstanceStorageItemsResponseDelegateBP(), OnCompletedRequest);
+    ULootLockerAssetInstancesRequestHandler::UpdateOneOrMoreKeyValuePairForAssetInstance(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, Items, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::UpdateAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FLootLockerAssetInstanceStorageItem Item, const FAssetInstanceStorageItemResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerAssetInstancesRequestHandler::UpdateAKeyValuePairByIdForAssetInstance(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, StorageItemId, Item, FAssetInstanceStorageItemResponseDelegateBP(), OnCompletedRequest);
+    ULootLockerAssetInstancesRequestHandler::UpdateAKeyValuePairByIdForAssetInstance(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, StorageItemId, Item, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::DeleteAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerAssetInstancesRequestHandler::DeleteAKeyValuePairByIdForAssetInstance(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, StorageItemId, FAssetInstanceStorageItemsResponseDelegateBP(), OnCompletedRequest);
+    ULootLockerAssetInstancesRequestHandler::DeleteAKeyValuePairByIdForAssetInstance(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, StorageItemId, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::InspectLootBox(int AssetInstanceId, const FLootBoxContentResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerAssetInstancesRequestHandler::InspectLootBox(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, FLootBoxContentResponseDelegateBP(), OnCompletedRequest);
+    ULootLockerAssetInstancesRequestHandler::InspectLootBox(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::OpenLootBox(int AssetInstanceId, const FOpenLootBoxResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerAssetInstancesRequestHandler::OpenLootBox(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, FOpenLootBoxResponseDelegateBP(), OnCompletedRequest);
+    ULootLockerAssetInstancesRequestHandler::OpenLootBox(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::DeleteAssetInstanceFromPlayerInventory(int AssetInstanceID, const FDeleteAssetInstanceResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerAssetInstancesRequestHandler::DeleteAssetInstanceFromPlayerInventory(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceID, FDeleteAssetInstanceResponseDelegateBP(), OnCompletedRequest);
+    ULootLockerAssetInstancesRequestHandler::DeleteAssetInstanceFromPlayerInventory(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceID, OnCompletedRequest);
 }
 
 //User Generated Content
