@@ -229,6 +229,9 @@ FLootLockerEndPoints ULootLockerGameEndpoints::ListNotifications = InitEndpoint(
 FLootLockerEndPoints ULootLockerGameEndpoints::ReadNotifications = InitEndpoint("notifications/v1/read", ELootLockerHTTPMethod::PUT);
 FLootLockerEndPoints ULootLockerGameEndpoints::ReadAllNotifications = InitEndpoint("notifications/v1/read/all", ELootLockerHTTPMethod::PUT);
 
+// Broadcasts
+FLootLockerEndPoints ULootLockerGameEndpoints::ListBroadcasts = InitEndpoint("broadcasts/v1", ELootLockerHTTPMethod::GET);
+
 //Collectables
 FLootLockerEndPoints ULootLockerGameEndpoints::GetAllCollectablesEndpoint = InitEndpoint("v1/collectable", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::CollectItemEndpoint = InitEndpoint("v1/collectable", ELootLockerHTTPMethod::POST);

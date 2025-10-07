@@ -262,6 +262,9 @@ public:
     static FLootLockerEndPoints ReadNotifications;
     static FLootLockerEndPoints ReadAllNotifications;
 
+    // Broadcasts
+    static FLootLockerEndPoints ListBroadcasts;
+
     //Collectables
     static FLootLockerEndPoints GetAllCollectablesEndpoint;
     static FLootLockerEndPoints CollectItemEndpoint;

@@ -1128,6 +1128,22 @@ void ULootLockerSDKManager::MarkNotificationsAsReadByIds(const TArray<FString>& 
     ULootLockerNotificationsRequestHandler::MarkNotificationsAsRead(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), NotificationIDs, FLootLockerReadNotificationsResponseBP(), OnComplete);
 }
 
+//Broadcasts
+void ULootLockerSDKManager::ListTopBroadcasts(const FLootLockerListBroadcastsResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    ListBroadcasts({}, -1, -1, OnComplete, ForPlayerWithUlid);
+}
+
+void ULootLockerSDKManager::ListTopBroadcastsLocalized(const TArray<FString>& Languages, const FLootLockerListBroadcastsResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    ListBroadcasts(Languages, -1, -1, OnComplete, ForPlayerWithUlid);
+}
+
+void ULootLockerSDKManager::ListBroadcasts(const TArray<FString>& Languages, int32 PerPage, int32 Page, const FLootLockerListBroadcastsResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    ULootLockerBroadcastRequestHandler::ListBroadcasts(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Languages, PerPage, Page, FLootLockerListBroadcastsResponseBP(), OnComplete);
+}
+
 //Collectables
 void ULootLockerSDKManager::GetAllCollectables(const FCollectablesResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
