@@ -1087,6 +1087,15 @@ bool ULootLockerManager::TryGetNotificationsByIdentifyingValue(const FLootLocker
     return NotificationsResponse.TryGetNotificationsByIdentifyingValue(IdentifyingValue, Notifications);
 }
 
+// Broadcasts
+
+void ULootLockerManager::ListBroadcasts(const TArray<FString>& Languages, int32 PerPage, int32 Page, const FString& ForPlayerWithUlid, const FLootLockerListBroadcastsResponseBP& OnComplete)
+{
+    ULootLockerBroadcastRequestHandler::ListBroadcasts(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Languages, PerPage, Page, OnComplete);
+}
+
+// Collectables
+
 void ULootLockerManager::GetAllCollectables(const FString& ForPlayerWithUlid, const FCollectablesResponseDelegateBP& OnGetAllCollectablesCompleted)
 {
     ULootLockerCollectablesRequestHandler::GetAllCollectables(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnGetAllCollectablesCompleted);
