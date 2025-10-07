@@ -2281,6 +2281,39 @@ public:
     static void RedeemEpicStorePurchaseForCharacter(const FString& ForPlayerWithUlid, const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     /**
+     * Redeem a purchase that was made successfully towards the PlayStation Store for the current player
+     *
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     * @param TransactionId The transaction id from the PlayStation Store of the purchase to redeem
+     * @param AuthCode The authorization code from the PlayStation Store of the purchase to redeem
+     * @param EntitlementLabel The entitlement label configured in the NP service for the entitlement that this redemption relates to
+     * @param ServiceLabel Optional: The NP service label
+     * @param ServiceName Optional: The abbreviation of the service name of the ASM service ID service that was used when configuring the serviceIds. Possible Values: pssdc, cce. Default Value: pssdc
+     * @param Environment Optional: The id of the environment you wish to make the request against. Allowed values: 1, 8, 256
+     * @param UseCount Optional: The use count for this redemption
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid,ServiceLabel,ServiceName,Environment,UseCount", ForPlayerWithUlid="", ServiceLabel="", ServiceName="", Environment=-1, UseCount=-1))
+    static void RedeemPlayStationStorePurchase(const FString& ForPlayerWithUlid, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+
+    /**
+     * Redeem a purchase that was made successfully towards the PlayStation Store for a character that the current player owns
+     *
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     * @param CharacterId The ulid of the character to redeem this purchase for
+     * @param TransactionId The transaction id from the PlayStation Store of the purchase to redeem
+     * @param AuthCode The authorization code from the PlayStation Store of the purchase to redeem
+     * @param EntitlementLabel The entitlement label configured in the NP service for the entitlement that this redemption relates to
+     * @param ServiceLabel Optional: The NP service label
+     * @param ServiceName Optional: The abbreviation of the service name of the ASM service ID service that was used when configuring the serviceIds. Possible Values: pssdc, cce. Default Value: pssdc
+     * @param Environment Optional: The id of the environment you wish to make the request against. Allowed values: 1, 8, 256
+     * @param UseCount Optional: The use count for this redemption
+     * @param OnCompletedRequest Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid,ServiceLabel,ServiceName,Environment,UseCount", ForPlayerWithUlid="", ServiceLabel="", ServiceName="", Environment=-1, UseCount=-1))
+    static void RedeemPlayStationStorePurchaseForCharacter(const FString& ForPlayerWithUlid, const FString& CharacterId, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+
+    /**
      * Begin a Steam purchase with the given settings that when finalized will redeem the specified catalog item
      *
      * Steam in-app purchases need to be configured for this to work
