@@ -15,26 +15,27 @@
 #include "GameAPI/LootLockerCurrencyRequestHandler.h"
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
 #include "GameAPI/LootLockerEntitlementRequestHandler.h"
+#include "GameAPI/LootLockerFeedbackRequestHandler.h"
 #include "GameAPI/LootLockerFollowersRequestHandler.h"
 #include "GameAPI/LootLockerFriendsRequestHandler.h"
 #include "GameAPI/LootLockerHeroRequestHandler.h"
-#include "GameAPI/LootLockerLeaderboardRequestHandler.h"
 #include "GameAPI/LootLockerLeaderboardArchiveRequestHandler.h"
+#include "GameAPI/LootLockerLeaderboardRequestHandler.h"
 #include "GameAPI/LootLockerMapsRequestHandler.h"
 #include "GameAPI/LootLockerMessagesRequestHandler.h"
+#include "GameAPI/LootLockerMetadataRequestHandler.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
 #include "GameAPI/LootLockerMissionsRequestHandler.h"
+#include "GameAPI/LootLockerNotificationsRequestHandler.h"
 #include "GameAPI/LootLockerPersistentStorageRequestHandler.h"
 #include "GameAPI/LootLockerPlayerFilesRequestHandler.h"
 #include "GameAPI/LootLockerPlayerRequestHandler.h"
 #include "GameAPI/LootLockerProgressionsRequestHandler.h"
 #include "GameAPI/LootLockerPurchasesRequestHandler.h"
 #include "GameAPI/LootLockerRemoteSessionRequestHandler.h"
-#include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
-#include "GameAPI/LootLockerFeedbackRequestHandler.h"
-#include "GameAPI/LootLockerMetadataRequestHandler.h"
-#include "GameAPI/LootLockerNotificationsRequestHandler.h"
 #include "GameAPI/LootLockerTriggersRequestHandler.h"
+#include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
+#include "LootLockerSessionOptionals.h"
 #include "LootLockerSDKManager.generated.h"
 
 UCLASS(Blueprintable)
@@ -142,9 +143,10 @@ public:
      *
      * @param PsnOnlineId The PSN Online ID of the player
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
     [[deprecated("This method is deprecated, please use VerifyPlayerAndStartPlaystationNetworkSession instead.")]] // Deprecation date 20250922
-    static void StartPlaystationNetworkSession(const FString& PsnOnlineId, const FLootLockerSessionResponse& OnCompletedRequest);
+    static void StartPlaystationNetworkSession(const FString& PsnOnlineId, const FLootLockerSessionResponse& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
      * Start a Playstation Network session. If your token starts with v3, then you should use VerifyPlayerAndStartPlaystationNetworkV3Session instead.
@@ -155,8 +157,9 @@ public:
      * @param AccountID The numeric representation of the account id received from PSN after a successful login
      * @param OnCompletedRequest Delegate for handling the server response.
      * @param PsnIssuerId (Optional) The PSN issuer id to use when verifying the player towards PSN. If not supplied, will be defaulted to 256=production.
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void VerifyPlayerAndStartPlaystationNetworkSession(const FString& AuthCode, const FString& AccountID, const FLootLockerSessionResponse& OnCompletedRequest, int PsnIssuerId = 256);
+    static void VerifyPlayerAndStartPlaystationNetworkSession(const FString& AuthCode, const FString& AccountID, const FLootLockerSessionResponse& OnCompletedRequest, int PsnIssuerId = 256, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
     * Start a Playstation Network session using the v3 version of PSN authentication. If your token starts with v3, then you're using this version.
@@ -166,8 +169,9 @@ public:
     * @param AuthCode The authorization code received from PSN after a successful login</param>
     * @param EnvIssuerId Optional: The PSN Environment issuer id to use when verifying the player towards PSN. If not supplied, will be defaulted to 256=production.</param>
     * @param OnCompletedRequest onComplete Action for handling the response</param>
+    * @param Optionals (Optional) Additional session options to use when starting the session
     */
-    static void VerifyPlayerAndStartPlaystationNetworkV3Session(const FString& AuthCode, const FLootLockerSessionResponse& OnCompletedRequest, int EnvIssuerId = 256);
+    static void VerifyPlayerAndStartPlaystationNetworkV3Session(const FString& AuthCode, const FLootLockerSessionResponse& OnCompletedRequest, int EnvIssuerId = 256, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
      * Start a session for an Android user
@@ -176,8 +180,9 @@ public:
      *
      * @param DeviceId The device id of the player
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void StartAndroidSession(const FString& DeviceId, const FLootLockerSessionResponse& OnCompletedRequest);
+    static void StartAndroidSession(const FString& DeviceId, const FLootLockerSessionResponse& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
      * Start a session for a Amazon Luna user
@@ -186,8 +191,9 @@ public:
      *
      * @param AmazonLunaGuid The Amazon Luna GUID of the player
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void StartAmazonLunaSession(const FString& AmazonLunaGuid, const FLootLockerSessionResponse& OnCompletedRequest);
+    static void StartAmazonLunaSession(const FString& AmazonLunaGuid, const FLootLockerSessionResponse& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
      * Start a session for a steam user
@@ -197,8 +203,9 @@ public:
      * @param SteamSessionTicket Platform-specific token.
      * @param OnCompletedRequest Delegate for handling the server response.
      * @param SteamAppId (Optional) The specific Steam App Id to verify the player for
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void StartSteamSessionUsingTicket(const FString& SteamSessionTicket, const FLootLockerSessionResponse& OnCompletedRequest, const FString& SteamAppId = "");
+    static void StartSteamSessionUsingTicket(const FString& SteamSessionTicket, const FLootLockerSessionResponse& OnCompletedRequest, const FString& SteamAppId = "", const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
      * Create a new session for a Nintendo Switch user
@@ -207,8 +214,9 @@ public:
      *
      * @param NSAIdToken NSA (Nintendo Switch Account) id token as a string
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAuthenticationResponse
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void StartNintendoSwitchSession(const FString& NSAIdToken, const FLootLockerSessionResponse& OnCompletedRequest);
+    static void StartNintendoSwitchSession(const FString& NSAIdToken, const FLootLockerSessionResponse& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
      * Create a new session for an Xbox user
@@ -216,8 +224,9 @@ public:
      *
      * @param XboxUserToken Xbox user token as a string
      * @param OnCompletedRequest Delegate for handling the response of FLootLockerAuthenticationResponse
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void StartXboxSession(const FString& XboxUserToken, const FLootLockerSessionResponse& OnCompletedRequest);
+    static void StartXboxSession(const FString& XboxUserToken, const FLootLockerSessionResponse& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
      * Start a session for a Google user
@@ -227,8 +236,9 @@ public:
      *
      * @param IdToken The Id Token from your Google Sign In
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void StartGoogleSession(const FString& IdToken, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest);
+    static void StartGoogleSession(const FString& IdToken, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
      * Start a session for a Google user
@@ -239,8 +249,9 @@ public:
      * @param IdToken The Id Token from your Google Sign In
      * @param Platform Google OAuth2 ClientID platform
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void StartGoogleSessionForPlatform(const FString& IdToken, ELootLockerGoogleClientPlatform Platform, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest);
+    static void StartGoogleSessionForPlatform(const FString& IdToken, ELootLockerGoogleClientPlatform Platform, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
      * Refresh a previous session signed in with Google
@@ -250,8 +261,9 @@ public:
      *
      * @param OnCompletedRequest Delegate for handling the response
      * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void RefreshGoogleSession(const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "") { RefreshGoogleSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest); };
+    static void RefreshGoogleSession(const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "", const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals()) { RefreshGoogleSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest, Optionals); };
 
     /**
      * Refresh a previous session signed in with Google
@@ -262,8 +274,9 @@ public:
      *
      * @param RefreshToken Token received in response from StartGoogleSession request
      * @param OnCompletedRequest Delegate for handling the response
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void RefreshGoogleSession(const FString& RefreshToken, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest);
+    static void RefreshGoogleSession(const FString& RefreshToken, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
     
     /**
      * Start a session for a Google Play Games user
@@ -271,8 +284,9 @@ public:
      *
      * @param AuthCode The Auth Code from your Google Play Games Sign In
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void StartGooglePlayGamesSession(const FString& AuthCode, const FLootLockerGooglePlayGamesSessionResponseDelegate& OnCompletedRequest);
+    static void StartGooglePlayGamesSession(const FString& AuthCode, const FLootLockerGooglePlayGamesSessionResponseDelegate& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
      * Refresh a previous session signed in with Google Play Games
@@ -281,8 +295,9 @@ public:
      *
      * @param OnCompletedRequest Delegate for handling the response
      * @param ForPlayerWithUlid Optional : Execute the request for the specified player. If not supplied, the default player will be used.
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void RefreshGooglePlayGamesSession(const FLootLockerGooglePlayGamesSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "") { RefreshGooglePlayGamesSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest); };
+    static void RefreshGooglePlayGamesSession(const FLootLockerGooglePlayGamesSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "", const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals()) { RefreshGooglePlayGamesSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest, Optionals); };
 
     /**
      * Refresh a previous session signed in with Google Play Games
@@ -291,8 +306,9 @@ public:
      *
      * @param RefreshToken Token received in response from StartGooglePlayGamesSession request
      * @param OnCompletedRequest Delegate for handling the response
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void RefreshGooglePlayGamesSession(const FString& RefreshToken, const FLootLockerGooglePlayGamesSessionResponseDelegate& OnCompletedRequest);
+    static void RefreshGooglePlayGamesSession(const FString& RefreshToken, const FLootLockerGooglePlayGamesSessionResponseDelegate& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
      * Create a new session for Sign in with Apple
@@ -300,9 +316,10 @@ public:
      * https://ref.lootlocker.com/game-api/#sign-in-with-apple
      *
      * @param AuthorizationCode Authorization code, provided by apple
-     * @param OnCompletedRequest Delegate for handling the response of type  for handling the response of type FLootLockerAppleSessionResponse
+     * @param OnCompletedRequest Delegate for handling the response of type  for handling the response of type FLootLockerAppleSessio
+     * @param Optionals (Optional) Additional session options to use when starting the sessionnResponse
      */
-    static void StartAppleSession(const FString& AuthorizationCode, const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest);
+    static void StartAppleSession(const FString& AuthorizationCode, const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
      * Refresh a previous session signed in with Apple
@@ -312,8 +329,9 @@ public:
      *
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAppleSessionResponse
      * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void RefreshAppleSession(const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "") { RefreshAppleSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest); };
+    static void RefreshAppleSession(const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "", const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals()) { RefreshAppleSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest, Optionals); };
 
     /**
      * Refresh a previous session signed in with Apple
@@ -324,8 +342,9 @@ public:
      *
      * @param RefreshToken Token received in response from StartAppleSession request
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAppleSessionResponse
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void RefreshAppleSession(const FString& RefreshToken, const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest);
+    static void RefreshAppleSession(const FString& RefreshToken, const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
     * Create a new session for Sign in with Apple Game Center
@@ -339,8 +358,9 @@ public:
     * @param Salt the salt of the signature generated from Apple Game Center Identity Verification
     * @param Timestamp the timestamp of the verification generated from Apple Game Center Identity Verification
     * @param OnStartedAppleGameCenterSessionCompleted Delegate for handling the response of type  for handling the response of type FLootLockerAppleGameCenterSessionResponse
+    * @param Optionals (Optional) Additional session options to use when starting the session
     */
-    static void StartAppleGameCenterSession(const FString& BundleId, const FString& PlayerId, const FString& PublicKeyUrl, const FString& Signature, const FString& Salt, const FString& Timestamp, const FLootLockerAppleGameCenterSessionResponseDelegate& OnStartedAppleGameCenterSessionCompleted);
+    static void StartAppleGameCenterSession(const FString& BundleId, const FString& PlayerId, const FString& PublicKeyUrl, const FString& Signature, const FString& Salt, const FString& Timestamp, const FLootLockerAppleGameCenterSessionResponseDelegate& OnStartedAppleGameCenterSessionCompleted, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
     * Refresh a previous session signed in with Apple Game Center
@@ -350,8 +370,9 @@ public:
     *
     * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAppleSessionResponse
     * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
+    * @param Optionals (Optional) Additional session options to use when starting the session
     */
-    static void RefreshAppleGameCenterSession(const FLootLockerAppleGameCenterSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "") { RefreshAppleGameCenterSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest); };
+    static void RefreshAppleGameCenterSession(const FLootLockerAppleGameCenterSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "", const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals()) { RefreshAppleGameCenterSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest, Optionals); };
 
     /**
     * Refresh a previous session signed in with Apple Game Center
@@ -361,8 +382,9 @@ public:
     *
     * @param RefreshToken (Optional) Token received in response from StartAppleSession request. If not supplied we will attempt to resolve it from stored player data.
     * @param OnRefreshAppleGameCenterSessionCompleted Delegate for handling the response of type FLootLockerAppleGameCenterResponse
+    * @param Optionals (Optional) Additional session options to use when starting the session
     */
-    static void RefreshAppleGameCenterSession(const FString& RefreshToken, const FLootLockerAppleGameCenterSessionResponseDelegate& OnRefreshAppleGameCenterSessionCompleted);
+    static void RefreshAppleGameCenterSession(const FString& RefreshToken, const FLootLockerAppleGameCenterSessionResponseDelegate& OnRefreshAppleGameCenterSessionCompleted, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
 
     /**
@@ -373,8 +395,9 @@ public:
      *
      * @param IdToken The Id Token from your Epic Sign In
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void StartEpicSession(const FString& IdToken, const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest);
+    static void StartEpicSession(const FString& IdToken, const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
      * Refresh a previous session signed in with an Epic Online Services (EOS) user
@@ -384,8 +407,9 @@ public:
      *
      * @param OnCompletedRequest Delegate for handling the response
      * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void RefreshEpicSession(const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "") { RefreshEpicSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest); };
+    static void RefreshEpicSession(const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "", const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals()) { RefreshEpicSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest, Optionals); };
 
     /**
      * Refresh a previous session signed in with an Epic Online Services (EOS) user
@@ -396,8 +420,9 @@ public:
      *
      * @param RefreshToken Token received in response from StartEpicSession request
      * @param OnCompletedRequest Delegate for handling the response
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void RefreshEpicSession(const FString& RefreshToken, const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest);
+    static void RefreshEpicSession(const FString& RefreshToken, const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
      * Start a session for an Meta / Oculus user
@@ -407,8 +432,9 @@ public:
      * @param UserId The id recieved from Oculus
      * @param Nonce The nonce recieved from Oculus
      * @param OncompletedRequest Delegate for handling the server response.
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void StartMetaSession(const FString& UserId, const FString& Nonce, const FLootLockerMetaSessionResponseDelegate& OncompletedRequest);
+    static void StartMetaSession(const FString& UserId, const FString& Nonce, const FLootLockerMetaSessionResponseDelegate& OncompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
      * Refresh a previous session signed in with Meta
@@ -417,9 +443,10 @@ public:
      *
      * @param OncompletedRequest Delegate for handling the response
      * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void RefreshMetaSession(const FLootLockerMetaSessionResponseDelegate& OncompletedRequest, const FString& ForPlayerWithUlid = "") { RefreshMetaSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OncompletedRequest); };
-    
+    static void RefreshMetaSession(const FLootLockerMetaSessionResponseDelegate& OncompletedRequest, const FString& ForPlayerWithUlid = "", const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals()) { RefreshMetaSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OncompletedRequest, Optionals); };
+
     /**
      * Refresh a previous session signed in with Meta
      * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
@@ -427,8 +454,9 @@ public:
      *
      * @param RefreshToken (Optional) Token received in response from StartMetaSession request. If not supplied we will attempt to resolve it from stored player data.
      * @param OncompletedRequest Delegate for handling the response
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void RefreshMetaSession(const FString& RefreshToken, const FLootLockerMetaSessionResponseDelegate& OncompletedRequest);
+    static void RefreshMetaSession(const FString& RefreshToken, const FLootLockerMetaSessionResponseDelegate& OncompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
      * Start a guest session with an identifier, you can use something like a unique device identifier to tie the account to a device.
@@ -436,17 +464,19 @@ public:
      *
      * @param PlayerIdentifier Optional: Identifier for the player. Needs to be unique for each player, so only set this explicitly if you want to set a specific name for the guest player. Otherwise, an id will be generated for the player.
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAuthenticationResponse
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void GuestLogin(const FLootLockerSessionResponse& OnCompletedRequest, const FString& PlayerIdentifier = "");
-    
+    static void GuestLogin(const FLootLockerSessionResponse& OnCompletedRequest, const FString& PlayerIdentifier = "", const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
+
     /**
      * Start a session for a Discord user
      * The Discord sign in platform must be enabled in the web console for this to work.
      *
      * @param AccessToken The access token from Discord OAuth
      * @param OnCompletedRequest Delegate for handling the server response.
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void StartDiscordSession(const FString& AccessToken, const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest);
+    static void StartDiscordSession(const FString& AccessToken, const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
      * Refresh a previous session signed in with Discord
@@ -454,10 +484,22 @@ public:
      * The Discord sign in platform must be enabled in the web console for this to work.
      *
      * @param RefreshToken (Optional) Token received in response from StartDiscordSession request. If not supplied we will attempt to resolve it from stored player data.
-     * @param DevelopmentMode (Optional) Whether to use development mode for the refresh request.
      * @param OnCompletedRequest Delegate for handling the response
+     * @param ForPlayerWithUlid Optional : Execute the request for the specified player.If not supplied, the default player will be used.
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void RefreshDiscordSession(const FString& RefreshToken, const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest);
+    static void RefreshDiscordSession(const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "", const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals()) { RefreshDiscordSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest, Optionals); };
+
+    /**
+     * Refresh a previous session signed in with Discord
+     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
+     * The Discord sign in platform must be enabled in the web console for this to work.
+     *
+     * @param RefreshToken (Optional) Token received in response from StartDiscordSession request. If not supplied we will attempt to resolve it from stored player data.
+     * @param OnCompletedRequest Delegate for handling the response
+     * @param Optionals (Optional) Additional session options to use when starting the session
+     */
+    static void RefreshDiscordSession(const FString& RefreshToken, const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
      * Verify the player's identity with the server and selected platform.
@@ -721,9 +763,10 @@ public:
      * White Label platform must be enabled in the web console for this to work.
      * https://ref.lootlocker.com/game-api/#white-label-authentication
      *
-     * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAuthenticationResponse
+     * @param OnCompletedRequest Delegate for handling the response of type FLootLockerAuth
+     * @param Optionals (Optional) Additional session options to use when starting the sessionenticationResponse
      */
-    static void WhiteLabelStartSession(const FLootLockerSessionResponse& OnCompletedRequest);
+    static void WhiteLabelStartSession(const FLootLockerSessionResponse& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
      * Login and Start a LootLocker Session using a White Label account
@@ -734,8 +777,9 @@ public:
      * @param Password - The Password for the white label account
      * @param OnCompletedRequest Delegate for handling the response of type FLootLockerWhiteLabelLoginAndSessionResponse
      * @param Remember - Optional flag to prolong the session lifetime
+     * @param Optionals (Optional) Additional session options to use when starting the session
      */
-    static void WhiteLabelLoginAndStartSession(const FString& Email, const FString& Password, const FLootLockerWhiteLabelLoginAndSessionResponseDelegate& OnCompletedRequest, const bool Remember = false);
+    static void WhiteLabelLoginAndStartSession(const FString& Email, const FString& Password, const FLootLockerWhiteLabelLoginAndSessionResponseDelegate& OnCompletedRequest, const bool Remember = false, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
      * Checks if the cached session token is valid for the provided White Label email.
