@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerHttpClient.h"
+#include "LootLockerPlayerData.h"
 #include "LootLockerAuthenticationRequestHandler.generated.h"
 
 /*

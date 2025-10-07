@@ -1,0 +1,108 @@
+// Copyright (c) 2021 LootLocker
+
+#include "GameAPI/LootLockerBroadcastRequestHandler.h"
+#include "LootLockerGameEndpoints.h"
+#include "LootLockerSDK.h"
+#include "Utils/LootLockerUtilities.h"
+
+ULootLockerHttpClient* ULootLockerBroadcastRequestHandler::HttpClient = nullptr;
+
+ULootLockerBroadcastRequestHandler::ULootLockerBroadcastRequestHandler()
+{
+    HttpClient = NewObject<ULootLockerHttpClient>();
+}
+
+void ULootLockerBroadcastRequestHandler::ListBroadcasts(const FLootLockerPlayerData& PlayerData, const TArray<FString>& Languages, int32 PerPage, int32 Page, const FLootLockerListBroadcastsResponseBP& OnCompleteBP, const FLootLockerListBroadcastsResponseDelegate& OnComplete)
+{
+    TMap<FString, FString> CustomHeaders;
+    if (Languages.Num() > 0)
+    {
+        CustomHeaders.Add("Accept-Language", FString::Join(Languages, TEXT(",")));
+    }
+    TMultiMap<FString, FString> QueryParams;
+    if (PerPage > -1)
+    {
+        QueryParams.Add("per_page", FString::FromInt(PerPage));
+    }
+    if (Page > -1)
+    {
+        QueryParams.Add("page", FString::FromInt(Page));
+    }
+    
+    LLAPI<FLootLockerInternalListBroadcastsResponse>::CallAPI(
+        HttpClient, 
+        FLootLockerEmptyRequest{}, 
+        ULootLockerGameEndpoints::ListBroadcasts, 
+        {}, 
+        QueryParams, 
+        PlayerData, 
+        FLootLockerInternalListBroadcastsResponseBP(), 
+        FLootLockerInternalListBroadcastsResponseDelegate(), 
+        LLAPI<FLootLockerInternalListBroadcastsResponse>::FResponseInspectorCallback::CreateLambda([OnCompleteBP, OnComplete](FLootLockerInternalListBroadcastsResponse& InternalResponse)
+        {
+            FLootLockerListBroadcastsResponse UserResponse(InternalResponse);
+            OnCompleteBP.ExecuteIfBound(UserResponse);
+            OnComplete.ExecuteIfBound(UserResponse);
+        }),
+        CustomHeaders
+    );
+}
+
+FLootLockerListBroadcastsResponse::FLootLockerListBroadcastsResponse(const FLootLockerInternalListBroadcastsResponse& OtherResponse) : FLootLockerResponse{OtherResponse.success, OtherResponse.StatusCode, OtherResponse.FullTextFromServer, OtherResponse.ErrorData, OtherResponse.Context}
+{
+    pagination = OtherResponse.pagination;
+    
+    for (const FLootLockerInternalBroadcast& OtherBroadcast : OtherResponse.broadcasts)
+    {
+        broadcasts.Add(FLootLockerBroadcast(OtherBroadcast));
+    }
+}
+
+FLootLockerBroadcast::FLootLockerBroadcast(const FLootLockerInternalBroadcast& OtherBroadcast)
+{
+    id = OtherBroadcast.id;
+    name = OtherBroadcast.name;
+    game_name = OtherBroadcast.game_name;
+    games = OtherBroadcast.games;
+    publication_settings = OtherBroadcast.publication_settings;
+    for (const FLootLockerInternalBroadcastLanguage& OtherLanguage : OtherBroadcast.languages)
+    {
+        FLootLockerBroadcastLanguage Language(OtherLanguage);
+        languages.Add(OtherLanguage.language_code, Language);
+        language_codes.Add(OtherLanguage.language_code);
+    }
+}
+
+FLootLockerBroadcastLanguage::FLootLockerBroadcastLanguage(const FLootLockerInternalBroadcastLanguage& OtherLanguage)
+{
+    language_code = OtherLanguage.language_code;
+    
+    for (const FLootLockerInternalBroadcastLocalizationEntry& Localization : OtherLanguage.localizations)
+    {
+        // Lift standard keys to dedicated fields
+        if (Localization.key == TEXT("headline"))
+        {
+            headline = Localization.value;
+            continue;
+        }
+        else if (Localization.key == TEXT("body"))
+        {
+            body = Localization.value;
+            continue;
+        }
+        else if (Localization.key == TEXT("image_url"))
+        {
+            image_url = Localization.value;
+            continue;
+        }
+        else if (Localization.key == TEXT("action"))
+        {
+            action = Localization.value;
+            continue;
+        }
+        
+        // Add other localizations to the map and list
+        localizations.Add(Localization.key, Localization.value);
+        localization_keys.Add(Localization.key);
+    }
+}
