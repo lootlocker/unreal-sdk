@@ -245,6 +245,7 @@ public:
     static FLootLockerEndPoints RedeemAppleAppStorePurchase;
     static FLootLockerEndPoints RedeemGooglePlayStorePurchase;
     static FLootLockerEndPoints RedeemEpicStorePurchase;
+    static FLootLockerEndPoints RedeemPlayStationStorePurchase;
 
     static FLootLockerEndPoints BeginSteamPurchaseRedemption;
     static FLootLockerEndPoints QuerySteamPurchaseRedemptionStatus;

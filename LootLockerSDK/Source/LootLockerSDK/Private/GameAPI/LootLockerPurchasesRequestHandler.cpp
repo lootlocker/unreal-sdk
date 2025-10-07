@@ -121,3 +121,64 @@ void ULootLockerPurchasesRequestHandler::RedeemEpicStorePurchaseForCharacter(con
 
     LLAPI<FLootLockerResponse>::CallAPI(HttpClient, PurchaseRequest, ULootLockerGameEndpoints::RedeemEpicStorePurchase, {}, {}, PlayerData, OnCompletedBP, OnCompleted);
 }
+
+void ULootLockerPurchasesRequestHandler::RedeemPlayStationStorePurchaseForPlayer(const FLootLockerPlayerData& PlayerData, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
+{
+    TSharedRef<FJsonObject> JsonObject = MakeShareable(new FJsonObject);
+    JsonObject->SetStringField(TEXT("transaction_id"), TransactionId);
+    JsonObject->SetStringField(TEXT("auth_code"), AuthCode);
+    JsonObject->SetStringField(TEXT("entitlement_label"), EntitlementLabel);
+    
+    // Add optional parameters if they are set
+    if (!ServiceLabel.IsEmpty())
+    {
+        JsonObject->SetStringField(TEXT("service_label"), ServiceLabel);
+    }
+    if (!ServiceName.IsEmpty())
+    {
+        JsonObject->SetStringField(TEXT("service_name"), ServiceName);
+    }
+    if (Environment != -1)
+    {
+        JsonObject->SetNumberField(TEXT("environment"), Environment);
+    }
+    if (UseCount != -1)
+    {
+        JsonObject->SetNumberField(TEXT("use_count"), UseCount);
+    }
+    
+    FString JsonString = LootLockerUtilities::FStringFromJsonObject(JsonObject);
+
+    LLAPI<FLootLockerResponse>::CallAPIUsingRawJSON(HttpClient, JsonString, ULootLockerGameEndpoints::RedeemPlayStationStorePurchase, {}, {}, PlayerData, OnCompletedBP, OnCompleted);
+}
+
+void ULootLockerPurchasesRequestHandler::RedeemPlayStationStorePurchaseForCharacter(const FLootLockerPlayerData& PlayerData, const FString& CharacterId, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FLootLockerDefaultResponseBP& OnCompletedBP, const FLootLockerDefaultDelegate& OnCompleted)
+{
+    TSharedRef<FJsonObject> JsonObject = MakeShareable(new FJsonObject);
+    JsonObject->SetStringField(TEXT("transaction_id"), TransactionId);
+    JsonObject->SetStringField(TEXT("auth_code"), AuthCode);
+    JsonObject->SetStringField(TEXT("entitlement_label"), EntitlementLabel);
+    JsonObject->SetStringField(TEXT("character_id"), CharacterId);
+    
+    // Add optional parameters if they are set
+    if (!ServiceLabel.IsEmpty())
+    {
+        JsonObject->SetStringField(TEXT("service_label"), ServiceLabel);
+    }
+    if (!ServiceName.IsEmpty())
+    {
+        JsonObject->SetStringField(TEXT("service_name"), ServiceName);
+    }
+    if (Environment != -1)
+    {
+        JsonObject->SetNumberField(TEXT("environment"), Environment);
+    }
+    if (UseCount != -1)
+    {
+        JsonObject->SetNumberField(TEXT("use_count"), UseCount);
+    }
+    
+    FString JsonString = LootLockerUtilities::FStringFromJsonObject(JsonObject);
+
+    LLAPI<FLootLockerResponse>::CallAPIUsingRawJSON(HttpClient, JsonString, ULootLockerGameEndpoints::RedeemPlayStationStorePurchase, {}, {}, PlayerData, OnCompletedBP, OnCompleted);
+}

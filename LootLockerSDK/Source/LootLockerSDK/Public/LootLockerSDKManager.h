@@ -2327,6 +2327,37 @@ public:
     static void RedeemEpicStorePurchaseForCharacter(const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     /**
+     * Redeem a purchase that was made successfully towards the PlayStation Store for the current player
+     *
+     * @param TransactionId The transaction id from the PlayStation Store of the purchase to redeem
+     * @param AuthCode The authorization code from the PlayStation Store of the purchase to redeem
+     * @param EntitlementLabel The entitlement label configured in the NP service for the entitlement that this redemption relates to
+     * @param OnCompletedRequest Delegate for handling the server response
+     * @param ServiceLabel Optional: The NP service label
+     * @param ServiceName Optional: The abbreviation of the service name of the ASM service ID service that was used when configuring the serviceIds. Possible Values: pssdc, cce. Default Value: pssdc
+     * @param Environment Optional: The id of the environment you wish to make the request against. Allowed values: 1, 8, 256
+     * @param UseCount Optional: The use count for this redemption
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void RedeemPlayStationStorePurchase(const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ServiceLabel = "", const FString& ServiceName = "", const int Environment = -1, const int UseCount = -1, const FString& ForPlayerWithUlid = "");
+
+    /**
+     * Redeem a purchase that was made successfully towards the PlayStation Store for a character that the current player owns
+     *
+     * @param CharacterId The ulid of the character to redeem this purchase for
+     * @param TransactionId The transaction id from the PlayStation Store of the purchase to redeem
+     * @param AuthCode The authorization code from the PlayStation Store of the purchase to redeem
+     * @param EntitlementLabel The entitlement label configured in the NP service for the entitlement that this redemption relates to
+     * @param OnCompletedRequest Delegate for handling the server response
+     * @param ServiceLabel Optional: The NP service label
+     * @param ServiceName Optional: The abbreviation of the service name of the ASM service ID service that was used when configuring the serviceIds. Possible Values: pssdc, cce. Default Value: pssdc
+     * @param Environment Optional: The id of the environment you wish to make the request against. Allowed values: 1, 8, 256
+     * @param UseCount Optional: The use count for this redemption
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     */
+    static void RedeemPlayStationStorePurchaseForCharacter(const FString& CharacterId, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ServiceLabel = "", const FString& ServiceName = "", const int Environment = -1, const int UseCount = -1, const FString& ForPlayerWithUlid = "");
+
+    /**
      * Begin a Steam purchase with the given settings that when finalized will redeem the specified catalog item
      *
      * Steam in-app purchases need to be configured for this to work
