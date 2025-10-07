@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerPlatformManager.h"
+#include "LootLockerSessionOptionals.h"
 #include "LootLockerPlayerData.generated.h"
 
 USTRUCT(BlueprintType, Category = "LootLocker")
@@ -63,8 +64,14 @@ public:
 	*/
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "LootLocker")
 	FString PlayerCreatedAt = "";
+	/**
+	The session optionals that were used when starting the current session for this player
+	*/
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "LootLocker")
+	FLootLockerSessionOptionals SessionOptionals;
+	
 
-	static FLootLockerPlayerData Create(const FString& token = "", const FString& refreshToken = "", const FString& playerIdentifier = "", const FString& playerUlid = "", const FString& playerPublicUid = "", const FString& playerName = "", const FString& whiteLabelEmail = "", const FString& whiteLabelToken = "", const FLootLockerPlatformRepresentation& currentPlatform = FLootLockerPlatformRepresentation(), const FString& lastSignIn = "", const FString& playerCreatedAt = "")
+	static FLootLockerPlayerData Create(const FString& token = "", const FString& refreshToken = "", const FString& playerIdentifier = "", const FString& playerUlid = "", const FString& playerPublicUid = "", const FString& playerName = "", const FString& whiteLabelEmail = "", const FString& whiteLabelToken = "", const FLootLockerPlatformRepresentation& currentPlatform = FLootLockerPlatformRepresentation(), const FString& lastSignIn = "", const FString& playerCreatedAt = "", const FLootLockerSessionOptionals& sessionOptionals = FLootLockerSessionOptionals())
 	{
 		FLootLockerPlayerData NewObj;
 		NewObj.Token = token;
@@ -78,6 +85,7 @@ public:
 		NewObj.CurrentPlatform = currentPlatform;
 		NewObj.LastSignIn = lastSignIn;
 		NewObj.PlayerCreatedAt = playerCreatedAt;
+		NewObj.SessionOptionals = sessionOptionals;
 		return NewObj;
 	}
 };

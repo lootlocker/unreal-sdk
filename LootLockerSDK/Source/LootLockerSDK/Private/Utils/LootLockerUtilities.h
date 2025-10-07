@@ -112,6 +112,27 @@ namespace LootLockerUtilities
         return ContentString;
     }
 
+    template<typename RequestType>
+    static TSharedRef<FJsonObject> UStructToJsonObject(RequestType RequestStruct)
+    {
+        TSharedRef<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
+#if ENGINE_MAJOR_VERSION < 5
+        if (!FJsonObjectConverter::UStructToJsonObject(RequestType::StaticStruct(), &RequestStruct, JsonObject, 0, 0))
+        {
+            JsonObject = MakeShareable(new FJsonObject());
+        }
+#else
+        if (!std::is_same_v<RequestType, FLootLockerEmptyRequest>)
+        {
+            if (!FJsonObjectConverter::UStructToJsonObject(RequestType::StaticStruct(), &RequestStruct, JsonObject, 0, 0))
+            {
+                JsonObject = MakeShareable(new FJsonObject());
+            }
+        }
+#endif
+        return JsonObject;
+    }
+
 	FString JsonObjectToString(const TSharedRef<FJsonObject>& JsonObject);
 
 	FString JsonValueToString(const TSharedRef<FJsonValue>& JsonValue);
