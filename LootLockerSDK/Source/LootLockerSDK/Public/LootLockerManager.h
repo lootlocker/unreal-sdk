@@ -2280,6 +2280,7 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void RedeemEpicStorePurchaseForCharacter(const FString& ForPlayerWithUlid, const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
+#ifdef LOOTLOCKER_BETA_PLAYSTATION_IAP
     /**
      * Redeem a purchase that was made successfully towards the PlayStation Store for the current player
      *
@@ -2312,6 +2313,7 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid,ServiceLabel,ServiceName,Environment,UseCount", ForPlayerWithUlid="", ServiceLabel="", ServiceName="", Environment=-1, UseCount=-1))
     static void RedeemPlayStationStorePurchaseForCharacter(const FString& ForPlayerWithUlid, const FString& CharacterId, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+#endif
 
     /**
      * Begin a Steam purchase with the given settings that when finalized will redeem the specified catalog item

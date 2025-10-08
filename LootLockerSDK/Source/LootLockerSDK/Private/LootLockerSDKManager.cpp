@@ -1063,6 +1063,7 @@ void ULootLockerSDKManager::RedeemEpicStorePurchaseForCharacter(const FString& C
     ULootLockerPurchasesRequestHandler::RedeemEpicStorePurchaseForCharacter(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CharacterId, AccountId, BearerToken, EntitlementIds, SandboxId, FLootLockerDefaultResponseBP(), OnCompletedRequest);
 }
 
+#ifdef LOOTLOCKER_BETA_PLAYSTATION_IAP
 void ULootLockerSDKManager::RedeemPlayStationStorePurchase(const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FString& ForPlayerWithUlid)
 {
     ULootLockerPurchasesRequestHandler::RedeemPlayStationStorePurchaseForPlayer(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), TransactionId, AuthCode, EntitlementLabel, ServiceLabel, ServiceName, Environment, UseCount, FLootLockerDefaultResponseBP(), OnCompletedRequest);
@@ -1072,6 +1073,7 @@ void ULootLockerSDKManager::RedeemPlayStationStorePurchaseForCharacter(const FSt
 {
     ULootLockerPurchasesRequestHandler::RedeemPlayStationStorePurchaseForCharacter(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CharacterId, TransactionId, AuthCode, EntitlementLabel, ServiceLabel, ServiceName, Environment, UseCount, FLootLockerDefaultResponseBP(), OnCompletedRequest);
 }
+#endif
 
 void ULootLockerSDKManager::BeginSteamPurchaseRedemption(const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
