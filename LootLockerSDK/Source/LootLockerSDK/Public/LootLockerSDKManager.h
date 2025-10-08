@@ -2326,6 +2326,7 @@ public:
      */
     static void RedeemEpicStorePurchaseForCharacter(const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
+#ifdef LOOTLOCKER_BETA_PLAYSTATION_IAP
     /**
      * Redeem a purchase that was made successfully towards the PlayStation Store for the current player
      *
@@ -2356,6 +2357,7 @@ public:
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      */
     static void RedeemPlayStationStorePurchaseForCharacter(const FString& CharacterId, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ServiceLabel = "", const FString& ServiceName = "", const int Environment = -1, const int UseCount = -1, const FString& ForPlayerWithUlid = "");
+#endif
 
     /**
      * Begin a Steam purchase with the given settings that when finalized will redeem the specified catalog item
