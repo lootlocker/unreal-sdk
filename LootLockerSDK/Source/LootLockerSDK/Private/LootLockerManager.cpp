@@ -1207,14 +1207,21 @@ void ULootLockerManager::ListBroadcasts(const TArray<FString>& Languages, int32 
 
 void ULootLockerManager::GetAllCollectables(const FString& ForPlayerWithUlid, const FCollectablesResponseDelegateBP& OnGetAllCollectablesCompleted)
 {
-    ULootLockerCollectablesRequestHandler::GetAllCollectables(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnGetAllCollectablesCompleted);
+    ULootLockerSDKManager::GetAllCollectables(FCollectablesResponseDelegate::CreateLambda([OnGetAllCollectablesCompleted](const FLootLockerCollectablesResponse& Response)
+    {
+        OnGetAllCollectablesCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::CollectItem(const FString& ForPlayerWithUlid, const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegateBP& OnCollectItemCompleted)
 {
-    ULootLockerCollectablesRequestHandler::CollectItem(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Item, OnCollectItemCompleted);
+    ULootLockerSDKManager::CollectItem(Item, FCollectablesResponseDelegate::CreateLambda([OnCollectItemCompleted](const FLootLockerCollectablesResponse& Response)
+    {
+        OnCollectItemCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
+// Messages
 void ULootLockerManager::GetMessages(const FString& ForPlayerWithUlid, const FMessagesResponseDelegateBP& OnGetMessagesCompleted)
 {
     ULootLockerMessagesRequestHandler::GetMessages(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnGetMessagesCompleted);

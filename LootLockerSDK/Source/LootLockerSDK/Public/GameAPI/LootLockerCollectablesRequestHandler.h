@@ -87,9 +87,9 @@ class LOOTLOCKERSDK_API ULootLockerCollectablesRequestHandler : public UObject
     GENERATED_BODY()
 public:
     
-    static void GetAllCollectables(const FLootLockerPlayerData& PlayerData, const FCollectablesResponseDelegateBP& OnCompletedRequestBP = FCollectablesResponseDelegateBP(), const FCollectablesResponseDelegate& OnCompletedRequest = FCollectablesResponseDelegate());
+    static void GetAllCollectables(const FLootLockerPlayerData& PlayerData, const FCollectablesResponseDelegate& OnCompletedRequest = FCollectablesResponseDelegate());
     
-    static void CollectItem(const FLootLockerPlayerData& PlayerData, const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegateBP& OnCompletedRequestBP = FCollectablesResponseDelegateBP(), const FCollectablesResponseDelegate& OnCompletedRequest = FCollectablesResponseDelegate());
+    static void CollectItem(const FLootLockerPlayerData& PlayerData, const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegate& OnCompletedRequest = FCollectablesResponseDelegate());
 public:
     ULootLockerCollectablesRequestHandler();
     
