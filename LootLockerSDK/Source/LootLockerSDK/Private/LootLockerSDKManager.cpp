@@ -1317,12 +1317,12 @@ void ULootLockerSDKManager::DebitBalanceToWallet(const FString& WalletID, const 
 
 void ULootLockerSDKManager::ListCatalogs(const FLootLockerListCatalogsResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerCatalogRequestHandler::ListCatalogs(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FLootLockerListCatalogsResponseBP(), OnComplete);
+    ULootLockerCatalogRequestHandler::ListCatalogs(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnComplete);
 }
 
 void ULootLockerSDKManager::ListCatalogItems(const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerCatalogRequestHandler::ListCatalogItems(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CatalogKey, Count, After, FLootLockerListCatalogPricesResponseBP(), OnComplete);
+    ULootLockerCatalogRequestHandler::ListCatalogItems(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CatalogKey, Count, After, OnComplete);
 }
 
 void ULootLockerSDKManager::ListCatalogItems(const FString& CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
