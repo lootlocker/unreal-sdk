@@ -250,59 +250,90 @@ void ULootLockerManager::EndSession(const FString& ForPlayerWithUlid, const FLoo
 //==================================================
 void ULootLockerManager::ListConnectedAccounts(const FString& ForPlayerWithUlid, const FLootLockerListConnectedAccountsResponseBP& OnCompleteBP)
 {
-    ULootLockerConnectedAccountsRequestHandler::ListConnectedAccounts(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompleteBP);
+    ULootLockerSDKManager::ListConnectedAccounts(FLootLockerListConnectedAccountsResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerListConnectedAccountsResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::DisconnectAccount(const FString& ForPlayerWithUlid, const ELootLockerAccountProvider AccountToDisconnect, const FLootLockerDefaultResponseBP& OnCompleteBP)
 {
-    ULootLockerConnectedAccountsRequestHandler::DisconnectAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AccountToDisconnect, OnCompleteBP);
+    ULootLockerSDKManager::DisconnectAccount(AccountToDisconnect, FLootLockerDefaultDelegate::CreateLambda([OnCompleteBP](const FLootLockerResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ConnectGoogleAccount(const FString& ForPlayerWithUlid, const FString& IdToken, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
 {
-    ULootLockerConnectedAccountsRequestHandler::ConnectGoogleAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), IdToken, OnCompleteBP);
+    ULootLockerSDKManager::ConnectGoogleAccount(IdToken, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ConnectGoogleAccountWithPlatform(const FString& ForPlayerWithUlid, const FString& IdToken, EGoogleAccountProviderPlatform Platform, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
 {
-    ULootLockerConnectedAccountsRequestHandler::ConnectGoogleAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), IdToken, Platform, OnCompleteBP);
+    ULootLockerSDKManager::ConnectGoogleAccount(IdToken, Platform, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ConnectAppleAccountByRestSignIn(const FString& ForPlayerWithUlid, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
 {
-    ULootLockerConnectedAccountsRequestHandler::ConnectAppleAccountByRestSignIn(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AuthorizationCode, OnCompleteBP);
+    ULootLockerSDKManager::ConnectAppleAccountByRestSignIn(AuthorizationCode, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ConnectTwitchAccount(const FString& ForPlayerWithUlid, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
 {
-    ULootLockerConnectedAccountsRequestHandler::ConnectTwitchAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AuthorizationCode, OnCompleteBP);
+    ULootLockerSDKManager::ConnectTwitchAccount(AuthorizationCode, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ConnectEpicAccount(const FString& ForPlayerWithUlid, const FString& Token, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
 {
-    ULootLockerConnectedAccountsRequestHandler::ConnectEpicAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Token, OnCompleteBP);
+    ULootLockerSDKManager::ConnectEpicAccount(Token, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ConnectPlaystationAccount(const FString& ForPlayerWithUlid, const FString& Environment, const FString& Code, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
 {
-    ULootLockerConnectedAccountsRequestHandler::ConnectPlaystationAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Environment, Code, OnCompleteBP);
+    ULootLockerSDKManager::ConnectPlaystationAccount(Environment, Code, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ConnectDiscordAccount(const FString& ForPlayerWithUlid, const FString& Token, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
 {
-    ULootLockerConnectedAccountsRequestHandler::ConnectDiscordAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Token, OnCompleteBP);
+    ULootLockerSDKManager::ConnectDiscordAccount(Token, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ConnectRemoteSessionAccount(const FString& ForPlayerWithUlid, const FString& Code, const FString& Nonce, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
 {
-    ULootLockerConnectedAccountsRequestHandler::ConnectRemoteSessionAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Code, Nonce, OnCompleteBP);
+    ULootLockerSDKManager::ConnectRemoteSessionAccount(Code, Nonce, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::TransferIdentityProvidersBetweenAccounts(const FString& FromPlayerWithUlid, const FString& ToPlayerWithUlid, TArray<ELootLockerAccountProvider> ProvidersToTransfer, const FLootLockerListConnectedAccountsResponseBP& OnCompleteBP)
 {
-    const auto& fromPlayer = GetSavedStateOrDefaultOrEmptyForPlayer(FromPlayerWithUlid);
-    const auto& toPlayer = GetSavedStateOrDefaultOrEmptyForPlayer(ToPlayerWithUlid);
-    ULootLockerConnectedAccountsRequestHandler::TransferIdentityProvidersBetweenAccounts(fromPlayer, toPlayer, ProvidersToTransfer, OnCompleteBP);
+    ULootLockerSDKManager::TransferIdentityProvidersBetweenAccounts(FromPlayerWithUlid, ToPlayerWithUlid, ProvidersToTransfer, FLootLockerListConnectedAccountsResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerListConnectedAccountsResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }));
 }
 
 //==================================================
