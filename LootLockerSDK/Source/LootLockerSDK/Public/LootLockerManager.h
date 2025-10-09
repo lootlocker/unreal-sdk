@@ -2294,8 +2294,8 @@ public:
      * @param UseCount Optional: The use count for this redemption
      * @param OnCompletedRequest Delegate for handling the server response
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid,ServiceLabel,ServiceName,Environment,UseCount", ForPlayerWithUlid="", ServiceLabel="", ServiceName="", Environment=-1, UseCount=-1))
-    static void RedeemPlayStationStorePurchase(const FString& ForPlayerWithUlid, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+    //UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid,ServiceLabel,ServiceName,Environment,UseCount", ForPlayerWithUlid="", ServiceLabel="", ServiceName="", Environment=-1, UseCount=-1))
+    //static void RedeemPlayStationStorePurchase(const FString& ForPlayerWithUlid, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     /**
      * Redeem a purchase that was made successfully towards the PlayStation Store for a character that the current player owns
@@ -2311,8 +2311,8 @@ public:
      * @param UseCount Optional: The use count for this redemption
      * @param OnCompletedRequest Delegate for handling the server response
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid,ServiceLabel,ServiceName,Environment,UseCount", ForPlayerWithUlid="", ServiceLabel="", ServiceName="", Environment=-1, UseCount=-1))
-    static void RedeemPlayStationStorePurchaseForCharacter(const FString& ForPlayerWithUlid, const FString& CharacterId, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+    //UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid,ServiceLabel,ServiceName,Environment,UseCount", ForPlayerWithUlid="", ServiceLabel="", ServiceName="", Environment=-1, UseCount=-1))
+    //static void RedeemPlayStationStorePurchaseForCharacter(const FString& ForPlayerWithUlid, const FString& CharacterId, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 #endif
 
     /**

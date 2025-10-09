@@ -2340,7 +2340,7 @@ public:
      * @param UseCount Optional: The use count for this redemption
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      */
-    static void RedeemPlayStationStorePurchase(const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ServiceLabel = "", const FString& ServiceName = "", const int Environment = -1, const int UseCount = -1, const FString& ForPlayerWithUlid = "");
+    //static void RedeemPlayStationStorePurchase(const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ServiceLabel = "", const FString& ServiceName = "", const int Environment = -1, const int UseCount = -1, const FString& ForPlayerWithUlid = "");
 
     /**
      * Redeem a purchase that was made successfully towards the PlayStation Store for a character that the current player owns
@@ -2356,7 +2356,7 @@ public:
      * @param UseCount Optional: The use count for this redemption
      * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      */
-    static void RedeemPlayStationStorePurchaseForCharacter(const FString& CharacterId, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ServiceLabel = "", const FString& ServiceName = "", const int Environment = -1, const int UseCount = -1, const FString& ForPlayerWithUlid = "");
+    //static void RedeemPlayStationStorePurchaseForCharacter(const FString& CharacterId, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ServiceLabel = "", const FString& ServiceName = "", const int Environment = -1, const int UseCount = -1, const FString& ForPlayerWithUlid = "");
 #endif
 
     /**

@@ -80,22 +80,22 @@ FLootLockerBroadcastLanguage::FLootLockerBroadcastLanguage(const FLootLockerInte
     for (const FLootLockerInternalBroadcastLocalizationEntry& Localization : OtherLanguage.localizations)
     {
         // Lift standard keys to dedicated fields
-        if (Localization.key == TEXT("headline"))
+        if (Localization.key == TEXT("ll.headline"))
         {
             headline = Localization.value;
             continue;
         }
-        else if (Localization.key == TEXT("body"))
+        else if (Localization.key == TEXT("ll.body"))
         {
             body = Localization.value;
             continue;
         }
-        else if (Localization.key == TEXT("image_url"))
+        else if (Localization.key == TEXT("ll.image_url"))
         {
             image_url = Localization.value;
             continue;
         }
-        else if (Localization.key == TEXT("action"))
+        else if (Localization.key == TEXT("ll.action"))
         {
             action = Localization.value;
             continue;
