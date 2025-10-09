@@ -1354,17 +1354,26 @@ void ULootLockerManager::PickDropsFromDropTable(const FString& ForPlayerWithUlid
 // Currencies
 void ULootLockerManager::ListCurrencies(const FString& ForPlayerWithUlid, const FLootLockerListCurrenciesResponseBP& OnCompletedRequest)
 {
-    ULootLockerCurrencyRequestHandler::ListCurrencies(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
+    ULootLockerSDKManager::ListCurrencies(FLootLockerListCurrenciesResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerListCurrenciesResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetCurrencyDetails(const FString& ForPlayerWithUlid, const FString& CurrencyCode, const FLootLockerGetCurrencyDetailsResponseBP& OnCompletedRequest)
 {
-    ULootLockerCurrencyRequestHandler::GetCurrencyDetails(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CurrencyCode, OnCompletedRequest);
+    ULootLockerSDKManager::GetCurrencyDetails(CurrencyCode, FLootLockerGetCurrencyDetailsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerGetCurrencyDetailsResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetCurrencyDenominationsByCode(const FString& ForPlayerWithUlid, const FString& CurrencyCode, const FLootLockerListDenominationsResponseBP& OnCompletedRequest)
 {
-    ULootLockerCurrencyRequestHandler::GetCurrencyDenominationsByCode(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CurrencyCode, OnCompletedRequest);
+    ULootLockerSDKManager::GetCurrencyDenominationsByCode(CurrencyCode, FLootLockerListDenominationsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerListDenominationsResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 // Balances
