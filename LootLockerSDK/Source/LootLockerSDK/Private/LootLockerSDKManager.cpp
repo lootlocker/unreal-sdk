@@ -1259,14 +1259,14 @@ void ULootLockerSDKManager::GetLeaderboardDetails(const FString& LeaderboardKey,
 // Droptables
 void ULootLockerSDKManager::ComputeAndLockDropTable(const int TableId, const FLootLockerComputeAndLockDropTableResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerDropTablesRequestHandler::ComputeAndLockDropTable(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), TableId, FLootLockerComputeAndLockDropTableResponseBP(), OnCompletedRequest);
+    ULootLockerDropTablesRequestHandler::ComputeAndLockDropTable(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), TableId, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::PickDropsFromDropTable(const TArray<int> Picks, const  int TableId, const FFLootLockerPickDropsFromDropTableResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
     FLootLockerPickDropsFromDropTableRequest Request;
     Request.picks = Picks;
-    ULootLockerDropTablesRequestHandler::PickDropsFromDropTable(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, TableId, FFLootLockerPickDropsFromDropTableResponseBP(), OnCompletedRequest);
+    ULootLockerDropTablesRequestHandler::PickDropsFromDropTable(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, TableId, OnCompletedRequest);
 }
 
 // Currencies
