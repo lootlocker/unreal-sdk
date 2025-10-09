@@ -1460,13 +1460,22 @@ TArray<FLootLockerInlinedCatalogEntry> ULootLockerManager::ConvertCatalogV2ToInl
 // Entitlements
 void ULootLockerManager::ListEntitlements(const FString& ForPlayerWithUlid, int Count, const FString& After, const FLootLockerListEntitlementsResponseBP& OnComplete)
 {
-    ULootLockerEntitlementRequestHandler::ListEntitlements(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Count, After, OnComplete);
+    ULootLockerSDKManager::ListEntitlements(Count, After, FLootLockerListEntitlementsResponseDelegate::CreateLambda([OnComplete](const FLootLockerEntitlementHistoryResponse& Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetEntitlement(const FString& ForPlayerWithUlid, const FString& EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnComplete)
 {
-    ULootLockerEntitlementRequestHandler::GetEntitlement(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), EntitlementID, OnComplete);
+    FLootLockerSingleEntitlementResponseDelegate Delegate = FLootLockerSingleEntitlementResponseDelegate::CreateLambda([OnComplete](const FLootLockerSingleEntitlementResponse& Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    });
+    ULootLockerSDKManager::GetEntitlement(EntitlementID, Delegate, ForPlayerWithUlid);
 }
+
+// Feedback
 
 void ULootLockerManager::ListPlayerFeedbackCategories(const FString& ForPlayerWithUlid, const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
 {
