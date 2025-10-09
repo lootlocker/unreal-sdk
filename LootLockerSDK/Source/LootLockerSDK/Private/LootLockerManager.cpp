@@ -1469,32 +1469,50 @@ void ULootLockerManager::GetEntitlement(const FString& ForPlayerWithUlid, const 
 
 void ULootLockerManager::ListPlayerFeedbackCategories(const FString& ForPlayerWithUlid, const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
 {
-    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ELootLockerFeedbackType::Player, OnComplete);
+    ULootLockerSDKManager::ListPlayerFeedbackCategories(FLootLockerListFeedbackCategoryResponseDelegate::CreateLambda([OnComplete](const FLootLockerFeedbackCategoryResponse& Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ListGameFeedbackCategories(const FString& ForPlayerWithUlid, const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
 {
-    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ELootLockerFeedbackType::Game, OnComplete);
+    ULootLockerSDKManager::ListGameFeedbackCategories(FLootLockerListFeedbackCategoryResponseDelegate::CreateLambda([OnComplete](const FLootLockerFeedbackCategoryResponse& Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ListUGCFeedbackCategories(const FString& ForPlayerWithUlid, const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
 {
-    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ELootLockerFeedbackType::Ugc, OnComplete);
+    ULootLockerSDKManager::ListUGCFeedbackCategories(FLootLockerListFeedbackCategoryResponseDelegate::CreateLambda([OnComplete](const FLootLockerFeedbackCategoryResponse& Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::SendPlayerFeedback(const FString& ForPlayerWithUlid, const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete)
 {
-    ULootLockerFeedbackRequestHandler::SendFeedback(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Ulid, Description, CategoryID, ELootLockerFeedbackType::Player, OnComplete);
+    ULootLockerSDKManager::SendPlayerFeedback(Ulid, Description, CategoryID, FLootLockerSendFeedbackResponseDelegate::CreateLambda([OnComplete](const FLootLockerResponse& Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::SendGameFeedback(const FString& ForPlayerWithUlid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete)
 {
-    ULootLockerFeedbackRequestHandler::SendFeedback(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), "", Description, CategoryID, ELootLockerFeedbackType::Game, OnComplete);
+    ULootLockerSDKManager::SendGameFeedback(Description, CategoryID, FLootLockerSendFeedbackResponseDelegate::CreateLambda([OnComplete](const FLootLockerResponse& Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::SendUGCFeedback(const FString& ForPlayerWithUlid, const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete)
 {
-    ULootLockerFeedbackRequestHandler::SendFeedback(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Ulid, Description, CategoryID, ELootLockerFeedbackType::Ugc, OnComplete);
+    ULootLockerSDKManager::SendUGCFeedback(Ulid, Description, CategoryID, FLootLockerSendFeedbackResponseDelegate::CreateLambda([OnComplete](const FLootLockerResponse& Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 
 }
 

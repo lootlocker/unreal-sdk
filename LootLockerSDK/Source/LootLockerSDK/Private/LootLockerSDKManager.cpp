@@ -1339,37 +1339,37 @@ void ULootLockerSDKManager::GetEntitlement(const FString& EntitlementID, FLootLo
 // Feedback
 void ULootLockerSDKManager::ListPlayerFeedbackCategories(const FLootLockerListFeedbackCategoryResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ELootLockerFeedbackType::Player, FLootLockerListFeedbackCategoryResponseBP(), OnComplete);
+    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ELootLockerFeedbackType::Player, OnComplete);
 
 }
 
 void ULootLockerSDKManager::ListGameFeedbackCategories(const FLootLockerListFeedbackCategoryResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ELootLockerFeedbackType::Game, FLootLockerListFeedbackCategoryResponseBP(), OnComplete);
+    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ELootLockerFeedbackType::Game, OnComplete);
 
 }
 
 void ULootLockerSDKManager::ListUGCFeedbackCategories(const FLootLockerListFeedbackCategoryResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ELootLockerFeedbackType::Ugc, FLootLockerListFeedbackCategoryResponseBP(), OnComplete);
+    ULootLockerFeedbackRequestHandler::ListFeedbackCategories(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ELootLockerFeedbackType::Ugc, OnComplete);
 
 }
 
 void ULootLockerSDKManager::SendPlayerFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerFeedbackRequestHandler::SendFeedback(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Ulid, Description, CategoryID, ELootLockerFeedbackType::Player, FLootLockerSendFeedbackResponseBP(), OnComplete);
+    ULootLockerFeedbackRequestHandler::SendFeedback(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Ulid, Description, CategoryID, ELootLockerFeedbackType::Player, OnComplete);
 
 }
 
 void ULootLockerSDKManager::SendGameFeedback(const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerFeedbackRequestHandler::SendFeedback(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), "", Description, CategoryID, ELootLockerFeedbackType::Game, FLootLockerSendFeedbackResponseBP(), OnComplete);
+    ULootLockerFeedbackRequestHandler::SendFeedback(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), "", Description, CategoryID, ELootLockerFeedbackType::Game, OnComplete);
 
 }
 
 void ULootLockerSDKManager::SendUGCFeedback(const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerFeedbackRequestHandler::SendFeedback(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Ulid, Description, CategoryID, ELootLockerFeedbackType::Ugc, FLootLockerSendFeedbackResponseBP(), OnComplete);
+    ULootLockerFeedbackRequestHandler::SendFeedback(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Ulid, Description, CategoryID, ELootLockerFeedbackType::Ugc, OnComplete);
 
 }
 
