@@ -246,21 +246,20 @@ ULootLockerCatalogRequestHandler::ULootLockerCatalogRequestHandler()
     HttpClient = NewObject<ULootLockerHttpClient>();
 }
 
-void ULootLockerCatalogRequestHandler::ListCatalogs(const FLootLockerPlayerData& PlayerData, const FLootLockerListCatalogsResponseBP& OnCompleteBP, const FLootLockerListCatalogsResponseDelegate& OnComplete)
+void ULootLockerCatalogRequestHandler::ListCatalogs(const FLootLockerPlayerData& PlayerData, const FLootLockerListCatalogsResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerListCatalogsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListCatalogs, {}, {}, PlayerData, OnCompleteBP, OnComplete);
+    LLAPI<FLootLockerListCatalogsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListCatalogs, {}, {}, PlayerData, FLootLockerListCatalogsResponseBP(), OnComplete);
 }
 
-void ULootLockerCatalogRequestHandler::ListCatalogItems(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnCompleteBP, const FLootLockerListCatalogPricesResponseDelegate& OnComplete)
+void ULootLockerCatalogRequestHandler::ListCatalogItems(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseDelegate& OnComplete)
 {
     TMultiMap<FString, FString> QueryParams;
     if (Count > 0) { QueryParams.Add("per_page", FString::FromInt(Count)); }
     if (!After.IsEmpty()) { QueryParams.Add("cursor", After); }
 
-    const auto InternalResponseConverter = LLAPI<FInternalLootLockerListCatalogPricesResponse>::FResponseInspectorCallback::CreateLambda([OnCompleteBP, OnComplete](const FInternalLootLockerListCatalogPricesResponse& ResponseWithArrays)
+    const auto InternalResponseConverter = LLAPI<FInternalLootLockerListCatalogPricesResponse>::FResponseInspectorCallback::CreateLambda([OnComplete](const FInternalLootLockerListCatalogPricesResponse& ResponseWithArrays)
     {
 	    const auto MappedResponse = FLootLockerListCatalogPricesResponse(ResponseWithArrays);
-        OnCompleteBP.ExecuteIfBound(MappedResponse);
         OnComplete.ExecuteIfBound(MappedResponse);
     });
 
