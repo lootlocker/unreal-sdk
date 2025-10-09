@@ -1722,70 +1722,94 @@ void ULootLockerManager::GetGameInfo(const FGameInfoResponseDelegateBP& OnComple
 // Followers (Unified with optional pagination parameters)
 void ULootLockerManager::ListFollowersForPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP)
 {
-    FLootLockerPlayerData PlayerData = GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid);
     const bool bUsePagination = !Cursor.IsEmpty() || Count > 0;
     if (bUsePagination)
     {
-        ULootLockerFollowersRequestHandler::ListFollowersPaginated(PlayerData, PlayerPublicUid, Cursor, Count, OnResponseCompletedBP);
+        ULootLockerSDKManager::ListFollowersPaginated(PlayerPublicUid, Cursor, Count, FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
+        {
+            OnResponseCompletedBP.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
     }
     else
     {
-        ULootLockerFollowersRequestHandler::ListFollowers(PlayerData, PlayerPublicUid, OnResponseCompletedBP);
+        ULootLockerSDKManager::ListFollowers(PlayerPublicUid, FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
+        {
+            OnResponseCompletedBP.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
     }
 }
 
 void ULootLockerManager::ListFollowers(const FString& ForPlayerWithUlid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP)
 {
-    FLootLockerPlayerData PlayerData = GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid);
     const bool bUsePagination = !Cursor.IsEmpty() || Count > 0;
     if (bUsePagination)
     {
-        ULootLockerFollowersRequestHandler::ListFollowersPaginated(PlayerData, Cursor, Count, OnResponseCompletedBP);
+        ULootLockerSDKManager::ListFollowersPaginated(Cursor, Count, FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
+        {
+            OnResponseCompletedBP.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
     }
     else
     {
-        ULootLockerFollowersRequestHandler::ListFollowers(PlayerData, OnResponseCompletedBP);
+        ULootLockerSDKManager::ListFollowers(FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
+        {
+            OnResponseCompletedBP.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
     }
 }
 
 void ULootLockerManager::ListFollowingForPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP)
 {
-    FLootLockerPlayerData PlayerData = GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid);
     const bool bUsePagination = !Cursor.IsEmpty() || Count > 0;
     if (bUsePagination)
     {
-        ULootLockerFollowersRequestHandler::ListFollowingPaginated(PlayerData, PlayerPublicUid, Cursor, Count, OnResponseCompletedBP);
+        ULootLockerSDKManager::ListFollowingPaginated(PlayerPublicUid, Cursor, Count, FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
+        {
+            OnResponseCompletedBP.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
     }
     else
     {
-        ULootLockerFollowersRequestHandler::ListFollowing(PlayerData, PlayerPublicUid, OnResponseCompletedBP);
+        ULootLockerSDKManager::ListFollowing(PlayerPublicUid, FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
+        {
+            OnResponseCompletedBP.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
     }
 }
 
 void ULootLockerManager::ListFollowing(const FString& ForPlayerWithUlid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP)
 {
-    FLootLockerPlayerData PlayerData = GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid);
     const bool bUsePagination = !Cursor.IsEmpty() || Count > 0;
     if (bUsePagination)
     {
-        ULootLockerFollowersRequestHandler::ListFollowingPaginated(PlayerData, Cursor, Count, OnResponseCompletedBP);
+        ULootLockerSDKManager::ListFollowingPaginated(Cursor, Count, FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
+        {
+            OnResponseCompletedBP.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
     }
     else
     {
-        ULootLockerFollowersRequestHandler::ListFollowing(PlayerData, OnResponseCompletedBP);
+        ULootLockerSDKManager::ListFollowing(FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
+        {
+            OnResponseCompletedBP.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
     }
 }
 
 void ULootLockerManager::FollowPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FLootLockerFollowActionResponseBP& OnResponseCompletedBP)
 {
-    FLootLockerPlayerData PlayerData = GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid);
-    ULootLockerFollowersRequestHandler::FollowPlayer(PlayerData, PlayerPublicUid, OnResponseCompletedBP);
+    ULootLockerSDKManager::FollowPlayer(PlayerPublicUid, FLootLockerFollowActionResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerFollowActionResponse& Response)
+    {
+        OnResponseCompletedBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::UnfollowPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FLootLockerFollowActionResponseBP& OnResponseCompletedBP)
 {
-    FLootLockerPlayerData PlayerData = GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid);
-    ULootLockerFollowersRequestHandler::UnfollowPlayer(PlayerData, PlayerPublicUid, OnResponseCompletedBP);
+    ULootLockerSDKManager::UnfollowPlayer(PlayerPublicUid, FLootLockerFollowActionResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerFollowActionResponse& Response)
+    {
+        OnResponseCompletedBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 // Friends (Unified with optional pagination parameters)
