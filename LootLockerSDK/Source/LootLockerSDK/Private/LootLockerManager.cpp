@@ -1339,16 +1339,22 @@ void ULootLockerManager::GetLeaderboardDetails(const FString& ForPlayerWithUlid,
     ULootLockerLeaderboardRequestHandler::GetLeaderboardDetails(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), LeaderboardKey, OnCompletedRequestBP);
 }
 
+// Drop Tables
+
 void ULootLockerManager::ComputeAndLockDropTable(const FString& ForPlayerWithUlid, int TableId, const FLootLockerComputeAndLockDropTableResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerDropTablesRequestHandler::ComputeAndLockDropTable(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), TableId, OnCompletedRequestBP);
+    ULootLockerSDKManager::ComputeAndLockDropTable(TableId, FLootLockerComputeAndLockDropTableResponseDelegate::CreateLambda([OnCompletedRequestBP](const FLootLockerComputeAndLockDropTableResponse& Response)
+    {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::PickDropsFromDropTable(const FString& ForPlayerWithUlid, TArray<int> Picks, int TableId, const FFLootLockerPickDropsFromDropTableResponseBP& OnCompletedRequestBP)
 {
-    FLootLockerPickDropsFromDropTableRequest request;
-    request.picks = Picks;
-    ULootLockerDropTablesRequestHandler::PickDropsFromDropTable(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), request, TableId, OnCompletedRequestBP);
+    ULootLockerSDKManager::PickDropsFromDropTable(Picks, TableId, FFLootLockerPickDropsFromDropTableResponseDelegate::CreateLambda([OnCompletedRequestBP](const FLootLockerPickDropsFromDropTableResponse& Response)
+    {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 // Currencies
