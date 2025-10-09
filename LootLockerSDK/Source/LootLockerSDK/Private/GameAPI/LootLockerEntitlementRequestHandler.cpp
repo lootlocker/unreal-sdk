@@ -11,16 +11,16 @@ ULootLockerEntitlementRequestHandler::ULootLockerEntitlementRequestHandler()
     HttpClient = NewObject<ULootLockerHttpClient>();
 }
 
-void ULootLockerEntitlementRequestHandler::ListEntitlements(const FLootLockerPlayerData& PlayerData, const int Count, const FString& After, const FLootLockerListEntitlementsResponseBP& OnCompleteBP, const FLootLockerListEntitlementsResponseDelegate& OnComplete)
+void ULootLockerEntitlementRequestHandler::ListEntitlements(const FLootLockerPlayerData& PlayerData, const int Count, const FString& After, const FLootLockerListEntitlementsResponseDelegate& OnComplete)
 {
     TMultiMap<FString, FString> QueryParams;
     if (Count > 0) { QueryParams.Add("per_page", FString::FromInt(Count)); }
     if (!After.IsEmpty()) { QueryParams.Add("cursor", After); }
-	LLAPI<FLootLockerEntitlementHistoryResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListEntitlements, {}, QueryParams, PlayerData, OnCompleteBP, OnComplete);
+	LLAPI<FLootLockerEntitlementHistoryResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListEntitlements, {}, QueryParams, PlayerData, FLootLockerListEntitlementsResponseBP(), OnComplete);
 }
 
-void ULootLockerEntitlementRequestHandler::GetEntitlement(const FLootLockerPlayerData& PlayerData, FString EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnCompleteBP, const FLootLockerSingleEntitlementResponseDelegate& OnComplete)
+void ULootLockerEntitlementRequestHandler::GetEntitlement(const FLootLockerPlayerData& PlayerData, FString EntitlementID, const FLootLockerSingleEntitlementResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerSingleEntitlementResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetEntitlement, { EntitlementID }, {}, PlayerData, OnCompleteBP, OnComplete);
+    LLAPI<FLootLockerSingleEntitlementResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetEntitlement, { EntitlementID }, {}, PlayerData, FLootLockerSingleEntitlementResponseBP(), OnComplete);
 
 }
