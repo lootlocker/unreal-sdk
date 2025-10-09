@@ -571,89 +571,125 @@ void ULootLockerManager::RemoveAssetToHeroLoadout(const FString& ForPlayerWithUl
     ULootLockerHeroRequestHandler::RemoveAssetToHeroLoadout(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HeroID, AssetInstanceID, OnCompleteBP, FHeroLoadoutReseponseDelegate());
 }
 
+// Character
+
 void ULootLockerManager::GetCharacterLoadout(const FString& ForPlayerWithUlid, const FPCharacterLoadoutResponseBP& OnGetCharacterLoadoutRequestCompleted)
 {
-    ULootLockerCharacterRequestHandler::GetCharacterLoadout(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnGetCharacterLoadoutRequestCompleted);
+    ULootLockerSDKManager::GetCharacterLoadout(FCharacterLoadoutResponse::CreateLambda([OnGetCharacterLoadoutRequestCompleted](const FLootLockerCharacterLoadoutResponse& Response) {
+        OnGetCharacterLoadoutRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::UpdateCharacter(const FString& ForPlayerWithUlid, int CharacterId, bool IsDefault, FString Name, const FPCharacterLoadoutResponseBP& OnCompletedRequest)
 {
-    ULootLockerCharacterRequestHandler::UpdateCharacter(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CharacterId, IsDefault, Name, OnCompletedRequest);
+    ULootLockerSDKManager::UpdateCharacter(CharacterId, IsDefault, Name, FCharacterLoadoutResponse::CreateLambda([OnCompletedRequest](const FLootLockerCharacterLoadoutResponse& Response) {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::CreateCharacter(const FString& ForPlayerWithUlid, bool IsDefault, FString CharacterName, FString CharacterTypeId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerCharacterRequestHandler::CreateCharacter(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), IsDefault, CharacterName, CharacterTypeId, OnCompletedRequestBP);
+    ULootLockerSDKManager::CreateCharacter(IsDefault, CharacterName, CharacterTypeId, FCharacterLoadoutResponse::CreateLambda([OnCompletedRequestBP](const FLootLockerCharacterLoadoutResponse& Response) {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::DeleteCharacter(const FString& ForPlayerWithUlid, int CharacterId, const FPCharacterDefaultResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerCharacterRequestHandler::DeleteCharacter(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CharacterId, OnCompletedRequestBP);
+    ULootLockerSDKManager::DeleteCharacter(CharacterId, FLootLockerCharacterDefaultResponse::CreateLambda([OnCompletedRequestBP](const FLootLockerResponse& Response) {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ListCharacterTypes(const FString& ForPlayerWithUlid, const FPLootLockerListCharacterTypesResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerCharacterRequestHandler::ListCharacterTypes(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequestBP);
+    ULootLockerSDKManager::ListCharacterTypes(FPLootLockerListCharacterTypesResponse::CreateLambda([OnCompletedRequestBP](const FLootLockerListCharacterTypesResponse& Response) {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ListPlayerCharacters(const FString& ForPlayerWithUlid, const FPLootLockerListPlayerCharactersResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerCharacterRequestHandler::ListPlayerCharacters(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequestBP);
+    ULootLockerSDKManager::ListPlayerCharacters(FPLootLockerListPlayerCharactersResponse::CreateLambda([OnCompletedRequestBP](const FLootLockerListPlayerCharactersResponse& Response) {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::EquipAssetToDefaultCharacter(const FString& ForPlayerWithUlid, int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToDefaultCharacterRequestCompleted)
 {
-    ULootLockerCharacterRequestHandler::EquipAssetToDefaultCharacter(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), InstanceId, OnEquipAssetToDefaultCharacterRequestCompleted);
+    ULootLockerSDKManager::EquipAssetToDefaultCharacter(InstanceId, FLootLockerCharacterDefaultResponse::CreateLambda([OnEquipAssetToDefaultCharacterRequestCompleted](const FLootLockerResponse& Response) {
+        OnEquipAssetToDefaultCharacterRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::EquipAssetToCharacterById(const FString& ForPlayerWithUlid, int CharacterId, int AssetId, int AssetVariationId, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted)
 {
-    ULootLockerCharacterRequestHandler::EquipAssetToCharacterById(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CharacterId, AssetId, AssetVariationId, OnEquipAssetToCharacterByIdRequestCompleted);
+    ULootLockerSDKManager::EquipAssetToCharacterById(CharacterId, AssetId, AssetVariationId, FLootLockerCharacterDefaultResponse::CreateLambda([OnEquipAssetToCharacterByIdRequestCompleted](const FLootLockerResponse& Response) {
+        OnEquipAssetToCharacterByIdRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::EquipAssetToCharacterByIdAndInstance(const FString& ForPlayerWithUlid, int CharacterId, int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted)
 {
-    ULootLockerCharacterRequestHandler::EquipAssetToCharacterById(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CharacterId, InstanceId, OnEquipAssetToCharacterByIdRequestCompleted);
+    ULootLockerSDKManager::EquipAssetToCharacterById(CharacterId, InstanceId, FLootLockerCharacterDefaultResponse::CreateLambda([OnEquipAssetToCharacterByIdRequestCompleted](const FLootLockerResponse& Response) {
+        OnEquipAssetToCharacterByIdRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::UnEquipAssetToDefaultCharacter(const FString& ForPlayerWithUlid, int InstanceId, const FPCharacterDefaultResponseBP& OnUnEquipAssetToDefaultCharacterRequestCompleted)
 {
-    ULootLockerCharacterRequestHandler::UnEquipAssetToDefaultCharacter(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), InstanceId, OnUnEquipAssetToDefaultCharacterRequestCompleted);
+    ULootLockerSDKManager::UnEquipAssetToDefaultCharacter(InstanceId, FLootLockerCharacterDefaultResponse::CreateLambda([OnUnEquipAssetToDefaultCharacterRequestCompleted](const FLootLockerResponse& Response) {
+        OnUnEquipAssetToDefaultCharacterRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::UnEquipAssetToCharacterById(const FString& ForPlayerWithUlid, int CharacterId, int InstanceId, const  FPCharacterDefaultResponseBP& OnUnEquipAssetToCharacterByIdRequestCompleted)
 {
-    ULootLockerCharacterRequestHandler::UnEquipAssetToCharacterById(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CharacterId, InstanceId, OnUnEquipAssetToCharacterByIdRequestCompleted);
+    ULootLockerSDKManager::UnEquipAssetToCharacterById(CharacterId, InstanceId, FLootLockerCharacterDefaultResponse::CreateLambda([OnUnEquipAssetToCharacterByIdRequestCompleted](const FLootLockerResponse& Response) {
+        OnUnEquipAssetToCharacterByIdRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetCurrentLoadoutToDefaultCharacter(const FString& ForPlayerWithUlid, const  FPCharacterLoadoutResponseBP& OnGetCurrentLoadoutToDefaultCharacterRequestCompleted)
 {
-    ULootLockerCharacterRequestHandler::GetCurrentLoadoutToDefaultCharacter(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnGetCurrentLoadoutToDefaultCharacterRequestCompleted);
+    ULootLockerSDKManager::GetCurrentLoadoutToDefaultCharacter(FCharacterLoadoutResponse::CreateLambda([OnGetCurrentLoadoutToDefaultCharacterRequestCompleted](const FLootLockerCharacterLoadoutResponse& Response) {
+        OnGetCurrentLoadoutToDefaultCharacterRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetOtherPlayersCurrentLoadoutToDefaultCharacter(const FString& ForPlayerWithUlid, FString OtherPlayerId, const FPCharacterLoadoutResponseBP& OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted, const FString& OtherPlayerPlatform /*= FString(TEXT(""))*/)
 {
-    ULootLockerCharacterRequestHandler::GetOtherPlayersCurrentLoadoutToDefaultCharacter(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OtherPlayerId, OtherPlayerPlatform, OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted);
+    ULootLockerSDKManager::GetOtherPlayersCurrentLoadoutToDefaultCharacter(OtherPlayerId, FCharacterLoadoutResponse::CreateLambda([OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted](const FLootLockerCharacterLoadoutResponse& Response) {
+        OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted.ExecuteIfBound(Response);
+    }), OtherPlayerPlatform, ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetEquipableContextsToDefaultCharacter(const FString& ForPlayerWithUlid, const FContextDelegateBP& OnGetEquipableContextsToDefaultCharacterRequestCompleted)
 {
-    ULootLockerCharacterRequestHandler::GetEquipableContextsToDefaultCharacter(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnGetEquipableContextsToDefaultCharacterRequestCompleted);
+    ULootLockerSDKManager::GetEquipableContextsToDefaultCharacter(FContextDelegate::CreateLambda([OnGetEquipableContextsToDefaultCharacterRequestCompleted](const FLootLockerGetContextResponse& Response) {
+        OnGetEquipableContextsToDefaultCharacterRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetEquipableContextsByCharacterId(const FString& ForPlayerWithUlid, int OtherCharacterId, const  FContextDelegateBP& OnGetEquipableContextsByCharacterIdRequestCompleted)
 {
-    ULootLockerCharacterRequestHandler::GetEquipableContextsByCharacterId(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OtherCharacterId, OnGetEquipableContextsByCharacterIdRequestCompleted);
+    ULootLockerSDKManager::GetEquipableContextsByCharacterId(OtherCharacterId, FContextDelegate::CreateLambda([OnGetEquipableContextsByCharacterIdRequestCompleted](const FLootLockerGetContextResponse& Response) {
+        OnGetEquipableContextsByCharacterIdRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetOtherPlayersCharacterLoadouts(const FString& ForPlayerWithUlid, const FString& OtherPlayerId, const FString& OtherPlayerPlatform, const FPCharacterLoadoutResponseBP& OnCompletedRequest)
 {
-    ULootLockerCharacterRequestHandler::GetOtherPlayersCharacterLoadouts(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OtherPlayerId, OtherPlayerPlatform, OnCompletedRequest);
+    ULootLockerSDKManager::GetOtherPlayersCharacterLoadouts(OtherPlayerId, FCharacterLoadoutResponse::CreateLambda([OnCompletedRequest](const FLootLockerCharacterLoadoutResponse& Response) {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid, OtherPlayerPlatform);
 }
 
 void ULootLockerManager::GetOtherPlayersCharacterLoadoutsByUid(const FString& ForPlayerWithUlid, const FString& OtherPlayerUid, const FPCharacterLoadoutResponseBP& OnCompletedRequest)
 {
-    ULootLockerCharacterRequestHandler::GetOtherPlayersCharacterLoadoutsByUid(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OtherPlayerUid, OnCompletedRequest);
+    ULootLockerSDKManager::GetOtherPlayersCharacterLoadoutsByUid(OtherPlayerUid, FCharacterLoadoutResponse::CreateLambda([OnCompletedRequest](const FLootLockerCharacterLoadoutResponse& Response) {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 // Character Progressions
