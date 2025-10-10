@@ -1599,7 +1599,10 @@ bool ULootLockerManager::TryGetNotificationsByIdentifyingValue(const FLootLocker
 
 void ULootLockerManager::ListBroadcasts(const TArray<FString>& Languages, int32 PerPage, int32 Page, const FString& ForPlayerWithUlid, const FLootLockerListBroadcastsResponseBP& OnComplete)
 {
-    ULootLockerBroadcastRequestHandler::ListBroadcasts(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Languages, PerPage, Page, OnComplete);
+    ULootLockerSDKManager::ListBroadcasts(Languages, PerPage, Page, FLootLockerListBroadcastsResponseDelegate::CreateLambda([OnComplete](const FLootLockerListBroadcastsResponse& Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 // Collectables

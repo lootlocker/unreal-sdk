@@ -303,7 +303,7 @@ class LOOTLOCKERSDK_API ULootLockerBroadcastRequestHandler : public UObject
 
 public:
 	ULootLockerBroadcastRequestHandler();
-    static void ListBroadcasts(const FLootLockerPlayerData& PlayerData, const TArray<FString>& Languages, int32 PerPage, int32 Page, const FLootLockerListBroadcastsResponseBP& OnCompleteBP = FLootLockerListBroadcastsResponseBP(), const FLootLockerListBroadcastsResponseDelegate& OnComplete = FLootLockerListBroadcastsResponseDelegate());
+    static void ListBroadcasts(const FLootLockerPlayerData& PlayerData, const TArray<FString>& Languages, int32 PerPage, int32 Page, const FLootLockerListBroadcastsResponseDelegate& OnComplete = FLootLockerListBroadcastsResponseDelegate());
 public:
 	static ULootLockerHttpClient* HttpClient;
 };
