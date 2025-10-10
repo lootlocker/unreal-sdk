@@ -1877,15 +1877,21 @@ FLootLockerSetMetadataAction ULootLockerManager::MakeMetadataActionBase64(ELootL
 // Miscellaneous
 void ULootLockerManager::GetServerTime(const FString& ForPlayerWithUlid, const FTimeResponseDelegateBP& OnCompletedRequestBP)
 {
-    ULootLockerMiscellaneousRequestHandler::GetServerTime(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequestBP);
+    ULootLockerSDKManager::GetServerTime(FTimeResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerTimeResponse Response)
+    {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 FString ULootLockerManager::GetLastActivePlatform(const FString& ForPlayerWithUlid) {
-    return ULootLockerMiscellaneousRequestHandler::GetLastActivePlatform(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid));
+    return ULootLockerSDKManager::GetLastActivePlatform(ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetGameInfo(const FGameInfoResponseDelegateBP& OnCompletedRequestBP) {
-    ULootLockerMiscellaneousRequestHandler::GetGameInfo(OnCompletedRequestBP);
+    ULootLockerSDKManager::GetGameInfo(FGameInfoResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerGameInfoResponse Response)
+    {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }));
 }
 
 // Followers (Unified with optional pagination parameters)

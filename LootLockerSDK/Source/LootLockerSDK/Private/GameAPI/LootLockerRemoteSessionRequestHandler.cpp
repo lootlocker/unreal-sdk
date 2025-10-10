@@ -58,7 +58,7 @@ FString ULootLockerRemoteSessionRequestHandler::StartRemoteSession(
 	const FLootLockerRemoteSessionProcess NewRemoteSessionProcess(PollingIntervalSeconds, TimeOutAfterMinutes);
 	RemoteSessionProcesses.Add(ProcessID, NewRemoteSessionProcess);
 
-	ULootLockerMiscellaneousRequestHandler::GetGameInfo(FGameInfoResponseDelegateBP(), FGameInfoResponseDelegate::CreateLambda([
+	ULootLockerMiscellaneousRequestHandler::GetGameInfo(FGameInfoResponseDelegate::CreateLambda([
 			Intent, 
 			ForPlayerWithUlid, 
 			RemoteSessionLeaseInformationBP,
