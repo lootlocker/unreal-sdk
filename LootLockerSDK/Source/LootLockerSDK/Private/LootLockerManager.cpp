@@ -1403,7 +1403,10 @@ void ULootLockerManager::CollectItem(const FString& ForPlayerWithUlid, const FLo
 // Messages
 void ULootLockerManager::GetMessages(const FString& ForPlayerWithUlid, const FMessagesResponseDelegateBP& OnGetMessagesCompleted)
 {
-    ULootLockerMessagesRequestHandler::GetMessages(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnGetMessagesCompleted);
+    ULootLockerMessagesRequestHandler::GetMessages(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FMessagesResponseDelegate::CreateLambda([OnGetMessagesCompleted](FLootLockerMessagesResponse Response)
+    {
+        OnGetMessagesCompleted.ExecuteIfBound(Response);
+    }));
 }
 
 void ULootLockerManager::ListLeaderboards(const FString& ForPlayerWithUlid, int Count, int After, const FLootLockerListLeaderboardsResponseBP& OnCompletedRequestBP)
