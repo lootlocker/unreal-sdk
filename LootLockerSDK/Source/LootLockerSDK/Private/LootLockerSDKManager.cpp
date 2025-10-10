@@ -1011,7 +1011,7 @@ void ULootLockerSDKManager::FinishMission(int MissionId, const FLootLockerFinish
 //Maps
 void ULootLockerSDKManager::GetMaps(const FGetMapsResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerMapsRequestHandler::GetMaps(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FGetMapsResponseDelegateBP(), OnCompletedRequest);
+    ULootLockerMapsRequestHandler::GetMaps(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid));
 }
 
 //Purchasing

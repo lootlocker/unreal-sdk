@@ -1202,7 +1202,10 @@ void ULootLockerManager::FinishMission(const FString& ForPlayerWithUlid, int Mis
 
 void ULootLockerManager::GetMaps(const FString& ForPlayerWithUlid, const FGetMapsResponseDelegateBP& OnGetMapsCompleted)
 {
-    ULootLockerMapsRequestHandler::GetMaps(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnGetMapsCompleted);
+    ULootLockerSDKManager::GetMaps(FGetMapsResponseDelegate::CreateLambda([OnGetMapsCompleted](FLootLockerGetMapsResponse Response)
+        {
+            OnGetMapsCompleted.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ActivateRentalAsset(const FString& ForPlayerWithUlid, int AssetInstanceId, const FActivateRentalAssetResponseDelegateBP& OnActivateRentalAssetCompleted)
