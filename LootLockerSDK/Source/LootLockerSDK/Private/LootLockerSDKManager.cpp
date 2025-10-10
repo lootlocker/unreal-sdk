@@ -355,67 +355,67 @@ void ULootLockerSDKManager::RefreshRemoteSession(const FString& RefreshToken, co
 //Player
 void ULootLockerSDKManager::GetCurrentPlayerInfo(const FLootLockerGetCurrentPlayerInfoResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerPlayerRequestHandler::GetCurrentPlayerInfo(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FLootLockerGetCurrentPlayerInfoResponseBP(), OnCompletedRequest);
+    ULootLockerPlayerRequestHandler::GetCurrentPlayerInfo(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::ListPlayerInfo(TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerPlayerRequestHandler::ListPlayerInfo(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlayerIdsToLookUp, PlayerLegacyIdsToLookUp, PlayerPublicUidsToLookUp, FLootLockerListPlayerInfoResponseBP(), OnCompletedRequest);
+    ULootLockerPlayerRequestHandler::ListPlayerInfo(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlayerIdsToLookUp, PlayerLegacyIdsToLookUp, PlayerPublicUidsToLookUp, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::GetInventory(const FInventoryResponse& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerPlayerRequestHandler::GetInventory(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FPInventoryResponseBP(), OnCompletedRequest);
+    ULootLockerPlayerRequestHandler::GetInventory(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::GetFullInventory(const FInventoryResponse& OnCompletedRequest, int32 StartIndex, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerPlayerRequestHandler::GetFullInventory(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FPInventoryResponseBP(), OnCompletedRequest, StartIndex);
+    ULootLockerPlayerRequestHandler::GetFullInventory(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest, StartIndex);
 }
 
 void ULootLockerSDKManager::CheckPlayerAssetActivationNotification(const FLootLockerAssetNotificationResponse& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerPlayerRequestHandler::CheckPlayerAssetNotification(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FPAssetNotificationResponseBP(), OnCompletedRequest);
+    ULootLockerPlayerRequestHandler::CheckPlayerAssetNotification(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::GetCurrencyBalance(const FPBalanceResponse& onCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerPlayerRequestHandler::GetCurrencyBalance(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FPBalanceResponseBP(), onCompletedRequest);
+    ULootLockerPlayerRequestHandler::GetCurrencyBalance(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), onCompletedRequest);
 }
 
 void ULootLockerSDKManager::InitiateDLCMigration(const FResponseCallback& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerPlayerRequestHandler::InitiateDLCMigration(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FResponseCallbackBP(), OnCompletedRequest);
+    ULootLockerPlayerRequestHandler::InitiateDLCMigration(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::SetPlayerName(FString Name, const FPNameResponse& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerPlayerRequestHandler::SetPlayerName(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Name, FPNameResponseBP(), OnCompletedRequest);
+    ULootLockerPlayerRequestHandler::SetPlayerName(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Name, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::GetPlayerName(const FPNameResponse& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerPlayerRequestHandler::GetPlayerName(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FPNameResponseBP(), OnCompletedRequest);
+    ULootLockerPlayerRequestHandler::GetPlayerName(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::LookupMultiplePlayerNamesUsingIDs(const FLootLockerMultiplePlayerNamesRequest& Request, const FPMultiplePlayerNames& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerPlayerRequestHandler::LookupMultiplePlayerNamesUsingIDs(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, FPMultiplePlayerNamesBP(), OnCompletedRequest);
+    ULootLockerPlayerRequestHandler::LookupMultiplePlayerNamesUsingIDs(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::LookupMultiplePlayersDataUsingIDs(const FLootLockerLookupMultiplePlayersDataRequest& Request, const FPMultiplePlayerNames& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerPlayerRequestHandler::LookupMultiplePlayersDataUsingIDs(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, FPMultiplePlayerNamesBP(), OnCompletedRequest);
+    ULootLockerPlayerRequestHandler::LookupMultiplePlayersDataUsingIDs(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerPlayerRequestHandler::LookupMultiplePlayerNames1stPlatformIDs(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, FPMultiplePlayersPlatformIdsBP(), OnCompletedRequest);
+    ULootLockerPlayerRequestHandler::LookupMultiplePlayerNames1stPlatformIDs(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::DeletePlayer(const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerPlayerRequestHandler::DeletePlayer(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FLootLockerDefaultResponseBP(), OnCompletedRequest);
+    ULootLockerPlayerRequestHandler::DeletePlayer(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
 }
 
 //Files
@@ -451,17 +451,17 @@ void ULootLockerSDKManager::DeletePlayerFile(const int32 FileID, const FLootLock
 
 void ULootLockerSDKManager::GetDLCsMigration(const FPDlcResponse& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerPlayerRequestHandler::GetDLCsMigration(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FPDlcResponseBP(), OnCompletedRequest);
+    ULootLockerPlayerRequestHandler::GetDLCsMigration(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::SetProfilePrivate(const FResponseCallback& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerPlayerRequestHandler::SetProfilePrivate(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FResponseCallbackBP(), OnCompletedRequest);
+    ULootLockerPlayerRequestHandler::SetProfilePrivate(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::SetProfilePublic(const FResponseCallback& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerPlayerRequestHandler::SetProfilePublic(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FResponseCallbackBP(), OnCompletedRequest);
+    ULootLockerPlayerRequestHandler::SetProfilePublic(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
 }
 
 // Player Progressions

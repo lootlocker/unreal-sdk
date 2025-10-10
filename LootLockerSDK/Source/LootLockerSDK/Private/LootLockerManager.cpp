@@ -442,84 +442,134 @@ void ULootLockerManager::RefreshRemoteSession(const FString& ForPlayerWithUlid, 
 //==================================================
 void ULootLockerManager::GetCurrentPlayerInfo(const FString& ForPlayerWithUlid, const FLootLockerGetCurrentPlayerInfoResponseBP& OnCompletedRequest)
 {
-    ULootLockerPlayerRequestHandler::GetCurrentPlayerInfo(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
+    ULootLockerSDKManager::GetCurrentPlayerInfo(FLootLockerGetCurrentPlayerInfoResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerGetCurrentPlayerInfoResponse Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ListPlayerInfo(const FString& ForPlayerWithUlid, TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseBP& OnCompletedRequest)
 {
-    ULootLockerPlayerRequestHandler::ListPlayerInfo(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlayerIdsToLookUp, PlayerLegacyIdsToLookUp, PlayerPublicUidsToLookUp, OnCompletedRequest);
+    ULootLockerSDKManager::ListPlayerInfo(PlayerIdsToLookUp, PlayerLegacyIdsToLookUp, PlayerPublicUidsToLookUp, FLootLockerListPlayerInfoResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerListPlayerInfoResponse Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetInventory(const FString& ForPlayerWithUlid, const FPInventoryResponseBP& OnGetInventoryRequestCompleted)
 {
-    ULootLockerPlayerRequestHandler::GetInventory(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnGetInventoryRequestCompleted);
+    ULootLockerSDKManager::GetInventory(FInventoryResponse::CreateLambda([OnGetInventoryRequestCompleted](FLootLockerInventoryResponse Response)
+    {
+        OnGetInventoryRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetFullInventory(const FString ForPlayerWithUlid, int32 StartIndex, const FPInventoryResponseBP& OnGetInventoryRequestCompleted)
 {
-	ULootLockerPlayerRequestHandler::GetFullInventory(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnGetInventoryRequestCompleted, FInventoryResponse(), StartIndex);
+    ULootLockerSDKManager::GetFullInventory(FInventoryResponse::CreateLambda([OnGetInventoryRequestCompleted](FLootLockerInventoryResponse Response)
+    {
+        OnGetInventoryRequestCompleted.ExecuteIfBound(Response);
+    }), StartIndex, ForPlayerWithUlid);
 }
 
 void ULootLockerManager::CheckPlayerAssetActivationNotification(const FString& ForPlayerWithUlid, const FPAssetNotificationResponseBP& OnCheckPlayerAssetDeactivationNotificationRequestCompleted)
 {
-    ULootLockerPlayerRequestHandler::CheckPlayerAssetNotification(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCheckPlayerAssetDeactivationNotificationRequestCompleted);
+    ULootLockerSDKManager::CheckPlayerAssetActivationNotification(FLootLockerAssetNotificationResponse::CreateLambda([OnCheckPlayerAssetDeactivationNotificationRequestCompleted](FLootLockerPlayerAssetNotificationResponse Response)
+    {
+        OnCheckPlayerAssetDeactivationNotificationRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetCurrencyBalance(const FString& ForPlayerWithUlid, const FPBalanceResponseBP& OnGetCurrencyBalance)
 {
-    ULootLockerPlayerRequestHandler::GetCurrencyBalance(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnGetCurrencyBalance);
+    ULootLockerSDKManager::GetCurrencyBalance(FPBalanceResponse::CreateLambda([OnGetCurrencyBalance](FLootLockerBalanceResponse Response)
+    {
+        OnGetCurrencyBalance.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 
 void ULootLockerManager::InitiateDLCMigration(const FString& ForPlayerWithUlid, const FResponseCallbackBP& OnInitiateDlcMigration)
 {
-    ULootLockerPlayerRequestHandler::InitiateDLCMigration(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnInitiateDlcMigration);
+    ULootLockerSDKManager::InitiateDLCMigration(FResponseCallback::CreateLambda([OnInitiateDlcMigration](FLootLockerResponse Response)
+    {
+        OnInitiateDlcMigration.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 
 void ULootLockerManager::GetDLCsMigration(const FString& ForPlayerWithUlid, const FPDlcResponseBP& OnGotDlcMigration)
 {
-    ULootLockerPlayerRequestHandler::GetDLCsMigration(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnGotDlcMigration);
+    ULootLockerSDKManager::GetDLCsMigration(FPDlcResponse::CreateLambda([OnGotDlcMigration](FLootLockerDlcResponse Response)
+    {
+        OnGotDlcMigration.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 
 void ULootLockerManager::SetProfilePrivate(const FString& ForPlayerWithUlid, const FResponseCallbackBP& OnProfileSetPrivate)
 {
-    ULootLockerPlayerRequestHandler::SetProfilePrivate(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnProfileSetPrivate);
+    ULootLockerSDKManager::SetProfilePrivate(FResponseCallback::CreateLambda([OnProfileSetPrivate](FLootLockerResponse Response)
+    {
+        OnProfileSetPrivate.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::SetProfilePublic(const FString& ForPlayerWithUlid, const FResponseCallbackBP& OnProfileSetPublic)
 {
-    ULootLockerPlayerRequestHandler::SetProfilePublic(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnProfileSetPublic);
+    ULootLockerSDKManager::SetProfilePublic(FResponseCallback::CreateLambda([OnProfileSetPublic](FLootLockerResponse Response)
+    {
+        OnProfileSetPublic.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 void ULootLockerManager::SetPlayerName(const FString& ForPlayerWithUlid, FString Name, const FPNameResponseBP& OnSetPlayerName)
 {
-    ULootLockerPlayerRequestHandler::SetPlayerName(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Name, OnSetPlayerName);
+    ULootLockerSDKManager::SetPlayerName(Name, FPNameResponse::CreateLambda([OnSetPlayerName](FLootLockerNameResponse Response)
+    {
+        OnSetPlayerName.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetPlayerName(const FString& ForPlayerWithUlid, const FPNameResponseBP& OnGetPlayerName)
 {
-    ULootLockerPlayerRequestHandler::GetPlayerName(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnGetPlayerName);
+    ULootLockerSDKManager::GetPlayerName(FPNameResponse::CreateLambda([OnGetPlayerName](FLootLockerNameResponse Response)
+    {
+        OnGetPlayerName.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::LookupMultiplePlayerNamesUsingIDs(const FString& ForPlayerWithUlid, const FLootLockerMultiplePlayerNamesRequest& Request, const FPMultiplePlayerNamesBP& OnCompletedRequest)
 {
-    ULootLockerPlayerRequestHandler::LookupMultiplePlayerNamesUsingIDs(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, OnCompletedRequest);
+#pragma warning(disable : 4996)
+    ULootLockerSDKManager::LookupMultiplePlayerNamesUsingIDs(Request, FPMultiplePlayerNames::CreateLambda([OnCompletedRequest](FLootLockerMultiplePlayersNamesResponse Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+#pragma warning(default : 4996)
 }
 
 void ULootLockerManager::LookupMultiplePlayersDataUsingIDs(const FString& ForPlayerWithUlid, const FLootLockerLookupMultiplePlayersDataRequest& Request, const FPMultiplePlayerNamesBP& OnCompletedRequest)
 {
-    ULootLockerPlayerRequestHandler::LookupMultiplePlayersDataUsingIDs(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, OnCompletedRequest);
+    ULootLockerSDKManager::LookupMultiplePlayersDataUsingIDs(Request, FPMultiplePlayerNames::CreateLambda([OnCompletedRequest](FLootLockerMultiplePlayersNamesResponse Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::LookupMultiplePlayerNames1stPlatformIDs(const FString& ForPlayerWithUlid, const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequest)
 {
-    ULootLockerPlayerRequestHandler::LookupMultiplePlayerNames1stPlatformIDs(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, OnCompletedRequest);
+    ULootLockerSDKManager::LookupMultiplePlayerNames1stPlatformIDs(Request, FPMultiplePlayersPlatformIdsNames::CreateLambda([OnCompletedRequest](FLootLockerMultiplePlayersPlatformIdsResponse Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::DeletePlayer(const FString& ForPlayerWithUlid, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerPlayerRequestHandler::DeletePlayer(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
+    ULootLockerSDKManager::DeletePlayer(FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 

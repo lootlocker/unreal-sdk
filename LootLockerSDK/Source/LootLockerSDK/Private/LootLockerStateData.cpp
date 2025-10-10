@@ -75,7 +75,7 @@ bool ULootLockerStateData::TransferPlayerCacheToMultiUserSystem()
 			""
 		};
 		SavePlayerData(DataToTransfer);
-		ULootLockerPlayerRequestHandler::GetCurrentPlayerInfo(DataToTransfer, FLootLockerGetCurrentPlayerInfoResponseBP(), FLootLockerGetCurrentPlayerInfoResponseDelegate::CreateLambda([TempUlidCopy = DataToTransfer.PlayerUlid](const FLootLockerGetCurrentPlayerInfoResponse& Response)
+		ULootLockerPlayerRequestHandler::GetCurrentPlayerInfo(DataToTransfer, FLootLockerGetCurrentPlayerInfoResponseDelegate::CreateLambda([TempUlidCopy = DataToTransfer.PlayerUlid](const FLootLockerGetCurrentPlayerInfoResponse& Response)
 			{
 				FLootLockerPlayerData* transferredPlayerData = LoadPlayerData(TempUlidCopy);
 				if (transferredPlayerData != nullptr && Response.success)
