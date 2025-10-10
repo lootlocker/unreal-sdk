@@ -1175,7 +1175,7 @@ void ULootLockerSDKManager::GetMessages(const FMessagesResponseDelegate& OnCompl
 // Leaderboards
 void ULootLockerSDKManager::ListLeaderboards(int Count, int After, const FLootLockerListLeaderboardsResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerLeaderboardRequestHandler::ListLeaderboards(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Count, After, FLootLockerListLeaderboardsResponseBP(), OnCompletedRequest);
+    ULootLockerLeaderboardRequestHandler::ListLeaderboards(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Count, After);
 }
 
 void ULootLockerSDKManager::GetMemberRank(FString LeaderboardKey, FString MemberId, const FLootLockerGetMemberRankResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
@@ -1184,14 +1184,14 @@ void ULootLockerSDKManager::GetMemberRank(FString LeaderboardKey, FString Member
     MemberRequest.leaderboard_key = LeaderboardKey;
     MemberRequest.member_id = MemberId;
 
-    ULootLockerLeaderboardRequestHandler::GetMemberRank(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), MemberRequest, FLootLockerGetMemberRankResponseBP(), OnCompletedRequest);
+    ULootLockerLeaderboardRequestHandler::GetMemberRank(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), MemberRequest);
 }
 
 void ULootLockerSDKManager::GetByListOfMembers(TArray<FString> Members, FString LeaderboardKey, const FLootLockerGetByListOfMembersResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
     FLootLockerGetByListMembersRequest GetByListMembersRequest;
     GetByListMembersRequest.members = Members;
-    ULootLockerLeaderboardRequestHandler::GetByListOfMembers(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), GetByListMembersRequest, LeaderboardKey, FLootLockerGetByListOfMembersResponseBP(), OnCompletedRequest);
+    ULootLockerLeaderboardRequestHandler::GetByListOfMembers(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), GetByListMembersRequest, LeaderboardKey);
 }
 
 void ULootLockerSDKManager::GetScoreList(FString LeaderboardKey, int Count, int After, const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
@@ -1200,7 +1200,7 @@ void ULootLockerSDKManager::GetScoreList(FString LeaderboardKey, int Count, int 
     GetScoreListRequest.after = After;
     GetScoreListRequest.count = Count;
     GetScoreListRequest.leaderboard_key = LeaderboardKey;
-    ULootLockerLeaderboardRequestHandler::GetScoreList(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), GetScoreListRequest, FLootLockerGetScoreListResponseBP(), OnCompletedRequest);
+    ULootLockerLeaderboardRequestHandler::GetScoreList(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), GetScoreListRequest);
 }
 
 void ULootLockerSDKManager::GetScoreListInitial(FString LeaderboardKey, int Count, const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
@@ -1214,14 +1214,14 @@ void ULootLockerSDKManager::SubmitScore(FString MemberId, const FString Leaderbo
     SubmitScoreRequest.member_id = MemberId;
     SubmitScoreRequest.score = Score;
     SubmitScoreRequest.metadata = Metadata;
-    ULootLockerLeaderboardRequestHandler::SubmitScore(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), SubmitScoreRequest, LeaderboardKey, FLootLockerSubmitScoreResponseBP(), OnCompletedRequest);
+    ULootLockerLeaderboardRequestHandler::SubmitScore(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), SubmitScoreRequest, LeaderboardKey);
 }
 
 void ULootLockerSDKManager::QueryScore(const FString LeaderboardKey, const int Score, const FLootLockerSubmitScoreResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
     FLootLockerQueryScoreRequest QueryScoreRequest;
     QueryScoreRequest.score = Score;
-    ULootLockerLeaderboardRequestHandler::QueryScore(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), QueryScoreRequest, LeaderboardKey, FLootLockerSubmitScoreResponseBP(), OnCompletedRequest);
+    ULootLockerLeaderboardRequestHandler::QueryScore(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), QueryScoreRequest, LeaderboardKey);
 }
 
 void ULootLockerSDKManager::IncrementScore(FString MemberId, const FString LeaderboardKey, const int Amount, const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
@@ -1229,7 +1229,7 @@ void ULootLockerSDKManager::IncrementScore(FString MemberId, const FString Leade
     FLootLockerIncrementScoreRequest IncrementScoreRequest;
     IncrementScoreRequest.member_id = MemberId;
     IncrementScoreRequest.amount = Amount;
-    ULootLockerLeaderboardRequestHandler::IncrementScore(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), IncrementScoreRequest, LeaderboardKey, FLootLockerSubmitScoreResponseBP(), OnCompletedRequest);
+    ULootLockerLeaderboardRequestHandler::IncrementScore(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), IncrementScoreRequest, LeaderboardKey);
 }
 
 void ULootLockerSDKManager::GetAllMemberRanks(FString MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
@@ -1238,7 +1238,7 @@ void ULootLockerSDKManager::GetAllMemberRanks(FString MemberId, const int Count,
     GetAllMemberRanksRequest.after = After;
     GetAllMemberRanksRequest.count = Count;
     GetAllMemberRanksRequest.member_id = MemberId;
-    ULootLockerLeaderboardRequestHandler::GetAllMemberRanks(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), GetAllMemberRanksRequest, FLootLockerGetAllMemberRanksResponseBP(), OnCompletedRequest);
+    ULootLockerLeaderboardRequestHandler::GetAllMemberRanks(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), GetAllMemberRanksRequest);
 }
 
 void ULootLockerSDKManager::ListLeaderboardArchive(const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
@@ -1253,7 +1253,7 @@ void ULootLockerSDKManager::GetLeaderboardArchive(const FString& Key, int Count,
 
 void ULootLockerSDKManager::GetLeaderboardDetails(const FString& LeaderboardKey, const FLootLockerLeaderboardDetailsResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerLeaderboardRequestHandler::GetLeaderboardDetails(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), LeaderboardKey, FLootLockerLeaderboardDetailsResponseBP(), OnCompletedRequest);
+    ULootLockerLeaderboardRequestHandler::GetLeaderboardDetails(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), LeaderboardKey);
 }
 
 // Droptables
