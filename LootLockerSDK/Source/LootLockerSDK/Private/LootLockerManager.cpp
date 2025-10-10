@@ -1182,22 +1182,34 @@ void ULootLockerManager::DeleteInstanceProgression(const FString& ForPlayerWithU
 // Missions
 void ULootLockerManager::GetAllMissions(const FString& ForPlayerWithUlid, const FMissionsResponseDelegateBP& OnGetAllMissionsCompleted)
 {
-    ULootLockerMissionsRequestHandler::GetAllMissions(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnGetAllMissionsCompleted);
+    ULootLockerSDKManager::GetAllMissions(FMissionsResponseDelegate::CreateLambda([OnGetAllMissionsCompleted](FLootLockerMissionsResponse Response)
+    {
+        OnGetAllMissionsCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetMission(const FString& ForPlayerWithUlid, int MissionId, const FMissionResponseDelegateBP& OnGetMissionCompleted)
 {
-    ULootLockerMissionsRequestHandler::GetMission(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), MissionId, OnGetMissionCompleted);
+    ULootLockerSDKManager::GetMission(MissionId, FMissionResponseDelegate::CreateLambda([OnGetMissionCompleted](FLootLockerMissionResponse Response)
+    {
+        OnGetMissionCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::StartMission(const FString& ForPlayerWithUlid, int MissionId, const  FStartMissionResponseDelegateBP& OnStartMissionCompleted)
 {
-    ULootLockerMissionsRequestHandler::StartMission(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), MissionId, OnStartMissionCompleted);
+    ULootLockerSDKManager::StartMission(MissionId, FStartMissionResponseDelegate::CreateLambda([OnStartMissionCompleted](FLootLockerStartMissionResponse Response)
+    {
+        OnStartMissionCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::FinishMission(const FString& ForPlayerWithUlid, int MissionId, const FLootLockerFinishMissionData& MissionData, const FFinishMissionResponseDelegateBP& OnFinishMissionCompleted)
 {
-    ULootLockerMissionsRequestHandler::FinishMission(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), MissionId, MissionData, OnFinishMissionCompleted);
+    ULootLockerSDKManager::FinishMission(MissionId, MissionData, FFinishMissionResponseDelegate::CreateLambda([OnFinishMissionCompleted](FLootLockerFinishMissionResponse Response)
+    {
+        OnFinishMissionCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetMaps(const FString& ForPlayerWithUlid, const FGetMapsResponseDelegateBP& OnGetMapsCompleted)
