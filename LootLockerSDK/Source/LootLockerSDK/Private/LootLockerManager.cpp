@@ -878,32 +878,50 @@ void ULootLockerManager::DeleteCharacterProgression(const FString& ForPlayerWith
 // Persistent Storage
 void ULootLockerManager::GetEntirePersistentStorage(const FString& ForPlayerWithUlid, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsRequestCompleted)
 {
-    ULootLockerPersistentStorageRequestHandler::GetEntirePersistentStorage(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnPersistentStorageItemsRequestCompleted);
+    ULootLockerSDKManager::GetEntirePersistentStorage(FPersistentStorageItemsResponseDelegate::CreateLambda([OnPersistentStorageItemsRequestCompleted](FLootLockerPersistentStorageItemsResponse Response)
+    {
+        OnPersistentStorageItemsRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetItemFromPersistentStorage(const FString& ForPlayerWithUlid, const FString& Key, const FPersistentStorageItemResponseDelegateBP& OnPersistentStorageItemRequestCompleted)
 {
-    ULootLockerPersistentStorageRequestHandler::GetItemFromPersistentStorage(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Key, OnPersistentStorageItemRequestCompleted);
+    ULootLockerSDKManager::GetItemFromPersistentStorage(Key, FPersistentStorageItemResponseDelegate::CreateLambda([OnPersistentStorageItemRequestCompleted](FLootLockerPersistentStorageItemResponse Response)
+    {
+        OnPersistentStorageItemRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::AddItemsToPersistentStorage(const FString& ForPlayerWithUlid, FLootLockerPersistentStorageItems Items, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsAddRequestCompleted)
 {
-    ULootLockerPersistentStorageRequestHandler::AddItemsToPersistentStorage(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Items, OnPersistentStorageItemsAddRequestCompleted);
+    ULootLockerSDKManager::AddItemsToPersistentStorage(Items, FPersistentStorageItemsResponseDelegate::CreateLambda([OnPersistentStorageItemsAddRequestCompleted](FLootLockerPersistentStorageItemsResponse Response)
+    {
+        OnPersistentStorageItemsAddRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::AddItemToPersistentStorage(const FString& ForPlayerWithUlid, FLootLockerPersistentStorageItem Item, const FPersistentStorageItemResponseDelegateBP& OnPersistentStorageItemAddRequestCompleted)
 {
-    ULootLockerPersistentStorageRequestHandler::AddItemToPersistentStorage(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Item, OnPersistentStorageItemAddRequestCompleted);
+    ULootLockerSDKManager::AddItemsToPersistentStorage(Item, FPersistentStorageItemResponseDelegate::CreateLambda([OnPersistentStorageItemAddRequestCompleted](FLootLockerPersistentStorageItemResponse Response)
+    {
+        OnPersistentStorageItemAddRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::DeleteItemFromPersistentStorage(const FString& ForPlayerWithUlid, const FString& Key, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemDeleteRequestCompleted)
 {
-    ULootLockerPersistentStorageRequestHandler::DeleteItemFromPersistentStorage(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Key, OnPersistentStorageItemDeleteRequestCompleted);
+    ULootLockerSDKManager::DeleteItemFromPersistentStorage(Key, FPersistentStorageItemsResponseDelegate::CreateLambda([OnPersistentStorageItemDeleteRequestCompleted](FLootLockerPersistentStorageItemsResponse Response)
+    {
+        OnPersistentStorageItemDeleteRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetPlayerPersistentStorage(const FString& ForPlayerWithUlid, const FString& PlayerId, const  FPersistentStorageItemsResponseDelegateBP& OnGetPlayerPersistentStorageRequestCompleted)
 {
-    ULootLockerPersistentStorageRequestHandler::GetPlayerPersistentStorage(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlayerId, OnGetPlayerPersistentStorageRequestCompleted);
+    ULootLockerSDKManager::GetPlayerPersistentStorage(PlayerId, FPersistentStorageItemsResponseDelegate::CreateLambda([OnGetPlayerPersistentStorageRequestCompleted](FLootLockerPersistentStorageItemsResponse Response)
+    {
+        OnGetPlayerPersistentStorageRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetContexts(const FString& ForPlayerWithUlid, const FContextDelegateBP& OnGetContextsRequestCompleted)
