@@ -76,173 +76,246 @@ void ULootLockerManager::StartSessionManual(const FString& SessionToken, const F
 
 void ULootLockerManager::StartPlaystationNetworkSession(const FString& PsnOnlineId, const FAuthResponseBP& OnStartedSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::StartPlaystationNetworkSession(PsnOnlineId, Optionals, OnStartedSessionRequestCompleted);
+#pragma warning(disable : 4996)
+    ULootLockerSDKManager::StartPlaystationNetworkSession(PsnOnlineId, FLootLockerSessionResponse::CreateLambda([OnStartedSessionRequestCompleted](const FLootLockerAuthenticationResponse& Response) {
+        OnStartedSessionRequestCompleted.ExecuteIfBound(Response);
+    }), Optionals);
+#pragma warning(default : 4996)
 }
 
 void ULootLockerManager::VerifyPlayerAndStartPlaystationNetworkSession(const FString& AuthCode, const FString& AccountID, const FAuthResponseBP& OnCompletedRequest, int PsnIssuerId /*= 256*/, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::VerifyPlayerAndStartPlaystationNetworkSession(AuthCode, AccountID, PsnIssuerId, Optionals, OnCompletedRequest);
+    ULootLockerSDKManager::VerifyPlayerAndStartPlaystationNetworkSession(AuthCode, AccountID, FLootLockerSessionResponse::CreateLambda([OnCompletedRequest](const FLootLockerAuthenticationResponse& Response) {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), PsnIssuerId, Optionals);
 }
 
 void ULootLockerManager::VerifyPlayerAndStartPlaystationNetworkV3Session(const FString& AuthCode, const FAuthResponseBP& OnCompletedRequest, int EnvIssuerId /*= 256*/, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::VerifyPlayerAndStartPlaystationNetworkV3Session(AuthCode, EnvIssuerId, Optionals, OnCompletedRequest);
+    ULootLockerSDKManager::VerifyPlayerAndStartPlaystationNetworkV3Session(AuthCode, FLootLockerSessionResponse::CreateLambda([OnCompletedRequest](const FLootLockerAuthenticationResponse& Response) {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), EnvIssuerId, Optionals);
 }
 
 void ULootLockerManager::StartAndroidSession(const FString& DeviceId, const FAuthResponseBP& OnStartedSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::StartAndroidSession(DeviceId, Optionals, OnStartedSessionRequestCompleted);
+    ULootLockerSDKManager::StartAndroidSession(DeviceId, FLootLockerSessionResponse::CreateLambda([OnStartedSessionRequestCompleted](const FLootLockerAuthenticationResponse& Response) {
+        OnStartedSessionRequestCompleted.ExecuteIfBound(Response);
+    }), Optionals);
 }
 
 void ULootLockerManager::StartAmazonLunaSession(const FString& AmazonLunaGuid, const FAuthResponseBP& OnStartedSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::StartAmazonLunaSession(AmazonLunaGuid, Optionals, OnStartedSessionRequestCompleted);
+    ULootLockerSDKManager::StartAmazonLunaSession(AmazonLunaGuid, FLootLockerSessionResponse::CreateLambda([OnStartedSessionRequestCompleted](const FLootLockerAuthenticationResponse& Response) {
+        OnStartedSessionRequestCompleted.ExecuteIfBound(Response);
+    }), Optionals);
 }
 
 void ULootLockerManager::StartSteamSessionUsingTicket(const FString& SteamSessionTicket, const FString& SteamAppId, const FAuthResponseBP& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::StartSteamSession(SteamSessionTicket, SteamAppId, Optionals, OnCompletedRequest);
+    ULootLockerSDKManager::StartSteamSessionUsingTicket(SteamSessionTicket, FLootLockerSessionResponse::CreateLambda([OnCompletedRequest](const FLootLockerAuthenticationResponse& Response) {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), SteamAppId, Optionals);
 }
 
 void ULootLockerManager::StartNintendoSwitchSession(const FString& NSAIdToken, const FAuthResponseBP& OnStartedNintendoSwitchSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::StartNintendoSwitchSession(NSAIdToken, Optionals, OnStartedNintendoSwitchSessionRequestCompleted);
+    ULootLockerSDKManager::StartNintendoSwitchSession(NSAIdToken, FLootLockerSessionResponse::CreateLambda([OnStartedNintendoSwitchSessionRequestCompleted](const FLootLockerAuthenticationResponse& Response) {
+        OnStartedNintendoSwitchSessionRequestCompleted.ExecuteIfBound(Response);
+    }), Optionals);
 }
 
 void ULootLockerManager::StartXboxSession(const FString& XboxUserToken, const FAuthResponseBP& OnStartedXboxSessionCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::StartXboxSession(XboxUserToken, Optionals, OnStartedXboxSessionCompleted);
+    ULootLockerSDKManager::StartXboxSession(XboxUserToken, FLootLockerSessionResponse::CreateLambda([OnStartedXboxSessionCompleted](const FLootLockerAuthenticationResponse& Response) {
+        OnStartedXboxSessionCompleted.ExecuteIfBound(Response);
+    }), Optionals);
 }
 
 void ULootLockerManager::StartAppleSession(const FString& AuthorizationCode, const FAppleSessionResponseBP& OnStartedAppleSessionCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::StartAppleSession(AuthorizationCode, Optionals, OnStartedAppleSessionCompleted);
+    ULootLockerSDKManager::StartAppleSession(AuthorizationCode, FLootLockerAppleSessionResponseDelegate::CreateLambda([OnStartedAppleSessionCompleted](const FLootLockerAppleSessionResponse& Response) {
+        OnStartedAppleSessionCompleted.ExecuteIfBound(Response);
+    }), Optionals);
 }
 
 void ULootLockerManager::RefreshAppleSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FAppleSessionResponseBP& OnRefreshAppleSessionCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::RefreshAppleSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, Optionals, OnRefreshAppleSessionCompleted);
+    ULootLockerSDKManager::RefreshAppleSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, FLootLockerAppleSessionResponseDelegate::CreateLambda([OnRefreshAppleSessionCompleted](const FLootLockerAppleSessionResponse& Response) {
+        OnRefreshAppleSessionCompleted.ExecuteIfBound(Response);
+    }), Optionals);
 }
 
 void ULootLockerManager::StartAppleGameCenterSession(const FString& BundleId, const FString& PlayerId, const FString& PublicKeyUrl, const FString& Signature, const FString& Salt, const FString& Timestamp, const FLootLockerAppleGameCenterSessionResponseBP& OnStartedAppleGameCenterSessionCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::StartAppleGameCenterSession(BundleId, PlayerId, PublicKeyUrl, Signature, Salt, Timestamp, Optionals, OnStartedAppleGameCenterSessionCompleted);
+    ULootLockerSDKManager::StartAppleGameCenterSession(BundleId, PlayerId, PublicKeyUrl, Signature, Salt, Timestamp, FLootLockerAppleGameCenterSessionResponseDelegate::CreateLambda([OnStartedAppleGameCenterSessionCompleted](const FLootLockerAppleGameCenterSessionResponse& Response) {
+        OnStartedAppleGameCenterSessionCompleted.ExecuteIfBound(Response);
+    }), Optionals);
 }
 
 void ULootLockerManager::RefreshAppleGameCenterSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FLootLockerAppleGameCenterSessionResponseBP& OnRefreshAppleGameCenterSessionCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::RefreshAppleGameCenterSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, Optionals, OnRefreshAppleGameCenterSessionCompleted);
+    ULootLockerSDKManager::RefreshAppleGameCenterSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, FLootLockerAppleGameCenterSessionResponseDelegate::CreateLambda([OnRefreshAppleGameCenterSessionCompleted](const FLootLockerAppleGameCenterSessionResponse& Response) {
+        OnRefreshAppleGameCenterSessionCompleted.ExecuteIfBound(Response);
+    }), Optionals);
 }
 
 void ULootLockerManager::StartGoogleSession(const FString& IdToken, const FGoogleSessionResponseBP& OnStartedGoogleSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::StartGoogleSession(IdToken, Optionals, OnStartedGoogleSessionRequestCompleted);
+    ULootLockerSDKManager::StartGoogleSession(IdToken, FLootLockerGoogleSessionResponseDelegate::CreateLambda([OnStartedGoogleSessionRequestCompleted](const FLootLockerGoogleSessionResponse& Response) {
+        OnStartedGoogleSessionRequestCompleted.ExecuteIfBound(Response);
+    }), Optionals);
 }
 
 void ULootLockerManager::StartGoogleSessionForPlatform(const FString& IdToken, ELootLockerGoogleClientPlatform Platform, const FGoogleSessionResponseBP& OnStartedGoogleSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::StartGoogleSession(IdToken, Platform, Optionals, OnStartedGoogleSessionRequestCompleted);
+    ULootLockerSDKManager::StartGoogleSessionForPlatform(IdToken, Platform, FLootLockerGoogleSessionResponseDelegate::CreateLambda([OnStartedGoogleSessionRequestCompleted](const FLootLockerGoogleSessionResponse& Response) {
+        OnStartedGoogleSessionRequestCompleted.ExecuteIfBound(Response);
+    }), Optionals);
 }
 
 void ULootLockerManager::RefreshGoogleSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FGoogleSessionResponseBP& OnRefreshGoogleSessionCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::RefreshGoogleSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, Optionals, OnRefreshGoogleSessionCompleted);
+    ULootLockerSDKManager::RefreshGoogleSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, FLootLockerGoogleSessionResponseDelegate::CreateLambda([OnRefreshGoogleSessionCompleted](const FLootLockerGoogleSessionResponse& Response) {
+        OnRefreshGoogleSessionCompleted.ExecuteIfBound(Response);
+    }), Optionals);
 }
 
 void ULootLockerManager::StartGooglePlayGamesSession(const FString& AuthCode, const FGooglePlayGamesSessionResponseBP& OnStartedGooglePlayGamesSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::StartGooglePlayGamesSession(AuthCode, Optionals, OnStartedGooglePlayGamesSessionRequestCompleted);
+    ULootLockerSDKManager::StartGooglePlayGamesSession(AuthCode, FLootLockerGooglePlayGamesSessionResponseDelegate::CreateLambda([OnStartedGooglePlayGamesSessionRequestCompleted](const FLootLockerGooglePlayGamesSessionResponse& Response) {
+        OnStartedGooglePlayGamesSessionRequestCompleted.ExecuteIfBound(Response);
+    }), Optionals);
 }
 
 void ULootLockerManager::RefreshGooglePlayGamesSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FGooglePlayGamesSessionResponseBP& OnRefreshGooglePlayGamesSessionCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::RefreshGooglePlayGamesSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, Optionals, OnRefreshGooglePlayGamesSessionCompleted);
+    ULootLockerSDKManager::RefreshGooglePlayGamesSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, FLootLockerGooglePlayGamesSessionResponseDelegate::CreateLambda([OnRefreshGooglePlayGamesSessionCompleted](const FLootLockerGooglePlayGamesSessionResponse& Response) {
+        OnRefreshGooglePlayGamesSessionCompleted.ExecuteIfBound(Response);
+    }), Optionals);
 }
 
 void ULootLockerManager::StartEpicSession(const FString& IdToken, const FEpicSessionResponseBP& OnStartedEpicSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::StartEpicSession(IdToken, Optionals, OnStartedEpicSessionRequestCompleted);
+    ULootLockerSDKManager::StartEpicSession(IdToken, FLootLockerEpicSessionResponseDelegate::CreateLambda([OnStartedEpicSessionRequestCompleted](const FLootLockerEpicSessionResponse& Response) {
+        OnStartedEpicSessionRequestCompleted.ExecuteIfBound(Response);
+    }), Optionals);
 }
 
 void ULootLockerManager::RefreshEpicSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FEpicSessionResponseBP& OnRefreshEpicSessionCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::RefreshEpicSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, Optionals, OnRefreshEpicSessionCompleted);
+    ULootLockerSDKManager::RefreshEpicSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, FLootLockerEpicSessionResponseDelegate::CreateLambda([OnRefreshEpicSessionCompleted](const FLootLockerEpicSessionResponse& Response) {
+        OnRefreshEpicSessionCompleted.ExecuteIfBound(Response);
+    }), Optionals);
 }
 
 void ULootLockerManager::StartMetaSession(const FString& UserId, const FString& Nonce, const FLootLockerMetaSessionResponseBP& OnMetaSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::StartMetaSession(UserId, Nonce, Optionals, OnMetaSessionRequestCompleted);
+    ULootLockerSDKManager::StartMetaSession(UserId, Nonce, FLootLockerMetaSessionResponseDelegate::CreateLambda([OnMetaSessionRequestCompleted](const FLootLockerMetaSessionResponse& Response) {
+        OnMetaSessionRequestCompleted.ExecuteIfBound(Response);
+    }), Optionals);
 }
 
 void ULootLockerManager::RefreshMetaSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FLootLockerMetaSessionResponseBP& OnMetaSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::RefreshMetaSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, Optionals, OnMetaSessionRequestCompleted);
+    ULootLockerSDKManager::RefreshMetaSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, FLootLockerMetaSessionResponseDelegate::CreateLambda([OnMetaSessionRequestCompleted](const FLootLockerMetaSessionResponse& Response) {
+        OnMetaSessionRequestCompleted.ExecuteIfBound(Response);
+    }), Optionals);
 }
 
 void ULootLockerManager::WhiteLabelStartSession(const FAuthResponseBP& OnStartWhiteLabelSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(Optionals, OnStartWhiteLabelSessionRequestCompleted);
+    ULootLockerSDKManager::WhiteLabelStartSession(FLootLockerSessionResponse::CreateLambda([OnStartWhiteLabelSessionRequestCompleted](const FLootLockerAuthenticationResponse& Response) {
+        OnStartWhiteLabelSessionRequestCompleted.ExecuteIfBound(Response);
+    }), Optionals);
 }
 
 void ULootLockerManager::WhiteLabelLoginAndStartSession(const FString& Email, const FString& Password, const FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP& OnWhiteLabelLoginAndStartSessionRequestCompleted, const bool Remember, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::WhiteLabelLoginAndStartSession(Email, Password, Remember, Optionals, OnWhiteLabelLoginAndStartSessionRequestCompleted);
+    ULootLockerSDKManager::WhiteLabelLoginAndStartSession(Email, Password, FLootLockerWhiteLabelLoginAndSessionResponseDelegate::CreateLambda([OnWhiteLabelLoginAndStartSessionRequestCompleted](const FLootLockerWhiteLabelLoginAndSessionResponse& Response) {
+        OnWhiteLabelLoginAndStartSessionRequestCompleted.ExecuteIfBound(Response);
+    }), Remember, Optionals);
 }
 
 void ULootLockerManager::WhiteLabelVerifySession(const FString& ForPlayerWithUlid, const FLootLockerVerifySessionResponseBP& OnVerifyWhiteLabelSessionRequestCompleted)
 {
-    ULootLockerAuthenticationRequestHandler::WhiteLabelVerifySession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnVerifyWhiteLabelSessionRequestCompleted);
+    ULootLockerSDKManager::WhiteLabelVerifySession(FLootLockerWhiteLabelVerifySessionDelegate::CreateLambda([OnVerifyWhiteLabelSessionRequestCompleted](const FLootLockerWhiteLabelVerifySessionResponse& Response) {
+        OnVerifyWhiteLabelSessionRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::WhiteLabelRequestUserVerification(const int& UserId, const FLootLockerDefaultResponseBP& OnRequestWhiteLabelUserVerificationRequestCompleted)
 {
-    ULootLockerAuthenticationRequestHandler::WhiteLabelRequestUserVerification(UserId, OnRequestWhiteLabelUserVerificationRequestCompleted);
+    ULootLockerSDKManager::WhiteLabelRequestUserVerification(UserId, FLootLockerDefaultDelegate::CreateLambda([OnRequestWhiteLabelUserVerificationRequestCompleted](const FLootLockerResponse& Response) {
+        OnRequestWhiteLabelUserVerificationRequestCompleted.ExecuteIfBound(Response);
+    }));
 }
 
 void ULootLockerManager::WhiteLabelRequestUserVerificationByEmail(const FString& Email, const FLootLockerDefaultResponseBP& OnRequestWhiteLabelUserVerificationRequestCompleted)
 {
-    ULootLockerAuthenticationRequestHandler::WhiteLabelRequestUserVerificationByEmail(Email, OnRequestWhiteLabelUserVerificationRequestCompleted);
+    ULootLockerSDKManager::WhiteLabelRequestUserVerificationByEmail(Email, FLootLockerDefaultDelegate::CreateLambda([OnRequestWhiteLabelUserVerificationRequestCompleted](const FLootLockerResponse& Response) {
+        OnRequestWhiteLabelUserVerificationRequestCompleted.ExecuteIfBound(Response);
+    }));
 }
 
 void ULootLockerManager::WhiteLabelResetPassword(const FString& Email, const FLootLockerDefaultResponseBP& OnResetWhiteLabelPasswordRequestCompleted)
 {
-    ULootLockerAuthenticationRequestHandler::WhiteLabelRequestPasswordReset(Email, OnResetWhiteLabelPasswordRequestCompleted);
+    ULootLockerSDKManager::WhiteLabelRequestPasswordReset(Email, FLootLockerDefaultDelegate::CreateLambda([OnResetWhiteLabelPasswordRequestCompleted](const FLootLockerResponse& Response) {
+        OnResetWhiteLabelPasswordRequestCompleted.ExecuteIfBound(Response);
+    }));
 }
 
 void ULootLockerManager::WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelLoginRequestCompleted, const bool Remember /* = false */)
 {
-    ULootLockerAuthenticationRequestHandler::WhiteLabelLogin(Email, Password, Remember, OnWhiteLabelLoginRequestCompleted);
+    ULootLockerSDKManager::WhiteLabelLogin(Email, Password, FLootLockerLoginResponseDelegate::CreateLambda([OnWhiteLabelLoginRequestCompleted](const FLootLockerLoginResponse& Response) {
+        OnWhiteLabelLoginRequestCompleted.ExecuteIfBound(Response);
+    }), Remember);
 }
 
 void ULootLockerManager::WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelAccountCreationRequestCompleted)
 {
-    ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(Email, Password, OnWhiteLabelAccountCreationRequestCompleted);
+    ULootLockerSDKManager::WhiteLabelCreateAccount(Email, Password, FLootLockerLoginResponseDelegate::CreateLambda([OnWhiteLabelAccountCreationRequestCompleted](const FLootLockerLoginResponse& Response) {
+        OnWhiteLabelAccountCreationRequestCompleted.ExecuteIfBound(Response);
+    }));
 }
 
 void ULootLockerManager::GuestLogin(const FAuthResponseBP& OnCompletedRequestBP, const FString& PlayerIdentifier, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::GuestLogin(PlayerIdentifier, Optionals, OnCompletedRequestBP);
+    ULootLockerSDKManager::GuestLogin(FLootLockerSessionResponse::CreateLambda([OnCompletedRequestBP](const FLootLockerAuthenticationResponse& Response) {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), PlayerIdentifier, Optionals);
 }
 
 void ULootLockerManager::StartDiscordSession(const FString& AccessToken, const FDiscordSessionResponseBP& OnStartedDiscordSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerAuthenticationRequestHandler::StartDiscordSession(AccessToken, Optionals, OnStartedDiscordSessionRequestCompleted);
+    ULootLockerSDKManager::StartDiscordSession(AccessToken, FLootLockerDiscordSessionResponseDelegate::CreateLambda([OnStartedDiscordSessionRequestCompleted](const FLootLockerDiscordSessionResponse& Response) {
+        OnStartedDiscordSessionRequestCompleted.ExecuteIfBound(Response);
+    }), Optionals);
 }
 
 void ULootLockerManager::RefreshDiscordSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FDiscordSessionResponseBP& OnRefreshDiscordSessionCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    const FString& TokenToUse = RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken;
-    ULootLockerAuthenticationRequestHandler::RefreshDiscordSession(TokenToUse, Optionals, OnRefreshDiscordSessionCompleted);
+    ULootLockerSDKManager::RefreshDiscordSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, FLootLockerDiscordSessionResponseDelegate::CreateLambda([OnRefreshDiscordSessionCompleted](const FLootLockerDiscordSessionResponse& Response) {
+        OnRefreshDiscordSessionCompleted.ExecuteIfBound(Response);
+    }), Optionals);
 }
 
 void ULootLockerManager::VerifyPlayer(const FString& ForPlayerWithUlid, const FString& PlatformToken, const FLootLockerDefaultResponseBP& OnVerifyPlayerRequestCompleted, const FString Platform /*= FString()*/)
 {
-    ULootLockerAuthenticationRequestHandler::VerifyPlayer(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlatformToken, Platform, -1, OnVerifyPlayerRequestCompleted);
+#pragma warning(disable : 4996)
+    ULootLockerSDKManager::VerifyPlayer(PlatformToken, FLootLockerDefaultDelegate::CreateLambda([OnVerifyPlayerRequestCompleted](const FLootLockerResponse& Response)
+    {
+        OnVerifyPlayerRequestCompleted.ExecuteIfBound(Response);
+    }), Platform, ForPlayerWithUlid);
+#pragma warning(default : 4996)
 }
 
 void ULootLockerManager::EndSession(const FString& ForPlayerWithUlid, const FLootLockerDefaultResponseBP& OnEndSessionRequestCompleted)
 {
-    ULootLockerAuthenticationRequestHandler::EndSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnEndSessionRequestCompleted);
+    ULootLockerSDKManager::EndSession(FLootLockerDefaultDelegate::CreateLambda([OnEndSessionRequestCompleted](const FLootLockerResponse& Response)
+    {
+        OnEndSessionRequestCompleted.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 //==================================================
