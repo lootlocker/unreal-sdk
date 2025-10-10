@@ -525,32 +525,50 @@ void ULootLockerManager::DeletePlayer(const FString& ForPlayerWithUlid, const FL
 
 void ULootLockerManager::UploadFile(const FString& ForPlayerWithUlid, const FLootLockerFileUploadRequest& Request, const FLootLockerUploadFileBP& OnComplete)
 {
-    ULLPlayerFilesRequestHandler::UploadFile(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, OnComplete);
+    ULootLockerSDKManager::UploadFile(Request, FLootLockerUploadFileDelegate::CreateLambda([OnComplete](FLootLockerPlayerFileResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::UpdateFile(const FString& ForPlayerWithUlid, const int32 FileId, const FLootLockerFileUpdateRequest& Request, const FLootLockerUploadFileBP& OnComplete)
 {
-    ULLPlayerFilesRequestHandler::UpdateFile(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FileId, Request, OnComplete);
+    ULootLockerSDKManager::UpdateFile(FileId, Request, FLootLockerUploadFileDelegate::CreateLambda([OnComplete](FLootLockerPlayerFileResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ListFiles(const FString& ForPlayerWithUlid, const FLootLockerFileListBP& OnComplete)
 {
-    ULLPlayerFilesRequestHandler::ListFiles(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnComplete, FLootLockerFileListDelegate());
+    ULootLockerSDKManager::ListFiles(FLootLockerFileListDelegate::CreateLambda([OnComplete](FLootLockerFileListResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ListOtherPlayersPublicFiles(const FString& ForPlayerWithUlid, const int32 PlayerID, const FLootLockerFileListBP& OnCompleteBP)
 {
-    ULLPlayerFilesRequestHandler::ListOtherPlayersPublicFiles(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlayerID, OnCompleteBP);
+    ULootLockerSDKManager::ListOtherPlayersPublicFiles(PlayerID, FLootLockerFileListDelegate::CreateLambda([OnCompleteBP](FLootLockerFileListResponse Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetSingleFile(const FString& ForPlayerWithUlid, const int32 FileID, const FLootLockerUploadFileBP& OnComplete)
 {
-    ULLPlayerFilesRequestHandler::GetSingleFile(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FileID, OnComplete);
+    ULootLockerSDKManager::GetSingleFile(FileID, FLootLockerUploadFileDelegate::CreateLambda([OnComplete](FLootLockerPlayerFileResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::DeletePlayerFile(const FString& ForPlayerWithUlid, const int32 FileID, const FLootLockerFileDeletedBP& OnComplete)
 {
-    ULLPlayerFilesRequestHandler::DeletePlayerFile(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FileID, OnComplete);
+    ULootLockerSDKManager::DeletePlayerFile(FileID, FLootLockerFileDeletedDelegate::CreateLambda([OnComplete](FLootLockerResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 // Player Progressions
