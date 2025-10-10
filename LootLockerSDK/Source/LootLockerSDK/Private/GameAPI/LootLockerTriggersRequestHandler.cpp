@@ -6,9 +6,9 @@
 
 ULootLockerHttpClient* ULootLockerTriggersRequestHandler::HttpClient = nullptr;
 
-void ULootLockerTriggersRequestHandler::InvokeTriggersByKey(const FLootLockerPlayerData& PlayerData, const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseBP& OnCompleteBP, const FLootLockerInvokeTriggersByKeyResponseDelegate& OnComplete)
+void ULootLockerTriggersRequestHandler::InvokeTriggersByKey(const FLootLockerPlayerData& PlayerData, const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerInvokeTriggersByKeyResponse>::CallAPI(HttpClient, FLootLockerInvokeTriggersByKeyRequest{ KeysToInvoke }, ULootLockerGameEndpoints::InvokeTriggers, {}, {}, PlayerData, OnCompleteBP, OnComplete);
+    LLAPI<FLootLockerInvokeTriggersByKeyResponse>::CallAPI(HttpClient, FLootLockerInvokeTriggersByKeyRequest{ KeysToInvoke }, ULootLockerGameEndpoints::InvokeTriggers, {}, {}, PlayerData, FLootLockerInvokeTriggersByKeyResponseBP(), OnComplete);
 }
 
 ULootLockerTriggersRequestHandler::ULootLockerTriggersRequestHandler()
