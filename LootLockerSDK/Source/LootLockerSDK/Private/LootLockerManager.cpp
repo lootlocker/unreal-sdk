@@ -1471,12 +1471,18 @@ void ULootLockerManager::IncrementScore(FString MemberId, const FString Leaderbo
 
 void ULootLockerManager::ListLeaderboardArchive(const FString& ForPlayerWithUlid, const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerLeaderboardArchiveRequestHandler::ListLeaderboardArchive(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), LeaderboardKey, OnCompletedRequestBP);
+    ULootLockerSDKManager::ListLeaderboardArchive(LeaderboardKey, FLootLockerLeaderboardArchiveResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerLeaderboardArchiveResponse Response)
+        {
+            OnCompletedRequestBP.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetLeaderboardArchive(const FString& ForPlayerWithUlid, const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailReponseBP& OnCompletedRequestBP)
 {
-    ULootLockerLeaderboardArchiveRequestHandler::GetLeaderboardArchive(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Key, Count, After, OnCompletedRequestBP);
+    ULootLockerSDKManager::GetLeaderboardArchive(Key, Count, After, FLootLockerLeaderboardArchiveDetailResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerLeaderboardArchiveDetailsResponse Response)
+        {
+            OnCompletedRequestBP.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetLeaderboardDetails(const FString& ForPlayerWithUlid, const FString& LeaderboardKey, const FLootLockerLeaderboardDetailsResponseBP& OnCompletedRequestBP)
