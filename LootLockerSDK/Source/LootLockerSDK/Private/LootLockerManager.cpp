@@ -1684,22 +1684,34 @@ void ULootLockerManager::SendUGCFeedback(const FString& ForPlayerWithUlid, const
 
 void ULootLockerManager::ListMetadata(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnComplete)
 {
-    ULootLockerMetadataRequestHandler::ListMetadata(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Source, SourceID, Page, PerPage, FString(), TArray<FString>(), IgnoreFiles, OnComplete);
+    ULootLockerSDKManager::ListMetadata(Source, SourceID, Page, PerPage, FLootLockerListMetadataResponseDelegate::CreateLambda([OnComplete](FLootLockerListMetadataResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), IgnoreFiles, ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ListMetadataWithTags(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FString>& Tags, const int Page, const int PerPage, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnComplete)
 {
-    ULootLockerMetadataRequestHandler::ListMetadata(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Source, SourceID, Page, PerPage, FString(), Tags, IgnoreFiles, OnComplete);
+    ULootLockerSDKManager::ListMetadataWithTags(Source, SourceID, Tags, Page, PerPage, FLootLockerListMetadataResponseDelegate::CreateLambda([OnComplete](FLootLockerListMetadataResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), IgnoreFiles, ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetMetadata(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const FString& Key, const bool IgnoreFiles, const FLootLockerGetMetadataResponseBP& OnComplete)
 {
-    ULootLockerMetadataRequestHandler::GetMetadata(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Source, SourceID, Key, IgnoreFiles, OnComplete);
+    ULootLockerSDKManager::GetMetadata(Source, SourceID, Key, FLootLockerGetMetadataResponseDelegate::CreateLambda([OnComplete](FLootLockerGetMetadataResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), IgnoreFiles, ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetMultisourceMetadata(const FString& ForPlayerWithUlid, const TArray<FLootLockerMetadataSourceAndKeys>& SourcesAndKeysToGet, const bool IgnoreFiles, const FLootLockerGetMultisourceMetadataResponseBP& OnComplete)
 {
-    ULootLockerMetadataRequestHandler::GetMultisourceMetadata(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), SourcesAndKeysToGet, IgnoreFiles, OnComplete);
+    ULootLockerSDKManager::GetMultisourceMetadata(SourcesAndKeysToGet, FLootLockerGetMultisourceMetadataResponseDelegate::CreateLambda([OnComplete](FLootLockerGetMultisourceMetadataResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), IgnoreFiles, ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ParseLootLockerMetadataEntry(const FLootLockerMetadataEntry& Entry,
@@ -1811,7 +1823,10 @@ void ULootLockerManager::ParseLootLockerMetadataEntry(const FLootLockerMetadataE
 
 void ULootLockerManager::SetMetadata(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FLootLockerSetMetadataAction>& MetadataToActionsToPerform, const FLootLockerSetMetadataResponseBP& OnComplete)
 {
-    ULootLockerMetadataRequestHandler::SetMetadata(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Source, SourceID, MetadataToActionsToPerform, OnComplete);
+    ULootLockerSDKManager::SetMetadata(Source, SourceID, MetadataToActionsToPerform, FLootLockerSetMetadataResponseDelegate::CreateLambda([OnComplete](FLootLockerSetMetadataResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 FLootLockerSetMetadataAction ULootLockerManager::MakeMetadataActionString(ELootLockerMetadataActions Action, const FString& Key, const FString& Value, const TArray<FString>& Tags, const TArray<FString>& Access)
