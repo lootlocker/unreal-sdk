@@ -1377,7 +1377,10 @@ void ULootLockerManager::GetMaps(const FString& ForPlayerWithUlid, const FGetMap
 
 void ULootLockerManager::ActivateRentalAsset(const FString& ForPlayerWithUlid, int AssetInstanceId, const FActivateRentalAssetResponseDelegateBP& OnActivateRentalAssetCompleted)
 {
-    ULootLockerPurchasesRequestHandler::ActivateRentalAsset(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, OnActivateRentalAssetCompleted);
+    ULootLockerSDKManager::ActivateRentalAsset(AssetInstanceId, FActivateRentalAssetResponseDelegate::CreateLambda([OnActivateRentalAssetCompleted](FLootLockerActivateRentalAssetResponse Response)
+        {
+            OnActivateRentalAssetCompleted.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::LootLockerPurchaseSingleCatalogItem(const FString& ForPlayerWithUlid, const FString& WalletId, const FString& CatalogItemListingId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
@@ -1387,37 +1390,58 @@ void ULootLockerManager::LootLockerPurchaseSingleCatalogItem(const FString& ForP
 
 void ULootLockerManager::LootLockerPurchaseCatalogItems(const FString& ForPlayerWithUlid, const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair> ItemsToPurchase, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::PurchaseCatalogItems(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), WalletId, ItemsToPurchase, OnCompletedRequest);
+    ULootLockerSDKManager::LootLockerPurchaseCatalogItems(WalletId, ItemsToPurchase, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
+        {
+            OnCompletedRequest.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::RedeemAppleAppStorePurchaseForPlayer(const FString& ForPlayerWithUlid, const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::RedeemAppleAppStorePurchaseForPlayer(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), TransactionId, Sandboxed, OnCompletedRequest);
+    ULootLockerSDKManager::RedeemAppleAppStorePurchaseForPlayer(TransactionId, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
+        {
+            OnCompletedRequest.ExecuteIfBound(Response);
+        }), Sandboxed, ForPlayerWithUlid);
 }
 
 void ULootLockerManager::RedeemAppleAppStorePurchaseForClass(const FString& ForPlayerWithUlid, const int ClassId, const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::RedeemAppleAppStorePurchaseForClass(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ClassId, TransactionId, Sandboxed, OnCompletedRequest);
+    ULootLockerSDKManager::RedeemAppleAppStorePurchaseForClass(ClassId, TransactionId, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
+        {
+            OnCompletedRequest.ExecuteIfBound(Response);
+        }), Sandboxed, ForPlayerWithUlid);
 }
 
 void ULootLockerManager::RedeemGooglePlayStorePurchaseForPlayer(const FString& ForPlayerWithUlid, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForPlayer(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ProductId, PurchaseToken, OnCompletedRequest);
+    ULootLockerSDKManager::RedeemGooglePlayStorePurchaseForPlayer(ProductId, PurchaseToken, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
+        {
+            OnCompletedRequest.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::RedeemGooglePlayStorePurchaseForClass(const FString& ForPlayerWithUlid, const int ClassId, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::RedeemGooglePlayStorePurchaseForClass(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ClassId, ProductId, PurchaseToken, OnCompletedRequest);
+    ULootLockerSDKManager::RedeemGooglePlayStorePurchaseForClass(ClassId, ProductId, PurchaseToken, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
+        {
+            OnCompletedRequest.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::RedeemEpicStorePurchase(const FString& ForPlayerWithUlid, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::RedeemEpicStorePurchase(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AccountId, BearerToken, EntitlementIds, SandboxId, OnCompletedRequest);
+    ULootLockerSDKManager::RedeemEpicStorePurchase(AccountId, BearerToken, EntitlementIds, SandboxId, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
+        {
+            OnCompletedRequest.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::RedeemEpicStorePurchaseForCharacter(const FString& ForPlayerWithUlid, const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::RedeemEpicStorePurchaseForCharacter(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CharacterId, AccountId, BearerToken, EntitlementIds, SandboxId, OnCompletedRequest);
+    ULootLockerSDKManager::RedeemEpicStorePurchaseForCharacter(CharacterId, AccountId, BearerToken, EntitlementIds, SandboxId, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
+        {
+            OnCompletedRequest.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 #ifdef LOOTLOCKER_BETA_PLAYSTATION_IAP
@@ -1434,22 +1458,34 @@ void ULootLockerManager::RedeemEpicStorePurchaseForCharacter(const FString& ForP
 
 void ULootLockerManager::BeginSteamPurchaseRedemption(const FString& ForPlayerWithUlid, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::BeginSteamPurchaseRedemption(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), SteamId, Currency, Language, CatalogItemId, OnCompletedRequest);
+    ULootLockerSDKManager::BeginSteamPurchaseRedemption(SteamId, Currency, Language, CatalogItemId, FLootLockerBeginSteamPurchaseRedemptionDelegate::CreateLambda([OnCompletedRequest](FLootLockerBeginSteamPurchaseRedemptionResponse Response)
+        {
+            OnCompletedRequest.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::BeginSteamPurchaseRedemptionForClass(const FString& ForPlayerWithUlid, const int ClassId, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::BeginSteamPurchaseRedemptionForClass(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ClassId, SteamId, Currency, Language, CatalogItemId, OnCompletedRequest);
+    ULootLockerSDKManager::BeginSteamPurchaseRedemptionForClass(ClassId, SteamId, Currency, Language, CatalogItemId, FLootLockerBeginSteamPurchaseRedemptionDelegate::CreateLambda([OnCompletedRequest](FLootLockerBeginSteamPurchaseRedemptionResponse Response)
+        {
+            OnCompletedRequest.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::QuerySteamPurchaseRedemptionStatus(const FString& ForPlayerWithUlid, const FString& EntitlementId, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegateBP& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::QuerySteamPurchaseRedemptionStatus(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), EntitlementId, OnCompletedRequest);
+    ULootLockerSDKManager::QuerySteamPurchaseRedemptionStatus(EntitlementId, FLootLockerQuerySteamPurchaseRedemptionStatusDelegate::CreateLambda([OnCompletedRequest](FLootLockerQuerySteamPurchaseRedemptionStatusResponse Response)
+        {
+            OnCompletedRequest.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::FinalizeSteamPurchaseRedemption(const FString& ForPlayerWithUlid, const FString& EntitlementId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerPurchasesRequestHandler::FinalizeSteamPurchaseRedemption(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), EntitlementId, OnCompletedRequest);
+    ULootLockerSDKManager::FinalizeSteamPurchaseRedemption(EntitlementId, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
+        {
+            OnCompletedRequest.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 //Triggers

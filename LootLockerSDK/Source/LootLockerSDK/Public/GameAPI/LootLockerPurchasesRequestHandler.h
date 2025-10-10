@@ -296,33 +296,33 @@ class LOOTLOCKERSDK_API ULootLockerPurchasesRequestHandler : public UObject
     GENERATED_BODY()
 public:
 
-    static void ActivateRentalAsset(const FLootLockerPlayerData& PlayerData, int AssetInstanceId, const FActivateRentalAssetResponseDelegateBP& OnCompletedRequestBP = FActivateRentalAssetResponseDelegateBP(), const FActivateRentalAssetResponseDelegate& OnCompletedRequest = FActivateRentalAssetResponseDelegate());
+    static void ActivateRentalAsset(const FLootLockerPlayerData& PlayerData, int AssetInstanceId, const FActivateRentalAssetResponseDelegate& OnCompletedRequest = FActivateRentalAssetResponseDelegate());
 
-    static void PurchaseCatalogItems(const FLootLockerPlayerData& PlayerData, const FString& WalletID, const TArray<FLootLockerCatalogItemAndQuantityPair>& ItemsToPurchase, const FLootLockerDefaultResponseBP& OnCompletedBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
+    static void PurchaseCatalogItems(const FLootLockerPlayerData& PlayerData, const FString& WalletID, const TArray<FLootLockerCatalogItemAndQuantityPair>& ItemsToPurchase, const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
 
-    static void RedeemAppleAppStorePurchaseForPlayer(const FLootLockerPlayerData& PlayerData, const FString& TransactionId, const bool Sandboxed = false, const FLootLockerDefaultResponseBP& OnCompletedBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
+    static void RedeemAppleAppStorePurchaseForPlayer(const FLootLockerPlayerData& PlayerData, const FString& TransactionId, const bool Sandboxed = false, const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
 
-    static void RedeemAppleAppStorePurchaseForClass(const FLootLockerPlayerData& PlayerData, const int ClassId, const FString& TransactionId, const bool Sandboxed = false, const FLootLockerDefaultResponseBP& OnCompletedBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
+    static void RedeemAppleAppStorePurchaseForClass(const FLootLockerPlayerData& PlayerData, const int ClassId, const FString& TransactionId, const bool Sandboxed = false, const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
 
-    static void RedeemGooglePlayStorePurchaseForPlayer(const FLootLockerPlayerData& PlayerData, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
+    static void RedeemGooglePlayStorePurchaseForPlayer(const FLootLockerPlayerData& PlayerData, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
 
-    static void RedeemGooglePlayStorePurchaseForClass(const FLootLockerPlayerData& PlayerData, const int ClassId, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
+    static void RedeemGooglePlayStorePurchaseForClass(const FLootLockerPlayerData& PlayerData, const int ClassId, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
 
-    static void RedeemEpicStorePurchase(const FLootLockerPlayerData& PlayerData, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
+    static void RedeemEpicStorePurchase(const FLootLockerPlayerData& PlayerData, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
 
-    static void RedeemEpicStorePurchaseForCharacter(const FLootLockerPlayerData& PlayerData, const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
+    static void RedeemEpicStorePurchaseForCharacter(const FLootLockerPlayerData& PlayerData, const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
 
-    static void RedeemPlayStationStorePurchaseForPlayer(const FLootLockerPlayerData& PlayerData, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel = "", const FString& ServiceName = "", const int Environment = -1, const int UseCount = -1, const FLootLockerDefaultResponseBP& OnCompletedBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
+    static void RedeemPlayStationStorePurchaseForPlayer(const FLootLockerPlayerData& PlayerData, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel = "", const FString& ServiceName = "", const int Environment = -1, const int UseCount = -1, const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
 
-    static void RedeemPlayStationStorePurchaseForCharacter(const FLootLockerPlayerData& PlayerData, const FString& CharacterId, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel = "", const FString& ServiceName = "", const int Environment = -1, const int UseCount = -1, const FLootLockerDefaultResponseBP& OnCompletedBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
+    static void RedeemPlayStationStorePurchaseForCharacter(const FLootLockerPlayerData& PlayerData, const FString& CharacterId, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel = "", const FString& ServiceName = "", const int Environment = -1, const int UseCount = -1, const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
 
-    static void BeginSteamPurchaseRedemption(const FLootLockerPlayerData& PlayerData, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedBP = FLootLockerBeginSteamPurchaseRedemptionDelegateBP(), const FLootLockerBeginSteamPurchaseRedemptionDelegate& OnCompleted = FLootLockerBeginSteamPurchaseRedemptionDelegate());
+    static void BeginSteamPurchaseRedemption(const FLootLockerPlayerData& PlayerData, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegate& OnCompleted = FLootLockerBeginSteamPurchaseRedemptionDelegate());
 
-    static void BeginSteamPurchaseRedemptionForClass(const FLootLockerPlayerData& PlayerData, const int ClassId, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedBP = FLootLockerBeginSteamPurchaseRedemptionDelegateBP(), const FLootLockerBeginSteamPurchaseRedemptionDelegate& OnCompleted = FLootLockerBeginSteamPurchaseRedemptionDelegate());
+    static void BeginSteamPurchaseRedemptionForClass(const FLootLockerPlayerData& PlayerData, const int ClassId, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegate& OnCompleted = FLootLockerBeginSteamPurchaseRedemptionDelegate());
 
-    static void QuerySteamPurchaseRedemptionStatus(const FLootLockerPlayerData& PlayerData, const FString& EntitlementId, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegateBP& OnCompletedBP = FLootLockerQuerySteamPurchaseRedemptionStatusDelegateBP(), const FLootLockerQuerySteamPurchaseRedemptionStatusDelegate& OnCompleted = FLootLockerQuerySteamPurchaseRedemptionStatusDelegate());
+    static void QuerySteamPurchaseRedemptionStatus(const FLootLockerPlayerData& PlayerData, const FString& EntitlementId, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegate& OnCompleted = FLootLockerQuerySteamPurchaseRedemptionStatusDelegate());
 
-    static void FinalizeSteamPurchaseRedemption(const FLootLockerPlayerData& PlayerData, const FString& EntitlementId, const FLootLockerDefaultResponseBP& OnCompletedBP = FLootLockerDefaultResponseBP(), const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
+    static void FinalizeSteamPurchaseRedemption(const FLootLockerPlayerData& PlayerData, const FString& EntitlementId, const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
 public:
     ULootLockerPurchasesRequestHandler();
 
