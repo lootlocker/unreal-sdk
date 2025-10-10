@@ -60,7 +60,7 @@ class LOOTLOCKERSDK_API ULootLockerMapsRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
-    static void GetMaps(const FLootLockerPlayerData& PlayerData);
+    static void GetMaps(const FLootLockerPlayerData& PlayerData, const FGetMapsResponseDelegate& OnCompletedRequest = FGetMapsResponseDelegate());
 public:
     ULootLockerMapsRequestHandler();
     
