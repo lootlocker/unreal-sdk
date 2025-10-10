@@ -396,20 +396,15 @@ public:
     static void CancelRemoteSessionProcess(const FString& ProcessID);
     static FString StartRemoteSession(
         ELootLockerRemoteSessionLeaseIntent Intent = ELootLockerRemoteSessionLeaseIntent::login,
-        const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformationBP = FLootLockerLeaseRemoteSessionResponseDelegateBP(),
         const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation = FLootLockerLeaseRemoteSessionResponseDelegate(),
-        const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdateBP = FLootLockerRemoteSessionStatusPollingResponseDelegateBP(),
         const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate = FLootLockerRemoteSessionStatusPollingResponseDelegate(),
-        const FLootLockerStartRemoteSessionResponseDelegateBP& OnCompleteBP = FLootLockerStartRemoteSessionResponseDelegateBP(),
         const FLootLockerStartRemoteSessionResponseDelegate& OnComplete = FLootLockerStartRemoteSessionResponseDelegate(),
         float PollingIntervalSeconds = 1.0f,
         float TimeOutAfterMinutes = 5.0f,
         const FString& ForPlayerWithUlid = "");
-    static void RefreshRemoteSession(const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegateBP& OnCompleteBP = FLootLockerRefreshRemoteSessionResponseDelegateBP(), const FLootLockerRefreshRemoteSessionResponseDelegate& OnComplete = FLootLockerRefreshRemoteSessionResponseDelegate());
+    static void RefreshRemoteSession(const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegate& OnComplete = FLootLockerRefreshRemoteSessionResponseDelegate());
     static void ContinualPollingAction(const FString& ProcessID,
-        const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdateBP = FLootLockerRemoteSessionStatusPollingResponseDelegateBP(),
         const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate = FLootLockerRemoteSessionStatusPollingResponseDelegate(),
-        const FLootLockerStartRemoteSessionResponseDelegateBP& OnCompleteBP = FLootLockerStartRemoteSessionResponseDelegateBP(),
         const FLootLockerStartRemoteSessionResponseDelegate& OnComplete = FLootLockerStartRemoteSessionResponseDelegate());
     static void KillProcess(const FString& ProcessID);
 
