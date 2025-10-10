@@ -105,9 +105,9 @@ class LOOTLOCKERSDK_API ULootLockerMiscellaneousRequestHandler : public UObject
 public:
 	ULootLockerMiscellaneousRequestHandler();
     
-	static void GetServerTime(const FLootLockerPlayerData& PlayerData, const FTimeResponseDelegateBP& OnCompletedRequestBP = FTimeResponseDelegateBP(), const FTimeResponseDelegate& OnCompletedRequest = FTimeResponseDelegate());
+	static void GetServerTime(const FLootLockerPlayerData& PlayerData, const FTimeResponseDelegate& OnCompletedRequest = FTimeResponseDelegate());
 	static FString GetLastActivePlatform(const FLootLockerPlayerData& PlayerData);
-    static void GetGameInfo(const FGameInfoResponseDelegateBP& OnCompletedRequestBP = FGameInfoResponseDelegateBP(), const FGameInfoResponseDelegate& OnCompletedRequest = FGameInfoResponseDelegate());
+    static void GetGameInfo(const FGameInfoResponseDelegate& OnCompletedRequest = FGameInfoResponseDelegate());
 public:
 	static ULootLockerHttpClient* HttpClient;
 };

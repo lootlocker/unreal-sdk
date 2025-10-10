@@ -11,9 +11,9 @@ ULootLockerMiscellaneousRequestHandler::ULootLockerMiscellaneousRequestHandler()
 	HttpClient = NewObject<ULootLockerHttpClient>();
 }
 
-void ULootLockerMiscellaneousRequestHandler::GetServerTime(const FLootLockerPlayerData& PlayerData, const FTimeResponseDelegateBP& OnCompletedRequestBP, const FTimeResponseDelegate& OnCompletedRequest)
+void ULootLockerMiscellaneousRequestHandler::GetServerTime(const FLootLockerPlayerData& PlayerData, const FTimeResponseDelegate& OnCompletedRequest)
 {
-	LLAPI<FLootLockerTimeResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetServerTimeEndpoint, { },EmptyQueryParams, PlayerData, OnCompletedRequestBP, OnCompletedRequest);
+	LLAPI<FLootLockerTimeResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetServerTimeEndpoint, { },EmptyQueryParams, PlayerData, FTimeResponseDelegateBP(), OnCompletedRequest);
 }
 
 FString ULootLockerMiscellaneousRequestHandler::GetLastActivePlatform(const FLootLockerPlayerData& PlayerData)
@@ -21,7 +21,7 @@ FString ULootLockerMiscellaneousRequestHandler::GetLastActivePlatform(const FLoo
 	return PlayerData.CurrentPlatform.GetFriendlyPlatformString();
 }
 
-void ULootLockerMiscellaneousRequestHandler::GetGameInfo(const FGameInfoResponseDelegateBP& OnCompletedRequestBP, const FGameInfoResponseDelegate& OnCompletedRequest)
+void ULootLockerMiscellaneousRequestHandler::GetGameInfo(const FGameInfoResponseDelegate& OnCompletedRequest)
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	FLootLockerGameInfoRequest Request { config->LootLockerGameKey };
@@ -32,7 +32,7 @@ void ULootLockerMiscellaneousRequestHandler::GetGameInfo(const FGameInfoResponse
         {},
         EmptyQueryParams,
         FLootLockerPlayerData(),
-        OnCompletedRequestBP,
+        FGameInfoResponseDelegateBP(),
         OnCompletedRequest
     );
 }
