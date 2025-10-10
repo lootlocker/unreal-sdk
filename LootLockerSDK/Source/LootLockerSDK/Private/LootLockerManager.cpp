@@ -1306,17 +1306,26 @@ void ULootLockerManager::InvokeTriggersByKey(const FString& ForPlayerWithUlid, c
 //Notifications
 void ULootLockerManager::ListNotificationsWithDefaultParameters(const FString& ForPlayerWithUlid, const FLootLockerListNotificationsResponseBP& OnComplete)
 {
-    ULootLockerNotificationsRequestHandler::ListNotificationsWithDefaultParameters(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnComplete);
+    ULootLockerSDKManager::ListNotificationsWithDefaultParameters(FLootLockerListNotificationsResponseDelegate::CreateLambda([OnComplete](FLootLockerListNotificationsResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ListNotifications(const FString& ForPlayerWithUlid, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete)
 {
-    ULootLockerNotificationsRequestHandler::ListNotifications(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ShowRead, OfType, WithSource, CustomNotificationsFilter, PerPage, Page, OnComplete);
+    ULootLockerSDKManager::ListNotifications(ShowRead, OfType, WithSource, CustomNotificationsFilter, PerPage, Page, FLootLockerListNotificationsResponseDelegate::CreateLambda([OnComplete](FLootLockerListNotificationsResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ListNotificationsWithPriority(const FString& ForPlayerWithUlid, ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete)
 {
-    ULootLockerNotificationsRequestHandler::ListNotifications(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), WithPriority, ShowRead, OfType, WithSource, CustomNotificationsFilter, PerPage, Page, OnComplete);
+    ULootLockerSDKManager::ListNotificationsWithPriority(WithPriority, ShowRead, OfType, WithSource, CustomNotificationsFilter, PerPage, Page, FLootLockerListNotificationsResponseDelegate::CreateLambda([OnComplete](FLootLockerListNotificationsResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 bool ULootLockerManager::TryGetContentBodyAsString(const FLootLockerNotificationContent& Content, FString& OutValue)
@@ -1361,25 +1370,26 @@ bool ULootLockerManager::TryGetContentBodyAsRewardNotification(const FLootLocker
 
 void ULootLockerManager::MarkAllNotificationsAsRead(const FString& ForPlayerWithUlid, const FLootLockerReadNotificationsResponseBP& OnComplete)
 {
-    ULootLockerNotificationsRequestHandler::MarkAllNotificationsAsRead(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnComplete);
+    ULootLockerSDKManager::MarkAllNotificationsAsRead(FLootLockerReadNotificationsResponseDelegate::CreateLambda([OnComplete](FLootLockerReadNotificationsResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::MarkNotificationsAsRead(const FString& ForPlayerWithUlid, const TArray<FLootLockerNotification>& Notifications, const FLootLockerReadNotificationsResponseBP& OnComplete)
 {
-    TArray<FString> UnreadNotificationIds;
-    for (const FLootLockerNotification& Notification : Notifications)
+    ULootLockerSDKManager::MarkNotificationsAsRead(Notifications, FLootLockerReadNotificationsResponseDelegate::CreateLambda([OnComplete](FLootLockerReadNotificationsResponse Response)
     {
-        if (!Notification.Read)
-        {
-            UnreadNotificationIds.Add(Notification.Id);
-        }
-    }
-    MarkNotificationsAsReadByIds(ForPlayerWithUlid, UnreadNotificationIds, OnComplete);
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::MarkNotificationsAsReadByIds(const FString& ForPlayerWithUlid, const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseBP& OnComplete)
 {
-    ULootLockerNotificationsRequestHandler::MarkNotificationsAsRead(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), NotificationIDs, OnComplete);
+    ULootLockerSDKManager::MarkNotificationsAsReadByIds(NotificationIDs, FLootLockerReadNotificationsResponseDelegate::CreateLambda([OnComplete](FLootLockerReadNotificationsResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 bool ULootLockerManager::TryGetNotificationsByIdentifyingValue(const FLootLockerListNotificationsResponse& NotificationsResponse, const FString& IdentifyingValue, TArray<FLootLockerNotification>& Notifications)
