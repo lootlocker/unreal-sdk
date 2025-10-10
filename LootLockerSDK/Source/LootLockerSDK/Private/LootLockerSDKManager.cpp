@@ -310,11 +310,8 @@ FString ULootLockerSDKManager::StartRemoteSession(
 {
     return ULootLockerRemoteSessionRequestHandler::StartRemoteSession(
         ELootLockerRemoteSessionLeaseIntent::login,
-        FLootLockerLeaseRemoteSessionResponseDelegateBP(),
         RemoteSessionLeaseInformation,
-        FLootLockerRemoteSessionStatusPollingResponseDelegateBP(),
         RemoteSessionLeaseStatusUpdate,
-        FLootLockerStartRemoteSessionResponseDelegateBP(),
         OnComplete,
         PollingIntervalSeconds,
         TimeOutAfterMinutes,
@@ -331,11 +328,8 @@ FString ULootLockerSDKManager::StartRemoteSessionForLinking(
 {
     return ULootLockerRemoteSessionRequestHandler::StartRemoteSession(
         ELootLockerRemoteSessionLeaseIntent::link,
-        FLootLockerLeaseRemoteSessionResponseDelegateBP(),
         RemoteSessionLeaseInformation,
-        FLootLockerRemoteSessionStatusPollingResponseDelegateBP(),
         RemoteSessionLeaseStatusUpdate,
-        FLootLockerStartRemoteSessionResponseDelegateBP(),
         OnComplete,
         PollingIntervalSeconds,
         TimeOutAfterMinutes,
@@ -349,7 +343,7 @@ void ULootLockerSDKManager::CancelRemoteSessionProcess(const FString& ProcessID)
 
 void ULootLockerSDKManager::RefreshRemoteSession(const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegate& OnCompletedRequest)
 {
-    ULootLockerRemoteSessionRequestHandler::RefreshRemoteSession(RefreshToken, FLootLockerRefreshRemoteSessionResponseDelegateBP(), OnCompletedRequest);
+    ULootLockerRemoteSessionRequestHandler::RefreshRemoteSession(RefreshToken, OnCompletedRequest);
 }
 
 //Player
@@ -1097,7 +1091,7 @@ void ULootLockerSDKManager::FinalizeSteamPurchaseRedemption(const FString& Entit
 //Triggers
 void ULootLockerSDKManager::InvokeTriggersByKey(const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerTriggersRequestHandler::InvokeTriggersByKey(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), KeysToInvoke, FLootLockerInvokeTriggersByKeyResponseBP(), OnComplete);
+    ULootLockerTriggersRequestHandler::InvokeTriggersByKey(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), KeysToInvoke, OnComplete);
 }
 
 //Notifications
