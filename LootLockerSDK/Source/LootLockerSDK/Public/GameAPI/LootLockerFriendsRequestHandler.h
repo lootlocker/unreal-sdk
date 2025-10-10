@@ -221,33 +221,33 @@ class LOOTLOCKERSDK_API ULootLockerFriendsRequestHandler : public UObject
 public:
     ULootLockerFriendsRequestHandler();
 
-    static void ListFriends(const FLootLockerPlayerData& PlayerData, const FLootLockerListFriendsResponseBP& OnResponseCompletedBP = FLootLockerListFriendsResponseBP(), const FLootLockerListFriendsResponseDelegate& OnResponseCompleted = FLootLockerListFriendsResponseDelegate());
-    static void ListFriendsPaginated(const FLootLockerPlayerData& PlayerData, int32 Page, int32 PerPage, const FLootLockerListFriendsResponseBP& OnResponseCompletedBP = FLootLockerListFriendsResponseBP(), const FLootLockerListFriendsResponseDelegate& OnResponseCompleted = FLootLockerListFriendsResponseDelegate());
+    static void ListFriends(const FLootLockerPlayerData& PlayerData, const FLootLockerListFriendsResponseDelegate& OnResponseCompleted = FLootLockerListFriendsResponseDelegate());
+    static void ListFriendsPaginated(const FLootLockerPlayerData& PlayerData, int32 Page, int32 PerPage, const FLootLockerListFriendsResponseDelegate& OnResponseCompleted = FLootLockerListFriendsResponseDelegate());
 
-    static void ListIncomingFriendRequests(const FLootLockerPlayerData& PlayerData, const FLootLockerListIncomingFriendRequestsResponseBP& OnResponseCompletedBP = FLootLockerListIncomingFriendRequestsResponseBP(), const FLootLockerListIncomingFriendRequestsResponseDelegate& OnResponseCompleted = FLootLockerListIncomingFriendRequestsResponseDelegate());
-    static void ListIncomingFriendRequestsPaginated(const FLootLockerPlayerData& PlayerData, int32 Page, int32 PerPage, const FLootLockerListIncomingFriendRequestsResponseBP& OnResponseCompletedBP = FLootLockerListIncomingFriendRequestsResponseBP(), const FLootLockerListIncomingFriendRequestsResponseDelegate& OnResponseCompleted = FLootLockerListIncomingFriendRequestsResponseDelegate());
+    static void ListIncomingFriendRequests(const FLootLockerPlayerData& PlayerData, const FLootLockerListIncomingFriendRequestsResponseDelegate& OnResponseCompleted = FLootLockerListIncomingFriendRequestsResponseDelegate());
+    static void ListIncomingFriendRequestsPaginated(const FLootLockerPlayerData& PlayerData, int32 Page, int32 PerPage, const FLootLockerListIncomingFriendRequestsResponseDelegate& OnResponseCompleted = FLootLockerListIncomingFriendRequestsResponseDelegate());
 
-    static void ListOutgoingFriendRequests(const FLootLockerPlayerData& PlayerData, const FLootLockerListOutgoingFriendRequestsResponseBP& OnResponseCompletedBP = FLootLockerListOutgoingFriendRequestsResponseBP(), const FLootLockerListOutgoingFriendRequestsResponseDelegate& OnResponseCompleted = FLootLockerListOutgoingFriendRequestsResponseDelegate());
-    static void ListOutgoingFriendRequestsPaginated(const FLootLockerPlayerData& PlayerData, int32 Page, int32 PerPage, const FLootLockerListOutgoingFriendRequestsResponseBP& OnResponseCompletedBP = FLootLockerListOutgoingFriendRequestsResponseBP(), const FLootLockerListOutgoingFriendRequestsResponseDelegate& OnResponseCompleted = FLootLockerListOutgoingFriendRequestsResponseDelegate());
+    static void ListOutgoingFriendRequests(const FLootLockerPlayerData& PlayerData, const FLootLockerListOutgoingFriendRequestsResponseDelegate& OnResponseCompleted = FLootLockerListOutgoingFriendRequestsResponseDelegate());
+    static void ListOutgoingFriendRequestsPaginated(const FLootLockerPlayerData& PlayerData, int32 Page, int32 PerPage, const FLootLockerListOutgoingFriendRequestsResponseDelegate& OnResponseCompleted = FLootLockerListOutgoingFriendRequestsResponseDelegate());
 
-    static void SendFriendRequest(const FLootLockerPlayerData& PlayerData, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP = FLootLockerFriendActionResponseBP(), const FLootLockerFriendActionResponseDelegate& OnResponseCompleted = FLootLockerFriendActionResponseDelegate());
+    static void SendFriendRequest(const FLootLockerPlayerData& PlayerData, const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted = FLootLockerFriendActionResponseDelegate());
 
-    static void DeleteFriend(const FLootLockerPlayerData& PlayerData, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP = FLootLockerFriendActionResponseBP(), const FLootLockerFriendActionResponseDelegate& OnResponseCompleted = FLootLockerFriendActionResponseDelegate());
+    static void DeleteFriend(const FLootLockerPlayerData& PlayerData, const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted = FLootLockerFriendActionResponseDelegate());
 
-    static void CancelOutgoingFriendRequest(const FLootLockerPlayerData& PlayerData, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP = FLootLockerFriendActionResponseBP(), const FLootLockerFriendActionResponseDelegate& OnResponseCompleted = FLootLockerFriendActionResponseDelegate());
+    static void CancelOutgoingFriendRequest(const FLootLockerPlayerData& PlayerData, const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted = FLootLockerFriendActionResponseDelegate());
 
-    static void AcceptIncomingFriendRequest(const FLootLockerPlayerData& PlayerData, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP = FLootLockerFriendActionResponseBP(), const FLootLockerFriendActionResponseDelegate& OnResponseCompleted = FLootLockerFriendActionResponseDelegate());
+    static void AcceptIncomingFriendRequest(const FLootLockerPlayerData& PlayerData, const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted = FLootLockerFriendActionResponseDelegate());
 
-    static void DeclineIncomingFriendRequest(const FLootLockerPlayerData& PlayerData, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP = FLootLockerFriendActionResponseBP(), const FLootLockerFriendActionResponseDelegate& OnResponseCompleted = FLootLockerFriendActionResponseDelegate());
+    static void DeclineIncomingFriendRequest(const FLootLockerPlayerData& PlayerData, const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted = FLootLockerFriendActionResponseDelegate());
 
-    static void ListBlockedPlayers(const FLootLockerPlayerData& PlayerData, const FLootLockerListBlockedPlayersResponseBP& OnResponseCompletedBP = FLootLockerListBlockedPlayersResponseBP(), const FLootLockerListBlockedPlayersResponseDelegate& OnResponseCompleted = FLootLockerListBlockedPlayersResponseDelegate());
-    static void ListBlockedPlayersPaginated(const FLootLockerPlayerData& PlayerData, int32 Page, int32 PerPage, const FLootLockerListBlockedPlayersResponseBP& OnResponseCompletedBP = FLootLockerListBlockedPlayersResponseBP(), const FLootLockerListBlockedPlayersResponseDelegate& OnResponseCompleted = FLootLockerListBlockedPlayersResponseDelegate());
+    static void ListBlockedPlayers(const FLootLockerPlayerData& PlayerData, const FLootLockerListBlockedPlayersResponseDelegate& OnResponseCompleted = FLootLockerListBlockedPlayersResponseDelegate());
+    static void ListBlockedPlayersPaginated(const FLootLockerPlayerData& PlayerData, int32 Page, int32 PerPage, const FLootLockerListBlockedPlayersResponseDelegate& OnResponseCompleted = FLootLockerListBlockedPlayersResponseDelegate());
 
-    static void GetFriend(const FLootLockerPlayerData& PlayerData, const FString& FriendUlid, const FLootLockerGetFriendResponseBP& OnResponseCompletedBP = FLootLockerGetFriendResponseBP(), const FLootLockerGetFriendResponseDelegate& OnResponseCompleted = FLootLockerGetFriendResponseDelegate());
+    static void GetFriend(const FLootLockerPlayerData& PlayerData, const FString& FriendUlid, const FLootLockerGetFriendResponseDelegate& OnResponseCompleted = FLootLockerGetFriendResponseDelegate());
 
-    static void BlockPlayer(const FLootLockerPlayerData& PlayerData, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP = FLootLockerFriendActionResponseBP(), const FLootLockerFriendActionResponseDelegate& OnResponseCompleted = FLootLockerFriendActionResponseDelegate());
+    static void BlockPlayer(const FLootLockerPlayerData& PlayerData, const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted = FLootLockerFriendActionResponseDelegate());
 
-    static void UnblockPlayer(const FLootLockerPlayerData& PlayerData, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP = FLootLockerFriendActionResponseBP(), const FLootLockerFriendActionResponseDelegate& OnResponseCompleted = FLootLockerFriendActionResponseDelegate());
+    static void UnblockPlayer(const FLootLockerPlayerData& PlayerData, const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted = FLootLockerFriendActionResponseDelegate());
 
     static ULootLockerHttpClient* HttpClient;
 };
