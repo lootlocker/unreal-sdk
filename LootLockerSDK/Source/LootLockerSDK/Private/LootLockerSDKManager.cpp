@@ -1146,7 +1146,7 @@ void ULootLockerSDKManager::ListTopBroadcastsLocalized(const TArray<FString>& La
 
 void ULootLockerSDKManager::ListBroadcasts(const TArray<FString>& Languages, int32 Limit, const FLootLockerListBroadcastsResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerBroadcastRequestHandler::ListBroadcasts(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Languages, Limit, FLootLockerListBroadcastsResponseBP(), OnComplete);
+    ULootLockerBroadcastRequestHandler::ListBroadcasts(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Languages, Limit, OnComplete);
 }
 
 //Collectables
