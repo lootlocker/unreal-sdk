@@ -528,82 +528,82 @@ void ULootLockerSDKManager::GetOtherPlayersProgression(const FString& PlayerUlid
 // Heroes
 void ULootLockerSDKManager::GetGameHeroes(const FLootLockerGameHeroListDelegate& OnCompleteRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerHeroRequestHandler::GetGameHeroes(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FLootLockerGameHeroListBP(), OnCompleteRequest);
+    ULootLockerHeroRequestHandler::GetGameHeroes(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompleteRequest);
 }
 
 void ULootLockerSDKManager::ListPlayerHeroes(const FLootLockerHeroListDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerHeroRequestHandler::ListPlayerHeroes(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FLootLockerHeroListBP(), OnCompletedRequest);
+    ULootLockerHeroRequestHandler::ListPlayerHeroes(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::ListOtherPlayersHeroesBySteamID64(const int64 SteamID64, const FLootLockerHeroListDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerHeroRequestHandler::ListOtherPlayersHeroesBySteamID64(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), SteamID64, FLootLockerHeroListBP(), OnCompletedRequest);
+    ULootLockerHeroRequestHandler::ListOtherPlayersHeroesBySteamID64(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), SteamID64, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::CreateHero(const FLootLockerCreateHeroRequest& Request, const FLootLockerPlayerHeroDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerHeroRequestHandler::CreateHero(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, FLootLockerPlayerHeroBP(), OnCompletedRequest);
+    ULootLockerHeroRequestHandler::CreateHero(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::CreateHeroWithVariation(const FLootLockerCreateHeroWithVariationRequest& Request, const FLootLockerPlayerHeroDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerHeroRequestHandler::CreateHeroWithVariation(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, FLootLockerPlayerHeroBP(), OnCompletedRequest);
+    ULootLockerHeroRequestHandler::CreateHeroWithVariation(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::GetHero(const int32 HeroID, const FLootLockerPlayerHeroDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerHeroRequestHandler::GetHero(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HeroID, FLootLockerPlayerHeroBP(), OnCompletedRequest);
+    ULootLockerHeroRequestHandler::GetHero(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HeroID, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::GetOtherPlayersDefaultHeroBySteamID64(const int64 SteamID64, const FLootLockerPlayerHeroDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerHeroRequestHandler::GetOtherPlayersDefaultHeroBySteamID64(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), SteamID64, FLootLockerPlayerHeroBP(), OnCompletedRequest);
+    ULootLockerHeroRequestHandler::GetOtherPlayersDefaultHeroBySteamID64(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), SteamID64, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::UpdateHero(const int32 HeroID, const FLootLockerUpdateHeroRequest& Request, const FLootLockerPlayerHeroDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerHeroRequestHandler::UpdateHero(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HeroID, Request, FLootLockerPlayerHeroBP(), OnCompletedRequest);
+    ULootLockerHeroRequestHandler::UpdateHero(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HeroID, Request, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::DeleteHero(const int32 HeroID, const FLLHeroDefaultResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerHeroRequestHandler::DeleteHero(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HeroID, FLLHeroDefaultResponseBP(), OnCompletedRequest);
+    ULootLockerHeroRequestHandler::DeleteHero(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HeroID, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::GetHeroInventory(const int32 HeroID, const FInventoryResponse& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerHeroRequestHandler::GetHeroInventory(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HeroID, FPInventoryResponseBP(), OnCompletedRequest);
+    ULootLockerHeroRequestHandler::GetHeroInventory(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HeroID, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::GetHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerHeroRequestHandler::GetHeroLoadout(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HeroID, FHeroLoadoutReseponseBP(), OnCompletedRequest);
+    ULootLockerHeroRequestHandler::GetHeroLoadout(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HeroID, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::GetOtherPlayersHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerHeroRequestHandler::GetOtherPlayersHeroLoadout(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HeroID, FHeroLoadoutReseponseBP(), OnCompletedRequest);
+    ULootLockerHeroRequestHandler::GetOtherPlayersHeroLoadout(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HeroID, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::AddAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerHeroRequestHandler::AddAssetToHeroLoadout(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HeroID, AssetInstanceID, FHeroLoadoutReseponseBP(), OnCompletedRequest);
+    ULootLockerHeroRequestHandler::AddAssetToHeroLoadout(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HeroID, AssetInstanceID, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::AddGlobalAssetToHeroLoadout(const int32 HeroID, const int32 AssetID, const FHeroLoadoutReseponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerHeroRequestHandler::AddGlobalAssetToHeroLoadout(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HeroID, AssetID, FHeroLoadoutReseponseBP(), OnCompletedRequest);
+    ULootLockerHeroRequestHandler::AddGlobalAssetToHeroLoadout(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HeroID, AssetID, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::AddGlobalAssetVariationToHeroLoadout(const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerHeroRequestHandler::AddGlobalAssetVariationToHeroLoadout(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HeroID, AssetID, AssetVariationID, FHeroLoadoutReseponseBP(), OnCompletedRequest);
+    ULootLockerHeroRequestHandler::AddGlobalAssetVariationToHeroLoadout(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HeroID, AssetID, AssetVariationID, OnCompletedRequest);
 }
 
 void ULootLockerSDKManager::RemoveAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerHeroRequestHandler::RemoveAssetToHeroLoadout(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HeroID, AssetInstanceID, FHeroLoadoutReseponseBP(), OnCompletedRequest);
+    ULootLockerHeroRequestHandler::RemoveAssetToHeroLoadout(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), HeroID, AssetInstanceID, OnCompletedRequest);
 }
 
 
