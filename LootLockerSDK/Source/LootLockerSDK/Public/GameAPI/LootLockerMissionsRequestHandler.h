@@ -157,13 +157,13 @@ class LOOTLOCKERSDK_API ULootLockerMissionsRequestHandler : public UObject
 public:
     ULootLockerMissionsRequestHandler();
     
-    static void GetAllMissions(const FLootLockerPlayerData& PlayerData, const FMissionsResponseDelegateBP& OnCompletedRequestBP = FMissionsResponseDelegateBP(), const FMissionsResponseDelegate& OnCompletedRequest = FMissionsResponseDelegate());
+    static void GetAllMissions(const FLootLockerPlayerData& PlayerData, const FMissionsResponseDelegate& OnCompletedRequest = FMissionsResponseDelegate());
 
-    static void GetMission(const FLootLockerPlayerData& PlayerData, int MissionId, const FMissionResponseDelegateBP& OnCompletedRequestBP = FMissionResponseDelegateBP(), const FMissionResponseDelegate& OnCompletedRequest = FMissionResponseDelegate());
+    static void GetMission(const FLootLockerPlayerData& PlayerData, int MissionId, const FMissionResponseDelegate& OnCompletedRequest = FMissionResponseDelegate());
 
-    static void StartMission(const FLootLockerPlayerData& PlayerData, int MissionId, const FStartMissionResponseDelegateBP& OnCompletedRequestBP = FStartMissionResponseDelegateBP(), const FStartMissionResponseDelegate& OnCompletedRequest = FStartMissionResponseDelegate());
+    static void StartMission(const FLootLockerPlayerData& PlayerData, int MissionId, const FStartMissionResponseDelegate& OnCompletedRequest = FStartMissionResponseDelegate());
 
-    static void FinishMission(const FLootLockerPlayerData& PlayerData, int MissionId, const FLootLockerFinishMissionData& MissionData, const FFinishMissionResponseDelegateBP& OnCompletedRequestBP = FFinishMissionResponseDelegateBP(), const FFinishMissionResponseDelegate& OnCompletedRequest = FFinishMissionResponseDelegate());
+    static void FinishMission(const FLootLockerPlayerData& PlayerData, int MissionId, const FLootLockerFinishMissionData& MissionData, const FFinishMissionResponseDelegate& OnCompletedRequest = FFinishMissionResponseDelegate());
 
 public:
     static ULootLockerHttpClient* HttpClient;
