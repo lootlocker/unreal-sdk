@@ -1069,42 +1069,66 @@ void ULootLockerManager::DeleteAssetInstanceFromPlayerInventory(const FString& F
 
 void ULootLockerManager::CreateAssetCandidate(const FString& ForPlayerWithUlid, const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted)
 {
-    ULootLockerUserGeneratedContentRequestHandler::CreateAssetCandidate(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetCandidateData, OnCreateAssetCandidateCompleted);
+    ULootLockerSDKManager::CreateAssetCandidate(AssetCandidateData, FCreateAssetCandidateResponseDelegate::CreateLambda([OnCreateAssetCandidateCompleted](FLootLockerCreateAssetCandidateResponse Response)
+        {
+            OnCreateAssetCandidateCompleted.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::CreateAssetCandidateAndMarkComplete(const FString& ForPlayerWithUlid, const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted)
 {
-    ULootLockerUserGeneratedContentRequestHandler::CreateAssetCandidateAndMarkComplete(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetCandidateData, OnCreateAssetCandidateCompleted);
+    ULootLockerSDKManager::CreateAssetCandidateAndMarkComplete(AssetCandidateData, FCreateAssetCandidateResponseDelegate::CreateLambda([OnCreateAssetCandidateCompleted](FLootLockerCreateAssetCandidateResponse Response)
+        {
+            OnCreateAssetCandidateCompleted.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::UpdateAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidateData, const  FAssetCandidateResponseDelegateBP& OnUpdateAssetCandidateCompleted)
 {
-    ULootLockerUserGeneratedContentRequestHandler::UpdateAssetCandidate(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetCandidateId, AssetCandidateData, OnUpdateAssetCandidateCompleted);
+    ULootLockerSDKManager::UpdateAssetCandidate(AssetCandidateId, AssetCandidateData, FAssetCandidateResponseDelegate::CreateLambda([OnUpdateAssetCandidateCompleted](FLootLockerAssetCandidateResponse Response)
+        {
+            OnUpdateAssetCandidateCompleted.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::DeleteAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FResponseCallbackBP& OnDeleteAssetCandidateCompleted)
 {
-    ULootLockerUserGeneratedContentRequestHandler::DeleteAssetCandidate(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetCandidateId, OnDeleteAssetCandidateCompleted);
+    ULootLockerSDKManager::DeleteAssetCandidate(AssetCandidateId, FResponseCallback::CreateLambda([OnDeleteAssetCandidateCompleted](FLootLockerResponse Response)
+        {
+            OnDeleteAssetCandidateCompleted.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetAllAssetCandidates(const FString& ForPlayerWithUlid, const FAssetCandidatesResponseDelegateBP& OnGetAllAssetCandidatesCompleted)
 {
-    ULootLockerUserGeneratedContentRequestHandler::GetAllAssetCandidates(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnGetAllAssetCandidatesCompleted);
+    ULootLockerSDKManager::GetAllAssetCandidates(FAssetCandidatesResponseDelegate::CreateLambda([OnGetAllAssetCandidatesCompleted](FLootLockerAssetCandidatesResponse Response)
+        {
+            OnGetAllAssetCandidatesCompleted.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FAssetCandidateResponseDelegateBP& OnGetAssetCandidateCompleted)
 {
-    ULootLockerUserGeneratedContentRequestHandler::GetAssetCandidate(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetCandidateId, OnGetAssetCandidateCompleted);
+    ULootLockerSDKManager::GetAssetCandidate(AssetCandidateId, FAssetCandidateResponseDelegate::CreateLambda([OnGetAssetCandidateCompleted](FLootLockerAssetCandidateResponse Response)
+        {
+            OnGetAssetCandidateCompleted.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::AddFileToAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FString& FilePath, ELootLockerAssetFilePurpose FilePurpose, const FAssetCandidateResponseDelegateBP& OnAddFileToAssetCandidateCompleted)
 {
-    ULootLockerUserGeneratedContentRequestHandler::AddFileToAssetCandidate(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetCandidateId, FilePath, FilePurpose, OnAddFileToAssetCandidateCompleted);
+    ULootLockerSDKManager::AddFileToAssetCandidate(AssetCandidateId, FilePath, FilePurpose, FAssetCandidateResponseDelegate::CreateLambda([OnAddFileToAssetCandidateCompleted](FLootLockerAssetCandidateResponse Response)
+        {
+            OnAddFileToAssetCandidateCompleted.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::DeleteFileFromAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, int FileId, const FResponseCallbackBP& OnDeleteFileFromAssetCandidateCompleted)
 {
-    ULootLockerUserGeneratedContentRequestHandler::DeleteFileFromAssetCandidate(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetCandidateId, FileId, OnDeleteFileFromAssetCandidateCompleted);
+    ULootLockerSDKManager::DeleteFileFromAssetCandidate(AssetCandidateId, FileId, FResponseCallback::CreateLambda([OnDeleteFileFromAssetCandidateCompleted](FLootLockerResponse Response)
+        {
+            OnDeleteFileFromAssetCandidateCompleted.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 // Progressions
