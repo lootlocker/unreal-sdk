@@ -414,27 +414,31 @@ void ULootLockerManager::TransferIdentityProvidersBetweenAccounts(const FString&
 //==================================================
 FString ULootLockerManager::StartRemoteSession(const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegateBP& OnComplete, float PollingIntervalSeconds, float TimeOutAfterMinutes)
 {
-    return ULootLockerRemoteSessionRequestHandler::StartRemoteSession(
-        ELootLockerRemoteSessionLeaseIntent::login,
-        RemoteSessionLeaseInformation,
-        FLootLockerLeaseRemoteSessionResponseDelegate(),
-        RemoteSessionLeaseStatusUpdate,
-        FLootLockerRemoteSessionStatusPollingResponseDelegate(),
-        OnComplete,
-        FLootLockerStartRemoteSessionResponseDelegate(),
+    return ULootLockerSDKManager::StartRemoteSession(
+        FLootLockerLeaseRemoteSessionResponseDelegate::CreateLambda([RemoteSessionLeaseInformation](FLootLockerLeaseRemoteSessionResponse Response) {
+            RemoteSessionLeaseInformation.ExecuteIfBound(Response);
+        }),
+        FLootLockerRemoteSessionStatusPollingResponseDelegate::CreateLambda([RemoteSessionLeaseStatusUpdate](FLootLockerRemoteSessionStatusPollingResponse Response) {
+            RemoteSessionLeaseStatusUpdate.ExecuteIfBound(Response);
+        }),
+        FLootLockerStartRemoteSessionResponseDelegate::CreateLambda([OnComplete](FLootLockerStartRemoteSessionResponse Response) {
+            OnComplete.ExecuteIfBound(Response);
+        }),
         PollingIntervalSeconds,
-        TimeOutAfterMinutes,
-        "");
+        TimeOutAfterMinutes);
 }
 
 void ULootLockerManager::CancelRemoteSessionProcess(FString ProcessID)
 {
-    ULootLockerRemoteSessionRequestHandler::CancelRemoteSessionProcess(ProcessID);
+    ULootLockerSDKManager::CancelRemoteSessionProcess(ProcessID);
 }
 
 void ULootLockerManager::RefreshRemoteSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegateBP& OnCompletedRequest)
 {
-    ULootLockerRemoteSessionRequestHandler::RefreshRemoteSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, OnCompletedRequest);
+    ULootLockerSDKManager::RefreshRemoteSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, 
+        FLootLockerRefreshRemoteSessionResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerRefreshRemoteSessionResponse Response) {
+            OnCompletedRequest.ExecuteIfBound(Response);
+        }));
 }
 
 //==================================================
@@ -1491,7 +1495,10 @@ void ULootLockerManager::FinalizeSteamPurchaseRedemption(const FString& ForPlaye
 //Triggers
 void ULootLockerManager::InvokeTriggersByKey(const FString& ForPlayerWithUlid, const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseBP& OnComplete)
 {
-    ULootLockerTriggersRequestHandler::InvokeTriggersByKey(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), KeysToInvoke, OnComplete);
+    ULootLockerSDKManager::InvokeTriggersByKey(KeysToInvoke, FLootLockerInvokeTriggersByKeyResponseDelegate::CreateLambda([OnComplete](FLootLockerInvokeTriggersByKeyResponse Response)
+        {
+            OnComplete.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 //Notifications
