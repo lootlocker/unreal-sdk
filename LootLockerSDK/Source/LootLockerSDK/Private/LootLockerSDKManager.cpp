@@ -1551,7 +1551,7 @@ void ULootLockerSDKManager::UnblockPlayer(const FString& PlayerULID, const FLoot
 // Miscellaneous
 void ULootLockerSDKManager::GetServerTime(const FTimeResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerMiscellaneousRequestHandler::GetServerTime(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FTimeResponseDelegateBP(), OnCompletedRequest);
+    ULootLockerMiscellaneousRequestHandler::GetServerTime(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
 }
 
 FString ULootLockerSDKManager::GetLastActivePlatform(const FString& ForPlayerWithUlid /* = "" */){
@@ -1560,5 +1560,5 @@ FString ULootLockerSDKManager::GetLastActivePlatform(const FString& ForPlayerWit
 
 void ULootLockerSDKManager::GetGameInfo(const FGameInfoResponseDelegate& OnComplete)
 {
-    ULootLockerMiscellaneousRequestHandler::GetGameInfo(FGameInfoResponseDelegateBP(), OnComplete);
+    ULootLockerMiscellaneousRequestHandler::GetGameInfo(OnComplete);
 }
