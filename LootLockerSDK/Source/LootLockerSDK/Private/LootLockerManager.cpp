@@ -1405,39 +1405,42 @@ void ULootLockerManager::GetMessages(const FString& ForPlayerWithUlid, const FMe
 
 void ULootLockerManager::ListLeaderboards(const FString& ForPlayerWithUlid, int Count, int After, const FLootLockerListLeaderboardsResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerLeaderboardRequestHandler::ListLeaderboards(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Count, After, OnCompletedRequestBP);
+    ULootLockerSDKManager::ListLeaderboards(Count, After, FLootLockerListLeaderboardsResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerListLeaderboardsResponse Response)
+        {
+            OnCompletedRequestBP.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetMemberRank(const FString& ForPlayerWithUlid, FString LeaderboardKey, FString MemberId, const FLootLockerGetMemberRankResponseBP& OnCompletedRequestBP)
 {
-    FLootLockerGetMemberRankRequest MemberRequest;
-    MemberRequest.leaderboard_key = LeaderboardKey;
-    MemberRequest.member_id = MemberId;
-
-    ULootLockerLeaderboardRequestHandler::GetMemberRank(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), MemberRequest, OnCompletedRequestBP);
+    ULootLockerSDKManager::GetMemberRank(LeaderboardKey, MemberId, FLootLockerGetMemberRankResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerGetMemberRankResponse Response)
+        {
+            OnCompletedRequestBP.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetAllMemberRanks(const FString& ForPlayerWithUlid, FString MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseBP& OnCompletedRequestBP)
 {
-    FLootLockerGetAllMemberRanksRequest MemberRanksRequest;
-    MemberRanksRequest.after = After;
-    MemberRanksRequest.count = Count;
-
-    ULootLockerLeaderboardRequestHandler::GetAllMemberRanks(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), MemberRanksRequest, OnCompletedRequestBP);
+    ULootLockerSDKManager::GetAllMemberRanks(MemberId, Count, After, FLootLockerGetAllMemberRanksResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerGetAllMemberRanksResponse Response)
+        {
+            OnCompletedRequestBP.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetByListOfMembers(const FString& ForPlayerWithUlid, TArray<FString> Members, FString LeaderboardKey, const FLootLockerGetByListOfMembersResponseBP& OnCompletedRequestBP)
 {
-    FLootLockerGetByListMembersRequest GetByListMembersRequest;
-    ULootLockerLeaderboardRequestHandler::GetByListOfMembers(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), GetByListMembersRequest, LeaderboardKey, OnCompletedRequestBP);
+    ULootLockerSDKManager::GetByListOfMembers(Members, LeaderboardKey, FLootLockerGetByListOfMembersResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerGetByListOfMembersResponse Response)
+        {
+            OnCompletedRequestBP.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetScoreList(const FString& ForPlayerWithUlid, FString LeaderboardKey, int Count, int After, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP)
 {
-    FLootLockerGetScoreListRequest GetScoreListRequest;
-    GetScoreListRequest.count = Count;
-    GetScoreListRequest.leaderboard_key = LeaderboardKey;
-    ULootLockerLeaderboardRequestHandler::GetScoreList(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), GetScoreListRequest, OnCompletedRequestBP);
+    ULootLockerSDKManager::GetScoreList(LeaderboardKey, Count, After, FLootLockerGetScoreListResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerGetScoreListResponse Response)
+        {
+            OnCompletedRequestBP.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetScoreListInitial(const FString& ForPlayerWithUlid, FString LeaderboardKey, int Count, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP)
@@ -1448,25 +1451,26 @@ void ULootLockerManager::GetScoreListInitial(const FString& ForPlayerWithUlid, F
 
 void ULootLockerManager::SubmitScore(const FString& ForPlayerWithUlid, FString MemberId, FString LeaderboardKey, int Score, FString Metadata, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP)
 {
-    FLootLockerSubmitScoreRequest SubmitScoreRequest;
-    SubmitScoreRequest.score = Score;
-    SubmitScoreRequest.metadata = Metadata;
-    ULootLockerLeaderboardRequestHandler::SubmitScore(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), SubmitScoreRequest, LeaderboardKey, OnCompletedRequestBP);
+    ULootLockerSDKManager::SubmitScore(MemberId, LeaderboardKey, Score, Metadata, FLootLockerSubmitScoreResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerSubmitScoreResponse Response)
+        {
+            OnCompletedRequestBP.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::QueryScore(const FString LeaderboardKey, const int Score, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP, const FString& ForPlayerWithUlid /* = "" */)
 {
-    FLootLockerQueryScoreRequest QueryScoreRequest;
-    QueryScoreRequest.score = Score;
-    ULootLockerLeaderboardRequestHandler::QueryScore(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), QueryScoreRequest, LeaderboardKey, OnCompletedRequestBP);
+    ULootLockerSDKManager::QueryScore(LeaderboardKey, Score, FLootLockerSubmitScoreResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerSubmitScoreResponse Response)
+        {
+            OnCompletedRequestBP.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::IncrementScore(FString MemberId, const FString LeaderboardKey, const int Amount, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP, const FString& ForPlayerWithUlid /* = "" */)
 {
-    FLootLockerIncrementScoreRequest IncrementScoreRequest;
-    IncrementScoreRequest.member_id = MemberId;
-    IncrementScoreRequest.amount = Amount;
-    ULootLockerLeaderboardRequestHandler::IncrementScore(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), IncrementScoreRequest, LeaderboardKey, OnCompletedRequestBP);
+    ULootLockerSDKManager::IncrementScore(MemberId, LeaderboardKey, Amount, FLootLockerSubmitScoreResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerSubmitScoreResponse Response)
+        {
+            OnCompletedRequestBP.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ListLeaderboardArchive(const FString& ForPlayerWithUlid, const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP)
@@ -1487,7 +1491,10 @@ void ULootLockerManager::GetLeaderboardArchive(const FString& ForPlayerWithUlid,
 
 void ULootLockerManager::GetLeaderboardDetails(const FString& ForPlayerWithUlid, const FString& LeaderboardKey, const FLootLockerLeaderboardDetailsResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerLeaderboardRequestHandler::GetLeaderboardDetails(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), LeaderboardKey, OnCompletedRequestBP);
+    ULootLockerSDKManager::GetLeaderboardDetails(LeaderboardKey, FLootLockerLeaderboardDetailsResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerLeaderboardDetailsResponse Response)
+        {
+            OnCompletedRequestBP.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
 }
 
 // Drop Tables
