@@ -13,12 +13,12 @@ ULootLockerLeaderboardArchiveRequestHandler::ULootLockerLeaderboardArchiveReques
 	HttpClient = NewObject<ULootLockerHttpClient>();
 }
 
-void ULootLockerLeaderboardArchiveRequestHandler::ListLeaderboardArchive(const FLootLockerPlayerData& PlayerData, const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP, const FLootLockerLeaderboardArchiveResponseDelegate& OnCompletedRequest)
+void ULootLockerLeaderboardArchiveRequestHandler::ListLeaderboardArchive(const FLootLockerPlayerData& PlayerData, const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseDelegate& OnCompletedRequest)
 {
-	LLAPI<FLootLockerLeaderboardArchiveResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ListLeaderboardArchive, { LeaderboardKey }, EmptyQueryParams, PlayerData, OnCompletedRequestBP, OnCompletedRequest);
+	LLAPI<FLootLockerLeaderboardArchiveResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ListLeaderboardArchive, { LeaderboardKey }, EmptyQueryParams, PlayerData, FLootLockerLeaderboardArchiveResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerLeaderboardArchiveRequestHandler::GetLeaderboardArchive(const FLootLockerPlayerData& PlayerData, const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailReponseBP& OnCompletedRequestBP, const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest)
+void ULootLockerLeaderboardArchiveRequestHandler::GetLeaderboardArchive(const FLootLockerPlayerData& PlayerData, const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest)
 {
 
     TMultiMap<FString,FString> QueryParams;
@@ -33,5 +33,5 @@ void ULootLockerLeaderboardArchiveRequestHandler::GetLeaderboardArchive(const FL
 	{
 		QueryParams.Add("after", After);
 	}
-	LLAPI<FLootLockerLeaderboardArchiveDetailsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetLeaderboardArchive, { }, QueryParams, PlayerData, OnCompletedRequestBP, OnCompletedRequest);
+	LLAPI<FLootLockerLeaderboardArchiveDetailsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetLeaderboardArchive, { }, QueryParams, PlayerData, FLootLockerLeaderboardArchiveDetailReponseBP(), OnCompletedRequest);
 }
