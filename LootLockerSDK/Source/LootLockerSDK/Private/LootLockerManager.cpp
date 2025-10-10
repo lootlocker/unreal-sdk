@@ -624,42 +624,66 @@ void ULootLockerManager::DeletePlayerFile(const FString& ForPlayerWithUlid, cons
 // Player Progressions
 void ULootLockerManager::GetPlayerProgressions(const FString& ForPlayerWithUlid, const int32 Count /*= -1*/, const FString& After /*= ""*/, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::GetPlayerProgressions(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Count, After, OnCompletedRequest);
+    ULootLockerSDKManager::GetPlayerProgressions(Count, After, FLootLockerPaginatedPlayerProgressionsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPaginatedPlayerProgressionResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetPlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::GetPlayerProgression(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ProgressionKey, OnCompletedRequest);
+    ULootLockerSDKManager::GetPlayerProgression(ProgressionKey, FLootLockerPlayerProgressionResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPlayerProgressionResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::AddPointsToPlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::AddPointsToPlayerProgression(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ProgressionKey, Amount, OnCompletedRequest);
+    ULootLockerSDKManager::AddPointsToPlayerProgression(ProgressionKey, Amount, FLootLockerPlayerProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPlayerProgressionWithRewardsResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::SubtractPointsFromPlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::SubtractPointsFromPlayerProgression(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ProgressionKey, Amount, OnCompletedRequest);
+    ULootLockerSDKManager::SubtractPointsFromPlayerProgression(ProgressionKey, Amount, FLootLockerPlayerProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPlayerProgressionWithRewardsResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ResetPlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::ResetPlayerProgression(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ProgressionKey, OnCompletedRequest);
+    ULootLockerSDKManager::ResetPlayerProgression(ProgressionKey, FLootLockerPlayerProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPlayerProgressionWithRewardsResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::DeletePlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::DeletePlayerProgression(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ProgressionKey, OnCompletedRequest);
+    ULootLockerSDKManager::DeletePlayerProgression(ProgressionKey, FLootLockerDeleteProgressionDelegate::CreateLambda([OnCompletedRequest](const FLootLockerResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetOtherPlayersProgressions(const FString& ForPlayerWithUlid, const FString& PlayerUlid, const int32 Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::GetOtherPlayersProgressions(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlayerUlid, Count, After, OnCompletedRequest);
+    ULootLockerSDKManager::GetOtherPlayersProgressions(PlayerUlid, Count, After, FLootLockerPaginatedPlayerProgressionsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPaginatedPlayerProgressionResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetOtherPlayersProgression(const FString& ForPlayerWithUlid, const FString& PlayerUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::GetOtherPlayersProgression(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlayerUlid, ProgressionKey, OnCompletedRequest);
+    ULootLockerSDKManager::GetOtherPlayersProgression(PlayerUlid, ProgressionKey, FLootLockerPlayerProgressionResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPlayerProgressionResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 // Heroes
@@ -915,32 +939,50 @@ void ULootLockerManager::GetOtherPlayersCharacterLoadoutsByUid(const FString& Fo
 // Character Progressions
 void ULootLockerManager::GetCharacterProgressions(const FString& ForPlayerWithUlid, const int32& CharacterId, const int32 Count /*=-1*/, const FString& After /*=""*/, const FLootLockerPaginatedCharacterProgressionsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::GetCharacterProgressions(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CharacterId, Count, After, OnCompletedRequest);
+    ULootLockerSDKManager::GetCharacterProgressions(CharacterId, Count, After, FLootLockerPaginatedCharacterProgressionsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPaginatedCharacterProgressionResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::GetCharacterProgression(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CharacterId, ProgressionKey, OnCompletedRequest);
+    ULootLockerSDKManager::GetCharacterProgression(CharacterId, ProgressionKey, FLootLockerCharacterProgressionResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerCharacterProgressionResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::AddPointsToCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::AddPointsToCharacterProgression(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CharacterId, ProgressionKey, Amount, OnCompletedRequest);
+    ULootLockerSDKManager::AddPointsToCharacterProgression(CharacterId, ProgressionKey, Amount, FLootLockerCharacterProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerCharacterProgressionWithRewardsResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::SubtractPointsFromCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::SubtractPointsFromCharacterProgression(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CharacterId, ProgressionKey, Amount, OnCompletedRequest);
+    ULootLockerSDKManager::SubtractPointsFromCharacterProgression(CharacterId, ProgressionKey, Amount, FLootLockerCharacterProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerCharacterProgressionWithRewardsResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ResetCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::ResetCharacterProgression(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CharacterId, ProgressionKey, OnCompletedRequest);
+    ULootLockerSDKManager::ResetCharacterProgression(CharacterId, ProgressionKey, FLootLockerCharacterProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerCharacterProgressionWithRewardsResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::DeleteCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::DeleteCharacterProgression(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CharacterId, ProgressionKey, OnCompletedRequest);
+    ULootLockerSDKManager::DeleteCharacterProgression(CharacterId, ProgressionKey, FLootLockerDeleteProgressionDelegate::CreateLambda([OnCompletedRequest](const FLootLockerResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 // Persistent Storage
@@ -1220,49 +1262,76 @@ void ULootLockerManager::DeleteFileFromAssetCandidate(const FString& ForPlayerWi
 // Progressions
 void ULootLockerManager::GetProgressions(const FString& ForPlayerWithUlid, const int32 Count /*= -1*/, const FString& After /*=""*/, const FLootLockerPaginatedProgressionsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::GetProgressions(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Count, After, OnCompletedRequest);
+    ULootLockerSDKManager::GetProgressions(Count, After, FLootLockerPaginatedProgressionsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPaginatedProgressionsResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const FLootLockerProgressionResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::GetProgression(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ProgressionKey, OnCompletedRequest);
+    ULootLockerSDKManager::GetProgression(ProgressionKey, FLootLockerProgressionResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerProgressionResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetProgressionTiers(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const int32 Count /*=-1*/, const int32 After /*=-1*/, const FLootLockerPaginatedProgressionTiersResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::GetProgressionTiers(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ProgressionKey, Count, After, OnCompletedRequest);
+    ULootLockerSDKManager::GetProgressionTiers(ProgressionKey, Count, After, FLootLockerPaginatedProgressionTiersResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPaginatedProgressionTiersResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 //Instance progression
 
 void ULootLockerManager::GetInstanceProgressions(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const int32 Count, const FString& After, const FLootLockerPaginatedInstanceProgressionsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::GetInstanceProgressions(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, Count, After, OnCompletedRequest);
+    ULootLockerSDKManager::GetInstanceProgressions(AssetInstanceId, Count, After, FLootLockerPaginatedInstanceProgressionsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPaginatedInstanceProgressionResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::GetInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::GetInstanceProgression(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, ProgressionKey, OnCompletedRequest);
+    ULootLockerSDKManager::GetInstanceProgression(AssetInstanceId, ProgressionKey, FLootLockerInstanceProgressionResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerInstanceProgressionResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::AddPointsToInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::AddPointsToInstanceProgression(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, ProgressionKey, Amount, OnCompletedRequest);
+    ULootLockerSDKManager::AddPointsToInstanceProgression(AssetInstanceId, ProgressionKey, Amount, FLootLockerInstanceProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerInstanceProgressionWithRewardsResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::SubtractPointsFromInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::SubtractPointsFromInstanceProgression(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, ProgressionKey, Amount, OnCompletedRequest);
+    ULootLockerSDKManager::SubtractPointsFromInstanceProgression(AssetInstanceId, ProgressionKey, Amount, FLootLockerInstanceProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerInstanceProgressionWithRewardsResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::ResetInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::ResetInstanceProgression(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, ProgressionKey, OnCompletedRequest);
+    ULootLockerSDKManager::ResetInstanceProgression(AssetInstanceId, ProgressionKey, FLootLockerInstanceProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerInstanceProgressionWithRewardsResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 void ULootLockerManager::DeleteInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest)
 {
-    ULootLockerProgressionsRequestHandler::DeleteInstanceProgression(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AssetInstanceId, ProgressionKey, OnCompletedRequest);
+    ULootLockerSDKManager::DeleteInstanceProgression(AssetInstanceId, ProgressionKey, FLootLockerDeleteProgressionDelegate::CreateLambda([OnCompletedRequest](const FLootLockerResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 // Missions
