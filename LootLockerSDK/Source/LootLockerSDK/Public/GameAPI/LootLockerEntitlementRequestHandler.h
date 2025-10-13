@@ -260,16 +260,7 @@ struct FLootLockerSingleEntitlementResponse : public FLootLockerResponse
 };
 
 //==================================================
-// Blueprint Delegate Definitions
-//==================================================
-/**
- * Blueprint response delegate for listing entitlement history
- */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListEntitlementsResponseBP, FLootLockerEntitlementHistoryResponse, Response);
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerSingleEntitlementResponseBP, FLootLockerSingleEntitlementResponse, Response);
-
-//==================================================
-// C++ Delegate Definitions
+// Delegate Definitions
 //==================================================
 /**
  * C++ response delegate for listing entitlement history

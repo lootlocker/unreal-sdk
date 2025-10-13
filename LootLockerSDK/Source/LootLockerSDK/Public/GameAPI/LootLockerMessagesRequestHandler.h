@@ -39,7 +39,6 @@ struct FLootLockerMessagesResponse : public FLootLockerResponse {
     TArray<FLootLockerMessage> messages;
 };
 
-DECLARE_DYNAMIC_DELEGATE_OneParam(FMessagesResponseDelegateBP, FLootLockerMessagesResponse, Response);
 DECLARE_DELEGATE_OneParam(FMessagesResponseDelegate, FLootLockerMessagesResponse);
 
 UCLASS()

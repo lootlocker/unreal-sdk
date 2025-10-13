@@ -70,21 +70,8 @@ struct FLootLockerGameInfoResponse : public FLootLockerResponse
     FLootLockerGameInfo Info;
 };
 
-
 //==================================================
-// Blueprint Delegate Definitions
-//==================================================
-/**
- * Blueprint response delegate for fetching server time
- */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FTimeResponseDelegateBP, FLootLockerTimeResponse, Response);
-/**
- * Blueprint response delegate for fetching game info
- */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FGameInfoResponseDelegateBP, FLootLockerGameInfoResponse, Response);
-
-//==================================================
-// C++ Delegate Definitions
+// Delegate Definitions
 //==================================================
 /**
  * C++ response delegate for fetching server time

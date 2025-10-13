@@ -52,7 +52,6 @@ struct FLootLockerGetMapsResponse : public FLootLockerResponse
     TArray<FLootLockerMap> maps;
 };
 
-DECLARE_DYNAMIC_DELEGATE_OneParam(FGetMapsResponseDelegateBP, FLootLockerGetMapsResponse, Response);
 DECLARE_DELEGATE_OneParam(FGetMapsResponseDelegate, FLootLockerGetMapsResponse);
 
 UCLASS()

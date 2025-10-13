@@ -99,14 +99,7 @@ struct FLootLockerFeedbackRequest
 };
 
 //==================================================
-// Blueprint Delegate Definitions
-//==================================================
-
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListFeedbackCategoryResponseBP, FLootLockerFeedbackCategoryResponse, Response);
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerSendFeedbackResponseBP, FLootLockerResponse, Response);
-
-//==================================================
-// C++ Delegate Definitions
+// Delegate Definitions
 //==================================================
 
 DECLARE_DELEGATE_OneParam(FLootLockerListFeedbackCategoryResponseDelegate, FLootLockerFeedbackCategoryResponse);

@@ -40,7 +40,6 @@ void ULootLockerBroadcastRequestHandler::ListBroadcasts(const FLootLockerPlayerD
         LLAPI<FLootLockerInternalListBroadcastsResponse>::FResponseInspectorCallback::CreateLambda([OnComplete](FLootLockerInternalListBroadcastsResponse& InternalResponse)
         {
             FLootLockerListBroadcastsResponse UserResponse(InternalResponse);
-            FLootLockerListBroadcastsResponseBP().ExecuteIfBound(UserResponse);
             OnComplete.ExecuteIfBound(UserResponse);
         }),
         CustomHeaders

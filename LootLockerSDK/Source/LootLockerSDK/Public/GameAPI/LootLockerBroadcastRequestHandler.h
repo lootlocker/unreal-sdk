@@ -282,13 +282,7 @@ public:
 };
 
 //==================================================
-// Blueprint Delegate Definitions
-//==================================================
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListBroadcastsResponseBP, FLootLockerListBroadcastsResponse, Response);
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerInternalListBroadcastsResponseBP, FLootLockerInternalListBroadcastsResponse, Response);
-
-//==================================================
-// C++ Delegate Definitions
+// Delegate Definitions
 //==================================================
 DECLARE_DELEGATE_OneParam(FLootLockerListBroadcastsResponseDelegate, FLootLockerListBroadcastsResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerInternalListBroadcastsResponseDelegate, FLootLockerInternalListBroadcastsResponse);

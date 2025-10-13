@@ -141,10 +141,6 @@ struct FLootLockerFinishMissionResponse : public FLootLockerResponse
     bool check_grant_notifications = false;
 };
 
-DECLARE_DYNAMIC_DELEGATE_OneParam(FMissionsResponseDelegateBP, FLootLockerMissionsResponse, Response);
-DECLARE_DYNAMIC_DELEGATE_OneParam(FMissionResponseDelegateBP, FLootLockerMissionResponse, Response);
-DECLARE_DYNAMIC_DELEGATE_OneParam(FStartMissionResponseDelegateBP, FLootLockerStartMissionResponse, Response);
-DECLARE_DYNAMIC_DELEGATE_OneParam(FFinishMissionResponseDelegateBP, FLootLockerFinishMissionResponse, Response);
 DECLARE_DELEGATE_OneParam(FMissionsResponseDelegate, FLootLockerMissionsResponse);
 DECLARE_DELEGATE_OneParam(FMissionResponseDelegate, FLootLockerMissionResponse);
 DECLARE_DELEGATE_OneParam(FStartMissionResponseDelegate, FLootLockerStartMissionResponse);
