@@ -51,8 +51,6 @@ struct FLootLockerPersistentStorageItemResponse : public FLootLockerResponse
     FLootLockerPersistentStorageItem payload;
 };
 
-DECLARE_DYNAMIC_DELEGATE_OneParam(FPersistentStorageItemsResponseDelegateBP, FLootLockerPersistentStorageItemsResponse, Response);
-DECLARE_DYNAMIC_DELEGATE_OneParam(FPersistentStorageItemResponseDelegateBP, FLootLockerPersistentStorageItemResponse, Response);
 DECLARE_DELEGATE_OneParam(FPersistentStorageItemsResponseDelegate, FLootLockerPersistentStorageItemsResponse);
 DECLARE_DELEGATE_OneParam(FPersistentStorageItemResponseDelegate, FLootLockerPersistentStorageItemResponse);
 

@@ -162,23 +162,11 @@ struct FLootLockerHeroGlobalAssetVariation : public FLootLockerHeroGlobalAsset
 	FLootLockerHeroGlobalAssetVariation() {}
 	FLootLockerHeroGlobalAssetVariation(int32 AssetID, int32 AssetVariationID) : FLootLockerHeroGlobalAsset{ AssetID }, asset_variation_id(AssetVariationID) {}
 };
-
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerHeroBP, FLootLockerHeroResponse, Response);
 DECLARE_DELEGATE_OneParam(FLootLockerHeroDelegate, FLootLockerHeroResponse);
-
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGameHeroListBP, FLootLockerGameHeroListResponse, Response);
 DECLARE_DELEGATE_OneParam(FLootLockerGameHeroListDelegate, FLootLockerGameHeroListResponse);
-
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerHeroListBP, FLootLockerHeroListResponse, Response);
 DECLARE_DELEGATE_OneParam(FLootLockerHeroListDelegate, FLootLockerHeroListResponse);
-
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerPlayerHeroBP, FLootLockerPlayerHeroResponse, Response);
 DECLARE_DELEGATE_OneParam(FLootLockerPlayerHeroDelegate, FLootLockerPlayerHeroResponse);
-
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLLHeroDefaultResponseBP, FLootLockerResponse, Response);
 DECLARE_DELEGATE_OneParam(FLLHeroDefaultResponseDelegate, FLootLockerResponse);
-
-DECLARE_DYNAMIC_DELEGATE_OneParam(FHeroLoadoutReseponseBP, FLootLockerHeroLoadoutResponse, Response);
 DECLARE_DELEGATE_OneParam(FHeroLoadoutReseponseDelegate, FLootLockerHeroLoadoutResponse);
 
 UCLASS()

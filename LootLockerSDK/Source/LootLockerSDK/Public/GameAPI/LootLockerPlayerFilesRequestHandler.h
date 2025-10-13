@@ -87,13 +87,10 @@ struct FLootLockerFileListResponse : public FLootLockerResponse
 	TArray<FLootLockerPlayerFile> items;
 };
 
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerUploadFileBP, FLootLockerPlayerFileResponse, Response);
 DECLARE_DELEGATE_OneParam(FLootLockerUploadFileDelegate, FLootLockerPlayerFileResponse);
 
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerFileListBP, FLootLockerFileListResponse, Response);
 DECLARE_DELEGATE_OneParam(FLootLockerFileListDelegate, FLootLockerFileListResponse);
 
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerFileDeletedBP, FLootLockerResponse, Response);
 DECLARE_DELEGATE_OneParam(FLootLockerFileDeletedDelegate, FLootLockerResponse);
 
 UCLASS()

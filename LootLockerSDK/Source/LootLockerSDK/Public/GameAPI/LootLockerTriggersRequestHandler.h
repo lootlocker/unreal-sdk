@@ -101,16 +101,6 @@ struct FLootLockerInvokeTriggersByKeyResponse : public FLootLockerResponse
     TArray<FLootLockerSuccessfulKey> Successful_keys;
 };
 
-
-//==================================================
-// Blueprint Delegate Definitions
-//==================================================
-/**
- * Blueprint response delegate for invoking a set of triggers by key
- */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerInvokeTriggersByKeyResponseBP, FLootLockerInvokeTriggersByKeyResponse, Response);
-
-
 //==================================================
 // API Class Definition
 //==================================================
