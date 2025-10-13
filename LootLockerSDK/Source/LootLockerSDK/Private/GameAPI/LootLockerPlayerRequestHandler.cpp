@@ -16,7 +16,7 @@ ULootLockerPlayerRequestHandler::ULootLockerPlayerRequestHandler()
 
 void ULootLockerPlayerRequestHandler::GetCurrentPlayerInfo(const FLootLockerPlayerData& PlayerData, const FLootLockerGetCurrentPlayerInfoResponseDelegate& OnCompletedRequest)
 {
-	LLAPI<FLootLockerGetCurrentPlayerInfoResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetInfoFromSession, { }, EmptyQueryParams, PlayerData, FLootLockerGetCurrentPlayerInfoResponseBP(), OnCompletedRequest);
+	LLAPI<FLootLockerGetCurrentPlayerInfoResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetInfoFromSession, { }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerPlayerRequestHandler::ListPlayerInfo(const FLootLockerPlayerData& PlayerData, TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseDelegate& OnCompletedRequest)
@@ -39,7 +39,7 @@ void ULootLockerPlayerRequestHandler::ListPlayerInfo(const FLootLockerPlayerData
 		PlayerPublicUidsToLookUp
 	};
 
-	LLAPI<FLootLockerListPlayerInfoResponse>::CallAPI(HttpClient, request, ULootLockerGameEndpoints::ListPlayerInfo, { }, EmptyQueryParams, PlayerData, FLootLockerListPlayerInfoResponseBP(), OnCompletedRequest);
+	LLAPI<FLootLockerListPlayerInfoResponse>::CallAPI(HttpClient, request, ULootLockerGameEndpoints::ListPlayerInfo, { }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerPlayerRequestHandler::GetInventory(const FLootLockerPlayerData& PlayerData, const FInventoryResponse& OnCompletedRequest)
@@ -58,37 +58,37 @@ void ULootLockerPlayerRequestHandler::GetFullInventory(const FLootLockerPlayerDa
 
 	QueryParams.Add("count", "200");
 
-	LLAPI<FLootLockerInventoryResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetPlayerInventoryEndPoint, { }, QueryParams, PlayerData, FPInventoryResponseBP(), OnCompletedRequest);
+	LLAPI<FLootLockerInventoryResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetPlayerInventoryEndPoint, { }, QueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerPlayerRequestHandler::GetCurrencyBalance(const FLootLockerPlayerData& PlayerData, const FPBalanceResponse& OnCompletedRequest)
 {
-	LLAPI<FLootLockerBalanceResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetCurrencyBalance, { }, EmptyQueryParams, PlayerData, FPBalanceResponseBP(), OnCompletedRequest);
+	LLAPI<FLootLockerBalanceResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetCurrencyBalance, { }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerPlayerRequestHandler::CheckPlayerAssetNotification(const FLootLockerPlayerData& PlayerData, const FLootLockerAssetNotificationResponse& OnCompletedRequest)
 {
-	LLAPI<FLootLockerPlayerAssetNotificationResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::CheckPlayerAssetActivationEndpoint, {  }, EmptyQueryParams, PlayerData, FPAssetNotificationResponseBP(), OnCompletedRequest);
+	LLAPI<FLootLockerPlayerAssetNotificationResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::CheckPlayerAssetActivationEndpoint, {  }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerPlayerRequestHandler::InitiateDLCMigration(const FLootLockerPlayerData& PlayerData, const FResponseCallback& OnCompletedRequest)
 {
-	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::InitiateDLCMigration, {  }, EmptyQueryParams, PlayerData, FResponseCallbackBP(), OnCompletedRequest);
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::InitiateDLCMigration, {  }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerPlayerRequestHandler::GetDLCsMigration(const FLootLockerPlayerData& PlayerData, const FPDlcResponse& OnCompletedRequest)
 {
-	LLAPI<FLootLockerDlcResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetDLCsMigrated, {  }, EmptyQueryParams, PlayerData, FPDlcResponseBP(), OnCompletedRequest);
+	LLAPI<FLootLockerDlcResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetDLCsMigrated, {  }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerPlayerRequestHandler::SetProfilePrivate(const FLootLockerPlayerData& PlayerData, const FResponseCallback& OnCompletedRequest)
 {
-	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::SetProfilePrivate, {  }, EmptyQueryParams, PlayerData, FResponseCallbackBP(), OnCompletedRequest);
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::SetProfilePrivate, {  }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerPlayerRequestHandler::SetProfilePublic(const FLootLockerPlayerData& PlayerData, const FResponseCallback& OnCompletedRequest)
 {
-	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::SetProfilePublic, {  }, EmptyQueryParams, PlayerData, FResponseCallbackBP(), OnCompletedRequest);
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::SetProfilePublic, {  }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerPlayerRequestHandler::SetPlayerName(const FLootLockerPlayerData& PlayerData, FString Name, const FPNameResponse& OnCompletedRequest)
@@ -115,12 +115,12 @@ void ULootLockerPlayerRequestHandler::SetPlayerName(const FLootLockerPlayerData&
 
 	Data.name = Name;
 
-	LLAPI<FLootLockerNameResponse>::CallAPI(HttpClient, Data, ULootLockerGameEndpoints::SetPlayerName, {  }, EmptyQueryParams, PlayerData, FPNameResponseBP(), OnCompletedRequest);
+	LLAPI<FLootLockerNameResponse>::CallAPI(HttpClient, Data, ULootLockerGameEndpoints::SetPlayerName, {  }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerPlayerRequestHandler::GetPlayerName(const FLootLockerPlayerData& PlayerData, const FPNameResponse& OnCompletedRequest)
 {
-	LLAPI<FLootLockerNameResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetPlayerName, {  }, EmptyQueryParams, PlayerData, FPNameResponseBP(), OnCompletedRequest);
+	LLAPI<FLootLockerNameResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetPlayerName, {  }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerPlayerRequestHandler::LookupMultiplePlayerNamesUsingIDs(const FLootLockerPlayerData& PlayerData, FLootLockerMultiplePlayerNamesRequest Request, const FPMultiplePlayerNames& OnCompletedRequest)
@@ -131,7 +131,7 @@ void ULootLockerPlayerRequestHandler::LookupMultiplePlayerNamesUsingIDs(const FL
 	{
 		QueryParams.Add(player.platform, player.player_id);
 	}
-	LLAPI<FLootLockerMultiplePlayersNamesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::LookupMultiplePlayerNamesUsingIDs, {  }, QueryParams, PlayerData, FPMultiplePlayerNamesBP(), OnCompletedRequest);
+	LLAPI<FLootLockerMultiplePlayersNamesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::LookupMultiplePlayerNamesUsingIDs, {  }, QueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerPlayerRequestHandler::LookupMultiplePlayersDataUsingIDs(const FLootLockerPlayerData& PlayerData, FLootLockerLookupMultiplePlayersDataRequest Request, const FPMultiplePlayerNames& OnCompletedRequest)
@@ -142,7 +142,7 @@ void ULootLockerPlayerRequestHandler::LookupMultiplePlayersDataUsingIDs(const FL
 		Key.ReplaceCharInline(TEXT(' '), TEXT('_'));
 		QueryParams.Add(Key, Request.player_ids[i].Id);
 	}
-	LLAPI<FLootLockerMultiplePlayersNamesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::LookupMultiplePlayerNamesUsingIDs, {  }, QueryParams, PlayerData, FPMultiplePlayerNamesBP(), OnCompletedRequest);
+	LLAPI<FLootLockerMultiplePlayersNamesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::LookupMultiplePlayerNamesUsingIDs, {  }, QueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerPlayerRequestHandler::LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerPlayerData& PlayerData, const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest)
@@ -157,11 +157,11 @@ void ULootLockerPlayerRequestHandler::LookupMultiplePlayerNames1stPlatformIDs(co
 	{
 		QueryParams.Add("player_public_uid", player_public_uid);
 	}
-	LLAPI<FLootLockerMultiplePlayersPlatformIdsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::LookupMultiplePlayer1stPlatformID, {  }, QueryParams, PlayerData, FPMultiplePlayersPlatformIdsBP(), OnCompletedRequest);
+	LLAPI<FLootLockerMultiplePlayersPlatformIdsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::LookupMultiplePlayer1stPlatformID, {  }, QueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerPlayerRequestHandler::DeletePlayer(const FLootLockerPlayerData& PlayerData, const FLootLockerDefaultDelegate OnCompletedRequest)
 {
-	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::DeletePlayer, {}, EmptyQueryParams, PlayerData, FLootLockerDefaultResponseBP(), OnCompletedRequest);
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::DeletePlayer, {}, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
