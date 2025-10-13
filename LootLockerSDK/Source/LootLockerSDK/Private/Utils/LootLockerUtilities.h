@@ -143,10 +143,10 @@ struct LLAPI
 {
     DECLARE_DELEGATE_OneParam(FResponseInspectorCallback, ResponseType&);
 
-    template<typename BluePrintDelegate, typename CppDelegate>
-    static FResponseCallback CreateLambda(const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const FResponseInspectorCallback& ResponseInspectorCallback)
+    template<typename CppDelegate>
+    static FResponseCallback CreateLambda(const CppDelegate& OnCompletedRequest, const FResponseInspectorCallback& ResponseInspectorCallback)
     {
-        FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequestBP, OnCompletedRequest, ResponseInspectorCallback](FLootLockerResponse response)
+        FResponseCallback sessionResponse = FResponseCallback::CreateLambda([OnCompletedRequest, ResponseInspectorCallback](FLootLockerResponse response)
         {
             ResponseType ResponseStruct;
             
@@ -163,21 +163,20 @@ struct LLAPI
                 ResponseStruct.ErrorData = response.ErrorData;
             }
             ResponseInspectorCallback.ExecuteIfBound(ResponseStruct);
-            OnCompletedRequestBP.ExecuteIfBound(ResponseStruct);
             OnCompletedRequest.ExecuteIfBound(ResponseStruct);
         });
         return sessionResponse;
     }
 
-    template<typename RequestType, typename BluePrintDelegate , typename CppDelegate>
-    static void CallAPI(ULootLockerHttpClient* HttpClient, RequestType RequestStruct, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const FLootLockerPlayerData& PlayerData, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const FResponseInspectorCallback& ResponseInspectorCallback = LLAPI<ResponseType>::FResponseInspectorCallback::CreateLambda([](const ResponseType& Ignored) {}), TMap<FString, FString> CustomHeaders = TMap<FString, FString>())
+    template<typename RequestType, typename CppDelegate>
+    static void CallAPI(ULootLockerHttpClient* HttpClient, RequestType RequestStruct, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const FLootLockerPlayerData& PlayerData, const CppDelegate& OnCompletedRequest, const FResponseInspectorCallback& ResponseInspectorCallback = LLAPI<ResponseType>::FResponseInspectorCallback::CreateLambda([](const ResponseType& Ignored) {}), TMap<FString, FString> CustomHeaders = TMap<FString, FString>())
     {
         FString ContentString = LootLockerUtilities::UStructToJsonString(RequestStruct);
-        LLAPI<ResponseType>::CallAPIUsingRawJSON(HttpClient, ContentString, Endpoint, InOrderedArguments, QueryParams, PlayerData, OnCompletedRequestBP, OnCompletedRequest, ResponseInspectorCallback, CustomHeaders);
+        LLAPI<ResponseType>::CallAPIUsingRawJSON(HttpClient, ContentString, Endpoint, InOrderedArguments, QueryParams, PlayerData, OnCompletedRequest, ResponseInspectorCallback, CustomHeaders);
     }
 
-    template<typename BluePrintDelegate, typename CppDelegate>
-    static void CallAPIUsingRawJSON(ULootLockerHttpClient* HttpClient, FString& ContentString, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const FLootLockerPlayerData& PlayerData, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const FResponseInspectorCallback& ResponseInspectorCallback = LLAPI<ResponseType>::FResponseInspectorCallback::CreateLambda([](const ResponseType& Ignored) {}), TMap<FString, FString> CustomHeaders = TMap<FString, FString>())
+    template<typename CppDelegate>
+    static void CallAPIUsingRawJSON(ULootLockerHttpClient* HttpClient, FString& ContentString, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const FLootLockerPlayerData& PlayerData, const CppDelegate& OnCompletedRequest, const FResponseInspectorCallback& ResponseInspectorCallback = LLAPI<ResponseType>::FResponseInspectorCallback::CreateLambda([](const ResponseType& Ignored) {}), TMap<FString, FString> CustomHeaders = TMap<FString, FString>())
     {
         // calculate endpoint
         const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
@@ -237,14 +236,14 @@ struct LLAPI
         const FString RequestMethod = ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
 
         // create callback lambda
-        const FResponseCallback SessionResponse = CreateLambda<BluePrintDelegate, CppDelegate>(OnCompletedRequestBP, OnCompletedRequest, ResponseInspectorCallback);
+        const FResponseCallback SessionResponse = CreateLambda<CppDelegate>(OnCompletedRequest, ResponseInspectorCallback);
 
         // send request
         HttpClient->SendApi(EndpointWithArguments, RequestMethod, ContentString, SessionResponse, PlayerData, CustomHeaders);
     }
 
-    template<typename BluePrintDelegate, typename CppDelegate>
-    static void UploadFileAPI(ULootLockerHttpClient* HttpClient, FString File, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMap<FString, FString> AdditionalData, const FLootLockerPlayerData& PlayerData, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const FResponseInspectorCallback& ResponseInspectorCallback = LLAPI<ResponseType>::FResponseInspectorCallback::CreateLambda([](const ResponseType& Ignored) {}), TMap<FString, FString> CustomHeaders = TMap<FString, FString>())
+    template<typename CppDelegate>
+    static void UploadFileAPI(ULootLockerHttpClient* HttpClient, FString File, FLootLockerEndPoints Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMap<FString, FString> AdditionalData, const FLootLockerPlayerData& PlayerData, const CppDelegate& OnCompletedRequest, const FResponseInspectorCallback& ResponseInspectorCallback = LLAPI<ResponseType>::FResponseInspectorCallback::CreateLambda([](const ResponseType& Ignored) {}), TMap<FString, FString> CustomHeaders = TMap<FString, FString>())
     {
         
         // calculate endpoint
@@ -296,7 +295,7 @@ struct LLAPI
         }
 
         // create callback lambda
-        const FResponseCallback SessionResponse = CreateLambda<BluePrintDelegate, CppDelegate>(OnCompletedRequestBP, OnCompletedRequest, ResponseInspectorCallback);
+        const FResponseCallback SessionResponse = CreateLambda<CppDelegate>(OnCompletedRequest, ResponseInspectorCallback);
 
         // send request
         HttpClient->UploadFile(EndpointWithArguments, RequestMethod, File, AdditionalData, SessionResponse, PlayerData, CustomHeaders);

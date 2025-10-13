@@ -27,7 +27,7 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(const FStr
 
 	_TempWhiteLabelEmailHolder = Email;
 
-	LLAPI<FLootLockerLoginResponse>::CallAPI(HttpClient, SignupRequest, ULootLockerGameEndpoints::WhiteLabelSignupEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FLootLockerLoginResponseDelegateBP(), OnCompletedRequest, LLAPI<FLootLockerLoginResponse>::FResponseInspectorCallback::CreateLambda([Email](const FLootLockerLoginResponse& Response)
+	LLAPI<FLootLockerLoginResponse>::CallAPI(HttpClient, SignupRequest, ULootLockerGameEndpoints::WhiteLabelSignupEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerLoginResponse>::FResponseInspectorCallback::CreateLambda([Email](const FLootLockerLoginResponse& Response)
 		{
 			if (!Response.success)
 			{
@@ -45,7 +45,7 @@ void ULootLockerAuthenticationRequestHandler::GuestLogin(const FString& PlayerId
 	const FLootLockerPlayerData& PlayerData = ULootLockerStateData::GetSavedStateOrDefaultOrEmptyForPlayer();
 	AuthRequest.player_identifier = !(PlayerIdentifier.IsEmpty()) ? PlayerIdentifier : !PlayerData.PlayerIdentifier.IsEmpty() ?  PlayerData.PlayerIdentifier : ULootLockerStateData::GenerateNewGuestIdentifier();
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::GuestloginEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FAuthResponseBP(), OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAuthenticationResponse& Response)
+	LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::GuestloginEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAuthenticationResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -65,7 +65,7 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelLogin(const FString& Ema
 
 	_TempWhiteLabelEmailHolder = Email;
 
-	LLAPI<FLootLockerLoginResponse>::CallAPI(HttpClient, LoginRequest, ULootLockerGameEndpoints::WhiteLabelLoginEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FLootLockerLoginResponseDelegateBP(), OnCompletedRequest, LLAPI<FLootLockerLoginResponse>::FResponseInspectorCallback::CreateLambda([Email](const FLootLockerLoginResponse& Response)
+	LLAPI<FLootLockerLoginResponse>::CallAPI(HttpClient, LoginRequest, ULootLockerGameEndpoints::WhiteLabelLoginEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerLoginResponse>::FResponseInspectorCallback::CreateLambda([Email](const FLootLockerLoginResponse& Response)
 		{
 			if (Response.success) {
 				_TempWhiteLabelTokenHolder = Response.session_token;
@@ -87,7 +87,7 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(const FLoot
 	AuthRequest.email = _TempWhiteLabelEmailHolder;
 	AuthRequest.token = _TempWhiteLabelTokenHolder;
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::WhiteLabelAuthEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FAuthResponseBP(), OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAuthenticationResponse& Response)
+	LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::WhiteLabelAuthEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAuthenticationResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -134,7 +134,7 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelVerifySession(const FLoo
 		VerifyRequest.token = PlayerData.WhiteLabelToken;
 	}
 
-	LLAPI<FLootLockerWhiteLabelVerifySessionResponse>::CallAPI(HttpClient, VerifyRequest, ULootLockerGameEndpoints::WhiteLabelVerifySessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FLootLockerVerifySessionResponseBP(), OnCompletedRequest, LLAPI<FLootLockerWhiteLabelVerifySessionResponse>::FResponseInspectorCallback(), DomainKeyHeaders());
+	LLAPI<FLootLockerWhiteLabelVerifySessionResponse>::CallAPI(HttpClient, VerifyRequest, ULootLockerGameEndpoints::WhiteLabelVerifySessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerWhiteLabelVerifySessionResponse>::FResponseInspectorCallback(), DomainKeyHeaders());
 }
 
 void ULootLockerAuthenticationRequestHandler::WhiteLabelRequestUserVerification(const int& UserId, const FLootLockerDefaultDelegate& OnCompletedRequest)
@@ -142,7 +142,7 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelRequestUserVerification(
 	FLootLockerUserIdRequest UserIdRequest;
 	UserIdRequest.user_id = UserId;
 
-	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, UserIdRequest, ULootLockerGameEndpoints::WhiteLabelRequestVerificationEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FLootLockerDefaultResponseBP(), OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback(), DomainKeyHeaders());
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, UserIdRequest, ULootLockerGameEndpoints::WhiteLabelRequestVerificationEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback(), DomainKeyHeaders());
 }
 
 void ULootLockerAuthenticationRequestHandler::WhiteLabelRequestUserVerificationByEmail(const FString& Email, const FLootLockerDefaultDelegate& OnCompletedRequest)
@@ -150,7 +150,7 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelRequestUserVerificationB
 	FLootLockerEmailRequest EmailRequest;
 	EmailRequest.Email = Email;
 
-	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, EmailRequest, ULootLockerGameEndpoints::WhiteLabelRequestVerificationEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FLootLockerDefaultResponseBP(), OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback(), DomainKeyHeaders());
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, EmailRequest, ULootLockerGameEndpoints::WhiteLabelRequestVerificationEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback(), DomainKeyHeaders());
 }
 
 void ULootLockerAuthenticationRequestHandler::WhiteLabelRequestPasswordReset(const FString& Email, const FLootLockerDefaultDelegate& OnCompletedRequest)
@@ -158,7 +158,7 @@ void ULootLockerAuthenticationRequestHandler::WhiteLabelRequestPasswordReset(con
 	FLootLockerWhiteLabelResetPasswordRequest ResetPasswordRequest;
 	ResetPasswordRequest.email = Email;
 
-	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, ResetPasswordRequest, ULootLockerGameEndpoints::WhiteLabelRequestPasswordResetEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FLootLockerDefaultResponseBP(), OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback(), DomainKeyHeaders());
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, ResetPasswordRequest, ULootLockerGameEndpoints::WhiteLabelRequestPasswordResetEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback(), DomainKeyHeaders());
 }
 
 void ULootLockerAuthenticationRequestHandler::StartPlaystationNetworkSession(const FString& PsnOnlineId, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& OnCompletedRequest)
@@ -171,7 +171,7 @@ void ULootLockerAuthenticationRequestHandler::StartPlaystationNetworkSession(con
 
 	AuthRequest.platform = ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::PlayStationNetwork).PlatformString;
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FAuthResponseBP(), OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAuthenticationResponse& Response)
+	LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAuthenticationResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -191,7 +191,7 @@ void ULootLockerAuthenticationRequestHandler::VerifyPlayerAndStartPlaystationNet
 	VerificationRequest.Psn_issuer_id = PsnIssuerId;
 	VerificationRequest.Platform = ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::PlayStationNetwork).PlatformString;
 
-	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, VerificationRequest, ULootLockerGameEndpoints::VerifyPlayerIdEndPoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FLootLockerDefaultResponseBP(), FLootLockerDefaultDelegate(), LLAPI<FLootLockerResponse>::FResponseInspectorCallback::CreateLambda([AccountID, Optionals, Delegate](FLootLockerResponse& Response)
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, VerificationRequest, ULootLockerGameEndpoints::VerifyPlayerIdEndPoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FLootLockerDefaultDelegate(), LLAPI<FLootLockerResponse>::FResponseInspectorCallback::CreateLambda([AccountID, Optionals, Delegate](FLootLockerResponse& Response)
 		{
 			if (!Response.success)
 			{
@@ -206,7 +206,7 @@ void ULootLockerAuthenticationRequestHandler::VerifyPlayerAndStartPlaystationNet
 		AuthRequest.player_identifier = AccountID;
 		AuthRequest.platform = ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::PlayStationNetwork).PlatformString;
 		FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-		LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FAuthResponseBP(), Delegate, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAuthenticationResponse& Response)
+		LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), Delegate, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAuthenticationResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -230,7 +230,7 @@ void ULootLockerAuthenticationRequestHandler::VerifyPlayerAndStartPlaystationNet
 	};
 	
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::PlaystationNetworkV3SessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FAuthResponseBP(), Delegate, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAuthenticationResponse& Response)
+	LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::PlaystationNetworkV3SessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), Delegate, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAuthenticationResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -251,7 +251,7 @@ void ULootLockerAuthenticationRequestHandler::StartAndroidSession(const FString&
 
 	AuthRequest.platform = ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Android).PlatformString;
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FAuthResponseBP(), OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAuthenticationResponse& Response)
+	LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAuthenticationResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -271,7 +271,7 @@ void ULootLockerAuthenticationRequestHandler::StartGoogleSession(const FString& 
 	AuthRequest.id_token = IdToken;
 
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerGoogleSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartGoogleSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FGoogleSessionResponseBP(), OnCompletedRequest, LLAPI<FLootLockerGoogleSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerGoogleSessionResponse& Response)
+	LLAPI<FLootLockerGoogleSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartGoogleSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerGoogleSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerGoogleSessionResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -292,7 +292,7 @@ void ULootLockerAuthenticationRequestHandler::StartGoogleSession(const FString& 
 	AuthRequest.platform = Platform;
 
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerGoogleSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartGoogleSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FGoogleSessionResponseBP(), OnCompletedRequest, LLAPI<FLootLockerGoogleSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerGoogleSessionResponse& Response)
+	LLAPI<FLootLockerGoogleSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartGoogleSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerGoogleSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerGoogleSessionResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -312,7 +312,7 @@ void ULootLockerAuthenticationRequestHandler::RefreshGoogleSession(const FString
 	AuthRequest.refresh_token = RefreshToken;
 
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerGoogleSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::RefreshGoogleSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FGoogleSessionResponseBP(), OnCompletedRequest, LLAPI<FLootLockerGoogleSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerGoogleSessionResponse& Response)
+	LLAPI<FLootLockerGoogleSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::RefreshGoogleSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerGoogleSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerGoogleSessionResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -332,7 +332,7 @@ void ULootLockerAuthenticationRequestHandler::StartGooglePlayGamesSession(const 
 	AuthRequest.auth_code = AuthCode;
 
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerGooglePlayGamesSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartGooglePlayGamesSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FGooglePlayGamesSessionResponseBP(), OnCompletedRequest, LLAPI<FLootLockerGooglePlayGamesSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerGooglePlayGamesSessionResponse& Response)
+	LLAPI<FLootLockerGooglePlayGamesSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartGooglePlayGamesSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerGooglePlayGamesSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerGooglePlayGamesSessionResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -352,7 +352,7 @@ void ULootLockerAuthenticationRequestHandler::RefreshGooglePlayGamesSession(cons
 	AuthRequest.refresh_token = RefreshToken;
 
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerGooglePlayGamesSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::RefreshGooglePlayGamesSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FGooglePlayGamesSessionResponseBP(), OnCompletedRequest, LLAPI<FLootLockerGooglePlayGamesSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerGooglePlayGamesSessionResponse& Response)
+	LLAPI<FLootLockerGooglePlayGamesSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::RefreshGooglePlayGamesSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerGooglePlayGamesSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerGooglePlayGamesSessionResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -372,7 +372,7 @@ void ULootLockerAuthenticationRequestHandler::StartEpicSession(const FString& Id
 	AuthRequest.id_token = IdToken;
 
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerEpicSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartEpicSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FEpicSessionResponseBP(), OnCompletedRequest, LLAPI<FLootLockerEpicSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerEpicSessionResponse& Response)
+	LLAPI<FLootLockerEpicSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartEpicSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerEpicSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerEpicSessionResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -400,7 +400,7 @@ void ULootLockerAuthenticationRequestHandler::RefreshEpicSession(const FString& 
 	AuthRequest.refresh_token = RefreshToken;
 
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerEpicSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::RefreshEpicSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FEpicSessionResponseBP(), OnCompletedRequest, InspectionLambda);
+	LLAPI<FLootLockerEpicSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::RefreshEpicSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, InspectionLambda);
 }
 
 void ULootLockerAuthenticationRequestHandler::StartAmazonLunaSession(const FString& AmazonLunaGuid, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& OnCompletedRequest)
@@ -413,7 +413,7 @@ void ULootLockerAuthenticationRequestHandler::StartAmazonLunaSession(const FStri
 
 	AuthRequest.platform = ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::AmazonLuna).PlatformString;
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FAuthResponseBP(), OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAuthenticationResponse& Response)
+	LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAuthenticationResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -442,7 +442,7 @@ void ULootLockerAuthenticationRequestHandler::StartSteamSession(const FString& S
 		request.game_version = config->GameVersion;
 		request.steam_ticket = SteamSessionTicket;
 		FString Json = AuthRequestToJsonStringWithOptionals(request, Optionals);
-		LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::SteamSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FAuthResponseBP(), OnCompletedRequest, responseHandler);
+		LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::SteamSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, responseHandler);
 	}
 	else {
 		FLootLockerSteamSessionWithAppIdRequest request;
@@ -451,7 +451,7 @@ void ULootLockerAuthenticationRequestHandler::StartSteamSession(const FString& S
 		request.game_version = config->GameVersion;
 		request.steam_ticket = SteamSessionTicket;
 		FString Json = AuthRequestToJsonStringWithOptionals(request, Optionals);
-		LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::SteamSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FAuthResponseBP(), OnCompletedRequest, responseHandler);
+		LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::SteamSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, responseHandler);
 	}
 }
 
@@ -464,7 +464,7 @@ void ULootLockerAuthenticationRequestHandler::StartNintendoSwitchSession(const F
 	AuthRequest.nsa_id_token = NSAIdToken;
 
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartNintendoSwitchSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FAuthResponseBP(), OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAuthenticationResponse& Response)
+	LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartNintendoSwitchSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAuthenticationResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -484,7 +484,7 @@ void ULootLockerAuthenticationRequestHandler::StartXboxSession(const FString& Xb
 	AuthRequest.xbox_user_token = XboxUserToken;
 
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartXboxSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FAuthResponseBP(), OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAuthenticationResponse& Response)
+	LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartXboxSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAuthenticationResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -511,7 +511,7 @@ void ULootLockerAuthenticationRequestHandler::StartAppleGameCenterSession(const 
 	AuthRequest.timestamp = Timestamp;
 
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerAppleGameCenterSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartAppleGameCenterSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FLootLockerAppleGameCenterSessionResponseBP(), OnCompletedRequest, LLAPI<FLootLockerAppleGameCenterSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAppleGameCenterSessionResponse& Response)
+	LLAPI<FLootLockerAppleGameCenterSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartAppleGameCenterSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerAppleGameCenterSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAppleGameCenterSessionResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -532,7 +532,7 @@ void ULootLockerAuthenticationRequestHandler::StartAppleSession(const FString& A
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.apple_authorization_code = AuthorizationCode;
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerAppleSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartAppleSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FAppleSessionResponseBP(), OnCompletedRequest, LLAPI<FLootLockerAppleSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAppleSessionResponse& Response)
+	LLAPI<FLootLockerAppleSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartAppleSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerAppleSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAppleSessionResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -554,7 +554,7 @@ void ULootLockerAuthenticationRequestHandler::RefreshAppleGameCenterSession(cons
 	AuthRequest.refresh_token = RefreshToken;
 
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerAppleGameCenterSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::RefreshAppleGameCenterSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FLootLockerAppleGameCenterSessionResponseBP(), OnCompletedRequest, LLAPI<FLootLockerAppleGameCenterSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAppleGameCenterSessionResponse& Response)
+	LLAPI<FLootLockerAppleGameCenterSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::RefreshAppleGameCenterSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerAppleGameCenterSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAppleGameCenterSessionResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -575,7 +575,7 @@ void ULootLockerAuthenticationRequestHandler::RefreshAppleSession(const FString&
 	AuthRequest.refresh_token = RefreshToken;
 
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerAppleSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::RefreshAppleSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FAppleSessionResponseBP(), OnCompletedRequest, LLAPI<FLootLockerAppleSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAppleSessionResponse& Response)
+	LLAPI<FLootLockerAppleSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::RefreshAppleSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerAppleSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAppleSessionResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -597,7 +597,7 @@ void ULootLockerAuthenticationRequestHandler::StartMetaSession(const FString& Us
 	AuthRequest.game_version = config->GameVersion;
 
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerMetaSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::MetaSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FLootLockerMetaSessionResponseBP(), OnCompletedRequest, LLAPI<FLootLockerMetaSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerMetaSessionResponse& Response)
+	LLAPI<FLootLockerMetaSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::MetaSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerMetaSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerMetaSessionResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -619,7 +619,7 @@ void ULootLockerAuthenticationRequestHandler::RefreshMetaSession(const FString& 
 	AuthRequest.game_version = config->GameVersion;
 
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerMetaSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::MetaSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FLootLockerMetaSessionResponseBP(), OnCompletedRequest, LLAPI<FLootLockerMetaSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerMetaSessionResponse& Response)
+	LLAPI<FLootLockerMetaSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::MetaSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerMetaSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerMetaSessionResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -640,7 +640,7 @@ void ULootLockerAuthenticationRequestHandler::StartDiscordSession(const FString&
 	AuthRequest.access_token = AccessToken;
 
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerDiscordSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartDiscordSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FDiscordSessionResponseBP(), OnCompletedRequest, LLAPI<FLootLockerDiscordSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerDiscordSessionResponse& Response)
+	LLAPI<FLootLockerDiscordSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::StartDiscordSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerDiscordSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerDiscordSessionResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -660,7 +660,7 @@ void ULootLockerAuthenticationRequestHandler::RefreshDiscordSession(const FStrin
 	AuthRequest.refresh_token = RefreshToken;
 
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	LLAPI<FLootLockerDiscordSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::RefreshDiscordSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FDiscordSessionResponseBP(), OnCompletedRequest, LLAPI<FLootLockerDiscordSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerDiscordSessionResponse& Response)
+	LLAPI<FLootLockerDiscordSessionResponse>::CallAPIUsingRawJSON(HttpClient, Json, ULootLockerGameEndpoints::RefreshDiscordSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerDiscordSessionResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerDiscordSessionResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -677,11 +677,11 @@ void ULootLockerAuthenticationRequestHandler::VerifyPlayer(const FLootLockerPlay
 	const FString RequestPlatform = Platform.IsEmpty() ? ForPlayer.CurrentPlatform.PlatformString : Platform;
 	if(SteamAppId == -1)
 	{
-		LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerVerificationRequest{ Config->LootLockerGameKey, RequestPlatform }, ULootLockerGameEndpoints::VerifyPlayerIdEndPoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FLootLockerDefaultResponseBP(), OnCompletedRequest);
+		LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerVerificationRequest{ Config->LootLockerGameKey, RequestPlatform }, ULootLockerGameEndpoints::VerifyPlayerIdEndPoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest);
 	} 
 	else
 	{
-		LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerVerificationWithSteamAppIdRequest{ Config->LootLockerGameKey, RequestPlatform, PlatformToken, SteamAppId }, ULootLockerGameEndpoints::VerifyPlayerIdEndPoint, { }, EmptyQueryParams, FLootLockerPlayerData(), FLootLockerDefaultResponseBP(), OnCompletedRequest);
+		LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerVerificationWithSteamAppIdRequest{ Config->LootLockerGameKey, RequestPlatform, PlatformToken, SteamAppId }, ULootLockerGameEndpoints::VerifyPlayerIdEndPoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest);
 	}
 }
 
@@ -692,7 +692,7 @@ void ULootLockerAuthenticationRequestHandler::EndSession(const FLootLockerPlayer
 	{
 		CustomHeaders.Add(TEXT("logout"), TEXT("true"));
 	}
-	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::EndSessionEndpoint, { }, EmptyQueryParams, ForPlayer, FLootLockerDefaultResponseBP(), OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerResponse& Response)
+	LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::EndSessionEndpoint, { }, EmptyQueryParams, ForPlayer, OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerResponse& Response)
 		{
 			if (Response.success) {
 				ULootLockerStateData::ClearSavedStateForPlayer(Response.Context.PlayerUlid);
