@@ -172,29 +172,9 @@ struct FLootLockerGetFriendResponse : public FLootLockerResponse
     FString Accepted_at = "";
 };
 
-
 //==================================================
-// Blueprint Delegate Definitions
+// Delegate Definitions
 //==================================================
-
-
-/** Blueprint response delegate for listing friends */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListFriendsResponseBP, FLootLockerListFriendsResponse, Response);
-/** Blueprint response delegate for listing incoming friend requests */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListIncomingFriendRequestsResponseBP, FLootLockerListIncomingFriendRequestsResponse, Response);
-/** Blueprint response delegate for listing outgoing friend requests */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListOutgoingFriendRequestsResponseBP, FLootLockerListOutgoingFriendRequestsResponse, Response);
-/** Blueprint response delegate for actions taken towards the friends list */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerFriendActionResponseBP, FLootLockerFriendActionResponse, Response);
-/** Blueprint response delegate for listing blocked players */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListBlockedPlayersResponseBP, FLootLockerListBlockedPlayersResponse, Response);
-/** Blueprint response delegate for getting a friend */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetFriendResponseBP, FLootLockerGetFriendResponse, Response);
-
-//==================================================
-// C++ Delegate Definitions
-//==================================================
-
 
 /** C++ response delegate for listing friends */
 DECLARE_DELEGATE_OneParam(FLootLockerListFriendsResponseDelegate, FLootLockerListFriendsResponse);

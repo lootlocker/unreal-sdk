@@ -265,19 +265,7 @@ struct FLootLockerListConnectedAccountsResponse : public FLootLockerResponse
 };
 
 //==================================================
-// Blueprint Delegate Definitions
-//==================================================
-/**
- * Blueprint response delegate for connecting a provider to an account
- */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAccountConnectedResponseBP, FLootLockerAccountConnectedResponse, Response);
-/**
- * Blueprint response delegate for listing connected accounts
- */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListConnectedAccountsResponseBP, FLootLockerListConnectedAccountsResponse, Response);
-
-//==================================================
-// C++ Delegate Definitions
+// Delegate Definitions
 //==================================================
 /**
  * C++ response delegate for connecting a provider to an account

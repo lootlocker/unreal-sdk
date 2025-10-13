@@ -156,26 +156,8 @@ struct FLootLockerGetCurrencyDetailsResponse : public FLootLockerResponse
     FString Created_at = "";
 };
 
-
 //==================================================
-// Blueprint Delegate Definitions
-//==================================================
-
-/**
- * Blueprint response delegate for listing currencies
- */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListCurrenciesResponseBP, FLootLockerListCurrenciesResponse, Response);
-/**
- * Blueprint response delegate for getting details for a single currency
- */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetCurrencyDetailsResponseBP, FLootLockerGetCurrencyDetailsResponse, Response);
-/**
- * Blueprint response delegate for listing denominations on a currency
- */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListDenominationsResponseBP, FLootLockerListDenominationsResponse, Response);
-
-//==================================================
-// C++ Delegate Definitions
+// Delegate Definitions
 //==================================================
 
 /**
