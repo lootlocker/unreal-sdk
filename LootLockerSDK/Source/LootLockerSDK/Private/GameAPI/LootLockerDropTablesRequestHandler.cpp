@@ -14,10 +14,10 @@ ULootLockerDropTablesRequestHandler::ULootLockerDropTablesRequestHandler()
 
 void ULootLockerDropTablesRequestHandler::ComputeAndLockDropTable(const FLootLockerPlayerData& PlayerData, int TableId, const FLootLockerComputeAndLockDropTableResponseDelegate& OnCompletedRequest)
 {
-	LLAPI<FLootLockerComputeAndLockDropTableResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ComputeAndLockDropTable, { TableId},EmptyQueryParams, PlayerData, FLootLockerComputeAndLockDropTableResponseBP(), OnCompletedRequest);
+	LLAPI<FLootLockerComputeAndLockDropTableResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ComputeAndLockDropTable, { TableId},EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerDropTablesRequestHandler::PickDropsFromDropTable(const FLootLockerPlayerData& PlayerData, const FLootLockerPickDropsFromDropTableRequest& request, int TableId, const FFLootLockerPickDropsFromDropTableResponseDelegate& OnCompletedRequest)
 {
-	LLAPI<FLootLockerPickDropsFromDropTableResponse>::CallAPI(HttpClient, request, ULootLockerGameEndpoints::PickDropsFromDropTable, { TableId },EmptyQueryParams, PlayerData, FFLootLockerPickDropsFromDropTableResponseBP(), OnCompletedRequest);
+	LLAPI<FLootLockerPickDropsFromDropTableResponse>::CallAPI(HttpClient, request, ULootLockerGameEndpoints::PickDropsFromDropTable, { TableId },EmptyQueryParams, PlayerData, OnCompletedRequest);
 }

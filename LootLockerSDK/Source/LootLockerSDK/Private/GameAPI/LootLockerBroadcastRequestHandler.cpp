@@ -31,8 +31,7 @@ void ULootLockerBroadcastRequestHandler::ListBroadcasts(const FLootLockerPlayerD
         ULootLockerGameEndpoints::ListBroadcasts, 
         {}, 
         QueryParams, 
-        PlayerData, 
-        FLootLockerInternalListBroadcastsResponseBP(), 
+        PlayerData,
         FLootLockerInternalListBroadcastsResponseDelegate(), 
         LLAPI<FLootLockerInternalListBroadcastsResponse>::FResponseInspectorCallback::CreateLambda([OnComplete](FLootLockerInternalListBroadcastsResponse& InternalResponse)
         {
