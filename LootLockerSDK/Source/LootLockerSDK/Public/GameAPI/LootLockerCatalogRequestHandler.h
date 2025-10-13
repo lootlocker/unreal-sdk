@@ -757,32 +757,7 @@ struct FLootLockerListCatalogPricesV2Response : public FLootLockerResponse
 };
 
 //==================================================
-// Blueprint Delegate Definitions
-//==================================================
-
-/**
- * Blueprint response delegate for listing catalogs
- */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListCatalogsResponseBP, FLootLockerListCatalogsResponse, Response);
-/**
- * Blueprint response delegate for listing items and prices in a catalog
- */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListCatalogPricesResponseBP, FLootLockerListCatalogPricesResponse, Response);
-/**
- * Blueprint response delegate for listing items and prices in a catalog
- */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListCatalogPricesV2ResponseBP, FLootLockerListCatalogPricesV2Response, Response);
-/**
- * Internal Blueprint response delegate for listing items and prices in a catalog with details as arrays
- */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FInternalLootLockerListCatalogPricesResponseBP, FInternalLootLockerListCatalogPricesResponse, Response);
-/**
- * Internal Blueprint response delegate for listing items and prices in a catalog with details as arrays
- */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FInternalLootLockerListCatalogPricesV2ResponseBP, FInternalLootLockerListCatalogPricesV2Response, Response);
-
-//==================================================
-// C++ Delegate Definitions
+// Delegate Definitions
 //==================================================
 
 /**

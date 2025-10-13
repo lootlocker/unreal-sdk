@@ -1710,7 +1710,7 @@ void ULootLockerManager::ListLeaderboardArchive(const FString& ForPlayerWithUlid
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetLeaderboardArchive(const FString& ForPlayerWithUlid, const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailReponseBP& OnCompletedRequestBP)
+void ULootLockerManager::GetLeaderboardArchive(const FString& ForPlayerWithUlid, const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailResponseBP& OnCompletedRequestBP)
 {
     ULootLockerSDKManager::GetLeaderboardArchive(Key, Count, After, FLootLockerLeaderboardArchiveDetailResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerLeaderboardArchiveDetailsResponse Response)
         {

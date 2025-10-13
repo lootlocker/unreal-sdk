@@ -294,7 +294,7 @@ ULootLockerNotificationsRequestHandler::ULootLockerNotificationsRequestHandler()
 
 void ULootLockerNotificationsRequestHandler::ListNotificationsWithDefaultParameters(const FLootLockerPlayerData& PlayerData, const FLootLockerListNotificationsResponseDelegate& OnComplete)
 {
-    ListNotifications(PlayerData, TMultiMap<FString, FString>(), FLootLockerListNotificationsResponseBP(), OnComplete);
+    ListNotifications(PlayerData, TMultiMap<FString, FString>(), OnComplete);
 }
 
 void ULootLockerNotificationsRequestHandler::ListNotifications(const FLootLockerPlayerData& PlayerData, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate& OnComplete)
@@ -307,7 +307,7 @@ void ULootLockerNotificationsRequestHandler::ListNotifications(const FLootLocker
     if (ShowRead) QueryParams.Add("read", "true"); else QueryParams.Add("read", "false");
     if (CustomNotificationsFilter != ELootLockerCustomNotificationFiltering::All) QueryParams.Add("custom", CustomNotificationsFilter == ELootLockerCustomNotificationFiltering::Custom_only ? "true" : "false");
 
-    ListNotifications(PlayerData, QueryParams, FLootLockerListNotificationsResponseBP(), OnComplete);
+    ListNotifications(PlayerData, QueryParams, OnComplete);
 }
 
 void ULootLockerNotificationsRequestHandler::ListNotifications(const FLootLockerPlayerData& PlayerData, ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate& OnComplete)
@@ -322,7 +322,7 @@ void ULootLockerNotificationsRequestHandler::ListNotifications(const FLootLocker
     if (ShowRead) QueryParams.Add("read", "true"); else QueryParams.Add("read", "false");
     if (CustomNotificationsFilter != ELootLockerCustomNotificationFiltering::All) QueryParams.Add("custom", CustomNotificationsFilter == ELootLockerCustomNotificationFiltering::Custom_only ? "true" : "false");
 
-    ListNotifications(PlayerData, QueryParams, FLootLockerListNotificationsResponseBP(), OnComplete);
+    ListNotifications(PlayerData, QueryParams, OnComplete);
 }
 
 void ULootLockerNotificationsRequestHandler::MarkNotificationsAsRead(const FLootLockerPlayerData& PlayerData, const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseDelegate& OnComplete)
@@ -335,16 +335,15 @@ void ULootLockerNotificationsRequestHandler::MarkAllNotificationsAsRead(const FL
     LLAPI<FLootLockerReadNotificationsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ReadAllNotifications, {}, {}, PlayerData, OnComplete);
 }
 
-void ULootLockerNotificationsRequestHandler::ListNotifications(const FLootLockerPlayerData& PlayerData, const TMultiMap<FString, FString>& QueryParams, const FLootLockerListNotificationsResponseBP& OnCompleteBP, const FLootLockerListNotificationsResponseDelegate& OnComplete)
+void ULootLockerNotificationsRequestHandler::ListNotifications(const FLootLockerPlayerData& PlayerData, const TMultiMap<FString, FString>& QueryParams, const FLootLockerListNotificationsResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerListNotificationsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListNotifications, {}, QueryParams, PlayerData, FLootLockerListNotificationsResponseDelegate(), LLAPI<FLootLockerListNotificationsResponse>::FResponseInspectorCallback::CreateLambda([OnComplete, OnCompleteBP] (FLootLockerListNotificationsResponse& Response)
+    LLAPI<FLootLockerListNotificationsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListNotifications, {}, QueryParams, PlayerData, FLootLockerListNotificationsResponseDelegate(), LLAPI<FLootLockerListNotificationsResponse>::FResponseInspectorCallback::CreateLambda([OnComplete] (FLootLockerListNotificationsResponse& Response)
     {
         if(Response.success && Response.Notifications.Num() > 0)
         {
             Response.PopulateConvenienceStructures();
         }
 
-        OnCompleteBP.ExecuteIfBound(Response);
         OnComplete.ExecuteIfBound(Response);
     }));
 }

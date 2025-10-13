@@ -78,7 +78,6 @@ struct FLootLockerCollectablesResponse : public FLootLockerResponse {
     TArray<FLootLockerCollectable> collectables;
 };
 
-DECLARE_DYNAMIC_DELEGATE_OneParam(FCollectablesResponseDelegateBP, FLootLockerCollectablesResponse, Response);
 DECLARE_DELEGATE_OneParam(FCollectablesResponseDelegate, FLootLockerCollectablesResponse);
 
 UCLASS()
