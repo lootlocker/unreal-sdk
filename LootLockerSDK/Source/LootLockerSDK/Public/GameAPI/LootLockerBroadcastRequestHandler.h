@@ -282,13 +282,7 @@ public:
 };
 
 //==================================================
-// Blueprint Delegate Definitions
-//==================================================
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListBroadcastsResponseBP, FLootLockerListBroadcastsResponse, Response);
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerInternalListBroadcastsResponseBP, FLootLockerInternalListBroadcastsResponse, Response);
-
-//==================================================
-// C++ Delegate Definitions
+// Delegate Definitions
 //==================================================
 DECLARE_DELEGATE_OneParam(FLootLockerListBroadcastsResponseDelegate, FLootLockerListBroadcastsResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerInternalListBroadcastsResponseDelegate, FLootLockerInternalListBroadcastsResponse);
@@ -303,7 +297,7 @@ class LOOTLOCKERSDK_API ULootLockerBroadcastRequestHandler : public UObject
 
 public:
 	ULootLockerBroadcastRequestHandler();
-    static void ListBroadcasts(const FLootLockerPlayerData& PlayerData, const TArray<FString>& Languages, int32 PerPage, int32 Page, const FLootLockerListBroadcastsResponseBP& OnCompleteBP = FLootLockerListBroadcastsResponseBP(), const FLootLockerListBroadcastsResponseDelegate& OnComplete = FLootLockerListBroadcastsResponseDelegate());
+    static void ListBroadcasts(const FLootLockerPlayerData& PlayerData, const TArray<FString>& Languages, int32 PerPage, int32 Page, const FLootLockerListBroadcastsResponseDelegate& OnComplete = FLootLockerListBroadcastsResponseDelegate());
 public:
 	static ULootLockerHttpClient* HttpClient;
 };

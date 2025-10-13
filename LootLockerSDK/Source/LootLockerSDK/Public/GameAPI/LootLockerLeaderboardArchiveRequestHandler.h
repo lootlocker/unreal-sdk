@@ -83,8 +83,6 @@ struct FLootLockerLeaderboardArchiveResponse : public FLootLockerResponse
 	TArray<FLootLockerLeaderboardArchive> archives;
 };
 
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerLeaderboardArchiveResponseBP, FLootLockerLeaderboardArchiveResponse, Response);
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerLeaderboardArchiveDetailReponseBP, FLootLockerLeaderboardArchiveDetailsResponse, Response);
 DECLARE_DELEGATE_OneParam(FLootLockerLeaderboardArchiveResponseDelegate, FLootLockerLeaderboardArchiveResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerLeaderboardArchiveDetailResponseDelegate, FLootLockerLeaderboardArchiveDetailsResponse);
 
@@ -94,8 +92,8 @@ class LOOTLOCKERSDK_API ULootLockerLeaderboardArchiveRequestHandler : public UOb
 {
 	GENERATED_BODY()
 public:
-	static void ListLeaderboardArchive(const FLootLockerPlayerData& PlayerData, const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP = FLootLockerLeaderboardArchiveResponseBP(), const FLootLockerLeaderboardArchiveResponseDelegate& OnCompletedRequest = FLootLockerLeaderboardArchiveResponseDelegate());
-	static void GetLeaderboardArchive(const FLootLockerPlayerData& PlayerData, const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailReponseBP& OnCompletedRequestBP = FLootLockerLeaderboardArchiveDetailReponseBP(), const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest = FLootLockerLeaderboardArchiveDetailResponseDelegate());
+	static void ListLeaderboardArchive(const FLootLockerPlayerData& PlayerData, const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseDelegate& OnCompletedRequest);
+	static void GetLeaderboardArchive(const FLootLockerPlayerData& PlayerData, const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest);
 public:
 	ULootLockerLeaderboardArchiveRequestHandler();
 	static ULootLockerHttpClient* HttpClient;

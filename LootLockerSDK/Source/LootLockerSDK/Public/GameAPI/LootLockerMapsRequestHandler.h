@@ -52,7 +52,6 @@ struct FLootLockerGetMapsResponse : public FLootLockerResponse
     TArray<FLootLockerMap> maps;
 };
 
-DECLARE_DYNAMIC_DELEGATE_OneParam(FGetMapsResponseDelegateBP, FLootLockerGetMapsResponse, Response);
 DECLARE_DELEGATE_OneParam(FGetMapsResponseDelegate, FLootLockerGetMapsResponse);
 
 UCLASS()
@@ -60,7 +59,7 @@ class LOOTLOCKERSDK_API ULootLockerMapsRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
-    static void GetMaps(const FLootLockerPlayerData& PlayerData, const FGetMapsResponseDelegateBP& OnCompletedRequestBP = FGetMapsResponseDelegateBP(), const FGetMapsResponseDelegate& OnCompletedRequest = FGetMapsResponseDelegate());
+    static void GetMaps(const FLootLockerPlayerData& PlayerData, const FGetMapsResponseDelegate& OnCompletedRequest = FGetMapsResponseDelegate());
 public:
     ULootLockerMapsRequestHandler();
     

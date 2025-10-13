@@ -99,14 +99,7 @@ struct FLootLockerFeedbackRequest
 };
 
 //==================================================
-// Blueprint Delegate Definitions
-//==================================================
-
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListFeedbackCategoryResponseBP, FLootLockerFeedbackCategoryResponse, Response);
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerSendFeedbackResponseBP, FLootLockerResponse, Response);
-
-//==================================================
-// C++ Delegate Definitions
+// Delegate Definitions
 //==================================================
 
 DECLARE_DELEGATE_OneParam(FLootLockerListFeedbackCategoryResponseDelegate, FLootLockerFeedbackCategoryResponse);
@@ -122,8 +115,8 @@ class LOOTLOCKERSDK_API ULootLockerFeedbackRequestHandler : public UObject
     GENERATED_BODY()
 public:
     ULootLockerFeedbackRequestHandler();
-    static void ListFeedbackCategories(const FLootLockerPlayerData& PlayerData, const ELootLockerFeedbackType& Type, const FLootLockerListFeedbackCategoryResponseBP& OnCompletedRequestBP = FLootLockerListFeedbackCategoryResponseBP(), const FLootLockerListFeedbackCategoryResponseDelegate& OnCompletedRequest = FLootLockerListFeedbackCategoryResponseDelegate());
-    static void SendFeedback(const FLootLockerPlayerData& PlayerData, const FString& Ulid, const FString& Description, const FString& CategoryID, const ELootLockerFeedbackType& Type, const FLootLockerSendFeedbackResponseBP& OnCompletedRequestBP = FLootLockerSendFeedbackResponseBP(), const FLootLockerSendFeedbackResponseDelegate& OnCompletedRequest = FLootLockerSendFeedbackResponseDelegate());
+    static void ListFeedbackCategories(const FLootLockerPlayerData& PlayerData, const ELootLockerFeedbackType& Type, const FLootLockerListFeedbackCategoryResponseDelegate& OnCompletedRequest = FLootLockerListFeedbackCategoryResponseDelegate());
+    static void SendFeedback(const FLootLockerPlayerData& PlayerData, const FString& Ulid, const FString& Description, const FString& CategoryID, const ELootLockerFeedbackType& Type, const FLootLockerSendFeedbackResponseDelegate& OnCompletedRequest = FLootLockerSendFeedbackResponseDelegate());
 private:
     static ULootLockerHttpClient* HttpClient;
 };

@@ -12,7 +12,7 @@ ULootLockerBroadcastRequestHandler::ULootLockerBroadcastRequestHandler()
     HttpClient = NewObject<ULootLockerHttpClient>();
 }
 
-void ULootLockerBroadcastRequestHandler::ListBroadcasts(const FLootLockerPlayerData& PlayerData, const TArray<FString>& Languages, int32 PerPage, int32 Page, const FLootLockerListBroadcastsResponseBP& OnCompleteBP, const FLootLockerListBroadcastsResponseDelegate& OnComplete)
+void ULootLockerBroadcastRequestHandler::ListBroadcasts(const FLootLockerPlayerData& PlayerData, const TArray<FString>& Languages, int32 PerPage, int32 Page, const FLootLockerListBroadcastsResponseDelegate& OnComplete)
 {
     TMap<FString, FString> CustomHeaders;
     if (Languages.Num() > 0)
@@ -35,13 +35,11 @@ void ULootLockerBroadcastRequestHandler::ListBroadcasts(const FLootLockerPlayerD
         ULootLockerGameEndpoints::ListBroadcasts, 
         {}, 
         QueryParams, 
-        PlayerData, 
-        FLootLockerInternalListBroadcastsResponseBP(), 
+        PlayerData,
         FLootLockerInternalListBroadcastsResponseDelegate(), 
-        LLAPI<FLootLockerInternalListBroadcastsResponse>::FResponseInspectorCallback::CreateLambda([OnCompleteBP, OnComplete](FLootLockerInternalListBroadcastsResponse& InternalResponse)
+        LLAPI<FLootLockerInternalListBroadcastsResponse>::FResponseInspectorCallback::CreateLambda([OnComplete](FLootLockerInternalListBroadcastsResponse& InternalResponse)
         {
             FLootLockerListBroadcastsResponse UserResponse(InternalResponse);
-            OnCompleteBP.ExecuteIfBound(UserResponse);
             OnComplete.ExecuteIfBound(UserResponse);
         }),
         CustomHeaders

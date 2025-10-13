@@ -663,24 +663,7 @@ struct FLootLockerListCatalogPricesResponse : public FLootLockerResponse
 };
 
 //==================================================
-// Blueprint Delegate Definitions
-//==================================================
-
-/**
- * Blueprint response delegate for listing catalogs
- */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListCatalogsResponseBP, FLootLockerListCatalogsResponse, Response);
-/**
- * Blueprint response delegate for listing items and prices in a catalog
- */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListCatalogPricesResponseBP, FLootLockerListCatalogPricesResponse, Response);
-/**
- * Internal Blueprint response delegate for listing items and prices in a catalog with details as arrays
- */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FInternalLootLockerListCatalogPricesResponseBP, FInternalLootLockerListCatalogPricesResponse, Response);
-
-//==================================================
-// C++ Delegate Definitions
+// Delegate Definitions
 //==================================================
 
 /**
@@ -708,8 +691,8 @@ class LOOTLOCKERSDK_API ULootLockerCatalogRequestHandler : public UObject
 public:
     ULootLockerCatalogRequestHandler();
 
-    static void ListCatalogs(const FLootLockerPlayerData& PlayerData, const FLootLockerListCatalogsResponseBP& OnCompleteBP = FLootLockerListCatalogsResponseBP(), const FLootLockerListCatalogsResponseDelegate& OnComplete = FLootLockerListCatalogsResponseDelegate());
-    static void ListCatalogItems(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnCompleteBP = FLootLockerListCatalogPricesResponseBP(), const FLootLockerListCatalogPricesResponseDelegate& OnComplete = FLootLockerListCatalogPricesResponseDelegate());
+    static void ListCatalogs(const FLootLockerPlayerData& PlayerData, const FLootLockerListCatalogsResponseDelegate& OnComplete = FLootLockerListCatalogsResponseDelegate());
+    static void ListCatalogItems(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseDelegate& OnComplete = FLootLockerListCatalogPricesResponseDelegate());
     static TArray<FLootLockerInlinedCatalogEntry> ConvertCatalogToInlineItems(const FLootLockerListCatalogPricesResponse& Catalog)
     {
         return Catalog.GetLootLockerInlinedCatalogEntries();

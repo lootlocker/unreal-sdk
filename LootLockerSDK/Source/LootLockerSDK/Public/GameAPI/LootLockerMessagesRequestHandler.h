@@ -39,7 +39,6 @@ struct FLootLockerMessagesResponse : public FLootLockerResponse {
     TArray<FLootLockerMessage> messages;
 };
 
-DECLARE_DYNAMIC_DELEGATE_OneParam(FMessagesResponseDelegateBP, FLootLockerMessagesResponse, Response);
 DECLARE_DELEGATE_OneParam(FMessagesResponseDelegate, FLootLockerMessagesResponse);
 
 UCLASS()
@@ -48,7 +47,7 @@ class LOOTLOCKERSDK_API ULootLockerMessagesRequestHandler : public UObject
     GENERATED_BODY()
 public:
     
-    static void GetMessages(const FLootLockerPlayerData& PlayerData, const FMessagesResponseDelegateBP& OnCompletedRequestBP = FMessagesResponseDelegateBP(), const FMessagesResponseDelegate& OnCompletedRequest = FMessagesResponseDelegate());
+    static void GetMessages(const FLootLockerPlayerData& PlayerData, const FMessagesResponseDelegate& OnCompletedRequest = FMessagesResponseDelegate());
 public:
     ULootLockerMessagesRequestHandler();
     

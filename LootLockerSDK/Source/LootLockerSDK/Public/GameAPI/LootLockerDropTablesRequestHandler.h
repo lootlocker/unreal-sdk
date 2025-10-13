@@ -65,9 +65,8 @@ struct FLootLockerPickDropsFromDropTableRequest
     TArray<int> picks;
 };
 
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerComputeAndLockDropTableResponseBP, FLootLockerComputeAndLockDropTableResponse, Response);
+
 DECLARE_DELEGATE_OneParam(FLootLockerComputeAndLockDropTableResponseDelegate, FLootLockerComputeAndLockDropTableResponse);
-DECLARE_DYNAMIC_DELEGATE_OneParam(FFLootLockerPickDropsFromDropTableResponseBP, FLootLockerPickDropsFromDropTableResponse, Response);
 DECLARE_DELEGATE_OneParam(FFLootLockerPickDropsFromDropTableResponseDelegate, FLootLockerPickDropsFromDropTableResponse);
 /**
  * 
@@ -79,7 +78,7 @@ class LOOTLOCKERSDK_API ULootLockerDropTablesRequestHandler : public UObject
 public:
     ULootLockerDropTablesRequestHandler();
     static ULootLockerHttpClient* HttpClient;
-    static void ComputeAndLockDropTable(const FLootLockerPlayerData& PlayerData, int TableId,const FLootLockerComputeAndLockDropTableResponseBP& OnCompletedRequestBP = FLootLockerComputeAndLockDropTableResponseBP(), const FLootLockerComputeAndLockDropTableResponseDelegate& OnCompletedRequest = FLootLockerComputeAndLockDropTableResponseDelegate());
-    static void PickDropsFromDropTable(const FLootLockerPlayerData& PlayerData, const FLootLockerPickDropsFromDropTableRequest& request, int TableId,const FFLootLockerPickDropsFromDropTableResponseBP& OnCompletedRequestBP = FFLootLockerPickDropsFromDropTableResponseBP(), const FFLootLockerPickDropsFromDropTableResponseDelegate& OnCompletedRequest = FFLootLockerPickDropsFromDropTableResponseDelegate());
+    static void ComputeAndLockDropTable(const FLootLockerPlayerData& PlayerData, int TableId, const FLootLockerComputeAndLockDropTableResponseDelegate& OnCompletedRequest = FLootLockerComputeAndLockDropTableResponseDelegate());
+    static void PickDropsFromDropTable(const FLootLockerPlayerData& PlayerData, const FLootLockerPickDropsFromDropTableRequest& request, int TableId, const FFLootLockerPickDropsFromDropTableResponseDelegate& OnCompletedRequest = FFLootLockerPickDropsFromDropTableResponseDelegate());
 	
 };
