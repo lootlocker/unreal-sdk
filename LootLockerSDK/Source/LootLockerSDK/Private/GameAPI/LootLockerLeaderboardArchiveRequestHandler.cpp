@@ -15,7 +15,7 @@ ULootLockerLeaderboardArchiveRequestHandler::ULootLockerLeaderboardArchiveReques
 
 void ULootLockerLeaderboardArchiveRequestHandler::ListLeaderboardArchive(const FLootLockerPlayerData& PlayerData, const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseDelegate& OnCompletedRequest)
 {
-	LLAPI<FLootLockerLeaderboardArchiveResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ListLeaderboardArchive, { LeaderboardKey }, EmptyQueryParams, PlayerData, FLootLockerLeaderboardArchiveResponseBP(), OnCompletedRequest);
+	LLAPI<FLootLockerLeaderboardArchiveResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ListLeaderboardArchive, { LeaderboardKey }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerLeaderboardArchiveRequestHandler::GetLeaderboardArchive(const FLootLockerPlayerData& PlayerData, const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest)
@@ -33,5 +33,5 @@ void ULootLockerLeaderboardArchiveRequestHandler::GetLeaderboardArchive(const FL
 	{
 		QueryParams.Add("after", After);
 	}
-	LLAPI<FLootLockerLeaderboardArchiveDetailsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetLeaderboardArchive, { }, QueryParams, PlayerData, FLootLockerLeaderboardArchiveDetailReponseBP(), OnCompletedRequest);
+	LLAPI<FLootLockerLeaderboardArchiveDetailsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetLeaderboardArchive, { }, QueryParams, PlayerData, OnCompletedRequest);
 }

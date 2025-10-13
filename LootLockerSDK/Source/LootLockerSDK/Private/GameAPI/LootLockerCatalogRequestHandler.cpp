@@ -442,7 +442,7 @@ ULootLockerCatalogRequestHandler::ULootLockerCatalogRequestHandler()
 
 void ULootLockerCatalogRequestHandler::ListCatalogs(const FLootLockerPlayerData& PlayerData, const FLootLockerListCatalogsResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerListCatalogsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListCatalogs, {}, {}, PlayerData, FLootLockerListCatalogsResponseBP(), OnComplete);
+    LLAPI<FLootLockerListCatalogsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListCatalogs, {}, {}, PlayerData, OnComplete);
 }
 
 void ULootLockerCatalogRequestHandler::ListCatalogItems(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseDelegate& OnComplete)
@@ -457,7 +457,7 @@ void ULootLockerCatalogRequestHandler::ListCatalogItems(const FLootLockerPlayerD
         OnComplete.ExecuteIfBound(MappedResponse);
     });
 
-    LLAPI<FInternalLootLockerListCatalogPricesResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::DeprecatedListCatalogItemsByKey, { CatalogKey }, QueryParams, PlayerData, FInternalLootLockerListCatalogPricesResponseBP(), FInternalLootLockerListCatalogPricesResponseDelegate(), InternalResponseConverter);
+    LLAPI<FInternalLootLockerListCatalogPricesResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::DeprecatedListCatalogItemsByKey, { CatalogKey }, QueryParams, PlayerData, FInternalLootLockerListCatalogPricesResponseBP(), InternalResponseConverter);
 }
 
 void ULootLockerCatalogRequestHandler::ListCatalogItemsV2(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseBP& OnCompleteBP, const FLootLockerListCatalogPricesV2ResponseDelegate& OnComplete)

@@ -14,5 +14,5 @@ ULootLockerMessagesRequestHandler::ULootLockerMessagesRequestHandler()
 
 void ULootLockerMessagesRequestHandler::GetMessages(const FLootLockerPlayerData& PlayerData, const FMessagesResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerMessagesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetMessagesEndpoint, { },EmptyQueryParams, PlayerData, FMessagesResponseDelegateBP(), OnCompletedRequest);
+    LLAPI<FLootLockerMessagesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetMessagesEndpoint, { },EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
