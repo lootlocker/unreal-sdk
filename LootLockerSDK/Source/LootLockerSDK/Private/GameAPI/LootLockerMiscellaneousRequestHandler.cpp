@@ -13,7 +13,7 @@ ULootLockerMiscellaneousRequestHandler::ULootLockerMiscellaneousRequestHandler()
 
 void ULootLockerMiscellaneousRequestHandler::GetServerTime(const FLootLockerPlayerData& PlayerData, const FTimeResponseDelegate& OnCompletedRequest)
 {
-	LLAPI<FLootLockerTimeResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetServerTimeEndpoint, { },EmptyQueryParams, PlayerData, FTimeResponseDelegateBP(), OnCompletedRequest);
+	LLAPI<FLootLockerTimeResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetServerTimeEndpoint, { },EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 FString ULootLockerMiscellaneousRequestHandler::GetLastActivePlatform(const FLootLockerPlayerData& PlayerData)
@@ -32,7 +32,6 @@ void ULootLockerMiscellaneousRequestHandler::GetGameInfo(const FGameInfoResponse
         {},
         EmptyQueryParams,
         FLootLockerPlayerData(),
-        FGameInfoResponseDelegateBP(),
         OnCompletedRequest
     );
 }

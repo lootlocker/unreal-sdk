@@ -16,11 +16,11 @@ void ULootLockerEntitlementRequestHandler::ListEntitlements(const FLootLockerPla
     TMultiMap<FString, FString> QueryParams;
     if (Count > 0) { QueryParams.Add("per_page", FString::FromInt(Count)); }
     if (!After.IsEmpty()) { QueryParams.Add("cursor", After); }
-	LLAPI<FLootLockerEntitlementHistoryResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListEntitlements, {}, QueryParams, PlayerData, FLootLockerListEntitlementsResponseBP(), OnComplete);
+	LLAPI<FLootLockerEntitlementHistoryResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListEntitlements, {}, QueryParams, PlayerData, OnComplete);
 }
 
 void ULootLockerEntitlementRequestHandler::GetEntitlement(const FLootLockerPlayerData& PlayerData, FString EntitlementID, const FLootLockerSingleEntitlementResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerSingleEntitlementResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetEntitlement, { EntitlementID }, {}, PlayerData, FLootLockerSingleEntitlementResponseBP(), OnComplete);
+    LLAPI<FLootLockerSingleEntitlementResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::GetEntitlement, { EntitlementID }, {}, PlayerData, OnComplete);
 
 }

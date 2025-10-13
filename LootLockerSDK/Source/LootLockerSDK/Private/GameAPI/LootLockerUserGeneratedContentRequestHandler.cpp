@@ -34,7 +34,7 @@ void ULootLockerUserGeneratedContentRequestHandler::ParseFilePurposeEnumsInline(
 
 void ULootLockerUserGeneratedContentRequestHandler::CreateAssetCandidate(const FLootLockerPlayerData& PlayerData, const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerCreateAssetCandidateResponse>::CallAPI(HttpClient, FLootLockerCreateAssetCandidateData{ AssetCandidateData.data }, ULootLockerGameEndpoints::CreateAssetCandidateEndpoint, {}, EmptyQueryParams, PlayerData, FCreateAssetCandidateResponseDelegateBP(), OnCompletedRequest, LLAPI<FLootLockerCreateAssetCandidateResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerCreateAssetCandidateResponse& Response) {
+    LLAPI<FLootLockerCreateAssetCandidateResponse>::CallAPI(HttpClient, FLootLockerCreateAssetCandidateData{ AssetCandidateData.data }, ULootLockerGameEndpoints::CreateAssetCandidateEndpoint, {}, EmptyQueryParams, PlayerData, OnCompletedRequest, LLAPI<FLootLockerCreateAssetCandidateResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerCreateAssetCandidateResponse& Response) {
         if(Response.success && Response.asset_candidate.Files.Num() > 0)
         {
             ULootLockerUserGeneratedContentRequestHandler::ParseFilePurposeEnumsInline(Response.asset_candidate.Files);
@@ -44,7 +44,7 @@ void ULootLockerUserGeneratedContentRequestHandler::CreateAssetCandidate(const F
 
 void ULootLockerUserGeneratedContentRequestHandler::CreateAssetCandidateAndMarkComplete(const FLootLockerPlayerData& PlayerData, const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerCreateAssetCandidateResponse>::CallAPI(HttpClient, FLootLockerUpdateAssetCandidateData{ true, AssetCandidateData.data }, ULootLockerGameEndpoints::CreateAssetCandidateEndpoint, {}, EmptyQueryParams, PlayerData, FCreateAssetCandidateResponseDelegateBP(), OnCompletedRequest, LLAPI<FLootLockerCreateAssetCandidateResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerCreateAssetCandidateResponse& Response) {
+    LLAPI<FLootLockerCreateAssetCandidateResponse>::CallAPI(HttpClient, FLootLockerUpdateAssetCandidateData{ true, AssetCandidateData.data }, ULootLockerGameEndpoints::CreateAssetCandidateEndpoint, {}, EmptyQueryParams, PlayerData, OnCompletedRequest, LLAPI<FLootLockerCreateAssetCandidateResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerCreateAssetCandidateResponse& Response) {
         if(Response.success && Response.asset_candidate.Files.Num() > 0)
         {
             ULootLockerUserGeneratedContentRequestHandler::ParseFilePurposeEnumsInline(Response.asset_candidate.Files);
@@ -54,7 +54,7 @@ void ULootLockerUserGeneratedContentRequestHandler::CreateAssetCandidateAndMarkC
 
 void ULootLockerUserGeneratedContentRequestHandler::UpdateAssetCandidate(const FLootLockerPlayerData& PlayerData, int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidateData, const FAssetCandidateResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerAssetCandidateResponse>::CallAPI(HttpClient, AssetCandidateData, ULootLockerGameEndpoints::UpdateAssetCandidateEndpoint, { AssetCandidateId }, EmptyQueryParams, PlayerData, FAssetCandidateResponseDelegateBP(), OnCompletedRequest, LLAPI<FLootLockerAssetCandidateResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerAssetCandidateResponse& Response) {
+    LLAPI<FLootLockerAssetCandidateResponse>::CallAPI(HttpClient, AssetCandidateData, ULootLockerGameEndpoints::UpdateAssetCandidateEndpoint, { AssetCandidateId }, EmptyQueryParams, PlayerData, OnCompletedRequest, LLAPI<FLootLockerAssetCandidateResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerAssetCandidateResponse& Response) {
         if(Response.success && Response.asset_candidate.Files.Num() > 0)
         {
             ULootLockerUserGeneratedContentRequestHandler::ParseFilePurposeEnumsInline(Response.asset_candidate.Files);
@@ -64,12 +64,12 @@ void ULootLockerUserGeneratedContentRequestHandler::UpdateAssetCandidate(const F
 
 void ULootLockerUserGeneratedContentRequestHandler::DeleteAssetCandidate(const FLootLockerPlayerData& PlayerData, int AssetCandidateId, const FResponseCallback& OnCompletedRequest)
 {
-    LLAPI<FLootLockerCreateAssetCandidateResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteAssetCandidateEndpoint, { AssetCandidateId }, EmptyQueryParams, PlayerData, FResponseCallbackBP(), OnCompletedRequest);
+    LLAPI<FLootLockerCreateAssetCandidateResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteAssetCandidateEndpoint, { AssetCandidateId }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerUserGeneratedContentRequestHandler::GetAllAssetCandidates(const FLootLockerPlayerData& PlayerData, const FAssetCandidatesResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerAssetCandidatesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAllAssetCandidatesEndpoint, { }, EmptyQueryParams, PlayerData, FAssetCandidatesResponseDelegateBP(), OnCompletedRequest, LLAPI<FLootLockerAssetCandidatesResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerAssetCandidatesResponse& Response) {
+    LLAPI<FLootLockerAssetCandidatesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAllAssetCandidatesEndpoint, { }, EmptyQueryParams, PlayerData, OnCompletedRequest, LLAPI<FLootLockerAssetCandidatesResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerAssetCandidatesResponse& Response) {
         if(Response.success && Response.asset_candidates.Num() > 0)
         {
             for(FLootLockerResponseAssetCandidate& Candidate : Response.asset_candidates)
@@ -82,7 +82,7 @@ void ULootLockerUserGeneratedContentRequestHandler::GetAllAssetCandidates(const 
 
 void ULootLockerUserGeneratedContentRequestHandler::GetAssetCandidate(const FLootLockerPlayerData& PlayerData, int AssetCandidateId, const FAssetCandidateResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerAssetCandidateResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAssetCandidateEndpoint, { AssetCandidateId }, EmptyQueryParams, PlayerData, FAssetCandidateResponseDelegateBP(), OnCompletedRequest, LLAPI<FLootLockerAssetCandidateResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerAssetCandidateResponse& Response) {
+    LLAPI<FLootLockerAssetCandidateResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAssetCandidateEndpoint, { AssetCandidateId }, EmptyQueryParams, PlayerData, OnCompletedRequest, LLAPI<FLootLockerAssetCandidateResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerAssetCandidateResponse& Response) {
         if(Response.success && Response.asset_candidate.Files.Num() > 0)
         {
             ULootLockerUserGeneratedContentRequestHandler::ParseFilePurposeEnumsInline(Response.asset_candidate.Files);
@@ -96,7 +96,7 @@ void ULootLockerUserGeneratedContentRequestHandler::AddFileToAssetCandidate(cons
     TMap<FString, FString> AdditionalData;
     AdditionalData.Add("purpose", purpose);
 
-    LLAPI<FLootLockerAssetCandidateResponse>::UploadFileAPI(HttpClient, FilePath, ULootLockerGameEndpoints::AddFileToAssetCandidateEndpoint, { AssetCandidateId }, AdditionalData, PlayerData, FAssetCandidateResponseDelegateBP(), OnCompletedRequest, LLAPI<FLootLockerAssetCandidateResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerAssetCandidateResponse& Response) {
+    LLAPI<FLootLockerAssetCandidateResponse>::UploadFileAPI(HttpClient, FilePath, ULootLockerGameEndpoints::AddFileToAssetCandidateEndpoint, { AssetCandidateId }, AdditionalData, PlayerData, OnCompletedRequest, LLAPI<FLootLockerAssetCandidateResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerAssetCandidateResponse& Response) {
         if(Response.success && Response.asset_candidate.Files.Num() > 0)
         {
             ULootLockerUserGeneratedContentRequestHandler::ParseFilePurposeEnumsInline(Response.asset_candidate.Files);
@@ -106,5 +106,5 @@ void ULootLockerUserGeneratedContentRequestHandler::AddFileToAssetCandidate(cons
 
 void ULootLockerUserGeneratedContentRequestHandler::DeleteFileFromAssetCandidate(const FLootLockerPlayerData& PlayerData, int AssetCandidateId, int FileId, const FResponseCallback& OnCompletedRequest)
 {
-    LLAPI<FLootLockerAssetCandidateResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteFileFromAssetCandidateEndpoint, { AssetCandidateId, FileId }, EmptyQueryParams, PlayerData, FResponseCallbackBP(), OnCompletedRequest);
+    LLAPI<FLootLockerAssetCandidateResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteFileFromAssetCandidateEndpoint, { AssetCandidateId, FileId }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }

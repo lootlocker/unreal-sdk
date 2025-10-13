@@ -13,7 +13,7 @@ ULootLockerFriendsRequestHandler::ULootLockerFriendsRequestHandler()
 // List friends for the requesting player
 void ULootLockerFriendsRequestHandler::ListFriends(const FLootLockerPlayerData& PlayerData, const FLootLockerListFriendsResponseDelegate& OnResponseCompleted)
 {
-    LLAPI<FLootLockerListFriendsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListFriendsEndpoint, {}, {}, PlayerData, FLootLockerListFriendsResponseBP(), OnResponseCompleted);
+    LLAPI<FLootLockerListFriendsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListFriendsEndpoint, {}, {}, PlayerData, OnResponseCompleted);
 }
 
 // List friends (paginated)
@@ -22,13 +22,13 @@ void ULootLockerFriendsRequestHandler::ListFriendsPaginated(const FLootLockerPla
     TMultiMap<FString, FString> QueryParams;
     if (Page > 0) QueryParams.Add(TEXT("page"), FString::FromInt(Page));
     if (PerPage > 0) QueryParams.Add(TEXT("per_page"), FString::FromInt(PerPage));
-    LLAPI<FLootLockerListFriendsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListFriendsEndpoint, {}, QueryParams, PlayerData, FLootLockerListFriendsResponseBP(), OnResponseCompleted);
+    LLAPI<FLootLockerListFriendsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListFriendsEndpoint, {}, QueryParams, PlayerData, OnResponseCompleted);
 }
 
 // List incoming friend requests for the requesting player
 void ULootLockerFriendsRequestHandler::ListIncomingFriendRequests(const FLootLockerPlayerData& PlayerData, const FLootLockerListIncomingFriendRequestsResponseDelegate& OnResponseCompleted)
 {
-    LLAPI<FLootLockerListIncomingFriendRequestsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListIncomingFriendRequestsEndpoint, {}, {}, PlayerData, FLootLockerListIncomingFriendRequestsResponseBP(), OnResponseCompleted);
+    LLAPI<FLootLockerListIncomingFriendRequestsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListIncomingFriendRequestsEndpoint, {}, {}, PlayerData, OnResponseCompleted);
 }
 
 // List incoming friend requests (paginated)
@@ -37,13 +37,13 @@ void ULootLockerFriendsRequestHandler::ListIncomingFriendRequestsPaginated(const
     TMultiMap<FString, FString> QueryParams;
     if (Page > 0) QueryParams.Add(TEXT("page"), FString::FromInt(Page));
     if (PerPage > 0) QueryParams.Add(TEXT("per_page"), FString::FromInt(PerPage));
-    LLAPI<FLootLockerListIncomingFriendRequestsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListIncomingFriendRequestsEndpoint, {}, QueryParams, PlayerData, FLootLockerListIncomingFriendRequestsResponseBP(), OnResponseCompleted);
+    LLAPI<FLootLockerListIncomingFriendRequestsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListIncomingFriendRequestsEndpoint, {}, QueryParams, PlayerData, OnResponseCompleted);
 }
 
 // List outgoing friend requests for the requesting player
 void ULootLockerFriendsRequestHandler::ListOutgoingFriendRequests(const FLootLockerPlayerData& PlayerData, const FLootLockerListOutgoingFriendRequestsResponseDelegate& OnResponseCompleted)
 {
-    LLAPI<FLootLockerListOutgoingFriendRequestsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListOutgoingFriendRequestsEndpoint, {}, {}, PlayerData, FLootLockerListOutgoingFriendRequestsResponseBP(), OnResponseCompleted);
+    LLAPI<FLootLockerListOutgoingFriendRequestsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListOutgoingFriendRequestsEndpoint, {}, {}, PlayerData, OnResponseCompleted);
 }
 
 // List outgoing friend requests (paginated)
@@ -52,7 +52,7 @@ void ULootLockerFriendsRequestHandler::ListOutgoingFriendRequestsPaginated(const
     TMultiMap<FString, FString> QueryParams;
     if (Page > 0) QueryParams.Add(TEXT("page"), FString::FromInt(Page));
     if (PerPage > 0) QueryParams.Add(TEXT("per_page"), FString::FromInt(PerPage));
-    LLAPI<FLootLockerListOutgoingFriendRequestsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListOutgoingFriendRequestsEndpoint, {}, QueryParams, PlayerData, FLootLockerListOutgoingFriendRequestsResponseBP(), OnResponseCompleted);
+    LLAPI<FLootLockerListOutgoingFriendRequestsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListOutgoingFriendRequestsEndpoint, {}, QueryParams, PlayerData, OnResponseCompleted);
 }
 
 // Send a friend request to a player
@@ -60,7 +60,7 @@ void ULootLockerFriendsRequestHandler::SendFriendRequest(const FLootLockerPlayer
 {
     TArray<FStringFormatArg> PathParams;
     PathParams.Add(PlayerULID);
-    LLAPI<FLootLockerFriendActionResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::SendFriendRequestEndpoint, PathParams, {}, PlayerData, FLootLockerFriendActionResponseBP(), OnResponseCompleted);
+    LLAPI<FLootLockerFriendActionResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::SendFriendRequestEndpoint, PathParams, {}, PlayerData, OnResponseCompleted);
 }
 
 // Delete a friend
@@ -68,7 +68,7 @@ void ULootLockerFriendsRequestHandler::DeleteFriend(const FLootLockerPlayerData&
 {
     TArray<FStringFormatArg> PathParams;
     PathParams.Add(PlayerULID);
-    LLAPI<FLootLockerFriendActionResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::DeleteFriendEndpoint, PathParams, {}, PlayerData, FLootLockerFriendActionResponseBP(), OnResponseCompleted);
+    LLAPI<FLootLockerFriendActionResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::DeleteFriendEndpoint, PathParams, {}, PlayerData, OnResponseCompleted);
 }
 
 // Cancel outgoing friend request
@@ -76,7 +76,7 @@ void ULootLockerFriendsRequestHandler::CancelOutgoingFriendRequest(const FLootLo
 {
     TArray<FStringFormatArg> PathParams;
     PathParams.Add(PlayerULID);
-    LLAPI<FLootLockerFriendActionResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::CancelOutgoingFriendRequestEndpoint, PathParams, {}, PlayerData, FLootLockerFriendActionResponseBP(), OnResponseCompleted);
+    LLAPI<FLootLockerFriendActionResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::CancelOutgoingFriendRequestEndpoint, PathParams, {}, PlayerData, OnResponseCompleted);
 }
 
 // Accept incoming friend request
@@ -84,7 +84,7 @@ void ULootLockerFriendsRequestHandler::AcceptIncomingFriendRequest(const FLootLo
 {
     TArray<FStringFormatArg> PathParams;
     PathParams.Add(PlayerULID);
-    LLAPI<FLootLockerFriendActionResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::AcceptIncomingFriendRequestEndpoint, PathParams, {}, PlayerData, FLootLockerFriendActionResponseBP(), OnResponseCompleted);
+    LLAPI<FLootLockerFriendActionResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::AcceptIncomingFriendRequestEndpoint, PathParams, {}, PlayerData, OnResponseCompleted);
 }
 
 // Decline incoming friend request
@@ -92,13 +92,13 @@ void ULootLockerFriendsRequestHandler::DeclineIncomingFriendRequest(const FLootL
 {
     TArray<FStringFormatArg> PathParams;
     PathParams.Add(PlayerULID);
-    LLAPI<FLootLockerFriendActionResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::DeclineIncomingFriendRequestEndpoint, PathParams, {}, PlayerData, FLootLockerFriendActionResponseBP(), OnResponseCompleted);
+    LLAPI<FLootLockerFriendActionResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::DeclineIncomingFriendRequestEndpoint, PathParams, {}, PlayerData, OnResponseCompleted);
 }
 
 // List blocked players
 void ULootLockerFriendsRequestHandler::ListBlockedPlayers(const FLootLockerPlayerData& PlayerData, const FLootLockerListBlockedPlayersResponseDelegate& OnResponseCompleted)
 {
-    LLAPI<FLootLockerListBlockedPlayersResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListBlockedPlayersEndpoint, {}, {}, PlayerData, FLootLockerListBlockedPlayersResponseBP(), OnResponseCompleted);
+    LLAPI<FLootLockerListBlockedPlayersResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListBlockedPlayersEndpoint, {}, {}, PlayerData, OnResponseCompleted);
 }
 
 // List blocked players (paginated)
@@ -107,7 +107,7 @@ void ULootLockerFriendsRequestHandler::ListBlockedPlayersPaginated(const FLootLo
     TMultiMap<FString, FString> QueryParams;
     if (Page > 0) QueryParams.Add(TEXT("page"), FString::FromInt(Page));
     if (PerPage > 0) QueryParams.Add(TEXT("per_page"), FString::FromInt(PerPage));
-    LLAPI<FLootLockerListBlockedPlayersResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListBlockedPlayersEndpoint, {}, QueryParams, PlayerData, FLootLockerListBlockedPlayersResponseBP(), OnResponseCompleted);
+    LLAPI<FLootLockerListBlockedPlayersResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListBlockedPlayersEndpoint, {}, QueryParams, PlayerData, OnResponseCompleted);
 }
 
 // Get a specific friend
@@ -115,7 +115,7 @@ void ULootLockerFriendsRequestHandler::GetFriend(const FLootLockerPlayerData& Pl
 {
     TArray<FStringFormatArg> PathParams;
     PathParams.Add(FriendUlid);
-    LLAPI<FLootLockerGetFriendResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::GetFriendEndpoint, PathParams, {}, PlayerData, FLootLockerGetFriendResponseBP(), OnResponseCompleted);
+    LLAPI<FLootLockerGetFriendResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::GetFriendEndpoint, PathParams, {}, PlayerData, OnResponseCompleted);
 }
 
 // Block a player
@@ -123,7 +123,7 @@ void ULootLockerFriendsRequestHandler::BlockPlayer(const FLootLockerPlayerData& 
 {
     TArray<FStringFormatArg> PathParams;
     PathParams.Add(PlayerULID);
-    LLAPI<FLootLockerFriendActionResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::BlockPlayerEndpoint, PathParams, {}, PlayerData, FLootLockerFriendActionResponseBP(), OnResponseCompleted);
+    LLAPI<FLootLockerFriendActionResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::BlockPlayerEndpoint, PathParams, {}, PlayerData, OnResponseCompleted);
 }
 
 // Unblock a player
@@ -131,5 +131,5 @@ void ULootLockerFriendsRequestHandler::UnblockPlayer(const FLootLockerPlayerData
 {
     TArray<FStringFormatArg> PathParams;
     PathParams.Add(PlayerULID);
-    LLAPI<FLootLockerFriendActionResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::UnblockPlayerEndpoint, PathParams, {}, PlayerData, FLootLockerFriendActionResponseBP(), OnResponseCompleted);
+    LLAPI<FLootLockerFriendActionResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::UnblockPlayerEndpoint, PathParams, {}, PlayerData, OnResponseCompleted);
 }
