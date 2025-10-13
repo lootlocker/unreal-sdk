@@ -68,21 +68,7 @@ struct FLootLockerFollowActionResponse : public FLootLockerResponse
 };
 
 //==================================================
-// Blueprint Delegate Definitions
-//==================================================
-
-/**
- * Blueprint response delegate for listing followers/following.
- */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListFollowersResponseBP, FLootLockerListFollowersResponse, Response);
-
-/**
- * Blueprint response delegate for follow/unfollow actions.
- */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerFollowActionResponseBP, FLootLockerFollowActionResponse, Response);
-
-//==================================================
-// C++ Delegate Definitions
+// Delegate Definitions
 //==================================================
 
 /**

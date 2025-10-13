@@ -45,6 +45,415 @@ class LOOTLOCKERSDK_API ULootLockerManager : public UObject
     GENERATED_BODY()
 
 public:
+    //==================================================
+    // General Response Delegates
+    //==================================================
+    /** Blueprint response delegate for basic LootLocker responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerDefaultResponseBP, FLootLockerResponse, Var);
+    /** Blueprint response delegate for general LootLocker API responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FResponseCallbackBP, FLootLockerResponse, Response);
+    /** Blueprint response delegate for standard LootLocker responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerResponseCallback, FLootLockerResponse, Response);
+    /** Blueprint response delegate for getting context information */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FContextDelegateBP, FLootLockerGetContextResponse, ContextsResponse);
+
+    //==================================================
+    // Authentication Delegates
+    //==================================================
+    /** Blueprint response delegate for authentication responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FAuthResponseBP, FLootLockerAuthenticationResponse, Var);
+    /** Blueprint response delegate for Apple authentication session responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FAppleSessionResponseBP, FLootLockerAppleSessionResponse, Var);
+    /** Blueprint response delegate for Google authentication session responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FGoogleSessionResponseBP, FLootLockerGoogleSessionResponse, Var);
+    /** Blueprint response delegate for Google Play Games authentication session responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FGooglePlayGamesSessionResponseBP, FLootLockerGooglePlayGamesSessionResponse, Var);
+    /** Blueprint response delegate for Epic Games authentication session responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FEpicSessionResponseBP, FLootLockerEpicSessionResponse, Var);
+    /** Blueprint response delegate for login responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerLoginResponseDelegateBP, FLootLockerLoginResponse, AuthVar);
+    /** Blueprint response delegate for session verification responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerVerifySessionResponseBP, FLootLockerWhiteLabelVerifySessionResponse, Response);
+    /** Blueprint response delegate for white label login and session responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP, FLootLockerWhiteLabelLoginAndSessionResponse, Var);
+    /** Blueprint response delegate for Apple Game Center authentication session responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAppleGameCenterSessionResponseBP, FLootLockerAppleGameCenterSessionResponse, Response);
+    /** Blueprint response delegate for Meta authentication session responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerMetaSessionResponseBP, FLootLockerMetaSessionResponse, Var);
+    /** Blueprint response delegate for Discord authentication session responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDiscordSessionResponseBP, FLootLockerDiscordSessionResponse, Var);
+
+    //==================================================
+    // Connected Accounts Delegates
+    //==================================================
+    /**
+     * Blueprint response delegate for connecting a provider to an account
+     */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAccountConnectedResponseBP, FLootLockerAccountConnectedResponse, Response);
+    /**
+     * Blueprint response delegate for listing connected accounts
+     */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListConnectedAccountsResponseBP, FLootLockerListConnectedAccountsResponse, Response);
+
+    //==================================================
+    // Remote Session Delegates
+    //==================================================
+    /**
+     * Blueprint response delegate for receiving the remote session lease information
+     */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerLeaseRemoteSessionResponseDelegateBP, FLootLockerLeaseRemoteSessionResponse, Response);
+    /**
+     * Blueprint response delegate for receiving continual polling updates
+     */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerRemoteSessionStatusPollingResponseDelegateBP, FLootLockerRemoteSessionStatusPollingResponse, Response);
+    /**
+     * Blueprint response delegate for receiving the finalized remote session data (whether successful or not)
+     */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerStartRemoteSessionResponseDelegateBP, FLootLockerStartRemoteSessionResponse, Response);
+    /**
+     * Blueprint response delegate for receiving the refreshed remote session
+     */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerRefreshRemoteSessionResponseDelegateBP, FLootLockerRefreshRemoteSessionResponse, Response);
+
+    //==================================================
+    // Player Delegates
+    //==================================================
+    /** Blueprint response delegate for getting current player information */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetCurrentPlayerInfoResponseBP, FLootLockerGetCurrentPlayerInfoResponse, Value);
+    /** Blueprint response delegate for listing player information */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListPlayerInfoResponseBP, FLootLockerListPlayerInfoResponse, Value);
+    /** Blueprint response delegate for player inventory responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FPInventoryResponseBP, FLootLockerInventoryResponse, Value);
+    /** Blueprint response delegate for player asset notification responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FPAssetNotificationResponseBP, FLootLockerPlayerAssetNotificationResponse, Value);
+    /** Blueprint response delegate for player balance responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FPBalanceResponseBP, FLootLockerBalanceResponse, Value);
+    /** Blueprint response delegate for player DLC responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FPDlcResponseBP, FLootLockerDlcResponse, Value);
+    /** Blueprint response delegate for player name responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FPNameResponseBP, FLootLockerNameResponse, Value);
+    /** Blueprint response delegate for multiple player names responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FPMultiplePlayerNamesBP, FLootLockerMultiplePlayersNamesResponse, Value);
+    /** Blueprint response delegate for multiple players platform IDs responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FPMultiplePlayersPlatformIdsBP, FLootLockerMultiplePlayersPlatformIdsResponse, Value);
+
+    //==================================================
+    // Player Files Delegates
+    //==================================================
+    /** Blueprint response delegate for uploading player files */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerUploadFileBP, FLootLockerPlayerFileResponse, Response);
+    /** Blueprint response delegate for listing player files */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerFileListBP, FLootLockerFileListResponse, Response);
+    /** Blueprint response delegate for deleting player files */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerFileDeletedBP, FLootLockerResponse, Response);
+
+    //==================================================
+    // Player Progression Delegates
+    //==================================================
+    /** Blueprint response delegate for player progression responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerPlayerProgressionResponseBP, FLootLockerPlayerProgressionResponse, Response);
+    /** Blueprint response delegate for paginated player progressions responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerPaginatedPlayerProgressionsResponseBP, FLootLockerPaginatedPlayerProgressionResponse, Response);
+    /** Blueprint response delegate for player progression with rewards responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerPlayerProgressionWithRewardsResponseBP, FLootLockerPlayerProgressionWithRewardsResponse, Response);
+    /** Blueprint response delegate for deleting player progression */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerDeleteProgressionBP, FLootLockerResponse, Response);
+
+    //==================================================
+    // Hero Delegates
+    //==================================================
+    /** Blueprint response delegate for hero responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerHeroBP, FLootLockerHeroResponse, Response);
+    /** Blueprint response delegate for game hero list responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGameHeroListBP, FLootLockerGameHeroListResponse, Response);
+    /** Blueprint response delegate for hero list responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerHeroListBP, FLootLockerHeroListResponse, Response);
+    /** Blueprint response delegate for player hero responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerPlayerHeroBP, FLootLockerPlayerHeroResponse, Response);
+    /** Blueprint response delegate for hero default responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLLHeroDefaultResponseBP, FLootLockerResponse, Response);
+    /** Blueprint response delegate for hero loadout responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FHeroLoadoutReseponseBP, FLootLockerHeroLoadoutResponse, Response);
+
+    //==================================================
+    // Character Delegates
+    //==================================================
+    /** Blueprint response delegate for character loadout responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FPCharacterLoadoutResponseBP, FLootLockerCharacterLoadoutResponse, Var);
+    /** Blueprint response delegate for character default responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FPCharacterDefaultResponseBP, FLootLockerResponse, Var);
+    /** Blueprint response delegate for listing character types responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FPLootLockerListCharacterTypesResponseBP, FLootLockerListCharacterTypesResponse, Var);
+    /** Blueprint response delegate for listing player characters responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FPLootLockerListPlayerCharactersResponseBP, FLootLockerListPlayerCharactersResponse, Var);
+
+    //==================================================
+    // Character Progression Delegates
+    //==================================================
+    /** Blueprint response delegate for character progression responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerCharacterProgressionResponseBP, FLootLockerCharacterProgressionResponse, Response);
+    /** Blueprint response delegate for paginated character progressions responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerPaginatedCharacterProgressionsResponseBP, FLootLockerPaginatedCharacterProgressionResponse, Response);
+    /** Blueprint response delegate for character progression with rewards responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerCharacterProgressionWithRewardsResponseBP, FLootLockerCharacterProgressionWithRewardsResponse, Response);
+
+    //==================================================
+    // Persistent Storage Delegates
+    //==================================================
+    /** Blueprint response delegate for persistent storage items responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FPersistentStorageItemsResponseDelegateBP, FLootLockerPersistentStorageItemsResponse, Response);
+    /** Blueprint response delegate for persistent storage item responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FPersistentStorageItemResponseDelegateBP, FLootLockerPersistentStorageItemResponse, Response);
+
+    //==================================================
+    // Asset Delegates
+    //==================================================
+    /** Blueprint response delegate for assets responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FAssetsResponseDelegateBP, FLootLockerGetAssetsResponse, AssetsResponse);
+    /** Blueprint response delegate for asset bones responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FAssetBonesResponseDelegateBP, FLootLockerGetAssetBonesResponse, AssetBonesResponse);
+    /** Blueprint response delegate for getting favourite asset indices responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FGetFavouriteAssetIndicesResponseDelegateBP, FLootLockerGetFavouriteAssetIndicesResponse, FavouriteAssetIndicesResponse);
+    /** Blueprint response delegate for universal assets responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FUniversalAssetResponseDelegateBP, FLootLockerUniversalAssetsResponse, UniversalAssetsResponse);
+    /** Blueprint response delegate for grant asset responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FGrantAssetResponseDelegateBP, FLootLockerGrantAssetResponse, Response);
+    /** Blueprint response delegate for listing simple assets responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FListSimpleAssetsResponseDelegateBP, FLootLockerListSimpleAssetsResponse, Response);
+
+    //==================================================
+    // Asset Instance Delegates
+    //==================================================
+    /** Blueprint response delegate for asset instance storage items responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FAssetInstanceStorageItemsResponseDelegateBP, FLootLockerAssetInstanceStorageItemsResponse, Response);
+    /** Blueprint response delegate for asset instance storage item responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FAssetInstanceStorageItemResponseDelegateBP, FLootLockerAssetInstanceStorageItemResponse, Response);
+    /** Blueprint response delegate for loot box content responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootBoxContentResponseDelegateBP, FLootLockerLootBoxContentResponse, Response);
+    /** Blueprint response delegate for opening loot box responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FOpenLootBoxResponseDelegateBP, FLootLockerOpenLootBoxResponse, Response);
+    /** Blueprint response delegate for deleting asset instance responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDeleteAssetInstanceResponseDelegateBP, FLootLockerDeleteAssetInstanceResponse, Response);
+
+    //==================================================
+    // User Generated Content Delegates
+    //==================================================
+    /** Blueprint response delegate for creating asset candidate responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FCreateAssetCandidateResponseDelegateBP, FLootLockerCreateAssetCandidateResponse, Response);
+    /** Blueprint response delegate for asset candidate responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FAssetCandidateResponseDelegateBP, FLootLockerAssetCandidateResponse, Response);
+    /** Blueprint response delegate for asset candidates responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FAssetCandidatesResponseDelegateBP, FLootLockerAssetCandidatesResponse, Response);
+
+    //==================================================
+    // Progression Delegates
+    //==================================================
+    /** Blueprint response delegate for progression responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerProgressionResponseBP, FLootLockerProgressionResponse, Response);
+    /** Blueprint response delegate for paginated progressions responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerPaginatedProgressionsResponseBP, FLootLockerPaginatedProgressionsResponse, Response);
+    /** Blueprint response delegate for paginated progression tiers responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerPaginatedProgressionTiersResponseBP, FLootLockerPaginatedProgressionTiersResponse, Response);
+
+    //==================================================
+    // Instance Progression Delegates
+    //==================================================
+    /** Blueprint response delegate for instance progression responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerInstanceProgressionResponseBP, FLootLockerInstanceProgressionResponse, Response);
+    /** Blueprint response delegate for paginated instance progressions responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerPaginatedInstanceProgressionsResponseBP, FLootLockerPaginatedInstanceProgressionResponse, Response);
+    /** Blueprint response delegate for instance progression with rewards responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerInstanceProgressionWithRewardsResponseBP, FLootLockerInstanceProgressionWithRewardsResponse, Response);
+
+    //==================================================
+    // Mission Delegates
+    //==================================================
+    /** Blueprint response delegate for missions responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FMissionsResponseDelegateBP, FLootLockerMissionsResponse, Response);
+    /** Blueprint response delegate for mission responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FMissionResponseDelegateBP, FLootLockerMissionResponse, Response);
+    /** Blueprint response delegate for starting mission responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FStartMissionResponseDelegateBP, FLootLockerStartMissionResponse, Response);
+    /** Blueprint response delegate for finishing mission responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FFinishMissionResponseDelegateBP, FLootLockerFinishMissionResponse, Response);
+
+    //==================================================
+    // Map Delegates
+    //==================================================
+    /** Blueprint response delegate for getting maps responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FGetMapsResponseDelegateBP, FLootLockerGetMapsResponse, Response);
+
+    //==================================================
+    // Purchase Delegates
+    //==================================================
+    /** Blueprint response delegate for activating rental asset responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FActivateRentalAssetResponseDelegateBP, FLootLockerActivateRentalAssetResponse, Response);
+    /** Blueprint response delegate for beginning Steam purchase redemption responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerBeginSteamPurchaseRedemptionDelegateBP, FLootLockerBeginSteamPurchaseRedemptionResponse, Response);
+    /** Blueprint response delegate for querying Steam purchase redemption status responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerQuerySteamPurchaseRedemptionStatusDelegateBP, FLootLockerQuerySteamPurchaseRedemptionStatusResponse, Response);
+
+    //==================================================
+    // Trigger Delegates
+    //==================================================
+    /** Blueprint response delegate for invoking triggers by key responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerInvokeTriggersByKeyResponseBP, FLootLockerInvokeTriggersByKeyResponse, Response);
+
+    //==================================================
+    // Notification Delegates
+    //==================================================
+    /** Blueprint response delegate for listing notifications responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListNotificationsResponseBP, FLootLockerListNotificationsResponse, Response);
+    /** Blueprint response delegate for reading notifications responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerReadNotificationsResponseBP, FLootLockerReadNotificationsResponse, Response);
+
+    //==================================================
+    // Broadcast Delegates
+    //==================================================
+    /** Blueprint response delegate for listing broadcasts responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListBroadcastsResponseBP, FLootLockerListBroadcastsResponse, Response);
+    /** Blueprint response delegate for internal listing broadcasts responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerInternalListBroadcastsResponseBP, FLootLockerInternalListBroadcastsResponse, Response);
+
+    //==================================================
+    // Collectables Delegates
+    //==================================================
+    /** Blueprint response delegate for collectables responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FCollectablesResponseDelegateBP, FLootLockerCollectablesResponse, Response);
+
+    //==================================================
+    // Message Delegates
+    //==================================================
+    /** Blueprint response delegate for messages responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FMessagesResponseDelegateBP, FLootLockerMessagesResponse, Response);
+
+    //==================================================
+    // Leaderboard Delegates
+    //==================================================
+    /** Blueprint response delegate for listing leaderboards responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListLeaderboardsResponseBP, FLootLockerListLeaderboardsResponse, Response);
+    /** Blueprint response delegate for getting member rank responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetMemberRankResponseBP, FLootLockerGetMemberRankResponse, Response);
+    /** Blueprint response delegate for getting leaderboard by list of members responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetByListOfMembersResponseBP, FLootLockerGetByListOfMembersResponse, Response);
+    /** Blueprint response delegate for getting score list responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetScoreListResponseBP, FLootLockerGetScoreListResponse, Response);
+    /** Blueprint response delegate for submitting score responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerSubmitScoreResponseBP, FLootLockerSubmitScoreResponse, Response);
+    /** Blueprint response delegate for getting all member ranks responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetAllMemberRanksResponseBP, FLootLockerGetAllMemberRanksResponse, Response);
+    /** Blueprint response delegate for leaderboard details responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerLeaderboardDetailsResponseBP, FLootLockerLeaderboardDetailsResponse, Response);
+    /** Blueprint response delegate for leaderboard archive responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerLeaderboardArchiveResponseBP, FLootLockerLeaderboardArchiveResponse, Response);
+    /** Blueprint response delegate for leaderboard archive detail responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerLeaderboardArchiveDetailResponseBP, FLootLockerLeaderboardArchiveDetailsResponse, Response);
+
+    //==================================================
+    // Drop Table Delegates
+    //==================================================
+    /** Blueprint response delegate for computing and locking drop table responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerComputeAndLockDropTableResponseBP, FLootLockerComputeAndLockDropTableResponse, Response);
+    /** Blueprint response delegate for picking drops from drop table responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FFLootLockerPickDropsFromDropTableResponseBP, FLootLockerPickDropsFromDropTableResponse, Response);
+
+    //==================================================
+    // Currency Delegates
+    //==================================================
+    /** Blueprint response delegate for listing currencies responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListCurrenciesResponseBP, FLootLockerListCurrenciesResponse, Response);
+    /** Blueprint response delegate for getting currency details responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetCurrencyDetailsResponseBP, FLootLockerGetCurrencyDetailsResponse, Response);
+    /** Blueprint response delegate for listing denominations responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListDenominationsResponseBP, FLootLockerListDenominationsResponse, Response);
+
+    //==================================================
+    // Balance Delegates
+    //==================================================
+    /** Blueprint response delegate for listing balances for wallet responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListBalancesForWalletResponseBP, FLootLockerListBalancesForWalletResponse, Response);
+    /** Blueprint response delegate for getting wallet responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetWalletResponseBP, FLootLockerGetWalletResponse, Response);
+    /** Blueprint response delegate for crediting wallet responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerCreditWalletResponseBP, FLootLockerCreditWalletResponse, Response);
+    /** Blueprint response delegate for debiting wallet responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerDebitWalletResponseBP, FLootLockerDebitWalletResponse, Response);
+    /** Blueprint response delegate for creating wallet responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerCreateWalletResponseBP, FLootLockerCreateWalletResponse, Response);
+
+    //==================================================
+    // Catalog Delegates
+    //==================================================
+    /** Blueprint response delegate for listing catalogs responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListCatalogsResponseBP, FLootLockerListCatalogsResponse, Response);
+    /** Blueprint response delegate for listing catalog prices responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListCatalogPricesResponseBP, FLootLockerListCatalogPricesResponse, Response);
+    /** Blueprint response delegate for internal listing catalog prices responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FInternalLootLockerListCatalogPricesResponseBP, FInternalLootLockerListCatalogPricesResponse, Response);
+
+    //==================================================
+    // Entitlement Delegates
+    //==================================================
+    /** Blueprint response delegate for listing entitlements responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListEntitlementsResponseBP, FLootLockerEntitlementHistoryResponse, Response);
+    /** Blueprint response delegate for single entitlement responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerSingleEntitlementResponseBP, FLootLockerSingleEntitlementResponse, Response);
+
+    //==================================================
+    // Feedback Delegates
+    //==================================================
+    /** Blueprint response delegate for listing feedback categories responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListFeedbackCategoryResponseBP, FLootLockerFeedbackCategoryResponse, Response);
+    /** Blueprint response delegate for sending feedback responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerSendFeedbackResponseBP, FLootLockerResponse, Response);
+
+    //==================================================
+    // Metadata Delegates
+    //==================================================
+    /** Blueprint response delegate for listing metadata responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListMetadataResponseBP, FLootLockerListMetadataResponse, Response);
+    /** Blueprint response delegate for getting metadata responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetMetadataResponseBP, FLootLockerGetMetadataResponse, Response);
+    /** Blueprint response delegate for getting multisource metadata responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetMultisourceMetadataResponseBP, FLootLockerGetMultisourceMetadataResponse, Response);
+    /** Blueprint response delegate for setting metadata responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerSetMetadataResponseBP, FLootLockerSetMetadataResponse, Response);
+
+    //==================================================
+    // Follower Delegates
+    //==================================================
+    /** Blueprint response delegate for listing followers responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListFollowersResponseBP, FLootLockerListFollowersResponse, Response);
+    /** Blueprint response delegate for follow action responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerFollowActionResponseBP, FLootLockerFollowActionResponse, Response);
+
+    //==================================================
+    // Friend Delegates
+    //==================================================
+    /** Blueprint response delegate for listing friends */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListFriendsResponseBP, FLootLockerListFriendsResponse, Response);
+    /** Blueprint response delegate for listing incoming friend requests */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListIncomingFriendRequestsResponseBP, FLootLockerListIncomingFriendRequestsResponse, Response);
+    /** Blueprint response delegate for listing outgoing friend requests */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListOutgoingFriendRequestsResponseBP, FLootLockerListOutgoingFriendRequestsResponse, Response);
+    /** Blueprint response delegate for actions taken towards the friends list */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerFriendActionResponseBP, FLootLockerFriendActionResponse, Response);
+    /** Blueprint response delegate for listing blocked players */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListBlockedPlayersResponseBP, FLootLockerListBlockedPlayersResponse, Response);
+    /** Blueprint response delegate for getting a friend */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetFriendResponseBP, FLootLockerGetFriendResponse, Response);
+
+    //==================================================
+    // Miscellaneous Delegates
+    //==================================================
+    /**
+     * Blueprint response delegate for fetching server time
+     */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FTimeResponseDelegateBP, FLootLockerTimeResponse, Response);
+    /**
+     * Blueprint response delegate for fetching game info
+     */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FGameInfoResponseDelegateBP, FLootLockerGameInfoResponse, Response);
 
     //==================================================
     // Player State
@@ -576,6 +985,7 @@ public:
     //==================================================
     // Connected Accounts
     //==================================================
+
     /**
      * List identity providers (like Apple, Google, etc.) that are connected to the currently logged in account
      *
@@ -1061,7 +1471,7 @@ public:
     static void GetOtherPlayersProgression(const FString& ForPlayerWithUlid, const FString& PlayerUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseBP& OnCompletedRequest);
 
     //==================================================
-    //Heroes
+    // Heroes
     //==================================================
 
     /**
@@ -1234,7 +1644,7 @@ public:
     static void RemoveAssetToHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP);
 
     //==================================================
-    //Characters
+    // Characters
     //==================================================
 
     /**
@@ -1489,7 +1899,7 @@ public:
     static void DeleteCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest);
 
     //==================================================
-    //Persistent Storage
+    // Persistent Storage
     //==================================================
 
     /**
@@ -1564,7 +1974,7 @@ public:
     static void GetPlayerPersistentStorage(const FString& ForPlayerWithUlid, const FString& PlayerId, const  FPersistentStorageItemsResponseDelegateBP& OnGetPlayerPersistentStorageRequestCompleted);
 
     //==================================================
-    //Assets
+    // Assets
     //==================================================
 
     /**
@@ -1696,7 +2106,7 @@ public:
     static void ListAssets(const FString& ForPlayerWithUlid, const FLootLockerListSimpleAssetsRequest& Request, int PerPage, int Page, ELootLockerOrderAssetListBy OrderBy, ELootLockerOrderAssetListDirection OrderDirection, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequest);
 
     //==================================================
-    //Asset Instances
+    // Asset Instances
     //==================================================
 
     /**
@@ -1797,7 +2207,7 @@ public:
     static void DeleteAssetInstanceFromPlayerInventory(const FString& ForPlayerWithUlid, int AssetInstanceID, const FDeleteAssetInstanceResponseDelegateBP& OnCompleted);
 
     //==================================================
-    //User Generated Content
+    // User Generated Content
     //==================================================
 
     /**
@@ -1921,7 +2331,7 @@ public:
     static void GetProgressionTiers(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const int32 Count, const int32 After, const FLootLockerPaginatedProgressionTiersResponseBP& OnCompletedRequest);
 
     //==================================================
-    //Instance Progressions
+    // Instance Progressions
     //==================================================
 
     /**
@@ -1994,7 +2404,7 @@ public:
     static void DeleteInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequestBP);
 
     //==================================================
-    //Missions
+    // Missions
     //==================================================
 
     /**
@@ -2038,7 +2448,7 @@ public:
     static void FinishMission(const FString& ForPlayerWithUlid, int MissionId, const FLootLockerFinishMissionData& MissionData, const FFinishMissionResponseDelegateBP& OnFinishMissionCompleted);
 
     //==================================================
-    //Maps
+    // Maps
     //==================================================
 
     /**
@@ -2051,7 +2461,7 @@ public:
     static void GetMaps(const FString& ForPlayerWithUlid, const FGetMapsResponseDelegateBP& OnGetMapsCompleted);
 
     //==================================================
-    //Purchases
+    // Purchases
     //==================================================
 
     /**
@@ -2466,7 +2876,7 @@ public:
     static void ListBroadcasts(const TArray<FString>& Languages, int32 Limit, const FString& ForPlayerWithUlid, const FLootLockerListBroadcastsResponseBP& OnComplete);
 
     //==================================================
-    //Collectables
+    // Collectables
     //==================================================
 
     /**
@@ -2489,7 +2899,7 @@ public:
     static void CollectItem(const FString& ForPlayerWithUlid, const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegateBP& OnCollectItemCompleted);
 
     //==================================================
-    //Messages
+    // Messages
     //==================================================
 
     /**
@@ -2502,7 +2912,7 @@ public:
     static void GetMessages(const FString& ForPlayerWithUlid, const FMessagesResponseDelegateBP& OnGetMessagesCompleted);
 
     //==================================================
-    //Leaderboard
+    // Leaderboard
     //==================================================
 
     /**
@@ -2632,7 +3042,7 @@ public:
     * @param OnCompletedRequestBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid=""))
-    static void GetLeaderboardArchive(const FString& ForPlayerWithUlid, const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailReponseBP& OnCompletedRequestBP);
+    static void GetLeaderboardArchive(const FString& ForPlayerWithUlid, const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailResponseBP& OnCompletedRequestBP);
 
     /**
     * Get details on a Leaderboard which contains the schedule, rewards and the details on rewards.
@@ -2645,7 +3055,7 @@ public:
     static void GetLeaderboardDetails(const FString& ForPlayerWithUlid, const FString& LeaderboardKey, const FLootLockerLeaderboardDetailsResponseBP& OnCompletedRequestBP);
 
     //==================================================
-    //Drop Table
+    // Drop Table
     //==================================================
 
     /**
@@ -2766,6 +3176,7 @@ public:
     //==================================================
     // Catalogs
     //==================================================
+
     /**
      * List the catalogs available for the game
      *
@@ -2910,7 +3321,6 @@ public:
 
     /**
     List the requested page of Metadata for the specified source with the specified pagination (if you don't specify pagination settings then default pagination will be used)
-
 
     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
     @param Source The source type for which to request metadata
@@ -3090,7 +3500,7 @@ public:
     
     //==================================================
     // Followers
-    //==================================================    
+    //==================================================
 
     /**
      * List followers for a specific player (cursor pagination supported).

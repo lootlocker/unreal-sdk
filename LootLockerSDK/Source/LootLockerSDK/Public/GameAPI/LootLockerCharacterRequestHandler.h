@@ -159,11 +159,6 @@ struct FLootLockerListPlayerCharactersResponse : public FLootLockerResponse {
 	TArray<FLootLockerListCharacterResponseItem> items;
 };
 
-DECLARE_DYNAMIC_DELEGATE_OneParam(FPCharacterLoadoutResponseBP, FLootLockerCharacterLoadoutResponse, Var);
-DECLARE_DYNAMIC_DELEGATE_OneParam(FPCharacterDefaultResponseBP, FLootLockerResponse, Var);
-DECLARE_DYNAMIC_DELEGATE_OneParam(FPLootLockerListCharacterTypesResponseBP, FLootLockerListCharacterTypesResponse, Var);
-DECLARE_DYNAMIC_DELEGATE_OneParam(FPLootLockerListPlayerCharactersResponseBP, FLootLockerListPlayerCharactersResponse, Var);
-
 DECLARE_DELEGATE_OneParam(FCharacterLoadoutResponse, FLootLockerCharacterLoadoutResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerCharacterDefaultResponse, FLootLockerResponse);
 DECLARE_DELEGATE_OneParam(FPLootLockerListCharacterTypesResponse, FLootLockerListCharacterTypesResponse);
