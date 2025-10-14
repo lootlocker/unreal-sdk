@@ -2296,71 +2296,71 @@ public:
     //==================================================
 
     /**
-    * Returns multiple progressions the asset instance is currently on.
-    * List progressions attached to an asset instance (cursor pagination).
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param AssetInstanceId Id of the asset instance to fetch progressions for
-    * @param Count Optional: Number of entries to return. Use -1 to use the server default
-    * @param After Optional: Cursor id of the last received instance progression. Use next_cursor or previous_cursor from a prior response
-    * @param OnCompletedRequestBP Delegate for handling the response (FLootLockerPaginatedInstanceProgressionsResponse)
+     Returns multiple progressions the asset instance is currently on.
+     List progressions attached to an asset instance (cursor pagination).
+    
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     @param AssetInstanceId Id of the asset instance to fetch progressions for
+     @param Count Optional: Number of entries to return. Use -1 to use the server default
+     @param After Optional: Cursor id of the last received instance progression. Use next_cursor or previous_cursor from a prior response
+     @param OnCompletedRequestBP Delegate for handling the response (FLootLockerPaginatedInstanceProgressionsResponse)
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid=""))
     static void GetInstanceProgressions(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const int32 Count, const FString& After, const FLootLockerPaginatedInstanceProgressionsResponseBP& OnCompletedRequestBP);
 
     /**
-    * Get a single progression for an asset instance.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param AssetInstanceId Id of the asset instance
-    * @param ProgressionKey Key of the progression to fetch
-    * @param OnCompletedRequestBP Delegate for handling the response (FLootLockerInstanceProgressionResponse)
+     Get a single progression for an asset instance.
+    
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     @param AssetInstanceId Id of the asset instance
+     @param ProgressionKey Key of the progression to fetch
+     @param OnCompletedRequestBP Delegate for handling the response (FLootLockerInstanceProgressionResponse)
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionResponseBP& OnCompletedRequestBP);
 
     /**
-    * Add points to an instance progression (may trigger rewards).
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param AssetInstanceId Id of the asset instance
-    * @param ProgressionKey Key of the progression to add points to
-    * @param Amount Number of points to add
-    * @param OnCompletedRequestBP Delegate for handling the response (FLootLockerInstanceProgressionWithRewardsResponse)
+     Add points to an instance progression (may trigger rewards).
+    
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     @param AssetInstanceId Id of the asset instance
+     @param ProgressionKey Key of the progression to add points to
+     @param Amount Number of points to add
+     @param OnCompletedRequestBP Delegate for handling the response (FLootLockerInstanceProgressionWithRewardsResponse)
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void AddPointsToInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP);
 
     /**
-    * Subtract points from an instance progression (may adjust completed tiers).
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param AssetInstanceId Id of the asset instance
-    * @param ProgressionKey Key of the progression to subtract points from
-    * @param Amount Number of points to subtract
-    * @param OnCompletedRequestBP Delegate for handling the response (FLootLockerInstanceProgressionWithRewardsResponse)
+     Subtract points from an instance progression (may adjust completed tiers).
+    
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     @param AssetInstanceId Id of the asset instance
+     @param ProgressionKey Key of the progression to subtract points from
+     @param Amount Number of points to subtract
+     @param OnCompletedRequestBP Delegate for handling the response (FLootLockerInstanceProgressionWithRewardsResponse)
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void SubtractPointsFromInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP);
 
     /**
-    * Reset an instance progression to its initial state (may re‑issue initial rewards).
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param AssetInstanceId Id of the asset instance
-    * @param ProgressionKey Key of the progression to reset
-    * @param OnCompletedRequestBP Delegate for handling the response (FLootLockerInstanceProgressionWithRewardsResponse)
+     Reset an instance progression to its initial state (may re‑issue initial rewards).
+    
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     @param AssetInstanceId Id of the asset instance
+     @param ProgressionKey Key of the progression to reset
+     @param OnCompletedRequestBP Delegate for handling the response (FLootLockerInstanceProgressionWithRewardsResponse)
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ResetInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP);
 
     /**
-    * Delete an instance progression permanently.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param AssetInstanceId Id of the asset instance
-    * @param ProgressionKey Key of the progression to delete
-    * @param OnCompletedRequestBP Delegate for handling the response (FLootLockerResponse)
+     Delete an instance progression permanently.
+    
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     @param AssetInstanceId Id of the asset instance
+     @param ProgressionKey Key of the progression to delete
+     @param OnCompletedRequestBP Delegate for handling the response (FLootLockerResponse)
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void DeleteInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequestBP);
@@ -2370,41 +2370,41 @@ public:
     //==================================================
 
     /**
-     * List all missions accessible to the player.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
-     * @param OnGetAllMissionsCompleted Delegate for handling the server response (Missions list)
+      List all missions accessible to the player.
+     
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param OnGetAllMissionsCompleted Delegate for handling the server response (Missions list)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetAllMissions(const FString& ForPlayerWithUlid, const FMissionsResponseDelegateBP& OnGetAllMissionsCompleted);
 
     /**
-     * Get details for a single mission.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
-     * @param MissionId Id of the mission to fetch
-     * @param OnGetMissionCompleted Delegate for handling the server response (Mission details)
+      Get details for a single mission.
+     
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param MissionId Id of the mission to fetch
+      @param OnGetMissionCompleted Delegate for handling the server response (Mission details)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetMission(const FString& ForPlayerWithUlid, int MissionId, const FMissionResponseDelegateBP& OnGetMissionCompleted);
 
     /**
-     * Start (begin) a mission for the player.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
-     * @param MissionId Id of the mission to start
-     * @param OnStartMissionCompleted Delegate for handling the server response (start confirmation / state)
+      Start (begin) a mission for the player.
+     
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param MissionId Id of the mission to start
+      @param OnStartMissionCompleted Delegate for handling the server response (start confirmation / state)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void StartMission(const FString& ForPlayerWithUlid, int MissionId, const  FStartMissionResponseDelegateBP& OnStartMissionCompleted);
 
     /**
-     * Finish a mission and submit completion data.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
-     * @param MissionId Id of the mission to finish
-     * @param MissionData Completion data (objectives, scores, etc.)
-     * @param OnFinishMissionCompleted Delegate for handling the server response (final mission results / rewards)
+      Finish a mission and submit completion data.
+     
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param MissionId Id of the mission to finish
+      @param MissionData Completion data (objectives, scores, etc.)
+      @param OnFinishMissionCompleted Delegate for handling the server response (final mission results / rewards)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void FinishMission(const FString& ForPlayerWithUlid, int MissionId, const FLootLockerFinishMissionData& MissionData, const FFinishMissionResponseDelegateBP& OnFinishMissionCompleted);
@@ -2414,10 +2414,10 @@ public:
     //==================================================
 
     /**
-     * List available maps for the game.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
-     * @param OnGetMapsCompleted Delegate for handling the server response (maps list)
+      List available maps for the game.
+     
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param OnGetMapsCompleted Delegate for handling the server response (maps list)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Maps", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetMaps(const FString& ForPlayerWithUlid, const FGetMapsResponseDelegateBP& OnGetMapsCompleted);
@@ -2427,203 +2427,198 @@ public:
     //==================================================
 
     /**
-     * Activates specified rental asset
-     * Once you have purchased a rental asset, you need to activate the rental for it to become available for the player.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param AssetInstanceId ID of the asset.
-     * @param OnActivateRentalAssetCompleted Delegate for handling the server response.
+      Activate a purchased rental asset instance for the player.
+     
+      Once a rental asset is purchased it must be activated before it becomes usable.
+     
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param AssetInstanceId Id of the rental asset instance to activate
+      @param OnActivateRentalAssetCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ActivateRentalAsset(const FString& ForPlayerWithUlid, int AssetInstanceId, const FActivateRentalAssetResponseDelegateBP& OnActivateRentalAssetCompleted);
 
     /**
-     * Purchase one catalog item using a specified wallet
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param WalletId The id of the wallet to use for the purchase
-     * @param CatalogItemListingId The unique listing id of the catalog item to purchase
-     * @param OnCompletedRequest Delegate for handling the server response
+      Purchase a single catalog item using a specified wallet.
+     
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param WalletId Id of the wallet to charge
+      @param CatalogItemListingId Listing id of the catalog item to purchase
+      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void LootLockerPurchaseSingleCatalogItem(const FString& ForPlayerWithUlid, const FString& WalletId, const FString& CatalogItemListingId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     /**
-     * Purchase one or more catalog items using a specified wallet
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param WalletId The id of the wallet to use for the purchase
-     * @param ItemsToPurchase A list of items to purchase along with the quantity of each item to purchase
-     * @param OnCompletedRequest Delegate for handling the server response
+      Purchase one or more catalog items (with quantities) using a specified wallet.
+     
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param WalletId Id of the wallet to charge
+      @param ItemsToPurchase Items and quantities to purchase
+      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void LootLockerPurchaseCatalogItems(const FString& ForPlayerWithUlid, const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair> ItemsToPurchase, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     /**
-     * Redeem a purchase that was made successfully towards the Apple App Store for the current player
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param TransactionId The id of the transaction successfully made towards the Apple App Store
-     * @param Sandboxed Optional: Should this redemption be made towards sandbox App Store
-     * @param OnCompletedRequest Delegate for handling the server response
+      Redeem an Apple App Store purchase for the current player.
+     
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param TransactionId Id of the successful App Store transaction
+      @param Sandboxed Optional: Redeem against the App Store sandbox environment
+      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "Sandboxed,ForPlayerWithUlid", Sandboxed = false, ForPlayerWithUlid=""))
     static void RedeemAppleAppStorePurchaseForPlayer(const FString& ForPlayerWithUlid, const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     /**
-     * Redeem a purchase that was made successfully towards the Apple App Store for a class that the current player owns
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param TransactionId The id of the transaction successfully made towards the Apple App Store
-     * @param ClassId The id of the class to redeem this transaction for
-     * @param Sandboxed Optional: Should this redemption be made towards sandbox App Store
-     * @param OnCompletedRequest Delegate for handling the server response
+      Redeem an Apple App Store purchase for a class owned by the player.
+     
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param TransactionId Id of the successful App Store transaction
+      @param ClassId Id of the class to receive the entitlement
+      @param Sandboxed Optional: Redeem against the App Store sandbox environment
+      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "Sandboxed,ForPlayerWithUlid", Sandboxed = false, ForPlayerWithUlid=""))
     static void RedeemAppleAppStorePurchaseForClass(const FString& ForPlayerWithUlid, const int ClassId, const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     /**
-     * Redeem a purchase that was made successfully towards the Google Play Store for the current player
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param ProductId The id of the product that this redemption refers to
-     * @param PurchaseToken The token from the purchase successfully made towards the Google Play Store
-     * @param OnCompletedRequest Delegate for handling the server response
+      Redeem a Google Play purchase for the current player.
+     
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param ProductId Id of the purchased product
+      @param PurchaseToken Purchase token provided by Google Play
+      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void RedeemGooglePlayStorePurchaseForPlayer(const FString& ForPlayerWithUlid, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     /**
-     * Redeem a purchase that was made successfully towards the Google Play Store for a class that the current player owns
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param ClassId The id of the class to redeem this purchase for
-     * @param ProductId The id of the product that this redemption refers to
-     * @param PurchaseToken The token from the purchase successfully made towards the Google Play Store
-     * @param OnCompletedRequest Delegate for handling the server response
+      Redeem a Google Play purchase for a class owned by the player.
+     
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param ClassId Id of the class to receive the entitlement
+      @param ProductId Id of the purchased product
+      @param PurchaseToken Purchase token provided by Google Play
+      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void RedeemGooglePlayStorePurchaseForClass(const FString& ForPlayerWithUlid, const int ClassId, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     /**
-     * Redeem a purchase that was made successfully towards the Epic Store for the current player
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param AccountId The epic account id of the account that this purchase was made for
-     * @param BearerToken This is the token from epic used to allow the LootLocker backend to verify ownership of the specified entitlements. This is sometimes referred to as the Server Auth Ticket or Auth Token depending on your Epic integration.
-     * @param EntitlementIds The ids of the purchased entitlements that you wish to redeem
-     * @param SandboxId The Sandbox Id configured for the game making the purchase (this is the sandbox id from your epic online service configuration)
-     * @param OnCompletedRequest Delegate for handling the server response
+      Redeem Epic Games Store entitlements for the current player.
+     
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param AccountId Epic Account Id that owns the entitlements
+      @param BearerToken Epic bearer/auth token allowing backend verification (Server Auth Ticket)
+      @param EntitlementIds Ids of the entitlements to redeem
+      @param SandboxId Epic sandbox id configured for the game
+      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void RedeemEpicStorePurchase(const FString& ForPlayerWithUlid, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     /**
-     * Redeem a purchase that was made successfully towards the Epic Store for a class that the current player owns
-     *
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param CharacterId The ulid of the character to redeem this purchase for
-     * @param AccountId The epic account id of the account that this purchase was made for
-     * @param BearerToken This is the token from epic used to allow the LootLocker backend to verify ownership of the specified entitlements. This is sometimes referred to as the Server Auth Ticket or Auth Token depending on your Epic integration.
-     * @param EntitlementIds The ids of the purchased entitlements that you wish to redeem
-     * @param SandboxId The Sandbox Id configured for the game making the purchase (this is the sandbox id from your epic online service configuration)
-     * @param OnCompletedRequest Delegate for handling the server response
+      Redeem Epic Games Store entitlements for a character owned by the player.
+     
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param CharacterId Ulid of the character receiving the entitlements
+      @param AccountId Epic Account Id that owns the entitlements
+      @param BearerToken Epic bearer/auth token allowing backend verification (Server Auth Ticket)
+      @param EntitlementIds Ids of the entitlements to redeem
+      @param SandboxId Epic sandbox id configured for the game
+      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void RedeemEpicStorePurchaseForCharacter(const FString& ForPlayerWithUlid, const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
 #ifdef LOOTLOCKER_BETA_PLAYSTATION_IAP
     /**
-     * Redeem a purchase that was made successfully towards the PlayStation Store for the current player
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param TransactionId The transaction id from the PlayStation Store of the purchase to redeem
-     * @param AuthCode The authorization code from the PlayStation Store of the purchase to redeem
-     * @param EntitlementLabel The entitlement label configured in the NP service for the entitlement that this redemption relates to
-     * @param ServiceLabel Optional: The NP service label
-     * @param ServiceName Optional: The abbreviation of the service name of the ASM service ID service that was used when configuring the serviceIds. Possible Values: pssdc, cce. Default Value: pssdc
-     * @param Environment Optional: The id of the environment you wish to make the request against. Allowed values: 1, 8, 256
-     * @param UseCount Optional: The use count for this redemption
-     * @param OnCompletedRequest Delegate for handling the server response
+      Redeem a purchase that was made successfully towards the PlayStation Store for the current player
+     
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+      @param TransactionId The transaction id from the PlayStation Store of the purchase to redeem
+      @param AuthCode The authorization code from the PlayStation Store of the purchase to redeem
+      @param EntitlementLabel The entitlement label configured in the NP service for the entitlement that this redemption relates to
+      @param ServiceLabel Optional: The NP service label
+      @param ServiceName Optional: The abbreviation of the service name of the ASM service ID service that was used when configuring the serviceIds. Possible Values: pssdc, cce. Default Value: pssdc
+      @param Environment Optional: The id of the environment you wish to make the request against. Allowed values: 1, 8, 256
+      @param UseCount Optional: The use count for this redemption
+      @param OnCompletedRequest Delegate for handling the server response
      */
     //UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid,ServiceLabel,ServiceName,Environment,UseCount", ForPlayerWithUlid="", ServiceLabel="", ServiceName="", Environment=-1, UseCount=-1))
     //static void RedeemPlayStationStorePurchase(const FString& ForPlayerWithUlid, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     /**
-     * Redeem a purchase that was made successfully towards the PlayStation Store for a character that the current player owns
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param CharacterId The ulid of the character to redeem this purchase for
-     * @param TransactionId The transaction id from the PlayStation Store of the purchase to redeem
-     * @param AuthCode The authorization code from the PlayStation Store of the purchase to redeem
-     * @param EntitlementLabel The entitlement label configured in the NP service for the entitlement that this redemption relates to
-     * @param ServiceLabel Optional: The NP service label
-     * @param ServiceName Optional: The abbreviation of the service name of the ASM service ID service that was used when configuring the serviceIds. Possible Values: pssdc, cce. Default Value: pssdc
-     * @param Environment Optional: The id of the environment you wish to make the request against. Allowed values: 1, 8, 256
-     * @param UseCount Optional: The use count for this redemption
-     * @param OnCompletedRequest Delegate for handling the server response
+      Redeem a purchase that was made successfully towards the PlayStation Store for a character that the current player owns
+     
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+      @param CharacterId The ulid of the character to redeem this purchase for
+      @param TransactionId The transaction id from the PlayStation Store of the purchase to redeem
+      @param AuthCode The authorization code from the PlayStation Store of the purchase to redeem
+      @param EntitlementLabel The entitlement label configured in the NP service for the entitlement that this redemption relates to
+      @param ServiceLabel Optional: The NP service label
+      @param ServiceName Optional: The abbreviation of the service name of the ASM service ID service that was used when configuring the serviceIds. Possible Values: pssdc, cce. Default Value: pssdc
+      @param Environment Optional: The id of the environment you wish to make the request against. Allowed values: 1, 8, 256
+      @param UseCount Optional: The use count for this redemption
+      @param OnCompletedRequest Delegate for handling the server response
      */
     //UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid,ServiceLabel,ServiceName,Environment,UseCount", ForPlayerWithUlid="", ServiceLabel="", ServiceName="", Environment=-1, UseCount=-1))
     //static void RedeemPlayStationStorePurchaseForCharacter(const FString& ForPlayerWithUlid, const FString& CharacterId, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 #endif
 
     /**
-     * Begin a Steam purchase with the given settings that when finalized will redeem the specified catalog item
-     *
-     * Steam in-app purchases need to be configured for this to work
-     * Steam in-app purchases works slightly different from other platforms, you begin a purchase with this call which initiates it in Steams backend
-     * While your app is waiting for the user to finalize that purchase you can use QuerySteamPurchaseRedemptionStatus to get the status, when that tells you that the purchase is Approved you can finalize the purchase using FinalizeSteamPurchaseRedemption
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param SteamId Id of the Steam User that is making the purchase
-     * @param Currency The currency to use for the purchase
-     * @param Language The language to use for the purchase
-     * @param CatalogItemId The LootLocker Catalog Item Id for the item you wish to purchase
-     * @param OnCompletedRequest Delegate for handling the server response
+      Begin a Steam purchase for a catalog item (initiate entitlement creation).
+     
+      Steam IAP must be configured. Call this to create a pending entitlement in Steam. Poll status with QuerySteamPurchaseRedemptionStatus until Approved, then finalize with FinalizeSteamPurchaseRedemption.
+     
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param SteamId Steam user id making the purchase
+      @param Currency Currency code to use
+      @param Language Language code to use
+      @param CatalogItemId LootLocker catalog item id to purchase
+      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void BeginSteamPurchaseRedemption(const FString& ForPlayerWithUlid, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest);
 
     /**
-     * Begin a Steam purchase with the given settings that when finalized will redeem the specified catalog item for the specified class
-     *
-     * Steam in-app purchases need to be configured for this to work
-     * Steam in-app purchases works slightly different from other platforms, you begin a purchase with this call which initiates it in Steams backend
-     * While your app is waiting for the user to finalize that purchase you can use QuerySteamPurchaseRedemptionStatus to get the status, when that tells you that the purchase is Approved you can finalize the purchase using FinalizeSteamPurchaseRedemption
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param ClassId Id of the class to make the purchase for
-     * @param SteamId Id of the Steam User that is making the purchase
-     * @param Currency The currency to use for the purchase
-     * @param Language The language to use for the purchase
-     * @param CatalogItemId The LootLocker Catalog Item Id for the item you wish to purchase
-     * @param OnCompletedRequest Delegate for handling the server response
+      Begin a Steam purchase for a catalog item on a specific class.
+     
+      Same Steam purchase flow as BeginSteamPurchaseRedemption but class‑scoped.
+     
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param ClassId Id of the class the purchased item should be associated with
+      @param SteamId Steam user id making the purchase
+      @param Currency Currency code to use
+      @param Language Language code to use
+      @param CatalogItemId LootLocker catalog item id to purchase
+      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void BeginSteamPurchaseRedemptionForClass(const FString& ForPlayerWithUlid, const int ClassId, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest);
 
     /**
-     * Check the Steam Purchase status for a given entitlement
-     *
-     * Use this to check the status of an ongoing purchase to know when it's ready to finalize or has been aborted
-     * or use this to get information for a completed purchase
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param EntitlementId The id of the entitlement to check the status for
-     * @param OnCompletedRequest Delegate for handling the server response
+      Query the status of a Steam purchase entitlement.
+     
+      Use to poll a pending purchase (awaiting approval) or inspect a completed one.
+     
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param EntitlementId Id of the entitlement to check
+      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void QuerySteamPurchaseRedemptionStatus(const FString& ForPlayerWithUlid, const FString& EntitlementId, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegateBP& OnCompletedRequest);
 
     /**
-     * Finalize a started Steam Purchase and subsequently redeem the catalog items that the entitlement refers to
-     *
-     * The steam purchase needs to be in status Approved for this call to work
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param EntitlementId The id of the entitlement to finalize the purchase for
-     * @param OnCompletedRequest Delegate for handling the server response
+      Finalize an Approved Steam purchase (redeem entitlement items).
+     
+      Steam entitlement must be in Approved state first.
+     
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param EntitlementId Id of the entitlement to finalize
+      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void FinalizeSteamPurchaseRedemption(const FString& ForPlayerWithUlid, const FString& EntitlementId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
