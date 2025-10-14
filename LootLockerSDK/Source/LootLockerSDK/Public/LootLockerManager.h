@@ -1793,71 +1793,71 @@ public:
     //==================================================
 
     /**
-    * Returns multiple progressions the character is currently on.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param CharacterId Id of the character you want to fetch progressions for
-    * @param Count Optional: Amount of entries to receive
-    * @param After Optional: Used for pagination, id of the character progression from which the pagination starts from, use the next_cursor and previous_cursor values
-    * @param OnCompletedRequest Action for handling the response of type FLootLockerPaginatedCharacterProgressionsResponse
-    */
+     List character progressions the character is currently on (paginated).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param CharacterId Id of the character
+     @param Count Optional: Number of entries to return (-1 = server default)
+     @param After Optional: Cursor id to continue pagination (use next_cursor/previous_cursor)
+     @param OnCompletedRequest Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Character Progressions", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid=""))
     static void GetCharacterProgressions(const FString& ForPlayerWithUlid, const int32& CharacterId, const int32 Count, const FString& After, const FLootLockerPaginatedCharacterProgressionsResponseBP& OnCompletedRequest);
 
     /**
-    * Returns a single progression the character is currently on.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param CharacterId Id of the character you want to fetch progressions for
-    * @param ProgressionKey Key of the progression you want to fetch
-    * @param OnCompletedRequest Action for handling the response of type FLootLockerCharacterProgressionsResponse
-    */
+     Get a specific progression for the character by progression key.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param CharacterId Id of the character
+     @param ProgressionKey Progression key to fetch
+     @param OnCompletedRequest Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Character Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionResponseBP& OnCompletedRequest);
 
     /**
-    * Adds points to the specified character progression.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param CharacterId Id of the character you want to fetch progressions for
-    * @param ProgressionKey Key of the progression you want to add points to
-    * @param Amount Amount of points to be added
-    * @param OnCompletedRequest Action for handling the response of type FLootLockerCharacterProgressionWithRewardsResponse
-    */
+     Add points to a character progression and return any newly earned rewards.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param CharacterId Id of the character
+     @param ProgressionKey Progression key to modify
+     @param Amount Points to add (positive integer)
+     @param OnCompletedRequest Delegate for handling the server response (includes rewards)
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Character Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void AddPointsToCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest);
 
     /**
-    * Subtracts points from the specified character progression.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param CharacterId Id of the character you want to fetch progressions for
-    * @param ProgressionKey Key of the progression you want to subtract points from
-    * @param Amount Amount of points to be subtracted
-    * @param OnCompletedRequest Action for handling the response of type FLootLockerCharacterProgressionWithRewardsResponse
-    */
+     Subtract points from a character progression (clamped at zero) and return any adjusted reward state.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param CharacterId Id of the character
+     @param ProgressionKey Progression key to modify
+     @param Amount Points to subtract (positive integer)
+     @param OnCompletedRequest Delegate for handling the server response (includes rewards)
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Character Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void SubtractPointsFromCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest);
 
     /**
-    * Resets the specified character progression.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param CharacterId Id of the character you want to fetch progressions for
-    * @param ProgressionKey Key of the progression you want to reset
-    * @param OnCompletedRequest Action for handling the response of type FLootLockerCharacterProgressionWithRewardsResponse
-    */
+     Reset a character progression to its initial state and return resulting reward changes.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param CharacterId Id of the character
+     @param ProgressionKey Progression key to reset
+     @param OnCompletedRequest Delegate for handling the server response (includes rewards)
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Character Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ResetCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest);
 
     /**
-    * deletes the specified character progression.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param CharacterId Id of the character you want to fetch progressions for
-    * @param ProgressionKey Key of the progression you want to delete
-    * @param OnCompletedRequest Action for handling the response of type FLootLockerResponse
-    */
+     Delete a character progression entirely (progress and rewards association removed).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param CharacterId Id of the character
+     @param ProgressionKey Progression key to delete
+     @param OnCompletedRequest Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Character Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void DeleteCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest);
 
