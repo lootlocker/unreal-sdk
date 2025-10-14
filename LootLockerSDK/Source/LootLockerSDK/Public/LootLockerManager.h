@@ -2875,86 +2875,93 @@ public:
     //==================================================
 
     /**
-     * List leaderboards with details on each leaderboard
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param Count Optional: The count of items you want to retrieve.
-     * @param After Optional: Used for pagination, id from which the pagination starts from.
-     * @param OnCompletedRequestBP Delegate for handling the server response
-     */
+     List leaderboards with their details.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param Count Optional: Number of leaderboards to retrieve
+     @param After Optional: Cursor (id) after which to continue pagination
+     @param OnCompletedRequestBP Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = 50, After = 0, ForPlayerWithUlid=""))
     static void ListLeaderboards(const FString& ForPlayerWithUlid, int Count, int After, const FLootLockerListLeaderboardsResponseBP& OnCompletedRequestBP);
 
     /**
-     * Get rank for single member for a leaderboard. If leaderboard is of type player a player will also be in the response.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param LeaderboardKey the key of the leaderboard you want to connect to.
-     * @param MemberId the id of player in the leaderboard
-     * @param OnCompletedRequestBP Delegate for handling the server response
-     */
+     Get rank for a single member on a leaderboard.
+
+     If leaderboard is of type player the player object will also be included.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param LeaderboardKey Key of the leaderboard
+     @param MemberId Member (player) id
+     @param OnCompletedRequestBP Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetMemberRank(const FString& ForPlayerWithUlid, FString LeaderboardKey, FString MemberId, const FLootLockerGetMemberRankResponseBP& OnCompletedRequestBP);
 
     /**
-     * Get all leaderboards with member information on the ones the member is on, with rank and score, as well as player information if the leaderboard is of type player.
-     * If metadata is enabled for the leaderboard, that will be returned in the response.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param MemberId player_id if player type leaderboard, otherwise this is the identifier you wish to use for this score
-     * @param Count Number of members returned per page
-     * @param After Cursor for pagination, a cursor will be returned in the response
-     * @param OnCompletedRequestBP Delegate for handling the server response
-     */
+     Get all leaderboards plus this member's rank info where present.
+
+     Includes player info for player-type leaderboards. Metadata included if enabled.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param MemberId Player id for player leaderboards or custom identifier for others
+     @param Count Members per page
+     @param After Pagination cursor (returned by previous call)
+     @param OnCompletedRequestBP Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetAllMemberRanks(const FString& ForPlayerWithUlid, FString MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseBP& OnCompletedRequestBP);
 
     /**
-     * Get rank for a set of members for a leaderboard. If leaderboard is of type player a player will also be in the response.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param Members The ids of all leaderboard members you want to get info on.
-     * @param LeaderboardKey the key of the leaderboard you want to connect to.
-     * @param OnCompletedRequestBP Delegate for handling the server response
-     */
+     Get ranks for a list of members on a leaderboard.
+
+     Includes player objects for player-type leaderboards.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param Members Member ids to fetch
+     @param LeaderboardKey Key of the leaderboard
+     @param OnCompletedRequestBP Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetByListOfMembers(const FString& ForPlayerWithUlid, TArray<FString> Members, FString LeaderboardKey, const FLootLockerGetByListOfMembersResponseBP& OnCompletedRequestBP);
 
     /**
-     * Get list of members in rank range.
-     * Maximum allowed members to query for at a time is currently 2000. If leaderboard is of type player a player will also be in the response.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param LeaderboardKey the key of the leaderboard you want to connect to.
-     * @param Count Number of members returned per page
-     * @param After Cursor for pagination, a cursor will be returned in the response
-     * @param OnCompletedRequestBP Delegate for handling the server response
-     */
+     Get a page of leaderboard members.
+
+     Maximum page size currently 2000. Includes player objects for player-type leaderboards.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param LeaderboardKey Key of the leaderboard
+     @param Count Members per page
+     @param After Pagination cursor (returned by previous call)
+     @param OnCompletedRequestBP Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetScoreList(const FString& ForPlayerWithUlid, FString LeaderboardKey, int Count, int After, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP);
 
     /**
-     * Get list of members in rank range.
-     * Maximum allowed members to query for at a time is currently 2000. If leaderboard is of type player a player will also be in the response.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param LeaderboardKey the key of the leaderboard you need to connect to.
-     * @param Count Number of members returned per page
-     * @param OnCompletedRequestBP Delegate for handling the server response
-     */
+     Get the initial page of leaderboard members (no cursor yet).
+
+     Maximum page size currently 2000. Includes player objects for player-type leaderboards.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param LeaderboardKey Key of the leaderboard
+     @param Count Members per page
+     @param OnCompletedRequestBP Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetScoreListInitial(const FString& ForPlayerWithUlid, FString LeaderboardKey, int Count, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP);
 
     /**
-     * Submit score for member on leaderboard.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param MemberId The id of player in the leaderboard.
-     * @param LeaderboardKey The key of the leaderboard you need to connect to.
-     * @param Score The score to be submitted.
-     * @param Metadata Metadata for the score, will be used if metadata is enabled for the leaderboard
-     * @param OnCompletedRequestBP Delegate for handling the server response
-     */
+     Submit a score for a member.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param MemberId Member (player) id
+     @param LeaderboardKey Key of the leaderboard
+     @param Score Score value to submit
+     @param Metadata Optional: Metadata for the score (used if enabled on leaderboard)
+     @param OnCompletedRequestBP Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void SubmitScore(const FString& ForPlayerWithUlid, FString MemberId, FString LeaderboardKey, int Score, FString Metadata, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP);
 
