@@ -551,433 +551,419 @@ public:
     //==================================================
 
     /**
-    Add a player state manually from data sourced externally. Use this for example with the token exchange feature in a server context.
+     Add a player state manually from externally sourced data (e.g. after a server side token exchange) without performing an authentication call.
+     Use when you already possess valid session / refresh tokens and player metadata and just want to prime the local cache.
 
-    @param SessionToken The Session Token to use when making requests for this player
-    @param PlayerUlid The Ulid of the player, this is the identifier used to select which token to use for requests
-    @param CurrentPlatform The platform/authentication method used for this player
-    @param RefreshToken (Optional) The token to use when refreshing sessions for this player
-    @param PlayerIdentifier (Optional) The player identifier of the player
-    @param PlayerPublicUid (Optional) The public uid of the player
-    @param PlayerName (Optional) The name of the player if any has been set
-    @param WhiteLabelEmail (Optional) The email used for white label authentication (only if the platform is White Label)
-    @param WhiteLabelToken (Optional) The Token identifying the White Label Session
-    @param LastSignIn (Optional) When this player was last authenticated
-    @param PlayerCreatedAt (Optional) When this player was created
-    @param SessionOptionals (Optional) Additional session options to use when starting the session
+     @param SessionToken Session token to use for authenticated requests for this player
+     @param PlayerUlid Unique ULID identifying the player whose state is being cached
+     @param CurrentPlatform Platform / authentication method this session represents
+     @param RefreshToken Optional: Refresh token used to renew the session when it expires
+     @param PlayerIdentifier Optional: Player identifier used when the session was created
+     @param PlayerPublicUid Optional: Public UID of the player
+     @param PlayerName Optional: Display name of the player
+     @param WhiteLabelEmail Optional: White Label email (only when platform is White Label)
+     @param WhiteLabelToken Optional: Token identifying the current White Label session
+     @param LastSignIn Optional: Timestamp string of when the player last authenticated
+     @param PlayerCreatedAt Optional: Timestamp string of when the player account was created
+     @param SessionOptionals Optional: Additional session option values associated with the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = 3, RefreshToken = "", PlayerIdentifier = "", PlayerUlid = "", PlayerPublicUid = "", PlayerName = "", WhiteLabelEmail = "", WhiteLabelToken = "", LastSignIn = "", PlayerCreatedAt = "", AutoCreateRefTerm = "SessionOptionals"))
     static void StartSessionManual(const FString& SessionToken, const FString& PlayerUlid, FLootLockerPlatformRepresentation CurrentPlatform, const FString& RefreshToken, const FString& PlayerIdentifier, const FString& PlayerPublicUid, const FString& PlayerName, const FString& WhiteLabelEmail, const FString& WhiteLabelToken, const FString& LastSignIn, const FString& PlayerCreatedAt, const FLootLockerSessionOptionals& SessionOptionals);
 
     /**
-     * Start a session for a Playstation Network user
-     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
-     *
-     * @param PsnOnlineId The PSN Online ID of the player
-     * @param OnStartedSessionRequestCompleted Delegate for handling the server response.
-     * @param Optionals (Optional) Additional session options to use when starting the session
+     Start a session for a PlayStation Network user (Deprecated – use VerifyPlayerAndStartPlaystationNetworkSession).
+     A game can support multiple platforms, but it is recommended that a build only supports one platform per build.
+
+     @param PsnOnlineId PSN Online ID of the player
+     @param OnStartedSessionRequestCompleted Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (DeprecationMessage="This method is deprecated, please use VerifyPlayerAndStartPlaystationNetworkSession instead.", AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals")) // Deprecation date 2025-09-24
     static void StartPlaystationNetworkSession(const FString& PsnOnlineId, const FAuthResponseBP& OnStartedSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
-     * Start a Playstation Network session. If your token starts with v3, then you should use VerifyPlayerAndStartPlaystationNetworkV3Session instead.
-     * 
-     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
-     *
-     * @param AuthCode The authorization code received from PSN after a successful login
-     * @param AccountID The numeric representation of the account id received from PSN after a successful login
-     * @param OnCompletedRequest Delegate for handling the server response.
-     * @param PsnIssuerId (Optional) The PSN issuer id to use when verifying the player towards PSN. If not supplied, will be defaulted to 256=production.
-     * @param Optionals (Optional) Additional session options to use when starting the session
+     Start a PlayStation Network session using an authorization code (v1/v2 flow). For v3 tokens (prefixed with v3) use VerifyPlayerAndStartPlaystationNetworkV3Session.
+     A game can support multiple platforms, but each build should typically target only one.
+
+     @param AuthCode Authorization code received from PSN after successful login
+     @param AccountID Numeric account identifier returned by PSN
+     @param OnCompletedRequest Delegate for handling the server response
+     @param PsnIssuerId Optional: PSN issuer id to use (defaults to 256 = production) when verifying the player
+     @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "PsnIssuerId,Optionals", PsnIssuerId = 256, AutoCreateRefTerm = "Optionals"))
     static void VerifyPlayerAndStartPlaystationNetworkSession(const FString& AuthCode, const FString& AccountID, const FAuthResponseBP& OnCompletedRequest, int PsnIssuerId, const FLootLockerSessionOptionals& Optionals);
 
     /**
-    * Start a Playstation Network session using the v3 version of PSN authentication. If your token starts with v3, then you're using this version.
-    * 
-    * A game can support multiple platforms, but it is recommended that a build only supports one platform.
-    *
-    * @param AuthCode The authorization code received from PSN after a successful login
-    * @param EnvIssuerId Optional: The PSN Environment issuer id to use when verifying the player towards PSN. If not supplied, will be defaulted to 256=production.
-    * @param OnCompletedRequest Delegate for handling the response
-    * @param Optionals (Optional) Additional session options to use when starting the session
-    */
+     Start a PlayStation Network session using the v3 authentication flow (tokens starting with v3 indicate this flow).
+     A game can support multiple platforms, but each build should typically target only one.
+
+     @param AuthCode Authorization code received from PSN (v3 flow)
+     @param EnvIssuerId Optional: Environment issuer id to use (defaults to 256 = production)
+     @param OnCompletedRequest Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "EnvIssuerId,Optionals", EnvIssuerId = 256, AutoCreateRefTerm = "Optionals"))
     static void VerifyPlayerAndStartPlaystationNetworkV3Session(const FString& AuthCode, const FAuthResponseBP& OnCompletedRequest, int EnvIssuerId, const FLootLockerSessionOptionals& Optionals);
 
     /**
-     * Start a session for an Android user
-     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
-     *
-     * @param DeviceId The device id of the player
-     * @param OnStartedSessionRequestCompleted Delegate for handling the server response.
-     * @param Optionals (Optional) Additional session options to use when starting the session
+     Start a LootLocker session for an Android user.
+     A game can support multiple platforms, but each build should typically target only one.
+
+     @param DeviceId Device identifier for the player (e.g. generated unique device id)
+     @param OnStartedSessionRequestCompleted Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
     static void StartAndroidSession(const FString& DeviceId, const FAuthResponseBP& OnStartedSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
-     * Start a session for a Amazon Luna user
-     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
-     *
-     * @param AmazonLunaGuid The Amazon Luna GUID of the player
-     * @param OnStartedSessionRequestCompleted Delegate for handling the server response.
-     * @param Optionals (Optional) Additional session options to use when starting the session
+     Start a LootLocker session for an Amazon Luna user.
+     A game can support multiple platforms, but each build should typically target only one.
+
+     @param AmazonLunaGuid Amazon Luna GUID identifying the player
+     @param OnStartedSessionRequestCompleted Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
     static void StartAmazonLunaSession(const FString& AmazonLunaGuid, const FAuthResponseBP& OnStartedSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
-     * Start a session for a steam user
-     * You can optionally specify a steam app id if you have multiple ones for your game and have configured this in the LootLocker console
-     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
-     *
-     * @param SteamSessionTicket Platform-specific token.
-     * @param SteamAppId (Optional) The specific Steam App Id to verify the player for
-     * @param OnCompletedRequest Delegate for handling the server response.
-     * @param Optionals (Optional) Additional session options to use when starting the session
+     Start a LootLocker session for a Steam user using a session ticket.
+     Optionally specify a Steam App ID if multiple are configured for your game in the LootLocker console.
+     A game can support multiple platforms, but each build should typically target only one.
+
+     @param SteamSessionTicket Platform-specific Steam session ticket
+     @param SteamAppId Optional: Specific Steam App ID to verify against (blank = default)
+     @param OnCompletedRequest Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "SteamAppId,Optionals", SteamAppId = "", AutoCreateRefTerm = "Optionals"))
     static void StartSteamSessionUsingTicket(const FString& SteamSessionTicket, const FString& SteamAppId, const FAuthResponseBP& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals);
 
     /**
-     * Create a new session for a Nintendo Switch user
-     * The Nintendo Switch platform must be enabled in the web console for this to work.
-     *
-     * @param NSAIdToken NSA (Nintendo Switch Account) id token as a string
-     * @param OnStartedNintendoSwitchSessionRequestCompleted Delegate for handling the response of type FLootLockerAuthenticationResponse
-     * @param Optionals (Optional) Additional session options to use when starting the session
+     Start a LootLocker session for a Nintendo Switch user.
+     The Nintendo Switch platform must be enabled for your game in the LootLocker web console.
+
+     @param NSAIdToken Nintendo Switch Account (NSA) id token
+     @param OnStartedNintendoSwitchSessionRequestCompleted Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
     static void StartNintendoSwitchSession(const FString& NSAIdToken, const FAuthResponseBP& OnStartedNintendoSwitchSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
-     * Create a new session for an Xbox user
-     * The Xbox platform must be enabled in the web console for this to work.
-     *
-     * @param XboxUserToken Xbox user token as a string
-     * @param OnStartedXboxSessionCompleted Delegate for handling the response of FLootLockerAuthenticationResponse
-     * @param Optionals (Optional) Additional session options to use when starting the session
+     Start a LootLocker session for an Xbox user.
+     The Xbox platform must be enabled for your game in the LootLocker web console.
+
+     @param XboxUserToken Xbox user token
+     @param OnStartedXboxSessionCompleted Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
     static void StartXboxSession(const FString& XboxUserToken, const FAuthResponseBP& OnStartedXboxSessionCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
-     * Create a new session for Sign in with Apple
-     * The Apple sign in platform must be enabled in the web console for this to work.
-     *
-     * @param AuthorizationCode Authorization code, provided by apple
-     * @param OnStartedAppleSessionCompleted Delegate for handling the response of type  for handling the response of type FLootLockerAppleSessionResponse
-     * @param Optionals (Optional) Additional session options to use when starting the session
+     Start a LootLocker session using Sign in with Apple.
+     The Apple sign-in platform must be enabled for your game in the LootLocker web console.
+
+     @param AuthorizationCode Authorization code provided by Apple
+     @param OnStartedAppleSessionCompleted Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
     static void StartAppleSession(const FString& AuthorizationCode, const FAppleSessionResponseBP& OnStartedAppleSessionCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
-     * Refresh a previous session signed in with Apple
-     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
-     * The Apple sign in platform must be enabled in the web console for this to work.
-     *
-     * @param ForPlayerWithUlid (Optional) Execute the request for player with the the ulidplayer. If not supplied, the default player will be used.
-     * @param RefreshToken (Optional) Token received in response from StartAppleSession request. If not supplied we will attempt to resolve it from stored player data.
-     * @param OnRefreshAppleSessionCompleted Delegate for handling the response of type FLootLockerAppleSessionResponse
-     * @param Optionals (Optional) Additional session options to use when starting the session
+     Refresh an existing Sign in with Apple session.
+     HTTP 401 (Unauthorized) indicates the refresh token expired and a new login is required.
+     The Apple sign-in platform must be enabled for your game.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param RefreshToken Optional: Refresh token from StartAppleSession (resolved from stored data if empty)
+     @param OnRefreshAppleSessionCompleted Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken,ForPlayerWithUlid,Optionals", ForPlayerWithUlid="", AutoCreateRefTerm = "Optionals"))
     static void RefreshAppleSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FAppleSessionResponseBP& OnRefreshAppleSessionCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
-    * Create a new session for Sign in with Apple Game Center
-    * The Apple sign in platform must be enabled in the web console for this to work.
-    *
-    * @param BundleId the Apple Game Center bundle id of your app
-    * @param PlayerId the user's player id in Apple Game Center
-    * @param PublicKeyUrl The url of the public key generated from Apple Game Center Identity Verification
-    * @param Signature the signature generated from Apple Game Center Identity Verification
-    * @param Salt the salt of the signature generated from Apple Game Center Identity Verification
-    * @param Timestamp the timestamp of the verification generated from Apple Game Center Identity Verification
-    * @param OnStartedAppleGameCenterSessionCompleted Delegate for handling the response of type  for handling the response of type FLootLockerAppleGameCenterSessionResponse
-    * @param Optionals (Optional) Additional session options to use when starting the session
-    */
+     Start a LootLocker session using Apple Game Center identity verification.
+     The Apple platform must be enabled for your game.
+
+     @param BundleId Apple Game Center bundle id of your app
+     @param PlayerId Apple Game Center player id
+     @param PublicKeyUrl Public key URL from Apple Game Center Identity Verification
+     @param Signature Signature from Apple Game Center Identity Verification
+     @param Salt Salt value from Apple Game Center Identity Verification
+     @param Timestamp Timestamp from Apple Game Center Identity Verification
+     @param OnStartedAppleGameCenterSessionCompleted Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
     static void StartAppleGameCenterSession(const FString& BundleId, const FString& PlayerId, const FString& PublicKeyUrl, const FString& Signature, const FString& Salt, const FString& Timestamp, const FLootLockerAppleGameCenterSessionResponseBP& OnStartedAppleGameCenterSessionCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
-     * Refresh a previous session signed in with Apple Game Center
-     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
-     * The Apple sign in platform must be enabled in the web console for this to work.
-     *
-     * @param ForPlayerWithUlid (Optional) Execute the request for player with the the ulidplayer. If not supplied, the default player will be used.
-     * @param RefreshToken (Optional) Token received in response from StartAppleSession request. If not supplied we will attempt to resolve it from stored player data.
-     * @param OnRefreshAppleGameCenterSessionCompleted Delegate for handling the response of type FLootLockerAppleGameCenterResponse
-     * @param Optionals (Optional) Additional session options to use when starting the session
+     Refresh an existing Apple Game Center session.
+     HTTP 401 (Unauthorized) indicates the refresh token expired and a new login is required.
+     The Apple platform must be enabled for your game.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param RefreshToken Optional: Refresh token from StartAppleGameCenterSession (resolved from stored data if empty)
+     @param OnRefreshAppleGameCenterSessionCompleted Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken,ForPlayerWithUlid,Optionals", ForPlayerWithUlid="", AutoCreateRefTerm = "Optionals"))
     static void RefreshAppleGameCenterSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FLootLockerAppleGameCenterSessionResponseBP& OnRefreshAppleGameCenterSessionCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
-     * Start a session for a Google user
-     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
-     * The Google sign in platform must be enabled in the web console for this to work.
-     *
-     * @param IdToken The device id of the player
-     * @param OnStartedGoogleSessionRequestCompleted Delegate for handling the server response.
-     * @param Optionals (Optional) Additional session options to use when starting the session
+     Start a LootLocker session for a Google user (default platform).
+     The Google sign-in platform must be enabled for your game.
+
+     @param IdToken Google ID token for the player
+     @param OnStartedGoogleSessionRequestCompleted Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
     static void StartGoogleSession(const FString& IdToken, const FGoogleSessionResponseBP& OnStartedGoogleSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
-     * Start a session for a Google user
-     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
-     * The desired Google sign in platform must be enabled in the web console for this to work.
-     *
-     * @param IdToken The device id of the player
-     * @param Platform Google OAuth2 ClientID platform
-     * @param OnStartedGoogleSessionRequestCompleted Delegate for handling the server response.
-     * @param Optionals (Optional) Additional session options to use when starting the session
+     Start a LootLocker session for a Google user targeting a specific Google OAuth2 Client ID platform.
+     The desired Google platform must be enabled for your game.
+
+     @param IdToken Google ID token for the player
+     @param Platform Google OAuth2 client platform enum value
+     @param OnStartedGoogleSessionRequestCompleted Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
     static void StartGoogleSessionForPlatform(const FString& IdToken, ELootLockerGoogleClientPlatform Platform, const FGoogleSessionResponseBP& OnStartedGoogleSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
-     * Refresh a previous session signed in with Google
-     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
-     * The Google sign in platform must be enabled in the web console for this to work.
-     *
-     * @param ForPlayerWithUlid (Optional) Execute the request for player with the the ulidplayer. If not supplied, the default player will be used.
-     * @param RefreshToken (Optional) Token received in response from StartGoogleSession request. If not supplied we will attempt to resolve it from stored player data.
-     * @param OnRefreshGoogleSessionCompleted Delegate for handling the response
-     * @param Optionals (Optional) Additional session options to use when starting the session
+     Refresh an existing Google session.
+     HTTP 401 (Unauthorized) indicates the refresh token expired and a new login is required.
+     The Google platform must be enabled for your game.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param RefreshToken Optional: Refresh token from StartGoogleSession (resolved from stored data if empty)
+     @param OnRefreshGoogleSessionCompleted Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken,ForPlayerWithUlid,Optionals", ForPlayerWithUlid="", AutoCreateRefTerm = "Optionals"))
     static void RefreshGoogleSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FGoogleSessionResponseBP& OnRefreshGoogleSessionCompleted, const FLootLockerSessionOptionals& Optionals);
     
     /**
-    * Start a session for a Google Play Games user
-    * The Google Play Games sign in platform must be enabled in the web console for this to work.
-    *
-    * @param AuthCode The authorization code from your Google Play Games Sign In
-    * @param OnStartedGooglePlayGamesSessionRequestCompleted Delegate for handling the server response.
-    * @param Optionals (Optional) Additional session options to use when starting the session
-    */
+     Start a LootLocker session for a Google Play Games user.
+     The Google Play Games platform must be enabled for your game.
+
+     @param AuthCode Authorization code from Google Play Games Sign-In
+     @param OnStartedGooglePlayGamesSessionRequestCompleted Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
     static void StartGooglePlayGamesSession(const FString& AuthCode, const FGooglePlayGamesSessionResponseBP& OnStartedGooglePlayGamesSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
-    * Refresh a previous session signed in with Google Play Games
-    * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
-    * The Google Play Games sign in platform must be enabled in the web console for this to work.
-    *
-    * @param ForPlayerWithUlid Optional : Execute the request for the specified player. If not supplied, the default player will be used.
-    * @param RefreshToken (Optional) Token received in response from StartGooglePlayGamesSession request. If not supplied we will attempt to resolve it from stored player data.
-    * @param OnRefreshGooglePlayGamesSessionCompleted Delegate for handling the response
-    * @param Optionals (Optional) Additional session options to use when starting the session
-    */
+     Refresh an existing Google Play Games session.
+     HTTP 401 (Unauthorized) indicates the refresh token expired and a new login is required.
+     The Google Play Games platform must be enabled for your game.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param RefreshToken Optional: Refresh token from StartGooglePlayGamesSession (resolved from stored data if empty)
+     @param OnRefreshGooglePlayGamesSessionCompleted Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken,ForPlayerWithUlid,Optionals", ForPlayerWithUlid="", RefreshToken="", AutoCreateRefTerm = "Optionals"))
     static void RefreshGooglePlayGamesSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FGooglePlayGamesSessionResponseBP& OnRefreshGooglePlayGamesSessionCompleted, const FLootLockerSessionOptionals& Optionals);
     
     /**
-     * Start a session for an Epic Online Services (EOS) user
-     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
-     * The Epic Games platform must be enabled in the web console for this to work.
-     *
-     * @param IdToken The device id of the player
-     * @param OnStartedEpicSessionRequestCompleted Delegate for handling the server response.
-     * @param Optionals (Optional) Additional session options to use when starting the session
+     Start a LootLocker session for an Epic Online Services (EOS) user.
+     The Epic Games platform must be enabled for your game.
+
+     @param IdToken EOS id token for the player
+     @param OnStartedEpicSessionRequestCompleted Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
     static void StartEpicSession(const FString& IdToken, const FEpicSessionResponseBP& OnStartedEpicSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
-     * Refresh a previous session signed in with Epic
-     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
-     * The Epic Games platform must be enabled in the web console for this to work.
-     *
-     * @param ForPlayerWithUlid (Optional) Execute the request for player with the the ulidplayer. If not supplied, the default player will be used.
-     * @param RefreshToken (Optional) Token received in response from StartEpicSession request. If not supplied we will attempt to resolve it from stored player data.
-     * @param OnRefreshEpicSessionCompleted Delegate for handling the response
-     * @param Optionals (Optional) Additional session options to use when starting the session
+     Refresh an existing Epic session.
+     HTTP 401 (Unauthorized) indicates the refresh token expired and a new login is required.
+     The Epic Games platform must be enabled for your game.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param RefreshToken Optional: Refresh token from StartEpicSession (resolved from stored data if empty)
+     @param OnRefreshEpicSessionCompleted Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken,ForPlayerWithUlid,Optionals", ForPlayerWithUlid="", AutoCreateRefTerm = "Optionals"))
     static void RefreshEpicSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FEpicSessionResponseBP& OnRefreshEpicSessionCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
-     * Start a session for an Meta / Oculus user
-     * A game can support multiple platforms, but it is recommended that a build only supports one platform.
-     * The Meta platform must be enabled in the web console for this to work.
-     *
-     * @param UserId The id recieved from Oculus
-     * @param Nonce The nonce recieved from Oculus
-     * @param OnMetaSessionRequestCompleted Delegate for handling the server response.
-     * @param Optionals (Optional) Additional session options to use when starting the session
+     Start a LootLocker session for a Meta / Oculus user.
+     The Meta platform must be enabled for your game.
+
+     @param UserId User id received from Oculus
+     @param Nonce Nonce received from Oculus
+     @param OnMetaSessionRequestCompleted Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
     static void StartMetaSession(const FString& UserId, const FString& Nonce, const FLootLockerMetaSessionResponseBP& OnMetaSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
-     * Refresh a previous session signed in with Meta
-     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
-     * The Meta platform must be enabled in the web console for this to work.
-     *
-     * @param ForPlayerWithUlid (Optional) Execute the request for player with the the ulidplayer. If not supplied, the default player will be used.
-     * @param RefreshToken (Optional) Token received in response from StartMetaSession request. If not supplied we will attempt to resolve it from stored player data.
-     * @param OnRefreshMetaSessionCompleted Delegate for handling the response
-     * @param Optionals (Optional) Additional session options to use when starting the session
+     Refresh an existing Meta / Oculus session.
+     HTTP 401 (Unauthorized) indicates the refresh token expired and a new login is required.
+     The Meta platform must be enabled for your game.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param RefreshToken Optional: Refresh token from StartMetaSession (resolved from stored data if empty)
+     @param OnRefreshMetaSessionCompleted Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken,ForPlayerWithUlid,Optionals", ForPlayerWithUlid="", AutoCreateRefTerm = "Optionals"))
     static void RefreshMetaSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FLootLockerMetaSessionResponseBP& OnRefreshMetaSessionCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
-     * Create a new user using the White Label login system.
-     * White Label platform must be enabled in the web console for this to work.
-     *
-     * @param Email E-mail for the new user
-     * @param Password Password for the new user
-     * @param OnWhiteLabelAccountCreationRequestCompleted Delegate for handling the response of type FLootLockerLoginResponse
+     Create a new user using the White Label login system.
+     The White Label platform must be enabled for your game.
+
+     @param Email Email for the new user
+     @param Password Password for the new user
+     @param OnWhiteLabelAccountCreationRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelAccountCreationRequestCompleted);
 
     /**
-     * Log in a White Label user with the given email and password combination, verify user, and start a White Label Session.
-     * Note: Use WhiteLabelLoginAndStartSession unless there's a specific purpose to use this method instead.
-     * Set remember=true to prolong the session lifetime
-     *
-     * White Label platform must be enabled in the web console for this to work.
-     * @param Email The Email for the white label account
-     * @param Password The Password for the white label account
-     * @param OnWhiteLabelLoginRequestCompleted Delegate for handling the response of type FLootLockerLoginResponse
-     * @param Remember Optional flag to prolong the session lifetime
+     Log in a White Label user (email + password) and verify credentials without starting a LootLocker session.
+     Prefer WhiteLabelLoginAndStartSession unless you intentionally need a separated flow.
+     Set Remember=true to prolong session lifetime.
+
+     @param Email Email for the White Label account
+     @param Password Password for the White Label account
+     @param OnWhiteLabelLoginRequestCompleted Delegate for handling the server response
+     @param Remember Optional: Whether to prolong the session lifetime
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = 3))
     static void WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelLoginRequestCompleted, const bool Remember = false);
 
     /**
-     * Start a LootLocker Session using the cached White Label token and email if any exist
-     * Note: Use WhiteLabelLoginAndStartSession unless there's a specific purpose to use this method instead.
-     * White Label platform must be enabled in the web console for this to work.
-     *
-     * @param OnStartWhiteLabelSessionRequestCompleted Delegate for handling the response of type FLootLockerAuthenticationResponse
-     * @param Optionals (Optional) Additional session options to use when starting the session
+     Start a LootLocker session using cached White Label credentials (token + email) if present.
+     Prefer WhiteLabelLoginAndStartSession unless you intentionally need a separated flow.
+
+     @param OnStartWhiteLabelSessionRequestCompleted Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
     static void WhiteLabelStartSession(const FAuthResponseBP& OnStartWhiteLabelSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
-     * Login and Start a LootLocker Session using a White Label account
-     * White Label platform must be enabled in the web console for this to work.
-     *
-     * @param Email - The Email for the white label account
-     * @param Password - The Password for the white label account
-     * @param OnWhiteLabelLoginAndStartSessionRequestCompleted Delegate for handling the response of type FLootLockerWhiteLabelLoginAndSessionResponse
-     * @param Remember - Optional flag to prolong the session lifetime
-     * @param Optionals (Optional) Additional session options to use when starting the session
+     Log in and start a LootLocker session in a single step using a White Label account.
+     Use this as the primary White Label authentication flow.
+
+     @param Email Email for the White Label account
+     @param Password Password for the White Label account
+     @param OnWhiteLabelLoginAndStartSessionRequestCompleted Delegate for handling the server response
+     @param Remember Optional: Whether to prolong the session lifetime
+     @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
     static void WhiteLabelLoginAndStartSession(const FString& Email, const FString& Password, const FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP& OnWhiteLabelLoginAndStartSessionRequestCompleted, const bool Remember, const FLootLockerSessionOptionals& Optionals);
 
     /**
-     * Checks if the cached session token is valid for the provided White Label email.
-     *
-     * Depending on response of this method the developer can either start a session using the token, or show a login form.
-     *
-     * White Label platform must be enabled in the web console for this to work.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OnVerifyWhiteLabelSessionRequestCompleted Delegate for handling the response of type FLootLockerWhiteLabelVerifySessionResponse
+     Verify that a cached White Label session token (for the stored email) is still valid.
+     Use the response to decide whether to start a session with WhiteLabelStartSession or prompt for login.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnVerifyWhiteLabelSessionRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void WhiteLabelVerifySession(const FString& ForPlayerWithUlid, const FLootLockerVerifySessionResponseBP& OnVerifyWhiteLabelSessionRequestCompleted);
 
     /**
-     * Request verify account email for the user.
-     * White Label platform must be enabled in the web console for this to work.
-     * Account verification must also be enabled.
-     *
-     * @param UserId The UserId for the white label user
-     * @param OnRequestWhiteLabelUserVerificationRequestCompleted Delegate for handling the response of type FLootLockerResponse
+     Request that a verification email is sent to the specified White Label user id.
+     White Label and account verification must both be enabled for your game.
+
+     @param UserId User id for the White Label user
+     @param OnRequestWhiteLabelUserVerificationRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void WhiteLabelRequestUserVerification(const int& UserId, const FLootLockerDefaultResponseBP& OnRequestWhiteLabelUserVerificationRequestCompleted);
 
     /**
-     * Request verify account email for the user.
-     * White Label platform must be enabled in the web console for this to work.
-     * Account verification must also be enabled.
-     *
-     * @param Email The Email of the user
-     * @param OnRequestWhiteLabelUserVerificationRequestCompleted Delegate for handling the response of type FLootLockerResponse
+     Request that a verification email is sent to the White Label user with the specified email.
+     White Label and account verification must both be enabled for your game.
+
+     @param Email Email of the White Label user
+     @param OnRequestWhiteLabelUserVerificationRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void WhiteLabelRequestUserVerificationByEmail(const FString& Email, const FLootLockerDefaultResponseBP& OnRequestWhiteLabelUserVerificationRequestCompleted);
 
     /**
-     * Request a password reset email for the given email address.
-     * White Label platform must be enabled in the web console for this to work.
-     *
-     * @param Email The email for the white label user
-     * @param OnResetWhiteLabelPasswordRequestCompleted Delegate for handling the response of type FLootLockerResponse
+     Request a password reset email for the specified White Label user email.
+     The White Label platform must be enabled for your game.
+
+     @param Email Email of the White Label user
+     @param OnResetWhiteLabelPasswordRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void WhiteLabelResetPassword(const FString& Email, const FLootLockerDefaultResponseBP& OnResetWhiteLabelPasswordRequestCompleted);
 
     /**
-     * Start a guest session with an identifier, you can use something like a unique device identifier to tie the account to a device.
-     *
-     * @param PlayerIdentifier Optional: Identifier for the player. Needs to be unique for each player, so only set this explicitly if you want to set a specific name for the guest player. Otherwise, an id will be generated for the player.
-     * @param OnCompletedRequestBP Delegate for handling the response of type FLootLockerAuthenticationResponse
-     * @param Optionals (Optional) Additional session options to use when starting the session
+     Start a guest session. Optionally provide a custom unique PlayerIdentifier (otherwise one will be generated).
+
+     @param OnCompletedRequestBP Delegate for handling the server response
+     @param PlayerIdentifier Optional: Custom unique identifier to associate with this guest player (auto-generated if empty)
+     @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
     static void GuestLogin(const FAuthResponseBP& OnCompletedRequestBP, const FString& PlayerIdentifier, const FLootLockerSessionOptionals& Optionals);
     
     /**
-    * Start a session for a Discord user
-    * The Discord sign in platform must be enabled in the web console for this to work.
-    *
-    * @param AccessToken The access token from Discord OAuth
-    * @param OnStartedDiscordSessionRequestCompleted Delegate for handling the server response.
-    * @param Optionals Optional session configuration parameters
-    */
+     Start a LootLocker session for a Discord user.
+     The Discord sign-in platform must be enabled for your game.
+
+     @param AccessToken Access token from Discord OAuth
+     @param OnStartedDiscordSessionRequestCompleted Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
     static void StartDiscordSession(const FString& AccessToken, const FDiscordSessionResponseBP& OnStartedDiscordSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
-    * Refresh a previous session signed in with Discord
-    * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
-    * The Discord sign in platform must be enabled in the web console for this to work.
-    *
-    * @param ForPlayerWithUlid Optional : Execute the request for the specified player. If not supplied, the default player will be used.
-    * @param RefreshToken (Optional) Token received in response from StartDiscordSession request. If not supplied we will attempt to resolve it from stored player data.
-    * @param OnRefreshDiscordSessionCompleted Delegate for handling the response
-    * @param Optionals Optional session configuration parameters
-    */
+     Refresh an existing Discord session.
+     HTTP 401 (Unauthorized) indicates the refresh token expired and a new login is required.
+     The Discord platform must be enabled for your game.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param RefreshToken Optional: Refresh token from StartDiscordSession (resolved from stored data if empty)
+     @param OnRefreshDiscordSessionCompleted Delegate for handling the server response
+     @param Optionals Optional: Additional session options applied when starting the session
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken,ForPlayerWithUlid,Optionals", ForPlayerWithUlid="", RefreshToken="", AutoCreateRefTerm = "Optionals"))
     static void RefreshDiscordSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FDiscordSessionResponseBP& OnRefreshDiscordSessionCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
-     * Verify the player's identity with the server and selected platform.
-     * If your game uses Player Verification, you need to call this endpoint before you can register a session.
-     *
-     *
-     * @param ForPlayerWithUlid (Optional) Execute the request for player with the the ulidplayer. If not supplied, the default player will be used.
-     * @param PlatformToken Platform-specific token.
-     * @param OnVerifyPlayerRequestCompleted Response Delegate to handle the response
-     * @param Platform Optional parameter to call explicitly for a specific platform
+     Verify the player's identity with the selected platform (Deprecated – use VerifyPlayerAndStartPlaystationNetworkSession or VerifyPlayerAndStartSteamSession).
+     Required only if using the legacy separate verification + start session flow.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param PlatformToken Platform-specific authentication token
+     @param OnVerifyPlayerRequestCompleted Delegate for handling the server response
+     @param Platform Optional: Explicit platform name to verify against (auto-detected if empty)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (DeprecationMessage="This method is deprecated, please use VerifyPlayerAndStartPlaystationNetworkSession or VerifyPlayerAndStartSteamSession instead.")) // Deprecation date 2025-09-24
     static void VerifyPlayer(const FString& ForPlayerWithUlid, const FString& PlatformToken, const FLootLockerDefaultResponseBP& OnVerifyPlayerRequestCompleted, FString Platform = FString(TEXT("")));
 
     /**
-     * End active session (if any exists)
-     * Terminates the session on the LootLocker servers. Any further requests with this session's token will be rejected with an 401 Unauthorized error.
-     * Succeeds if a session was ended or no sessions were active
-     *
-     * @param ForPlayerWithUlid (Optional) Execute the request for player with the the ulidplayer. If not supplied, the default player will be used.
-     * @param OnEndSessionRequestCompleted Delegate for handling the response of type LootLockerSessionResponse
+     End the active session for a player (no-op if no active session).
+     Terminates the server-side session; further requests with its token will receive 401 Unauthorized.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnEndSessionRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static void EndSession(const FString& ForPlayerWithUlid, const FLootLockerDefaultResponseBP& OnEndSessionRequestCompleted);
