@@ -2297,69 +2297,70 @@ public:
 
     /**
     * Returns multiple progressions the asset instance is currently on.
+    * List progressions attached to an asset instance (cursor pagination).
     *
     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param AssetInstanceId Id of the instance you want to fetch progressions for
-    * @param Count Optional: Amount of entries to receive
-    * @param After Optional: Used for pagination, id of the instance progression from which the pagination starts from, use the next_cursor and previous_cursor values
-    * @param OnCompletedRequestBP Action for handling the response of type FLootLockerPaginatedInstanceProgressionsResponse
+    * @param AssetInstanceId Id of the asset instance to fetch progressions for
+    * @param Count Optional: Number of entries to return. Use -1 to use the server default
+    * @param After Optional: Cursor id of the last received instance progression. Use next_cursor or previous_cursor from a prior response
+    * @param OnCompletedRequestBP Delegate for handling the response (FLootLockerPaginatedInstanceProgressionsResponse)
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid=""))
     static void GetInstanceProgressions(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const int32 Count, const FString& After, const FLootLockerPaginatedInstanceProgressionsResponseBP& OnCompletedRequestBP);
 
     /**
-    * Returns a single progression the instance is currently on.
+    * Get a single progression for an asset instance.
     *
     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param AssetInstanceId Id of the instance you want to fetch progressions for
-    * @param ProgressionKey Key of the progression you want to fetch
-    * @param OnCompletedRequestBP Action for handling the response of type FLootLockerInstanceProgressionsResponse
+    * @param AssetInstanceId Id of the asset instance
+    * @param ProgressionKey Key of the progression to fetch
+    * @param OnCompletedRequestBP Delegate for handling the response (FLootLockerInstanceProgressionResponse)
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionResponseBP& OnCompletedRequestBP);
 
     /**
-    * Adds points to the specified instance progression.
+    * Add points to an instance progression (may trigger rewards).
     *
     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param AssetInstanceId Id of the instance you want to fetch progressions for
-    * @param ProgressionKey Key of the progression you want to add points to
-    * @param Amount Amount of points to be added
-    * @param OnCompletedRequestBP Action for handling the response of type FLootLockerinstanceProgressionWithRewardsResponse
+    * @param AssetInstanceId Id of the asset instance
+    * @param ProgressionKey Key of the progression to add points to
+    * @param Amount Number of points to add
+    * @param OnCompletedRequestBP Delegate for handling the response (FLootLockerInstanceProgressionWithRewardsResponse)
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void AddPointsToInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP);
 
     /**
-    * Subtracts points from the specified instance progression.
+    * Subtract points from an instance progression (may adjust completed tiers).
     *
     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param AssetInstanceId Id of the instance you want to fetch progressions for
-    * @param ProgressionKey Key of the progression you want to subtract points from
-    * @param Amount Amount of points to be subtracted
-    * @param OnCompletedRequestBP Action for handling the response of type FLootLockerInstanceProgressionWithRewardsResponse
+    * @param AssetInstanceId Id of the asset instance
+    * @param ProgressionKey Key of the progression to subtract points from
+    * @param Amount Number of points to subtract
+    * @param OnCompletedRequestBP Delegate for handling the response (FLootLockerInstanceProgressionWithRewardsResponse)
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void SubtractPointsFromInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP);
 
     /**
-    * Resets the specified instance progression.
+    * Reset an instance progression to its initial state (may re‑issue initial rewards).
     *
     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param AssetInstanceId Id of the instance you want to fetch progressions for
-    * @param ProgressionKey Key of the progression you want to reset
-    * @param OnCompletedRequestBP Action for handling the response of type FLootLockerInstanceProgressionWithRewardsResponse
+    * @param AssetInstanceId Id of the asset instance
+    * @param ProgressionKey Key of the progression to reset
+    * @param OnCompletedRequestBP Delegate for handling the response (FLootLockerInstanceProgressionWithRewardsResponse)
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ResetInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP);
 
     /**
-    * Deletes the specified instance progression.
+    * Delete an instance progression permanently.
     *
     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param AssetInstanceId Id of the instance you want to fetch progressions for
-    * @param ProgressionKey Key of the progression you want to delete
-    * @param OnCompletedRequestBP Action for handling the response of type FLootLockerResponse
+    * @param AssetInstanceId Id of the asset instance
+    * @param ProgressionKey Key of the progression to delete
+    * @param OnCompletedRequestBP Delegate for handling the response (FLootLockerResponse)
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void DeleteInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequestBP);
