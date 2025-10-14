@@ -2628,18 +2628,18 @@ public:
     //==================================================
 
     /**
-     * Invoke a set of triggers by key
-     *
-     * Note that the response contains two lists:
-     * - One listing the keys of the triggers that were successfully executed
-     * - One listing the triggers that failed as well as the reason they did so
-     *
-     * This means that the request can "succeed" but still contain triggers that failed. So make sure to check the inner results.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param KeysToInvoke List of keys of the triggers to invoke
-     * @param OnComplete Delegate for handling the server response.
-     */
+     Invoke triggers by their keys.
+
+     Response lists:
+     - succeeded: keys that executed successfully
+     - failed: keys that failed and the reason
+
+     The overall request may succeed even if some triggers fail; inspect both lists.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param KeysToInvoke Keys of the triggers to invoke
+     @param OnComplete Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Triggers", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void InvokeTriggersByKey(const FString& ForPlayerWithUlid, const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseBP& OnComplete);
 
