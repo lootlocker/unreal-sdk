@@ -3267,77 +3267,79 @@ public:
     //==================================================
 
     /**
-    List the requested page of Metadata for the specified source with the specified pagination (if you don't specify pagination settings then default pagination will be used)
+     List metadata for a source
 
-    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    @param Source The source type for which to request metadata
-    @param SourceID The specific source id for which to request metadata, note that if the source is self then this too should be set to "self"
-    @param Page Optional: Used together with PerPage to apply pagination to this request. Page designates which "page" of items to fetch
-    @param PerPage Optional: Used together with Page to apply pagination to this request.PerPage designates how many items are considered a "page"
-    @param IgnoreFiles Optional: Base64 values will be set to content_type "application/x-redacted" and the content will be an empty String. Use this to avoid accidentally fetching large data files.
-    @param OnComplete delegate for handling the server response
+    Retrieves a page of metadata entries for the specified source. If pagination values are not supplied the server defaults are used
+
+    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+    @param Source Source type to retrieve metadata for
+    @param SourceID Id of the specific source (use "self" when Source is self)
+    @param Page Optional: Page index (1-based). Use -1 to use the server default
+    @param PerPage Optional: Items per page. Use -1 to use the server default
+    @param IgnoreFiles Optional: Redact Base64 file entries to avoid downloading large payloads
+    @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Metadata", meta = (AdvancedDisplay = "Page,PerPage,IgnoreFiles,ForPlayerWithUlid", Page = -1, PerPage = -1, IgnoreFiles = false, ForPlayerWithUlid=""))
     static void ListMetadata(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnComplete);
 
     /**
-    List the requested page of Metadata for the specified source that has all of the provided tags and paginate according to the supplied pagination settings (if you don't specify pagination settings then default pagination will be used)
+     List metadata for a source filtered by tags
 
-    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    @param Source The source type for which to request metadata
-    @param SourceID The specific source id for which to request metadata, note that if the source is self then this too should be set to "self"
-    @param Tags The tags that the requested metadata should have, only metadata matching *all of* the given tags will be returned
-    @param Page Optional: Used together with PerPage to apply pagination to this request. Page designates which "page" of items to fetch
-    @param PerPage Optional: Used together with Page to apply pagination to this request.PerPage designates how many items are considered a "page"
-    @param IgnoreFiles Optional: Base64 values will be set to content_type "application/x-redacted" and the content will be an empty String. Use this to avoid accidentally fetching large data files.
-    @param OnComplete delegate for handling the server response
+    Only entries containing all provided tags are returned
+
+    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+    @param Source Source type to retrieve metadata for
+    @param SourceID Id of the specific source (use "self" when Source is self)
+    @param Tags Tags all returned metadata entries must include
+    @param Page Optional: Page index (1-based). Use -1 to use the server default
+    @param PerPage Optional: Items per page. Use -1 to use the server default
+    @param IgnoreFiles Optional: Redact Base64 file entries to avoid downloading large payloads
+    @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Metadata", meta = (AdvancedDisplay = "Page,PerPage,Tags,IgnoreFiles,ForPlayerWithUlid", Page = -1, PerPage = -1, IgnoreFiles = false, ForPlayerWithUlid=""))
     static void ListMetadataWithTags(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FString>& Tags, const int Page, const int PerPage, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnComplete);
 
     /**
-    Get Metadata for the specified source with the given key
+     Get a metadata entry by key
 
-    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    @param Source The source type for which to request metadata
-    @param SourceID The specific source id for which to request metadata, note that if the source is self then this too should be set to "self"
-    @param Key The key of the metadata to fetch, use this to fetch metadata for a specific key for the specified source.
-    @param IgnoreFiles Optional: Base64 values will be set to content_type "application/x-redacted" and the content will be an empty String. Use this to avoid accidentally fetching large data files.
-    @param OnComplete delegate for handling the server response
+    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+    @param Source Source type to retrieve metadata for
+    @param SourceID Id of the specific source (use "self" when Source is self)
+    @param Key Metadata key to fetch
+    @param IgnoreFiles Optional: Redact Base64 file entries to avoid downloading large payloads
+    @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Metadata", meta = (AdvancedDisplay = "IgnoreFiles,ForPlayerWithUlid", IgnoreFiles = false, ForPlayerWithUlid=""))
     static void GetMetadata(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const FString& Key, const bool IgnoreFiles, const FLootLockerGetMetadataResponseBP& OnComplete);
 
     /**
-    Get Metadata for the specified keys on the specified sources
+     Get metadata entries for multiple sources and keys
 
-    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    @param SourcesAndKeysToGet The combination of sources to get keys for, and the keys to get for those sources
-    @param IgnoreFiles Optional: Base64 values will be set to content_type "application/x-redacted" and the content will be an empty String. Use this to avoid accidentally fetching large data files.
-    @param OnComplete delegate for handling the server response
+    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+    @param SourcesAndKeysToGet Source/key groups to retrieve
+    @param IgnoreFiles Optional: Redact Base64 file entries to avoid downloading large payloads
+    @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Metadata", meta = (AdvancedDisplay = "IgnoreFiles,ForPlayerWithUlid", IgnoreFiles = false, ForPlayerWithUlid=""))
     static void GetMultisourceMetadata(const FString& ForPlayerWithUlid, const TArray<FLootLockerMetadataSourceAndKeys>& SourcesAndKeysToGet, const bool IgnoreFiles, const FLootLockerGetMultisourceMetadataResponseBP& OnComplete);
 
-    /*
-     Parse a LootLocker Metadata Entry
+    /**
+     Parse a metadata entry into typed values
 
-     This is a convenience node that replaces switching on the metadata type and converting the values manually
-     The output execution pin corresponding to the Entry Type will be triggered at which point the corresponding value pin for that type will be populated.
-     If the entry could not be parsed, the OnError execution pin will be triggered and the ErrorMessage will be populated.
+    Convenience node that switches on the entry type and outputs the typed value pins. On failure the error pin is triggered and ErrorMessage populated
 
-     @param Entry The entry to parse
-     @param MetadataTypeSwitch Generated output execution pins for the possible metadata types
-     @param StringValue The parsed String Value, populated if the OnString output pin was triggered
-     @param IntegerValue The parsed integer Value, populated if the OnInteger output pin was triggered
-     @param FloatValue The parsed decimal Value, populated if the OnFloat output pin was triggered
-     @param NumberString The parsed Number String Value, populated if the OnNumber output pin was triggered
-     @param BoolValue The parsed boolean Value, populated if the OnBool output pin was triggered
-     @param JsonStringValue The parsed Json String Value, populated if the OnJsonString output pin was triggered
-     @param Base64Value The parsed Base64 Value, populated if the OnBase64 output pin was triggered
-     @param ErrorMessage An error message populated if the parsing failed and the OnError output pin was triggered
-     @param OutEntry Outputs a reference to the entry that was parsed for convenience
-     */
+    @param Entry Entry to parse
+    @param MetadataTypeSwitch Output execution pins for possible metadata types
+    @param StringValue Parsed string value (valid if OnString executed)
+    @param IntegerValue Parsed integer value (valid if OnInteger executed)
+    @param FloatValue Parsed float value (valid if OnFloat executed)
+    @param NumberString Parsed number string value (valid if OnNumber executed)
+    @param BoolValue Parsed boolean value (valid if OnBool executed)
+    @param JsonStringValue Parsed JSON string value (valid if OnJsonString executed)
+    @param Base64Value Parsed Base64 value (valid if OnBase64 executed)
+    @param ErrorMessage Error message if parsing failed (OnError executed)
+    @param OutEntry Reference to the original entry that was parsed
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Metadata", meta = (ExpandEnumAsExecs = "MetadataTypeSwitch", AdvancedDisplay = "OutEntry"))
     static void ParseLootLockerMetadataEntry(const FLootLockerMetadataEntry& Entry,
         ELootLockerMetadataParserOutputTypes& MetadataTypeSwitch,
@@ -3352,95 +3354,94 @@ public:
         FLootLockerMetadataEntry& OutEntry);
 
     /**
-    Set the provided metadata for the specified source
+     Set metadata for a source
 
-    Use the provided Make<type>MetadataAction nodes when constructing the array of actions to perform.
-    Note that a subset of the specified operations can fail without the full request failing. Make sure to check the errors array in the response.
+    Supply an array of metadata actions (create, update, delete). Some actions may fail independently; inspect errors in the response
 
-    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    @param Source The source type for which to set metadata
-    @param SourceID The specific source id for which to set metadata
-    @param MetadataToActionsToPerform List of actions to take during this set operation.
-    @param OnComplete delegate for handling the server response
+    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+    @param Source Source type to modify metadata for
+    @param SourceID Id of the specific source
+    @param MetadataToActionsToPerform Actions to perform in this set operation
+    @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Metadata", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void SetMetadata(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FLootLockerSetMetadataAction>& MetadataToActionsToPerform, const FLootLockerSetMetadataResponseBP& OnComplete);
 
     /**
-    Construct a Metadata Action consisting of a metadata entry with a String value
+     Construct a metadata action with a string value
 
-    @param Action The action to take for this set operation. Update and Delete operations will fail if the key does not exist. Create operation will fail if the key does exist.
-    @param Key The key to perform this action towards
-    @param Value The value to set for the specified key
-    @param Tags The tags to apply to the specified key
-    @param Access The access settings to apply to the specified key. None means that the game api can not read nor write this metadata entry (this is the default). But you can supply either or both of "game_api.read" and "game_api.write"
-    @return A Metadata Action Object that you can use in the method SetMetadata
+    @param Action Action to perform (create/update/delete)
+    @param Key Metadata key
+    @param Value String value to set
+    @param Tags Tags to apply
+    @param Access Access flags (e.g. game_api.read, game_api.write)
+    @return Metadata action usable with SetMetadata
     */
     UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Metadata", meta = (AdvancedDisplay = "Tags,Access", AutoCreateRefTerm = "Tags,Access"))
     static FLootLockerSetMetadataAction MakeMetadataActionString(ELootLockerMetadataActions Action, const FString& Key, const FString& Value, const TArray<FString>& Tags, const TArray<FString>& Access);
 
     /**
-    Construct a Metadata Action consisting of a metadata entry with a Decimal value
+     Construct a metadata action with a float value
 
-    @param Action The action to take for this set operation. Update and Delete operations will fail if the key does not exist. Create operation will fail if the key does exist.
-    @param Key The key to perform this action towards
-    @param Value The value to set for the specified key
-    @param Tags The tags to apply to the specified key
-    @param Access The access settings to apply to the specified key. None means that the game api can not read nor write this metadata entry (this is the default). But you can supply either or both of "game_api.read" and "game_api.write"
-    @return A Metadata Action Object that you can use in the method SetMetadata
+    @param Action Action to perform (create/update/delete)
+    @param Key Metadata key
+    @param Value Float value to set
+    @param Tags Tags to apply
+    @param Access Access flags (e.g. game_api.read, game_api.write)
+    @return Metadata action usable with SetMetadata
     */
     UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Metadata", meta = (AdvancedDisplay = "Tags,Access", AutoCreateRefTerm = "Tags,Access"))
     static FLootLockerSetMetadataAction MakeMetadataActionFloat(ELootLockerMetadataActions Action, const FString& Key, const float& Value, const TArray<FString>& Tags, const TArray<FString>& Access);
 
     /**
-    Construct a Metadata Action consisting of a metadata entry with an Integer value
+     Construct a metadata action with an integer value
 
-    @param Action The action to take for this set operation. Update and Delete operations will fail if the key does not exist. Create operation will fail if the key does exist.
-    @param Key The key to perform this action towards
-    @param Value The value to set for the specified key
-    @param Tags The tags to apply to the specified key
-    @param Access The access settings to apply to the specified key. None means that the game api can not read nor write this metadata entry (this is the default). But you can supply either or both of "game_api.read" and "game_api.write"
-    @return A Metadata Action Object that you can use in the method SetMetadata
+    @param Action Action to perform (create/update/delete)
+    @param Key Metadata key
+    @param Value Integer value to set
+    @param Tags Tags to apply
+    @param Access Access flags (e.g. game_api.read, game_api.write)
+    @return Metadata action usable with SetMetadata
     */
     UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Metadata", meta = (AdvancedDisplay = "Tags,Access", AutoCreateRefTerm = "Tags,Access"))
     static FLootLockerSetMetadataAction MakeMetadataActionInteger(ELootLockerMetadataActions Action, const FString& Key, const int Value, const TArray<FString>& Tags, const TArray<FString>& Access);
 
     /**
-    Construct a Metadata Action consisting of a metadata entry with a Bool value
+     Construct a metadata action with a bool value
 
-    @param Action The action to take for this set operation. Update and Delete operations will fail if the key does not exist. Create operation will fail if the key does exist.
-    @param Key The key to perform this action towards
-    @param Value The value to set for the specified key
-    @param Tags The tags to apply to the specified key
-    @param Access The access settings to apply to the specified key. None means that the game api can not read nor write this metadata entry (this is the default). But you can supply either or both of "game_api.read" and "game_api.write"
-    @return A Metadata Action Object that you can use in the method SetMetadata
+    @param Action Action to perform (create/update/delete)
+    @param Key Metadata key
+    @param Value Boolean value to set
+    @param Tags Tags to apply
+    @param Access Access flags (e.g. game_api.read, game_api.write)
+    @return Metadata action usable with SetMetadata
     */
     UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Metadata", meta = (AdvancedDisplay = "Tags,Access", AutoCreateRefTerm = "Tags,Access"))
     static FLootLockerSetMetadataAction MakeMetadataActionBool(ELootLockerMetadataActions Action, const FString& Key, const bool Value, const TArray<FString>& Tags, const TArray<FString>& Access);
 
     /**
-    Construct a Metadata Action consisting of a metadata entry with a Json value in string format
+     Construct a metadata action with a JSON value
 
-    @param Action The action to take for this set operation. Update and Delete operations will fail if the key does not exist. Create operation will fail if the key does exist.
-    @param Key The key to perform this action towards
-    @param Value The value to set for the specified key
-    @param Tags The tags to apply to the specified key
-    @param Access The access settings to apply to the specified key. None means that the game api can not read nor write this metadata entry (this is the default). But you can supply either or both of "game_api.read" and "game_api.write"
-    @param Succeeded Output: True if the json string could be parsed as an array or object, false if it could not be parsed
-    @param ConstructedEntry Output: A Metadata Action Object that you can use in the method SetMetadata
+    @param Action Action to perform (create/update/delete)
+    @param Key Metadata key
+    @param Value JSON string (array or object) to set
+    @param Tags Tags to apply
+    @param Access Access flags (e.g. game_api.read, game_api.write)
+    @param Succeeded Output: True if JSON parsed as array or object
+    @param ConstructedEntry Output: Constructed metadata action
     */
     UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Metadata", meta = (AdvancedDisplay = "Tags,Access", AutoCreateRefTerm = "Tags,Access"))
     static void MakeMetadataActionJson(ELootLockerMetadataActions Action, const FString& Key, const FString& Value, const TArray<FString>& Tags, const TArray<FString>& Access, bool& Succeeded, FLootLockerSetMetadataAction& ConstructedEntry);
 
     /**
-    Construct a Metadata Action consisting of a metadata entry with a Base64 value
+     Construct a metadata action with a Base64 value
 
-    @param Action The action to take for this set operation. Update and Delete operations will fail if the key does not exist. Create operation will fail if the key does exist.
-    @param Key The key to perform this action towards
-    @param Value The value to set for the specified key
-    @param Tags The tags to apply to the specified key
-    @param Access The access settings to apply to the specified key. None means that the game api can not read nor write this metadata entry (this is the default). But you can supply either or both of "game_api.read" and "game_api.write"
-    @return A Metadata Action Object that you can use in the method SetMetadata
+    @param Action Action to perform (create/update/delete)
+    @param Key Metadata key
+    @param Value Base64 value wrapper to set
+    @param Tags Tags to apply
+    @param Access Access flags (e.g. game_api.read, game_api.write)
+    @return Metadata action usable with SetMetadata
     */
     UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Metadata", meta = (AdvancedDisplay = "Tags,Access", AutoCreateRefTerm = "Tags,Access"))
     static FLootLockerSetMetadataAction MakeMetadataActionBase64(ELootLockerMetadataActions Action, const FString& Key, const FLootLockerMetadataBase64Value& Value, const TArray<FString>& Tags, const TArray<FString>& Access);
