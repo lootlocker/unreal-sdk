@@ -973,133 +973,122 @@ public:
     //==================================================
 
     /**
-     * List identity providers (like Apple, Google, etc.) that are connected to the currently logged in account
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OnCompleteBP Delegate for handling the response
+     List identity providers (Apple, Google, etc.) connected to the current player's LootLocker account.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ListConnectedAccounts(const FString& ForPlayerWithUlid, const FLootLockerListConnectedAccountsResponseBP& OnCompleteBP);
 
     /**
-     * Disconnect account from the currently logged in account
-     *
-     * Use this to disconnect an account (like a Google or Apple account) that can be used to start sessions for this LootLocker account so that it is no longer allowed to do that
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param AccountToDisconnect What account to disconnect from this LootLocker Account
-     * @param OnCompleteBP Delegate for handling the response
+     Disconnect a linked identity provider account so it can no longer start sessions for this LootLocker player.
+     Use to revoke a previously connected provider (Google, Apple, etc.).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AccountToDisconnect Identity provider to disconnect
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void DisconnectAccount(const FString& ForPlayerWithUlid, const ELootLockerAccountProvider AccountToDisconnect, const FLootLockerDefaultResponseBP& OnCompleteBP);
 
     /**
-     * Connect a Google Account to the currently logged in LootLocker account allowing that google account to start sessions for this player
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param IdToken The Id Token from google sign in
-     * @param OnCompleteBP Delegate for handling the response
+     Connect a Google account to this LootLocker player, allowing future Google authentications to start sessions.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param IdToken Google ID token from sign-in
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ConnectGoogleAccount(const FString& ForPlayerWithUlid, const FString& IdToken, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
 
     /**
-     * Connect a Google Account (with a Google Platform specified) to the currently logged in LootLocker account allowing that google account to start sessions for this player
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param IdToken The Id Token from google sign in
-     * @param Platform Google OAuth2 ClientID platform
-     * @param OnCompleteBP Delegate for handling the response
+     Connect a Google account (for a specific OAuth2 Client Platform) to this LootLocker player.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param IdToken Google ID token from sign-in
+     @param Platform Google OAuth2 client platform
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ConnectGoogleAccountWithPlatform(const FString& ForPlayerWithUlid, const FString& IdToken, EGoogleAccountProviderPlatform Platform, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
 
     /**
-     * Connect an Apple Account (authorized by Rest Sign In) to the currently logged in LootLocker account allowing that google account to start sessions for this player
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param AuthorizationCode Authorization code, provided by apple during Sign In
-     * @param OnCompleteBP Delegate for handling the response
+     Connect an Apple account (authorized via REST Sign In) to this LootLocker player.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AuthorizationCode Authorization code provided by Apple during sign-in
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ConnectAppleAccountByRestSignIn(const FString& ForPlayerWithUlid, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
 
     /**
-     * Connect a Twitch Account to the currently logged in LootLocker account allowing that Twitch account to start sessions for this player
-     * 
-     * IMPORTANT: If you are using multiple users, be very sure to pass in the correct `ForPlayerWithUlid` parameter as that will be the account that the Twitch account is linked into
-     *
-     * @param AuthorizationCode Authorization code, provided by Twitch during Sign In
-     * @param OnComplete Delegate for handling the response
-     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     Connect a Twitch account to this LootLocker player enabling Twitch-based session starts.
+     IMPORTANT: When using multiple players ensure you supply the correct ForPlayerWithUlid, or the account may link to the wrong player.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AuthorizationCode Authorization code provided by Twitch during sign-in
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ConnectTwitchAccount(const FString& ForPlayerWithUlid, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
 
     /**
-     * Connect a Epic Account to the currently logged in LootLocker account allowing that Epic account to start sessions for this player
-     * 
-     * IMPORTANT: If you are using multiple users, be very sure to pass in the correct `ForPlayerWithUlid` parameter as that will be the account that the Epic account is linked into
-     *
-     * @param Token Token, provided by Epic during Sign In
-     * @param OnComplete Delegate for handling the response
-     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     Connect an Epic account to this LootLocker player enabling Epic-based session starts.
+     IMPORTANT: When using multiple players ensure you supply the correct ForPlayerWithUlid.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Token Token provided by Epic during sign-in
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ConnectEpicAccount(const FString& ForPlayerWithUlid, const FString& Token, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
 
     /**
-     * Connect a Playstation Account to the currently logged in LootLocker account allowing that Playstation account to start sessions for this player
-     * 
-     * IMPORTANT: If you are using multiple users, be very sure to pass in the correct `ForPlayerWithUlid` parameter as that will be the account that the Playstation account is linked into
-     *
-     * @param Environment The Playstation environment the user signed in to (e.g. "prod", "dev", "qa")
-     * @param OnComplete Delegate for handling the response
-     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     Connect a PlayStation account to this LootLocker player enabling PlayStation-based session starts.
+     IMPORTANT: When using multiple players ensure you supply the correct ForPlayerWithUlid.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Environment PlayStation environment (e.g. prod, dev, qa)
+     @param Code Authorization / linkage code returned by PlayStation flow
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ConnectPlaystationAccount(const FString& ForPlayerWithUlid, const FString& Environment, const FString& Code, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
 
     /**
-     * Connect a Discord Account to the currently logged in LootLocker account allowing that Discord account to start sessions for this player
-     * 
-     * IMPORTANT: If you are using multiple users, be very sure to pass in the correct `ForPlayerWithUlid` parameter as that will be the account that the Discord account is linked into
-     *
-     * @param Token Token, provided by Discord during Sign In
-     * @param OnComplete Delegate for handling the response
-     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     Connect a Discord account to this LootLocker player enabling Discord-based session starts.
+     IMPORTANT: When using multiple players ensure you supply the correct ForPlayerWithUlid.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Token Token provided by Discord during sign-in
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ConnectDiscordAccount(const FString& ForPlayerWithUlid, const FString& Token, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
 
     /**
-     * Connect an account (authorized using a remote session) to the currently logged in LootLocker account allowing that authentication method to start sessions for this player
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param Code The lease code returned with the response when starting a lease process
-     * @param Nonce The nonce returned with the response when starting a lease process
-     * @param OnCompleteBP Delegate for handling the response
+     Connect an account authenticated via a remote session lease to this LootLocker player.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Code Lease code returned when starting the remote session leasing process
+     @param Nonce Nonce returned when starting the remote session leasing process
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ConnectRemoteSessionAccount(const FString& ForPlayerWithUlid, const FString& Code, const FString& Nonce, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
 
     /**
-     This endpoint lets you transfer identity providers between two players, provided you have a valid session for both.
-     The designated identity providers will be transferred FROM the player designated by the `FromPlayerWithUlid` parameter and TO the player designated by the `ToPlayerWithUlid` parameter.
-     If any of the providers can not be transferred the whole operation will fail and NO identity providers will be transferred.
+     Transfer one or more identity provider connections from one authenticated player to another.
+     All requested providers must be transferable or the whole operation fails (no partial transfer).
+     IMPORTANT: This is destructive for the source player; transferred providers will no longer authenticate that player.
+     Limitations: Source must own the providers; destination must not already have them; providers must be active in game settings.
 
-     IMPORTANT: This is a destructive action. Once an identity provider has been transferred they will allow authentication for the target player and no longer authenticate for the source player.
-     This can leave the source player without means of authentication and thus unusable from the game.
-
-     ** Limitations **
-      - You can not move an identity provider that the source player does not have
-      - You can not move an identity provider to a player that already has an account from said identity provider associated with their account.
-      - You can not move an identity provider which isn't active in your game settings.
-     *
-     * @param FromPlayerWithUlid The ULID of an authenticated player that you wish to move identity providers FROM
-     * @param ToPlayerWithUlid The ULID of an authenticated player that you wish to move identity providers TO
-     * @param ProvidersToTransfer Which identity providers you wish to transfer
-     * @param OnCompleteBP Delegate for handling the response
+     @param FromPlayerWithUlid ULID of the authenticated source player (providers moved FROM)
+     @param ToPlayerWithUlid ULID of the authenticated destination player (providers moved TO)
+     @param ProvidersToTransfer List of identity providers to transfer
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts")
     static void TransferIdentityProvidersBetweenAccounts(const FString& FromPlayerWithUlid, const FString& ToPlayerWithUlid, TArray<ELootLockerAccountProvider> ProvidersToTransfer, const FLootLockerListConnectedAccountsResponseBP& OnCompleteBP);
