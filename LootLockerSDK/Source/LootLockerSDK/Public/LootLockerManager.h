@@ -3694,26 +3694,29 @@ public:
     //==================================================
 
     /**
-    * Get the current time of the server. Can also be used to ping the server
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param OnCompletedRequestBP Delegate for handling the the server response.
+     Get current server time
+
+    Can also be used as a lightweight ping
+
+    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+    @param OnCompletedRequestBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetServerTime(const FString& ForPlayerWithUlid, const FTimeResponseDelegateBP& OnCompletedRequestBP);
 
     /**
-    * Get the last used platform from a prior session.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     Get the last used platform from a prior session
+
+    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+    @return Last active platform identifier (empty if unknown)
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static FString GetLastActivePlatform(const FString& ForPlayerWithUlid);
 
     /**
-    * Get meta information about the game from LootLocker
-    * 
-    * @param OnCompletedRequestBP Blueprint delegate for handling the response
+     Get meta information about the game
+
+    @param OnCompletedRequestBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous")
     static void GetGameInfo(const FGameInfoResponseDelegateBP& OnCompletedRequestBP);
