@@ -2414,10 +2414,10 @@ public:
     //==================================================
 
     /**
-     * Get maps data.
+     * List available maps for the game.
      *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OnGetMapsCompleted Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     * @param OnGetMapsCompleted Delegate for handling the server response (maps list)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Maps", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetMaps(const FString& ForPlayerWithUlid, const FGetMapsResponseDelegateBP& OnGetMapsCompleted);
