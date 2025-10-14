@@ -3141,29 +3141,29 @@ public:
     //==================================================
 
     /**
-     * List the catalogs available for the game
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OnComplete Delegate for handling the server response
-     */
+     List the catalogs available for the game
+
+    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+    @param OnComplete Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Catalog", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ListCatalogs(const FString& ForPlayerWithUlid, const FLootLockerListCatalogsResponseBP& OnComplete);
 
     /**
-     * List the items available in a specific catalog
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param CatalogKey Unique Key of the catalog that you want to get items for
-     * @param Count Optional: Amount of catalog items to receive. Use null to simply get the default amount.
-     * @param After Optional: Used for pagination, this is the cursor to start getting items from. Use null to get items from the beginning. Use the cursor from a previous call to get the next count of items in the list.
-     * @param OnComplete Delegate for handling the server response
-     */
+     List the items in a catalog
+
+    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+    @param CatalogKey Unique key of the catalog to list items from
+    @param Count Optional: Number of items to retrieve. Use -1 to use the server default
+    @param After Optional: Cursor for pagination. Use empty string to start from the beginning, or a cursor from a previous call for the next page
+    @param OnComplete Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Catalog", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid=""))
     static void ListCatalogItems(const FString& ForPlayerWithUlid, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnComplete);
 
     /**
-     * Inline the "data items" from a catalog response into the catalog items themselves
-     */
+     Inline the data items from a catalog response into the catalog items
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Catalog")
     static TArray<FLootLockerInlinedCatalogEntry> ConvertCatalogToInlineItems(const FLootLockerListCatalogPricesResponse& Catalog);
 
@@ -3172,24 +3172,26 @@ public:
     //==================================================
 
     /**
-     * List this player's historical entitlements
-     * Use this to retrieve information on entitlements the player has received regardless of their origin (for example as an effect of progression, purchases, or leaderboard rewards)
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param Count Optional: Amount of entitlement listings to receive. Use null to get the default amount.
-     * @param After Optional: Used for pagination, this is the cursor to start getting items from. Use null to get items from the beginning. Use the cursor from a previous call to get the next count of items in the list.
-     * @param OnComplete Delegate for handling the server response
-     */
+     List the player's historical entitlements
+
+    Use this to retrieve entitlements the player has received regardless of origin (progression, purchases, leaderboard rewards, etc.)
+
+    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+    @param Count Optional: Number of entitlement records to retrieve. Use -1 to use the server default
+    @param After Optional: Cursor for pagination. Use empty string to start from the beginning, or a cursor from a previous call for the next page
+    @param OnComplete Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Entitlements", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid=""))
     static void ListEntitlements(const FString& ForPlayerWithUlid, int Count, const FString& After, const FLootLockerListEntitlementsResponseBP& OnComplete);
 
     /**
-    * Get information of an entitlement, its status and more data.
-    * Use this to retrieve information on entitlements the player has received regardless of their origin (for example as an effect of progression, purchases, or leaderboard rewards)
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param EntitlementID: Is the identifying ID which the entitlement is connected to
-    * @param OnComplete delegate for handling the server response
+     Get details about a specific entitlement
+
+    Use this to retrieve status and metadata for a given entitlement the player has received
+
+    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+    @param EntitlementID Identifying ID of the entitlement to look up
+    @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Entitlements", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetEntitlement(const FString& ForPlayerWithUlid, const FString& EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnComplete);
