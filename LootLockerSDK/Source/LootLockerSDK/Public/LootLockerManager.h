@@ -2172,84 +2172,84 @@ public:
     //==================================================
 
     /**
-     * Create an asset candidate.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param AssetCandidateData asset candidate data.
-     * @param OnCreateAssetCandidateCompleted Delegate for handling the server response.
+     Create an asset candidate (initial draft before adding files and finalizing).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AssetCandidateData Candidate data payload (title, description, etc.)
+     @param OnCreateAssetCandidateCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void CreateAssetCandidate(const FString& ForPlayerWithUlid, const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted);
 
     /**
-     * Create an asset candidate and immediately mark it as completed
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param AssetCandidateData asset candidate data.
-     * @param OnCreateAssetCandidateCompleted Delegate for handling the server response.
+     Create an asset candidate and immediately mark it as completed (single-step publish flow).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AssetCandidateData Candidate data payload
+     @param OnCreateAssetCandidateCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void CreateAssetCandidateAndMarkComplete(const FString& ForPlayerWithUlid, const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted);
 
     /**
-     * Update an asset candidate.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param AssetCandidateId ID of the asset candidate.
-     * @param AssetCandidateData asset candidate data.
-     * @param OnUpdateAssetCandidateCompleted Delegate for handling the server response.
+     Update an existing asset candidate (metadata edits before completion).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AssetCandidateId Asset candidate id
+     @param AssetCandidateData Updated candidate data
+     @param OnUpdateAssetCandidateCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void UpdateAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidateData, const FAssetCandidateResponseDelegateBP& OnUpdateAssetCandidateCompleted);
 
     /**
-     * Delete an asset candidate.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param AssetCandidateId ID of the asset candidate.
-     * @param OnDeleteAssetCandidateCompleted Delegate for handling the server response.
+     Delete an asset candidate (removes draft and associated files).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AssetCandidateId Asset candidate id
+     @param OnDeleteAssetCandidateCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void DeleteAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FResponseCallbackBP& OnDeleteAssetCandidateCompleted);
 
     /**
-     * Get all asset candidates.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OnGetAllAssetCandidatesCompleted Delegate for handling the server response.
+     List all asset candidates created by or visible to the player.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnGetAllAssetCandidatesCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetAllAssetCandidates(const FString& ForPlayerWithUlid, const FAssetCandidatesResponseDelegateBP& OnGetAllAssetCandidatesCompleted);
 
     /**
-     * Get an asset candidate.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param AssetCandidateId ID of the asset candidate.
-     * @param OnGetAssetCandidateCompleted Delegate for handling the server response.
+     Get a single asset candidate by id.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AssetCandidateId Asset candidate id
+     @param OnGetAssetCandidateCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FAssetCandidateResponseDelegateBP& OnGetAssetCandidateCompleted);
 
     /**
-     * Add a file to an asset candidate.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param AssetCandidateId ID of the asset candidate.
-     * @param FilePath full absolute path to a file.
-     * @param FilePurpose purpose of the file.
-     * @param OnAddFileToAssetCandidateCompleted Delegate for handling the server response.
+     Add a file to an asset candidate (uploads binary under specified purpose).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AssetCandidateId Asset candidate id
+     @param FilePath Absolute path to the file to upload
+     @param FilePurpose Purpose classification for the file
+     @param OnAddFileToAssetCandidateCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void AddFileToAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FString& FilePath, ELootLockerAssetFilePurpose FilePurpose, const FAssetCandidateResponseDelegateBP& OnAddFileToAssetCandidateCompleted);
 
     /**
-     * Remove a file from an asset candidate.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param AssetCandidateId ID of the asset candidate.
-     * @param FileId ID of the file.
-     * @param OnDeleteFileFromAssetCandidateCompleted Delegate for handling the server response.
+     Remove a previously uploaded file from an asset candidate.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AssetCandidateId Asset candidate id
+     @param FileId File id to remove
+     @param OnDeleteFileFromAssetCandidateCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void DeleteFileFromAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, int FileId, const FResponseCallbackBP& OnDeleteFileFromAssetCandidateCompleted);
