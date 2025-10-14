@@ -2370,41 +2370,41 @@ public:
     //==================================================
 
     /**
-     * Get all missions.
+     * List all missions accessible to the player.
      *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OnGetAllMissionsCompleted Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     * @param OnGetAllMissionsCompleted Delegate for handling the server response (Missions list)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetAllMissions(const FString& ForPlayerWithUlid, const FMissionsResponseDelegateBP& OnGetAllMissionsCompleted);
 
     /**
-     * Get a mission.
+     * Get details for a single mission.
      *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param MissionId mission ID.
-     * @param OnGetMissionCompleted Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     * @param MissionId Id of the mission to fetch
+     * @param OnGetMissionCompleted Delegate for handling the server response (Mission details)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetMission(const FString& ForPlayerWithUlid, int MissionId, const FMissionResponseDelegateBP& OnGetMissionCompleted);
 
     /**
-     * Start a mission.
+     * Start (begin) a mission for the player.
      *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param MissionId mission ID.
-     * @param OnStartMissionCompleted Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     * @param MissionId Id of the mission to start
+     * @param OnStartMissionCompleted Delegate for handling the server response (start confirmation / state)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void StartMission(const FString& ForPlayerWithUlid, int MissionId, const  FStartMissionResponseDelegateBP& OnStartMissionCompleted);
 
     /**
-     * Finish a mission.
+     * Finish a mission and submit completion data.
      *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param MissionId mission ID.
-     * @param MissionData mission completion data.
-     * @param OnFinishMissionCompleted Delegate for handling the server response.
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     * @param MissionId Id of the mission to finish
+     * @param MissionData Completion data (objectives, scores, etc.)
+     * @param OnFinishMissionCompleted Delegate for handling the server response (final mission results / rewards)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void FinishMission(const FString& ForPlayerWithUlid, int MissionId, const FLootLockerFinishMissionData& MissionData, const FFinishMissionResponseDelegateBP& OnFinishMissionCompleted);
