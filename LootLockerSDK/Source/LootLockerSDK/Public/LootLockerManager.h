@@ -1445,170 +1445,165 @@ public:
     //==================================================
 
     /**
-     * List heroes with names and character information
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OnCompleteBP Delegate for handling the response
+     List all game hero templates (heroes available in the title) including names and character info.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetGameHeroes(const FString& ForPlayerWithUlid, const FLootLockerGameHeroListBP& OnCompleteBP);
 
     /**
-     * List heroes that the current player owns
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OnCompleteBP Delegate for handling the response
+     List heroes owned by the current player.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ListPlayerHeroes(const FString& ForPlayerWithUlid, const FLootLockerHeroListBP& OnCompleteBP);
 
     /**
-     * List player that the player with the specified SteamID64 owns
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param SteamID64 Steam Id of the requested player
-     * @param OnCompleteBP Delegate for handling the response
+     List heroes owned by another player identified by SteamID64.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param SteamID64 SteamID64 of the target player
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ListOtherPlayersHeroesBySteamID64(const FString& ForPlayerWithUlid, const int64 SteamID64, const FLootLockerHeroListBP& OnCompleteBP);
 
     /**
-     * Create a hero for the current player with the supplied name from the game hero specified with the supplied hero id
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param Request Request specifying the hero id for the game hero to use for creation and the name of the hero to create
-     * @param OnCompleteBP Delegate for handling the response
+     Create a hero for the player from a game hero template.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Request Request containing game hero template id and hero name
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void CreateHero(const FString& ForPlayerWithUlid, const FLootLockerCreateHeroRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP);
 
     /**
-     * Create a hero for the current player with the supplied name from the game hero specified with the supplied hero id, asset variation id, and whether to set as default.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param Request Request specifying the hero id for the game hero to use for creation and the name of the hero to create, an asset variation id for this hero, and whether this hero should be the default
-     * @param OnCompleteBP Delegate for handling the response
+     Create a hero from a game hero template including variation and optional default flag.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Request Request including template id, hero name, variation id and default flag
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void CreateHeroWithVariation(const FString& ForPlayerWithUlid, const FLootLockerCreateHeroWithVariationRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP);
 
     /**
-     * Return information about the requested hero on the current player
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param HeroID Id of the hero to get
-     * @param OnCompleteBP Delegate for handling the response
+     Get information about a specific hero owned by the player.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param HeroID Id of the hero to fetch
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetHero(const FString& ForPlayerWithUlid, const int32 HeroID, const FLootLockerPlayerHeroBP& OnCompleteBP);
 
     /**
-     * Get the default hero for the player with the specified SteamID64
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param SteamID64 Steam Id of the requested player
-     * @param OnCompleteBP Delegate for handling the response
+     Get the default hero for another player identified by SteamID64.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param SteamID64 SteamID64 of the target player
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetOtherPlayersDefaultHeroBySteamID64(const FString& ForPlayerWithUlid, const int32 SteamID64, const FLootLockerPlayerHeroBP& OnCompleteBP);
 
     /**
-     * Update the name of the hero with the specified id and/or set it as default for the current player
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param HeroID Id of the hero
-     * @param Request Request specifying the new (or same) name to set for the hero and if it is to be the default hero for the player
-     * @param OnCompleteBP Delegate for handling the response
+     Update a hero's name and/or mark it as the player's default hero.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param HeroID Id of the hero to update
+     @param Request Request specifying new name and default flag
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void UpdateHero(const FString& ForPlayerWithUlid, const int32 HeroID, const FLootLockerUpdateHeroRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP);
 
     /**
-     * Remove the hero with the specified id from the current players list of heroes.
-     * This action is currently irreversible.
-     * When deleting a hero, the heroes inventory is returned to the player, and their loadout is reset.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param HeroID Id of the hero
-     * @param OnCompleteBP Delegate for handling the response
+     Delete a hero owned by the player (irreversible; hero inventory items are returned to general inventory, loadout reset).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param HeroID Id of the hero to delete
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void DeleteHero(const FString& ForPlayerWithUlid, const int32 HeroID, const FLLHeroDefaultResponseBP& OnCompleteBP);
 
     /**
-     * List Asset Instances owned by the specified hero
-     *
-     * Note that this endpoint is paginated and will return the first 50 entries
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param HeroID Id of the hero
-     * @param OnCompleteBP Delegate for handling the response
+     List asset instances equipped/owned by a specific hero (first page only; endpoint is paginated server-side).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param HeroID Id of the hero
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetHeroInventory(const FString& ForPlayerWithUlid, const int32 HeroID, const FPInventoryResponseBP& OnCompleteBP);
 
     /**
-     * List the loadout of the specified hero that the current player owns
-     *
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param HeroID Id of the hero
-     * @param OnCompleteBP Delegate for handling the response
+     Get the loadout (equipped items) for a hero owned by the player.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param HeroID Id of the hero
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const FHeroLoadoutReseponseBP& OnCompleteBP);
 
     /**
-     * List the loadout of the specified hero that the another player owns
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param HeroID Id of the hero
-     * @param OnCompleteBP Delegate for handling the response
+     Get the loadout for another player's hero.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param HeroID Id of the hero
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetOtherPlayersHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const FHeroLoadoutReseponseBP& OnCompleteBP);
 
     /**
-     * Equip the specified Asset Instance to the specified Hero that the current player owns
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param HeroID Id of the hero
-     * @param AssetInstanceID The ID of the already existing asset instance
-     * @param OnCompleteBP Delegate for handling the response
+     Equip an existing asset instance to a hero owned by the player.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param HeroID Id of the hero
+     @param AssetInstanceID Id of the asset instance to equip
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void AddAssetToHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP);
 
     /**
-     * Equip the specified Global Asset (default variation) to the specified Hero that the current player owns
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param HeroID Id of the hero
-     * @param AssetID The id of the global asset to equip
-     * @param OnCompleteBP Delegate for handling the response
+     Equip a global asset (default variation) directly to a hero owned by the player.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param HeroID Id of the hero
+     @param AssetID Id of the global asset
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void AddGlobalAssetToHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const int32 AssetID, const FHeroLoadoutReseponseBP& OnCompleteBP);
 
     /**
-     * Equip the specified Global Asset Variation to the specified Hero that the current player owns
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param HeroID Id of the hero
-     * @param AssetID The id of the global asset to equip
-     * @param AssetVariationID The variation id of the global asset to equip
-     * @param OnCompleteBP Delegate for handling the response
+     Equip a specific global asset variation to a hero owned by the player.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param HeroID Id of the hero
+     @param AssetID Id of the global asset
+     @param AssetVariationID Variation id of the global asset
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void AddGlobalAssetVariationToHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseBP& OnCompleteBP);
 
     /**
-     * Unequip the specified Asset Instance to the specified Hero that the current player owns
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param HeroID Id of the hero
-     * @param AssetInstanceID Desc
-     * @param OnCompleteBP Delegate for handling the response
+     Unequip an asset instance from a hero owned by the player.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param HeroID Id of the hero
+     @param AssetInstanceID Id of the asset instance to unequip
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void RemoveAssetToHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP);
