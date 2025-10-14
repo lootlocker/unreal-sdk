@@ -1941,130 +1941,129 @@ public:
     //==================================================
 
     /**
-     * Get all the contexts the game has.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OnGetContextsRequestCompleted Delegate for handling the server response.
+     List all asset contexts configured for the game.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnGetContextsRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetContexts(const FString& ForPlayerWithUlid, const FContextDelegateBP& OnGetContextsRequestCompleted);
 
     /**
-     * Get all assets in a paginated form.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OnGetAssetsRequestCompleted Delegate for handling the server response.
-     * @param StartFromIndex Optional: Index of the item to start from, defaults to 0
-     * @param ItemsCount Optional: Number of items to receive (50-200), defaults to 50
-     * @param AssetFilter Optional: Filter to apply, defaults to None
-     * @param Context Optional: Context filter to apply, defaults to 0
-     * @param IncludeUGC Optional: Whether to include UGC Assets,defaults to false
+     Retrieve assets in paginated form with optional filtering.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnGetAssetsRequestCompleted Delegate for handling the server response
+     @param StartFromIndex Optional: Index to start from (default 0)
+     @param ItemsCount Optional: Number of items (50-200, default 50)
+     @param AssetFilter Optional: Filter enum for asset type (default None)
+     @param Context Optional: Context id to restrict results (default 0 = all)
+     @param IncludeUGC Optional: Include user generated assets (default false)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetAssets(const FString& ForPlayerWithUlid, const FAssetsResponseDelegateBP& OnGetAssetsRequestCompleted, int StartFromIndex = 0, int ItemsCount = 50, ELootLockerAssetFilter AssetFilter = ELootLockerAssetFilter::None, int Context = 0, bool IncludeUGC = false);
 
     /**
-     * Retrieve only specific Assets by their ID's.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param AssetIds Array of the asset ID's to be fetched.
-     * @param OnGetAssetsByIdsRequestCompleted Delegate for handling the server response.
+     Retrieve specific assets by id list (non-paginated).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AssetIds Asset ids to fetch
+     @param OnGetAssetsByIdsRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetAssetsByIds(const FString& ForPlayerWithUlid, const TArray<int>& AssetIds, const FAssetsResponseDelegateBP& OnGetAssetsByIdsRequestCompleted);
 
     /**
-     * This call will return you all the default bones.
-     * If a binding overrides anything on a bone, it will be returned along with the binding.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OnGetAssetBonesRequestCompleted Delegate for handling the server response.
+     List all default asset bones and any binding overrides.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnGetAssetBonesRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetAssetBones(const FString& ForPlayerWithUlid, const  FAssetBonesResponseDelegateBP& OnGetAssetBonesRequestCompleted);
 
     /**
-     * List the current players favourite assets.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OnGetFavouriteAssetIndicesRequestCompleted Delegate for handling the server response.
+     List the player's favourite asset indices.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnGetFavouriteAssetIndicesRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetFavouriteAssetIndices(const FString& ForPlayerWithUlid, const FGetFavouriteAssetIndicesResponseDelegateBP& OnGetFavouriteAssetIndicesRequestCompleted);
 
     /**
-     * Add an asset to the list of favourites.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param AssetId Asset ID to be added.
-     * @param OnAddAssetToFavouritesRequestCompleted Delegate for handling the server response.
+     Add an asset to the player's favourites list.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AssetId Asset id to add
+     @param OnAddAssetToFavouritesRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void AddAssetToFavourites(const FString& ForPlayerWithUlid, int AssetId, const FGetFavouriteAssetIndicesResponseDelegateBP& OnAddAssetToFavouritesRequestCompleted);
 
     /**
-     * Remove an asset from the list of favourites.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param AssetId asset ID to be removed.
-     * @param OnRemoveAssetFromFavouritesRequestCompleted Delegate for handling the server response.
+     Remove an asset from the player's favourites list.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AssetId Asset id to remove
+     @param OnRemoveAssetFromFavouritesRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void RemoveAssetFromFavourites(const FString& ForPlayerWithUlid, int AssetId, const  FGetFavouriteAssetIndicesResponseDelegateBP& OnRemoveAssetFromFavouritesRequestCompleted);
 
     /**
-     * This call offers a paginated list of the games universal assets
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param After Last universal id to start after.
-     * @param ItemsCount Number of items to receive (50-200).
-     * @param OnCompletedRequest Delegate for handling the server response.
+     List universal assets (global across game) with cursor pagination.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param After Optional: Last universal asset id to start after (cursor)
+     @param ItemsCount Number of items to return (50-200)
+     @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetUniversalAssets(const FString& ForPlayerWithUlid, int After, int ItemsCount, const FUniversalAssetResponseDelegateBP& OnCompletedRequest);
 
     /**
-    * Grant an asset to the Player
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param AssetID asset ID to be granted.
-    * @param AssetVariationID The ID of the Asset Variation you want to grant
-    * @param AssetRentalOptionID The ID of the rental option you want to grant
-    */
+     Grant an asset (optionally with variation or rental option) to the player's inventory.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AssetID Asset id to grant
+     @param AssetVariationID Optional: Variation id (0 for none)
+     @param AssetRentalOptionID Optional: Rental option id (0 for none)
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GrantAssetWithVariationToPlayerInventory(const FString& ForPlayerWithUlid, const int AssetID, const int AssetVariationID, const int AssetRentalOptionID, const FGrantAssetResponseDelegateBP& OnCompletedRequest);
 
     /**
-    * Grant an asset to the Player
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param AssetID asset ID to be granted.
-    */
+     Grant a base asset (no variation or rental) to the player's inventory.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AssetID Asset id to grant
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GrantAssetToPlayerInventory(const FString& ForPlayerWithUlid, const int AssetID, const FGrantAssetResponseDelegateBP& OnCompletedRequest) {
         GrantAssetWithVariationToPlayerInventory(ForPlayerWithUlid, AssetID, 0, 0, OnCompletedRequest);
     }
 
     /**
-    * List assets with default parameters (no filters, first page, default page size)
-    * Lightweight alternative for retrieving assets where only selected data is needed
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param OnCompletedRequest Delegate for handling the server response
-    */
+     List assets using default server parameters (no filters) returning a lightweight subset of fields.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnCompletedRequest Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ListAssetsWithDefaultParameters(const FString& ForPlayerWithUlid, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequest);
 
     /**
-    * List assets with configurable response data. Use this to limit the fields returned in the response and improve performance.
-    * Lightweight alternative for retrieving assets where only selected data is needed
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param Request Request object with settings on what fields to include, exclude, and what assets to filter
-    * @param PerPage Optional: Used together with Page to apply pagination to this Request. PerPage designates how many notifications are considered a "page". Set to 0 to not use this filter.
-    * @param Page Optional: Used together with PerPage to apply pagination to this Request. Page designates which "page" of items to fetch. Set to 0 to not use this filter.
-    * @param OrderBy Optional: Order the list by a specific field. Default is unordered.
-    * @param OrderDirection Optional: Order the list in ascending or descending order. Default is unordered.
-    * @param OnCompletedRequest Delegate for handling the server response
-    */
+     List assets with a configurable projection (include/exclude fields, filters, ordering, pagination) for optimized payloads.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Request Field selection and filter configuration
+     @param PerPage Optional: Page size (0 = no pagination)
+     @param Page Optional: Page index (0 = no pagination)
+     @param OrderBy Optional: Field to order by (unordered if unset)
+     @param OrderDirection Optional: Ascending/Descending (unordered if unset)
+     @param OnCompletedRequest Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "PerPage,Page,OrderBy,OrderDirection,ForPlayerWithUlid", PerPage=0,Page=0,ForPlayerWithUlid=""))
     static void ListAssets(const FString& ForPlayerWithUlid, const FLootLockerListSimpleAssetsRequest& Request, int PerPage, int Page, ELootLockerOrderAssetListBy OrderBy, ELootLockerOrderAssetListDirection OrderDirection, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequest);
 
