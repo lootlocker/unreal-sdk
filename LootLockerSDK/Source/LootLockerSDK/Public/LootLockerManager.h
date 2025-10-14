@@ -1098,34 +1098,33 @@ public:
     //==================================================
 
     /**
-     * Start a remote session
-     * If you want to let your local user sign in using another device then you use this method. First you will get the lease information needed to allow a secondary device to authenticate.
-     * While the process is ongoing, the remoteSessionLeaseStatusUpdate action (if one is provided) will be invoked intermittently (about once a second) to update you on the status of the process.
-     * When the process has come to an end (whether successfully or not), the onComplete action will be invoked with the updated information.
-     *
-     * @param RemoteSessionLeaseInformation Will be invoked once to provide the lease information that the secondary device can use to authenticate
-     * @param RemoteSessionLeaseStatusUpdate Will be invoked intermittently to update the status lease process
-     * @param OnComplete Invoked when the remote session process has run to completion containing either a valid session or information on why the process failed
-     * @param PollingIntervalSeconds Optional: How often to poll the status of the remote session process
-     * @param TimeOutAfterMinutes Optional: How long to allow the process to take in its entirety
+     Start a remote session (Deprecated – use AsyncStartRemoteSession or AsyncStartRemoteSessionForLinking).
+     Provides lease information for a secondary device and polls its status until completion or timeout.
+
+     @param RemoteSessionLeaseInformation Delegate invoked once with lease info for the secondary device
+     @param RemoteSessionLeaseStatusUpdate Delegate invoked periodically with updated lease status
+     @param OnComplete Delegate invoked when the process completes (success or failure)
+     @param PollingIntervalSeconds Optional: Seconds between status polls (default 1.0)
+     @param TimeOutAfterMinutes Optional: Total minutes before timing out the process (default 5.0)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Remote Session", meta = (AdvancedDisplay = "PollingIntervalSeconds,TimeOutAfterMinutes", PollingIntervalSeconds = 1.0f, TimeOutAfterMinutes = 5.0f, DeprecatedFunction, DeprecationMessage = "This method is deprecated in favor of either method AsyncStartRemoteSession or AsyncStartRemoteSessionForLinking depending on your use case")) // Deprecation date 20250327
     static FString StartRemoteSession(const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegateBP& OnComplete, float PollingIntervalSeconds, float TimeOutAfterMinutes);
 
     /**
-     * Cancel an ongoing remote session process
-     *
-     * @param ProcessID The id of the remote session process that you want to cancel
+     Cancel an ongoing remote session process.
+
+     @param ProcessID Identifier of the remote session process to cancel
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Remote Session")
     static void CancelRemoteSessionProcess(FString ProcessID);
 
     /**
-     * Refresh a previous session signed in remotely
-     * A response code of 401 (Unauthorized) means the refresh token has expired and you'll need to sign in again
-     *
-     * @param RefreshToken (OPTIONAL) Refresh token received in response from StartRemoteSession request
-     * @param OnCompletedRequest Delegate for handling the response
+     Refresh a session originally established through a remote session flow.
+     HTTP 401 (Unauthorized) indicates the refresh token expired and a new remote session flow is required.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param RefreshToken Optional: Refresh token from StartRemoteSession (resolved from stored data if empty)
+     @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Remote Session", meta = (AdvancedDisplay = "RefreshToken,ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void RefreshRemoteSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegateBP& OnCompletedRequest);
