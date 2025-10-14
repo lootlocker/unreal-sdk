@@ -2966,58 +2966,58 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void SubmitScore(const FString& ForPlayerWithUlid, FString MemberId, FString LeaderboardKey, int Score, FString Metadata, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP);
 
-    /**
-     * Query a leaderboard for which rank a specific score would achieve. Does not submit the score but returns the projected rank.
-     *
-     * @param LeaderboardKey The key of the leaderboard you need to connect to.
-     * @param Score The score to use for the query.
-     * @param OnCompletedRequestBP Delegate for handling the server response
-     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
-     */
+  /**
+   Query what rank a score would achieve on a leaderboard (no submission).
+
+   @param LeaderboardKey Key of the leaderboard
+   @param Score Score value to evaluate
+   @param OnCompletedRequestBP Delegate for handling the server response
+   @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used
+  */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void QueryScore(const FString LeaderboardKey, const int Score, const FLootLockerSubmitScoreResponseBP & OnCompletedRequestBP, const FString& ForPlayerWithUlid = "");
 
-    /**
-     * Increment an existing score on a leaderboard by the given amount.
-     *
-     * @param MemberId Can be left blank if it is a player leaderboard, otherwise this is the identifier you wish to use for this score
-     * @param LeaderboardKey The key of the leaderboard you need to connect to.
-     * @param Amount The amount with which to increment the current score on the given leaderboard (can be positive or negative)
-     * @param OnCompletedRequestBP Delegate for handling the server response
-     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
-     */
+  /**
+   Increment an existing score by an amount (positive or negative).
+
+   @param MemberId Optional: Custom member identifier (leave blank for player leaderboard to use player id)
+   @param LeaderboardKey Key of the leaderboard
+   @param Amount Amount to add (can be negative to subtract)
+   @param OnCompletedRequestBP Delegate for handling the server response
+   @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used
+  */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void IncrementScore(FString MemberId, const FString LeaderboardKey, const int Amount, const FLootLockerSubmitScoreResponseBP & OnCompletedRequestBP, const FString& ForPlayerWithUlid = "");
 
-    /**
-    * List the archive of a specific Leaderboard,
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param LeaderboardKey the Key of the Leaderboard you want the list of archives
-    * @param OnCompletedRequestBP Delegate for handling the server response
-    */
+  /**
+   List archive snapshots for a leaderboard.
+
+   @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+   @param LeaderboardKey Key of the leaderboard whose archives to list
+   @param OnCompletedRequestBP Delegate for handling the server response
+  */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ListLeaderboardArchive(const FString& ForPlayerWithUlid, const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP);
 
-    /**
-    * Get the specified Archive which includes details such as ranks, scores and rewards.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param Key the Key of the Leaderboard you want the list of archives
-    * @param Count Optional: The count of items you want to retrieve.
-    * @param After Optional: Used for pagination, id from which the pagination starts from.
-    * @param OnCompletedRequestBP Delegate for handling the server response
-    */
+  /**
+   Get details for a specific leaderboard archive snapshot (ranks, scores, rewards).
+
+   @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+   @param Key Leaderboard key
+   @param Count Optional: Number of items to retrieve (-1 uses server default)
+   @param After Optional: Pagination cursor / id after which to continue
+   @param OnCompletedRequestBP Delegate for handling the server response
+  */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid=""))
     static void GetLeaderboardArchive(const FString& ForPlayerWithUlid, const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailResponseBP& OnCompletedRequestBP);
 
-    /**
-    * Get details on a Leaderboard which contains the schedule, rewards and the details on rewards.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param LeaderboardKey the Key of the Leaderboard you want the list of archives
-    * @param OnCompletedRequestBP Delegate for handling the server response
-    */
+  /**
+   Get leaderboard details including schedule and reward definitions.
+
+   @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+   @param LeaderboardKey Key of the leaderboard
+   @param OnCompletedRequestBP Delegate for handling the server response
+  */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetLeaderboardDetails(const FString& ForPlayerWithUlid, const FString& LeaderboardKey, const FLootLockerLeaderboardDetailsResponseBP& OnCompletedRequestBP);
 
