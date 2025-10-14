@@ -2826,7 +2826,7 @@ public:
     /**
      List broadcast messages for this game with specified localisation and limit
 
-     @param Languages Optional: Array of language codes to get localized broadcasts for
+     @param Languages Optional: Language codes to localize broadcasts
      @param Limit Optional: The count of items you want to retrieve.
      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      @param OnComplete Delegate for handling the server response
