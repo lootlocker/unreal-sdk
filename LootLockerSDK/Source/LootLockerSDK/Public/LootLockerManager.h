@@ -2840,21 +2840,21 @@ public:
     //==================================================
 
     /**
-     * This endpoint will return all the collectables a game has set up. It will hold a set of Collectables, with Groups inside which in turn contain Items.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OnGetAllCollectablesCompleted Delegate for handling the server response.
-     */
+     List all collectables with their groups and items.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param OnGetAllCollectablesCompleted Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Collectables", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetAllCollectables(const FString& ForPlayerWithUlid, const FCollectablesResponseDelegateBP& OnGetAllCollectablesCompleted);
 
     /**
-     * Collect an item.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param Item The slug is a combination of the name of the Collectable, the Group and the Item. Simply concatenate them with a . as a seperator.
-     * @param OnCollectItemCompleted Delegate for handling the server response.
-     */
+     Collect an item.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param Item Slug combining collectable, group and item names separated by '.'
+     @param OnCollectItemCompleted Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Collectables", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void CollectItem(const FString& ForPlayerWithUlid, const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegateBP& OnCollectItemCompleted);
 
