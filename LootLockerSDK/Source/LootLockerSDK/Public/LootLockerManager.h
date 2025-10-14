@@ -2964,49 +2964,45 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void SubmitScore(const FString& ForPlayerWithUlid, FString MemberId, FString LeaderboardKey, int Score, FString Metadata, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP);
+    /**
+     Query what rank a score would achieve on a leaderboard (no submission).
 
-  /**
-   Query what rank a score would achieve on a leaderboard (no submission).
-
-   @param LeaderboardKey Key of the leaderboard
-   @param Score Score value to evaluate
-   @param OnCompletedRequestBP Delegate for handling the server response
-   @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used
-  */
+     @param LeaderboardKey Key of the leaderboard
+     @param Score Score value to evaluate
+     @param OnCompletedRequestBP Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void QueryScore(const FString LeaderboardKey, const int Score, const FLootLockerSubmitScoreResponseBP & OnCompletedRequestBP, const FString& ForPlayerWithUlid = "");
+    /**
+     Increment an existing score by an amount (positive or negative).
 
-  /**
-   Increment an existing score by an amount (positive or negative).
-
-   @param MemberId Optional: Custom member identifier (leave blank for player leaderboard to use player id)
-   @param LeaderboardKey Key of the leaderboard
-   @param Amount Amount to add (can be negative to subtract)
-   @param OnCompletedRequestBP Delegate for handling the server response
-   @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used
-  */
+     @param MemberId Optional: Custom member identifier (leave blank for player leaderboard to use player id)
+     @param LeaderboardKey Key of the leaderboard
+     @param Amount Amount to add (can be negative to subtract)
+     @param OnCompletedRequestBP Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void IncrementScore(FString MemberId, const FString LeaderboardKey, const int Amount, const FLootLockerSubmitScoreResponseBP & OnCompletedRequestBP, const FString& ForPlayerWithUlid = "");
+    /**
+     List archive snapshots for a leaderboard.
 
-  /**
-   List archive snapshots for a leaderboard.
-
-   @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
-   @param LeaderboardKey Key of the leaderboard whose archives to list
-   @param OnCompletedRequestBP Delegate for handling the server response
-  */
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param LeaderboardKey Key of the leaderboard whose archives to list
+     @param OnCompletedRequestBP Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ListLeaderboardArchive(const FString& ForPlayerWithUlid, const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP);
+    /**
+     Get details for a specific leaderboard archive snapshot (ranks, scores, rewards).
 
-  /**
-   Get details for a specific leaderboard archive snapshot (ranks, scores, rewards).
-
-   @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
-   @param Key Leaderboard key
-   @param Count Optional: Number of items to retrieve (-1 uses server default)
-   @param After Optional: Pagination cursor / id after which to continue
-   @param OnCompletedRequestBP Delegate for handling the server response
-  */
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param Key Leaderboard key
+     @param Count Optional: Number of items to retrieve (-1 uses server default)
+     @param After Optional: Pagination cursor / id after which to continue
+     @param OnCompletedRequestBP Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid=""))
     static void GetLeaderboardArchive(const FString& ForPlayerWithUlid, const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailResponseBP& OnCompletedRequestBP);
 
@@ -3024,26 +3020,26 @@ public:
     // Drop Table
     //==================================================
 
-    /**
-     * Compute and lock the specified drop table.
-     * When you wish to evaluate a drop table and lock the drops from it in place, you call this method.
-     * The response will hold information on the assets that are dropped, and can be picked up using the Pick endpoint.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param TableId Drop table ID
-     * @param OnCompletedRequestBP Delegate for handling the server response
-     */
+  /**
+   Compute and lock a drop table, producing its drops.
+
+   Response lists assets locked; pick them later via the pick endpoint.
+
+   @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+   @param TableId Drop table id
+   @param OnCompletedRequestBP Delegate for handling the server response
+  */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | DropTable", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ComputeAndLockDropTable(const FString& ForPlayerWithUlid, int TableId, const FLootLockerComputeAndLockDropTableResponseBP& OnCompletedRequestBP);
 
     /**
-     * Picks drops from a locked drop table.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param Picks List of the item IDs you want to pick. Submit empty list for no picks
-     * @param TableId Drop table ID, needs to have been locked prior to this call
-     * @param OnCompletedRequestBP Delegate for handling the server response
-     */
+     Pick one or more drops from a locked drop table.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param Picks Item ids to pick (empty for no picks)
+     @param TableId Drop table id (must have been locked first)
+     @param OnCompletedRequestBP Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | DropTable", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void PickDropsFromDropTable(const FString& ForPlayerWithUlid, TArray<int> Picks, int TableId, const FFLootLockerPickDropsFromDropTableResponseBP& OnCompletedRequestBP);
 
@@ -3052,31 +3048,31 @@ public:
     //==================================================
 
     /**
-     * Get a list of available currencies for the game
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OnCompletedRequest Delegate for handling the server response
-     */
+     List available currencies for the game.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param OnCompletedRequest Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Currency", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ListCurrencies(const FString& ForPlayerWithUlid, const FLootLockerListCurrenciesResponseBP& OnCompletedRequest);
 
     /**
-     * Get details about the specified currency
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param CurrencyCode The code of the currency to get details for
-     * @param OnCompletedRequest Delegate for handling the server response
-     */
+     Get details about a currency.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param CurrencyCode Currency code
+     @param OnCompletedRequest Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Currency", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetCurrencyDetails(const FString& ForPlayerWithUlid, const FString& CurrencyCode, const FLootLockerGetCurrencyDetailsResponseBP& OnCompletedRequest);
 
     /**
-     * Get a list of the denominations available for a specific currency
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param CurrencyCode The code of the currency to fetch denominations for
-     * @param OnCompletedRequest Delegate for handling the server response
-     */
+     List denominations for a currency.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param CurrencyCode Currency code to fetch denominations for
+     @param OnCompletedRequest Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Currency", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetCurrencyDenominationsByCode(const FString& ForPlayerWithUlid, const FString& CurrencyCode, const FLootLockerListDenominationsResponseBP& OnCompletedRequest);
 
@@ -3085,33 +3081,33 @@ public:
     //==================================================
 
     /**
-     * Get a list of balances in a specified wallet
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param WalletID Unique ID of the wallet to get balances for
-     * @param OnComplete Delegate for handling the server response
-     */
+     List balances for a wallet.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param WalletID Wallet id
+     @param OnComplete Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Balance", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ListBalancesInWallet(const FString& ForPlayerWithUlid, const FString& WalletID, const FLootLockerListBalancesForWalletResponseBP& OnComplete);
 
     /**
-     * Get information about a specified wallet
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param WalletID Unique ID of the wallet to get information for
-     * @param OnComplete Delegate for handling the server response
-     */
+     Get information about a wallet.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param WalletID Wallet id
+     @param OnComplete Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Balance", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetWalletByWalletID(const FString& ForPlayerWithUlid, const FString& WalletID, const FLootLockerGetWalletResponseBP& OnComplete);
 
     /**
-     * Get information about a wallet for a specified holder
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param HolderULID ULID of the holder of the wallet you want to get information for
-     * @param HolderType The type of the holder to get the wallet for
-     * @param OnComplete Delegate for handling the server response
-     */
+     Get a wallet for a specified holder.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param HolderULID Holder ulid
+     @param HolderType Holder type
+     @param OnComplete Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Balance", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetWalletByHolderID(const FString& ForPlayerWithUlid, const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerGetWalletResponseBP& OnComplete);
 
