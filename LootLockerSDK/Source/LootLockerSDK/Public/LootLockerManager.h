@@ -2072,99 +2072,98 @@ public:
     //==================================================
 
     /**
-     * Get all key/value pairs for an asset instance.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param AssetInstanceId asset instance ID.
-     * @param OnGetAllKeyValuePairsForAssetInstanceCompleted Delegate for handling the server response.
+     List all key/value storage entries attached to an asset instance.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AssetInstanceId Asset instance id
+     @param OnGetAllKeyValuePairsForAssetInstanceCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetAllKeyValuePairsForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, const  FAssetInstanceStorageItemsResponseDelegateBP& OnGetAllKeyValuePairsForAssetInstanceCompleted);
 
     /**
-     * Get a key/value pair for an asset instance.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param AssetInstanceId asset instance ID.
-     * @param StorageItemId ID of the key/value pair.
-     * @param OnGetAKeyValuePairByIdForAssetInstanceCompleted Delegate for handling the server response.
+     Get a single key/value storage entry by id for an asset instance.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AssetInstanceId Asset instance id
+     @param StorageItemId Storage (key/value) entry id
+     @param OnGetAKeyValuePairByIdForAssetInstanceCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetAKeyValuePairByIdForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemResponseDelegateBP& OnGetAKeyValuePairByIdForAssetInstanceCompleted);
 
     /**
-     * Create a key/value pair for an asset instance.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param AssetInstanceId asset instance ID.
-     * @param Item key/value pair.
-     * @param OnCreateAKeyValuePairForAssetInstanceCompleted Delegate for handling the server response.
+     Create a new key/value storage entry for an asset instance.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AssetInstanceId Asset instance id
+     @param Item Key/value entry to create
+     @param OnCreateAKeyValuePairForAssetInstanceCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void CreateAKeyValuePairForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, const FLootLockerAssetInstanceStorageItem& Item, const FAssetInstanceStorageItemsResponseDelegateBP& OnCreateAKeyValuePairForAssetInstanceCompleted);
 
     /**
-     * Update key/value pairs for an asset instance.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param AssetInstanceId asset instance ID.
-     * @param Items key/value pairs.
-     * @param OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted Delegate for handling the server response.
+     Bulk update or add multiple key/value storage entries for an asset instance.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AssetInstanceId Asset instance id
+     @param Items Entries to upsert
+     @param OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void UpdateOneOrMoreKeyValuePairForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, FLootLockerAssetInstanceStorageItems Items, const FAssetInstanceStorageItemsResponseDelegateBP& OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted);
 
     /**
-     * Update a key/value pair for an asset instance.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param AssetInstanceId asset instance ID.
-     * @param StorageItemId key/value pair ID.
-     * @param Item Struct FLootLockerAssetInstanceStorageItem
-     * @param OnUpdateAKeyValuePairByIdForAssetInstanceCompleted Delegate for handling the server response.
+     Update a single key/value storage entry for an asset instance by entry id.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AssetInstanceId Asset instance id
+     @param StorageItemId Storage entry id to update
+     @param Item Updated entry data
+     @param OnUpdateAKeyValuePairByIdForAssetInstanceCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void UpdateAKeyValuePairByIdForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, int StorageItemId, const FLootLockerAssetInstanceStorageItem Item, const FAssetInstanceStorageItemResponseDelegateBP& OnUpdateAKeyValuePairByIdForAssetInstanceCompleted);
 
     /**
-     * Delete a key/value pair for an asset instance.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param AssetInstanceId asset instance ID.
-     * @param StorageItemId key/value pair ID.
-     * @param OnDeleteAKeyValuePairByIdForAssetInstanceCompleted Delegate for handling the server response.
+     Delete a key/value storage entry from an asset instance by entry id.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AssetInstanceId Asset instance id
+     @param StorageItemId Storage entry id to delete
+     @param OnDeleteAKeyValuePairByIdForAssetInstanceCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void DeleteAKeyValuePairByIdForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegateBP& OnDeleteAKeyValuePairByIdForAssetInstanceCompleted);
 
     /**
-     * Get the drop rates for a loot box asset instance.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param AssetInstanceId asset instance ID.
-     * @param OnInspectLootBoxCompleted Delegate for handling the server response.
+     Inspect a loot box asset instance to view potential contents and drop rates (non-destructive).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AssetInstanceId Loot box asset instance id
+     @param OnInspectLootBoxCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void InspectLootBox(const FString& ForPlayerWithUlid, int AssetInstanceId, const  FLootBoxContentResponseDelegateBP& OnInspectLootBoxCompleted);
 
     /**
-     * Open a loot box asset instance.
-     * The loot box will be consumed and the contents will be added to the player's inventory.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param AssetInstanceId asset instance ID.
-     * @param OnOpenLootBoxCompleted Delegate for handling the server response.
+     Open (consume) a loot box asset instance and grant its awarded contents to the player's inventory.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AssetInstanceId Loot box asset instance id
+     @param OnOpenLootBoxCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void OpenLootBox(const FString& ForPlayerWithUlid, int AssetInstanceId, const FOpenLootBoxResponseDelegateBP& OnOpenLootBoxCompleted);
 
     /**
-    * Delete an Asset Instance permanently from a Player's Inventory.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param AssetInstanceID asset instance ID.
-    * @param OnCompleted Delegate for handling the server response.
-    */
+     Permanently delete an asset instance from the player's inventory.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AssetInstanceID Asset instance id to delete
+     @param OnCompleted Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void DeleteAssetInstanceFromPlayerInventory(const FString& ForPlayerWithUlid, int AssetInstanceID, const FDeleteAssetInstanceResponseDelegateBP& OnCompleted);
 
