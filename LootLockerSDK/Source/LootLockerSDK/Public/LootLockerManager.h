@@ -1866,72 +1866,72 @@ public:
     //==================================================
 
     /**
-     * This call returns all key/value pairs on record for the current player, beware that it may be a lot of data.
-     * Note: The Player Metadata feature will over time replace Player Persistent Storage.
-     * If you are not already deeply integrated with the Player Persistent Storage in your game, consider moving to Player Metadata.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OnPersistentStorageItemsRequestCompleted Delegate for handling the server response.
+     Retrieve all key/value pairs stored for the player (may be large; prefer metadata for new integrations).
+
+     Note: Player Persistent Storage is being superseded by Player Metadata. Prefer Player Metadata unless already deeply integrated.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnPersistentStorageItemsRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetEntirePersistentStorage(const FString& ForPlayerWithUlid, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsRequestCompleted);
 
     /**
-     * Get Key/Value pair from the player's persistent storage.
-     * Note: The Player Metadata feature will over time replace Player Persistent Storage.
-     * If you are not already deeply integrated with the Player Persistent Storage in your game, consider moving to Player Metadata.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param Key Key of the key/value pair.
-     * @param OnPersistentStorageItemRequestCompleted Delegate for handling the server response.
+     Get a single key/value pair from the player's persistent storage.
+
+     Note: Player Persistent Storage is being superseded by Player Metadata. Prefer Player Metadata unless already deeply integrated.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Key Key to retrieve
+     @param OnPersistentStorageItemRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetItemFromPersistentStorage(const FString& ForPlayerWithUlid, const FString& Key, const FPersistentStorageItemResponseDelegateBP& OnPersistentStorageItemRequestCompleted);
 
     /**
-     * Create/Update key/value pair(s).
-     * Note: The Player Metadata feature will over time replace Player Persistent Storage.
-     * If you are not already deeply integrated with the Player Persistent Storage in your game, consider moving to Player Metadata.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param Items array of items to be created/updated.
-     * @param OnPersistentStorageItemsAddRequestCompleted Delegate for handling theserver response.
+     Create or update multiple key/value pairs in player persistent storage.
+
+     Note: Player Persistent Storage is being superseded by Player Metadata. Prefer Player Metadata unless already deeply integrated.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Items Array of items to create or update
+     @param OnPersistentStorageItemsAddRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void AddItemsToPersistentStorage(const FString& ForPlayerWithUlid, FLootLockerPersistentStorageItems Items, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsAddRequestCompleted);
 
     /**
-     * Create/Update a key/value pair.
-     * Note: The Player Metadata feature will over time replace Player Persistent Storage.
-     * If you are not already deeply integrated with the Player Persistent Storage in your game, consider moving to Player Metadata.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param Item item to be created/updated.
-     * @param OnPersistentStorageItemAddRequestCompleted Delegate for handling theserver response.
+     Create or update a single key/value pair in player persistent storage.
+
+     Note: Player Persistent Storage is being superseded by Player Metadata. Prefer Player Metadata unless already deeply integrated.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Item Item to create or update
+     @param OnPersistentStorageItemAddRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void AddItemToPersistentStorage(const FString& ForPlayerWithUlid, FLootLockerPersistentStorageItem Item, const FPersistentStorageItemResponseDelegateBP& OnPersistentStorageItemAddRequestCompleted);
 
     /**
-     * Delete a key/value pair.
-     * Note: The Player Metadata feature will over time replace Player Persistent Storage.
-     * If you are not already deeply integrated with the Player Persistent Storage in your game, consider moving to Player Metadata.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param Key key of a key/value pair.
-     * @param OnPersistentStorageItemDeleteRequestCompleted Delegate for handling the server response.
+     Delete a key/value pair from player persistent storage.
+
+     Note: Player Persistent Storage is being superseded by Player Metadata. Prefer Player Metadata unless already deeply integrated.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Key Key to delete
+     @param OnPersistentStorageItemDeleteRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void DeleteItemFromPersistentStorage(const FString& ForPlayerWithUlid, const FString& Key, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemDeleteRequestCompleted);
 
     /**
-     * Read another players public key/value storage.
-     * Note: The Player Metadata feature will over time replace Player Persistent Storage.
-     * If you are not already deeply integrated with the Player Persistent Storage in your game, consider moving to Player Metadata.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param PlayerId players id or their public UID.
-     * @param OnGetPlayerPersistentStorageRequestCompleted Delegate for handling the server response.
+     Read another player's public key/value persistent storage (public items only).
+
+     Note: Player Persistent Storage is being superseded by Player Metadata. Prefer Player Metadata unless already deeply integrated.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param PlayerId Player id or public UID
+     @param OnGetPlayerPersistentStorageRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetPlayerPersistentStorage(const FString& ForPlayerWithUlid, const FString& PlayerId, const  FPersistentStorageItemsResponseDelegateBP& OnGetPlayerPersistentStorageRequestCompleted);
