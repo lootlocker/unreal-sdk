@@ -1134,159 +1134,154 @@ public:
     //==================================================
 
     /**
-    * Get information about the currently logged in player such as name and different ids to use for subsequent calls to LootLocker methods
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param OnCompletedRequest Delegate for handling the server response
-    */
+     Get profile information for the current player (ids, name and related identifiers) used in subsequent calls.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnCompletedRequest Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetCurrentPlayerInfo(const FString& ForPlayerWithUlid, const FLootLockerGetCurrentPlayerInfoResponseBP& OnCompletedRequest);
 
     /**
-    * List information for one or more other players
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param PlayerIdsToLookUp A list of ULID ids of players to look up. These ids are in the form of ULIDs and are sometimes called player_ulid or similar
-    * @param PlayerLegacyIdsToLookUp A list of legacy ids of players to look up. These ids are in the form of integers and are sometimes called simply player_id or id
-    * @param PlayerPublicUidsToLookUp A list of public uids to look up. These ids are in the form of UIDs
-    * @param OnCompletedRequest Delegate for handling the server response
-    */
+     Retrieve profile information for multiple players using ULIDs, legacy ids, and/or public UIDs.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param PlayerIdsToLookUp Array of player ULIDs to look up
+     @param PlayerLegacyIdsToLookUp Array of legacy integer player ids to look up
+     @param PlayerPublicUidsToLookUp Array of public player UIDs to look up
+     @param OnCompletedRequest Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ListPlayerInfo(const FString& ForPlayerWithUlid, TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseBP& OnCompletedRequest);
 
     /**
-    * Get a list of the players inventory.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param OnGetInventoryRequestCompleted Delegate for handling the the server response.
-    */
+     Get the full list of inventory asset instances owned by a player.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnGetInventoryRequestCompleted Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetInventory(const FString& ForPlayerWithUlid, const FPInventoryResponseBP& OnGetInventoryRequestCompleted);
 
     /**
-    * Get a paginated list of the players inventory.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
-    * @param StartIndex Used for pagination to set the pointer at the next asset instance after the ID (asset instance_id) supplied here.
-    * @param OnGetInventoryRequestCompleted Delegate to be invoked with the server response.
-    */
+     Get a paginated segment of the player's inventory starting after a given asset instance id.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param StartIndex Pagination pointer; returns items after this asset instance id
+     @param OnGetInventoryRequestCompleted Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetFullInventory(const FString ForPlayerWithUlid, int32 StartIndex, const FPInventoryResponseBP& OnGetInventoryRequestCompleted);
 
     /**
-    * Get assets that have been granted to the player since the last time this endpoint was called.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param OnCheckPlayerAssetDeactivationNotificationRequestCompleted Delegate for handling the the server response.
-    */
+     Get recently granted player assets since the last activation notification check.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnCheckPlayerAssetDeactivationNotificationRequestCompleted Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void CheckPlayerAssetActivationNotification(const FString& ForPlayerWithUlid, const FPAssetNotificationResponseBP& OnCheckPlayerAssetDeactivationNotificationRequestCompleted);
 
     /**
-    * This endpoint will return the amount of credits the current player have on their account.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param OnGetCurrencyBalance Delegate for handling the the server response.
-    */
+     Get the current credit / currency balance of a player.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnGetCurrencyBalance Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetCurrencyBalance(const FString& ForPlayerWithUlid, const FPBalanceResponseBP& OnGetCurrencyBalance);
 
     /**
-    * This endpoint will initiate a DLC migration for the current player. 5 minutes after calling this endpoint you should issue
-    * a call to the Player Asset Notifications call, to get the results of the migration, if any.
-    *
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param OnInitiateDlcMigration Delegate for handling the the server response.
-    */
+     Initiate DLC migration for the player (results appear later via asset notifications; poll after ~5 minutes).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnInitiateDlcMigration Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void InitiateDLCMigration(const FString& ForPlayerWithUlid, const FResponseCallbackBP& OnInitiateDlcMigration);
 
     /**
-    * This endpoint will return a list of DLC's migrated for the player. The DLC identifiers returned
-    * will be the ones of the platform the DLC belongs to. The identifier will always be a string, even if the identifier is numeric.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param OnGotDlcMigration Delegate for handling the the server response.
-    */
+     List DLC identifiers migrated for the player (identifiers are returned as strings regardless of underlying numeric nature).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnGotDlcMigration Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetDLCsMigration(const FString& ForPlayerWithUlid, const FPDlcResponseBP& OnGotDlcMigration);
 
     /**
-    * This endpoint will set the players profile to private. This means that their
-    * inventory will not be displayed publicly on Steam and other places.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param OnProfileSetPrivate Delegate for handling the the server response.
-    */
+     Set the player's profile visibility to private (inventory not shown publicly on external platforms).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnProfileSetPrivate Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void SetProfilePrivate(const FString& ForPlayerWithUlid, const FResponseCallbackBP& OnProfileSetPrivate);
 
     /**
-    * This endpoint will set the players profile to public. This means that their inventory will be
-    * displayed publicly on Steam and other places.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param OnProfileSetPublic Delegate for handling the the server response.
-    */
+     Set the player's profile visibility to public (inventory may be shown on external platforms).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnProfileSetPublic Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void SetProfilePublic(const FString& ForPlayerWithUlid, const FResponseCallbackBP& OnProfileSetPublic);
 
     /**
-    * This endpoint will set the players name.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param Name String name to set.
-    * @param OnSetPlayerName Delegate for handling the the server response
-    */
+     Set (or change) the player's display name.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Name New display name to set
+     @param OnSetPlayerName Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void SetPlayerName(const FString& ForPlayerWithUlid, FString Name, const FPNameResponseBP& OnSetPlayerName);
 
     /**
-    * This endpoint will get the players name.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param OnGetPlayerName Delegate for handling the the server response.
-    */
+     Get the player's current display name.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnGetPlayerName Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetPlayerName(const FString& ForPlayerWithUlid, const FPNameResponseBP& OnGetPlayerName);
 
     /**
-    * This endpoint will return the names of the players on their last active platform.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param Request Request array with platforms and Ids to search for.
-    * @param OnCompletedRequest Delegate for handling the the server response.
-    */
+     Look up player names on their last active platform (Deprecated – use LookupMultiplePlayersDataUsingIDs).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Request Request payload containing platforms and ids for lookup
+     @param OnCompletedRequest Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid="", DeprecatedFunction, DeprecationMessage = "This method is deprecated in favor of method LookupMultiplePlayersDataUsingIDs")) // Deprecation date 20250304
     static void LookupMultiplePlayerNamesUsingIDs(const FString& ForPlayerWithUlid, const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayerNamesBP& OnCompletedRequest);
     
     /**
-    * Look up multiple player's data using different identifiers
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param Request Request array with platforms and Ids to lookup player data for.
-    * @param OnCompletedRequest Delegate for handling the server response.
-    */
+     Look up multiple players' data using a mix of supported identifier types.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Request Request payload containing platforms and ids for player data lookup
+     @param OnCompletedRequest Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void LookupMultiplePlayersDataUsingIDs(const FString& ForPlayerWithUlid, const FLootLockerLookupMultiplePlayersDataRequest& Request, const FPMultiplePlayerNamesBP& OnCompletedRequest);
 
     /**
-    * This endpoint will return the names of the players on their last active platform.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param Request Request array with player ids and/or player public uids to search for.
-    * @param OnCompletedRequest Delegate for handling the the server response.
-    */
+     Look up player names using first-platform player ids and/or public UIDs.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Request Request payload with player ids and/or public UIDs
+     @param OnCompletedRequest Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void LookupMultiplePlayerNames1stPlatformIDs(const FString& ForPlayerWithUlid, const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequest);
 
     /**
-    * This method will mark the player for deletion. After 30 days the player will be deleted from the system.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param OnCompletedRequest Delegate for handling the server response.
-    */
+     Mark the player for deletion (permanently removed after a 30 day grace period).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnCompletedRequest Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void DeletePlayer(const FString& ForPlayerWithUlid, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
