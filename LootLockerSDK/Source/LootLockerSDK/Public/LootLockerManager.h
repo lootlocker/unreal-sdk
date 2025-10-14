@@ -2259,35 +2259,35 @@ public:
     //==================================================
 
     /**
-    * Returns multiple progressions.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param Count Optional: Amount of entries to receive
-    * @param After Optional: Used for pagination, id of the player progression from which the pagination starts from, use the next_cursor and previous_cursor values
-    * @param OnCompletedRequest Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
-    */
+     List game progressions (paginated).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Count Optional: Number of entries to return (-1 = server default)
+     @param After Optional: Cursor id to continue pagination (use next_cursor/previous_cursor)
+     @param OnCompletedRequest Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Progressions", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid=""))
     static void GetProgressions(const FString& ForPlayerWithUlid, const int32 Count, const FString& After, const FLootLockerPaginatedProgressionsResponseBP& OnCompletedRequest);
 
     /**
-    * Returns the specified progression
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param ProgressionKey Key of the progression you want to fetch
-    * @param OnCompletedRequest Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
-    */
+     Get a single progression definition by key.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param ProgressionKey Progression key to fetch
+     @param OnCompletedRequest Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const FLootLockerProgressionResponseBP& OnCompletedRequest);
 
     /**
-    * Returns multiple progression tiers for the specified progression.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param ProgressionKey Key of the progression you want to fetch
-    * @param Count Optional: Amount of entries to receive
-    * @param After Optional: Used for pagination, id of the player progression from which the pagination starts from, use the next_cursor and previous_cursor values
-    * @param OnCompletedRequest Action for handling the response of type FLootLockerPaginatedPlayerProgressionsResponse
-    */
+     List tiers of a progression (paginated) to inspect level thresholds and rewards.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param ProgressionKey Progression key whose tiers to list
+     @param Count Optional: Number of tier entries (-1 = server default)
+     @param After Optional: Cursor (tier id) to continue pagination
+     @param OnCompletedRequest Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Progressions", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = -1, ForPlayerWithUlid=""))
     static void GetProgressionTiers(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const int32 Count, const int32 After, const FLootLockerPaginatedProgressionTiersResponseBP& OnCompletedRequest);
 
