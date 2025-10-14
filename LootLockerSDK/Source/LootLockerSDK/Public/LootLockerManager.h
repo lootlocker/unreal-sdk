@@ -2648,171 +2648,173 @@ public:
     //==================================================
 
     /**
-     List notifications without filters and with default pagination settings
+     List notifications with default pagination (no filters).
 
-     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
      @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ListNotificationsWithDefaultParameters(const FString& ForPlayerWithUlid, const FLootLockerListNotificationsResponseBP& OnComplete);
 
     /**
-     List notifications according to specified filters and with pagination settings
+     List notifications with filters and pagination.
 
-     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     @param ShowRead Return previously read notifications
-     @param CustomNotificationsFilter (Optional) Whether to filter for custom, non custom, or all notifications
-     @param OfType (Optional) Return only notifications with the specified type, if this is a custom notification then the type is set by the sender of the notification and must match pattern ^[a-z_-]+\.[a-z_-]+\.[a-z_-]+$
-     @param WithSource (Optional) Return only notifications with the specified source
-     @param PerPage (Optional) Used together with PerPage to apply pagination to this request. Page designates which "page" of items to fetch
-     @param Page (Optional) Used together with Page to apply pagination to this request. PerPage designates how many notifications are considered a "page"
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param ShowRead Include previously read notifications
+     @param CustomNotificationsFilter Optional: Filter for custom, non custom, or all notifications
+     @param OfType Optional: Filter by notification type (custom types must match ^[a-z_-]+\.[a-z_-]+\.[a-z_-]+$ )
+     @param WithSource Optional: Filter by notification source
+     @param PerPage Optional: Page size
+     @param Page Optional: Page index (0 or 1 based depending on API convention)
      @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid = ""))
     static void ListNotifications(const FString& ForPlayerWithUlid, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete);
 
     /**
-     List notifications according to specified filters and with pagination settings
+     List notifications filtered by priority plus other filters.
 
-     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     @param WithPriority Return only notifications with the specified priority
-     @param ShowRead Return previously read notifications
-     @param CustomNotificationsFilter (Optional) Whether to filter for custom, non custom, or all notifications
-     @param OfType (Optional) Return only notifications with the specified type, if this is a custom notification then the type is set by the sender of the notification and must match pattern ^[a-z_-]+\.[a-z_-]+\.[a-z_-]+$
-     @param WithSource (Optional) Return only notifications with the specified source
-     @param PerPage (Optional) Used together with PerPage to apply pagination to this request. Page designates which "page" of items to fetch
-     @param Page (Optional) Used together with Page to apply pagination to this request. PerPage designates how many notifications are considered a "page"
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param WithPriority Priority to filter by
+     @param ShowRead Include previously read notifications
+     @param CustomNotificationsFilter Optional: Filter for custom, non custom, or all notifications
+     @param OfType Optional: Filter by notification type (pattern ^[a-z_-]+\.[a-z_-]+\.[a-z_-]+$ )
+     @param WithSource Optional: Filter by source
+     @param PerPage Optional: Page size
+     @param Page Optional: Page index
      @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ListNotificationsWithPriority(const FString& ForPlayerWithUlid, ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete);
 
-    /*
-     Try to parse the body property from a notification content object as a String
+  /*
+   Parse notification body as String.
 
-     @param Content The content object from which to parse the body
-     @param OutValue If parsing succeeded, this will be populated with the parsed value
-     @return Whether the parsing succeeded or not
-     */
+   @param Content Source notification content
+   @param OutValue Parsed value if successful
+   @return True if parsing succeeded
+  */
     UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
     static bool TryGetContentBodyAsString(const FLootLockerNotificationContent& Content, FString& OutValue);
 
-    /*
-     Try to parse the body property from a notification content object as a Float
+  /*
+   Parse notification body as Float.
 
-     @param Content The content object from which to parse the body
-     @param OutValue If parsing succeeded, this will be populated with the parsed value
-     @return Whether the parsing succeeded or not
-    */
+   @param Content Source notification content
+   @param OutValue Parsed value if successful
+   @return True if parsing succeeded
+  */
     UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
     static bool TryGetContentBodyAsFloat(const FLootLockerNotificationContent& Content, float& OutValue);
 
     /*
-     Try to parse the body property from a notification content object as an Integer
+     Parse notification body as Integer.
 
-     @param Content The content object from which to parse the body
-     @param OutValue If parsing succeeded, this will be populated with the parsed value
-     @return Whether the parsing succeeded or not
+     @param Content Source notification content
+     @param OutValue Parsed value if successful
+     @return True if parsing succeeded
     */
     UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
     static bool TryGetContentBodyAsInteger(const FLootLockerNotificationContent& Content, int& OutValue);
 
     /*
-     Try to parse the body property from a notification content object as a Bool
+     Parse notification body as Bool.
 
-     @param Content The content object from which to parse the body
-     @param OutValue If parsing succeeded, this will be populated with the parsed value
-     @return Whether the parsing succeeded or not
+     @param Content Source notification content
+     @param OutValue Parsed value if successful
+     @return True if parsing succeeded
     */
     UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
     static bool TryGetContentBodyAsBool(const FLootLockerNotificationContent& Content, bool& OutValue);
 
     /*
-     Try to parse the body property from a notification content object as a Float Array
+     Parse notification body as Float Array.
 
-     @param Content The content object from which to parse the body
-     @param OutValue If parsing succeeded, this will be populated with the parsed value
-     @return Whether the parsing succeeded or not
+     @param Content Source notification content
+     @param OutValue Parsed values if successful
+     @return True if parsing succeeded
     */
     UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
     static bool TryGetContentBodyAsFloatArray(const FLootLockerNotificationContent& Content, TArray<float>& OutValue);
 
     /*
-     Try to parse the body property from a notification content object as an Integer Array
+     Parse notification body as Integer Array.
 
-     @param Content The content object from which to parse the body
-     @param OutValue If parsing succeeded, this will be populated with the parsed value
-     @return Whether the parsing succeeded or not
+     @param Content Source notification content
+     @param OutValue Parsed values if successful
+     @return True if parsing succeeded
     */
     UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
     static bool TryGetContentBodyAsIntegerArray(const FLootLockerNotificationContent& Content, TArray<int>& OutValue);
 
     /*
-     Try to parse the body property from a notification content object as a Bool Array
+     Parse notification body as Bool Array.
 
-     @param Content The content object from which to parse the body
-     @param OutValue If parsing succeeded, this will be populated with the parsed value
-     @return Whether the parsing succeeded or not
+     @param Content Source notification content
+     @param OutValue Parsed values if successful
+     @return True if parsing succeeded
     */
     UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
     static bool TryGetContentBodyAsBoolArray(const FLootLockerNotificationContent& Content, TArray<bool>& OutValue);
 
     /*
-     Try to parse the body property from a notification content object as a Reward Notification
+     Parse notification body as Reward Notification structure.
 
-     @param Content The content object from which to parse the body
-     @param OutValue If parsing succeeded, this will be populated with the parsed value
-     @return Whether the parsing succeeded or not
+     @param Content Source notification content
+     @param OutValue Parsed value if successful
+     @return True if parsing succeeded
     */
     UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
     static bool TryGetContentBodyAsRewardNotification(const FLootLockerNotificationContent& Content, FLootLockerNotificationContentRewardBody& OutValue);
 
 
     /**
-     Mark all unread notifications as read
+     Mark all unread notifications as read.
 
-     Warning: This will mark ALL unread notifications as read, so if you have listed notifications but due to filters and/or pagination not pulled all of them you may have unviewed unread notifications
+     Warning: This marks ALL unread notifications. If you have not paged through all notifications you may mark unseen ones as read.
 
-     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
      @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void MarkAllNotificationsAsRead(const FString& ForPlayerWithUlid, const FLootLockerReadNotificationsResponseBP& OnComplete);
 
     /**
-     Mark the specified notifications as read (if they are currently unread)
+     Mark specific notifications (objects) as read if currently unread.
 
-     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     @param Notifications List of ids of notifications to mark as read
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param Notifications Notification objects whose ids to mark as read
      @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void MarkNotificationsAsRead(const FString& ForPlayerWithUlid, const TArray<FLootLockerNotification>& Notifications, const FLootLockerReadNotificationsResponseBP& OnComplete);
 
     /**
-     Mark the specified notifications as read
+     Mark notifications by id as read.
 
-     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     @param NotificationIDs List of ids of notifications to mark as read
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param NotificationIDs Ids of notifications to mark as read
      @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void MarkNotificationsAsReadByIds(const FString& ForPlayerWithUlid, const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseBP& OnComplete);
 
     /**
-    * Get notifications by their identifying value. The out is an array because many notifications are not unique. For example triggers that can be triggered multiple times.
-    * For Triggers the identifying value is the key of the trigger
-    * For Google Play Store purchases it is the product id
-    * For Apple App Store purchases it is the transaction id
-    * For Steam Store purchases it is the entitlement id
-    * For LootLocker virtual purchases it is the catalog item id
-    * For Twitch Drops it is the Twitch reward id
-    * For custom notifications (notifications with the field Custom = true and with the source being either LootLocker Console or LootLocker Server API) the content of the notification is defined by the sender, so the identifying value is simply the Notification type matching the pattern ^[a-z0-9_-]+\.[a-z0-9_-]+\.[a-z0-9_-]+$
-    *
-    * @param NotificationsResponse The response from which you want to find the notifications.
-    * @param IdentifyingValue The identifying value of the notification you want to fetch.
-    * @param Notifications A list of notifications that were found for the given identifying value or null if none were found.
-    * @returns True if notifications were found for the identifying value. False if notifications couldn't be found for this value or if the underlying lookup table is corrupt.
+     Find notifications by identifying value (may return multiple).
+
+     Identifying value mapping:
+     - Trigger: trigger key
+     - Google Play: product id
+     - Apple App Store: transaction id
+     - Steam Store: entitlement id
+     - LootLocker virtual purchase: catalog item id
+     - Twitch Drop: reward id
+     - Custom notification: notification type (pattern ^[a-z0-9_-]+\.[a-z0-9_-]+\.[a-z0-9_-]+$ )
+
+     @param NotificationsResponse Source response to search
+     @param IdentifyingValue Identifying value to match
+     @param Notifications Out array of found notifications (empty if none)
+     @returns True if one or more notifications found; false otherwise or if lookup table invalid
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static bool TryGetNotificationsByIdentifyingValue(const FLootLockerListNotificationsResponse& NotificationsResponse, const FString& IdentifyingValue, TArray<FLootLockerNotification>& Notifications);
