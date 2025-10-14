@@ -3201,63 +3201,63 @@ public:
     //==================================================
 
     /**
-    * Get a list of Categories to use for giving feedback to players, this can be anything from reporting players, or giving feedback such as nice notes
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param OnComplete delegate for handling the server response
+     List feedback categories for reporting or praising players
+
+    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+    @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ListPlayerFeedbackCategories(const FString& ForPlayerWithUlid, const FLootLockerListFeedbackCategoryResponseBP& OnComplete);
 
     /**
-    * Get a list of Categories to use for giving feedback to the game, this can be anything from reporting bugs, or giving feedback such as nice notes
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param OnComplete delegate for handling the server response
+     List feedback categories for reporting bugs or praising the game
+
+    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+    @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ListGameFeedbackCategories(const FString& ForPlayerWithUlid, const FLootLockerListFeedbackCategoryResponseBP& OnComplete);
 
     /**
-    * Get a list of Categories to use for giving feedback to User Generated Content, this can be anything from reporting inappropriate UGC content, or giving feedback such as nice notes about a UGC
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param OnComplete delegate for handling the server response
+     List feedback categories for reporting or praising UGC content
+
+    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+    @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ListUGCFeedbackCategories(const FString& ForPlayerWithUlid, const FLootLockerListFeedbackCategoryResponseBP& OnComplete);
 
     /**
-    * Send feedback about a player
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param Ulid is the ulid of who you're giving feedback about
-    * @param Description is the text/reason of your feedback ("He is hacking", "He is a kind player!")
-    * @param CategoryID is the ID of the category you're using for your feedback, use ListFeedbackCategories function to get the ids.
-    * @param OnComplete delegate for handling the server response
+     Send feedback about a player
+
+    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+    @param Ulid Ulid of the player the feedback concerns
+    @param Description Text or reason for the feedback (e.g. "He is hacking", "Kind and helpful player")
+    @param CategoryID Id of the feedback category (obtain via listing feedback categories)
+    @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void SendPlayerFeedback(const FString& ForPlayerWithUlid, const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete);
 
     /**
-    * Send feedback about the game
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param Description is the text/reason of your feedback ("Amazing game", "I found a bug here!")
-    * @param CategoryID is the ID of the category you're using for your feedback, use ListFeedbackCategories function to get the ids.
-    * @param OnComplete delegate for handling the server response
+     Send feedback about the game
+
+    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+    @param Description Text or reason for the feedback (e.g. "Amazing game", "I found a bug in level 2")
+    @param CategoryID Id of the feedback category (obtain via listing feedback categories)
+    @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void SendGameFeedback(const FString& ForPlayerWithUlid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete);
 
     /**
-    * Send feedback about a ugc asset
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param Ulid is the ulid of the asset you're giving feedback about
-    * @param Description is the text/reason of your feedback ("Amazing Level", "I found a bug here!")
-    * @param CategoryID is the ID of the category you're using for your feedback, use ListFeedbackCategories function to get the ids.
-    * @param OnComplete delegate for handling the server response
+     Send feedback about a UGC asset
+
+    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+    @param Ulid Ulid of the UGC asset the feedback concerns
+    @param Description Text or reason for the feedback (e.g. "Amazing level", "Found collision issue near spawn")
+    @param CategoryID Id of the feedback category (obtain via listing feedback categories)
+    @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void SendUGCFeedback(const FString& ForPlayerWithUlid, const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete);
