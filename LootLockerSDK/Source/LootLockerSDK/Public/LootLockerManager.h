@@ -1613,178 +1613,176 @@ public:
     //==================================================
 
     /**
-    * This call will return all characters loadouts for a game, and have some additional information on the characters.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param OnGetCharacterLoadoutRequestCompleted Delegate for handling the server response.
-    */
+     List loadouts for all characters owned by the player including basic character info.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnGetCharacterLoadoutRequestCompleted Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetCharacterLoadout(const FString& ForPlayerWithUlid, const FPCharacterLoadoutResponseBP& OnGetCharacterLoadoutRequestCompleted);
 
     /**
-     * This endpoint lets you set a character as default, and set the name of the character.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param CharacterId Id of the character to make the update for
-     * @param IsDefault Should the character be set as default
-     * @param Name The name to set for the character
-     * @param OnCompletedRequest Delegate for handling the server response.
+     Update a character's name and/or mark it as the default character.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param CharacterId Id of the character to update
+     @param IsDefault Whether this character should become default
+     @param Name New character name (can be unchanged)
+     @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void UpdateCharacter(const FString& ForPlayerWithUlid, int CharacterId, bool IsDefault, FString Name, const FPCharacterLoadoutResponseBP& OnCompletedRequest);
 
     /**
-     * Create a character of the specified character type with the given name
-     * If IsDefault is set to true, the new character will be made the default character.
-     * See List Character Types to get your games Character Types.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param IsDefault If this should be set as the default character.
-     * @param CharacterName The name of the character.
-     * @param CharacterTypeId The ID of the character type.
-     * @param OnCompletedRequestBP Delegate for handling the server response.
+     Create a character of a specified type and name (optionally set as default).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param IsDefault Whether the new character should be default
+     @param CharacterName Name of the character
+     @param CharacterTypeId Id of the character type (see ListCharacterTypes)
+     @param OnCompletedRequestBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void CreateCharacter(const FString& ForPlayerWithUlid, bool IsDefault, FString CharacterName, FString CharacterTypeId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP);
 
     /**
-     * Delete the character with the specified instance id.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param CharacterId The ID of the character to delete.
-     * @param OnCompletedRequestBP Delegate for handling the server response.
+     Delete a character by id (irreversible) and free associated loadout slots/items back to inventory.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param CharacterId Id of the character to delete
+     @param OnCompletedRequestBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void DeleteCharacter(const FString& ForPlayerWithUlid, int CharacterId, const FPCharacterDefaultResponseBP& OnCompletedRequestBP);
 
     /**
-     * Call this endpoint to list the character types configured for your game.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OnCompletedRequestBP Delegate for handling the server response.
+     List character types configured for your game.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnCompletedRequestBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ListCharacterTypes(const FString& ForPlayerWithUlid, const FPLootLockerListCharacterTypesResponseBP& OnCompletedRequestBP);
 
     /**
-    * Get list of Characters to a player
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param OnCompletedRequestBP Delegate for handling the server response.
-    */
+     List characters owned by the player.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnCompletedRequestBP Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ListPlayerCharacters(const FString& ForPlayerWithUlid, const FPLootLockerListPlayerCharactersResponseBP& OnCompletedRequestBP);
     /**
-     * Equip an asset to the default character.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param InstanceId The asset's instance_id that is returned from the inventory and loadout calls.
-     * @param OnEquipAssetToDefaultCharacterRequestCompleted Delegate for handling the server response.
+     Equip an asset instance to the player's default character.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param InstanceId Asset instance id to equip
+     @param OnEquipAssetToDefaultCharacterRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void EquipAssetToDefaultCharacter(const FString& ForPlayerWithUlid, int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToDefaultCharacterRequestCompleted);
 
     /**
-    * Equip an asset to the specified character.
-    *
-    * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param CharacterId ID of the character to equip an asset to.
-    * @param AssetId the asset's instance_id that is returned from the inventory and loadout calls.
-    * @param AssetVariationId the asset_variation_id.
-    * @param OnEquipAssetToCharacterByIdRequestCompleted Delegate for handling the server response.
-    */
+     Equip an asset (by asset id and variation) to a specific character.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param CharacterId Id of the character to equip
+     @param AssetId Asset id to equip
+     @param AssetVariationId Variation id of the asset
+     @param OnEquipAssetToCharacterByIdRequestCompleted Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void EquipAssetToCharacterById(const FString& ForPlayerWithUlid, int CharacterId, int AssetId, int AssetVariationId, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted);
 
     /**
-     * Equip an asset to the specified character.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-    * @param CharacterId ID of the character to equip an asset to.
-    * @param InstanceId the asset's instance_id that is returned from the inventory and loadout calls.
-    * @param OnEquipAssetToCharacterByIdRequestCompleted Delegate for handling the server response.
-    */
+     Equip an asset instance to a specific character.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param CharacterId Id of the character to equip
+     @param InstanceId Asset instance id to equip
+     @param OnEquipAssetToCharacterByIdRequestCompleted Delegate for handling the server response
+     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void EquipAssetToCharacterByIdAndInstance(const FString& ForPlayerWithUlid, int CharacterId, int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted);
 
     /**
-     * Unequip an asset from the default character.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param InstanceId the asset's instance id that is returned from the inventory and loadout calls.
-     * @param OnUnEquipAssetToDefaultCharacterRequestCompleted Delegate for handling the server response.
+     Unequip an asset instance from the default character.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param InstanceId Asset instance id to unequip
+     @param OnUnEquipAssetToDefaultCharacterRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void UnEquipAssetToDefaultCharacter(const FString& ForPlayerWithUlid, int InstanceId, const FPCharacterDefaultResponseBP& OnUnEquipAssetToDefaultCharacterRequestCompleted);
 
     /**
-     * Unequip an asset from the specified character.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param CharacterId ID of the character to unequip an asset from.
-     * @param InstanceId the asset's instance id that is returned from the inventory and loadout calls.
-     * @param OnUnEquipAssetToCharacterByIdRequestCompleted Delegate for handling the server response.
+     Unequip an asset instance from a specific character.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param CharacterId Id of the character
+     @param InstanceId Asset instance id to unequip
+     @param OnUnEquipAssetToCharacterByIdRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void UnEquipAssetToCharacterById(const FString& ForPlayerWithUlid, int CharacterId, int InstanceId, const  FPCharacterDefaultResponseBP& OnUnEquipAssetToCharacterByIdRequestCompleted);
 
 
     /**
-     * Getting the current loadout will return an array of assets that the user currently has equipped.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OnGetCurrentLoadoutToDefaultCharacterRequestCompleted Delegate for handling the server response.
+     Get the asset instances currently equipped on the player's default character.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnGetCurrentLoadoutToDefaultCharacterRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetCurrentLoadoutToDefaultCharacter(const FString& ForPlayerWithUlid, const FPCharacterLoadoutResponseBP& OnGetCurrentLoadoutToDefaultCharacterRequestCompleted);
 
     /**
-     * This method will return the exact same response as the GetCharacterLoadout, except that it will be for another player.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OtherPlayerId other player's ID on the requested platform.
-     * @param OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted Delegate for handling the server response.
-     * @param OtherPlayerPlatform Optional: the platform the id refers to if different than the currentplatform
+     Get the default character loadout for another player identified by a platform-specific id.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OtherPlayerId Platform-specific id of the target player
+     @param OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted Delegate for handling the server response
+     @param OtherPlayerPlatform Optional: Platform the id refers to (if different than current)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetOtherPlayersCurrentLoadoutToDefaultCharacter(const FString& ForPlayerWithUlid, FString OtherPlayerId, const FPCharacterLoadoutResponseBP& OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted, const FString& OtherPlayerPlatform = FString(TEXT("")));
 
     /**
-     * Get the contexts that the player's default character can equip.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OnGetEquipableContextsToDefaultCharacterRequestCompleted Delegate for handling the server response.
+     List equipable contexts (slots/categories) for the player's default character.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnGetEquipableContextsToDefaultCharacterRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetEquipableContextsToDefaultCharacter(const FString& ForPlayerWithUlid, const FContextDelegateBP& OnGetEquipableContextsToDefaultCharacterRequestCompleted);
 
     /**
-     * Get the contexts that the specified player's default character can equip.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OtherCharacterId other player's ID.
-     * @param OnGetEquipableContextsByCharacterIdRequestCompleted Delegate for handling the server response.
+     List equipable contexts for another player's character by character id.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OtherCharacterId Target character id
+     @param OnGetEquipableContextsByCharacterIdRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetEquipableContextsByCharacterId(const FString& ForPlayerWithUlid, int OtherCharacterId, const FContextDelegateBP& OnGetEquipableContextsByCharacterIdRequestCompleted);
 
     /**
-     * Get a character loadout from a specific player and platform
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OtherPlayerId The platform specific id of the player you want to fetch the character loadouts for.
-     * @param OtherPlayerPlatform Optional: the platform the id refers to if different than the current platform
-     * @param OnCompletedRequest Delegate for handling the server response.
+     Get character loadouts for another player by platform-specific id.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OtherPlayerId Platform-specific id of the target player
+     @param OtherPlayerPlatform Optional: Platform the id refers to (if differing)
+     @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid,OtherPlayerPlatform", ForPlayerWithUlid="", OtherPlayerPlatform=""))
     static void GetOtherPlayersCharacterLoadouts(const FString& ForPlayerWithUlid, const FString& OtherPlayerId, const FString& OtherPlayerPlatform, const FPCharacterLoadoutResponseBP& OnCompletedRequest);
 
     /**
-     * Get a character loadout from a specific player by their public uid.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OtherPlayerUid The public uid of the player you want to fetch the character loadouts for.
-     * @param OnCompletedRequest Delegate for handling the server response.
+     Get character loadouts for another player by their public UID.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OtherPlayerUid Public UID of the target player
+     @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetOtherPlayersCharacterLoadoutsByUid(const FString& ForPlayerWithUlid, const FString& OtherPlayerUid, const FPCharacterLoadoutResponseBP& OnCompletedRequest);
