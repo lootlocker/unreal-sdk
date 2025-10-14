@@ -3081,7 +3081,7 @@ public:
     //==================================================
 
     /**
-     List balances for a wallet.
+     List balances for a wallet
 
      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
      @param WalletID Wallet id
@@ -3091,7 +3091,7 @@ public:
     static void ListBalancesInWallet(const FString& ForPlayerWithUlid, const FString& WalletID, const FLootLockerListBalancesForWalletResponseBP& OnComplete);
 
     /**
-     Get information about a wallet.
+     Get information about a wallet
 
      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
      @param WalletID Wallet id
@@ -3101,7 +3101,7 @@ public:
     static void GetWalletByWalletID(const FString& ForPlayerWithUlid, const FString& WalletID, const FLootLockerGetWalletResponseBP& OnComplete);
 
     /**
-     Get a wallet for a specified holder.
+     Get a wallet for a specified holder
 
      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
      @param HolderULID Holder ulid
@@ -3112,26 +3112,26 @@ public:
     static void GetWalletByHolderID(const FString& ForPlayerWithUlid, const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerGetWalletResponseBP& OnComplete);
 
     /**
-     * Credit (increase) the specified amount of the provided currency to the provided wallet
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param WalletID Unique ID of the wallet to credit the given amount of the given currency to
-     * @param CurrencyID Unique ID of the currency to credit
-     * @param Amount The amount of the given currency to credit to the given wallet
-     * @param OnComplete Delegate for handling the server response
-     */
+     Credit (increase) the specified amount of the provided currency to the provided wallet
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param WalletID Unique ID of the wallet to credit the given amount of the given currency to
+     @param CurrencyID Unique ID of the currency to credit
+     @param Amount The amount of the given currency to credit to the given wallet
+     @param OnComplete Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Balance", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void CreditBalanceToWallet(const FString& ForPlayerWithUlid, const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerCreditWalletResponseBP& OnComplete);
 
     /**
-     * Debit (decrease) the specified amount of the provided currency to the provided wallet
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param WalletID Unique ID of the wallet to debit the given amount of the given currency from
-     * @param CurrencyID Unique ID of the currency to debit
-     * @param Amount The amount of the given currency to debit from the given wallet
-     * @param OnComplete Delegate for handling the server response
-     */
+     Debit (decrease) the specified amount of the provided currency to the provided wallet
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param WalletID Unique ID of the wallet to debit the given amount of the given currency from
+     @param CurrencyID Unique ID of the currency to debit
+     @param Amount The amount of the given currency to debit from the given wallet
+     @param OnComplete Delegate for handling the server response
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Balance", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void DebitBalanceToWallet(const FString& ForPlayerWithUlid, const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerDebitWalletResponseBP& OnComplete);
 
