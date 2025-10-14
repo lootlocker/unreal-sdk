@@ -1290,61 +1290,62 @@ public:
     //==================================================
 
     /**
-     * Upload a file with the provided name and content. The file will be owned by the currently active player.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param Request Request of type FLootLockerFileUploadRequest.
-     * @param OnComplete Delegate for handling the response
+     Upload a file owned by the player.
+     Use for initial creation; subsequent updates use UpdateFile.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Request File upload request payload
+     @param OnComplete Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void UploadFile(const FString& ForPlayerWithUlid, const FLootLockerFileUploadRequest& Request, const FLootLockerUploadFileBP& OnComplete);
 
     /**
-     * Update the specified file with the supplied content. The file will be owned by the currently active player.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param FileId Id of the file, can be retrieved with ListFiles or when the file is uploaded
-     * @param Request Request of type FLootLockerFileUpdateRequest.
-     * @param OnComplete Delegate for handling the response
+     Update an existing player-owned file with new content or metadata.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param FileId File id (retrieved from upload response or ListFiles)
+     @param Request File update request payload
+     @param OnComplete Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void UpdateFile(const FString& ForPlayerWithUlid, const int32 FileId, const FLootLockerFileUpdateRequest& Request, const FLootLockerUploadFileBP& OnComplete);
 
     /**
-     * Returns all the files that your currently active player own.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param OnComplete Delegate for handling the response
+     List all files owned by the player.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnComplete Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ListFiles(const FString& ForPlayerWithUlid, const FLootLockerFileListBP& OnComplete);
 
     /**
-     * Returns all public files that the player with the provided playerID owns.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param PlayerID Player ID of the player for whom to get the files
-     * @param OnCompleteBP Delegate for handling the response
+     List all public files owned by another player (by legacy PlayerID).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param PlayerID Legacy player id of the target player
+     @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void ListOtherPlayersPublicFiles(const FString& ForPlayerWithUlid, const int32 PlayerID, const FLootLockerFileListBP& OnCompleteBP);
 
     /**
-     * Returns a URL where you can access the file. You can get the ID of files when you upload them, or call the list endpoint.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param FileID Id of the file, can be retrieved with ListFiles or when the file is uploaded
-     * @param OnComplete Delegate for handling the response
+     Retrieve metadata (including access URL) for a single file.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param FileID File id (retrieved from upload response or ListFiles)
+     @param OnComplete Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void GetSingleFile(const FString& ForPlayerWithUlid, const int32 FileID, const FLootLockerUploadFileBP& OnComplete);
 
     /**
-     * The file will be deleted immediately and the action can not be reversed. You will get the ID of files when you upload a file, or with ListFiles.
-     *
-     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
-     * @param FileID Id of the file. You can get the ID of files when you upload a file, or with GetAllPlayerFiles()
-     * @param OnComplete Delegate for handling the response
+     Permanently delete a file (irreversible).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param FileID File id to delete (from upload response or ListFiles)
+     @param OnComplete Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void DeletePlayerFile(const FString& ForPlayerWithUlid, const int32 FileID, const FLootLockerFileDeletedBP& OnComplete);
