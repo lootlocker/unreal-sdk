@@ -2824,12 +2824,12 @@ public:
     //==================================================
 
     /**
-     List broadcast messages for this game with specified localisation and pagination settings
+     List broadcast messages with optional localisation and pagination.
 
-     @param Languages Optional: Array of language codes to get localized broadcasts for
-     @param PerPage Optional: Number of broadcasts per page
-     @param Page Optional: Page number for pagination
-     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     @param Languages Optional: Language codes to localize broadcasts
+     @param PerPage Optional: Broadcasts per page (-1 uses server default)
+     @param Page Optional: Page number
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
      @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Broadcasts", meta = (AdvancedDisplay = "Languages,PerPage,Page,ForPlayerWithUlid", ForPlayerWithUlid = "", PerPage = -1, Page = -1, AutoCreateRefTerm="Languages"))
