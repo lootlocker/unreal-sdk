@@ -87,32 +87,32 @@ public:
     // Connected Accounts Delegates
     //==================================================
     /**
-     * Blueprint response delegate for connecting a provider to an account
-     */
+     Blueprint response delegate for connecting a provider to an account
+    */
     DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAccountConnectedResponseBP, FLootLockerAccountConnectedResponse, Response);
     /**
-     * Blueprint response delegate for listing connected accounts
-     */
+     Blueprint response delegate for listing connected accounts
+    */
     DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListConnectedAccountsResponseBP, FLootLockerListConnectedAccountsResponse, Response);
 
     //==================================================
     // Remote Session Delegates
     //==================================================
     /**
-     * Blueprint response delegate for receiving the remote session lease information
-     */
+     Blueprint response delegate for receiving the remote session lease information
+    */
     DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerLeaseRemoteSessionResponseDelegateBP, FLootLockerLeaseRemoteSessionResponse, Response);
     /**
-     * Blueprint response delegate for receiving continual polling updates
-     */
+     Blueprint response delegate for receiving continual polling updates
+    */
     DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerRemoteSessionStatusPollingResponseDelegateBP, FLootLockerRemoteSessionStatusPollingResponse, Response);
     /**
-     * Blueprint response delegate for receiving the finalized remote session data (whether successful or not)
-     */
+     Blueprint response delegate for receiving the finalized remote session data (whether successful or not)
+    */
     DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerStartRemoteSessionResponseDelegateBP, FLootLockerStartRemoteSessionResponse, Response);
     /**
-     * Blueprint response delegate for receiving the refreshed remote session
-     */
+     Blueprint response delegate for receiving the refreshed remote session
+    */
     DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerRefreshRemoteSessionResponseDelegateBP, FLootLockerRefreshRemoteSessionResponse, Response);
 
     //==================================================
@@ -447,107 +447,105 @@ public:
     // Miscellaneous Delegates
     //==================================================
     /**
-     * Blueprint response delegate for fetching server time
-     */
+     Blueprint response delegate for fetching server time
+    */
     DECLARE_DYNAMIC_DELEGATE_OneParam(FTimeResponseDelegateBP, FLootLockerTimeResponse, Response);
     /**
-     * Blueprint response delegate for fetching game info
-     */
+     Blueprint response delegate for fetching game info
+    */
     DECLARE_DYNAMIC_DELEGATE_OneParam(FGameInfoResponseDelegateBP, FLootLockerGameInfoResponse, Response);
 
     //==================================================
     // Player State
     //==================================================
     /**
-    Get a list of player ulids that have been active since game start (or state initialization)
+     Get active player ULIDs since game start (or state initialization)
 
-    @returns Array of player ulids that are considered "active" since game start
-     */
+    @return Array of player ULIDs considered active since game start
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player State")
     static TArray<FString> GetActivePlayerUlids();
 
     /**
-    Make the state for the player with the specified ulid to be "inactive"
+     Mark a player's state as inactive
 
-    @param PlayerUlid The ulid of the player to set to inactive
-     */
+    @param PlayerUlid ULID of the player to set inactive
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player State")
     static void SetPlayerUlidToInactive(const FString& PlayerUlid);
 
     /**
-    Make the state for all currently active players to be "inactive"
-     */
+     Mark all currently active players as inactive
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player State")
     static void SetAllPlayersToInactive();
 
     /**
-    Make the state for all currently active players except the specified player to be "inactive"
+     Mark all players inactive except the specified player
 
-    @param PlayerUlid The ulid of the player to keep active
-     */
+    @param PlayerUlid ULID of the player to keep active
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player State")
     static void SetAllPlayersToInactiveExceptForPlayer(const FString& PlayerUlid);
 
     /**
-    Get a list of player ulids that there is a stored state for
+     Get ULIDs that have a cached state
 
-    @returns Array of player ulids that there is a state stored for
-     */
+    @return Array of player ULIDs with cached state
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player State")
     static TArray<FString> GetCachedPlayerUlids();
 
     /**
-    Get the ulid of the player state that is used as the default state for calls with no other player specified
+     Get the default player ULID used when no player is specified
 
-    @returns The Ulid of the "default" player (the player used for requests where no player is specified)
-     */
+    @return ULID of the default player used for unspecified requests
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player State")
     static FString GetDefaultPlayerUlid();
 
     /**
-    Set the player state that is used as the default state for calls with no other player specified
+     Set the default player state used when no player is specified
 
-    @param PlayerUlid The ulid of the player to set as default
-    @returns If the operation was successful or not
-     */
+    @param PlayerUlid ULID of the player to set as default
+    @return True if the operation succeeded; false otherwise
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player State")
     static bool SetDefaultPlayer(const FString& PlayerUlid);
 
     /**
-    Get the player state for the player with the specified ulid
-        or the default player state if the supplied player ulid is empty
-        or an empty state if none of the previous are present
+     Get saved state for a player ULID (or default if none supplied; empty if neither exist)
 
-    @param PlayerUlid The ulid of the player to get state for
-    @returns The player state that was retrieved for the specified player, or the default player, or an empty state if none of the previous are present
-     */
+    @param PlayerUlid ULID of the player to retrieve state for (empty uses default)
+    @return Player state for the specified ULID, or the default player, or an empty state if none exist
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player State")
     static FLootLockerPlayerData GetSavedStateOrDefaultOrEmptyForPlayer(const FString& PlayerUlid);
 
     /**
-    Remove stored state information for the specified player if present (player will need to re-authenticate)
+     Clear cached state for the specified player (forces re-authentication)
 
-    @param PlayerUlid The ulid of the player to clear cache for
-     */
+    @param PlayerUlid ULID of the player whose cache to clear
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player State")
     static void ClearCacheForPlayer(const FString& PlayerUlid);
 
     /**
-    Remove all stored state information (players will need to re-authenticate) except for the specified player
+     Clear cached state for all players except the specified one
 
-    @param PlayerUlid The ulid of the player to save the cache for
-     */
+    @param PlayerUlid ULID of the player whose cache to retain
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player State")
     static void ClearAllPlayerCachesExceptForPlayer(const FString& PlayerUlid);
 
     /**
-    Remove all stored state information (players will need to re-authenticate)
-     */
+     Clear cached state for all players (forces re-authentication)
+    */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player State")
     static void ClearAllPlayerCaches();
 
     //==================================================
-    //Authentication
+    // Authentication
     //==================================================
 
     /**
@@ -2792,9 +2790,9 @@ public:
     /**
      Mark notifications by id as read.
 
-     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
-     @param NotificationIDs Ids of notifications to mark as read
-     @param OnComplete Delegate for handling the server response
+    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+    @param NotificationIDs Ids of notifications to mark as read
+    @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static void MarkNotificationsAsReadByIds(const FString& ForPlayerWithUlid, const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseBP& OnComplete);
@@ -2802,19 +2800,19 @@ public:
     /**
      Find notifications by identifying value (may return multiple).
 
-     Identifying value mapping:
-     - Trigger: trigger key
-     - Google Play: product id
-     - Apple App Store: transaction id
-     - Steam Store: entitlement id
-     - LootLocker virtual purchase: catalog item id
-     - Twitch Drop: reward id
-     - Custom notification: notification type (pattern ^[a-z0-9_-]+\.[a-z0-9_-]+\.[a-z0-9_-]+$ )
+    Identifying value mapping:
+    - Trigger: trigger key
+    - Google Play: product id
+    - Apple App Store: transaction id
+    - Steam Store: entitlement id
+    - LootLocker virtual purchase: catalog item id
+    - Twitch Drop: reward id
+    - Custom notification: notification type (pattern ^[a-z0-9_-]+\.[a-z0-9_-]+\.[a-z0-9_-]+$ )
 
-     @param NotificationsResponse Source response to search
-     @param IdentifyingValue Identifying value to match
-     @param Notifications Out array of found notifications (empty if none)
-     @returns True if one or more notifications found; false otherwise or if lookup table invalid
+    @param NotificationsResponse Source response to search
+    @param IdentifyingValue Identifying value to match
+    @param Notifications Out array of found notifications (empty if none)
+    @return True if one or more notifications found; false otherwise or if lookup table invalid
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static bool TryGetNotificationsByIdentifyingValue(const FLootLockerListNotificationsResponse& NotificationsResponse, const FString& IdentifyingValue, TArray<FLootLockerNotification>& Notifications);
