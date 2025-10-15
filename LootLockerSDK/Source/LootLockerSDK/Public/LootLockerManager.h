@@ -3688,5 +3688,5 @@ public:
     @param OnCompletedRequestBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous")
-    static void GetGameInfo(const FGameInfoResponseDelegateBP& OnCompletedRequestBP);
+    static void GetGameInfo(const FGameInfoResponseDelegateBP& OnCompletedRequestBP);    
 };
