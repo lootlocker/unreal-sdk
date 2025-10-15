@@ -20,11 +20,20 @@ public:
 
     static void LogSuccessfulRequestInformation(const FLootLockerResponse& Response, const FString& RequestMethod, const FString& Endpoint, const FString& Data, const FString& AllHeadersDelimited);
     static void LogFailedRequestInformation(const FLootLockerResponse& Response, const FString& RequestMethod, const FString& Endpoint, const FString& Data, const FString& AllHeadersDelimited);
+
+    // Singleton accessors. These create the UObject on demand in the transient package.
+    // Use Get() when you need a UObject pointer, or GetRef() for convenient dereferencing (ensure not null).
+    static ULootLockerHttpClient* Get();
+    static ULootLockerHttpClient& GetRef();
 private:
     static bool ResponseIsSuccess(const FHttpResponsePtr& InResponse, bool bWasSuccessful);
     static const FString UserAgent;
     static const FString UserInstanceIdentifier;
     static FString SDKVersion;
+
+    // Internal singleton instance (weak to allow GC if nothing else holds it; we keep a strong ref in creation scope)
+    static TWeakObjectPtr<ULootLockerHttpClient> SingletonInstance;
+    static FCriticalSection SingletonMutex; // to guard creation in multithreaded contexts
 };
 
 

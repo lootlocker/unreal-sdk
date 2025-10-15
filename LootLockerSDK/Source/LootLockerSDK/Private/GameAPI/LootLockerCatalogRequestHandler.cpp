@@ -4,8 +4,6 @@
 #include "LootLockerGameEndpoints.h"
 #include "Utils/LootLockerUtilities.h"
 
-ULootLockerHttpClient* ULootLockerCatalogRequestHandler::HttpClient = nullptr;
-
 FLootLockerInlinedCatalogEntry::FLootLockerInlinedCatalogEntry(const FLootLockerCatalogEntry& Entry, const FLootLockerListCatalogPricesResponse& CatalogListing)
 {
 	Created_at = Entry.Created_at;
@@ -435,14 +433,9 @@ TArray<FLootLockerInlinedCatalogEntry> FLootLockerListCatalogPricesV2Response::G
 	return InlinedEntries;
 }
 
-ULootLockerCatalogRequestHandler::ULootLockerCatalogRequestHandler()
-{
-    HttpClient = NewObject<ULootLockerHttpClient>();
-}
-
 void ULootLockerCatalogRequestHandler::ListCatalogs(const FLootLockerPlayerData& PlayerData, const FLootLockerListCatalogsResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerListCatalogsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListCatalogs, {}, {}, PlayerData, OnComplete);
+    LLAPI<FLootLockerListCatalogsResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListCatalogs, {}, {}, PlayerData, OnComplete);
 }
 
 void ULootLockerCatalogRequestHandler::ListCatalogItems(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseDelegate& OnComplete)
@@ -457,7 +450,7 @@ void ULootLockerCatalogRequestHandler::ListCatalogItems(const FLootLockerPlayerD
         OnComplete.ExecuteIfBound(MappedResponse);
     });
 
-    LLAPI<FInternalLootLockerListCatalogPricesResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::DeprecatedListCatalogItemsByKey, { CatalogKey }, QueryParams, PlayerData, InternalResponseConverter);
+    LLAPI<FInternalLootLockerListCatalogPricesResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::DeprecatedListCatalogItemsByKey, { CatalogKey }, QueryParams, PlayerData, InternalResponseConverter);
 }
 
 void ULootLockerCatalogRequestHandler::ListCatalogItemsV2(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseBP& OnCompleteBP, const FLootLockerListCatalogPricesV2ResponseDelegate& OnComplete)

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
-#include "LootLockerHttpClient.h"
+#include "LootLockerPlayerData.h"
 #include "GameAPI/LootLockerMetadataRequestHandler.h"
 #include "GameAPI/LootLockerPersistentStorageRequestHandler.h"
 #include "LootLockerAssetsRequestHandler.generated.h"
@@ -573,6 +573,9 @@ class LOOTLOCKERSDK_API ULootLockerAssetsRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
+    // Add inline constructor definition to fix header syntax
+    ULootLockerAssetsRequestHandler() {};
+
     static void GetContexts(const FLootLockerPlayerData& PlayerData, const FContextDelegate& OnCompletedRequest = FContextDelegate());
 
     static void GetAssets(const FLootLockerPlayerData& PlayerData, int StartFromIndex, int ItemsCount, ELootLockerAssetFilter AssetFilter, int Context, bool IncludeUGC, const FAssetsResponseDelegate& OnCompletedRequest = FAssetsResponseDelegate());
@@ -592,9 +595,4 @@ public:
     static void GrantAssetToPlayerInventory(const FLootLockerPlayerData& PlayerData, const int assetID, const int assetVariationID, const int assetRentalOptionID, const FGrantAssetResponseDelegate& OnCompletedRequest = FGrantAssetResponseDelegate());
 
     static void ListAssets(const FLootLockerPlayerData& PlayerData, const FLootLockerListSimpleAssetsRequest& Request, int PerPage, int Page, ELootLockerOrderAssetListBy OrderBy, ELootLockerOrderAssetListDirection OrderDirection, const FListSimpleAssetsResponseDelegate& OnCompletedRequest = FListSimpleAssetsResponseDelegate());
-
-public:
-    ULootLockerAssetsRequestHandler();
-
-    static ULootLockerHttpClient* HttpClient;
 };

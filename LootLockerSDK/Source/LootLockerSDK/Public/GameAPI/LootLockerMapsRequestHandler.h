@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
-#include "LootLockerHttpClient.h"
+#include "LootLockerPlayerData.h"
 #include "LootLockerMapsRequestHandler.generated.h"
 
 USTRUCT(BlueprintType)
@@ -59,9 +59,7 @@ class LOOTLOCKERSDK_API ULootLockerMapsRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
+    ULootLockerMapsRequestHandler() {};
+
     static void GetMaps(const FLootLockerPlayerData& PlayerData, const FGetMapsResponseDelegate& OnCompletedRequest = FGetMapsResponseDelegate());
-public:
-    ULootLockerMapsRequestHandler();
-    
-    static ULootLockerHttpClient* HttpClient;
 };

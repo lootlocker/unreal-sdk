@@ -1,10 +1,10 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "GameAPI/LootLockerPlayerRequestHandler.h"
-#include "LootLockerHttpClient.h"
 #include "GameAPI/LootLockerAssetsRequestHandler.h"
 #include "UObject/NoExportTypes.h"
 #include "LootLockerResponse.h"
+#include "LootLockerPlayerData.h"
 #include "JsonObjectConverter.h"
 #include "LootLockerHeroRequestHandler.generated.h"
 
@@ -174,6 +174,8 @@ class LOOTLOCKERSDK_API ULootLockerHeroRequestHandler : public UObject
 {
 	GENERATED_BODY()
 public:
+	ULootLockerHeroRequestHandler() {};
+
 	static void GetGameHeroes(const FLootLockerPlayerData& PlayerData, const FLootLockerGameHeroListDelegate& OnComplete);
 	static void ListPlayerHeroes(const FLootLockerPlayerData& PlayerData, const FLootLockerHeroListDelegate& OnComplete);
 	static void ListOtherPlayersHeroesBySteamID64(const FLootLockerPlayerData& PlayerData, const int64 SteamID64, const FLootLockerHeroListDelegate& OnComplete);
@@ -190,7 +192,4 @@ public:
 	static void AddGlobalAssetToHeroLoadout(const FLootLockerPlayerData& PlayerData, const int32 HeroID, const int32 AssetID, const FHeroLoadoutReseponseDelegate& OnComplete);
 	static void AddGlobalAssetVariationToHeroLoadout(const FLootLockerPlayerData& PlayerData, const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseDelegate& OnComplete);
 	static void RemoveAssetToHeroLoadout(const FLootLockerPlayerData& PlayerData, const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseDelegate& OnComplete);
-
-	ULootLockerHeroRequestHandler();
-	static ULootLockerHttpClient* HttpClient;
 };

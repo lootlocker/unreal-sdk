@@ -5,61 +5,54 @@
 
 #include "Utils/LootLockerUtilities.h"
 
-ULootLockerHttpClient* ULootLockerConnectedAccountsRequestHandler::HttpClient = nullptr;
-
-ULootLockerConnectedAccountsRequestHandler::ULootLockerConnectedAccountsRequestHandler()
-{
-    HttpClient = NewObject<ULootLockerHttpClient>();
-}
-
 void ULootLockerConnectedAccountsRequestHandler::ListConnectedAccounts(const FLootLockerPlayerData& PlayerData, const FLootLockerListConnectedAccountsResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerListConnectedAccountsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListConnectedAccountsEndpoint, {}, {}, PlayerData, OnComplete);
+    LLAPI<FLootLockerListConnectedAccountsResponse>::CallAPI(FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListConnectedAccountsEndpoint, {}, {}, PlayerData, OnComplete);
 }
 
 void ULootLockerConnectedAccountsRequestHandler::DisconnectAccount(const FLootLockerPlayerData& PlayerData, const ELootLockerAccountProvider AccountToDisconnect, const FLootLockerDefaultDelegate& OnComplete)
 {
-    LLAPI<FLootLockerResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::DisconnectAccountEndpoint, { ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerAccountProvider"), static_cast<int32>(AccountToDisconnect)).ToLower() }, {}, PlayerData, OnComplete);
+    LLAPI<FLootLockerResponse>::CallAPI(FLootLockerEmptyRequest(), ULootLockerGameEndpoints::DisconnectAccountEndpoint, { ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerAccountProvider"), static_cast<int32>(AccountToDisconnect)).ToLower() }, {}, PlayerData, OnComplete);
 }
 
 void ULootLockerConnectedAccountsRequestHandler::ConnectGoogleAccount(const FLootLockerPlayerData& PlayerData, const FString& IdToken, const FLootLockerAccountConnectedResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(HttpClient, FLootLockerConnectGoogleProviderToAccountRequest{ IdToken }, ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint, { FString("google") }, {}, PlayerData, OnComplete);
+    LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(FLootLockerConnectGoogleProviderToAccountRequest{ IdToken }, ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint, { FString("google") }, {}, PlayerData, OnComplete);
 }
 
 void ULootLockerConnectedAccountsRequestHandler::ConnectGoogleAccount(const FLootLockerPlayerData& PlayerData, const FString& IdToken, EGoogleAccountProviderPlatform Platform, const FLootLockerAccountConnectedResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(HttpClient, FLootLockerConnectGoogleProviderToAccountWithPlatformRequest{ IdToken, ULootLockerEnumUtils::GetEnum(TEXT("EGoogleAccountProviderPlatform"), static_cast<int32>(Platform)) }, ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint, { FString("google") }, {}, PlayerData, OnComplete);
+    LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(FLootLockerConnectGoogleProviderToAccountWithPlatformRequest{ IdToken, ULootLockerEnumUtils::GetEnum(TEXT("EGoogleAccountProviderPlatform"), static_cast<int32>(Platform)) }, ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint, { FString("google") }, {}, PlayerData, OnComplete);
 }
 
 void ULootLockerConnectedAccountsRequestHandler::ConnectAppleAccountByRestSignIn(const FLootLockerPlayerData& PlayerData, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(HttpClient, FLootLockerConnectAppleRestProviderToAccountRequest{ AuthorizationCode }, ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint, { FString("apple-rest") }, {}, PlayerData, OnComplete);
+    LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(FLootLockerConnectAppleRestProviderToAccountRequest{ AuthorizationCode }, ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint, { FString("apple-rest") }, {}, PlayerData, OnComplete);
 }
 
 void ULootLockerConnectedAccountsRequestHandler::ConnectEpicAccount(const FLootLockerPlayerData& PlayerData, const FString& Token, const FLootLockerAccountConnectedResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(HttpClient, FLootLockerConnectEpicProviderToAccountRequest{ Token }, ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint, { FString("epic") }, {}, PlayerData, OnComplete);
+    LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(FLootLockerConnectEpicProviderToAccountRequest{ Token }, ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint, { FString("epic") }, {}, PlayerData, OnComplete);
 }
 
 void ULootLockerConnectedAccountsRequestHandler::ConnectPlaystationAccount(const FLootLockerPlayerData& PlayerData, const FString& Environment, const FString& Code, const FLootLockerAccountConnectedResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(HttpClient, FLootLockerConnectPlaystationProviderToAccountRequest{ Environment, Code }, ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint, { FString("playstation") }, {}, PlayerData, OnComplete);
+    LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(FLootLockerConnectPlaystationProviderToAccountRequest{ Environment, Code }, ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint, { FString("playstation") }, {}, PlayerData, OnComplete);
 }
 
 void ULootLockerConnectedAccountsRequestHandler::ConnectDiscordAccount(const FLootLockerPlayerData& PlayerData, const FString& Token, const FLootLockerAccountConnectedResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(HttpClient, FLootLockerConnectDiscordProviderToAccountRequest{ Token }, ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint, { FString("discord") }, {}, PlayerData, OnComplete);
+    LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(FLootLockerConnectDiscordProviderToAccountRequest{ Token }, ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint, { FString("discord") }, {}, PlayerData, OnComplete);
 }
 
 void ULootLockerConnectedAccountsRequestHandler::ConnectTwitchAccount(const FLootLockerPlayerData& PlayerData, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(HttpClient, FLootLockerConnectTwitchProviderToAccountRequest{ AuthorizationCode }, ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint, { FString("twitch") }, {}, PlayerData, OnComplete);
+    LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(FLootLockerConnectTwitchProviderToAccountRequest{ AuthorizationCode }, ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint, { FString("twitch") }, {}, PlayerData, OnComplete);
 }
 
 void ULootLockerConnectedAccountsRequestHandler::ConnectRemoteSessionAccount(const FLootLockerPlayerData& PlayerData, const FString& Code, const FString& Nonce, const FLootLockerAccountConnectedResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(HttpClient, FLootLockerConnectRemoteSessionToAccountRequest{ Code, Nonce }, ULootLockerGameEndpoints::AttachRemoteSessionToAccountEndpoint, {}, {}, PlayerData, OnComplete);
+    LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(FLootLockerConnectRemoteSessionToAccountRequest{ Code, Nonce }, ULootLockerGameEndpoints::AttachRemoteSessionToAccountEndpoint, {}, {}, PlayerData, OnComplete);
 }
 
 void ULootLockerConnectedAccountsRequestHandler::TransferIdentityProvidersBetweenAccounts(const FLootLockerPlayerData& SourcePlayerData, const FLootLockerPlayerData& TargetPlayerData,	TArray<ELootLockerAccountProvider> ProvidersToTransfer,	const FLootLockerListConnectedAccountsResponseDelegate& OnComplete)
@@ -98,5 +91,5 @@ void ULootLockerConnectedAccountsRequestHandler::TransferIdentityProvidersBetwee
         providers
     };
 
-    LLAPI<FLootLockerListConnectedAccountsResponse>::CallAPI(HttpClient, Request, ULootLockerGameEndpoints::TransferProvidersBetweenAccountsEndpoint, {}, {}, SourcePlayerData, OnComplete);
+    LLAPI<FLootLockerListConnectedAccountsResponse>::CallAPI(Request, ULootLockerGameEndpoints::TransferProvidersBetweenAccountsEndpoint, {}, {}, SourcePlayerData, OnComplete);
 }

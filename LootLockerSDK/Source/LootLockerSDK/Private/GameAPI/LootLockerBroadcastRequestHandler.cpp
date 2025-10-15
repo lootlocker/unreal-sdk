@@ -5,13 +5,6 @@
 #include "LootLockerSDK.h"
 #include "Utils/LootLockerUtilities.h"
 
-ULootLockerHttpClient* ULootLockerBroadcastRequestHandler::HttpClient = nullptr;
-
-ULootLockerBroadcastRequestHandler::ULootLockerBroadcastRequestHandler()
-{
-    HttpClient = NewObject<ULootLockerHttpClient>();
-}
-
 void ULootLockerBroadcastRequestHandler::ListBroadcasts(const FLootLockerPlayerData& PlayerData, const TArray<FString>& Languages, int32 Limit, const FLootLockerListBroadcastsResponseDelegate& OnComplete)
 {
     TMap<FString, FString> CustomHeaders;
@@ -26,7 +19,6 @@ void ULootLockerBroadcastRequestHandler::ListBroadcasts(const FLootLockerPlayerD
     }
     
     LLAPI<FLootLockerInternalListBroadcastsResponse>::CallAPI(
-        HttpClient, 
         FLootLockerEmptyRequest{}, 
         ULootLockerGameEndpoints::ListBroadcasts, 
         {}, 
