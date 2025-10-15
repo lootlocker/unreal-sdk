@@ -2,20 +2,12 @@
 #include "LootLockerGameEndpoints.h"
 #include "Utils/LootLockerUtilities.h"
 
-ULootLockerHttpClient* ULootLockerFollowersRequestHandler::HttpClient = nullptr;
-
-ULootLockerFollowersRequestHandler::ULootLockerFollowersRequestHandler()
-{
-    HttpClient = NewObject<ULootLockerHttpClient>();
-}
-
-
 // List followers for a specific player
 void ULootLockerFollowersRequestHandler::ListFollowers(const FLootLockerPlayerData& PlayerData, const FString& PlayerPublicId, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted)
 {
     TArray<FStringFormatArg> PathParams;
     PathParams.Add(PlayerPublicId);
-    LLAPI<FLootLockerListFollowersResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListFollowersEndpoint, PathParams, {}, PlayerData, OnResponseCompleted);
+    LLAPI<FLootLockerListFollowersResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListFollowersEndpoint, PathParams, {}, PlayerData, OnResponseCompleted);
 }
 
 void ULootLockerFollowersRequestHandler::ListFollowersPaginated(const FLootLockerPlayerData& PlayerData, const FString& PlayerPublicId, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted)
@@ -24,7 +16,7 @@ void ULootLockerFollowersRequestHandler::ListFollowersPaginated(const FLootLocke
     TMultiMap<FString, FString> QueryParams;
     if(!Cursor.IsEmpty()) { QueryParams.Add(TEXT("cursor"), Cursor); }
     if(Count>0){ QueryParams.Add(TEXT("per_page"), FString::FromInt(Count)); }
-    LLAPI<FLootLockerListFollowersResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListFollowersEndpoint, PathParams, QueryParams, PlayerData, OnResponseCompleted);
+    LLAPI<FLootLockerListFollowersResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListFollowersEndpoint, PathParams, QueryParams, PlayerData, OnResponseCompleted);
 }
 
 // List followers for the requesting player
@@ -43,7 +35,7 @@ void ULootLockerFollowersRequestHandler::ListFollowing(const FLootLockerPlayerDa
 {
     TArray<FStringFormatArg> PathParams;
     PathParams.Add(PlayerPublicId);
-    LLAPI<FLootLockerListFollowersResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListFollowingEndpoint, PathParams, {}, PlayerData, OnResponseCompleted);
+    LLAPI<FLootLockerListFollowersResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListFollowingEndpoint, PathParams, {}, PlayerData, OnResponseCompleted);
 }
 
 void ULootLockerFollowersRequestHandler::ListFollowingPaginated(const FLootLockerPlayerData& PlayerData, const FString& PlayerPublicId, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted)
@@ -52,7 +44,7 @@ void ULootLockerFollowersRequestHandler::ListFollowingPaginated(const FLootLocke
     TMultiMap<FString, FString> QueryParams;
     if(!Cursor.IsEmpty()) { QueryParams.Add(TEXT("cursor"), Cursor); }
     if(Count>0){ QueryParams.Add(TEXT("per_page"), FString::FromInt(Count)); }
-    LLAPI<FLootLockerListFollowersResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListFollowingEndpoint, PathParams, QueryParams, PlayerData, OnResponseCompleted);
+    LLAPI<FLootLockerListFollowersResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListFollowingEndpoint, PathParams, QueryParams, PlayerData, OnResponseCompleted);
 }
 
 // List following for the requesting player
@@ -71,7 +63,7 @@ void ULootLockerFollowersRequestHandler::FollowPlayer(const FLootLockerPlayerDat
 {
     TArray<FStringFormatArg> PathParams;
     PathParams.Add(PlayerPublicId);
-    LLAPI<FLootLockerFollowActionResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::FollowPlayerEndpoint, PathParams, {}, PlayerData, OnResponseCompleted);
+    LLAPI<FLootLockerFollowActionResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::FollowPlayerEndpoint, PathParams, {}, PlayerData, OnResponseCompleted);
 }
 
 // Unfollow a player
@@ -79,5 +71,5 @@ void ULootLockerFollowersRequestHandler::UnfollowPlayer(const FLootLockerPlayerD
 {
     TArray<FStringFormatArg> PathParams;
     PathParams.Add(PlayerPublicId);
-    LLAPI<FLootLockerFollowActionResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::UnfollowPlayerEndpoint, PathParams, {}, PlayerData, OnResponseCompleted);
+    LLAPI<FLootLockerFollowActionResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::UnfollowPlayerEndpoint, PathParams, {}, PlayerData, OnResponseCompleted);
 }

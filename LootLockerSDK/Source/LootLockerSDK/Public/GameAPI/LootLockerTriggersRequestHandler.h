@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
-#include "LootLockerHttpClient.h"
+#include "LootLockerPlayerData.h"
 #include "LootLockerTriggersRequestHandler.generated.h"
 
 //==================================================
@@ -114,9 +114,7 @@ class LOOTLOCKERSDK_API ULootLockerTriggersRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
+    ULootLockerTriggersRequestHandler() {};
+
     static void InvokeTriggersByKey(const FLootLockerPlayerData& PlayerData, const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseDelegate& OnComplete);
-
-    ULootLockerTriggersRequestHandler();
-
-    static ULootLockerHttpClient* HttpClient;
 };

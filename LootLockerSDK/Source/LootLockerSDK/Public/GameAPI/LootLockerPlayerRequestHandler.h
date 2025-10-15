@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
+#include "LootLockerPlayerData.h"
 #include "GameAPI/LootLockerAssetsRequestHandler.h"
 #include "LootLockerPlayerRequestHandler.generated.h"
 
@@ -369,7 +370,8 @@ class LOOTLOCKERSDK_API ULootLockerPlayerRequestHandler : public UObject
 {
 	GENERATED_BODY()
 public:
-	ULootLockerPlayerRequestHandler();
+	ULootLockerPlayerRequestHandler() {};
+
 	static void GetCurrentPlayerInfo(const FLootLockerPlayerData& PlayerData, const FLootLockerGetCurrentPlayerInfoResponseDelegate& OnCompletedRequest);
 	static void ListPlayerInfo(const FLootLockerPlayerData& PlayerData, TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseDelegate& OnCompletedRequest);
 	static void GetInventory(const FLootLockerPlayerData& PlayerData, const FInventoryResponse& OnCompletedRequest);
@@ -387,7 +389,4 @@ public:
 	static void LookupMultiplePlayersDataUsingIDs(const FLootLockerPlayerData& PlayerData, FLootLockerLookupMultiplePlayersDataRequest Request, const FPMultiplePlayerNames& OnCompletedRequest);
 	static void LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerPlayerData& PlayerData, const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest);
     static void DeletePlayer(const FLootLockerPlayerData& PlayerData, const FLootLockerDefaultDelegate OnCompletedRequest);
-
-public:
-	static ULootLockerHttpClient* HttpClient;
 };

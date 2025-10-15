@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "LootLockerHttpClient.h"
+#include "LootLockerPlayerData.h"
 #include "LootLockerResponse.h"
 #include "LootLockerFriendsRequestHandler.generated.h"
 
@@ -199,7 +199,7 @@ class LOOTLOCKERSDK_API ULootLockerFriendsRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
-    ULootLockerFriendsRequestHandler();
+    ULootLockerFriendsRequestHandler() {};
 
     static void ListFriends(const FLootLockerPlayerData& PlayerData, const FLootLockerListFriendsResponseDelegate& OnResponseCompleted = FLootLockerListFriendsResponseDelegate());
     static void ListFriendsPaginated(const FLootLockerPlayerData& PlayerData, int32 Page, int32 PerPage, const FLootLockerListFriendsResponseDelegate& OnResponseCompleted = FLootLockerListFriendsResponseDelegate());
@@ -228,6 +228,4 @@ public:
     static void BlockPlayer(const FLootLockerPlayerData& PlayerData, const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted = FLootLockerFriendActionResponseDelegate());
 
     static void UnblockPlayer(const FLootLockerPlayerData& PlayerData, const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted = FLootLockerFriendActionResponseDelegate());
-
-    static ULootLockerHttpClient* HttpClient;
 };
