@@ -5,8 +5,8 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "LootLockerResponse.h"
+#include "LootLockerPlayerData.h"
 #include "JsonObjectConverter.h"
-#include "LootLockerHttpClient.h"
 #include "LootLockerMessagesRequestHandler.generated.h"
 
 USTRUCT(BlueprintType)
@@ -46,10 +46,7 @@ class LOOTLOCKERSDK_API ULootLockerMessagesRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
+    ULootLockerMessagesRequestHandler() {};
     
     static void GetMessages(const FLootLockerPlayerData& PlayerData, const FMessagesResponseDelegate& OnCompletedRequest = FMessagesResponseDelegate());
-public:
-    ULootLockerMessagesRequestHandler();
-    
-    static ULootLockerHttpClient* HttpClient;
 };

@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerAuthenticationRequestHandler.h"
-#include "LootLockerHttpClient.h"
 #include "LootLockerResponse.h"
 #include "TimerManager.h"
 #include "Kismet/BlueprintAsyncActionBase.h"
@@ -370,7 +369,7 @@ class LOOTLOCKERSDK_API ULootLockerRemoteSessionRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
-    ULootLockerRemoteSessionRequestHandler();
+    ULootLockerRemoteSessionRequestHandler() {};
 
     static void CancelRemoteSessionProcess(const FString& ProcessID);
     static FString StartRemoteSession(
@@ -398,7 +397,7 @@ protected:
     static void SetTimer(FTimerHandle TimerHandle, const FTimerDelegate& BaseDelegate, float TimeToNextPoll);
     static void ClearTimer(FTimerHandle TimerHandle);
 private:
-    static ULootLockerHttpClient* HttpClient;
+    
     static TMap<FString, FLootLockerRemoteSessionProcess> RemoteSessionProcesses;
 };
 

@@ -3,7 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "LootLockerHttpClient.h"
+#include "LootLockerResponse.h"
+#include "LootLockerPlayerData.h"
 #include "LootLockerConnectedAccountsRequestHandler.generated.h"
 
 //==================================================
@@ -285,7 +286,7 @@ class LOOTLOCKERSDK_API ULootLockerConnectedAccountsRequestHandler : public UObj
 {
     GENERATED_BODY()
 public:
-    ULootLockerConnectedAccountsRequestHandler();
+    ULootLockerConnectedAccountsRequestHandler() {};
 
     static void ListConnectedAccounts(const FLootLockerPlayerData& PlayerData, const FLootLockerListConnectedAccountsResponseDelegate& OnComplete = FLootLockerListConnectedAccountsResponseDelegate());
     static void DisconnectAccount(const FLootLockerPlayerData& PlayerData, const ELootLockerAccountProvider AccountToDisconnect, const FLootLockerDefaultDelegate& OnComplete = FLootLockerDefaultDelegate());
@@ -298,6 +299,4 @@ public:
     static void ConnectTwitchAccount(const FLootLockerPlayerData& PlayerData, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseDelegate& OnComplete = FLootLockerAccountConnectedResponseDelegate());
     static void ConnectRemoteSessionAccount(const FLootLockerPlayerData& PlayerData, const FString& Code, const FString& Nonce, const FLootLockerAccountConnectedResponseDelegate& OnComplete = FLootLockerAccountConnectedResponseDelegate());
     static void TransferIdentityProvidersBetweenAccounts(const FLootLockerPlayerData& SourcePlayerData, const FLootLockerPlayerData& TargetPlayerData, TArray<ELootLockerAccountProvider> ProvidersToTransfer, const FLootLockerListConnectedAccountsResponseDelegate& OnComplete = FLootLockerListConnectedAccountsResponseDelegate());
-private:
-    static ULootLockerHttpClient* HttpClient;
 };

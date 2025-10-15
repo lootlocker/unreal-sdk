@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "LootLockerResponse.h"
-#include "LootLockerHttpClient.h"
+#include "LootLockerPlayerData.h"
 #include "LootLockerProgressionsRequestHandler.generated.h"
 
 /* PURE DATA STRUCTS */
@@ -319,7 +319,7 @@ class LOOTLOCKERSDK_API ULootLockerProgressionsRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
-    ULootLockerProgressionsRequestHandler();
+    ULootLockerProgressionsRequestHandler() {};
 
     static void GetPlayerProgressions(const FLootLockerPlayerData& PlayerData, const int32 Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete = FLootLockerPaginatedPlayerProgressionsResponseDelegate());
     static void GetPlayerProgression(const FLootLockerPlayerData& PlayerData, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseDelegate& OnComplete = FLootLockerPlayerProgressionResponseDelegate());
@@ -347,6 +347,4 @@ public:
     static void SubtractPointsFromInstanceProgression(const FLootLockerPlayerData& PlayerData, const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseDelegate& OnComplete = FLootLockerInstanceProgressionWithRewardsResponseDelegate());
     static void ResetInstanceProgression(const FLootLockerPlayerData& PlayerData, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionWithRewardsResponseDelegate& OnComplete = FLootLockerInstanceProgressionWithRewardsResponseDelegate());
     static void DeleteInstanceProgression(const FLootLockerPlayerData& PlayerData, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerDeleteProgressionDelegate& OnComplete = FLootLockerDeleteProgressionDelegate());
-
-    static ULootLockerHttpClient* HttpClient;
 };
