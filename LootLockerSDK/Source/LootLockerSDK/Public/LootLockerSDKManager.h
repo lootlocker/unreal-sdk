@@ -2526,7 +2526,7 @@ public:
     //==================================================
 
     /**
-     * List broadcast messages for this game with default localisation and pagination settings
+     * List broadcast messages for this game with default localisation and limit
      *
      * @param OnComplete Delegate for handling the server response
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
@@ -2534,7 +2534,7 @@ public:
     static void ListTopBroadcasts(const FLootLockerListBroadcastsResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
     /**
-     * List broadcast messages for this game with specified localisation and default pagination settings
+     * List broadcast messages for this game with specified localisation and default limit
      *
      * @param Languages Array of language codes to get localized broadcasts for
      * @param OnComplete Delegate for handling the server response
@@ -2546,12 +2546,11 @@ public:
      * List broadcast messages chronologically
      *
      * @param Languages Array of language codes to get localized broadcasts for
-     * @param PerPage Number of broadcasts per page
-     * @param Page Page number for pagination
+     * @param Limit The count of items you want to retrieve.
      * @param OnComplete Delegate for handling the server response
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void ListBroadcasts(const TArray<FString>& Languages, int32 PerPage, int32 Page, const FLootLockerListBroadcastsResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
+    static void ListBroadcasts(const TArray<FString>& Languages, int32 Limit, const FLootLockerListBroadcastsResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
     //==================================================
     //Collectables

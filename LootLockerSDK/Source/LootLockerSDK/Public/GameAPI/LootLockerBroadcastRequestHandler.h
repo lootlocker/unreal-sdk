@@ -251,9 +251,6 @@ struct FLootLockerInternalListBroadcastsResponse : public FLootLockerResponse
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerInternalBroadcast> broadcasts;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FLootLockerKeyBasedPagination pagination;
 };
 
 /**
@@ -269,12 +266,6 @@ struct FLootLockerListBroadcastsResponse : public FLootLockerResponse
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerBroadcast> broadcasts;
-    
-    /**
-     * Pagination information for the request
-     */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FLootLockerKeyBasedPagination pagination;
 
 public:
     FLootLockerListBroadcastsResponse() {};
@@ -303,7 +294,7 @@ class LOOTLOCKERSDK_API ULootLockerBroadcastRequestHandler : public UObject
 
 public:
 	ULootLockerBroadcastRequestHandler();
-    static void ListBroadcasts(const FLootLockerPlayerData& PlayerData, const TArray<FString>& Languages, int32 PerPage, int32 Page, const FLootLockerListBroadcastsResponseBP& OnCompleteBP = FLootLockerListBroadcastsResponseBP(), const FLootLockerListBroadcastsResponseDelegate& OnComplete = FLootLockerListBroadcastsResponseDelegate());
+    static void ListBroadcasts(const FLootLockerPlayerData& PlayerData, const TArray<FString>& Languages, int32 Limit, const FLootLockerListBroadcastsResponseBP& OnCompleteBP = FLootLockerListBroadcastsResponseBP(), const FLootLockerListBroadcastsResponseDelegate& OnComplete = FLootLockerListBroadcastsResponseDelegate());
 public:
 	static ULootLockerHttpClient* HttpClient;
 };

@@ -12,7 +12,7 @@ ULootLockerBroadcastRequestHandler::ULootLockerBroadcastRequestHandler()
     HttpClient = NewObject<ULootLockerHttpClient>();
 }
 
-void ULootLockerBroadcastRequestHandler::ListBroadcasts(const FLootLockerPlayerData& PlayerData, const TArray<FString>& Languages, int32 PerPage, int32 Page, const FLootLockerListBroadcastsResponseBP& OnCompleteBP, const FLootLockerListBroadcastsResponseDelegate& OnComplete)
+void ULootLockerBroadcastRequestHandler::ListBroadcasts(const FLootLockerPlayerData& PlayerData, const TArray<FString>& Languages, int32 Limit, const FLootLockerListBroadcastsResponseBP& OnCompleteBP, const FLootLockerListBroadcastsResponseDelegate& OnComplete)
 {
     TMap<FString, FString> CustomHeaders;
     if (Languages.Num() > 0)
@@ -20,13 +20,9 @@ void ULootLockerBroadcastRequestHandler::ListBroadcasts(const FLootLockerPlayerD
         CustomHeaders.Add("Accept-Language", FString::Join(Languages, TEXT(",")));
     }
     TMultiMap<FString, FString> QueryParams;
-    if (PerPage > -1)
+    if (Limit > 0)
     {
-        QueryParams.Add("per_page", FString::FromInt(PerPage));
-    }
-    if (Page > -1)
-    {
-        QueryParams.Add("page", FString::FromInt(Page));
+        QueryParams.Add("limit", FString::FromInt(Limit));
     }
     
     LLAPI<FLootLockerInternalListBroadcastsResponse>::CallAPI(
@@ -49,9 +45,7 @@ void ULootLockerBroadcastRequestHandler::ListBroadcasts(const FLootLockerPlayerD
 }
 
 FLootLockerListBroadcastsResponse::FLootLockerListBroadcastsResponse(const FLootLockerInternalListBroadcastsResponse& OtherResponse) : FLootLockerResponse{OtherResponse.success, OtherResponse.StatusCode, OtherResponse.FullTextFromServer, OtherResponse.ErrorData, OtherResponse.Context}
-{
-    pagination = OtherResponse.pagination;
-    
+{    
     for (const FLootLockerInternalBroadcast& OtherBroadcast : OtherResponse.broadcasts)
     {
         broadcasts.Add(FLootLockerBroadcast(OtherBroadcast));

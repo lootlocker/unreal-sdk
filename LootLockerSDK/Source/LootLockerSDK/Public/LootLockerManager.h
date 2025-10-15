@@ -2574,16 +2574,15 @@ public:
     //==================================================
 
     /**
-     List broadcast messages for this game with specified localisation and pagination settings
+     List broadcast messages for this game with specified localisation and limit
 
      @param Languages Optional: Array of language codes to get localized broadcasts for
-     @param PerPage Optional: Number of broadcasts per page
-     @param Page Optional: Page number for pagination
+     @param Limit Optional: The count of items you want to retrieve.
      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
      @param OnComplete Delegate for handling the server response
     */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Broadcasts", meta = (AdvancedDisplay = "Languages,PerPage,Page,ForPlayerWithUlid", ForPlayerWithUlid = "", PerPage = -1, Page = -1, AutoCreateRefTerm="Languages"))
-    static void ListBroadcasts(const TArray<FString>& Languages, int32 PerPage, int32 Page, const FString& ForPlayerWithUlid, const FLootLockerListBroadcastsResponseBP& OnComplete);
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Broadcasts", meta = (AdvancedDisplay = "Languages,Limit,ForPlayerWithUlid", ForPlayerWithUlid = "", Limit = -1, AutoCreateRefTerm="Languages"))
+    static void ListBroadcasts(const TArray<FString>& Languages, int32 Limit, const FString& ForPlayerWithUlid, const FLootLockerListBroadcastsResponseBP& OnComplete);
 
     //==================================================
     //Collectables
