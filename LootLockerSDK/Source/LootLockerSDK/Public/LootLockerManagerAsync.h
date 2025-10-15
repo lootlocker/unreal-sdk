@@ -161,3 +161,45 @@ protected:
     // Store the optionals to use later
     FLootLockerSessionOptionals Optionals;
 };
+
+/**
+ * Multicast Delegate for events triggered from the LootLockerAsyncStartGuestSession node
+ */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLootLockerGuestSessionAsync2Delegate, FLootLockerAuthenticationResponse, ResponseInformation);
+/***/
+UCLASS()
+class ULootLockerAsyncStartGuestSession2 : public UBlueprintAsyncActionBase
+{
+    GENERATED_BODY()
+public:
+    /**
+     Start a guest session. Optionally provide a custom unique PlayerIdentifier (otherwise one will be generated).
+
+     On success, SessionData will contain the session token and player details.
+
+     On failure, ErrorData will contain the details of the failure.
+     
+     @param WorldContextObject Non input: Automatic context for async node
+     @param PlayerIdentifier Optional: Custom unique identifier to associate with this guest player (auto-generated if empty)
+     @param Optionals Optional: Additional session options applied when starting the session
+     */
+    UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", Category = "LootLocker | Authentication", WorldContext = "WorldContextObject", AdvancedDisplay = "PlayerIdentifier,Optionals", PlayerIdentifier = "", AutoCreateRefTerm = "Optionals"))
+    static LOOTLOCKERSDK_API ULootLockerAsyncStartGuestSession2* AsyncStartGuestSession2(UObject* WorldContextObject, const FString& PlayerIdentifier, const FLootLockerSessionOptionals& Optionals);
+
+
+	  /** Triggered on success */
+    UPROPERTY(BlueprintAssignable)
+    FLootLockerGuestSessionAsync2Delegate OnSuccess;
+    /** Triggered on failure */
+    UPROPERTY(BlueprintAssignable)
+    FLootLockerGuestSessionAsync2Delegate OnFailure;
+
+    /** Execute the actual operation */
+    LOOTLOCKERSDK_API virtual void Activate() override;
+
+protected:
+    // Store the player identifier to use later
+    FString PlayerIdentifier;
+    // Store the optionals to use later
+    FLootLockerSessionOptionals Optionals;
+};

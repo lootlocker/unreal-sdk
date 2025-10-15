@@ -61,3 +61,28 @@ ULootLockerAsyncStartGuestSession* ULootLockerAsyncStartGuestSession::AsyncStart
 	Action->RegisterWithGameInstance(WorldContextObject);
 	return Action;
 }
+
+void ULootLockerAsyncStartGuestSession2::Activate()
+{
+	Super::Activate();
+
+    ULootLockerSDKManager::GuestLogin(FLootLockerSessionResponse::CreateLambda([this](const FLootLockerAuthenticationResponse& Response) {
+        if (Response.success)
+        {
+            OnSuccess.Broadcast(Response);
+        }
+        else
+        {
+            OnFailure.Broadcast(Response);
+        }
+    }), PlayerIdentifier, Optionals);
+}
+
+ULootLockerAsyncStartGuestSession2* ULootLockerAsyncStartGuestSession2::AsyncStartGuestSession2(UObject* WorldContextObject, const FString& PlayerIdentifier, const FLootLockerSessionOptionals& Optionals)
+{
+	ULootLockerAsyncStartGuestSession2* Action = NewObject<ULootLockerAsyncStartGuestSession2>();
+	Action->PlayerIdentifier = PlayerIdentifier;
+	Action->Optionals = Optionals;
+	Action->RegisterWithGameInstance(WorldContextObject);
+	return Action;
+}
