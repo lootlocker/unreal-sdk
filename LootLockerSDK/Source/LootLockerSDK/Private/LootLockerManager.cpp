@@ -1101,9 +1101,9 @@ bool ULootLockerManager::TryGetNotificationsByIdentifyingValue(const FLootLocker
 
 // Broadcasts
 
-void ULootLockerManager::ListBroadcasts(const TArray<FString>& Languages, int32 PerPage, int32 Page, const FString& ForPlayerWithUlid, const FLootLockerListBroadcastsResponseBP& OnComplete)
+void ULootLockerManager::ListBroadcasts(const TArray<FString>& Languages, int32 Limit, const FString& ForPlayerWithUlid, const FLootLockerListBroadcastsResponseBP& OnComplete)
 {
-    ULootLockerBroadcastRequestHandler::ListBroadcasts(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Languages, PerPage, Page, OnComplete);
+    ULootLockerBroadcastRequestHandler::ListBroadcasts(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Languages, Limit, OnComplete);
 }
 
 // Collectables
