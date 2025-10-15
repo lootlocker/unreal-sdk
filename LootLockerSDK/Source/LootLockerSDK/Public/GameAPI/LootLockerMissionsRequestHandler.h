@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
+#include "LootLockerPlayerData.h"
 #include "GameAPI/LootLockerAssetsRequestHandler.h"
 #include "LootLockerMissionsRequestHandler.generated.h"
 
@@ -151,8 +152,8 @@ class LOOTLOCKERSDK_API ULootLockerMissionsRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
-    ULootLockerMissionsRequestHandler();
-    
+    ULootLockerMissionsRequestHandler() {};
+
     static void GetAllMissions(const FLootLockerPlayerData& PlayerData, const FMissionsResponseDelegate& OnCompletedRequest = FMissionsResponseDelegate());
 
     static void GetMission(const FLootLockerPlayerData& PlayerData, int MissionId, const FMissionResponseDelegate& OnCompletedRequest = FMissionResponseDelegate());
@@ -160,7 +161,4 @@ public:
     static void StartMission(const FLootLockerPlayerData& PlayerData, int MissionId, const FStartMissionResponseDelegate& OnCompletedRequest = FStartMissionResponseDelegate());
 
     static void FinishMission(const FLootLockerPlayerData& PlayerData, int MissionId, const FLootLockerFinishMissionData& MissionData, const FFinishMissionResponseDelegate& OnCompletedRequest = FFinishMissionResponseDelegate());
-
-public:
-    static ULootLockerHttpClient* HttpClient;
 };

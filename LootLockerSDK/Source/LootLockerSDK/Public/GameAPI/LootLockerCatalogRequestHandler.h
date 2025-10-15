@@ -3,7 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "LootLockerHttpClient.h"
+#include "LootLockerPlayerData.h"
+#include "LootLockerResponse.h"
 #include "LootLockerCatalogRequestHandler.generated.h"
 
 //==================================================
@@ -689,7 +690,7 @@ class LOOTLOCKERSDK_API ULootLockerCatalogRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
-    ULootLockerCatalogRequestHandler();
+    ULootLockerCatalogRequestHandler() {};
 
     static void ListCatalogs(const FLootLockerPlayerData& PlayerData, const FLootLockerListCatalogsResponseDelegate& OnComplete = FLootLockerListCatalogsResponseDelegate());
     static void ListCatalogItems(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseDelegate& OnComplete = FLootLockerListCatalogPricesResponseDelegate());
@@ -697,6 +698,4 @@ public:
     {
         return Catalog.GetLootLockerInlinedCatalogEntries();
     }
-
-    static ULootLockerHttpClient* HttpClient;
 };

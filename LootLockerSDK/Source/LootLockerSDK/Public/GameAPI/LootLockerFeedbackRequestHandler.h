@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
-#include "LootLockerHttpClient.h"
+#include "LootLockerPlayerData.h"
 #include "LootLockerFeedbackRequestHandler.generated.h"
 
 //==================================================
@@ -114,9 +114,8 @@ class LOOTLOCKERSDK_API ULootLockerFeedbackRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
-    ULootLockerFeedbackRequestHandler();
+    ULootLockerFeedbackRequestHandler() {};
+
     static void ListFeedbackCategories(const FLootLockerPlayerData& PlayerData, const ELootLockerFeedbackType& Type, const FLootLockerListFeedbackCategoryResponseDelegate& OnCompletedRequest = FLootLockerListFeedbackCategoryResponseDelegate());
     static void SendFeedback(const FLootLockerPlayerData& PlayerData, const FString& Ulid, const FString& Description, const FString& CategoryID, const ELootLockerFeedbackType& Type, const FLootLockerSendFeedbackResponseDelegate& OnCompletedRequest = FLootLockerSendFeedbackResponseDelegate());
-private:
-    static ULootLockerHttpClient* HttpClient;
 };

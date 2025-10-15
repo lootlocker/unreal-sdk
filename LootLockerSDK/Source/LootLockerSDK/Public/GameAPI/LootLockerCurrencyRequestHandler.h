@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "LootLockerHttpClient.h"
 #include "LootLockerResponse.h"
+#include "LootLockerPlayerData.h"
 #include "LootLockerCurrencyRequestHandler.generated.h"
 
 //==================================================
@@ -183,11 +183,9 @@ class LOOTLOCKERSDK_API ULootLockerCurrencyRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
-    ULootLockerCurrencyRequestHandler();
+    ULootLockerCurrencyRequestHandler() {};
 
     static void ListCurrencies(const FLootLockerPlayerData& PlayerData, const FLootLockerListCurrenciesResponseDelegate& OnResponseCompleted = FLootLockerListCurrenciesResponseDelegate());
     static void GetCurrencyDetails(const FLootLockerPlayerData& PlayerData, const FString& CurrencyCode, const FLootLockerGetCurrencyDetailsResponseDelegate& OnResponseCompleted = FLootLockerGetCurrencyDetailsResponseDelegate());
     static void GetCurrencyDenominationsByCode(const FLootLockerPlayerData& PlayerData, const FString& CurrencyCode, const FLootLockerListDenominationsResponseDelegate& OnResponseCompleted = FLootLockerListDenominationsResponseDelegate());
-
-    static ULootLockerHttpClient* HttpClient;
 };
