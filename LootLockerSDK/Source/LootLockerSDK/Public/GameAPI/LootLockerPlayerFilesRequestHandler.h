@@ -4,7 +4,7 @@
 #include "CoreMinimal.h"
 #include "Dom/JsonValue.h"
 #include "LootLockerResponse.h"
-#include "LootLockerHttpClient.h"
+#include "LootLockerPlayerData.h"
 #include "LootLockerPlayerFilesRequestHandler.generated.h"
 
 USTRUCT(BlueprintType)
@@ -98,8 +98,8 @@ class LOOTLOCKERSDK_API ULLPlayerFilesRequestHandler : public UObject
 {
 	GENERATED_BODY()
 public:
-    ULLPlayerFilesRequestHandler();
-    static ULootLockerHttpClient* HttpClient;
+	ULLPlayerFilesRequestHandler() {};
+
     static void UploadFile(const FLootLockerPlayerData& PlayerData, const FLootLockerFileUploadRequest& Request, const FLootLockerUploadFileDelegate& OnComplete);
 	static void UpdateFile(const FLootLockerPlayerData& PlayerData, const int32 FileId, const FLootLockerFileUpdateRequest& Request, const FLootLockerUploadFileDelegate& OnComplete);
 	static void ListFiles(const FLootLockerPlayerData& PlayerData, const FLootLockerFileListDelegate& OnComplete);

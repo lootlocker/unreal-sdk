@@ -5,8 +5,8 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "LootLockerResponse.h"
+#include "LootLockerPlayerData.h"
 #include "JsonObjectConverter.h"
-#include "LootLockerHttpClient.h"
 #include "LootLockerMiscellaneousRequestHandler.generated.h"
 
 //==================================================
@@ -90,11 +90,9 @@ class LOOTLOCKERSDK_API ULootLockerMiscellaneousRequestHandler : public UObject
 {
 	GENERATED_BODY()
 public:
-	ULootLockerMiscellaneousRequestHandler();
-    
+	ULootLockerMiscellaneousRequestHandler() {};
+
 	static void GetServerTime(const FLootLockerPlayerData& PlayerData, const FTimeResponseDelegate& OnCompletedRequest = FTimeResponseDelegate());
 	static FString GetLastActivePlatform(const FLootLockerPlayerData& PlayerData);
     static void GetGameInfo(const FGameInfoResponseDelegate& OnCompletedRequest = FGameInfoResponseDelegate());
-public:
-	static ULootLockerHttpClient* HttpClient;
 };

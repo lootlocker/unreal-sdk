@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerAssetsRequestHandler.h"
-#include "LootLockerHttpClient.h"
 #include "LootLockerResponse.h"
+#include "LootLockerPlayerData.h"
 #include "LootLockerCharacterRequestHandler.generated.h"
 
 
@@ -170,7 +170,8 @@ class LOOTLOCKERSDK_API ULootLockerCharacterRequestHandler : public UObject
 {
 	GENERATED_BODY()
 public:
-	ULootLockerCharacterRequestHandler();
+	ULootLockerCharacterRequestHandler() {};
+
 	static void GetCharacterLoadout(const FLootLockerPlayerData& PlayerData, const FCharacterLoadoutResponse& OnCompletedRequest = FCharacterLoadoutResponse());
 	static void UpdateCharacter(const FLootLockerPlayerData& PlayerData, int CharacterId, bool IsDefault, FString Name, const FCharacterLoadoutResponse& OnCompletedRequest = FCharacterLoadoutResponse());
 	static void CreateCharacter(const FLootLockerPlayerData& PlayerData, bool IsDefault, FString CharacterName, FString CharacterId, const FCharacterLoadoutResponse& OnCompletedRequest = FCharacterLoadoutResponse());
@@ -185,12 +186,9 @@ public:
 	static void GetCurrentLoadoutToDefaultCharacter(const FLootLockerPlayerData& PlayerData, const FCharacterLoadoutResponse& OnCompletedRequest = FCharacterLoadoutResponse());
 	static void GetOtherPlayersCurrentLoadoutToDefaultCharacter(const FLootLockerPlayerData& PlayerData, FString& OtherPlayerId, const FString& OtherPlayerPlatform, const FCharacterLoadoutResponse& OnCompletedRequest = FCharacterLoadoutResponse());
 	static void GetEquipableContextsToDefaultCharacter(const FLootLockerPlayerData& PlayerData, const FContextDelegate& OnCompletedRequest = FContextDelegate());
-	static void GetEquipableContextsByCharacterId(const FLootLockerPlayerData& PlayerData, int OtherCharacterId, const FContextDelegate&
-		                                              OnCompletedRequest = FContextDelegate());
+	static void GetEquipableContextsByCharacterId(const FLootLockerPlayerData& PlayerData, int OtherCharacterId, const FContextDelegate& OnCompletedRequest = FContextDelegate());
 	static void GetOtherPlayersCharacterLoadouts(const FLootLockerPlayerData& PlayerData, const FString& OtherPlayerId, const FString& OtherPlayerPlatform, const FCharacterLoadoutResponse& OnCompletedRequest = FCharacterLoadoutResponse());
 	static void GetOtherPlayersCharacterLoadoutsByUid(const FLootLockerPlayerData& PlayerData, const FString& OtherPlayerUid, const FCharacterLoadoutResponse& OnCompletedRequest = FCharacterLoadoutResponse());
-public:
-	static ULootLockerHttpClient* HttpClient;
 };
 
 

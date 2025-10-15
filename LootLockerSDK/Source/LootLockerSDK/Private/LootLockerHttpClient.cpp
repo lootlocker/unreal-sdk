@@ -16,9 +16,36 @@
 const FString ULootLockerHttpClient::UserAgent = FString::Format(TEXT("X-UnrealEngine-Agent/{0}"), { ENGINE_VERSION_STRING });
 const FString ULootLockerHttpClient::UserInstanceIdentifier = FGuid::NewGuid().ToString();
 FString ULootLockerHttpClient::SDKVersion = "";
+TWeakObjectPtr<ULootLockerHttpClient> ULootLockerHttpClient::SingletonInstance = nullptr;
+FCriticalSection ULootLockerHttpClient::SingletonMutex;
 
 ULootLockerHttpClient::ULootLockerHttpClient()
 {
+}
+
+ULootLockerHttpClient* ULootLockerHttpClient::Get()
+{
+    if (SingletonInstance.IsValid())
+    {
+        return SingletonInstance.Get();
+    }
+
+    FScopeLock Lock(&SingletonMutex);
+    if (!SingletonInstance.IsValid())
+    {
+        // Create in transient package so it isn't saved; mark as RF_MarkAsRootSet to avoid GC if desired
+        ULootLockerHttpClient* NewObj = NewObject<ULootLockerHttpClient>(GetTransientPackage());
+        // Optionally prevent GC: NewObj->AddToRoot(); Uncomment if you want it truly persistent.
+        SingletonInstance = NewObj;
+    }
+    return SingletonInstance.Get();
+}
+
+ULootLockerHttpClient& ULootLockerHttpClient::GetRef()
+{
+    ULootLockerHttpClient* Instance = Get();
+    checkf(Instance != nullptr, TEXT("ULootLockerHttpClient singleton instance could not be created."));
+    return *Instance;
 }
 
 void ULootLockerHttpClient::LogFailedRequestInformation(const FLootLockerResponse& Response, const FString& RequestMethod, const FString& Endpoint, const FString& Data, const FString& AllHeadersDelimited)

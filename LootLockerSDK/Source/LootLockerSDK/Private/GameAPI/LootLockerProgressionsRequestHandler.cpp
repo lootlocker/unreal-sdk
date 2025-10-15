@@ -4,44 +4,37 @@
 #include "Utils/LootLockerUtilities.h"
 #include "LootLockerGameEndpoints.h"
 
-ULootLockerHttpClient* ULootLockerProgressionsRequestHandler::HttpClient = nullptr;
-
-ULootLockerProgressionsRequestHandler::ULootLockerProgressionsRequestHandler()
-{
-    HttpClient = NewObject<ULootLockerHttpClient>();
-}
-
 void ULootLockerProgressionsRequestHandler::GetPlayerProgressions(const FLootLockerPlayerData& PlayerData, const int32 Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete /*= FLootLockerPaginatedPlayerProgressionsResponseDelegate()*/)
 {
     TMultiMap<FString, FString> QueryParams;
     if (Count > 0) { QueryParams.Add("count", FString::FromInt(Count)); }
     if (!After.IsEmpty()) { QueryParams.Add("after", After); }
 
-    LLAPI<FLootLockerPaginatedPlayerProgressionResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAllPlayerProgressions, {}, QueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerPaginatedPlayerProgressionResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAllPlayerProgressions, {}, QueryParams, PlayerData, OnComplete);
 }
 
 void ULootLockerProgressionsRequestHandler::GetPlayerProgression(const FLootLockerPlayerData& PlayerData, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseDelegate& OnComplete /*= FLootLockerPlayerProgressionResponseDelegate()*/)
 {
-    LLAPI<FLootLockerPlayerProgressionResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetSinglePlayerProgression, { ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerPlayerProgressionResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetSinglePlayerProgression, { ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
 }
 void ULootLockerProgressionsRequestHandler::AddPointsToPlayerProgression(const FLootLockerPlayerData& PlayerData, const FString& ProgressionKey, const int32 Amount, const FLootLockerPlayerProgressionWithRewardsResponseDelegate& OnComplete /*= FLootLockerPlayerProgressionWithRewardsResponseDelegate()*/)
 {
-    LLAPI<FLootLockerPlayerProgressionWithRewardsResponse>::CallAPI(HttpClient, FLootLockerModifyScoreRequest{ Amount }, ULootLockerGameEndpoints::AddPointsToPlayerProgression, { ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerPlayerProgressionWithRewardsResponse>::CallAPI(FLootLockerModifyScoreRequest{ Amount }, ULootLockerGameEndpoints::AddPointsToPlayerProgression, { ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
 }
 
 void ULootLockerProgressionsRequestHandler::SubtractPointsFromPlayerProgression(const FLootLockerPlayerData& PlayerData, const FString& ProgressionKey, const int32 Amount, const FLootLockerPlayerProgressionWithRewardsResponseDelegate& OnComplete /*= FLootLockerPlayerProgressionWithRewardsResponseDelegate()*/)
 {
-    LLAPI<FLootLockerPlayerProgressionWithRewardsResponse>::CallAPI(HttpClient, FLootLockerModifyScoreRequest{ Amount }, ULootLockerGameEndpoints::SubtractPointsFromPlayerProgression, { ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerPlayerProgressionWithRewardsResponse>::CallAPI(FLootLockerModifyScoreRequest{ Amount }, ULootLockerGameEndpoints::SubtractPointsFromPlayerProgression, { ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
 }
 
 void ULootLockerProgressionsRequestHandler::ResetPlayerProgression(const FLootLockerPlayerData& PlayerData, const FString& ProgressionKey, const FLootLockerPlayerProgressionWithRewardsResponseDelegate& OnComplete /*= FLootLockerPlayerProgressionWithRewardsResponseDelegate()*/)
 {
-    LLAPI<FLootLockerPlayerProgressionWithRewardsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ResetPlayerProgression, { ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerPlayerProgressionWithRewardsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::ResetPlayerProgression, { ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
 }
 
 void ULootLockerProgressionsRequestHandler::DeletePlayerProgression(const FLootLockerPlayerData& PlayerData, const FString& ProgressionKey, const FLootLockerDeleteProgressionDelegate& OnComplete /*= FLootLockerDeleteProgressionDelegate()*/)
 {
-    LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::DeletePlayerProgression, { ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::DeletePlayerProgression, { ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
 }
 
 void ULootLockerProgressionsRequestHandler::GetOtherPlayersProgressions(const FLootLockerPlayerData& PlayerData, const FString& PlayerUlid, const int32 Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete)
@@ -50,12 +43,12 @@ void ULootLockerProgressionsRequestHandler::GetOtherPlayersProgressions(const FL
     if (Count > 0) { QueryParams.Add("count", FString::FromInt(Count)); }
     if (!After.IsEmpty()) { QueryParams.Add("after", After); }
 
-    LLAPI<FLootLockerPaginatedPlayerProgressionResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAllOtherPlayersProgressions, { PlayerUlid }, QueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerPaginatedPlayerProgressionResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAllOtherPlayersProgressions, { PlayerUlid }, QueryParams, PlayerData, OnComplete);
 }
 
 void ULootLockerProgressionsRequestHandler::GetOtherPlayersProgression(const FLootLockerPlayerData& PlayerData, const FString& PlayerUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerPlayerProgressionResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetSingleOtherPlayersProgression, { ProgressionKey, PlayerUlid }, EmptyQueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerPlayerProgressionResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetSingleOtherPlayersProgression, { ProgressionKey, PlayerUlid }, EmptyQueryParams, PlayerData, OnComplete);
 }
 
 void ULootLockerProgressionsRequestHandler::GetCharacterProgressions(const FLootLockerPlayerData& PlayerData, const int32 CharacterId, const int32 Count, const FString& After, const FLootLockerPaginatedCharacterProgressionsResponseDelegate& OnComplete /*= FLootLockerPaginatedCharacterProgressionsResponseDelegate()*/)
@@ -64,32 +57,32 @@ void ULootLockerProgressionsRequestHandler::GetCharacterProgressions(const FLoot
     if (Count > 0) { QueryParams.Add("count", FString::FromInt(Count)); }
     if (!After.IsEmpty()) { QueryParams.Add("after", After); }
 
-    LLAPI<FLootLockerPaginatedCharacterProgressionResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAllCharacterProgressions, { CharacterId }, QueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerPaginatedCharacterProgressionResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAllCharacterProgressions, { CharacterId }, QueryParams, PlayerData, OnComplete);
 }
 
 void ULootLockerProgressionsRequestHandler::GetCharacterProgression(const FLootLockerPlayerData& PlayerData, const int32 CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionResponseDelegate& OnComplete /*= FLootLockerCharacterProgressionResponseDelegate()*/)
 {
-    LLAPI<FLootLockerCharacterProgressionResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetSingleCharacterProgression, { CharacterId, ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerCharacterProgressionResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetSingleCharacterProgression, { CharacterId, ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
 }
 
 void ULootLockerProgressionsRequestHandler::AddPointsToCharacterProgression(const FLootLockerPlayerData& PlayerData, const int32 CharacterId, const FString& ProgressionKey, const int32 Amount, const FLootLockerCharacterProgressionWithRewardsResponseDelegate& OnComplete /*= FLootLockerCharacterProgressionWithRewardsResponseDelegate()*/)
 {
-    LLAPI<FLootLockerCharacterProgressionWithRewardsResponse>::CallAPI(HttpClient, FLootLockerModifyScoreRequest{ Amount }, ULootLockerGameEndpoints::AddPointsToCharacterProgression, { CharacterId, ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerCharacterProgressionWithRewardsResponse>::CallAPI(FLootLockerModifyScoreRequest{ Amount }, ULootLockerGameEndpoints::AddPointsToCharacterProgression, { CharacterId, ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
 }
 
 void ULootLockerProgressionsRequestHandler::SubtractPointsFromCharacterProgression(const FLootLockerPlayerData& PlayerData, const int32 CharacterId, const FString& ProgressionKey, const int32 Amount, const FLootLockerCharacterProgressionWithRewardsResponseDelegate& OnComplete /*= FLootLockerCharacterProgressionWithRewardsResponseDelegate()*/)
 {
-    LLAPI<FLootLockerCharacterProgressionWithRewardsResponse>::CallAPI(HttpClient, FLootLockerModifyScoreRequest{ Amount }, ULootLockerGameEndpoints::SubtractPointsFromCharacterProgression, { CharacterId, ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerCharacterProgressionWithRewardsResponse>::CallAPI(FLootLockerModifyScoreRequest{ Amount }, ULootLockerGameEndpoints::SubtractPointsFromCharacterProgression, { CharacterId, ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
 }
 
 void ULootLockerProgressionsRequestHandler::ResetCharacterProgression(const FLootLockerPlayerData& PlayerData, const int32 CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionWithRewardsResponseDelegate& OnComplete /*= FLootLockerCharacterProgressionWithRewardsResponseDelegate()*/)
 {
-    LLAPI<FLootLockerCharacterProgressionWithRewardsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ResetCharacterProgression, { CharacterId, ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerCharacterProgressionWithRewardsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::ResetCharacterProgression, { CharacterId, ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
 }
 
 void ULootLockerProgressionsRequestHandler::DeleteCharacterProgression(const FLootLockerPlayerData& PlayerData, const int32 CharacterId, const FString& ProgressionKey, const FLootLockerDeleteProgressionDelegate& OnComplete /*= FLootLockerDeleteProgressionDelegate()*/)
 {
-    LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteCharacterProgression, { CharacterId, ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteCharacterProgression, { CharacterId, ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
 }
 
 
@@ -99,12 +92,12 @@ void ULootLockerProgressionsRequestHandler::GetProgressions(const FLootLockerPla
     if (Count > 0) { QueryParams.Add("count", FString::FromInt(Count)); }
     if (!After.IsEmpty()) { QueryParams.Add("after", After); }
 
-    LLAPI<FLootLockerPaginatedProgressionsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAllProgressions, {}, QueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerPaginatedProgressionsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAllProgressions, {}, QueryParams, PlayerData, OnComplete);
 }
 
 void ULootLockerProgressionsRequestHandler::GetProgression(const FLootLockerPlayerData& PlayerData, const FString& ProgressionKey, const FLootLockerProgressionResponseDelegate& OnComplete /*= FLootLockerProgressionResponseDelegate()*/)
 {
-    LLAPI<FLootLockerProgressionResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetSingleProgression, { ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerProgressionResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetSingleProgression, { ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
 }
 
 void ULootLockerProgressionsRequestHandler::GetProgressionTiers(const FLootLockerPlayerData& PlayerData, const FString& ProgressionKey, const int32 Count, const int32 After, const FLootLockerPaginatedProgressionTiersResponseDelegate& OnComplete /*= FLootLockerPaginatedProgressionTiersResponseDelegate()*/)
@@ -112,7 +105,7 @@ void ULootLockerProgressionsRequestHandler::GetProgressionTiers(const FLootLocke
     TMultiMap<FString, FString> QueryParams;
     if (Count > 0) { QueryParams.Add("count", FString::FromInt(Count)); }
     if (After > 0) { QueryParams.Add("after", FString::FromInt(After)); }
-    LLAPI<FLootLockerPaginatedProgressionTiersResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetProgressionTiers, { ProgressionKey }, QueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerPaginatedProgressionTiersResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetProgressionTiers, { ProgressionKey }, QueryParams, PlayerData, OnComplete);
 }
 
 void ULootLockerProgressionsRequestHandler::GetInstanceProgressions(const FLootLockerPlayerData& PlayerData, const int32 AssetInstanceId, const int32 Count, const FString& After, const FLootLockerPaginatedInstanceProgressionsResponseDelegate& OnComplete)
@@ -121,36 +114,36 @@ void ULootLockerProgressionsRequestHandler::GetInstanceProgressions(const FLootL
     if (Count > 0) { QueryParams.Add("count", FString::FromInt(Count)); }
     if (!After.IsEmpty()) { QueryParams.Add("after", After); }
 
-    LLAPI<FLootLockerPaginatedInstanceProgressionResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAllInstanceProgressions, { AssetInstanceId }, QueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerPaginatedInstanceProgressionResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAllInstanceProgressions, { AssetInstanceId }, QueryParams, PlayerData, OnComplete);
 
 }
 
 void ULootLockerProgressionsRequestHandler::GetInstanceProgression(const FLootLockerPlayerData& PlayerData, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerInstanceProgressionResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetSingleInstanceProgression, { AssetInstanceId, ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerInstanceProgressionResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetSingleInstanceProgression, { AssetInstanceId, ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
 
 }
 
 void ULootLockerProgressionsRequestHandler::AddPointsToInstanceProgression(const FLootLockerPlayerData& PlayerData, const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerInstanceProgressionWithRewardsResponse>::CallAPI(HttpClient, FLootLockerModifyScoreRequest{ Amount }, ULootLockerGameEndpoints::AddPointsToInstanceProgression, { AssetInstanceId, ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerInstanceProgressionWithRewardsResponse>::CallAPI(FLootLockerModifyScoreRequest{ Amount }, ULootLockerGameEndpoints::AddPointsToInstanceProgression, { AssetInstanceId, ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
 
 }
 
 void ULootLockerProgressionsRequestHandler::SubtractPointsFromInstanceProgression(const FLootLockerPlayerData& PlayerData, const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerInstanceProgressionWithRewardsResponse>::CallAPI(HttpClient, FLootLockerModifyScoreRequest{ Amount }, ULootLockerGameEndpoints::SubtractPointsFromInstanceProgression, { AssetInstanceId, ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerInstanceProgressionWithRewardsResponse>::CallAPI(FLootLockerModifyScoreRequest{ Amount }, ULootLockerGameEndpoints::SubtractPointsFromInstanceProgression, { AssetInstanceId, ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
 
 }
 
 void ULootLockerProgressionsRequestHandler::ResetInstanceProgression(const FLootLockerPlayerData& PlayerData, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionWithRewardsResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerInstanceProgressionWithRewardsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ResetInstanceProgression, { AssetInstanceId, ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerInstanceProgressionWithRewardsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::ResetInstanceProgression, { AssetInstanceId, ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
 
 }
 
 void ULootLockerProgressionsRequestHandler::DeleteInstanceProgression(const FLootLockerPlayerData& PlayerData, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerDeleteProgressionDelegate& OnComplete)
 {
-    LLAPI<FLootLockerResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteInstanceProgression, { AssetInstanceId, ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
+    LLAPI<FLootLockerResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteInstanceProgression, { AssetInstanceId, ProgressionKey }, EmptyQueryParams, PlayerData, OnComplete);
 
 }

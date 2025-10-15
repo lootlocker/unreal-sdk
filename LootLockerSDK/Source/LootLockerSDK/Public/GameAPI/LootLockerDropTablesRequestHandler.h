@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
-#include "LootLockerHttpClient.h"
+#include "LootLockerPlayerData.h"
 #include "GameAPI/LootLockerAssetsRequestHandler.h"
 #include "LootLockerDropTablesRequestHandler.generated.h"
 
@@ -76,9 +76,8 @@ class LOOTLOCKERSDK_API ULootLockerDropTablesRequestHandler : public UObject
 {
 	GENERATED_BODY()
 public:
-    ULootLockerDropTablesRequestHandler();
-    static ULootLockerHttpClient* HttpClient;
+	ULootLockerDropTablesRequestHandler() {};
+
     static void ComputeAndLockDropTable(const FLootLockerPlayerData& PlayerData, int TableId, const FLootLockerComputeAndLockDropTableResponseDelegate& OnCompletedRequest = FLootLockerComputeAndLockDropTableResponseDelegate());
     static void PickDropsFromDropTable(const FLootLockerPlayerData& PlayerData, const FLootLockerPickDropsFromDropTableRequest& request, int TableId, const FFLootLockerPickDropsFromDropTableResponseDelegate& OnCompletedRequest = FFLootLockerPickDropsFromDropTableResponseDelegate());
-	
 };

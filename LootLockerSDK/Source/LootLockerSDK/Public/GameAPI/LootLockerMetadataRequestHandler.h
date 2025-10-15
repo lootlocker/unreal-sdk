@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Dom/JsonObject.h"
 #include "LootLockerResponse.h"
-#include "LootLockerHttpClient.h"
+#include "LootLockerPlayerData.h"
 #include "LootLockerMetadataRequestHandler.generated.h"
 
 //==================================================
@@ -487,12 +487,10 @@ class LOOTLOCKERSDK_API ULootLockerMetadataRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
-    ULootLockerMetadataRequestHandler();
+    ULootLockerMetadataRequestHandler() {};
 
     static void ListMetadata(const FLootLockerPlayerData& PlayerData, const ELootLockerMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const FString& Key, const TArray<FString>& Tags, const bool IgnoreFiles, const FLootLockerListMetadataResponseDelegate& OnComplete = FLootLockerListMetadataResponseDelegate());
     static void GetMetadata(const FLootLockerPlayerData& PlayerData, const ELootLockerMetadataSources Source, const FString& SourceID, const FString& Key, const bool IgnoreFiles, const FLootLockerGetMetadataResponseDelegate& OnComplete = FLootLockerGetMetadataResponseDelegate());
     static void GetMultisourceMetadata(const FLootLockerPlayerData& PlayerData, const TArray<FLootLockerMetadataSourceAndKeys>& SourcesAndKeysToGet, const bool IgnoreFiles, const FLootLockerGetMultisourceMetadataResponseDelegate& OnComplete = FLootLockerGetMultisourceMetadataResponseDelegate());
     static void SetMetadata(const FLootLockerPlayerData& PlayerData, const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FLootLockerSetMetadataAction>& MetadataToActionsToPerform, const FLootLockerSetMetadataResponseDelegate& OnComplete = FLootLockerSetMetadataResponseDelegate());
-private:
-    static ULootLockerHttpClient* HttpClient;
 };

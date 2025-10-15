@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
-#include "LootLockerHttpClient.h"
+#include "LootLockerPlayerData.h"
 #include "LootLockerLeaderboardRequestHandler.generated.h"
 
 UENUM(BlueprintType, Category = "LootLocker")
@@ -603,6 +603,8 @@ class LOOTLOCKERSDK_API ULootLockerLeaderboardRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
+    ULootLockerLeaderboardRequestHandler() {};
+
     static void ListLeaderboards(const FLootLockerPlayerData& PlayerData, int Count, int After, const FLootLockerListLeaderboardsResponseDelegate& OnCompletedRequest = FLootLockerListLeaderboardsResponseDelegate());
     static void GetMemberRank(const FLootLockerPlayerData& PlayerData, const FLootLockerGetMemberRankRequest& MemberRequest, const FLootLockerGetMemberRankResponseDelegate& OnCompletedRequest = FLootLockerGetMemberRankResponseDelegate());
     static void GetByListOfMembers(const FLootLockerPlayerData& PlayerData, const FLootLockerGetByListMembersRequest& GetScoreByListRequests, FString LeaderboardKey, const FLootLockerGetByListOfMembersResponseDelegate& OnCompletedRequest = FLootLockerGetByListOfMembersResponseDelegate());
@@ -612,7 +614,4 @@ public:
     static void IncrementScore(const FLootLockerPlayerData& PlayerData, const FLootLockerIncrementScoreRequest& IncrementScoreRequests, FString LeaderboardKey, const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest = FLootLockerSubmitScoreResponseDelegate());
     static void GetAllMemberRanks(const FLootLockerPlayerData& PlayerData, const FLootLockerGetAllMemberRanksRequest& GetAllMemberRanksRequests, const FLootLockerGetAllMemberRanksResponseDelegate& OnCompletedRequest = FLootLockerGetAllMemberRanksResponseDelegate());
     static void GetLeaderboardDetails(const FLootLockerPlayerData& PlayerData, const FString& LeaderboardKey, const FLootLockerLeaderboardDetailsResponseDelegate& OnCompletedRequest = FLootLockerLeaderboardDetailsResponseDelegate());
-public:
-    ULootLockerLeaderboardRequestHandler();
-    static ULootLockerHttpClient* HttpClient;
 };

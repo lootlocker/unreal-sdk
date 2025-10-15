@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Dom/JsonObject.h"
 #include "LootLockerResponse.h"
-#include "LootLockerHttpClient.h"
+#include "LootLockerPlayerData.h"
 #include "LootLockerNotificationsRequestHandler.generated.h"
 
 //==================================================
@@ -199,6 +199,8 @@ class LOOTLOCKERSDK_API ULootLockerStaticNotificationStringBlueprintCallables : 
 {
     GENERATED_BODY()
 public:
+    ULootLockerStaticNotificationStringBlueprintCallables() {};
+
     /**
      * Static String for use in Notifications -- Matching Notification type Pull Reward Acquired
      */
@@ -994,7 +996,8 @@ class LOOTLOCKERSDK_API ULootLockerNotificationsRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
-    ULootLockerNotificationsRequestHandler();
+    ULootLockerNotificationsRequestHandler() {};
+
     static void ListNotificationsWithDefaultParameters(const FLootLockerPlayerData& PlayerData, const FLootLockerListNotificationsResponseDelegate& OnComplete = FLootLockerListNotificationsResponseDelegate());
     static void ListNotifications(const FLootLockerPlayerData& PlayerData, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate& OnComplete = FLootLockerListNotificationsResponseDelegate());
     static void ListNotifications(const FLootLockerPlayerData& PlayerData, ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate& OnComplete = FLootLockerListNotificationsResponseDelegate());
@@ -1002,5 +1005,4 @@ public:
     static void MarkAllNotificationsAsRead(const FLootLockerPlayerData& PlayerData, const FLootLockerReadNotificationsResponseDelegate& OnComplete = FLootLockerReadNotificationsResponseDelegate());
 private:
     static void ListNotifications(const FLootLockerPlayerData& PlayerData, const TMultiMap<FString, FString>& QueryParams, const FLootLockerListNotificationsResponseDelegate& OnComplete);
-    static ULootLockerHttpClient* HttpClient;
 };

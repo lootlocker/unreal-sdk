@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
-#include "LootLockerHttpClient.h"
+#include "LootLockerPlayerData.h"
 #include "LootLockerPurchasesRequestHandler.generated.h"
 
 USTRUCT(BlueprintType)
@@ -292,6 +292,8 @@ class LOOTLOCKERSDK_API ULootLockerPurchasesRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
+    ULootLockerPurchasesRequestHandler() {};
+
 
     static void ActivateRentalAsset(const FLootLockerPlayerData& PlayerData, int AssetInstanceId, const FActivateRentalAssetResponseDelegate& OnCompletedRequest = FActivateRentalAssetResponseDelegate());
 
@@ -320,8 +322,4 @@ public:
     static void QuerySteamPurchaseRedemptionStatus(const FLootLockerPlayerData& PlayerData, const FString& EntitlementId, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegate& OnCompleted = FLootLockerQuerySteamPurchaseRedemptionStatusDelegate());
 
     static void FinalizeSteamPurchaseRedemption(const FLootLockerPlayerData& PlayerData, const FString& EntitlementId, const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
-public:
-    ULootLockerPurchasesRequestHandler();
-
-    static ULootLockerHttpClient* HttpClient;
 };

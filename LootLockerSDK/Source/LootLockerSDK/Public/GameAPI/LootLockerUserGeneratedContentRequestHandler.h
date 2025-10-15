@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
-#include "LootLockerHttpClient.h"
+#include "LootLockerPlayerData.h"
 #include "LootLockerUserGeneratedContentRequestHandler.generated.h"
 
 UENUM(BlueprintType)
@@ -139,6 +139,8 @@ class LOOTLOCKERSDK_API ULootLockerUserGeneratedContentRequestHandler : public U
 {
     GENERATED_BODY()
 public:
+    ULootLockerUserGeneratedContentRequestHandler() {};
+
     static void CreateAssetCandidate(const FLootLockerPlayerData& PlayerData, const FLootLockerCreateAssetCandidateData& AssetCandidate, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest);
 
     static void CreateAssetCandidateAndMarkComplete(const FLootLockerPlayerData& PlayerData, const FLootLockerCreateAssetCandidateData& AssetCandidate, const FCreateAssetCandidateResponseDelegate& OnCompletedRequest);
@@ -156,8 +158,4 @@ public:
     static void DeleteFileFromAssetCandidate(const FLootLockerPlayerData& PlayerData, int AssetCandidateId, int FileId, const FResponseCallback& OnCompletedRequest);
 
     static void ParseFilePurposeEnumsInline(TArray<FLootLockerAssetFile>& Files);
-public:
-    ULootLockerUserGeneratedContentRequestHandler();
-    
-    static ULootLockerHttpClient* HttpClient;
 };

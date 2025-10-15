@@ -5,16 +5,9 @@
 #include "Utils/LootLockerUtilities.h"
 #include "LootLockerGameEndpoints.h"
 
-ULootLockerHttpClient* ULootLockerAssetsRequestHandler::HttpClient = nullptr;
-
-ULootLockerAssetsRequestHandler::ULootLockerAssetsRequestHandler()
-{
-    HttpClient = NewObject<ULootLockerHttpClient>();
-}
-
 void ULootLockerAssetsRequestHandler::GetContexts(const FLootLockerPlayerData& PlayerData, const FContextDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerGetContextResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetContextsEndpoint, { }, EmptyQueryParams, PlayerData, OnCompletedRequest);
+    LLAPI<FLootLockerGetContextResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetContextsEndpoint, { }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerAssetsRequestHandler::GetAssets(const FLootLockerPlayerData& PlayerData, int StartFromIndex, int ItemsCount, ELootLockerAssetFilter AssetFilter, int Context, bool IncludeUGC, const FAssetsResponseDelegate& OnCompletedRequest)
@@ -57,7 +50,7 @@ void ULootLockerAssetsRequestHandler::GetAssets(const FLootLockerPlayerData& Pla
         QueryParams.Add("include_ugc", "true");
     }
 
-    LLAPI<FLootLockerGetAssetsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAssetsEndpoint, { }, QueryParams, PlayerData, OnCompletedRequest);
+    LLAPI<FLootLockerGetAssetsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAssetsEndpoint, { }, QueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerAssetsRequestHandler::GetAssetsByIds(const FLootLockerPlayerData& PlayerData, const TArray<int>& AssetIds, const FAssetsResponseDelegate& OnCompletedRequest)
@@ -76,27 +69,27 @@ void ULootLockerAssetsRequestHandler::GetAssetsByIds(const FLootLockerPlayerData
         QueryParams.Add("asset_ids", ItemsParameterString);
     }
 
-    LLAPI<FLootLockerGetAssetsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAssetsByIdsEndpoint, { }, QueryParams, PlayerData, OnCompletedRequest);
+    LLAPI<FLootLockerGetAssetsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAssetsByIdsEndpoint, { }, QueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerAssetsRequestHandler::GetAssetBones(const FLootLockerPlayerData& PlayerData, const FAssetBonesResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerGetAssetBonesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAssetBonesEndpoint, { }, EmptyQueryParams, PlayerData, OnCompletedRequest);
+    LLAPI<FLootLockerGetAssetBonesResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAssetBonesEndpoint, { }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerAssetsRequestHandler::GetFavouriteAssetIndices(const FLootLockerPlayerData& PlayerData, const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerGetFavouriteAssetIndicesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetFavouriteAssetIndicesEndpoint, { }, EmptyQueryParams, PlayerData, OnCompletedRequest);
+    LLAPI<FLootLockerGetFavouriteAssetIndicesResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetFavouriteAssetIndicesEndpoint, { }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerAssetsRequestHandler::AddAssetToFavourites(const FLootLockerPlayerData& PlayerData, int AssetId, const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerGetFavouriteAssetIndicesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::AddAssetToFavouritesEndpoint, { AssetId }, EmptyQueryParams, PlayerData, OnCompletedRequest);
+    LLAPI<FLootLockerGetFavouriteAssetIndicesResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::AddAssetToFavouritesEndpoint, { AssetId }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerAssetsRequestHandler::RemoveAssetFromFavourites(const FLootLockerPlayerData& PlayerData, int AssetId, const FGetFavouriteAssetIndicesResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerGetFavouriteAssetIndicesResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::RemoveAssetFromFavouritesEndpoint, { AssetId }, EmptyQueryParams, PlayerData, OnCompletedRequest);
+    LLAPI<FLootLockerGetFavouriteAssetIndicesResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::RemoveAssetFromFavouritesEndpoint, { AssetId }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerAssetsRequestHandler::GetUniversalAssets(const FLootLockerPlayerData& PlayerData, const int After, const int Count, const FUniversalAssetResponseDelegate& OnCompletedRequest)
@@ -107,7 +100,7 @@ void ULootLockerAssetsRequestHandler::GetUniversalAssets(const FLootLockerPlayer
     {
         QueryParams.Add("after", FString::FromInt(After));
     }
-    LLAPI<FLootLockerUniversalAssetsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetUniversalAssetsEndpoint, {}, QueryParams, PlayerData, OnCompletedRequest);
+    LLAPI<FLootLockerUniversalAssetsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetUniversalAssetsEndpoint, {}, QueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerAssetsRequestHandler::GrantAssetToPlayerInventory(const FLootLockerPlayerData& PlayerData, const int assetID, const int assetVariationID, const int assetRentalOptionID, const FGrantAssetResponseDelegate& OnCompletedRequest)
@@ -117,7 +110,7 @@ void ULootLockerAssetsRequestHandler::GrantAssetToPlayerInventory(const FLootLoc
     request.asset_variation_id = assetVariationID;
     request.asset_rental_option_id = assetRentalOptionID;
 
-    LLAPI<FLootLockerGrantAssetResponse>::CallAPI(HttpClient, request, ULootLockerGameEndpoints::GrantAssetToPlayerInventory, { }, EmptyQueryParams, PlayerData, OnCompletedRequest);
+    LLAPI<FLootLockerGrantAssetResponse>::CallAPI(request, ULootLockerGameEndpoints::GrantAssetToPlayerInventory, { }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerAssetsRequestHandler::ListAssets(const FLootLockerPlayerData& PlayerData, const FLootLockerListSimpleAssetsRequest& Request, int PerPage, int Page, ELootLockerOrderAssetListBy OrderBy, ELootLockerOrderAssetListDirection OrderDirection, const FListSimpleAssetsResponseDelegate& OnCompletedRequest)
@@ -137,5 +130,5 @@ void ULootLockerAssetsRequestHandler::ListAssets(const FLootLockerPlayerData& Pl
         QueryParams.Add("order_direction", ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerOrderAssetListDirection"), static_cast<int32>(OrderDirection)));
     }
 
-    LLAPI<FLootLockerListSimpleAssetsResponse>::CallAPI(HttpClient, Request, ULootLockerGameEndpoints::ListAssetsEndpoint, {}, QueryParams, PlayerData, OnCompletedRequest);
+    LLAPI<FLootLockerListSimpleAssetsResponse>::CallAPI(Request, ULootLockerGameEndpoints::ListAssetsEndpoint, {}, QueryParams, PlayerData, OnCompletedRequest);
 }

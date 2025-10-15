@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
-#include "LootLockerHttpClient.h"
 #include "LootLockerPlayerData.h"
 #include "LootLockerSessionOptionals.h"
 #include "LootLockerAuthenticationRequestHandler.generated.h"
@@ -578,7 +577,7 @@ class LOOTLOCKERSDK_API ULootLockerAuthenticationRequestHandler : public UObject
 {
 	GENERATED_BODY()
 public:
-	ULootLockerAuthenticationRequestHandler();
+	ULootLockerAuthenticationRequestHandler() {};
 
 	static void WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegate& OnCompletedRequest = FLootLockerLoginResponseDelegate());
 	static void WhiteLabelLogin(const FString& Email, const FString& Password, const bool Remember, const FLootLockerLoginResponseDelegate& OnCompletedRequest = FLootLockerLoginResponseDelegate());
@@ -615,7 +614,7 @@ public:
 	static void RefreshMetaSession(const FString& RefreshToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerMetaSessionResponseDelegate& OnCompletedRequest = FLootLockerMetaSessionResponseDelegate());
 	static void StartDiscordSession(const FString& AccessToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest = FLootLockerDiscordSessionResponseDelegate());
 	static void RefreshDiscordSession(const FString& RefreshToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest = FLootLockerDiscordSessionResponseDelegate());
-	static ULootLockerHttpClient* HttpClient;
+	
 private:
 	template<typename RequestType>
 	static FString AuthRequestToJsonStringWithOptionals(const RequestType& AuthRequest, const FLootLockerSessionOptionals& Optionals);

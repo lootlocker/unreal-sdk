@@ -1,8 +1,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "LootLockerHttpClient.h"
 #include "LootLockerResponse.h"
+#include "LootLockerPlayerData.h"
 #include "LootLockerFollowersRequestHandler.generated.h"
 
 
@@ -91,8 +91,7 @@ class LOOTLOCKERSDK_API ULootLockerFollowersRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
-    ULootLockerFollowersRequestHandler();
-
+    ULootLockerFollowersRequestHandler() {};
 
     static void ListFollowers(const FLootLockerPlayerData& PlayerData, const FString& PlayerPublicId, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted = FLootLockerListFollowersResponseDelegate());
     static void ListFollowersPaginated(const FLootLockerPlayerData& PlayerData, const FString& PlayerPublicId, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted = FLootLockerListFollowersResponseDelegate());
@@ -109,6 +108,4 @@ public:
     static void FollowPlayer(const FLootLockerPlayerData& PlayerData, const FString& PlayerPublicId, const FLootLockerFollowActionResponseDelegate& OnResponseCompleted = FLootLockerFollowActionResponseDelegate());
 
     static void UnfollowPlayer(const FLootLockerPlayerData& PlayerData, const FString& PlayerPublicId, const FLootLockerFollowActionResponseDelegate& OnResponseCompleted = FLootLockerFollowActionResponseDelegate());
-
-    static ULootLockerHttpClient* HttpClient;
 };

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
-#include "LootLockerHttpClient.h"
+#include "LootLockerPlayerData.h"
 #include "JsonObjectConverter.h"
 #include "LootLockerPersistentStorageRequestHandler.generated.h"
 
@@ -63,8 +63,7 @@ class LOOTLOCKERSDK_API ULootLockerPersistentStorageRequestHandler : public UObj
 public:
 	GENERATED_BODY()
     
-public:
-    ULootLockerPersistentStorageRequestHandler();
+    ULootLockerPersistentStorageRequestHandler() {};
     
 	static void GetEntirePersistentStorage(const FLootLockerPlayerData& PlayerData, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest = FPersistentStorageItemsResponseDelegate());
 
@@ -77,6 +76,4 @@ public:
     static void DeleteItemFromPersistentStorage(const FLootLockerPlayerData& PlayerData, const FString& Key, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest = FPersistentStorageItemsResponseDelegate());
 
     static void GetPlayerPersistentStorage(const FLootLockerPlayerData& PlayerData, const FString& PlayerId, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest = FPersistentStorageItemsResponseDelegate());
-    
-    static ULootLockerHttpClient* HttpClient;
 };

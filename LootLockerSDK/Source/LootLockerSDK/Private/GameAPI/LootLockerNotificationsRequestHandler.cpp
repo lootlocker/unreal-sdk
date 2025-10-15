@@ -6,8 +6,6 @@
 #include "Utils/LootLockerUtilities.h"
 #include "LootLockerLogger.h"
 
-ULootLockerHttpClient* ULootLockerNotificationsRequestHandler::HttpClient = nullptr;
-
 const FString LootLockerNotificationsStaticStrings::NotificationTypes::PullRewardAcquired = "pull.reward.acquired";
 const FString LootLockerNotificationsStaticStrings::NotificationSources::Triggers = "triggers";
 const FString LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::SteamStore = "purchasing.steam_store";
@@ -287,11 +285,6 @@ bool FLootLockerListNotificationsResponse::TryGetNotificationsByIdentifyingValue
     return true;
 }
 
-ULootLockerNotificationsRequestHandler::ULootLockerNotificationsRequestHandler()
-{
-    HttpClient = NewObject<ULootLockerHttpClient>();
-}
-
 void ULootLockerNotificationsRequestHandler::ListNotificationsWithDefaultParameters(const FLootLockerPlayerData& PlayerData, const FLootLockerListNotificationsResponseDelegate& OnComplete)
 {
     ListNotifications(PlayerData, TMultiMap<FString, FString>(), OnComplete);
@@ -327,17 +320,17 @@ void ULootLockerNotificationsRequestHandler::ListNotifications(const FLootLocker
 
 void ULootLockerNotificationsRequestHandler::MarkNotificationsAsRead(const FLootLockerPlayerData& PlayerData, const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerReadNotificationsResponse>::CallAPI(HttpClient, FLootLockerReadNotificationsRequest{ NotificationIDs }, ULootLockerGameEndpoints::ReadNotifications, {}, {}, PlayerData, OnComplete);
+    LLAPI<FLootLockerReadNotificationsResponse>::CallAPI(FLootLockerReadNotificationsRequest{ NotificationIDs }, ULootLockerGameEndpoints::ReadNotifications, {}, {}, PlayerData, OnComplete);
 }
 
 void ULootLockerNotificationsRequestHandler::MarkAllNotificationsAsRead(const FLootLockerPlayerData& PlayerData, const FLootLockerReadNotificationsResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerReadNotificationsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ReadAllNotifications, {}, {}, PlayerData, OnComplete);
+    LLAPI<FLootLockerReadNotificationsResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ReadAllNotifications, {}, {}, PlayerData, OnComplete);
 }
 
 void ULootLockerNotificationsRequestHandler::ListNotifications(const FLootLockerPlayerData& PlayerData, const TMultiMap<FString, FString>& QueryParams, const FLootLockerListNotificationsResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerListNotificationsResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListNotifications, {}, QueryParams, PlayerData, FLootLockerListNotificationsResponseDelegate(), LLAPI<FLootLockerListNotificationsResponse>::FResponseInspectorCallback::CreateLambda([OnComplete] (FLootLockerListNotificationsResponse& Response)
+    LLAPI<FLootLockerListNotificationsResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListNotifications, {}, QueryParams, PlayerData, FLootLockerListNotificationsResponseDelegate(), LLAPI<FLootLockerListNotificationsResponse>::FResponseInspectorCallback::CreateLambda([OnComplete] (FLootLockerListNotificationsResponse& Response)
     {
         if(Response.success && Response.Notifications.Num() > 0)
         {

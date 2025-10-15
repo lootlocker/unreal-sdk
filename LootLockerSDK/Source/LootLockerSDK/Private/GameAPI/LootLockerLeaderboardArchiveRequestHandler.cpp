@@ -5,17 +5,9 @@
 #include "Utils/LootLockerUtilities.h"
 #include "LootLockerGameEndpoints.h"
 
-
-ULootLockerHttpClient* ULootLockerLeaderboardArchiveRequestHandler::HttpClient = nullptr;
-// Sets default values for this component's properties
-ULootLockerLeaderboardArchiveRequestHandler::ULootLockerLeaderboardArchiveRequestHandler()
-{
-	HttpClient = NewObject<ULootLockerHttpClient>();
-}
-
 void ULootLockerLeaderboardArchiveRequestHandler::ListLeaderboardArchive(const FLootLockerPlayerData& PlayerData, const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseDelegate& OnCompletedRequest)
 {
-	LLAPI<FLootLockerLeaderboardArchiveResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::ListLeaderboardArchive, { LeaderboardKey }, EmptyQueryParams, PlayerData, OnCompletedRequest);
+	LLAPI<FLootLockerLeaderboardArchiveResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::ListLeaderboardArchive, { LeaderboardKey }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 void ULootLockerLeaderboardArchiveRequestHandler::GetLeaderboardArchive(const FLootLockerPlayerData& PlayerData, const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest)
@@ -33,5 +25,5 @@ void ULootLockerLeaderboardArchiveRequestHandler::GetLeaderboardArchive(const FL
 	{
 		QueryParams.Add("after", After);
 	}
-	LLAPI<FLootLockerLeaderboardArchiveDetailsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetLeaderboardArchive, { }, QueryParams, PlayerData, OnCompletedRequest);
+	LLAPI<FLootLockerLeaderboardArchiveDetailsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetLeaderboardArchive, { }, QueryParams, PlayerData, OnCompletedRequest);
 }

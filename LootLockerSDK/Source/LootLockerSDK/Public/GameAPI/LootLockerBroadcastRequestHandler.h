@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
-#include "LootLockerHttpClient.h"
+#include "LootLockerPlayerData.h"
 #include "LootLockerBroadcastRequestHandler.generated.h"
 
 //==================================================
@@ -296,8 +296,7 @@ class LOOTLOCKERSDK_API ULootLockerBroadcastRequestHandler : public UObject
     GENERATED_BODY()
 
 public:
-	ULootLockerBroadcastRequestHandler();
+    ULootLockerBroadcastRequestHandler() {};
+
     static void ListBroadcasts(const FLootLockerPlayerData& PlayerData, const TArray<FString>& Languages, int32 PerPage, int32 Page, const FLootLockerListBroadcastsResponseDelegate& OnComplete = FLootLockerListBroadcastsResponseDelegate());
-public:
-	static ULootLockerHttpClient* HttpClient;
 };

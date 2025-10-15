@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
-#include "LootLockerHttpClient.h"
+#include "LootLockerPlayerData.h"
 #include "GameAPI/LootLockerAssetsRequestHandler.h"
 #include "LootLockerCollectablesRequestHandler.generated.h"
 
@@ -85,12 +85,9 @@ class LOOTLOCKERSDK_API ULootLockerCollectablesRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
+    ULootLockerCollectablesRequestHandler() {};
     
     static void GetAllCollectables(const FLootLockerPlayerData& PlayerData, const FCollectablesResponseDelegate& OnCompletedRequest = FCollectablesResponseDelegate());
     
     static void CollectItem(const FLootLockerPlayerData& PlayerData, const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegate& OnCompletedRequest = FCollectablesResponseDelegate());
-public:
-    ULootLockerCollectablesRequestHandler();
-    
-    static ULootLockerHttpClient* HttpClient;
 };

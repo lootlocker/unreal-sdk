@@ -11,7 +11,6 @@
 #include "LootLockerLogger.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
 
-ULootLockerHttpClient* ULootLockerRemoteSessionRequestHandler::HttpClient = nullptr;
 TMap<FString, FLootLockerRemoteSessionProcess> ULootLockerRemoteSessionRequestHandler::RemoteSessionProcesses = TMap<FString, FLootLockerRemoteSessionProcess>();
 
 FLootLockerRemoteSessionProcess::FLootLockerRemoteSessionProcess(const float _PollingIntervalSeconds, 
@@ -22,10 +21,6 @@ FLootLockerRemoteSessionProcess::FLootLockerRemoteSessionProcess(const float _Po
 {
 }
 
-ULootLockerRemoteSessionRequestHandler::ULootLockerRemoteSessionRequestHandler()
-{
-    HttpClient = NewObject<ULootLockerHttpClient>();
-}
 
 void ULootLockerRemoteSessionRequestHandler::CancelRemoteSessionProcess(const FString& ProcessID)
 {
@@ -125,7 +120,7 @@ void ULootLockerRemoteSessionRequestHandler::RefreshRemoteSession(const FString&
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.refresh_token = RefreshToken;
 
-	LLAPI<FLootLockerRefreshRemoteSessionResponse>::CallAPI(HttpClient, AuthRequest, ULootLockerGameEndpoints::RefreshRemoteSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnComplete, LLAPI<FLootLockerRefreshRemoteSessionResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerRefreshRemoteSessionResponse& Response)
+	LLAPI<FLootLockerRefreshRemoteSessionResponse>::CallAPI(AuthRequest, ULootLockerGameEndpoints::RefreshRemoteSessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnComplete, LLAPI<FLootLockerRefreshRemoteSessionResponse>::FResponseInspectorCallback::CreateLambda([](const FLootLockerRefreshRemoteSessionResponse& Response)
 		{
 			if (Response.success)
 			{
@@ -265,13 +260,13 @@ void ULootLockerRemoteSessionRequestHandler::LeaseRemoteSession(
     RequestBody.Environment_id = EnvironmentId;
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	RequestBody.Game_version = config ? config->GameVersion : TEXT("");
-    LLAPI<FLootLockerLeaseRemoteSessionResponse>::CallAPI(HttpClient, RequestBody, Endpoint, {}, {}, UserData, OnCompleteCallback);
+    LLAPI<FLootLockerLeaseRemoteSessionResponse>::CallAPI(RequestBody, Endpoint, {}, {}, UserData, OnCompleteCallback);
 }
 
 void ULootLockerRemoteSessionRequestHandler::StartRemoteSession(const FString& LeaseCode, const FString& LeaseNonce, const LLAPI<FLootLockerStartRemoteSessionResponse>::FResponseInspectorCallback& OnCompleteCallback)
 {
 	const auto* config = GetDefault<ULootLockerConfig>();
-	LLAPI<FLootLockerStartRemoteSessionResponse>::CallAPI(HttpClient, FLootLockerStartRemoteSessionRequest{ config->LootLockerGameKey, config->GameVersion, LeaseCode, LeaseNonce }, ULootLockerGameEndpoints::StartRemoteSessionEndpoint, {}, {}, FLootLockerPlayerData(), OnCompleteCallback);
+	LLAPI<FLootLockerStartRemoteSessionResponse>::CallAPI(FLootLockerStartRemoteSessionRequest{ config->LootLockerGameKey, config->GameVersion, LeaseCode, LeaseNonce }, ULootLockerGameEndpoints::StartRemoteSessionEndpoint, {}, {}, FLootLockerPlayerData(), OnCompleteCallback);
 }
 
 void ULootLockerRemoteSessionRequestHandler::SetTimer(FTimerHandle TimerHandle, const FTimerDelegate& BaseDelegate, float TimeToNextPoll)

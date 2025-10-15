@@ -4,16 +4,9 @@
 #include "Utils/LootLockerUtilities.h"
 #include "LootLockerGameEndpoints.h"
 
-ULootLockerHttpClient* ULootLockerMiscellaneousRequestHandler::HttpClient = nullptr;
-
-ULootLockerMiscellaneousRequestHandler::ULootLockerMiscellaneousRequestHandler()
-{
-	HttpClient = NewObject<ULootLockerHttpClient>();
-}
-
 void ULootLockerMiscellaneousRequestHandler::GetServerTime(const FLootLockerPlayerData& PlayerData, const FTimeResponseDelegate& OnCompletedRequest)
 {
-	LLAPI<FLootLockerTimeResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetServerTimeEndpoint, { },EmptyQueryParams, PlayerData, OnCompletedRequest);
+	LLAPI<FLootLockerTimeResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetServerTimeEndpoint, { },EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 FString ULootLockerMiscellaneousRequestHandler::GetLastActivePlatform(const FLootLockerPlayerData& PlayerData)
@@ -26,7 +19,6 @@ void ULootLockerMiscellaneousRequestHandler::GetGameInfo(const FGameInfoResponse
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	FLootLockerGameInfoRequest Request { config->LootLockerGameKey };
     LLAPI<FLootLockerGameInfoResponse>::CallAPI(
-        HttpClient,
         Request,
         ULootLockerGameEndpoints::GetGameInfoEndpoint,
         {},

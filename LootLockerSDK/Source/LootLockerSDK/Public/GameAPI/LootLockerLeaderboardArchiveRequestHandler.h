@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
-#include "LootLockerHttpClient.h"
+#include "LootLockerPlayerData.h"
 
 #include "LootLockerLeaderboardArchiveRequestHandler.generated.h"
 
@@ -92,9 +92,8 @@ class LOOTLOCKERSDK_API ULootLockerLeaderboardArchiveRequestHandler : public UOb
 {
 	GENERATED_BODY()
 public:
+	ULootLockerLeaderboardArchiveRequestHandler() {};
+
 	static void ListLeaderboardArchive(const FLootLockerPlayerData& PlayerData, const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseDelegate& OnCompletedRequest);
 	static void GetLeaderboardArchive(const FLootLockerPlayerData& PlayerData, const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailResponseDelegate& OnCompletedRequest);
-public:
-	ULootLockerLeaderboardArchiveRequestHandler();
-	static ULootLockerHttpClient* HttpClient;
 };
