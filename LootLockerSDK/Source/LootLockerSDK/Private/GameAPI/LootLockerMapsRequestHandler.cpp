@@ -4,16 +4,7 @@
 #include "LootLockerGameEndpoints.h"
 #include "Utils/LootLockerUtilities.h"
 
-ULootLockerHttpClient* ULootLockerMapsRequestHandler::HttpClient = nullptr;
-
-
-
-ULootLockerMapsRequestHandler::ULootLockerMapsRequestHandler()
-{
-    HttpClient = NewObject<ULootLockerHttpClient>();
-}
-
 void ULootLockerMapsRequestHandler::GetMaps(const FLootLockerPlayerData& PlayerData, const FGetMapsResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerGetMapsResponse>::CallAPI(HttpClient, LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAllMapsEndpoint, { },EmptyQueryParams, PlayerData, OnCompletedRequest);
+    LLAPI<FLootLockerGetMapsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAllMapsEndpoint, { },EmptyQueryParams, PlayerData, OnCompletedRequest);
 }

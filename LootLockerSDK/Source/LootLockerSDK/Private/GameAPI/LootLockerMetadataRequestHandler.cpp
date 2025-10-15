@@ -5,8 +5,6 @@
 #include "Dom/JsonObject.h"
 #include "Utils/LootLockerUtilities.h"
 
-ULootLockerHttpClient* ULootLockerMetadataRequestHandler::HttpClient = nullptr;
-
 //==================================================
 // Metadata Entry Methods
 //==================================================
@@ -296,11 +294,6 @@ void FLootLockerMetadataSourceAndEntries::__INTERNAL_GenerateKeyMap()
 // Metadata Request Handler
 //==================================================
 
-ULootLockerMetadataRequestHandler::ULootLockerMetadataRequestHandler()
-{
-    HttpClient = NewObject<ULootLockerHttpClient>();
-}
-
 void ULootLockerMetadataRequestHandler::ListMetadata(const FLootLockerPlayerData& PlayerData, const ELootLockerMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const FString& Key, const TArray<FString>& Tags, const bool IgnoreFiles, const FLootLockerListMetadataResponseDelegate& OnComplete)
 {
 	FString _SourceID = SourceID;
@@ -330,7 +323,7 @@ void ULootLockerMetadataRequestHandler::ListMetadata(const FLootLockerPlayerData
 
 	FString SourceAsString = ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerMetadataSources"), static_cast<int32>(Source)).ToLower();
 	SourceAsString.ReplaceCharInline(' ', '_');
-	LLAPI<FLootLockerListMetadataResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListMetadata, { SourceAsString, _SourceID }, QueryParams, PlayerData, FLootLockerListMetadataResponseDelegate(), LLAPI<FLootLockerListMetadataResponse>::FResponseInspectorCallback::CreateLambda([OnComplete](FLootLockerListMetadataResponse& Response)
+	LLAPI<FLootLockerListMetadataResponse>::CallAPI(FLootLockerEmptyRequest(), ULootLockerGameEndpoints::ListMetadata, { SourceAsString, _SourceID }, QueryParams, PlayerData, FLootLockerListMetadataResponseDelegate(), LLAPI<FLootLockerListMetadataResponse>::FResponseInspectorCallback::CreateLambda([OnComplete](FLootLockerListMetadataResponse& Response)
 		{
 			// Make sure we will have entries to parse before continuing
 			if (!Response.success || Response.Entries.Num() <= 0)
@@ -414,7 +407,7 @@ void ULootLockerMetadataRequestHandler::GetMultisourceMetadata(const FLootLocker
 {
 	TMultiMap<FString, FString> QueryParams;
 	if (IgnoreFiles) QueryParams.Add("ignore_files", "true");
-	LLAPI<FLootLockerGetMultisourceMetadataResponse>::CallAPI(HttpClient, FLootLockerGetMultisourceMetadataRequest{ SourcesAndKeysToGet }, ULootLockerGameEndpoints::GetMultisourceMetadata, {}, QueryParams, PlayerData, FLootLockerGetMultisourceMetadataResponseDelegate(), LLAPI<FLootLockerGetMultisourceMetadataResponse>::FResponseInspectorCallback::CreateLambda([OnComplete, PlayerData](FLootLockerGetMultisourceMetadataResponse& Response)
+	LLAPI<FLootLockerGetMultisourceMetadataResponse>::CallAPI(FLootLockerGetMultisourceMetadataRequest{ SourcesAndKeysToGet }, ULootLockerGameEndpoints::GetMultisourceMetadata, {}, QueryParams, PlayerData, FLootLockerGetMultisourceMetadataResponseDelegate(), LLAPI<FLootLockerGetMultisourceMetadataResponse>::FResponseInspectorCallback::CreateLambda([OnComplete, PlayerData](FLootLockerGetMultisourceMetadataResponse& Response)
 		{
 			// Make sure we will have source and entry combos to parse before continuing
 			if (!Response.success || Response.Metadata.Num() <= 0)
@@ -558,5 +551,5 @@ void ULootLockerMetadataRequestHandler::SetMetadata(const FLootLockerPlayerData&
 	// Add entries to manually serialized request
 	ManuallySerializedRequest.SetArrayField(TEXT("entries"), entries);
 	FString SerializedRequest = LootLockerUtilities::FStringFromJsonObject(MakeShared<FJsonObject>(ManuallySerializedRequest));
-	LLAPI<FLootLockerSetMetadataResponse>::CallAPIUsingRawJSON(HttpClient, SerializedRequest, ULootLockerGameEndpoints::MetadataActions, {}, {}, PlayerData, OnComplete);
+	LLAPI<FLootLockerSetMetadataResponse>::CallAPIUsingRawJSON(SerializedRequest, ULootLockerGameEndpoints::MetadataActions, {}, {}, PlayerData, OnComplete);
 }

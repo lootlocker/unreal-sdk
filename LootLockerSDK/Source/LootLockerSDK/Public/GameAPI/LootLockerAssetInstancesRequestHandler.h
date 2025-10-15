@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "LootLockerPlayerData.h"
 #include "LootLockerResponse.h"
-#include "LootLockerHttpClient.h"
 #include "LootLockerAssetInstancesRequestHandler.generated.h"
 
 
@@ -95,6 +95,7 @@ class LOOTLOCKERSDK_API ULootLockerAssetInstancesRequestHandler : public UObject
 {
 public:
     GENERATED_BODY()
+    ULootLockerAssetInstancesRequestHandler() {};
     
     static void GetAllKeyValuePairsForAssetInstance(const FLootLockerPlayerData& PlayerData, int AssetInstanceId, const FAssetInstanceStorageItemsResponseDelegate& OnCompletedRequest = FAssetInstanceStorageItemsResponseDelegate());
 
@@ -115,9 +116,4 @@ public:
     static void OpenLootBox(const FLootLockerPlayerData& PlayerData, int AssetInstanceId, const FOpenLootBoxResponseDelegate& OnCompletedRequest = FOpenLootBoxResponseDelegate());
 
     static void DeleteAssetInstanceFromPlayerInventory(const FLootLockerPlayerData& PlayerData, int AssetInstanceID, const FDeleteAssetInstanceResponseDelegate& OnCompletedRequest = FDeleteAssetInstanceResponseDelegate());
-
-public:
-    ULootLockerAssetInstancesRequestHandler();
-
-    static ULootLockerHttpClient* HttpClient;
 };

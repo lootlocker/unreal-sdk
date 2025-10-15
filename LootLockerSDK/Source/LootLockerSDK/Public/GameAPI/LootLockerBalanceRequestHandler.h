@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "LootLockerCurrencyRequestHandler.h"
 #include "LootLockerResponse.h"
-#include "LootLockerHttpClient.h"
+#include "LootLockerPlayerData.h"
 #include "LootLockerBalanceRequestHandler.generated.h"
 
 //==================================================
@@ -318,7 +318,8 @@ class LOOTLOCKERSDK_API ULootLockerBalanceRequestHandler : public UObject
 {
     GENERATED_BODY()
 public:
-    ULootLockerBalanceRequestHandler();
+    ULootLockerBalanceRequestHandler() {};
+
     static void ListBalancesInWallet(const FLootLockerPlayerData& PlayerData, const FString& WalletID, const FLootLockerListBalancesForWalletResponseDelegate& OnComplete = FLootLockerListBalancesForWalletResponseDelegate());
     static void GetWalletByWalletID(const FLootLockerPlayerData& PlayerData, const FString& WalletID, const FLootLockerGetWalletResponseDelegate& OnComplete = FLootLockerGetWalletResponseDelegate());
     static void GetWalletByHolderID(const FLootLockerPlayerData& PlayerData, const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerGetWalletResponseDelegate& OnComplete = FLootLockerGetWalletResponseDelegate());
@@ -326,6 +327,4 @@ public:
     static void DebitBalanceToWallet(const FLootLockerPlayerData& PlayerData, const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerDebitWalletResponseDelegate& OnComplete = FLootLockerDebitWalletResponseDelegate());
 private:
     static void CreateWallet(const FLootLockerPlayerData& PlayerData, const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerCreateWalletResponseDelegate& OnComplete = FLootLockerCreateWalletResponseDelegate());
-
-    static ULootLockerHttpClient* HttpClient;
 };
