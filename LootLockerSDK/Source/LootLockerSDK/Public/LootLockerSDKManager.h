@@ -2878,6 +2878,7 @@ public:
      * @param OnComplete Delegate for handling the server response
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
+    [[deprecated("This method is deprecated, please use ListCatalogItems(const FString & CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "") instead.")]] // Deprecation date 20251016
     static void ListCatalogItems(const FString & CatalogKey, int Count, const FString & After, const FLootLockerListCatalogPricesResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
     /**
@@ -2887,7 +2888,33 @@ public:
      * @param OnComplete Delegate for handling the server response
      * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
      */
-    static void ListCatalogItems(const FString & CatalogKey, const FLootLockerListCatalogPricesResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "") { ListCatalogItems(CatalogKey, -1, "", OnComplete); }
+    [[deprecated("This method is deprecated, please use ListCatalogItems(const FString & CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "") instead.")]] // Deprecation date 20251016
+    static void ListCatalogItems(const FString & CatalogKey, const FLootLockerListCatalogPricesResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "") 
+    { 
+#pragma warning(suppress : 4996)
+        ListCatalogItems(CatalogKey, -1, "", OnComplete, ForPlayerWithUlid); 
+#pragma warning(default : 4996)
+    }
+
+    /**
+     * List the items available in a specific catalog
+     *
+     * @param CatalogKey Unique Key of the catalog that you want to get items for
+     * @param PerPage Number of broadcasts per page
+     * @param Page Page number for pagination
+     * @param OnComplete Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     */
+    static void ListCatalogItems(const FString & CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     * List the items available in a specific catalog
+     *
+     * @param CatalogKey Unique Key of the catalog that you want to get items for
+     * @param OnComplete Delegate for handling the server response
+     * @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     */
+    static void ListCatalogItems(const FString & CatalogKey, const FLootLockerListCatalogPricesV2ResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "") { ListCatalogItems(CatalogKey, -1, 0, OnComplete, ForPlayerWithUlid); }
 
     //==================================================
     // Entitlements

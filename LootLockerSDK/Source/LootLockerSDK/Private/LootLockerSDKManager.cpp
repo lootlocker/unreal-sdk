@@ -1326,6 +1326,11 @@ void ULootLockerSDKManager::ListCatalogItems(const FString& CatalogKey, int Coun
     ULootLockerCatalogRequestHandler::ListCatalogItems(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CatalogKey, Count, After, FLootLockerListCatalogPricesResponseBP(), OnComplete);
 }
 
+void ULootLockerSDKManager::ListCatalogItems(const FString& CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    ULootLockerCatalogRequestHandler::ListCatalogItemsV2(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CatalogKey, PerPage, Page, FLootLockerListCatalogPricesV2ResponseBP(), OnComplete);
+}
+
 // Entitlements
 void ULootLockerSDKManager::ListEntitlements(const int Count, const FString& After, const FLootLockerListEntitlementsResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {

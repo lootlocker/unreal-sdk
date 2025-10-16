@@ -531,6 +531,31 @@ struct FInternalLootLockerListCatalogPricesResponse : public FLootLockerResponse
     FLootLockerKeyBasedPagination Pagination;
 };
 
+/**
+ * This is what the response looks like, but we want to expose the Mapped variant
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FInternalLootLockerListCatalogPricesV2Response : public FLootLockerResponse
+{
+    GENERATED_BODY()
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerCatalog Catalog;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerCatalogEntry> Entries;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerAssetDetails> Assets_Details;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerProgressionPointDetails> Progression_Points_Details;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerProgressionResetDetails> Progression_Resets_Details;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerCurrencyDetails> Currency_Details;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerGroupDetails> Group_Details;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerExtendedIndexBasedPagination Pagination;
+};
+
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerInlinedGroupDetails : public FLootLockerGroupDetails
 {
@@ -593,6 +618,8 @@ struct FLootLockerInlinedCatalogEntry : public FLootLockerCatalogEntry
     FLootLockerInlinedCatalogEntry(): AssetDetails(), ProgressionPointDetails(), ProgressionResetDetails(), CurrencyDetails(), GroupDetails() {}
 
     FLootLockerInlinedCatalogEntry(const FLootLockerCatalogEntry& Entry, const FLootLockerListCatalogPricesResponse& CatalogListing);
+
+    FLootLockerInlinedCatalogEntry(const FLootLockerCatalogEntry& Entry, const FLootLockerListCatalogPricesV2Response& CatalogListing);
 };
 
 /**
@@ -662,6 +689,73 @@ struct FLootLockerListCatalogPricesResponse : public FLootLockerResponse
     TArray<FLootLockerInlinedCatalogEntry> GetLootLockerInlinedCatalogEntries() const;
 };
 
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerListCatalogPricesV2Response : public FLootLockerResponse
+{
+    GENERATED_BODY()
+    /**
+     * Details about the catalog that the prices is in
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerCatalog Catalog;
+
+    /**
+     * A list of entries available in this catalog
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerCatalogEntry> Entries;
+
+    /**
+     * Lookup map for details about entities of entity type assets
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TMap<FLootLockerItemDetailsKey, FLootLockerAssetDetails> Asset_Details;
+
+    /**
+     * Lookup map for details about entities of entity type progression_points
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TMap<FLootLockerItemDetailsKey, FLootLockerProgressionPointDetails> Progression_Point_Details;
+
+    /**
+     * Lookup map for details about entities of entity type progression_reset
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TMap<FLootLockerItemDetailsKey, FLootLockerProgressionResetDetails> Progression_Reset_Details;
+
+    /**
+     * Lookup map for details about entities of entity type currency
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TMap<FLootLockerItemDetailsKey, FLootLockerCurrencyDetails> Currency_Details;
+
+    /**
+    * Lookup map for details about entities of entity type group
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TMap<FLootLockerItemDetailsKey, FLootLockerGroupDetails> Group_Details;
+    
+    /**
+     * Pagination data to use for subsequent requests
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerExtendedIndexBasedPagination Pagination;
+
+    void AppendCatalogItems(FLootLockerListCatalogPricesV2Response AdditionalCatalogPrices);
+
+    FLootLockerListCatalogPricesV2Response() {}
+
+    explicit FLootLockerListCatalogPricesV2Response(const FInternalLootLockerListCatalogPricesV2Response& ArrayResponse);
+
+    /**
+     * Get all the entries with details inlined into the entries themselves
+     */
+    TArray<FLootLockerInlinedCatalogEntry> GetLootLockerInlinedCatalogEntries() const;
+};
+
 //==================================================
 // Blueprint Delegate Definitions
 //==================================================
@@ -675,9 +769,17 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListCatalogsResponseBP, FLootLocker
  */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListCatalogPricesResponseBP, FLootLockerListCatalogPricesResponse, Response);
 /**
+ * Blueprint response delegate for listing items and prices in a catalog
+ */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListCatalogPricesV2ResponseBP, FLootLockerListCatalogPricesV2Response, Response);
+/**
  * Internal Blueprint response delegate for listing items and prices in a catalog with details as arrays
  */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FInternalLootLockerListCatalogPricesResponseBP, FInternalLootLockerListCatalogPricesResponse, Response);
+/**
+ * Internal Blueprint response delegate for listing items and prices in a catalog with details as arrays
+ */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FInternalLootLockerListCatalogPricesV2ResponseBP, FInternalLootLockerListCatalogPricesV2Response, Response);
 
 //==================================================
 // C++ Delegate Definitions
@@ -692,9 +794,17 @@ DECLARE_DELEGATE_OneParam(FLootLockerListCatalogsResponseDelegate, FLootLockerLi
  */
 DECLARE_DELEGATE_OneParam(FLootLockerListCatalogPricesResponseDelegate, FLootLockerListCatalogPricesResponse);
 /**
+ * C++ response delegate for listing items and prices in a catalog
+ */
+DECLARE_DELEGATE_OneParam(FLootLockerListCatalogPricesV2ResponseDelegate, FLootLockerListCatalogPricesV2Response);
+/**
  * Internal C++ response delegate for listing items and prices in a catalog with details as arrays
  */
 DECLARE_DELEGATE_OneParam(FInternalLootLockerListCatalogPricesResponseDelegate, FInternalLootLockerListCatalogPricesResponse);
+/**
+ * Internal C++ response delegate for listing items and prices in a catalog with details as arrays
+ */
+DECLARE_DELEGATE_OneParam(FInternalLootLockerListCatalogPricesV2ResponseDelegate, FInternalLootLockerListCatalogPricesV2Response);
 
 
 //==================================================
@@ -710,7 +820,12 @@ public:
 
     static void ListCatalogs(const FLootLockerPlayerData& PlayerData, const FLootLockerListCatalogsResponseBP& OnCompleteBP = FLootLockerListCatalogsResponseBP(), const FLootLockerListCatalogsResponseDelegate& OnComplete = FLootLockerListCatalogsResponseDelegate());
     static void ListCatalogItems(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnCompleteBP = FLootLockerListCatalogPricesResponseBP(), const FLootLockerListCatalogPricesResponseDelegate& OnComplete = FLootLockerListCatalogPricesResponseDelegate());
+    static void ListCatalogItemsV2(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseBP& OnCompleteBP = FLootLockerListCatalogPricesV2ResponseBP(), const FLootLockerListCatalogPricesV2ResponseDelegate& OnComplete = FLootLockerListCatalogPricesV2ResponseDelegate());
     static TArray<FLootLockerInlinedCatalogEntry> ConvertCatalogToInlineItems(const FLootLockerListCatalogPricesResponse& Catalog)
+    {
+        return Catalog.GetLootLockerInlinedCatalogEntries();
+    }
+    static TArray<FLootLockerInlinedCatalogEntry> ConvertCatalogV2ToInlineItems(const FLootLockerListCatalogPricesV2Response& Catalog)
     {
         return Catalog.GetLootLockerInlinedCatalogEntries();
     }
