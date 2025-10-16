@@ -311,6 +311,7 @@ public:
 
     // Catalogs
     static FLootLockerEndPoints ListCatalogs;
+    static FLootLockerEndPoints DeprecatedListCatalogItemsByKey;
     static FLootLockerEndPoints ListCatalogItemsByKey;
 
     // Entitlements

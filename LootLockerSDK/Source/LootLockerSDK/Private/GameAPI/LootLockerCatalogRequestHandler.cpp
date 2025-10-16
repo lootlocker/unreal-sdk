@@ -128,6 +128,129 @@ FLootLockerInlinedCatalogEntry::FLootLockerInlinedCatalogEntry(const FLootLocker
 
 }
 
+
+FLootLockerInlinedCatalogEntry::FLootLockerInlinedCatalogEntry(const FLootLockerCatalogEntry& Entry, const FLootLockerListCatalogPricesV2Response& CatalogListing)
+{
+	Created_at = Entry.Created_at;
+	Entity_kind = Entry.Entity_kind;
+	Entity_name = Entry.Entity_name;
+	Entity_id = Entry.Entity_id;
+	Listings = Entry.Listings;
+	Prices = Entry.Prices;
+	Catalog_listing_id = Entry.Catalog_listing_id;
+	Purchasable = Entry.Purchasable;
+
+	const FLootLockerItemDetailsKey& DetailsKey{
+		Entry.Catalog_listing_id,
+		Entry.Entity_id
+	};
+	switch (Entity_kind)
+	{
+	case ELootLockerCatalogEntryEntityKind::Asset:
+	{
+		if (CatalogListing.Asset_Details.Contains(DetailsKey)) 
+		{
+			this->AssetDetails = CatalogListing.Asset_Details.FindRef(DetailsKey);
+		}
+	}
+		break;
+	case ELootLockerCatalogEntryEntityKind::Currency:
+	{
+		if (CatalogListing.Currency_Details.Contains(DetailsKey)) 
+		{
+			this->CurrencyDetails = CatalogListing.Currency_Details.FindRef(DetailsKey);
+		}
+	}
+		break;
+	case ELootLockerCatalogEntryEntityKind::Progression_Points:
+	{	
+		if (CatalogListing.Progression_Point_Details.Contains(DetailsKey)) 
+		{
+			this->ProgressionPointDetails = CatalogListing.Progression_Point_Details.FindRef(DetailsKey);
+		}
+	}
+		break;
+	case ELootLockerCatalogEntryEntityKind::Progression_Reset:
+	{
+		if (CatalogListing.Progression_Reset_Details.Contains(DetailsKey)) 
+		{
+			this->ProgressionResetDetails = CatalogListing.Progression_Reset_Details.FindRef(DetailsKey);
+		}
+	}
+		break;
+	case ELootLockerCatalogEntryEntityKind::Group: 
+	{
+
+		if (!CatalogListing.Group_Details.Contains(DetailsKey))
+			break;
+
+		auto CatalogLevelGroup = CatalogListing.Group_Details.FindRef(DetailsKey);
+
+		FLootLockerInlinedGroupDetails InlinedGroupDetails;
+
+		InlinedGroupDetails.Name = CatalogLevelGroup.Name;
+		InlinedGroupDetails.Description = CatalogLevelGroup.Description;
+		InlinedGroupDetails.Metadata = CatalogLevelGroup.Metadata;
+		InlinedGroupDetails.Id = CatalogLevelGroup.Id;
+		InlinedGroupDetails.Associations = CatalogLevelGroup.Associations;
+		InlinedGroupDetails.Catalog_listing_id = CatalogLevelGroup.Catalog_listing_id;
+
+		for (const auto& association : CatalogLevelGroup.Associations)
+		{
+			const FLootLockerItemDetailsKey& GroupDetailsKey {
+				association.Catalog_listing_id,
+				association.Id
+			};
+
+			switch (association.Kind)
+			{
+			case ELootLockerCatalogEntryEntityKind::Asset:
+			{
+				if (CatalogListing.Asset_Details.Contains(GroupDetailsKey))
+				{
+					InlinedGroupDetails.AssetDetails.Add(CatalogListing.Asset_Details.FindRef(GroupDetailsKey));
+				}
+			}
+			break;
+			case ELootLockerCatalogEntryEntityKind::Currency:
+			{
+				if (CatalogListing.Currency_Details.Contains(GroupDetailsKey))
+				{
+					InlinedGroupDetails.CurrencyDetails.Add(CatalogListing.Currency_Details.FindRef(GroupDetailsKey));
+				}
+			}
+			break;
+			case ELootLockerCatalogEntryEntityKind::Progression_Points:
+			{
+				if (CatalogListing.Progression_Point_Details.Contains(GroupDetailsKey))
+				{
+					InlinedGroupDetails.ProgressionPointDetails.Add(CatalogListing.Progression_Point_Details.FindRef(GroupDetailsKey));
+				}
+			}
+			break;
+			case ELootLockerCatalogEntryEntityKind::Progression_Reset:
+			{
+				if (CatalogListing.Progression_Reset_Details.Contains(GroupDetailsKey))
+				{
+					InlinedGroupDetails.ProgressionResetDetails.Add(CatalogListing.Progression_Reset_Details.FindRef(GroupDetailsKey));
+				}
+			}
+			break;
+			case ELootLockerCatalogEntryEntityKind::Group:
+			default:
+				break;
+			}
+		}
+
+		this->GroupDetails = InlinedGroupDetails;
+	}
+		break;
+	default:
+		break;
+	}
+
+}
+
 void FLootLockerListCatalogPricesResponse::AppendCatalogItems(FLootLockerListCatalogPricesResponse AdditionalCatalogPrices)
 {
 	if (!AdditionalCatalogPrices.success)
@@ -226,7 +349,78 @@ FLootLockerListCatalogPricesResponse::FLootLockerListCatalogPricesResponse(const
 	}
 }
 
+FLootLockerListCatalogPricesV2Response::FLootLockerListCatalogPricesV2Response(const FInternalLootLockerListCatalogPricesV2Response& ArrayResponse)
+{
+	success = ArrayResponse.success;
+	StatusCode = ArrayResponse.StatusCode;
+	FullTextFromServer = ArrayResponse.FullTextFromServer;
+	ErrorData = ArrayResponse.ErrorData;
+	if (!success)
+	{
+		return;
+	}
+
+	Catalog = ArrayResponse.Catalog;
+	Entries = ArrayResponse.Entries;
+	Pagination = ArrayResponse.Pagination;
+
+	for (const auto& Detail : ArrayResponse.Assets_Details)
+	{
+		Asset_Details.Add(FLootLockerItemDetailsKey{
+			Detail.Catalog_listing_id,
+			Detail.Id
+			}, Detail);
+	}
+
+	for (const auto& Detail : ArrayResponse.Progression_Points_Details)
+	{
+		Progression_Point_Details.Add(FLootLockerItemDetailsKey{
+			Detail.Catalog_listing_id,
+			Detail.Id
+			}, Detail);
+	}
+
+	for (const auto& Detail : ArrayResponse.Progression_Resets_Details)
+	{
+		Progression_Reset_Details.Add(FLootLockerItemDetailsKey{
+			Detail.Catalog_listing_id,
+			Detail.Id
+			}, Detail);
+	}
+
+	for (const auto& Detail : ArrayResponse.Currency_Details)
+	{
+		Currency_Details.Add(FLootLockerItemDetailsKey{
+			Detail.Catalog_listing_id,
+			Detail.Id
+			}, Detail);
+	}
+
+	for (const auto& Detail : ArrayResponse.Group_Details) 
+	{
+		Group_Details.Add(FLootLockerItemDetailsKey{
+			Detail.Catalog_listing_id,
+			Detail.Id
+			}, Detail);
+	}
+}
+
 TArray<FLootLockerInlinedCatalogEntry> FLootLockerListCatalogPricesResponse::GetLootLockerInlinedCatalogEntries() const
+{
+	TArray<FLootLockerInlinedCatalogEntry> InlinedEntries;
+	for (const auto& CatalogEntry : Entries)
+	{
+
+		const auto& EntityKind = CatalogEntry.Entity_kind;
+		InlinedEntries.Add(FLootLockerInlinedCatalogEntry(
+			CatalogEntry,
+			*this
+		));
+	}
+	return InlinedEntries;
+}
+
+TArray<FLootLockerInlinedCatalogEntry> FLootLockerListCatalogPricesV2Response::GetLootLockerInlinedCatalogEntries() const
 {
 	TArray<FLootLockerInlinedCatalogEntry> InlinedEntries;
 	for (const auto& CatalogEntry : Entries)
@@ -264,5 +458,21 @@ void ULootLockerCatalogRequestHandler::ListCatalogItems(const FLootLockerPlayerD
         OnComplete.ExecuteIfBound(MappedResponse);
     });
 
-    LLAPI<FInternalLootLockerListCatalogPricesResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListCatalogItemsByKey, { CatalogKey }, QueryParams, PlayerData, FInternalLootLockerListCatalogPricesResponseBP(), FInternalLootLockerListCatalogPricesResponseDelegate(), InternalResponseConverter);
+    LLAPI<FInternalLootLockerListCatalogPricesResponse>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::DeprecatedListCatalogItemsByKey, { CatalogKey }, QueryParams, PlayerData, FInternalLootLockerListCatalogPricesResponseBP(), FInternalLootLockerListCatalogPricesResponseDelegate(), InternalResponseConverter);
+}
+
+void ULootLockerCatalogRequestHandler::ListCatalogItemsV2(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseBP& OnCompleteBP, const FLootLockerListCatalogPricesV2ResponseDelegate& OnComplete)
+{
+    TMultiMap<FString, FString> QueryParams;
+    if (PerPage > 0) { QueryParams.Add("per_page", FString::FromInt(PerPage)); }
+    if (Page > 0) { QueryParams.Add("page", FString::FromInt(Page)); }
+
+    const auto InternalResponseConverter = LLAPI<FInternalLootLockerListCatalogPricesV2Response>::FResponseInspectorCallback::CreateLambda([OnCompleteBP, OnComplete](const FInternalLootLockerListCatalogPricesV2Response& ResponseWithArrays)
+    {
+	    const auto MappedResponse = FLootLockerListCatalogPricesV2Response(ResponseWithArrays);
+        OnCompleteBP.ExecuteIfBound(MappedResponse);
+        OnComplete.ExecuteIfBound(MappedResponse);
+    });
+
+    LLAPI<FInternalLootLockerListCatalogPricesV2Response>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListCatalogItemsByKey, { CatalogKey }, QueryParams, PlayerData, FInternalLootLockerListCatalogPricesV2ResponseBP(), FInternalLootLockerListCatalogPricesV2ResponseDelegate(), InternalResponseConverter);
 }

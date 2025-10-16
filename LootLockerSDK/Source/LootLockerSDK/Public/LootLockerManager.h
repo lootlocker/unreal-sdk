@@ -2921,14 +2921,32 @@ public:
      * @param After Optional: Used for pagination, this is the cursor to start getting items from. Use null to get items from the beginning. Use the cursor from a previous call to get the next count of items in the list.
      * @param OnComplete Delegate for handling the server response
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Catalog", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid=""))
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Catalog", meta = (DeprecationMessage="This method is deprecated, please use ListCatalogItemsV2 instead.", AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid="")) // Deprecation Date 2025-10-16
     static void ListCatalogItems(const FString& ForPlayerWithUlid, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnComplete);
+
+    /**
+     * List the items available in a specific catalog
+     *
+     * @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+     * @param CatalogKey Unique Key of the catalog that you want to get items for
+     * @param PerPage Optional: Number of broadcasts per page
+     * @param Page Optional: Page number for pagination
+     * @param OnComplete Delegate for handling the server response
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Catalog", meta = (AdvancedDisplay = "PerPage,Page,ForPlayerWithUlid", PerPage = -1, Page = -1, ForPlayerWithUlid=""))
+    static void ListCatalogItemsV2(const FString& ForPlayerWithUlid, const FString& CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseBP& OnComplete);
 
     /**
      * Inline the "data items" from a catalog response into the catalog items themselves
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Catalog")
     static TArray<FLootLockerInlinedCatalogEntry> ConvertCatalogToInlineItems(const FLootLockerListCatalogPricesResponse& Catalog);
+
+    /**
+     * Inline the "data items" from a catalog response into the catalog items themselves
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Catalog")
+    static TArray<FLootLockerInlinedCatalogEntry> ConvertCatalogV2ToInlineItems(const FLootLockerListCatalogPricesV2Response& Catalog);
 
     //==================================================
     // Entitlements
