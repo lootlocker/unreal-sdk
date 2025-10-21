@@ -5,7 +5,7 @@
 #include "LootLockerSDK.h"
 #include "Utils/LootLockerUtilities.h"
 
-void ULootLockerBroadcastRequestHandler::ListBroadcasts(const FLootLockerPlayerData& PlayerData, const TArray<FString>& Languages, int32 Limit, const FLootLockerListBroadcastsResponseDelegate& OnComplete)
+FString ULootLockerBroadcastRequestHandler::ListBroadcasts(const FLootLockerPlayerData& PlayerData, const TArray<FString>& Languages, int32 Limit, const FLootLockerListBroadcastsResponseDelegate& OnComplete)
 {
     TMap<FString, FString> CustomHeaders;
     if (Languages.Num() > 0)
@@ -18,7 +18,7 @@ void ULootLockerBroadcastRequestHandler::ListBroadcasts(const FLootLockerPlayerD
         QueryParams.Add("limit", FString::FromInt(Limit));
     }
     
-    LLAPI<FLootLockerInternalListBroadcastsResponse>::CallAPI(
+    return LLAPI<FLootLockerInternalListBroadcastsResponse>::CallAPI(
         FLootLockerEmptyRequest{}, 
         ULootLockerGameEndpoints::ListBroadcasts, 
         {}, 

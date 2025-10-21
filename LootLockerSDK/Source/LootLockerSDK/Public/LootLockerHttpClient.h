@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "LootLockerPlayerData.h"
+#include "LootLockerRequestContext.h"
 #include "LootLockerResponse.h"
 #include "Interfaces/IHttpRequest.h"
 #include "LootLockerHttpClient.generated.h"
@@ -12,14 +13,14 @@ UCLASS()
 class LOOTLOCKERSDK_API ULootLockerHttpClient : public UObject
 {
 	GENERATED_BODY()
-
+     
 public:
     ULootLockerHttpClient();
-    void SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders = TMap<FString, FString>()) const;
-    void UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString>& AdditionalFields, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders = TMap<FString, FString>()) const;
+    FString SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders = TMap<FString, FString>()) const;
+    FString UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString>& AdditionalFields, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders = TMap<FString, FString>()) const;
 
-    static void LogSuccessfulRequestInformation(const FLootLockerResponse& Response, const FString& RequestMethod, const FString& Endpoint, const FString& Data, const FString& AllHeadersDelimited);
-    static void LogFailedRequestInformation(const FLootLockerResponse& Response, const FString& RequestMethod, const FString& Endpoint, const FString& Data, const FString& AllHeadersDelimited);
+    static void LogSuccessfulRequestInformation(const FLootLockerResponse& Response, const FString& AllHeadersDelimited);
+    static void LogFailedRequestInformation(const FLootLockerResponse& Response, const FString& AllHeadersDelimited);
 
     // Singleton accessors. These create the UObject on demand in the transient package.
     // Use Get() when you need a UObject pointer, or GetRef() for convenient dereferencing (ensure not null).
@@ -27,6 +28,7 @@ public:
     static ULootLockerHttpClient& GetRef();
 private:
     static bool ResponseIsSuccess(const FHttpResponsePtr& InResponse, bool bWasSuccessful);
+    static TMap<FString, FLootLockerRequestParameterValue> ParseRequestParametersFromJsonString(FString jsonString);
     static const FString UserAgent;
     static const FString UserInstanceIdentifier;
     static FString SDKVersion;

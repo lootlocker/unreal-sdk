@@ -433,12 +433,12 @@ TArray<FLootLockerInlinedCatalogEntry> FLootLockerListCatalogPricesV2Response::G
 	return InlinedEntries;
 }
 
-void ULootLockerCatalogRequestHandler::ListCatalogs(const FLootLockerPlayerData& PlayerData, const FLootLockerListCatalogsResponseDelegate& OnComplete)
+FString ULootLockerCatalogRequestHandler::ListCatalogs(const FLootLockerPlayerData& PlayerData, const FLootLockerListCatalogsResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerListCatalogsResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListCatalogs, {}, {}, PlayerData, OnComplete);
+    return LLAPI<FLootLockerListCatalogsResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListCatalogs, {}, {}, PlayerData, OnComplete);
 }
 
-void ULootLockerCatalogRequestHandler::ListCatalogItems(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseDelegate& OnComplete)
+FString ULootLockerCatalogRequestHandler::ListCatalogItems(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseDelegate& OnComplete)
 {
     TMultiMap<FString, FString> QueryParams;
     if (Count > 0) { QueryParams.Add("per_page", FString::FromInt(Count)); }
@@ -450,10 +450,10 @@ void ULootLockerCatalogRequestHandler::ListCatalogItems(const FLootLockerPlayerD
         OnComplete.ExecuteIfBound(MappedResponse);
     });
 
-    LLAPI<FInternalLootLockerListCatalogPricesResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::DeprecatedListCatalogItemsByKey, { CatalogKey }, QueryParams, PlayerData, InternalResponseConverter);
+    return LLAPI<FInternalLootLockerListCatalogPricesResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::DeprecatedListCatalogItemsByKey, { CatalogKey }, QueryParams, PlayerData, InternalResponseConverter);
 }
 
-void ULootLockerCatalogRequestHandler::ListCatalogItemsV2(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseBP& OnCompleteBP, const FLootLockerListCatalogPricesV2ResponseDelegate& OnComplete)
+FString ULootLockerCatalogRequestHandler::ListCatalogItemsV2(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseBP& OnCompleteBP, const FLootLockerListCatalogPricesV2ResponseDelegate& OnComplete)
 {
     TMultiMap<FString, FString> QueryParams;
     if (PerPage > 0) { QueryParams.Add("per_page", FString::FromInt(PerPage)); }
@@ -466,5 +466,5 @@ void ULootLockerCatalogRequestHandler::ListCatalogItemsV2(const FLootLockerPlaye
         OnComplete.ExecuteIfBound(MappedResponse);
     });
 
-    LLAPI<FInternalLootLockerListCatalogPricesV2Response>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListCatalogItemsByKey, { CatalogKey }, QueryParams, PlayerData, FInternalLootLockerListCatalogPricesV2ResponseBP(), FInternalLootLockerListCatalogPricesV2ResponseDelegate(), InternalResponseConverter);
+    return LLAPI<FInternalLootLockerListCatalogPricesV2Response>::CallAPI(HttpClient, FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListCatalogItemsByKey, { CatalogKey }, QueryParams, PlayerData, FInternalLootLockerListCatalogPricesV2ResponseBP(), FInternalLootLockerListCatalogPricesV2ResponseDelegate(), InternalResponseConverter);
 }
