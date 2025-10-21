@@ -4,7 +4,7 @@
 #include "LootLockerGameEndpoints.h"
 #include "Utils/LootLockerUtilities.h"
 
-void ULootLockerMapsRequestHandler::GetMaps(const FLootLockerPlayerData& PlayerData, const FGetMapsResponseDelegate& OnCompletedRequest)
+FString ULootLockerMapsRequestHandler::GetMaps(const FLootLockerPlayerData& PlayerData, const FGetMapsResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerGetMapsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAllMapsEndpoint, { },EmptyQueryParams, PlayerData, OnCompletedRequest);
+    return LLAPI<FLootLockerGetMapsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetAllMapsEndpoint, { },EmptyQueryParams, PlayerData, OnCompletedRequest);
 }

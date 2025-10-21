@@ -794,9 +794,9 @@ class LOOTLOCKERSDK_API ULootLockerCatalogRequestHandler : public UObject
 public:
     ULootLockerCatalogRequestHandler() {};
 
-    static void ListCatalogs(const FLootLockerPlayerData& PlayerData, const FLootLockerListCatalogsResponseDelegate& OnComplete = FLootLockerListCatalogsResponseDelegate());
-    static void ListCatalogItems(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseDelegate& OnComplete = FLootLockerListCatalogPricesResponseDelegate());
-    static void ListCatalogItemsV2(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseBP& OnCompleteBP = FLootLockerListCatalogPricesV2ResponseBP(), const FLootLockerListCatalogPricesV2ResponseDelegate& OnComplete = FLootLockerListCatalogPricesV2ResponseDelegate());
+    static FString ListCatalogs(const FLootLockerPlayerData& PlayerData, const FLootLockerListCatalogsResponseDelegate& OnComplete = FLootLockerListCatalogsResponseDelegate());
+    static FString ListCatalogItems(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseDelegate& OnComplete = FLootLockerListCatalogPricesResponseDelegate());
+    static FString ListCatalogItemsV2(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseBP& OnCompleteBP = FLootLockerListCatalogPricesV2ResponseBP(), const FLootLockerListCatalogPricesV2ResponseDelegate& OnComplete = FLootLockerListCatalogPricesV2ResponseDelegate());
     static TArray<FLootLockerInlinedCatalogEntry> ConvertCatalogToInlineItems(const FLootLockerListCatalogPricesResponse& Catalog)
     {
         return Catalog.GetLootLockerInlinedCatalogEntries();

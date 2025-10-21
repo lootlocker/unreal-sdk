@@ -4,9 +4,9 @@
 #include "Utils/LootLockerUtilities.h"
 #include "LootLockerGameEndpoints.h"
 
-void ULootLockerMiscellaneousRequestHandler::GetServerTime(const FLootLockerPlayerData& PlayerData, const FTimeResponseDelegate& OnCompletedRequest)
+FString ULootLockerMiscellaneousRequestHandler::GetServerTime(const FLootLockerPlayerData& PlayerData, const FTimeResponseDelegate& OnCompletedRequest)
 {
-	LLAPI<FLootLockerTimeResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetServerTimeEndpoint, { },EmptyQueryParams, PlayerData, OnCompletedRequest);
+	return LLAPI<FLootLockerTimeResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetServerTimeEndpoint, { },EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 FString ULootLockerMiscellaneousRequestHandler::GetLastActivePlatform(const FLootLockerPlayerData& PlayerData)
@@ -14,11 +14,11 @@ FString ULootLockerMiscellaneousRequestHandler::GetLastActivePlatform(const FLoo
 	return PlayerData.CurrentPlatform.GetFriendlyPlatformString();
 }
 
-void ULootLockerMiscellaneousRequestHandler::GetGameInfo(const FGameInfoResponseDelegate& OnCompletedRequest)
+FString ULootLockerMiscellaneousRequestHandler::GetGameInfo(const FGameInfoResponseDelegate& OnCompletedRequest)
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	FLootLockerGameInfoRequest Request { config->LootLockerGameKey };
-    LLAPI<FLootLockerGameInfoResponse>::CallAPI(
+    return LLAPI<FLootLockerGameInfoResponse>::CallAPI(
         Request,
         ULootLockerGameEndpoints::GetGameInfoEndpoint,
         {},
