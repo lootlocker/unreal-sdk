@@ -109,16 +109,16 @@ void FLootLockerLogger::WriteToFile(const FString& Message)
 FLootLockerOnLogMessage FLootLockerLogger::OnLogMessage;
 FLootLockerOnHttpLogEntry FLootLockerLogger::OnHttpLogEntry;
 
-void FLootLockerLogger::LogHttpRequest(const FLootLockerResponse& Response, const FString& RequestMethod, const FString& RequestPath, const FString& RequestData, const FString& AllHeadersDelimited)
+void FLootLockerLogger::LogHttpRequest(const FLootLockerResponse& Response, const FString& AllHeadersDelimited)
 {
     FLootLockerHttpLogEntry Entry;
-    Entry.Method = RequestMethod;
-    Entry.Path = RequestPath;
+    Entry.Method = Response.Context.RequestMethod;
+    Entry.Path = Response.Context.RequestURL;
     Entry.StatusCode = Response.StatusCode;
     FDateTime requestTime;
     FDateTime::Parse(Response.Context.RequestTime, requestTime);
     Entry.Duration = (FDateTime::Now() - requestTime).GetTotalSeconds();
-    Entry.RequestData = RequestData;
+    Entry.RequestData = Response.Context.RequestParametersJsonString;
     Entry.ResponseData = Response.FullTextFromServer;
     Entry.RequestHeaders = AllHeadersDelimited;
     Entry.bSuccess = Response.success;
@@ -156,6 +156,10 @@ void FLootLockerLogger::LogHttpRequest(const FLootLockerHttpLogEntry& Entry)
         LogLine += FString::Printf(TEXT("\n   For Player ULID: %s"), *Entry.RequestContext.PlayerUlid);
     if (!Entry.RequestContext.RequestTime.IsEmpty())
         LogLine += FString::Printf(TEXT("\n   Request Time: %s"), *Entry.RequestContext.RequestTime);
+    if (!Entry.RequestContext.RequestId.IsEmpty())
+        LogLine += FString::Printf(TEXT("\n   Request ID: %s"), *Entry.RequestContext.RequestId);
+    if (!Entry.RequestContext.RequestURL.IsEmpty())
+        LogLine += FString::Printf(TEXT("\n   Request URL: %s"), *Entry.RequestContext.RequestURL);
     LogLine += TEXT("\n###");
     // Log to file/console at appropriate level
     Log( LogLine, Entry.bSuccess ? ELootLockerLogLevel::Log : ELootLockerLogLevel::Error );

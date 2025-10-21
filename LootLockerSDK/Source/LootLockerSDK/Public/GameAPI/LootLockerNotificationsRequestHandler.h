@@ -998,11 +998,11 @@ class LOOTLOCKERSDK_API ULootLockerNotificationsRequestHandler : public UObject
 public:
     ULootLockerNotificationsRequestHandler() {};
 
-    static void ListNotificationsWithDefaultParameters(const FLootLockerPlayerData& PlayerData, const FLootLockerListNotificationsResponseDelegate& OnComplete = FLootLockerListNotificationsResponseDelegate());
-    static void ListNotifications(const FLootLockerPlayerData& PlayerData, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate& OnComplete = FLootLockerListNotificationsResponseDelegate());
-    static void ListNotifications(const FLootLockerPlayerData& PlayerData, ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate& OnComplete = FLootLockerListNotificationsResponseDelegate());
-    static void MarkNotificationsAsRead(const FLootLockerPlayerData& PlayerData, const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseDelegate& OnComplete = FLootLockerReadNotificationsResponseDelegate());
-    static void MarkAllNotificationsAsRead(const FLootLockerPlayerData& PlayerData, const FLootLockerReadNotificationsResponseDelegate& OnComplete = FLootLockerReadNotificationsResponseDelegate());
+    static FString ListNotificationsWithDefaultParameters(const FLootLockerPlayerData& PlayerData, const FLootLockerListNotificationsResponseDelegate& OnComplete = FLootLockerListNotificationsResponseDelegate());
+    static FString ListNotifications(const FLootLockerPlayerData& PlayerData, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate& OnComplete = FLootLockerListNotificationsResponseDelegate());
+    static FString ListNotifications(const FLootLockerPlayerData& PlayerData, ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate& OnComplete = FLootLockerListNotificationsResponseDelegate());
+    static FString MarkNotificationsAsRead(const FLootLockerPlayerData& PlayerData, const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseDelegate& OnComplete = FLootLockerReadNotificationsResponseDelegate());
+    static FString MarkAllNotificationsAsRead(const FLootLockerPlayerData& PlayerData, const FLootLockerReadNotificationsResponseDelegate& OnComplete = FLootLockerReadNotificationsResponseDelegate());
 private:
-    static void ListNotifications(const FLootLockerPlayerData& PlayerData, const TMultiMap<FString, FString>& QueryParams, const FLootLockerListNotificationsResponseDelegate& OnComplete);
+    static FString ListNotifications(const FLootLockerPlayerData& PlayerData, const TMultiMap<FString, FString>& QueryParams, const FLootLockerListNotificationsResponseDelegate& OnComplete);
 };

@@ -692,8 +692,8 @@ class LOOTLOCKERSDK_API ULootLockerCatalogRequestHandler : public UObject
 public:
     ULootLockerCatalogRequestHandler() {};
 
-    static void ListCatalogs(const FLootLockerPlayerData& PlayerData, const FLootLockerListCatalogsResponseDelegate& OnComplete = FLootLockerListCatalogsResponseDelegate());
-    static void ListCatalogItems(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseDelegate& OnComplete = FLootLockerListCatalogPricesResponseDelegate());
+    static FString ListCatalogs(const FLootLockerPlayerData& PlayerData, const FLootLockerListCatalogsResponseDelegate& OnComplete = FLootLockerListCatalogsResponseDelegate());
+    static FString ListCatalogItems(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseDelegate& OnComplete = FLootLockerListCatalogPricesResponseDelegate());
     static TArray<FLootLockerInlinedCatalogEntry> ConvertCatalogToInlineItems(const FLootLockerListCatalogPricesResponse& Catalog)
     {
         return Catalog.GetLootLockerInlinedCatalogEntries();

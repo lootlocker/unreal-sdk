@@ -545,6 +545,80 @@ public:
     static void ClearAllPlayerCaches();
 
     //==================================================
+    // Response Parsing
+    //==================================================
+
+    /*
+    Parse Request Parameter as String.
+
+    @param Parameter The parameter to parse
+    @param OutValue Parsed value if successful
+    @return True if parsing succeeded
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
+    static bool TryGetRequestParameterValueAsString(const FLootLockerRequestParameterValue& Parameter, FString& OutValue);
+
+    /*
+    Parse Request Parameter as Float.
+
+    @param Parameter The parameter to parse
+    @param OutValue Parsed value if successful
+    @return True if parsing succeeded
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
+    static bool TryGetRequestParameterValueAsFloat(const FLootLockerRequestParameterValue& Parameter, float& OutValue);
+
+    /*
+     Parse Request Parameter as Integer.
+
+     @param Parameter The parameter to parse
+     @param OutValue Parsed value if successful
+     @return True if parsing succeeded
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
+    static bool TryGetRequestParameterValueAsInteger(const FLootLockerRequestParameterValue& Parameter, int& OutValue);
+
+    /*
+     Parse Request Parameter as Bool.
+
+     @param Parameter The parameter to parse
+     @param OutValue Parsed value if successful
+     @return True if parsing succeeded
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
+    static bool TryGetRequestParameterValueAsBool(const FLootLockerRequestParameterValue& Parameter, bool& OutValue);
+
+    /*
+     Parse Request Parameter as Float Array.
+
+     @param Parameter The parameter to parse
+     @param OutValue Parsed values if successful
+     @return True if parsing succeeded
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
+    static bool TryGetRequestParameterValueAsFloatArray(const FLootLockerRequestParameterValue& Parameter, TArray<float>& OutValue);
+
+    /*
+     Parse Request Parameter as Integer Array.
+
+     @param Parameter The parameter to parse
+     @param OutValue Parsed values if successful
+     @return True if parsing succeeded
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
+    static bool TryGetRequestParameterValueAsIntegerArray(const FLootLockerRequestParameterValue& Parameter, TArray<int>& OutValue);
+
+    /*
+     Parse Request Parameter as Bool Array.
+
+     @param Parameter The parameter to parse
+     @param OutValue Parsed values if successful
+     @return True if parsing succeeded
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Notifications", meta = (ReturnDisplayName = "Success"))
+    static bool TryGetRequestParameterValueAsBoolArray(const FLootLockerRequestParameterValue& Parameter, TArray<bool>& OutValue);
+
+    //==================================================
     // Authentication
     //==================================================
 
@@ -577,7 +651,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (DeprecationMessage="This method is deprecated, please use VerifyPlayerAndStartPlaystationNetworkSession instead.", AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals")) // Deprecation date 2025-09-24
-    static void StartPlaystationNetworkSession(const FString& PsnOnlineId, const FAuthResponseBP& OnStartedSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
+    static FString StartPlaystationNetworkSession(const FString& PsnOnlineId, const FAuthResponseBP& OnStartedSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Start a PlayStation Network session using an authorization code (v1/v2 flow). For v3 tokens (prefixed with v3) use VerifyPlayerAndStartPlaystationNetworkV3Session.
@@ -590,7 +664,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "PsnIssuerId,Optionals", PsnIssuerId = 256, AutoCreateRefTerm = "Optionals"))
-    static void VerifyPlayerAndStartPlaystationNetworkSession(const FString& AuthCode, const FString& AccountID, const FAuthResponseBP& OnCompletedRequest, int PsnIssuerId, const FLootLockerSessionOptionals& Optionals);
+    static FString VerifyPlayerAndStartPlaystationNetworkSession(const FString& AuthCode, const FString& AccountID, const FAuthResponseBP& OnCompletedRequest, int PsnIssuerId, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Start a PlayStation Network session using the v3 authentication flow (tokens starting with v3 indicate this flow).
@@ -602,7 +676,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "EnvIssuerId,Optionals", EnvIssuerId = 256, AutoCreateRefTerm = "Optionals"))
-    static void VerifyPlayerAndStartPlaystationNetworkV3Session(const FString& AuthCode, const FAuthResponseBP& OnCompletedRequest, int EnvIssuerId, const FLootLockerSessionOptionals& Optionals);
+    static FString VerifyPlayerAndStartPlaystationNetworkV3Session(const FString& AuthCode, const FAuthResponseBP& OnCompletedRequest, int EnvIssuerId, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Start a LootLocker session for an Android user.
@@ -613,7 +687,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
-    static void StartAndroidSession(const FString& DeviceId, const FAuthResponseBP& OnStartedSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
+    static FString StartAndroidSession(const FString& DeviceId, const FAuthResponseBP& OnStartedSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Start a LootLocker session for an Amazon Luna user.
@@ -624,7 +698,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
-    static void StartAmazonLunaSession(const FString& AmazonLunaGuid, const FAuthResponseBP& OnStartedSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
+    static FString StartAmazonLunaSession(const FString& AmazonLunaGuid, const FAuthResponseBP& OnStartedSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Start a LootLocker session for a Steam user using a session ticket.
@@ -637,7 +711,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "SteamAppId,Optionals", SteamAppId = "", AutoCreateRefTerm = "Optionals"))
-    static void StartSteamSessionUsingTicket(const FString& SteamSessionTicket, const FString& SteamAppId, const FAuthResponseBP& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals);
+    static FString StartSteamSessionUsingTicket(const FString& SteamSessionTicket, const FString& SteamAppId, const FAuthResponseBP& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Start a LootLocker session for a Nintendo Switch user.
@@ -648,7 +722,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
-    static void StartNintendoSwitchSession(const FString& NSAIdToken, const FAuthResponseBP& OnStartedNintendoSwitchSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
+    static FString StartNintendoSwitchSession(const FString& NSAIdToken, const FAuthResponseBP& OnStartedNintendoSwitchSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Start a LootLocker session for an Xbox user.
@@ -659,7 +733,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
-    static void StartXboxSession(const FString& XboxUserToken, const FAuthResponseBP& OnStartedXboxSessionCompleted, const FLootLockerSessionOptionals& Optionals);
+    static FString StartXboxSession(const FString& XboxUserToken, const FAuthResponseBP& OnStartedXboxSessionCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Start a LootLocker session using Sign in with Apple.
@@ -670,7 +744,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
-    static void StartAppleSession(const FString& AuthorizationCode, const FAppleSessionResponseBP& OnStartedAppleSessionCompleted, const FLootLockerSessionOptionals& Optionals);
+    static FString StartAppleSession(const FString& AuthorizationCode, const FAppleSessionResponseBP& OnStartedAppleSessionCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Refresh an existing Sign in with Apple session.
@@ -683,7 +757,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken,ForPlayerWithUlid,Optionals", ForPlayerWithUlid="", AutoCreateRefTerm = "Optionals"))
-    static void RefreshAppleSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FAppleSessionResponseBP& OnRefreshAppleSessionCompleted, const FLootLockerSessionOptionals& Optionals);
+    static FString RefreshAppleSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FAppleSessionResponseBP& OnRefreshAppleSessionCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Start a LootLocker session using Apple Game Center identity verification.
@@ -699,7 +773,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
-    static void StartAppleGameCenterSession(const FString& BundleId, const FString& PlayerId, const FString& PublicKeyUrl, const FString& Signature, const FString& Salt, const FString& Timestamp, const FLootLockerAppleGameCenterSessionResponseBP& OnStartedAppleGameCenterSessionCompleted, const FLootLockerSessionOptionals& Optionals);
+    static FString StartAppleGameCenterSession(const FString& BundleId, const FString& PlayerId, const FString& PublicKeyUrl, const FString& Signature, const FString& Salt, const FString& Timestamp, const FLootLockerAppleGameCenterSessionResponseBP& OnStartedAppleGameCenterSessionCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Refresh an existing Apple Game Center session.
@@ -712,7 +786,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken,ForPlayerWithUlid,Optionals", ForPlayerWithUlid="", AutoCreateRefTerm = "Optionals"))
-    static void RefreshAppleGameCenterSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FLootLockerAppleGameCenterSessionResponseBP& OnRefreshAppleGameCenterSessionCompleted, const FLootLockerSessionOptionals& Optionals);
+    static FString RefreshAppleGameCenterSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FLootLockerAppleGameCenterSessionResponseBP& OnRefreshAppleGameCenterSessionCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Start a LootLocker session for a Google user (default platform).
@@ -723,7 +797,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
-    static void StartGoogleSession(const FString& IdToken, const FGoogleSessionResponseBP& OnStartedGoogleSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
+    static FString StartGoogleSession(const FString& IdToken, const FGoogleSessionResponseBP& OnStartedGoogleSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Start a LootLocker session for a Google user targeting a specific Google OAuth2 Client ID platform.
@@ -735,7 +809,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
-    static void StartGoogleSessionForPlatform(const FString& IdToken, ELootLockerGoogleClientPlatform Platform, const FGoogleSessionResponseBP& OnStartedGoogleSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
+    static FString StartGoogleSessionForPlatform(const FString& IdToken, ELootLockerGoogleClientPlatform Platform, const FGoogleSessionResponseBP& OnStartedGoogleSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Refresh an existing Google session.
@@ -748,7 +822,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken,ForPlayerWithUlid,Optionals", ForPlayerWithUlid="", AutoCreateRefTerm = "Optionals"))
-    static void RefreshGoogleSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FGoogleSessionResponseBP& OnRefreshGoogleSessionCompleted, const FLootLockerSessionOptionals& Optionals);
+    static FString RefreshGoogleSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FGoogleSessionResponseBP& OnRefreshGoogleSessionCompleted, const FLootLockerSessionOptionals& Optionals);
     
     /**
      Start a LootLocker session for a Google Play Games user.
@@ -759,7 +833,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
-    static void StartGooglePlayGamesSession(const FString& AuthCode, const FGooglePlayGamesSessionResponseBP& OnStartedGooglePlayGamesSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
+    static FString StartGooglePlayGamesSession(const FString& AuthCode, const FGooglePlayGamesSessionResponseBP& OnStartedGooglePlayGamesSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Refresh an existing Google Play Games session.
@@ -772,7 +846,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken,ForPlayerWithUlid,Optionals", ForPlayerWithUlid="", RefreshToken="", AutoCreateRefTerm = "Optionals"))
-    static void RefreshGooglePlayGamesSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FGooglePlayGamesSessionResponseBP& OnRefreshGooglePlayGamesSessionCompleted, const FLootLockerSessionOptionals& Optionals);
+    static FString RefreshGooglePlayGamesSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FGooglePlayGamesSessionResponseBP& OnRefreshGooglePlayGamesSessionCompleted, const FLootLockerSessionOptionals& Optionals);
     
     /**
      Start a LootLocker session for an Epic Online Services (EOS) user.
@@ -783,7 +857,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
-    static void StartEpicSession(const FString& IdToken, const FEpicSessionResponseBP& OnStartedEpicSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
+    static FString StartEpicSession(const FString& IdToken, const FEpicSessionResponseBP& OnStartedEpicSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Refresh an existing Epic session.
@@ -796,7 +870,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken,ForPlayerWithUlid,Optionals", ForPlayerWithUlid="", AutoCreateRefTerm = "Optionals"))
-    static void RefreshEpicSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FEpicSessionResponseBP& OnRefreshEpicSessionCompleted, const FLootLockerSessionOptionals& Optionals);
+    static FString RefreshEpicSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FEpicSessionResponseBP& OnRefreshEpicSessionCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Start a LootLocker session for a Meta / Oculus user.
@@ -808,7 +882,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
-    static void StartMetaSession(const FString& UserId, const FString& Nonce, const FLootLockerMetaSessionResponseBP& OnMetaSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
+    static FString StartMetaSession(const FString& UserId, const FString& Nonce, const FLootLockerMetaSessionResponseBP& OnMetaSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Refresh an existing Meta / Oculus session.
@@ -821,7 +895,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken,ForPlayerWithUlid,Optionals", ForPlayerWithUlid="", AutoCreateRefTerm = "Optionals"))
-    static void RefreshMetaSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FLootLockerMetaSessionResponseBP& OnRefreshMetaSessionCompleted, const FLootLockerSessionOptionals& Optionals);
+    static FString RefreshMetaSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FLootLockerMetaSessionResponseBP& OnRefreshMetaSessionCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Create a new user using the White Label login system.
@@ -832,7 +906,7 @@ public:
      @param OnWhiteLabelAccountCreationRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-    static void WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelAccountCreationRequestCompleted);
+    static FString WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelAccountCreationRequestCompleted);
 
     /**
      Log in a White Label user (email + password) and verify credentials without starting a LootLocker session.
@@ -845,7 +919,7 @@ public:
      @param Remember Optional: Whether to prolong the session lifetime
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = 3))
-    static void WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelLoginRequestCompleted, const bool Remember = false);
+    static FString WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelLoginRequestCompleted, const bool Remember = false);
 
     /**
      Start a LootLocker session using cached White Label credentials (token + email) if present.
@@ -855,7 +929,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
-    static void WhiteLabelStartSession(const FAuthResponseBP& OnStartWhiteLabelSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
+    static FString WhiteLabelStartSession(const FAuthResponseBP& OnStartWhiteLabelSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Log in and start a LootLocker session in a single step using a White Label account.
@@ -868,7 +942,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
-    static void WhiteLabelLoginAndStartSession(const FString& Email, const FString& Password, const FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP& OnWhiteLabelLoginAndStartSessionRequestCompleted, const bool Remember, const FLootLockerSessionOptionals& Optionals);
+    static FString WhiteLabelLoginAndStartSession(const FString& Email, const FString& Password, const FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP& OnWhiteLabelLoginAndStartSessionRequestCompleted, const bool Remember, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Verify that a cached White Label session token (for the stored email) is still valid.
@@ -878,7 +952,7 @@ public:
      @param OnVerifyWhiteLabelSessionRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void WhiteLabelVerifySession(const FString& ForPlayerWithUlid, const FLootLockerVerifySessionResponseBP& OnVerifyWhiteLabelSessionRequestCompleted);
+    static FString WhiteLabelVerifySession(const FString& ForPlayerWithUlid, const FLootLockerVerifySessionResponseBP& OnVerifyWhiteLabelSessionRequestCompleted);
 
     /**
      Request that a verification email is sent to the specified White Label user id.
@@ -888,7 +962,7 @@ public:
      @param OnRequestWhiteLabelUserVerificationRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-    static void WhiteLabelRequestUserVerification(const int& UserId, const FLootLockerDefaultResponseBP& OnRequestWhiteLabelUserVerificationRequestCompleted);
+    static FString WhiteLabelRequestUserVerification(const int& UserId, const FLootLockerDefaultResponseBP& OnRequestWhiteLabelUserVerificationRequestCompleted);
 
     /**
      Request that a verification email is sent to the White Label user with the specified email.
@@ -898,7 +972,7 @@ public:
      @param OnRequestWhiteLabelUserVerificationRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-    static void WhiteLabelRequestUserVerificationByEmail(const FString& Email, const FLootLockerDefaultResponseBP& OnRequestWhiteLabelUserVerificationRequestCompleted);
+    static FString WhiteLabelRequestUserVerificationByEmail(const FString& Email, const FLootLockerDefaultResponseBP& OnRequestWhiteLabelUserVerificationRequestCompleted);
 
     /**
      Request a password reset email for the specified White Label user email.
@@ -908,7 +982,7 @@ public:
      @param OnResetWhiteLabelPasswordRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-    static void WhiteLabelResetPassword(const FString& Email, const FLootLockerDefaultResponseBP& OnResetWhiteLabelPasswordRequestCompleted);
+    static FString WhiteLabelResetPassword(const FString& Email, const FLootLockerDefaultResponseBP& OnResetWhiteLabelPasswordRequestCompleted);
 
     /**
      Start a guest session. Optionally provide a custom unique PlayerIdentifier (otherwise one will be generated).
@@ -918,7 +992,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
-    static void GuestLogin(const FAuthResponseBP& OnCompletedRequestBP, const FString& PlayerIdentifier, const FLootLockerSessionOptionals& Optionals);
+    static FString GuestLogin(const FAuthResponseBP& OnCompletedRequestBP, const FString& PlayerIdentifier, const FLootLockerSessionOptionals& Optionals);
     
     /**
      Start a LootLocker session for a Discord user.
@@ -929,7 +1003,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "Optionals", AutoCreateRefTerm = "Optionals"))
-    static void StartDiscordSession(const FString& AccessToken, const FDiscordSessionResponseBP& OnStartedDiscordSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
+    static FString StartDiscordSession(const FString& AccessToken, const FDiscordSessionResponseBP& OnStartedDiscordSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Refresh an existing Discord session.
@@ -942,7 +1016,7 @@ public:
      @param Optionals Optional: Additional session options applied when starting the session
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "RefreshToken,ForPlayerWithUlid,Optionals", ForPlayerWithUlid="", RefreshToken="", AutoCreateRefTerm = "Optionals"))
-    static void RefreshDiscordSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FDiscordSessionResponseBP& OnRefreshDiscordSessionCompleted, const FLootLockerSessionOptionals& Optionals);
+    static FString RefreshDiscordSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FDiscordSessionResponseBP& OnRefreshDiscordSessionCompleted, const FLootLockerSessionOptionals& Optionals);
 
     /**
      Verify the player's identity with the selected platform (Deprecated – use VerifyPlayerAndStartPlaystationNetworkSession or VerifyPlayerAndStartSteamSession).
@@ -954,7 +1028,7 @@ public:
      @param Platform Optional: Explicit platform name to verify against (auto-detected if empty)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (DeprecationMessage="This method is deprecated, please use VerifyPlayerAndStartPlaystationNetworkSession or VerifyPlayerAndStartSteamSession instead.")) // Deprecation date 2025-09-24
-    static void VerifyPlayer(const FString& ForPlayerWithUlid, const FString& PlatformToken, const FLootLockerDefaultResponseBP& OnVerifyPlayerRequestCompleted, FString Platform = FString(TEXT("")));
+    static FString VerifyPlayer(const FString& ForPlayerWithUlid, const FString& PlatformToken, const FLootLockerDefaultResponseBP& OnVerifyPlayerRequestCompleted, FString Platform = FString(TEXT("")));
 
     /**
      End the active session for a player (no-op if no active session).
@@ -964,7 +1038,7 @@ public:
      @param OnEndSessionRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
-    static void EndSession(const FString& ForPlayerWithUlid, const FLootLockerDefaultResponseBP& OnEndSessionRequestCompleted);
+    static FString EndSession(const FString& ForPlayerWithUlid, const FLootLockerDefaultResponseBP& OnEndSessionRequestCompleted);
 
     //==================================================
     // Connected Accounts
@@ -977,7 +1051,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListConnectedAccounts(const FString& ForPlayerWithUlid, const FLootLockerListConnectedAccountsResponseBP& OnCompleteBP);
+    static FString ListConnectedAccounts(const FString& ForPlayerWithUlid, const FLootLockerListConnectedAccountsResponseBP& OnCompleteBP);
 
     /**
      Disconnect a linked identity provider account so it can no longer start sessions for this LootLocker player.
@@ -988,7 +1062,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void DisconnectAccount(const FString& ForPlayerWithUlid, const ELootLockerAccountProvider AccountToDisconnect, const FLootLockerDefaultResponseBP& OnCompleteBP);
+    static FString DisconnectAccount(const FString& ForPlayerWithUlid, const ELootLockerAccountProvider AccountToDisconnect, const FLootLockerDefaultResponseBP& OnCompleteBP);
 
     /**
      Connect a Google account to this LootLocker player, allowing future Google authentications to start sessions.
@@ -998,7 +1072,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ConnectGoogleAccount(const FString& ForPlayerWithUlid, const FString& IdToken, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+    static FString ConnectGoogleAccount(const FString& ForPlayerWithUlid, const FString& IdToken, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
 
     /**
      Connect a Google account (for a specific OAuth2 Client Platform) to this LootLocker player.
@@ -1009,7 +1083,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ConnectGoogleAccountWithPlatform(const FString& ForPlayerWithUlid, const FString& IdToken, EGoogleAccountProviderPlatform Platform, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+    static FString ConnectGoogleAccountWithPlatform(const FString& ForPlayerWithUlid, const FString& IdToken, EGoogleAccountProviderPlatform Platform, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
 
     /**
      Connect an Apple account (authorized via REST Sign In) to this LootLocker player.
@@ -1019,7 +1093,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ConnectAppleAccountByRestSignIn(const FString& ForPlayerWithUlid, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+    static FString ConnectAppleAccountByRestSignIn(const FString& ForPlayerWithUlid, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
 
     /**
      Connect a Twitch account to this LootLocker player enabling Twitch-based session starts.
@@ -1030,7 +1104,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ConnectTwitchAccount(const FString& ForPlayerWithUlid, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+    static FString ConnectTwitchAccount(const FString& ForPlayerWithUlid, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
 
     /**
      Connect an Epic account to this LootLocker player enabling Epic-based session starts.
@@ -1041,7 +1115,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ConnectEpicAccount(const FString& ForPlayerWithUlid, const FString& Token, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+    static FString ConnectEpicAccount(const FString& ForPlayerWithUlid, const FString& Token, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
 
     /**
      Connect a PlayStation account to this LootLocker player enabling PlayStation-based session starts.
@@ -1053,7 +1127,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ConnectPlaystationAccount(const FString& ForPlayerWithUlid, const FString& Environment, const FString& Code, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+    static FString ConnectPlaystationAccount(const FString& ForPlayerWithUlid, const FString& Environment, const FString& Code, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
 
     /**
      Connect a Discord account to this LootLocker player enabling Discord-based session starts.
@@ -1064,7 +1138,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ConnectDiscordAccount(const FString& ForPlayerWithUlid, const FString& Token, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+    static FString ConnectDiscordAccount(const FString& ForPlayerWithUlid, const FString& Token, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
 
     /**
      Connect an account authenticated via a remote session lease to this LootLocker player.
@@ -1075,7 +1149,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ConnectRemoteSessionAccount(const FString& ForPlayerWithUlid, const FString& Code, const FString& Nonce, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+    static FString ConnectRemoteSessionAccount(const FString& ForPlayerWithUlid, const FString& Code, const FString& Nonce, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
 
     /**
      Transfer one or more identity provider connections from one authenticated player to another.
@@ -1089,7 +1163,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts")
-    static void TransferIdentityProvidersBetweenAccounts(const FString& FromPlayerWithUlid, const FString& ToPlayerWithUlid, TArray<ELootLockerAccountProvider> ProvidersToTransfer, const FLootLockerListConnectedAccountsResponseBP& OnCompleteBP);
+    static FString TransferIdentityProvidersBetweenAccounts(const FString& FromPlayerWithUlid, const FString& ToPlayerWithUlid, TArray<ELootLockerAccountProvider> ProvidersToTransfer, const FLootLockerListConnectedAccountsResponseBP& OnCompleteBP);
 
     //==================================================
     // Remote Sessions
@@ -1125,7 +1199,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Remote Session", meta = (AdvancedDisplay = "RefreshToken,ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void RefreshRemoteSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegateBP& OnCompletedRequest);
+    static FString RefreshRemoteSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegateBP& OnCompletedRequest);
 
     //==================================================
     //Players
@@ -1138,7 +1212,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetCurrentPlayerInfo(const FString& ForPlayerWithUlid, const FLootLockerGetCurrentPlayerInfoResponseBP& OnCompletedRequest);
+    static FString GetCurrentPlayerInfo(const FString& ForPlayerWithUlid, const FLootLockerGetCurrentPlayerInfoResponseBP& OnCompletedRequest);
 
     /**
      Retrieve profile information for multiple players using ULIDs, legacy ids, and/or public UIDs.
@@ -1150,7 +1224,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListPlayerInfo(const FString& ForPlayerWithUlid, TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseBP& OnCompletedRequest);
+    static FString ListPlayerInfo(const FString& ForPlayerWithUlid, TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseBP& OnCompletedRequest);
 
     /**
      Get the full list of inventory asset instances owned by a player.
@@ -1159,7 +1233,7 @@ public:
      @param OnGetInventoryRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetInventory(const FString& ForPlayerWithUlid, const FPInventoryResponseBP& OnGetInventoryRequestCompleted);
+    static FString GetInventory(const FString& ForPlayerWithUlid, const FPInventoryResponseBP& OnGetInventoryRequestCompleted);
 
     /**
      Get a paginated segment of the player's inventory starting after a given asset instance id.
@@ -1169,7 +1243,7 @@ public:
      @param OnGetInventoryRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetFullInventory(const FString ForPlayerWithUlid, int32 StartIndex, const FPInventoryResponseBP& OnGetInventoryRequestCompleted);
+    static FString GetFullInventory(const FString ForPlayerWithUlid, int32 StartIndex, const FPInventoryResponseBP& OnGetInventoryRequestCompleted);
 
     /**
      Get recently granted player assets since the last activation notification check.
@@ -1178,7 +1252,7 @@ public:
      @param OnCheckPlayerAssetDeactivationNotificationRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void CheckPlayerAssetActivationNotification(const FString& ForPlayerWithUlid, const FPAssetNotificationResponseBP& OnCheckPlayerAssetDeactivationNotificationRequestCompleted);
+    static FString CheckPlayerAssetActivationNotification(const FString& ForPlayerWithUlid, const FPAssetNotificationResponseBP& OnCheckPlayerAssetDeactivationNotificationRequestCompleted);
 
     /**
      Get the current credit / currency balance of a player.
@@ -1187,7 +1261,7 @@ public:
      @param OnGetCurrencyBalance Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetCurrencyBalance(const FString& ForPlayerWithUlid, const FPBalanceResponseBP& OnGetCurrencyBalance);
+    static FString GetCurrencyBalance(const FString& ForPlayerWithUlid, const FPBalanceResponseBP& OnGetCurrencyBalance);
 
     /**
      Initiate DLC migration for the player (results appear later via asset notifications; poll after ~5 minutes).
@@ -1196,7 +1270,7 @@ public:
      @param OnInitiateDlcMigration Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void InitiateDLCMigration(const FString& ForPlayerWithUlid, const FResponseCallbackBP& OnInitiateDlcMigration);
+    static FString InitiateDLCMigration(const FString& ForPlayerWithUlid, const FResponseCallbackBP& OnInitiateDlcMigration);
 
     /**
      List DLC identifiers migrated for the player (identifiers are returned as strings regardless of underlying numeric nature).
@@ -1205,7 +1279,7 @@ public:
      @param OnGotDlcMigration Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetDLCsMigration(const FString& ForPlayerWithUlid, const FPDlcResponseBP& OnGotDlcMigration);
+    static FString GetDLCsMigration(const FString& ForPlayerWithUlid, const FPDlcResponseBP& OnGotDlcMigration);
 
     /**
      Set the player's profile visibility to private (inventory not shown publicly on external platforms).
@@ -1214,7 +1288,7 @@ public:
      @param OnProfileSetPrivate Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void SetProfilePrivate(const FString& ForPlayerWithUlid, const FResponseCallbackBP& OnProfileSetPrivate);
+    static FString SetProfilePrivate(const FString& ForPlayerWithUlid, const FResponseCallbackBP& OnProfileSetPrivate);
 
     /**
      Set the player's profile visibility to public (inventory may be shown on external platforms).
@@ -1223,7 +1297,7 @@ public:
      @param OnProfileSetPublic Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void SetProfilePublic(const FString& ForPlayerWithUlid, const FResponseCallbackBP& OnProfileSetPublic);
+    static FString SetProfilePublic(const FString& ForPlayerWithUlid, const FResponseCallbackBP& OnProfileSetPublic);
 
     /**
      Set (or change) the player's display name.
@@ -1233,7 +1307,7 @@ public:
      @param OnSetPlayerName Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void SetPlayerName(const FString& ForPlayerWithUlid, FString Name, const FPNameResponseBP& OnSetPlayerName);
+    static FString SetPlayerName(const FString& ForPlayerWithUlid, FString Name, const FPNameResponseBP& OnSetPlayerName);
 
     /**
      Get the player's current display name.
@@ -1242,7 +1316,7 @@ public:
      @param OnGetPlayerName Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetPlayerName(const FString& ForPlayerWithUlid, const FPNameResponseBP& OnGetPlayerName);
+    static FString GetPlayerName(const FString& ForPlayerWithUlid, const FPNameResponseBP& OnGetPlayerName);
 
     /**
      Look up player names on their last active platform (Deprecated – use LookupMultiplePlayersDataUsingIDs).
@@ -1252,7 +1326,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid="", DeprecatedFunction, DeprecationMessage = "This method is deprecated in favor of method LookupMultiplePlayersDataUsingIDs")) // Deprecation date 20250304
-    static void LookupMultiplePlayerNamesUsingIDs(const FString& ForPlayerWithUlid, const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayerNamesBP& OnCompletedRequest);
+    static FString LookupMultiplePlayerNamesUsingIDs(const FString& ForPlayerWithUlid, const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayerNamesBP& OnCompletedRequest);
     
     /**
      Look up multiple players' data using a mix of supported identifier types.
@@ -1262,7 +1336,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void LookupMultiplePlayersDataUsingIDs(const FString& ForPlayerWithUlid, const FLootLockerLookupMultiplePlayersDataRequest& Request, const FPMultiplePlayerNamesBP& OnCompletedRequest);
+    static FString LookupMultiplePlayersDataUsingIDs(const FString& ForPlayerWithUlid, const FLootLockerLookupMultiplePlayersDataRequest& Request, const FPMultiplePlayerNamesBP& OnCompletedRequest);
 
     /**
      Look up player names using first-platform player ids and/or public UIDs.
@@ -1272,7 +1346,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void LookupMultiplePlayerNames1stPlatformIDs(const FString& ForPlayerWithUlid, const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequest);
+    static FString LookupMultiplePlayerNames1stPlatformIDs(const FString& ForPlayerWithUlid, const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequest);
 
     /**
      Mark the player for deletion (permanently removed after a 30 day grace period).
@@ -1281,7 +1355,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void DeletePlayer(const FString& ForPlayerWithUlid, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+    static FString DeletePlayer(const FString& ForPlayerWithUlid, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     //==================================================
     //Files
@@ -1296,7 +1370,7 @@ public:
      @param OnComplete Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void UploadFile(const FString& ForPlayerWithUlid, const FLootLockerFileUploadRequest& Request, const FLootLockerUploadFileBP& OnComplete);
+    static FString UploadFile(const FString& ForPlayerWithUlid, const FLootLockerFileUploadRequest& Request, const FLootLockerUploadFileBP& OnComplete);
 
     /**
      Update an existing player-owned file with new content or metadata.
@@ -1307,7 +1381,7 @@ public:
      @param OnComplete Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void UpdateFile(const FString& ForPlayerWithUlid, const int32 FileId, const FLootLockerFileUpdateRequest& Request, const FLootLockerUploadFileBP& OnComplete);
+    static FString UpdateFile(const FString& ForPlayerWithUlid, const int32 FileId, const FLootLockerFileUpdateRequest& Request, const FLootLockerUploadFileBP& OnComplete);
 
     /**
      List all files owned by the player.
@@ -1316,7 +1390,7 @@ public:
      @param OnComplete Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListFiles(const FString& ForPlayerWithUlid, const FLootLockerFileListBP& OnComplete);
+    static FString ListFiles(const FString& ForPlayerWithUlid, const FLootLockerFileListBP& OnComplete);
 
     /**
      List all public files owned by another player (by legacy PlayerID).
@@ -1326,7 +1400,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListOtherPlayersPublicFiles(const FString& ForPlayerWithUlid, const int32 PlayerID, const FLootLockerFileListBP& OnCompleteBP);
+    static FString ListOtherPlayersPublicFiles(const FString& ForPlayerWithUlid, const int32 PlayerID, const FLootLockerFileListBP& OnCompleteBP);
 
     /**
      Retrieve metadata (including access URL) for a single file.
@@ -1336,7 +1410,7 @@ public:
      @param OnComplete Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetSingleFile(const FString& ForPlayerWithUlid, const int32 FileID, const FLootLockerUploadFileBP& OnComplete);
+    static FString GetSingleFile(const FString& ForPlayerWithUlid, const int32 FileID, const FLootLockerUploadFileBP& OnComplete);
 
     /**
      Permanently delete a file (irreversible).
@@ -1346,7 +1420,7 @@ public:
      @param OnComplete Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void DeletePlayerFile(const FString& ForPlayerWithUlid, const int32 FileID, const FLootLockerFileDeletedBP& OnComplete);
+    static FString DeletePlayerFile(const FString& ForPlayerWithUlid, const int32 FileID, const FLootLockerFileDeletedBP& OnComplete);
 
     //==================================================
     // Player Progressions
@@ -1361,7 +1435,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Progressions", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid=""))
-    static void GetPlayerProgressions(const FString& ForPlayerWithUlid, const int32 Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest);
+    static FString GetPlayerProgressions(const FString& ForPlayerWithUlid, const int32 Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest);
 
     /**
      Get a single progression state for the player.
@@ -1371,7 +1445,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetPlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseBP& OnCompletedRequest);
+    static FString GetPlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseBP& OnCompletedRequest);
 
     /**
      Add points to a player progression (may trigger rewards if thresholds crossed).
@@ -1382,7 +1456,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void AddPointsToPlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest);
+    static FString AddPointsToPlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest);
 
     /**
      Subtract points from a player progression.
@@ -1393,7 +1467,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void SubtractPointsFromPlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest);
+    static FString SubtractPointsFromPlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest);
 
     /**
      Reset a player progression to its initial state.
@@ -1403,7 +1477,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ResetPlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest);
+    static FString ResetPlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest);
 
     /**
      Delete a player progression (removes progress data for that progression).
@@ -1413,7 +1487,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void DeletePlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest);
+    static FString DeletePlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest);
 
     /**
      List progressions for another specified player (paginated).
@@ -1425,7 +1499,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetOtherPlayersProgressions(const FString& ForPlayerWithUlid, const FString& PlayerUlid, const int32 Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest);
+    static FString GetOtherPlayersProgressions(const FString& ForPlayerWithUlid, const FString& PlayerUlid, const int32 Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest);
 
     /**
      Get a single progression state for another specified player.
@@ -1436,7 +1510,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player Progressions", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid=""))
-    static void GetOtherPlayersProgression(const FString& ForPlayerWithUlid, const FString& PlayerUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseBP& OnCompletedRequest);
+    static FString GetOtherPlayersProgression(const FString& ForPlayerWithUlid, const FString& PlayerUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseBP& OnCompletedRequest);
 
     //==================================================
     // Heroes
@@ -1449,7 +1523,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetGameHeroes(const FString& ForPlayerWithUlid, const FLootLockerGameHeroListBP& OnCompleteBP);
+    static FString GetGameHeroes(const FString& ForPlayerWithUlid, const FLootLockerGameHeroListBP& OnCompleteBP);
 
     /**
      List heroes owned by the current player.
@@ -1458,7 +1532,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListPlayerHeroes(const FString& ForPlayerWithUlid, const FLootLockerHeroListBP& OnCompleteBP);
+    static FString ListPlayerHeroes(const FString& ForPlayerWithUlid, const FLootLockerHeroListBP& OnCompleteBP);
 
     /**
      List heroes owned by another player identified by SteamID64.
@@ -1468,7 +1542,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListOtherPlayersHeroesBySteamID64(const FString& ForPlayerWithUlid, const int64 SteamID64, const FLootLockerHeroListBP& OnCompleteBP);
+    static FString ListOtherPlayersHeroesBySteamID64(const FString& ForPlayerWithUlid, const int64 SteamID64, const FLootLockerHeroListBP& OnCompleteBP);
 
     /**
      Create a hero for the player from a game hero template.
@@ -1478,7 +1552,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void CreateHero(const FString& ForPlayerWithUlid, const FLootLockerCreateHeroRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP);
+    static FString CreateHero(const FString& ForPlayerWithUlid, const FLootLockerCreateHeroRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP);
 
     /**
      Create a hero from a game hero template including variation and optional default flag.
@@ -1488,7 +1562,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void CreateHeroWithVariation(const FString& ForPlayerWithUlid, const FLootLockerCreateHeroWithVariationRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP);
+    static FString CreateHeroWithVariation(const FString& ForPlayerWithUlid, const FLootLockerCreateHeroWithVariationRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP);
 
     /**
      Get information about a specific hero owned by the player.
@@ -1498,7 +1572,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetHero(const FString& ForPlayerWithUlid, const int32 HeroID, const FLootLockerPlayerHeroBP& OnCompleteBP);
+    static FString GetHero(const FString& ForPlayerWithUlid, const int32 HeroID, const FLootLockerPlayerHeroBP& OnCompleteBP);
 
     /**
      Get the default hero for another player identified by SteamID64.
@@ -1508,7 +1582,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetOtherPlayersDefaultHeroBySteamID64(const FString& ForPlayerWithUlid, const int32 SteamID64, const FLootLockerPlayerHeroBP& OnCompleteBP);
+    static FString GetOtherPlayersDefaultHeroBySteamID64(const FString& ForPlayerWithUlid, const int32 SteamID64, const FLootLockerPlayerHeroBP& OnCompleteBP);
 
     /**
      Update a hero's name and/or mark it as the player's default hero.
@@ -1519,7 +1593,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void UpdateHero(const FString& ForPlayerWithUlid, const int32 HeroID, const FLootLockerUpdateHeroRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP);
+    static FString UpdateHero(const FString& ForPlayerWithUlid, const int32 HeroID, const FLootLockerUpdateHeroRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP);
 
     /**
      Delete a hero owned by the player (irreversible; hero inventory items are returned to general inventory, loadout reset).
@@ -1529,7 +1603,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void DeleteHero(const FString& ForPlayerWithUlid, const int32 HeroID, const FLLHeroDefaultResponseBP& OnCompleteBP);
+    static FString DeleteHero(const FString& ForPlayerWithUlid, const int32 HeroID, const FLLHeroDefaultResponseBP& OnCompleteBP);
 
     /**
      List asset instances equipped/owned by a specific hero (first page only; endpoint is paginated server-side).
@@ -1539,7 +1613,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetHeroInventory(const FString& ForPlayerWithUlid, const int32 HeroID, const FPInventoryResponseBP& OnCompleteBP);
+    static FString GetHeroInventory(const FString& ForPlayerWithUlid, const int32 HeroID, const FPInventoryResponseBP& OnCompleteBP);
 
     /**
      Get the loadout (equipped items) for a hero owned by the player.
@@ -1549,7 +1623,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const FHeroLoadoutReseponseBP& OnCompleteBP);
+    static FString GetHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const FHeroLoadoutReseponseBP& OnCompleteBP);
 
     /**
      Get the loadout for another player's hero.
@@ -1559,7 +1633,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetOtherPlayersHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const FHeroLoadoutReseponseBP& OnCompleteBP);
+    static FString GetOtherPlayersHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const FHeroLoadoutReseponseBP& OnCompleteBP);
 
     /**
      Equip an existing asset instance to a hero owned by the player.
@@ -1570,7 +1644,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void AddAssetToHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP);
+    static FString AddAssetToHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP);
 
     /**
      Equip a global asset (default variation) directly to a hero owned by the player.
@@ -1581,7 +1655,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void AddGlobalAssetToHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const int32 AssetID, const FHeroLoadoutReseponseBP& OnCompleteBP);
+    static FString AddGlobalAssetToHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const int32 AssetID, const FHeroLoadoutReseponseBP& OnCompleteBP);
 
     /**
      Equip a specific global asset variation to a hero owned by the player.
@@ -1593,7 +1667,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void AddGlobalAssetVariationToHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseBP& OnCompleteBP);
+    static FString AddGlobalAssetVariationToHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseBP& OnCompleteBP);
 
     /**
      Unequip an asset instance from a hero owned by the player.
@@ -1604,7 +1678,7 @@ public:
      @param OnCompleteBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Heroes", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void RemoveAssetToHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP);
+    static FString RemoveAssetToHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP);
 
     //==================================================
     // Characters
@@ -1617,7 +1691,7 @@ public:
      @param OnGetCharacterLoadoutRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetCharacterLoadout(const FString& ForPlayerWithUlid, const FPCharacterLoadoutResponseBP& OnGetCharacterLoadoutRequestCompleted);
+    static FString GetCharacterLoadout(const FString& ForPlayerWithUlid, const FPCharacterLoadoutResponseBP& OnGetCharacterLoadoutRequestCompleted);
 
     /**
      Update a character's name and/or mark it as the default character.
@@ -1629,7 +1703,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void UpdateCharacter(const FString& ForPlayerWithUlid, int CharacterId, bool IsDefault, FString Name, const FPCharacterLoadoutResponseBP& OnCompletedRequest);
+    static FString UpdateCharacter(const FString& ForPlayerWithUlid, int CharacterId, bool IsDefault, FString Name, const FPCharacterLoadoutResponseBP& OnCompletedRequest);
 
     /**
      Create a character of a specified type and name (optionally set as default).
@@ -1641,7 +1715,7 @@ public:
      @param OnCompletedRequestBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void CreateCharacter(const FString& ForPlayerWithUlid, bool IsDefault, FString CharacterName, FString CharacterTypeId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP);
+    static FString CreateCharacter(const FString& ForPlayerWithUlid, bool IsDefault, FString CharacterName, FString CharacterTypeId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP);
 
     /**
      Delete a character by id (irreversible) and free associated loadout slots/items back to inventory.
@@ -1651,7 +1725,7 @@ public:
      @param OnCompletedRequestBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void DeleteCharacter(const FString& ForPlayerWithUlid, int CharacterId, const FPCharacterDefaultResponseBP& OnCompletedRequestBP);
+    static FString DeleteCharacter(const FString& ForPlayerWithUlid, int CharacterId, const FPCharacterDefaultResponseBP& OnCompletedRequestBP);
 
     /**
      List character types configured for your game.
@@ -1660,7 +1734,7 @@ public:
      @param OnCompletedRequestBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListCharacterTypes(const FString& ForPlayerWithUlid, const FPLootLockerListCharacterTypesResponseBP& OnCompletedRequestBP);
+    static FString ListCharacterTypes(const FString& ForPlayerWithUlid, const FPLootLockerListCharacterTypesResponseBP& OnCompletedRequestBP);
 
     /**
      List characters owned by the player.
@@ -1669,7 +1743,7 @@ public:
      @param OnCompletedRequestBP Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListPlayerCharacters(const FString& ForPlayerWithUlid, const FPLootLockerListPlayerCharactersResponseBP& OnCompletedRequestBP);
+    static FString ListPlayerCharacters(const FString& ForPlayerWithUlid, const FPLootLockerListPlayerCharactersResponseBP& OnCompletedRequestBP);
     /**
      Equip an asset instance to the player's default character.
 
@@ -1678,7 +1752,7 @@ public:
      @param OnEquipAssetToDefaultCharacterRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void EquipAssetToDefaultCharacter(const FString& ForPlayerWithUlid, int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToDefaultCharacterRequestCompleted);
+    static FString EquipAssetToDefaultCharacter(const FString& ForPlayerWithUlid, int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToDefaultCharacterRequestCompleted);
 
     /**
      Equip an asset (by asset id and variation) to a specific character.
@@ -1690,7 +1764,7 @@ public:
      @param OnEquipAssetToCharacterByIdRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void EquipAssetToCharacterById(const FString& ForPlayerWithUlid, int CharacterId, int AssetId, int AssetVariationId, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted);
+    static FString EquipAssetToCharacterById(const FString& ForPlayerWithUlid, int CharacterId, int AssetId, int AssetVariationId, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted);
 
     /**
      Equip an asset instance to a specific character.
@@ -1701,7 +1775,7 @@ public:
      @param OnEquipAssetToCharacterByIdRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void EquipAssetToCharacterByIdAndInstance(const FString& ForPlayerWithUlid, int CharacterId, int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted);
+    static FString EquipAssetToCharacterByIdAndInstance(const FString& ForPlayerWithUlid, int CharacterId, int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted);
 
     /**
      Unequip an asset instance from the default character.
@@ -1711,7 +1785,7 @@ public:
      @param OnUnEquipAssetToDefaultCharacterRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void UnEquipAssetToDefaultCharacter(const FString& ForPlayerWithUlid, int InstanceId, const FPCharacterDefaultResponseBP& OnUnEquipAssetToDefaultCharacterRequestCompleted);
+    static FString UnEquipAssetToDefaultCharacter(const FString& ForPlayerWithUlid, int InstanceId, const FPCharacterDefaultResponseBP& OnUnEquipAssetToDefaultCharacterRequestCompleted);
 
     /**
      Unequip an asset instance from a specific character.
@@ -1722,7 +1796,7 @@ public:
      @param OnUnEquipAssetToCharacterByIdRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void UnEquipAssetToCharacterById(const FString& ForPlayerWithUlid, int CharacterId, int InstanceId, const  FPCharacterDefaultResponseBP& OnUnEquipAssetToCharacterByIdRequestCompleted);
+    static FString UnEquipAssetToCharacterById(const FString& ForPlayerWithUlid, int CharacterId, int InstanceId, const  FPCharacterDefaultResponseBP& OnUnEquipAssetToCharacterByIdRequestCompleted);
 
 
     /**
@@ -1732,7 +1806,7 @@ public:
      @param OnGetCurrentLoadoutToDefaultCharacterRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetCurrentLoadoutToDefaultCharacter(const FString& ForPlayerWithUlid, const FPCharacterLoadoutResponseBP& OnGetCurrentLoadoutToDefaultCharacterRequestCompleted);
+    static FString GetCurrentLoadoutToDefaultCharacter(const FString& ForPlayerWithUlid, const FPCharacterLoadoutResponseBP& OnGetCurrentLoadoutToDefaultCharacterRequestCompleted);
 
     /**
      Get the default character loadout for another player identified by a platform-specific id.
@@ -1743,7 +1817,7 @@ public:
      @param OtherPlayerPlatform Optional: Platform the id refers to (if different than current)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetOtherPlayersCurrentLoadoutToDefaultCharacter(const FString& ForPlayerWithUlid, FString OtherPlayerId, const FPCharacterLoadoutResponseBP& OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted, const FString& OtherPlayerPlatform = FString(TEXT("")));
+    static FString GetOtherPlayersCurrentLoadoutToDefaultCharacter(const FString& ForPlayerWithUlid, FString OtherPlayerId, const FPCharacterLoadoutResponseBP& OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted, const FString& OtherPlayerPlatform = FString(TEXT("")));
 
     /**
      List equipable contexts (slots/categories) for the player's default character.
@@ -1752,7 +1826,7 @@ public:
      @param OnGetEquipableContextsToDefaultCharacterRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetEquipableContextsToDefaultCharacter(const FString& ForPlayerWithUlid, const FContextDelegateBP& OnGetEquipableContextsToDefaultCharacterRequestCompleted);
+    static FString GetEquipableContextsToDefaultCharacter(const FString& ForPlayerWithUlid, const FContextDelegateBP& OnGetEquipableContextsToDefaultCharacterRequestCompleted);
 
     /**
      List equipable contexts for another player's character by character id.
@@ -1762,7 +1836,7 @@ public:
      @param OnGetEquipableContextsByCharacterIdRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetEquipableContextsByCharacterId(const FString& ForPlayerWithUlid, int OtherCharacterId, const FContextDelegateBP& OnGetEquipableContextsByCharacterIdRequestCompleted);
+    static FString GetEquipableContextsByCharacterId(const FString& ForPlayerWithUlid, int OtherCharacterId, const FContextDelegateBP& OnGetEquipableContextsByCharacterIdRequestCompleted);
 
     /**
      Get character loadouts for another player by platform-specific id.
@@ -1773,7 +1847,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid,OtherPlayerPlatform", ForPlayerWithUlid="", OtherPlayerPlatform=""))
-    static void GetOtherPlayersCharacterLoadouts(const FString& ForPlayerWithUlid, const FString& OtherPlayerId, const FString& OtherPlayerPlatform, const FPCharacterLoadoutResponseBP& OnCompletedRequest);
+    static FString GetOtherPlayersCharacterLoadouts(const FString& ForPlayerWithUlid, const FString& OtherPlayerId, const FString& OtherPlayerPlatform, const FPCharacterLoadoutResponseBP& OnCompletedRequest);
 
     /**
      Get character loadouts for another player by their public UID.
@@ -1783,7 +1857,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetOtherPlayersCharacterLoadoutsByUid(const FString& ForPlayerWithUlid, const FString& OtherPlayerUid, const FPCharacterLoadoutResponseBP& OnCompletedRequest);
+    static FString GetOtherPlayersCharacterLoadoutsByUid(const FString& ForPlayerWithUlid, const FString& OtherPlayerUid, const FPCharacterLoadoutResponseBP& OnCompletedRequest);
 
 
     //==================================================
@@ -1800,7 +1874,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Character Progressions", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid=""))
-    static void GetCharacterProgressions(const FString& ForPlayerWithUlid, const int32& CharacterId, const int32 Count, const FString& After, const FLootLockerPaginatedCharacterProgressionsResponseBP& OnCompletedRequest);
+    static FString GetCharacterProgressions(const FString& ForPlayerWithUlid, const int32& CharacterId, const int32 Count, const FString& After, const FLootLockerPaginatedCharacterProgressionsResponseBP& OnCompletedRequest);
 
     /**
      Get a specific progression for the character by progression key.
@@ -1811,7 +1885,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Character Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionResponseBP& OnCompletedRequest);
+    static FString GetCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionResponseBP& OnCompletedRequest);
 
     /**
      Add points to a character progression and return any newly earned rewards.
@@ -1823,7 +1897,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response (includes rewards)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Character Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void AddPointsToCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest);
+    static FString AddPointsToCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest);
 
     /**
      Subtract points from a character progression (clamped at zero) and return any adjusted reward state.
@@ -1835,7 +1909,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response (includes rewards)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Character Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void SubtractPointsFromCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest);
+    static FString SubtractPointsFromCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest);
 
     /**
      Reset a character progression to its initial state and return resulting reward changes.
@@ -1846,7 +1920,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response (includes rewards)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Character Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ResetCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest);
+    static FString ResetCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest);
 
     /**
      Delete a character progression entirely (progress and rewards association removed).
@@ -1857,7 +1931,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Character Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void DeleteCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest);
+    static FString DeleteCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest);
 
     //==================================================
     // Persistent Storage
@@ -1872,7 +1946,7 @@ public:
      @param OnPersistentStorageItemsRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetEntirePersistentStorage(const FString& ForPlayerWithUlid, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsRequestCompleted);
+    static FString GetEntirePersistentStorage(const FString& ForPlayerWithUlid, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsRequestCompleted);
 
     /**
      Get a single key/value pair from the player's persistent storage.
@@ -1884,7 +1958,7 @@ public:
      @param OnPersistentStorageItemRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetItemFromPersistentStorage(const FString& ForPlayerWithUlid, const FString& Key, const FPersistentStorageItemResponseDelegateBP& OnPersistentStorageItemRequestCompleted);
+    static FString GetItemFromPersistentStorage(const FString& ForPlayerWithUlid, const FString& Key, const FPersistentStorageItemResponseDelegateBP& OnPersistentStorageItemRequestCompleted);
 
     /**
      Create or update multiple key/value pairs in player persistent storage.
@@ -1896,7 +1970,7 @@ public:
      @param OnPersistentStorageItemsAddRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void AddItemsToPersistentStorage(const FString& ForPlayerWithUlid, FLootLockerPersistentStorageItems Items, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsAddRequestCompleted);
+    static FString AddItemsToPersistentStorage(const FString& ForPlayerWithUlid, FLootLockerPersistentStorageItems Items, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsAddRequestCompleted);
 
     /**
      Create or update a single key/value pair in player persistent storage.
@@ -1908,7 +1982,7 @@ public:
      @param OnPersistentStorageItemAddRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void AddItemToPersistentStorage(const FString& ForPlayerWithUlid, FLootLockerPersistentStorageItem Item, const FPersistentStorageItemResponseDelegateBP& OnPersistentStorageItemAddRequestCompleted);
+    static FString AddItemToPersistentStorage(const FString& ForPlayerWithUlid, FLootLockerPersistentStorageItem Item, const FPersistentStorageItemResponseDelegateBP& OnPersistentStorageItemAddRequestCompleted);
 
     /**
      Delete a key/value pair from player persistent storage.
@@ -1920,7 +1994,7 @@ public:
      @param OnPersistentStorageItemDeleteRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void DeleteItemFromPersistentStorage(const FString& ForPlayerWithUlid, const FString& Key, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemDeleteRequestCompleted);
+    static FString DeleteItemFromPersistentStorage(const FString& ForPlayerWithUlid, const FString& Key, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemDeleteRequestCompleted);
 
     /**
      Read another player's public key/value persistent storage (public items only).
@@ -1932,7 +2006,7 @@ public:
      @param OnGetPlayerPersistentStorageRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Persistent Storage", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetPlayerPersistentStorage(const FString& ForPlayerWithUlid, const FString& PlayerId, const  FPersistentStorageItemsResponseDelegateBP& OnGetPlayerPersistentStorageRequestCompleted);
+    static FString GetPlayerPersistentStorage(const FString& ForPlayerWithUlid, const FString& PlayerId, const  FPersistentStorageItemsResponseDelegateBP& OnGetPlayerPersistentStorageRequestCompleted);
 
     //==================================================
     // Assets
@@ -1945,7 +2019,7 @@ public:
      @param OnGetContextsRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetContexts(const FString& ForPlayerWithUlid, const FContextDelegateBP& OnGetContextsRequestCompleted);
+    static FString GetContexts(const FString& ForPlayerWithUlid, const FContextDelegateBP& OnGetContextsRequestCompleted);
 
     /**
      Retrieve assets in paginated form with optional filtering.
@@ -1959,7 +2033,7 @@ public:
      @param IncludeUGC Optional: Include user generated assets (default false)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetAssets(const FString& ForPlayerWithUlid, const FAssetsResponseDelegateBP& OnGetAssetsRequestCompleted, int StartFromIndex = 0, int ItemsCount = 50, ELootLockerAssetFilter AssetFilter = ELootLockerAssetFilter::None, int Context = 0, bool IncludeUGC = false);
+    static FString GetAssets(const FString& ForPlayerWithUlid, const FAssetsResponseDelegateBP& OnGetAssetsRequestCompleted, int StartFromIndex = 0, int ItemsCount = 50, ELootLockerAssetFilter AssetFilter = ELootLockerAssetFilter::None, int Context = 0, bool IncludeUGC = false);
 
     /**
      Retrieve specific assets by id list (non-paginated).
@@ -1969,7 +2043,7 @@ public:
      @param OnGetAssetsByIdsRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetAssetsByIds(const FString& ForPlayerWithUlid, const TArray<int>& AssetIds, const FAssetsResponseDelegateBP& OnGetAssetsByIdsRequestCompleted);
+    static FString GetAssetsByIds(const FString& ForPlayerWithUlid, const TArray<int>& AssetIds, const FAssetsResponseDelegateBP& OnGetAssetsByIdsRequestCompleted);
 
     /**
      List all default asset bones and any binding overrides.
@@ -1978,7 +2052,7 @@ public:
      @param OnGetAssetBonesRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetAssetBones(const FString& ForPlayerWithUlid, const  FAssetBonesResponseDelegateBP& OnGetAssetBonesRequestCompleted);
+    static FString GetAssetBones(const FString& ForPlayerWithUlid, const  FAssetBonesResponseDelegateBP& OnGetAssetBonesRequestCompleted);
 
     /**
      List the player's favourite asset indices.
@@ -1987,7 +2061,7 @@ public:
      @param OnGetFavouriteAssetIndicesRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetFavouriteAssetIndices(const FString& ForPlayerWithUlid, const FGetFavouriteAssetIndicesResponseDelegateBP& OnGetFavouriteAssetIndicesRequestCompleted);
+    static FString GetFavouriteAssetIndices(const FString& ForPlayerWithUlid, const FGetFavouriteAssetIndicesResponseDelegateBP& OnGetFavouriteAssetIndicesRequestCompleted);
 
     /**
      Add an asset to the player's favourites list.
@@ -1997,7 +2071,7 @@ public:
      @param OnAddAssetToFavouritesRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void AddAssetToFavourites(const FString& ForPlayerWithUlid, int AssetId, const FGetFavouriteAssetIndicesResponseDelegateBP& OnAddAssetToFavouritesRequestCompleted);
+    static FString AddAssetToFavourites(const FString& ForPlayerWithUlid, int AssetId, const FGetFavouriteAssetIndicesResponseDelegateBP& OnAddAssetToFavouritesRequestCompleted);
 
     /**
      Remove an asset from the player's favourites list.
@@ -2007,7 +2081,7 @@ public:
      @param OnRemoveAssetFromFavouritesRequestCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void RemoveAssetFromFavourites(const FString& ForPlayerWithUlid, int AssetId, const  FGetFavouriteAssetIndicesResponseDelegateBP& OnRemoveAssetFromFavouritesRequestCompleted);
+    static FString RemoveAssetFromFavourites(const FString& ForPlayerWithUlid, int AssetId, const  FGetFavouriteAssetIndicesResponseDelegateBP& OnRemoveAssetFromFavouritesRequestCompleted);
 
     /**
      List universal assets (global across game) with cursor pagination.
@@ -2018,7 +2092,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetUniversalAssets(const FString& ForPlayerWithUlid, int After, int ItemsCount, const FUniversalAssetResponseDelegateBP& OnCompletedRequest);
+    static FString GetUniversalAssets(const FString& ForPlayerWithUlid, int After, int ItemsCount, const FUniversalAssetResponseDelegateBP& OnCompletedRequest);
 
     /**
      Grant an asset (optionally with variation or rental option) to the player's inventory.
@@ -2029,7 +2103,7 @@ public:
      @param AssetRentalOptionID Optional: Rental option id (0 for none)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GrantAssetWithVariationToPlayerInventory(const FString& ForPlayerWithUlid, const int AssetID, const int AssetVariationID, const int AssetRentalOptionID, const FGrantAssetResponseDelegateBP& OnCompletedRequest);
+    static FString GrantAssetWithVariationToPlayerInventory(const FString& ForPlayerWithUlid, const int AssetID, const int AssetVariationID, const int AssetRentalOptionID, const FGrantAssetResponseDelegateBP& OnCompletedRequest);
 
     /**
      Grant a base asset (no variation or rental) to the player's inventory.
@@ -2038,8 +2112,8 @@ public:
      @param AssetID Asset id to grant
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GrantAssetToPlayerInventory(const FString& ForPlayerWithUlid, const int AssetID, const FGrantAssetResponseDelegateBP& OnCompletedRequest) {
-        GrantAssetWithVariationToPlayerInventory(ForPlayerWithUlid, AssetID, 0, 0, OnCompletedRequest);
+    static FString GrantAssetToPlayerInventory(const FString& ForPlayerWithUlid, const int AssetID, const FGrantAssetResponseDelegateBP& OnCompletedRequest) {
+        return GrantAssetWithVariationToPlayerInventory(ForPlayerWithUlid, AssetID, 0, 0, OnCompletedRequest);
     }
 
     /**
@@ -2049,7 +2123,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListAssetsWithDefaultParameters(const FString& ForPlayerWithUlid, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequest);
+    static FString ListAssetsWithDefaultParameters(const FString& ForPlayerWithUlid, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequest);
 
     /**
      List assets with a configurable projection (include/exclude fields, filters, ordering, pagination) for optimized payloads.
@@ -2063,7 +2137,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets", meta = (AdvancedDisplay = "PerPage,Page,OrderBy,OrderDirection,ForPlayerWithUlid", PerPage=0,Page=0,ForPlayerWithUlid=""))
-    static void ListAssets(const FString& ForPlayerWithUlid, const FLootLockerListSimpleAssetsRequest& Request, int PerPage, int Page, ELootLockerOrderAssetListBy OrderBy, ELootLockerOrderAssetListDirection OrderDirection, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequest);
+    static FString ListAssets(const FString& ForPlayerWithUlid, const FLootLockerListSimpleAssetsRequest& Request, int PerPage, int Page, ELootLockerOrderAssetListBy OrderBy, ELootLockerOrderAssetListDirection OrderDirection, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequest);
 
     //==================================================
     // Asset Instances
@@ -2077,7 +2151,7 @@ public:
      @param OnGetAllKeyValuePairsForAssetInstanceCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetAllKeyValuePairsForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, const  FAssetInstanceStorageItemsResponseDelegateBP& OnGetAllKeyValuePairsForAssetInstanceCompleted);
+    static FString GetAllKeyValuePairsForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, const  FAssetInstanceStorageItemsResponseDelegateBP& OnGetAllKeyValuePairsForAssetInstanceCompleted);
 
     /**
      Get a single key/value storage entry by id for an asset instance.
@@ -2088,7 +2162,7 @@ public:
      @param OnGetAKeyValuePairByIdForAssetInstanceCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetAKeyValuePairByIdForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemResponseDelegateBP& OnGetAKeyValuePairByIdForAssetInstanceCompleted);
+    static FString GetAKeyValuePairByIdForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemResponseDelegateBP& OnGetAKeyValuePairByIdForAssetInstanceCompleted);
 
     /**
      Create a new key/value storage entry for an asset instance.
@@ -2099,7 +2173,7 @@ public:
      @param OnCreateAKeyValuePairForAssetInstanceCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void CreateAKeyValuePairForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, const FLootLockerAssetInstanceStorageItem& Item, const FAssetInstanceStorageItemsResponseDelegateBP& OnCreateAKeyValuePairForAssetInstanceCompleted);
+    static FString CreateAKeyValuePairForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, const FLootLockerAssetInstanceStorageItem& Item, const FAssetInstanceStorageItemsResponseDelegateBP& OnCreateAKeyValuePairForAssetInstanceCompleted);
 
     /**
      Bulk update or add multiple key/value storage entries for an asset instance.
@@ -2110,7 +2184,7 @@ public:
      @param OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void UpdateOneOrMoreKeyValuePairForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, FLootLockerAssetInstanceStorageItems Items, const FAssetInstanceStorageItemsResponseDelegateBP& OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted);
+    static FString UpdateOneOrMoreKeyValuePairForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, FLootLockerAssetInstanceStorageItems Items, const FAssetInstanceStorageItemsResponseDelegateBP& OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted);
 
     /**
      Update a single key/value storage entry for an asset instance by entry id.
@@ -2122,7 +2196,7 @@ public:
      @param OnUpdateAKeyValuePairByIdForAssetInstanceCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void UpdateAKeyValuePairByIdForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, int StorageItemId, const FLootLockerAssetInstanceStorageItem Item, const FAssetInstanceStorageItemResponseDelegateBP& OnUpdateAKeyValuePairByIdForAssetInstanceCompleted);
+    static FString UpdateAKeyValuePairByIdForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, int StorageItemId, const FLootLockerAssetInstanceStorageItem Item, const FAssetInstanceStorageItemResponseDelegateBP& OnUpdateAKeyValuePairByIdForAssetInstanceCompleted);
 
     /**
      Delete a key/value storage entry from an asset instance by entry id.
@@ -2133,7 +2207,7 @@ public:
      @param OnDeleteAKeyValuePairByIdForAssetInstanceCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void DeleteAKeyValuePairByIdForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegateBP& OnDeleteAKeyValuePairByIdForAssetInstanceCompleted);
+    static FString DeleteAKeyValuePairByIdForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegateBP& OnDeleteAKeyValuePairByIdForAssetInstanceCompleted);
 
     /**
      Inspect a loot box asset instance to view potential contents and drop rates (non-destructive).
@@ -2143,7 +2217,7 @@ public:
      @param OnInspectLootBoxCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void InspectLootBox(const FString& ForPlayerWithUlid, int AssetInstanceId, const  FLootBoxContentResponseDelegateBP& OnInspectLootBoxCompleted);
+    static FString InspectLootBox(const FString& ForPlayerWithUlid, int AssetInstanceId, const  FLootBoxContentResponseDelegateBP& OnInspectLootBoxCompleted);
 
     /**
      Open (consume) a loot box asset instance and grant its awarded contents to the player's inventory.
@@ -2153,7 +2227,7 @@ public:
      @param OnOpenLootBoxCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void OpenLootBox(const FString& ForPlayerWithUlid, int AssetInstanceId, const FOpenLootBoxResponseDelegateBP& OnOpenLootBoxCompleted);
+    static FString OpenLootBox(const FString& ForPlayerWithUlid, int AssetInstanceId, const FOpenLootBoxResponseDelegateBP& OnOpenLootBoxCompleted);
 
     /**
      Permanently delete an asset instance from the player's inventory.
@@ -2163,7 +2237,7 @@ public:
      @param OnCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Assets Instances", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void DeleteAssetInstanceFromPlayerInventory(const FString& ForPlayerWithUlid, int AssetInstanceID, const FDeleteAssetInstanceResponseDelegateBP& OnCompleted);
+    static FString DeleteAssetInstanceFromPlayerInventory(const FString& ForPlayerWithUlid, int AssetInstanceID, const FDeleteAssetInstanceResponseDelegateBP& OnCompleted);
 
     //==================================================
     // User Generated Content
@@ -2177,7 +2251,7 @@ public:
      @param OnCreateAssetCandidateCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void CreateAssetCandidate(const FString& ForPlayerWithUlid, const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted);
+    static FString CreateAssetCandidate(const FString& ForPlayerWithUlid, const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted);
 
     /**
      Create an asset candidate and immediately mark it as completed (single-step publish flow).
@@ -2187,7 +2261,7 @@ public:
      @param OnCreateAssetCandidateCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void CreateAssetCandidateAndMarkComplete(const FString& ForPlayerWithUlid, const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted);
+    static FString CreateAssetCandidateAndMarkComplete(const FString& ForPlayerWithUlid, const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted);
 
     /**
      Update an existing asset candidate (metadata edits before completion).
@@ -2198,7 +2272,7 @@ public:
      @param OnUpdateAssetCandidateCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void UpdateAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidateData, const FAssetCandidateResponseDelegateBP& OnUpdateAssetCandidateCompleted);
+    static FString UpdateAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidateData, const FAssetCandidateResponseDelegateBP& OnUpdateAssetCandidateCompleted);
 
     /**
      Delete an asset candidate (removes draft and associated files).
@@ -2208,7 +2282,7 @@ public:
      @param OnDeleteAssetCandidateCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void DeleteAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FResponseCallbackBP& OnDeleteAssetCandidateCompleted);
+    static FString DeleteAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FResponseCallbackBP& OnDeleteAssetCandidateCompleted);
 
     /**
      List all asset candidates created by or visible to the player.
@@ -2217,7 +2291,7 @@ public:
      @param OnGetAllAssetCandidatesCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetAllAssetCandidates(const FString& ForPlayerWithUlid, const FAssetCandidatesResponseDelegateBP& OnGetAllAssetCandidatesCompleted);
+    static FString GetAllAssetCandidates(const FString& ForPlayerWithUlid, const FAssetCandidatesResponseDelegateBP& OnGetAllAssetCandidatesCompleted);
 
     /**
      Get a single asset candidate by id.
@@ -2227,7 +2301,7 @@ public:
      @param OnGetAssetCandidateCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FAssetCandidateResponseDelegateBP& OnGetAssetCandidateCompleted);
+    static FString GetAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FAssetCandidateResponseDelegateBP& OnGetAssetCandidateCompleted);
 
     /**
      Add a file to an asset candidate (uploads binary under specified purpose).
@@ -2239,7 +2313,7 @@ public:
      @param OnAddFileToAssetCandidateCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void AddFileToAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FString& FilePath, ELootLockerAssetFilePurpose FilePurpose, const FAssetCandidateResponseDelegateBP& OnAddFileToAssetCandidateCompleted);
+    static FString AddFileToAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FString& FilePath, ELootLockerAssetFilePurpose FilePurpose, const FAssetCandidateResponseDelegateBP& OnAddFileToAssetCandidateCompleted);
 
     /**
      Remove a previously uploaded file from an asset candidate.
@@ -2250,7 +2324,7 @@ public:
      @param OnDeleteFileFromAssetCandidateCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | User Generated Content", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void DeleteFileFromAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, int FileId, const FResponseCallbackBP& OnDeleteFileFromAssetCandidateCompleted);
+    static FString DeleteFileFromAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, int FileId, const FResponseCallbackBP& OnDeleteFileFromAssetCandidateCompleted);
 
     //==================================================
     // Progressions
@@ -2265,7 +2339,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Progressions", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid=""))
-    static void GetProgressions(const FString& ForPlayerWithUlid, const int32 Count, const FString& After, const FLootLockerPaginatedProgressionsResponseBP& OnCompletedRequest);
+    static FString GetProgressions(const FString& ForPlayerWithUlid, const int32 Count, const FString& After, const FLootLockerPaginatedProgressionsResponseBP& OnCompletedRequest);
 
     /**
      Get a single progression definition by key.
@@ -2275,7 +2349,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const FLootLockerProgressionResponseBP& OnCompletedRequest);
+    static FString GetProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const FLootLockerProgressionResponseBP& OnCompletedRequest);
 
     /**
      List tiers of a progression (paginated) to inspect level thresholds and rewards.
@@ -2287,7 +2361,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Progressions", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = -1, ForPlayerWithUlid=""))
-    static void GetProgressionTiers(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const int32 Count, const int32 After, const FLootLockerPaginatedProgressionTiersResponseBP& OnCompletedRequest);
+    static FString GetProgressionTiers(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const int32 Count, const int32 After, const FLootLockerPaginatedProgressionTiersResponseBP& OnCompletedRequest);
 
     //==================================================
     // Instance Progressions
@@ -2304,7 +2378,7 @@ public:
      @param OnCompletedRequestBP Delegate for handling the response (FLootLockerPaginatedInstanceProgressionsResponse)
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid=""))
-    static void GetInstanceProgressions(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const int32 Count, const FString& After, const FLootLockerPaginatedInstanceProgressionsResponseBP& OnCompletedRequestBP);
+    static FString GetInstanceProgressions(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const int32 Count, const FString& After, const FLootLockerPaginatedInstanceProgressionsResponseBP& OnCompletedRequestBP);
 
     /**
      Get a single progression for an asset instance.
@@ -2315,7 +2389,7 @@ public:
      @param OnCompletedRequestBP Delegate for handling the response (FLootLockerInstanceProgressionResponse)
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionResponseBP& OnCompletedRequestBP);
+    static FString GetInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionResponseBP& OnCompletedRequestBP);
 
     /**
      Add points to an instance progression (may trigger rewards).
@@ -2327,7 +2401,7 @@ public:
      @param OnCompletedRequestBP Delegate for handling the response (FLootLockerInstanceProgressionWithRewardsResponse)
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void AddPointsToInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP);
+    static FString AddPointsToInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP);
 
     /**
      Subtract points from an instance progression (may adjust completed tiers).
@@ -2339,7 +2413,7 @@ public:
      @param OnCompletedRequestBP Delegate for handling the response (FLootLockerInstanceProgressionWithRewardsResponse)
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void SubtractPointsFromInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP);
+    static FString SubtractPointsFromInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP);
 
     /**
      Reset an instance progression to its initial state (may re‑issue initial rewards).
@@ -2350,7 +2424,7 @@ public:
      @param OnCompletedRequestBP Delegate for handling the response (FLootLockerInstanceProgressionWithRewardsResponse)
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ResetInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP);
+    static FString ResetInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequestBP);
 
     /**
      Delete an instance progression permanently.
@@ -2361,7 +2435,7 @@ public:
      @param OnCompletedRequestBP Delegate for handling the response (FLootLockerResponse)
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Instance Progressions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void DeleteInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequestBP);
+    static FString DeleteInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequestBP);
 
     //==================================================
     // Missions
@@ -2374,7 +2448,7 @@ public:
       @param OnGetAllMissionsCompleted Delegate for handling the server response (Missions list)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetAllMissions(const FString& ForPlayerWithUlid, const FMissionsResponseDelegateBP& OnGetAllMissionsCompleted);
+    static FString GetAllMissions(const FString& ForPlayerWithUlid, const FMissionsResponseDelegateBP& OnGetAllMissionsCompleted);
 
     /**
       Get details for a single mission.
@@ -2384,7 +2458,7 @@ public:
       @param OnGetMissionCompleted Delegate for handling the server response (Mission details)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetMission(const FString& ForPlayerWithUlid, int MissionId, const FMissionResponseDelegateBP& OnGetMissionCompleted);
+    static FString GetMission(const FString& ForPlayerWithUlid, int MissionId, const FMissionResponseDelegateBP& OnGetMissionCompleted);
 
     /**
       Start (begin) a mission for the player.
@@ -2394,7 +2468,7 @@ public:
       @param OnStartMissionCompleted Delegate for handling the server response (start confirmation / state)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void StartMission(const FString& ForPlayerWithUlid, int MissionId, const  FStartMissionResponseDelegateBP& OnStartMissionCompleted);
+    static FString StartMission(const FString& ForPlayerWithUlid, int MissionId, const  FStartMissionResponseDelegateBP& OnStartMissionCompleted);
 
     /**
       Finish a mission and submit completion data.
@@ -2405,7 +2479,7 @@ public:
       @param OnFinishMissionCompleted Delegate for handling the server response (final mission results / rewards)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void FinishMission(const FString& ForPlayerWithUlid, int MissionId, const FLootLockerFinishMissionData& MissionData, const FFinishMissionResponseDelegateBP& OnFinishMissionCompleted);
+    static FString FinishMission(const FString& ForPlayerWithUlid, int MissionId, const FLootLockerFinishMissionData& MissionData, const FFinishMissionResponseDelegateBP& OnFinishMissionCompleted);
 
     //==================================================
     // Maps
@@ -2418,7 +2492,7 @@ public:
       @param OnGetMapsCompleted Delegate for handling the server response (maps list)
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Maps", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetMaps(const FString& ForPlayerWithUlid, const FGetMapsResponseDelegateBP& OnGetMapsCompleted);
+    static FString GetMaps(const FString& ForPlayerWithUlid, const FGetMapsResponseDelegateBP& OnGetMapsCompleted);
 
     //==================================================
     // Purchases
@@ -2434,7 +2508,7 @@ public:
       @param OnActivateRentalAssetCompleted Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ActivateRentalAsset(const FString& ForPlayerWithUlid, int AssetInstanceId, const FActivateRentalAssetResponseDelegateBP& OnActivateRentalAssetCompleted);
+    static FString ActivateRentalAsset(const FString& ForPlayerWithUlid, int AssetInstanceId, const FActivateRentalAssetResponseDelegateBP& OnActivateRentalAssetCompleted);
 
     /**
       Purchase a single catalog item using a specified wallet.
@@ -2445,7 +2519,7 @@ public:
       @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void LootLockerPurchaseSingleCatalogItem(const FString& ForPlayerWithUlid, const FString& WalletId, const FString& CatalogItemListingId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+    static FString LootLockerPurchaseSingleCatalogItem(const FString& ForPlayerWithUlid, const FString& WalletId, const FString& CatalogItemListingId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     /**
       Purchase one or more catalog items (with quantities) using a specified wallet.
@@ -2456,7 +2530,7 @@ public:
       @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void LootLockerPurchaseCatalogItems(const FString& ForPlayerWithUlid, const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair> ItemsToPurchase, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+    static FString LootLockerPurchaseCatalogItems(const FString& ForPlayerWithUlid, const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair> ItemsToPurchase, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     /**
       Redeem an Apple App Store purchase for the current player.
@@ -2467,7 +2541,7 @@ public:
       @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "Sandboxed,ForPlayerWithUlid", Sandboxed = false, ForPlayerWithUlid=""))
-    static void RedeemAppleAppStorePurchaseForPlayer(const FString& ForPlayerWithUlid, const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+    static FString RedeemAppleAppStorePurchaseForPlayer(const FString& ForPlayerWithUlid, const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     /**
       Redeem an Apple App Store purchase for a class owned by the player.
@@ -2479,7 +2553,7 @@ public:
       @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "Sandboxed,ForPlayerWithUlid", Sandboxed = false, ForPlayerWithUlid=""))
-    static void RedeemAppleAppStorePurchaseForClass(const FString& ForPlayerWithUlid, const int ClassId, const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+    static FString RedeemAppleAppStorePurchaseForClass(const FString& ForPlayerWithUlid, const int ClassId, const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     /**
       Redeem a Google Play purchase for the current player.
@@ -2490,7 +2564,7 @@ public:
       @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void RedeemGooglePlayStorePurchaseForPlayer(const FString& ForPlayerWithUlid, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+    static FString RedeemGooglePlayStorePurchaseForPlayer(const FString& ForPlayerWithUlid, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     /**
       Redeem a Google Play purchase for a class owned by the player.
@@ -2502,7 +2576,7 @@ public:
       @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void RedeemGooglePlayStorePurchaseForClass(const FString& ForPlayerWithUlid, const int ClassId, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+    static FString RedeemGooglePlayStorePurchaseForClass(const FString& ForPlayerWithUlid, const int ClassId, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     /**
       Redeem Epic Games Store entitlements for the current player.
@@ -2515,7 +2589,7 @@ public:
       @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void RedeemEpicStorePurchase(const FString& ForPlayerWithUlid, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+    static FString RedeemEpicStorePurchase(const FString& ForPlayerWithUlid, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     /**
       Redeem Epic Games Store entitlements for a character owned by the player.
@@ -2529,7 +2603,7 @@ public:
       @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void RedeemEpicStorePurchaseForCharacter(const FString& ForPlayerWithUlid, const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+    static FString RedeemEpicStorePurchaseForCharacter(const FString& ForPlayerWithUlid, const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
 #ifdef LOOTLOCKER_BETA_PLAYSTATION_IAP
     /**
@@ -2546,7 +2620,7 @@ public:
       @param OnCompletedRequest Delegate for handling the server response
      */
     //UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid,ServiceLabel,ServiceName,Environment,UseCount", ForPlayerWithUlid="", ServiceLabel="", ServiceName="", Environment=-1, UseCount=-1))
-    //static void RedeemPlayStationStorePurchase(const FString& ForPlayerWithUlid, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+    //static FString RedeemPlayStationStorePurchase(const FString& ForPlayerWithUlid, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     /**
       Redeem a purchase that was made successfully towards the PlayStation Store for a character that the current player owns
@@ -2563,7 +2637,7 @@ public:
       @param OnCompletedRequest Delegate for handling the server response
      */
     //UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid,ServiceLabel,ServiceName,Environment,UseCount", ForPlayerWithUlid="", ServiceLabel="", ServiceName="", Environment=-1, UseCount=-1))
-    //static void RedeemPlayStationStorePurchaseForCharacter(const FString& ForPlayerWithUlid, const FString& CharacterId, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+    //static FString RedeemPlayStationStorePurchaseForCharacter(const FString& ForPlayerWithUlid, const FString& CharacterId, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 #endif
 
     /**
@@ -2579,7 +2653,7 @@ public:
       @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void BeginSteamPurchaseRedemption(const FString& ForPlayerWithUlid, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest);
+    static FString BeginSteamPurchaseRedemption(const FString& ForPlayerWithUlid, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest);
 
     /**
       Begin a Steam purchase for a catalog item on a specific class.
@@ -2595,7 +2669,7 @@ public:
       @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void BeginSteamPurchaseRedemptionForClass(const FString& ForPlayerWithUlid, const int ClassId, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest);
+    static FString BeginSteamPurchaseRedemptionForClass(const FString& ForPlayerWithUlid, const int ClassId, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest);
 
     /**
       Query the status of a Steam purchase entitlement.
@@ -2607,7 +2681,7 @@ public:
       @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void QuerySteamPurchaseRedemptionStatus(const FString& ForPlayerWithUlid, const FString& EntitlementId, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegateBP& OnCompletedRequest);
+    static FString QuerySteamPurchaseRedemptionStatus(const FString& ForPlayerWithUlid, const FString& EntitlementId, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegateBP& OnCompletedRequest);
 
     /**
       Finalize an Approved Steam purchase (redeem entitlement items).
@@ -2619,7 +2693,7 @@ public:
       @param OnCompletedRequest Delegate for handling the server response
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void FinalizeSteamPurchaseRedemption(const FString& ForPlayerWithUlid, const FString& EntitlementId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+    static FString FinalizeSteamPurchaseRedemption(const FString& ForPlayerWithUlid, const FString& EntitlementId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     //==================================================
     // Triggers
@@ -2639,7 +2713,7 @@ public:
      @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Triggers", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void InvokeTriggersByKey(const FString& ForPlayerWithUlid, const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseBP& OnComplete);
+    static FString InvokeTriggersByKey(const FString& ForPlayerWithUlid, const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseBP& OnComplete);
 
     //==================================================
     // Notifications
@@ -2652,7 +2726,7 @@ public:
      @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListNotificationsWithDefaultParameters(const FString& ForPlayerWithUlid, const FLootLockerListNotificationsResponseBP& OnComplete);
+    static FString ListNotificationsWithDefaultParameters(const FString& ForPlayerWithUlid, const FLootLockerListNotificationsResponseBP& OnComplete);
 
     /**
      List notifications with filters and pagination.
@@ -2667,7 +2741,7 @@ public:
      @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid = ""))
-    static void ListNotifications(const FString& ForPlayerWithUlid, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete);
+    static FString ListNotifications(const FString& ForPlayerWithUlid, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete);
 
     /**
      List notifications filtered by priority plus other filters.
@@ -2683,7 +2757,7 @@ public:
      @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListNotificationsWithPriority(const FString& ForPlayerWithUlid, ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete);
+    static FString ListNotificationsWithPriority(const FString& ForPlayerWithUlid, ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete);
 
   /*
    Parse notification body as String.
@@ -2775,7 +2849,7 @@ public:
      @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void MarkAllNotificationsAsRead(const FString& ForPlayerWithUlid, const FLootLockerReadNotificationsResponseBP& OnComplete);
+    static FString MarkAllNotificationsAsRead(const FString& ForPlayerWithUlid, const FLootLockerReadNotificationsResponseBP& OnComplete);
 
     /**
      Mark specific notifications (objects) as read if currently unread.
@@ -2785,7 +2859,7 @@ public:
      @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void MarkNotificationsAsRead(const FString& ForPlayerWithUlid, const TArray<FLootLockerNotification>& Notifications, const FLootLockerReadNotificationsResponseBP& OnComplete);
+    static FString MarkNotificationsAsRead(const FString& ForPlayerWithUlid, const TArray<FLootLockerNotification>& Notifications, const FLootLockerReadNotificationsResponseBP& OnComplete);
 
     /**
      Mark notifications by id as read.
@@ -2795,7 +2869,7 @@ public:
     @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Notifications", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void MarkNotificationsAsReadByIds(const FString& ForPlayerWithUlid, const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseBP& OnComplete);
+    static FString MarkNotificationsAsReadByIds(const FString& ForPlayerWithUlid, const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseBP& OnComplete);
 
     /**
      Find notifications by identifying value (may return multiple).
@@ -2831,7 +2905,7 @@ public:
      @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Broadcasts", meta = (AdvancedDisplay = "Languages,PerPage,Page,ForPlayerWithUlid", ForPlayerWithUlid = "", PerPage = -1, Page = -1, AutoCreateRefTerm="Languages"))
-    static void ListBroadcasts(const TArray<FString>& Languages, int32 PerPage, int32 Page, const FString& ForPlayerWithUlid, const FLootLockerListBroadcastsResponseBP& OnComplete);
+    static FString ListBroadcasts(const TArray<FString>& Languages, int32 PerPage, int32 Page, const FString& ForPlayerWithUlid, const FLootLockerListBroadcastsResponseBP& OnComplete);
 
     //==================================================
     // Collectables
@@ -2844,7 +2918,7 @@ public:
      @param OnGetAllCollectablesCompleted Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Collectables", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetAllCollectables(const FString& ForPlayerWithUlid, const FCollectablesResponseDelegateBP& OnGetAllCollectablesCompleted);
+    static FString GetAllCollectables(const FString& ForPlayerWithUlid, const FCollectablesResponseDelegateBP& OnGetAllCollectablesCompleted);
 
     /**
      Collect an item.
@@ -2854,7 +2928,7 @@ public:
      @param OnCollectItemCompleted Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Collectables", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void CollectItem(const FString& ForPlayerWithUlid, const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegateBP& OnCollectItemCompleted);
+    static FString CollectItem(const FString& ForPlayerWithUlid, const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegateBP& OnCollectItemCompleted);
 
     //==================================================
     // Messages
@@ -2867,7 +2941,7 @@ public:
     @param OnGetMessagesCompleted Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Messages", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetMessages(const FString& ForPlayerWithUlid, const FMessagesResponseDelegateBP& OnGetMessagesCompleted);
+    static FString GetMessages(const FString& ForPlayerWithUlid, const FMessagesResponseDelegateBP& OnGetMessagesCompleted);
 
     //==================================================
     // Leaderboard
@@ -2882,7 +2956,7 @@ public:
      @param OnCompletedRequestBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = 50, After = 0, ForPlayerWithUlid=""))
-    static void ListLeaderboards(const FString& ForPlayerWithUlid, int Count, int After, const FLootLockerListLeaderboardsResponseBP& OnCompletedRequestBP);
+    static FString ListLeaderboards(const FString& ForPlayerWithUlid, int Count, int After, const FLootLockerListLeaderboardsResponseBP& OnCompletedRequestBP);
 
     /**
      Get rank for a single member on a leaderboard.
@@ -2895,7 +2969,7 @@ public:
      @param OnCompletedRequestBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetMemberRank(const FString& ForPlayerWithUlid, FString LeaderboardKey, FString MemberId, const FLootLockerGetMemberRankResponseBP& OnCompletedRequestBP);
+    static FString GetMemberRank(const FString& ForPlayerWithUlid, FString LeaderboardKey, FString MemberId, const FLootLockerGetMemberRankResponseBP& OnCompletedRequestBP);
 
     /**
      Get all leaderboards plus this member's rank info where present.
@@ -2909,7 +2983,7 @@ public:
      @param OnCompletedRequestBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetAllMemberRanks(const FString& ForPlayerWithUlid, FString MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseBP& OnCompletedRequestBP);
+    static FString GetAllMemberRanks(const FString& ForPlayerWithUlid, FString MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseBP& OnCompletedRequestBP);
 
     /**
      Get ranks for a list of members on a leaderboard.
@@ -2922,7 +2996,7 @@ public:
      @param OnCompletedRequestBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetByListOfMembers(const FString& ForPlayerWithUlid, TArray<FString> Members, FString LeaderboardKey, const FLootLockerGetByListOfMembersResponseBP& OnCompletedRequestBP);
+    static FString GetByListOfMembers(const FString& ForPlayerWithUlid, TArray<FString> Members, FString LeaderboardKey, const FLootLockerGetByListOfMembersResponseBP& OnCompletedRequestBP);
 
     /**
      Get a page of leaderboard members.
@@ -2936,7 +3010,7 @@ public:
      @param OnCompletedRequestBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetScoreList(const FString& ForPlayerWithUlid, FString LeaderboardKey, int Count, int After, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP);
+    static FString GetScoreList(const FString& ForPlayerWithUlid, FString LeaderboardKey, int Count, int After, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP);
 
     /**
      Get the initial page of leaderboard members (no cursor yet).
@@ -2949,7 +3023,7 @@ public:
      @param OnCompletedRequestBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetScoreListInitial(const FString& ForPlayerWithUlid, FString LeaderboardKey, int Count, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP);
+    static FString GetScoreListInitial(const FString& ForPlayerWithUlid, FString LeaderboardKey, int Count, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP);
 
     /**
      Submit a score for a member.
@@ -2962,7 +3036,7 @@ public:
      @param OnCompletedRequestBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void SubmitScore(const FString& ForPlayerWithUlid, FString MemberId, FString LeaderboardKey, int Score, FString Metadata, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP);
+    static FString SubmitScore(const FString& ForPlayerWithUlid, FString MemberId, FString LeaderboardKey, int Score, FString Metadata, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP);
     /**
      Query what rank a score would achieve on a leaderboard (no submission).
 
@@ -2972,7 +3046,7 @@ public:
      @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void QueryScore(const FString LeaderboardKey, const int Score, const FLootLockerSubmitScoreResponseBP & OnCompletedRequestBP, const FString& ForPlayerWithUlid = "");
+    static FString QueryScore(const FString LeaderboardKey, const int Score, const FLootLockerSubmitScoreResponseBP & OnCompletedRequestBP, const FString& ForPlayerWithUlid = "");
     /**
      Increment an existing score by an amount (positive or negative).
 
@@ -2983,7 +3057,7 @@ public:
      @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void IncrementScore(FString MemberId, const FString LeaderboardKey, const int Amount, const FLootLockerSubmitScoreResponseBP & OnCompletedRequestBP, const FString& ForPlayerWithUlid = "");
+    static FString IncrementScore(FString MemberId, const FString LeaderboardKey, const int Amount, const FLootLockerSubmitScoreResponseBP & OnCompletedRequestBP, const FString& ForPlayerWithUlid = "");
     /**
      List archive snapshots for a leaderboard.
 
@@ -2992,7 +3066,7 @@ public:
      @param OnCompletedRequestBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListLeaderboardArchive(const FString& ForPlayerWithUlid, const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP);
+    static FString ListLeaderboardArchive(const FString& ForPlayerWithUlid, const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP);
     /**
      Get details for a specific leaderboard archive snapshot (ranks, scores, rewards).
 
@@ -3003,7 +3077,7 @@ public:
      @param OnCompletedRequestBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid=""))
-    static void GetLeaderboardArchive(const FString& ForPlayerWithUlid, const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailResponseBP& OnCompletedRequestBP);
+    static FString GetLeaderboardArchive(const FString& ForPlayerWithUlid, const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailResponseBP& OnCompletedRequestBP);
 
   /**
    Get leaderboard details including schedule and reward definitions.
@@ -3013,7 +3087,7 @@ public:
    @param OnCompletedRequestBP Delegate for handling the server response
   */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Leaderboard", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetLeaderboardDetails(const FString& ForPlayerWithUlid, const FString& LeaderboardKey, const FLootLockerLeaderboardDetailsResponseBP& OnCompletedRequestBP);
+    static FString GetLeaderboardDetails(const FString& ForPlayerWithUlid, const FString& LeaderboardKey, const FLootLockerLeaderboardDetailsResponseBP& OnCompletedRequestBP);
 
     //==================================================
     // Drop Table
@@ -3029,7 +3103,7 @@ public:
    @param OnCompletedRequestBP Delegate for handling the server response
   */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | DropTable", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ComputeAndLockDropTable(const FString& ForPlayerWithUlid, int TableId, const FLootLockerComputeAndLockDropTableResponseBP& OnCompletedRequestBP);
+    static FString ComputeAndLockDropTable(const FString& ForPlayerWithUlid, int TableId, const FLootLockerComputeAndLockDropTableResponseBP& OnCompletedRequestBP);
 
     /**
      Pick one or more drops from a locked drop table.
@@ -3040,7 +3114,7 @@ public:
      @param OnCompletedRequestBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | DropTable", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void PickDropsFromDropTable(const FString& ForPlayerWithUlid, TArray<int> Picks, int TableId, const FFLootLockerPickDropsFromDropTableResponseBP& OnCompletedRequestBP);
+    static FString PickDropsFromDropTable(const FString& ForPlayerWithUlid, TArray<int> Picks, int TableId, const FFLootLockerPickDropsFromDropTableResponseBP& OnCompletedRequestBP);
 
     //==================================================
     // Currencies
@@ -3053,7 +3127,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Currency", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListCurrencies(const FString& ForPlayerWithUlid, const FLootLockerListCurrenciesResponseBP& OnCompletedRequest);
+    static FString ListCurrencies(const FString& ForPlayerWithUlid, const FLootLockerListCurrenciesResponseBP& OnCompletedRequest);
 
     /**
      Get details about a currency.
@@ -3063,7 +3137,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Currency", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetCurrencyDetails(const FString& ForPlayerWithUlid, const FString& CurrencyCode, const FLootLockerGetCurrencyDetailsResponseBP& OnCompletedRequest);
+    static FString GetCurrencyDetails(const FString& ForPlayerWithUlid, const FString& CurrencyCode, const FLootLockerGetCurrencyDetailsResponseBP& OnCompletedRequest);
 
     /**
      List denominations for a currency.
@@ -3073,7 +3147,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Currency", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetCurrencyDenominationsByCode(const FString& ForPlayerWithUlid, const FString& CurrencyCode, const FLootLockerListDenominationsResponseBP& OnCompletedRequest);
+    static FString GetCurrencyDenominationsByCode(const FString& ForPlayerWithUlid, const FString& CurrencyCode, const FLootLockerListDenominationsResponseBP& OnCompletedRequest);
 
     //==================================================
     // Balances
@@ -3087,7 +3161,7 @@ public:
      @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Balance", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListBalancesInWallet(const FString& ForPlayerWithUlid, const FString& WalletID, const FLootLockerListBalancesForWalletResponseBP& OnComplete);
+    static FString ListBalancesInWallet(const FString& ForPlayerWithUlid, const FString& WalletID, const FLootLockerListBalancesForWalletResponseBP& OnComplete);
 
     /**
      Get information about a wallet
@@ -3097,7 +3171,7 @@ public:
      @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Balance", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetWalletByWalletID(const FString& ForPlayerWithUlid, const FString& WalletID, const FLootLockerGetWalletResponseBP& OnComplete);
+    static FString GetWalletByWalletID(const FString& ForPlayerWithUlid, const FString& WalletID, const FLootLockerGetWalletResponseBP& OnComplete);
 
     /**
      Get a wallet for a specified holder
@@ -3108,7 +3182,7 @@ public:
      @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Balance", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetWalletByHolderID(const FString& ForPlayerWithUlid, const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerGetWalletResponseBP& OnComplete);
+    static FString GetWalletByHolderID(const FString& ForPlayerWithUlid, const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerGetWalletResponseBP& OnComplete);
 
     /**
      Credit (increase) the specified amount of the provided currency to the provided wallet
@@ -3120,7 +3194,7 @@ public:
      @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Balance", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void CreditBalanceToWallet(const FString& ForPlayerWithUlid, const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerCreditWalletResponseBP& OnComplete);
+    static FString CreditBalanceToWallet(const FString& ForPlayerWithUlid, const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerCreditWalletResponseBP& OnComplete);
 
     /**
      Debit (decrease) the specified amount of the provided currency to the provided wallet
@@ -3132,7 +3206,7 @@ public:
      @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Balance", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void DebitBalanceToWallet(const FString& ForPlayerWithUlid, const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerDebitWalletResponseBP& OnComplete);
+    static FString DebitBalanceToWallet(const FString& ForPlayerWithUlid, const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerDebitWalletResponseBP& OnComplete);
 
     //==================================================
     // Catalogs
@@ -3145,7 +3219,7 @@ public:
     @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Catalog", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListCatalogs(const FString& ForPlayerWithUlid, const FLootLockerListCatalogsResponseBP& OnComplete);
+    static FString ListCatalogs(const FString& ForPlayerWithUlid, const FLootLockerListCatalogsResponseBP& OnComplete);
 
     /**
      List the items in a catalog
@@ -3157,7 +3231,7 @@ public:
     @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Catalog", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid=""))
-    static void ListCatalogItems(const FString& ForPlayerWithUlid, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnComplete);
+    static FString ListCatalogItems(const FString& ForPlayerWithUlid, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnComplete);
 
     /**
      Inline the data items from a catalog response into the catalog items
@@ -3180,7 +3254,7 @@ public:
     @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Entitlements", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid=""))
-    static void ListEntitlements(const FString& ForPlayerWithUlid, int Count, const FString& After, const FLootLockerListEntitlementsResponseBP& OnComplete);
+    static FString ListEntitlements(const FString& ForPlayerWithUlid, int Count, const FString& After, const FLootLockerListEntitlementsResponseBP& OnComplete);
 
     /**
      Get details about a specific entitlement
@@ -3192,7 +3266,7 @@ public:
     @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Entitlements", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetEntitlement(const FString& ForPlayerWithUlid, const FString& EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnComplete);
+    static FString GetEntitlement(const FString& ForPlayerWithUlid, const FString& EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnComplete);
 
     //==================================================
     // Feedback
@@ -3205,7 +3279,7 @@ public:
     @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListPlayerFeedbackCategories(const FString& ForPlayerWithUlid, const FLootLockerListFeedbackCategoryResponseBP& OnComplete);
+    static FString ListPlayerFeedbackCategories(const FString& ForPlayerWithUlid, const FLootLockerListFeedbackCategoryResponseBP& OnComplete);
 
     /**
      List feedback categories for reporting bugs or praising the game
@@ -3214,7 +3288,7 @@ public:
     @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListGameFeedbackCategories(const FString& ForPlayerWithUlid, const FLootLockerListFeedbackCategoryResponseBP& OnComplete);
+    static FString ListGameFeedbackCategories(const FString& ForPlayerWithUlid, const FLootLockerListFeedbackCategoryResponseBP& OnComplete);
 
     /**
      List feedback categories for reporting or praising UGC content
@@ -3223,7 +3297,7 @@ public:
     @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void ListUGCFeedbackCategories(const FString& ForPlayerWithUlid, const FLootLockerListFeedbackCategoryResponseBP& OnComplete);
+    static FString ListUGCFeedbackCategories(const FString& ForPlayerWithUlid, const FLootLockerListFeedbackCategoryResponseBP& OnComplete);
 
     /**
      Send feedback about a player
@@ -3235,7 +3309,7 @@ public:
     @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void SendPlayerFeedback(const FString& ForPlayerWithUlid, const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete);
+    static FString SendPlayerFeedback(const FString& ForPlayerWithUlid, const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete);
 
     /**
      Send feedback about the game
@@ -3246,7 +3320,7 @@ public:
     @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void SendGameFeedback(const FString& ForPlayerWithUlid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete);
+    static FString SendGameFeedback(const FString& ForPlayerWithUlid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete);
 
     /**
      Send feedback about a UGC asset
@@ -3258,7 +3332,7 @@ public:
     @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void SendUGCFeedback(const FString& ForPlayerWithUlid, const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete);
+    static FString SendUGCFeedback(const FString& ForPlayerWithUlid, const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete);
 
     //==================================================
     // Metadata
@@ -3278,7 +3352,7 @@ public:
     @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Metadata", meta = (AdvancedDisplay = "Page,PerPage,IgnoreFiles,ForPlayerWithUlid", Page = -1, PerPage = -1, IgnoreFiles = false, ForPlayerWithUlid=""))
-    static void ListMetadata(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnComplete);
+    static FString ListMetadata(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnComplete);
 
     /**
      List metadata for a source filtered by tags
@@ -3295,7 +3369,7 @@ public:
     @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Metadata", meta = (AdvancedDisplay = "Page,PerPage,Tags,IgnoreFiles,ForPlayerWithUlid", Page = -1, PerPage = -1, IgnoreFiles = false, ForPlayerWithUlid=""))
-    static void ListMetadataWithTags(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FString>& Tags, const int Page, const int PerPage, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnComplete);
+    static FString ListMetadataWithTags(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FString>& Tags, const int Page, const int PerPage, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnComplete);
 
     /**
      Get a metadata entry by key
@@ -3308,7 +3382,7 @@ public:
     @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Metadata", meta = (AdvancedDisplay = "IgnoreFiles,ForPlayerWithUlid", IgnoreFiles = false, ForPlayerWithUlid=""))
-    static void GetMetadata(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const FString& Key, const bool IgnoreFiles, const FLootLockerGetMetadataResponseBP& OnComplete);
+    static FString GetMetadata(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const FString& Key, const bool IgnoreFiles, const FLootLockerGetMetadataResponseBP& OnComplete);
 
     /**
      Get metadata entries for multiple sources and keys
@@ -3319,7 +3393,7 @@ public:
     @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Metadata", meta = (AdvancedDisplay = "IgnoreFiles,ForPlayerWithUlid", IgnoreFiles = false, ForPlayerWithUlid=""))
-    static void GetMultisourceMetadata(const FString& ForPlayerWithUlid, const TArray<FLootLockerMetadataSourceAndKeys>& SourcesAndKeysToGet, const bool IgnoreFiles, const FLootLockerGetMultisourceMetadataResponseBP& OnComplete);
+    static FString GetMultisourceMetadata(const FString& ForPlayerWithUlid, const TArray<FLootLockerMetadataSourceAndKeys>& SourcesAndKeysToGet, const bool IgnoreFiles, const FLootLockerGetMultisourceMetadataResponseBP& OnComplete);
 
     /**
      Parse a metadata entry into typed values
@@ -3363,7 +3437,7 @@ public:
     @param OnComplete Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Metadata", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void SetMetadata(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FLootLockerSetMetadataAction>& MetadataToActionsToPerform, const FLootLockerSetMetadataResponseBP& OnComplete);
+    static FString SetMetadata(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FLootLockerSetMetadataAction>& MetadataToActionsToPerform, const FLootLockerSetMetadataResponseBP& OnComplete);
 
     /**
      Construct a metadata action with a string value
@@ -3460,7 +3534,7 @@ public:
      @param OnResponseCompletedBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Followers", meta = (AdvancedDisplay = "Cursor,Count,ForPlayerWithUlid", Cursor="", Count=-1, ForPlayerWithUlid=""))
-    static void ListFollowersForPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP);
+    static FString ListFollowersForPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP);
 
     /**
      List followers for the requesting player
@@ -3473,7 +3547,7 @@ public:
      @param OnResponseCompletedBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Followers", meta = (AdvancedDisplay = "Cursor,Count,ForPlayerWithUlid", Cursor="", Count=-1, ForPlayerWithUlid=""))
-    static void ListFollowers(const FString& ForPlayerWithUlid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP);
+    static FString ListFollowers(const FString& ForPlayerWithUlid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP);
 
     /**
      List players a specific player is following
@@ -3487,7 +3561,7 @@ public:
      @param OnResponseCompletedBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Followers", meta = (AdvancedDisplay = "Cursor,Count,ForPlayerWithUlid", Cursor="", Count=-1, ForPlayerWithUlid=""))
-    static void ListFollowingForPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP);
+    static FString ListFollowingForPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP);
 
     /**
      List players the requesting player is following
@@ -3500,7 +3574,7 @@ public:
      @param OnResponseCompletedBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Followers", meta = (AdvancedDisplay = "Cursor,Count,ForPlayerWithUlid", Cursor="", Count=-1, ForPlayerWithUlid=""))
-    static void ListFollowing(const FString& ForPlayerWithUlid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP);
+    static FString ListFollowing(const FString& ForPlayerWithUlid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP);
 
     /**
      Follow a player
@@ -3510,7 +3584,7 @@ public:
      @param OnResponseCompletedBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Followers", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void FollowPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FLootLockerFollowActionResponseBP& OnResponseCompletedBP);
+    static FString FollowPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FLootLockerFollowActionResponseBP& OnResponseCompletedBP);
     
     /**
      Unfollow a player
@@ -3520,7 +3594,7 @@ public:
      @param OnResponseCompletedBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Followers", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void UnfollowPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FLootLockerFollowActionResponseBP& OnResponseCompletedBP);
+    static FString UnfollowPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FLootLockerFollowActionResponseBP& OnResponseCompletedBP);
 
     //==================================================
     // Friends
@@ -3537,7 +3611,7 @@ public:
      @param OnResponseCompletedBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "Page,PerPage,ForPlayerWithUlid", Page=-1, PerPage=-1, ForPlayerWithUlid=""))
-    static void ListFriends(const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListFriendsResponseBP& OnResponseCompletedBP);
+    static FString ListFriends(const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListFriendsResponseBP& OnResponseCompletedBP);
 
     /**
      List incoming friend requests for the requesting player
@@ -3550,7 +3624,7 @@ public:
      @param OnResponseCompletedBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "Page,PerPage,ForPlayerWithUlid", Page=-1, PerPage=-1, ForPlayerWithUlid=""))
-    static void ListIncomingFriendRequests(const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListIncomingFriendRequestsResponseBP& OnResponseCompletedBP);
+    static FString ListIncomingFriendRequests(const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListIncomingFriendRequestsResponseBP& OnResponseCompletedBP);
 
     /**
      List outgoing friend requests created by the requesting player
@@ -3563,7 +3637,7 @@ public:
      @param OnResponseCompletedBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "Page,PerPage,ForPlayerWithUlid", Page=-1, PerPage=-1, ForPlayerWithUlid=""))
-    static void ListOutgoingFriendRequests(const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListOutgoingFriendRequestsResponseBP& OnResponseCompletedBP);
+    static FString ListOutgoingFriendRequests(const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListOutgoingFriendRequestsResponseBP& OnResponseCompletedBP);
     
     /**
      Send a friend request to a player
@@ -3573,7 +3647,7 @@ public:
      @param OnResponseCompletedBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void SendFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
+    static FString SendFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
     
     /**
      Remove a friend from the requesting player's friend list
@@ -3583,7 +3657,7 @@ public:
      @param OnResponseCompletedBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void DeleteFriend(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
+    static FString DeleteFriend(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
     
     /**
      Cancel an outgoing friend request
@@ -3593,7 +3667,7 @@ public:
      @param OnResponseCompletedBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void CancelOutgoingFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
+    static FString CancelOutgoingFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
     
     /**
      Accept an incoming friend request
@@ -3603,7 +3677,7 @@ public:
      @param OnResponseCompletedBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void AcceptIncomingFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
+    static FString AcceptIncomingFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
     
     /**
      Decline an incoming friend request
@@ -3613,7 +3687,7 @@ public:
      @param OnResponseCompletedBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void DeclineIncomingFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
+    static FString DeclineIncomingFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
     
     /**
      List blocked players for the requesting player
@@ -3626,7 +3700,7 @@ public:
      @param OnResponseCompletedBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "Page,PerPage,ForPlayerWithUlid", Page=-1, PerPage=-1, ForPlayerWithUlid=""))
-    static void ListBlockedPlayers(const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListBlockedPlayersResponseBP& OnResponseCompletedBP);
+    static FString ListBlockedPlayers(const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListBlockedPlayersResponseBP& OnResponseCompletedBP);
     
     /**
      Retrieve details for a specific friend
@@ -3636,7 +3710,7 @@ public:
      @param OnResponseCompletedBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetFriend(const FString& ForPlayerWithUlid, const FString& FriendUlid, const FLootLockerGetFriendResponseBP& OnResponseCompletedBP);
+    static FString GetFriend(const FString& ForPlayerWithUlid, const FString& FriendUlid, const FLootLockerGetFriendResponseBP& OnResponseCompletedBP);
     
     /**
      Block a player
@@ -3646,7 +3720,7 @@ public:
      @param OnResponseCompletedBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void BlockPlayer(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
+    static FString BlockPlayer(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
     
     /**
      Unblock a player
@@ -3656,7 +3730,7 @@ public:
      @param OnResponseCompletedBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void UnblockPlayer(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
+    static FString UnblockPlayer(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
 
     //==================================================
     // Miscellaneous
@@ -3671,7 +3745,7 @@ public:
     @param OnCompletedRequestBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static void GetServerTime(const FString& ForPlayerWithUlid, const FTimeResponseDelegateBP& OnCompletedRequestBP);
+    static FString GetServerTime(const FString& ForPlayerWithUlid, const FTimeResponseDelegateBP& OnCompletedRequestBP);
 
     /**
      Get the last used platform from a prior session
@@ -3688,5 +3762,5 @@ public:
     @param OnCompletedRequestBP Delegate for handling the server response
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous")
-    static void GetGameInfo(const FGameInfoResponseDelegateBP& OnCompletedRequestBP);
+    static FString GetGameInfo(const FGameInfoResponseDelegateBP& OnCompletedRequestBP);
 };

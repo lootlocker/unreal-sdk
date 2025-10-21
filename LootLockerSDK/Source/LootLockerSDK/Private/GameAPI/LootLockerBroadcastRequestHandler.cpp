@@ -5,7 +5,7 @@
 #include "LootLockerSDK.h"
 #include "Utils/LootLockerUtilities.h"
 
-void ULootLockerBroadcastRequestHandler::ListBroadcasts(const FLootLockerPlayerData& PlayerData, const TArray<FString>& Languages, int32 PerPage, int32 Page, const FLootLockerListBroadcastsResponseDelegate& OnComplete)
+FString ULootLockerBroadcastRequestHandler::ListBroadcasts(const FLootLockerPlayerData& PlayerData, const TArray<FString>& Languages, int32 PerPage, int32 Page, const FLootLockerListBroadcastsResponseDelegate& OnComplete)
 {
     TMap<FString, FString> CustomHeaders;
     if (Languages.Num() > 0)
@@ -22,7 +22,7 @@ void ULootLockerBroadcastRequestHandler::ListBroadcasts(const FLootLockerPlayerD
         QueryParams.Add("page", FString::FromInt(Page));
     }
     
-    LLAPI<FLootLockerInternalListBroadcastsResponse>::CallAPI(
+    return LLAPI<FLootLockerInternalListBroadcastsResponse>::CallAPI(
         FLootLockerEmptyRequest{}, 
         ULootLockerGameEndpoints::ListBroadcasts, 
         {}, 

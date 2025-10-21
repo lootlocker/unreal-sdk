@@ -65,6 +65,42 @@ void ULootLockerManager::ClearAllPlayerCachesExceptForPlayer(const FString& Play
     ULootLockerStateData::ClearAllSavedStatesExceptForPlayer(PlayerUlid);
 }
 
+// Response Parsing
+bool ULootLockerManager::TryGetRequestParameterValueAsString(const FLootLockerRequestParameterValue& Parameter, FString& OutValue) 
+{
+    return Parameter.TryGetValueAsString(OutValue);
+}
+
+bool ULootLockerManager::TryGetRequestParameterValueAsFloat(const FLootLockerRequestParameterValue& Parameter, float& OutValue) 
+{
+    return Parameter.TryGetValueAsFloat(OutValue);
+}
+
+bool ULootLockerManager::TryGetRequestParameterValueAsInteger(const FLootLockerRequestParameterValue& Parameter, int& OutValue) 
+{
+    return Parameter.TryGetValueAsInteger(OutValue);
+}
+
+bool ULootLockerManager::TryGetRequestParameterValueAsBool(const FLootLockerRequestParameterValue& Parameter, bool& OutValue) 
+{
+    return Parameter.TryGetValueAsBool(OutValue);
+}
+
+bool ULootLockerManager::TryGetRequestParameterValueAsFloatArray(const FLootLockerRequestParameterValue& Parameter, TArray<float>& OutValue) 
+{
+    return Parameter.TryGetValueAsFloatArray(OutValue);
+}
+
+bool ULootLockerManager::TryGetRequestParameterValueAsIntegerArray(const FLootLockerRequestParameterValue& Parameter, TArray<int>& OutValue) 
+{
+    return Parameter.TryGetValueAsIntegerArray(OutValue);
+}
+
+bool ULootLockerManager::TryGetRequestParameterValueAsBoolArray(const FLootLockerRequestParameterValue& Parameter, TArray<bool>& OutValue) 
+{
+    return Parameter.TryGetValueAsBoolArray(OutValue);
+}
+
 // Authentication
 void ULootLockerManager::StartSessionManual(const FString& SessionToken, const FString& PlayerUlid,
     FLootLockerPlatformRepresentation CurrentPlatform, const FString& RefreshToken, const FString& PlayerIdentifier, const FString& PlayerPublicUid, const FString& PlayerName,
@@ -74,245 +110,245 @@ void ULootLockerManager::StartSessionManual(const FString& SessionToken, const F
     ULootLockerStateData::SavePlayerData(Data);
 }
 
-void ULootLockerManager::StartPlaystationNetworkSession(const FString& PsnOnlineId, const FAuthResponseBP& OnStartedSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::StartPlaystationNetworkSession(const FString& PsnOnlineId, const FAuthResponseBP& OnStartedSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
 #pragma warning(disable : 4996)
-    ULootLockerSDKManager::StartPlaystationNetworkSession(PsnOnlineId, FLootLockerSessionResponse::CreateLambda([OnStartedSessionRequestCompleted](const FLootLockerAuthenticationResponse& Response) {
+    return ULootLockerSDKManager::StartPlaystationNetworkSession(PsnOnlineId, FLootLockerSessionResponse::CreateLambda([OnStartedSessionRequestCompleted](const FLootLockerAuthenticationResponse& Response) {
         OnStartedSessionRequestCompleted.ExecuteIfBound(Response);
     }), Optionals);
 #pragma warning(default : 4996)
 }
 
-void ULootLockerManager::VerifyPlayerAndStartPlaystationNetworkSession(const FString& AuthCode, const FString& AccountID, const FAuthResponseBP& OnCompletedRequest, int PsnIssuerId /*= 256*/, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::VerifyPlayerAndStartPlaystationNetworkSession(const FString& AuthCode, const FString& AccountID, const FAuthResponseBP& OnCompletedRequest, int PsnIssuerId /*= 256*/, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::VerifyPlayerAndStartPlaystationNetworkSession(AuthCode, AccountID, FLootLockerSessionResponse::CreateLambda([OnCompletedRequest](const FLootLockerAuthenticationResponse& Response) {
+    return ULootLockerSDKManager::VerifyPlayerAndStartPlaystationNetworkSession(AuthCode, AccountID, FLootLockerSessionResponse::CreateLambda([OnCompletedRequest](const FLootLockerAuthenticationResponse& Response) {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), PsnIssuerId, Optionals);
 }
 
-void ULootLockerManager::VerifyPlayerAndStartPlaystationNetworkV3Session(const FString& AuthCode, const FAuthResponseBP& OnCompletedRequest, int EnvIssuerId /*= 256*/, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::VerifyPlayerAndStartPlaystationNetworkV3Session(const FString& AuthCode, const FAuthResponseBP& OnCompletedRequest, int EnvIssuerId /*= 256*/, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::VerifyPlayerAndStartPlaystationNetworkV3Session(AuthCode, FLootLockerSessionResponse::CreateLambda([OnCompletedRequest](const FLootLockerAuthenticationResponse& Response) {
+    return ULootLockerSDKManager::VerifyPlayerAndStartPlaystationNetworkV3Session(AuthCode, FLootLockerSessionResponse::CreateLambda([OnCompletedRequest](const FLootLockerAuthenticationResponse& Response) {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), EnvIssuerId, Optionals);
 }
 
-void ULootLockerManager::StartAndroidSession(const FString& DeviceId, const FAuthResponseBP& OnStartedSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::StartAndroidSession(const FString& DeviceId, const FAuthResponseBP& OnStartedSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::StartAndroidSession(DeviceId, FLootLockerSessionResponse::CreateLambda([OnStartedSessionRequestCompleted](const FLootLockerAuthenticationResponse& Response) {
+    return ULootLockerSDKManager::StartAndroidSession(DeviceId, FLootLockerSessionResponse::CreateLambda([OnStartedSessionRequestCompleted](const FLootLockerAuthenticationResponse& Response) {
         OnStartedSessionRequestCompleted.ExecuteIfBound(Response);
     }), Optionals);
 }
 
-void ULootLockerManager::StartAmazonLunaSession(const FString& AmazonLunaGuid, const FAuthResponseBP& OnStartedSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::StartAmazonLunaSession(const FString& AmazonLunaGuid, const FAuthResponseBP& OnStartedSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::StartAmazonLunaSession(AmazonLunaGuid, FLootLockerSessionResponse::CreateLambda([OnStartedSessionRequestCompleted](const FLootLockerAuthenticationResponse& Response) {
+    return ULootLockerSDKManager::StartAmazonLunaSession(AmazonLunaGuid, FLootLockerSessionResponse::CreateLambda([OnStartedSessionRequestCompleted](const FLootLockerAuthenticationResponse& Response) {
         OnStartedSessionRequestCompleted.ExecuteIfBound(Response);
     }), Optionals);
 }
 
-void ULootLockerManager::StartSteamSessionUsingTicket(const FString& SteamSessionTicket, const FString& SteamAppId, const FAuthResponseBP& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::StartSteamSessionUsingTicket(const FString& SteamSessionTicket, const FString& SteamAppId, const FAuthResponseBP& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::StartSteamSessionUsingTicket(SteamSessionTicket, FLootLockerSessionResponse::CreateLambda([OnCompletedRequest](const FLootLockerAuthenticationResponse& Response) {
+    return ULootLockerSDKManager::StartSteamSessionUsingTicket(SteamSessionTicket, FLootLockerSessionResponse::CreateLambda([OnCompletedRequest](const FLootLockerAuthenticationResponse& Response) {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), SteamAppId, Optionals);
 }
 
-void ULootLockerManager::StartNintendoSwitchSession(const FString& NSAIdToken, const FAuthResponseBP& OnStartedNintendoSwitchSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::StartNintendoSwitchSession(const FString& NSAIdToken, const FAuthResponseBP& OnStartedNintendoSwitchSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::StartNintendoSwitchSession(NSAIdToken, FLootLockerSessionResponse::CreateLambda([OnStartedNintendoSwitchSessionRequestCompleted](const FLootLockerAuthenticationResponse& Response) {
+    return ULootLockerSDKManager::StartNintendoSwitchSession(NSAIdToken, FLootLockerSessionResponse::CreateLambda([OnStartedNintendoSwitchSessionRequestCompleted](const FLootLockerAuthenticationResponse& Response) {
         OnStartedNintendoSwitchSessionRequestCompleted.ExecuteIfBound(Response);
     }), Optionals);
 }
 
-void ULootLockerManager::StartXboxSession(const FString& XboxUserToken, const FAuthResponseBP& OnStartedXboxSessionCompleted, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::StartXboxSession(const FString& XboxUserToken, const FAuthResponseBP& OnStartedXboxSessionCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::StartXboxSession(XboxUserToken, FLootLockerSessionResponse::CreateLambda([OnStartedXboxSessionCompleted](const FLootLockerAuthenticationResponse& Response) {
+    return ULootLockerSDKManager::StartXboxSession(XboxUserToken, FLootLockerSessionResponse::CreateLambda([OnStartedXboxSessionCompleted](const FLootLockerAuthenticationResponse& Response) {
         OnStartedXboxSessionCompleted.ExecuteIfBound(Response);
     }), Optionals);
 }
 
-void ULootLockerManager::StartAppleSession(const FString& AuthorizationCode, const FAppleSessionResponseBP& OnStartedAppleSessionCompleted, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::StartAppleSession(const FString& AuthorizationCode, const FAppleSessionResponseBP& OnStartedAppleSessionCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::StartAppleSession(AuthorizationCode, FLootLockerAppleSessionResponseDelegate::CreateLambda([OnStartedAppleSessionCompleted](const FLootLockerAppleSessionResponse& Response) {
+    return ULootLockerSDKManager::StartAppleSession(AuthorizationCode, FLootLockerAppleSessionResponseDelegate::CreateLambda([OnStartedAppleSessionCompleted](const FLootLockerAppleSessionResponse& Response) {
         OnStartedAppleSessionCompleted.ExecuteIfBound(Response);
     }), Optionals);
 }
 
-void ULootLockerManager::RefreshAppleSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FAppleSessionResponseBP& OnRefreshAppleSessionCompleted, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::RefreshAppleSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FAppleSessionResponseBP& OnRefreshAppleSessionCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::RefreshAppleSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, FLootLockerAppleSessionResponseDelegate::CreateLambda([OnRefreshAppleSessionCompleted](const FLootLockerAppleSessionResponse& Response) {
+    return ULootLockerSDKManager::RefreshAppleSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, FLootLockerAppleSessionResponseDelegate::CreateLambda([OnRefreshAppleSessionCompleted](const FLootLockerAppleSessionResponse& Response) {
         OnRefreshAppleSessionCompleted.ExecuteIfBound(Response);
     }), Optionals);
 }
 
-void ULootLockerManager::StartAppleGameCenterSession(const FString& BundleId, const FString& PlayerId, const FString& PublicKeyUrl, const FString& Signature, const FString& Salt, const FString& Timestamp, const FLootLockerAppleGameCenterSessionResponseBP& OnStartedAppleGameCenterSessionCompleted, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::StartAppleGameCenterSession(const FString& BundleId, const FString& PlayerId, const FString& PublicKeyUrl, const FString& Signature, const FString& Salt, const FString& Timestamp, const FLootLockerAppleGameCenterSessionResponseBP& OnStartedAppleGameCenterSessionCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::StartAppleGameCenterSession(BundleId, PlayerId, PublicKeyUrl, Signature, Salt, Timestamp, FLootLockerAppleGameCenterSessionResponseDelegate::CreateLambda([OnStartedAppleGameCenterSessionCompleted](const FLootLockerAppleGameCenterSessionResponse& Response) {
+    return ULootLockerSDKManager::StartAppleGameCenterSession(BundleId, PlayerId, PublicKeyUrl, Signature, Salt, Timestamp, FLootLockerAppleGameCenterSessionResponseDelegate::CreateLambda([OnStartedAppleGameCenterSessionCompleted](const FLootLockerAppleGameCenterSessionResponse& Response) {
         OnStartedAppleGameCenterSessionCompleted.ExecuteIfBound(Response);
     }), Optionals);
 }
 
-void ULootLockerManager::RefreshAppleGameCenterSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FLootLockerAppleGameCenterSessionResponseBP& OnRefreshAppleGameCenterSessionCompleted, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::RefreshAppleGameCenterSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FLootLockerAppleGameCenterSessionResponseBP& OnRefreshAppleGameCenterSessionCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::RefreshAppleGameCenterSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, FLootLockerAppleGameCenterSessionResponseDelegate::CreateLambda([OnRefreshAppleGameCenterSessionCompleted](const FLootLockerAppleGameCenterSessionResponse& Response) {
+    return ULootLockerSDKManager::RefreshAppleGameCenterSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, FLootLockerAppleGameCenterSessionResponseDelegate::CreateLambda([OnRefreshAppleGameCenterSessionCompleted](const FLootLockerAppleGameCenterSessionResponse& Response) {
         OnRefreshAppleGameCenterSessionCompleted.ExecuteIfBound(Response);
     }), Optionals);
 }
 
-void ULootLockerManager::StartGoogleSession(const FString& IdToken, const FGoogleSessionResponseBP& OnStartedGoogleSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::StartGoogleSession(const FString& IdToken, const FGoogleSessionResponseBP& OnStartedGoogleSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::StartGoogleSession(IdToken, FLootLockerGoogleSessionResponseDelegate::CreateLambda([OnStartedGoogleSessionRequestCompleted](const FLootLockerGoogleSessionResponse& Response) {
+    return ULootLockerSDKManager::StartGoogleSession(IdToken, FLootLockerGoogleSessionResponseDelegate::CreateLambda([OnStartedGoogleSessionRequestCompleted](const FLootLockerGoogleSessionResponse& Response) {
         OnStartedGoogleSessionRequestCompleted.ExecuteIfBound(Response);
     }), Optionals);
 }
 
-void ULootLockerManager::StartGoogleSessionForPlatform(const FString& IdToken, ELootLockerGoogleClientPlatform Platform, const FGoogleSessionResponseBP& OnStartedGoogleSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::StartGoogleSessionForPlatform(const FString& IdToken, ELootLockerGoogleClientPlatform Platform, const FGoogleSessionResponseBP& OnStartedGoogleSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::StartGoogleSessionForPlatform(IdToken, Platform, FLootLockerGoogleSessionResponseDelegate::CreateLambda([OnStartedGoogleSessionRequestCompleted](const FLootLockerGoogleSessionResponse& Response) {
+    return ULootLockerSDKManager::StartGoogleSessionForPlatform(IdToken, Platform, FLootLockerGoogleSessionResponseDelegate::CreateLambda([OnStartedGoogleSessionRequestCompleted](const FLootLockerGoogleSessionResponse& Response) {
         OnStartedGoogleSessionRequestCompleted.ExecuteIfBound(Response);
     }), Optionals);
 }
 
-void ULootLockerManager::RefreshGoogleSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FGoogleSessionResponseBP& OnRefreshGoogleSessionCompleted, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::RefreshGoogleSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FGoogleSessionResponseBP& OnRefreshGoogleSessionCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::RefreshGoogleSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, FLootLockerGoogleSessionResponseDelegate::CreateLambda([OnRefreshGoogleSessionCompleted](const FLootLockerGoogleSessionResponse& Response) {
+    return ULootLockerSDKManager::RefreshGoogleSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, FLootLockerGoogleSessionResponseDelegate::CreateLambda([OnRefreshGoogleSessionCompleted](const FLootLockerGoogleSessionResponse& Response) {
         OnRefreshGoogleSessionCompleted.ExecuteIfBound(Response);
     }), Optionals);
 }
 
-void ULootLockerManager::StartGooglePlayGamesSession(const FString& AuthCode, const FGooglePlayGamesSessionResponseBP& OnStartedGooglePlayGamesSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::StartGooglePlayGamesSession(const FString& AuthCode, const FGooglePlayGamesSessionResponseBP& OnStartedGooglePlayGamesSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::StartGooglePlayGamesSession(AuthCode, FLootLockerGooglePlayGamesSessionResponseDelegate::CreateLambda([OnStartedGooglePlayGamesSessionRequestCompleted](const FLootLockerGooglePlayGamesSessionResponse& Response) {
+    return ULootLockerSDKManager::StartGooglePlayGamesSession(AuthCode, FLootLockerGooglePlayGamesSessionResponseDelegate::CreateLambda([OnStartedGooglePlayGamesSessionRequestCompleted](const FLootLockerGooglePlayGamesSessionResponse& Response) {
         OnStartedGooglePlayGamesSessionRequestCompleted.ExecuteIfBound(Response);
     }), Optionals);
 }
 
-void ULootLockerManager::RefreshGooglePlayGamesSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FGooglePlayGamesSessionResponseBP& OnRefreshGooglePlayGamesSessionCompleted, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::RefreshGooglePlayGamesSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FGooglePlayGamesSessionResponseBP& OnRefreshGooglePlayGamesSessionCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::RefreshGooglePlayGamesSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, FLootLockerGooglePlayGamesSessionResponseDelegate::CreateLambda([OnRefreshGooglePlayGamesSessionCompleted](const FLootLockerGooglePlayGamesSessionResponse& Response) {
+    return ULootLockerSDKManager::RefreshGooglePlayGamesSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, FLootLockerGooglePlayGamesSessionResponseDelegate::CreateLambda([OnRefreshGooglePlayGamesSessionCompleted](const FLootLockerGooglePlayGamesSessionResponse& Response) {
         OnRefreshGooglePlayGamesSessionCompleted.ExecuteIfBound(Response);
     }), Optionals);
 }
 
-void ULootLockerManager::StartEpicSession(const FString& IdToken, const FEpicSessionResponseBP& OnStartedEpicSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::StartEpicSession(const FString& IdToken, const FEpicSessionResponseBP& OnStartedEpicSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::StartEpicSession(IdToken, FLootLockerEpicSessionResponseDelegate::CreateLambda([OnStartedEpicSessionRequestCompleted](const FLootLockerEpicSessionResponse& Response) {
+    return ULootLockerSDKManager::StartEpicSession(IdToken, FLootLockerEpicSessionResponseDelegate::CreateLambda([OnStartedEpicSessionRequestCompleted](const FLootLockerEpicSessionResponse& Response) {
         OnStartedEpicSessionRequestCompleted.ExecuteIfBound(Response);
     }), Optionals);
 }
 
-void ULootLockerManager::RefreshEpicSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FEpicSessionResponseBP& OnRefreshEpicSessionCompleted, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::RefreshEpicSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FEpicSessionResponseBP& OnRefreshEpicSessionCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::RefreshEpicSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, FLootLockerEpicSessionResponseDelegate::CreateLambda([OnRefreshEpicSessionCompleted](const FLootLockerEpicSessionResponse& Response) {
+    return ULootLockerSDKManager::RefreshEpicSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, FLootLockerEpicSessionResponseDelegate::CreateLambda([OnRefreshEpicSessionCompleted](const FLootLockerEpicSessionResponse& Response) {
         OnRefreshEpicSessionCompleted.ExecuteIfBound(Response);
     }), Optionals);
 }
 
-void ULootLockerManager::StartMetaSession(const FString& UserId, const FString& Nonce, const FLootLockerMetaSessionResponseBP& OnMetaSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::StartMetaSession(const FString& UserId, const FString& Nonce, const FLootLockerMetaSessionResponseBP& OnMetaSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::StartMetaSession(UserId, Nonce, FLootLockerMetaSessionResponseDelegate::CreateLambda([OnMetaSessionRequestCompleted](const FLootLockerMetaSessionResponse& Response) {
+    return ULootLockerSDKManager::StartMetaSession(UserId, Nonce, FLootLockerMetaSessionResponseDelegate::CreateLambda([OnMetaSessionRequestCompleted](const FLootLockerMetaSessionResponse& Response) {
         OnMetaSessionRequestCompleted.ExecuteIfBound(Response);
     }), Optionals);
 }
 
-void ULootLockerManager::RefreshMetaSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FLootLockerMetaSessionResponseBP& OnMetaSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::RefreshMetaSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FLootLockerMetaSessionResponseBP& OnMetaSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::RefreshMetaSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, FLootLockerMetaSessionResponseDelegate::CreateLambda([OnMetaSessionRequestCompleted](const FLootLockerMetaSessionResponse& Response) {
+    return ULootLockerSDKManager::RefreshMetaSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, FLootLockerMetaSessionResponseDelegate::CreateLambda([OnMetaSessionRequestCompleted](const FLootLockerMetaSessionResponse& Response) {
         OnMetaSessionRequestCompleted.ExecuteIfBound(Response);
     }), Optionals);
 }
 
-void ULootLockerManager::WhiteLabelStartSession(const FAuthResponseBP& OnStartWhiteLabelSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::WhiteLabelStartSession(const FAuthResponseBP& OnStartWhiteLabelSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::WhiteLabelStartSession(FLootLockerSessionResponse::CreateLambda([OnStartWhiteLabelSessionRequestCompleted](const FLootLockerAuthenticationResponse& Response) {
+    return ULootLockerSDKManager::WhiteLabelStartSession(FLootLockerSessionResponse::CreateLambda([OnStartWhiteLabelSessionRequestCompleted](const FLootLockerAuthenticationResponse& Response) {
         OnStartWhiteLabelSessionRequestCompleted.ExecuteIfBound(Response);
     }), Optionals);
 }
 
-void ULootLockerManager::WhiteLabelLoginAndStartSession(const FString& Email, const FString& Password, const FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP& OnWhiteLabelLoginAndStartSessionRequestCompleted, const bool Remember, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::WhiteLabelLoginAndStartSession(const FString& Email, const FString& Password, const FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP& OnWhiteLabelLoginAndStartSessionRequestCompleted, const bool Remember, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::WhiteLabelLoginAndStartSession(Email, Password, FLootLockerWhiteLabelLoginAndSessionResponseDelegate::CreateLambda([OnWhiteLabelLoginAndStartSessionRequestCompleted](const FLootLockerWhiteLabelLoginAndSessionResponse& Response) {
+    return ULootLockerSDKManager::WhiteLabelLoginAndStartSession(Email, Password, FLootLockerWhiteLabelLoginAndSessionResponseDelegate::CreateLambda([OnWhiteLabelLoginAndStartSessionRequestCompleted](const FLootLockerWhiteLabelLoginAndSessionResponse& Response) {
         OnWhiteLabelLoginAndStartSessionRequestCompleted.ExecuteIfBound(Response);
     }), Remember, Optionals);
 }
 
-void ULootLockerManager::WhiteLabelVerifySession(const FString& ForPlayerWithUlid, const FLootLockerVerifySessionResponseBP& OnVerifyWhiteLabelSessionRequestCompleted)
+FString ULootLockerManager::WhiteLabelVerifySession(const FString& ForPlayerWithUlid, const FLootLockerVerifySessionResponseBP& OnVerifyWhiteLabelSessionRequestCompleted)
 {
-    ULootLockerSDKManager::WhiteLabelVerifySession(FLootLockerWhiteLabelVerifySessionDelegate::CreateLambda([OnVerifyWhiteLabelSessionRequestCompleted](const FLootLockerWhiteLabelVerifySessionResponse& Response) {
+    return ULootLockerSDKManager::WhiteLabelVerifySession(FLootLockerWhiteLabelVerifySessionDelegate::CreateLambda([OnVerifyWhiteLabelSessionRequestCompleted](const FLootLockerWhiteLabelVerifySessionResponse& Response) {
         OnVerifyWhiteLabelSessionRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::WhiteLabelRequestUserVerification(const int& UserId, const FLootLockerDefaultResponseBP& OnRequestWhiteLabelUserVerificationRequestCompleted)
+FString ULootLockerManager::WhiteLabelRequestUserVerification(const int& UserId, const FLootLockerDefaultResponseBP& OnRequestWhiteLabelUserVerificationRequestCompleted)
 {
-    ULootLockerSDKManager::WhiteLabelRequestUserVerification(UserId, FLootLockerDefaultDelegate::CreateLambda([OnRequestWhiteLabelUserVerificationRequestCompleted](const FLootLockerResponse& Response) {
+    return ULootLockerSDKManager::WhiteLabelRequestUserVerification(UserId, FLootLockerDefaultDelegate::CreateLambda([OnRequestWhiteLabelUserVerificationRequestCompleted](const FLootLockerResponse& Response) {
         OnRequestWhiteLabelUserVerificationRequestCompleted.ExecuteIfBound(Response);
     }));
 }
 
-void ULootLockerManager::WhiteLabelRequestUserVerificationByEmail(const FString& Email, const FLootLockerDefaultResponseBP& OnRequestWhiteLabelUserVerificationRequestCompleted)
+FString ULootLockerManager::WhiteLabelRequestUserVerificationByEmail(const FString& Email, const FLootLockerDefaultResponseBP& OnRequestWhiteLabelUserVerificationRequestCompleted)
 {
-    ULootLockerSDKManager::WhiteLabelRequestUserVerificationByEmail(Email, FLootLockerDefaultDelegate::CreateLambda([OnRequestWhiteLabelUserVerificationRequestCompleted](const FLootLockerResponse& Response) {
+    return ULootLockerSDKManager::WhiteLabelRequestUserVerificationByEmail(Email, FLootLockerDefaultDelegate::CreateLambda([OnRequestWhiteLabelUserVerificationRequestCompleted](const FLootLockerResponse& Response) {
         OnRequestWhiteLabelUserVerificationRequestCompleted.ExecuteIfBound(Response);
     }));
 }
 
-void ULootLockerManager::WhiteLabelResetPassword(const FString& Email, const FLootLockerDefaultResponseBP& OnResetWhiteLabelPasswordRequestCompleted)
+FString ULootLockerManager::WhiteLabelResetPassword(const FString& Email, const FLootLockerDefaultResponseBP& OnResetWhiteLabelPasswordRequestCompleted)
 {
-    ULootLockerSDKManager::WhiteLabelRequestPasswordReset(Email, FLootLockerDefaultDelegate::CreateLambda([OnResetWhiteLabelPasswordRequestCompleted](const FLootLockerResponse& Response) {
+    return ULootLockerSDKManager::WhiteLabelRequestPasswordReset(Email, FLootLockerDefaultDelegate::CreateLambda([OnResetWhiteLabelPasswordRequestCompleted](const FLootLockerResponse& Response) {
         OnResetWhiteLabelPasswordRequestCompleted.ExecuteIfBound(Response);
     }));
 }
 
-void ULootLockerManager::WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelLoginRequestCompleted, const bool Remember /* = false */)
+FString ULootLockerManager::WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelLoginRequestCompleted, const bool Remember /* = false */)
 {
-    ULootLockerSDKManager::WhiteLabelLogin(Email, Password, FLootLockerLoginResponseDelegate::CreateLambda([OnWhiteLabelLoginRequestCompleted](const FLootLockerLoginResponse& Response) {
+    return ULootLockerSDKManager::WhiteLabelLogin(Email, Password, FLootLockerLoginResponseDelegate::CreateLambda([OnWhiteLabelLoginRequestCompleted](const FLootLockerLoginResponse& Response) {
         OnWhiteLabelLoginRequestCompleted.ExecuteIfBound(Response);
     }), Remember);
 }
 
-void ULootLockerManager::WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelAccountCreationRequestCompleted)
+FString ULootLockerManager::WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelAccountCreationRequestCompleted)
 {
-    ULootLockerSDKManager::WhiteLabelCreateAccount(Email, Password, FLootLockerLoginResponseDelegate::CreateLambda([OnWhiteLabelAccountCreationRequestCompleted](const FLootLockerLoginResponse& Response) {
+    return ULootLockerSDKManager::WhiteLabelCreateAccount(Email, Password, FLootLockerLoginResponseDelegate::CreateLambda([OnWhiteLabelAccountCreationRequestCompleted](const FLootLockerLoginResponse& Response) {
         OnWhiteLabelAccountCreationRequestCompleted.ExecuteIfBound(Response);
     }));
 }
 
-void ULootLockerManager::GuestLogin(const FAuthResponseBP& OnCompletedRequestBP, const FString& PlayerIdentifier, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::GuestLogin(const FAuthResponseBP& OnCompletedRequestBP, const FString& PlayerIdentifier, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::GuestLogin(FLootLockerSessionResponse::CreateLambda([OnCompletedRequestBP](const FLootLockerAuthenticationResponse& Response) {
+    return ULootLockerSDKManager::GuestLogin(FLootLockerSessionResponse::CreateLambda([OnCompletedRequestBP](const FLootLockerAuthenticationResponse& Response) {
         OnCompletedRequestBP.ExecuteIfBound(Response);
     }), PlayerIdentifier, Optionals);
 }
 
-void ULootLockerManager::StartDiscordSession(const FString& AccessToken, const FDiscordSessionResponseBP& OnStartedDiscordSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::StartDiscordSession(const FString& AccessToken, const FDiscordSessionResponseBP& OnStartedDiscordSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::StartDiscordSession(AccessToken, FLootLockerDiscordSessionResponseDelegate::CreateLambda([OnStartedDiscordSessionRequestCompleted](const FLootLockerDiscordSessionResponse& Response) {
+    return ULootLockerSDKManager::StartDiscordSession(AccessToken, FLootLockerDiscordSessionResponseDelegate::CreateLambda([OnStartedDiscordSessionRequestCompleted](const FLootLockerDiscordSessionResponse& Response) {
         OnStartedDiscordSessionRequestCompleted.ExecuteIfBound(Response);
     }), Optionals);
 }
 
-void ULootLockerManager::RefreshDiscordSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FDiscordSessionResponseBP& OnRefreshDiscordSessionCompleted, const FLootLockerSessionOptionals& Optionals)
+FString ULootLockerManager::RefreshDiscordSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FDiscordSessionResponseBP& OnRefreshDiscordSessionCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-    ULootLockerSDKManager::RefreshDiscordSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, FLootLockerDiscordSessionResponseDelegate::CreateLambda([OnRefreshDiscordSessionCompleted](const FLootLockerDiscordSessionResponse& Response) {
+    return ULootLockerSDKManager::RefreshDiscordSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, FLootLockerDiscordSessionResponseDelegate::CreateLambda([OnRefreshDiscordSessionCompleted](const FLootLockerDiscordSessionResponse& Response) {
         OnRefreshDiscordSessionCompleted.ExecuteIfBound(Response);
     }), Optionals);
 }
 
-void ULootLockerManager::VerifyPlayer(const FString& ForPlayerWithUlid, const FString& PlatformToken, const FLootLockerDefaultResponseBP& OnVerifyPlayerRequestCompleted, const FString Platform /*= FString()*/)
+FString ULootLockerManager::VerifyPlayer(const FString& ForPlayerWithUlid, const FString& PlatformToken, const FLootLockerDefaultResponseBP& OnVerifyPlayerRequestCompleted, const FString Platform /*= FString()*/)
 {
 #pragma warning(disable : 4996)
-    ULootLockerSDKManager::VerifyPlayer(PlatformToken, FLootLockerDefaultDelegate::CreateLambda([OnVerifyPlayerRequestCompleted](const FLootLockerResponse& Response)
+    return ULootLockerSDKManager::VerifyPlayer(PlatformToken, FLootLockerDefaultDelegate::CreateLambda([OnVerifyPlayerRequestCompleted](const FLootLockerResponse& Response)
     {
         OnVerifyPlayerRequestCompleted.ExecuteIfBound(Response);
     }), Platform, ForPlayerWithUlid);
 #pragma warning(default : 4996)
 }
 
-void ULootLockerManager::EndSession(const FString& ForPlayerWithUlid, const FLootLockerDefaultResponseBP& OnEndSessionRequestCompleted)
+FString ULootLockerManager::EndSession(const FString& ForPlayerWithUlid, const FLootLockerDefaultResponseBP& OnEndSessionRequestCompleted)
 {
-    ULootLockerSDKManager::EndSession(FLootLockerDefaultDelegate::CreateLambda([OnEndSessionRequestCompleted](const FLootLockerResponse& Response)
+    return ULootLockerSDKManager::EndSession(FLootLockerDefaultDelegate::CreateLambda([OnEndSessionRequestCompleted](const FLootLockerResponse& Response)
     {
         OnEndSessionRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
@@ -321,89 +357,89 @@ void ULootLockerManager::EndSession(const FString& ForPlayerWithUlid, const FLoo
 //==================================================
 // Connected Accounts
 //==================================================
-void ULootLockerManager::ListConnectedAccounts(const FString& ForPlayerWithUlid, const FLootLockerListConnectedAccountsResponseBP& OnCompleteBP)
+FString ULootLockerManager::ListConnectedAccounts(const FString& ForPlayerWithUlid, const FLootLockerListConnectedAccountsResponseBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::ListConnectedAccounts(FLootLockerListConnectedAccountsResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerListConnectedAccountsResponse& Response)
+    return ULootLockerSDKManager::ListConnectedAccounts(FLootLockerListConnectedAccountsResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerListConnectedAccountsResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::DisconnectAccount(const FString& ForPlayerWithUlid, const ELootLockerAccountProvider AccountToDisconnect, const FLootLockerDefaultResponseBP& OnCompleteBP)
+FString ULootLockerManager::DisconnectAccount(const FString& ForPlayerWithUlid, const ELootLockerAccountProvider AccountToDisconnect, const FLootLockerDefaultResponseBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::DisconnectAccount(AccountToDisconnect, FLootLockerDefaultDelegate::CreateLambda([OnCompleteBP](const FLootLockerResponse& Response)
+    return ULootLockerSDKManager::DisconnectAccount(AccountToDisconnect, FLootLockerDefaultDelegate::CreateLambda([OnCompleteBP](const FLootLockerResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ConnectGoogleAccount(const FString& ForPlayerWithUlid, const FString& IdToken, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+FString ULootLockerManager::ConnectGoogleAccount(const FString& ForPlayerWithUlid, const FString& IdToken, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::ConnectGoogleAccount(IdToken, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    return ULootLockerSDKManager::ConnectGoogleAccount(IdToken, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ConnectGoogleAccountWithPlatform(const FString& ForPlayerWithUlid, const FString& IdToken, EGoogleAccountProviderPlatform Platform, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+FString ULootLockerManager::ConnectGoogleAccountWithPlatform(const FString& ForPlayerWithUlid, const FString& IdToken, EGoogleAccountProviderPlatform Platform, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::ConnectGoogleAccount(IdToken, Platform, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    return ULootLockerSDKManager::ConnectGoogleAccount(IdToken, Platform, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ConnectAppleAccountByRestSignIn(const FString& ForPlayerWithUlid, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+FString ULootLockerManager::ConnectAppleAccountByRestSignIn(const FString& ForPlayerWithUlid, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::ConnectAppleAccountByRestSignIn(AuthorizationCode, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    return ULootLockerSDKManager::ConnectAppleAccountByRestSignIn(AuthorizationCode, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ConnectTwitchAccount(const FString& ForPlayerWithUlid, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+FString ULootLockerManager::ConnectTwitchAccount(const FString& ForPlayerWithUlid, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::ConnectTwitchAccount(AuthorizationCode, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    return ULootLockerSDKManager::ConnectTwitchAccount(AuthorizationCode, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ConnectEpicAccount(const FString& ForPlayerWithUlid, const FString& Token, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+FString ULootLockerManager::ConnectEpicAccount(const FString& ForPlayerWithUlid, const FString& Token, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::ConnectEpicAccount(Token, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    return ULootLockerSDKManager::ConnectEpicAccount(Token, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ConnectPlaystationAccount(const FString& ForPlayerWithUlid, const FString& Environment, const FString& Code, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+FString ULootLockerManager::ConnectPlaystationAccount(const FString& ForPlayerWithUlid, const FString& Environment, const FString& Code, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::ConnectPlaystationAccount(Environment, Code, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    return ULootLockerSDKManager::ConnectPlaystationAccount(Environment, Code, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ConnectDiscordAccount(const FString& ForPlayerWithUlid, const FString& Token, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+FString ULootLockerManager::ConnectDiscordAccount(const FString& ForPlayerWithUlid, const FString& Token, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::ConnectDiscordAccount(Token, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    return ULootLockerSDKManager::ConnectDiscordAccount(Token, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ConnectRemoteSessionAccount(const FString& ForPlayerWithUlid, const FString& Code, const FString& Nonce, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+FString ULootLockerManager::ConnectRemoteSessionAccount(const FString& ForPlayerWithUlid, const FString& Code, const FString& Nonce, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::ConnectRemoteSessionAccount(Code, Nonce, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    return ULootLockerSDKManager::ConnectRemoteSessionAccount(Code, Nonce, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::TransferIdentityProvidersBetweenAccounts(const FString& FromPlayerWithUlid, const FString& ToPlayerWithUlid, TArray<ELootLockerAccountProvider> ProvidersToTransfer, const FLootLockerListConnectedAccountsResponseBP& OnCompleteBP)
+FString ULootLockerManager::TransferIdentityProvidersBetweenAccounts(const FString& FromPlayerWithUlid, const FString& ToPlayerWithUlid, TArray<ELootLockerAccountProvider> ProvidersToTransfer, const FLootLockerListConnectedAccountsResponseBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::TransferIdentityProvidersBetweenAccounts(FromPlayerWithUlid, ToPlayerWithUlid, ProvidersToTransfer, FLootLockerListConnectedAccountsResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerListConnectedAccountsResponse& Response)
+    return ULootLockerSDKManager::TransferIdentityProvidersBetweenAccounts(FromPlayerWithUlid, ToPlayerWithUlid, ProvidersToTransfer, FLootLockerListConnectedAccountsResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerListConnectedAccountsResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }));
@@ -433,9 +469,9 @@ void ULootLockerManager::CancelRemoteSessionProcess(FString ProcessID)
     ULootLockerSDKManager::CancelRemoteSessionProcess(ProcessID);
 }
 
-void ULootLockerManager::RefreshRemoteSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegateBP& OnCompletedRequest)
+FString ULootLockerManager::RefreshRemoteSession(const FString& ForPlayerWithUlid, const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegateBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::RefreshRemoteSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, 
+    return ULootLockerSDKManager::RefreshRemoteSession(RefreshToken.IsEmpty() ? GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken : RefreshToken, 
         FLootLockerRefreshRemoteSessionResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerRefreshRemoteSessionResponse Response) {
             OnCompletedRequest.ExecuteIfBound(Response);
         }));
@@ -444,376 +480,376 @@ void ULootLockerManager::RefreshRemoteSession(const FString& ForPlayerWithUlid, 
 //==================================================
 // Player
 //==================================================
-void ULootLockerManager::GetCurrentPlayerInfo(const FString& ForPlayerWithUlid, const FLootLockerGetCurrentPlayerInfoResponseBP& OnCompletedRequest)
+FString ULootLockerManager::GetCurrentPlayerInfo(const FString& ForPlayerWithUlid, const FLootLockerGetCurrentPlayerInfoResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::GetCurrentPlayerInfo(FLootLockerGetCurrentPlayerInfoResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerGetCurrentPlayerInfoResponse Response)
+    return ULootLockerSDKManager::GetCurrentPlayerInfo(FLootLockerGetCurrentPlayerInfoResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerGetCurrentPlayerInfoResponse Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ListPlayerInfo(const FString& ForPlayerWithUlid, TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseBP& OnCompletedRequest)
+FString ULootLockerManager::ListPlayerInfo(const FString& ForPlayerWithUlid, TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::ListPlayerInfo(PlayerIdsToLookUp, PlayerLegacyIdsToLookUp, PlayerPublicUidsToLookUp, FLootLockerListPlayerInfoResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerListPlayerInfoResponse Response)
+    return ULootLockerSDKManager::ListPlayerInfo(PlayerIdsToLookUp, PlayerLegacyIdsToLookUp, PlayerPublicUidsToLookUp, FLootLockerListPlayerInfoResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerListPlayerInfoResponse Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetInventory(const FString& ForPlayerWithUlid, const FPInventoryResponseBP& OnGetInventoryRequestCompleted)
+FString ULootLockerManager::GetInventory(const FString& ForPlayerWithUlid, const FPInventoryResponseBP& OnGetInventoryRequestCompleted)
 {
-    ULootLockerSDKManager::GetInventory(FInventoryResponse::CreateLambda([OnGetInventoryRequestCompleted](FLootLockerInventoryResponse Response)
+    return ULootLockerSDKManager::GetInventory(FInventoryResponse::CreateLambda([OnGetInventoryRequestCompleted](FLootLockerInventoryResponse Response)
     {
         OnGetInventoryRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetFullInventory(const FString ForPlayerWithUlid, int32 StartIndex, const FPInventoryResponseBP& OnGetInventoryRequestCompleted)
+FString ULootLockerManager::GetFullInventory(const FString ForPlayerWithUlid, int32 StartIndex, const FPInventoryResponseBP& OnGetInventoryRequestCompleted)
 {
-    ULootLockerSDKManager::GetFullInventory(FInventoryResponse::CreateLambda([OnGetInventoryRequestCompleted](FLootLockerInventoryResponse Response)
+    return ULootLockerSDKManager::GetFullInventory(FInventoryResponse::CreateLambda([OnGetInventoryRequestCompleted](FLootLockerInventoryResponse Response)
     {
         OnGetInventoryRequestCompleted.ExecuteIfBound(Response);
     }), StartIndex, ForPlayerWithUlid);
 }
 
-void ULootLockerManager::CheckPlayerAssetActivationNotification(const FString& ForPlayerWithUlid, const FPAssetNotificationResponseBP& OnCheckPlayerAssetDeactivationNotificationRequestCompleted)
+FString ULootLockerManager::CheckPlayerAssetActivationNotification(const FString& ForPlayerWithUlid, const FPAssetNotificationResponseBP& OnCheckPlayerAssetDeactivationNotificationRequestCompleted)
 {
-    ULootLockerSDKManager::CheckPlayerAssetActivationNotification(FLootLockerAssetNotificationResponse::CreateLambda([OnCheckPlayerAssetDeactivationNotificationRequestCompleted](FLootLockerPlayerAssetNotificationResponse Response)
+    return ULootLockerSDKManager::CheckPlayerAssetActivationNotification(FLootLockerAssetNotificationResponse::CreateLambda([OnCheckPlayerAssetDeactivationNotificationRequestCompleted](FLootLockerPlayerAssetNotificationResponse Response)
     {
         OnCheckPlayerAssetDeactivationNotificationRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetCurrencyBalance(const FString& ForPlayerWithUlid, const FPBalanceResponseBP& OnGetCurrencyBalance)
+FString ULootLockerManager::GetCurrencyBalance(const FString& ForPlayerWithUlid, const FPBalanceResponseBP& OnGetCurrencyBalance)
 {
-    ULootLockerSDKManager::GetCurrencyBalance(FPBalanceResponse::CreateLambda([OnGetCurrencyBalance](FLootLockerBalanceResponse Response)
+    return ULootLockerSDKManager::GetCurrencyBalance(FPBalanceResponse::CreateLambda([OnGetCurrencyBalance](FLootLockerBalanceResponse Response)
     {
         OnGetCurrencyBalance.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
 
-void ULootLockerManager::InitiateDLCMigration(const FString& ForPlayerWithUlid, const FResponseCallbackBP& OnInitiateDlcMigration)
+FString ULootLockerManager::InitiateDLCMigration(const FString& ForPlayerWithUlid, const FResponseCallbackBP& OnInitiateDlcMigration)
 {
-    ULootLockerSDKManager::InitiateDLCMigration(FResponseCallback::CreateLambda([OnInitiateDlcMigration](FLootLockerResponse Response)
+    return ULootLockerSDKManager::InitiateDLCMigration(FResponseCallback::CreateLambda([OnInitiateDlcMigration](FLootLockerResponse Response)
     {
         OnInitiateDlcMigration.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
 
-void ULootLockerManager::GetDLCsMigration(const FString& ForPlayerWithUlid, const FPDlcResponseBP& OnGotDlcMigration)
+FString ULootLockerManager::GetDLCsMigration(const FString& ForPlayerWithUlid, const FPDlcResponseBP& OnGotDlcMigration)
 {
-    ULootLockerSDKManager::GetDLCsMigration(FPDlcResponse::CreateLambda([OnGotDlcMigration](FLootLockerDlcResponse Response)
+    return ULootLockerSDKManager::GetDLCsMigration(FPDlcResponse::CreateLambda([OnGotDlcMigration](FLootLockerDlcResponse Response)
     {
         OnGotDlcMigration.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
 
-void ULootLockerManager::SetProfilePrivate(const FString& ForPlayerWithUlid, const FResponseCallbackBP& OnProfileSetPrivate)
+FString ULootLockerManager::SetProfilePrivate(const FString& ForPlayerWithUlid, const FResponseCallbackBP& OnProfileSetPrivate)
 {
-    ULootLockerSDKManager::SetProfilePrivate(FResponseCallback::CreateLambda([OnProfileSetPrivate](FLootLockerResponse Response)
+    return ULootLockerSDKManager::SetProfilePrivate(FResponseCallback::CreateLambda([OnProfileSetPrivate](FLootLockerResponse Response)
     {
         OnProfileSetPrivate.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::SetProfilePublic(const FString& ForPlayerWithUlid, const FResponseCallbackBP& OnProfileSetPublic)
+FString ULootLockerManager::SetProfilePublic(const FString& ForPlayerWithUlid, const FResponseCallbackBP& OnProfileSetPublic)
 {
-    ULootLockerSDKManager::SetProfilePublic(FResponseCallback::CreateLambda([OnProfileSetPublic](FLootLockerResponse Response)
+    return ULootLockerSDKManager::SetProfilePublic(FResponseCallback::CreateLambda([OnProfileSetPublic](FLootLockerResponse Response)
     {
         OnProfileSetPublic.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
-void ULootLockerManager::SetPlayerName(const FString& ForPlayerWithUlid, FString Name, const FPNameResponseBP& OnSetPlayerName)
+FString ULootLockerManager::SetPlayerName(const FString& ForPlayerWithUlid, FString Name, const FPNameResponseBP& OnSetPlayerName)
 {
-    ULootLockerSDKManager::SetPlayerName(Name, FPNameResponse::CreateLambda([OnSetPlayerName](FLootLockerNameResponse Response)
+    return ULootLockerSDKManager::SetPlayerName(Name, FPNameResponse::CreateLambda([OnSetPlayerName](FLootLockerNameResponse Response)
     {
         OnSetPlayerName.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetPlayerName(const FString& ForPlayerWithUlid, const FPNameResponseBP& OnGetPlayerName)
+FString ULootLockerManager::GetPlayerName(const FString& ForPlayerWithUlid, const FPNameResponseBP& OnGetPlayerName)
 {
-    ULootLockerSDKManager::GetPlayerName(FPNameResponse::CreateLambda([OnGetPlayerName](FLootLockerNameResponse Response)
+    return ULootLockerSDKManager::GetPlayerName(FPNameResponse::CreateLambda([OnGetPlayerName](FLootLockerNameResponse Response)
     {
         OnGetPlayerName.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::LookupMultiplePlayerNamesUsingIDs(const FString& ForPlayerWithUlid, const FLootLockerMultiplePlayerNamesRequest& Request, const FPMultiplePlayerNamesBP& OnCompletedRequest)
+FString ULootLockerManager::LookupMultiplePlayerNamesUsingIDs(const FString& ForPlayerWithUlid, const FLootLockerMultiplePlayerNamesRequest& Request, const FPMultiplePlayerNamesBP& OnCompletedRequest)
 {
 #pragma warning(disable : 4996)
-    ULootLockerSDKManager::LookupMultiplePlayerNamesUsingIDs(Request, FPMultiplePlayerNames::CreateLambda([OnCompletedRequest](FLootLockerMultiplePlayersNamesResponse Response)
+    return ULootLockerSDKManager::LookupMultiplePlayerNamesUsingIDs(Request, FPMultiplePlayerNames::CreateLambda([OnCompletedRequest](FLootLockerMultiplePlayersNamesResponse Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 #pragma warning(default : 4996)
 }
 
-void ULootLockerManager::LookupMultiplePlayersDataUsingIDs(const FString& ForPlayerWithUlid, const FLootLockerLookupMultiplePlayersDataRequest& Request, const FPMultiplePlayerNamesBP& OnCompletedRequest)
+FString ULootLockerManager::LookupMultiplePlayersDataUsingIDs(const FString& ForPlayerWithUlid, const FLootLockerLookupMultiplePlayersDataRequest& Request, const FPMultiplePlayerNamesBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::LookupMultiplePlayersDataUsingIDs(Request, FPMultiplePlayerNames::CreateLambda([OnCompletedRequest](FLootLockerMultiplePlayersNamesResponse Response)
+    return ULootLockerSDKManager::LookupMultiplePlayersDataUsingIDs(Request, FPMultiplePlayerNames::CreateLambda([OnCompletedRequest](FLootLockerMultiplePlayersNamesResponse Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::LookupMultiplePlayerNames1stPlatformIDs(const FString& ForPlayerWithUlid, const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequest)
+FString ULootLockerManager::LookupMultiplePlayerNames1stPlatformIDs(const FString& ForPlayerWithUlid, const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::LookupMultiplePlayerNames1stPlatformIDs(Request, FPMultiplePlayersPlatformIdsNames::CreateLambda([OnCompletedRequest](FLootLockerMultiplePlayersPlatformIdsResponse Response)
+    return ULootLockerSDKManager::LookupMultiplePlayerNames1stPlatformIDs(Request, FPMultiplePlayersPlatformIdsNames::CreateLambda([OnCompletedRequest](FLootLockerMultiplePlayersPlatformIdsResponse Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::DeletePlayer(const FString& ForPlayerWithUlid, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+FString ULootLockerManager::DeletePlayer(const FString& ForPlayerWithUlid, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::DeletePlayer(FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
+    return ULootLockerSDKManager::DeletePlayer(FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
 
-void ULootLockerManager::UploadFile(const FString& ForPlayerWithUlid, const FLootLockerFileUploadRequest& Request, const FLootLockerUploadFileBP& OnComplete)
+FString ULootLockerManager::UploadFile(const FString& ForPlayerWithUlid, const FLootLockerFileUploadRequest& Request, const FLootLockerUploadFileBP& OnComplete)
 {
-    ULootLockerSDKManager::UploadFile(Request, FLootLockerUploadFileDelegate::CreateLambda([OnComplete](FLootLockerPlayerFileResponse Response)
+    return ULootLockerSDKManager::UploadFile(Request, FLootLockerUploadFileDelegate::CreateLambda([OnComplete](FLootLockerPlayerFileResponse Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::UpdateFile(const FString& ForPlayerWithUlid, const int32 FileId, const FLootLockerFileUpdateRequest& Request, const FLootLockerUploadFileBP& OnComplete)
+FString ULootLockerManager::UpdateFile(const FString& ForPlayerWithUlid, const int32 FileId, const FLootLockerFileUpdateRequest& Request, const FLootLockerUploadFileBP& OnComplete)
 {
-    ULootLockerSDKManager::UpdateFile(FileId, Request, FLootLockerUploadFileDelegate::CreateLambda([OnComplete](FLootLockerPlayerFileResponse Response)
+    return ULootLockerSDKManager::UpdateFile(FileId, Request, FLootLockerUploadFileDelegate::CreateLambda([OnComplete](FLootLockerPlayerFileResponse Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ListFiles(const FString& ForPlayerWithUlid, const FLootLockerFileListBP& OnComplete)
+FString ULootLockerManager::ListFiles(const FString& ForPlayerWithUlid, const FLootLockerFileListBP& OnComplete)
 {
-    ULootLockerSDKManager::ListFiles(FLootLockerFileListDelegate::CreateLambda([OnComplete](FLootLockerFileListResponse Response)
+    return ULootLockerSDKManager::ListFiles(FLootLockerFileListDelegate::CreateLambda([OnComplete](FLootLockerFileListResponse Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ListOtherPlayersPublicFiles(const FString& ForPlayerWithUlid, const int32 PlayerID, const FLootLockerFileListBP& OnCompleteBP)
+FString ULootLockerManager::ListOtherPlayersPublicFiles(const FString& ForPlayerWithUlid, const int32 PlayerID, const FLootLockerFileListBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::ListOtherPlayersPublicFiles(PlayerID, FLootLockerFileListDelegate::CreateLambda([OnCompleteBP](FLootLockerFileListResponse Response)
+    return ULootLockerSDKManager::ListOtherPlayersPublicFiles(PlayerID, FLootLockerFileListDelegate::CreateLambda([OnCompleteBP](FLootLockerFileListResponse Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetSingleFile(const FString& ForPlayerWithUlid, const int32 FileID, const FLootLockerUploadFileBP& OnComplete)
+FString ULootLockerManager::GetSingleFile(const FString& ForPlayerWithUlid, const int32 FileID, const FLootLockerUploadFileBP& OnComplete)
 {
-    ULootLockerSDKManager::GetSingleFile(FileID, FLootLockerUploadFileDelegate::CreateLambda([OnComplete](FLootLockerPlayerFileResponse Response)
+    return ULootLockerSDKManager::GetSingleFile(FileID, FLootLockerUploadFileDelegate::CreateLambda([OnComplete](FLootLockerPlayerFileResponse Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::DeletePlayerFile(const FString& ForPlayerWithUlid, const int32 FileID, const FLootLockerFileDeletedBP& OnComplete)
+FString ULootLockerManager::DeletePlayerFile(const FString& ForPlayerWithUlid, const int32 FileID, const FLootLockerFileDeletedBP& OnComplete)
 {
-    ULootLockerSDKManager::DeletePlayerFile(FileID, FLootLockerFileDeletedDelegate::CreateLambda([OnComplete](FLootLockerResponse Response)
+    return ULootLockerSDKManager::DeletePlayerFile(FileID, FLootLockerFileDeletedDelegate::CreateLambda([OnComplete](FLootLockerResponse Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
 // Player Progressions
-void ULootLockerManager::GetPlayerProgressions(const FString& ForPlayerWithUlid, const int32 Count /*= -1*/, const FString& After /*= ""*/, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest)
+FString ULootLockerManager::GetPlayerProgressions(const FString& ForPlayerWithUlid, const int32 Count /*= -1*/, const FString& After /*= ""*/, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::GetPlayerProgressions(Count, After, FLootLockerPaginatedPlayerProgressionsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPaginatedPlayerProgressionResponse& Response)
+    return ULootLockerSDKManager::GetPlayerProgressions(Count, After, FLootLockerPaginatedPlayerProgressionsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPaginatedPlayerProgressionResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetPlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseBP& OnCompletedRequest)
+FString ULootLockerManager::GetPlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::GetPlayerProgression(ProgressionKey, FLootLockerPlayerProgressionResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPlayerProgressionResponse& Response)
+    return ULootLockerSDKManager::GetPlayerProgression(ProgressionKey, FLootLockerPlayerProgressionResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPlayerProgressionResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::AddPointsToPlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest)
+FString ULootLockerManager::AddPointsToPlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::AddPointsToPlayerProgression(ProgressionKey, Amount, FLootLockerPlayerProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPlayerProgressionWithRewardsResponse& Response)
+    return ULootLockerSDKManager::AddPointsToPlayerProgression(ProgressionKey, Amount, FLootLockerPlayerProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPlayerProgressionWithRewardsResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::SubtractPointsFromPlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest)
+FString ULootLockerManager::SubtractPointsFromPlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const int32& Amount, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::SubtractPointsFromPlayerProgression(ProgressionKey, Amount, FLootLockerPlayerProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPlayerProgressionWithRewardsResponse& Response)
+    return ULootLockerSDKManager::SubtractPointsFromPlayerProgression(ProgressionKey, Amount, FLootLockerPlayerProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPlayerProgressionWithRewardsResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ResetPlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest)
+FString ULootLockerManager::ResetPlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::ResetPlayerProgression(ProgressionKey, FLootLockerPlayerProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPlayerProgressionWithRewardsResponse& Response)
+    return ULootLockerSDKManager::ResetPlayerProgression(ProgressionKey, FLootLockerPlayerProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPlayerProgressionWithRewardsResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::DeletePlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest)
+FString ULootLockerManager::DeletePlayerProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::DeletePlayerProgression(ProgressionKey, FLootLockerDeleteProgressionDelegate::CreateLambda([OnCompletedRequest](const FLootLockerResponse& Response)
+    return ULootLockerSDKManager::DeletePlayerProgression(ProgressionKey, FLootLockerDeleteProgressionDelegate::CreateLambda([OnCompletedRequest](const FLootLockerResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetOtherPlayersProgressions(const FString& ForPlayerWithUlid, const FString& PlayerUlid, const int32 Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest)
+FString ULootLockerManager::GetOtherPlayersProgressions(const FString& ForPlayerWithUlid, const FString& PlayerUlid, const int32 Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::GetOtherPlayersProgressions(PlayerUlid, Count, After, FLootLockerPaginatedPlayerProgressionsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPaginatedPlayerProgressionResponse& Response)
+    return ULootLockerSDKManager::GetOtherPlayersProgressions(PlayerUlid, Count, After, FLootLockerPaginatedPlayerProgressionsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPaginatedPlayerProgressionResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetOtherPlayersProgression(const FString& ForPlayerWithUlid, const FString& PlayerUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseBP& OnCompletedRequest)
+FString ULootLockerManager::GetOtherPlayersProgression(const FString& ForPlayerWithUlid, const FString& PlayerUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::GetOtherPlayersProgression(PlayerUlid, ProgressionKey, FLootLockerPlayerProgressionResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPlayerProgressionResponse& Response)
+    return ULootLockerSDKManager::GetOtherPlayersProgression(PlayerUlid, ProgressionKey, FLootLockerPlayerProgressionResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPlayerProgressionResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
 // Heroes
-void ULootLockerManager::GetGameHeroes(const FString& ForPlayerWithUlid, const FLootLockerGameHeroListBP& OnCompleteBP)
+FString ULootLockerManager::GetGameHeroes(const FString& ForPlayerWithUlid, const FLootLockerGameHeroListBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::GetGameHeroes(FLootLockerGameHeroListDelegate::CreateLambda([OnCompleteBP](const FLootLockerGameHeroListResponse& Response)
+    return ULootLockerSDKManager::GetGameHeroes(FLootLockerGameHeroListDelegate::CreateLambda([OnCompleteBP](const FLootLockerGameHeroListResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ListPlayerHeroes(const FString& ForPlayerWithUlid, const FLootLockerHeroListBP& OnCompleteBP)
+FString ULootLockerManager::ListPlayerHeroes(const FString& ForPlayerWithUlid, const FLootLockerHeroListBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::ListPlayerHeroes(FLootLockerHeroListDelegate::CreateLambda([OnCompleteBP](const FLootLockerHeroListResponse& Response)
+    return ULootLockerSDKManager::ListPlayerHeroes(FLootLockerHeroListDelegate::CreateLambda([OnCompleteBP](const FLootLockerHeroListResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ListOtherPlayersHeroesBySteamID64(const FString& ForPlayerWithUlid, const int64 SteamID64, const FLootLockerHeroListBP& OnCompleteBP)
+FString ULootLockerManager::ListOtherPlayersHeroesBySteamID64(const FString& ForPlayerWithUlid, const int64 SteamID64, const FLootLockerHeroListBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::ListOtherPlayersHeroesBySteamID64(SteamID64, FLootLockerHeroListDelegate::CreateLambda([OnCompleteBP](const FLootLockerHeroListResponse& Response)
+    return ULootLockerSDKManager::ListOtherPlayersHeroesBySteamID64(SteamID64, FLootLockerHeroListDelegate::CreateLambda([OnCompleteBP](const FLootLockerHeroListResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::CreateHero(const FString& ForPlayerWithUlid, const FLootLockerCreateHeroRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP)
+FString ULootLockerManager::CreateHero(const FString& ForPlayerWithUlid, const FLootLockerCreateHeroRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::CreateHero(Request, FLootLockerPlayerHeroDelegate::CreateLambda([OnCompleteBP](const FLootLockerPlayerHeroResponse& Response)
+    return ULootLockerSDKManager::CreateHero(Request, FLootLockerPlayerHeroDelegate::CreateLambda([OnCompleteBP](const FLootLockerPlayerHeroResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::CreateHeroWithVariation(const FString& ForPlayerWithUlid, const FLootLockerCreateHeroWithVariationRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP)
+FString ULootLockerManager::CreateHeroWithVariation(const FString& ForPlayerWithUlid, const FLootLockerCreateHeroWithVariationRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::CreateHeroWithVariation(Request, FLootLockerPlayerHeroDelegate::CreateLambda([OnCompleteBP](const FLootLockerPlayerHeroResponse& Response)
+    return ULootLockerSDKManager::CreateHeroWithVariation(Request, FLootLockerPlayerHeroDelegate::CreateLambda([OnCompleteBP](const FLootLockerPlayerHeroResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetHero(const FString& ForPlayerWithUlid, const int32 HeroID, const FLootLockerPlayerHeroBP& OnCompleteBP)
+FString ULootLockerManager::GetHero(const FString& ForPlayerWithUlid, const int32 HeroID, const FLootLockerPlayerHeroBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::GetHero(HeroID, FLootLockerPlayerHeroDelegate::CreateLambda([OnCompleteBP](const FLootLockerPlayerHeroResponse& Response)
+    return ULootLockerSDKManager::GetHero(HeroID, FLootLockerPlayerHeroDelegate::CreateLambda([OnCompleteBP](const FLootLockerPlayerHeroResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetOtherPlayersDefaultHeroBySteamID64(const FString& ForPlayerWithUlid, const int32 SteamID64, const FLootLockerPlayerHeroBP& OnCompleteBP)
+FString ULootLockerManager::GetOtherPlayersDefaultHeroBySteamID64(const FString& ForPlayerWithUlid, const int32 SteamID64, const FLootLockerPlayerHeroBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::GetOtherPlayersDefaultHeroBySteamID64(SteamID64, FLootLockerPlayerHeroDelegate::CreateLambda([OnCompleteBP](const FLootLockerPlayerHeroResponse& Response)
+    return ULootLockerSDKManager::GetOtherPlayersDefaultHeroBySteamID64(SteamID64, FLootLockerPlayerHeroDelegate::CreateLambda([OnCompleteBP](const FLootLockerPlayerHeroResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::UpdateHero(const FString& ForPlayerWithUlid, const int32 HeroID, const FLootLockerUpdateHeroRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP)
+FString ULootLockerManager::UpdateHero(const FString& ForPlayerWithUlid, const int32 HeroID, const FLootLockerUpdateHeroRequest& Request, const FLootLockerPlayerHeroBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::UpdateHero(HeroID, Request, FLootLockerPlayerHeroDelegate::CreateLambda([OnCompleteBP](const FLootLockerPlayerHeroResponse& Response)
+    return ULootLockerSDKManager::UpdateHero(HeroID, Request, FLootLockerPlayerHeroDelegate::CreateLambda([OnCompleteBP](const FLootLockerPlayerHeroResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::DeleteHero(const FString& ForPlayerWithUlid, const int32 HeroID, const FLLHeroDefaultResponseBP& OnCompleteBP)
+FString ULootLockerManager::DeleteHero(const FString& ForPlayerWithUlid, const int32 HeroID, const FLLHeroDefaultResponseBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::DeleteHero(HeroID, FLLHeroDefaultResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerResponse& Response)
+    return ULootLockerSDKManager::DeleteHero(HeroID, FLLHeroDefaultResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetHeroInventory(const FString& ForPlayerWithUlid, const int32 HeroID, const FPInventoryResponseBP& OnCompleteBP)
+FString ULootLockerManager::GetHeroInventory(const FString& ForPlayerWithUlid, const int32 HeroID, const FPInventoryResponseBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::GetHeroInventory(HeroID, FInventoryResponse::CreateLambda([OnCompleteBP](const FLootLockerInventoryResponse& Response)
+    return ULootLockerSDKManager::GetHeroInventory(HeroID, FInventoryResponse::CreateLambda([OnCompleteBP](const FLootLockerInventoryResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const FHeroLoadoutReseponseBP& OnCompleteBP)
+FString ULootLockerManager::GetHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const FHeroLoadoutReseponseBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::GetHeroLoadout(HeroID, FHeroLoadoutReseponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerHeroLoadoutResponse& Response)
+    return ULootLockerSDKManager::GetHeroLoadout(HeroID, FHeroLoadoutReseponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerHeroLoadoutResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetOtherPlayersHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const FHeroLoadoutReseponseBP& OnCompleteBP)
+FString ULootLockerManager::GetOtherPlayersHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const FHeroLoadoutReseponseBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::GetOtherPlayersHeroLoadout(HeroID, FHeroLoadoutReseponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerHeroLoadoutResponse& Response)
+    return ULootLockerSDKManager::GetOtherPlayersHeroLoadout(HeroID, FHeroLoadoutReseponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerHeroLoadoutResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::AddAssetToHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP)
+FString ULootLockerManager::AddAssetToHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::AddAssetToHeroLoadout(HeroID, AssetInstanceID, FHeroLoadoutReseponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerHeroLoadoutResponse& Response)
+    return ULootLockerSDKManager::AddAssetToHeroLoadout(HeroID, AssetInstanceID, FHeroLoadoutReseponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerHeroLoadoutResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::AddGlobalAssetToHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const int32 AssetID, const FHeroLoadoutReseponseBP& OnCompleteBP)
+FString ULootLockerManager::AddGlobalAssetToHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const int32 AssetID, const FHeroLoadoutReseponseBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::AddGlobalAssetToHeroLoadout(HeroID, AssetID, FHeroLoadoutReseponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerHeroLoadoutResponse& Response)
+    return ULootLockerSDKManager::AddGlobalAssetToHeroLoadout(HeroID, AssetID, FHeroLoadoutReseponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerHeroLoadoutResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::AddGlobalAssetVariationToHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseBP& OnCompleteBP)
+FString ULootLockerManager::AddGlobalAssetVariationToHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::AddGlobalAssetVariationToHeroLoadout(HeroID, AssetID, AssetVariationID, FHeroLoadoutReseponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerHeroLoadoutResponse& Response)
+    return ULootLockerSDKManager::AddGlobalAssetVariationToHeroLoadout(HeroID, AssetID, AssetVariationID, FHeroLoadoutReseponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerHeroLoadoutResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::RemoveAssetToHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP)
+FString ULootLockerManager::RemoveAssetToHeroLoadout(const FString& ForPlayerWithUlid, const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseBP& OnCompleteBP)
 {
-    ULootLockerSDKManager::RemoveAssetToHeroLoadout(HeroID, AssetInstanceID, FHeroLoadoutReseponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerHeroLoadoutResponse& Response)
+    return ULootLockerSDKManager::RemoveAssetToHeroLoadout(HeroID, AssetInstanceID, FHeroLoadoutReseponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerHeroLoadoutResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
@@ -821,303 +857,303 @@ void ULootLockerManager::RemoveAssetToHeroLoadout(const FString& ForPlayerWithUl
 
 // Character
 
-void ULootLockerManager::GetCharacterLoadout(const FString& ForPlayerWithUlid, const FPCharacterLoadoutResponseBP& OnGetCharacterLoadoutRequestCompleted)
+FString ULootLockerManager::GetCharacterLoadout(const FString& ForPlayerWithUlid, const FPCharacterLoadoutResponseBP& OnGetCharacterLoadoutRequestCompleted)
 {
-    ULootLockerSDKManager::GetCharacterLoadout(FCharacterLoadoutResponse::CreateLambda([OnGetCharacterLoadoutRequestCompleted](const FLootLockerCharacterLoadoutResponse& Response) {
+    return ULootLockerSDKManager::GetCharacterLoadout(FCharacterLoadoutResponse::CreateLambda([OnGetCharacterLoadoutRequestCompleted](const FLootLockerCharacterLoadoutResponse& Response) {
         OnGetCharacterLoadoutRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::UpdateCharacter(const FString& ForPlayerWithUlid, int CharacterId, bool IsDefault, FString Name, const FPCharacterLoadoutResponseBP& OnCompletedRequest)
+FString ULootLockerManager::UpdateCharacter(const FString& ForPlayerWithUlid, int CharacterId, bool IsDefault, FString Name, const FPCharacterLoadoutResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::UpdateCharacter(CharacterId, IsDefault, Name, FCharacterLoadoutResponse::CreateLambda([OnCompletedRequest](const FLootLockerCharacterLoadoutResponse& Response) {
+    return ULootLockerSDKManager::UpdateCharacter(CharacterId, IsDefault, Name, FCharacterLoadoutResponse::CreateLambda([OnCompletedRequest](const FLootLockerCharacterLoadoutResponse& Response) {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::CreateCharacter(const FString& ForPlayerWithUlid, bool IsDefault, FString CharacterName, FString CharacterTypeId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP)
+FString ULootLockerManager::CreateCharacter(const FString& ForPlayerWithUlid, bool IsDefault, FString CharacterName, FString CharacterTypeId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerSDKManager::CreateCharacter(IsDefault, CharacterName, CharacterTypeId, FCharacterLoadoutResponse::CreateLambda([OnCompletedRequestBP](const FLootLockerCharacterLoadoutResponse& Response) {
+    return ULootLockerSDKManager::CreateCharacter(IsDefault, CharacterName, CharacterTypeId, FCharacterLoadoutResponse::CreateLambda([OnCompletedRequestBP](const FLootLockerCharacterLoadoutResponse& Response) {
         OnCompletedRequestBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::DeleteCharacter(const FString& ForPlayerWithUlid, int CharacterId, const FPCharacterDefaultResponseBP& OnCompletedRequestBP)
+FString ULootLockerManager::DeleteCharacter(const FString& ForPlayerWithUlid, int CharacterId, const FPCharacterDefaultResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerSDKManager::DeleteCharacter(CharacterId, FLootLockerCharacterDefaultResponse::CreateLambda([OnCompletedRequestBP](const FLootLockerResponse& Response) {
+    return ULootLockerSDKManager::DeleteCharacter(CharacterId, FLootLockerCharacterDefaultResponse::CreateLambda([OnCompletedRequestBP](const FLootLockerResponse& Response) {
         OnCompletedRequestBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ListCharacterTypes(const FString& ForPlayerWithUlid, const FPLootLockerListCharacterTypesResponseBP& OnCompletedRequestBP)
+FString ULootLockerManager::ListCharacterTypes(const FString& ForPlayerWithUlid, const FPLootLockerListCharacterTypesResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerSDKManager::ListCharacterTypes(FPLootLockerListCharacterTypesResponse::CreateLambda([OnCompletedRequestBP](const FLootLockerListCharacterTypesResponse& Response) {
+    return ULootLockerSDKManager::ListCharacterTypes(FPLootLockerListCharacterTypesResponse::CreateLambda([OnCompletedRequestBP](const FLootLockerListCharacterTypesResponse& Response) {
         OnCompletedRequestBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ListPlayerCharacters(const FString& ForPlayerWithUlid, const FPLootLockerListPlayerCharactersResponseBP& OnCompletedRequestBP)
+FString ULootLockerManager::ListPlayerCharacters(const FString& ForPlayerWithUlid, const FPLootLockerListPlayerCharactersResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerSDKManager::ListPlayerCharacters(FPLootLockerListPlayerCharactersResponse::CreateLambda([OnCompletedRequestBP](const FLootLockerListPlayerCharactersResponse& Response) {
+    return ULootLockerSDKManager::ListPlayerCharacters(FPLootLockerListPlayerCharactersResponse::CreateLambda([OnCompletedRequestBP](const FLootLockerListPlayerCharactersResponse& Response) {
         OnCompletedRequestBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::EquipAssetToDefaultCharacter(const FString& ForPlayerWithUlid, int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToDefaultCharacterRequestCompleted)
+FString ULootLockerManager::EquipAssetToDefaultCharacter(const FString& ForPlayerWithUlid, int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToDefaultCharacterRequestCompleted)
 {
-    ULootLockerSDKManager::EquipAssetToDefaultCharacter(InstanceId, FLootLockerCharacterDefaultResponse::CreateLambda([OnEquipAssetToDefaultCharacterRequestCompleted](const FLootLockerResponse& Response) {
+    return ULootLockerSDKManager::EquipAssetToDefaultCharacter(InstanceId, FLootLockerCharacterDefaultResponse::CreateLambda([OnEquipAssetToDefaultCharacterRequestCompleted](const FLootLockerResponse& Response) {
         OnEquipAssetToDefaultCharacterRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::EquipAssetToCharacterById(const FString& ForPlayerWithUlid, int CharacterId, int AssetId, int AssetVariationId, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted)
+FString ULootLockerManager::EquipAssetToCharacterById(const FString& ForPlayerWithUlid, int CharacterId, int AssetId, int AssetVariationId, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted)
 {
-    ULootLockerSDKManager::EquipAssetToCharacterById(CharacterId, AssetId, AssetVariationId, FLootLockerCharacterDefaultResponse::CreateLambda([OnEquipAssetToCharacterByIdRequestCompleted](const FLootLockerResponse& Response) {
+    return ULootLockerSDKManager::EquipAssetToCharacterById(CharacterId, AssetId, AssetVariationId, FLootLockerCharacterDefaultResponse::CreateLambda([OnEquipAssetToCharacterByIdRequestCompleted](const FLootLockerResponse& Response) {
         OnEquipAssetToCharacterByIdRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::EquipAssetToCharacterByIdAndInstance(const FString& ForPlayerWithUlid, int CharacterId, int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted)
+FString ULootLockerManager::EquipAssetToCharacterByIdAndInstance(const FString& ForPlayerWithUlid, int CharacterId, int InstanceId, const FPCharacterDefaultResponseBP& OnEquipAssetToCharacterByIdRequestCompleted)
 {
-    ULootLockerSDKManager::EquipAssetToCharacterById(CharacterId, InstanceId, FLootLockerCharacterDefaultResponse::CreateLambda([OnEquipAssetToCharacterByIdRequestCompleted](const FLootLockerResponse& Response) {
+    return ULootLockerSDKManager::EquipAssetToCharacterById(CharacterId, InstanceId, FLootLockerCharacterDefaultResponse::CreateLambda([OnEquipAssetToCharacterByIdRequestCompleted](const FLootLockerResponse& Response) {
         OnEquipAssetToCharacterByIdRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::UnEquipAssetToDefaultCharacter(const FString& ForPlayerWithUlid, int InstanceId, const FPCharacterDefaultResponseBP& OnUnEquipAssetToDefaultCharacterRequestCompleted)
+FString ULootLockerManager::UnEquipAssetToDefaultCharacter(const FString& ForPlayerWithUlid, int InstanceId, const FPCharacterDefaultResponseBP& OnUnEquipAssetToDefaultCharacterRequestCompleted)
 {
-    ULootLockerSDKManager::UnEquipAssetToDefaultCharacter(InstanceId, FLootLockerCharacterDefaultResponse::CreateLambda([OnUnEquipAssetToDefaultCharacterRequestCompleted](const FLootLockerResponse& Response) {
+    return ULootLockerSDKManager::UnEquipAssetToDefaultCharacter(InstanceId, FLootLockerCharacterDefaultResponse::CreateLambda([OnUnEquipAssetToDefaultCharacterRequestCompleted](const FLootLockerResponse& Response) {
         OnUnEquipAssetToDefaultCharacterRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::UnEquipAssetToCharacterById(const FString& ForPlayerWithUlid, int CharacterId, int InstanceId, const  FPCharacterDefaultResponseBP& OnUnEquipAssetToCharacterByIdRequestCompleted)
+FString ULootLockerManager::UnEquipAssetToCharacterById(const FString& ForPlayerWithUlid, int CharacterId, int InstanceId, const  FPCharacterDefaultResponseBP& OnUnEquipAssetToCharacterByIdRequestCompleted)
 {
-    ULootLockerSDKManager::UnEquipAssetToCharacterById(CharacterId, InstanceId, FLootLockerCharacterDefaultResponse::CreateLambda([OnUnEquipAssetToCharacterByIdRequestCompleted](const FLootLockerResponse& Response) {
+    return ULootLockerSDKManager::UnEquipAssetToCharacterById(CharacterId, InstanceId, FLootLockerCharacterDefaultResponse::CreateLambda([OnUnEquipAssetToCharacterByIdRequestCompleted](const FLootLockerResponse& Response) {
         OnUnEquipAssetToCharacterByIdRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetCurrentLoadoutToDefaultCharacter(const FString& ForPlayerWithUlid, const  FPCharacterLoadoutResponseBP& OnGetCurrentLoadoutToDefaultCharacterRequestCompleted)
+FString ULootLockerManager::GetCurrentLoadoutToDefaultCharacter(const FString& ForPlayerWithUlid, const  FPCharacterLoadoutResponseBP& OnGetCurrentLoadoutToDefaultCharacterRequestCompleted)
 {
-    ULootLockerSDKManager::GetCurrentLoadoutToDefaultCharacter(FCharacterLoadoutResponse::CreateLambda([OnGetCurrentLoadoutToDefaultCharacterRequestCompleted](const FLootLockerCharacterLoadoutResponse& Response) {
+    return ULootLockerSDKManager::GetCurrentLoadoutToDefaultCharacter(FCharacterLoadoutResponse::CreateLambda([OnGetCurrentLoadoutToDefaultCharacterRequestCompleted](const FLootLockerCharacterLoadoutResponse& Response) {
         OnGetCurrentLoadoutToDefaultCharacterRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetOtherPlayersCurrentLoadoutToDefaultCharacter(const FString& ForPlayerWithUlid, FString OtherPlayerId, const FPCharacterLoadoutResponseBP& OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted, const FString& OtherPlayerPlatform /*= FString(TEXT(""))*/)
+FString ULootLockerManager::GetOtherPlayersCurrentLoadoutToDefaultCharacter(const FString& ForPlayerWithUlid, FString OtherPlayerId, const FPCharacterLoadoutResponseBP& OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted, const FString& OtherPlayerPlatform /*= FString(TEXT(""))*/)
 {
-    ULootLockerSDKManager::GetOtherPlayersCurrentLoadoutToDefaultCharacter(OtherPlayerId, FCharacterLoadoutResponse::CreateLambda([OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted](const FLootLockerCharacterLoadoutResponse& Response) {
+    return ULootLockerSDKManager::GetOtherPlayersCurrentLoadoutToDefaultCharacter(OtherPlayerId, FCharacterLoadoutResponse::CreateLambda([OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted](const FLootLockerCharacterLoadoutResponse& Response) {
         OnGetOtherPlayersCurrentLoadoutToDefaultCharacterRequestCompleted.ExecuteIfBound(Response);
     }), OtherPlayerPlatform, ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetEquipableContextsToDefaultCharacter(const FString& ForPlayerWithUlid, const FContextDelegateBP& OnGetEquipableContextsToDefaultCharacterRequestCompleted)
+FString ULootLockerManager::GetEquipableContextsToDefaultCharacter(const FString& ForPlayerWithUlid, const FContextDelegateBP& OnGetEquipableContextsToDefaultCharacterRequestCompleted)
 {
-    ULootLockerSDKManager::GetEquipableContextsToDefaultCharacter(FContextDelegate::CreateLambda([OnGetEquipableContextsToDefaultCharacterRequestCompleted](const FLootLockerGetContextResponse& Response) {
+    return ULootLockerSDKManager::GetEquipableContextsToDefaultCharacter(FContextDelegate::CreateLambda([OnGetEquipableContextsToDefaultCharacterRequestCompleted](const FLootLockerGetContextResponse& Response) {
         OnGetEquipableContextsToDefaultCharacterRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetEquipableContextsByCharacterId(const FString& ForPlayerWithUlid, int OtherCharacterId, const  FContextDelegateBP& OnGetEquipableContextsByCharacterIdRequestCompleted)
+FString ULootLockerManager::GetEquipableContextsByCharacterId(const FString& ForPlayerWithUlid, int OtherCharacterId, const  FContextDelegateBP& OnGetEquipableContextsByCharacterIdRequestCompleted)
 {
-    ULootLockerSDKManager::GetEquipableContextsByCharacterId(OtherCharacterId, FContextDelegate::CreateLambda([OnGetEquipableContextsByCharacterIdRequestCompleted](const FLootLockerGetContextResponse& Response) {
+    return ULootLockerSDKManager::GetEquipableContextsByCharacterId(OtherCharacterId, FContextDelegate::CreateLambda([OnGetEquipableContextsByCharacterIdRequestCompleted](const FLootLockerGetContextResponse& Response) {
         OnGetEquipableContextsByCharacterIdRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetOtherPlayersCharacterLoadouts(const FString& ForPlayerWithUlid, const FString& OtherPlayerId, const FString& OtherPlayerPlatform, const FPCharacterLoadoutResponseBP& OnCompletedRequest)
+FString ULootLockerManager::GetOtherPlayersCharacterLoadouts(const FString& ForPlayerWithUlid, const FString& OtherPlayerId, const FString& OtherPlayerPlatform, const FPCharacterLoadoutResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::GetOtherPlayersCharacterLoadouts(OtherPlayerId, FCharacterLoadoutResponse::CreateLambda([OnCompletedRequest](const FLootLockerCharacterLoadoutResponse& Response) {
+    return ULootLockerSDKManager::GetOtherPlayersCharacterLoadouts(OtherPlayerId, FCharacterLoadoutResponse::CreateLambda([OnCompletedRequest](const FLootLockerCharacterLoadoutResponse& Response) {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid, OtherPlayerPlatform);
 }
 
-void ULootLockerManager::GetOtherPlayersCharacterLoadoutsByUid(const FString& ForPlayerWithUlid, const FString& OtherPlayerUid, const FPCharacterLoadoutResponseBP& OnCompletedRequest)
+FString ULootLockerManager::GetOtherPlayersCharacterLoadoutsByUid(const FString& ForPlayerWithUlid, const FString& OtherPlayerUid, const FPCharacterLoadoutResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::GetOtherPlayersCharacterLoadoutsByUid(OtherPlayerUid, FCharacterLoadoutResponse::CreateLambda([OnCompletedRequest](const FLootLockerCharacterLoadoutResponse& Response) {
+    return ULootLockerSDKManager::GetOtherPlayersCharacterLoadoutsByUid(OtherPlayerUid, FCharacterLoadoutResponse::CreateLambda([OnCompletedRequest](const FLootLockerCharacterLoadoutResponse& Response) {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
 // Character Progressions
-void ULootLockerManager::GetCharacterProgressions(const FString& ForPlayerWithUlid, const int32& CharacterId, const int32 Count /*=-1*/, const FString& After /*=""*/, const FLootLockerPaginatedCharacterProgressionsResponseBP& OnCompletedRequest)
+FString ULootLockerManager::GetCharacterProgressions(const FString& ForPlayerWithUlid, const int32& CharacterId, const int32 Count /*=-1*/, const FString& After /*=""*/, const FLootLockerPaginatedCharacterProgressionsResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::GetCharacterProgressions(CharacterId, Count, After, FLootLockerPaginatedCharacterProgressionsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPaginatedCharacterProgressionResponse& Response)
+    return ULootLockerSDKManager::GetCharacterProgressions(CharacterId, Count, After, FLootLockerPaginatedCharacterProgressionsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPaginatedCharacterProgressionResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionResponseBP& OnCompletedRequest)
+FString ULootLockerManager::GetCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::GetCharacterProgression(CharacterId, ProgressionKey, FLootLockerCharacterProgressionResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerCharacterProgressionResponse& Response)
+    return ULootLockerSDKManager::GetCharacterProgression(CharacterId, ProgressionKey, FLootLockerCharacterProgressionResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerCharacterProgressionResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::AddPointsToCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest)
+FString ULootLockerManager::AddPointsToCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::AddPointsToCharacterProgression(CharacterId, ProgressionKey, Amount, FLootLockerCharacterProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerCharacterProgressionWithRewardsResponse& Response)
+    return ULootLockerSDKManager::AddPointsToCharacterProgression(CharacterId, ProgressionKey, Amount, FLootLockerCharacterProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerCharacterProgressionWithRewardsResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::SubtractPointsFromCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest)
+FString ULootLockerManager::SubtractPointsFromCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const int32& Amount, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::SubtractPointsFromCharacterProgression(CharacterId, ProgressionKey, Amount, FLootLockerCharacterProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerCharacterProgressionWithRewardsResponse& Response)
+    return ULootLockerSDKManager::SubtractPointsFromCharacterProgression(CharacterId, ProgressionKey, Amount, FLootLockerCharacterProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerCharacterProgressionWithRewardsResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ResetCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest)
+FString ULootLockerManager::ResetCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const FLootLockerCharacterProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::ResetCharacterProgression(CharacterId, ProgressionKey, FLootLockerCharacterProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerCharacterProgressionWithRewardsResponse& Response)
+    return ULootLockerSDKManager::ResetCharacterProgression(CharacterId, ProgressionKey, FLootLockerCharacterProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerCharacterProgressionWithRewardsResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::DeleteCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest)
+FString ULootLockerManager::DeleteCharacterProgression(const FString& ForPlayerWithUlid, const int32& CharacterId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::DeleteCharacterProgression(CharacterId, ProgressionKey, FLootLockerDeleteProgressionDelegate::CreateLambda([OnCompletedRequest](const FLootLockerResponse& Response)
+    return ULootLockerSDKManager::DeleteCharacterProgression(CharacterId, ProgressionKey, FLootLockerDeleteProgressionDelegate::CreateLambda([OnCompletedRequest](const FLootLockerResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
 // Persistent Storage
-void ULootLockerManager::GetEntirePersistentStorage(const FString& ForPlayerWithUlid, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsRequestCompleted)
+FString ULootLockerManager::GetEntirePersistentStorage(const FString& ForPlayerWithUlid, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsRequestCompleted)
 {
-    ULootLockerSDKManager::GetEntirePersistentStorage(FPersistentStorageItemsResponseDelegate::CreateLambda([OnPersistentStorageItemsRequestCompleted](FLootLockerPersistentStorageItemsResponse Response)
+    return ULootLockerSDKManager::GetEntirePersistentStorage(FPersistentStorageItemsResponseDelegate::CreateLambda([OnPersistentStorageItemsRequestCompleted](FLootLockerPersistentStorageItemsResponse Response)
     {
         OnPersistentStorageItemsRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetItemFromPersistentStorage(const FString& ForPlayerWithUlid, const FString& Key, const FPersistentStorageItemResponseDelegateBP& OnPersistentStorageItemRequestCompleted)
+FString ULootLockerManager::GetItemFromPersistentStorage(const FString& ForPlayerWithUlid, const FString& Key, const FPersistentStorageItemResponseDelegateBP& OnPersistentStorageItemRequestCompleted)
 {
-    ULootLockerSDKManager::GetItemFromPersistentStorage(Key, FPersistentStorageItemResponseDelegate::CreateLambda([OnPersistentStorageItemRequestCompleted](FLootLockerPersistentStorageItemResponse Response)
+    return ULootLockerSDKManager::GetItemFromPersistentStorage(Key, FPersistentStorageItemResponseDelegate::CreateLambda([OnPersistentStorageItemRequestCompleted](FLootLockerPersistentStorageItemResponse Response)
     {
         OnPersistentStorageItemRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::AddItemsToPersistentStorage(const FString& ForPlayerWithUlid, FLootLockerPersistentStorageItems Items, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsAddRequestCompleted)
+FString ULootLockerManager::AddItemsToPersistentStorage(const FString& ForPlayerWithUlid, FLootLockerPersistentStorageItems Items, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemsAddRequestCompleted)
 {
-    ULootLockerSDKManager::AddItemsToPersistentStorage(Items, FPersistentStorageItemsResponseDelegate::CreateLambda([OnPersistentStorageItemsAddRequestCompleted](FLootLockerPersistentStorageItemsResponse Response)
+    return ULootLockerSDKManager::AddItemsToPersistentStorage(Items, FPersistentStorageItemsResponseDelegate::CreateLambda([OnPersistentStorageItemsAddRequestCompleted](FLootLockerPersistentStorageItemsResponse Response)
     {
         OnPersistentStorageItemsAddRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::AddItemToPersistentStorage(const FString& ForPlayerWithUlid, FLootLockerPersistentStorageItem Item, const FPersistentStorageItemResponseDelegateBP& OnPersistentStorageItemAddRequestCompleted)
+FString ULootLockerManager::AddItemToPersistentStorage(const FString& ForPlayerWithUlid, FLootLockerPersistentStorageItem Item, const FPersistentStorageItemResponseDelegateBP& OnPersistentStorageItemAddRequestCompleted)
 {
-    ULootLockerSDKManager::AddItemsToPersistentStorage(Item, FPersistentStorageItemResponseDelegate::CreateLambda([OnPersistentStorageItemAddRequestCompleted](FLootLockerPersistentStorageItemResponse Response)
+    return ULootLockerSDKManager::AddItemsToPersistentStorage(Item, FPersistentStorageItemResponseDelegate::CreateLambda([OnPersistentStorageItemAddRequestCompleted](FLootLockerPersistentStorageItemResponse Response)
     {
         OnPersistentStorageItemAddRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::DeleteItemFromPersistentStorage(const FString& ForPlayerWithUlid, const FString& Key, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemDeleteRequestCompleted)
+FString ULootLockerManager::DeleteItemFromPersistentStorage(const FString& ForPlayerWithUlid, const FString& Key, const FPersistentStorageItemsResponseDelegateBP& OnPersistentStorageItemDeleteRequestCompleted)
 {
-    ULootLockerSDKManager::DeleteItemFromPersistentStorage(Key, FPersistentStorageItemsResponseDelegate::CreateLambda([OnPersistentStorageItemDeleteRequestCompleted](FLootLockerPersistentStorageItemsResponse Response)
+    return ULootLockerSDKManager::DeleteItemFromPersistentStorage(Key, FPersistentStorageItemsResponseDelegate::CreateLambda([OnPersistentStorageItemDeleteRequestCompleted](FLootLockerPersistentStorageItemsResponse Response)
     {
         OnPersistentStorageItemDeleteRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetPlayerPersistentStorage(const FString& ForPlayerWithUlid, const FString& PlayerId, const  FPersistentStorageItemsResponseDelegateBP& OnGetPlayerPersistentStorageRequestCompleted)
+FString ULootLockerManager::GetPlayerPersistentStorage(const FString& ForPlayerWithUlid, const FString& PlayerId, const  FPersistentStorageItemsResponseDelegateBP& OnGetPlayerPersistentStorageRequestCompleted)
 {
-    ULootLockerSDKManager::GetPlayerPersistentStorage(PlayerId, FPersistentStorageItemsResponseDelegate::CreateLambda([OnGetPlayerPersistentStorageRequestCompleted](FLootLockerPersistentStorageItemsResponse Response)
+    return ULootLockerSDKManager::GetPlayerPersistentStorage(PlayerId, FPersistentStorageItemsResponseDelegate::CreateLambda([OnGetPlayerPersistentStorageRequestCompleted](FLootLockerPersistentStorageItemsResponse Response)
     {
         OnGetPlayerPersistentStorageRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetContexts(const FString& ForPlayerWithUlid, const FContextDelegateBP& OnGetContextsRequestCompleted)
+FString ULootLockerManager::GetContexts(const FString& ForPlayerWithUlid, const FContextDelegateBP& OnGetContextsRequestCompleted)
 {
-    ULootLockerSDKManager::GetContexts(FContextDelegate::CreateLambda([OnGetContextsRequestCompleted](const FLootLockerGetContextResponse& Response)
+    return ULootLockerSDKManager::GetContexts(FContextDelegate::CreateLambda([OnGetContextsRequestCompleted](const FLootLockerGetContextResponse& Response)
     {
         OnGetContextsRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetAssets(const FString& ForPlayerWithUlid, const FAssetsResponseDelegateBP& OnGetAssetsRequestCompleted, int StartFromIndex, int ItemsCount, ELootLockerAssetFilter AssetFilter, int Context, bool IncludeUGC)
+FString ULootLockerManager::GetAssets(const FString& ForPlayerWithUlid, const FAssetsResponseDelegateBP& OnGetAssetsRequestCompleted, int StartFromIndex, int ItemsCount, ELootLockerAssetFilter AssetFilter, int Context, bool IncludeUGC)
 {
-    ULootLockerSDKManager::GetAssets(FAssetsResponseDelegate::CreateLambda([OnGetAssetsRequestCompleted](const FLootLockerGetAssetsResponse& Response)
+    return ULootLockerSDKManager::GetAssets(FAssetsResponseDelegate::CreateLambda([OnGetAssetsRequestCompleted](const FLootLockerGetAssetsResponse& Response)
     {
         OnGetAssetsRequestCompleted.ExecuteIfBound(Response);
     }), StartFromIndex, ItemsCount, AssetFilter, Context, IncludeUGC, ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ListAssetsWithDefaultParameters(const FString& ForPlayerWithUlid, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequest)
+FString ULootLockerManager::ListAssetsWithDefaultParameters(const FString& ForPlayerWithUlid, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequest)
 {
-    ListAssets(ForPlayerWithUlid, FLootLockerListSimpleAssetsRequest(), 0, 0, ELootLockerOrderAssetListBy::None, ELootLockerOrderAssetListDirection::None, OnCompletedRequest);
+    return ListAssets(ForPlayerWithUlid, FLootLockerListSimpleAssetsRequest(), 0, 0, ELootLockerOrderAssetListBy::None, ELootLockerOrderAssetListDirection::None, OnCompletedRequest);
 }
 
-void ULootLockerManager::ListAssets(const FString& ForPlayerWithUlid, const FLootLockerListSimpleAssetsRequest& Request, int PerPage, int Page, ELootLockerOrderAssetListBy OrderBy, ELootLockerOrderAssetListDirection OrderDirection, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequest)
+FString ULootLockerManager::ListAssets(const FString& ForPlayerWithUlid, const FLootLockerListSimpleAssetsRequest& Request, int PerPage, int Page, ELootLockerOrderAssetListBy OrderBy, ELootLockerOrderAssetListDirection OrderDirection, const FListSimpleAssetsResponseDelegateBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::ListAssets(Request, FListSimpleAssetsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerListSimpleAssetsResponse& Response)
+    return ULootLockerSDKManager::ListAssets(Request, FListSimpleAssetsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerListSimpleAssetsResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), PerPage, Page, OrderBy, OrderDirection, ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetAssetsByIds(const FString& ForPlayerWithUlid, const TArray<int>& AssetIds, const FAssetsResponseDelegateBP& OnGetAssetsByIdsRequestCompleted)
+FString ULootLockerManager::GetAssetsByIds(const FString& ForPlayerWithUlid, const TArray<int>& AssetIds, const FAssetsResponseDelegateBP& OnGetAssetsByIdsRequestCompleted)
 {
-    ULootLockerSDKManager::GetAssetsByIds(AssetIds, FAssetsResponseDelegate::CreateLambda([OnGetAssetsByIdsRequestCompleted](const FLootLockerGetAssetsResponse& Response)
+    return ULootLockerSDKManager::GetAssetsByIds(AssetIds, FAssetsResponseDelegate::CreateLambda([OnGetAssetsByIdsRequestCompleted](const FLootLockerGetAssetsResponse& Response)
     {
         OnGetAssetsByIdsRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetAssetBones(const FString& ForPlayerWithUlid, const  FAssetBonesResponseDelegateBP& OnGetAssetBonesRequestCompleted)
+FString ULootLockerManager::GetAssetBones(const FString& ForPlayerWithUlid, const  FAssetBonesResponseDelegateBP& OnGetAssetBonesRequestCompleted)
 {
-    ULootLockerSDKManager::GetAssetBones(FAssetBonesResponseDelegate::CreateLambda([OnGetAssetBonesRequestCompleted](const FLootLockerGetAssetBonesResponse& Response)
+    return ULootLockerSDKManager::GetAssetBones(FAssetBonesResponseDelegate::CreateLambda([OnGetAssetBonesRequestCompleted](const FLootLockerGetAssetBonesResponse& Response)
     {
         OnGetAssetBonesRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetFavouriteAssetIndices(const FString& ForPlayerWithUlid, const FGetFavouriteAssetIndicesResponseDelegateBP& OnGetFavouriteAssetIndicesRequestCompleted)
+FString ULootLockerManager::GetFavouriteAssetIndices(const FString& ForPlayerWithUlid, const FGetFavouriteAssetIndicesResponseDelegateBP& OnGetFavouriteAssetIndicesRequestCompleted)
 {
-    ULootLockerSDKManager::GetFavouriteAssetIndices(FGetFavouriteAssetIndicesResponseDelegate::CreateLambda([OnGetFavouriteAssetIndicesRequestCompleted](const FLootLockerGetFavouriteAssetIndicesResponse& Response)
+    return ULootLockerSDKManager::GetFavouriteAssetIndices(FGetFavouriteAssetIndicesResponseDelegate::CreateLambda([OnGetFavouriteAssetIndicesRequestCompleted](const FLootLockerGetFavouriteAssetIndicesResponse& Response)
     {
         OnGetFavouriteAssetIndicesRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::AddAssetToFavourites(const FString& ForPlayerWithUlid, int AssetId, const FGetFavouriteAssetIndicesResponseDelegateBP& OnAddAssetToFavouritesRequestCompleted)
+FString ULootLockerManager::AddAssetToFavourites(const FString& ForPlayerWithUlid, int AssetId, const FGetFavouriteAssetIndicesResponseDelegateBP& OnAddAssetToFavouritesRequestCompleted)
 {
-    ULootLockerSDKManager::AddAssetToFavourites(AssetId, FGetFavouriteAssetIndicesResponseDelegate::CreateLambda([OnAddAssetToFavouritesRequestCompleted](const FLootLockerGetFavouriteAssetIndicesResponse& Response)
+    return ULootLockerSDKManager::AddAssetToFavourites(AssetId, FGetFavouriteAssetIndicesResponseDelegate::CreateLambda([OnAddAssetToFavouritesRequestCompleted](const FLootLockerGetFavouriteAssetIndicesResponse& Response)
     {
         OnAddAssetToFavouritesRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::RemoveAssetFromFavourites(const FString& ForPlayerWithUlid, int AssetId, const  FGetFavouriteAssetIndicesResponseDelegateBP& OnRemoveAssetFromFavouritesRequestCompleted)
+FString ULootLockerManager::RemoveAssetFromFavourites(const FString& ForPlayerWithUlid, int AssetId, const  FGetFavouriteAssetIndicesResponseDelegateBP& OnRemoveAssetFromFavouritesRequestCompleted)
 {
-    ULootLockerSDKManager::RemoveAssetFromFavourites(AssetId, FGetFavouriteAssetIndicesResponseDelegate::CreateLambda([OnRemoveAssetFromFavouritesRequestCompleted](const FLootLockerGetFavouriteAssetIndicesResponse& Response)
+    return ULootLockerSDKManager::RemoveAssetFromFavourites(AssetId, FGetFavouriteAssetIndicesResponseDelegate::CreateLambda([OnRemoveAssetFromFavouritesRequestCompleted](const FLootLockerGetFavouriteAssetIndicesResponse& Response)
     {
         OnRemoveAssetFromFavouritesRequestCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetUniversalAssets(const FString& ForPlayerWithUlid, int After, int ItemsCount, const FUniversalAssetResponseDelegateBP& OnCompletedRequest)
+FString ULootLockerManager::GetUniversalAssets(const FString& ForPlayerWithUlid, int After, int ItemsCount, const FUniversalAssetResponseDelegateBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::GetUniversalAssets(After, ItemsCount, FUniversalAssetResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerUniversalAssetsResponse& Response)
+    return ULootLockerSDKManager::GetUniversalAssets(After, ItemsCount, FUniversalAssetResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerUniversalAssetsResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GrantAssetWithVariationToPlayerInventory(const FString& ForPlayerWithUlid, const int AssetID, const int AssetVariationID, const int AssetRentalOptionID, const FGrantAssetResponseDelegateBP& OnCompletedRequest)
+FString ULootLockerManager::GrantAssetWithVariationToPlayerInventory(const FString& ForPlayerWithUlid, const int AssetID, const int AssetVariationID, const int AssetRentalOptionID, const FGrantAssetResponseDelegateBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::GrantAssetToPlayerInventory(AssetID, AssetVariationID, AssetRentalOptionID, FGrantAssetResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerGrantAssetResponse& Response)
+    return ULootLockerSDKManager::GrantAssetToPlayerInventory(AssetID, AssetVariationID, AssetRentalOptionID, FGrantAssetResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerGrantAssetResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
@@ -1125,73 +1161,73 @@ void ULootLockerManager::GrantAssetWithVariationToPlayerInventory(const FString&
 
 
 // Asset Instances
-void ULootLockerManager::GetAllKeyValuePairsForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, const  FAssetInstanceStorageItemsResponseDelegateBP& OnGetAllKeyValuePairsForAssetInstanceCompleted)
+FString ULootLockerManager::GetAllKeyValuePairsForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, const  FAssetInstanceStorageItemsResponseDelegateBP& OnGetAllKeyValuePairsForAssetInstanceCompleted)
 {
-    ULootLockerSDKManager::GetAllKeyValuePairsForAssetInstance(AssetInstanceId, FAssetInstanceStorageItemsResponseDelegate::CreateLambda([OnGetAllKeyValuePairsForAssetInstanceCompleted](const FLootLockerAssetInstanceStorageItemsResponse& Response)
+    return ULootLockerSDKManager::GetAllKeyValuePairsForAssetInstance(AssetInstanceId, FAssetInstanceStorageItemsResponseDelegate::CreateLambda([OnGetAllKeyValuePairsForAssetInstanceCompleted](const FLootLockerAssetInstanceStorageItemsResponse& Response)
         {
             OnGetAllKeyValuePairsForAssetInstanceCompleted.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetAKeyValuePairByIdForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemResponseDelegateBP& OnGetAKeyValuePairByIdForAssetInstanceCompleted)
+FString ULootLockerManager::GetAKeyValuePairByIdForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemResponseDelegateBP& OnGetAKeyValuePairByIdForAssetInstanceCompleted)
 {
-    ULootLockerSDKManager::GetAKeyValuePairByIdForAssetInstance(AssetInstanceId, StorageItemId, FAssetInstanceStorageItemResponseDelegate::CreateLambda([OnGetAKeyValuePairByIdForAssetInstanceCompleted](const FLootLockerAssetInstanceStorageItemResponse& Response)
+    return ULootLockerSDKManager::GetAKeyValuePairByIdForAssetInstance(AssetInstanceId, StorageItemId, FAssetInstanceStorageItemResponseDelegate::CreateLambda([OnGetAKeyValuePairByIdForAssetInstanceCompleted](const FLootLockerAssetInstanceStorageItemResponse& Response)
         {
             OnGetAKeyValuePairByIdForAssetInstanceCompleted.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::CreateAKeyValuePairForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, const FLootLockerAssetInstanceStorageItem& Item, const FAssetInstanceStorageItemsResponseDelegateBP& OnCreateAKeyValuePairForAssetInstanceCompleted)
+FString ULootLockerManager::CreateAKeyValuePairForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, const FLootLockerAssetInstanceStorageItem& Item, const FAssetInstanceStorageItemsResponseDelegateBP& OnCreateAKeyValuePairForAssetInstanceCompleted)
 {
-    ULootLockerSDKManager::CreateAKeyValuePairForAssetInstance(AssetInstanceId, Item, FAssetInstanceStorageItemsResponseDelegate::CreateLambda([OnCreateAKeyValuePairForAssetInstanceCompleted](const FLootLockerAssetInstanceStorageItemsResponse& Response)
+    return ULootLockerSDKManager::CreateAKeyValuePairForAssetInstance(AssetInstanceId, Item, FAssetInstanceStorageItemsResponseDelegate::CreateLambda([OnCreateAKeyValuePairForAssetInstanceCompleted](const FLootLockerAssetInstanceStorageItemsResponse& Response)
         {
             OnCreateAKeyValuePairForAssetInstanceCompleted.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::UpdateOneOrMoreKeyValuePairForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, FLootLockerAssetInstanceStorageItems Items, const FAssetInstanceStorageItemsResponseDelegateBP& OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted)
+FString ULootLockerManager::UpdateOneOrMoreKeyValuePairForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, FLootLockerAssetInstanceStorageItems Items, const FAssetInstanceStorageItemsResponseDelegateBP& OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted)
 {
-    ULootLockerSDKManager::UpdateOneOrMoreKeyValuePairForAssetInstance(AssetInstanceId, Items, FAssetInstanceStorageItemsResponseDelegate::CreateLambda([OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted](const FLootLockerAssetInstanceStorageItemsResponse& Response)
+    return ULootLockerSDKManager::UpdateOneOrMoreKeyValuePairForAssetInstance(AssetInstanceId, Items, FAssetInstanceStorageItemsResponseDelegate::CreateLambda([OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted](const FLootLockerAssetInstanceStorageItemsResponse& Response)
         {
             OnUpdateOneOrMoreKeyValuePairForAssetInstanceCompleted.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::UpdateAKeyValuePairByIdForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, int StorageItemId, const FLootLockerAssetInstanceStorageItem Item, const FAssetInstanceStorageItemResponseDelegateBP& OnUpdateAKeyValuePairByIdForAssetInstanceCompleted)
+FString ULootLockerManager::UpdateAKeyValuePairByIdForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, int StorageItemId, const FLootLockerAssetInstanceStorageItem Item, const FAssetInstanceStorageItemResponseDelegateBP& OnUpdateAKeyValuePairByIdForAssetInstanceCompleted)
 {
-    ULootLockerSDKManager::UpdateAKeyValuePairByIdForAssetInstance(AssetInstanceId, StorageItemId, Item, FAssetInstanceStorageItemResponseDelegate::CreateLambda([OnUpdateAKeyValuePairByIdForAssetInstanceCompleted](const FLootLockerAssetInstanceStorageItemResponse& Response)
+    return ULootLockerSDKManager::UpdateAKeyValuePairByIdForAssetInstance(AssetInstanceId, StorageItemId, Item, FAssetInstanceStorageItemResponseDelegate::CreateLambda([OnUpdateAKeyValuePairByIdForAssetInstanceCompleted](const FLootLockerAssetInstanceStorageItemResponse& Response)
         {
             OnUpdateAKeyValuePairByIdForAssetInstanceCompleted.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::DeleteAKeyValuePairByIdForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegateBP& OnDeleteAKeyValuePairByIdForAssetInstanceCompleted)
+FString ULootLockerManager::DeleteAKeyValuePairByIdForAssetInstance(const FString& ForPlayerWithUlid, int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegateBP& OnDeleteAKeyValuePairByIdForAssetInstanceCompleted)
 {
-    ULootLockerSDKManager::DeleteAKeyValuePairByIdForAssetInstance(AssetInstanceId, StorageItemId, FAssetInstanceStorageItemsResponseDelegate::CreateLambda([OnDeleteAKeyValuePairByIdForAssetInstanceCompleted](const FLootLockerAssetInstanceStorageItemsResponse& Response)
+    return ULootLockerSDKManager::DeleteAKeyValuePairByIdForAssetInstance(AssetInstanceId, StorageItemId, FAssetInstanceStorageItemsResponseDelegate::CreateLambda([OnDeleteAKeyValuePairByIdForAssetInstanceCompleted](const FLootLockerAssetInstanceStorageItemsResponse& Response)
         {
             OnDeleteAKeyValuePairByIdForAssetInstanceCompleted.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::InspectLootBox(const FString& ForPlayerWithUlid, int AssetInstanceId, const  FLootBoxContentResponseDelegateBP& OnInspectLootBoxCompleted)
+FString ULootLockerManager::InspectLootBox(const FString& ForPlayerWithUlid, int AssetInstanceId, const  FLootBoxContentResponseDelegateBP& OnInspectLootBoxCompleted)
 {
-    ULootLockerSDKManager::InspectLootBox(AssetInstanceId, FLootBoxContentResponseDelegate::CreateLambda([OnInspectLootBoxCompleted](const FLootLockerLootBoxContentResponse& Response)
+    return ULootLockerSDKManager::InspectLootBox(AssetInstanceId, FLootBoxContentResponseDelegate::CreateLambda([OnInspectLootBoxCompleted](const FLootLockerLootBoxContentResponse& Response)
         {
             OnInspectLootBoxCompleted.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::OpenLootBox(const FString& ForPlayerWithUlid, int AssetInstanceId, const  FOpenLootBoxResponseDelegateBP& OnOpenLootBoxCompleted)
+FString ULootLockerManager::OpenLootBox(const FString& ForPlayerWithUlid, int AssetInstanceId, const  FOpenLootBoxResponseDelegateBP& OnOpenLootBoxCompleted)
 {
-    ULootLockerSDKManager::OpenLootBox(AssetInstanceId, FOpenLootBoxResponseDelegate::CreateLambda([OnOpenLootBoxCompleted](const FLootLockerOpenLootBoxResponse& Response)
+    return ULootLockerSDKManager::OpenLootBox(AssetInstanceId, FOpenLootBoxResponseDelegate::CreateLambda([OnOpenLootBoxCompleted](const FLootLockerOpenLootBoxResponse& Response)
         {
             OnOpenLootBoxCompleted.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::DeleteAssetInstanceFromPlayerInventory(const FString& ForPlayerWithUlid, int AssetInstanceID, const FDeleteAssetInstanceResponseDelegateBP& OnCompleted)
+FString ULootLockerManager::DeleteAssetInstanceFromPlayerInventory(const FString& ForPlayerWithUlid, int AssetInstanceID, const FDeleteAssetInstanceResponseDelegateBP& OnCompleted)
 {
-    ULootLockerSDKManager::DeleteAssetInstanceFromPlayerInventory(AssetInstanceID, FDeleteAssetInstanceResponseDelegate::CreateLambda([OnCompleted](const FLootLockerDeleteAssetInstanceResponse& Response)
+    return ULootLockerSDKManager::DeleteAssetInstanceFromPlayerInventory(AssetInstanceID, FDeleteAssetInstanceResponseDelegate::CreateLambda([OnCompleted](const FLootLockerDeleteAssetInstanceResponse& Response)
         {
             OnCompleted.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
@@ -1199,90 +1235,90 @@ void ULootLockerManager::DeleteAssetInstanceFromPlayerInventory(const FString& F
 
 // User Generated Content - Asset Candidates
 
-void ULootLockerManager::CreateAssetCandidate(const FString& ForPlayerWithUlid, const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted)
+FString ULootLockerManager::CreateAssetCandidate(const FString& ForPlayerWithUlid, const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted)
 {
-    ULootLockerSDKManager::CreateAssetCandidate(AssetCandidateData, FCreateAssetCandidateResponseDelegate::CreateLambda([OnCreateAssetCandidateCompleted](FLootLockerCreateAssetCandidateResponse Response)
+    return ULootLockerSDKManager::CreateAssetCandidate(AssetCandidateData, FCreateAssetCandidateResponseDelegate::CreateLambda([OnCreateAssetCandidateCompleted](FLootLockerCreateAssetCandidateResponse Response)
         {
             OnCreateAssetCandidateCompleted.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::CreateAssetCandidateAndMarkComplete(const FString& ForPlayerWithUlid, const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted)
+FString ULootLockerManager::CreateAssetCandidateAndMarkComplete(const FString& ForPlayerWithUlid, const FLootLockerCreateAssetCandidateData& AssetCandidateData, const FCreateAssetCandidateResponseDelegateBP& OnCreateAssetCandidateCompleted)
 {
-    ULootLockerSDKManager::CreateAssetCandidateAndMarkComplete(AssetCandidateData, FCreateAssetCandidateResponseDelegate::CreateLambda([OnCreateAssetCandidateCompleted](FLootLockerCreateAssetCandidateResponse Response)
+    return ULootLockerSDKManager::CreateAssetCandidateAndMarkComplete(AssetCandidateData, FCreateAssetCandidateResponseDelegate::CreateLambda([OnCreateAssetCandidateCompleted](FLootLockerCreateAssetCandidateResponse Response)
         {
             OnCreateAssetCandidateCompleted.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::UpdateAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidateData, const  FAssetCandidateResponseDelegateBP& OnUpdateAssetCandidateCompleted)
+FString ULootLockerManager::UpdateAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FLootLockerUpdateAssetCandidateData& AssetCandidateData, const  FAssetCandidateResponseDelegateBP& OnUpdateAssetCandidateCompleted)
 {
-    ULootLockerSDKManager::UpdateAssetCandidate(AssetCandidateId, AssetCandidateData, FAssetCandidateResponseDelegate::CreateLambda([OnUpdateAssetCandidateCompleted](FLootLockerAssetCandidateResponse Response)
+    return ULootLockerSDKManager::UpdateAssetCandidate(AssetCandidateId, AssetCandidateData, FAssetCandidateResponseDelegate::CreateLambda([OnUpdateAssetCandidateCompleted](FLootLockerAssetCandidateResponse Response)
         {
             OnUpdateAssetCandidateCompleted.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::DeleteAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FResponseCallbackBP& OnDeleteAssetCandidateCompleted)
+FString ULootLockerManager::DeleteAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FResponseCallbackBP& OnDeleteAssetCandidateCompleted)
 {
-    ULootLockerSDKManager::DeleteAssetCandidate(AssetCandidateId, FResponseCallback::CreateLambda([OnDeleteAssetCandidateCompleted](FLootLockerResponse Response)
+    return ULootLockerSDKManager::DeleteAssetCandidate(AssetCandidateId, FResponseCallback::CreateLambda([OnDeleteAssetCandidateCompleted](FLootLockerResponse Response)
         {
             OnDeleteAssetCandidateCompleted.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetAllAssetCandidates(const FString& ForPlayerWithUlid, const FAssetCandidatesResponseDelegateBP& OnGetAllAssetCandidatesCompleted)
+FString ULootLockerManager::GetAllAssetCandidates(const FString& ForPlayerWithUlid, const FAssetCandidatesResponseDelegateBP& OnGetAllAssetCandidatesCompleted)
 {
-    ULootLockerSDKManager::GetAllAssetCandidates(FAssetCandidatesResponseDelegate::CreateLambda([OnGetAllAssetCandidatesCompleted](FLootLockerAssetCandidatesResponse Response)
+    return ULootLockerSDKManager::GetAllAssetCandidates(FAssetCandidatesResponseDelegate::CreateLambda([OnGetAllAssetCandidatesCompleted](FLootLockerAssetCandidatesResponse Response)
         {
             OnGetAllAssetCandidatesCompleted.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FAssetCandidateResponseDelegateBP& OnGetAssetCandidateCompleted)
+FString ULootLockerManager::GetAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FAssetCandidateResponseDelegateBP& OnGetAssetCandidateCompleted)
 {
-    ULootLockerSDKManager::GetAssetCandidate(AssetCandidateId, FAssetCandidateResponseDelegate::CreateLambda([OnGetAssetCandidateCompleted](FLootLockerAssetCandidateResponse Response)
+    return ULootLockerSDKManager::GetAssetCandidate(AssetCandidateId, FAssetCandidateResponseDelegate::CreateLambda([OnGetAssetCandidateCompleted](FLootLockerAssetCandidateResponse Response)
         {
             OnGetAssetCandidateCompleted.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::AddFileToAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FString& FilePath, ELootLockerAssetFilePurpose FilePurpose, const FAssetCandidateResponseDelegateBP& OnAddFileToAssetCandidateCompleted)
+FString ULootLockerManager::AddFileToAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, const FString& FilePath, ELootLockerAssetFilePurpose FilePurpose, const FAssetCandidateResponseDelegateBP& OnAddFileToAssetCandidateCompleted)
 {
-    ULootLockerSDKManager::AddFileToAssetCandidate(AssetCandidateId, FilePath, FilePurpose, FAssetCandidateResponseDelegate::CreateLambda([OnAddFileToAssetCandidateCompleted](FLootLockerAssetCandidateResponse Response)
+    return ULootLockerSDKManager::AddFileToAssetCandidate(AssetCandidateId, FilePath, FilePurpose, FAssetCandidateResponseDelegate::CreateLambda([OnAddFileToAssetCandidateCompleted](FLootLockerAssetCandidateResponse Response)
         {
             OnAddFileToAssetCandidateCompleted.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::DeleteFileFromAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, int FileId, const FResponseCallbackBP& OnDeleteFileFromAssetCandidateCompleted)
+FString ULootLockerManager::DeleteFileFromAssetCandidate(const FString& ForPlayerWithUlid, int AssetCandidateId, int FileId, const FResponseCallbackBP& OnDeleteFileFromAssetCandidateCompleted)
 {
-    ULootLockerSDKManager::DeleteFileFromAssetCandidate(AssetCandidateId, FileId, FResponseCallback::CreateLambda([OnDeleteFileFromAssetCandidateCompleted](FLootLockerResponse Response)
+    return ULootLockerSDKManager::DeleteFileFromAssetCandidate(AssetCandidateId, FileId, FResponseCallback::CreateLambda([OnDeleteFileFromAssetCandidateCompleted](FLootLockerResponse Response)
         {
             OnDeleteFileFromAssetCandidateCompleted.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
 // Progressions
-void ULootLockerManager::GetProgressions(const FString& ForPlayerWithUlid, const int32 Count /*= -1*/, const FString& After /*=""*/, const FLootLockerPaginatedProgressionsResponseBP& OnCompletedRequest)
+FString ULootLockerManager::GetProgressions(const FString& ForPlayerWithUlid, const int32 Count /*= -1*/, const FString& After /*=""*/, const FLootLockerPaginatedProgressionsResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::GetProgressions(Count, After, FLootLockerPaginatedProgressionsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPaginatedProgressionsResponse& Response)
+    return ULootLockerSDKManager::GetProgressions(Count, After, FLootLockerPaginatedProgressionsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPaginatedProgressionsResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const FLootLockerProgressionResponseBP& OnCompletedRequest)
+FString ULootLockerManager::GetProgression(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const FLootLockerProgressionResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::GetProgression(ProgressionKey, FLootLockerProgressionResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerProgressionResponse& Response)
+    return ULootLockerSDKManager::GetProgression(ProgressionKey, FLootLockerProgressionResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerProgressionResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetProgressionTiers(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const int32 Count /*=-1*/, const int32 After /*=-1*/, const FLootLockerPaginatedProgressionTiersResponseBP& OnCompletedRequest)
+FString ULootLockerManager::GetProgressionTiers(const FString& ForPlayerWithUlid, const FString& ProgressionKey, const int32 Count /*=-1*/, const int32 After /*=-1*/, const FLootLockerPaginatedProgressionTiersResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::GetProgressionTiers(ProgressionKey, Count, After, FLootLockerPaginatedProgressionTiersResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPaginatedProgressionTiersResponse& Response)
+    return ULootLockerSDKManager::GetProgressionTiers(ProgressionKey, Count, After, FLootLockerPaginatedProgressionTiersResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPaginatedProgressionTiersResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
@@ -1290,237 +1326,237 @@ void ULootLockerManager::GetProgressionTiers(const FString& ForPlayerWithUlid, c
 
 //Instance progression
 
-void ULootLockerManager::GetInstanceProgressions(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const int32 Count, const FString& After, const FLootLockerPaginatedInstanceProgressionsResponseBP& OnCompletedRequest)
+FString ULootLockerManager::GetInstanceProgressions(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const int32 Count, const FString& After, const FLootLockerPaginatedInstanceProgressionsResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::GetInstanceProgressions(AssetInstanceId, Count, After, FLootLockerPaginatedInstanceProgressionsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPaginatedInstanceProgressionResponse& Response)
+    return ULootLockerSDKManager::GetInstanceProgressions(AssetInstanceId, Count, After, FLootLockerPaginatedInstanceProgressionsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerPaginatedInstanceProgressionResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionResponseBP& OnCompletedRequest)
+FString ULootLockerManager::GetInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::GetInstanceProgression(AssetInstanceId, ProgressionKey, FLootLockerInstanceProgressionResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerInstanceProgressionResponse& Response)
+    return ULootLockerSDKManager::GetInstanceProgression(AssetInstanceId, ProgressionKey, FLootLockerInstanceProgressionResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerInstanceProgressionResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::AddPointsToInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequest)
+FString ULootLockerManager::AddPointsToInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::AddPointsToInstanceProgression(AssetInstanceId, ProgressionKey, Amount, FLootLockerInstanceProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerInstanceProgressionWithRewardsResponse& Response)
+    return ULootLockerSDKManager::AddPointsToInstanceProgression(AssetInstanceId, ProgressionKey, Amount, FLootLockerInstanceProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerInstanceProgressionWithRewardsResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::SubtractPointsFromInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequest)
+FString ULootLockerManager::SubtractPointsFromInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::SubtractPointsFromInstanceProgression(AssetInstanceId, ProgressionKey, Amount, FLootLockerInstanceProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerInstanceProgressionWithRewardsResponse& Response)
+    return ULootLockerSDKManager::SubtractPointsFromInstanceProgression(AssetInstanceId, ProgressionKey, Amount, FLootLockerInstanceProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerInstanceProgressionWithRewardsResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ResetInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequest)
+FString ULootLockerManager::ResetInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerInstanceProgressionWithRewardsResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::ResetInstanceProgression(AssetInstanceId, ProgressionKey, FLootLockerInstanceProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerInstanceProgressionWithRewardsResponse& Response)
+    return ULootLockerSDKManager::ResetInstanceProgression(AssetInstanceId, ProgressionKey, FLootLockerInstanceProgressionWithRewardsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerInstanceProgressionWithRewardsResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::DeleteInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest)
+FString ULootLockerManager::DeleteInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::DeleteInstanceProgression(AssetInstanceId, ProgressionKey, FLootLockerDeleteProgressionDelegate::CreateLambda([OnCompletedRequest](const FLootLockerResponse& Response)
+    return ULootLockerSDKManager::DeleteInstanceProgression(AssetInstanceId, ProgressionKey, FLootLockerDeleteProgressionDelegate::CreateLambda([OnCompletedRequest](const FLootLockerResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
 // Missions
-void ULootLockerManager::GetAllMissions(const FString& ForPlayerWithUlid, const FMissionsResponseDelegateBP& OnGetAllMissionsCompleted)
+FString ULootLockerManager::GetAllMissions(const FString& ForPlayerWithUlid, const FMissionsResponseDelegateBP& OnGetAllMissionsCompleted)
 {
-    ULootLockerSDKManager::GetAllMissions(FMissionsResponseDelegate::CreateLambda([OnGetAllMissionsCompleted](FLootLockerMissionsResponse Response)
+    return ULootLockerSDKManager::GetAllMissions(FMissionsResponseDelegate::CreateLambda([OnGetAllMissionsCompleted](FLootLockerMissionsResponse Response)
     {
         OnGetAllMissionsCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetMission(const FString& ForPlayerWithUlid, int MissionId, const FMissionResponseDelegateBP& OnGetMissionCompleted)
+FString ULootLockerManager::GetMission(const FString& ForPlayerWithUlid, int MissionId, const FMissionResponseDelegateBP& OnGetMissionCompleted)
 {
-    ULootLockerSDKManager::GetMission(MissionId, FMissionResponseDelegate::CreateLambda([OnGetMissionCompleted](FLootLockerMissionResponse Response)
+    return ULootLockerSDKManager::GetMission(MissionId, FMissionResponseDelegate::CreateLambda([OnGetMissionCompleted](FLootLockerMissionResponse Response)
     {
         OnGetMissionCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::StartMission(const FString& ForPlayerWithUlid, int MissionId, const  FStartMissionResponseDelegateBP& OnStartMissionCompleted)
+FString ULootLockerManager::StartMission(const FString& ForPlayerWithUlid, int MissionId, const  FStartMissionResponseDelegateBP& OnStartMissionCompleted)
 {
-    ULootLockerSDKManager::StartMission(MissionId, FStartMissionResponseDelegate::CreateLambda([OnStartMissionCompleted](FLootLockerStartMissionResponse Response)
+    return ULootLockerSDKManager::StartMission(MissionId, FStartMissionResponseDelegate::CreateLambda([OnStartMissionCompleted](FLootLockerStartMissionResponse Response)
     {
         OnStartMissionCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::FinishMission(const FString& ForPlayerWithUlid, int MissionId, const FLootLockerFinishMissionData& MissionData, const FFinishMissionResponseDelegateBP& OnFinishMissionCompleted)
+FString ULootLockerManager::FinishMission(const FString& ForPlayerWithUlid, int MissionId, const FLootLockerFinishMissionData& MissionData, const FFinishMissionResponseDelegateBP& OnFinishMissionCompleted)
 {
-    ULootLockerSDKManager::FinishMission(MissionId, MissionData, FFinishMissionResponseDelegate::CreateLambda([OnFinishMissionCompleted](FLootLockerFinishMissionResponse Response)
+    return ULootLockerSDKManager::FinishMission(MissionId, MissionData, FFinishMissionResponseDelegate::CreateLambda([OnFinishMissionCompleted](FLootLockerFinishMissionResponse Response)
     {
         OnFinishMissionCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetMaps(const FString& ForPlayerWithUlid, const FGetMapsResponseDelegateBP& OnGetMapsCompleted)
+FString ULootLockerManager::GetMaps(const FString& ForPlayerWithUlid, const FGetMapsResponseDelegateBP& OnGetMapsCompleted)
 {
-    ULootLockerSDKManager::GetMaps(FGetMapsResponseDelegate::CreateLambda([OnGetMapsCompleted](FLootLockerGetMapsResponse Response)
+    return ULootLockerSDKManager::GetMaps(FGetMapsResponseDelegate::CreateLambda([OnGetMapsCompleted](FLootLockerGetMapsResponse Response)
         {
             OnGetMapsCompleted.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ActivateRentalAsset(const FString& ForPlayerWithUlid, int AssetInstanceId, const FActivateRentalAssetResponseDelegateBP& OnActivateRentalAssetCompleted)
+FString ULootLockerManager::ActivateRentalAsset(const FString& ForPlayerWithUlid, int AssetInstanceId, const FActivateRentalAssetResponseDelegateBP& OnActivateRentalAssetCompleted)
 {
-    ULootLockerSDKManager::ActivateRentalAsset(AssetInstanceId, FActivateRentalAssetResponseDelegate::CreateLambda([OnActivateRentalAssetCompleted](FLootLockerActivateRentalAssetResponse Response)
+    return ULootLockerSDKManager::ActivateRentalAsset(AssetInstanceId, FActivateRentalAssetResponseDelegate::CreateLambda([OnActivateRentalAssetCompleted](FLootLockerActivateRentalAssetResponse Response)
         {
             OnActivateRentalAssetCompleted.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::LootLockerPurchaseSingleCatalogItem(const FString& ForPlayerWithUlid, const FString& WalletId, const FString& CatalogItemListingId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+FString ULootLockerManager::LootLockerPurchaseSingleCatalogItem(const FString& ForPlayerWithUlid, const FString& WalletId, const FString& CatalogItemListingId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    LootLockerPurchaseCatalogItems(ForPlayerWithUlid, WalletId, { { CatalogItemListingId, 1 } }, OnCompletedRequest);
+    return LootLockerPurchaseCatalogItems(ForPlayerWithUlid, WalletId, { { CatalogItemListingId, 1 } }, OnCompletedRequest);
 }
 
-void ULootLockerManager::LootLockerPurchaseCatalogItems(const FString& ForPlayerWithUlid, const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair> ItemsToPurchase, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+FString ULootLockerManager::LootLockerPurchaseCatalogItems(const FString& ForPlayerWithUlid, const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair> ItemsToPurchase, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::LootLockerPurchaseCatalogItems(WalletId, ItemsToPurchase, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
+    return ULootLockerSDKManager::LootLockerPurchaseCatalogItems(WalletId, ItemsToPurchase, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
         {
             OnCompletedRequest.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::RedeemAppleAppStorePurchaseForPlayer(const FString& ForPlayerWithUlid, const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+FString ULootLockerManager::RedeemAppleAppStorePurchaseForPlayer(const FString& ForPlayerWithUlid, const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::RedeemAppleAppStorePurchaseForPlayer(TransactionId, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
+    return ULootLockerSDKManager::RedeemAppleAppStorePurchaseForPlayer(TransactionId, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
         {
             OnCompletedRequest.ExecuteIfBound(Response);
         }), Sandboxed, ForPlayerWithUlid);
 }
 
-void ULootLockerManager::RedeemAppleAppStorePurchaseForClass(const FString& ForPlayerWithUlid, const int ClassId, const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+FString ULootLockerManager::RedeemAppleAppStorePurchaseForClass(const FString& ForPlayerWithUlid, const int ClassId, const FString& TransactionId, bool Sandboxed, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::RedeemAppleAppStorePurchaseForClass(ClassId, TransactionId, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
+    return ULootLockerSDKManager::RedeemAppleAppStorePurchaseForClass(ClassId, TransactionId, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
         {
             OnCompletedRequest.ExecuteIfBound(Response);
         }), Sandboxed, ForPlayerWithUlid);
 }
 
-void ULootLockerManager::RedeemGooglePlayStorePurchaseForPlayer(const FString& ForPlayerWithUlid, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+FString ULootLockerManager::RedeemGooglePlayStorePurchaseForPlayer(const FString& ForPlayerWithUlid, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::RedeemGooglePlayStorePurchaseForPlayer(ProductId, PurchaseToken, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
+    return ULootLockerSDKManager::RedeemGooglePlayStorePurchaseForPlayer(ProductId, PurchaseToken, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
         {
             OnCompletedRequest.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::RedeemGooglePlayStorePurchaseForClass(const FString& ForPlayerWithUlid, const int ClassId, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+FString ULootLockerManager::RedeemGooglePlayStorePurchaseForClass(const FString& ForPlayerWithUlid, const int ClassId, const FString& ProductId, const FString& PurchaseToken, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::RedeemGooglePlayStorePurchaseForClass(ClassId, ProductId, PurchaseToken, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
+    return ULootLockerSDKManager::RedeemGooglePlayStorePurchaseForClass(ClassId, ProductId, PurchaseToken, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
         {
             OnCompletedRequest.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::RedeemEpicStorePurchase(const FString& ForPlayerWithUlid, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+FString ULootLockerManager::RedeemEpicStorePurchase(const FString& ForPlayerWithUlid, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::RedeemEpicStorePurchase(AccountId, BearerToken, EntitlementIds, SandboxId, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
+    return ULootLockerSDKManager::RedeemEpicStorePurchase(AccountId, BearerToken, EntitlementIds, SandboxId, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
         {
             OnCompletedRequest.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::RedeemEpicStorePurchaseForCharacter(const FString& ForPlayerWithUlid, const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+FString ULootLockerManager::RedeemEpicStorePurchaseForCharacter(const FString& ForPlayerWithUlid, const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::RedeemEpicStorePurchaseForCharacter(CharacterId, AccountId, BearerToken, EntitlementIds, SandboxId, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
+    return ULootLockerSDKManager::RedeemEpicStorePurchaseForCharacter(CharacterId, AccountId, BearerToken, EntitlementIds, SandboxId, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
         {
             OnCompletedRequest.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
 #ifdef LOOTLOCKER_BETA_PLAYSTATION_IAP
-// void ULootLockerManager::RedeemPlayStationStorePurchase(const FString& ForPlayerWithUlid, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+// FString ULootLockerManager::RedeemPlayStationStorePurchase(const FString& ForPlayerWithUlid, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 // {
     // ULootLockerPurchasesRequestHandler::RedeemPlayStationStorePurchaseForPlayer(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), TransactionId, AuthCode, EntitlementLabel, ServiceLabel, ServiceName, Environment, UseCount, OnCompletedRequest);
 // }
 
-// void ULootLockerManager::RedeemPlayStationStorePurchaseForCharacter(const FString& ForPlayerWithUlid, const FString& CharacterId, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+// FString ULootLockerManager::RedeemPlayStationStorePurchaseForCharacter(const FString& ForPlayerWithUlid, const FString& CharacterId, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 // {
     // ULootLockerPurchasesRequestHandler::RedeemPlayStationStorePurchaseForCharacter(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CharacterId, TransactionId, AuthCode, EntitlementLabel, ServiceLabel, ServiceName, Environment, UseCount, OnCompletedRequest);
 // }
 #endif
 
-void ULootLockerManager::BeginSteamPurchaseRedemption(const FString& ForPlayerWithUlid, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest)
+FString ULootLockerManager::BeginSteamPurchaseRedemption(const FString& ForPlayerWithUlid, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::BeginSteamPurchaseRedemption(SteamId, Currency, Language, CatalogItemId, FLootLockerBeginSteamPurchaseRedemptionDelegate::CreateLambda([OnCompletedRequest](FLootLockerBeginSteamPurchaseRedemptionResponse Response)
+    return ULootLockerSDKManager::BeginSteamPurchaseRedemption(SteamId, Currency, Language, CatalogItemId, FLootLockerBeginSteamPurchaseRedemptionDelegate::CreateLambda([OnCompletedRequest](FLootLockerBeginSteamPurchaseRedemptionResponse Response)
         {
             OnCompletedRequest.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::BeginSteamPurchaseRedemptionForClass(const FString& ForPlayerWithUlid, const int ClassId, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest)
+FString ULootLockerManager::BeginSteamPurchaseRedemptionForClass(const FString& ForPlayerWithUlid, const int ClassId, const FString& SteamId, const FString& Currency, const FString& Language, const FString& CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegateBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::BeginSteamPurchaseRedemptionForClass(ClassId, SteamId, Currency, Language, CatalogItemId, FLootLockerBeginSteamPurchaseRedemptionDelegate::CreateLambda([OnCompletedRequest](FLootLockerBeginSteamPurchaseRedemptionResponse Response)
+    return ULootLockerSDKManager::BeginSteamPurchaseRedemptionForClass(ClassId, SteamId, Currency, Language, CatalogItemId, FLootLockerBeginSteamPurchaseRedemptionDelegate::CreateLambda([OnCompletedRequest](FLootLockerBeginSteamPurchaseRedemptionResponse Response)
         {
             OnCompletedRequest.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::QuerySteamPurchaseRedemptionStatus(const FString& ForPlayerWithUlid, const FString& EntitlementId, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegateBP& OnCompletedRequest)
+FString ULootLockerManager::QuerySteamPurchaseRedemptionStatus(const FString& ForPlayerWithUlid, const FString& EntitlementId, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegateBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::QuerySteamPurchaseRedemptionStatus(EntitlementId, FLootLockerQuerySteamPurchaseRedemptionStatusDelegate::CreateLambda([OnCompletedRequest](FLootLockerQuerySteamPurchaseRedemptionStatusResponse Response)
+    return ULootLockerSDKManager::QuerySteamPurchaseRedemptionStatus(EntitlementId, FLootLockerQuerySteamPurchaseRedemptionStatusDelegate::CreateLambda([OnCompletedRequest](FLootLockerQuerySteamPurchaseRedemptionStatusResponse Response)
         {
             OnCompletedRequest.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::FinalizeSteamPurchaseRedemption(const FString& ForPlayerWithUlid, const FString& EntitlementId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+FString ULootLockerManager::FinalizeSteamPurchaseRedemption(const FString& ForPlayerWithUlid, const FString& EntitlementId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::FinalizeSteamPurchaseRedemption(EntitlementId, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
+    return ULootLockerSDKManager::FinalizeSteamPurchaseRedemption(EntitlementId, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
         {
             OnCompletedRequest.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
 //Triggers
-void ULootLockerManager::InvokeTriggersByKey(const FString& ForPlayerWithUlid, const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseBP& OnComplete)
+FString ULootLockerManager::InvokeTriggersByKey(const FString& ForPlayerWithUlid, const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::InvokeTriggersByKey(KeysToInvoke, FLootLockerInvokeTriggersByKeyResponseDelegate::CreateLambda([OnComplete](FLootLockerInvokeTriggersByKeyResponse Response)
+    return ULootLockerSDKManager::InvokeTriggersByKey(KeysToInvoke, FLootLockerInvokeTriggersByKeyResponseDelegate::CreateLambda([OnComplete](FLootLockerInvokeTriggersByKeyResponse Response)
         {
             OnComplete.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
 //Notifications
-void ULootLockerManager::ListNotificationsWithDefaultParameters(const FString& ForPlayerWithUlid, const FLootLockerListNotificationsResponseBP& OnComplete)
+FString ULootLockerManager::ListNotificationsWithDefaultParameters(const FString& ForPlayerWithUlid, const FLootLockerListNotificationsResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::ListNotificationsWithDefaultParameters(FLootLockerListNotificationsResponseDelegate::CreateLambda([OnComplete](FLootLockerListNotificationsResponse Response)
+    return ULootLockerSDKManager::ListNotificationsWithDefaultParameters(FLootLockerListNotificationsResponseDelegate::CreateLambda([OnComplete](FLootLockerListNotificationsResponse Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ListNotifications(const FString& ForPlayerWithUlid, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete)
+FString ULootLockerManager::ListNotifications(const FString& ForPlayerWithUlid, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::ListNotifications(ShowRead, OfType, WithSource, CustomNotificationsFilter, PerPage, Page, FLootLockerListNotificationsResponseDelegate::CreateLambda([OnComplete](FLootLockerListNotificationsResponse Response)
+    return ULootLockerSDKManager::ListNotifications(ShowRead, OfType, WithSource, CustomNotificationsFilter, PerPage, Page, FLootLockerListNotificationsResponseDelegate::CreateLambda([OnComplete](FLootLockerListNotificationsResponse Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ListNotificationsWithPriority(const FString& ForPlayerWithUlid, ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete)
+FString ULootLockerManager::ListNotificationsWithPriority(const FString& ForPlayerWithUlid, ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::ListNotificationsWithPriority(WithPriority, ShowRead, OfType, WithSource, CustomNotificationsFilter, PerPage, Page, FLootLockerListNotificationsResponseDelegate::CreateLambda([OnComplete](FLootLockerListNotificationsResponse Response)
+    return ULootLockerSDKManager::ListNotificationsWithPriority(WithPriority, ShowRead, OfType, WithSource, CustomNotificationsFilter, PerPage, Page, FLootLockerListNotificationsResponseDelegate::CreateLambda([OnComplete](FLootLockerListNotificationsResponse Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
@@ -1566,25 +1602,25 @@ bool ULootLockerManager::TryGetContentBodyAsRewardNotification(const FLootLocker
     return Content.TryGetContentBodyAsRewardNotification(OutValue);
 }
 
-void ULootLockerManager::MarkAllNotificationsAsRead(const FString& ForPlayerWithUlid, const FLootLockerReadNotificationsResponseBP& OnComplete)
+FString ULootLockerManager::MarkAllNotificationsAsRead(const FString& ForPlayerWithUlid, const FLootLockerReadNotificationsResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::MarkAllNotificationsAsRead(FLootLockerReadNotificationsResponseDelegate::CreateLambda([OnComplete](FLootLockerReadNotificationsResponse Response)
+    return ULootLockerSDKManager::MarkAllNotificationsAsRead(FLootLockerReadNotificationsResponseDelegate::CreateLambda([OnComplete](FLootLockerReadNotificationsResponse Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::MarkNotificationsAsRead(const FString& ForPlayerWithUlid, const TArray<FLootLockerNotification>& Notifications, const FLootLockerReadNotificationsResponseBP& OnComplete)
+FString ULootLockerManager::MarkNotificationsAsRead(const FString& ForPlayerWithUlid, const TArray<FLootLockerNotification>& Notifications, const FLootLockerReadNotificationsResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::MarkNotificationsAsRead(Notifications, FLootLockerReadNotificationsResponseDelegate::CreateLambda([OnComplete](FLootLockerReadNotificationsResponse Response)
+    return ULootLockerSDKManager::MarkNotificationsAsRead(Notifications, FLootLockerReadNotificationsResponseDelegate::CreateLambda([OnComplete](FLootLockerReadNotificationsResponse Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::MarkNotificationsAsReadByIds(const FString& ForPlayerWithUlid, const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseBP& OnComplete)
+FString ULootLockerManager::MarkNotificationsAsReadByIds(const FString& ForPlayerWithUlid, const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::MarkNotificationsAsReadByIds(NotificationIDs, FLootLockerReadNotificationsResponseDelegate::CreateLambda([OnComplete](FLootLockerReadNotificationsResponse Response)
+    return ULootLockerSDKManager::MarkNotificationsAsReadByIds(NotificationIDs, FLootLockerReadNotificationsResponseDelegate::CreateLambda([OnComplete](FLootLockerReadNotificationsResponse Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
@@ -1597,9 +1633,9 @@ bool ULootLockerManager::TryGetNotificationsByIdentifyingValue(const FLootLocker
 
 // Broadcasts
 
-void ULootLockerManager::ListBroadcasts(const TArray<FString>& Languages, int32 PerPage, int32 Page, const FString& ForPlayerWithUlid, const FLootLockerListBroadcastsResponseBP& OnComplete)
+FString ULootLockerManager::ListBroadcasts(const TArray<FString>& Languages, int32 PerPage, int32 Page, const FString& ForPlayerWithUlid, const FLootLockerListBroadcastsResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::ListBroadcasts(Languages, PerPage, Page, FLootLockerListBroadcastsResponseDelegate::CreateLambda([OnComplete](const FLootLockerListBroadcastsResponse& Response)
+    return ULootLockerSDKManager::ListBroadcasts(Languages, PerPage, Page, FLootLockerListBroadcastsResponseDelegate::CreateLambda([OnComplete](const FLootLockerListBroadcastsResponse& Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
@@ -1607,120 +1643,120 @@ void ULootLockerManager::ListBroadcasts(const TArray<FString>& Languages, int32 
 
 // Collectables
 
-void ULootLockerManager::GetAllCollectables(const FString& ForPlayerWithUlid, const FCollectablesResponseDelegateBP& OnGetAllCollectablesCompleted)
+FString ULootLockerManager::GetAllCollectables(const FString& ForPlayerWithUlid, const FCollectablesResponseDelegateBP& OnGetAllCollectablesCompleted)
 {
-    ULootLockerSDKManager::GetAllCollectables(FCollectablesResponseDelegate::CreateLambda([OnGetAllCollectablesCompleted](const FLootLockerCollectablesResponse& Response)
+    return ULootLockerSDKManager::GetAllCollectables(FCollectablesResponseDelegate::CreateLambda([OnGetAllCollectablesCompleted](const FLootLockerCollectablesResponse& Response)
     {
         OnGetAllCollectablesCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::CollectItem(const FString& ForPlayerWithUlid, const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegateBP& OnCollectItemCompleted)
+FString ULootLockerManager::CollectItem(const FString& ForPlayerWithUlid, const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegateBP& OnCollectItemCompleted)
 {
-    ULootLockerSDKManager::CollectItem(Item, FCollectablesResponseDelegate::CreateLambda([OnCollectItemCompleted](const FLootLockerCollectablesResponse& Response)
+    return ULootLockerSDKManager::CollectItem(Item, FCollectablesResponseDelegate::CreateLambda([OnCollectItemCompleted](const FLootLockerCollectablesResponse& Response)
     {
         OnCollectItemCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
 // Messages
-void ULootLockerManager::GetMessages(const FString& ForPlayerWithUlid, const FMessagesResponseDelegateBP& OnGetMessagesCompleted)
+FString ULootLockerManager::GetMessages(const FString& ForPlayerWithUlid, const FMessagesResponseDelegateBP& OnGetMessagesCompleted)
 {
-    ULootLockerMessagesRequestHandler::GetMessages(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FMessagesResponseDelegate::CreateLambda([OnGetMessagesCompleted](FLootLockerMessagesResponse Response)
+    return ULootLockerSDKManager::GetMessages(FMessagesResponseDelegate::CreateLambda([OnGetMessagesCompleted](FLootLockerMessagesResponse Response)
     {
         OnGetMessagesCompleted.ExecuteIfBound(Response);
-    }));
+    }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ListLeaderboards(const FString& ForPlayerWithUlid, int Count, int After, const FLootLockerListLeaderboardsResponseBP& OnCompletedRequestBP)
+FString ULootLockerManager::ListLeaderboards(const FString& ForPlayerWithUlid, int Count, int After, const FLootLockerListLeaderboardsResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerSDKManager::ListLeaderboards(Count, After, FLootLockerListLeaderboardsResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerListLeaderboardsResponse Response)
+    return ULootLockerSDKManager::ListLeaderboards(Count, After, FLootLockerListLeaderboardsResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerListLeaderboardsResponse Response)
         {
             OnCompletedRequestBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetMemberRank(const FString& ForPlayerWithUlid, FString LeaderboardKey, FString MemberId, const FLootLockerGetMemberRankResponseBP& OnCompletedRequestBP)
+FString ULootLockerManager::GetMemberRank(const FString& ForPlayerWithUlid, FString LeaderboardKey, FString MemberId, const FLootLockerGetMemberRankResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerSDKManager::GetMemberRank(LeaderboardKey, MemberId, FLootLockerGetMemberRankResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerGetMemberRankResponse Response)
+    return ULootLockerSDKManager::GetMemberRank(LeaderboardKey, MemberId, FLootLockerGetMemberRankResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerGetMemberRankResponse Response)
         {
             OnCompletedRequestBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetAllMemberRanks(const FString& ForPlayerWithUlid, FString MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseBP& OnCompletedRequestBP)
+FString ULootLockerManager::GetAllMemberRanks(const FString& ForPlayerWithUlid, FString MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerSDKManager::GetAllMemberRanks(MemberId, Count, After, FLootLockerGetAllMemberRanksResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerGetAllMemberRanksResponse Response)
+    return ULootLockerSDKManager::GetAllMemberRanks(MemberId, Count, After, FLootLockerGetAllMemberRanksResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerGetAllMemberRanksResponse Response)
         {
             OnCompletedRequestBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetByListOfMembers(const FString& ForPlayerWithUlid, TArray<FString> Members, FString LeaderboardKey, const FLootLockerGetByListOfMembersResponseBP& OnCompletedRequestBP)
+FString ULootLockerManager::GetByListOfMembers(const FString& ForPlayerWithUlid, TArray<FString> Members, FString LeaderboardKey, const FLootLockerGetByListOfMembersResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerSDKManager::GetByListOfMembers(Members, LeaderboardKey, FLootLockerGetByListOfMembersResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerGetByListOfMembersResponse Response)
+    return ULootLockerSDKManager::GetByListOfMembers(Members, LeaderboardKey, FLootLockerGetByListOfMembersResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerGetByListOfMembersResponse Response)
         {
             OnCompletedRequestBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetScoreList(const FString& ForPlayerWithUlid, FString LeaderboardKey, int Count, int After, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP)
+FString ULootLockerManager::GetScoreList(const FString& ForPlayerWithUlid, FString LeaderboardKey, int Count, int After, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerSDKManager::GetScoreList(LeaderboardKey, Count, After, FLootLockerGetScoreListResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerGetScoreListResponse Response)
+    return ULootLockerSDKManager::GetScoreList(LeaderboardKey, Count, After, FLootLockerGetScoreListResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerGetScoreListResponse Response)
         {
             OnCompletedRequestBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetScoreListInitial(const FString& ForPlayerWithUlid, FString LeaderboardKey, int Count, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP)
+FString ULootLockerManager::GetScoreListInitial(const FString& ForPlayerWithUlid, FString LeaderboardKey, int Count, const FLootLockerGetScoreListResponseBP& OnCompletedRequestBP)
 {
-    GetScoreList(ForPlayerWithUlid, LeaderboardKey, Count, -1, OnCompletedRequestBP);
+    return GetScoreList(ForPlayerWithUlid, LeaderboardKey, Count, -1, OnCompletedRequestBP);
 }
 
 
-void ULootLockerManager::SubmitScore(const FString& ForPlayerWithUlid, FString MemberId, FString LeaderboardKey, int Score, FString Metadata, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP)
+FString ULootLockerManager::SubmitScore(const FString& ForPlayerWithUlid, FString MemberId, FString LeaderboardKey, int Score, FString Metadata, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerSDKManager::SubmitScore(MemberId, LeaderboardKey, Score, Metadata, FLootLockerSubmitScoreResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerSubmitScoreResponse Response)
+    return ULootLockerSDKManager::SubmitScore(MemberId, LeaderboardKey, Score, Metadata, FLootLockerSubmitScoreResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerSubmitScoreResponse Response)
         {
             OnCompletedRequestBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::QueryScore(const FString LeaderboardKey, const int Score, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP, const FString& ForPlayerWithUlid /* = "" */)
+FString ULootLockerManager::QueryScore(const FString LeaderboardKey, const int Score, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerSDKManager::QueryScore(LeaderboardKey, Score, FLootLockerSubmitScoreResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerSubmitScoreResponse Response)
+    return ULootLockerSDKManager::QueryScore(LeaderboardKey, Score, FLootLockerSubmitScoreResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerSubmitScoreResponse Response)
         {
             OnCompletedRequestBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::IncrementScore(FString MemberId, const FString LeaderboardKey, const int Amount, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP, const FString& ForPlayerWithUlid /* = "" */)
+FString ULootLockerManager::IncrementScore(FString MemberId, const FString LeaderboardKey, const int Amount, const FLootLockerSubmitScoreResponseBP& OnCompletedRequestBP, const FString& ForPlayerWithUlid /* = "" */)
 {
-    ULootLockerSDKManager::IncrementScore(MemberId, LeaderboardKey, Amount, FLootLockerSubmitScoreResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerSubmitScoreResponse Response)
+    return ULootLockerSDKManager::IncrementScore(MemberId, LeaderboardKey, Amount, FLootLockerSubmitScoreResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerSubmitScoreResponse Response)
         {
             OnCompletedRequestBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ListLeaderboardArchive(const FString& ForPlayerWithUlid, const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP)
+FString ULootLockerManager::ListLeaderboardArchive(const FString& ForPlayerWithUlid, const FString& LeaderboardKey, const FLootLockerLeaderboardArchiveResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerSDKManager::ListLeaderboardArchive(LeaderboardKey, FLootLockerLeaderboardArchiveResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerLeaderboardArchiveResponse Response)
+    return ULootLockerSDKManager::ListLeaderboardArchive(LeaderboardKey, FLootLockerLeaderboardArchiveResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerLeaderboardArchiveResponse Response)
         {
             OnCompletedRequestBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetLeaderboardArchive(const FString& ForPlayerWithUlid, const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailResponseBP& OnCompletedRequestBP)
+FString ULootLockerManager::GetLeaderboardArchive(const FString& ForPlayerWithUlid, const FString& Key, int Count, const FString& After, const FLootLockerLeaderboardArchiveDetailResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerSDKManager::GetLeaderboardArchive(Key, Count, After, FLootLockerLeaderboardArchiveDetailResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerLeaderboardArchiveDetailsResponse Response)
+    return ULootLockerSDKManager::GetLeaderboardArchive(Key, Count, After, FLootLockerLeaderboardArchiveDetailResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerLeaderboardArchiveDetailsResponse Response)
         {
             OnCompletedRequestBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetLeaderboardDetails(const FString& ForPlayerWithUlid, const FString& LeaderboardKey, const FLootLockerLeaderboardDetailsResponseBP& OnCompletedRequestBP)
+FString ULootLockerManager::GetLeaderboardDetails(const FString& ForPlayerWithUlid, const FString& LeaderboardKey, const FLootLockerLeaderboardDetailsResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerSDKManager::GetLeaderboardDetails(LeaderboardKey, FLootLockerLeaderboardDetailsResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerLeaderboardDetailsResponse Response)
+    return ULootLockerSDKManager::GetLeaderboardDetails(LeaderboardKey, FLootLockerLeaderboardDetailsResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerLeaderboardDetailsResponse Response)
         {
             OnCompletedRequestBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
@@ -1728,42 +1764,42 @@ void ULootLockerManager::GetLeaderboardDetails(const FString& ForPlayerWithUlid,
 
 // Drop Tables
 
-void ULootLockerManager::ComputeAndLockDropTable(const FString& ForPlayerWithUlid, int TableId, const FLootLockerComputeAndLockDropTableResponseBP& OnCompletedRequestBP)
+FString ULootLockerManager::ComputeAndLockDropTable(const FString& ForPlayerWithUlid, int TableId, const FLootLockerComputeAndLockDropTableResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerSDKManager::ComputeAndLockDropTable(TableId, FLootLockerComputeAndLockDropTableResponseDelegate::CreateLambda([OnCompletedRequestBP](const FLootLockerComputeAndLockDropTableResponse& Response)
+    return ULootLockerSDKManager::ComputeAndLockDropTable(TableId, FLootLockerComputeAndLockDropTableResponseDelegate::CreateLambda([OnCompletedRequestBP](const FLootLockerComputeAndLockDropTableResponse& Response)
     {
         OnCompletedRequestBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::PickDropsFromDropTable(const FString& ForPlayerWithUlid, TArray<int> Picks, int TableId, const FFLootLockerPickDropsFromDropTableResponseBP& OnCompletedRequestBP)
+FString ULootLockerManager::PickDropsFromDropTable(const FString& ForPlayerWithUlid, TArray<int> Picks, int TableId, const FFLootLockerPickDropsFromDropTableResponseBP& OnCompletedRequestBP)
 {
-    ULootLockerSDKManager::PickDropsFromDropTable(Picks, TableId, FFLootLockerPickDropsFromDropTableResponseDelegate::CreateLambda([OnCompletedRequestBP](const FLootLockerPickDropsFromDropTableResponse& Response)
+    return ULootLockerSDKManager::PickDropsFromDropTable(Picks, TableId, FFLootLockerPickDropsFromDropTableResponseDelegate::CreateLambda([OnCompletedRequestBP](const FLootLockerPickDropsFromDropTableResponse& Response)
     {
         OnCompletedRequestBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
 // Currencies
-void ULootLockerManager::ListCurrencies(const FString& ForPlayerWithUlid, const FLootLockerListCurrenciesResponseBP& OnCompletedRequest)
+FString ULootLockerManager::ListCurrencies(const FString& ForPlayerWithUlid, const FLootLockerListCurrenciesResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::ListCurrencies(FLootLockerListCurrenciesResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerListCurrenciesResponse& Response)
+    return ULootLockerSDKManager::ListCurrencies(FLootLockerListCurrenciesResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerListCurrenciesResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetCurrencyDetails(const FString& ForPlayerWithUlid, const FString& CurrencyCode, const FLootLockerGetCurrencyDetailsResponseBP& OnCompletedRequest)
+FString ULootLockerManager::GetCurrencyDetails(const FString& ForPlayerWithUlid, const FString& CurrencyCode, const FLootLockerGetCurrencyDetailsResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::GetCurrencyDetails(CurrencyCode, FLootLockerGetCurrencyDetailsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerGetCurrencyDetailsResponse& Response)
+    return ULootLockerSDKManager::GetCurrencyDetails(CurrencyCode, FLootLockerGetCurrencyDetailsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerGetCurrencyDetailsResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetCurrencyDenominationsByCode(const FString& ForPlayerWithUlid, const FString& CurrencyCode, const FLootLockerListDenominationsResponseBP& OnCompletedRequest)
+FString ULootLockerManager::GetCurrencyDenominationsByCode(const FString& ForPlayerWithUlid, const FString& CurrencyCode, const FLootLockerListDenominationsResponseBP& OnCompletedRequest)
 {
-    ULootLockerSDKManager::GetCurrencyDenominationsByCode(CurrencyCode, FLootLockerListDenominationsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerListDenominationsResponse& Response)
+    return ULootLockerSDKManager::GetCurrencyDenominationsByCode(CurrencyCode, FLootLockerListDenominationsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerListDenominationsResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
@@ -1771,41 +1807,41 @@ void ULootLockerManager::GetCurrencyDenominationsByCode(const FString& ForPlayer
 
 // Balances
 
-void ULootLockerManager::ListBalancesInWallet(const FString& ForPlayerWithUlid, const FString& WalletID, const FLootLockerListBalancesForWalletResponseBP& OnComplete)
+FString ULootLockerManager::ListBalancesInWallet(const FString& ForPlayerWithUlid, const FString& WalletID, const FLootLockerListBalancesForWalletResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::ListBalancesInWallet(WalletID, FLootLockerListBalancesForWalletResponseDelegate::CreateLambda([OnComplete](const FLootLockerListBalancesForWalletResponse& Response)
+    return ULootLockerSDKManager::ListBalancesInWallet(WalletID, FLootLockerListBalancesForWalletResponseDelegate::CreateLambda([OnComplete](const FLootLockerListBalancesForWalletResponse& Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetWalletByWalletID(const FString& ForPlayerWithUlid, const FString& WalletID, const FLootLockerGetWalletResponseBP& OnComplete)
+FString ULootLockerManager::GetWalletByWalletID(const FString& ForPlayerWithUlid, const FString& WalletID, const FLootLockerGetWalletResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::GetWalletByWalletID(WalletID, FLootLockerGetWalletResponseDelegate::CreateLambda([OnComplete](const FLootLockerGetWalletResponse& Response)
+    return ULootLockerSDKManager::GetWalletByWalletID(WalletID, FLootLockerGetWalletResponseDelegate::CreateLambda([OnComplete](const FLootLockerGetWalletResponse& Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetWalletByHolderID(const FString& ForPlayerWithUlid, const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerGetWalletResponseBP& OnComplete)
+FString ULootLockerManager::GetWalletByHolderID(const FString& ForPlayerWithUlid, const FString& HolderULID, const ELootLockerWalletHolderTypes& HolderType, const FLootLockerGetWalletResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::GetWalletByHolderID(HolderULID, HolderType, FLootLockerGetWalletResponseDelegate::CreateLambda([OnComplete](const FLootLockerGetWalletResponse& Response)
+    return ULootLockerSDKManager::GetWalletByHolderID(HolderULID, HolderType, FLootLockerGetWalletResponseDelegate::CreateLambda([OnComplete](const FLootLockerGetWalletResponse& Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::CreditBalanceToWallet(const FString& ForPlayerWithUlid, const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerCreditWalletResponseBP& OnComplete)
+FString ULootLockerManager::CreditBalanceToWallet(const FString& ForPlayerWithUlid, const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerCreditWalletResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::CreditBalanceToWallet(WalletID, CurrencyID, Amount, FLootLockerCreditWalletResponseDelegate::CreateLambda([OnComplete](const FLootLockerCreditWalletResponse& Response)
+    return ULootLockerSDKManager::CreditBalanceToWallet(WalletID, CurrencyID, Amount, FLootLockerCreditWalletResponseDelegate::CreateLambda([OnComplete](const FLootLockerCreditWalletResponse& Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::DebitBalanceToWallet(const FString& ForPlayerWithUlid, const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerDebitWalletResponseBP& OnComplete)
+FString ULootLockerManager::DebitBalanceToWallet(const FString& ForPlayerWithUlid, const FString& WalletID, const FString& CurrencyID, const FString& Amount, const FLootLockerDebitWalletResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::DebitBalanceToWallet(WalletID, CurrencyID, Amount, FLootLockerDebitWalletResponseDelegate::CreateLambda([OnComplete](const FLootLockerDebitWalletResponse& Response)
+    return ULootLockerSDKManager::DebitBalanceToWallet(WalletID, CurrencyID, Amount, FLootLockerDebitWalletResponseDelegate::CreateLambda([OnComplete](const FLootLockerDebitWalletResponse& Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
@@ -1813,17 +1849,17 @@ void ULootLockerManager::DebitBalanceToWallet(const FString& ForPlayerWithUlid, 
 
 // Catalogs
 
-void ULootLockerManager::ListCatalogs(const FString& ForPlayerWithUlid, const FLootLockerListCatalogsResponseBP& OnComplete)
+FString ULootLockerManager::ListCatalogs(const FString& ForPlayerWithUlid, const FLootLockerListCatalogsResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::ListCatalogs(FLootLockerListCatalogsResponseDelegate::CreateLambda([OnComplete](const FLootLockerListCatalogsResponse& Response)
+    return ULootLockerSDKManager::ListCatalogs(FLootLockerListCatalogsResponseDelegate::CreateLambda([OnComplete](const FLootLockerListCatalogsResponse& Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ListCatalogItems(const FString& ForPlayerWithUlid, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnComplete)
+FString ULootLockerManager::ListCatalogItems(const FString& ForPlayerWithUlid, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::ListCatalogItems(CatalogKey, Count, After, FLootLockerListCatalogPricesResponseDelegate::CreateLambda([OnComplete](const FLootLockerListCatalogPricesResponse& Response)
+    return ULootLockerSDKManager::ListCatalogItems(CatalogKey, Count, After, FLootLockerListCatalogPricesResponseDelegate::CreateLambda([OnComplete](const FLootLockerListCatalogPricesResponse& Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
@@ -1835,68 +1871,68 @@ TArray<FLootLockerInlinedCatalogEntry> ULootLockerManager::ConvertCatalogToInlin
 }
 
 // Entitlements
-void ULootLockerManager::ListEntitlements(const FString& ForPlayerWithUlid, int Count, const FString& After, const FLootLockerListEntitlementsResponseBP& OnComplete)
+FString ULootLockerManager::ListEntitlements(const FString& ForPlayerWithUlid, int Count, const FString& After, const FLootLockerListEntitlementsResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::ListEntitlements(Count, After, FLootLockerListEntitlementsResponseDelegate::CreateLambda([OnComplete](const FLootLockerEntitlementHistoryResponse& Response)
+    return ULootLockerSDKManager::ListEntitlements(Count, After, FLootLockerListEntitlementsResponseDelegate::CreateLambda([OnComplete](const FLootLockerEntitlementHistoryResponse& Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetEntitlement(const FString& ForPlayerWithUlid, const FString& EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnComplete)
+FString ULootLockerManager::GetEntitlement(const FString& ForPlayerWithUlid, const FString& EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnComplete)
 {
     FLootLockerSingleEntitlementResponseDelegate Delegate = FLootLockerSingleEntitlementResponseDelegate::CreateLambda([OnComplete](const FLootLockerSingleEntitlementResponse& Response)
     {
         OnComplete.ExecuteIfBound(Response);
     });
-    ULootLockerSDKManager::GetEntitlement(EntitlementID, Delegate, ForPlayerWithUlid);
+    return ULootLockerSDKManager::GetEntitlement(EntitlementID, Delegate, ForPlayerWithUlid);
 }
 
 // Feedback
 
-void ULootLockerManager::ListPlayerFeedbackCategories(const FString& ForPlayerWithUlid, const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
+FString ULootLockerManager::ListPlayerFeedbackCategories(const FString& ForPlayerWithUlid, const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::ListPlayerFeedbackCategories(FLootLockerListFeedbackCategoryResponseDelegate::CreateLambda([OnComplete](const FLootLockerFeedbackCategoryResponse& Response)
+    return ULootLockerSDKManager::ListPlayerFeedbackCategories(FLootLockerListFeedbackCategoryResponseDelegate::CreateLambda([OnComplete](const FLootLockerFeedbackCategoryResponse& Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ListGameFeedbackCategories(const FString& ForPlayerWithUlid, const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
+FString ULootLockerManager::ListGameFeedbackCategories(const FString& ForPlayerWithUlid, const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::ListGameFeedbackCategories(FLootLockerListFeedbackCategoryResponseDelegate::CreateLambda([OnComplete](const FLootLockerFeedbackCategoryResponse& Response)
+    return ULootLockerSDKManager::ListGameFeedbackCategories(FLootLockerListFeedbackCategoryResponseDelegate::CreateLambda([OnComplete](const FLootLockerFeedbackCategoryResponse& Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ListUGCFeedbackCategories(const FString& ForPlayerWithUlid, const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
+FString ULootLockerManager::ListUGCFeedbackCategories(const FString& ForPlayerWithUlid, const FLootLockerListFeedbackCategoryResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::ListUGCFeedbackCategories(FLootLockerListFeedbackCategoryResponseDelegate::CreateLambda([OnComplete](const FLootLockerFeedbackCategoryResponse& Response)
+    return ULootLockerSDKManager::ListUGCFeedbackCategories(FLootLockerListFeedbackCategoryResponseDelegate::CreateLambda([OnComplete](const FLootLockerFeedbackCategoryResponse& Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::SendPlayerFeedback(const FString& ForPlayerWithUlid, const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete)
+FString ULootLockerManager::SendPlayerFeedback(const FString& ForPlayerWithUlid, const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::SendPlayerFeedback(Ulid, Description, CategoryID, FLootLockerSendFeedbackResponseDelegate::CreateLambda([OnComplete](const FLootLockerResponse& Response)
+    return ULootLockerSDKManager::SendPlayerFeedback(Ulid, Description, CategoryID, FLootLockerSendFeedbackResponseDelegate::CreateLambda([OnComplete](const FLootLockerResponse& Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::SendGameFeedback(const FString& ForPlayerWithUlid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete)
+FString ULootLockerManager::SendGameFeedback(const FString& ForPlayerWithUlid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::SendGameFeedback(Description, CategoryID, FLootLockerSendFeedbackResponseDelegate::CreateLambda([OnComplete](const FLootLockerResponse& Response)
+    return ULootLockerSDKManager::SendGameFeedback(Description, CategoryID, FLootLockerSendFeedbackResponseDelegate::CreateLambda([OnComplete](const FLootLockerResponse& Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::SendUGCFeedback(const FString& ForPlayerWithUlid, const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete)
+FString ULootLockerManager::SendUGCFeedback(const FString& ForPlayerWithUlid, const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::SendUGCFeedback(Ulid, Description, CategoryID, FLootLockerSendFeedbackResponseDelegate::CreateLambda([OnComplete](const FLootLockerResponse& Response)
+    return ULootLockerSDKManager::SendUGCFeedback(Ulid, Description, CategoryID, FLootLockerSendFeedbackResponseDelegate::CreateLambda([OnComplete](const FLootLockerResponse& Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
@@ -1905,33 +1941,33 @@ void ULootLockerManager::SendUGCFeedback(const FString& ForPlayerWithUlid, const
 
 // Metadata
 
-void ULootLockerManager::ListMetadata(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnComplete)
+FString ULootLockerManager::ListMetadata(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::ListMetadata(Source, SourceID, Page, PerPage, FLootLockerListMetadataResponseDelegate::CreateLambda([OnComplete](FLootLockerListMetadataResponse Response)
+    return ULootLockerSDKManager::ListMetadata(Source, SourceID, Page, PerPage, FLootLockerListMetadataResponseDelegate::CreateLambda([OnComplete](FLootLockerListMetadataResponse Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), IgnoreFiles, ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ListMetadataWithTags(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FString>& Tags, const int Page, const int PerPage, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnComplete)
+FString ULootLockerManager::ListMetadataWithTags(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FString>& Tags, const int Page, const int PerPage, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::ListMetadataWithTags(Source, SourceID, Tags, Page, PerPage, FLootLockerListMetadataResponseDelegate::CreateLambda([OnComplete](FLootLockerListMetadataResponse Response)
+    return ULootLockerSDKManager::ListMetadataWithTags(Source, SourceID, Tags, Page, PerPage, FLootLockerListMetadataResponseDelegate::CreateLambda([OnComplete](FLootLockerListMetadataResponse Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), IgnoreFiles, ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetMetadata(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const FString& Key, const bool IgnoreFiles, const FLootLockerGetMetadataResponseBP& OnComplete)
+FString ULootLockerManager::GetMetadata(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const FString& Key, const bool IgnoreFiles, const FLootLockerGetMetadataResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::GetMetadata(Source, SourceID, Key, FLootLockerGetMetadataResponseDelegate::CreateLambda([OnComplete](FLootLockerGetMetadataResponse Response)
+    return ULootLockerSDKManager::GetMetadata(Source, SourceID, Key, FLootLockerGetMetadataResponseDelegate::CreateLambda([OnComplete](FLootLockerGetMetadataResponse Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), IgnoreFiles, ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetMultisourceMetadata(const FString& ForPlayerWithUlid, const TArray<FLootLockerMetadataSourceAndKeys>& SourcesAndKeysToGet, const bool IgnoreFiles, const FLootLockerGetMultisourceMetadataResponseBP& OnComplete)
+FString ULootLockerManager::GetMultisourceMetadata(const FString& ForPlayerWithUlid, const TArray<FLootLockerMetadataSourceAndKeys>& SourcesAndKeysToGet, const bool IgnoreFiles, const FLootLockerGetMultisourceMetadataResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::GetMultisourceMetadata(SourcesAndKeysToGet, FLootLockerGetMultisourceMetadataResponseDelegate::CreateLambda([OnComplete](FLootLockerGetMultisourceMetadataResponse Response)
+    return ULootLockerSDKManager::GetMultisourceMetadata(SourcesAndKeysToGet, FLootLockerGetMultisourceMetadataResponseDelegate::CreateLambda([OnComplete](FLootLockerGetMultisourceMetadataResponse Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), IgnoreFiles, ForPlayerWithUlid);
@@ -2044,9 +2080,9 @@ void ULootLockerManager::ParseLootLockerMetadataEntry(const FLootLockerMetadataE
     }
 }
 
-void ULootLockerManager::SetMetadata(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FLootLockerSetMetadataAction>& MetadataToActionsToPerform, const FLootLockerSetMetadataResponseBP& OnComplete)
+FString ULootLockerManager::SetMetadata(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const TArray<FLootLockerSetMetadataAction>& MetadataToActionsToPerform, const FLootLockerSetMetadataResponseBP& OnComplete)
 {
-    ULootLockerSDKManager::SetMetadata(Source, SourceID, MetadataToActionsToPerform, FLootLockerSetMetadataResponseDelegate::CreateLambda([OnComplete](FLootLockerSetMetadataResponse Response)
+    return ULootLockerSDKManager::SetMetadata(Source, SourceID, MetadataToActionsToPerform, FLootLockerSetMetadataResponseDelegate::CreateLambda([OnComplete](FLootLockerSetMetadataResponse Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
@@ -2098,9 +2134,9 @@ FLootLockerSetMetadataAction ULootLockerManager::MakeMetadataActionBase64(ELootL
 }
 
 // Miscellaneous
-void ULootLockerManager::GetServerTime(const FString& ForPlayerWithUlid, const FTimeResponseDelegateBP& OnCompletedRequestBP)
+FString ULootLockerManager::GetServerTime(const FString& ForPlayerWithUlid, const FTimeResponseDelegateBP& OnCompletedRequestBP)
 {
-    ULootLockerSDKManager::GetServerTime(FTimeResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerTimeResponse Response)
+    return ULootLockerSDKManager::GetServerTime(FTimeResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerTimeResponse Response)
     {
         OnCompletedRequestBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
@@ -2110,242 +2146,242 @@ FString ULootLockerManager::GetLastActivePlatform(const FString& ForPlayerWithUl
     return ULootLockerSDKManager::GetLastActivePlatform(ForPlayerWithUlid);
 }
 
-void ULootLockerManager::GetGameInfo(const FGameInfoResponseDelegateBP& OnCompletedRequestBP) {
-    ULootLockerSDKManager::GetGameInfo(FGameInfoResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerGameInfoResponse Response)
+FString ULootLockerManager::GetGameInfo(const FGameInfoResponseDelegateBP& OnCompletedRequestBP) {
+    return ULootLockerSDKManager::GetGameInfo(FGameInfoResponseDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerGameInfoResponse Response)
     {
         OnCompletedRequestBP.ExecuteIfBound(Response);
     }));
 }
 
 // Followers (Unified with optional pagination parameters)
-void ULootLockerManager::ListFollowersForPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP)
+FString ULootLockerManager::ListFollowersForPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP)
 {
     const bool bUsePagination = !Cursor.IsEmpty() || Count > 0;
     if (bUsePagination)
     {
-        ULootLockerSDKManager::ListFollowersPaginated(PlayerPublicUid, Cursor, Count, FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
+        return ULootLockerSDKManager::ListFollowersPaginated(PlayerPublicUid, Cursor, Count, FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
         {
             OnResponseCompletedBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
     }
     else
     {
-        ULootLockerSDKManager::ListFollowers(PlayerPublicUid, FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
+        return ULootLockerSDKManager::ListFollowers(PlayerPublicUid, FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
         {
             OnResponseCompletedBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
     }
 }
 
-void ULootLockerManager::ListFollowers(const FString& ForPlayerWithUlid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP)
+FString ULootLockerManager::ListFollowers(const FString& ForPlayerWithUlid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP)
 {
     const bool bUsePagination = !Cursor.IsEmpty() || Count > 0;
     if (bUsePagination)
     {
-        ULootLockerSDKManager::ListFollowersPaginated(Cursor, Count, FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
+        return ULootLockerSDKManager::ListFollowersPaginated(Cursor, Count, FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
         {
             OnResponseCompletedBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
     }
     else
     {
-        ULootLockerSDKManager::ListFollowers(FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
+        return ULootLockerSDKManager::ListFollowers(FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
         {
             OnResponseCompletedBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
     }
 }
 
-void ULootLockerManager::ListFollowingForPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP)
+FString ULootLockerManager::ListFollowingForPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP)
 {
     const bool bUsePagination = !Cursor.IsEmpty() || Count > 0;
     if (bUsePagination)
     {
-        ULootLockerSDKManager::ListFollowingPaginated(PlayerPublicUid, Cursor, Count, FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
+        return ULootLockerSDKManager::ListFollowingPaginated(PlayerPublicUid, Cursor, Count, FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
         {
             OnResponseCompletedBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
     }
     else
     {
-        ULootLockerSDKManager::ListFollowing(PlayerPublicUid, FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
+        return ULootLockerSDKManager::ListFollowing(PlayerPublicUid, FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
         {
             OnResponseCompletedBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
     }
 }
 
-void ULootLockerManager::ListFollowing(const FString& ForPlayerWithUlid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP)
+FString ULootLockerManager::ListFollowing(const FString& ForPlayerWithUlid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP)
 {
     const bool bUsePagination = !Cursor.IsEmpty() || Count > 0;
     if (bUsePagination)
     {
-        ULootLockerSDKManager::ListFollowingPaginated(Cursor, Count, FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
+        return ULootLockerSDKManager::ListFollowingPaginated(Cursor, Count, FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
         {
             OnResponseCompletedBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
     }
     else
     {
-        ULootLockerSDKManager::ListFollowing(FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
+        return ULootLockerSDKManager::ListFollowing(FLootLockerListFollowersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFollowersResponse& Response)
         {
             OnResponseCompletedBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
     }
 }
 
-void ULootLockerManager::FollowPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FLootLockerFollowActionResponseBP& OnResponseCompletedBP)
+FString ULootLockerManager::FollowPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FLootLockerFollowActionResponseBP& OnResponseCompletedBP)
 {
-    ULootLockerSDKManager::FollowPlayer(PlayerPublicUid, FLootLockerFollowActionResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerFollowActionResponse& Response)
+    return ULootLockerSDKManager::FollowPlayer(PlayerPublicUid, FLootLockerFollowActionResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerFollowActionResponse& Response)
     {
         OnResponseCompletedBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::UnfollowPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FLootLockerFollowActionResponseBP& OnResponseCompletedBP)
+FString ULootLockerManager::UnfollowPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FLootLockerFollowActionResponseBP& OnResponseCompletedBP)
 {
-    ULootLockerSDKManager::UnfollowPlayer(PlayerPublicUid, FLootLockerFollowActionResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerFollowActionResponse& Response)
+    return ULootLockerSDKManager::UnfollowPlayer(PlayerPublicUid, FLootLockerFollowActionResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerFollowActionResponse& Response)
     {
         OnResponseCompletedBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
 // Friends
-void ULootLockerManager::ListFriends(const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListFriendsResponseBP& OnResponseCompletedBP)
+FString ULootLockerManager::ListFriends(const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListFriendsResponseBP& OnResponseCompletedBP)
 {
     const bool bUsePagination = Page > 0 || PerPage > 0;
     if (bUsePagination)
     {
-        ULootLockerSDKManager::ListFriendsPaginated(Page, PerPage, FLootLockerListFriendsResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFriendsResponse& Response)
+        return ULootLockerSDKManager::ListFriendsPaginated(Page, PerPage, FLootLockerListFriendsResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFriendsResponse& Response)
         {
             OnResponseCompletedBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
     }
     else
     {
-        ULootLockerSDKManager::ListFriends(FLootLockerListFriendsResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFriendsResponse& Response)
+        return ULootLockerSDKManager::ListFriends(FLootLockerListFriendsResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFriendsResponse& Response)
         {
             OnResponseCompletedBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
     }
 }
 
-void ULootLockerManager::ListIncomingFriendRequests(const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListIncomingFriendRequestsResponseBP& OnResponseCompletedBP)
+FString ULootLockerManager::ListIncomingFriendRequests(const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListIncomingFriendRequestsResponseBP& OnResponseCompletedBP)
 {
     const bool bUsePagination = Page > 0 || PerPage > 0;
     if (bUsePagination)
     {
-        ULootLockerSDKManager::ListIncomingFriendRequestsPaginated(Page, PerPage, FLootLockerListIncomingFriendRequestsResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListIncomingFriendRequestsResponse& Response)
+        return ULootLockerSDKManager::ListIncomingFriendRequestsPaginated(Page, PerPage, FLootLockerListIncomingFriendRequestsResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListIncomingFriendRequestsResponse& Response)
         {
             OnResponseCompletedBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
     }
     else
     {
-        ULootLockerSDKManager::ListIncomingFriendRequests(FLootLockerListIncomingFriendRequestsResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListIncomingFriendRequestsResponse& Response)
+        return ULootLockerSDKManager::ListIncomingFriendRequests(FLootLockerListIncomingFriendRequestsResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListIncomingFriendRequestsResponse& Response)
         {
             OnResponseCompletedBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
     }
 }
 
-void ULootLockerManager::ListOutgoingFriendRequests(const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListOutgoingFriendRequestsResponseBP& OnResponseCompletedBP)
+FString ULootLockerManager::ListOutgoingFriendRequests(const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListOutgoingFriendRequestsResponseBP& OnResponseCompletedBP)
 {
     const bool bUsePagination = Page > 0 || PerPage > 0;
     if (bUsePagination)
     {
-        ULootLockerSDKManager::ListOutgoingFriendRequestsPaginated(Page, PerPage, FLootLockerListOutgoingFriendRequestsResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListOutgoingFriendRequestsResponse& Response)
+        return ULootLockerSDKManager::ListOutgoingFriendRequestsPaginated(Page, PerPage, FLootLockerListOutgoingFriendRequestsResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListOutgoingFriendRequestsResponse& Response)
         {
             OnResponseCompletedBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
     }
     else
     {
-        ULootLockerSDKManager::ListOutgoingFriendRequests(FLootLockerListOutgoingFriendRequestsResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListOutgoingFriendRequestsResponse& Response)
+        return ULootLockerSDKManager::ListOutgoingFriendRequests(FLootLockerListOutgoingFriendRequestsResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListOutgoingFriendRequestsResponse& Response)
         {
             OnResponseCompletedBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
     }
 }
 
-void ULootLockerManager::SendFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerId, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP)
+FString ULootLockerManager::SendFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerId, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP)
 {
-    ULootLockerSDKManager::SendFriendRequest(PlayerId, FLootLockerFriendActionResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerFriendActionResponse& Response)
+    return ULootLockerSDKManager::SendFriendRequest(PlayerId, FLootLockerFriendActionResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerFriendActionResponse& Response)
     {
         OnResponseCompletedBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::DeleteFriend(const FString& ForPlayerWithUlid, const FString& PlayerId, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP)
+FString ULootLockerManager::DeleteFriend(const FString& ForPlayerWithUlid, const FString& PlayerId, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP)
 {
-    ULootLockerSDKManager::DeleteFriend(PlayerId, FLootLockerFriendActionResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerFriendActionResponse& Response)
+    return ULootLockerSDKManager::DeleteFriend(PlayerId, FLootLockerFriendActionResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerFriendActionResponse& Response)
     {
         OnResponseCompletedBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::CancelOutgoingFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerId, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP)
+FString ULootLockerManager::CancelOutgoingFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerId, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP)
 {
-    ULootLockerSDKManager::CancelOutgoingFriendRequest(PlayerId, FLootLockerFriendActionResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerFriendActionResponse& Response)
+    return ULootLockerSDKManager::CancelOutgoingFriendRequest(PlayerId, FLootLockerFriendActionResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerFriendActionResponse& Response)
     {
         OnResponseCompletedBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::AcceptIncomingFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerId, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP)
+FString ULootLockerManager::AcceptIncomingFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerId, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP)
 {
-    ULootLockerSDKManager::AcceptIncomingFriendRequest(PlayerId, FLootLockerFriendActionResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerFriendActionResponse& Response)
+    return ULootLockerSDKManager::AcceptIncomingFriendRequest(PlayerId, FLootLockerFriendActionResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerFriendActionResponse& Response)
     {
         OnResponseCompletedBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::DeclineIncomingFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerId, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP)
+FString ULootLockerManager::DeclineIncomingFriendRequest(const FString& ForPlayerWithUlid, const FString& PlayerId, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP)
 {
-    ULootLockerSDKManager::DeclineIncomingFriendRequest(PlayerId, FLootLockerFriendActionResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerFriendActionResponse& Response)
+    return ULootLockerSDKManager::DeclineIncomingFriendRequest(PlayerId, FLootLockerFriendActionResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerFriendActionResponse& Response)
     {
         OnResponseCompletedBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::ListBlockedPlayers(const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListBlockedPlayersResponseBP& OnResponseCompletedBP)
+FString ULootLockerManager::ListBlockedPlayers(const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListBlockedPlayersResponseBP& OnResponseCompletedBP)
 {
     const bool bUsePagination = Page > 0 || PerPage > 0;
     if (bUsePagination)
     {
-        ULootLockerSDKManager::ListBlockedPlayersPaginated(Page, PerPage, FLootLockerListBlockedPlayersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListBlockedPlayersResponse& Response)
+        return ULootLockerSDKManager::ListBlockedPlayersPaginated(Page, PerPage, FLootLockerListBlockedPlayersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListBlockedPlayersResponse& Response)
         {
             OnResponseCompletedBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
     }
     else
     {
-        ULootLockerSDKManager::ListBlockedPlayers(FLootLockerListBlockedPlayersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListBlockedPlayersResponse& Response)
+        return ULootLockerSDKManager::ListBlockedPlayers(FLootLockerListBlockedPlayersResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListBlockedPlayersResponse& Response)
         {
             OnResponseCompletedBP.ExecuteIfBound(Response);
         }), ForPlayerWithUlid);
     }
 }
 
-void ULootLockerManager::GetFriend(const FString& ForPlayerWithUlid, const FString& FriendUlid, const FLootLockerGetFriendResponseBP& OnResponseCompletedBP)
+FString ULootLockerManager::GetFriend(const FString& ForPlayerWithUlid, const FString& FriendUlid, const FLootLockerGetFriendResponseBP& OnResponseCompletedBP)
 {
-    ULootLockerSDKManager::GetFriend(FriendUlid, FLootLockerGetFriendResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerGetFriendResponse& Response)
+    return ULootLockerSDKManager::GetFriend(FriendUlid, FLootLockerGetFriendResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerGetFriendResponse& Response)
     {
         OnResponseCompletedBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::BlockPlayer(const FString& ForPlayerWithUlid, const FString& PlayerId, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP)
+FString ULootLockerManager::BlockPlayer(const FString& ForPlayerWithUlid, const FString& PlayerId, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP)
 {
-    ULootLockerSDKManager::BlockPlayer(PlayerId, FLootLockerFriendActionResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerFriendActionResponse& Response)
+    return ULootLockerSDKManager::BlockPlayer(PlayerId, FLootLockerFriendActionResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerFriendActionResponse& Response)
     {
         OnResponseCompletedBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-void ULootLockerManager::UnblockPlayer(const FString& ForPlayerWithUlid, const FString& PlayerId, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP)
+FString ULootLockerManager::UnblockPlayer(const FString& ForPlayerWithUlid, const FString& PlayerId, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP)
 {
-    ULootLockerSDKManager::UnblockPlayer(PlayerId, FLootLockerFriendActionResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerFriendActionResponse& Response)
+    return ULootLockerSDKManager::UnblockPlayer(PlayerId, FLootLockerFriendActionResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerFriendActionResponse& Response)
     {
         OnResponseCompletedBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);

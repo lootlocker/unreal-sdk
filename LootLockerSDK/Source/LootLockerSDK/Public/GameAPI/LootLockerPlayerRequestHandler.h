@@ -372,21 +372,21 @@ class LOOTLOCKERSDK_API ULootLockerPlayerRequestHandler : public UObject
 public:
 	ULootLockerPlayerRequestHandler() {};
 
-	static void GetCurrentPlayerInfo(const FLootLockerPlayerData& PlayerData, const FLootLockerGetCurrentPlayerInfoResponseDelegate& OnCompletedRequest);
-	static void ListPlayerInfo(const FLootLockerPlayerData& PlayerData, TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseDelegate& OnCompletedRequest);
-	static void GetInventory(const FLootLockerPlayerData& PlayerData, const FInventoryResponse& OnCompletedRequest);
-	static void GetFullInventory(const FLootLockerPlayerData& PlayerData, const FInventoryResponse& OnCompletedRequest, int32 StartIndex = 0);
-	static void CheckPlayerAssetNotification(const FLootLockerPlayerData& PlayerData, const FLootLockerAssetNotificationResponse& OnCompletedRequest);
-	static void GetCurrencyBalance(const FLootLockerPlayerData& PlayerData, const FPBalanceResponse& OnCompletedRequest);
-	static void InitiateDLCMigration(const FLootLockerPlayerData& PlayerData, const FResponseCallback& OnCompletedRequest);
-	static void GetDLCsMigration(const FLootLockerPlayerData& PlayerData, const FPDlcResponse& OnCompletedRequest);
-	static void SetProfilePrivate(const FLootLockerPlayerData& PlayerData, const FResponseCallback& OnCompletedRequest);
-	static void SetProfilePublic(const FLootLockerPlayerData& PlayerData, const FResponseCallback& OnCompletedRequest);
-	static void SetPlayerName(const FLootLockerPlayerData& PlayerData, FString Name, const FPNameResponse& OnCompletedRequest);
-	static void GetPlayerName(const FLootLockerPlayerData& PlayerData, const FPNameResponse& OnCompletedRequest);
+	static FString GetCurrentPlayerInfo(const FLootLockerPlayerData& PlayerData, const FLootLockerGetCurrentPlayerInfoResponseDelegate& OnCompletedRequest);
+	static FString ListPlayerInfo(const FLootLockerPlayerData& PlayerData, TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseDelegate& OnCompletedRequest);
+	static FString GetInventory(const FLootLockerPlayerData& PlayerData, const FInventoryResponse& OnCompletedRequest);
+	static FString GetFullInventory(const FLootLockerPlayerData& PlayerData, const FInventoryResponse& OnCompletedRequest, int32 StartIndex = 0);
+	static FString CheckPlayerAssetNotification(const FLootLockerPlayerData& PlayerData, const FLootLockerAssetNotificationResponse& OnCompletedRequest);
+	static FString GetCurrencyBalance(const FLootLockerPlayerData& PlayerData, const FPBalanceResponse& OnCompletedRequest);
+	static FString InitiateDLCMigration(const FLootLockerPlayerData& PlayerData, const FResponseCallback& OnCompletedRequest);
+	static FString GetDLCsMigration(const FLootLockerPlayerData& PlayerData, const FPDlcResponse& OnCompletedRequest);
+	static FString SetProfilePrivate(const FLootLockerPlayerData& PlayerData, const FResponseCallback& OnCompletedRequest);
+	static FString SetProfilePublic(const FLootLockerPlayerData& PlayerData, const FResponseCallback& OnCompletedRequest);
+	static FString SetPlayerName(const FLootLockerPlayerData& PlayerData, FString Name, const FPNameResponse& OnCompletedRequest);
+	static FString GetPlayerName(const FLootLockerPlayerData& PlayerData, const FPNameResponse& OnCompletedRequest);
 	// Deprecated date 20250304
-	static void LookupMultiplePlayerNamesUsingIDs(const FLootLockerPlayerData& PlayerData, FLootLockerMultiplePlayerNamesRequest Request, const FPMultiplePlayerNames& OnCompletedRequest);
-	static void LookupMultiplePlayersDataUsingIDs(const FLootLockerPlayerData& PlayerData, FLootLockerLookupMultiplePlayersDataRequest Request, const FPMultiplePlayerNames& OnCompletedRequest);
-	static void LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerPlayerData& PlayerData, const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest);
-    static void DeletePlayer(const FLootLockerPlayerData& PlayerData, const FLootLockerDefaultDelegate OnCompletedRequest);
+	static FString LookupMultiplePlayerNamesUsingIDs(const FLootLockerPlayerData& PlayerData, FLootLockerMultiplePlayerNamesRequest Request, const FPMultiplePlayerNames& OnCompletedRequest);
+	static FString LookupMultiplePlayersDataUsingIDs(const FLootLockerPlayerData& PlayerData, FLootLockerLookupMultiplePlayersDataRequest Request, const FPMultiplePlayerNames& OnCompletedRequest);
+	static FString LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerPlayerData& PlayerData, const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest);
+    static FString DeletePlayer(const FLootLockerPlayerData& PlayerData, const FLootLockerDefaultDelegate OnCompletedRequest);
 };

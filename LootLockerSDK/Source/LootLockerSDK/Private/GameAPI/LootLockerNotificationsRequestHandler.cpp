@@ -285,12 +285,12 @@ bool FLootLockerListNotificationsResponse::TryGetNotificationsByIdentifyingValue
     return true;
 }
 
-void ULootLockerNotificationsRequestHandler::ListNotificationsWithDefaultParameters(const FLootLockerPlayerData& PlayerData, const FLootLockerListNotificationsResponseDelegate& OnComplete)
+FString ULootLockerNotificationsRequestHandler::ListNotificationsWithDefaultParameters(const FLootLockerPlayerData& PlayerData, const FLootLockerListNotificationsResponseDelegate& OnComplete)
 {
-    ListNotifications(PlayerData, TMultiMap<FString, FString>(), OnComplete);
+    return ListNotifications(PlayerData, TMultiMap<FString, FString>(), OnComplete);
 }
 
-void ULootLockerNotificationsRequestHandler::ListNotifications(const FLootLockerPlayerData& PlayerData, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate& OnComplete)
+FString ULootLockerNotificationsRequestHandler::ListNotifications(const FLootLockerPlayerData& PlayerData, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate& OnComplete)
 {
     TMultiMap<FString, FString> QueryParams;
     if (Page > 0) QueryParams.Add("page", FString::FromInt(Page));
@@ -300,10 +300,10 @@ void ULootLockerNotificationsRequestHandler::ListNotifications(const FLootLocker
     if (ShowRead) QueryParams.Add("read", "true"); else QueryParams.Add("read", "false");
     if (CustomNotificationsFilter != ELootLockerCustomNotificationFiltering::All) QueryParams.Add("custom", CustomNotificationsFilter == ELootLockerCustomNotificationFiltering::Custom_only ? "true" : "false");
 
-    ListNotifications(PlayerData, QueryParams, OnComplete);
+    return ListNotifications(PlayerData, QueryParams, OnComplete);
 }
 
-void ULootLockerNotificationsRequestHandler::ListNotifications(const FLootLockerPlayerData& PlayerData, ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate& OnComplete)
+FString ULootLockerNotificationsRequestHandler::ListNotifications(const FLootLockerPlayerData& PlayerData, ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString& OfType, const FString& WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate& OnComplete)
 {
     TMultiMap<FString, FString> QueryParams;
     QueryParams.Add("priority", ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerNotificationPriority"), static_cast<int32>(WithPriority)));
@@ -315,22 +315,22 @@ void ULootLockerNotificationsRequestHandler::ListNotifications(const FLootLocker
     if (ShowRead) QueryParams.Add("read", "true"); else QueryParams.Add("read", "false");
     if (CustomNotificationsFilter != ELootLockerCustomNotificationFiltering::All) QueryParams.Add("custom", CustomNotificationsFilter == ELootLockerCustomNotificationFiltering::Custom_only ? "true" : "false");
 
-    ListNotifications(PlayerData, QueryParams, OnComplete);
+    return ListNotifications(PlayerData, QueryParams, OnComplete);
 }
 
-void ULootLockerNotificationsRequestHandler::MarkNotificationsAsRead(const FLootLockerPlayerData& PlayerData, const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseDelegate& OnComplete)
+FString ULootLockerNotificationsRequestHandler::MarkNotificationsAsRead(const FLootLockerPlayerData& PlayerData, const TArray<FString>& NotificationIDs, const FLootLockerReadNotificationsResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerReadNotificationsResponse>::CallAPI(FLootLockerReadNotificationsRequest{ NotificationIDs }, ULootLockerGameEndpoints::ReadNotifications, {}, {}, PlayerData, OnComplete);
+    return LLAPI<FLootLockerReadNotificationsResponse>::CallAPI(FLootLockerReadNotificationsRequest{ NotificationIDs }, ULootLockerGameEndpoints::ReadNotifications, {}, {}, PlayerData, OnComplete);
 }
 
-void ULootLockerNotificationsRequestHandler::MarkAllNotificationsAsRead(const FLootLockerPlayerData& PlayerData, const FLootLockerReadNotificationsResponseDelegate& OnComplete)
+FString ULootLockerNotificationsRequestHandler::MarkAllNotificationsAsRead(const FLootLockerPlayerData& PlayerData, const FLootLockerReadNotificationsResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerReadNotificationsResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ReadAllNotifications, {}, {}, PlayerData, OnComplete);
+    return LLAPI<FLootLockerReadNotificationsResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ReadAllNotifications, {}, {}, PlayerData, OnComplete);
 }
 
-void ULootLockerNotificationsRequestHandler::ListNotifications(const FLootLockerPlayerData& PlayerData, const TMultiMap<FString, FString>& QueryParams, const FLootLockerListNotificationsResponseDelegate& OnComplete)
+FString ULootLockerNotificationsRequestHandler::ListNotifications(const FLootLockerPlayerData& PlayerData, const TMultiMap<FString, FString>& QueryParams, const FLootLockerListNotificationsResponseDelegate& OnComplete)
 {
-    LLAPI<FLootLockerListNotificationsResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListNotifications, {}, QueryParams, PlayerData, FLootLockerListNotificationsResponseDelegate(), LLAPI<FLootLockerListNotificationsResponse>::FResponseInspectorCallback::CreateLambda([OnComplete] (FLootLockerListNotificationsResponse& Response)
+    return LLAPI<FLootLockerListNotificationsResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListNotifications, {}, QueryParams, PlayerData, FLootLockerListNotificationsResponseDelegate(), LLAPI<FLootLockerListNotificationsResponse>::FResponseInspectorCallback::CreateLambda([OnComplete] (FLootLockerListNotificationsResponse& Response)
     {
         if(Response.success && Response.Notifications.Num() > 0)
         {

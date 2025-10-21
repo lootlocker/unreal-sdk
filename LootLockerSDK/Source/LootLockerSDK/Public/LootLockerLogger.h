@@ -147,7 +147,7 @@ public:
      * Logs a structured HTTP request/response entry.
      * @param Entry The HTTP log entry.
      */
-    static void LogHttpRequest(const FLootLockerResponse& Response, const FString& RequestMethod = "N/A", const FString& RequestPath = "N/A", const FString& RequestData = "Data N/A", const FString& AllHeadersDelimited = "N/A");
+    static void LogHttpRequest(const FLootLockerResponse& Response, const FString& AllHeadersDelimited = "N/A");
 private:
     static void LogInternal(ELootLockerLogLevel Verbosity, const TCHAR* m);
     static void __LogInternalF(const TCHAR* m);

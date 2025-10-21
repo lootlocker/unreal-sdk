@@ -279,6 +279,6 @@ class LOOTLOCKERSDK_API ULootLockerEntitlementRequestHandler : public UObject
 public:
     ULootLockerEntitlementRequestHandler() {};
 
-    static void ListEntitlements(const FLootLockerPlayerData& PlayerData, int Count, const FString& After, const FLootLockerListEntitlementsResponseDelegate& OnComplete = FLootLockerListEntitlementsResponseDelegate());
-    static void GetEntitlement(const FLootLockerPlayerData& PlayerData, FString EntitlementID, const FLootLockerSingleEntitlementResponseDelegate& OnComplete = FLootLockerSingleEntitlementResponseDelegate());
+    static FString ListEntitlements(const FLootLockerPlayerData& PlayerData, int Count, const FString& After, const FLootLockerListEntitlementsResponseDelegate& OnComplete = FLootLockerListEntitlementsResponseDelegate());
+    static FString GetEntitlement(const FLootLockerPlayerData& PlayerData, FString EntitlementID, const FLootLockerSingleEntitlementResponseDelegate& OnComplete = FLootLockerSingleEntitlementResponseDelegate());
 };
