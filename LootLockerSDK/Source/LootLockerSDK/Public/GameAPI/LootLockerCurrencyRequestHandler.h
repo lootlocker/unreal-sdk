@@ -185,7 +185,7 @@ class LOOTLOCKERSDK_API ULootLockerCurrencyRequestHandler : public UObject
 public:
     ULootLockerCurrencyRequestHandler() {};
 
-    static void ListCurrencies(const FLootLockerPlayerData& PlayerData, const FLootLockerListCurrenciesResponseDelegate& OnResponseCompleted = FLootLockerListCurrenciesResponseDelegate());
-    static void GetCurrencyDetails(const FLootLockerPlayerData& PlayerData, const FString& CurrencyCode, const FLootLockerGetCurrencyDetailsResponseDelegate& OnResponseCompleted = FLootLockerGetCurrencyDetailsResponseDelegate());
-    static void GetCurrencyDenominationsByCode(const FLootLockerPlayerData& PlayerData, const FString& CurrencyCode, const FLootLockerListDenominationsResponseDelegate& OnResponseCompleted = FLootLockerListDenominationsResponseDelegate());
+    static FString ListCurrencies(const FLootLockerPlayerData& PlayerData, const FLootLockerListCurrenciesResponseDelegate& OnResponseCompleted = FLootLockerListCurrenciesResponseDelegate());
+    static FString GetCurrencyDetails(const FLootLockerPlayerData& PlayerData, const FString& CurrencyCode, const FLootLockerGetCurrencyDetailsResponseDelegate& OnResponseCompleted = FLootLockerGetCurrencyDetailsResponseDelegate());
+    static FString GetCurrencyDenominationsByCode(const FLootLockerPlayerData& PlayerData, const FString& CurrencyCode, const FLootLockerListDenominationsResponseDelegate& OnResponseCompleted = FLootLockerListDenominationsResponseDelegate());
 };

@@ -116,6 +116,6 @@ class LOOTLOCKERSDK_API ULootLockerFeedbackRequestHandler : public UObject
 public:
     ULootLockerFeedbackRequestHandler() {};
 
-    static void ListFeedbackCategories(const FLootLockerPlayerData& PlayerData, const ELootLockerFeedbackType& Type, const FLootLockerListFeedbackCategoryResponseDelegate& OnCompletedRequest = FLootLockerListFeedbackCategoryResponseDelegate());
-    static void SendFeedback(const FLootLockerPlayerData& PlayerData, const FString& Ulid, const FString& Description, const FString& CategoryID, const ELootLockerFeedbackType& Type, const FLootLockerSendFeedbackResponseDelegate& OnCompletedRequest = FLootLockerSendFeedbackResponseDelegate());
+    static FString ListFeedbackCategories(const FLootLockerPlayerData& PlayerData, const ELootLockerFeedbackType& Type, const FLootLockerListFeedbackCategoryResponseDelegate& OnCompletedRequest = FLootLockerListFeedbackCategoryResponseDelegate());
+    static FString SendFeedback(const FLootLockerPlayerData& PlayerData, const FString& Ulid, const FString& Description, const FString& CategoryID, const ELootLockerFeedbackType& Type, const FLootLockerSendFeedbackResponseDelegate& OnCompletedRequest = FLootLockerSendFeedbackResponseDelegate());
 };

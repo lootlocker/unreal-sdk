@@ -180,6 +180,11 @@ public:
         ErrorResponse.ErrorData.Retry_after_seconds = ExistingError.ErrorData.Retry_after_seconds;
         ErrorResponse.Context.PlayerUlid = ExistingError.Context.PlayerUlid;
         ErrorResponse.Context.RequestTime = ExistingError.Context.RequestTime;
+        ErrorResponse.Context.RequestId = ExistingError.Context.RequestId;
+        ErrorResponse.Context.RequestURL = ExistingError.Context.RequestURL;
+        ErrorResponse.Context.RequestMethod = ExistingError.Context.RequestMethod;
+        ErrorResponse.Context.RequestParameters = ExistingError.Context.RequestParameters;
+        ErrorResponse.Context.RequestParametersJsonString = ExistingError.Context.RequestParametersJsonString;
 
         return ErrorResponse;
     }

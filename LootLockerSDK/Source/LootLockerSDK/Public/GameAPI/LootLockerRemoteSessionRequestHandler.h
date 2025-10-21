@@ -380,20 +380,20 @@ public:
         float PollingIntervalSeconds = 1.0f,
         float TimeOutAfterMinutes = 5.0f,
         const FString& ForPlayerWithUlid = "");
-    static void RefreshRemoteSession(const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegate& OnComplete = FLootLockerRefreshRemoteSessionResponseDelegate());
-    static void ContinualPollingAction(const FString& ProcessID,
+    static FString RefreshRemoteSession(const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegate& OnComplete = FLootLockerRefreshRemoteSessionResponseDelegate());
+    static FString ContinualPollingAction(const FString& ProcessID,
         const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate = FLootLockerRemoteSessionStatusPollingResponseDelegate(),
         const FLootLockerStartRemoteSessionResponseDelegate& OnComplete = FLootLockerStartRemoteSessionResponseDelegate());
     static void KillProcess(const FString& ProcessID);
 
 protected:
-    static void LeaseRemoteSession(
+    static FString LeaseRemoteSession(
         const FString& TitleId,
         const FString& EnvironmentId,
         ELootLockerRemoteSessionLeaseIntent Intent,
         const FString& ForPlayerWithUlid,
         const LLAPI<FLootLockerLeaseRemoteSessionResponse>::FResponseInspectorCallback& OnCompleteCallback);
-    static void StartRemoteSession(const FString& LeaseCode, const FString& LeaseNonce, const LLAPI<FLootLockerStartRemoteSessionResponse>::FResponseInspectorCallback& OnCompleteCallback);
+    static FString StartRemoteSession(const FString& LeaseCode, const FString& LeaseNonce, const LLAPI<FLootLockerStartRemoteSessionResponse>::FResponseInspectorCallback& OnCompleteCallback);
     static void SetTimer(FTimerHandle TimerHandle, const FTimerDelegate& BaseDelegate, float TimeToNextPoll);
     static void ClearTimer(FTimerHandle TimerHandle);
 private:

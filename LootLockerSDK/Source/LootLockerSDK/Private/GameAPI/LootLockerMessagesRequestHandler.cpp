@@ -5,7 +5,7 @@
 #include "GameAPI/LootLockerCharacterRequestHandler.h"
 #include "Utils/LootLockerUtilities.h"
 
-void ULootLockerMessagesRequestHandler::GetMessages(const FLootLockerPlayerData& PlayerData, const FMessagesResponseDelegate& OnCompletedRequest)
+FString ULootLockerMessagesRequestHandler::GetMessages(const FLootLockerPlayerData& PlayerData, const FMessagesResponseDelegate& OnCompletedRequest)
 {
-    LLAPI<FLootLockerMessagesResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetMessagesEndpoint, { },EmptyQueryParams, PlayerData, OnCompletedRequest);
+    return LLAPI<FLootLockerMessagesResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetMessagesEndpoint, { },EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
