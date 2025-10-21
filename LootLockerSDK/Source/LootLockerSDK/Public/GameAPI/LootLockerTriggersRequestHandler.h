@@ -116,5 +116,5 @@ class LOOTLOCKERSDK_API ULootLockerTriggersRequestHandler : public UObject
 public:
     ULootLockerTriggersRequestHandler() {};
 
-    static void InvokeTriggersByKey(const FLootLockerPlayerData& PlayerData, const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseDelegate& OnComplete);
+    static FString InvokeTriggersByKey(const FLootLockerPlayerData& PlayerData, const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseDelegate& OnComplete);
 };

@@ -529,6 +529,7 @@ struct FLootLockerWhiteLabelLoginAndSessionResponse : public FLootLockerAuthResp
 		this->FullTextFromServer = LoginResponse.FullTextFromServer;
 		this->LoginResponse = LoginResponse;
 		this->ErrorData = ErrorData;
+		this->Context = LoginResponse.Context;
 	}
 
 	FLootLockerWhiteLabelLoginAndSessionResponse(const FLootLockerLoginResponse& LoginResponse, const FLootLockerAuthenticationResponse& SessionResponse)
@@ -540,6 +541,7 @@ struct FLootLockerWhiteLabelLoginAndSessionResponse : public FLootLockerAuthResp
 		this->LoginResponse = LoginResponse;
 		this->StartSessionResponse = SessionResponse;
 		this->ErrorData = ErrorData;
+		this->Context = SessionResponse.Context;
 	}
 };
 
@@ -579,41 +581,41 @@ class LOOTLOCKERSDK_API ULootLockerAuthenticationRequestHandler : public UObject
 public:
 	ULootLockerAuthenticationRequestHandler() {};
 
-	static void WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegate& OnCompletedRequest = FLootLockerLoginResponseDelegate());
-	static void WhiteLabelLogin(const FString& Email, const FString& Password, const bool Remember, const FLootLockerLoginResponseDelegate& OnCompletedRequest = FLootLockerLoginResponseDelegate());
-	static void GuestLogin(const FString& playerIdentifier, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
-	static void WhiteLabelStartSession(const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
-	static void WhiteLabelVerifySession(const FLootLockerPlayerData& ForPlayer, const FLootLockerWhiteLabelVerifySessionDelegate& OnCompletedRequest = FLootLockerWhiteLabelVerifySessionDelegate());
-	static void WhiteLabelRequestUserVerification(const int& UserId, const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
-	static void WhiteLabelRequestUserVerificationByEmail(const FString& Email, const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
-	static void WhiteLabelRequestPasswordReset(const FString& Email, const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
-	static void StartPlaystationNetworkSession(const FString& PsnOnlineId, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
-	static void VerifyPlayerAndStartPlaystationNetworkSession(const FString& AuthCode, const FString& AccountID, int PsnIssuerId, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
-	static void VerifyPlayerAndStartPlaystationNetworkV3Session(const FString& AuthCode, int EnvIssuerId, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
-	static void StartAndroidSession(const FString& DeviceId, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
-	static void StartGoogleSession(const FString& IdToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest = FLootLockerGoogleSessionResponseDelegate());
-	static void StartGoogleSession(const FString& IdToken, const ELootLockerGoogleClientPlatform Platform, const FLootLockerSessionOptionals& Optionals, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest = FLootLockerGoogleSessionResponseDelegate());
-	static void RefreshGoogleSession(const FString& RefreshToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest = FLootLockerGoogleSessionResponseDelegate());
-	static void StartGooglePlayGamesSession(const FString& IdToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerGooglePlayGamesSessionResponseDelegate& OnCompletedRequest = FLootLockerGooglePlayGamesSessionResponseDelegate());
-	static void RefreshGooglePlayGamesSession(const FString& RefreshToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerGooglePlayGamesSessionResponseDelegate& OnCompletedRequest = FLootLockerGooglePlayGamesSessionResponseDelegate());
-	static void StartEpicSession(const FString& IdToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest = FLootLockerEpicSessionResponseDelegate());
-	static void RefreshEpicSession(const FString& RefreshToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest = FLootLockerEpicSessionResponseDelegate());
-	static void StartAmazonLunaSession(const FString& AmazonLunaGuid, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
-	static void StartSteamSession(const FString& SteamId64, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
-	static void StartSteamSession(const FString& SteamSessionTicket, const FString& SteamAppId, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
-	static void StartNintendoSwitchSession(const FString& NSAIdToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
-	static void StartXboxSession(const FString& XboxUserToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
-	static void StartAppleSession(const FString& AuthorizationCode, const FLootLockerSessionOptionals& Optionals, const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleSessionResponseDelegate());
-	static void RefreshAppleSession(const FString& RefreshToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleSessionResponseDelegate());
-	static void VerifyPlayer(const FLootLockerPlayerData& ForPlayer, const FString& PlatformToken, const FString& Platform, const int SteamAppId = -1, const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
-	static void EndSession(const FLootLockerPlayerData& ForPlayer, const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
-	static void WhiteLabelLoginAndStartSession(const FString& Email, const FString& Password, bool bRemember, const FLootLockerSessionOptionals& Optionals, const FLootLockerWhiteLabelLoginAndSessionResponseDelegate& LootLockerWhiteLabelLoginAndSessionResponseDelegate = FLootLockerWhiteLabelLoginAndSessionResponseDelegate());
-	static void StartAppleGameCenterSession(const FString& BundleId, const FString& PlayerId, const FString& PublicKeyUrl, const FString& Signature, const FString& Salt, const FString& Timestamp, const FLootLockerSessionOptionals& Optionals, const FLootLockerAppleGameCenterSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleGameCenterSessionResponseDelegate()); 
-	static void RefreshAppleGameCenterSession(const FString& RefreshToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerAppleGameCenterSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleGameCenterSessionResponseDelegate());
-	static void StartMetaSession(const FString& UserId, const FString& Nonce, const FLootLockerSessionOptionals& Optionals, const FLootLockerMetaSessionResponseDelegate& OnCompletedRequest = FLootLockerMetaSessionResponseDelegate());
-	static void RefreshMetaSession(const FString& RefreshToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerMetaSessionResponseDelegate& OnCompletedRequest = FLootLockerMetaSessionResponseDelegate());
-	static void StartDiscordSession(const FString& AccessToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest = FLootLockerDiscordSessionResponseDelegate());
-	static void RefreshDiscordSession(const FString& RefreshToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest = FLootLockerDiscordSessionResponseDelegate());
+	static FString WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegate& OnCompletedRequest = FLootLockerLoginResponseDelegate());
+	static FString WhiteLabelLogin(const FString& Email, const FString& Password, const bool Remember, const FLootLockerLoginResponseDelegate& OnCompletedRequest = FLootLockerLoginResponseDelegate());
+	static FString GuestLogin(const FString& playerIdentifier, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
+	static FString WhiteLabelStartSession(const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
+	static FString WhiteLabelVerifySession(const FLootLockerPlayerData& ForPlayer, const FLootLockerWhiteLabelVerifySessionDelegate& OnCompletedRequest = FLootLockerWhiteLabelVerifySessionDelegate());
+	static FString WhiteLabelRequestUserVerification(const int& UserId, const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
+	static FString WhiteLabelRequestUserVerificationByEmail(const FString& Email, const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
+	static FString WhiteLabelRequestPasswordReset(const FString& Email, const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
+	static FString StartPlaystationNetworkSession(const FString& PsnOnlineId, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
+	static FString VerifyPlayerAndStartPlaystationNetworkSession(const FString& AuthCode, const FString& AccountID, int PsnIssuerId, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
+	static FString VerifyPlayerAndStartPlaystationNetworkV3Session(const FString& AuthCode, int EnvIssuerId, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
+	static FString StartAndroidSession(const FString& DeviceId, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
+	static FString StartGoogleSession(const FString& IdToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest = FLootLockerGoogleSessionResponseDelegate());
+	static FString StartGoogleSession(const FString& IdToken, const ELootLockerGoogleClientPlatform Platform, const FLootLockerSessionOptionals& Optionals, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest = FLootLockerGoogleSessionResponseDelegate());
+	static FString RefreshGoogleSession(const FString& RefreshToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest = FLootLockerGoogleSessionResponseDelegate());
+	static FString StartGooglePlayGamesSession(const FString& IdToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerGooglePlayGamesSessionResponseDelegate& OnCompletedRequest = FLootLockerGooglePlayGamesSessionResponseDelegate());
+	static FString RefreshGooglePlayGamesSession(const FString& RefreshToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerGooglePlayGamesSessionResponseDelegate& OnCompletedRequest = FLootLockerGooglePlayGamesSessionResponseDelegate());
+	static FString StartEpicSession(const FString& IdToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest = FLootLockerEpicSessionResponseDelegate());
+	static FString RefreshEpicSession(const FString& RefreshToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest = FLootLockerEpicSessionResponseDelegate());
+	static FString StartAmazonLunaSession(const FString& AmazonLunaGuid, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
+	static FString StartSteamSession(const FString& SteamId64, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
+	static FString StartSteamSession(const FString& SteamSessionTicket, const FString& SteamAppId, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& Delegate = FLootLockerSessionResponse());
+	static FString StartNintendoSwitchSession(const FString& NSAIdToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
+	static FString StartXboxSession(const FString& XboxUserToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& OnCompletedRequest = FLootLockerSessionResponse());
+	static FString StartAppleSession(const FString& AuthorizationCode, const FLootLockerSessionOptionals& Optionals, const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleSessionResponseDelegate());
+	static FString RefreshAppleSession(const FString& RefreshToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleSessionResponseDelegate());
+	static FString VerifyPlayer(const FLootLockerPlayerData& ForPlayer, const FString& PlatformToken, const FString& Platform, const int SteamAppId = -1, const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
+	static FString EndSession(const FLootLockerPlayerData& ForPlayer, const FLootLockerDefaultDelegate& OnCompletedRequest = FLootLockerDefaultDelegate());
+	static FString WhiteLabelLoginAndStartSession(const FString& Email, const FString& Password, bool bRemember, const FLootLockerSessionOptionals& Optionals, const FLootLockerWhiteLabelLoginAndSessionResponseDelegate& LootLockerWhiteLabelLoginAndSessionResponseDelegate = FLootLockerWhiteLabelLoginAndSessionResponseDelegate());
+	static FString StartAppleGameCenterSession(const FString& BundleId, const FString& PlayerId, const FString& PublicKeyUrl, const FString& Signature, const FString& Salt, const FString& Timestamp, const FLootLockerSessionOptionals& Optionals, const FLootLockerAppleGameCenterSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleGameCenterSessionResponseDelegate()); 
+	static FString RefreshAppleGameCenterSession(const FString& RefreshToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerAppleGameCenterSessionResponseDelegate& OnCompletedRequest = FLootLockerAppleGameCenterSessionResponseDelegate());
+	static FString StartMetaSession(const FString& UserId, const FString& Nonce, const FLootLockerSessionOptionals& Optionals, const FLootLockerMetaSessionResponseDelegate& OnCompletedRequest = FLootLockerMetaSessionResponseDelegate());
+	static FString RefreshMetaSession(const FString& RefreshToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerMetaSessionResponseDelegate& OnCompletedRequest = FLootLockerMetaSessionResponseDelegate());
+	static FString StartDiscordSession(const FString& AccessToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest = FLootLockerDiscordSessionResponseDelegate());
+	static FString RefreshDiscordSession(const FString& RefreshToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest = FLootLockerDiscordSessionResponseDelegate());
 	
 private:
 	template<typename RequestType>
