@@ -141,6 +141,7 @@ public:
      @param PsnOnlineId PSN Online ID of the player
      @param OnCompletedRequest Delegate for handling the server response
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     [[deprecated("This method is deprecated, please use VerifyPlayerAndStartPlaystationNetworkSession instead.")]] // Deprecation date 20250922
     static FString StartPlaystationNetworkSession(const FString& PsnOnlineId, const FLootLockerSessionResponse& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
@@ -154,6 +155,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      @param PsnIssuerId Optional: PSN issuer id (default 256 = production)
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString VerifyPlayerAndStartPlaystationNetworkSession(const FString& AuthCode, const FString& AccountID, const FLootLockerSessionResponse& OnCompletedRequest, int PsnIssuerId = 256, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -165,6 +167,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      @param EnvIssuerId Optional: Environment issuer id (default 256 = production)
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString VerifyPlayerAndStartPlaystationNetworkV3Session(const FString& AuthCode, const FLootLockerSessionResponse& OnCompletedRequest, int EnvIssuerId = 256, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -175,6 +178,7 @@ public:
      @param DeviceId Device identifier for the player
      @param OnCompletedRequest Delegate for handling the server response
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString StartAndroidSession(const FString& DeviceId, const FLootLockerSessionResponse& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -185,6 +189,7 @@ public:
      @param AmazonLunaGuid Amazon Luna GUID identifying the player
      @param OnCompletedRequest Delegate for handling the server response
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString StartAmazonLunaSession(const FString& AmazonLunaGuid, const FLootLockerSessionResponse& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -197,6 +202,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      @param SteamAppId Optional: Specific Steam App ID to verify against (blank = default)
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString StartSteamSessionUsingTicket(const FString& SteamSessionTicket, const FLootLockerSessionResponse& OnCompletedRequest, const FString& SteamAppId = "", const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -207,6 +213,7 @@ public:
      @param NSAIdToken Nintendo Switch Account (NSA) id token
      @param OnCompletedRequest Delegate for handling the server response
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString StartNintendoSwitchSession(const FString& NSAIdToken, const FLootLockerSessionResponse& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -217,6 +224,7 @@ public:
      @param XboxUserToken Xbox user token
      @param OnCompletedRequest Delegate for handling the server response
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString StartXboxSession(const FString& XboxUserToken, const FLootLockerSessionResponse& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -227,6 +235,7 @@ public:
      @param IdToken Google ID token
      @param OnCompletedRequest Delegate for handling the server response
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString StartGoogleSession(const FString& IdToken, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -238,6 +247,7 @@ public:
      @param Platform Google OAuth2 client platform enum value
      @param OnCompletedRequest Delegate for handling the server response
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString StartGoogleSessionForPlatform(const FString& IdToken, ELootLockerGoogleClientPlatform Platform, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -249,6 +259,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RefreshGoogleSession(const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "", const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals()) { return RefreshGoogleSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest, Optionals); };
 
@@ -260,6 +271,7 @@ public:
      @param RefreshToken Refresh token from StartGoogleSession
      @param OnCompletedRequest Delegate for handling the server response
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RefreshGoogleSession(const FString& RefreshToken, const FLootLockerGoogleSessionResponseDelegate& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
     
@@ -270,6 +282,7 @@ public:
      @param AuthCode Authorization code from Google Play Games sign-in
      @param OnCompletedRequest Delegate for handling the server response
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString StartGooglePlayGamesSession(const FString& AuthCode, const FLootLockerGooglePlayGamesSessionResponseDelegate& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -281,6 +294,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RefreshGooglePlayGamesSession(const FLootLockerGooglePlayGamesSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "", const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals()) { return RefreshGooglePlayGamesSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest, Optionals); };
 
@@ -292,6 +306,7 @@ public:
      @param RefreshToken Refresh token from StartGooglePlayGamesSession
      @param OnCompletedRequest Delegate for handling the server response
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RefreshGooglePlayGamesSession(const FString& RefreshToken, const FLootLockerGooglePlayGamesSessionResponseDelegate& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -302,6 +317,7 @@ public:
      @param AuthorizationCode Authorization code provided by Apple
      @param OnCompletedRequest Delegate for handling the server response
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString StartAppleSession(const FString& AuthorizationCode, const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -313,6 +329,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RefreshAppleSession(const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "", const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals()) { return RefreshAppleSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest, Optionals); };
 
@@ -324,6 +341,7 @@ public:
      @param RefreshToken Refresh token from StartAppleSession
      @param OnCompletedRequest Delegate for handling the server response
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RefreshAppleSession(const FString& RefreshToken, const FLootLockerAppleSessionResponseDelegate& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -339,6 +357,7 @@ public:
      @param Timestamp Timestamp from Apple Game Center Identity Verification
      @param OnStartedAppleGameCenterSessionCompleted Delegate for handling the server response
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString StartAppleGameCenterSession(const FString& BundleId, const FString& PlayerId, const FString& PublicKeyUrl, const FString& Signature, const FString& Salt, const FString& Timestamp, const FLootLockerAppleGameCenterSessionResponseDelegate& OnStartedAppleGameCenterSessionCompleted, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -350,6 +369,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RefreshAppleGameCenterSession(const FLootLockerAppleGameCenterSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "", const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals()) { return RefreshAppleGameCenterSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest, Optionals); };
 
@@ -361,6 +381,7 @@ public:
      @param RefreshToken Refresh token from StartAppleGameCenterSession (resolved from stored data if empty)
      @param OnRefreshAppleGameCenterSessionCompleted Delegate for handling the server response
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RefreshAppleGameCenterSession(const FString& RefreshToken, const FLootLockerAppleGameCenterSessionResponseDelegate& OnRefreshAppleGameCenterSessionCompleted, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -371,6 +392,7 @@ public:
      @param IdToken EOS ID token
      @param OnCompletedRequest Delegate for handling the server response
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString StartEpicSession(const FString& IdToken, const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -382,6 +404,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RefreshEpicSession(const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "", const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals()) { return RefreshEpicSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest, Optionals); };
 
@@ -393,6 +416,7 @@ public:
      @param RefreshToken Refresh token from StartEpicSession (resolved from stored data if empty)
      @param OnCompletedRequest Delegate for handling the server response
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RefreshEpicSession(const FString& RefreshToken, const FLootLockerEpicSessionResponseDelegate& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -404,6 +428,7 @@ public:
      @param Nonce Nonce received from Oculus
      @param OncompletedRequest Delegate for handling the server response
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString StartMetaSession(const FString& UserId, const FString& Nonce, const FLootLockerMetaSessionResponseDelegate& OncompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -415,6 +440,7 @@ public:
      @param OncompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RefreshMetaSession(const FLootLockerMetaSessionResponseDelegate& OncompletedRequest, const FString& ForPlayerWithUlid = "", const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals()) { return RefreshMetaSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OncompletedRequest, Optionals); };
 
@@ -426,6 +452,7 @@ public:
      @param RefreshToken Refresh token from StartMetaSession (resolved from stored data if empty)
      @param OncompletedRequest Delegate for handling the server response
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RefreshMetaSession(const FString& RefreshToken, const FLootLockerMetaSessionResponseDelegate& OncompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -435,6 +462,7 @@ public:
      @param PlayerIdentifier Optional: Custom unique identifier to associate with this guest player (auto-generated if empty)
      @param OnCompletedRequest Delegate for handling the server response
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GuestLogin(const FLootLockerSessionResponse& OnCompletedRequest, const FString& PlayerIdentifier = "", const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -445,6 +473,7 @@ public:
      @param AccessToken Access token from Discord OAuth
      @param OnCompletedRequest Delegate for handling the server response
      @param Optionals Optional: Additional session options applied when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString StartDiscordSession(const FString& AccessToken, const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -456,6 +485,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @param Optionals Optional: Additional session options when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RefreshDiscordSession(const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "", const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals()) { return RefreshDiscordSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest, Optionals); };
 
@@ -467,6 +497,7 @@ public:
      @param RefreshToken Refresh token from StartDiscordSession
      @param OnCompletedRequest Delegate for handling the server response
      @param Optionals Optional: Additional session options when starting the session
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RefreshDiscordSession(const FString& RefreshToken, const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -477,6 +508,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      @param Platform Optional: Explicit platform identifier override
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     [[deprecated("This method is deprecated, please use VerifyPlayerAndStartPlaystationNetworkSession or VerifyPlayerAndStartSteamSession instead.")]] // Deprecation date 20250922
     static FString VerifyPlayer(const FString& PlatformToken, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& Platform = FString(TEXT("")), const FString& ForPlayerWithUlid = "");
@@ -488,6 +520,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString EndSession(const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -499,6 +532,7 @@ public:
 
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListConnectedAccounts(const FLootLockerListConnectedAccountsResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -508,6 +542,7 @@ public:
      @param AccountToDisconnect Provider to disconnect
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString DisconnectAccount(const ELootLockerAccountProvider AccountToDisconnect, const FLootLockerDefaultDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -517,6 +552,7 @@ public:
      @param IdToken ID token from Google sign-in
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ConnectGoogleAccount(const FString& IdToken, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -527,6 +563,7 @@ public:
      @param Platform Google OAuth2 client platform
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ConnectGoogleAccount(const FString& IdToken, EGoogleAccountProviderPlatform Platform, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -536,6 +573,7 @@ public:
      @param AuthorizationCode Authorization code from Apple sign-in
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ConnectAppleAccountByRestSignIn(const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -545,6 +583,7 @@ public:
      @param AuthorizationCode Authorization code from Twitch sign-in
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ConnectTwitchAccount(const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -554,6 +593,7 @@ public:
      @param Token Token from Epic sign-in
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ConnectEpicAccount(const FString& Token, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -564,6 +604,7 @@ public:
      @param Code Authorization code (parameter missing in original doc)
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ConnectPlaystationAccount(const FString& Environment, const FString& Code, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -573,6 +614,7 @@ public:
      @param Token Token from Discord sign-in
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ConnectDiscordAccount(const FString& Token, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -583,6 +625,7 @@ public:
      @param Nonce Nonce from start remote session
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ConnectRemoteSessionAccount(const FString& Code, const FString& Nonce, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -600,6 +643,7 @@ public:
      @param ToPlayerWithUlid Target player ULID
      @param ProvidersToTransfer Providers to transfer
      @param OnComplete Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString TransferIdentityProvidersBetweenAccounts(const FString& FromPlayerWithUlid, const FString& ToPlayerWithUlid, TArray<ELootLockerAccountProvider> ProvidersToTransfer, const FLootLockerListConnectedAccountsResponseDelegate& OnComplete);
 
@@ -618,6 +662,7 @@ public:
      @param PollingIntervalSeconds Optional: Status polling interval seconds
      @param TimeOutAfterMinutes Optional: Max duration minutes before timeout
      @return Remote session process id
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString StartRemoteSession(
         const FLootLockerLeaseRemoteSessionResponseDelegate& RemoteSessionLeaseInformation,
@@ -636,6 +681,7 @@ public:
      @param PollingIntervalSeconds Optional: Status polling interval seconds
      @param TimeOutAfterMinutes Optional: Max duration minutes before timeout
      @return Remote session process id
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString StartRemoteSessionForLinking(
         const FString& ForPlayerWithUlid,
@@ -659,6 +705,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RefreshRemoteSession(const FLootLockerRefreshRemoteSessionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "") { return RefreshRemoteSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid).RefreshToken, OnCompletedRequest); };
 
@@ -669,6 +716,7 @@ public:
 
      @param RefreshToken Refresh token from StartRemoteSession
      @param OnCompletedRequest Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RefreshRemoteSession(const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegate& OnCompletedRequest);
 
@@ -684,6 +732,7 @@ public:
      @param Email User email
      @param Password User password
      @param OnCompletedRequest Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegate& OnCompletedRequest);
 
@@ -696,6 +745,7 @@ public:
      @param Password Account password
      @param OnCompletedRequest Delegate for handling the server response
      @param Remember Optional: Prolong session lifetime
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegate& OnCompletedRequest, const bool Remember = false);
 
@@ -706,6 +756,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param Optionals Optional: Additional session options
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString WhiteLabelStartSession(const FLootLockerSessionResponse& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -717,6 +768,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      @param Remember Optional: Prolong session lifetime
      @param Optionals Optional: Additional session options
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString WhiteLabelLoginAndStartSession(const FString& Email, const FString& Password, const FLootLockerWhiteLabelLoginAndSessionResponseDelegate& OnCompletedRequest, const bool Remember = false, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
@@ -727,6 +779,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString WhiteLabelVerifySession(const FLootLockerWhiteLabelVerifySessionDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -735,6 +788,7 @@ public:
 
      @param UserId White Label user id
      @param OnCompletedRequest Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString WhiteLabelRequestUserVerification(const int& UserId, const FLootLockerDefaultDelegate& OnCompletedRequest);
 
@@ -743,6 +797,7 @@ public:
 
      @param Email User email
      @param OnCompletedRequest Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString WhiteLabelRequestUserVerificationByEmail(const FString& Email, const FLootLockerDefaultDelegate& OnCompletedRequest);
 
@@ -751,6 +806,7 @@ public:
 
      @param Email User email
      @param OnCompletedRequest Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString WhiteLabelRequestPasswordReset(const FString& Email, const FLootLockerDefaultDelegate& OnCompletedRequest);
 
@@ -763,6 +819,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetCurrentPlayerInfo(const FLootLockerGetCurrentPlayerInfoResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -774,6 +831,7 @@ public:
      @param PlayerPublicUidsToLookUp Array of public player UIDs to look up
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListPlayerInfo(TArray<FString> PlayerIdsToLookUp, TArray<int> PlayerLegacyIdsToLookUp, TArray<FString> PlayerPublicUidsToLookUp, const FLootLockerListPlayerInfoResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -782,6 +840,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetInventory(const FInventoryResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -791,6 +850,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      @param StartIndex Pagination pointer; returns items after this asset instance id
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetFullInventory(const FInventoryResponse & OnCompletedRequest, int32 StartIndex, const FString& ForPlayerWithUlid = "");
 
@@ -799,6 +859,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString CheckPlayerAssetActivationNotification(const FLootLockerAssetNotificationResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -807,6 +868,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetCurrencyBalance(const FPBalanceResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -815,6 +877,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString InitiateDLCMigration(const FResponseCallback & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -823,6 +886,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetDLCsMigration(const FPDlcResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -831,6 +895,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString SetProfilePrivate(const FResponseCallback & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -839,6 +904,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString SetProfilePublic(const FResponseCallback & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -848,6 +914,7 @@ public:
      @param Name New player display name
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString SetPlayerName(FString Name, const FPNameResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -856,6 +923,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetPlayerName(const FPNameResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -865,6 +933,7 @@ public:
      @param Request Payload containing platform and id combinations to search
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     [[deprecated("This method is deprecated in favor of method LookupMultiplePlayersDataUsingIDs")]] // Deprecation date 20250304
     static FString LookupMultiplePlayerNamesUsingIDs(const FLootLockerMultiplePlayerNamesRequest &Request, const FPMultiplePlayerNames& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
@@ -875,6 +944,7 @@ public:
      @param Request Payload containing platforms and ids for player data lookup
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString LookupMultiplePlayersDataUsingIDs(const FLootLockerLookupMultiplePlayersDataRequest& Request, const FPMultiplePlayerNames& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -884,6 +954,7 @@ public:
      @param Request Payload containing player ids and/or public UIDs
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerMultiplePlayerNamesAndPlatformsRequest & Request, const FPMultiplePlayersPlatformIdsNames & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -892,6 +963,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString DeletePlayer(const FLootLockerDefaultDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -906,6 +978,7 @@ public:
      @param Request File upload request payload
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString UploadFile(const FLootLockerFileUploadRequest & Request, const FLootLockerUploadFileDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -916,6 +989,7 @@ public:
      @param Request File update request payload
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString UpdateFile(const int32 FileId, const FLootLockerFileUpdateRequest & Request, const FLootLockerUploadFileDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -924,6 +998,7 @@ public:
 
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListFiles(const FLootLockerFileListDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -933,6 +1008,7 @@ public:
      @param PlayerID Legacy player id of the target player
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListOtherPlayersPublicFiles(const int32 PlayerID, const FLootLockerFileListDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -942,6 +1018,7 @@ public:
      @param FileID File id (retrieved from upload response or ListFiles)
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetSingleFile(const int32 FileID, const FLootLockerUploadFileDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -951,6 +1028,7 @@ public:
      @param FileID File id to delete (from upload response or ListFiles)
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString DeletePlayerFile(const int32 FileID, const FLootLockerFileDeletedDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -965,6 +1043,7 @@ public:
      @param After Pagination cursor (player progression id) to start after (use next_cursor / previous_cursor values)
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetPlayerProgressions(const int32 & Count, const FString & After, const FLootLockerPaginatedPlayerProgressionsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -974,6 +1053,7 @@ public:
      @param Count Number of entries to receive
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetPlayerProgressions(const int32 & Count, const FLootLockerPaginatedPlayerProgressionsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -982,6 +1062,7 @@ public:
 
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetPlayerProgressions(const FLootLockerPaginatedPlayerProgressionsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -991,6 +1072,7 @@ public:
      @param ProgressionKey Key of the progression to fetch
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetPlayerProgression(const FString & ProgressionKey, const FLootLockerPlayerProgressionResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1001,6 +1083,7 @@ public:
      @param Amount Number of points to add
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString AddPointsToPlayerProgression(const FString & ProgressionKey, const int32 & Amount, const FLootLockerPlayerProgressionWithRewardsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1011,6 +1094,7 @@ public:
      @param Amount Number of points to subtract
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString SubtractPointsFromPlayerProgression(const FString & ProgressionKey, const int32 & Amount, const FLootLockerPlayerProgressionWithRewardsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1020,6 +1104,7 @@ public:
      @param ProgressionKey Key of the progression to reset
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ResetPlayerProgression(const FString & ProgressionKey, const FLootLockerPlayerProgressionWithRewardsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1029,6 +1114,7 @@ public:
      @param ProgressionKey Key of the progression to delete
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString DeletePlayerProgression(const FString & ProgressionKey, const FLootLockerDeleteProgressionDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1040,6 +1126,7 @@ public:
      @param After Pagination cursor (player progression id) to start after
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the calling player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetOtherPlayersProgressions(const FString& PlayerUlid, const int32& Count, const FString& After, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1050,6 +1137,7 @@ public:
      @param Count Number of entries to receive
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the calling player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetOtherPlayersProgressions(const FString& PlayerUlid, const int32& Count, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1059,6 +1147,7 @@ public:
      @param PlayerUlid ULID of the target player
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the calling player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetOtherPlayersProgressions(const FString& PlayerUlid, const FLootLockerPaginatedPlayerProgressionsResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1069,6 +1158,7 @@ public:
      @param ProgressionKey Key of the progression to fetch
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the calling player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetOtherPlayersProgression(const FString& PlayerUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1084,6 +1174,7 @@ public:
          @param After Pagination cursor (instance progression id) to start after (use next_cursor / previous_cursor)
          @param OnComplete Delegate for handling the server response
          @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
          */
     static FString GetInstanceProgressions(const int32 AssetInstanceId, const int32 Count, const FString & After, const FLootLockerPaginatedInstanceProgressionsResponseDelegate & OnComplete = FLootLockerPaginatedInstanceProgressionsResponseDelegate(), const FString& ForPlayerWithUlid = "");
         /**
@@ -1093,6 +1184,7 @@ public:
          @param Count Number of entries to receive
          @param OnComplete Delegate for handling the server response
          @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
          */
     static FString GetInstanceProgressions(const int32 AssetInstanceId, const int32 & Count, const FLootLockerPaginatedInstanceProgressionsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1102,6 +1194,7 @@ public:
          @param AssetInstanceId Id of the asset instance
          @param OnComplete Delegate for handling the server response
          @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
          */
     static FString GetInstanceProgressions(const int32 AssetInstanceId, const FLootLockerPaginatedInstanceProgressionsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1112,6 +1205,7 @@ public:
          @param ProgressionKey Key of the progression to fetch
          @param OnComplete Delegate for handling the server response
          @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
          */
     static FString GetInstanceProgression(const int32 AssetInstanceId, const FString & ProgressionKey, const FLootLockerInstanceProgressionResponseDelegate & OnComplete = FLootLockerInstanceProgressionResponseDelegate(), const FString& ForPlayerWithUlid = "");
 
@@ -1123,6 +1217,7 @@ public:
          @param Amount Number of points to add
          @param OnComplete Delegate for handling the server response
          @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
          */
     static FString AddPointsToInstanceProgression(const int32 AssetInstanceId, const FString & ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseDelegate & OnComplete = FLootLockerInstanceProgressionWithRewardsResponseDelegate(), const FString& ForPlayerWithUlid = "");
 
@@ -1134,6 +1229,7 @@ public:
          @param Amount Number of points to subtract
          @param OnComplete Delegate for handling the server response
          @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
          */
     static FString SubtractPointsFromInstanceProgression(const int32 AssetInstanceId, const FString & ProgressionKey, const int32 Amount, const FLootLockerInstanceProgressionWithRewardsResponseDelegate & OnComplete = FLootLockerInstanceProgressionWithRewardsResponseDelegate(), const FString& ForPlayerWithUlid = "");
 
@@ -1144,6 +1240,7 @@ public:
          @param ProgressionKey Key of the progression to reset
          @param OnComplete Delegate for handling the server response
          @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
          */
     static FString ResetInstanceProgression(const int32 AssetInstanceId, const FString & ProgressionKey, const FLootLockerInstanceProgressionWithRewardsResponseDelegate & OnComplete = FLootLockerInstanceProgressionWithRewardsResponseDelegate(), const FString& ForPlayerWithUlid = "");
 
@@ -1154,6 +1251,7 @@ public:
          @param ProgressionKey Key of the progression to delete
          @param OnComplete Delegate for handling the server response
          @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
          */
     static FString DeleteInstanceProgression(const int32 AssetInstanceId, const FString & ProgressionKey, const FLootLockerDeleteProgressionDelegate & OnComplete = FLootLockerDeleteProgressionDelegate(), const FString& ForPlayerWithUlid = "");
 
@@ -1167,6 +1265,7 @@ public:
 
      @param OnCompleteRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetGameHeroes(const FLootLockerGameHeroListDelegate & OnCompleteRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1175,6 +1274,7 @@ public:
 
      @param OnCompleteRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListPlayerHeroes(const FLootLockerHeroListDelegate & OnCompleteRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1184,6 +1284,7 @@ public:
      @param SteamID64 SteamID64 of the target player
      @param OnCompleteRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListOtherPlayersHeroesBySteamID64(const int64 SteamID64, const FLootLockerHeroListDelegate & OnCompleteRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1193,6 +1294,7 @@ public:
      @param Request Request containing template hero id and desired hero name
      @param OnCompleteRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString CreateHero(const FLootLockerCreateHeroRequest & Request, const FLootLockerPlayerHeroDelegate & OnCompleteRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1202,6 +1304,7 @@ public:
      @param Request Request including template hero id, hero name, variation id and default flag
      @param OnCompleteRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString CreateHeroWithVariation(const FLootLockerCreateHeroWithVariationRequest & Request, const FLootLockerPlayerHeroDelegate & OnCompleteRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1211,6 +1314,7 @@ public:
      @param HeroID Id of the hero to fetch
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetHero(const int32 HeroID, const FLootLockerPlayerHeroDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1220,6 +1324,7 @@ public:
      @param SteamID64 SteamID64 of the target player
      @param OnCompleteRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetOtherPlayersDefaultHeroBySteamID64(const int64 SteamID64, const FLootLockerPlayerHeroDelegate & OnCompleteRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1230,6 +1335,7 @@ public:
      @param Request Request specifying new name and default flag
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString UpdateHero(const int32 HeroID, const FLootLockerUpdateHeroRequest & Request, const FLootLockerPlayerHeroDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1239,6 +1345,7 @@ public:
      @param HeroID Id of the hero to delete
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString DeleteHero(const int32 HeroID, const FLLHeroDefaultResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1248,6 +1355,7 @@ public:
      @param HeroID Id of the hero
      @param OnCompleteRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetHeroInventory(const int32 HeroID, const FInventoryResponse & OnCompleteRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1257,6 +1365,7 @@ public:
      @param HeroID Id of the hero
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1266,6 +1375,7 @@ public:
      @param HeroID Id of the hero
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetOtherPlayersHeroLoadout(const int32 HeroID, const FHeroLoadoutReseponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1276,6 +1386,7 @@ public:
      @param AssetInstanceID Id of the asset instance to equip
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString AddAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1286,6 +1397,7 @@ public:
      @param AssetID Id of the global asset
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString AddGlobalAssetToHeroLoadout(const int32 HeroID, const int32 AssetID, const FHeroLoadoutReseponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1297,6 +1409,7 @@ public:
      @param AssetVariationID Variation id of the global asset
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString AddGlobalAssetVariationToHeroLoadout(const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const FHeroLoadoutReseponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1307,6 +1420,7 @@ public:
      @param AssetInstanceID Id of the asset instance to unequip
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RemoveAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1320,6 +1434,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetCharacterLoadout(const FCharacterLoadoutResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1331,6 +1446,7 @@ public:
      @param Name New character name
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString UpdateCharacter(int CharacterId, bool IsDefault, FString & Name, const FCharacterLoadoutResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1343,6 +1459,7 @@ public:
      @param CharacterTypeId Character type id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString CreateCharacter(bool IsDefault, const FString & CharacterName, const FString & CharacterTypeId, const FCharacterLoadoutResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1352,6 +1469,7 @@ public:
      @param CharacterId Id of the character to delete
      @param OnCompletedRequestBP Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString DeleteCharacter(int CharacterId, const FLootLockerCharacterDefaultResponse& OnCompletedRequestBP, const FString& ForPlayerWithUlid = "");
 
@@ -1360,6 +1478,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListCharacterTypes(const FPLootLockerListCharacterTypesResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1370,6 +1489,7 @@ public:
      @param InstanceId Asset instance id (from inventory or loadout)
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString EquipAssetToDefaultCharacter(int InstanceId, const FLootLockerCharacterDefaultResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1381,6 +1501,7 @@ public:
      @param AssetVariationId Asset variation id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString EquipAssetToCharacterById(int CharacterId, int AssetId, int AssetVariationId, const FLootLockerCharacterDefaultResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1391,6 +1512,7 @@ public:
      @param InstanceId Asset instance id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString EquipAssetToCharacterById(int CharacterId, int InstanceId, const FLootLockerCharacterDefaultResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1400,6 +1522,7 @@ public:
      @param InstanceId Asset instance id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString UnEquipAssetToDefaultCharacter(int InstanceId, const FLootLockerCharacterDefaultResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1410,6 +1533,7 @@ public:
      @param InstanceId Asset instance id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString UnEquipAssetToCharacterById(int CharacterId, int InstanceId, const FLootLockerCharacterDefaultResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1418,6 +1542,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetCurrentLoadoutToDefaultCharacter(const FCharacterLoadoutResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1428,6 +1553,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      @param OtherPlayerPlatform Optional: Platform the id refers to (if different than current)
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetOtherPlayersCurrentLoadoutToDefaultCharacter(FString OtherPlayerId, const FCharacterLoadoutResponse & OnCompletedRequest, const FString & OtherPlayerPlatform = FString(TEXT("")), const FString& ForPlayerWithUlid = "");
 
@@ -1436,6 +1562,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetEquipableContextsToDefaultCharacter(const FContextDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1445,6 +1572,7 @@ public:
      @param OtherCharacterId Target character id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetEquipableContextsByCharacterId(int OtherCharacterId, const FContextDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1452,6 +1580,7 @@ public:
      List characters owned by the player.
 
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListPlayerCharacters(const FPLootLockerListPlayerCharactersResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1462,6 +1591,7 @@ public:
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @param OtherPlayerPlatform Optional: Platform the id refers to (if differing)
      @param OnCompletedRequest Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetOtherPlayersCharacterLoadouts(const FString& OtherPlayerId, const FCharacterLoadoutResponse& OnCompletedRequest, const FString& ForPlayerWithUlid = "", const FString& OtherPlayerPlatform = "");
 
@@ -1471,6 +1601,7 @@ public:
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @param OtherPlayerUid Public UID of the target player
      @param OnCompletedRequest Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetOtherPlayersCharacterLoadoutsByUid(const FString& OtherPlayerUid, const FCharacterLoadoutResponse& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1487,6 +1618,7 @@ public:
      @param After Optional: Pagination cursor (previous character progression id); use next_cursor / previous_cursor from prior response
      @param OnComplete Delegate for handling the server response (paginated character progressions)
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetCharacterProgressions(const int32 & CharacterId, const int32 & Count, const FString & After, const FLootLockerPaginatedCharacterProgressionsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1497,6 +1629,7 @@ public:
      @param Count Number of entries to return
      @param OnComplete Delegate for handling the server response (paginated character progressions)
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetCharacterProgressions(const int32 & CharacterId, const int32 & Count, const FLootLockerPaginatedCharacterProgressionsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1506,6 +1639,7 @@ public:
      @param CharacterId Id of the character
      @param OnComplete Delegate for handling the server response (paginated character progressions)
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetCharacterProgressions(const int32 & CharacterId, const FLootLockerPaginatedCharacterProgressionsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1516,6 +1650,7 @@ public:
      @param ProgressionKey Progression key
      @param OnComplete Delegate for handling the server response (character progression)
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetCharacterProgression(const int32 & CharacterId, const FString & ProgressionKey, const FLootLockerCharacterProgressionResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1527,6 +1662,7 @@ public:
      @param Amount Points to add
      @param OnComplete Delegate for handling the server response (progression with rewards)
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString AddPointsToCharacterProgression(const int32 & CharacterId, const FString & ProgressionKey, const int32 & Amount, const FLootLockerCharacterProgressionWithRewardsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1538,6 +1674,7 @@ public:
      @param Amount Points to subtract
      @param OnComplete Delegate for handling the server response (progression with rewards)
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString SubtractPointsFromCharacterProgression(const int32 & CharacterId, const FString & ProgressionKey, const int32 & Amount, const FLootLockerCharacterProgressionWithRewardsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1548,6 +1685,7 @@ public:
      @param ProgressionKey Progression key
      @param OnComplete Delegate for handling the server response (progression with rewards)
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ResetCharacterProgression(const int32 & CharacterId, const FString & ProgressionKey, const FLootLockerCharacterProgressionWithRewardsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1558,6 +1696,7 @@ public:
      @param ProgressionKey Progression key to delete
      @param OnComplete Delegate for handling the server response (delete progression)
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString DeleteCharacterProgression(const int32 & CharacterId, const FString & ProgressionKey, const FLootLockerDeleteProgressionDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1571,6 +1710,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetEntirePersistentStorage(const FPersistentStorageItemsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1581,6 +1721,7 @@ public:
      @param Key Key to fetch
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetItemFromPersistentStorage(const FString & Key, const FPersistentStorageItemResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1591,6 +1732,7 @@ public:
      @param Items Items to create or update
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString AddItemsToPersistentStorage(const FLootLockerPersistentStorageItems Items, const FPersistentStorageItemsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1601,6 +1743,7 @@ public:
      @param Item Item to create or update
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString AddItemsToPersistentStorage(const FLootLockerPersistentStorageItem Item, const FPersistentStorageItemResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1611,6 +1754,7 @@ public:
      @param Key Key of the key/value pair
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString DeleteItemFromPersistentStorage(const FString & Key, const FPersistentStorageItemsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1621,6 +1765,7 @@ public:
      @param PlayerId Player id or public UID
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetPlayerPersistentStorage(const FString & PlayerId, const FPersistentStorageItemsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1633,6 +1778,7 @@ public:
      
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetContexts(const FContextDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1646,6 +1792,7 @@ public:
      @param Context Optional: Context id filter (default 0 = all)
      @param IncludeUGC Optional: Include UGC assets (default false)
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetAssets(const FAssetsResponseDelegate & OnCompletedRequest, int StartFromIndex = 0, int ItemsCount = 50, ELootLockerAssetFilter AssetFilter = ELootLockerAssetFilter::None, int Context = 0, bool IncludeUGC = false, const FString& ForPlayerWithUlid = "");
 
@@ -1656,6 +1803,7 @@ public:
      @param ItemsCount Number of items to return (50-200)
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetUniversalAssets(int After, int ItemsCount, const FUniversalAssetResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1665,6 +1813,7 @@ public:
      @param AssetIds Asset ids to fetch
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetAssetsByIds(const TArray<int>&AssetIds, const FAssetsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1673,6 +1822,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetAssetBones(const FAssetBonesResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1681,6 +1831,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetFavouriteAssetIndices(const FGetFavouriteAssetIndicesResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1690,6 +1841,7 @@ public:
      @param AssetId Asset id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString AddAssetToFavourites(int AssetId, const FGetFavouriteAssetIndicesResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1699,6 +1851,7 @@ public:
      @param AssetId Asset id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RemoveAssetFromFavourites(int AssetId, const FGetFavouriteAssetIndicesResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1709,6 +1862,7 @@ public:
      @param AssetVariationID Asset variation id (0 for none)
      @param AssetRentalOptionID Rental option id (0 for none)
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GrantAssetToPlayerInventory(const int AssetID, const int AssetVariationID, const int AssetRentalOptionID, const FGrantAssetResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1717,6 +1871,7 @@ public:
 
      @param AssetID Asset id to grant
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GrantAssetToPlayerInventory(const int AssetID, const FGrantAssetResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "") {
         return GrantAssetToPlayerInventory(AssetID, 0, 0, OnCompletedRequest, ForPlayerWithUlid);
@@ -1727,6 +1882,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListAssetsWithDefaultParameters(const FListSimpleAssetsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1741,6 +1897,7 @@ public:
      @param OrderBy Optional: Field to order by
      @param OrderDirection Optional: Ordering direction
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListAssets(const FLootLockerListSimpleAssetsRequest& Request, const FListSimpleAssetsResponseDelegate & OnCompletedRequest, int PerPage = 0, int Page = 0, ELootLockerOrderAssetListBy OrderBy = ELootLockerOrderAssetListBy::None, ELootLockerOrderAssetListDirection OrderDirection = ELootLockerOrderAssetListDirection::None, const FString& ForPlayerWithUlid = "");
 
@@ -1755,6 +1912,7 @@ public:
      @param AssetInstanceId Asset instance id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetAllKeyValuePairsForAssetInstance(int AssetInstanceId, const FAssetInstanceStorageItemsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1765,6 +1923,7 @@ public:
      @param StorageItemId Storage item id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1775,6 +1934,7 @@ public:
      @param Item Key/value pair to create
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString CreateAKeyValuePairForAssetInstance(int AssetInstanceId, const FLootLockerAssetInstanceStorageItem & Item, const FAssetInstanceStorageItemsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1785,6 +1945,7 @@ public:
      @param Items Key/value pairs to update
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString UpdateOneOrMoreKeyValuePairForAssetInstance(int AssetInstanceId, FLootLockerAssetInstanceStorageItems Items, const FAssetInstanceStorageItemsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1796,6 +1957,7 @@ public:
      @param Item Storage item data
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString UpdateAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FLootLockerAssetInstanceStorageItem Item, const FAssetInstanceStorageItemResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1806,6 +1968,7 @@ public:
      @param StorageItemId Storage item id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString DeleteAKeyValuePairByIdForAssetInstance(int AssetInstanceId, int StorageItemId, const FAssetInstanceStorageItemsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1815,6 +1978,7 @@ public:
      @param AssetInstanceId Asset instance id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString InspectLootBox(int AssetInstanceId, const FLootBoxContentResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1824,6 +1988,7 @@ public:
      @param AssetInstanceId Asset instance id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString OpenLootBox(int AssetInstanceId, const FOpenLootBoxResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1833,6 +1998,7 @@ public:
      @param AssetInstanceID Asset instance id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString DeleteAssetInstanceFromPlayerInventory(int AssetInstanceID, const FDeleteAssetInstanceResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1847,6 +2013,7 @@ public:
      @param AssetCandidateData Asset candidate data
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString CreateAssetCandidate(const FLootLockerCreateAssetCandidateData & AssetCandidateData, const FCreateAssetCandidateResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1856,6 +2023,7 @@ public:
      @param AssetCandidateData Asset candidate data
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString CreateAssetCandidateAndMarkComplete(const FLootLockerCreateAssetCandidateData & AssetCandidateData, const FCreateAssetCandidateResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1866,6 +2034,7 @@ public:
      @param AssetCandidateData Updated asset candidate data
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString UpdateAssetCandidate(int AssetCandidateId, const FLootLockerUpdateAssetCandidateData & AssetCandidateData, const FAssetCandidateResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1875,6 +2044,7 @@ public:
      @param AssetCandidateId Asset candidate id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString DeleteAssetCandidate(int AssetCandidateId, const FResponseCallback & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1883,6 +2053,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetAllAssetCandidates(const FAssetCandidatesResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1892,6 +2063,7 @@ public:
      @param AssetCandidateId Asset candidate id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetAssetCandidate(int AssetCandidateId, const FAssetCandidateResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1903,6 +2075,7 @@ public:
      @param FilePurpose Purpose of the file
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString AddFileToAssetCandidate(int AssetCandidateId, const FString & FilePath, ELootLockerAssetFilePurpose FilePurpose, const FAssetCandidateResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1913,6 +2086,7 @@ public:
      @param FileId File id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString DeleteFileFromAssetCandidate(int AssetCandidateId, int FileId, const FResponseCallback & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -1927,6 +2101,7 @@ public:
      @param After Optional: Pagination cursor (progression id to start after)
      @param OnComplete Delegate for handling the server response (paginated progressions)
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetProgressions(const int32 & Count, const FString & After, const FLootLockerPaginatedProgressionsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1936,6 +2111,7 @@ public:
      @param Count Number of entries to return
      @param OnComplete Delegate for handling the server response (paginated progressions)
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetProgressions(const int32 & Count, const FLootLockerPaginatedProgressionsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1944,6 +2120,7 @@ public:
 
      @param OnComplete Delegate for handling the server response (paginated progressions)
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetProgressions(const FLootLockerPaginatedProgressionsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1953,6 +2130,7 @@ public:
      @param ProgressionKey Progression key
      @param OnComplete Delegate for handling the server response (progression)
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetProgression(const FString & ProgressionKey, const FLootLockerProgressionResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1964,6 +2142,7 @@ public:
      @param After Optional: Pagination cursor (tier id); use next_cursor / previous_cursor from prior response
      @param OnComplete Delegate for handling the server response (paginated progression tiers)
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetProgressionTiers(const FString & ProgressionKey, const int32 & Count, const int32 & After, const FLootLockerPaginatedProgressionTiersResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1974,6 +2153,7 @@ public:
      @param Count Number of tiers to return
      @param OnComplete Delegate for handling the server response (paginated progression tiers)
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetProgressionTiers(const FString & ProgressionKey, const int32 & Count, const FLootLockerPaginatedProgressionTiersResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1983,6 +2163,7 @@ public:
      @param ProgressionKey Progression key
      @param OnComplete Delegate for handling the server response (paginated progression tiers)
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetProgressionTiers(const FString & ProgressionKey, const FLootLockerPaginatedProgressionTiersResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -1995,6 +2176,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetAllMissions(const FMissionsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2004,6 +2186,7 @@ public:
      @param MissionId Mission id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetMission(int MissionId, const FMissionResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2013,6 +2196,7 @@ public:
      @param MissionId Mission id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString StartMission(int MissionId, const FStartMissionResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2023,6 +2207,7 @@ public:
      @param MissionData Mission completion data
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString FinishMission(int MissionId, const FLootLockerFinishMissionData & MissionData, const FFinishMissionResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2035,6 +2220,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetMaps(const FGetMapsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2048,6 +2234,7 @@ public:
      @param AssetInstanceId Asset instance id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ActivateRentalAsset(int AssetInstanceId, const FActivateRentalAssetResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2058,6 +2245,7 @@ public:
      @param CatalogItemListingId Catalog item listing id to purchase
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString LootLockerPurchaseSingleCatalogItem(const FString & WalletId, const FString & CatalogItemListingId, const FLootLockerDefaultDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2068,6 +2256,7 @@ public:
      @param ItemsToPurchase Items and quantities to purchase
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString LootLockerPurchaseCatalogItems(const FString & WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair> ItemsToPurchase, const FLootLockerDefaultDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2078,6 +2267,7 @@ public:
      @param Sandboxed Optional: Redeem against sandbox store (default false)
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RedeemAppleAppStorePurchaseForPlayer(const FString & TransactionId, const FLootLockerDefaultDelegate & OnCompletedRequest, bool Sandboxed = false, const FString& ForPlayerWithUlid = "");
 
@@ -2089,6 +2279,7 @@ public:
      @param Sandboxed Optional: Redeem against sandbox store (default false)
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RedeemAppleAppStorePurchaseForClass(const int ClassId, const FString & TransactionId, const FLootLockerDefaultDelegate & OnCompletedRequest, bool Sandboxed = false, const FString& ForPlayerWithUlid = "");
 
@@ -2099,6 +2290,7 @@ public:
      @param PurchaseToken Google Play purchase token
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RedeemGooglePlayStorePurchaseForPlayer(const FString & ProductId, const FString & PurchaseToken, const FLootLockerDefaultDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2110,6 +2302,7 @@ public:
      @param PurchaseToken Google Play purchase token
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RedeemGooglePlayStorePurchaseForClass(const int ClassId, const FString & ProductId, const FString & PurchaseToken, const FLootLockerDefaultDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2122,6 +2315,7 @@ public:
      @param SandboxId Epic sandbox id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RedeemEpicStorePurchase(const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2135,6 +2329,7 @@ public:
      @param SandboxId Epic sandbox id (use for sandbox purchases)
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString RedeemEpicStorePurchaseForCharacter(const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2151,6 +2346,7 @@ public:
       @param Environment Optional: The id of the environment you wish to make the request against. Allowed values: 1, 8, 256
       @param UseCount Optional: The use count for this redemption
     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     //static FString RedeemPlayStationStorePurchase(const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ServiceLabel = "", const FString& ServiceName = "", const int Environment = -1, const int UseCount = -1, const FString& ForPlayerWithUlid = "");
 
@@ -2167,6 +2363,7 @@ public:
       @param Environment Optional: The id of the environment you wish to make the request against. Allowed values: 1, 8, 256
       @param UseCount Optional: The use count for this redemption
     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     //static FString RedeemPlayStationStorePurchaseForCharacter(const FString& CharacterId, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ServiceLabel = "", const FString& ServiceName = "", const int Environment = -1, const int UseCount = -1, const FString& ForPlayerWithUlid = "");
 #endif
@@ -2181,6 +2378,7 @@ public:
      @param CatalogItemId Catalog item id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString BeginSteamPurchaseRedemption(const FString & SteamId, const FString & Currency, const FString & Language, const FString & CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2195,6 +2393,7 @@ public:
      @param CatalogItemId Catalog item id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString BeginSteamPurchaseRedemptionForClass(const int ClassId, const FString & SteamId, const FString & Currency, const FString & Language, const FString & CatalogItemId, const FLootLockerBeginSteamPurchaseRedemptionDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2204,6 +2403,7 @@ public:
      @param EntitlementId Entitlement id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString QuerySteamPurchaseRedemptionStatus(const FString & EntitlementId, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2213,6 +2413,7 @@ public:
      @param EntitlementId Entitlement id (must be Approved)
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString FinalizeSteamPurchaseRedemption(const FString & EntitlementId, const FLootLockerDefaultDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2228,6 +2429,7 @@ public:
      @param KeysToInvoke Trigger keys to invoke
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString InvokeTriggersByKey(const TArray<FString>&KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2240,6 +2442,7 @@ public:
 
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString ListNotificationsWithDefaultParameters(const FLootLockerListNotificationsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2254,6 +2457,7 @@ public:
      @param Page Optional: Page index (ignored if PerPage == 0)
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString ListNotifications(bool ShowRead, const FString & OfType, const FString & WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2269,6 +2473,7 @@ public:
      @param Page Optional: Page index (ignored if PerPage == 0)
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString ListNotificationsWithPriority(ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString & OfType, const FString & WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2296,6 +2501,7 @@ public:
 
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString MarkAllNotificationsAsRead(const FLootLockerReadNotificationsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2305,6 +2511,7 @@ public:
      @param Notifications Notifications to mark as read
      @param OnComplete Delegate for handling the response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString MarkNotificationsAsRead(const TArray<FLootLockerNotification>&Notifications, const FLootLockerReadNotificationsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2314,6 +2521,7 @@ public:
      @param NotificationIDs Notification ids to mark as read
      @param OnComplete Delegate for handling the response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString MarkNotificationsAsReadByIds(const TArray<FString>&NotificationIDs, const FLootLockerReadNotificationsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2322,10 +2530,11 @@ public:
     //==================================================
 
     /**
-     * List broadcast messages for this game with default localisation and limit
-     *
-     * @param OnComplete Delegate for handling the server response
-     * @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     List broadcast messages for this game with default localisation and limit
+     
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListTopBroadcasts(const FLootLockerListBroadcastsResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2335,6 +2544,7 @@ public:
      @param Languages Language codes for localized broadcasts
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListTopBroadcastsLocalized(const TArray<FString>& Languages, const FLootLockerListBroadcastsResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2345,6 +2555,7 @@ public:
      @param Limit The count of items you want to retrieve.
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListBroadcasts(const TArray<FString>& Languages, int32 Limit, const FLootLockerListBroadcastsResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2357,6 +2568,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetAllCollectables(const FCollectablesResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2366,6 +2578,7 @@ public:
      @param Item Item slug (Collectable.Group.Item)
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString CollectItem(const FLootLockerCollectItemPayload & Item, const FCollectablesResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2378,6 +2591,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetMessages(const FMessagesResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2390,6 +2604,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListLeaderboards(const FLootLockerListLeaderboardsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "") {
         return ListLeaderboards(-1, 0, OnCompletedRequest, ForPlayerWithUlid);
@@ -2402,6 +2617,7 @@ public:
      @param After Optional: Pagination cursor id to start after
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListLeaderboards(int Count, int After, const FLootLockerListLeaderboardsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2412,6 +2628,7 @@ public:
      @param MemberId Member/player id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetMemberRank(FString LeaderboardKey, FString MemberId, const FLootLockerGetMemberRankResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2422,6 +2639,7 @@ public:
      @param LeaderboardKey Leaderboard key
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetByListOfMembers(TArray<FString> Members, FString LeaderboardKey, const FLootLockerGetByListOfMembersResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2433,6 +2651,7 @@ public:
      @param After Pagination cursor
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetScoreList(FString LeaderboardKey, int Count, int After, const FLootLockerGetScoreListResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2443,6 +2662,7 @@ public:
      @param Count Members to return
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetScoreListInitial(FString LeaderboardKey, int Count, const FLootLockerGetScoreListResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2455,6 +2675,7 @@ public:
      @param Metadata Optional: Metadata (if enabled for leaderboard)
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString SubmitScore(FString MemberId, const FString LeaderboardKey, const int Score, FString Metadata, const FLootLockerSubmitScoreResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2465,6 +2686,7 @@ public:
      @param Score Score value to evaluate
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString QueryScore(const FString LeaderboardKey, const int Score, const FLootLockerSubmitScoreResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2476,6 +2698,7 @@ public:
      @param Amount Amount to add (or subtract if negative)
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString IncrementScore(FString MemberId, const FString LeaderboardKey, const int Amount, const FLootLockerSubmitScoreResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2487,6 +2710,7 @@ public:
      @param After Pagination cursor
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetAllMemberRanks(FString MemberId, const int Count, const int After, const FLootLockerGetAllMemberRanksResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2496,6 +2720,7 @@ public:
      @param LeaderboardKey Leaderboard key
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString ListLeaderboardArchive(const FString & LeaderboardKey, const FLootLockerLeaderboardArchiveResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2507,6 +2732,7 @@ public:
      @param After Optional: Pagination cursor
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString GetLeaderboardArchive(const FString & Key, int Count, const FString & After, const FLootLockerLeaderboardArchiveDetailResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2516,6 +2742,7 @@ public:
      @param Key Leaderboard key
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString GetLeaderboardArchive(const FString & Key, const FLootLockerLeaderboardArchiveDetailResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "") { return GetLeaderboardArchive(Key, -1, "", OnCompletedRequest); }
 
@@ -2525,6 +2752,7 @@ public:
      @param LeaderboardKey Leaderboard key
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString GetLeaderboardDetails(const FString & LeaderboardKey, const FLootLockerLeaderboardDetailsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2538,6 +2766,7 @@ public:
      @param TableId Drop table id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ComputeAndLockDropTable(const int TableId, const FLootLockerComputeAndLockDropTableResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2548,6 +2777,7 @@ public:
      @param TableId Locked drop table id
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString PickDropsFromDropTable(const TArray<int> Picks, const int TableId, const FFLootLockerPickDropsFromDropTableResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2560,6 +2790,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListCurrencies(const FLootLockerListCurrenciesResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2569,6 +2800,7 @@ public:
      @param CurrencyCode Currency code
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetCurrencyDetails(const FString & CurrencyCode, const FLootLockerGetCurrencyDetailsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2578,6 +2810,7 @@ public:
      @param CurrencyCode Currency code
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetCurrencyDenominationsByCode(const FString & CurrencyCode, const FLootLockerListDenominationsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -2591,6 +2824,7 @@ public:
      @param WalletID Wallet id
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListBalancesInWallet(const FString & WalletID, const FLootLockerListBalancesForWalletResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2600,6 +2834,7 @@ public:
      @param WalletID Wallet id
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetWalletByWalletID(const FString & WalletID, const FLootLockerGetWalletResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2610,6 +2845,7 @@ public:
      @param HolderType Holder type
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetWalletByHolderID(const FString & HolderULID, const ELootLockerWalletHolderTypes & HolderType, const FLootLockerGetWalletResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2621,6 +2857,7 @@ public:
      @param Amount Amount to credit
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString CreditBalanceToWallet(const FString & WalletID, const FString & CurrencyID, const FString & Amount, const FLootLockerCreditWalletResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2632,6 +2869,7 @@ public:
      @param Amount Amount to debit
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString DebitBalanceToWallet(const FString & WalletID, const FString & CurrencyID, const FString & Amount, const FLootLockerDebitWalletResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2643,6 +2881,7 @@ public:
 
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListCatalogs(const FLootLockerListCatalogsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2654,6 +2893,7 @@ public:
      @param After Optional: Pagination cursor (empty for start)
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     [[deprecated("This method is deprecated, please use ListCatalogItems(const FString & CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "") instead.")]] // Deprecation date 20251016
     static FString ListCatalogItems(const FString & CatalogKey, int Count, const FString & After, const FLootLockerListCatalogPricesResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
@@ -2664,6 +2904,7 @@ public:
      @param CatalogKey Catalog key
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     [[deprecated("This method is deprecated, please use ListCatalogItems(const FString & CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "") instead.")]] // Deprecation date 20251016
     static FString ListCatalogItems(const FString & CatalogKey, const FLootLockerListCatalogPricesResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "")
@@ -2681,6 +2922,7 @@ public:
      @param Page Page number for pagination
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListCatalogItems(const FString & CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2690,6 +2932,7 @@ public:
      @param CatalogKey Unique Key of the catalog that you want to get items for
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListCatalogItems(const FString & CatalogKey, const FLootLockerListCatalogPricesV2ResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "") { return ListCatalogItems(CatalogKey, -1, 0, OnComplete, ForPlayerWithUlid); }
 
@@ -2704,6 +2947,7 @@ public:
      @param After Optional: Pagination cursor (empty for start)
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListEntitlements(int Count, const FString & After, const FLootLockerListEntitlementsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2712,6 +2956,7 @@ public:
 
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListEntitlements(const FLootLockerListEntitlementsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "") { return ListEntitlements(-1, "", OnComplete, ForPlayerWithUlid); }
 
@@ -2721,6 +2966,7 @@ public:
      @param EntitlementID Entitlement id
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString GetEntitlement(const FString & EntitlementID, FLootLockerSingleEntitlementResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2733,6 +2979,7 @@ public:
 
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString ListPlayerFeedbackCategories(const FLootLockerListFeedbackCategoryResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2741,6 +2988,7 @@ public:
 
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString ListGameFeedbackCategories(const FLootLockerListFeedbackCategoryResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2749,6 +2997,7 @@ public:
 
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString ListUGCFeedbackCategories(const FLootLockerListFeedbackCategoryResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2760,6 +3009,7 @@ public:
      @param CategoryID Feedback category id (see list category calls)
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString SendPlayerFeedback(const FString & Ulid, const FString & Description, const FString & CategoryID, const FLootLockerSendFeedbackResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2770,6 +3020,7 @@ public:
      @param CategoryID Feedback category id
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString SendGameFeedback(const FString & Description, const FString & CategoryID, const FLootLockerSendFeedbackResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2781,6 +3032,7 @@ public:
      @param CategoryID Feedback category id
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString SendUGCFeedback(const FString & Ulid, const FString & Description, const FString & CategoryID, const FLootLockerSendFeedbackResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2796,6 +3048,7 @@ public:
      @param OnComplete Delegate for handling the server response
      @param IgnoreFiles Optional: Redact file contents (empty payload with content_type application/x-redacted)
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString ListMetadata(const ELootLockerMetadataSources Source, const FString & SourceID, const FLootLockerListMetadataResponseDelegate & OnComplete, const bool IgnoreFiles = false, const FString& ForPlayerWithUlid = "");
 
@@ -2809,6 +3062,7 @@ public:
      @param OnComplete Delegate for handling the server response
      @param IgnoreFiles Optional: Redact file contents
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString ListMetadata(const ELootLockerMetadataSources Source, const FString & SourceID, const int Page, const int PerPage, const FLootLockerListMetadataResponseDelegate & OnComplete, const bool IgnoreFiles = false, const FString& ForPlayerWithUlid = "");
 
@@ -2821,6 +3075,7 @@ public:
      @param OnComplete Delegate for handling the server response
      @param IgnoreFiles Optional: Redact file contents
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString ListMetadataWithTags(const ELootLockerMetadataSources Source, const FString & SourceID, const TArray<FString>&Tags, const FLootLockerListMetadataResponseDelegate & OnComplete, const bool IgnoreFiles = false, const FString& ForPlayerWithUlid = "");
 
@@ -2835,6 +3090,7 @@ public:
      @param OnComplete Delegate for handling the server response
      @param IgnoreFiles Optional: Redact file contents
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString ListMetadataWithTags(const ELootLockerMetadataSources Source, const FString & SourceID, const TArray<FString>&Tags, const int Page, const int PerPage, const FLootLockerListMetadataResponseDelegate & OnComplete, const bool IgnoreFiles = false, const FString& ForPlayerWithUlid = "");
 
@@ -2847,6 +3103,7 @@ public:
      @param OnComplete Delegate for handling the server response
      @param IgnoreFiles Optional: Redact file contents
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString GetMetadata(const ELootLockerMetadataSources Source, const FString & SourceID, const FString & Key, const FLootLockerGetMetadataResponseDelegate & OnComplete, const bool IgnoreFiles = false, const FString& ForPlayerWithUlid = "");
 
@@ -2857,6 +3114,7 @@ public:
      @param OnComplete Delegate for handling the server response
      @param IgnoreFiles Optional: Redact file contents
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString GetMultisourceMetadata(const TArray<FLootLockerMetadataSourceAndKeys>&SourcesAndKeysToGet, const FLootLockerGetMultisourceMetadataResponseDelegate & OnComplete, const bool IgnoreFiles = false, const FString& ForPlayerWithUlid = "");
 
@@ -2868,6 +3126,7 @@ public:
      @param MetadataToActionsToPerform Metadata actions to perform
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     static FString SetMetadata(const ELootLockerMetadataSources Source, const FString & SourceID, const TArray<FLootLockerSetMetadataAction>&MetadataToActionsToPerform, const FLootLockerSetMetadataResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
@@ -2921,6 +3180,7 @@ public:
      @param PlayerPublicId Player public UID
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListFollowers(const FString& PlayerPublicId, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
@@ -2929,6 +3189,7 @@ public:
 
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListFollowers(const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
     
@@ -2939,6 +3200,7 @@ public:
      @param Count Optional: Page size (<=0 uses default)
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListFollowersPaginated(const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
     
@@ -2950,6 +3212,7 @@ public:
      @param Count Optional: Page size (<=0 uses default)
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListFollowersPaginated(const FString& PlayerPublicId, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
@@ -2959,6 +3222,7 @@ public:
      @param PlayerPublicId Player public UID
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListFollowing(const FString& PlayerPublicId, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
@@ -2967,6 +3231,7 @@ public:
 
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListFollowing(const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
     /**
@@ -2976,6 +3241,7 @@ public:
      @param Count Optional: Page size (<=0 uses default)
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListFollowingPaginated(const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
     /**
@@ -2986,6 +3252,7 @@ public:
      @param Count Optional: Page size (<=0 uses default)
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListFollowingPaginated(const FString& PlayerPublicId, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
@@ -2995,6 +3262,7 @@ public:
      @param PlayerPublicId Player public UID to follow
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString FollowPlayer(const FString& PlayerPublicId, const FLootLockerFollowActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
@@ -3004,6 +3272,7 @@ public:
      @param PlayerPublicId Player public UID to unfollow
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString UnfollowPlayer(const FString& PlayerPublicId, const FLootLockerFollowActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
@@ -3016,6 +3285,7 @@ public:
 
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListFriends(const FLootLockerListFriendsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
     /**
@@ -3025,6 +3295,7 @@ public:
      @param PerPage Optional: Items per page (<=0 uses default)
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListFriendsPaginated(int32 Page, int32 PerPage, const FLootLockerListFriendsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
@@ -3033,6 +3304,7 @@ public:
 
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListIncomingFriendRequests(const FLootLockerListIncomingFriendRequestsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
     /**
@@ -3042,6 +3314,7 @@ public:
      @param PerPage Optional: Items per page (<=0 uses default)
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListIncomingFriendRequestsPaginated(int32 Page, int32 PerPage, const FLootLockerListIncomingFriendRequestsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
@@ -3050,6 +3323,7 @@ public:
 
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListOutgoingFriendRequests(const FLootLockerListOutgoingFriendRequestsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
     /**
@@ -3059,6 +3333,7 @@ public:
      @param PerPage Optional: Items per page (<=0 uses default)
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListOutgoingFriendRequestsPaginated(int32 Page, int32 PerPage, const FLootLockerListOutgoingFriendRequestsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
@@ -3068,6 +3343,7 @@ public:
      @param PlayerULID ULID of the player to request
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString SendFriendRequest(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
@@ -3079,6 +3355,7 @@ public:
      @param PlayerULID Friend's ULID
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString DeleteFriend(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
@@ -3088,6 +3365,7 @@ public:
      @param PlayerULID ULID of the player whose request to cancel
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString CancelOutgoingFriendRequest(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
@@ -3097,6 +3375,7 @@ public:
      @param PlayerULID ULID of the player whose request to accept
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString AcceptIncomingFriendRequest(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
@@ -3106,6 +3385,7 @@ public:
      @param PlayerULID ULID of the player whose request to decline
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString DeclineIncomingFriendRequest(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
@@ -3114,6 +3394,7 @@ public:
 
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListBlockedPlayers(const FLootLockerListBlockedPlayersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
     /**
@@ -3123,6 +3404,7 @@ public:
      @param PerPage Optional: Items per page (<=0 uses default)
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListBlockedPlayersPaginated(int32 Page, int32 PerPage, const FLootLockerListBlockedPlayersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
@@ -3132,6 +3414,7 @@ public:
      @param FriendUlid Friend ULID
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetFriend(const FString& FriendUlid, const FLootLockerGetFriendResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
@@ -3141,6 +3424,7 @@ public:
      @param PlayerULID ULID of the player to block
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString BlockPlayer(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
@@ -3150,6 +3434,7 @@ public:
      @param PlayerULID ULID of the player to unblock
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString UnblockPlayer(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
@@ -3162,6 +3447,7 @@ public:
 
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetServerTime(const FTimeResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
@@ -3170,6 +3456,7 @@ public:
 
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @return Last active platform identifier (empty if none recorded)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetLastActivePlatform(const FString& ForPlayerWithUlid = "");
 
@@ -3177,6 +3464,7 @@ public:
      Get game meta information.
 
      @param OnComplete Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetGameInfo(const FGameInfoResponseDelegate& OnComplete);
 };
