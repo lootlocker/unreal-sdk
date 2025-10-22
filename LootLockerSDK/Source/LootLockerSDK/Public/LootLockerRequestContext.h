@@ -22,7 +22,7 @@ struct FLootLockerRequestContext
     // The url that this request was made to
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString RequestURL = "";
-    // The url that this request was made to
+    // The HTTP Method that was used for this request
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString RequestMethod = "";
     // The request parameters as a json string.

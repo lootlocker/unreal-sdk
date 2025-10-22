@@ -17,8 +17,6 @@ public:
 	TArray<FString> SavedPlayerStateUlids;
 	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
 	FString DefaultPlayer = "";
-	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
-	bool MultiuserInitialLoadCompleted = false; //TODO: Deprecated (or rather temporary) - Remove after 20250901
 };
 
 USTRUCT(BlueprintType)
@@ -30,8 +28,6 @@ public:
 	TArray<FString> SavedPlayerStateUlids;
 	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
 	FString DefaultPlayer = "";
-	UPROPERTY(VisibleAnywhere, Category = "LootLocker")
-	bool MultiuserInitialLoadCompleted = false; //TODO: Deprecated (or rather temporary) - Remove after 20250901
 };
 
 UCLASS()
@@ -106,9 +102,6 @@ private:
 	inline static const FString PlayerDataSaveSlot = BaseSaveSlot+"_pd";
     inline static constexpr int SaveIndex = 0;
 #endif
-
-	//TODO: Deprecated (or rather temporary) - Remove after 20250901
-	static bool TransferPlayerCacheToMultiUserSystem();
 	static FLootLockerStateMetaData LoadMetaState();
 	static FLootLockerPlayerData* LoadPlayerData(const FString& PlayerUlid);
 	static void SetMetaState(FLootLockerStateMetaData& updatedMetaData);
