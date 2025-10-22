@@ -87,7 +87,7 @@ class LOOTLOCKERSDK_API ULootLockerCollectablesRequestHandler : public UObject
 public:
     ULootLockerCollectablesRequestHandler() {};
     
-    static FString GetAllCollectables(const FLootLockerPlayerData& PlayerData, const FCollectablesResponseDelegate& OnCompletedRequest = FCollectablesResponseDelegate());
+    static FString GetAllCollectables(const FLootLockerPlayerData& PlayerData, const FCollectablesResponseDelegate& OnCompletedRequest);
     
-    static FString CollectItem(const FLootLockerPlayerData& PlayerData, const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegate& OnCompletedRequest = FCollectablesResponseDelegate());
+    static FString CollectItem(const FLootLockerPlayerData& PlayerData, const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegate& OnCompletedRequest);
 };

@@ -298,5 +298,5 @@ class LOOTLOCKERSDK_API ULootLockerBroadcastRequestHandler : public UObject
 public:
     ULootLockerBroadcastRequestHandler() {};
 
-    static FString ListBroadcasts(const FLootLockerPlayerData& PlayerData, const TArray<FString>& Languages, int32 PerPage, int32 Page, const FLootLockerListBroadcastsResponseDelegate& OnComplete = FLootLockerListBroadcastsResponseDelegate());
+    static FString ListBroadcasts(const FLootLockerPlayerData& PlayerData, const TArray<FString>& Languages, int32 PerPage, int32 Page, const FLootLockerListBroadcastsResponseDelegate& OnComplete);
 };
