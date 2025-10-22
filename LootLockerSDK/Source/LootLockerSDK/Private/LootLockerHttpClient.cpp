@@ -112,7 +112,6 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
         {
             FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>("HTTP Response was invalid", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_HTTP, playerUlid);
             Error.Context.RequestTime = requestTime;
-            Error.Context.RequestParameters = ULootLockerHttpClient::ParseRequestParametersFromJsonString(data);
             Error.Context.RequestId = requestId;
             Error.Context.RequestURL = endPoint;
             Error.Context.RequestMethod = requestType;
@@ -129,7 +128,6 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
 		response.FullTextFromServer = Response->GetContentAsString();
         response.Context.PlayerUlid = playerUlid;
         response.Context.RequestTime = requestTime;
-        response.Context.RequestParameters = ULootLockerHttpClient::ParseRequestParametersFromJsonString(data);
         response.Context.RequestId = requestId;
         response.Context.RequestURL = endPoint;
         response.Context.RequestMethod = requestType;
@@ -275,118 +273,4 @@ FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString
         });
     Request->ProcessRequest();
     return requestId;
-}
-
-TMap<FString, FLootLockerRequestParameterValue> ULootLockerHttpClient::ParseRequestParametersFromJsonString(FString jsonString)
-{
-    if (!GetDefault<ULootLockerConfig>()->StoreAndReturnRequestParameters)
-    {
-        return TMap<FString, FLootLockerRequestParameterValue>();
-    }
-    
-    TMap<FString, FLootLockerRequestParameterValue> ParsedParameters;
-    if(!jsonString.IsEmpty() && !jsonString.Equals("null") && !jsonString.Equals("{}") && !jsonString.Equals("[]"))
-    {
-        if (jsonString.StartsWith("{"))
-        {
-            TSharedPtr<FJsonObject> requestStruct = LootLockerUtilities::JsonObjectFromFString(jsonString);
-            if(requestStruct.IsValid())
-            {
-                for (auto& Elem : requestStruct->Values)
-                {
-                    FString key = Elem.Key;
-                    FString valueAsString = LootLockerUtilities::JsonValueToString(Elem.Value.ToSharedRef());
-                    FLootLockerRequestParameterValue value;
-                    value.ValueAsString = valueAsString;
-                    value.Value = Elem.Value;
-                    if (Elem.Value->Type == EJson::String)
-                    {
-                        value.ValueType = ELootLockerRequestParameterType::string_value;
-                    }
-                    else if (Elem.Value->Type == EJson::Number)
-                    {
-                        value.ValueType = valueAsString.Contains(".") ? ELootLockerRequestParameterType::decimal_value : ELootLockerRequestParameterType::integer_value;
-                    }
-                    else if (Elem.Value->Type == EJson::Boolean)
-                    {
-                        value.ValueType = ELootLockerRequestParameterType::bool_value;
-                    }
-                    else if (Elem.Value->Type == EJson::Array)
-                    {
-                        TArray<TSharedPtr<FJsonValue>> arrayPtr = Elem.Value->AsArray();
-                        if(arrayPtr.Num() == 0) {
-                            value.ValueType = ELootLockerRequestParameterType::array;
-                        }
-                        else {
-                            EJson firstElemType = arrayPtr[0]->Type;
-                            FString firstElemAsString = LootLockerUtilities::JsonValueToString(arrayPtr[0].ToSharedRef());
-                            switch(firstElemType) {
-                                case EJson::String:
-                                    value.ValueType = ELootLockerRequestParameterType::array_string;
-                                    break;
-                                case EJson::Number:
-                                    value.ValueType =  firstElemAsString.Contains(".") ? ELootLockerRequestParameterType::array_decimal : ELootLockerRequestParameterType::array_integer;
-                                    break;
-                                case EJson::Boolean:
-                                    value.ValueType = ELootLockerRequestParameterType::array_bool;
-                                    break;
-                                case EJson::Object:
-                                    value.ValueType = ELootLockerRequestParameterType::array_object;
-                                    break;
-                                default:
-                                    value.ValueType = ELootLockerRequestParameterType::array;
-                                    break;
-                            }
-                        }
-                    }
-                    else if (Elem.Value->Type == EJson::Object)
-                    {
-                        value.ValueType = ELootLockerRequestParameterType::json_object;
-                    }
-                    else
-                    {
-                        value.ValueType = ELootLockerRequestParameterType::null;
-                    }
-                    ParsedParameters.Add(key, value);
-                }
-            }
-        }
-        else if (jsonString.StartsWith("["))
-        {
-            TArray<TSharedPtr<FJsonValue>> requestArray;
-            if(LootLockerUtilities::JsonArrayFromFString(jsonString, requestArray)) 
-            {
-                FString key = "array";
-                FLootLockerRequestParameterValue value;
-                value.ValueAsString = jsonString;
-                value.Value = MakeShared<FJsonValueArray>(requestArray);
-                if(requestArray.Num() == 0) {
-                    value.ValueType = ELootLockerRequestParameterType::array;
-                }
-                else {
-                    EJson firstElemType = requestArray[0]->Type;
-                    FString firstElemAsString = LootLockerUtilities::JsonValueToString(requestArray[0].ToSharedRef());
-                    switch(firstElemType) {
-                        case EJson::String:
-                            value.ValueType = ELootLockerRequestParameterType::array_string;
-                            break;
-                        case EJson::Number:
-                            value.ValueType =  firstElemAsString.Contains(".") ? ELootLockerRequestParameterType::array_decimal : ELootLockerRequestParameterType::array_integer;
-                            break;
-                        case EJson::Boolean:
-                            value.ValueType = ELootLockerRequestParameterType::array_bool;
-                            break;
-                        case EJson::Object:
-                            value.ValueType = ELootLockerRequestParameterType::array_object;
-                            break;
-                        default:
-                            value.ValueType = ELootLockerRequestParameterType::array;
-                            break;
-                    }
-                }
-
-            }
-        }
-    }
-    return ParsedParameters;
 }
