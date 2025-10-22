@@ -93,19 +93,19 @@ class LOOTLOCKERSDK_API ULootLockerFollowersRequestHandler : public UObject
 public:
     ULootLockerFollowersRequestHandler() {};
 
-    static FString ListFollowers(const FLootLockerPlayerData& PlayerData, const FString& PlayerPublicId, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted = FLootLockerListFollowersResponseDelegate());
-    static FString ListFollowersPaginated(const FLootLockerPlayerData& PlayerData, const FString& PlayerPublicId, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted = FLootLockerListFollowersResponseDelegate());
+    static FString ListFollowers(const FLootLockerPlayerData& PlayerData, const FString& PlayerPublicId, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted);
+    static FString ListFollowersPaginated(const FLootLockerPlayerData& PlayerData, const FString& PlayerPublicId, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted);
 
-    static FString ListFollowers(const FLootLockerPlayerData& PlayerData, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted = FLootLockerListFollowersResponseDelegate());
-    static FString ListFollowersPaginated(const FLootLockerPlayerData& PlayerData, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted = FLootLockerListFollowersResponseDelegate());
+    static FString ListFollowers(const FLootLockerPlayerData& PlayerData, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted);
+    static FString ListFollowersPaginated(const FLootLockerPlayerData& PlayerData, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted);
 
-    static FString ListFollowing(const FLootLockerPlayerData& PlayerData, const FString& PlayerPublicId, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted = FLootLockerListFollowersResponseDelegate());
-    static FString ListFollowingPaginated(const FLootLockerPlayerData& PlayerData, const FString& PlayerPublicId, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted = FLootLockerListFollowersResponseDelegate());
+    static FString ListFollowing(const FLootLockerPlayerData& PlayerData, const FString& PlayerPublicId, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted);
+    static FString ListFollowingPaginated(const FLootLockerPlayerData& PlayerData, const FString& PlayerPublicId, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted);
 
-    static FString ListFollowing(const FLootLockerPlayerData& PlayerData, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted = FLootLockerListFollowersResponseDelegate());
-    static FString ListFollowingPaginated(const FLootLockerPlayerData& PlayerData, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted = FLootLockerListFollowersResponseDelegate());
+    static FString ListFollowing(const FLootLockerPlayerData& PlayerData, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted);
+    static FString ListFollowingPaginated(const FLootLockerPlayerData& PlayerData, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted);
 
-    static FString FollowPlayer(const FLootLockerPlayerData& PlayerData, const FString& PlayerPublicId, const FLootLockerFollowActionResponseDelegate& OnResponseCompleted = FLootLockerFollowActionResponseDelegate());
+    static FString FollowPlayer(const FLootLockerPlayerData& PlayerData, const FString& PlayerPublicId, const FLootLockerFollowActionResponseDelegate& OnResponseCompleted);
 
-    static FString UnfollowPlayer(const FLootLockerPlayerData& PlayerData, const FString& PlayerPublicId, const FLootLockerFollowActionResponseDelegate& OnResponseCompleted = FLootLockerFollowActionResponseDelegate());
+    static FString UnfollowPlayer(const FLootLockerPlayerData& PlayerData, const FString& PlayerPublicId, const FLootLockerFollowActionResponseDelegate& OnResponseCompleted);
 };
