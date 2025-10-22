@@ -28,7 +28,6 @@ public:
     static ULootLockerHttpClient& GetRef();
 private:
     static bool ResponseIsSuccess(const FHttpResponsePtr& InResponse, bool bWasSuccessful);
-    static TMap<FString, FLootLockerRequestParameterValue> ParseRequestParametersFromJsonString(FString jsonString);
     static const FString UserAgent;
     static const FString UserInstanceIdentifier;
     static FString SDKVersion;
