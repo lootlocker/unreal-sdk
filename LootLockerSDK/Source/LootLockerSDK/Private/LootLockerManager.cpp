@@ -65,42 +65,6 @@ void ULootLockerManager::ClearAllPlayerCachesExceptForPlayer(const FString& Play
     ULootLockerStateData::ClearAllSavedStatesExceptForPlayer(PlayerUlid);
 }
 
-// Response Parsing
-bool ULootLockerManager::TryGetRequestParameterValueAsString(const FLootLockerRequestParameterValue& Parameter, FString& OutValue) 
-{
-    return Parameter.TryGetValueAsString(OutValue);
-}
-
-bool ULootLockerManager::TryGetRequestParameterValueAsFloat(const FLootLockerRequestParameterValue& Parameter, float& OutValue) 
-{
-    return Parameter.TryGetValueAsFloat(OutValue);
-}
-
-bool ULootLockerManager::TryGetRequestParameterValueAsInteger(const FLootLockerRequestParameterValue& Parameter, int& OutValue) 
-{
-    return Parameter.TryGetValueAsInteger(OutValue);
-}
-
-bool ULootLockerManager::TryGetRequestParameterValueAsBool(const FLootLockerRequestParameterValue& Parameter, bool& OutValue) 
-{
-    return Parameter.TryGetValueAsBool(OutValue);
-}
-
-bool ULootLockerManager::TryGetRequestParameterValueAsFloatArray(const FLootLockerRequestParameterValue& Parameter, TArray<float>& OutValue) 
-{
-    return Parameter.TryGetValueAsFloatArray(OutValue);
-}
-
-bool ULootLockerManager::TryGetRequestParameterValueAsIntegerArray(const FLootLockerRequestParameterValue& Parameter, TArray<int>& OutValue) 
-{
-    return Parameter.TryGetValueAsIntegerArray(OutValue);
-}
-
-bool ULootLockerManager::TryGetRequestParameterValueAsBoolArray(const FLootLockerRequestParameterValue& Parameter, TArray<bool>& OutValue) 
-{
-    return Parameter.TryGetValueAsBoolArray(OutValue);
-}
-
 // Authentication
 void ULootLockerManager::StartSessionManual(const FString& SessionToken, const FString& PlayerUlid,
     FLootLockerPlatformRepresentation CurrentPlatform, const FString& RefreshToken, const FString& PlayerIdentifier, const FString& PlayerPublicUid, const FString& PlayerName,
