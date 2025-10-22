@@ -58,9 +58,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous")
 	static const FLootLockerPlatformRepresentation& GetPlatformRepresentationForPlatform(const ELootLockerPlatform Platform) { EnsureAllPlatformsAreRepresented(); return *PlatformRepresentations.Find(Platform); }
 
-	//TODO: Deprecated (or rather temporary) - Remove after 20250901
-	static TArray<FLootLockerPlatformRepresentation> GetAllPlatformRepresentations() { TArray<FLootLockerPlatformRepresentation> outArray; PlatformRepresentations.GenerateValueArray(outArray); return outArray; }
-
 	virtual void PostInitProperties() override
 	{
 		UObject::PostInitProperties();
