@@ -61,5 +61,5 @@ class LOOTLOCKERSDK_API ULootLockerMapsRequestHandler : public UObject
 public:
     ULootLockerMapsRequestHandler() {};
 
-    static FString GetMaps(const FLootLockerPlayerData& PlayerData, const FGetMapsResponseDelegate& OnCompletedRequest = FGetMapsResponseDelegate());
+    static FString GetMaps(const FLootLockerPlayerData& PlayerData, const FGetMapsResponseDelegate& OnCompletedRequest);
 };
