@@ -82,9 +82,6 @@ public:
 	bool LogOutsideOfEditor = false;
     UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Logging", Meta = (DisplayName = "LootLocker Log Level"))
     ELootLockerLogLevel LootLockerLogLevel;
-	// Parse request parameters and store in Response.Context.RequestParameters. This is false by default to avoid performance overhead. Enable this only if you need request parameters for debugging purposes or feature implementation.
-	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Configuration", Meta = (DisplayName = "Store and return request parameters in response context"))
-	bool StoreAndReturnRequestParameters = false;
 
 	UFUNCTION()
 	static bool ShouldLog()
