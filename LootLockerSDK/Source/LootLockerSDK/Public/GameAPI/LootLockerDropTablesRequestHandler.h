@@ -78,6 +78,6 @@ class LOOTLOCKERSDK_API ULootLockerDropTablesRequestHandler : public UObject
 public:
 	ULootLockerDropTablesRequestHandler() {};
 
-    static FString ComputeAndLockDropTable(const FLootLockerPlayerData& PlayerData, int TableId, const FLootLockerComputeAndLockDropTableResponseDelegate& OnCompletedRequest = FLootLockerComputeAndLockDropTableResponseDelegate());
-    static FString PickDropsFromDropTable(const FLootLockerPlayerData& PlayerData, const FLootLockerPickDropsFromDropTableRequest& request, int TableId, const FFLootLockerPickDropsFromDropTableResponseDelegate& OnCompletedRequest = FFLootLockerPickDropsFromDropTableResponseDelegate());
+    static FString ComputeAndLockDropTable(const FLootLockerPlayerData& PlayerData, int TableId, const FLootLockerComputeAndLockDropTableResponseDelegate& OnCompletedRequest);
+    static FString PickDropsFromDropTable(const FLootLockerPlayerData& PlayerData, const FLootLockerPickDropsFromDropTableRequest& request, int TableId, const FFLootLockerPickDropsFromDropTableResponseDelegate& OnCompletedRequest);
 };

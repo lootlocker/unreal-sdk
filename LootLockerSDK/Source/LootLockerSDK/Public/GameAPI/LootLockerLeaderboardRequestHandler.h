@@ -605,13 +605,13 @@ class LOOTLOCKERSDK_API ULootLockerLeaderboardRequestHandler : public UObject
 public:
     ULootLockerLeaderboardRequestHandler() {};
 
-    static FString ListLeaderboards(const FLootLockerPlayerData& PlayerData, int Count, int After, const FLootLockerListLeaderboardsResponseDelegate& OnCompletedRequest = FLootLockerListLeaderboardsResponseDelegate());
-    static FString GetMemberRank(const FLootLockerPlayerData& PlayerData, const FLootLockerGetMemberRankRequest& MemberRequest, const FLootLockerGetMemberRankResponseDelegate& OnCompletedRequest = FLootLockerGetMemberRankResponseDelegate());
-    static FString GetByListOfMembers(const FLootLockerPlayerData& PlayerData, const FLootLockerGetByListMembersRequest& GetScoreByListRequests, FString LeaderboardKey, const FLootLockerGetByListOfMembersResponseDelegate& OnCompletedRequest = FLootLockerGetByListOfMembersResponseDelegate());
-    static FString GetScoreList(const FLootLockerPlayerData& PlayerData, const FLootLockerGetScoreListRequest& GetScoreListRequests, const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest = FLootLockerGetScoreListResponseDelegate());
-    static FString SubmitScore(const FLootLockerPlayerData& PlayerData, const FLootLockerSubmitScoreRequest& SubmitScoreRequests, FString LeaderboardKey, const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest = FLootLockerSubmitScoreResponseDelegate());
-    static FString QueryScore(const FLootLockerPlayerData& PlayerData, const FLootLockerQueryScoreRequest& QueryScoreRequests, FString LeaderboardKey, const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest = FLootLockerSubmitScoreResponseDelegate());
-    static FString IncrementScore(const FLootLockerPlayerData& PlayerData, const FLootLockerIncrementScoreRequest& IncrementScoreRequests, FString LeaderboardKey, const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest = FLootLockerSubmitScoreResponseDelegate());
-    static FString GetAllMemberRanks(const FLootLockerPlayerData& PlayerData, const FLootLockerGetAllMemberRanksRequest& GetAllMemberRanksRequests, const FLootLockerGetAllMemberRanksResponseDelegate& OnCompletedRequest = FLootLockerGetAllMemberRanksResponseDelegate());
-    static FString GetLeaderboardDetails(const FLootLockerPlayerData& PlayerData, const FString& LeaderboardKey, const FLootLockerLeaderboardDetailsResponseDelegate& OnCompletedRequest = FLootLockerLeaderboardDetailsResponseDelegate());
+    static FString ListLeaderboards(const FLootLockerPlayerData& PlayerData, int Count, int After, const FLootLockerListLeaderboardsResponseDelegate& OnCompletedRequest);
+    static FString GetMemberRank(const FLootLockerPlayerData& PlayerData, const FLootLockerGetMemberRankRequest& MemberRequest, const FLootLockerGetMemberRankResponseDelegate& OnCompletedRequest);
+    static FString GetByListOfMembers(const FLootLockerPlayerData& PlayerData, const FLootLockerGetByListMembersRequest& GetScoreByListRequests, FString LeaderboardKey, const FLootLockerGetByListOfMembersResponseDelegate& OnCompletedRequest);
+    static FString GetScoreList(const FLootLockerPlayerData& PlayerData, const FLootLockerGetScoreListRequest& GetScoreListRequests, const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest);
+    static FString SubmitScore(const FLootLockerPlayerData& PlayerData, const FLootLockerSubmitScoreRequest& SubmitScoreRequests, FString LeaderboardKey, const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest);
+    static FString QueryScore(const FLootLockerPlayerData& PlayerData, const FLootLockerQueryScoreRequest& QueryScoreRequests, FString LeaderboardKey, const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest);
+    static FString IncrementScore(const FLootLockerPlayerData& PlayerData, const FLootLockerIncrementScoreRequest& IncrementScoreRequests, FString LeaderboardKey, const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest);
+    static FString GetAllMemberRanks(const FLootLockerPlayerData& PlayerData, const FLootLockerGetAllMemberRanksRequest& GetAllMemberRanksRequests, const FLootLockerGetAllMemberRanksResponseDelegate& OnCompletedRequest);
+    static FString GetLeaderboardDetails(const FLootLockerPlayerData& PlayerData, const FString& LeaderboardKey, const FLootLockerLeaderboardDetailsResponseDelegate& OnCompletedRequest);
 };

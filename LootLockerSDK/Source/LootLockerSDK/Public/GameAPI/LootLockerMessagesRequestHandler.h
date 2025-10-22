@@ -48,5 +48,5 @@ class LOOTLOCKERSDK_API ULootLockerMessagesRequestHandler : public UObject
 public:
     ULootLockerMessagesRequestHandler() {};
     
-    static FString GetMessages(const FLootLockerPlayerData& PlayerData, const FMessagesResponseDelegate& OnCompletedRequest = FMessagesResponseDelegate());
+    static FString GetMessages(const FLootLockerPlayerData& PlayerData, const FMessagesResponseDelegate& OnCompletedRequest);
 };
