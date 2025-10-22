@@ -183,7 +183,6 @@ public:
         ErrorResponse.Context.RequestId = ExistingError.Context.RequestId;
         ErrorResponse.Context.RequestURL = ExistingError.Context.RequestURL;
         ErrorResponse.Context.RequestMethod = ExistingError.Context.RequestMethod;
-        ErrorResponse.Context.RequestParameters = ExistingError.Context.RequestParameters;
         ErrorResponse.Context.RequestParametersJsonString = ExistingError.Context.RequestParametersJsonString;
 
         return ErrorResponse;
