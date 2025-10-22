@@ -380,7 +380,7 @@ public:
         float PollingIntervalSeconds = 1.0f,
         float TimeOutAfterMinutes = 5.0f,
         const FString& ForPlayerWithUlid = "");
-    static FString RefreshRemoteSession(const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegate& OnComplete = FLootLockerRefreshRemoteSessionResponseDelegate());
+    static FString RefreshRemoteSession(const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegate& OnComplete);
     static FString ContinualPollingAction(const FString& ProcessID,
         const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate = FLootLockerRemoteSessionStatusPollingResponseDelegate(),
         const FLootLockerStartRemoteSessionResponseDelegate& OnComplete = FLootLockerStartRemoteSessionResponseDelegate());
