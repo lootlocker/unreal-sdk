@@ -220,10 +220,6 @@ struct LLAPI
             }
         }
         EndpointWithArguments = FString::Format(*EndpointWithArguments, UrlEncodedPathParams);
-        if (!PlayerData.Token.IsEmpty())
-        {
-            CustomHeaders.Add(TEXT("x-session-token"), PlayerData.Token);	        
-        }
 
         if (QueryParams.Num() != 0)
         {
@@ -290,10 +286,6 @@ struct LLAPI
         EndpointWithArguments = FString::Format(*EndpointWithArguments, UrlEncodedPathParams);
         
         const FString RequestMethod = ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
-        if (!PlayerData.Token.IsEmpty())
-        {
-            CustomHeaders.Add(TEXT("x-session-token"), PlayerData.Token);
-        }
 
         // create callback lambda
         const FResponseCallback SessionResponse = CreateLambda<CppDelegate>(OnCompletedRequest, ResponseInspectorCallback);

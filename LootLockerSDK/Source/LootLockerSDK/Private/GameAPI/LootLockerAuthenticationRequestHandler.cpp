@@ -70,26 +70,37 @@ FString ULootLockerAuthenticationRequestHandler::WhiteLabelLogin(const FString& 
 		}), DomainKeyHeaders());
 }
 
-FString ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& OnCompletedRequest)
+FString ULootLockerAuthenticationRequestHandler::WhiteLabelStartSessionManual(const FString& Email, const FString& WhiteLabelToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& OnCompletedRequest)
 {
 	const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
 	FLootLockerWhiteLabelAuthRequest AuthRequest;
 	AuthRequest.game_key = Config->LootLockerGameKey;
 	AuthRequest.game_version = Config->GameVersion;
 
-	AuthRequest.email = _TempWhiteLabelEmailHolder;
-	AuthRequest.token = _TempWhiteLabelTokenHolder;
+	AuthRequest.email = Email;
+	AuthRequest.token = WhiteLabelToken;
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
-	return LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(Json, ULootLockerGameEndpoints::WhiteLabelAuthEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAuthenticationResponse& Response)
+	return LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(Json, ULootLockerGameEndpoints::WhiteLabelAuthEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([Optionals, Email, WhiteLabelToken](FLootLockerAuthenticationResponse& Response)
 		{
 			if (Response.success)
 			{
 				Response.Context.PlayerUlid = Response.player_ulid;
-				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, _TempWhiteLabelEmailHolder, _TempWhiteLabelTokenHolder, ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::WhiteLabel), FDateTime::Now().ToString(), Response.player_created_at, Optionals);
+				auto NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, Response.player_name, Email, WhiteLabelToken, ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::WhiteLabel), FDateTime::Now().ToString(), Response.player_created_at, Optionals);
 				ULootLockerStateData::SavePlayerData(NewPlayerData);
+			}
+		}));
+}
+
+FString ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& OnCompletedRequest)
+{
+	return WhiteLabelStartSessionManual(_TempWhiteLabelEmailHolder, _TempWhiteLabelTokenHolder, Optionals, FLootLockerSessionResponse::CreateLambda([OnCompletedRequest](const FLootLockerAuthenticationResponse& Response)
+		{
+			if (Response.success)
+			{
 				_TempWhiteLabelEmailHolder = "";
 				_TempWhiteLabelTokenHolder = "";
 			}
+			OnCompletedRequest.ExecuteIfBound(Response);
 		}));
 }
 

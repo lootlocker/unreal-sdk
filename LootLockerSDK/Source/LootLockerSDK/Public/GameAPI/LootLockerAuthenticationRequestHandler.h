@@ -584,6 +584,7 @@ public:
 	static FString WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegate& OnCompletedRequest);
 	static FString WhiteLabelLogin(const FString& Email, const FString& Password, const bool Remember, const FLootLockerLoginResponseDelegate& OnCompletedRequest);
 	static FString GuestLogin(const FString& playerIdentifier, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& OnCompletedRequest);
+	static FString WhiteLabelStartSessionManual(const FString& Email, const FString& WhiteLabelToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& OnCompletedRequest);
 	static FString WhiteLabelStartSession(const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& OnCompletedRequest);
 	static FString WhiteLabelVerifySession(const FLootLockerPlayerData& ForPlayer, const FLootLockerWhiteLabelVerifySessionDelegate& OnCompletedRequest);
 	static FString WhiteLabelRequestUserVerification(const int& UserId, const FLootLockerDefaultDelegate& OnCompletedRequest);
