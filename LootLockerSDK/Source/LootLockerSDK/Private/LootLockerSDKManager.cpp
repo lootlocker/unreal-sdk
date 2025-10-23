@@ -183,6 +183,11 @@ FString ULootLockerSDKManager::RefreshMetaSession(const FString& RefreshToken, c
     return ULootLockerAuthenticationRequestHandler::RefreshMetaSession(RefreshToken, Optionals, OnCompletedRequest);
 }
 
+FString ULootLockerSDKManager::WhiteLabelStartSessionManual(const FString& Email, const FString& WhiteLabelToken, const FLootLockerSessionResponse& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals /* = FLootLockerSessionOptionals() */)
+{
+    return ULootLockerAuthenticationRequestHandler::WhiteLabelStartSessionManual(Email, WhiteLabelToken, Optionals, OnCompletedRequest);
+}
+
 FString ULootLockerSDKManager::WhiteLabelStartSession(const FLootLockerSessionResponse &OnCompletedRequest, const FLootLockerSessionOptionals& Optionals /* = FLootLockerSessionOptionals() */)
 {
     return ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession(Optionals, OnCompletedRequest);

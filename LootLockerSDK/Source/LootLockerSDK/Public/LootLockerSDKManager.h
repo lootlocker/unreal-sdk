@@ -761,6 +761,19 @@ public:
     static FString WhiteLabelStartSession(const FLootLockerSessionResponse& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
 
     /**
+     Start a session using cached White Label credentials.
+
+     Use WhiteLabelLoginAndStartSession unless manual control required.
+
+     @param Email Account email
+     @param WhiteLabelToken White Label token
+     @param OnCompletedRequest Delegate for handling the server response
+     @param Optionals Optional: Additional session options
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString WhiteLabelStartSessionManual(const FString& Email, const FString& WhiteLabelToken, const FLootLockerSessionResponse& OnCompletedRequest, const FLootLockerSessionOptionals& Optionals = FLootLockerSessionOptionals());
+
+    /**
      Log in and start a session (White Label).
 
      @param Email Account email

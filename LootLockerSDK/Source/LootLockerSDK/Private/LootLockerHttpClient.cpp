@@ -7,6 +7,10 @@
 #include "HttpModule.h"
 #include "JsonObjectConverter.h"
 #include "LootLockerSDK.h"
+#include "LootLockerConfig.h"
+#include "LootLockerStateData.h"
+#include "LootLockerSDKManager.h"
+#include "LootLockerPlatformManager.h"
 #include "Interfaces/IHttpResponse.h"
 #include "Interfaces/IPluginManager.h"
 #include "Misc/FileHelper.h"
@@ -41,7 +45,7 @@ bool ULootLockerHttpClient::ResponseIsSuccess(const FHttpResponsePtr& InResponse
     return EHttpResponseCodes::IsOk(InResponse->GetResponseCode());
 }
 
-FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders)
+FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders, bool bIsRetryAttempt)
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
     if(SDKVersion.IsEmpty())
@@ -55,7 +59,10 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
     }
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = HttpModule->CreateRequest();
 	Request->SetURL(endPoint);
-
+    if (!PlayerData.Token.IsEmpty())
+    {
+        Request->SetHeader(TEXT("x-session-token"), PlayerData.Token);
+    }
 	Request->SetHeader(TEXT("User-Agent"), UserAgent);
 	Request->SetHeader(TEXT("LL-Instance-Identifier"), UserInstanceIdentifier);
     Request->SetHeader(TEXT("LL-SDK-Version"), SDKVersion);
@@ -81,7 +88,7 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
 
     FString requestId = FGuid::NewGuid().ToString();
 
-	Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, endPoint, requestType, data, playerUlid, requestTime, DelimitedHeaders, requestId](FHttpRequestPtr Req, const FHttpResponsePtr& Response, bool bWasSuccessful)
+	Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, endPoint, requestType, data, playerUlid, requestTime, DelimitedHeaders, requestId, PlayerData, customHeaders, bIsRetryAttempt](FHttpRequestPtr Req, const FHttpResponsePtr& Response, bool bWasSuccessful)
 	{
         if (!Response.IsValid())
         {
@@ -115,6 +122,29 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
                 response.ErrorData.Retry_after_seconds = FCString::Atoi(*RetryAfterHeader);
             }
             LogFailedRequestInformation(response, DelimitedHeaders);
+            
+            // Check if we should attempt session refresh
+            if (ShouldRefreshSession(response.StatusCode, PlayerData, bIsRetryAttempt))
+            {
+                FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Attempting session refresh for %s request to %s (Status: %d)"), 
+                    *requestType, *endPoint, response.StatusCode));
+                
+                // Store original request data for retry
+                FLootLockerRetryRequestData RetryData(endPoint, requestType, data, onCompleteRequest, PlayerData, customHeaders);
+                
+                // Attempt session refresh
+                RefreshSessionForPlatform(PlayerData, [RetryData, response, onCompleteRequest](bool bRefreshSuccess) {
+                    if (bRefreshSuccess)
+                    {
+                        RetryOriginalRequest(RetryData);
+                    }
+                    else
+                    {
+                        onCompleteRequest.ExecuteIfBound(response);
+                    }
+                });
+                return; // Don't call the original callback yet
+            }
 		}
         else
         {
@@ -126,7 +156,7 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
     return requestId;
 }
 
-FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString>& AdditionalFields, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders)
+FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString>& AdditionalFields, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders, bool bIsRetryAttempt)
 {
     FHttpModule* HttpModule = &FHttpModule::Get();
     if (SDKVersion.IsEmpty())
@@ -142,6 +172,10 @@ FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString
 
     FString Boundary = "lootlockerboundary";
 
+    if (!PlayerData.Token.IsEmpty())
+    {
+        Request->SetHeader(TEXT("x-session-token"), PlayerData.Token);
+    }
 	Request->SetHeader(TEXT("User-Agent"), UserAgent);
 	Request->SetHeader(TEXT("LL-Instance-Identifier"), UserInstanceIdentifier);
     Request->SetHeader(TEXT("LL-SDK-Version"), SDKVersion);
@@ -211,7 +245,7 @@ FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString
     FString playerUlid = PlayerData.PlayerUlid;
     FString requestId = FGuid::NewGuid().ToString();
 
-    Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, requestType, endPoint, playerUlid, requestTime, DelimitedHeaders, requestId](FHttpRequestPtr Req, const FHttpResponsePtr& Response, bool bWasSuccessful)
+    Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, requestType, endPoint, playerUlid, requestTime, DelimitedHeaders, requestId, PlayerData, customHeaders, FilePath, AdditionalFields, bIsRetryAttempt](FHttpRequestPtr Req, const FHttpResponsePtr& Response, bool bWasSuccessful)
         {
             if (!Response.IsValid())
             {
@@ -239,6 +273,29 @@ FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString
                     response.ErrorData.Retry_after_seconds = FCString::Atoi(*RetryAfterHeader);
                 }
                 LogFailedRequestInformation(response, DelimitedHeaders);
+                
+                // Check if we should attempt session refresh
+                if (ShouldRefreshSession(response.StatusCode, PlayerData, bIsRetryAttempt))
+                {
+                    FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Attempting session refresh for %s file upload to %s (Status: %d)"), 
+                        *requestType, *endPoint, response.StatusCode));
+                    
+                    // Store original request data for retry
+                    FLootLockerRetryRequestData RetryData(endPoint, requestType, FilePath, AdditionalFields, onCompleteRequest, PlayerData, customHeaders);
+                    
+                    // Attempt session refresh
+                    RefreshSessionForPlatform(PlayerData, [RetryData, response, onCompleteRequest](bool bRefreshSuccess) {
+                        if (bRefreshSuccess)
+                        {
+                            RetryOriginalRequest(RetryData);
+                        }
+                        else
+                        {
+                            onCompleteRequest.ExecuteIfBound(response);
+                        }
+                    });
+                    return; // Don't call the original callback yet
+                }
             }
     		else
             {
@@ -248,4 +305,208 @@ FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString
         });
     Request->ProcessRequest();
     return requestId;
+}
+
+bool ULootLockerHttpClient::ShouldRefreshSession(int32 StatusCode, const FLootLockerPlayerData& PlayerData, bool bIsRetryAttempt)
+{
+    // Don't attempt refresh if this is already a retry attempt
+    if (bIsRetryAttempt)
+    {
+        FLootLockerLogger::LogVerbose(TEXT("Skipping session refresh - this is already a retry attempt"));
+        return false;
+    }
+    
+    // Check if we should attempt session refresh
+    // Only attempt for 401 (Unauthorized) or 403 (Forbidden) responses
+    if (StatusCode != 401 && StatusCode != 403)
+    {
+        return false;
+    }
+    
+    // Check if token refresh is enabled in config
+    const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
+    if (!Config || !Config->AllowTokenRefresh)
+    {
+        return false;
+    }
+    
+    return CanRefreshSession(PlayerData);
+}
+
+bool ULootLockerHttpClient::CanRefreshSession(const FLootLockerPlayerData& PlayerData)
+{
+    // Check if platform supports session refresh
+    ELootLockerPlatform Platform = PlayerData.CurrentPlatform.Platform;
+    
+    // Platforms that support refresh tokens
+    TArray<ELootLockerPlatform> RefreshSupportedPlatforms = {
+        ELootLockerPlatform::Google,
+        ELootLockerPlatform::Epic,
+        ELootLockerPlatform::AppleSignIn,
+        ELootLockerPlatform::AppleGameCenter,
+        ELootLockerPlatform::Meta,
+        ELootLockerPlatform::Discord,
+        ELootLockerPlatform::GooglePlayGames,
+        ELootLockerPlatform::Remote
+    };
+    
+    // Check if platform supports refresh via tokens
+    if (RefreshSupportedPlatforms.Contains(Platform) && !PlayerData.RefreshToken.IsEmpty())
+    {
+        return true;
+    }
+    
+    // Guest and WhiteLabel can be refreshed using stored auth data
+    if ((Platform == ELootLockerPlatform::Guest && !PlayerData.PlayerIdentifier.IsEmpty()) || 
+        (Platform == ELootLockerPlatform::WhiteLabel && 
+         !PlayerData.WhiteLabelEmail.IsEmpty() && 
+         !PlayerData.WhiteLabelToken.IsEmpty()))
+    {
+        return true;
+    }
+    
+    return false;
+}
+
+void ULootLockerHttpClient::RefreshSessionForPlatform(const FLootLockerPlayerData& PlayerData, TFunction<void(bool)> OnRefreshCompleted)
+{
+    ELootLockerPlatform Platform = PlayerData.CurrentPlatform.Platform;
+    
+    switch (Platform)
+    {
+        case ELootLockerPlatform::Guest:
+        {
+            ULootLockerSDKManager::GuestLogin(
+                FLootLockerSessionResponse::CreateLambda([OnRefreshCompleted](const FLootLockerAuthenticationResponse& Response) {
+                    OnRefreshCompleted(Response.success);
+                }),
+                PlayerData.PlayerIdentifier,
+                PlayerData.SessionOptionals
+            );
+            break;
+        }
+        case ELootLockerPlatform::WhiteLabel:
+        {
+            ULootLockerSDKManager::WhiteLabelStartSessionManual(
+                PlayerData.WhiteLabelEmail, 
+                PlayerData.WhiteLabelToken,
+                FLootLockerSessionResponse::CreateLambda([OnRefreshCompleted](const FLootLockerAuthenticationResponse& Response) {
+                    OnRefreshCompleted(Response.success);
+                }),
+                PlayerData.SessionOptionals
+            );
+            break;
+        }
+        case ELootLockerPlatform::Google:
+        {
+            ULootLockerSDKManager::RefreshGoogleSession(
+                PlayerData.RefreshToken,
+                FLootLockerGoogleSessionResponseDelegate::CreateLambda([OnRefreshCompleted](const FLootLockerGoogleSessionResponse& Response) {
+                    OnRefreshCompleted(Response.success);
+                }),
+                PlayerData.SessionOptionals
+            );
+            break;
+        }
+        case ELootLockerPlatform::GooglePlayGames:
+        {
+            ULootLockerSDKManager::RefreshGooglePlayGamesSession(
+                PlayerData.RefreshToken,
+                FLootLockerGooglePlayGamesSessionResponseDelegate::CreateLambda([OnRefreshCompleted](const FLootLockerGooglePlayGamesSessionResponse& Response) {
+                    OnRefreshCompleted(Response.success);
+                }),
+                PlayerData.SessionOptionals
+            );
+            break;
+        }
+        case ELootLockerPlatform::Epic:
+        {
+            ULootLockerSDKManager::RefreshEpicSession(
+                PlayerData.RefreshToken,
+                FLootLockerEpicSessionResponseDelegate::CreateLambda([OnRefreshCompleted](const FLootLockerEpicSessionResponse& Response) {
+                    OnRefreshCompleted(Response.success);
+                }),
+                PlayerData.SessionOptionals
+            );
+            break;
+        }
+        case ELootLockerPlatform::AppleSignIn:
+        {
+            ULootLockerSDKManager::RefreshAppleSession(
+                PlayerData.RefreshToken,
+                FLootLockerAppleSessionResponseDelegate::CreateLambda([OnRefreshCompleted](const FLootLockerAppleSessionResponse& Response) {
+                    OnRefreshCompleted(Response.success);
+                }),
+                PlayerData.SessionOptionals
+            );
+            break;
+        }
+        case ELootLockerPlatform::AppleGameCenter:
+        {
+            ULootLockerSDKManager::RefreshAppleGameCenterSession(
+                PlayerData.RefreshToken,
+                FLootLockerAppleGameCenterSessionResponseDelegate::CreateLambda([OnRefreshCompleted](const FLootLockerAppleGameCenterSessionResponse& Response) {
+                    OnRefreshCompleted(Response.success);
+                }),
+                PlayerData.SessionOptionals
+            );
+            break;
+        }
+        case ELootLockerPlatform::Meta:
+        {
+            ULootLockerSDKManager::RefreshMetaSession(
+                PlayerData.RefreshToken,
+                FLootLockerMetaSessionResponseDelegate::CreateLambda([OnRefreshCompleted](const FLootLockerMetaSessionResponse& Response) {
+                    OnRefreshCompleted(Response.success);
+                }),
+                PlayerData.SessionOptionals
+            );
+            break;
+        }
+        case ELootLockerPlatform::Discord:
+        {
+            ULootLockerSDKManager::RefreshDiscordSession(
+                PlayerData.RefreshToken,
+                FLootLockerDiscordSessionResponseDelegate::CreateLambda([OnRefreshCompleted](const FLootLockerDiscordSessionResponse& Response) {
+                    OnRefreshCompleted(Response.success);
+                }),
+                PlayerData.SessionOptionals
+            );
+            break;
+        }
+        case ELootLockerPlatform::Remote:
+        {
+            ULootLockerSDKManager::RefreshRemoteSession(
+                PlayerData.RefreshToken,
+                FLootLockerRefreshRemoteSessionResponseDelegate::CreateLambda([OnRefreshCompleted](const FLootLockerRefreshRemoteSessionResponse& Response) {
+                    OnRefreshCompleted(Response.success);
+                })
+            );
+            break;
+        }
+        default:
+        {
+            FLootLockerLogger::LogWarning(FString::Printf(TEXT("Token refresh not supported for platform: %s"), 
+                *PlayerData.CurrentPlatform.GetFriendlyPlatformString()));
+            OnRefreshCompleted(false);
+            break;
+        }
+    }
+}
+
+void ULootLockerHttpClient::RetryOriginalRequest(const FLootLockerRetryRequestData& RetryData)
+{
+    // Get the updated player data after refresh    
+    FLootLockerPlayerData UpdatedPlayerData = ULootLockerStateData::GetSavedStateOrDefaultOrEmptyForPlayer(RetryData.PlayerData.PlayerUlid);
+    
+    if (RetryData.bIsFileUpload)
+    {
+        UploadFile(RetryData.EndPoint, RetryData.RequestType, RetryData.FilePath, RetryData.AdditionalFields, 
+                  RetryData.OnCompleteRequest, UpdatedPlayerData, RetryData.CustomHeaders, true);
+    }
+    else
+    {
+        SendApi(RetryData.EndPoint, RetryData.RequestType, RetryData.Data, 
+               RetryData.OnCompleteRequest, UpdatedPlayerData, RetryData.CustomHeaders, true);
+    }
 }
