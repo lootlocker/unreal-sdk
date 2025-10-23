@@ -1321,7 +1321,7 @@ FString ULootLockerSDKManager::ListCatalogItems(const FString& CatalogKey, int C
 
 FString ULootLockerSDKManager::ListCatalogItems(const FString& CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
-    return ULootLockerCatalogRequestHandler::ListCatalogItemsV2(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CatalogKey, PerPage, Page, FLootLockerListCatalogPricesV2ResponseBP(), OnComplete);
+    return ULootLockerCatalogRequestHandler::ListCatalogItemsV2(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CatalogKey, PerPage, Page, OnComplete);
 }
 
 // Entitlements

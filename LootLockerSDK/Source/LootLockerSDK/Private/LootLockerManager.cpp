@@ -1823,15 +1823,20 @@ FString ULootLockerManager::ListCatalogs(const FString& ForPlayerWithUlid, const
 
 FString ULootLockerManager::ListCatalogItems(const FString& ForPlayerWithUlid, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnComplete)
 {
+#pragma warning(suppress : 4996)
     return ULootLockerSDKManager::ListCatalogItems(CatalogKey, Count, After, FLootLockerListCatalogPricesResponseDelegate::CreateLambda([OnComplete](const FLootLockerListCatalogPricesResponse& Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
+#pragma warning(default : 4996)
 }
 
-void ULootLockerManager::ListCatalogItemsV2(const FString& ForPlayerWithUlid, const FString& CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseBP& OnComplete)
+FString ULootLockerManager::ListCatalogItemsV2(const FString& ForPlayerWithUlid, const FString& CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseBP& OnComplete)
 {
-    ULootLockerCatalogRequestHandler::ListCatalogItemsV2(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CatalogKey, PerPage, Page, OnComplete);
+    return ULootLockerSDKManager::ListCatalogItems(CatalogKey, PerPage, Page, FLootLockerListCatalogPricesV2ResponseDelegate::CreateLambda([OnComplete](const FLootLockerListCatalogPricesV2Response& Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 TArray<FLootLockerInlinedCatalogEntry> ULootLockerManager::ConvertCatalogToInlineItems(const FLootLockerListCatalogPricesResponse& Catalog)
