@@ -240,7 +240,7 @@ struct LLAPI
         const FResponseCallback SessionResponse = CreateLambda<CppDelegate>(OnCompletedRequest, ResponseInspectorCallback);
 
         // send request
-        return ULootLockerHttpClient::GetRef().SendApi(EndpointWithArguments, RequestMethod, ContentString, SessionResponse, PlayerData, CustomHeaders);
+        return ULootLockerHttpClient::SendApi(EndpointWithArguments, RequestMethod, ContentString, SessionResponse, PlayerData, CustomHeaders);
     }
 
     template<typename CppDelegate>
@@ -299,6 +299,6 @@ struct LLAPI
         const FResponseCallback SessionResponse = CreateLambda<CppDelegate>(OnCompletedRequest, ResponseInspectorCallback);
 
         // send request
-        return ULootLockerHttpClient::GetRef().UploadFile(EndpointWithArguments, RequestMethod, File, AdditionalData, SessionResponse, PlayerData, CustomHeaders);
+        return ULootLockerHttpClient::UploadFile(EndpointWithArguments, RequestMethod, File, AdditionalData, SessionResponse, PlayerData, CustomHeaders);
     }
 };
