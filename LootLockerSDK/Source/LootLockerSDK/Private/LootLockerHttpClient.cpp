@@ -23,31 +23,6 @@ ULootLockerHttpClient::ULootLockerHttpClient()
 {
 }
 
-ULootLockerHttpClient* ULootLockerHttpClient::Get()
-{
-    if (SingletonInstance.IsValid())
-    {
-        return SingletonInstance.Get();
-    }
-
-    FScopeLock Lock(&SingletonMutex);
-    if (!SingletonInstance.IsValid())
-    {
-        // Create in transient package so it isn't saved; mark as RF_MarkAsRootSet to avoid GC if desired
-        ULootLockerHttpClient* NewObj = NewObject<ULootLockerHttpClient>(GetTransientPackage());
-        // Optionally prevent GC: NewObj->AddToRoot(); Uncomment if you want it truly persistent.
-        SingletonInstance = NewObj;
-    }
-    return SingletonInstance.Get();
-}
-
-ULootLockerHttpClient& ULootLockerHttpClient::GetRef()
-{
-    ULootLockerHttpClient* Instance = Get();
-    checkf(Instance != nullptr, TEXT("ULootLockerHttpClient singleton instance could not be created."));
-    return *Instance;
-}
-
 void ULootLockerHttpClient::LogFailedRequestInformation(const FLootLockerResponse& Response, const FString& AllHeadersDelimited)
 {
     FLootLockerLogger::LogHttpRequest(Response, AllHeadersDelimited);
@@ -66,7 +41,7 @@ bool ULootLockerHttpClient::ResponseIsSuccess(const FHttpResponsePtr& InResponse
     return EHttpResponseCodes::IsOk(InResponse->GetResponseCode());
 }
 
-FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders) const
+FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders)
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
     if(SDKVersion.IsEmpty())
@@ -106,7 +81,7 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
 
     FString requestId = FGuid::NewGuid().ToString();
 
-	Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this, endPoint, requestType, data, playerUlid, requestTime, DelimitedHeaders, requestId](FHttpRequestPtr Req, const FHttpResponsePtr& Response, bool bWasSuccessful)
+	Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, endPoint, requestType, data, playerUlid, requestTime, DelimitedHeaders, requestId](FHttpRequestPtr Req, const FHttpResponsePtr& Response, bool bWasSuccessful)
 	{
         if (!Response.IsValid())
         {
@@ -151,7 +126,7 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
     return requestId;
 }
 
-FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString>& AdditionalFields, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders) const
+FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString>& AdditionalFields, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders)
 {
     FHttpModule* HttpModule = &FHttpModule::Get();
     if (SDKVersion.IsEmpty())
@@ -236,7 +211,7 @@ FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString
     FString playerUlid = PlayerData.PlayerUlid;
     FString requestId = FGuid::NewGuid().ToString();
 
-    Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, this, requestType, endPoint, playerUlid, requestTime, DelimitedHeaders, requestId](FHttpRequestPtr Req, const FHttpResponsePtr& Response, bool bWasSuccessful)
+    Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, requestType, endPoint, playerUlid, requestTime, DelimitedHeaders, requestId](FHttpRequestPtr Req, const FHttpResponsePtr& Response, bool bWasSuccessful)
         {
             if (!Response.IsValid())
             {
