@@ -388,8 +388,12 @@ public:
     DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListCatalogsResponseBP, FLootLockerListCatalogsResponse, Response);
     /** Blueprint response delegate for listing catalog prices responses */
     DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListCatalogPricesResponseBP, FLootLockerListCatalogPricesResponse, Response);
+    /** Blueprint response delegate for listing catalog prices responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListCatalogPricesV2ResponseBP, FLootLockerListCatalogPricesV2Response, Response);
     /** Blueprint response delegate for internal listing catalog prices responses */
     DECLARE_DYNAMIC_DELEGATE_OneParam(FInternalLootLockerListCatalogPricesResponseBP, FInternalLootLockerListCatalogPricesResponse, Response);
+    /** Blueprint response delegate for internal listing catalog prices responses */
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FInternalLootLockerListCatalogPricesV2ResponseBP, FInternalLootLockerListCatalogPricesV2Response, Response);
 
     //==================================================
     // Entitlement Delegates
