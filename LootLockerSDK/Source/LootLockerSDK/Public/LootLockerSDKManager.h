@@ -1461,7 +1461,21 @@ public:
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
+    [[deprecated("This method is deprecated, please use CreateCharacter(bool IsDefault, const FString & CharacterName, const int & CharacterTypeId, const FCharacterLoadoutResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "") instead.")]] // Deprecation date 20251023
     static FString CreateCharacter(bool IsDefault, const FString & CharacterName, const FString & CharacterTypeId, const FCharacterLoadoutResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Create a character of a specified type and name (optionally set as default).
+     Use ListCharacterTypes to enumerate available character types.
+
+     @param IsDefault Whether the new character should be default
+     @param CharacterName Character name
+     @param CharacterTypeId Character type id
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString CreateCharacter(bool IsDefault, const FString & CharacterName, const int & CharacterTypeId, const FCharacterLoadoutResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     /**
      Delete a character by id (irreversible) and return its equipped items to inventory.
