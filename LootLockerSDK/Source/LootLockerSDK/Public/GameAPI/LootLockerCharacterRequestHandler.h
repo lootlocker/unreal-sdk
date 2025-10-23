@@ -90,7 +90,7 @@ struct FLootLockerCreateCharacterRequest {
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString name = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString character_type_id = "";
+	int32 character_type_id = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -174,7 +174,7 @@ public:
 
 	static FString GetCharacterLoadout(const FLootLockerPlayerData& PlayerData, const FCharacterLoadoutResponse& OnCompletedRequest);
 	static FString UpdateCharacter(const FLootLockerPlayerData& PlayerData, int CharacterId, bool IsDefault, FString Name, const FCharacterLoadoutResponse& OnCompletedRequest);
-	static FString CreateCharacter(const FLootLockerPlayerData& PlayerData, bool IsDefault, FString CharacterName, FString CharacterId, const FCharacterLoadoutResponse& OnCompletedRequest);
+	static FString CreateCharacter(const FLootLockerPlayerData& PlayerData, bool IsDefault, FString CharacterName, int CharacterId, const FCharacterLoadoutResponse& OnCompletedRequest);
 	static FString DeleteCharacter(const FLootLockerPlayerData& PlayerData, int CharacterId, const FLootLockerCharacterDefaultResponse& OnCompletedRequest);
 	static FString ListPlayerCharacters(const FLootLockerPlayerData& PlayerData, const FPLootLockerListPlayerCharactersResponse& OnCompletedRequest);
 	static FString ListCharacterTypes(const FLootLockerPlayerData& PlayerData, const FPLootLockerListCharacterTypesResponse& OnCompletedRequest);

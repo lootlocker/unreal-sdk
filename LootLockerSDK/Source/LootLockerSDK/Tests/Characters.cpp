@@ -56,7 +56,7 @@ void FTestLootLockerCharacters::Define()
 			
 				bool IsDefault = true;
 				FString CharacterName = "Test character";
-				ULootLockerSDKManager::CreateCharacter(IsDefault, CharacterName, FString::FromInt(CharacterID), Delegate);
+				ULootLockerSDKManager::CreateCharacter(IsDefault, CharacterName, CharacterID, Delegate);
 			
 				const auto Response2 = Promise2->get_future().get();
 				TestTrue("CreateHero success", Response2.success);

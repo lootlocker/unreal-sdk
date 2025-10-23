@@ -1741,7 +1741,7 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Characters", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static UPARAM(DisplayName = "RequestId") FString CreateCharacter(const FString& ForPlayerWithUlid, bool IsDefault, FString CharacterName, FString CharacterTypeId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP);
+    static UPARAM(DisplayName = "RequestId") FString CreateCharacter(const FString& ForPlayerWithUlid, bool IsDefault, FString CharacterName, int CharacterTypeId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP);
 
     /**
      Delete a character by id (irreversible) and free associated loadout slots/items back to inventory.
@@ -3374,7 +3374,7 @@ public:
     @param OnComplete Delegate for handling the server response
     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Catalog", meta = (DeprecationMessage="This method is deprecated, please use ListCatalogItemsV2 instead.", AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid="")) // Deprecation Date 2025-10-16
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Catalog", meta = (DeprecatedFunction, DeprecationMessage="This method is deprecated, please use ListCatalogItemsV2 instead.", AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid="")) // Deprecation Date 2025-10-16
     static UPARAM(DisplayName = "RequestId") FString ListCatalogItems(const FString& ForPlayerWithUlid, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnComplete);
 
     /**

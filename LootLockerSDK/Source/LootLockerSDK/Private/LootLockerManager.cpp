@@ -835,7 +835,7 @@ FString ULootLockerManager::UpdateCharacter(const FString& ForPlayerWithUlid, in
     }), ForPlayerWithUlid);
 }
 
-FString ULootLockerManager::CreateCharacter(const FString& ForPlayerWithUlid, bool IsDefault, FString CharacterName, FString CharacterTypeId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP)
+FString ULootLockerManager::CreateCharacter(const FString& ForPlayerWithUlid, bool IsDefault, FString CharacterName, int CharacterTypeId, const FPCharacterLoadoutResponseBP& OnCompletedRequestBP)
 {
     return ULootLockerSDKManager::CreateCharacter(IsDefault, CharacterName, CharacterTypeId, FCharacterLoadoutResponse::CreateLambda([OnCompletedRequestBP](const FLootLockerCharacterLoadoutResponse& Response) {
         OnCompletedRequestBP.ExecuteIfBound(Response);

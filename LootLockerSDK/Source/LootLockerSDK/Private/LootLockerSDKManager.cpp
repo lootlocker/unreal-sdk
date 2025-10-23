@@ -614,6 +614,11 @@ FString ULootLockerSDKManager::UpdateCharacter(int CharacterId, bool IsDefault, 
 
 FString ULootLockerSDKManager::CreateCharacter(bool IsDefault, const FString& CharacterName, const FString& CharacterTypeId, const FCharacterLoadoutResponse& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
+    return CreateCharacter(IsDefault, CharacterName, FCString::Atoi(*CharacterTypeId), OnCompletedRequest, ForPlayerWithUlid);
+}
+
+FString ULootLockerSDKManager::CreateCharacter(bool IsDefault, const FString& CharacterName, const int& CharacterTypeId, const FCharacterLoadoutResponse& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
     return ULootLockerCharacterRequestHandler::CreateCharacter(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), IsDefault, CharacterName, CharacterTypeId, OnCompletedRequest);
 }
 
