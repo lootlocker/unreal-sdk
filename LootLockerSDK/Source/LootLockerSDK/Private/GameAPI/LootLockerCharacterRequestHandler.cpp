@@ -20,7 +20,7 @@ FString ULootLockerCharacterRequestHandler::UpdateCharacter(const FLootLockerPla
 	return LLAPI<FLootLockerCharacterLoadoutResponse>::CallAPI(characterRequest, ULootLockerGameEndpoints::UpdateCharacterEndpoint, { CharacterId }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
-FString ULootLockerCharacterRequestHandler::CreateCharacter(const FLootLockerPlayerData& PlayerData, bool IsDefault, FString CharacterName, FString CharacterId, const FCharacterLoadoutResponse& OnCompletedRequest)
+FString ULootLockerCharacterRequestHandler::CreateCharacter(const FLootLockerPlayerData& PlayerData, bool IsDefault, FString CharacterName, int CharacterId, const FCharacterLoadoutResponse& OnCompletedRequest)
 {
 	FLootLockerCreateCharacterRequest characterRequest;
 	characterRequest.is_default = IsDefault;
