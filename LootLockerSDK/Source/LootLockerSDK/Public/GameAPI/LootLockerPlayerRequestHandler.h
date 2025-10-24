@@ -288,7 +288,9 @@ enum class ELootLockerPlayerDataLookupIdType : uint8
 	Psn_id = 4,
 	Xbox_id = 5,
 	Player_ulid = 6,
-	Player_name = 7
+	Player_name = 7,
+	Epic_games_id = 8,
+	Google_play_games_id = 9
 };
 
 /**
