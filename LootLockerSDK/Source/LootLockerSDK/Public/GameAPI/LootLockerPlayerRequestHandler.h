@@ -349,6 +349,68 @@ struct FLootLockerMultiplePlayerNamesAndPlatformsRequest {
 		TArray<FString> player_public_uids;
 };
 
+/**
+ * A simplified inventory item for optimized inventory listing
+ */
+USTRUCT(BlueprintType)
+struct FLootLockerSimpleInventoryItem
+{
+	GENERATED_BODY()
+	/**
+	 * The ID of the asset
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	int32 Asset_id = 0;
+	/**
+	 * The instance ID of this specific asset instance
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	int32 Instance_id = 0;
+	/**
+	 * How this asset was acquired (e.g., purchase, loot_box, etc.)
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString Acquisition_source = "";
+	/**
+	 * When this asset was acquired
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString Acquisition_date = "";
+};
+
+/**
+ * Request filters for simplified inventory listing
+ */
+USTRUCT(BlueprintType)
+struct FLootLockerListSimplifiedInventoryRequest
+{
+	GENERATED_BODY()
+	/**
+	 * A list of context ids to filter the inventory items by
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	TArray<int32> Context_ids;
+};
+
+/**
+ * Response for simplified inventory listing
+ */
+USTRUCT(BlueprintType)
+struct FLootLockerSimpleInventoryResponse : public FLootLockerResponse
+{
+	GENERATED_BODY()
+	/**
+	 * List of simplified inventory items according to the requested filters
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	TArray<FLootLockerSimpleInventoryItem> Items;
+	/**
+	 * Pagination information for the inventory items returned
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FLootLockerIndexBasedPagination Pagination;
+};
+
 DECLARE_DELEGATE_OneParam(FLootLockerGetCurrentPlayerInfoResponseDelegate, FLootLockerGetCurrentPlayerInfoResponse);
 
 DECLARE_DELEGATE_OneParam(FLootLockerListPlayerInfoResponseDelegate, FLootLockerListPlayerInfoResponse);
@@ -366,6 +428,8 @@ DECLARE_DELEGATE_OneParam(FPNameResponse, FLootLockerNameResponse);
 DECLARE_DELEGATE_OneParam(FPMultiplePlayerNames, FLootLockerMultiplePlayersNamesResponse)
 
 DECLARE_DELEGATE_OneParam(FPMultiplePlayersPlatformIdsNames, FLootLockerMultiplePlayersPlatformIdsResponse);
+
+DECLARE_DELEGATE_OneParam(FLootLockerSimpleInventoryResponseDelegate, FLootLockerSimpleInventoryResponse);
 
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerPlayerRequestHandler : public UObject
@@ -391,4 +455,8 @@ public:
 	static FString LookupMultiplePlayersDataUsingIDs(const FLootLockerPlayerData& PlayerData, FLootLockerLookupMultiplePlayersDataRequest Request, const FPMultiplePlayerNames& OnCompletedRequest);
 	static FString LookupMultiplePlayerNames1stPlatformIDs(const FLootLockerPlayerData& PlayerData, const FLootLockerMultiplePlayerNamesAndPlatformsRequest& Request, const FPMultiplePlayersPlatformIdsNames& OnCompletedRequest);
     static FString DeletePlayer(const FLootLockerPlayerData& PlayerData, const FLootLockerDefaultDelegate OnCompletedRequest);
+	
+	// Simple inventory listing methods
+	static FString ListPlayerInventory(const FLootLockerPlayerData& PlayerData, const FLootLockerListSimplifiedInventoryRequest& Request, int32 PerPage, int32 Page, const FLootLockerSimpleInventoryResponseDelegate& OnCompletedRequest);
+	static FString ListCharacterInventory(const FLootLockerPlayerData& PlayerData, const FLootLockerListSimplifiedInventoryRequest& Request, int32 CharacterId, int32 PerPage, int32 Page, const FLootLockerSimpleInventoryResponseDelegate& OnCompletedRequest);
 };

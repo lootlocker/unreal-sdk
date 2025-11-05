@@ -117,6 +117,7 @@ public:
     static FLootLockerEndPoints GetInfoFromSession;
     static FLootLockerEndPoints ListPlayerInfo;
     static FLootLockerEndPoints GetPlayerInventoryEndPoint;
+    static FLootLockerEndPoints ListPlayerSimpleInventoryEndPoint;
     static FLootLockerEndPoints GetCurrencyBalance;
     static FLootLockerEndPoints CheckPlayerAssetActivationEndpoint;
     static FLootLockerEndPoints CheckPlayerAssetDeactivationEndpoint;

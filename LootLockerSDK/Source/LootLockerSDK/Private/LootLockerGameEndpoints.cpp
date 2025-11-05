@@ -85,6 +85,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::ListOtherPlayersFilesEndpoint = I
 FLootLockerEndPoints ULootLockerGameEndpoints::GetInfoFromSession = InitEndpoint("player/hazy-hammock/v1/info", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::ListPlayerInfo = InitEndpoint("player/hazy-hammock/v1/info", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetPlayerInventoryEndPoint = InitEndpoint("v1/player/inventory/list", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::ListPlayerSimpleInventoryEndPoint = InitEndpoint("player/inventories/v1", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetCurrencyBalance = InitEndpoint("v1/player/balance", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::CheckPlayerAssetActivationEndpoint = InitEndpoint("v1/player/notification/assets", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::InitiateDLCMigration = InitEndpoint("v1/player/dlcs", ELootLockerHTTPMethod::POST);

@@ -117,6 +117,8 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetCurrentPlayerInfoResponseBP, FLo
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListPlayerInfoResponseBP, FLootLockerListPlayerInfoResponse, Value);
 /** Blueprint response delegate for player inventory responses */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPInventoryResponseBP, FLootLockerInventoryResponse, Value);
+/** Blueprint response delegate for simple player inventory responses */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerSimpleInventoryResponseBP, FLootLockerSimpleInventoryResponse, Value);
 /** Blueprint response delegate for player asset notification responses */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPAssetNotificationResponseBP, FLootLockerPlayerAssetNotificationResponse, Value);
 /** Blueprint response delegate for player balance responses */
@@ -1225,6 +1227,33 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static UPARAM(DisplayName = "RequestId") FString GetFullInventory(const FString ForPlayerWithUlid, int32 StartIndex, const FPInventoryResponseBP& OnGetInventoryRequestCompleted);
+
+    /**
+     Get a simplified list of the player's inventory.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Request Request object containing any filters to apply to the inventory listing
+     @param PerPage Number of items to return per page
+     @param Page Page number to retrieve
+     @param OnCompletedRequest Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid,Request,PerPage,Page", ForPlayerWithUlid="", PerPage="100", Page="1", AutoCreateRefTerm = "Request"))
+    static UPARAM(DisplayName = "RequestId") FString ListPlayerInventory(const FString& ForPlayerWithUlid, const FLootLockerListSimplifiedInventoryRequest& Request, int PerPage, const int& Page, const FLootLockerSimpleInventoryResponseBP& OnCompletedRequest);
+
+    /**
+     Get a simplified list of the character's inventory.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param CharacterId Identifier of the character whose inventory is being requested
+     @param Request Request object containing any filters to apply to the inventory listing
+     @param PerPage Number of items to return per page
+     @param Page Page number to retrieve
+     @param OnCompletedRequest Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid,Request,PerPage,Page", ForPlayerWithUlid="", PerPage="100", Page="1", AutoCreateRefTerm = "Request"))
+    static UPARAM(DisplayName = "RequestId") FString ListCharacterInventory(const FString& ForPlayerWithUlid, int CharacterId, const FLootLockerListSimplifiedInventoryRequest& Request, int PerPage, const int& Page, const FLootLockerSimpleInventoryResponseBP& OnCompletedRequest);
 
     /**
      Get recently granted player assets since the last activation notification check.

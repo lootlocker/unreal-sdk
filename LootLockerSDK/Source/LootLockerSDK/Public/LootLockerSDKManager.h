@@ -877,6 +877,50 @@ public:
     static FString CheckPlayerAssetActivationNotification(const FLootLockerAssetNotificationResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     /**
+     Get a simplified list of the player's inventory with default parameters.
+
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ListPlayerInventoryWithDefaultParameters(const FLootLockerSimpleInventoryResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Get a simplified list of the player's inventory.
+
+     @param Request Request object containing any filters to apply to the inventory listing
+     @param PerPage Number of items to return per page
+     @param Page Page number to retrieve
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ListPlayerInventory(const FLootLockerListSimplifiedInventoryRequest& Request, int PerPage, int Page, const FLootLockerSimpleInventoryResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Get a simplified list of the character's inventory with default parameters.
+
+     @param CharacterId ID of the character to retrieve inventory for
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ListCharacterInventoryWithDefaultParameters(int CharacterId, const FLootLockerSimpleInventoryResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Get a simplified list of a character's inventory.
+
+     @param CharacterId ID of the character to retrieve inventory for
+     @param Request Request object containing any filters to apply to the inventory listing
+     @param PerPage Number of items to return per page
+     @param Page Page number to retrieve
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ListCharacterInventory(int CharacterId, const FLootLockerListSimplifiedInventoryRequest& Request, int PerPage, int Page, const FLootLockerSimpleInventoryResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
      Get the player's current credit / currency balance.
 
      @param OnCompletedRequest Delegate for handling the server response
