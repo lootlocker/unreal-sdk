@@ -199,6 +199,53 @@ struct FLootLockerCatalogSteamStoreListing
  *
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerCatalogStripeStoreListing
+{
+    GENERATED_BODY()
+    /**
+     * The currency to use for the purchase
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Currency = "";
+    /**
+     * The amount to charge in the smallest unit of the currency (e.g. cents for USD)
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int Amount = 0;
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerCatalogEpicGamesStoreListing
+{
+    GENERATED_BODY()
+    /**
+     * The Epic Games audience item id associated with this listing
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Audience_item_id = "";
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerCatalogPlaystationStoreListing
+{
+    GENERATED_BODY()
+    /**
+     * The Playstation entitlement label associated with this listing
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Entitlement_label = "";
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerCatalogEntryListings
 {
     GENERATED_BODY()
@@ -217,6 +264,21 @@ struct FLootLockerCatalogEntryListings
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerCatalogSteamStoreListing Steam_store;
+    /**
+     * The listing information (if configured) for Stripe Store
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerCatalogStripeStoreListing Stripe_store;
+    /**
+     * The listing information (if configured) for Epic Games Store
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerCatalogEpicGamesStoreListing Epic_games_store;
+    /**
+     * The listing information (if configured) for Playstation Store
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerCatalogPlaystationStoreListing Playstation_store;
 };
 
 /**
