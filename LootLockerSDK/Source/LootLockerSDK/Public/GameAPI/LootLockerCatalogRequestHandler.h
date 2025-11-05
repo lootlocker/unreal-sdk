@@ -51,6 +51,78 @@ public:
 
 };
 
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerAssetItemDetailsKey
+{
+    GENERATED_BODY()
+    /*
+    * The id of the catalog listing
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Catalog_listing_id = "";
+    /*
+    * The id of the item
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Item_id = "";
+    /*
+    * The Asset Variation ID
+    * Asset Variations is a deprecated feature, this is added for backward compatibility only
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Asset_variation_id = "";
+    /*
+    * The Asset Rental option ID
+    * Asset Rental Options is a deprecated feature, this is added for backward compatibility only
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Rental_option_id = "";
+
+public:
+
+    friend uint32 GetTypeHash(const FLootLockerAssetItemDetailsKey& p) {
+        return HashCombine(HashCombine(GetTypeHash(p.Catalog_listing_id), GetTypeHash(p.Item_id)), HashCombine(GetTypeHash(p.Asset_variation_id), GetTypeHash(p.Rental_option_id)));
+    }
+
+    bool operator==(const FLootLockerAssetItemDetailsKey& Other) const
+    {
+        return Catalog_listing_id.Equals(Other.Catalog_listing_id) && Item_id.Equals(Other.Item_id) && Asset_variation_id.Equals(Other.Asset_variation_id) && Rental_option_id.Equals(Other.Rental_option_id);
+    }
+
+    FLootLockerAssetItemDetailsKey() = default;
+
+    FLootLockerAssetItemDetailsKey(const FString& InCatalogListingId, const FString& InItemId, const FString& InAssetVariationId, const FString& InRentalOptionId)
+        : Catalog_listing_id(InCatalogListingId)
+        , Item_id(InItemId)
+        , Asset_variation_id(InAssetVariationId)
+        , Rental_option_id(InRentalOptionId)
+    {
+    }
+
+    FLootLockerAssetItemDetailsKey(const FLootLockerAssetItemDetailsKey& Other) = default;
+
+    FLootLockerAssetItemDetailsKey& operator=(const FLootLockerAssetItemDetailsKey& Other) = default;
+
+    ~FLootLockerAssetItemDetailsKey() = default;
+
+    FLootLockerAssetItemDetailsKey(const FString& InCatalogListingId, const FString& InItemId)
+        : Catalog_listing_id(InCatalogListingId)
+        , Item_id(InItemId)
+        , Asset_variation_id("")
+        , Rental_option_id("")
+    {
+    }
+
+    FLootLockerAssetItemDetailsKey(const FLootLockerItemDetailsKey& Other)
+        : Catalog_listing_id(Other.Catalog_listing_id)
+        , Item_id(Other.Item_id)
+        , Asset_variation_id("")
+        , Rental_option_id("")
+    {
+    }
+
+};
+
 /**
  * 
  */
@@ -596,6 +668,12 @@ struct FLootLockerInlinedCatalogEntry : public FLootLockerCatalogEntry
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerAssetDetails AssetDetails;
     /**
+     * This is a list of potentially matching asset details for this catalog entry, in case there are multiple variations / rental options
+     * Asset Variations and Rental Options are deprecated features, this is added for backward compatibility only
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerAssetDetails> OptionalAssetDetailVariants;
+    /**
      * Progression point details inlined for this catalog entry, will be Empty if the entity_kind is not progression_points
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -616,7 +694,7 @@ struct FLootLockerInlinedCatalogEntry : public FLootLockerCatalogEntry
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerInlinedGroupDetails GroupDetails;
 
-    FLootLockerInlinedCatalogEntry(): AssetDetails(), ProgressionPointDetails(), ProgressionResetDetails(), CurrencyDetails(), GroupDetails() {}
+    FLootLockerInlinedCatalogEntry(): AssetDetails(), OptionalAssetDetailVariants(), ProgressionPointDetails(), ProgressionResetDetails(), CurrencyDetails(), GroupDetails() {}
 
     FLootLockerInlinedCatalogEntry(const FLootLockerCatalogEntry& Entry, const FLootLockerListCatalogPricesResponse& CatalogListing);
 
@@ -647,6 +725,14 @@ struct FLootLockerListCatalogPricesResponse : public FLootLockerResponse
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TMap<FLootLockerItemDetailsKey, FLootLockerAssetDetails> Asset_Details;
+
+    /**
+     * This is a list of potentially matching asset details for this catalog entry, in case there are multiple variations / rental options
+     * Asset Variations and Rental Options are deprecated features, this is added for backward compatibility only
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TMap<FLootLockerAssetItemDetailsKey, FLootLockerAssetDetails> Optional_Asset_Detail_Variants;
+
 
     /**
      * Lookup map for details about entities of entity type progression_points
@@ -714,6 +800,13 @@ struct FLootLockerListCatalogPricesV2Response : public FLootLockerResponse
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TMap<FLootLockerItemDetailsKey, FLootLockerAssetDetails> Asset_Details;
+
+    /**
+     * This is a list of potentially matching asset details for this catalog entry, in case there are multiple variations / rental options
+     * Asset Variations and Rental Options are deprecated features, this is added for backward compatibility only
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TMap<FLootLockerAssetItemDetailsKey, FLootLockerAssetDetails> Optional_Asset_Detail_Variants;
 
     /**
      * Lookup map for details about entities of entity type progression_points
