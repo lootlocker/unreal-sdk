@@ -386,6 +386,11 @@ struct FLootLockerListSimplifiedInventoryRequest
 {
 	GENERATED_BODY()
 	/**
+	 * A list of asset ids to filter the inventory items by
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	TArray<int32> Asset_ids;
+	/**
 	 * A list of context ids to filter the inventory items by
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
