@@ -372,6 +372,26 @@ FString ULootLockerSDKManager::GetFullInventory(const FInventoryResponse& OnComp
     return ULootLockerPlayerRequestHandler::GetFullInventory(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest, StartIndex);
 }
 
+FString ULootLockerSDKManager::ListPlayerInventoryWithDefaultParameters(const FLootLockerSimpleInventoryResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ListPlayerInventory(FLootLockerListSimplifiedInventoryRequest(), 0, 0, OnCompletedRequest, ForPlayerWithUlid);
+}
+
+FString ULootLockerSDKManager::ListPlayerInventory(const FLootLockerListSimplifiedInventoryRequest& Request, int PerPage, int Page, const FLootLockerSimpleInventoryResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerPlayerRequestHandler::ListPlayerInventory(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, PerPage, Page, OnCompletedRequest);
+}
+
+FString ULootLockerSDKManager::ListCharacterInventoryWithDefaultParameters(int CharacterId, const FLootLockerSimpleInventoryResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ListCharacterInventory(CharacterId, FLootLockerListSimplifiedInventoryRequest(), 0, 0, OnCompletedRequest, ForPlayerWithUlid);
+}
+
+FString ULootLockerSDKManager::ListCharacterInventory(int CharacterId, const FLootLockerListSimplifiedInventoryRequest& Request, int PerPage, int Page, const FLootLockerSimpleInventoryResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerPlayerRequestHandler::ListCharacterInventory(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, CharacterId, PerPage, Page, OnCompletedRequest);
+}
+
 FString ULootLockerSDKManager::CheckPlayerAssetActivationNotification(const FLootLockerAssetNotificationResponse& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
     return ULootLockerPlayerRequestHandler::CheckPlayerAssetNotification(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);

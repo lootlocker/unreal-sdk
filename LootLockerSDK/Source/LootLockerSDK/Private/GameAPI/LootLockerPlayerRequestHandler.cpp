@@ -158,3 +158,25 @@ FString ULootLockerPlayerRequestHandler::DeletePlayer(const FLootLockerPlayerDat
 	return LLAPI<FLootLockerResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::DeletePlayer, {}, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
+FString ULootLockerPlayerRequestHandler::ListPlayerInventory(const FLootLockerPlayerData& PlayerData, const FLootLockerListSimplifiedInventoryRequest& Request, int32 PerPage, int32 Page, const FLootLockerSimpleInventoryResponseDelegate& OnCompletedRequest)
+{
+	TMultiMap<FString, FString> QueryParams;
+	QueryParams.Add("per_page", FString::FromInt(PerPage > 0 ? PerPage : 100));
+	QueryParams.Add("page", FString::FromInt(Page > 0 ? Page : 1));
+
+	return LLAPI<FLootLockerSimpleInventoryResponse>::CallAPI(Request, ULootLockerGameEndpoints::ListPlayerSimpleInventoryEndPoint, {}, QueryParams, PlayerData, OnCompletedRequest);
+}
+
+FString ULootLockerPlayerRequestHandler::ListCharacterInventory(const FLootLockerPlayerData& PlayerData, const FLootLockerListSimplifiedInventoryRequest& Request, int32 CharacterId, int32 PerPage, int32 Page, const FLootLockerSimpleInventoryResponseDelegate& OnCompletedRequest)
+{
+	TMultiMap<FString, FString> QueryParams;
+	if (CharacterId > 0)
+	{
+		QueryParams.Add("character_id", FString::FromInt(CharacterId));
+	}
+	QueryParams.Add("per_page", FString::FromInt(PerPage > 0 ? PerPage : 100));
+	QueryParams.Add("page", FString::FromInt(Page > 0 ? Page : 1));
+
+	return LLAPI<FLootLockerSimpleInventoryResponse>::CallAPI(Request, ULootLockerGameEndpoints::ListPlayerSimpleInventoryEndPoint, {}, QueryParams, PlayerData, OnCompletedRequest);
+}
+
