@@ -7,6 +7,7 @@ public class LootLockerSDK : ModuleRules
     public static bool bEnableGoogleSubsystemHelper = false;
     public static bool bUseStageURL = false;
     public static bool bShowOutdatedSDKMessage = false; // Set to true when submitting to fab for engine versions < the last 3
+    public static bool bEnableCommandLineSettings = true; // Enable command line configuration overrides
     public LootLockerSDK(ReadOnlyTargetRules Target) : base(Target)
     {
         PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
@@ -71,6 +72,11 @@ public class LootLockerSDK : ModuleRules
         if (bShowOutdatedSDKMessage)
         {
 	        PublicDefinitions.Add("LOOTLOCKER_SHOW_OUTDATED_SDK_MESSAGE");
+        }
+
+        if (bEnableCommandLineSettings)
+        {
+	        PublicDefinitions.Add("LOOTLOCKER_COMMANDLINE_SETTINGS");
         }
     }
 }
