@@ -5,6 +5,7 @@
 #include "Misc/DateTime.h"
 #include "Misc/CommandLine.h"
 #include "Misc/Parse.h"
+#include "LootLockerLogger.h"
 
 namespace {
     // Used for runtime log level override
@@ -80,17 +81,22 @@ void ULootLockerConfig::CheckForSettingOverrides()
     }
 
     FString Value;
+    bool bAnyOverrideApplied = false;
 
     // Check for -lootlockerkey or -apikey
     if (FParse::Value(CommandLine, TEXT("-lootlockerkey="), Value) || FParse::Value(CommandLine, TEXT("-apikey="), Value))
     {
         LootLockerGameKey = Value;
+        FLootLockerLogger::LogVerbose(TEXT("Command line override: LootLockerGameKey"));
+        bAnyOverrideApplied = true;
     }
 
     // Check for -lootlockerdomainkey or -domainkey
     if (FParse::Value(CommandLine, TEXT("-lootlockerdomainkey="), Value) || FParse::Value(CommandLine, TEXT("-domainkey="), Value))
     {
         DomainKey = Value;
+        FLootLockerLogger::LogVerbose(TEXT("Command line override: DomainKey"));
+        bAnyOverrideApplied = true;
     }
 
     // Check for -lootlockerversion or -gameversion
@@ -98,6 +104,8 @@ void ULootLockerConfig::CheckForSettingOverrides()
     {
         GameVersion = Value;
         IsValidGameVersion = IsSemverString(GameVersion);
+        FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Command line override: GameVersion = %s"), *Value));
+        bAnyOverrideApplied = true;
     }
 
     // Check for -lootlockerlogging or -loglevel
@@ -119,6 +127,8 @@ void ULootLockerConfig::CheckForSettingOverrides()
         {
             LootLockerLogLevel = ELootLockerLogLevel::Verbose;
         }
+        FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Command line override: LootLockerLogLevel = %s"), *Value));
+        bAnyOverrideApplied = true;
     }
 
     // Check for -lootlockerlogfile or -logfile
@@ -129,6 +139,8 @@ void ULootLockerConfig::CheckForSettingOverrides()
             LogFileName = Value;
             bEnableFileLogging = true;
             EnableFileLogging(LogFileName);
+            FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Command line override: LogFileName = %s"), *Value));
+            bAnyOverrideApplied = true;
         }
     }
 
@@ -136,20 +148,33 @@ void ULootLockerConfig::CheckForSettingOverrides()
     if (FParse::Param(CommandLine, TEXT("lootlockerallowrefresh")) || FParse::Param(CommandLine, TEXT("allowtokenrefresh")))
     {
         AllowTokenRefresh = true;
+        FLootLockerLogger::LogVerbose(TEXT("Command line override: AllowTokenRefresh = true"));
+        bAnyOverrideApplied = true;
     }
     else if (FParse::Param(CommandLine, TEXT("lootlockerdisablerefresh")) || FParse::Param(CommandLine, TEXT("disabletokenrefresh")))
     {
         AllowTokenRefresh = false;
+        FLootLockerLogger::LogVerbose(TEXT("Command line override: AllowTokenRefresh = false"));
+        bAnyOverrideApplied = true;
     }
 
     // Check for -lootlockerlogoutside or -logoutside
     if (FParse::Param(CommandLine, TEXT("lootlockerlogoutside")) || FParse::Param(CommandLine, TEXT("logoutside")))
     {
         LogOutsideOfEditor = true;
+        FLootLockerLogger::LogVerbose(TEXT("Command line override: LogOutsideOfEditor = true"));
+        bAnyOverrideApplied = true;
     }
     else if (FParse::Param(CommandLine, TEXT("lootlockernologoutside")) || FParse::Param(CommandLine, TEXT("nologoutside")))
     {
         LogOutsideOfEditor = false;
+        FLootLockerLogger::LogVerbose(TEXT("Command line override: LogOutsideOfEditor = false"));
+        bAnyOverrideApplied = true;
+    }
+
+    if (bAnyOverrideApplied)
+    {
+        FLootLockerLogger::LogVerbose(TEXT("LootLocker configuration overridden via command line arguments"));
     }
 }
 #endif
