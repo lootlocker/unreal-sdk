@@ -50,11 +50,38 @@ For a more detailed guide on installation, please see our [User Documentation](h
 
 ### Command Line Configuration
 
-The LootLocker Unreal SDK supports configuration through command line arguments using Unreal Engine's built-in INI override system. This is useful for CI/CD pipelines and different deployment environments. For detailed information, see [COMMAND_LINE_CONFIG.md](LootLockerSDK/COMMAND_LINE_CONFIG.md).
+You can override config settings via command line using Unreal Engine's built-in INI override system (useful for CI/CD pipelines):
 
-Example:
 ```bash
-./MyGame -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LootLockerGameKey=your_api_key
+-ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:PropertyName=Value
+```
+
+**Key Configuration Options:**
+
+- **LootLockerGameKey** - Your LootLocker API key
+  ```bash
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LootLockerGameKey=your_api_key
+  ```
+
+- **DomainKey** - Your LootLocker Domain key
+  ```bash
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:DomainKey=your_domain_key
+  ```
+
+- **GameVersion** - Game version (e.g., 1.0.0)
+  ```bash
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:GameVersion=1.0.0
+  ```
+
+- **LootLockerLogLevel** - Log level: 0=NoLogging, 1=Error, 2=Warning, 3=Verbose
+  ```bash
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LootLockerLogLevel=2
+  ```
+
+You can use multiple overrides in one command:
+```bash
+./MyGame -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LootLockerGameKey=abc123 \
+         -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:GameVersion=1.0.0
 ```
 
 ## Support
