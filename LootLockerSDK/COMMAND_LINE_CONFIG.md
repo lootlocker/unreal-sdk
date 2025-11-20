@@ -2,74 +2,98 @@
 
 ## Overview
 
-The LootLocker Unreal SDK supports command line configuration overrides, allowing you to configure the SDK at runtime through command line arguments. This is useful for CI/CD pipelines, automated testing, and different deployment environments.
+The LootLocker Unreal SDK supports command line configuration overrides using Unreal Engine's built-in INI override system. This allows you to configure the SDK at runtime through command line arguments, which is useful for CI/CD pipelines, automated testing, and different deployment environments.
 
-## Enabling Command Line Settings
+## How It Works
 
-Command line configuration is enabled by default. To disable it, set `bEnableCommandLineSettings = false` in `LootLockerSDK.Build.cs`.
+The LootLocker SDK uses Unreal Engine's config system (`UCLASS(Config = Game)` with `UPROPERTY(Config, ...)`). All configuration properties are automatically saved to and loaded from INI files, and Unreal Engine provides built-in command line override support.
 
-## Supported Command Line Arguments
+Following [Epic's official documentation](https://dev.epicgames.com/documentation/en-us/unreal-engine/configuration-files-in-unreal-engine#overrideconfigurationfromthecommand-line), you can override any config property using the `-ini:` command line syntax.
+
+## Command Line Syntax
+
+Use the following format to override LootLocker config values:
+
+```
+-ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:PropertyName=Value
+```
+
+## Supported Configuration Properties
+
+All `UPROPERTY(Config, ...)` properties in `ULootLockerConfig` can be overridden from the command line:
 
 ### API Configuration
 
-- **`-lootlockerkey=<key>`** or **`-apikey=<key>`**
-  - Sets the LootLocker API key
-  - Example: `-lootlockerkey=dev_1234567890abcdef`
+- **LootLockerGameKey** - The LootLocker API key
+  ```bash
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LootLockerGameKey=dev_1234567890abcdef
+  ```
 
-- **`-lootlockerdomainkey=<key>`** or **`-domainkey=<key>`**
-  - Sets the LootLocker Domain key
-  - Example: `-lootlockerdomainkey=my-domain-key`
+- **DomainKey** - The LootLocker Domain key
+  ```bash
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:DomainKey=my-domain-key
+  ```
 
-- **`-lootlockerversion=<version>`** or **`-gameversion=<version>`**
-  - Sets the game version (must follow semantic versioning: X.Y.Z.B)
-  - Example: `-lootlockerversion=1.2.3.4`
+- **GameVersion** - The game version (must follow semantic versioning: X.Y.Z.B)
+  ```bash
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:GameVersion=1.2.3.4
+  ```
+
+- **AllowTokenRefresh** - Enable/disable token refresh (true/false)
+  ```bash
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:AllowTokenRefresh=true
+  ```
 
 ### Logging Configuration
 
-- **`-lootlockerlogging=<level>`** or **`-loglevel=<level>`**
-  - Sets the log level
-  - Valid values: `NoLogging`, `Error`, `Warning`, `Verbose`, `All`
-  - Example: `-lootlockerlogging=Verbose`
+- **LootLockerLogLevel** - The log level (0=NoLogging, 1=Error, 2=Warning, 3=Verbose)
+  ```bash
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LootLockerLogLevel=3
+  ```
 
-- **`-lootlockerlogfile=<filename>`** or **`-logfile=<filename>`**
-  - Enables file logging and sets the log file name
-  - Example: `-lootlockerlogfile=MyGameLog`
+- **LogOutsideOfEditor** - Enable logging outside the editor (true/false)
+  ```bash
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LogOutsideOfEditor=true
+  ```
 
-- **`-lootlockerlogoutside`** or **`-logoutside`**
-  - Enables logging outside of the editor
-  - Example: `-lootlockerlogoutside`
+- **bEnableFileLogging** - Enable file logging (true/false)
+  ```bash
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:bEnableFileLogging=true
+  ```
 
-- **`-lootlockernologoutside`** or **`-nologoutside`**
-  - Disables logging outside of the editor
-  - Example: `-lootlockernologoutside`
-
-### Token Refresh Configuration
-
-- **`-lootlockerallowrefresh`** or **`-allowtokenrefresh`**
-  - Enables token refresh
-  - Example: `-lootlockerallowrefresh`
-
-- **`-lootlockerdisablerefresh`** or **`-disabletokenrefresh`**
-  - Disables token refresh
-  - Example: `-lootlockerdisablerefresh`
+- **LogFileName** - The log file name
+  ```bash
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LogFileName=MyGameLog
+  ```
 
 ## Usage Examples
 
-### Running a Build with Command Line Arguments
+### Single Property Override
 
 **Windows:**
 ```cmd
-MyGame.exe -lootlockerkey=dev_abc123 -lootlockerversion=1.0.0 -lootlockerlogging=Verbose
+MyGame.exe -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LootLockerGameKey=dev_abc123
 ```
 
 **Linux:**
 ```bash
-./MyGame -lootlockerkey=dev_abc123 -lootlockerversion=1.0.0 -lootlockerlogging=Verbose
+./MyGame -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LootLockerGameKey=dev_abc123
 ```
 
 **macOS:**
 ```bash
-./MyGame.app/Contents/MacOS/MyGame -lootlockerkey=dev_abc123 -lootlockerversion=1.0.0 -lootlockerlogging=Verbose
+./MyGame.app/Contents/MacOS/MyGame -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LootLockerGameKey=dev_abc123
+```
+
+### Multiple Properties
+
+You can override multiple properties by using multiple `-ini:` arguments:
+
+```bash
+./MyGame \
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LootLockerGameKey=dev_abc123 \
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:GameVersion=1.0.0 \
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LootLockerLogLevel=3
 ```
 
 ### CI/CD Pipeline Example
@@ -78,28 +102,61 @@ In your CI/CD pipeline, you can configure different environments:
 
 ```yaml
 # Development Environment
-./MyGame -lootlockerkey=$DEV_API_KEY -lootlockerversion=$BUILD_VERSION -lootlockerlogging=Verbose
+./MyGame \
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LootLockerGameKey=$DEV_API_KEY \
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:GameVersion=$BUILD_VERSION \
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LootLockerLogLevel=3
 
-# Staging Environment
-./MyGame -lootlockerkey=$STAGING_API_KEY -lootlockerversion=$BUILD_VERSION -lootlockerlogging=Warning
+# Staging Environment  
+./MyGame \
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LootLockerGameKey=$STAGING_API_KEY \
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:GameVersion=$BUILD_VERSION \
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LootLockerLogLevel=2
 
 # Production Environment
-./MyGame -lootlockerkey=$PROD_API_KEY -lootlockerversion=$BUILD_VERSION -lootlockerlogging=Error
+./MyGame \
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LootLockerGameKey=$PROD_API_KEY \
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:GameVersion=$BUILD_VERSION \
+  -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LootLockerLogLevel=1
+```
+
+## Alternative: Using INI Files Directly
+
+You can also override configuration by providing a custom INI file:
+
+1. Create a custom INI file (e.g., `CustomGame.ini`):
+```ini
+[/Script/LootLockerSDK.LootLockerConfig]
+LootLockerGameKey=dev_abc123
+GameVersion=1.0.0
+LootLockerLogLevel=3
+```
+
+2. Use it with the `-ini:` parameter:
+```bash
+./MyGame -ini:Game=CustomGame.ini
 ```
 
 ## Implementation Details
 
-Command line arguments are parsed in the `PostInitProperties()` method of `ULootLockerConfig`. This ensures that command line overrides are applied as soon as the config object is initialized, before any SDK functionality is used.
+- Unreal Engine's config system automatically handles loading and applying command line overrides
+- Overrides are applied before `PostInitProperties()` is called
+- Values are loaded from INI files, then command line overrides are applied on top
+- Command line overrides are not persisted back to INI files
+- This follows Epic's recommended approach as documented in the [official Unreal Engine documentation](https://dev.epicgames.com/documentation/en-us/unreal-engine/configuration-files-in-unreal-engine)
 
-The feature is controlled by the `LOOTLOCKER_COMMANDLINE_SETTINGS` preprocessor define, which is automatically added when `bEnableCommandLineSettings` is set to `true` in the Build.cs file.
+## Advantages of Using Unreal's Built-in System
 
-## Feature Parity with Unity SDK
-
-This implementation provides feature parity with the Unity SDK's command line configuration system, using similar argument names and behavior patterns adapted for Unreal Engine conventions.
+- **Epic-recommended approach**: Follows official Unreal Engine best practices
+- **Zero maintenance**: Built-in and tested by Epic Games
+- **Consistent behavior**: Works the same way as all other Unreal Engine config properties
+- **Automatic support**: Any new config properties automatically get command line override support
+- **Well-documented**: Part of Unreal Engine's standard documentation
 
 ## Notes
 
-- Command line arguments override values from the config file (DefaultGame.ini)
+- Command line arguments override values from config files (Game.ini, DefaultGame.ini)
 - Overrides are applied at runtime and are not persisted
-- Invalid values (e.g., invalid semantic version) will be validated according to existing validation rules
-- All command line argument names are case-insensitive
+- Invalid values will be handled according to property validation rules
+- Property names are case-sensitive in the `-ini:` syntax
+- For enum values like `LootLockerLogLevel`, use the numeric value (0-3)
