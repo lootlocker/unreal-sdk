@@ -50,11 +50,11 @@ For a more detailed guide on installation, please see our [User Documentation](h
 
 ### Command Line Configuration
 
-The LootLocker Unreal SDK also supports configuration through command line arguments, which is useful for CI/CD pipelines and different deployment environments. For detailed information on using command line configuration, see [COMMAND_LINE_CONFIG.md](LootLockerSDK/COMMAND_LINE_CONFIG.md).
+The LootLocker Unreal SDK supports configuration through command line arguments using Unreal Engine's built-in INI override system. This is useful for CI/CD pipelines and different deployment environments. For detailed information, see [COMMAND_LINE_CONFIG.md](LootLockerSDK/COMMAND_LINE_CONFIG.md).
 
 Example:
 ```bash
-./MyGame -lootlockerkey=your_api_key -lootlockerversion=1.0.0 -lootlockerlogging=Verbose
+./MyGame -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LootLockerGameKey=your_api_key
 ```
 
 ## Support

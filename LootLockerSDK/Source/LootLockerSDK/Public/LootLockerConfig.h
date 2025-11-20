@@ -60,9 +60,6 @@ public:
 		{
 			DisableFileLogging();
 		}
-#if defined(LOOTLOCKER_COMMANDLINE_SETTINGS)
-		CheckForSettingOverrides();
-#endif
 		UObject::PostInitProperties();
 	}
 
@@ -154,14 +151,6 @@ private:
 	;
 #if ENGINE_MAJOR_VERSION >= 5
 	inline static const std::regex SemverPattern = std::regex("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:\\.(0|[1-9]\\d*))?(?:\\.(0|[1-9]\\d*))?$" );
-#endif
-
-#if defined(LOOTLOCKER_COMMANDLINE_SETTINGS)
-	/**
-	 * Checks for command line arguments that override config settings.
-	 * Only enabled when LOOTLOCKER_COMMANDLINE_SETTINGS is defined.
-	 */
-	void CheckForSettingOverrides();
 #endif
 
 public:
