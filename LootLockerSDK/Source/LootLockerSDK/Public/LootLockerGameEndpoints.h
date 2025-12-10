@@ -23,6 +23,7 @@ enum class ELootLockerApiType : uint8
 {
     LL_GAME = 0         UMETA(DisplayName = "GAME"),
     LL_WHITELABEL = 1   UMETA(DisplayName = "WL"),
+    LL_WEBSOCKET = 2    UMETA(DisplayName = "WEBSOCKET"),
 };
 
 USTRUCT(BlueprintType)
@@ -334,6 +335,9 @@ public:
     static FLootLockerEndPoints ListMetadata;
     static FLootLockerEndPoints GetMultisourceMetadata;
     static FLootLockerEndPoints MetadataActions;
+
+    // Presence (WebSocket)
+    static FLootLockerEndPoints PresenceWebSocketEndpoint;
 
 private:
     static FString BaseUrl;

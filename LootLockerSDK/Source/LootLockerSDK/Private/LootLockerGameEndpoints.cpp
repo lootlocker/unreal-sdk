@@ -302,6 +302,9 @@ FLootLockerEndPoints ULootLockerGameEndpoints::ListMetadata = InitEndpoint("meta
 FLootLockerEndPoints ULootLockerGameEndpoints::GetMultisourceMetadata = InitEndpoint("metadata/multisource", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::MetadataActions = InitEndpoint("metadata", ELootLockerHTTPMethod::POST);
 
+// Presence (WebSocket)
+FLootLockerEndPoints ULootLockerGameEndpoints::PresenceWebSocketEndpoint = InitEndpoint("v1/presence", ELootLockerHTTPMethod::GET, ELootLockerApiType::LL_WEBSOCKET);
+
 
 FLootLockerEndPoints ULootLockerGameEndpoints::InitEndpoint(const FString& Endpoint, ELootLockerHTTPMethod Method, ELootLockerApiType ApiType /*= ELootLockerApiType::LL_GAME*/)
 {
@@ -310,6 +313,18 @@ FLootLockerEndPoints ULootLockerGameEndpoints::InitEndpoint(const FString& Endpo
 	switch (ApiType)
 	{
 		case ELootLockerApiType::LL_WHITELABEL:
+			break;
+		case ELootLockerApiType::LL_WEBSOCKET:
+			// Convert HTTP(S) to WS(S) for WebSocket endpoints
+			if (UrlBase.StartsWith(TEXT("https://")))
+			{
+				UrlBase = UrlBase.Replace(TEXT("https://"), TEXT("wss://"));
+			}
+			else if (UrlBase.StartsWith(TEXT("http://")))
+			{
+				UrlBase = UrlBase.Replace(TEXT("http://"), TEXT("ws://"));
+			}
+			UrlBase += GameUrlSuffix;
 			break;
 		case ELootLockerApiType::LL_GAME:
 		default:
