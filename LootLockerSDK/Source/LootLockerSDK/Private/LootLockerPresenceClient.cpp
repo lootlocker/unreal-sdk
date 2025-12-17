@@ -1,0 +1,762 @@
+// Copyright (c) 2021 LootLocker
+
+#include "LootLockerPresenceClient.h"
+#include "LootLockerConfig.h"
+#include "LootLockerLogger.h"
+#include "Engine/Engine.h"
+#include "TimerManager.h"
+#include "Dom/JsonObject.h"
+#include "Serialization/JsonSerializer.h"
+#include "Serialization/JsonWriter.h"
+#include "WebSocketsModule.h"
+#include "IWebSocket.h"
+#include "Utils/LootLockerUtilities.h"
+
+// ========================================================================
+// CONSTRUCTOR & LIFECYCLE
+// ========================================================================
+
+ULootLockerPresenceClient::ULootLockerPresenceClient()
+    : ConnectionState(ELootLockerPresenceConnectionState::Disconnected)
+    , WebSocket(nullptr)
+    , bHasPendingStatusUpdate(false)
+    , bIsClientInitiatedDisconnect(false)
+    , ReconnectAttempts(0)
+    , RecentLatencies(nullptr)
+    , RecentLatenciesSum(0.0f)
+{
+    // Initialize the circular queue for latency tracking
+    RecentLatencies = MakeUnique<TCircularQueue<float>>(MaxLatencySamples);
+}
+
+void ULootLockerPresenceClient::Initialize(const FString InPlayerUlid, const FString InSessionToken, const FLootLockerPresenceConnectionDelegate& InConnectionDelegate)
+{
+    PlayerUlid = InPlayerUlid;
+    SessionToken = InSessionToken;
+    ConnectionDelegate = InConnectionDelegate;
+    ConnectionState = ELootLockerPresenceConnectionState::Initializing;
+    InitializeConnectionStats();
+}
+
+void ULootLockerPresenceClient::BeginDestroy()
+{
+    Disconnect(FLootLockerPresenceCallbackDelegate());
+    Cleanup();
+    Super::BeginDestroy();
+}
+
+void ULootLockerPresenceClient::Cleanup()
+{    
+    // Close WebSocket if valid
+    if (WebSocket.IsValid())
+    {
+        if (WebSocket->IsConnected())
+        {
+            WebSocket->Close();
+        }
+        WebSocket.Reset();
+    }
+    
+    ClearAllTimers();
+    
+    // Reset reconnect attempts
+    ReconnectAttempts = 0;
+
+    InitializeConnectionStats();
+    
+    // Set Connection State to Destroyed
+    SetConnectionState(ELootLockerPresenceConnectionState::Destroyed);
+    
+    // Clear Callbacks
+    if (ConnectionRequestCallback.IsBound())
+    {
+        ConnectionRequestCallback.Unbind();
+        ConnectionRequestCallback = FLootLockerPresenceCallbackDelegate();
+    }
+    if (ConnectionDelegate.IsBound())
+    {
+        ConnectionDelegate.Unbind();
+        ConnectionDelegate = FLootLockerPresenceConnectionDelegate();
+    }
+}
+
+// ========================================================================
+// PUBLIC INTERFACE - CONNECTION MANAGEMENT
+// ========================================================================
+
+void ULootLockerPresenceClient::HandleConnectionResult(bool bSuccess, const FString& ErrorMessage)
+{
+    if (ConnectionRequestCallback.IsBound())
+    {
+        ConnectionRequestCallback.Execute(bSuccess, ErrorMessage);
+        ConnectionRequestCallback.Unbind();
+        ConnectionRequestCallback = FLootLockerPresenceCallbackDelegate();
+    }
+}
+
+void ULootLockerPresenceClient::Connect(const FLootLockerPresenceCallbackDelegate& OnComplete)
+{
+    if (ConnectionState != ELootLockerPresenceConnectionState::Disconnected 
+        && ConnectionState != ELootLockerPresenceConnectionState::Initializing
+        && ConnectionState != ELootLockerPresenceConnectionState::Reconnecting)
+    {
+        FString Message = FString::Printf(TEXT("Presence client is not in a proper state to connect for player ulid %s, current state is %d"), *PlayerUlid, static_cast<uint8>(ConnectionState));
+        FLootLockerLogger::LogWarning(Message);
+        HandleConnectionResult(false, *Message);
+        return;
+    }
+
+    // Check if we have valid session data
+    if (SessionToken.IsEmpty())
+    {
+        FString ErrorMessage = FString::Printf(TEXT("Cannot connect presence - missing session data for player: %s"), *PlayerUlid);
+        FLootLockerLogger::LogWarning(ErrorMessage);
+        SetConnectionState(ELootLockerPresenceConnectionState::Failed, ErrorMessage);
+        return;
+    }
+    
+    if (WebSocket == nullptr && !FModuleManager::Get().IsModuleLoaded("WebSockets"))
+    {
+        if(FModuleManager::Get().LoadModule("WebSockets") == nullptr) 
+        {
+            FString ErrorMessage = TEXT("Failed to load WebSockets module. Presence connection cannot proceed.");
+            FLootLockerLogger::LogError(ErrorMessage);
+            HandleConnectionResult(false, *ErrorMessage);
+            SetConnectionState(ELootLockerPresenceConnectionState::Failed, ErrorMessage);
+            return;
+        }
+    }
+
+    Cleanup();
+
+    SetConnectionState(ELootLockerPresenceConnectionState::Connecting);
+
+    // Create WebSocket connection
+    const FString WebSocketUrl = BuildWebSocketUrl();
+    FLootLockerLogger::LogInfo(FString::Printf(TEXT("Connecting presence WebSocket for player %s"), *PlayerUlid));
+
+    WebSocket = FWebSocketsModule::Get().CreateWebSocket(WebSocketUrl, TEXT(""));
+
+    if (!WebSocket.IsValid())
+    {
+        FString ErrorMessage = FString::Printf(TEXT("Failed to create presence WebSocket for player: %s"), *PlayerUlid);
+        FLootLockerLogger::LogError(ErrorMessage);
+        HandleConnectionResult(false, *ErrorMessage);
+        SetConnectionState(ELootLockerPresenceConnectionState::Failed, ErrorMessage);
+        return;
+    }
+
+    ConnectionRequestCallback = OnComplete;
+
+    // Bind WebSocket events
+    WebSocket->OnConnected().AddUObject(this, &ULootLockerPresenceClient::OnConnected);
+    WebSocket->OnConnectionError().AddUObject(this, &ULootLockerPresenceClient::OnConnectionError);
+    WebSocket->OnClosed().AddUObject(this, &ULootLockerPresenceClient::OnClosed);
+    WebSocket->OnMessage().AddUObject(this, &ULootLockerPresenceClient::OnMessage);
+    WebSocket->OnRawMessage().AddUObject(this, &ULootLockerPresenceClient::OnRawMessage);
+
+    // Attempt connection
+    WebSocket->Connect();
+}
+
+void ULootLockerPresenceClient::Disconnect(const FLootLockerPresenceCallbackDelegate& OnComplete)
+{
+    bIsClientInitiatedDisconnect = true;
+    
+    ClearAllTimers();
+
+    if (WebSocket.IsValid())
+    {
+        if (WebSocket->IsConnected())
+        {
+            FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Disconnecting presence WebSocket for player: %s"), *PlayerUlid));
+            WebSocket->Close();
+        }
+        WebSocket.Reset();
+    }
+
+    OnComplete.ExecuteIfBound(true, TEXT("Disconnected successfully"));
+
+    SetConnectionState(ELootLockerPresenceConnectionState::Disconnected);
+
+    ReconnectAttempts = 0;
+    bIsClientInitiatedDisconnect = false;
+}
+
+// ========================================================================
+// PUBLIC INTERFACE - STATUS MANAGEMENT
+// ========================================================================
+
+void ULootLockerPresenceClient::UpdateStatus(const FString& Status, TMap<FString, FString> Metadata, const FLootLockerPresenceCallbackDelegate& OnComplete)
+{
+    if (!IsConnected())
+    {
+        // Queue the status update for when we're connected
+        PendingStatus = Status;
+        PendingMetadata = Metadata;
+        PendingStatusCallback = OnComplete;
+        bHasPendingStatusUpdate = true;
+        
+        FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Queuing status update for player %s: %s (not connected)"), *PlayerUlid, *Status));
+        return;
+    }
+    
+    SendStatusUpdateMessage(Status, Metadata, OnComplete);
+}
+
+// ========================================================================
+// PUBLIC INTERFACE - STATISTICS
+// ========================================================================
+
+FLootLockerPresenceConnectionStats ULootLockerPresenceClient::GetConnectionStats() const
+{
+    // Update connection duration in real-time
+    FLootLockerPresenceConnectionStats CurrentStats = ConnectionStats;
+    if (ConnectionStats.ConnectionStartTime != FDateTime::MinValue())
+    {
+        CurrentStats.ConnectionDuration = FDateTime::UtcNow() - ConnectionStats.ConnectionStartTime;
+    }
+    return CurrentStats;
+}
+
+// ========================================================================
+// INTERNAL - CONNECTION STATE & MESSAGING
+// ========================================================================
+
+bool ULootLockerPresenceClient::SendMessage(const FString& Message)
+{
+    if (!WebSocket.IsValid() || !WebSocket->IsConnected())
+    {
+        FLootLockerLogger::LogWarning(FString::Printf(TEXT("Cannot send presence message - not connected for player: %s"), *PlayerUlid));
+        return false;
+    }
+
+    FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Sending presence message for player %s: %s"), *PlayerUlid, *Message));
+    WebSocket->Send(Message);
+    return true;
+}
+
+void ULootLockerPresenceClient::ProcessPendingStatusUpdate()
+{
+    if (bHasPendingStatusUpdate && IsConnected())
+    {
+        FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Processing pending status update for player %s: %s"), *PlayerUlid, *PendingStatus));
+        SendStatusUpdateMessage(PendingStatus, PendingMetadata, PendingStatusCallback);
+        
+        // Clear pending status
+        bHasPendingStatusUpdate = false;
+        PendingStatus.Empty();
+        PendingMetadata.Empty();
+        PendingStatusCallback.Unbind();
+    }
+}
+
+void ULootLockerPresenceClient::AutoResendLastStatus()
+{
+    // Send last status if we have one and are connected
+    if (!ConnectionStats.LastSentStatus.IsEmpty() && IsConnected())
+    {
+        FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Auto-resending last status for player %s: %s"), *PlayerUlid, *ConnectionStats.LastSentStatus));
+        SendStatusUpdateMessage(ConnectionStats.LastSentStatus, LastSentMetadata, FLootLockerPresenceCallbackDelegate());
+    }
+}
+
+void ULootLockerPresenceClient::SendStatusUpdateMessage(const FString& Status, const TMap<FString, FString>& Metadata, const FLootLockerPresenceCallbackDelegate& OnComplete)
+{
+    if (!WebSocket.IsValid() || !WebSocket->IsConnected())
+    {
+        FString ErrorMessage = FString::Printf(TEXT("Cannot send status update - WebSocket not connected for player: %s"), *PlayerUlid);
+        FLootLockerLogger::LogWarning(ErrorMessage);
+        OnComplete.ExecuteIfBound(false, ErrorMessage);
+        return;
+    }
+    
+    FLootLockerPresenceStatusRequest StatusRequest {
+        Status,
+        Metadata
+    };
+    
+    FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Sending status update for player %s: %s"), *PlayerUlid, *Status));
+    
+    if (SendMessage(LootLockerUtilities::UStructToJsonString(StatusRequest)))
+    {
+        // Store as last sent status and metadata
+        ConnectionStats.LastSentStatus = Status;
+        LastSentMetadata = Metadata;
+        
+        OnComplete.ExecuteIfBound(true, TEXT(""));
+    }
+    else
+    {
+        FString ErrorMessage = FString::Printf(TEXT("Failed to send status update for player: %s"), *PlayerUlid);
+        OnComplete.ExecuteIfBound(false, ErrorMessage);
+    }
+}
+
+// ========================================================================
+// WEBSOCKET EVENT HANDLERS
+// ========================================================================
+
+void ULootLockerPresenceClient::OnConnected()
+{
+    ReconnectAttempts = 0;
+    
+    // Set authenticating state and send authentication message
+    SetConnectionState(ELootLockerPresenceConnectionState::Authenticating);
+    SendAuthenticationMessage();
+}
+
+void ULootLockerPresenceClient::OnConnectionError(const FString& Error)
+{
+    switch (ConnectionState)
+    {
+        case ELootLockerPresenceConnectionState::Reconnecting:
+        case ELootLockerPresenceConnectionState::Active:
+        {
+            // Only attempt to reconnect if this wasn't a client-initiated disconnect
+            if (!bIsClientInitiatedDisconnect)
+            {
+                FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Unexpected presence websocket error for player %s - Message: %s"), *PlayerUlid, *Error));
+                SetConnectionState(ELootLockerPresenceConnectionState::Reconnecting);
+                ScheduleReconnect();
+            }
+            else
+            {
+                FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Client-initiated disconnect for player %s - Message: %s"), *PlayerUlid, *Error));
+            }
+            break;
+        }
+        case ELootLockerPresenceConnectionState::Disconnected:
+        case ELootLockerPresenceConnectionState::Failed:
+        case ELootLockerPresenceConnectionState::Destroyed:
+        {
+            // Already disconnected or in a terminal state, log but do nothing
+            FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Unexpected websocket error for player %s while shut down - Message: %s"), *PlayerUlid, *Error));
+            break;
+        }
+        case ELootLockerPresenceConnectionState::Initializing:
+        case ELootLockerPresenceConnectionState::Connecting:
+        case ELootLockerPresenceConnectionState::Connected:
+        case ELootLockerPresenceConnectionState::Authenticating:
+        default:
+        {
+            // Connection closed while being established, notify caller of failure
+            FString ErrorMessage = FString::Printf(TEXT("Presence WebSocket connection error during connection for player %s: %s"), *PlayerUlid, *Error);
+            FLootLockerLogger::LogWarning(ErrorMessage);
+            HandleConnectionResult(false, *ErrorMessage);
+            SetConnectionState(ELootLockerPresenceConnectionState::Failed, ErrorMessage);
+            break;
+        }
+    }
+}
+
+void ULootLockerPresenceClient::OnClosed(int32 StatusCode, const FString& Reason, bool bWasClean)
+{
+    switch (ConnectionState)
+    {
+        case ELootLockerPresenceConnectionState::Reconnecting:
+        case ELootLockerPresenceConnectionState::Active:
+        {
+            // Only attempt to reconnect if this wasn't a client-initiated disconnect
+            if (!bIsClientInitiatedDisconnect)
+            {
+                FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Presence WebSocket closed unexpectedly for player %s - Code: %d, Reason: %s, Clean: %s"), 
+                    *PlayerUlid, StatusCode, *Reason, bWasClean ? TEXT("true") : TEXT("false")));
+                SetConnectionState(ELootLockerPresenceConnectionState::Reconnecting);
+                ScheduleReconnect();
+            }
+            else
+            {
+                FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Client-initiated disconnect for player %s - Code: %d, Reason: %s, Clean: %s"), 
+                    *PlayerUlid, StatusCode, *Reason, bWasClean ? TEXT("true") : TEXT("false")));
+            }
+            break;
+        }
+        case ELootLockerPresenceConnectionState::Disconnected:
+        case ELootLockerPresenceConnectionState::Failed:
+        case ELootLockerPresenceConnectionState::Destroyed:
+        {
+            // Already disconnected or in a terminal state, log but do nothing
+            FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Presence WebSocket closed for player %s - Code: %d, Reason: %s, Clean: %s"), 
+                *PlayerUlid, StatusCode, *Reason, bWasClean ? TEXT("true") : TEXT("false")));
+            break;
+        }
+        case ELootLockerPresenceConnectionState::Initializing:
+        case ELootLockerPresenceConnectionState::Connecting:
+        case ELootLockerPresenceConnectionState::Connected:
+        case ELootLockerPresenceConnectionState::Authenticating:
+        default:
+        {
+            // Connection closed while being established, notify caller of failure
+            FString ErrorMessage = FString::Printf(TEXT("Presence WebSocket closed during connection for player %s - Code: %d, Reason: %s, Clean: %s"), 
+                *PlayerUlid, StatusCode, *Reason, bWasClean ? TEXT("true") : TEXT("false"));
+            FLootLockerLogger::LogWarning(ErrorMessage);
+            HandleConnectionResult(false, *ErrorMessage);
+            SetConnectionState(ELootLockerPresenceConnectionState::Failed, ErrorMessage);
+            break;
+        }
+    }
+}
+
+void ULootLockerPresenceClient::OnMessage(const FString& Message)
+{
+    FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Received presence message for player %s: %s"), *PlayerUlid, *Message));
+    
+    if (Message.IsEmpty())
+    {
+        FLootLockerLogger::LogWarning(FString::Printf(TEXT("Received empty presence message for player: %s"), *PlayerUlid));
+        return;
+    }
+
+    if (ConnectionState == ELootLockerPresenceConnectionState::Disconnected ||
+        ConnectionState == ELootLockerPresenceConnectionState::Failed ||
+        ConnectionState == ELootLockerPresenceConnectionState::Destroyed)
+    {
+        FLootLockerLogger::LogWarning(FString::Printf(TEXT("Received presence message while disconnected for player: %s"), *PlayerUlid));
+        return;
+    }
+
+    if (!WebSocket.IsValid() || !WebSocket->IsConnected())
+    {
+        FLootLockerLogger::LogWarning(FString::Printf(TEXT("Received presence message but WebSocket not connected for player: %s"), *PlayerUlid));
+        return;
+    }
+
+    if (Message.Contains(TEXT("authenticated")))
+    {
+        HandleAuthenticationResponse(Message);
+        return;
+    } 
+    else if (Message.Contains(TEXT("pong")))
+    {
+        HandlePongMessage(Message);
+        return;
+    }
+    else if (Message.Contains(TEXT("error")))
+    {
+        HandleErrorMessage(Message);
+        return;
+    }
+    else if (Message.Contains(TEXT("presence is not enabled")))
+    {
+        FString ErrorMessage = FString::Printf(TEXT("Presence is not enabled for this game. Please contact LootLocker Support if you want to use this feature."), *PlayerUlid);
+        FLootLockerLogger::LogWarning(ErrorMessage);
+        Disconnect(FLootLockerPresenceCallbackDelegate::CreateLambda([this, ErrorMessage](bool bSuccess, const FString& Message)
+        {
+            SetConnectionState(ELootLockerPresenceConnectionState::Failed, ErrorMessage);
+            HandleConnectionResult(false, ErrorMessage);
+        }));
+        return;
+    }
+    else
+    {
+        FLootLockerLogger::LogWarning(FString::Printf(TEXT("Received unrecognized presence message for player %s: %s"), *PlayerUlid, *Message));
+    }
+}
+
+void ULootLockerPresenceClient::OnRawMessage(const void* Data, SIZE_T Size, SIZE_T BytesRemaining)
+{
+    // Convert raw data to string and process as regular message
+    FString Message = FString::ConstructFromPtrSize(static_cast<const TCHAR*>(Data), Size / sizeof(TCHAR));
+    OnMessage(Message);
+}
+
+// ========================================================================
+// INTERNAL - CONNECTION STATE MANAGEMENT
+// ========================================================================
+
+void ULootLockerPresenceClient::SetConnectionState(ELootLockerPresenceConnectionState NewState, const FString& ErrorMessage)
+{
+    if (ConnectionState != NewState)
+    {
+        const ELootLockerPresenceConnectionState OldState = ConnectionState;
+        ConnectionState = NewState;
+        
+        // 1 connection stats with new state
+        ConnectionStats.ConnectionState = NewState;
+        
+        FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Presence connection state changed for player %s: %s -> %s"), 
+               *PlayerUlid,
+               *UEnum::GetValueAsString(OldState),
+               *UEnum::GetValueAsString(NewState)));
+
+        if (ConnectionDelegate.IsBound())
+        {
+            ConnectionDelegate.ExecuteIfBound(PlayerUlid, OldState, NewState, ErrorMessage);
+        }
+    }
+}
+
+FString ULootLockerPresenceClient::BuildWebSocketUrl() const
+{
+    // Use the dedicated WebSocket endpoint with proper domain key substitution
+    FString WebSocketUrl = ULootLockerGameEndpoints::PresenceWebSocketEndpoint.endpoint;
+    
+    // Add domain key substitution
+    const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
+    FString DomainKey = (Config && !Config->DomainKey.IsEmpty()) ? Config->DomainKey + "." : "";
+    WebSocketUrl = WebSocketUrl.Replace(TEXT("{domainKey}"), *DomainKey);
+    
+    return WebSocketUrl;
+}
+
+// ========================================================================
+// RECONNECTION SYSTEM
+// ========================================================================
+
+void ULootLockerPresenceClient::AttemptReconnect()
+{
+    if (ReconnectAttempts >= MaxReconnectAttempts)
+    {
+        FString ErrorMessage = FString::Printf(TEXT("Max presence reconnect attempts reached for player: %s"), *PlayerUlid);
+        FLootLockerLogger::LogWarning(ErrorMessage);
+        SetConnectionState(ELootLockerPresenceConnectionState::Failed, ErrorMessage);
+        return;
+    }
+
+    ReconnectAttempts++;
+    FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Attempting reconnect for player %s (attempt %d/%d)"), 
+           *PlayerUlid, ReconnectAttempts, MaxReconnectAttempts));
+    Connect(FLootLockerPresenceCallbackDelegate::CreateLambda([this](bool bSuccess, const FString& ErrorMessage)
+    {
+        if (!bSuccess)
+        {
+            FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Presence reconnect attempt failed: %s"), *ErrorMessage));
+            ScheduleReconnect();
+        }
+    }));
+}
+
+void ULootLockerPresenceClient::ScheduleReconnect()
+{
+    if (!GetWorld())
+    {
+        return;
+    }
+
+    // Don't schedule if already scheduled or if we've hit max attempts
+    if (ReconnectTimer.IsValid() || ReconnectAttempts >= MaxReconnectAttempts)
+    {
+        return;
+    }
+
+    FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Scheduling reconnect for player %s in %f seconds"), 
+           *PlayerUlid, ReconnectDelaySeconds));
+
+    GetWorld()->GetTimerManager().SetTimer(
+        ReconnectTimer,
+        this,
+        &ULootLockerPresenceClient::AttemptReconnect,
+        ReconnectDelaySeconds,
+        false
+    );
+}
+
+// ========================================================================
+// AUTHENTICATION & MESSAGE PROCESSING
+// ========================================================================
+
+void ULootLockerPresenceClient::SendAuthenticationMessage()
+{
+    if (SessionToken.IsEmpty())
+    {
+        FString ErrorMessage = FString::Printf(TEXT("Cannot send authentication message - missing session token for player: %s"), *PlayerUlid);
+        FLootLockerLogger::LogError(ErrorMessage);
+        SetConnectionState(ELootLockerPresenceConnectionState::Failed, ErrorMessage);
+        HandleConnectionResult(false, ErrorMessage);
+        return;
+    }
+
+    if (!WebSocket.IsValid() || !WebSocket->IsConnected())
+    {
+        FString ErrorMessage = FString::Printf(TEXT("Cannot send authentication message - WebSocket not connected for player: %s"), *PlayerUlid);
+        FLootLockerLogger::LogError(ErrorMessage);
+        SetConnectionState(ELootLockerPresenceConnectionState::Failed, ErrorMessage);
+        HandleConnectionResult(false, ErrorMessage);
+        return;
+    }
+
+    FLootLockerPresenceAuthenticationRequest AuthRequest {
+        SessionToken
+    };
+    FString AuthRequestJson = LootLockerUtilities::UStructToJsonString(FLootLockerPresenceAuthenticationRequest { SessionToken });
+    WebSocket->Send(AuthRequestJson);
+}
+
+void ULootLockerPresenceClient::HandleAuthenticationResponse(const FString& Message)
+{
+        FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Presence authentication successful for player: %s"), *PlayerUlid));
+        SetConnectionState(ELootLockerPresenceConnectionState::Active);
+        
+        // Initialize connection statistics
+        InitializeConnectionStats();
+        
+        // Start heartbeat to keep connection alive
+        StartPingRoutine();
+        
+        if(bHasPendingStatusUpdate) 
+        {
+            ProcessPendingStatusUpdate();
+        }
+        else 
+        {
+            AutoResendLastStatus();
+        }
+
+        HandleConnectionResult(true, TEXT(""));
+}
+
+void ULootLockerPresenceClient::HandleErrorMessage(const FString& Message)
+{
+    FLootLockerLogger::LogWarning(FString::Printf(TEXT("Received presence error message for player %s: %s"), *PlayerUlid, *Message));
+}
+
+// ========================================================================
+// PING & LATENCY MANAGEMENT
+// ========================================================================
+
+void ULootLockerPresenceClient::StartPingRoutine()
+{
+    if (!GetWorld())
+    {
+        return;
+    }
+    
+    // Clear any existing heartbeat timer
+    StopPingRoutine();
+    
+    FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Starting heartbeat for player: %s"), *PlayerUlid));
+    
+    GetWorld()->GetTimerManager().SetTimer(
+        PingTimer,
+        this,
+        &ULootLockerPresenceClient::SendPing,
+        PingIntervalSeconds,
+        true // Loop
+    );
+}
+
+void ULootLockerPresenceClient::StopPingRoutine()
+{
+    if (GetWorld() && PingTimer.IsValid())
+    {
+        FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Stopping heartbeat for player: %s"), *PlayerUlid));
+        GetWorld()->GetTimerManager().ClearTimer(PingTimer);
+        PingTimer.Invalidate();
+    }
+}
+
+void ULootLockerPresenceClient::SendPing()
+{
+    if (!WebSocket.IsValid() || !WebSocket->IsConnected())
+    {
+        FLootLockerLogger::LogWarning(FString::Printf(TEXT("Cannot send heartbeat - WebSocket not connected for player: %s"), *PlayerUlid));
+        StopPingRoutine();
+        return;
+    }
+
+    // Store the current local timestamp for round-trip time calculation
+    double CurrentTime = FPlatformTime::Seconds();
+    PendingPingTimestamps.Enqueue(CurrentTime);
+    
+    // Increment ping counter
+    ConnectionStats.TotalPingsSent++;
+
+    FString PingRequestJson = LootLockerUtilities::UStructToJsonString(FLootLockerPresencePingRequest {});
+    WebSocket->Send(PingRequestJson);
+}
+
+void ULootLockerPresenceClient::HandlePongMessage(const FString& Message)
+{
+    // Calculate round-trip time using local timestamps
+    if (!PendingPingTimestamps.IsEmpty())
+    {
+        double CurrentTime = FPlatformTime::Seconds();
+        double SentTime;
+        PendingPingTimestamps.Dequeue(SentTime);
+        
+        double RoundTripTimeSeconds = CurrentTime - SentTime;
+        
+        if (RoundTripTimeSeconds >= 0 && RoundTripTimeSeconds < 30.0) // Sanity check for reasonable RTT (< 30 seconds)
+        {
+            // Convert to milliseconds and divide by 2 to get one-way latency
+            float OneWayLatencyMs = static_cast<float>(RoundTripTimeSeconds * 1000.0 / 2.0);
+            
+            // Update latency statistics
+            UpdateLatencyStats(OneWayLatencyMs);
+            ConnectionStats.TotalPongsReceived++;
+        }
+    }
+    else
+    {
+        // Received a pong without a corresponding ping - just increment counter
+        ConnectionStats.TotalPongsReceived++;
+    }
+}
+
+void ULootLockerPresenceClient::UpdateLatencyStats(float LatencyMs)
+{
+    // Update current latency
+    ConnectionStats.CurrentLatencyMs = LatencyMs;
+    
+    // Update min/max
+    if (LatencyMs < ConnectionStats.MinLatencyMs)
+    {
+        ConnectionStats.MinLatencyMs = LatencyMs;
+    }
+    if (LatencyMs > ConnectionStats.MaxLatencyMs)
+    {
+        ConnectionStats.MaxLatencyMs = LatencyMs;
+    }
+    
+    // Check if buffer is full and we need to subtract the oldest value
+    if (RecentLatencies->Count() >= MaxLatencySamples)
+    {
+        const float* OldestSamplePtr = RecentLatencies->Peek();
+        RecentLatenciesSum -= OldestSamplePtr ? *OldestSamplePtr : 0.0f;
+    }
+    
+    // Add new sample (will automatically overwrite oldest if full)
+    RecentLatencies->Enqueue(LatencyMs);
+    RecentLatenciesSum += LatencyMs;
+    
+    // Calculate average from running sum
+    ConnectionStats.AverageLatencyMs = RecentLatencies->Count() > 0 ? RecentLatenciesSum / RecentLatencies->Count() : 0.0f;
+}
+
+void ULootLockerPresenceClient::InitializeConnectionStats()
+{
+    // Preserve last sent status across reconnections
+    FString PreservedLastSentStatus = ConnectionStats.LastSentStatus;
+    
+    ConnectionStats.PlayerUlid = PlayerUlid;
+    ConnectionStats.ConnectionState = ConnectionState;
+    ConnectionStats.LastSentStatus = PreservedLastSentStatus;
+    ConnectionStats.ConnectionStartTime = FDateTime::UtcNow();
+    ConnectionStats.TotalPingsSent = 0;
+    ConnectionStats.TotalPongsReceived = 0;
+    ConnectionStats.CurrentLatencyMs = 0.0f;
+    ConnectionStats.AverageLatencyMs = 0.0f;
+    ConnectionStats.MinLatencyMs = FLT_MAX;
+    ConnectionStats.MaxLatencyMs = 0.0f;
+
+    RecentLatencies->Empty();    
+    RecentLatenciesSum = 0.0f;
+}
+
+// ========================================================================
+// UTILITY METHODS
+// ========================================================================
+
+void ULootLockerPresenceClient::ClearAllTimers()
+{
+    if (GetWorld())
+    {
+        if (ReconnectTimer.IsValid())
+        {
+            GetWorld()->GetTimerManager().ClearTimer(ReconnectTimer);
+            ReconnectTimer.Invalidate();
+        }
+        StopPingRoutine();
+    }
+}
