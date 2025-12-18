@@ -275,7 +275,7 @@ void ULootLockerPresenceManager::ConnectPresenceForAllActiveSessions(const FLoot
         return;
     }
 
-    FLootLockerLogger::LogInfo(FString::Printf(TEXT("Connecting presence for %d active sessions"), PlayersToConnect.Num()));
+    FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Connecting presence for %d active sessions"), PlayersToConnect.Num()));
     
     // For simplicity, connect them sequentially. Could be optimized to connect in parallel.
     for (const FString& PlayerUlid : PlayersToConnect)
@@ -311,9 +311,9 @@ void ULootLockerPresenceManager::DisconnectAll(const FLootLockerPresenceCallback
 
 void ULootLockerPresenceManager::PauseAllConnections()
 {
-    if (!Configuration.bPauseOnBackground)
+    if (!Configuration.bAutoDisconnectOnFocusChange)
     {
-        FLootLockerLogger::LogVerbose(TEXT("Pause on background is disabled, skipping pause"));
+        FLootLockerLogger::LogVeryVerbose(TEXT("Pause on background is disabled, skipping pause"));
         return;
     }
 
@@ -456,7 +456,6 @@ void ULootLockerPresenceManager::SetEnabled(bool bEnabled)
     if (Manager)
     {
         Manager->Configuration.bIsEnabled = bEnabled;
-        FLootLockerLogger::LogInfo(FString::Printf(TEXT("Presence manager %s"), bEnabled ? TEXT("enabled") : TEXT("disabled")));
         
         if (!bEnabled)
         {
@@ -477,14 +476,13 @@ void ULootLockerPresenceManager::SetAutoConnectEnabled(bool bEnabled)
     if (Manager)
     {
         Manager->Configuration.bAutoConnectEnabled = bEnabled;
-        FLootLockerLogger::LogInfo(FString::Printf(TEXT("Presence auto-connect %s"), bEnabled ? TEXT("enabled") : TEXT("disabled")));
     }
 }
 
 bool ULootLockerPresenceManager::IsPauseOnBackgroundEnabled()
 {
     ULootLockerPresenceManager* Manager = GetInstance();
-    return Manager ? Manager->Configuration.bPauseOnBackground : false;
+    return Manager ? Manager->Configuration.bAutoDisconnectOnFocusChange : false;
 }
 
 void ULootLockerPresenceManager::SetPauseOnBackgroundEnabled(bool bEnabled)
@@ -492,8 +490,7 @@ void ULootLockerPresenceManager::SetPauseOnBackgroundEnabled(bool bEnabled)
     ULootLockerPresenceManager* Manager = GetInstance();
     if (Manager)
     {
-        Manager->Configuration.bPauseOnBackground = bEnabled;
-        FLootLockerLogger::LogInfo(FString::Printf(TEXT("Presence pause-on-background %s"), bEnabled ? TEXT("enabled") : TEXT("disabled")));
+        Manager->Configuration.bAutoDisconnectOnFocusChange = bEnabled;
     }
 }
 
@@ -546,18 +543,79 @@ void ULootLockerPresenceManager::HandleClientConnectionStateChange(const FString
            *UEnum::GetValueAsString(OldState),
            *UEnum::GetValueAsString(NewState)));
 
-    // Handle connection failures
-    if (NewState == ELootLockerPresenceConnectionState::Failed)
+    if (NewState == ELootLockerPresenceConnectionState::Destroyed)
     {
-        FLootLockerLogger::LogError(FString::Printf(TEXT("Presence connection failed for player %s: %s"), 
-               *PlayerUlid, *ErrorMessage));
+        FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Auto-cleaning up presence client for %s due to state change: %s"), *PlayerUlid, *UEnum::GetValueAsString(NewState)));
         
-        // Optionally implement reconnection logic here
+        // Clean up the client from our tracking
+        ULootLockerPresenceClient* ClientToCleanup = nullptr;
+        {
+            FScopeLock Lock(&ClientMapLock);
+            if (ULootLockerPresenceClient** ClientPtr = PresenceClients.Find(PlayerUlid))
+            {
+                ClientToCleanup = *ClientPtr;
+                PresenceClients.Remove(PlayerUlid);
+            }
+            
+            // Also remove from tracking sets
+            ConnectingClients.Remove(PlayerUlid);
+            PausedClients.Remove(PlayerUlid);
+        }
+        
+        // Mark for garbage collection (Unreal's equivalent to Destroy)
+        if (ClientToCleanup)
+        {
+            ClientToCleanup->MarkAsGarbage();
+        }
     }
-    
-    // Handle successful connections
-    if (NewState == ELootLockerPresenceConnectionState::Active)
+    else if (NewState == ELootLockerPresenceConnectionState::Disconnected)
     {
-        FLootLockerLogger::LogInfo(FString::Printf(TEXT("Presence connection established for player: %s"), *PlayerUlid));
+        FScopeLock Lock(&ClientMapLock);
+        
+        // Remove from connecting state if applicable
+        ConnectingClients.Remove(PlayerUlid);
+    }
+    else if (NewState == ELootLockerPresenceConnectionState::Failed)
+    {
+        FScopeLock Lock(&ClientMapLock);
+        
+        // Remove from connecting state
+        ConnectingClients.Remove(PlayerUlid);
+        
+        ULootLockerPresenceClient* ClientToHandle = nullptr;
+        if (ULootLockerPresenceClient** ClientPtr = PresenceClients.Find(PlayerUlid))
+        {
+            ClientToHandle = *ClientPtr;
+        }
+
+        if (ClientToHandle)
+        {
+            // If the error indicates authentication failure, remove and destroy the client
+            // Otherwise, keep in disconnected state for potential reconnection
+            if (!ErrorMessage.IsEmpty() && 
+                (ErrorMessage.Contains(TEXT("authentication")) || 
+                 ErrorMessage.Contains(TEXT("unauthorized")) || 
+                 ErrorMessage.Contains(TEXT("invalid token"))))
+            {
+                FLootLockerLogger::LogWarning(FString::Printf(TEXT("Removing presence client for %s due to authentication failure: %s"), 
+                       *PlayerUlid, *ErrorMessage));
+                PresenceClients.Remove(PlayerUlid);
+                ClientToHandle->MarkAsGarbage();
+            }
+            else
+            {
+                // Network or other failure - keep client for potential reconnection
+                FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Presence client for %s failed, keeping for potential reconnection: %s"), 
+                       *PlayerUlid, *ErrorMessage));
+            }
+        }
+    }
+    else if (NewState == ELootLockerPresenceConnectionState::Active)
+    {
+        FScopeLock Lock(&ClientMapLock);
+        
+        // Remove from connecting and paused states
+        ConnectingClients.Remove(PlayerUlid);
+        PausedClients.Remove(PlayerUlid);
     }
 }

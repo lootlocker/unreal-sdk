@@ -206,7 +206,7 @@ void ULootLockerPresenceClient::UpdateSessionToken(const FString& NewToken)
     // If we're currently connected, disconnect and reconnect with the new token
     if (IsConnected())
     {
-        FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Reconnecting player %s with new session token"), *PlayerUlid));
+        FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Reconnecting player %s with new session token"), *PlayerUlid));
         
         // Disconnect gracefully, then reconnect
         Disconnect(FLootLockerPresenceCallbackDelegate::CreateLambda([this](bool bDisconnectSuccess, const FString& DisconnectError)
@@ -218,7 +218,7 @@ void ULootLockerPresenceClient::UpdateSessionToken(const FString& NewToken)
                 {
                     if (bReconnectSuccess)
                     {
-                        FLootLockerLogger::LogInfo(FString::Printf(TEXT("Successfully reconnected player %s with new session token"), *PlayerUlid));
+                        FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Successfully reconnected player %s with new session token"), *PlayerUlid));
                         
                         // Re-send last status if we had one
                         AutoResendLastStatus();
@@ -237,7 +237,7 @@ void ULootLockerPresenceClient::UpdateSessionToken(const FString& NewToken)
     }
     else
     {
-        FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Session token updated for player %s (not currently connected)"), *PlayerUlid));
+        FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Session token updated for player %s (not currently connected)"), *PlayerUlid));
     }
 }
 
@@ -314,7 +314,7 @@ void ULootLockerPresenceClient::AutoResendLastStatus()
     // Send last status if we have one and are connected
     if (!ConnectionStats.LastSentStatus.IsEmpty() && IsConnected())
     {
-        FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Auto-resending last status for player %s: %s"), *PlayerUlid, *ConnectionStats.LastSentStatus));
+        FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Auto-resending last status for player %s: %s"), *PlayerUlid, *ConnectionStats.LastSentStatus));
         SendStatusUpdateMessage(ConnectionStats.LastSentStatus, LastSentMetadata, FLootLockerPresenceCallbackDelegate());
     }
 }
@@ -334,7 +334,7 @@ void ULootLockerPresenceClient::SendStatusUpdateMessage(const FString& Status, c
         Metadata
     };
     
-    FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Sending status update for player %s: %s"), *PlayerUlid, *Status));
+    FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Sending status update for player %s: %s"), *PlayerUlid, *Status));
     
     if (SendMessage(LootLockerUtilities::UStructToJsonString(StatusRequest)))
     {
@@ -374,7 +374,7 @@ void ULootLockerPresenceClient::OnConnectionError(const FString& Error)
             // Only attempt to reconnect if this wasn't a client-initiated disconnect
             if (!bIsClientInitiatedDisconnect)
             {
-                FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Unexpected presence websocket error for player %s - Message: %s"), *PlayerUlid, *Error));
+                FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Unexpected presence websocket error for player %s - Message: %s"), *PlayerUlid, *Error));
                 SetConnectionState(ELootLockerPresenceConnectionState::Reconnecting);
                 ScheduleReconnect();
             }
@@ -389,7 +389,7 @@ void ULootLockerPresenceClient::OnConnectionError(const FString& Error)
         case ELootLockerPresenceConnectionState::Destroyed:
         {
             // Already disconnected or in a terminal state, log but do nothing
-            FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Unexpected websocket error for player %s while shut down - Message: %s"), *PlayerUlid, *Error));
+            FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Unexpected websocket error for player %s while shut down - Message: %s"), *PlayerUlid, *Error));
             break;
         }
         case ELootLockerPresenceConnectionState::Initializing:
@@ -418,7 +418,7 @@ void ULootLockerPresenceClient::OnClosed(int32 StatusCode, const FString& Reason
             // Only attempt to reconnect if this wasn't a client-initiated disconnect
             if (!bIsClientInitiatedDisconnect)
             {
-                FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Presence WebSocket closed unexpectedly for player %s - Code: %d, Reason: %s, Clean: %s"), 
+                FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Presence WebSocket closed unexpectedly for player %s - Code: %d, Reason: %s, Clean: %s"), 
                     *PlayerUlid, StatusCode, *Reason, bWasClean ? TEXT("true") : TEXT("false")));
                 SetConnectionState(ELootLockerPresenceConnectionState::Reconnecting);
                 ScheduleReconnect();
@@ -458,7 +458,7 @@ void ULootLockerPresenceClient::OnClosed(int32 StatusCode, const FString& Reason
 
 void ULootLockerPresenceClient::OnMessage(const FString& Message)
 {
-    FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Received presence message for player %s: %s"), *PlayerUlid, *Message));
+    FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Received presence message for player %s: %s"), *PlayerUlid, *Message));
     
     if (Message.IsEmpty())
     {
@@ -573,7 +573,7 @@ void ULootLockerPresenceClient::AttemptReconnect()
     }
 
     ReconnectAttempts++;
-    FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Attempting reconnect for player %s (attempt %d/%d)"), 
+    FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Attempting reconnect for player %s (attempt %d/%d)"), 
            *PlayerUlid, ReconnectAttempts, MaxReconnectAttempts));
     Connect(FLootLockerPresenceCallbackDelegate::CreateLambda([this](bool bSuccess, const FString& ErrorMessage)
     {
@@ -643,7 +643,7 @@ void ULootLockerPresenceClient::SendAuthenticationMessage()
 
 void ULootLockerPresenceClient::HandleAuthenticationResponse(const FString& Message)
 {
-        FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Presence authentication successful for player: %s"), *PlayerUlid));
+        FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Presence authentication successful for player: %s"), *PlayerUlid));
         SetConnectionState(ELootLockerPresenceConnectionState::Active);
         
         // Initialize connection statistics
