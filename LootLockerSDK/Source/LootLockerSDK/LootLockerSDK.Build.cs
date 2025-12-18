@@ -47,7 +47,8 @@ public class LootLockerSDK : ModuleRules
                 "HTTP",
                 "Json",
                 "JsonUtilities",
-                "Projects"
+                "Projects",
+                "WebSockets"
 				// ... add other private dependencies that you statically link with here ...
 			}
             );
@@ -60,28 +61,18 @@ public class LootLockerSDK : ModuleRules
 
         if(bEnableGoogleSubsystemHelper)
         {
-            PublicDefinitions.Add("LOOTLOCKER_ENABLE_GOOGLESUBSYSTEMHELPER");
+            PublicDefinitions.Add("LOOTLOCKER_ENABLE_GOOGLESUBSYSTEMHELPER=1");
             PrivateDependencyModuleNames.AddRange(new string[] { "OnlineSubsystem" });
         }
 
         if (bUseStageURL)
         {
-	        PublicDefinitions.Add("LOOTLOCKER_USE_STAGE_URL");
+	        PublicDefinitions.Add("LOOTLOCKER_USE_STAGE_URL=1");
         }
 
         if (bShowOutdatedSDKMessage)
         {
-	        PublicDefinitions.Add("LOOTLOCKER_SHOW_OUTDATED_SDK_MESSAGE");
-        }
-
-        if (bEnablePresenceFeatures)
-        {
-            PublicDefinitions.Add("WITH_LOOTLOCKER_PRESENCE=1");
-            PrivateDependencyModuleNames.Add("WebSockets");
-        }
-        else
-        {
-            PublicDefinitions.Add("WITH_LOOTLOCKER_PRESENCE=0");
+	        PublicDefinitions.Add("LOOTLOCKER_SHOW_OUTDATED_SDK_MESSAGE=1");
         }
     }
 }
