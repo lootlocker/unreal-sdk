@@ -5,14 +5,15 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "Dom/JsonObject.h"
-#include "IWebSocket.h"
-#include "WebSocketsModule.h"
 #include "Containers/CircularQueue.h"
 
 #include "LootLockerPlayerData.h"
 #include "LootLockerErrorData.h"
 #include "LootLockerGameEndpoints.h"
 #include "LootLockerPresenceClient.generated.h"
+
+// Forward declarations
+class IWebSocket;
 
 // ========================================================================
 // ENUMS AND DATA STRUCTURES

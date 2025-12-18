@@ -454,6 +454,12 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FTimeResponseDelegateBP, FLootLockerTimeRespon
 */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FGameInfoResponseDelegateBP, FLootLockerGameInfoResponse, Response);
 
+//==================================================
+// Presence Delegates
+//==================================================
+/** Blueprint response delegate for basic presence operation responses */
+DECLARE_DYNAMIC_DELEGATE_TwoParams(FLootLockerPresenceResponseBP, bool, bSuccess, FString, ErrorMessage);
+
 
 UCLASS(Blueprintable)
 class LOOTLOCKERSDK_API ULootLockerManager : public UObject
@@ -3989,4 +3995,173 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous")
     static UPARAM(DisplayName = "RequestId") FString GetGameInfo(const FGameInfoResponseDelegateBP& OnCompletedRequestBP);
+
+    //==================================================
+    // Presence
+    //==================================================
+
+    /**
+     Force start the Presence WebSocket connection manually.
+     This will override the automatic presence management and manually establish a connection.
+     Use this when you need precise control over presence connections, otherwise let the SDK auto-manage.
+     
+     NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.
+     
+     @param OnCompleted Callback indicating whether the connection and authentication succeeded
+     @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Presence", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static void ForceStartPresenceConnection(const FLootLockerPresenceResponseBP& OnCompleted, const FString& ForPlayerWithUlid);
+
+    /**
+     Force stop the Presence WebSocket connection manually.
+     This will override the automatic presence management and manually disconnect.
+     Use this when you need precise control over presence connections, otherwise let the SDK auto-manage.
+     
+     NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.
+     
+     @param OnCompleted Optional callback indicating whether the disconnection succeeded
+     @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Presence", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static void ForceStopPresenceConnection(const FLootLockerPresenceResponseBP& OnCompleted, const FString& ForPlayerWithUlid);
+
+    /**
+     Force stop all Presence WebSocket connections manually.
+     This will override the automatic presence management and disconnect all active connections.
+     Use this when you need to immediately disconnect all presence connections.
+     
+     NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Presence")
+    static void ForceStopAllPresenceConnections();
+
+    /**
+     Get a list of player ULIDs that currently have active Presence connections
+     
+     NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.
+     
+     @param OnCompleted Callback with array of player ULIDs that have active presence connections
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Presence")
+    static TArray<FString> ListPresenceConnections();
+
+    /**
+     Update the player's presence status
+     
+     NOTE: To use this the rich presence feature must be enabled for your game. Contact LootLocker support if you need assistance.
+     
+     @param Status The status to set (e.g., "online", "in_game", "away")
+     @param Metadata Optional metadata to include with the status
+     @param OnCompleted Callback for the result of the operation
+     @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Presence", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static void UpdatePresenceStatus(const FString& Status, const TMap<FString, FString>& Metadata, const FLootLockerPresenceResponseBP& OnCompleted, const FString& ForPlayerWithUlid);
+
+    /**
+     Get the current Presence connection state for a specific player
+     
+     NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.
+     
+     @param OnCompleted Callback with the current connection state
+     @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Presence", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static ELootLockerPresenceConnectionState GetPresenceConnectionState(const FString& ForPlayerWithUlid);
+
+    /**
+     Check if Presence is connected and authenticated for a specific player
+     
+     NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.
+     
+     @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     @return True if connected and active, false otherwise
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Presence", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static bool IsPresenceConnected(const FString& ForPlayerWithUlid);
+
+    /**
+     Get statistics about the Presence connection for a specific player
+     
+     NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.
+     
+     @param OnCompleted Callback with connection statistics
+     @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Presence", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static FLootLockerPresenceConnectionStats GetPresenceConnectionStats(const FString& ForPlayerWithUlid);
+
+    /**
+     Get the last status that was sent for a specific player
+     
+     NOTE: To use this the rich presence feature must be enabled for your game. Contact LootLocker support if you need assistance.
+     
+     @param OnCompleted Callback with the last sent status string
+     @param ForPlayerWithUlid Optional: Execute the request for the specified player. If not supplied, the default player will be used.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Presence", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static FString GetCurrentPresenceStatus(const FString& ForPlayerWithUlid);
+
+    /**
+     Enable or disable the entire Presence system
+     
+     NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.
+     
+     @param bEnabled Whether to enable presence
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Presence")
+    static void SetPresenceEnabled(bool bEnabled);
+
+    /**
+     Check if presence system is currently enabled
+     
+     NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.
+     
+     @return True if enabled, false otherwise
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Presence")
+    static bool IsPresenceEnabled();
+
+    /**
+     Enable or disable automatic presence connection when sessions start
+     
+     NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.
+     
+     @param bEnabled Whether to auto-connect presence
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Presence")
+    static void SetPresenceAutoConnectEnabled(bool bEnabled);
+
+    /**
+     Check if automatic presence connections are enabled
+     
+     NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.
+     
+     @return True if auto-connect is enabled, false otherwise
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Presence")
+    static bool IsPresenceAutoConnectEnabled();
+
+    /**
+     Enable or disable automatic presence disconnection when the application loses focus or is paused.
+     When enabled, presence connections will automatically disconnect when the app goes to background
+     and reconnect when it returns to foreground. Useful for saving battery on mobile or managing resources.
+     
+     NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.
+     
+     @param bEnabled True to enable auto-disconnect on focus change, false to disable
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Presence")
+    static void SetPresenceAutoDisconnectOnFocusChangeEnabled(bool bEnabled);
+
+    /**
+     Check if automatic presence disconnection on focus change is enabled
+     
+     NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.
+     
+     @return True if auto-disconnect on focus change is enabled, false otherwise
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Presence")
+    static bool IsPresenceAutoDisconnectOnFocusChangeEnabled();
 };
