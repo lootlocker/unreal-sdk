@@ -20,8 +20,6 @@
 const FString ULootLockerHttpClient::UserAgent = FString::Format(TEXT("X-UnrealEngine-Agent/{0}"), { ENGINE_VERSION_STRING });
 const FString ULootLockerHttpClient::UserInstanceIdentifier = FGuid::NewGuid().ToString();
 FString ULootLockerHttpClient::SDKVersion = "";
-TWeakObjectPtr<ULootLockerHttpClient> ULootLockerHttpClient::SingletonInstance = nullptr;
-FCriticalSection ULootLockerHttpClient::SingletonMutex;
 
 ULootLockerHttpClient::ULootLockerHttpClient()
 {
