@@ -2381,3 +2381,91 @@ FString ULootLockerManager::UnblockPlayer(const FString& ForPlayerWithUlid, cons
         OnResponseCompletedBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
+
+// ========================================================================
+// PRESENCE
+// ========================================================================
+
+void ULootLockerManager::ForceStartPresenceConnection(const FLootLockerPresenceResponseBP& OnCompleted, const FString& ForPlayerWithUlid)
+{
+    ULootLockerSDKManager::ForceStartPresenceConnection(FLootLockerPresenceCallbackDelegate::CreateLambda([OnCompleted](bool bSuccess, const FString& ErrorMessage)
+    {
+        OnCompleted.ExecuteIfBound(bSuccess, ErrorMessage);
+    }), ForPlayerWithUlid);
+}
+
+void ULootLockerManager::ForceStopPresenceConnection(const FLootLockerPresenceResponseBP& OnCompleted, const FString& ForPlayerWithUlid)
+{
+    ULootLockerSDKManager::ForceStopPresenceConnection(FLootLockerPresenceCallbackDelegate::CreateLambda([OnCompleted](bool bSuccess, const FString& ErrorMessage)
+    {
+        OnCompleted.ExecuteIfBound(bSuccess, ErrorMessage);
+    }), ForPlayerWithUlid);
+}
+
+void ULootLockerManager::ForceStopAllPresenceConnections()
+{
+    ULootLockerSDKManager::ForceStopAllPresenceConnections();
+}
+
+TArray<FString> ULootLockerManager::ListPresenceConnections()
+{
+    return ULootLockerSDKManager::ListPresenceConnections();
+}
+
+void ULootLockerManager::UpdatePresenceStatus(const FString& Status, const TMap<FString, FString>& Metadata, const FLootLockerPresenceResponseBP& OnCompleted, const FString& ForPlayerWithUlid)
+{
+    ULootLockerSDKManager::UpdatePresenceStatus(Status, Metadata, FLootLockerPresenceCallbackDelegate::CreateLambda([OnCompleted](bool bSuccess, const FString& ErrorMessage)
+    {
+        OnCompleted.ExecuteIfBound(bSuccess, ErrorMessage);
+    }), ForPlayerWithUlid);
+}
+
+ELootLockerPresenceConnectionState ULootLockerManager::GetPresenceConnectionState(const FString& ForPlayerWithUlid)
+{
+    return ULootLockerSDKManager::GetPresenceConnectionState(ForPlayerWithUlid);
+}
+
+bool ULootLockerManager::IsPresenceConnected(const FString& ForPlayerWithUlid)
+{
+    return ULootLockerSDKManager::IsPresenceConnected(ForPlayerWithUlid);
+}
+
+FLootLockerPresenceConnectionStats ULootLockerManager::GetPresenceConnectionStats(const FString& ForPlayerWithUlid)
+{
+    return ULootLockerSDKManager::GetPresenceConnectionStats(ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::GetCurrentPresenceStatus(const FString& ForPlayerWithUlid)
+{
+    return ULootLockerSDKManager::GetCurrentPresenceStatus(ForPlayerWithUlid);
+}
+
+void ULootLockerManager::SetPresenceEnabled(bool bEnabled)
+{
+    ULootLockerSDKManager::SetPresenceEnabled(bEnabled);
+}
+
+bool ULootLockerManager::IsPresenceEnabled()
+{
+    return ULootLockerSDKManager::IsPresenceEnabled();
+}
+
+void ULootLockerManager::SetPresenceAutoConnectEnabled(bool bEnabled)
+{
+    ULootLockerSDKManager::SetPresenceAutoConnectEnabled(bEnabled);
+}
+
+bool ULootLockerManager::IsPresenceAutoConnectEnabled()
+{
+    return ULootLockerSDKManager::IsPresenceAutoConnectEnabled();
+}
+
+void ULootLockerManager::SetPresenceAutoDisconnectOnFocusChangeEnabled(bool bEnabled)
+{
+    ULootLockerSDKManager::SetPresenceAutoDisconnectOnFocusChangeEnabled(bEnabled);
+}
+
+bool ULootLockerManager::IsPresenceAutoDisconnectOnFocusChangeEnabled()
+{
+    return ULootLockerSDKManager::IsPresenceAutoDisconnectOnFocusChangeEnabled();
+}

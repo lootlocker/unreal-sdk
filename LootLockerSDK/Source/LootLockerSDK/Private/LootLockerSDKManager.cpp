@@ -4,6 +4,7 @@
 #include "LootLockerSDKManager.h"
 
 #include "LootLockerStateData.h"
+#include "LootLockerPresenceManager.h"
 #include "GameAPI/LootLockerFriendsRequestHandler.h"
 
 // Player State
@@ -1585,4 +1586,150 @@ FString ULootLockerSDKManager::GetLastActivePlatform(const FString& ForPlayerWit
 FString ULootLockerSDKManager::GetGameInfo(const FGameInfoResponseDelegate& OnComplete)
 {
     return ULootLockerMiscellaneousRequestHandler::GetGameInfo(OnComplete);
+}
+
+// ========================================================================
+// PRESENCE
+// ========================================================================
+
+void ULootLockerSDKManager::ForceStartPresenceConnection(const FLootLockerPresenceCallbackDelegate& OnComplete, const FString& ForPlayerWithUlid)
+{
+    ULootLockerPresenceManager* Manager = ULootLockerPresenceManager::GetInstance();
+    if (!Manager)
+    {
+        OnComplete.ExecuteIfBound(false, TEXT("Presence manager not available"));
+        return;
+    }
+    
+    FString PlayerUlid = ForPlayerWithUlid.IsEmpty() ? GetDefaultPlayerUlid() : ForPlayerWithUlid;
+    Manager->ConnectPresence(PlayerUlid, OnComplete);
+}
+
+void ULootLockerSDKManager::ForceStopPresenceConnection(const FLootLockerPresenceCallbackDelegate& OnComplete, const FString& ForPlayerWithUlid)
+{
+    ULootLockerPresenceManager* Manager = ULootLockerPresenceManager::GetInstance();
+    if (!Manager)
+    {
+        OnComplete.ExecuteIfBound(false, TEXT("Presence manager not available"));
+        return;
+    }
+    
+    FString PlayerUlid = ForPlayerWithUlid.IsEmpty() ? GetDefaultPlayerUlid() : ForPlayerWithUlid;
+    Manager->DisconnectPresence(PlayerUlid, OnComplete);
+}
+
+void ULootLockerSDKManager::ForceStopAllPresenceConnections()
+{
+    ULootLockerPresenceManager* Manager = ULootLockerPresenceManager::GetInstance();
+    if (!Manager)
+    {
+        return;
+    }
+    
+    Manager->DisconnectAll(FLootLockerPresenceCallbackDelegate());
+}
+
+TArray<FString> ULootLockerSDKManager::ListPresenceConnections()
+{
+    ULootLockerPresenceManager* Manager = ULootLockerPresenceManager::GetInstance();
+    if (!Manager)
+    {
+        return TArray<FString>();
+    }
+    
+    return Manager->GetConnectedPlayerUlids();
+}
+
+void ULootLockerSDKManager::UpdatePresenceStatus(const FString& Status, const TMap<FString, FString>& Metadata, const FLootLockerPresenceCallbackDelegate& OnComplete, const FString& ForPlayerWithUlid)
+{
+    ULootLockerPresenceManager* Manager = ULootLockerPresenceManager::GetInstance();
+    if (!Manager)
+    {
+        OnComplete.ExecuteIfBound(false, TEXT("Presence manager not available"));
+        return;
+    }
+    
+    FString PlayerUlid = ForPlayerWithUlid.IsEmpty() ? GetDefaultPlayerUlid() : ForPlayerWithUlid;
+    Manager->UpdateStatus(PlayerUlid, Status, Metadata, OnComplete);
+}
+
+ELootLockerPresenceConnectionState ULootLockerSDKManager::GetPresenceConnectionState(const FString& ForPlayerWithUlid)
+{
+    ULootLockerPresenceManager* Manager = ULootLockerPresenceManager::GetInstance();
+    if (!Manager)
+    {
+        return ELootLockerPresenceConnectionState::Disconnected;
+    }
+    
+    FString PlayerUlid = ForPlayerWithUlid.IsEmpty() ? GetDefaultPlayerUlid() : ForPlayerWithUlid;
+    return Manager->GetPresenceStateForPlayer(PlayerUlid);
+}
+
+bool ULootLockerSDKManager::IsPresenceConnected(const FString& ForPlayerWithUlid)
+{
+    ULootLockerPresenceManager* Manager = ULootLockerPresenceManager::GetInstance();
+    if (!Manager)
+    {
+        return false;
+    }
+    
+    FString PlayerUlid = ForPlayerWithUlid.IsEmpty() ? GetDefaultPlayerUlid() : ForPlayerWithUlid;
+    return Manager->IsPresenceActiveForPlayer(PlayerUlid);
+}
+
+FLootLockerPresenceConnectionStats ULootLockerSDKManager::GetPresenceConnectionStats(const FString& ForPlayerWithUlid)
+{
+    ULootLockerPresenceManager* Manager = ULootLockerPresenceManager::GetInstance();
+    if (!Manager)
+    {
+        return FLootLockerPresenceConnectionStats();
+    }
+    
+    FString PlayerUlid = ForPlayerWithUlid.IsEmpty() ? GetDefaultPlayerUlid() : ForPlayerWithUlid;
+    return Manager->GetConnectionStatsForPlayer(PlayerUlid);
+}
+
+FString ULootLockerSDKManager::GetCurrentPresenceStatus(const FString& ForPlayerWithUlid)
+{
+    ULootLockerPresenceManager* Manager = ULootLockerPresenceManager::GetInstance();
+    if (!Manager)
+    {
+        return TEXT("");
+    }
+    
+    FString PlayerUlid = ForPlayerWithUlid.IsEmpty() ? GetDefaultPlayerUlid() : ForPlayerWithUlid;
+    // Note: We need to implement a method to get last sent status from the manager
+    // For now, we can get stats and extract the last sent status from there
+    FLootLockerPresenceConnectionStats Stats = Manager->GetConnectionStatsForPlayer(PlayerUlid);
+    return Stats.LastSentStatus;
+}
+
+void ULootLockerSDKManager::SetPresenceEnabled(bool bEnabled)
+{
+    ULootLockerPresenceManager::SetEnabled(bEnabled);
+}
+
+bool ULootLockerSDKManager::IsPresenceEnabled()
+{
+    return ULootLockerPresenceManager::IsEnabled();
+}
+
+void ULootLockerSDKManager::SetPresenceAutoConnectEnabled(bool bEnabled)
+{
+    ULootLockerPresenceManager::SetAutoConnectEnabled(bEnabled);
+}
+
+bool ULootLockerSDKManager::IsPresenceAutoConnectEnabled()
+{
+    return ULootLockerPresenceManager::IsAutoConnectEnabled();
+}
+
+void ULootLockerSDKManager::SetPresenceAutoDisconnectOnFocusChangeEnabled(bool bEnabled)
+{
+    ULootLockerPresenceManager::SetPauseOnBackgroundEnabled(bEnabled);
+}
+
+bool ULootLockerSDKManager::IsPresenceAutoDisconnectOnFocusChangeEnabled()
+{
+    return ULootLockerPresenceManager::IsPauseOnBackgroundEnabled();
 }
