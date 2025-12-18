@@ -131,12 +131,60 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker|Logging")
     static FString GetLogFilePath();
 
+	// ========================================================================
+	// PRESENCE CONFIGURATION ACCESSORS
+	// ========================================================================
+
+    /**
+     * Check if presence system is enabled globally.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker|Presence")
+    static bool IsPresenceEnabled();
+
+    /**
+     * Check if auto-connect is enabled for presence.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker|Presence")
+    static bool IsPresenceAutoConnectEnabled();
+
+    /**
+     * Check if auto-disconnect on focus change is enabled.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker|Presence")
+    static bool IsPresenceAutoDisconnectOnFocusChangeEnabled();
+
+    /**
+     * Check if presence is enabled in the editor.
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker|Presence")
+    static bool IsPresenceEnabledInEditor();
+
     UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Logging", Meta = (DisplayName = "Enable File Logging"))
     bool bEnableFileLogging = false;
     UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Logging", Meta = (DisplayName = "Name of LootLocker Log File", EditCondition = "bEnableFileLogging", EditConditionHides))
     FString LogFileName = TEXT("LootLockerLog");
 	UPROPERTY(Config, VisibleAnywhere, BlueprintReadOnly, Category = "LootLocker|Logging", Meta = (EditCondition = "bEnableFileLogging", EditConditionHides), Meta = (MultiLine = true), Meta = (DisplayName = "Actual Log File (on current device)"), Transient)
 	FString LongLogFilePath = "";
+
+	// ========================================================================
+	// PRESENCE CONFIGURATION
+	// ========================================================================
+	
+	/** Enable or disable the entire Presence system globally */
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Presence", Meta = (DisplayName = "Enable Presence System"))
+	bool bEnablePresence = false;
+
+	/** Whether to automatically connect presence when sessions are established */
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Presence", Meta = (DisplayName = "Auto-Connect on Session Start", EditCondition = "bEnablePresence", EditConditionHides))
+	bool bEnablePresenceAutoConnect = true;
+
+	/** Whether to automatically disconnect presence when the application loses focus or goes to background */
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Presence", Meta = (DisplayName = "Auto-Disconnect on Focus Loss", EditCondition = "bEnablePresence", EditConditionHides))
+	bool bEnablePresenceAutoDisconnectOnFocusChange = true;
+
+	/** Enable presence features in the editor (for testing purposes) */
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Presence", Meta = (DisplayName = "Enable In Editor", EditCondition = "bEnablePresence", EditConditionHides))
+	bool bEnablePresenceInEditor = true;
 private:
 	FString LogFilePath = "";
 	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")

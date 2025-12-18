@@ -67,3 +67,31 @@ FString ULootLockerConfig::GetLogFilePath()
     const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
     return Config->LogFilePath;
 }
+
+// ========================================================================
+// PRESENCE CONFIGURATION IMPLEMENTATIONS
+// ========================================================================
+
+bool ULootLockerConfig::IsPresenceEnabled()
+{
+    const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
+    return Config->bEnablePresence;
+}
+
+bool ULootLockerConfig::IsPresenceAutoConnectEnabled()
+{
+    const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
+    return Config->bEnablePresence && Config->bEnablePresenceAutoConnect;
+}
+
+bool ULootLockerConfig::IsPresenceAutoDisconnectOnFocusChangeEnabled()
+{
+    const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
+    return Config->bEnablePresence && Config->bEnablePresenceAutoDisconnectOnFocusChange;
+}
+
+bool ULootLockerConfig::IsPresenceEnabledInEditor()
+{
+    const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
+    return Config->bEnablePresence && Config->bEnablePresenceInEditor;
+}

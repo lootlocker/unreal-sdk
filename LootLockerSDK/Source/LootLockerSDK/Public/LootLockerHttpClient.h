@@ -66,9 +66,6 @@ private:
     static const FString UserAgent;
     static const FString UserInstanceIdentifier;
     static FString SDKVersion;
-
-    static TWeakObjectPtr<ULootLockerHttpClient> SingletonInstance;
-    static FCriticalSection SingletonMutex;
 };
 
 

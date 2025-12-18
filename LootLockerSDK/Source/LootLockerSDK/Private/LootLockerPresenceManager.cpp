@@ -3,6 +3,7 @@
 #include "LootLockerPresenceManager.h"
 #include "LootLockerLogger.h"
 #include "LootLockerStateData.h"
+#include "LootLockerConfig.h"
 #include "Engine/Engine.h"
 #include "Engine/World.h"
 #include "TimerManager.h"
@@ -20,6 +21,12 @@ FCriticalSection ULootLockerPresenceManager::InstanceLock;
 
 ULootLockerPresenceManager::ULootLockerPresenceManager()
 {
+    // Initialize runtime configuration from config values
+    Configuration.bIsEnabled = ULootLockerConfig::IsPresenceEnabled();
+    Configuration.bAutoConnectEnabled = ULootLockerConfig::IsPresenceAutoConnectEnabled();
+    Configuration.bAutoDisconnectOnFocusChange = ULootLockerConfig::IsPresenceAutoDisconnectOnFocusChangeEnabled();
+    Configuration.bEnabledInEditor = ULootLockerConfig::IsPresenceEnabledInEditor();
+    
     FLootLockerLogger::LogVeryVerbose(TEXT("LootLocker Presence Manager created"));
 }
 
@@ -48,7 +55,7 @@ ULootLockerPresenceManager* ULootLockerPresenceManager::GetInstance()
 
 void ULootLockerPresenceManager::ConnectPresence(const FString& PlayerUlid, const FLootLockerPresenceCallbackDelegate& OnComplete)
 {
-    if (!Configuration.bIsEnabled)
+    if (!Configuration.bIsEnabled || (!Configuration.bEnabledInEditor && GIsEditor))
     {
         FString ErrorMessage = TEXT("Presence manager is disabled");
         FLootLockerLogger::LogWarning(ErrorMessage);
@@ -187,7 +194,7 @@ void ULootLockerPresenceManager::DisconnectPresence(const FString& PlayerUlid, c
 
 void ULootLockerPresenceManager::UpdateStatus(const FString& PlayerUlid, const FString& Status, const TMap<FString, FString>& Metadata, const FLootLockerPresenceCallbackDelegate& OnComplete)
 {
-    if (!Configuration.bIsEnabled)
+    if (!Configuration.bIsEnabled || (!Configuration.bEnabledInEditor && GIsEditor))
     {
         FString ErrorMessage = TEXT("Presence manager is disabled");
         OnComplete.ExecuteIfBound(false, ErrorMessage);
@@ -250,7 +257,7 @@ void ULootLockerPresenceManager::UpdateSessionToken(const FString& PlayerUlid, c
 
 void ULootLockerPresenceManager::ConnectPresenceForAllActiveSessions(const FLootLockerPresenceCallbackDelegate& OnComplete)
 {
-    if (!Configuration.bIsEnabled)
+    if (!Configuration.bIsEnabled || (!Configuration.bEnabledInEditor && GIsEditor))
     {
         FString ErrorMessage = TEXT("Presence manager is disabled");
         OnComplete.ExecuteIfBound(false, ErrorMessage);
@@ -447,7 +454,7 @@ int32 ULootLockerPresenceManager::GetActiveConnectionCount() const
 bool ULootLockerPresenceManager::IsEnabled()
 {
     ULootLockerPresenceManager* Manager = GetInstance();
-    return Manager ? Manager->Configuration.bIsEnabled : false;
+    return Manager ? Manager->Configuration.bIsEnabled : ULootLockerConfig::IsPresenceEnabled();
 }
 
 void ULootLockerPresenceManager::SetEnabled(bool bEnabled)
@@ -467,7 +474,7 @@ void ULootLockerPresenceManager::SetEnabled(bool bEnabled)
 bool ULootLockerPresenceManager::IsAutoConnectEnabled()
 {
     ULootLockerPresenceManager* Manager = GetInstance();
-    return Manager ? Manager->Configuration.bAutoConnectEnabled : false;
+    return Manager ? Manager->Configuration.bAutoConnectEnabled : ULootLockerConfig::IsPresenceAutoConnectEnabled();
 }
 
 void ULootLockerPresenceManager::SetAutoConnectEnabled(bool bEnabled)
@@ -482,7 +489,7 @@ void ULootLockerPresenceManager::SetAutoConnectEnabled(bool bEnabled)
 bool ULootLockerPresenceManager::IsPauseOnBackgroundEnabled()
 {
     ULootLockerPresenceManager* Manager = GetInstance();
-    return Manager ? Manager->Configuration.bAutoDisconnectOnFocusChange : false;
+    return Manager ? Manager->Configuration.bAutoDisconnectOnFocusChange : ULootLockerConfig::IsPresenceAutoDisconnectOnFocusChangeEnabled();
 }
 
 void ULootLockerPresenceManager::SetPauseOnBackgroundEnabled(bool bEnabled)
@@ -491,6 +498,21 @@ void ULootLockerPresenceManager::SetPauseOnBackgroundEnabled(bool bEnabled)
     if (Manager)
     {
         Manager->Configuration.bAutoDisconnectOnFocusChange = bEnabled;
+    }
+}
+
+bool ULootLockerPresenceManager::IsEnabledInEditor()
+{
+    ULootLockerPresenceManager* Manager = GetInstance();
+    return Manager ? Manager->Configuration.bEnabledInEditor : ULootLockerConfig::IsPresenceEnabledInEditor();
+}
+
+void ULootLockerPresenceManager::SetEnabledInEditor(bool bEnabled)
+{
+    ULootLockerPresenceManager* Manager = GetInstance();
+    if (Manager)
+    {
+        Manager->Configuration.bEnabledInEditor = bEnabled;
     }
 }
 
