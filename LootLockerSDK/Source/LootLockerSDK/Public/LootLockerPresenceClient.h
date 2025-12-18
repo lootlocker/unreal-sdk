@@ -172,12 +172,12 @@ struct FLootLockerPresenceStatusRequest
 /**
  * Delegate for presence connection state changes
  */
-DECLARE_DELEGATE_FourParams(FLootLockerPresenceConnectionDelegate, FString, ELootLockerPresenceConnectionState, ELootLockerPresenceConnectionState, FString); // (PlayerUlid, PreviousState, CurrentState, ErrorMessage)
+DECLARE_DELEGATE_FourParams(FLootLockerPresenceConnectionDelegate, const FString&, ELootLockerPresenceConnectionState, ELootLockerPresenceConnectionState, const FString&); // (PlayerUlid, PreviousState, CurrentState, ErrorMessage)
 
 /**
  * Delegate for handling presence connection process callbacks
  */
-DECLARE_DELEGATE_TwoParams(FLootLockerPresenceCallbackDelegate, bool, FString); // (Success, ErrorMessage)
+DECLARE_DELEGATE_TwoParams(FLootLockerPresenceCallbackDelegate, bool, const FString&); // (Success, ErrorMessage)
 
 
 // ========================================================================
@@ -222,6 +222,13 @@ public:
      * @param OnComplete Delegate to call when disconnection completes
      */
     void Disconnect(const FLootLockerPresenceCallbackDelegate& OnComplete);
+
+    /**
+     * Update the session token used for authentication
+     * 
+     * @param NewToken The new session token
+     */
+    void UpdateSessionToken(const FString& NewToken);
 
     /**
      * Send a status update to the presence service
