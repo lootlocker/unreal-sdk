@@ -195,6 +195,7 @@ bool ULootLockerStateData::SaveStateExistsForPlayer(const FString& PlayerUlid /*
 	return ActiveMetaData.SavedPlayerStateUlids.Contains(PlayerUlid);
 }
 
+// TODO: Make a version that does not make the player active and use that instead in most places
 const FLootLockerPlayerData& ULootLockerStateData::GetSavedStateOrDefaultOrEmptyForPlayer(const FString& PlayerUlid /* = "" */)
 {
 	const FLootLockerPlayerData* playerData = LoadPlayerData(PlayerUlid);

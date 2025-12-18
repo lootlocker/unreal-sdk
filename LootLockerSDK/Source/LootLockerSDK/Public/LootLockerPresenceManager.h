@@ -45,7 +45,7 @@ struct LOOTLOCKERSDK_API FLootLockerPresenceManagerConfig
 
     /** Whether to pause connections when app goes to background */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool bPauseOnBackground = true;
+    bool bAutoDisconnectOnFocusChange = true;
 };
 
 // ========================================================================
@@ -218,9 +218,9 @@ public:
 
     /**
      * Enable or disable pause-on-background behavior
-     * @param bPauseOnBackground Whether to enable pause-on-background
+     * @param bAutoDisconnectOnFocusChange Whether to enable pause-on-background
      */
-    static void SetPauseOnBackgroundEnabled(bool bPauseOnBackground);
+    static void SetPauseOnBackgroundEnabled(bool bAutoDisconnectOnFocusChange);
 
 protected:
     virtual void BeginDestroy() override;
