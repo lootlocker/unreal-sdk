@@ -103,14 +103,17 @@ private:
     inline static constexpr int SaveIndex = 0;
 #endif
 	static FLootLockerStateMetaData LoadMetaState();
-	static FLootLockerPlayerData* LoadPlayerData(const FString& PlayerUlid);
+	static TSharedPtr<FLootLockerPlayerData> LoadPlayerData(const FString& PlayerUlid, bool makeActive = true);
 	static void SetMetaState(FLootLockerStateMetaData& updatedMetaData);
 public:
 	ULootLockerStateData();
 
 	static FString GenerateNewGuestIdentifier();
 	static bool SaveStateExistsForPlayer(const FString& PlayerUlid = "");
-	static const FLootLockerPlayerData& GetSavedStateOrDefaultOrEmptyForPlayer(const FString& PlayerUlid = "");
+	static bool MakePlayerActive(const FString& PlayerUlid);
+	static const FLootLockerPlayerData& GetAndActivateSavedStateOrDefaultOrEmptyForPlayer(const FString& PlayerUlid = "");
+	static const TSharedPtr<FLootLockerPlayerData> GetStateForPlayerOrDefaultFromCache(const FString& PlayerUlid = "");
+	static const TSharedPtr<FLootLockerPlayerData> GetStateForPlayerOrDefaultIfActive(const FString& PlayerUlid = "");
 	static FString GetDefaultPlayerUlid();
 	static bool SetDefaultPlayerUlid(const FString& PlayerUlid);
 	static void SavePlayerData(const FLootLockerPlayerData& PlayerData);

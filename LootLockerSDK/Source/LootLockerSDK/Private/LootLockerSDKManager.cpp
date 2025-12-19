@@ -45,7 +45,8 @@ bool ULootLockerSDKManager::SetDefaultPlayer(const FString& PlayerUlid)
 
 FLootLockerPlayerData ULootLockerSDKManager::GetSavedStateOrDefaultOrEmptyForPlayer(const FString& PlayerUlid)
 {
-    return ULootLockerStateData::GetSavedStateOrDefaultOrEmptyForPlayer(PlayerUlid);
+    TSharedPtr<FLootLockerPlayerData> StatePtr = ULootLockerStateData::GetStateForPlayerOrDefaultFromCache(PlayerUlid);
+    return StatePtr.IsValid() ? *StatePtr : FLootLockerPlayerData();
 }
 
 void ULootLockerSDKManager::ClearCacheForPlayer(const FString& PlayerUlid)
