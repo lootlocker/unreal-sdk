@@ -47,7 +47,7 @@ bool ULootLockerManager::SetDefaultPlayer(const FString& PlayerUlid)
 
 FLootLockerPlayerData ULootLockerManager::GetSavedStateOrDefaultOrEmptyForPlayer(const FString& PlayerUlid)
 {
-    return ULootLockerStateData::GetSavedStateOrDefaultOrEmptyForPlayer(PlayerUlid);
+    return ULootLockerSDKManager::GetSavedStateOrDefaultOrEmptyForPlayer(PlayerUlid);
 }
 
 void ULootLockerManager::ClearCacheForPlayer(const FString& PlayerUlid)

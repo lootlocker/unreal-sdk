@@ -146,6 +146,7 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
 		}
         else
         {
+            ULootLockerStateData::MakePlayerActive(playerUlid);
             LogSuccessfulRequestInformation(response, DelimitedHeaders);
         }
 		onCompleteRequest.ExecuteIfBound(response);
@@ -298,6 +299,7 @@ FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString
     		else
             {
                 LogSuccessfulRequestInformation(response, DelimitedHeaders);
+                ULootLockerStateData::MakePlayerActive(playerUlid);
             }
             onCompleteRequest.ExecuteIfBound(response);
         });
@@ -495,7 +497,7 @@ void ULootLockerHttpClient::RefreshSessionForPlatform(const FLootLockerPlayerDat
 void ULootLockerHttpClient::RetryOriginalRequest(const FLootLockerRetryRequestData& RetryData)
 {
     // Get the updated player data after refresh    
-    FLootLockerPlayerData UpdatedPlayerData = ULootLockerStateData::GetSavedStateOrDefaultOrEmptyForPlayer(RetryData.PlayerData.PlayerUlid);
+    FLootLockerPlayerData UpdatedPlayerData = ULootLockerStateData::GetAndActivateSavedStateOrDefaultOrEmptyForPlayer(RetryData.PlayerData.PlayerUlid);
     
     if (RetryData.bIsFileUpload)
     {

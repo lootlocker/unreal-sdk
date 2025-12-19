@@ -79,14 +79,14 @@ void ULootLockerStateData::SetMetaState(FLootLockerStateMetaData& updatedMetaDat
 	FLootLockerLogger::LogWarning(TEXT("Failed to save LootLocker meta state to disk"));
 }
 
-FLootLockerPlayerData* ULootLockerStateData::LoadPlayerData(const FString& PlayerUlid /* = "" */)
+TSharedPtr<FLootLockerPlayerData> ULootLockerStateData::LoadPlayerData(const FString& PlayerUlid /* = "" */, bool makeActive /*= true */)
 {
 	FString DefaultPlayerUlid = GetDefaultPlayerUlid();
 	FString TargetPlayerUlid = PlayerUlid.IsEmpty() ? DefaultPlayerUlid : PlayerUlid;
 	if (TargetPlayerUlid.IsEmpty())
 	{
 		//Nothing more to load, return
-		return nullptr;
+		return TSharedPtr<FLootLockerPlayerData>(nullptr);
 	}
 
 	if (FLootLockerPlayerData* ActivePlayer = ActivePlayerData.Find(TargetPlayerUlid))
@@ -98,7 +98,7 @@ FLootLockerPlayerData* ULootLockerStateData::LoadPlayerData(const FString& Playe
 		}
 		else
 		{
-			return ActivePlayer;
+			return TSharedPtr<FLootLockerPlayerData>(ActivePlayer);
 		}
 				
 	}
@@ -110,12 +110,18 @@ FLootLockerPlayerData* ULootLockerStateData::LoadPlayerData(const FString& Playe
 		{
 			SetDefaultPlayerUlid(TargetPlayerUlid);
 		}
-		ActivePlayerData.Add(LoadedState->PlayerUlid, FLootLockerPlayerData::Create(LoadedState->Token, LoadedState->RefreshToken, LoadedState->PlayerIdentifier, LoadedState->PlayerUlid, LoadedState->PlayerPublicUid, LoadedState->PlayerName, LoadedState->WhiteLabelEmail, LoadedState->WhiteLabelToken, LoadedState->CurrentPlatform, LoadedState->LastSignIn, LoadedState->PlayerCreatedAt));
+		FLootLockerPlayerData PlayerData = FLootLockerPlayerData::Create(LoadedState->Token, LoadedState->RefreshToken, LoadedState->PlayerIdentifier, LoadedState->PlayerUlid, LoadedState->PlayerPublicUid, LoadedState->PlayerName, LoadedState->WhiteLabelEmail, LoadedState->WhiteLabelToken, LoadedState->CurrentPlatform, LoadedState->LastSignIn, LoadedState->PlayerCreatedAt);
+		
 		FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Loaded LootLocker state from disk for player with ulid %s"), *TargetPlayerUlid));
-		return ActivePlayerData.Find(LoadedState->PlayerUlid);
+		if (makeActive)
+		{
+			ActivePlayerData.Add(LoadedState->PlayerUlid, PlayerData);
+			return TSharedPtr<FLootLockerPlayerData>(ActivePlayerData.Find(LoadedState->PlayerUlid));
+		}
+		return MakeShareable(new FLootLockerPlayerData(PlayerData));
 	}
 	FLootLockerLogger::LogWarning(FString::Printf(TEXT("Found no persisted LootLocker state for player with ulid %s"), *TargetPlayerUlid));
-	return nullptr;
+	return TSharedPtr<FLootLockerPlayerData>(nullptr);
 }
 
 void ULootLockerStateData::SavePlayerData(const FLootLockerPlayerData& PlayerData)
@@ -195,15 +201,57 @@ bool ULootLockerStateData::SaveStateExistsForPlayer(const FString& PlayerUlid /*
 	return ActiveMetaData.SavedPlayerStateUlids.Contains(PlayerUlid);
 }
 
-// TODO: Make a version that does not make the player active and use that instead in most places
-const FLootLockerPlayerData& ULootLockerStateData::GetSavedStateOrDefaultOrEmptyForPlayer(const FString& PlayerUlid /* = "" */)
+bool ULootLockerStateData::MakePlayerActive(const FString& PlayerUlid)
 {
-	const FLootLockerPlayerData* playerData = LoadPlayerData(PlayerUlid);
-	if (playerData != nullptr)
+	if (PlayerUlid.IsEmpty())
+	{
+		//Nothing more to load, return
+		return false;
+	}
+
+	if (ActivePlayerData.Contains(PlayerUlid))
+	{
+		return true;
+	}
+
+	TSharedPtr<FLootLockerPlayerData> playerData = LoadPlayerData(PlayerUlid, true);
+	return playerData.IsValid();
+}
+
+const FLootLockerPlayerData& ULootLockerStateData::GetAndActivateSavedStateOrDefaultOrEmptyForPlayer(const FString& PlayerUlid /* = "" */)
+{
+	const TSharedPtr<FLootLockerPlayerData> playerData = LoadPlayerData(PlayerUlid, true);
+	if (playerData.IsValid())
 	{
 		return *playerData;
 	}
 	return EmptyPlayerData;
+}
+
+const TSharedPtr<FLootLockerPlayerData> ULootLockerStateData::GetStateForPlayerOrDefaultFromCache(const FString& PlayerUlid /* = "" */)
+{
+	return LoadPlayerData(PlayerUlid, false);
+}
+
+const TSharedPtr<FLootLockerPlayerData> ULootLockerStateData::GetStateForPlayerOrDefaultIfActive(const FString& PlayerUlid /* = "" */)
+{
+	TSharedPtr<FLootLockerPlayerData> Result = TSharedPtr<FLootLockerPlayerData>(nullptr);
+	if (ActivePlayerData.Num() == 0)
+	{
+		return Result;
+	}
+	FString UlidToUse = PlayerUlid.IsEmpty() ? GetDefaultPlayerUlid() : PlayerUlid;
+	if (UlidToUse.IsEmpty())
+	{
+		return Result;
+	}
+	
+	if (FLootLockerPlayerData* ActivePlayer = ActivePlayerData.Find(UlidToUse))
+	{
+		Result = MakeShareable(new FLootLockerPlayerData(*ActivePlayer));
+		return Result;
+	}
+	return Result;
 }
 
 bool ULootLockerStateData::ClearSavedStateForPlayer(const FString& PlayerUlid)

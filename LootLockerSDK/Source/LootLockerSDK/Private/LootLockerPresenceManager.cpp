@@ -101,10 +101,10 @@ void ULootLockerPresenceManager::ConnectPresence(const FString& PlayerUlid, cons
             if (*ExistingClient)
             {                
                 // Update session token in case it has changed
-                FLootLockerPlayerData PlayerData = ULootLockerStateData::GetSavedStateOrDefaultOrEmptyForPlayer(PlayerUlid);
-                if (!PlayerData.PlayerUlid.IsEmpty() && !PlayerData.Token.IsEmpty())
+                TSharedPtr<FLootLockerPlayerData> PlayerData = ULootLockerStateData::GetStateForPlayerOrDefaultIfActive(PlayerUlid);
+                if (!PlayerData.IsValid() || PlayerData->PlayerUlid.IsEmpty() || PlayerData->Token.IsEmpty())
                 {
-                    (*ExistingClient)->UpdateSessionToken(PlayerData.Token);
+                    (*ExistingClient)->UpdateSessionToken(PlayerData->Token);
                 }
                 
                 // Remove from paused set and add to connecting
@@ -134,8 +134,8 @@ void ULootLockerPresenceManager::ConnectPresence(const FString& PlayerUlid, cons
     }
 
     // Get player data for this ULID
-    FLootLockerPlayerData PlayerData = ULootLockerStateData::GetSavedStateOrDefaultOrEmptyForPlayer(PlayerUlid);
-    if (PlayerData.PlayerUlid.IsEmpty() || PlayerData.Token.IsEmpty())
+    TSharedPtr<FLootLockerPlayerData> PlayerData = ULootLockerStateData::GetStateForPlayerOrDefaultIfActive(PlayerUlid);
+    if (!PlayerData.IsValid() || PlayerData->PlayerUlid.IsEmpty() || PlayerData->Token.IsEmpty())
     {
         FString ErrorMessage = FString::Printf(TEXT("No valid session data found for player: %s"), *PlayerUlid);
         FLootLockerLogger::LogWarning(ErrorMessage);
@@ -144,7 +144,7 @@ void ULootLockerPresenceManager::ConnectPresence(const FString& PlayerUlid, cons
     }
 
     // Create and connect client
-    ULootLockerPresenceClient* Client = CreatePresenceClient(PlayerData.PlayerUlid, PlayerData.Token);
+    ULootLockerPresenceClient* Client = CreatePresenceClient(PlayerData->PlayerUlid, PlayerData->Token);
     if (!Client)
     {
         FString ErrorMessage = FString::Printf(TEXT("Failed to create presence client for player: %s"), *PlayerUlid);
