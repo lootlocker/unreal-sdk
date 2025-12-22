@@ -4,6 +4,7 @@
 #include "LootLockerStateData.h"
 
 #include "LootLockerPlayerData.h"
+#include "LootLockerPresenceManager.h"
 #include "LootLockerSDK.h"
 #include "GameAPI/LootLockerPlayerRequestHandler.h"
 #include "Kismet/GameplayStatics.h"
@@ -95,6 +96,7 @@ TSharedPtr<FLootLockerPlayerData> ULootLockerStateData::LoadPlayerData(const FSt
 		{
 			// Active player is invalid, reset
 			ActivePlayerData.Remove(TargetPlayerUlid);
+			ULootLockerPresenceManager::NotifyPlayerDeactivated(TargetPlayerUlid);
 		}
 		else
 		{
@@ -116,6 +118,7 @@ TSharedPtr<FLootLockerPlayerData> ULootLockerStateData::LoadPlayerData(const FSt
 		if (makeActive)
 		{
 			ActivePlayerData.Add(LoadedState->PlayerUlid, PlayerData);
+			ULootLockerPresenceManager::NotifyPlayerActivated(LoadedState->PlayerUlid);
 			return TSharedPtr<FLootLockerPlayerData>(ActivePlayerData.Find(LoadedState->PlayerUlid));
 		}
 		return MakeShareable(new FLootLockerPlayerData(PlayerData));
@@ -151,6 +154,7 @@ void ULootLockerStateData::SavePlayerData(const FLootLockerPlayerData& PlayerDat
 		SetMetaState(metaState);
 	}
 	ActivePlayerData.Add(PlayerData.PlayerUlid, PlayerData);
+	ULootLockerPresenceManager::NotifyPlayerActivated(PlayerData.PlayerUlid);
 }
 
 FString ULootLockerStateData::GetDefaultPlayerUlid()
@@ -274,6 +278,7 @@ bool ULootLockerStateData::ClearSavedStateForPlayer(const FString& PlayerUlid)
 
 	SetMetaState(metaState);
 	ActivePlayerData.Remove(PlayerUlid);
+	ULootLockerPresenceManager::NotifyPlayerDeactivated(PlayerUlid);
 	return true;
 }
 
@@ -323,10 +328,15 @@ void ULootLockerStateData::SetPlayerUlidToInactive(const FString& PlayerUlid)
 	}
 
 	ActivePlayerData.Remove(PlayerUlid);
+	ULootLockerPresenceManager::NotifyPlayerDeactivated(PlayerUlid);
 }
 
 void ULootLockerStateData::SetAllPlayersToInactive()
 {
+	for (const TPair<FString, FLootLockerPlayerData>& activePlayerPair : ActivePlayerData)
+	{
+		ULootLockerPresenceManager::NotifyPlayerDeactivated(activePlayerPair.Key);
+	}
 	ActivePlayerData.Empty();
 }
 
@@ -345,6 +355,7 @@ void ULootLockerStateData::SetAllPlayersToInactiveExceptForPlayer(const FString&
 		if (!activePlayerUlid.Equals(PlayerUlid, ESearchCase::IgnoreCase))
 		{
 			ActivePlayerData.Remove(activePlayerUlid);
+			ULootLockerPresenceManager::NotifyPlayerDeactivated(activePlayerUlid);
 		}
 	}
 	SetDefaultPlayerUlid(PlayerUlid);

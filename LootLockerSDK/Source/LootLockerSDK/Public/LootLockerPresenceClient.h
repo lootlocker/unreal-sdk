@@ -232,6 +232,11 @@ public:
     void UpdateSessionToken(const FString& NewToken);
 
     /**
+     * Get the current session token
+     */
+    FString GetSessionToken() const { return SessionToken; }
+
+    /**
      * Send a status update to the presence service
      * 
      * @param Status The new status string to set

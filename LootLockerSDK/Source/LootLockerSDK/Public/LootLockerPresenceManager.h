@@ -294,6 +294,26 @@ public:
      * Get the singleton instance of the presence manager
      */
     static ULootLockerPresenceManager* GetInstance();
+
+    // ====================================================================
+    // PUBLIC API - EVENTS
+    // ====================================================================
+
+    /**
+     * Notify manager that a player has been activated (e.g., logged in)
+     * 
+     * @param PlayerUlid The player ULID that was activated
+     * @param SessionToken The session token for the activated player
+     */
+    static void NotifyPlayerActivated(const FString& PlayerUlid);
+
+    /**
+     * Notify manager that a player has been activated (e.g., logged in)
+     * 
+     * @param PlayerUlid The player ULID that was activated
+     * @param SessionToken The session token for the activated player
+     */
+    static void NotifyPlayerDeactivated(const FString& PlayerUlid);
 private:
     /** Singleton instance */
     static ULootLockerPresenceManager* Instance;
