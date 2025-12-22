@@ -42,6 +42,9 @@ void ULootLockerPresenceClient::BeginDestroy()
 {
     Disconnect(FLootLockerPresenceCallbackDelegate());
     Cleanup();
+    
+    // Set Connection State to Destroyed
+    SetConnectionState(ELootLockerPresenceConnectionState::Destroyed);
     Super::BeginDestroy();
 }
 
@@ -63,9 +66,6 @@ void ULootLockerPresenceClient::Cleanup()
     ReconnectAttempts = 0;
 
     InitializeConnectionStats();
-    
-    // Set Connection State to Destroyed
-    SetConnectionState(ELootLockerPresenceConnectionState::Destroyed);
     
     // Clear Callbacks
     if (ConnectionRequestCallback.IsBound())
@@ -135,7 +135,7 @@ void ULootLockerPresenceClient::Connect(const FLootLockerPresenceCallbackDelegat
     const FString WebSocketUrl = BuildWebSocketUrl();
     FLootLockerLogger::LogInfo(FString::Printf(TEXT("Connecting presence WebSocket for player %s"), *PlayerUlid));
 
-    WebSocket = FWebSocketsModule::Get().CreateWebSocket(WebSocketUrl, TEXT(""));
+    WebSocket = FWebSocketsModule::Get().CreateWebSocket(WebSocketUrl);
 
     if (!WebSocket.IsValid())
     {
@@ -519,9 +519,7 @@ void ULootLockerPresenceClient::OnMessage(const FString& Message)
 
 void ULootLockerPresenceClient::OnRawMessage(const void* Data, SIZE_T Size, SIZE_T BytesRemaining)
 {
-    // Convert raw data to string and process as regular message
-    FString Message = FString::ConstructFromPtrSize(static_cast<const TCHAR*>(Data), Size / sizeof(TCHAR));
-    OnMessage(Message);
+    FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Received raw presence message for player %s: Size: %llu, BytesRemaining: %llu. But only text data is implemented for the websocket. Ignoring."), *PlayerUlid, Size, BytesRemaining));
 }
 
 // ========================================================================
@@ -592,8 +590,10 @@ void ULootLockerPresenceClient::AttemptReconnect()
 
 void ULootLockerPresenceClient::ScheduleReconnect()
 {
-    if (!GetWorld())
+    UWorld* World = _GetWorld();    
+    if (!World)
     {
+        FLootLockerLogger::LogWarning(FString::Printf(TEXT("Cannot schedule presence reconnect - invalid world for player: %s"), *PlayerUlid));
         return;
     }
 
@@ -606,7 +606,7 @@ void ULootLockerPresenceClient::ScheduleReconnect()
     FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Scheduling reconnect for player %s in %f seconds"), 
            *PlayerUlid, ReconnectDelaySeconds));
 
-    GetWorld()->GetTimerManager().SetTimer(
+    World->GetTimerManager().SetTimer(
         ReconnectTimer,
         this,
         &ULootLockerPresenceClient::AttemptReconnect,
@@ -680,8 +680,9 @@ void ULootLockerPresenceClient::HandleErrorMessage(const FString& Message)
 
 void ULootLockerPresenceClient::StartPingRoutine()
 {
-    if (!GetWorld())
+    if (!_GetWorld())
     {
+        FLootLockerLogger::LogWarning(FString::Printf(TEXT("Cannot start heartbeat - invalid world for player: %s"), *PlayerUlid));
         return;
     }
     
@@ -690,7 +691,7 @@ void ULootLockerPresenceClient::StartPingRoutine()
     
     FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Starting heartbeat for player: %s"), *PlayerUlid));
     
-    GetWorld()->GetTimerManager().SetTimer(
+    _GetWorld()->GetTimerManager().SetTimer(
         PingTimer,
         this,
         &ULootLockerPresenceClient::SendPing,
@@ -701,10 +702,10 @@ void ULootLockerPresenceClient::StartPingRoutine()
 
 void ULootLockerPresenceClient::StopPingRoutine()
 {
-    if (GetWorld() && PingTimer.IsValid())
+    if (_GetWorld() && PingTimer.IsValid())
     {
         FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Stopping heartbeat for player: %s"), *PlayerUlid));
-        GetWorld()->GetTimerManager().ClearTimer(PingTimer);
+        _GetWorld()->GetTimerManager().ClearTimer(PingTimer);
         PingTimer.Invalidate();
     }
 }
@@ -813,13 +814,39 @@ void ULootLockerPresenceClient::InitializeConnectionStats()
 
 void ULootLockerPresenceClient::ClearAllTimers()
 {
-    if (GetWorld())
+    if (_GetWorld())
     {
         if (ReconnectTimer.IsValid())
         {
-            GetWorld()->GetTimerManager().ClearTimer(ReconnectTimer);
+            _GetWorld()->GetTimerManager().ClearTimer(ReconnectTimer);
             ReconnectTimer.Invalidate();
         }
         StopPingRoutine();
     }
+}
+
+UWorld* ULootLockerPresenceClient::_GetWorld()
+{
+    if (GetWorld())
+    {
+        return GetWorld();
+    }
+    if (UObject* Outer = GetOuter())
+    {
+        UWorld* World = Outer->GetWorld();
+        if (World)
+        {
+            return World;
+        }
+    }
+    if (GEngine && GEngine->GetOutermostObject() && GEngine->GetOutermostObject()->GetWorld())
+    {
+        return GEngine->GetOutermostObject()->GetWorld();
+    }
+    if (GEngine && GEngine->GameViewport && GEngine->GameViewport->GetWorld())
+    {
+        return GEngine->GameViewport->GetWorld();
+    }
+    FLootLockerLogger::LogWarning(TEXT("ULootLockerPresenceClient::GetWorld() - Unable to get UWorld."));
+    return nullptr;
 }

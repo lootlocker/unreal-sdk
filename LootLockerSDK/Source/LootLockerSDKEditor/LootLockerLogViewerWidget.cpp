@@ -31,6 +31,7 @@
 
 void SLootLockerLogViewerWidget::Construct(const FArguments& InArgs)
 {
+    MinLevel = GetDefault<ULootLockerConfig>()->GetRuntimeLogLevel();
     FLootLockerLogger::OnLogMessage.AddRaw(this, &SLootLockerLogViewerWidget::AddLogEntry);
     FLootLockerLogger::OnHttpLogEntry.AddRaw(this, &SLootLockerLogViewerWidget::AddHttpLogEntry);
     BindToPIEEvents();
@@ -327,6 +328,7 @@ void SLootLockerLogViewerWidget::OnSearchTextChanged(const FText& InText)
 
 void SLootLockerLogViewerWidget::RefreshFilter()
 {
+    MinLevel = GetDefault<ULootLockerConfig>()->GetRuntimeLogLevel();
     FilteredEntries.Empty();
     for (const FLootLockerLogEntryPtr& Entry : LogEntries)
     {

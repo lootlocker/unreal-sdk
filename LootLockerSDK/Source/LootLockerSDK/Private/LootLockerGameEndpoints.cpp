@@ -303,7 +303,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::GetMultisourceMetadata = InitEndp
 FLootLockerEndPoints ULootLockerGameEndpoints::MetadataActions = InitEndpoint("metadata", ELootLockerHTTPMethod::POST);
 
 // Presence (WebSocket)
-FLootLockerEndPoints ULootLockerGameEndpoints::PresenceWebSocketEndpoint = InitEndpoint("v1/presence", ELootLockerHTTPMethod::GET, ELootLockerApiType::LL_WEBSOCKET);
+FLootLockerEndPoints ULootLockerGameEndpoints::PresenceWebSocketEndpoint = InitEndpoint("presence/v1", ELootLockerHTTPMethod::GET, ELootLockerApiType::LL_WEBSOCKET);
 
 
 FLootLockerEndPoints ULootLockerGameEndpoints::InitEndpoint(const FString& Endpoint, ELootLockerHTTPMethod Method, ELootLockerApiType ApiType /*= ELootLockerApiType::LL_GAME*/)

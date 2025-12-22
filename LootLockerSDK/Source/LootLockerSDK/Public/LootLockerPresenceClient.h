@@ -91,7 +91,7 @@ struct LOOTLOCKERSDK_API FLootLockerPresenceConnectionStats
     FLootLockerPresenceConnectionStats()
     {
         PlayerUlid = TEXT("");
-        ConnectionState = ELootLockerPresenceConnectionState::Disconnected;
+        ConnectionState = ELootLockerPresenceConnectionState::Destroyed;
         LastSentStatus = TEXT("");
         CurrentLatencyMs = 0.0f;
         AverageLatencyMs = 0.0f;
@@ -285,7 +285,7 @@ private:
     FString SessionToken;
 
     /** Current connection state */
-    ELootLockerPresenceConnectionState ConnectionState;
+    ELootLockerPresenceConnectionState ConnectionState = ELootLockerPresenceConnectionState::Destroyed;
 
     /** WebSocket connection */
     TSharedPtr<IWebSocket> WebSocket;
@@ -386,4 +386,5 @@ private:
     void SendPing();
     void UpdateLatencyStats(float LatencyMs);
     void InitializeConnectionStats();
+    UWorld* _GetWorld();
 };
