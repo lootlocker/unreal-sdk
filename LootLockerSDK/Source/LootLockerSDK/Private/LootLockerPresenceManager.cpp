@@ -85,11 +85,24 @@ void ULootLockerPresenceManager::ConnectPresence(const FString& PlayerUlid, cons
     // Check if already connected
     if (ULootLockerPresenceClient** ExistingClient = PresenceClients.Find(PlayerUlid))
     {
-        if (*ExistingClient && (*ExistingClient)->IsConnected())
+        if (*ExistingClient)
         {
-            FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Presence already active for player: %s"), *PlayerUlid));
-            OnComplete.ExecuteIfBound(true, TEXT("Already connected"));
-            return;
+            
+            TSharedPtr<FLootLockerPlayerData> PlayerData = ULootLockerStateData::GetStateForPlayerOrDefaultIfActive(PlayerUlid);
+            if (!PlayerData.IsValid() || PlayerData->PlayerUlid.IsEmpty() || PlayerData->Token.IsEmpty())
+            {
+                if (!(*ExistingClient)->GetSessionToken().Equals(PlayerData->Token, ESearchCase::IgnoreCase))
+                {
+                    (*ExistingClient)->UpdateSessionToken(PlayerData->Token);
+                    return;
+                }
+            }
+            else if ((*ExistingClient)->IsConnected())
+            {
+                FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Presence already active for player: %s"), *PlayerUlid));
+                OnComplete.ExecuteIfBound(true, TEXT("Already connected"));
+                return;
+            }
         }
     }
 
@@ -529,6 +542,27 @@ void ULootLockerPresenceManager::BeginDestroy()
     }
 
     Super::BeginDestroy();
+}
+
+// ====================================================================
+// PUBLIC API - EVENTS
+// ====================================================================
+void ULootLockerPresenceManager::NotifyPlayerActivated(const FString& PlayerUlid)
+{
+    ULootLockerPresenceManager* Manager = GetInstance();
+    if (Manager && Manager->Configuration.bIsEnabled && (!GIsEditor || Manager->Configuration.bEnabledInEditor) && Manager->Configuration.bAutoConnectEnabled)
+    {
+        Manager->ConnectPresence(PlayerUlid, FLootLockerPresenceCallbackDelegate());
+    }
+}
+
+void ULootLockerPresenceManager::NotifyPlayerDeactivated(const FString& PlayerUlid)
+{
+    ULootLockerPresenceManager* Manager = GetInstance();
+    if (Manager)
+    {
+        Manager->DisconnectPresence(PlayerUlid, FLootLockerPresenceCallbackDelegate());
+    }
 }
 
 // ========================================================================
