@@ -199,6 +199,11 @@ void ULootLockerPresenceClient::UpdateSessionToken(const FString& NewToken)
         FLootLockerLogger::LogWarning(FString::Printf(TEXT("Cannot update session token for player %s - new token is empty"), *PlayerUlid));
         return;
     }
+
+    if (SessionToken.Equals(NewToken, ESearchCase::IgnoreCase)) 
+    {
+        FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Tried updating presence client with the same session token as previous token. Ignoring update.")));
+    }
     
     // Store the new token
     SessionToken = NewToken;
