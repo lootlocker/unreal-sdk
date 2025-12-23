@@ -32,7 +32,7 @@ void ULootLockerManager::SetAllPlayersToInactiveExceptForPlayer(const FString& P
 
 TArray<FString> ULootLockerManager::GetCachedPlayerUlids()
 {
-    return ULootLockerStateData::GetActivePlayerUlids();
+    return ULootLockerStateData::GetCachedPlayerUlids();
 }
 
 FString ULootLockerManager::GetDefaultPlayerUlid()

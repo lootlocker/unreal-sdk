@@ -35,7 +35,7 @@ FString ULootLockerAuthenticationRequestHandler::GuestLogin(const FString& Playe
 	FLootLockerAuthenticationRequest AuthRequest;
 	AuthRequest.game_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
-	TSharedPtr<FLootLockerPlayerData> PlayerData = ULootLockerStateData::GetStateForPlayerOrDefaultFromCache();
+	const TSharedPtr<FLootLockerPlayerData> PlayerData = ULootLockerStateData::GetStateForPlayerOrDefaultFromCache();
 	AuthRequest.player_identifier = !(PlayerIdentifier.IsEmpty()) ? PlayerIdentifier : (PlayerData.IsValid() && !PlayerData->PlayerIdentifier.IsEmpty()) ?  PlayerData->PlayerIdentifier : ULootLockerStateData::GenerateNewGuestIdentifier();
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
 	return LLAPI<FLootLockerAuthenticationResponse>::CallAPIUsingRawJSON(Json, ULootLockerGameEndpoints::GuestloginEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerAuthenticationResponse>::FResponseInspectorCallback::CreateLambda([Optionals](FLootLockerAuthenticationResponse& Response)
@@ -131,11 +131,19 @@ FString ULootLockerAuthenticationRequestHandler::WhiteLabelVerifySession(const F
 		VerifyRequest.email = _TempWhiteLabelEmailHolder;
 		VerifyRequest.token = _TempWhiteLabelTokenHolder;
 	}
+	else if (!ForPlayer.WhiteLabelEmail.IsEmpty())
+	{
+		VerifyRequest.email = ForPlayer.WhiteLabelEmail;
+		VerifyRequest.token = ForPlayer.WhiteLabelToken;
+	}
 	else
 	{
-		TSharedPtr<FLootLockerPlayerData> PlayerData = ForPlayer.WhiteLabelEmail.IsEmpty() ? ULootLockerStateData::GetStateForPlayerOrDefaultFromCache(ForPlayer.PlayerUlid) : MakeShared<FLootLockerPlayerData>(ForPlayer);
-		VerifyRequest.email = PlayerData.IsValid() ? PlayerData->WhiteLabelEmail : "";
-		VerifyRequest.token = PlayerData.IsValid() ? PlayerData->WhiteLabelToken : "";
+		const TSharedPtr<FLootLockerPlayerData> PlayerData = ULootLockerStateData::GetStateForPlayerOrDefaultFromCache(ForPlayer.PlayerUlid);
+		if (PlayerData.IsValid() && !PlayerData->WhiteLabelEmail.IsEmpty())
+		{
+			VerifyRequest.email = PlayerData->WhiteLabelEmail;
+			VerifyRequest.token = PlayerData->WhiteLabelToken;
+		}
 	}
 
 	return LLAPI<FLootLockerWhiteLabelVerifySessionResponse>::CallAPI(VerifyRequest, ULootLockerGameEndpoints::WhiteLabelVerifySessionEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerWhiteLabelVerifySessionResponse>::FResponseInspectorCallback(), DomainKeyHeaders());

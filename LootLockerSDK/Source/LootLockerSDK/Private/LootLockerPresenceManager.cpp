@@ -88,12 +88,16 @@ void ULootLockerPresenceManager::ConnectPresence(const FString& PlayerUlid, cons
         if (*ExistingClient)
         {
             
-            TSharedPtr<FLootLockerPlayerData> PlayerData = ULootLockerStateData::GetStateForPlayerOrDefaultIfActive(PlayerUlid);
-            if (!PlayerData.IsValid() || PlayerData->PlayerUlid.IsEmpty() || PlayerData->Token.IsEmpty())
+            const TSharedPtr<FLootLockerPlayerData> PlayerData = ULootLockerStateData::GetStateForPlayerOrDefaultIfActive(PlayerUlid);
+            if (PlayerData.IsValid() && !PlayerData->PlayerUlid.IsEmpty() && !PlayerData->Token.IsEmpty())
             {
                 if (!(*ExistingClient)->GetSessionToken().Equals(PlayerData->Token, ESearchCase::IgnoreCase))
                 {
                     (*ExistingClient)->UpdateSessionToken(PlayerData->Token);
+                    if(!(*ExistingClient)->IsConnected())
+                    {
+                        ConnectPresence(PlayerUlid, OnComplete);
+                    }
                     return;
                 }
             }
@@ -114,8 +118,8 @@ void ULootLockerPresenceManager::ConnectPresence(const FString& PlayerUlid, cons
             if (*ExistingClient)
             {                
                 // Update session token in case it has changed
-                TSharedPtr<FLootLockerPlayerData> PlayerData = ULootLockerStateData::GetStateForPlayerOrDefaultIfActive(PlayerUlid);
-                if (!PlayerData.IsValid() || PlayerData->PlayerUlid.IsEmpty() || PlayerData->Token.IsEmpty())
+                const TSharedPtr<FLootLockerPlayerData> PlayerData = ULootLockerStateData::GetStateForPlayerOrDefaultIfActive(PlayerUlid);
+                if (PlayerData.IsValid() && !PlayerData->PlayerUlid.IsEmpty() && !PlayerData->Token.IsEmpty())
                 {
                     (*ExistingClient)->UpdateSessionToken(PlayerData->Token);
                 }
@@ -147,7 +151,7 @@ void ULootLockerPresenceManager::ConnectPresence(const FString& PlayerUlid, cons
     }
 
     // Get player data for this ULID
-    TSharedPtr<FLootLockerPlayerData> PlayerData = ULootLockerStateData::GetStateForPlayerOrDefaultIfActive(PlayerUlid);
+    const TSharedPtr<FLootLockerPlayerData> PlayerData = ULootLockerStateData::GetStateForPlayerOrDefaultIfActive(PlayerUlid);
     if (!PlayerData.IsValid() || PlayerData->PlayerUlid.IsEmpty() || PlayerData->Token.IsEmpty())
     {
         FString ErrorMessage = FString::Printf(TEXT("No valid session data found for player: %s"), *PlayerUlid);
@@ -251,6 +255,10 @@ void ULootLockerPresenceManager::UpdateSessionToken(const FString& PlayerUlid, c
         if (*ClientPtr)
         {
             (*ClientPtr)->UpdateSessionToken(NewToken);
+            if (!(*ClientPtr)->IsConnected() && Configuration.bAutoConnectEnabled)
+            {
+                ConnectPresence(PlayerUlid, FLootLockerPresenceCallbackDelegate());
+            }
         }
     } 
     else 
@@ -282,8 +290,7 @@ void ULootLockerPresenceManager::ConnectPresenceForAllActiveSessions(const FLoot
     TArray<FString> PlayersToConnect;
     for (const FString& ActivePlayerUlid : ULootLockerStateData::GetActivePlayerUlids())
     {
-
-        if (!PresenceClients.Contains(ActivePlayerUlid) && !ConnectingClients.Contains(ActivePlayerUlid))
+        if (!ConnectingClients.Contains(ActivePlayerUlid) && (!PresenceClients.Contains(ActivePlayerUlid) || !(*PresenceClients.Find(ActivePlayerUlid))->IsConnected()))
         {
             PlayersToConnect.Add(ActivePlayerUlid);
         }
@@ -481,6 +488,10 @@ void ULootLockerPresenceManager::SetEnabled(bool bEnabled)
         {
             Manager->DisconnectAll(FLootLockerPresenceCallbackDelegate());
         }
+        else if (Manager->Configuration.bAutoConnectEnabled)
+        {
+            Manager->ConnectPresenceForAllActiveSessions(FLootLockerPresenceCallbackDelegate());
+        }
     }
 }
 
@@ -496,6 +507,14 @@ void ULootLockerPresenceManager::SetAutoConnectEnabled(bool bEnabled)
     if (Manager)
     {
         Manager->Configuration.bAutoConnectEnabled = bEnabled;
+        if(bEnabled && Manager->Configuration.bIsEnabled)
+        {
+            Manager->ConnectPresenceForAllActiveSessions(FLootLockerPresenceCallbackDelegate());
+        }
+        else 
+        {
+            Manager->DisconnectAll(FLootLockerPresenceCallbackDelegate());
+        }
     }
 }
 

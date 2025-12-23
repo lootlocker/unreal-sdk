@@ -194,6 +194,11 @@ void ULootLockerPresenceClient::Disconnect(const FLootLockerPresenceCallbackDele
 
 void ULootLockerPresenceClient::UpdateSessionToken(const FString& NewToken)
 {
+    if(NewToken.Equals(TEXT("INVALIDTOKEN"), ESearchCase::IgnoreCase))
+    {
+        FLootLockerLogger::LogWarning(FString::Printf(TEXT("Cannot update session token for player %s - new token is INVALIDTOKEN"), *PlayerUlid));
+        return;
+    }
     if (NewToken.IsEmpty())
     {
         FLootLockerLogger::LogWarning(FString::Printf(TEXT("Cannot update session token for player %s - new token is empty"), *PlayerUlid));
@@ -203,6 +208,7 @@ void ULootLockerPresenceClient::UpdateSessionToken(const FString& NewToken)
     if (SessionToken.Equals(NewToken, ESearchCase::IgnoreCase)) 
     {
         FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Tried updating presence client with the same session token as previous token. Ignoring update.")));
+        return;
     }
     
     // Store the new token
@@ -277,7 +283,16 @@ FLootLockerPresenceConnectionStats ULootLockerPresenceClient::GetConnectionStats
     FLootLockerPresenceConnectionStats CurrentStats = ConnectionStats;
     if (ConnectionStats.ConnectionStartTime != FDateTime::MinValue())
     {
-        CurrentStats.ConnectionDuration = FDateTime::UtcNow() - ConnectionStats.ConnectionStartTime;
+        if (ConnectionStats.ConnectionEndTime != FDateTime::MinValue())
+        {
+            // Connection has ended, use start->end duration
+            CurrentStats.ConnectionDuration = ConnectionStats.ConnectionEndTime - ConnectionStats.ConnectionStartTime;
+        }
+        else
+        {
+            // Connection is still active, use start->now duration
+            CurrentStats.ConnectionDuration = FDateTime::UtcNow() - ConnectionStats.ConnectionStartTime;
+        }
     }
     return CurrentStats;
 }
@@ -533,8 +548,20 @@ void ULootLockerPresenceClient::SetConnectionState(ELootLockerPresenceConnection
         const ELootLockerPresenceConnectionState OldState = ConnectionState;
         ConnectionState = NewState;
         
-        // 1 connection stats with new state
+        // Update connection stats with new state
         ConnectionStats.ConnectionState = NewState;
+        
+        // Set end time when transitioning to a disconnected state
+        if (NewState == ELootLockerPresenceConnectionState::Disconnected ||
+            NewState == ELootLockerPresenceConnectionState::Failed ||
+            NewState == ELootLockerPresenceConnectionState::Destroyed)
+        {
+            if (ConnectionStats.ConnectionStartTime != FDateTime::MinValue() &&
+                ConnectionStats.ConnectionEndTime == FDateTime::MinValue())
+            {
+                ConnectionStats.ConnectionEndTime = FDateTime::UtcNow();
+            }
+        }
         
         FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Presence connection state changed for player %s: %s -> %s"), 
                *PlayerUlid,
@@ -797,6 +824,7 @@ void ULootLockerPresenceClient::InitializeConnectionStats()
     ConnectionStats.ConnectionState = ConnectionState;
     ConnectionStats.LastSentStatus = PreservedLastSentStatus;
     ConnectionStats.ConnectionStartTime = FDateTime::UtcNow();
+    ConnectionStats.ConnectionEndTime = FDateTime::MinValue(); // Clear end time on reconnect
     ConnectionStats.TotalPingsSent = 0;
     ConnectionStats.TotalPongsReceived = 0;
     ConnectionStats.CurrentLatencyMs = 0.0f;
