@@ -89,7 +89,7 @@ private:
 	static FLootLockerPlayerData EmptyPlayerData;
 	static FLootLockerStateMetaData ActiveMetaData;
 	static bool isMetadataLoaded;
-	static TMap<FString, FLootLockerPlayerData> ActivePlayerData;
+	static TMap<FString, TSharedPtr<FLootLockerPlayerData>> ActivePlayerData;
 
 #if ENGINE_MAJOR_VERSION < 5
 	static const FString BaseSaveSlot;

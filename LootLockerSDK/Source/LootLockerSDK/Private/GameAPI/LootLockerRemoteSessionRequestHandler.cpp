@@ -253,7 +253,7 @@ FString ULootLockerRemoteSessionRequestHandler::LeaseRemoteSession(
 	if (Intent == ELootLockerRemoteSessionLeaseIntent::link)
 	{
 		Endpoint = ULootLockerGameEndpoints::LeaseRemoteSessionForLinkingEndpoint;
-		auto GetStateForPlayerOrDefaultFromCache = ULootLockerStateData::GetStateForPlayerOrDefaultFromCache(ForPlayerWithUlid);
+		const TSharedPtr<FLootLockerPlayerData> GetStateForPlayerOrDefaultFromCache = ULootLockerStateData::GetStateForPlayerOrDefaultFromCache(ForPlayerWithUlid);
 		if (GetStateForPlayerOrDefaultFromCache.IsValid())
 		{
 			UserData = *GetStateForPlayerOrDefaultFromCache;

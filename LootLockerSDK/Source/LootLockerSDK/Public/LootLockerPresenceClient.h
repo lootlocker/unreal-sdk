@@ -84,6 +84,10 @@ struct LOOTLOCKERSDK_API FLootLockerPresenceConnectionStats
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     FDateTime ConnectionStartTime;
 
+    /** Time when connection was terminated (MinValue if still connected) */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    FDateTime ConnectionEndTime;
+
     /** Duration since connection was established */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     FTimespan ConnectionDuration;
@@ -100,6 +104,7 @@ struct LOOTLOCKERSDK_API FLootLockerPresenceConnectionStats
         TotalPingsSent = 0;
         TotalPongsReceived = 0;
         ConnectionStartTime = FDateTime::MinValue();
+        ConnectionEndTime = FDateTime::MinValue();
         ConnectionDuration = FTimespan::Zero();
     }
 

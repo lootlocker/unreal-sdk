@@ -30,7 +30,7 @@ void ULootLockerSDKManager::SetAllPlayersToInactiveExceptForPlayer(const FString
 
 TArray<FString> ULootLockerSDKManager::GetCachedPlayerUlids()
 {
-    return ULootLockerStateData::GetActivePlayerUlids();
+    return ULootLockerStateData::GetCachedPlayerUlids();
 }
 
 FString ULootLockerSDKManager::GetDefaultPlayerUlid()
@@ -45,7 +45,7 @@ bool ULootLockerSDKManager::SetDefaultPlayer(const FString& PlayerUlid)
 
 FLootLockerPlayerData ULootLockerSDKManager::GetSavedStateOrDefaultOrEmptyForPlayer(const FString& PlayerUlid)
 {
-    TSharedPtr<FLootLockerPlayerData> StatePtr = ULootLockerStateData::GetStateForPlayerOrDefaultFromCache(PlayerUlid);
+    const TSharedPtr<FLootLockerPlayerData> StatePtr = ULootLockerStateData::GetStateForPlayerOrDefaultFromCache(PlayerUlid);
     return StatePtr.IsValid() ? *StatePtr : FLootLockerPlayerData();
 }
 
