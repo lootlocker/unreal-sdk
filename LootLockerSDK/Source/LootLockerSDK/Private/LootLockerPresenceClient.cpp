@@ -5,6 +5,7 @@
 #include "LootLockerLogger.h"
 #include "Engine/Engine.h"
 #include "TimerManager.h"
+#include "Containers/Ticker.h"
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonSerializer.h"
 #include "Serialization/JsonWriter.h"
@@ -36,6 +37,7 @@ void ULootLockerPresenceClient::Initialize(const FString InPlayerUlid, const FSt
     ConnectionDelegate = InConnectionDelegate;
     ConnectionState = ELootLockerPresenceConnectionState::Initializing;
     InitializeConnectionStats();
+    StartTicker();
 }
 
 void ULootLockerPresenceClient::BeginDestroy()
@@ -60,7 +62,7 @@ void ULootLockerPresenceClient::Cleanup()
         WebSocket.Reset();
     }
     
-    ClearAllTimers();
+    CancelAsyncActions();
     
     // Reset reconnect attempts
     ReconnectAttempts = 0;
@@ -96,6 +98,8 @@ void ULootLockerPresenceClient::HandleConnectionResult(bool bSuccess, const FStr
 
 void ULootLockerPresenceClient::Connect(const FLootLockerPresenceCallbackDelegate& OnComplete)
 {
+    ConnectionRequestCallback = OnComplete;
+    
     if (ConnectionState != ELootLockerPresenceConnectionState::Disconnected 
         && ConnectionState != ELootLockerPresenceConnectionState::Initializing
         && ConnectionState != ELootLockerPresenceConnectionState::Reconnecting)
@@ -129,6 +133,8 @@ void ULootLockerPresenceClient::Connect(const FLootLockerPresenceCallbackDelegat
 
     Cleanup();
 
+    StartTicker();
+
     SetConnectionState(ELootLockerPresenceConnectionState::Connecting);
 
     // Create WebSocket connection
@@ -146,8 +152,6 @@ void ULootLockerPresenceClient::Connect(const FLootLockerPresenceCallbackDelegat
         return;
     }
 
-    ConnectionRequestCallback = OnComplete;
-
     // Bind WebSocket events
     WebSocket->OnConnected().AddUObject(this, &ULootLockerPresenceClient::OnConnected);
     WebSocket->OnConnectionError().AddUObject(this, &ULootLockerPresenceClient::OnConnectionError);
@@ -163,7 +167,7 @@ void ULootLockerPresenceClient::Disconnect(const FLootLockerPresenceCallbackDele
 {
     bIsClientInitiatedDisconnect = true;
     
-    ClearAllTimers();
+    CancelAsyncActions();
 
     if (ConnectionState == ELootLockerPresenceConnectionState::Disconnected ||
         ConnectionState == ELootLockerPresenceConnectionState::Failed ||
@@ -617,29 +621,21 @@ void ULootLockerPresenceClient::AttemptReconnect()
 
 void ULootLockerPresenceClient::ScheduleReconnect()
 {
-    UWorld* World = _GetWorld();    
-    if (!World)
-    {
-        FLootLockerLogger::LogWarning(FString::Printf(TEXT("Cannot schedule presence reconnect - invalid world for player: %s"), *PlayerUlid));
-        return;
-    }
-
     // Don't schedule if already scheduled or if we've hit max attempts
-    if (ReconnectTimer.IsValid() || ReconnectAttempts >= MaxReconnectAttempts)
+    if (ReconnectAttempts >= MaxReconnectAttempts)
     {
         return;
     }
 
-    FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Scheduling reconnect for player %s in %f seconds"), 
-           *PlayerUlid, ReconnectDelaySeconds));
+    if (!ShouldTick) 
+    {
+        StartTicker();
+    }
+    
+    ReconnectInSeconds = ReconnectDelaySeconds * FMath::Pow(ReconnectBackoffFactor, ReconnectAttempts - 1); // Exponential backoff
 
-    World->GetTimerManager().SetTimer(
-        ReconnectTimer,
-        this,
-        &ULootLockerPresenceClient::AttemptReconnect,
-        ReconnectDelaySeconds,
-        false
-    );
+    FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Scheduling reconnect for player %s in %f seconds"), *PlayerUlid, ReconnectInSeconds));
+
 }
 
 // ========================================================================
@@ -681,8 +677,7 @@ void ULootLockerPresenceClient::HandleAuthenticationResponse(const FString& Mess
         // Initialize connection statistics
         InitializeConnectionStats();
         
-        // Start heartbeat to keep connection alive
-        StartPingRoutine();
+        ShouldPing = true;
         
         if(bHasPendingStatusUpdate) 
         {
@@ -705,51 +700,19 @@ void ULootLockerPresenceClient::HandleErrorMessage(const FString& Message)
 // PING & LATENCY MANAGEMENT
 // ========================================================================
 
-void ULootLockerPresenceClient::StartPingRoutine()
-{
-    if (!_GetWorld())
-    {
-        FLootLockerLogger::LogWarning(FString::Printf(TEXT("Cannot start heartbeat - invalid world for player: %s"), *PlayerUlid));
-        return;
-    }
-    
-    // Clear any existing heartbeat timer
-    StopPingRoutine();
-    
-    FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Starting heartbeat for player: %s"), *PlayerUlid));
-    
-    _GetWorld()->GetTimerManager().SetTimer(
-        PingTimer,
-        this,
-        &ULootLockerPresenceClient::SendPing,
-        PingIntervalSeconds,
-        true // Loop
-    );
-}
-
-void ULootLockerPresenceClient::StopPingRoutine()
-{
-    if (_GetWorld() && PingTimer.IsValid())
-    {
-        FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Stopping heartbeat for player: %s"), *PlayerUlid));
-        _GetWorld()->GetTimerManager().ClearTimer(PingTimer);
-        PingTimer.Invalidate();
-    }
-}
-
 void ULootLockerPresenceClient::SendPing()
 {
     if (!WebSocket.IsValid() || !WebSocket->IsConnected())
     {
         FLootLockerLogger::LogWarning(FString::Printf(TEXT("Cannot send heartbeat - WebSocket not connected for player: %s"), *PlayerUlid));
-        StopPingRoutine();
+        ShouldPing = false;
         return;
     }
 
     // Store the current local timestamp for round-trip time calculation
     double CurrentTime = FPlatformTime::Seconds();
     PendingPingTimestamps.Enqueue(CurrentTime);
-    
+    TimeSinceLastPing = 0.0f;
     // Increment ping counter
     ConnectionStats.TotalPingsSent++;
 
@@ -837,44 +800,57 @@ void ULootLockerPresenceClient::InitializeConnectionStats()
 }
 
 // ========================================================================
-// UTILITY METHODS
+// TICKING & ROUTINES
 // ========================================================================
 
-void ULootLockerPresenceClient::ClearAllTimers()
+void ULootLockerPresenceClient::StartTicker()
 {
-    if (_GetWorld())
+    if (!ShouldTick)
     {
-        if (ReconnectTimer.IsValid())
-        {
-            _GetWorld()->GetTimerManager().ClearTimer(ReconnectTimer);
-            ReconnectTimer.Invalidate();
-        }
-        StopPingRoutine();
+        ShouldTick = true;
+        TWeakObjectPtr<ULootLockerPresenceClient> WeakThis = MakeWeakObjectPtr(this);
+        FTSTicker::GetCoreTicker().AddTicker(FTickerDelegate::CreateLambda([WeakThis](float DeltaTime) {
+            if (WeakThis.IsValid() && WeakThis->ShouldTick)
+            {
+                return WeakThis->Tick(DeltaTime);
+            }
+            return false;
+        }));
     }
 }
 
-UWorld* ULootLockerPresenceClient::_GetWorld()
+bool ULootLockerPresenceClient::Tick(float DeltaTime)
 {
-    if (GetWorld())
+    if (ReconnectInSeconds > 0.0f)
     {
-        return GetWorld();
-    }
-    if (UObject* Outer = GetOuter())
-    {
-        UWorld* World = Outer->GetWorld();
-        if (World)
+        ReconnectInSeconds -= DeltaTime;
+        if (ReconnectInSeconds <= 0.0f)
         {
-            return World;
+            ReconnectInSeconds = 0.0f;
+            AttemptReconnect();
         }
     }
-    if (GEngine && GEngine->GetOutermostObject() && GEngine->GetOutermostObject()->GetWorld())
+    
+    if(ShouldPing && IsConnected())
     {
-        return GEngine->GetOutermostObject()->GetWorld();
+        TimeSinceLastPing += DeltaTime;
+        if(TimeSinceLastPing >= PingIntervalSeconds)
+        {
+            SendPing();
+            TimeSinceLastPing = 0.0f;
+        }
     }
-    if (GEngine && GEngine->GameViewport && GEngine->GameViewport->GetWorld())
-    {
-        return GEngine->GameViewport->GetWorld();
-    }
-    FLootLockerLogger::LogWarning(TEXT("ULootLockerPresenceClient::GetWorld() - Unable to get UWorld."));
-    return nullptr;
+    
+    return true; // Continue ticking
+}
+
+// ========================================================================
+// UTILITY METHODS
+// ========================================================================
+
+void ULootLockerPresenceClient::CancelAsyncActions()
+{
+    ShouldPing = false;
+    ReconnectInSeconds = 0.0f;
+    ShouldTick = false;
 }
