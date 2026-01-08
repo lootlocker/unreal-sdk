@@ -361,35 +361,39 @@ private:
     // ====================================================================
     // RECONNECTION SYSTEM
     // ====================================================================
-
-    /** Reconnection state and timers */
-    FTimerHandle ReconnectTimer;
     int32 ReconnectAttempts;
-    static constexpr int32 MaxReconnectAttempts = 5;
-    static constexpr float ReconnectDelaySeconds = 5.0f;
-
-    void AttemptReconnect();
+    static constexpr int32 MaxReconnectAttempts = 8;
+    static constexpr float ReconnectDelaySeconds = 1.0f;
+    static constexpr float ReconnectBackoffFactor = 2.0f;
+    float ReconnectInSeconds = 0.0f;
     void ScheduleReconnect();
-    void ClearAllTimers();
+    void AttemptReconnect();
 
     // ====================================================================
     // PING & LATENCY TRACKING
     // ====================================================================
 
     /** Ping system */
-    FTimerHandle PingTimer;
     static constexpr float PingIntervalSeconds = 20.0f; // Match Unity's 20s interval
+    float TimeSinceLastPing = 0.0f;
+    bool ShouldPing = false;
     TQueue<double> PendingPingTimestamps;
 
     /** Latency calculation */
     TUniquePtr<TCircularQueue<float>> RecentLatencies;
     float RecentLatenciesSum;
     static constexpr int32 MaxLatencySamples = 10;
-
-    void StartPingRoutine();
-    void StopPingRoutine();
     void SendPing();
     void UpdateLatencyStats(float LatencyMs);
     void InitializeConnectionStats();
     UWorld* _GetWorld();
+
+    // ====================================================================
+    // TICKING & ROUTINES
+    // ====================================================================
+private:
+    bool ShouldTick = false;
+    void CancelAsyncActions();
+    void StartTicker();
+    virtual bool Tick(float DeltaTime);
 };
