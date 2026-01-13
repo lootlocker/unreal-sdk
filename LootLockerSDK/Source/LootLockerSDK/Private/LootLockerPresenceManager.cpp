@@ -245,6 +245,8 @@ void ULootLockerPresenceManager::ConnectPresence(const FString& PlayerUlid, cons
             {
                 // Client exists but is in a bad state, remove and continue with new client creation
                 PresenceClients.Remove(PlayerUlid);
+                (*ExistingClient)->RemoveFromRoot();
+                (*ExistingClient)->MarkAsGarbage();
                 PausedClients.Remove(PlayerUlid);
                 ConnectingClients.Remove(PlayerUlid);
             }
@@ -309,6 +311,8 @@ void ULootLockerPresenceManager::DisconnectPresence(const FString& PlayerUlid, c
         {
             (*ClientPtr)->Disconnect(FLootLockerPresenceCallbackDelegate());
             (*ClientPtr)->ConditionalBeginDestroy();
+            (*ClientPtr)->RemoveFromRoot();
+            (*ClientPtr)->MarkAsGarbage();
         }
         PresenceClients.Remove(PlayerUlid);
         
@@ -710,6 +714,7 @@ ULootLockerPresenceClient* ULootLockerPresenceManager::CreatePresenceClient(cons
     
     // Store in map
     PresenceClients.Add(PlayerUlid, Client);
+    Client->AddToRoot(); // Prevent GC while managed by Presence Manager
     
     FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Created presence client for player: %s"), *PlayerUlid));
     return Client;
@@ -734,6 +739,7 @@ void ULootLockerPresenceManager::HandleClientConnectionStateChange(const FString
             {
                 ClientToCleanup = *ClientPtr;
                 PresenceClients.Remove(PlayerUlid);
+
             }
             
             // Also remove from tracking sets
@@ -744,6 +750,7 @@ void ULootLockerPresenceManager::HandleClientConnectionStateChange(const FString
         // Mark for garbage collection (Unreal's equivalent to Destroy)
         if (ClientToCleanup)
         {
+            ClientToCleanup->RemoveFromRoot();
             ClientToCleanup->MarkAsGarbage();
         }
     }
@@ -780,6 +787,7 @@ void ULootLockerPresenceManager::HandleClientConnectionStateChange(const FString
                 FLootLockerLogger::LogWarning(FString::Printf(TEXT("Removing presence client for %s due to authentication failure: %s"), 
                        *PlayerUlid, *ErrorMessage));
                 PresenceClients.Remove(PlayerUlid);
+                ClientToHandle->RemoveFromRoot();
                 ClientToHandle->MarkAsGarbage();
             }
             else
