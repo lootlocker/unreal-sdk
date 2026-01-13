@@ -98,7 +98,6 @@ void ULootLockerPresenceClient::HandleConnectionResult(bool bSuccess, const FStr
 
 void ULootLockerPresenceClient::Connect(const FLootLockerPresenceCallbackDelegate& OnComplete)
 {
-    ConnectionRequestCallback = OnComplete;
     
     if (ConnectionState != ELootLockerPresenceConnectionState::Disconnected 
         && ConnectionState != ELootLockerPresenceConnectionState::Initializing
@@ -106,6 +105,7 @@ void ULootLockerPresenceClient::Connect(const FLootLockerPresenceCallbackDelegat
     {
         FString Message = FString::Printf(TEXT("Presence client is not in a proper state to connect for player ulid %s, current state is %d"), *PlayerUlid, static_cast<uint8>(ConnectionState));
         FLootLockerLogger::LogWarning(Message);
+        ConnectionRequestCallback = OnComplete;
         HandleConnectionResult(false, *Message);
         return;
     }
@@ -115,6 +115,8 @@ void ULootLockerPresenceClient::Connect(const FLootLockerPresenceCallbackDelegat
     {
         FString ErrorMessage = FString::Printf(TEXT("Cannot connect presence - missing session data for player: %s"), *PlayerUlid);
         FLootLockerLogger::LogWarning(ErrorMessage);
+        ConnectionRequestCallback = OnComplete;
+        HandleConnectionResult(false, *ErrorMessage);
         SetConnectionState(ELootLockerPresenceConnectionState::Failed, ErrorMessage);
         return;
     }
@@ -125,6 +127,7 @@ void ULootLockerPresenceClient::Connect(const FLootLockerPresenceCallbackDelegat
         {
             FString ErrorMessage = TEXT("Failed to load WebSockets module. Presence connection cannot proceed.");
             FLootLockerLogger::LogError(ErrorMessage);
+            ConnectionRequestCallback = OnComplete;
             HandleConnectionResult(false, *ErrorMessage);
             SetConnectionState(ELootLockerPresenceConnectionState::Failed, ErrorMessage);
             return;
@@ -132,6 +135,8 @@ void ULootLockerPresenceClient::Connect(const FLootLockerPresenceCallbackDelegat
     }
 
     Cleanup();
+
+    ConnectionRequestCallback = OnComplete;
 
     StartTicker();
 
@@ -188,29 +193,32 @@ void ULootLockerPresenceClient::Disconnect(const FLootLockerPresenceCallbackDele
         WebSocket.Reset();
     }
 
-    OnComplete.ExecuteIfBound(true, TEXT("Disconnected successfully"));
-
     SetConnectionState(ELootLockerPresenceConnectionState::Disconnected);
+
+    OnComplete.ExecuteIfBound(true, TEXT("Disconnected successfully"));
 
     ReconnectAttempts = 0;
     bIsClientInitiatedDisconnect = false;
 }
 
-void ULootLockerPresenceClient::UpdateSessionToken(const FString& NewToken)
+void ULootLockerPresenceClient::UpdateSessionToken(const FString& NewToken, bool ShouldAutoReconnect, const FLootLockerPresenceCallbackDelegate& OnComplete)
 {
     if(NewToken.Equals(TEXT("INVALIDTOKEN"), ESearchCase::IgnoreCase))
     {
+        OnComplete.ExecuteIfBound(false, TEXT("New session token is INVALIDTOKEN"));
         FLootLockerLogger::LogWarning(FString::Printf(TEXT("Cannot update session token for player %s - new token is INVALIDTOKEN"), *PlayerUlid));
         return;
     }
     if (NewToken.IsEmpty())
     {
+        OnComplete.ExecuteIfBound(false, TEXT("New session token is empty"));
         FLootLockerLogger::LogWarning(FString::Printf(TEXT("Cannot update session token for player %s - new token is empty"), *PlayerUlid));
         return;
     }
 
     if (SessionToken.Equals(NewToken, ESearchCase::IgnoreCase)) 
     {
+        OnComplete.ExecuteIfBound(true, TEXT("Session token is the same as the current token; no update needed"));
         FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Tried updating presence client with the same session token as previous token. Ignoring update.")));
         return;
     }
@@ -224,12 +232,12 @@ void ULootLockerPresenceClient::UpdateSessionToken(const FString& NewToken)
         FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Reconnecting player %s with new session token"), *PlayerUlid));
         
         // Disconnect gracefully, then reconnect
-        Disconnect(FLootLockerPresenceCallbackDelegate::CreateLambda([this](bool bDisconnectSuccess, const FString& DisconnectError)
+        Disconnect(FLootLockerPresenceCallbackDelegate::CreateLambda([this, OnComplete, ShouldAutoReconnect](bool bDisconnectSuccess, const FString& DisconnectError)
         {
-            if (bDisconnectSuccess)
+            if (bDisconnectSuccess && ShouldAutoReconnect)
             {
                 // Reconnect with new token after disconnect completes
-                Connect(FLootLockerPresenceCallbackDelegate::CreateLambda([this](bool bReconnectSuccess, const FString& ReconnectError)
+                Connect(FLootLockerPresenceCallbackDelegate::CreateLambda([this, OnComplete](bool bReconnectSuccess, const FString& ReconnectError)
                 {
                     if (bReconnectSuccess)
                     {
@@ -242,17 +250,40 @@ void ULootLockerPresenceClient::UpdateSessionToken(const FString& NewToken)
                     {
                         FLootLockerLogger::LogWarning(FString::Printf(TEXT("Failed to reconnect player %s with new session token: %s"), *PlayerUlid, *ReconnectError));
                     }
+                    OnComplete.ExecuteIfBound(bReconnectSuccess, ReconnectError);
                 }));
             }
             else
             {
+                OnComplete.ExecuteIfBound(false, DisconnectError);
                 FLootLockerLogger::LogWarning(FString::Printf(TEXT("Failed to disconnect player %s for token update: %s"), *PlayerUlid, *DisconnectError));
             }
         }));
     }
+    else if(ShouldAutoReconnect)
+    {
+        Connect(FLootLockerPresenceCallbackDelegate::CreateLambda([this, OnComplete](bool bReconnectSuccess, const FString& ReconnectError)
+        {
+            if (bReconnectSuccess)
+            {
+                FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Successfully reconnected player %s with new session token"), *PlayerUlid));
+                
+                // Re-send last status if we had one
+                AutoResendLastStatus();
+            }
+            else
+            {
+                FLootLockerLogger::LogWarning(FString::Printf(TEXT("Failed to reconnect player %s with new session token: %s"), *PlayerUlid, *ReconnectError));
+            }
+            OnComplete.ExecuteIfBound(bReconnectSuccess, ReconnectError);
+        }));
+
+    }
     else
     {
-        FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Session token updated for player %s (not currently connected)"), *PlayerUlid));
+        FString Message = FString::Printf(TEXT("Session token updated for player %s (not currently connected and auto reconnect is disabled)"), *PlayerUlid);
+        FLootLockerLogger::LogVeryVerbose(Message);
+        OnComplete.ExecuteIfBound(true, Message);
     }
 }
 
@@ -779,13 +810,10 @@ void ULootLockerPresenceClient::UpdateLatencyStats(float LatencyMs)
 }
 
 void ULootLockerPresenceClient::InitializeConnectionStats()
-{
-    // Preserve last sent status across reconnections
-    FString PreservedLastSentStatus = ConnectionStats.LastSentStatus;
-    
+{    
     ConnectionStats.PlayerUlid = PlayerUlid;
     ConnectionStats.ConnectionState = ConnectionState;
-    ConnectionStats.LastSentStatus = PreservedLastSentStatus;
+    //ConnectionStats.LastSentStatus = ""; // We do not want to reset status
     ConnectionStats.ConnectionStartTime = FDateTime::UtcNow();
     ConnectionStats.ConnectionEndTime = FDateTime::MinValue(); // Clear end time on reconnect
     ConnectionStats.TotalPingsSent = 0;
