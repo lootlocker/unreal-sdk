@@ -114,13 +114,13 @@ struct LOOTLOCKERSDK_API FLootLockerPresenceConnectionStats
             *PlayerUlid,
             static_cast<int32>(ConnectionState),
             *LastSentStatus,
+            TotalPingsSent,
+            TotalPongsReceived,
+            *ConnectionDuration.ToString(),
             CurrentLatencyMs,
             AverageLatencyMs,
             MinLatencyMs,
-            MaxLatencyMs,
-            TotalPingsSent,
-            TotalPongsReceived,
-            *ConnectionDuration.ToString());
+            MaxLatencyMs);
     }
 };
 
