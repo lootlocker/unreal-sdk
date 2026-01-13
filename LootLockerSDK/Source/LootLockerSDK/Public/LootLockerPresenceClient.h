@@ -234,7 +234,7 @@ public:
      * 
      * @param NewToken The new session token
      */
-    void UpdateSessionToken(const FString& NewToken);
+    void UpdateSessionToken(const FString& NewToken, bool ShouldAutoReconnect, const FLootLockerPresenceCallbackDelegate& OnComplete);
 
     /**
      * Get the current session token
