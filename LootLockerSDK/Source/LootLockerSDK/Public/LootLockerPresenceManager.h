@@ -147,7 +147,7 @@ public:
      * Gracefully shutdown all presence connections
      * Called during application termination
      */
-    void Shutdown();
+    void GracefullyShutdown();
 
     // ====================================================================
     // PUBLIC API - QUERY & STATUS
@@ -287,6 +287,26 @@ private:
     void HandleClientConnectionStateChange(const FString& PlayerUlid, ELootLockerPresenceConnectionState OldState, ELootLockerPresenceConnectionState NewState, const FString& ErrorMessage);
 
     // ====================================================================
+    // LIFECYCLE EVENT HANDLERS
+    // ====================================================================
+
+    /** Handle application startup event */
+    UFUNCTION(Category="LootLocker")
+    void HandleStartup();
+
+    /** Handle application shutdown event */
+    UFUNCTION(Category="LootLocker")
+    void HandleShutdown();
+
+    /** Handle application backgrounding event */
+    UFUNCTION(Category="LootLocker")
+    void HandleApplicationBackground();
+
+    /** Handle application foregrounding event */
+    UFUNCTION(Category="LootLocker")
+    void HandleApplicationForeground();
+
+    // ====================================================================
     // SINGLETON MANAGEMENT
     // ====================================================================
 public:
@@ -294,6 +314,15 @@ public:
      * Get the singleton instance of the presence manager
      */
     static ULootLockerPresenceManager* GetInstance();
+
+    /**
+     * Initialize the presence manager subsystem
+     */
+    static void Initialize();
+    /**
+     * Shutdown and cleanup the presence manager subsystem
+     */
+    static void Shutdown();
 
     // ====================================================================
     // PUBLIC API - EVENTS
