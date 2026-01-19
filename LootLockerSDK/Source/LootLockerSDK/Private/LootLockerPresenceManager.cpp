@@ -33,11 +33,6 @@ ULootLockerPresenceManager::ULootLockerPresenceManager()
     if (!Instance)
     {
         Instance = this;
-        FLootLockerLogger::LogVeryVerbose(TEXT("LootLocker Presence Manager created as singleton (AddToRoot deferred to Initialize)"));
-    }
-    else
-    {
-        FLootLockerLogger::LogVeryVerbose(TEXT("LootLocker Presence Manager created (additional instance, not singleton)"));
     }
 }
 
@@ -47,45 +42,19 @@ ULootLockerPresenceManager::ULootLockerPresenceManager()
 
 void ULootLockerPresenceManager::HandleStartup()
 {
-    FLootLockerLogger::LogVeryVerbose(TEXT("LootLocker Presence Manager handling application startup"));
-
     if (Configuration.bIsEnabled && Configuration.bAutoConnectEnabled)
     {
-        ConnectPresenceForAllActiveSessions(FLootLockerPresenceCallbackDelegate::CreateLambda([](bool bSuccess, const FString& ErrorMessage)
-        {
-            if (bSuccess)
-            {
-                FLootLockerLogger::LogInfo(TEXT("LootLocker Presence Manager auto-connected presence for all active sessions on startup"));
-            }
-            else
-            {
-                FLootLockerLogger::LogWarning(FString::Printf(TEXT("LootLocker Presence Manager failed to auto-connect presence for all active sessions on startup: %s"), *ErrorMessage));
-            }
-        }));
+        ConnectPresenceForAllActiveSessions(FLootLockerPresenceCallbackDelegate());
     }
 }
 
 void ULootLockerPresenceManager::HandleShutdown()
 {
-    FLootLockerLogger::LogVeryVerbose(TEXT("LootLocker Presence Manager handling application shutdown"));
-
-    DisconnectAll(FLootLockerPresenceCallbackDelegate::CreateLambda([](bool bSuccess, const FString& ErrorMessage)
-    {
-        if (bSuccess)
-        {
-            FLootLockerLogger::LogInfo(TEXT("LootLocker Presence Manager disconnected all presence connections on shutdown"));
-        }
-        else
-        {
-            FLootLockerLogger::LogWarning(FString::Printf(TEXT("LootLocker Presence Manager failed to disconnect all presence connections on shutdown: %s"), *ErrorMessage));
-        }
-    }));
+    DisconnectAll(FLootLockerPresenceCallbackDelegate());
 }
 
 void ULootLockerPresenceManager::HandleApplicationBackground()
 {
-    FLootLockerLogger::LogVeryVerbose(TEXT("LootLocker Presence Manager handling application backgrounding"));
-
     if (Configuration.bIsEnabled && Configuration.bAutoDisconnectOnFocusChange)
     {
         PauseAllConnections();
@@ -94,8 +63,6 @@ void ULootLockerPresenceManager::HandleApplicationBackground()
 
 void ULootLockerPresenceManager::HandleApplicationForeground()
 {
-    FLootLockerLogger::LogVeryVerbose(TEXT("LootLocker Presence Manager handling application foregrounding"));
-
     if (Configuration.bIsEnabled && Configuration.bAutoConnectEnabled)
     {
         ResumeAllConnections();
@@ -108,8 +75,6 @@ void ULootLockerPresenceManager::HandleApplicationForeground()
 
 void ULootLockerPresenceManager::HandleConfigurationUpdated(const FString& SettingName)
 {
-    FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("LootLocker Presence Manager handling configuration update for setting: %s"), *SettingName));
-
     if (SettingName.Equals(TEXT("bEnablePresence"), ESearchCase::IgnoreCase))
     {
         Configuration.bIsEnabled = ULootLockerConfig::IsPresenceEnabled();
@@ -137,12 +102,7 @@ ULootLockerPresenceManager* ULootLockerPresenceManager::GetInstance()
     FScopeLock Lock(&InstanceLock);
     if (!Instance)
     {
-        // Only create if no instance exists (shouldn't happen if constructor sets it)
         Instance = NewObject<ULootLockerPresenceManager>();
-        if (Instance)
-        {
-            FLootLockerLogger::LogVeryVerbose(TEXT("LootLocker Presence Manager singleton created in GetInstance"));
-        }
     }
     return Instance;
 }
@@ -153,7 +113,6 @@ void ULootLockerPresenceManager::Initialize()
 
     if (presenceManager)
     {
-        // Now it's safe to add to root - GC system is fully initialized
         presenceManager->AddToRoot();
         
         ULootLockerLifeCycleManager* LifeCycleManager = ULootLockerLifeCycleManager::GetInstance();
@@ -376,9 +335,23 @@ void ULootLockerPresenceManager::UpdateStatus(const FString& PlayerUlid, const F
             (*ClientPtr)->UpdateStatus(Status, Metadata, OnComplete);
             return;
         }
+        else 
+        {
+            // Cache status update for later
+            FLootLockerCachedPresenceStatusUpdate& CachedUpdate = CachedStatusUpdate.FindOrAdd(PlayerUlid);
+            CachedUpdate.Status = Status;
+            CachedUpdate.Metadata = Metadata;
+        }
+    }
+    else 
+    {
+        // Cache status update for later
+        FLootLockerCachedPresenceStatusUpdate& CachedUpdate = CachedStatusUpdate.FindOrAdd(PlayerUlid);
+        CachedUpdate.Status = Status;
+        CachedUpdate.Metadata = Metadata;
     }
 
-    FString ErrorMessage = FString::Printf(TEXT("No active presence connection found for player: %s"), *PlayerUlid);
+    FString ErrorMessage = FString::Printf(TEXT("No active presence connection found for player: %s. Status has been cached and will be sent when connection is established"), *PlayerUlid);
     FLootLockerLogger::LogWarning(ErrorMessage);
     OnComplete.ExecuteIfBound(false, ErrorMessage);
 }
@@ -746,6 +719,14 @@ ULootLockerPresenceClient* ULootLockerPresenceManager::CreatePresenceClient(cons
     // Store in map
     PresenceClients.Add(PlayerUlid, Client);
     Client->AddToRoot(); // Prevent GC while managed by Presence Manager
+
+    if (CachedStatusUpdate.Contains(PlayerUlid)) 
+    {
+        FLootLockerCachedPresenceStatusUpdate* CachedUpdate = CachedStatusUpdate.Find(PlayerUlid);
+        Client->UpdateStatus(CachedUpdate->Status, CachedUpdate->Metadata, FLootLockerPresenceCallbackDelegate());
+        CachedStatusUpdate.Remove(PlayerUlid);
+
+    }
     
     FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Created presence client for player: %s"), *PlayerUlid));
     return Client;
