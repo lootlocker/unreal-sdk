@@ -12,6 +12,11 @@
 
 #include "LootLockerConfig.generated.h"
 
+/**
+ * Delegate type for configuration update events
+ */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLootLockerConfigurationUpdateDelegate, const FString&, SettingName);
+
 UCLASS(Config = Game, DefaultConfig, meta = (DisplayName = "LootLocker SDK Settings"))
 class LOOTLOCKERSDK_API ULootLockerConfig : public UObject
 {
@@ -27,6 +32,8 @@ public:
 		return true;
 #endif
 	}
+	
+	FLootLockerConfigurationUpdateDelegate OnConfigurationUpdated;
 
 #if WITH_EDITOR
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override
