@@ -552,7 +552,7 @@ void ULootLockerPresenceClient::OnMessage(const FString& Message)
     }
     else if (Message.Contains(TEXT("presence is not enabled")))
     {
-        FString ErrorMessage = FString::Printf(TEXT("Presence is not enabled for this game. Please contact LootLocker Support if you want to use this feature."), *PlayerUlid);
+        FString ErrorMessage = FString::Printf(TEXT("Presence is not enabled for this game. Please enable it in the LootLocker console to use this feature."), *PlayerUlid);
         FLootLockerLogger::LogWarning(ErrorMessage);
         Disconnect(FLootLockerPresenceCallbackDelegate::CreateLambda([this, ErrorMessage](bool bSuccess, const FString& Message)
         {

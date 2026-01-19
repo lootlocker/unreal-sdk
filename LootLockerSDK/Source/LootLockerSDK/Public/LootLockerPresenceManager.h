@@ -307,6 +307,14 @@ private:
     void HandleApplicationForeground();
 
     // ====================================================================
+    // OTHER EVENT HANDLERS
+    // ====================================================================
+
+    /** Handle LootLocker config changes */
+    UFUNCTION(Category="LootLocker")
+    void HandleConfigurationUpdated(const FString& SettingName);
+
+    // ====================================================================
     // SINGLETON MANAGEMENT
     // ====================================================================
 public:
