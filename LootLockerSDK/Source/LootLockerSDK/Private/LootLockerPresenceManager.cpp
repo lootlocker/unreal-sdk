@@ -28,19 +28,16 @@ ULootLockerPresenceManager::ULootLockerPresenceManager()
     Configuration.bAutoConnectEnabled = ULootLockerConfig::IsPresenceAutoConnectEnabled();
     Configuration.bAutoDisconnectOnFocusChange = ULootLockerConfig::IsPresenceAutoDisconnectOnFocusChangeEnabled();
     Configuration.bEnabledInEditor = ULootLockerConfig::IsPresenceEnabledInEditor();
-    
-    // If this is the first instance created, mark it as the singleton
+
+    FScopeLock Lock(&InstanceLock);
+    if (!Instance)
     {
-        FScopeLock Lock(&InstanceLock);
-        if (!Instance)
-        {
-            Instance = this;
-            FLootLockerLogger::LogVeryVerbose(TEXT("LootLocker Presence Manager created as singleton (AddToRoot deferred to Initialize)"));
-        }
-        else
-        {
-            FLootLockerLogger::LogVeryVerbose(TEXT("LootLocker Presence Manager created (additional instance, not singleton)"));
-        }
+        Instance = this;
+        FLootLockerLogger::LogVeryVerbose(TEXT("LootLocker Presence Manager created as singleton (AddToRoot deferred to Initialize)"));
+    }
+    else
+    {
+        FLootLockerLogger::LogVeryVerbose(TEXT("LootLocker Presence Manager created (additional instance, not singleton)"));
     }
 }
 
@@ -106,6 +103,32 @@ void ULootLockerPresenceManager::HandleApplicationForeground()
 }
 
 // ========================================================================
+// OTHER EVENT HANDLERS
+// ========================================================================
+
+void ULootLockerPresenceManager::HandleConfigurationUpdated(const FString& SettingName)
+{
+    FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("LootLocker Presence Manager handling configuration update for setting: %s"), *SettingName));
+
+    if (SettingName.Equals(TEXT("bEnablePresence"), ESearchCase::IgnoreCase))
+    {
+        Configuration.bIsEnabled = ULootLockerConfig::IsPresenceEnabled();
+    }
+    else if (SettingName.Equals(TEXT("bEnablePresenceAutoConnect"), ESearchCase::IgnoreCase))
+    {
+        Configuration.bAutoConnectEnabled = ULootLockerConfig::IsPresenceAutoConnectEnabled();
+    }
+    else if (SettingName.Equals(TEXT("bEnablePresenceAutoDisconnectOnFocusChange"), ESearchCase::IgnoreCase))
+    {
+        Configuration.bAutoDisconnectOnFocusChange = ULootLockerConfig::IsPresenceAutoDisconnectOnFocusChangeEnabled();
+    }
+    else if (SettingName.Equals(TEXT("bEnablePresenceInEditor"), ESearchCase::IgnoreCase))
+    {
+        Configuration.bEnabledInEditor = ULootLockerConfig::IsPresenceEnabledInEditor();
+    }
+}
+
+// ========================================================================
 // SINGLETON MANAGEMENT
 // ========================================================================
 
@@ -141,6 +164,10 @@ void ULootLockerPresenceManager::Initialize()
             LifeCycleManager->OnApplicationBackground.AddDynamic(presenceManager, &ULootLockerPresenceManager::HandleApplicationBackground);
             LifeCycleManager->OnApplicationForeground.AddDynamic(presenceManager, &ULootLockerPresenceManager::HandleApplicationForeground);
         }
+        ULootLockerConfig* Config = GetMutableDefault<ULootLockerConfig>();
+        if(Config) {
+            Config->OnConfigurationUpdated.AddDynamic(presenceManager, &ULootLockerPresenceManager::HandleConfigurationUpdated);
+        }
     }
 }
 
@@ -156,6 +183,10 @@ void ULootLockerPresenceManager::Shutdown()
             LifeCycleManager->OnApplicationShutdown.RemoveDynamic(Instance, &ULootLockerPresenceManager::HandleShutdown);
             LifeCycleManager->OnApplicationBackground.RemoveDynamic(Instance, &ULootLockerPresenceManager::HandleApplicationBackground);
             LifeCycleManager->OnApplicationForeground.RemoveDynamic(Instance, &ULootLockerPresenceManager::HandleApplicationForeground);
+        }
+        ULootLockerConfig* Config = GetMutableDefault<ULootLockerConfig>();
+        if(Config) {
+            Config->OnConfigurationUpdated.RemoveDynamic(Instance, &ULootLockerPresenceManager::HandleConfigurationUpdated);
         }
         Instance->GracefullyShutdown();
         Instance->RemoveFromRoot();
