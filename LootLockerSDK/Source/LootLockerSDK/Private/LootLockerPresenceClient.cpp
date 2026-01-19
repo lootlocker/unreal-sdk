@@ -203,12 +203,6 @@ void ULootLockerPresenceClient::Disconnect(const FLootLockerPresenceCallbackDele
 
 void ULootLockerPresenceClient::UpdateSessionToken(const FString& NewToken, bool ShouldAutoReconnect, const FLootLockerPresenceCallbackDelegate& OnComplete)
 {
-    if(NewToken.Equals(TEXT("INVALIDTOKEN"), ESearchCase::IgnoreCase))
-    {
-        OnComplete.ExecuteIfBound(false, TEXT("New session token is INVALIDTOKEN"));
-        FLootLockerLogger::LogWarning(FString::Printf(TEXT("Cannot update session token for player %s - new token is INVALIDTOKEN"), *PlayerUlid));
-        return;
-    }
     if (NewToken.IsEmpty())
     {
         OnComplete.ExecuteIfBound(false, TEXT("New session token is empty"));
@@ -512,9 +506,7 @@ void ULootLockerPresenceClient::OnClosed(int32 StatusCode, const FString& Reason
 }
 
 void ULootLockerPresenceClient::OnMessage(const FString& Message)
-{
-    FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Received presence message for player %s: %s"), *PlayerUlid, *Message));
-    
+{    
     if (Message.IsEmpty())
     {
         FLootLockerLogger::LogWarning(FString::Printf(TEXT("Received empty presence message for player: %s"), *PlayerUlid));
@@ -569,7 +561,7 @@ void ULootLockerPresenceClient::OnMessage(const FString& Message)
 
 void ULootLockerPresenceClient::OnRawMessage(const void* Data, SIZE_T Size, SIZE_T BytesRemaining)
 {
-    FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Received raw presence message for player %s: Size: %llu, BytesRemaining: %llu. But only text data is implemented for the websocket. Ignoring."), *PlayerUlid, Size, BytesRemaining));
+    // Currently not implemented for presence - only text messages are used
 }
 
 // ========================================================================

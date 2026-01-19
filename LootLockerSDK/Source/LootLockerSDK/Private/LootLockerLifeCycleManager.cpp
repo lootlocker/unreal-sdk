@@ -30,11 +30,6 @@ ULootLockerLifeCycleManager::ULootLockerLifeCycleManager()
         if (!Instance)
         {
             Instance = this;
-            FLootLockerLogger::LogVeryVerbose(TEXT("UPPA >> LootLocker LifeCycle Manager created as singleton (AddToRoot deferred to Initialize)"));
-        }
-        else
-        {
-            FLootLockerLogger::LogVeryVerbose(TEXT("UPPA >> LootLocker LifeCycle Manager created (additional instance, not singleton)"));
         }
     }
 }
@@ -69,10 +64,6 @@ ULootLockerLifeCycleManager* ULootLockerLifeCycleManager::GetInstance()
     {
         // Only create if no instance exists (shouldn't happen if constructor sets it)
         Instance = NewObject<ULootLockerLifeCycleManager>();
-        if (Instance)
-        {
-            FLootLockerLogger::LogVeryVerbose(TEXT("UPPA >> LootLocker LifeCycle Manager singleton created in GetInstance"));
-        }
     }
     return Instance;
 }
@@ -86,7 +77,7 @@ void ULootLockerLifeCycleManager::Initialize()
         Manager->AddToRoot();
         Manager->BindLifeCycleDelegates();
         Manager->bIsInitialized = true;
-        FLootLockerLogger::LogVeryVerbose(TEXT("UPPA >> LootLocker LifeCycle Manager initialized successfully"));
+        FLootLockerLogger::LogVeryVerbose(TEXT("LootLocker LifeCycle Manager initialized successfully"));
     }
 }
 
@@ -99,7 +90,7 @@ void ULootLockerLifeCycleManager::Shutdown()
         Instance->UnbindLifeCycleDelegates();
         Instance->RemoveFromRoot();
         Instance = nullptr;
-        FLootLockerLogger::LogVeryVerbose(TEXT("UPPA >> LootLocker LifeCycle Manager shutdown completed"));
+        FLootLockerLogger::LogVeryVerbose(TEXT("LootLocker LifeCycle Manager shutdown completed"));
     }
 }
 
@@ -113,8 +104,6 @@ void ULootLockerLifeCycleManager::BindLifeCycleDelegates()
     {
         return;
     }
-
-    FLootLockerLogger::LogVeryVerbose(TEXT("UPPA >> Binding LifeCycle delegates"));
 
     // Application lifecycle events
     ApplicationWillEnterBackgroundHandle = FCoreDelegates::ApplicationWillEnterBackgroundDelegate.AddUObject(
@@ -148,7 +137,7 @@ void ULootLockerLifeCycleManager::BindLifeCycleDelegates()
         this, &ULootLockerLifeCycleManager::HandlePIEResumed);
 #endif
 
-    FLootLockerLogger::LogVeryVerbose(TEXT("UPPA >> LifeCycle delegates bound successfully"));
+    FLootLockerLogger::LogVeryVerbose(TEXT("LifeCycle delegates bound successfully"));
 }
 
 void ULootLockerLifeCycleManager::UnbindLifeCycleDelegates()
@@ -157,8 +146,6 @@ void ULootLockerLifeCycleManager::UnbindLifeCycleDelegates()
     {
         return;
     }
-
-    FLootLockerLogger::LogVeryVerbose(TEXT("UPPA >> Unbinding LifeCycle delegates"));
 
     // Remove application lifecycle delegates
     if (ApplicationWillEnterBackgroundHandle.IsValid())
@@ -218,7 +205,7 @@ void ULootLockerLifeCycleManager::UnbindLifeCycleDelegates()
     }
 #endif
 
-    FLootLockerLogger::LogVeryVerbose(TEXT("UPPA >> LifeCycle delegates unbound successfully"));
+    FLootLockerLogger::LogVeryVerbose(TEXT("LifeCycle delegates unbound successfully"));
 }
 
 // ========================================================================
@@ -229,7 +216,7 @@ void ULootLockerLifeCycleManager::HandleApplicationWillEnterBackground()
 {
     if (bIsShuttingDown) return;
     
-    FLootLockerLogger::LogVeryVerbose(TEXT("UPPA >> Application will enter background"));
+    FLootLockerLogger::LogVeryVerbose(TEXT("Application will enter background"));
 
     // Broadcast to listeners
     OnApplicationBackground.Broadcast();
@@ -239,7 +226,7 @@ void ULootLockerLifeCycleManager::HandleApplicationHasEnteredForeground()
 {
     if (bIsShuttingDown) return;
 
-    FLootLockerLogger::LogVeryVerbose(TEXT("UPPA >> Application has entered foreground"));
+    FLootLockerLogger::LogVeryVerbose(TEXT("Application has entered foreground"));
     
     // Broadcast to listeners
     OnApplicationForeground.Broadcast();
@@ -249,7 +236,7 @@ void ULootLockerLifeCycleManager::HandleApplicationWillTerminate()
 {
     if (bIsShuttingDown) return;
 
-    FLootLockerLogger::LogVeryVerbose(TEXT("UPPA >> Application will terminate"));
+    FLootLockerLogger::LogVeryVerbose(TEXT("Application will terminate"));
     
     // Broadcast to listeners
     OnApplicationShutdown.Broadcast();
@@ -261,7 +248,7 @@ void ULootLockerLifeCycleManager::HandleEnginePreExit()
 {
     if (bIsShuttingDown) return;
 
-    FLootLockerLogger::LogVeryVerbose(TEXT("UPPA >> Engine pre-exit"));
+    FLootLockerLogger::LogVeryVerbose(TEXT("Engine pre-exit"));
     
     // Broadcast to listeners
     OnApplicationShutdown.Broadcast();
@@ -278,7 +265,7 @@ void ULootLockerLifeCycleManager::HandleGameInstanceInit(UGameInstance* ignored)
 {
     if (bIsShuttingDown) return;
 
-    FLootLockerLogger::LogInfo(TEXT("UPPA >> Game instance initialized - Game session starting"));
+    FLootLockerLogger::LogInfo(TEXT("Game instance initialized - Game session starting"));
     
     // Broadcast to listeners
     OnApplicationStart.Broadcast();
@@ -289,7 +276,7 @@ void ULootLockerLifeCycleManager::HandleStartingPIE(bool bIsSimulating)
 {
     if (bIsShuttingDown) return;
 
-    FLootLockerLogger::LogVeryVerbose(TEXT("UPPA >> Entering PIE"));
+    FLootLockerLogger::LogVeryVerbose(TEXT("Entering PIE"));
     
     // Simulate application foreground event
     HandleGameInstanceInit(nullptr);
@@ -299,7 +286,7 @@ void ULootLockerLifeCycleManager::HandleEndingPIE(bool bIsSimulating)
 {
     if (bIsShuttingDown) return;
 
-    FLootLockerLogger::LogVeryVerbose(TEXT("UPPA >> Ending PIE"));
+    FLootLockerLogger::LogVeryVerbose(TEXT("Ending PIE"));
     
     // Broadcast to listeners but don't shut down the manager
     OnApplicationShutdown.Broadcast();
@@ -309,7 +296,7 @@ void ULootLockerLifeCycleManager::HandlePIEPaused(bool bIsSimulating)
 {
     if (bIsShuttingDown) return;
 
-    FLootLockerLogger::LogVeryVerbose(TEXT("UPPA >> PIE Paused"));
+    FLootLockerLogger::LogVeryVerbose(TEXT("PIE Paused"));
     
     // Simulate application background event
     HandleApplicationWillEnterBackground();
@@ -319,7 +306,7 @@ void ULootLockerLifeCycleManager::HandlePIEResumed(bool bIsSimulating)
 {
     if (bIsShuttingDown) return;
 
-    FLootLockerLogger::LogVeryVerbose(TEXT("UPPA >> PIE Resumed"));
+    FLootLockerLogger::LogVeryVerbose(TEXT("PIE Resumed"));
     
     // Simulate application foreground event
     HandleApplicationHasEnteredForeground();

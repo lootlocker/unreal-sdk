@@ -53,6 +53,22 @@ struct LOOTLOCKERSDK_API FLootLockerPresenceManagerConfig
 };
 
 // ========================================================================
+// CACHED STATUS UPDATE STRUCTURE
+// ========================================================================
+USTRUCT()
+struct FLootLockerCachedPresenceStatusUpdate
+{
+    GENERATED_BODY()
+
+    /** Status string to set */
+    FString Status;
+
+    /** Optional metadata key-value pairs */
+    TMap<FString, FString> Metadata;
+};
+
+
+// ========================================================================
 // MAIN CLASS
 // ========================================================================
 
@@ -265,6 +281,8 @@ private:
 
     /** Current manager configuration */
     FLootLockerPresenceManagerConfig Configuration;
+
+    TMap<FString /*Player Ulid*/, FLootLockerCachedPresenceStatusUpdate> CachedStatusUpdate;
 
     // ====================================================================
     // PRIVATE METHODS - CLIENT LIFECYCLE
