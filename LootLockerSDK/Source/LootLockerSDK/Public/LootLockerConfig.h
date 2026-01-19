@@ -53,6 +53,7 @@ public:
 				DisableFileLogging();
 			}
 		}
+		OnConfigurationUpdated.Broadcast(PropertyChangedEvent.GetPropertyName().ToString());
 		UObject::PostEditChangeProperty(PropertyChangedEvent);
 	}
 #endif //WITH_EDITOR
