@@ -39,7 +39,13 @@ void ULootLockerLifeCycleManager::BeginDestroy()
     if (bIsInitialized && !bIsShuttingDown)
     {
         UnbindLifeCycleDelegates();
-        // TODO: Call Shutdown & Notify other systems of shutdown if necessary
+
+        FLootLockerLogger::LogVeryVerbose(TEXT("LifeCycle Manager is being destroyed, treating as shutdown"));
+        
+        // Broadcast to listeners
+        OnApplicationShutdown.Broadcast();
+
+        Shutdown();
     }
 
     {
