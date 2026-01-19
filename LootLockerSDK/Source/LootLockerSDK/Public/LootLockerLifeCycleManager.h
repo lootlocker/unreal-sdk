@@ -31,15 +31,15 @@ public:
     // ========================================================================
     
     /** Get the singleton instance of the LifeCycle Manager */
-    UFUNCTION(BlueprintCallable, Category="LootLocker")
+    UFUNCTION(Category="LootLocker")
     static ULootLockerLifeCycleManager* GetInstance();
 
     /** Manually initialize the lifecycle manager (called automatically on first GetInstance) */
-    UFUNCTION(BlueprintCallable, Category="LootLocker")
+    UFUNCTION(Category="LootLocker")
     static void Initialize();
 
     /** Shutdown and cleanup the lifecycle manager */
-    UFUNCTION(BlueprintCallable, Category="LootLocker")
+    UFUNCTION(Category="LootLocker")
     static void Shutdown();
 
     // ========================================================================
