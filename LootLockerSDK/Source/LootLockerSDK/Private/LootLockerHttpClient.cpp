@@ -135,7 +135,6 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
                     if (bRefreshSuccess)
                     {
                         RetryOriginalRequest(RetryData);
-                        ULootLockerPresenceManager::GetInstance()->UpdateSessionToken(RetryData.PlayerData.PlayerUlid, RetryData.PlayerData.Token);
                     }
                     else
                     {

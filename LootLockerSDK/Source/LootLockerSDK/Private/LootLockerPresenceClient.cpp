@@ -101,7 +101,8 @@ void ULootLockerPresenceClient::Connect(const FLootLockerPresenceCallbackDelegat
     
     if (ConnectionState != ELootLockerPresenceConnectionState::Disconnected 
         && ConnectionState != ELootLockerPresenceConnectionState::Initializing
-        && ConnectionState != ELootLockerPresenceConnectionState::Reconnecting)
+        && ConnectionState != ELootLockerPresenceConnectionState::Reconnecting
+        && ConnectionState != ELootLockerPresenceConnectionState::Failed)
     {
         FString Message = FString::Printf(TEXT("Presence client is not in a proper state to connect for player ulid %s, current state is %d"), *PlayerUlid, static_cast<uint8>(ConnectionState));
         FLootLockerLogger::LogWarning(Message);
@@ -694,7 +695,7 @@ void ULootLockerPresenceClient::SendAuthenticationMessage()
 
 void ULootLockerPresenceClient::HandleAuthenticationResponse(const FString& Message)
 {
-        FLootLockerLogger::LogVeryVerbose(FString::Printf(TEXT("Presence authentication successful for player: %s"), *PlayerUlid));
+        FLootLockerLogger::LogInfo(FString::Printf(TEXT("Presence authentication successful for player: %s. Presence is now connected."), *PlayerUlid));
         SetConnectionState(ELootLockerPresenceConnectionState::Active);
         
         // Initialize connection statistics
