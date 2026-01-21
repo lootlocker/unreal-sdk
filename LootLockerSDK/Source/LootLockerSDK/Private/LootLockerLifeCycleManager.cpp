@@ -5,6 +5,7 @@
 #include "Engine/Engine.h"
 #include "Engine/GameInstance.h"
 #include "HAL/PlatformApplicationMisc.h"
+#include "Misc/CoreDelegates.h"
 #if WITH_EDITOR
 #include "Editor.h"
 #endif
@@ -118,8 +119,13 @@ void ULootLockerLifeCycleManager::BindLifeCycleDelegates()
     ApplicationHasEnteredForegroundHandle = FCoreDelegates::ApplicationHasEnteredForegroundDelegate.AddUObject(
         this, &ULootLockerLifeCycleManager::HandleApplicationHasEnteredForeground);
 
-    ApplicationWillTerminateHandle = FCoreDelegates::GetApplicationWillTerminateDelegate().AddUObject(
-        this, &ULootLockerLifeCycleManager::HandleApplicationWillTerminate);
+    ApplicationWillTerminateHandle =
+#if ENGINE_MAJOR_VERSION >= 5 && ENGINE_MINOR_VERSION >= 3
+        FCoreDelegates::GetApplicationWillTerminateDelegate()
+#else
+        FCoreDelegates::ApplicationWillTerminateDelegate
+#endif
+        .AddUObject(this, &ULootLockerLifeCycleManager::HandleApplicationWillTerminate);
 
     // Engine lifecycle events
     EnginePreExitHandle = FCoreDelegates::OnEnginePreExit.AddUObject(
@@ -168,7 +174,12 @@ void ULootLockerLifeCycleManager::UnbindLifeCycleDelegates()
 
     if (ApplicationWillTerminateHandle.IsValid())
     {
+
+#if ENGINE_MAJOR_VERSION >= 5 && ENGINE_MINOR_VERSION >= 3
         FCoreDelegates::GetApplicationWillTerminateDelegate().Remove(ApplicationWillTerminateHandle);
+#else
+        FCoreDelegates::ApplicationWillTerminateDelegate.Remove(ApplicationWillTerminateHandle);
+#endif
         ApplicationWillTerminateHandle.Reset();
     }
 

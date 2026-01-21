@@ -77,9 +77,15 @@ void ULootLockerManager::StartSessionManual(const FString& SessionToken, const F
 FString ULootLockerManager::StartPlaystationNetworkSession(const FString& PsnOnlineId, const FAuthResponseBP& OnStartedSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
 #pragma warning(disable : 4996)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     return ULootLockerSDKManager::StartPlaystationNetworkSession(PsnOnlineId, FLootLockerSessionResponse::CreateLambda([OnStartedSessionRequestCompleted](const FLootLockerAuthenticationResponse& Response) {
         OnStartedSessionRequestCompleted.ExecuteIfBound(Response);
     }), Optionals);
+#pragma GCC diagnostic pop
+#pragma clang diagnostic pop
 #pragma warning(default : 4996)
 }
 
@@ -303,10 +309,16 @@ FString ULootLockerManager::RefreshDiscordSession(const FString& ForPlayerWithUl
 FString ULootLockerManager::VerifyPlayer(const FString& ForPlayerWithUlid, const FString& PlatformToken, const FLootLockerDefaultResponseBP& OnVerifyPlayerRequestCompleted, const FString Platform /*= FString()*/)
 {
 #pragma warning(disable : 4996)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     return ULootLockerSDKManager::VerifyPlayer(PlatformToken, FLootLockerDefaultDelegate::CreateLambda([OnVerifyPlayerRequestCompleted](const FLootLockerResponse& Response)
     {
         OnVerifyPlayerRequestCompleted.ExecuteIfBound(Response);
     }), Platform, ForPlayerWithUlid);
+#pragma GCC diagnostic pop
+#pragma clang diagnostic pop
 #pragma warning(default : 4996)
 }
 
@@ -561,10 +573,16 @@ FString ULootLockerManager::GetPlayerName(const FString& ForPlayerWithUlid, cons
 FString ULootLockerManager::LookupMultiplePlayerNamesUsingIDs(const FString& ForPlayerWithUlid, const FLootLockerMultiplePlayerNamesRequest& Request, const FPMultiplePlayerNamesBP& OnCompletedRequest)
 {
 #pragma warning(disable : 4996)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     return ULootLockerSDKManager::LookupMultiplePlayerNamesUsingIDs(Request, FPMultiplePlayerNames::CreateLambda([OnCompletedRequest](FLootLockerMultiplePlayersNamesResponse Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
+#pragma GCC diagnostic pop
+#pragma clang diagnostic pop
 #pragma warning(default : 4996)
 }
 
@@ -1839,11 +1857,17 @@ FString ULootLockerManager::ListCatalogs(const FString& ForPlayerWithUlid, const
 
 FString ULootLockerManager::ListCatalogItems(const FString& ForPlayerWithUlid, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnComplete)
 {
-#pragma warning(suppress : 4996)
+#pragma warning(disable : 4996)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     return ULootLockerSDKManager::ListCatalogItems(CatalogKey, Count, After, FLootLockerListCatalogPricesResponseDelegate::CreateLambda([OnComplete](const FLootLockerListCatalogPricesResponse& Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
+#pragma GCC diagnostic pop
+#pragma clang diagnostic pop
 #pragma warning(default : 4996)
 }
 

@@ -236,7 +236,11 @@ void ULootLockerPresenceManager::ConnectPresence(const FString& PlayerUlid, cons
                 // Client exists but is in a bad state, remove and continue with new client creation
                 PresenceClients.Remove(PlayerUlid);
                 (*ExistingClient)->RemoveFromRoot();
-                (*ExistingClient)->MarkAsGarbage();
+                #if ENGINE_MAJOR_VERSION >= 5
+                    (*ExistingClient)->MarkAsGarbage();
+                #else
+                    (*ExistingClient)->MarkPendingKill();
+                #endif
                 PausedClients.Remove(PlayerUlid);
                 ConnectingClients.Remove(PlayerUlid);
             }
@@ -302,7 +306,11 @@ void ULootLockerPresenceManager::DisconnectPresence(const FString& PlayerUlid, c
             (*ClientPtr)->Disconnect(FLootLockerPresenceCallbackDelegate());
             (*ClientPtr)->ConditionalBeginDestroy();
             (*ClientPtr)->RemoveFromRoot();
-            (*ClientPtr)->MarkAsGarbage();
+            #if ENGINE_MAJOR_VERSION >= 5
+                (*ClientPtr)->MarkAsGarbage();
+            #else
+                (*ClientPtr)->MarkPendingKill();
+            #endif
         }
         PresenceClients.Remove(PlayerUlid);
         
@@ -763,7 +771,11 @@ void ULootLockerPresenceManager::HandleClientConnectionStateChange(const FString
         if (ClientToCleanup)
         {
             ClientToCleanup->RemoveFromRoot();
-            ClientToCleanup->MarkAsGarbage();
+            #if ENGINE_MAJOR_VERSION >= 5
+                ClientToCleanup->MarkAsGarbage();
+            #else
+                ClientToCleanup->MarkPendingKill();
+            #endif
         }
     }
     else if (NewState == ELootLockerPresenceConnectionState::Disconnected)
@@ -800,7 +812,11 @@ void ULootLockerPresenceManager::HandleClientConnectionStateChange(const FString
                        *PlayerUlid, *ErrorMessage));
                 PresenceClients.Remove(PlayerUlid);
                 ClientToHandle->RemoveFromRoot();
-                ClientToHandle->MarkAsGarbage();
+                #if ENGINE_MAJOR_VERSION >= 5
+                    ClientToHandle->MarkAsGarbage();
+                #else
+                    ClientToHandle->MarkPendingKill();
+                #endif
             }
             else
             {

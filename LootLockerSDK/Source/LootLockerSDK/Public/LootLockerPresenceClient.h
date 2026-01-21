@@ -6,7 +6,7 @@
 #include "UObject/NoExportTypes.h"
 #include "Dom/JsonObject.h"
 #include "Containers/CircularQueue.h"
-
+#include "Containers/Queue.h"
 #include "LootLockerPlayerData.h"
 #include "LootLockerErrorData.h"
 #include "LootLockerGameEndpoints.h"
@@ -374,7 +374,7 @@ private:
     // ====================================================================
 
     /** Ping system */
-    static constexpr float PingIntervalSeconds = 20.0f; // Match Unity's 20s interval
+    static constexpr float PingIntervalSeconds = 20.0f;
     float TimeSinceLastPing = 0.0f;
     bool ShouldPing = false;
     TQueue<double> PendingPingTimestamps;
@@ -382,7 +382,6 @@ private:
     /** Latency calculation */
     TUniquePtr<TCircularQueue<float>> RecentLatencies;
     float RecentLatenciesSum;
-    static constexpr int32 MaxLatencySamples = 10;
     void SendPing();
     void UpdateLatencyStats(float LatencyMs);
     void InitializeConnectionStats();
