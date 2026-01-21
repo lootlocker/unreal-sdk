@@ -3,6 +3,7 @@
 #include "LootLockerPresenceClient.h"
 #include "LootLockerConfig.h"
 #include "LootLockerLogger.h"
+#include "Utils/LootLockerUtilities.h"
 #include "Engine/Engine.h"
 #include "TimerManager.h"
 #include "Containers/Ticker.h"
@@ -11,7 +12,6 @@
 #include "Serialization/JsonWriter.h"
 #include "WebSocketsModule.h"
 #include "IWebSocket.h"
-#include "Utils/LootLockerUtilities.h"
 
 // ========================================================================
 // CONSTRUCTOR & LIFECYCLE
@@ -27,7 +27,7 @@ ULootLockerPresenceClient::ULootLockerPresenceClient()
     , RecentLatenciesSum(0.0f)
 {
     // Initialize the circular queue for latency tracking
-    RecentLatencies = MakeUnique<TCircularQueue<float>>(MaxLatencySamples);
+    RecentLatencies = MakeUnique<TCircularQueue<float>>(10);
 }
 
 void ULootLockerPresenceClient::Initialize(const FString InPlayerUlid, const FString InSessionToken, const FLootLockerPresenceConnectionDelegate& InConnectionDelegate)
@@ -788,7 +788,7 @@ void ULootLockerPresenceClient::UpdateLatencyStats(float LatencyMs)
     }
     
     // Check if buffer is full and we need to subtract the oldest value
-    if (RecentLatencies->Count() >= MaxLatencySamples)
+    if (RecentLatencies->Count() >= 10)
     {
         const float* OldestSamplePtr = RecentLatencies->Peek();
         RecentLatenciesSum -= OldestSamplePtr ? *OldestSamplePtr : 0.0f;
@@ -830,7 +830,12 @@ void ULootLockerPresenceClient::StartTicker()
     {
         ShouldTick = true;
         TWeakObjectPtr<ULootLockerPresenceClient> WeakThis = MakeWeakObjectPtr(this);
-        FTSTicker::GetCoreTicker().AddTicker(FTickerDelegate::CreateLambda([WeakThis](float DeltaTime) {
+#if ENGINE_MAJOR_VERSION >= 5
+        FTSTicker::GetCoreTicker()
+#else
+        FTicker::GetCoreTicker()
+#endif
+            .AddTicker(FTickerDelegate::CreateLambda([WeakThis](float DeltaTime) {
             if (WeakThis.IsValid() && WeakThis->ShouldTick)
             {
                 return WeakThis->Tick(DeltaTime);

@@ -17,7 +17,11 @@ const TArray<FObfuscationDetails> UObfuscationSettings::FieldsToObfuscate =
 
 FString ULootLockerEnumUtils::GetEnum(const TCHAR* Enum, int32 EnumValue)
 {
+#if ENGINE_MAJOR_VERSION >= 5 && ENGINE_MINOR_VERSION >= 7
+    const UEnum* EnumPtr = FindObject<UEnum>(StaticClass()->GetOuter(), Enum, EFindObjectFlags::ExactClass);
+#else
     const UEnum* EnumPtr = FindObject<UEnum>(StaticClass()->GetOuter(), Enum, true);
+#endif
     if (!EnumPtr)
         return NSLOCTEXT("Invalid", "Invalid", "Invalid").ToString();
 

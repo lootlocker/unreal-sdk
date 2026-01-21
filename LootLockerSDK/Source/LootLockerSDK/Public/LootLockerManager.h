@@ -36,6 +36,7 @@
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
 #include "GameAPI/LootLockerFeedbackRequestHandler.h"
 #include "GameAPI/LootLockerNotificationsRequestHandler.h"
+#include "LootLockerPresenceManager.h"
 #include "LootLockerSessionOptionals.h"
 #include "LootLockerManager.generated.h"
 //==================================================
