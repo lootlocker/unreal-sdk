@@ -8,6 +8,7 @@
 #include "GameAPI/LootLockerMetadataRequestHandler.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
 #include "LootLockerSDKManager.h"
+#include "LootLockerPreprocessorDirectives.h"
 
 // Player State
 TArray<FString> ULootLockerManager::GetActivePlayerUlids()
@@ -76,17 +77,11 @@ void ULootLockerManager::StartSessionManual(const FString& SessionToken, const F
 
 FString ULootLockerManager::StartPlaystationNetworkSession(const FString& PsnOnlineId, const FAuthResponseBP& OnStartedSessionRequestCompleted, const FLootLockerSessionOptionals& Optionals)
 {
-#pragma warning(disable : 4996)
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+LL_IGNORE_DEPRECATED_START
     return ULootLockerSDKManager::StartPlaystationNetworkSession(PsnOnlineId, FLootLockerSessionResponse::CreateLambda([OnStartedSessionRequestCompleted](const FLootLockerAuthenticationResponse& Response) {
         OnStartedSessionRequestCompleted.ExecuteIfBound(Response);
     }), Optionals);
-#pragma GCC diagnostic pop
-#pragma clang diagnostic pop
-#pragma warning(default : 4996)
+LL_IGNORE_DEPRECATED_END
 }
 
 FString ULootLockerManager::VerifyPlayerAndStartPlaystationNetworkSession(const FString& AuthCode, const FString& AccountID, const FAuthResponseBP& OnCompletedRequest, int PsnIssuerId /*= 256*/, const FLootLockerSessionOptionals& Optionals)
@@ -308,18 +303,13 @@ FString ULootLockerManager::RefreshDiscordSession(const FString& ForPlayerWithUl
 
 FString ULootLockerManager::VerifyPlayer(const FString& ForPlayerWithUlid, const FString& PlatformToken, const FLootLockerDefaultResponseBP& OnVerifyPlayerRequestCompleted, const FString Platform /*= FString()*/)
 {
-#pragma warning(disable : 4996)
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
+LL_IGNORE_DEPRECATED_START
     return ULootLockerSDKManager::VerifyPlayer(PlatformToken, FLootLockerDefaultDelegate::CreateLambda([OnVerifyPlayerRequestCompleted](const FLootLockerResponse& Response)
     {
         OnVerifyPlayerRequestCompleted.ExecuteIfBound(Response);
     }), Platform, ForPlayerWithUlid);
-#pragma GCC diagnostic pop
-#pragma clang diagnostic pop
-#pragma warning(default : 4996)
+LL_IGNORE_DEPRECATED_END
 }
 
 FString ULootLockerManager::EndSession(const FString& ForPlayerWithUlid, const FLootLockerDefaultResponseBP& OnEndSessionRequestCompleted)
@@ -572,18 +562,13 @@ FString ULootLockerManager::GetPlayerName(const FString& ForPlayerWithUlid, cons
 
 FString ULootLockerManager::LookupMultiplePlayerNamesUsingIDs(const FString& ForPlayerWithUlid, const FLootLockerMultiplePlayerNamesRequest& Request, const FPMultiplePlayerNamesBP& OnCompletedRequest)
 {
-#pragma warning(disable : 4996)
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
+LL_IGNORE_DEPRECATED_START
     return ULootLockerSDKManager::LookupMultiplePlayerNamesUsingIDs(Request, FPMultiplePlayerNames::CreateLambda([OnCompletedRequest](FLootLockerMultiplePlayersNamesResponse Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
-#pragma GCC diagnostic pop
-#pragma clang diagnostic pop
-#pragma warning(default : 4996)
+LL_IGNORE_DEPRECATED_END
 }
 
 FString ULootLockerManager::LookupMultiplePlayersDataUsingIDs(const FString& ForPlayerWithUlid, const FLootLockerLookupMultiplePlayersDataRequest& Request, const FPMultiplePlayerNamesBP& OnCompletedRequest)
@@ -1857,18 +1842,13 @@ FString ULootLockerManager::ListCatalogs(const FString& ForPlayerWithUlid, const
 
 FString ULootLockerManager::ListCatalogItems(const FString& ForPlayerWithUlid, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseBP& OnComplete)
 {
-#pragma warning(disable : 4996)
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
+LL_IGNORE_DEPRECATED_START
     return ULootLockerSDKManager::ListCatalogItems(CatalogKey, Count, After, FLootLockerListCatalogPricesResponseDelegate::CreateLambda([OnComplete](const FLootLockerListCatalogPricesResponse& Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
-#pragma GCC diagnostic pop
-#pragma clang diagnostic pop
-#pragma warning(default : 4996)
+LL_IGNORE_DEPRECATED_END
 }
 
 FString ULootLockerManager::ListCatalogItemsV2(const FString& ForPlayerWithUlid, const FString& CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseBP& OnComplete)
