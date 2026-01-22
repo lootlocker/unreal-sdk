@@ -456,6 +456,11 @@ struct FLootLockerAuthenticationResponse : public FLootLockerAuthResponse
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString wallet_id = "";
+	/**
+	 * Any errors that occurred during the request, for example if a player name was supplied in optionals but was invalid.
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	TArray<FString> Errors;
 };
 
 USTRUCT(BlueprintType)
