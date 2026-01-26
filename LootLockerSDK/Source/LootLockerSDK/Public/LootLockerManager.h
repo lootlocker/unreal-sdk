@@ -3830,7 +3830,22 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "Page,PerPage,ForPlayerWithUlid", Page=-1, PerPage=-1, ForPlayerWithUlid=""))
-    static UPARAM(DisplayName = "RequestId") FString ListFriends(const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListFriendsResponseBP& OnResponseCompletedBP);
+    static UPARAM(DisplayName = "RequestId") FString ListFriends(const FString& ForPlayerWithUlid,  int32 Page, int32 PerPage, const FLootLockerListFriendsResponseBP& OnResponseCompletedBP);
+
+    /**
+     List friends on the specified platform for the requesting player
+
+     Page-based pagination supported
+
+     @param Platform Platform to filter friends by
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+     @param Page Optional: 1-based page index (<=0 uses server default)
+     @param PerPage Optional: Items per page (<=0 uses server default)
+     @param OnResponseCompletedBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "Page,PerPage,ForPlayerWithUlid", Page=-1, PerPage=-1, ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString ListFriendsByPlatform(ELootLockerPlatform Platform, const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListFriendsResponseBP& OnResponseCompletedBP);
 
     /**
      List incoming friend requests for the requesting player
