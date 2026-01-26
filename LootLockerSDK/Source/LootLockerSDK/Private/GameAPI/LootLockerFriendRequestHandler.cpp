@@ -17,6 +17,16 @@ FString ULootLockerFriendsRequestHandler::ListFriendsPaginated(const FLootLocker
     return LLAPI<FLootLockerListFriendsResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListFriendsEndpoint, {}, QueryParams, PlayerData, OnResponseCompleted);
 }
 
+// List friends by platform (paginated)
+FString ULootLockerFriendsRequestHandler::ListFriendsByPlatform(const FLootLockerPlayerData& PlayerData, ELootLockerPlatform Platform, int32 Page, int32 PerPage, const FLootLockerListFriendsResponseDelegate& OnResponseCompleted)
+{
+    TMultiMap<FString, FString> QueryParams;
+    if (Page > 0) QueryParams.Add(TEXT("page"), FString::FromInt(Page));
+    if (PerPage > 0) QueryParams.Add(TEXT("per_page"), FString::FromInt(PerPage));
+    QueryParams.Add(TEXT("platform"), ULootLockerPlatforms::GetPlatformRepresentationForPlatform(Platform).PlatformString);
+    return LLAPI<FLootLockerListFriendsResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListFriendsEndpoint, {}, QueryParams, PlayerData, OnResponseCompleted);
+}
+
 // List incoming friend requests for the requesting player
 FString ULootLockerFriendsRequestHandler::ListIncomingFriendRequests(const FLootLockerPlayerData& PlayerData, const FLootLockerListIncomingFriendRequestsResponseDelegate& OnResponseCompleted)
 {

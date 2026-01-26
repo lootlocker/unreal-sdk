@@ -1504,6 +1504,11 @@ FString ULootLockerSDKManager::ListFriendsPaginated(int32 Page, int32 PerPage, c
     return ULootLockerFriendsRequestHandler::ListFriendsPaginated(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Page, PerPage, OnResponseCompleted);
 }
 
+FString ULootLockerSDKManager::ListFriendsByPlatform(const ELootLockerPlatform Platform, int32 Page, int32 PerPage, const FLootLockerListFriendsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerFriendsRequestHandler::ListFriendsByPlatform(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Platform, Page, PerPage, OnResponseCompleted);
+}
+
 FString ULootLockerSDKManager::ListIncomingFriendRequests(const FLootLockerListIncomingFriendRequestsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid /* = "" */)
 {
     return ULootLockerFriendsRequestHandler::ListIncomingFriendRequests(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnResponseCompleted);

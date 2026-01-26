@@ -3360,16 +3360,29 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListFriends(const FLootLockerListFriendsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+
     /**
      List friends (page paginated).
 
-     @param Page Optional: 1-based page index (<=0 uses 1)
+     @param Page Optional: The page to retrieve (<=0 uses 1)
      @param PerPage Optional: Items per page (<=0 uses default)
      @param OnResponseCompleted Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListFriendsPaginated(int32 Page, int32 PerPage, const FLootLockerListFriendsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+
+    /**
+     List friends by platform for the requesting player.
+
+     @param Platform Platform to filter by
+     @param Page Optional: The page to retrieve (<=0 uses 1)
+     @param PerPage Optional: Items per page (<=0 uses default)
+     @param OnResponseCompleted Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ListFriendsByPlatform(const ELootLockerPlatform Platform, int32 Page, int32 PerPage, const FLootLockerListFriendsResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
     /**
      List incoming friend requests.
