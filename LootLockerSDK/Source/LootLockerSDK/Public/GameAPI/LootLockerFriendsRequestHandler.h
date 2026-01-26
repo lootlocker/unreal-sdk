@@ -203,6 +203,7 @@ public:
 
     static FString ListFriends(const FLootLockerPlayerData& PlayerData, const FLootLockerListFriendsResponseDelegate& OnResponseCompleted);
     static FString ListFriendsPaginated(const FLootLockerPlayerData& PlayerData, int32 Page, int32 PerPage, const FLootLockerListFriendsResponseDelegate& OnResponseCompleted);
+    static FString ListFriendsByPlatform(const FLootLockerPlayerData& PlayerData, ELootLockerPlatform Platform, int32 Page, int32 PerPage, const FLootLockerListFriendsResponseDelegate& OnResponseCompleted);
 
     static FString ListIncomingFriendRequests(const FLootLockerPlayerData& PlayerData, const FLootLockerListIncomingFriendRequestsResponseDelegate& OnResponseCompleted);
     static FString ListIncomingFriendRequestsPaginated(const FLootLockerPlayerData& PlayerData, int32 Page, int32 PerPage, const FLootLockerListIncomingFriendRequestsResponseDelegate& OnResponseCompleted);

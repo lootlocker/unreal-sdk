@@ -2265,6 +2265,15 @@ FString ULootLockerManager::ListFriends(const FString& ForPlayerWithUlid, int32 
     }
 }
 
+// Friends
+FString ULootLockerManager::ListFriendsByPlatform(ELootLockerPlatform Platform, const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListFriendsResponseBP& OnResponseCompletedBP)
+{
+    return ULootLockerSDKManager::ListFriendsByPlatform(Platform, Page, PerPage, FLootLockerListFriendsResponseDelegate::CreateLambda([OnResponseCompletedBP](const FLootLockerListFriendsResponse& Response)
+    {
+        OnResponseCompletedBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
 FString ULootLockerManager::ListIncomingFriendRequests(const FString& ForPlayerWithUlid, int32 Page, int32 PerPage, const FLootLockerListIncomingFriendRequestsResponseBP& OnResponseCompletedBP)
 {
     const bool bUsePagination = Page > 0 || PerPage > 0;
