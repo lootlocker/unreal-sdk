@@ -60,7 +60,8 @@ FString ULootLockerPurchasesRequestHandler::BeginSteamPurchaseRedemption(const F
     return LLAPI<FLootLockerBeginSteamPurchaseRedemptionResponse>::CallAPI(PurchaseRequest, ULootLockerGameEndpoints::BeginSteamPurchaseRedemption, {}, {}, PlayerData, OnCompleted, LLAPI<FLootLockerBeginSteamPurchaseRedemptionResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerBeginSteamPurchaseRedemptionResponse& Response)
         {
             const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
-            Response.isSuccess = JsonObject->GetBoolField(TEXT("success"));
+
+            Response.isSuccess = JsonObject->HasField(TEXT("success")) ? JsonObject->GetBoolField(TEXT("success")) : false;
         }));
 }
 
@@ -77,7 +78,7 @@ FString ULootLockerPurchasesRequestHandler::BeginSteamPurchaseRedemptionForClass
     return LLAPI<FLootLockerBeginSteamPurchaseRedemptionResponse>::CallAPIUsingRawJSON(JsonString, ULootLockerGameEndpoints::BeginSteamPurchaseRedemption, {}, {}, PlayerData, OnCompleted, LLAPI<FLootLockerBeginSteamPurchaseRedemptionResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerBeginSteamPurchaseRedemptionResponse& Response)
         {
             const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
-            Response.isSuccess = JsonObject->GetBoolField(TEXT("success"));
+            Response.isSuccess = JsonObject->HasField(TEXT("success")) ? JsonObject->GetBoolField(TEXT("success")) : false;
         }));
 }
 
