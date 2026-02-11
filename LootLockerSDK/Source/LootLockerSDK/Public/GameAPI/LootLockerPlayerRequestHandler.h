@@ -382,7 +382,7 @@ struct FLootLockerSimpleInventoryItem
  * Request filters for simplified inventory listing
  */
 USTRUCT(BlueprintType)
-struct FLootLockerListSimplifiedInventoryRequest
+struct FLootLockerListSimplifiedInventoryFilter
 {
 	GENERATED_BODY()
 	/**
@@ -395,6 +395,20 @@ struct FLootLockerListSimplifiedInventoryRequest
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	TArray<int32> Context_ids;
+};
+
+/**
+ * Request filters for simplified inventory listing
+ */
+USTRUCT(BlueprintType)
+struct FLootLockerListSimplifiedInventoryRequest
+{
+	GENERATED_BODY()
+	/**
+	 * The filters to apply to the inventory listing. If null, no filters will be applied and the full inventory will be returned
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FLootLockerListSimplifiedInventoryFilter Filters;
 };
 
 /**
