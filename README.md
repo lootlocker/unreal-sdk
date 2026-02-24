@@ -84,11 +84,6 @@ You can use multiple overrides in one command:
          -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:GameVersion=1.0.0
 ```
 
-## Internal developer docs
-
-- [Documentation/architecture.md](Documentation/architecture.md)
-- [.github/agent-docs/guardrails.md](.github/agent-docs/guardrails.md)
-
 ## Support
 
 If you have any issues or just wanna chat you can reach us on our [Discord Server](https://discord.lootlocker.io/)
