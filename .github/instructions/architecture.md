@@ -138,5 +138,5 @@ Common conversion points:
 
 ## Links
 
-- Guardrails: [.github/agent-docs/guardrails.md](../.github/agent-docs/guardrails.md)
-- Copilot instructions: [.github/copilot-instructions.md](../.github/copilot-instructions.md)
+- Guardrails: [.github/instructions/guardrails.md](guardrails.md)
+- Copilot instructions: [.github/copilot-instructions.md](../copilot-instructions.md)
