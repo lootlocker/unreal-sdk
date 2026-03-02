@@ -49,7 +49,7 @@ Deprecations are present in `ULootLockerManager` and `ULootLockerSDKManager` and
 
 - Mark deprecated Blueprint-callable methods with `meta=(DeprecatedFunction, DeprecationMessage="...")`.
 - Mark deprecated Cpp-callable methods with `[[deprecated("This method is deprecated in favor of method <alternative>")]] // Deprecation date <deprecation date>`
-- Keep the existing inline comment convention for dating deprecations (for example `// Deprecation date 2025-09-24`).
+- Keep the existing inline comment convention for dating deprecations (for example `// Deprecation date <deprecation date>`).
 - Prefer an additive migration path:
   - add a replacement method (new name/signature/behavior)
   - keep the old method working (or forward internally when feasible)
