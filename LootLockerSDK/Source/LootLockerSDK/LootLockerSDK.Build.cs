@@ -5,7 +5,6 @@ using UnrealBuildTool;
 public class LootLockerSDK : ModuleRules
 {
     public static bool bEnableGoogleSubsystemHelper = false;
-    public static bool bUseStageURL = false;
     public static bool bShowOutdatedSDKMessage = false; // Set to true when submitting to fab for engine versions < the last 3
     public LootLockerSDK(ReadOnlyTargetRules Target) : base(Target)
     {
@@ -68,12 +67,6 @@ public class LootLockerSDK : ModuleRules
             PublicDefinitions.Add("LOOTLOCKER_ENABLE_GOOGLESUBSYSTEMHELPER=1");
             PrivateDependencyModuleNames.AddRange(new string[] { "OnlineSubsystem" });
         }
-
-        if (bUseStageURL)
-        {
-	        PublicDefinitions.Add("LOOTLOCKER_USE_STAGE_URL=1");
-        }
-
         if (bShowOutdatedSDKMessage)
         {
 	        PublicDefinitions.Add("LOOTLOCKER_SHOW_OUTDATED_SDK_MESSAGE=1");
