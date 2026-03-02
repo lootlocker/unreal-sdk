@@ -75,16 +75,6 @@ struct FLootLockerLoginResponse : public FLootLockerAuthResponse
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerBaseAuthRequest_Old
-{
-	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	FString game_key = "";
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
-	FString game_version = "";
-};
-
-USTRUCT(BlueprintType)
 struct FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
@@ -95,7 +85,7 @@ struct FLootLockerBaseAuthRequest
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerAuthenticationRequest : public FLootLockerBaseAuthRequest_Old
+struct FLootLockerAuthenticationRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Startup Item")
@@ -105,7 +95,7 @@ struct FLootLockerAuthenticationRequest : public FLootLockerBaseAuthRequest_Old
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerWhiteLabelAuthRequest : public FLootLockerBaseAuthRequest_Old
+struct FLootLockerWhiteLabelAuthRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -133,7 +123,7 @@ struct FLootLockerWhiteLabelResetPasswordRequest
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerNintendoSwitchSessionRequest : public FLootLockerBaseAuthRequest_Old
+struct FLootLockerNintendoSwitchSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -141,7 +131,7 @@ struct FLootLockerNintendoSwitchSessionRequest : public FLootLockerBaseAuthReque
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerStartMetaSessionRequest : public FLootLockerBaseAuthRequest_Old
+struct FLootLockerStartMetaSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -151,7 +141,7 @@ struct FLootLockerStartMetaSessionRequest : public FLootLockerBaseAuthRequest_Ol
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerRefreshMetaSessionRequest : public FLootLockerBaseAuthRequest_Old
+struct FLootLockerRefreshMetaSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -159,7 +149,7 @@ struct FLootLockerRefreshMetaSessionRequest : public FLootLockerBaseAuthRequest_
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerXboxSessionRequest : public FLootLockerBaseAuthRequest_Old
+struct FLootLockerXboxSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -167,7 +157,7 @@ struct FLootLockerXboxSessionRequest : public FLootLockerBaseAuthRequest_Old
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerAppleGameCenterSessionRequest : public FLootLockerBaseAuthRequest_Old
+struct FLootLockerAppleGameCenterSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -186,7 +176,7 @@ struct FLootLockerAppleGameCenterSessionRequest : public FLootLockerBaseAuthRequ
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerRefreshAppleGameCenterSessionRequest : public FLootLockerBaseAuthRequest_Old
+struct FLootLockerRefreshAppleGameCenterSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -195,7 +185,7 @@ struct FLootLockerRefreshAppleGameCenterSessionRequest : public FLootLockerBaseA
 
 
 USTRUCT(BlueprintType)
-struct FLootLockerAppleSessionRequest : public FLootLockerBaseAuthRequest_Old
+struct FLootLockerAppleSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -203,7 +193,7 @@ struct FLootLockerAppleSessionRequest : public FLootLockerBaseAuthRequest_Old
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerRefreshAppleSessionRequest : public FLootLockerBaseAuthRequest_Old
+struct FLootLockerRefreshAppleSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -211,7 +201,7 @@ struct FLootLockerRefreshAppleSessionRequest : public FLootLockerBaseAuthRequest
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerGoogleSessionRequest : public FLootLockerBaseAuthRequest_Old
+struct FLootLockerGoogleSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -227,7 +217,7 @@ struct FLootLockerGoogleSessionRequestWithPlatform : public FLootLockerGoogleSes
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerRefreshGoogleSessionRequest : public FLootLockerBaseAuthRequest_Old
+struct FLootLockerRefreshGoogleSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -243,7 +233,7 @@ struct FLootLockerGooglePlayGamesSessionRequest : public FLootLockerBaseAuthRequ
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerRefreshGooglePlayGamesSessionRequest : public FLootLockerBaseAuthRequest_Old
+struct FLootLockerRefreshGooglePlayGamesSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -251,7 +241,7 @@ struct FLootLockerRefreshGooglePlayGamesSessionRequest : public FLootLockerBaseA
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerEpicSessionRequest : public FLootLockerBaseAuthRequest_Old
+struct FLootLockerEpicSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -259,7 +249,7 @@ struct FLootLockerEpicSessionRequest : public FLootLockerBaseAuthRequest_Old
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerRefreshEpicSessionRequest : public FLootLockerBaseAuthRequest_Old
+struct FLootLockerRefreshEpicSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -315,7 +305,7 @@ struct FLootLockerSteamSessionRequest: public FLootLockerBaseAuthRequest
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerDiscordSessionRequest : public FLootLockerBaseAuthRequest_Old
+struct FLootLockerDiscordSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
@@ -323,7 +313,7 @@ struct FLootLockerDiscordSessionRequest : public FLootLockerBaseAuthRequest_Old
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerRefreshDiscordSessionRequest : public FLootLockerBaseAuthRequest_Old
+struct FLootLockerRefreshDiscordSessionRequest : public FLootLockerBaseAuthRequest
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")

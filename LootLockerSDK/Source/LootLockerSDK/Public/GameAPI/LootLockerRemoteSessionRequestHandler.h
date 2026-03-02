@@ -196,7 +196,7 @@ struct FLootLockerStartRemoteSessionRequest
      * The Game Key configured for the game
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Game_key = "";
+    FString Game_api_key = "";
     /**
      * The Game Version configured for the game
      */
@@ -215,7 +215,7 @@ struct FLootLockerStartRemoteSessionRequest
 };
 
 USTRUCT(BlueprintType)
-struct FLootLockerRefreshRemoteSessionRequest : public FLootLockerBaseAuthRequest_Old
+struct FLootLockerRefreshRemoteSessionRequest : public FLootLockerBaseAuthRequest
 {
     GENERATED_BODY()
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")

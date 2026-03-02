@@ -33,7 +33,7 @@ FString ULootLockerAuthenticationRequestHandler::GuestLogin(const FString& Playe
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	FLootLockerAuthenticationRequest AuthRequest;
-	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_api_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 	const TSharedPtr<FLootLockerPlayerData> PlayerData = ULootLockerStateData::GetStateForPlayerOrDefaultFromCache();
 	AuthRequest.player_identifier = !(PlayerIdentifier.IsEmpty()) ? PlayerIdentifier : (PlayerData.IsValid() && !PlayerData->PlayerIdentifier.IsEmpty()) ?  PlayerData->PlayerIdentifier : ULootLockerStateData::GenerateNewGuestIdentifier();
@@ -74,7 +74,7 @@ FString ULootLockerAuthenticationRequestHandler::WhiteLabelStartSessionManual(co
 {
 	const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
 	FLootLockerWhiteLabelAuthRequest AuthRequest;
-	AuthRequest.game_key = Config->LootLockerGameKey;
+	AuthRequest.game_api_key = Config->LootLockerGameKey;
 	AuthRequest.game_version = Config->GameVersion;
 
 	AuthRequest.email = Email;
@@ -177,7 +177,7 @@ FString ULootLockerAuthenticationRequestHandler::StartPlaystationNetworkSession(
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	FLootLockerAuthenticationRequest AuthRequest;
-	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_api_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.player_identifier = PsnOnlineId;
 
@@ -213,7 +213,7 @@ FString ULootLockerAuthenticationRequestHandler::VerifyPlayerAndStartPlaystation
 			}
 		const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 		FLootLockerAuthenticationRequest AuthRequest;
-		AuthRequest.game_key = config->LootLockerGameKey;
+		AuthRequest.game_api_key = config->LootLockerGameKey;
 		AuthRequest.game_version = config->GameVersion;
 		AuthRequest.player_identifier = AccountID;
 		AuthRequest.platform = ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::PlayStationNetwork).PlatformString;
@@ -258,7 +258,7 @@ FString ULootLockerAuthenticationRequestHandler::StartAndroidSession(const FStri
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	FLootLockerAuthenticationRequest AuthRequest;
-	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_api_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.player_identifier = DeviceId;
 
@@ -279,7 +279,7 @@ FString ULootLockerAuthenticationRequestHandler::StartGoogleSession(const FStrin
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	FLootLockerGoogleSessionRequest AuthRequest;
-	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_api_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.id_token = IdToken;
 
@@ -299,7 +299,7 @@ FString ULootLockerAuthenticationRequestHandler::StartGoogleSession(const FStrin
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	FLootLockerGoogleSessionRequestWithPlatform AuthRequest;
-	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_api_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.id_token = IdToken;
 	AuthRequest.platform = Platform;
@@ -320,7 +320,7 @@ FString ULootLockerAuthenticationRequestHandler::RefreshGoogleSession(const FStr
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	FLootLockerRefreshGoogleSessionRequest AuthRequest;
-	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_api_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.refresh_token = RefreshToken;
 
@@ -360,7 +360,7 @@ FString ULootLockerAuthenticationRequestHandler::RefreshGooglePlayGamesSession(c
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	FLootLockerRefreshGooglePlayGamesSessionRequest AuthRequest;
-	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_api_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.refresh_token = RefreshToken;
 
@@ -380,7 +380,7 @@ FString ULootLockerAuthenticationRequestHandler::StartEpicSession(const FString&
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	FLootLockerEpicSessionRequest AuthRequest;
-	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_api_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.id_token = IdToken;
 
@@ -408,7 +408,7 @@ FString ULootLockerAuthenticationRequestHandler::RefreshEpicSession(const FStrin
 			}
 		});
 	FLootLockerRefreshEpicSessionRequest AuthRequest;
-	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_api_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.refresh_token = RefreshToken;
 
@@ -420,7 +420,7 @@ FString ULootLockerAuthenticationRequestHandler::StartAmazonLunaSession(const FS
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	FLootLockerAuthenticationRequest AuthRequest;
-	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_api_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.player_identifier = AmazonLunaGuid;
 
@@ -472,7 +472,7 @@ FString ULootLockerAuthenticationRequestHandler::StartNintendoSwitchSession(cons
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	FLootLockerNintendoSwitchSessionRequest AuthRequest;
-	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_api_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.nsa_id_token = NSAIdToken;
 
@@ -492,7 +492,7 @@ FString ULootLockerAuthenticationRequestHandler::StartXboxSession(const FString&
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	FLootLockerXboxSessionRequest AuthRequest;
-	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_api_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.xbox_user_token = XboxUserToken;
 
@@ -514,7 +514,7 @@ FString ULootLockerAuthenticationRequestHandler::StartAppleGameCenterSession(con
 
 	FLootLockerAppleGameCenterSessionRequest AuthRequest;
 
-	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_api_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.bundle_id = BundleId;
 	AuthRequest.player_id = PlayerId;
@@ -541,7 +541,7 @@ FString ULootLockerAuthenticationRequestHandler::StartAppleSession(const FString
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	FLootLockerAppleSessionRequest AuthRequest;
-	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_api_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.apple_authorization_code = AuthorizationCode;
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
@@ -562,7 +562,7 @@ FString ULootLockerAuthenticationRequestHandler::RefreshAppleGameCenterSession(c
 
 
 	FLootLockerRefreshAppleGameCenterSessionRequest AuthRequest;
-	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_api_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.refresh_token = RefreshToken;
 
@@ -583,7 +583,7 @@ FString ULootLockerAuthenticationRequestHandler::RefreshAppleSession(const FStri
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	FLootLockerRefreshAppleSessionRequest AuthRequest;
-	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_api_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.refresh_token = RefreshToken;
 
@@ -606,7 +606,7 @@ FString ULootLockerAuthenticationRequestHandler::StartMetaSession(const FString&
 	FLootLockerStartMetaSessionRequest AuthRequest;
 	AuthRequest.user_id = UserId;
 	AuthRequest.nonce = Nonce;
-	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_api_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
@@ -628,7 +628,7 @@ FString ULootLockerAuthenticationRequestHandler::RefreshMetaSession(const FStrin
 
 	FLootLockerRefreshMetaSessionRequest AuthRequest;
 	AuthRequest.refresh_token = RefreshToken;
-	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_api_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 
 	FString Json = AuthRequestToJsonStringWithOptionals(AuthRequest, Optionals);
@@ -648,7 +648,7 @@ FString ULootLockerAuthenticationRequestHandler::StartDiscordSession(const FStri
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	FLootLockerDiscordSessionRequest AuthRequest;
-	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_api_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.access_token = AccessToken;
 
@@ -668,7 +668,7 @@ FString ULootLockerAuthenticationRequestHandler::RefreshDiscordSession(const FSt
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	FLootLockerRefreshDiscordSessionRequest AuthRequest;
-	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_api_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.refresh_token = RefreshToken;
 

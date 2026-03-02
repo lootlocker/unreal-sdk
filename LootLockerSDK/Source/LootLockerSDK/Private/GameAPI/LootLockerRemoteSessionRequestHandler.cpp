@@ -116,7 +116,7 @@ FString ULootLockerRemoteSessionRequestHandler::RefreshRemoteSession(const FStri
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	FLootLockerRefreshRemoteSessionRequest AuthRequest;
-	AuthRequest.game_key = config->LootLockerGameKey;
+	AuthRequest.game_api_key = config->LootLockerGameKey;
 	AuthRequest.game_version = config->GameVersion;
 	AuthRequest.refresh_token = RefreshToken;
 
