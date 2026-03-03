@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
 #include "LootLockerErrorData.h"
 #include "LootLockerRequestContext.h"
 #include "LootLockerResponse.generated.h"

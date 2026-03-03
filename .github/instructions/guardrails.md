@@ -28,6 +28,19 @@ Unless the task explicitly asks for it, do **not**:
   - Internal implementation lives under `LootLockerSDK/Source/<Module>/Private/`.
   - Avoid including `Private/` headers from outside the owning module.
 
+## Verification (compilation before PR)
+
+Before opening a PR, verify that your changes compile.  See `.github/instructions/verification.md` for the full procedure.  In short:
+
+- **Cloud agent**: push to your work branch and wait for the **`Compile Check`**
+  workflow (`.github/workflows/compile-check.yml`) to go green.
+- **Local**: run `.github\scripts\verify-compilation.ps1` (Windows) or
+  `.github/scripts/verify-compilation.sh` (macOS/Linux), after creating
+  `unreal-dev-settings.json` at the repo root:
+  ```json
+  { "unreal_engine_path": "C:\\Program Files\\Epic Games\\UE_5.5" }
+  ```
+
 ## When unsure
 
 If any requirement is ambiguous (scope, ownership, API surface, versioning, release steps), **stop and ask** 1–3 focused clarifying questions before making changes.
