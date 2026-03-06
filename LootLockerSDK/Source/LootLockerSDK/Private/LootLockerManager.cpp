@@ -1519,6 +1519,48 @@ FString ULootLockerManager::RefundByEntitlementIds(const FString& ForPlayerWithU
         }), ForPlayerWithUlid);
 }
 
+FString ULootLockerManager::InitiateAsyncPurchaseSingleCatalogItem(const FString& ForPlayerWithUlid, const FString& WalletId, const FString& ItemId, const int Quantity, const FLootLockerAsyncPurchaseInitiatedDelegateBP& OnCompletedRequest)
+{
+    TArray<FLootLockerCatalogItemAndQuantityPair> Items;
+    FLootLockerCatalogItemAndQuantityPair Item;
+    Item.Catalog_listing_id = ItemId;
+    Item.Quantity = Quantity;
+    Items.Add(Item);
+    return ULootLockerSDKManager::InitiateAsyncPurchaseCatalogItems(WalletId, Items, FLootLockerAsyncPurchaseInitiatedDelegate::CreateLambda([OnCompletedRequest](FLootLockerAsyncPurchaseInitiatedResponse Response)
+        {
+            OnCompletedRequest.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::InitiateAsyncPurchaseCatalogItems(const FString& ForPlayerWithUlid, const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair>& Items, const FLootLockerAsyncPurchaseInitiatedDelegateBP& OnCompletedRequest)
+{
+    return ULootLockerSDKManager::InitiateAsyncPurchaseCatalogItems(WalletId, Items, FLootLockerAsyncPurchaseInitiatedDelegate::CreateLambda([OnCompletedRequest](FLootLockerAsyncPurchaseInitiatedResponse Response)
+        {
+            OnCompletedRequest.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::GetAsyncPurchaseStatus(const FString& ForPlayerWithUlid, const FString& EntitlementId, const FLootLockerAsyncPurchaseStatusDelegateBP& OnCompletedRequest)
+{
+    return ULootLockerSDKManager::GetAsyncPurchaseStatus(EntitlementId, FLootLockerAsyncPurchaseStatusDelegate::CreateLambda([OnCompletedRequest](FLootLockerAsyncPurchaseStatusResponse Response)
+        {
+            OnCompletedRequest.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::RetryAsyncPurchase(const FString& ForPlayerWithUlid, const FString& EntitlementId, const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair>& Items, const FLootLockerAsyncPurchaseInitiatedDelegateBP& OnCompletedRequest)
+{
+    return ULootLockerSDKManager::RetryAsyncPurchase(EntitlementId, WalletId, Items, FLootLockerAsyncPurchaseInitiatedDelegate::CreateLambda([OnCompletedRequest](FLootLockerAsyncPurchaseInitiatedResponse Response)
+        {
+            OnCompletedRequest.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
+}
+
+void ULootLockerManager::CancelAsyncPurchasePolling(const FString& ProcessID)
+{
+    ULootLockerPurchasesRequestHandler::CancelAsyncPurchasePolling(ProcessID);
+}
+
 //Triggers
 FString ULootLockerManager::InvokeTriggersByKey(const FString& ForPlayerWithUlid, const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseBP& OnComplete)
 {

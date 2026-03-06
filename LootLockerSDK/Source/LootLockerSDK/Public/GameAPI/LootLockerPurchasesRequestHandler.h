@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
+#include "TimerManager.h"
+#include "Kismet/BlueprintAsyncActionBase.h"
 #include "LootLockerPurchasesRequestHandler.generated.h"
 
 USTRUCT(BlueprintType)
@@ -426,6 +428,79 @@ struct FLootLockerRefundByEntitlementIdsResponse : public FLootLockerResponse
     TArray<FLootLockerRefundWarning> warnings;
 };
 
+//==================================================
+// Async Purchase Types
+//==================================================
+
+/**
+ * Possible statuses for an async purchase
+ */
+UENUM(BlueprintType, Category = "LootLocker")
+enum class ELootLockerAsyncPurchaseStatus : uint8
+{
+    Pending = 0,
+    Active = 1,
+    Failed = 2,
+};
+
+/**
+ * Response from initiating an async purchase
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerAsyncPurchaseInitiatedResponse : public FLootLockerResponse
+{
+    GENERATED_BODY()
+    /**
+     * The id of the entitlement created for this purchase
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Entitlement_id = "";
+};
+
+/**
+ * Response from polling the status of an async purchase
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerAsyncPurchaseStatusResponse : public FLootLockerResponse
+{
+    GENERATED_BODY()
+    /**
+     * The id of the entitlement this status refers to
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Entitlement_id = "";
+    /**
+     * The current status of the purchase
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    ELootLockerAsyncPurchaseStatus Status = ELootLockerAsyncPurchaseStatus::Pending;
+    /**
+     * The failure reason. Only populated when status is failed.
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Error = "";
+};
+
+DECLARE_DELEGATE_OneParam(FLootLockerAsyncPurchaseInitiatedDelegate, FLootLockerAsyncPurchaseInitiatedResponse);
+DECLARE_DELEGATE_OneParam(FLootLockerAsyncPurchaseStatusDelegate, FLootLockerAsyncPurchaseStatusResponse);
+
+struct FLootLockerAsyncPurchaseProcess
+{
+    static constexpr int RetryLimit = 5;
+    FString EntitlementId = "";
+    FString WalletId = "";
+    TArray<FLootLockerCatalogItemAndQuantityPair> Items;
+    FLootLockerPlayerData PlayerData;
+    FDateTime TimeoutTime;
+    float PollingIntervalSeconds = 1.0f;
+    int Retries = 0;
+    bool ShouldCancel = false;
+    FTimerHandle AsyncPurchaseProcessTimerHandle;
+
+    FLootLockerAsyncPurchaseProcess() = default;
+    FLootLockerAsyncPurchaseProcess(float _PollingIntervalSeconds, float TimeoutAfterMinutes);
+};
+
 DECLARE_DELEGATE_OneParam(FActivateRentalAssetResponseDelegate, FLootLockerActivateRentalAssetResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerBeginSteamPurchaseRedemptionDelegate, FLootLockerBeginSteamPurchaseRedemptionResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerQuerySteamPurchaseRedemptionStatusDelegate, FLootLockerQuerySteamPurchaseRedemptionStatusResponse);
@@ -468,4 +543,84 @@ public:
     static FString FinalizeSteamPurchaseRedemption(const FLootLockerPlayerData& PlayerData, const FString& EntitlementId, const FLootLockerDefaultDelegate& OnCompleted);
 
     static FString RefundByEntitlementIds(const FLootLockerPlayerData& PlayerData, const TArray<FString>& EntitlementIds, const FLootLockerRefundByEntitlementIdsDelegate& OnCompleted);
+
+    static FString InitiateAsyncPurchase(const FLootLockerPlayerData& PlayerData, const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair>& Items, const FLootLockerAsyncPurchaseInitiatedDelegate& OnCompleted);
+
+    static FString GetAsyncPurchaseStatus(const FLootLockerPlayerData& PlayerData, const FString& EntitlementId, const FLootLockerAsyncPurchaseStatusDelegate& OnCompleted);
+
+    static FString RetryAsyncPurchase(const FLootLockerPlayerData& PlayerData, const FString& EntitlementId, const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair>& Items, const FLootLockerAsyncPurchaseInitiatedDelegate& OnCompleted);
+
+    static FString StartAsyncPurchasePolling(const FLootLockerPlayerData& PlayerData, const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair>& Items, const FLootLockerAsyncPurchaseStatusDelegate& OnStatusUpdate, const FLootLockerAsyncPurchaseStatusDelegate& OnComplete, float PollingIntervalSeconds = 1.0f, float TimeoutAfterMinutes = 5.0f);
+
+    static void CancelAsyncPurchasePolling(const FString& ProcessID);
+
+    static FString ContinualAsyncPurchasePollAction(const FString& ProcessID, const FLootLockerAsyncPurchaseStatusDelegate& OnStatusUpdate, const FLootLockerAsyncPurchaseStatusDelegate& OnComplete);
+
+    static void KillAsyncPurchaseProcess(const FString& ProcessID);
+
+protected:
+    static void SetAsyncPurchaseTimer(FTimerHandle& TimerHandle, const FTimerDelegate& Delegate, float Time);
+    static void ClearAsyncPurchaseTimer(FTimerHandle& TimerHandle);
+
+private:
+    static TMap<FString, FLootLockerAsyncPurchaseProcess> AsyncPurchaseProcesses;
+};
+
+//==================================================
+// Async Blueprint Delegate Definitions
+//==================================================
+
+/**
+ * Multicast delegate for events triggered from the async purchase polling node
+ */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FLootLockerAsyncPurchasePollingMulticastDelegate, FString, ProcessID, FLootLockerAsyncPurchaseStatusResponse, Response);
+
+//==================================================
+// Async Blueprint Node Definitions
+//==================================================
+
+UCLASS()
+class ULootLockerAsyncPollAsyncPurchase : public UBlueprintAsyncActionBase
+{
+    GENERATED_BODY()
+public:
+    /**
+     * Initiate an async purchase and automatically poll until it reaches a terminal state.
+     * While pending, OnPending is triggered each poll. On completion, OnActive or OnFailed is triggered.
+     *
+     * @param WorldContextObject Non input: Automatic context for async node
+     * @param ForPlayerWithUlid Optional: Execute for the player with this ulid. Leave empty for the default player.
+     * @param WalletId The id of the wallet to use for the purchase
+     * @param Items The catalog items with quantities to purchase
+     * @param PollingIntervalSeconds Optional: How often to poll in seconds (minimum 1)
+     * @param TimeoutAfterMinutes Optional: How many minutes before the process times out
+     */
+    UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", Category = "LootLocker Methods | Purchases", WorldContext = "WorldContextObject", AdvancedDisplay = "PollingIntervalSeconds,TimeoutAfterMinutes,ForPlayerWithUlid", PollingIntervalSeconds = 1.0f, TimeoutAfterMinutes = 5.0f, ForPlayerWithUlid = ""))
+    static LOOTLOCKERSDK_API ULootLockerAsyncPollAsyncPurchase* AsyncPollAsyncPurchase(UObject* WorldContextObject, FString ForPlayerWithUlid, FString WalletId, TArray<FLootLockerCatalogItemAndQuantityPair> Items, float PollingIntervalSeconds, float TimeoutAfterMinutes);
+
+    /** Triggered on each poll while the purchase is still pending */
+    UPROPERTY(BlueprintAssignable)
+    FLootLockerAsyncPurchasePollingMulticastDelegate OnPending;
+    /** Triggered when the purchase has completed successfully (status = Active) */
+    UPROPERTY(BlueprintAssignable)
+    FLootLockerAsyncPurchasePollingMulticastDelegate OnActive;
+    /** Triggered when the purchase has failed (status = Failed) */
+    UPROPERTY(BlueprintAssignable)
+    FLootLockerAsyncPurchasePollingMulticastDelegate OnFailed;
+    /** Triggered if the process times out */
+    UPROPERTY(BlueprintAssignable)
+    FLootLockerAsyncPurchasePollingMulticastDelegate OnTimedOut;
+    /** Triggered if the process was cancelled using CancelAsyncPurchasePolling */
+    UPROPERTY(BlueprintAssignable)
+    FLootLockerAsyncPurchasePollingMulticastDelegate OnCancelled;
+
+    LOOTLOCKERSDK_API virtual void Activate() override;
+
+protected:
+    FString ForPlayerWithUlid = "";
+    FString ProcessID = "";
+    FString WalletId = "";
+    TArray<FLootLockerCatalogItemAndQuantityPair> Items;
+    float PollingIntervalInSeconds = 1.0f;
+    float TimeoutAfterMinutes = 5.0f;
 };
