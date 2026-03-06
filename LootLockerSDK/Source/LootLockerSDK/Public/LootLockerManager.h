@@ -2848,7 +2848,7 @@ public:
     /**
       Initiate an async purchase of a single catalog item using a specified wallet.
       The async purchase flow uses a dedicated endpoint and returns an entitlement_id to poll for status.
-      Use InitiateAndPollAsyncPurchase for an automatic polling experience.
+      Use the AsyncPollAsyncPurchase Blueprint node (or StartAsyncPurchasePolling in C++) for an automatic polling experience.
 
       @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
       @param WalletId The id of the wallet to use for the purchase
@@ -2863,7 +2863,7 @@ public:
     /**
       Initiate an async purchase of one or more catalog items using a specified wallet.
       The async purchase flow uses a dedicated endpoint and returns an entitlement_id to poll for status.
-      Use InitiateAndPollAsyncPurchase for an automatic polling experience.
+      Use the AsyncPollAsyncPurchase Blueprint node (or StartAsyncPurchasePolling in C++) for an automatic polling experience.
 
       @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
       @param WalletId The id of the wallet to use for the purchase

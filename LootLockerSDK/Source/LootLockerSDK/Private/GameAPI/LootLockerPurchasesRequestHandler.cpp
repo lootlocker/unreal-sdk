@@ -9,7 +9,6 @@
 #include "LootLockerGameEndpoints.h"
 #include "LootLockerStateData.h"
 #include "Utils/LootLockerUtilities.h"
-#include "LootLockerLogger.h"
 
 FString ULootLockerPurchasesRequestHandler::ActivateRentalAsset(const FLootLockerPlayerData& PlayerData, int AssetInstanceId, const FActivateRentalAssetResponseDelegate& OnCompletedRequest)
 {
@@ -246,6 +245,7 @@ FString ULootLockerPurchasesRequestHandler::ContinualAsyncPurchasePollAction(con
     {
         FLootLockerAsyncPurchaseStatusResponse TimedOutResponse;
         TimedOutResponse.success = false;
+        TimedOutResponse.Status = ELootLockerAsyncPurchaseStatus::TimedOut;
         OnComplete.ExecuteIfBound(TimedOutResponse);
         KillAsyncPurchaseProcess(ProcessID);
         return TEXT("");
@@ -255,6 +255,7 @@ FString ULootLockerPurchasesRequestHandler::ContinualAsyncPurchasePollAction(con
     {
         FLootLockerAsyncPurchaseStatusResponse CancelledResponse;
         CancelledResponse.success = false;
+        CancelledResponse.Status = ELootLockerAsyncPurchaseStatus::Cancelled;
         OnComplete.ExecuteIfBound(CancelledResponse);
         KillAsyncPurchaseProcess(ProcessID);
         return TEXT("");
@@ -281,7 +282,7 @@ FString ULootLockerPurchasesRequestHandler::ContinualAsyncPurchasePollAction(con
 
         if (!StatusResponse.success)
         {
-            if (StatusResponse.StatusCode >= 500 && StatusResponse.StatusCode <= 599 && _innerProcess.Retries <= _innerProcess.RetryLimit)
+            if (StatusResponse.StatusCode >= 500 && StatusResponse.StatusCode <= 599 && _innerProcess.Retries < _innerProcess.RetryLimit)
             {
                 _innerProcess.Retries++;
                 _scheduleNextPoll(_innerProcess.AsyncPurchaseProcessTimerHandle, _innerProcess.PollingIntervalSeconds, ProcessID);
@@ -346,11 +347,13 @@ ULootLockerAsyncPollAsyncPurchase* ULootLockerAsyncPollAsyncPurchase::AsyncPollA
     Instance->Items = InItems;
     Instance->PollingIntervalInSeconds = InPollingIntervalSeconds;
     Instance->TimeoutAfterMinutes = InTimeoutAfterMinutes;
+    Instance->RegisterWithGameInstance(WorldContextObject);
     return Instance;
 }
 
 void ULootLockerAsyncPollAsyncPurchase::Activate()
 {
+    Super::Activate();
     const TSharedPtr<FLootLockerPlayerData> PlayerDataPtr = ULootLockerStateData::GetStateForPlayerOrDefaultFromCache(ForPlayerWithUlid);
     FLootLockerPlayerData PlayerData = PlayerDataPtr.IsValid() ? *PlayerDataPtr : FLootLockerPlayerData();
 
@@ -371,6 +374,14 @@ void ULootLockerAsyncPollAsyncPurchase::Activate()
             else if (Response.success && Response.Status == ELootLockerAsyncPurchaseStatus::Failed)
             {
                 OnFailed.Broadcast(ProcessID, Response);
+            }
+            else if (Response.Status == ELootLockerAsyncPurchaseStatus::TimedOut)
+            {
+                OnTimedOut.Broadcast(ProcessID, Response);
+            }
+            else if (Response.Status == ELootLockerAsyncPurchaseStatus::Cancelled)
+            {
+                OnCancelled.Broadcast(ProcessID, Response);
             }
             else
             {

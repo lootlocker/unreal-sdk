@@ -299,6 +299,8 @@ enum class ELootLockerAsyncPurchaseStatus : uint8
     Pending = 0,
     Active = 1,
     Failed = 2,
+    TimedOut = 3,
+    Cancelled = 4,
 };
 
 /**
