@@ -7,6 +7,7 @@
 #include "LootLockerPlayerData.h"
 #include "TimerManager.h"
 #include "Kismet/BlueprintAsyncActionBase.h"
+#include "LootLockerSDK/Private/Utils/LootLockerUtilities.h"
 #include "LootLockerPurchasesRequestHandler.generated.h"
 
 USTRUCT(BlueprintType)
