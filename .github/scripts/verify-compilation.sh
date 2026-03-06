@@ -19,6 +19,15 @@ echo "==========================================="
 echo ""
 
 # ---------------------------------------------------------------------------
+# 0. Prerequisite check
+# ---------------------------------------------------------------------------
+if ! command -v python3 &>/dev/null; then
+    echo -e "${RED}ERROR:${NC} python3 is required but was not found on PATH."
+    echo "       Install Python 3 and ensure it is available in your shell."
+    exit 1
+fi
+
+# ---------------------------------------------------------------------------
 # 1. Load settings
 # ---------------------------------------------------------------------------
 if [[ ! -f "$SETTINGS_FILE" ]]; then
