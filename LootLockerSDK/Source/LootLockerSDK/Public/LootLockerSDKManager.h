@@ -2489,6 +2489,61 @@ public:
      */
     static FString FinalizeSteamPurchaseRedemption(const FString & EntitlementId, const FLootLockerDefaultDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
+    /**
+     Initiate an async purchase of one or more catalog items using a specified wallet.
+
+     @param WalletId The id of the wallet to use for the purchase
+     @param Items The catalog items with quantities to purchase
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString InitiateAsyncPurchaseCatalogItems(const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair>& Items, const FLootLockerAsyncPurchaseInitiatedDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Get the current status of an async purchase.
+
+     @param EntitlementId The entitlement id returned when initiating the async purchase
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString GetAsyncPurchaseStatus(const FString& EntitlementId, const FLootLockerAsyncPurchaseStatusDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Retry a failed async purchase.
+
+     @param EntitlementId The entitlement id of the failed purchase
+     @param WalletId The id of the wallet to use for the retry
+     @param Items The catalog items with quantities from the original purchase
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString RetryAsyncPurchase(const FString& EntitlementId, const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair>& Items, const FLootLockerAsyncPurchaseInitiatedDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Initiate an async purchase and automatically poll for its result.
+     While pending, OnStatusUpdate is called on each poll. When the purchase reaches a terminal state (active or failed, or timeout), OnComplete is called.
+
+     @param WalletId The id of the wallet to use for the purchase
+     @param Items The catalog items with quantities to purchase
+     @param OnStatusUpdate Delegate called on each poll while the purchase is pending
+     @param OnComplete Delegate called when the purchase reaches a terminal state
+     @param PollingIntervalSeconds How often to poll in seconds (minimum 1)
+     @param TimeoutAfterMinutes How many minutes before the process times out
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A process id string that can be passed to CancelAsyncPurchasePolling
+     */
+    static FString StartAsyncPurchasePolling(const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair>& Items, const FLootLockerAsyncPurchaseStatusDelegate& OnStatusUpdate, const FLootLockerAsyncPurchaseStatusDelegate& OnComplete, float PollingIntervalSeconds = 1.0f, float TimeoutAfterMinutes = 5.0f, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Cancel an ongoing async purchase polling process.
+
+     @param ProcessID The process id returned by StartAsyncPurchasePolling
+     */
+    static void CancelAsyncPurchasePolling(const FString& ProcessID);
+
     //==================================================
     // Triggers
     //==================================================

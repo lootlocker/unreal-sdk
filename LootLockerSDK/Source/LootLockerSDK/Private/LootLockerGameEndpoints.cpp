@@ -215,6 +215,10 @@ FLootLockerEndPoints ULootLockerGameEndpoints::BeginSteamPurchaseRedemption = In
 FLootLockerEndPoints ULootLockerGameEndpoints::QuerySteamPurchaseRedemptionStatus = InitEndpoint("store/steam/redeem/query", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::FinalizeSteamPurchaseRedemption = InitEndpoint("store/steam/redeem/finalise", ELootLockerHTTPMethod::POST);
 
+FLootLockerEndPoints ULootLockerGameEndpoints::InitiateAsyncPurchase = InitEndpoint("purchase/inspired-ibex/v1", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::PollAsyncPurchaseStatus = InitEndpoint("purchase/inspired-ibex/v1/{0}", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::RetryAsyncPurchase = InitEndpoint("purchase/inspired-ibex/v1/{0}/retry", ELootLockerHTTPMethod::POST);
+
 //Trigger Events
 FLootLockerEndPoints ULootLockerGameEndpoints::TriggerEventEndpoint = InitEndpoint("v1/player/trigger", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetTriggeredEventsEndpoint = InitEndpoint("v1/player/triggers", ELootLockerHTTPMethod::GET);

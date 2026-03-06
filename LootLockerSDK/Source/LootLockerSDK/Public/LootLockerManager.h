@@ -288,6 +288,10 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FActivateRentalAssetResponseDelegateBP, FLootL
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerBeginSteamPurchaseRedemptionDelegateBP, FLootLockerBeginSteamPurchaseRedemptionResponse, Response);
 /** Blueprint response delegate for querying Steam purchase redemption status responses */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerQuerySteamPurchaseRedemptionStatusDelegateBP, FLootLockerQuerySteamPurchaseRedemptionStatusResponse, Response);
+/** Blueprint response delegate for initiating an async purchase */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAsyncPurchaseInitiatedDelegateBP, FLootLockerAsyncPurchaseInitiatedResponse, Response);
+/** Blueprint response delegate for polling the status of an async purchase */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAsyncPurchaseStatusDelegateBP, FLootLockerAsyncPurchaseStatusResponse, Response);
 
 //==================================================
 // Trigger Delegates
@@ -2840,6 +2844,67 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static UPARAM(DisplayName = "RequestId") FString FinalizeSteamPurchaseRedemption(const FString& ForPlayerWithUlid, const FString& EntitlementId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+
+    /**
+      Initiate an async purchase of a single catalog item using a specified wallet.
+      The async purchase flow uses a dedicated endpoint and returns an entitlement_id to poll for status.
+      Use InitiateAndPollAsyncPurchase for an automatic polling experience.
+
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param WalletId The id of the wallet to use for the purchase
+      @param ItemId The catalog listing id of the item to purchase
+      @param Quantity The quantity to purchase
+      @param OnCompletedRequest Delegate for handling the server response
+      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString InitiateAsyncPurchaseSingleCatalogItem(const FString& ForPlayerWithUlid, const FString& WalletId, const FString& ItemId, const int Quantity, const FLootLockerAsyncPurchaseInitiatedDelegateBP& OnCompletedRequest);
+
+    /**
+      Initiate an async purchase of one or more catalog items using a specified wallet.
+      The async purchase flow uses a dedicated endpoint and returns an entitlement_id to poll for status.
+      Use InitiateAndPollAsyncPurchase for an automatic polling experience.
+
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param WalletId The id of the wallet to use for the purchase
+      @param Items The catalog items with quantities to purchase
+      @param OnCompletedRequest Delegate for handling the server response
+      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString InitiateAsyncPurchaseCatalogItems(const FString& ForPlayerWithUlid, const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair>& Items, const FLootLockerAsyncPurchaseInitiatedDelegateBP& OnCompletedRequest);
+
+    /**
+      Get the current status of an async purchase.
+
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param EntitlementId The entitlement id returned when initiating the async purchase
+      @param OnCompletedRequest Delegate for handling the server response
+      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString GetAsyncPurchaseStatus(const FString& ForPlayerWithUlid, const FString& EntitlementId, const FLootLockerAsyncPurchaseStatusDelegateBP& OnCompletedRequest);
+
+    /**
+      Retry a failed async purchase.
+
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param EntitlementId The entitlement id of the failed purchase
+      @param WalletId The id of the wallet to use for the retry
+      @param Items The catalog items with quantities from the original purchase
+      @param OnCompletedRequest Delegate for handling the server response
+      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString RetryAsyncPurchase(const FString& ForPlayerWithUlid, const FString& EntitlementId, const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair>& Items, const FLootLockerAsyncPurchaseInitiatedDelegateBP& OnCompletedRequest);
+
+    /**
+      Cancel an ongoing async purchase polling process started via the AsyncPollAsyncPurchase Blueprint node.
+
+      @param ProcessID The process id returned by StartAsyncPurchasePolling
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases")
+    static void CancelAsyncPurchasePolling(const FString& ProcessID);
 
     //==================================================
     // Triggers
