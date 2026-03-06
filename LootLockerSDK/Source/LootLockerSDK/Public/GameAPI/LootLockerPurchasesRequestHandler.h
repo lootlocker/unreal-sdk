@@ -283,6 +283,38 @@ struct FLootLockerFinalizeSteamPurchaseRedemptionRequest
     FString Entitlement_id = "";
 };
 
+/**
+ * Possible actions for a player inventory event during a refund
+ */
+UENUM(BlueprintType, Category = "LootLocker")
+enum class ELootLockerRefundInventoryEventAction : uint8
+{
+    removed = 0,
+    skipped = 1,
+};
+
+/**
+ * Possible kinds of non-reversible rewards in a refund warning
+ */
+UENUM(BlueprintType, Category = "LootLocker")
+enum class ELootLockerRefundNonReversibleRewardKind : uint8
+{
+    progression_points = 0,
+    progression_reset = 1,
+};
+
+/**
+ * Possible warning types in a refund response
+ */
+UENUM(BlueprintType, Category = "LootLocker")
+enum class ELootLockerRefundWarningDetailType : uint8
+{
+    non_reversible_rewards = 0,
+    insufficient_funds = 1,
+    already_refunded = 2,
+    refund_failed = 3,
+};
+
 USTRUCT(BlueprintType)
 struct FLootLockerRefundByEntitlementIdsRequest
 {
@@ -304,7 +336,7 @@ struct FLootLockerRefundPlayerInventoryEvent
     FString name;
     /** "removed" if the asset was taken back from inventory, "skipped" if it could not be removed */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString action;
+    ELootLockerRefundInventoryEventAction action = ELootLockerRefundInventoryEventAction::removed;
 };
 
 USTRUCT(BlueprintType)
@@ -328,7 +360,7 @@ struct FLootLockerRefundNonReversibleReward
     GENERATED_BODY()
     /** "progression_points": points were added to a progression. "progression_reset": a progression was reset. Additional values may be added in future. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString kind;
+    ELootLockerRefundNonReversibleRewardKind kind = ELootLockerRefundNonReversibleRewardKind::progression_points;
     /** The ULID of the progression that was affected */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString id;
@@ -346,13 +378,13 @@ struct FLootLockerRefundWarningDetail
     GENERATED_BODY()
     /**
      * The warning category:
-     * "non_reversible_rewards": rewards granted that cannot be automatically clawed back.
-     * "insufficient_funds": the player does not have enough currency balance to cover the clawback.
-     * "already_refunded": the entitlement was already refunded before this request.
-     * "refund_failed": the entitlement could not be refunded due to an unexpected error.
+     * non_reversible_rewards: rewards granted that cannot be automatically clawed back.
+     * insufficient_funds: the player does not have enough currency balance to cover the clawback.
+     * already_refunded: the entitlement was already refunded before this request.
+     * refund_failed: the entitlement could not be refunded due to an unexpected error.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString type;
+    ELootLockerRefundWarningDetailType type = ELootLockerRefundWarningDetailType::refund_failed;
     /** Human-readable explanation of the warning */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString message;
