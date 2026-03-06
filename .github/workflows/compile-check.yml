@@ -55,6 +55,17 @@ jobs:
           echo "SDK_PATH=${SDK_PATH}" >> $GITHUB_ENV
           SDK_NAME=$(find "$SDK_PATH" -maxdepth 2 -type f -name "*.uplugin" \
             | sed -n -r "s/.*\/([-A-Za-z0-9_]+)\.uplugin/\1/p" | head -1)
+          if [ -z "$SDK_NAME" ]; then
+            echo "ERROR: No .uplugin file found within '$SDK_PATH' (maxdepth 2) matching the expected pattern." >&2
+            echo "       Ensure your Unreal plugin .uplugin file exists and is named with only letters, numbers, dashes, or underscores." >&2
+            exit 1
+          fi
+          EXPECTED_UPLUGIN_PATH="${SDK_PATH}/${SDK_NAME}/${SDK_NAME}.uplugin"
+          if [ ! -f "$EXPECTED_UPLUGIN_PATH" ]; then
+            echo "ERROR: Expected .uplugin file not found at '${EXPECTED_UPLUGIN_PATH}'." >&2
+            echo "       The build step will use -Plugin=\"/mnt/source/${SDK_NAME}/${SDK_NAME}.uplugin\"; please verify your plugin layout." >&2
+            exit 1
+          fi
           echo "SDK_NAME=${SDK_NAME}" >> $GITHUB_ENV
 
       - name: Prepare build directories

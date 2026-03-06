@@ -104,7 +104,7 @@ A change is verified when **either** of the following is true:
 **Additionally** ensure:
 
 - No new `error C####` or `error LNK####` compiler errors appear.
-- No new compiler warnings inside the LootLockerSDK plugin appears
+- No new compiler warnings inside the LootLockerSDK plugin appear
 - No existing public API signatures were changed without following the
   deprecation flow described in `.github/instructions/style-guide.md`.
 
