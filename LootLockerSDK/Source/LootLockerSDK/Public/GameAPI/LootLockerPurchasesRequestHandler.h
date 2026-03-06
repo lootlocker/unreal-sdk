@@ -413,6 +413,7 @@ public:
     static void KillAsyncPurchaseProcess(const FString& ProcessID);
 
 protected:
+    static FString GetAsyncPurchaseStatus(const FLootLockerPlayerData& PlayerData, const FString& EntitlementId, const LLAPI<FLootLockerAsyncPurchaseStatusResponse>::FResponseInspectorCallback& OnCompleted);
     static void SetAsyncPurchaseTimer(FTimerHandle& TimerHandle, const FTimerDelegate& Delegate, float Time);
     static void ClearAsyncPurchaseTimer(FTimerHandle& TimerHandle);
 
