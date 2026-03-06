@@ -283,9 +283,121 @@ struct FLootLockerFinalizeSteamPurchaseRedemptionRequest
     FString Entitlement_id = "";
 };
 
+USTRUCT(BlueprintType)
+struct FLootLockerRefundByEntitlementIdsRequest
+{
+    GENERATED_BODY()
+    /** The IDs of the entitlements to refund */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FString> entitlement_ids;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerRefundPlayerInventoryEvent
+{
+    GENERATED_BODY()
+    /** The legacy numeric asset ID */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int64 asset_id = 0;
+    /** Display name of the asset */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString name;
+    /** "removed" if the asset was taken back from inventory, "skipped" if it could not be removed */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString action;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerRefundCurrencyEntry
+{
+    GENERATED_BODY()
+    /** The ULID of the currency */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString currency_id;
+    /** Short code identifying the currency (e.g. "gold", "gems") */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString currency_code;
+    /** The amount credited or debited, represented as a string to support arbitrary precision */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString amount;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerRefundNonReversibleReward
+{
+    GENERATED_BODY()
+    /** "progression_points": points were added to a progression. "progression_reset": a progression was reset. Additional values may be added in future. */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString kind;
+    /** The ULID of the progression that was affected */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString id;
+    /** Display name of the progression */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString name;
+    /** The number of points granted that cannot be reversed. Only present for kind "progression_points". */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString amount;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerRefundWarningDetail
+{
+    GENERATED_BODY()
+    /**
+     * The warning category:
+     * "non_reversible_rewards": rewards granted that cannot be automatically clawed back.
+     * "insufficient_funds": the player does not have enough currency balance to cover the clawback.
+     * "already_refunded": the entitlement was already refunded before this request.
+     * "refund_failed": the entitlement could not be refunded due to an unexpected error.
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString type;
+    /** Human-readable explanation of the warning */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString message;
+    /** The specific rewards that could not be reversed. Only present when type is "non_reversible_rewards". */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerRefundNonReversibleReward> rewards;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerRefundWarning
+{
+    GENERATED_BODY()
+    /** The entitlement this warning applies to */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString entitlement_id;
+    /** One or more warning conditions for this entitlement */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerRefundWarningDetail> details;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerRefundByEntitlementIdsResponse : public FLootLockerResponse
+{
+    GENERATED_BODY()
+    /** Assets that were added or removed from the player's inventory as part of the refund */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerRefundPlayerInventoryEvent> player_inventory_events;
+    /** Currency amounts credited back to the player's wallet (the purchase price being returned) */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerRefundCurrencyEntry> currency_refunded;
+    /** Currency amounts debited from the player's wallet (currency rewards from the entitlement being reclaimed) */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerRefundCurrencyEntry> currency_clawback;
+    /**
+     * Warnings encountered during refund processing, grouped by entitlement.
+     * A non-empty warnings array does not mean the refund failed — it means some aspects could not be fully reversed.
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerRefundWarning> warnings;
+};
+
 DECLARE_DELEGATE_OneParam(FActivateRentalAssetResponseDelegate, FLootLockerActivateRentalAssetResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerBeginSteamPurchaseRedemptionDelegate, FLootLockerBeginSteamPurchaseRedemptionResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerQuerySteamPurchaseRedemptionStatusDelegate, FLootLockerQuerySteamPurchaseRedemptionStatusResponse);
+DECLARE_DELEGATE_OneParam(FLootLockerRefundByEntitlementIdsDelegate, FLootLockerRefundByEntitlementIdsResponse);
 
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerPurchasesRequestHandler : public UObject
@@ -322,4 +434,6 @@ public:
     static FString QuerySteamPurchaseRedemptionStatus(const FLootLockerPlayerData& PlayerData, const FString& EntitlementId, const FLootLockerQuerySteamPurchaseRedemptionStatusDelegate& OnCompleted);
 
     static FString FinalizeSteamPurchaseRedemption(const FLootLockerPlayerData& PlayerData, const FString& EntitlementId, const FLootLockerDefaultDelegate& OnCompleted);
+
+    static FString RefundByEntitlementIds(const FLootLockerPlayerData& PlayerData, const TArray<FString>& EntitlementIds, const FLootLockerRefundByEntitlementIdsDelegate& OnCompleted);
 };
