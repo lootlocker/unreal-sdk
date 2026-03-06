@@ -155,11 +155,6 @@ FString ULootLockerPurchasesRequestHandler::RedeemPlayStationStorePurchaseForPla
     return LLAPI<FLootLockerResponse>::CallAPIUsingRawJSON(JsonString, ULootLockerGameEndpoints::RedeemPlayStationStorePurchase, {}, {}, PlayerData, OnCompleted);
 }
 
-    FString JsonString = LootLockerUtilities::FStringFromJsonObject(JsonObject);
-
-    return LLAPI<FLootLockerResponse>::CallAPIUsingRawJSON(JsonString, ULootLockerGameEndpoints::RedeemPlayStationStorePurchase, {}, {}, PlayerData, OnCompleted);
-}
-
 //==================================================
 // Async Purchase Static Data
 //==================================================
@@ -182,6 +177,11 @@ FString ULootLockerPurchasesRequestHandler::InitiateAsyncPurchase(const FLootLoc
 }
 
 FString ULootLockerPurchasesRequestHandler::GetAsyncPurchaseStatus(const FLootLockerPlayerData& PlayerData, const FString& EntitlementId, const FLootLockerAsyncPurchaseStatusDelegate& OnCompleted)
+{
+    return LLAPI<FLootLockerAsyncPurchaseStatusResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::PollAsyncPurchaseStatus, { EntitlementId }, {}, PlayerData, OnCompleted);
+}
+
+FString ULootLockerPurchasesRequestHandler::GetAsyncPurchaseStatus(const FLootLockerPlayerData& PlayerData, const FString& EntitlementId, const LLAPI<FLootLockerAsyncPurchaseStatusResponse>::FResponseInspectorCallback& OnCompleted)
 {
     return LLAPI<FLootLockerAsyncPurchaseStatusResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::PollAsyncPurchaseStatus, { EntitlementId }, {}, PlayerData, OnCompleted);
 }
