@@ -252,6 +252,7 @@ public:
     static FLootLockerEndPoints BeginSteamPurchaseRedemption;
     static FLootLockerEndPoints QuerySteamPurchaseRedemptionStatus;
     static FLootLockerEndPoints FinalizeSteamPurchaseRedemption;
+    static FLootLockerEndPoints RefundByEntitlementIds;
 
     //Trigger Events
     static FLootLockerEndPoints TriggerEventEndpoint;

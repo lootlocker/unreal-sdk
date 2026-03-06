@@ -1119,6 +1119,11 @@ FString ULootLockerSDKManager::FinalizeSteamPurchaseRedemption(const FString& En
     return ULootLockerPurchasesRequestHandler::FinalizeSteamPurchaseRedemption(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), EntitlementId, OnCompletedRequest);
 }
 
+FString ULootLockerSDKManager::RefundByEntitlementIds(const TArray<FString>& EntitlementIds, const FLootLockerRefundByEntitlementIdsDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerPurchasesRequestHandler::RefundByEntitlementIds(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), EntitlementIds, OnCompletedRequest);
+}
+
 //Triggers
 FString ULootLockerSDKManager::InvokeTriggersByKey(const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {

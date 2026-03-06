@@ -288,6 +288,8 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FActivateRentalAssetResponseDelegateBP, FLootL
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerBeginSteamPurchaseRedemptionDelegateBP, FLootLockerBeginSteamPurchaseRedemptionResponse, Response);
 /** Blueprint response delegate for querying Steam purchase redemption status responses */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerQuerySteamPurchaseRedemptionStatusDelegateBP, FLootLockerQuerySteamPurchaseRedemptionStatusResponse, Response);
+/** Blueprint response delegate for refund by entitlement IDs responses */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerRefundByEntitlementIdsResponseDelegate, FLootLockerRefundByEntitlementIdsResponse, Response);
 
 //==================================================
 // Trigger Delegates
@@ -2840,6 +2842,21 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static UPARAM(DisplayName = "RequestId") FString FinalizeSteamPurchaseRedemption(const FString& ForPlayerWithUlid, const FString& EntitlementId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+
+    /**
+      Refund one or more entitlements by their IDs.
+
+      Submits a refund request for the specified entitlement IDs. Assets will be removed from
+      inventory where possible, currency will be credited back, and any currency rewards from the
+      entitlement will be clawed back.
+
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+      @param EntitlementIds The IDs of the entitlements to refund
+      @param OnCompletedRequest Delegate for handling the server response
+      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString RefundByEntitlementIds(const FString& ForPlayerWithUlid, const TArray<FString>& EntitlementIds, const FLootLockerRefundByEntitlementIdsResponseDelegate& OnCompletedRequest);
 
     //==================================================
     // Triggers

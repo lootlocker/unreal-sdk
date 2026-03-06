@@ -92,6 +92,11 @@ FString ULootLockerPurchasesRequestHandler::FinalizeSteamPurchaseRedemption(cons
     return LLAPI<FLootLockerResponse>::CallAPI(FLootLockerFinalizeSteamPurchaseRedemptionRequest{ EntitlementId }, ULootLockerGameEndpoints::FinalizeSteamPurchaseRedemption, {}, {}, PlayerData, OnCompleted);
 }
 
+FString ULootLockerPurchasesRequestHandler::RefundByEntitlementIds(const FLootLockerPlayerData& PlayerData, const TArray<FString>& EntitlementIds, const FLootLockerRefundByEntitlementIdsDelegate& OnCompleted)
+{
+    return LLAPI<FLootLockerRefundByEntitlementIdsResponse>::CallAPI(FLootLockerRefundByEntitlementIdsRequest{ EntitlementIds }, ULootLockerGameEndpoints::RefundByEntitlementIds, {}, {}, PlayerData, OnCompleted);
+}
+
 FString ULootLockerPurchasesRequestHandler::RedeemEpicStorePurchase(const FLootLockerPlayerData& PlayerData, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultDelegate& OnCompleted)
 {
     FLootLockerRedeemEpicStorePurchaseForPlayerRequest PurchaseRequest{
