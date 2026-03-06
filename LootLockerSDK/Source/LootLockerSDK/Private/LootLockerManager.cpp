@@ -1511,6 +1511,14 @@ FString ULootLockerManager::FinalizeSteamPurchaseRedemption(const FString& ForPl
         }), ForPlayerWithUlid);
 }
 
+FString ULootLockerManager::RefundByEntitlementIds(const FString& ForPlayerWithUlid, const TArray<FString>& EntitlementIds, const FLootLockerRefundByEntitlementIdsResponseDelegate& OnCompletedRequest)
+{
+    return ULootLockerSDKManager::RefundByEntitlementIds(EntitlementIds, FLootLockerRefundByEntitlementIdsDelegate::CreateLambda([OnCompletedRequest](FLootLockerRefundByEntitlementIdsResponse Response)
+        {
+            OnCompletedRequest.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
+}
+
 //Triggers
 FString ULootLockerManager::InvokeTriggersByKey(const FString& ForPlayerWithUlid, const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseBP& OnComplete)
 {

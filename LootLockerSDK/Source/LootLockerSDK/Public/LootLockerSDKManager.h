@@ -2489,6 +2489,22 @@ public:
      */
     static FString FinalizeSteamPurchaseRedemption(const FString & EntitlementId, const FLootLockerDefaultDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
+    /**
+     Refund one or more entitlements by their IDs.
+
+     Submits a refund request for the specified entitlement IDs. Assets associated with the entitlements
+     will be removed from the player's inventory where possible, the original purchase currency will be
+     credited back, and any currency rewards tied to the entitlement will be clawed back.
+     The response includes details on what was reversed and any warnings for items that could not be
+     fully reversed.
+
+     @param EntitlementIds The IDs of the entitlements to refund
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString RefundByEntitlementIds(const TArray<FString>& EntitlementIds, const FLootLockerRefundByEntitlementIdsDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
     //==================================================
     // Triggers
     //==================================================
