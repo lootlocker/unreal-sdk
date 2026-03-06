@@ -1124,6 +1124,31 @@ FString ULootLockerSDKManager::RefundByEntitlementIds(const TArray<FString>& Ent
     return ULootLockerPurchasesRequestHandler::RefundByEntitlementIds(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), EntitlementIds, OnCompletedRequest);
 }
 
+FString ULootLockerSDKManager::InitiateAsyncPurchaseCatalogItems(const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair>& Items, const FLootLockerAsyncPurchaseInitiatedDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerPurchasesRequestHandler::InitiateAsyncPurchase(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), WalletId, Items, OnCompletedRequest);
+}
+
+FString ULootLockerSDKManager::GetAsyncPurchaseStatus(const FString& EntitlementId, const FLootLockerAsyncPurchaseStatusDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerPurchasesRequestHandler::GetAsyncPurchaseStatus(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), EntitlementId, OnCompletedRequest);
+}
+
+FString ULootLockerSDKManager::RetryAsyncPurchase(const FString& EntitlementId, const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair>& Items, const FLootLockerAsyncPurchaseInitiatedDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerPurchasesRequestHandler::RetryAsyncPurchase(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), EntitlementId, WalletId, Items, OnCompletedRequest);
+}
+
+FString ULootLockerSDKManager::StartAsyncPurchasePolling(const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair>& Items, const FLootLockerAsyncPurchaseStatusDelegate& OnStatusUpdate, const FLootLockerAsyncPurchaseStatusDelegate& OnComplete, float PollingIntervalSeconds, float TimeoutAfterMinutes, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerPurchasesRequestHandler::StartAsyncPurchasePolling(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), WalletId, Items, OnStatusUpdate, OnComplete, PollingIntervalSeconds, TimeoutAfterMinutes);
+}
+
+void ULootLockerSDKManager::CancelAsyncPurchasePolling(const FString& ProcessID)
+{
+    ULootLockerPurchasesRequestHandler::CancelAsyncPurchasePolling(ProcessID);
+}
+
 //Triggers
 FString ULootLockerSDKManager::InvokeTriggersByKey(const TArray<FString>& KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
