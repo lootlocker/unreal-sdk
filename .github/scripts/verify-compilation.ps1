@@ -1,4 +1,4 @@
-#Requires -Version 7.0
+#Requires -Version 5.0
 <#
 .SYNOPSIS
     Verifies that the LootLocker Unreal SDK plugin compiles without errors.
