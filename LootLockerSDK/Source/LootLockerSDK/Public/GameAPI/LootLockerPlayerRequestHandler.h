@@ -376,6 +376,11 @@ struct FLootLockerSimpleInventoryItem
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString Acquisition_date = "";
+	/**
+	 * Metadata entries for this inventory item when requested
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	TArray<FLootLockerMetadataEntry> Metadata;
 };
 
 /**
@@ -398,12 +403,31 @@ struct FLootLockerListSimplifiedInventoryFilter
 };
 
 /**
+ * Includes to add extra data to simplified inventory responses
+ */
+USTRUCT(BlueprintType)
+struct FLootLockerListSimplifiedInventoryIncludes
+{
+	GENERATED_BODY()
+	/**
+	 * If set to true, response will include metadata for inventory items
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	bool metadata = false;
+};
+
+/**
  * Request filters for simplified inventory listing
  */
 USTRUCT(BlueprintType)
 struct FLootLockerListSimplifiedInventoryRequest
 {
 	GENERATED_BODY()
+	/**
+	 * Includes for the simplified inventory response
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FLootLockerListSimplifiedInventoryIncludes Includes;
 	/**
 	 * The filters to apply to the inventory listing. If null, no filters will be applied and the full inventory will be returned
 	 */
