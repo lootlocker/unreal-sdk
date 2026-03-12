@@ -26,6 +26,7 @@ enum class ELootLockerMetadataSources : uint8
     player = 5,
     self = 6,
     asset = 7,
+    item = 8, // This is the source for asset instances (player inventory items), while the "asset" source is for the asset in general
 };
 
 /*

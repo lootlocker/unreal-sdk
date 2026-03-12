@@ -362,10 +362,25 @@ struct FLootLockerSimpleInventoryItem
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 Asset_id = 0;
 	/**
+	 * The ULID of the asset
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString Asset_ulid = "";
+	/**
+	 * The name of the asset
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString Asset_name = "";
+	/**
 	 * The instance ID of this specific asset instance
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	int32 Instance_id = 0;
+	/**
+	 * The ULID of this specific asset instance
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString Ulid = "";
 	/**
 	 * How this asset was acquired (e.g., purchase, loot_box, etc.)
 	 */
@@ -403,6 +418,28 @@ struct FLootLockerListSimplifiedInventoryFilter
 };
 
 /**
+ * Specifies which metadata keys to include in simplified inventory responses.
+ * If Keys is empty, all metadata keys are included (All defaults to true).
+ * If Keys is non-empty, only the listed keys are returned (All is ignored).
+ */
+USTRUCT(BlueprintType)
+struct FLootLockerListSimplifiedInventoryMetadataIncludes
+{
+	GENERATED_BODY()
+	/**
+	 * If true, all metadata keys are included. Ignored when Keys is non-empty.
+	 * Defaults to true so that a default-constructed instance returns all keys.
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	bool All = true;
+	/**
+	 * Specific metadata keys to include. If non-empty, only these keys are returned and All is ignored.
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	TArray<FString> Keys;
+};
+
+/**
  * Includes to add extra data to simplified inventory responses
  */
 USTRUCT(BlueprintType)
@@ -410,10 +447,17 @@ struct FLootLockerListSimplifiedInventoryIncludes
 {
 	GENERATED_BODY()
 	/**
-	 * If set to true, response will include metadata for inventory items
+	 * Set to true to request metadata for inventory items in the response.
+	 * Use MetadataOptions to control which keys are returned.
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	bool metadata = false;
+	bool IncludeMetadata = false;
+	/**
+	 * Controls which metadata keys are included. Only used when IncludeMetadata is true.
+	 * A default-constructed value requests all metadata keys.
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FLootLockerListSimplifiedInventoryMetadataIncludes MetadataOptions;
 };
 
 /**
