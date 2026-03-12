@@ -2,6 +2,7 @@
 
 
 #include "GameAPI/LootLockerPlayerRequestHandler.h"
+#include "Dom/JsonObject.h"
 #include "LootLockerGameEndpoints.h"
 #include "LootLockerLogger.h"
 #include "LootLockerPlatformManager.h"
@@ -158,13 +159,54 @@ FString ULootLockerPlayerRequestHandler::DeletePlayer(const FLootLockerPlayerDat
 	return LLAPI<FLootLockerResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::DeletePlayer, {}, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
+static FString SerializeSimplifiedInventoryRequest(const FLootLockerListSimplifiedInventoryRequest& Request)
+{
+	TSharedPtr<FJsonObject> RequestObject = MakeShared<FJsonObject>();
+
+	// Build includes — only add metadata when explicitly requested
+	TSharedPtr<FJsonObject> IncludesObject = MakeShared<FJsonObject>();
+	if (Request.Includes.IncludeMetadata)
+	{
+		TSharedPtr<FJsonObject> MetadataObject = MakeShared<FJsonObject>();
+		const bool bAllKeys = Request.Includes.MetadataOptions.Keys.Num() == 0;
+		MetadataObject->SetBoolField(TEXT("all"), bAllKeys);
+		TArray<TSharedPtr<FJsonValue>> KeysArray;
+		for (const FString& Key : Request.Includes.MetadataOptions.Keys)
+		{
+			KeysArray.Add(MakeShared<FJsonValueString>(Key));
+		}
+		MetadataObject->SetArrayField(TEXT("keys"), KeysArray);
+		IncludesObject->SetObjectField(TEXT("metadata"), MetadataObject);
+	}
+	RequestObject->SetObjectField(TEXT("includes"), IncludesObject);
+
+	// Build filters
+	TSharedPtr<FJsonObject> FiltersObject = MakeShared<FJsonObject>();
+	TArray<TSharedPtr<FJsonValue>> AssetIdsArray;
+	for (int32 AssetId : Request.Filters.Asset_ids)
+	{
+		AssetIdsArray.Add(MakeShared<FJsonValueNumber>(AssetId));
+	}
+	FiltersObject->SetArrayField(TEXT("asset_ids"), AssetIdsArray);
+	TArray<TSharedPtr<FJsonValue>> ContextIdsArray;
+	for (int32 ContextId : Request.Filters.Context_ids)
+	{
+		ContextIdsArray.Add(MakeShared<FJsonValueNumber>(ContextId));
+	}
+	FiltersObject->SetArrayField(TEXT("context_ids"), ContextIdsArray);
+	RequestObject->SetObjectField(TEXT("filters"), FiltersObject);
+
+	return LootLockerUtilities::FStringFromJsonObject(RequestObject);
+}
+
 FString ULootLockerPlayerRequestHandler::ListPlayerInventory(const FLootLockerPlayerData& PlayerData, const FLootLockerListSimplifiedInventoryRequest& Request, int32 PerPage, int32 Page, const FLootLockerSimpleInventoryResponseDelegate& OnCompletedRequest)
 {
 	TMultiMap<FString, FString> QueryParams;
 	QueryParams.Add("per_page", FString::FromInt(PerPage > 0 ? PerPage : 100));
 	QueryParams.Add("page", FString::FromInt(Page > 0 ? Page : 1));
 
-	return LLAPI<FLootLockerSimpleInventoryResponse>::CallAPI(Request, ULootLockerGameEndpoints::ListPlayerSimpleInventoryEndPoint, {}, QueryParams, PlayerData, OnCompletedRequest);
+	FString ContentString = SerializeSimplifiedInventoryRequest(Request);
+	return LLAPI<FLootLockerSimpleInventoryResponse>::CallAPIUsingRawJSON(ContentString, ULootLockerGameEndpoints::ListPlayerSimpleInventoryEndPoint, {}, QueryParams, PlayerData, OnCompletedRequest);
 }
 
 FString ULootLockerPlayerRequestHandler::ListCharacterInventory(const FLootLockerPlayerData& PlayerData, const FLootLockerListSimplifiedInventoryRequest& Request, int32 CharacterId, int32 PerPage, int32 Page, const FLootLockerSimpleInventoryResponseDelegate& OnCompletedRequest)
@@ -177,6 +219,7 @@ FString ULootLockerPlayerRequestHandler::ListCharacterInventory(const FLootLocke
 	QueryParams.Add("per_page", FString::FromInt(PerPage > 0 ? PerPage : 100));
 	QueryParams.Add("page", FString::FromInt(Page > 0 ? Page : 1));
 
-	return LLAPI<FLootLockerSimpleInventoryResponse>::CallAPI(Request, ULootLockerGameEndpoints::ListPlayerSimpleInventoryEndPoint, {}, QueryParams, PlayerData, OnCompletedRequest);
+	FString ContentString = SerializeSimplifiedInventoryRequest(Request);
+	return LLAPI<FLootLockerSimpleInventoryResponse>::CallAPIUsingRawJSON(ContentString, ULootLockerGameEndpoints::ListPlayerSimpleInventoryEndPoint, {}, QueryParams, PlayerData, OnCompletedRequest);
 }
 
