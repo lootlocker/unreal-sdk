@@ -1252,7 +1252,7 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid,Request,PerPage,Page", ForPlayerWithUlid="", PerPage="100", Page="1", AutoCreateRefTerm = "Request"))
-    static UPARAM(DisplayName = "RequestId") FString ListPlayerInventory(const FString& ForPlayerWithUlid, const FLootLockerListSimplifiedInventoryRequest& Request, int PerPage, const int& Page, const FLootLockerSimpleInventoryResponseBP& OnCompletedRequest);
+    static UPARAM(DisplayName = "RequestId") FString ListPlayerInventory(const FString& ForPlayerWithUlid, const FLootLockerListSimplifiedInventoryRequest& Request, int PerPage, int Page, const FLootLockerSimpleInventoryResponseBP& OnCompletedRequest);
 
     /**
      Get a simplified list of the character's inventory.
@@ -1266,7 +1266,7 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid,Request,PerPage,Page", ForPlayerWithUlid="", PerPage="100", Page="1", AutoCreateRefTerm = "Request"))
-    static UPARAM(DisplayName = "RequestId") FString ListCharacterInventory(const FString& ForPlayerWithUlid, int CharacterId, const FLootLockerListSimplifiedInventoryRequest& Request, int PerPage, const int& Page, const FLootLockerSimpleInventoryResponseBP& OnCompletedRequest);
+    static UPARAM(DisplayName = "RequestId") FString ListCharacterInventory(const FString& ForPlayerWithUlid, int CharacterId, const FLootLockerListSimplifiedInventoryRequest& Request, int PerPage, int Page, const FLootLockerSimpleInventoryResponseBP& OnCompletedRequest);
 
     /**
      Get recently granted player assets since the last activation notification check.

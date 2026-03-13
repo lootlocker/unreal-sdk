@@ -52,6 +52,19 @@ enum class ELootLockerEntitlementHistoryListingType : uint8
     Subscription = 3
 };
 
+/**
+ * Possible entity kinds that rewards entries can have
+ */
+UENUM(BlueprintType, Category = "LootLocker")
+enum class ELootLockerEntitlementRewardEntityKind : uint8
+{
+    Asset = 0,
+    Currency = 1,
+    Progression_Points = 2,
+    Progression_Reset = 3,
+    Group = 4,
+};
+
 /*
  *
  */
@@ -69,7 +82,7 @@ struct FLootLockerEntitlementHistoryItem
      * What kind of reward this item is
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Reward_kind = "";
+    ELootLockerEntitlementRewardEntityKind Reward_kind = ELootLockerEntitlementRewardEntityKind::Asset;
 
     /*
      * The unique identifier of this specific item

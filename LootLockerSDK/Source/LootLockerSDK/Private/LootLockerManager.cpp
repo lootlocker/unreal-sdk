@@ -478,7 +478,7 @@ FString ULootLockerManager::GetFullInventory(const FString ForPlayerWithUlid, in
     }), StartIndex, ForPlayerWithUlid);
 }
 
-FString ULootLockerManager::ListPlayerInventory(const FString& ForPlayerWithUlid, const FLootLockerListSimplifiedInventoryRequest& Request, int PerPage, const int& Page, const FLootLockerSimpleInventoryResponseBP& OnCompletedRequest)
+FString ULootLockerManager::ListPlayerInventory(const FString& ForPlayerWithUlid, const FLootLockerListSimplifiedInventoryRequest& Request, int PerPage, int Page, const FLootLockerSimpleInventoryResponseBP& OnCompletedRequest)
 {
     return ULootLockerSDKManager::ListPlayerInventory(Request, PerPage, Page, FLootLockerSimpleInventoryResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerSimpleInventoryResponse Response)
     {
@@ -486,7 +486,7 @@ FString ULootLockerManager::ListPlayerInventory(const FString& ForPlayerWithUlid
     }), ForPlayerWithUlid);
 }
 
-FString ULootLockerManager::ListCharacterInventory(const FString& ForPlayerWithUlid, int CharacterId, const FLootLockerListSimplifiedInventoryRequest& Request, int PerPage, const int& Page, const FLootLockerSimpleInventoryResponseBP& OnCompletedRequest)
+FString ULootLockerManager::ListCharacterInventory(const FString& ForPlayerWithUlid, int CharacterId, const FLootLockerListSimplifiedInventoryRequest& Request, int PerPage, int Page, const FLootLockerSimpleInventoryResponseBP& OnCompletedRequest)
 {
     return ULootLockerSDKManager::ListCharacterInventory(CharacterId, Request, PerPage, Page, FLootLockerSimpleInventoryResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerSimpleInventoryResponse Response)
     {
