@@ -159,54 +159,120 @@ FString ULootLockerPlayerRequestHandler::DeletePlayer(const FLootLockerPlayerDat
 	return LLAPI<FLootLockerResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::DeletePlayer, {}, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
-static FString SerializeSimplifiedInventoryRequest(const FLootLockerListSimplifiedInventoryRequest& Request)
-{
-	TSharedPtr<FJsonObject> RequestObject = MakeShared<FJsonObject>();
-
-	// Build includes — only add metadata when explicitly requested
-	TSharedPtr<FJsonObject> IncludesObject = MakeShared<FJsonObject>();
-	if (Request.Includes.IncludeMetadata)
-	{
-		TSharedPtr<FJsonObject> MetadataObject = MakeShared<FJsonObject>();
-		const bool bAllKeys = Request.Includes.MetadataOptions.Keys.Num() == 0;
-		MetadataObject->SetBoolField(TEXT("all"), bAllKeys);
-		TArray<TSharedPtr<FJsonValue>> KeysArray;
-		for (const FString& Key : Request.Includes.MetadataOptions.Keys)
-		{
-			KeysArray.Add(MakeShared<FJsonValueString>(Key));
-		}
-		MetadataObject->SetArrayField(TEXT("keys"), KeysArray);
-		IncludesObject->SetObjectField(TEXT("metadata"), MetadataObject);
-	}
-	RequestObject->SetObjectField(TEXT("includes"), IncludesObject);
-
-	// Build filters
-	TSharedPtr<FJsonObject> FiltersObject = MakeShared<FJsonObject>();
-	TArray<TSharedPtr<FJsonValue>> AssetIdsArray;
-	for (int32 AssetId : Request.Filters.Asset_ids)
-	{
-		AssetIdsArray.Add(MakeShared<FJsonValueNumber>(AssetId));
-	}
-	FiltersObject->SetArrayField(TEXT("asset_ids"), AssetIdsArray);
-	TArray<TSharedPtr<FJsonValue>> ContextIdsArray;
-	for (int32 ContextId : Request.Filters.Context_ids)
-	{
-		ContextIdsArray.Add(MakeShared<FJsonValueNumber>(ContextId));
-	}
-	FiltersObject->SetArrayField(TEXT("context_ids"), ContextIdsArray);
-	RequestObject->SetObjectField(TEXT("filters"), FiltersObject);
-
-	return LootLockerUtilities::FStringFromJsonObject(RequestObject);
-}
-
 FString ULootLockerPlayerRequestHandler::ListPlayerInventory(const FLootLockerPlayerData& PlayerData, const FLootLockerListSimplifiedInventoryRequest& Request, int32 PerPage, int32 Page, const FLootLockerSimpleInventoryResponseDelegate& OnCompletedRequest)
 {
 	TMultiMap<FString, FString> QueryParams;
 	QueryParams.Add("per_page", FString::FromInt(PerPage > 0 ? PerPage : 100));
 	QueryParams.Add("page", FString::FromInt(Page > 0 ? Page : 1));
 
-	FString ContentString = SerializeSimplifiedInventoryRequest(Request);
-	return LLAPI<FLootLockerSimpleInventoryResponse>::CallAPIUsingRawJSON(ContentString, ULootLockerGameEndpoints::ListPlayerSimpleInventoryEndPoint, {}, QueryParams, PlayerData, OnCompletedRequest);
+	auto requestJsonObj = LootLockerUtilities::UStructToJsonObject(Request);
+
+	if (Request.Includes.Metadata.Keys.Num() > 0) {
+		requestJsonObj->GetObjectField(TEXT("includes"))->GetObjectField(TEXT("metadata"))->RemoveField(TEXT("all"));
+	} else if (Request.Includes.Metadata.All) {
+		requestJsonObj->GetObjectField(TEXT("includes"))->GetObjectField(TEXT("metadata"))->RemoveField(TEXT("keys"));
+	} else {
+		requestJsonObj->GetObjectField(TEXT("includes"))->SetField(TEXT("metadata"), MakeShared<FJsonValueNull>());
+	}
+
+	FString ContentString = LootLockerUtilities::FStringFromJsonObject(requestJsonObj);
+
+	LLAPI<FLootLockerSimpleInventoryResponse>::FResponseInspectorCallback ResponseParser = LLAPI<FLootLockerSimpleInventoryResponse>::FResponseInspectorCallback::CreateLambda([OnCompletedRequest](FLootLockerSimpleInventoryResponse& Response)
+	{
+		if (!Response.success || Response.Items.Num() == 0)
+		{
+			OnCompletedRequest.ExecuteIfBound(Response);
+			return;
+		}
+		TSharedPtr<FJsonObject> obj = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
+		if (!obj.IsValid())
+		{
+			OnCompletedRequest.ExecuteIfBound(Response);
+			return;
+		}
+
+		TArray<TSharedPtr<FJsonValue>> JsonItems = obj.Get()->GetArrayField(TEXT("items"));
+		if (JsonItems.Num() != Response.Items.Num())
+		{
+			OnCompletedRequest.ExecuteIfBound(Response);
+			return;
+		}
+
+		auto findCorrectItem = [](TArray<FLootLockerSimpleInventoryItem>& Items, TArray<TSharedPtr<FJsonValue>>& JsonItems, int instance_id, int startIndex) -> FLootLockerSimpleInventoryItem*
+		{
+			int i = startIndex;
+			do {
+				FLootLockerSimpleInventoryItem& Item = Items[i];
+				if (Item.Instance_id == instance_id)
+				{
+					return &Item;
+				}
+				i++;
+				if (i >= JsonItems.Num())
+				{
+					i = 0;
+				}
+			} while (i != startIndex);
+			return nullptr;
+		};
+
+		auto findCorrectMetadataEntry = [&](FLootLockerSimpleInventoryItem& Item, const FString& metadataKey, int startIndex) -> FLootLockerMetadataEntry*
+		{
+			int i = startIndex;
+			do {
+				FLootLockerMetadataEntry& MetadataEntry = Item.Metadata[i];
+				if (MetadataEntry.Key.Equals(metadataKey))
+				{
+					return &MetadataEntry;
+				}
+				i++;
+				if (i >= Item.Metadata.Num())
+				{
+					i = 0;
+				}
+			} while (i != startIndex);
+			return nullptr;
+		};
+
+		for (int i = 0; i < JsonItems.Num(); i++)
+		{
+			TSharedPtr<FJsonObject> JsonItemObject = JsonItems[i].Get()->AsObject();
+			int InstanceId = JsonItemObject.Get()->GetIntegerField(TEXT("instance_id"));
+			FLootLockerSimpleInventoryItem* ItemPtr = findCorrectItem(Response.Items, JsonItems, InstanceId, i);
+			if (!ItemPtr)
+			{
+				continue;
+			}
+			FLootLockerSimpleInventoryItem& Item = *ItemPtr;
+			if (Item.Metadata.Num() == 0)
+			{
+				continue;
+			}
+			TArray<TSharedPtr<FJsonValue>> JsonMetadataArray = JsonItemObject.Get()->GetArrayField(TEXT("metadata"));
+			if (JsonMetadataArray.Num() != Item.Metadata.Num())
+			{
+				OnCompletedRequest.ExecuteIfBound(Response);
+				return;
+			}
+
+			for (int j = 0; j < JsonMetadataArray.Num(); j++)
+			{
+				TSharedPtr<FJsonObject> JsonMetadataObject = JsonMetadataArray[j].Get()->AsObject();
+				FString MetadataKey = JsonMetadataObject.Get()->GetStringField(TEXT("key"));
+				FLootLockerMetadataEntry* MetadataEntryPtr = findCorrectMetadataEntry(Item, MetadataKey, j);
+				if (!MetadataEntryPtr)
+				{
+					continue;
+				}
+				FLootLockerMetadataEntry& MetadataEntry = *MetadataEntryPtr;
+				MetadataEntry._INTERNAL_SetJsonRepresentation(*JsonMetadataObject.Get());
+			}
+		}
+
+		OnCompletedRequest.ExecuteIfBound(Response);
+	});
+
+	return LLAPI<FLootLockerSimpleInventoryResponse>::CallAPIUsingRawJSON(ContentString, ULootLockerGameEndpoints::ListPlayerSimpleInventoryEndPoint, {}, QueryParams, PlayerData, FLootLockerSimpleInventoryResponseDelegate(), ResponseParser);
 }
 
 FString ULootLockerPlayerRequestHandler::ListCharacterInventory(const FLootLockerPlayerData& PlayerData, const FLootLockerListSimplifiedInventoryRequest& Request, int32 CharacterId, int32 PerPage, int32 Page, const FLootLockerSimpleInventoryResponseDelegate& OnCompletedRequest)
@@ -219,7 +285,113 @@ FString ULootLockerPlayerRequestHandler::ListCharacterInventory(const FLootLocke
 	QueryParams.Add("per_page", FString::FromInt(PerPage > 0 ? PerPage : 100));
 	QueryParams.Add("page", FString::FromInt(Page > 0 ? Page : 1));
 
-	FString ContentString = SerializeSimplifiedInventoryRequest(Request);
-	return LLAPI<FLootLockerSimpleInventoryResponse>::CallAPIUsingRawJSON(ContentString, ULootLockerGameEndpoints::ListPlayerSimpleInventoryEndPoint, {}, QueryParams, PlayerData, OnCompletedRequest);
+	auto requestJsonObj = LootLockerUtilities::UStructToJsonObject(Request);
+
+	if (Request.Includes.Metadata.Keys.Num() > 0) {
+		requestJsonObj->GetObjectField(TEXT("includes"))->GetObjectField(TEXT("metadata"))->RemoveField(TEXT("all"));
+	} else if (Request.Includes.Metadata.All) {
+		requestJsonObj->GetObjectField(TEXT("includes"))->GetObjectField(TEXT("metadata"))->RemoveField(TEXT("keys"));
+	} else {
+		requestJsonObj->GetObjectField(TEXT("includes"))->SetField(TEXT("metadata"), MakeShared<FJsonValueNull>());
+	}
+
+	FString ContentString = LootLockerUtilities::FStringFromJsonObject(requestJsonObj);
+
+	LLAPI<FLootLockerSimpleInventoryResponse>::FResponseInspectorCallback ResponseParser = LLAPI<FLootLockerSimpleInventoryResponse>::FResponseInspectorCallback::CreateLambda([OnCompletedRequest](FLootLockerSimpleInventoryResponse& Response)
+	{
+		if (!Response.success || Response.Items.Num() == 0)
+		{
+			OnCompletedRequest.ExecuteIfBound(Response);
+			return;
+		}
+		TSharedPtr<FJsonObject> obj = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
+		if (!obj.IsValid())
+		{
+			OnCompletedRequest.ExecuteIfBound(Response);
+			return;
+		}
+
+		TArray<TSharedPtr<FJsonValue>> JsonItems = obj.Get()->GetArrayField(TEXT("items"));
+		if (JsonItems.Num() != Response.Items.Num())
+		{
+			OnCompletedRequest.ExecuteIfBound(Response);
+			return;
+		}
+
+		auto findCorrectItem = [](TArray<FLootLockerSimpleInventoryItem>& Items, TArray<TSharedPtr<FJsonValue>>& JsonItems, int instance_id, int startIndex) -> FLootLockerSimpleInventoryItem*
+		{
+			int i = startIndex;
+			do {
+				FLootLockerSimpleInventoryItem& Item = Items[i];
+				if (Item.Instance_id == instance_id)
+				{
+					return &Item;
+				}
+				i++;
+				if (i >= JsonItems.Num())
+				{
+					i = 0;
+				}
+			} while (i != startIndex);
+			return nullptr;
+		};
+
+		auto findCorrectMetadataEntry = [&](FLootLockerSimpleInventoryItem& Item, const FString& metadataKey, int startIndex) -> FLootLockerMetadataEntry*
+		{
+			int i = startIndex;
+			do {
+				FLootLockerMetadataEntry& MetadataEntry = Item.Metadata[i];
+				if (MetadataEntry.Key.Equals(metadataKey))
+				{
+					return &MetadataEntry;
+				}
+				i++;
+				if (i >= Item.Metadata.Num())
+				{
+					i = 0;
+				}
+			} while (i != startIndex);
+			return nullptr;
+		};
+
+		for (int i = 0; i < JsonItems.Num(); i++)
+		{
+			TSharedPtr<FJsonObject> JsonItemObject = JsonItems[i].Get()->AsObject();
+			int InstanceId = JsonItemObject.Get()->GetIntegerField(TEXT("instance_id"));
+			FLootLockerSimpleInventoryItem* ItemPtr = findCorrectItem(Response.Items, JsonItems, InstanceId, i);
+			if (!ItemPtr)
+			{
+				continue;
+			}
+			FLootLockerSimpleInventoryItem& Item = *ItemPtr;
+			if (Item.Metadata.Num() == 0)
+			{
+				continue;
+			}
+			TArray<TSharedPtr<FJsonValue>> JsonMetadataArray = JsonItemObject.Get()->GetArrayField(TEXT("metadata"));
+			if (JsonMetadataArray.Num() != Item.Metadata.Num())
+			{
+				OnCompletedRequest.ExecuteIfBound(Response);
+				return;
+			}
+
+			for (int j = 0; j < JsonMetadataArray.Num(); j++)
+			{
+				TSharedPtr<FJsonObject> JsonMetadataObject = JsonMetadataArray[j].Get()->AsObject();
+				FString MetadataKey = JsonMetadataObject.Get()->GetStringField(TEXT("key"));
+				FLootLockerMetadataEntry* MetadataEntryPtr = findCorrectMetadataEntry(Item, MetadataKey, j);
+				if (!MetadataEntryPtr)
+				{
+					continue;
+				}
+				FLootLockerMetadataEntry& MetadataEntry = *MetadataEntryPtr;
+				MetadataEntry._INTERNAL_SetJsonRepresentation(*JsonMetadataObject.Get());
+			}
+		}
+
+		OnCompletedRequest.ExecuteIfBound(Response);
+	});
+
+	return LLAPI<FLootLockerSimpleInventoryResponse>::CallAPIUsingRawJSON(ContentString, ULootLockerGameEndpoints::ListPlayerSimpleInventoryEndPoint, {}, QueryParams, PlayerData, FLootLockerSimpleInventoryResponseDelegate(), ResponseParser);
 }
 
