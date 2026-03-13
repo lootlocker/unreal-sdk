@@ -889,7 +889,7 @@ public:
     /**
      Get a simplified list of the player's inventory.
 
-        @param Request Request object containing filters and optional includes. Set Request.Includes.metadata = true to include metadata entries on each returned inventory item
+     @param Request Request object containing filters and optional includes.
      @param PerPage Number of items to return per page
      @param Page Page number to retrieve
      @param OnCompletedRequest Delegate for handling the server response
@@ -912,7 +912,7 @@ public:
      Get a simplified list of a character's inventory.
 
      @param CharacterId ID of the character to retrieve inventory for
-        @param Request Request object containing filters and optional includes. Set Request.Includes.metadata = true to include metadata entries on each returned inventory item
+     @param Request Request object containing filters and optional includes.
      @param PerPage Number of items to return per page
      @param Page Page number to retrieve
      @param OnCompletedRequest Delegate for handling the server response

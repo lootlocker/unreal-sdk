@@ -419,7 +419,6 @@ struct FLootLockerListSimplifiedInventoryFilter
 
 /**
  * Specifies which metadata keys to include in simplified inventory responses.
- * If Keys is empty, all metadata keys are included (All defaults to true).
  * If Keys is non-empty, only the listed keys are returned (All is ignored).
  */
 USTRUCT(BlueprintType)
@@ -428,10 +427,10 @@ struct FLootLockerListSimplifiedInventoryMetadataIncludes
 	GENERATED_BODY()
 	/**
 	 * If true, all metadata keys are included. Ignored when Keys is non-empty.
-	 * Defaults to true so that a default-constructed instance returns all keys.
+	 * Defaults to false so that a default-constructed instance returns no metadata.
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	bool All = true;
+	bool All = false;
 	/**
 	 * Specific metadata keys to include. If non-empty, only these keys are returned and All is ignored.
 	 */
@@ -447,17 +446,11 @@ struct FLootLockerListSimplifiedInventoryIncludes
 {
 	GENERATED_BODY()
 	/**
-	 * Set to true to request metadata for inventory items in the response.
-	 * Use MetadataOptions to control which keys are returned.
+	 * Controls which metadata keys are included.
+	 * A default-constructed value means no metadata is included.
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	bool IncludeMetadata = false;
-	/**
-	 * Controls which metadata keys are included. Only used when IncludeMetadata is true.
-	 * A default-constructed value requests all metadata keys.
-	 */
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FLootLockerListSimplifiedInventoryMetadataIncludes MetadataOptions;
+	FLootLockerListSimplifiedInventoryMetadataIncludes Metadata;
 };
 
 /**
