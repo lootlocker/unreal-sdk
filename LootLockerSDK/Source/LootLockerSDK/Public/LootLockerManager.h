@@ -1245,7 +1245,7 @@ public:
      Get a simplified list of the player's inventory.
 
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
-      @param Request Request object containing filters and optional includes. Set Request.Includes.metadata = true to include metadata entries on each returned inventory item
+     @param Request Request object containing filters and optional includes.
      @param PerPage Number of items to return per page
      @param Page Page number to retrieve
      @param OnCompletedRequest Delegate for handling the server response
@@ -1259,7 +1259,7 @@ public:
 
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @param CharacterId Identifier of the character whose inventory is being requested
-      @param Request Request object containing filters and optional includes. Set Request.Includes.metadata = true to include metadata entries on each returned inventory item
+     @param Request Request object containing filters and optional includes.
      @param PerPage Number of items to return per page
      @param Page Page number to retrieve
      @param OnCompletedRequest Delegate for handling the server response
