@@ -254,6 +254,8 @@ public:
     static FLootLockerEndPoints FinalizeSteamPurchaseRedemption;
     static FLootLockerEndPoints RefundByEntitlementIds;
 
+    static FLootLockerEndPoints CreateStripeCheckoutSession;
+
     static FLootLockerEndPoints InitiateAsyncPurchase;
     static FLootLockerEndPoints PollAsyncPurchaseStatus;
     static FLootLockerEndPoints RetryAsyncPurchase;

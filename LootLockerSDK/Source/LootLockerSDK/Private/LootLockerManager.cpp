@@ -1519,6 +1519,14 @@ FString ULootLockerManager::RefundByEntitlementIds(const FString& ForPlayerWithU
         }), ForPlayerWithUlid);
 }
 
+FString ULootLockerManager::CreateStripeCheckoutSession(const FString& ForPlayerWithUlid, const FString& CatalogItemId, const FString& ItemName, const FLootLockerCreateStripeCheckoutSessionDelegateBP& OnCompletedRequest)
+{
+    return ULootLockerSDKManager::CreateStripeCheckoutSession(CatalogItemId, ItemName, FLootLockerCreateStripeCheckoutSessionDelegate::CreateLambda([OnCompletedRequest](FLootLockerCreateStripeCheckoutSessionResponse Response)
+        {
+            OnCompletedRequest.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
+}
+
 FString ULootLockerManager::InitiateAsyncPurchaseSingleCatalogItem(const FString& ForPlayerWithUlid, const FString& WalletId, const FString& ItemId, const int Quantity, const FLootLockerAsyncPurchaseInitiatedDelegateBP& OnCompletedRequest)
 {
     TArray<FLootLockerCatalogItemAndQuantityPair> Items;
