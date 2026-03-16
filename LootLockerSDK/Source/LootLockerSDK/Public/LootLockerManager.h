@@ -1269,6 +1269,16 @@ public:
     static UPARAM(DisplayName = "RequestId") FString ListCharacterInventory(const FString& ForPlayerWithUlid, int CharacterId, const FLootLockerListSimplifiedInventoryRequest& Request, int PerPage, int Page, const FLootLockerSimpleInventoryResponseBP& OnCompletedRequest);
 
     /**
+     Get purchase data for a specific inventory item if it exists
+     
+     @param Item Inventory item to retrieve purchase data for
+     @param OutPurchaseData Output parameter to receive the purchase data if available
+     @return True if purchase data was successfully retrieved, false otherwise (e.g. if the item was not purchased or an error occurred)
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Players")
+    static bool GetPurchaseDataForInventoryItem(const FLootLockerSimpleInventoryItem& Item, FLootLockerInventoryItemPurchaseData& OutPurchaseData);
+
+    /**
      Get recently granted player assets since the last activation notification check.
 
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)

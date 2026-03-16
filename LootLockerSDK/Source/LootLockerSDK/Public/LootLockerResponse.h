@@ -120,12 +120,12 @@ struct FLootLockerExtendedIndexBasedPagination
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 Current_page = 0;
     /*
-     * The page index to use for fetching the page of entries immediately succeeding this page of entries
+     * The page index to use for fetching the page of entries immediately succeeding this page of entries. This is a string because this is a nullable field.
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Next_page = "";
     /*
-     * The page index to use for fetching the page of entries immediately preceding this page of entries
+     * The page index to use for fetching the page of entries immediately preceding this page of entries. This is a string because this is a nullable field.
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Prev_page = "";
