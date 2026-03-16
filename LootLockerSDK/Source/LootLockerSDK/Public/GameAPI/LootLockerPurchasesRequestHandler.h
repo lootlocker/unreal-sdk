@@ -509,6 +509,41 @@ DECLARE_DELEGATE_OneParam(FLootLockerBeginSteamPurchaseRedemptionDelegate, FLoot
 DECLARE_DELEGATE_OneParam(FLootLockerQuerySteamPurchaseRedemptionStatusDelegate, FLootLockerQuerySteamPurchaseRedemptionStatusResponse);
 DECLARE_DELEGATE_OneParam(FLootLockerRefundByEntitlementIdsDelegate, FLootLockerRefundByEntitlementIdsResponse);
 
+/**
+ * Request to create a Stripe Checkout session for a catalog item
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerCreateStripeCheckoutSessionRequest
+{
+    GENERATED_BODY()
+    /**
+     * The ULID of the catalog item to purchase
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Catalog_item_id = "";
+    /**
+     * The display name of the item shown on the Stripe Checkout page
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Item_name = "";
+};
+
+/**
+ * Response from creating a Stripe Checkout session
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerCreateStripeCheckoutSessionResponse : public FLootLockerResponse
+{
+    GENERATED_BODY()
+    /**
+     * The URL of the Stripe-hosted checkout page. Open this in a browser or webview to let the player complete the payment.
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString url = "";
+};
+
+DECLARE_DELEGATE_OneParam(FLootLockerCreateStripeCheckoutSessionDelegate, FLootLockerCreateStripeCheckoutSessionResponse);
+
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerPurchasesRequestHandler : public UObject
 {
@@ -546,6 +581,8 @@ public:
     static FString FinalizeSteamPurchaseRedemption(const FLootLockerPlayerData& PlayerData, const FString& EntitlementId, const FLootLockerDefaultDelegate& OnCompleted);
 
     static FString RefundByEntitlementIds(const FLootLockerPlayerData& PlayerData, const TArray<FString>& EntitlementIds, const FLootLockerRefundByEntitlementIdsDelegate& OnCompleted);
+
+    static FString CreateStripeCheckoutSession(const FLootLockerPlayerData& PlayerData, const FString& CatalogItemId, const FString& ItemName, const FLootLockerCreateStripeCheckoutSessionDelegate& OnCompleted);
 
     static FString InitiateAsyncPurchase(const FLootLockerPlayerData& PlayerData, const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair>& Items, const FLootLockerAsyncPurchaseInitiatedDelegate& OnCompleted);
 
