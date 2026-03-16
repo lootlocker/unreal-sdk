@@ -395,3 +395,24 @@ FString ULootLockerPlayerRequestHandler::ListCharacterInventory(const FLootLocke
 	return LLAPI<FLootLockerSimpleInventoryResponse>::CallAPIUsingRawJSON(ContentString, ULootLockerGameEndpoints::ListPlayerSimpleInventoryEndPoint, {}, QueryParams, PlayerData, FLootLockerSimpleInventoryResponseDelegate(), ResponseParser);
 }
 
+bool FLootLockerSimpleInventoryItem::TryGetPurchaseData(FLootLockerInventoryItemPurchaseData& Output) const
+{
+	if (Metadata.Num() == 0)
+	{
+		return false;
+	}
+	for (size_t i = 0; i < Metadata.Num(); i++)
+	{
+		const FLootLockerMetadataEntry& MetadataEntry = Metadata[i];
+		if (MetadataEntry.Key.Equals("ll.purchased", ESearchCase::IgnoreCase))
+		{
+			FString jsonString = "";
+			if (MetadataEntry.TryGetSerializedValue(jsonString))
+			{
+				return FJsonObjectConverter::JsonObjectStringToUStruct<FLootLockerInventoryItemPurchaseData>(jsonString, &Output, 0, 0);
+			}
+		}
+	}
+	return false;	
+}
+
