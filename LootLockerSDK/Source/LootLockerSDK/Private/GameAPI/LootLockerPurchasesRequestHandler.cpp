@@ -100,6 +100,12 @@ FString ULootLockerPurchasesRequestHandler::RefundByEntitlementIds(const FLootLo
     return LLAPI<FLootLockerRefundByEntitlementIdsResponse>::CallAPI(FLootLockerRefundByEntitlementIdsRequest{ EntitlementIds }, ULootLockerGameEndpoints::RefundByEntitlementIds, {}, {}, PlayerData, OnCompleted);
 }
 
+FString ULootLockerPurchasesRequestHandler::CreateStripeCheckoutSession(const FLootLockerPlayerData& PlayerData, const FString& CatalogItemId, const FString& ItemName, const FLootLockerCreateStripeCheckoutSessionDelegate& OnCompleted)
+{
+    const FLootLockerCreateStripeCheckoutSessionRequest Request{ CatalogItemId, ItemName };
+    return LLAPI<FLootLockerCreateStripeCheckoutSessionResponse>::CallAPI(Request, ULootLockerGameEndpoints::CreateStripeCheckoutSession, {}, {}, PlayerData, OnCompleted);
+}
+
 FString ULootLockerPurchasesRequestHandler::RedeemEpicStorePurchase(const FLootLockerPlayerData& PlayerData, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultDelegate& OnCompleted)
 {
     FLootLockerRedeemEpicStorePurchaseForPlayerRequest PurchaseRequest{
