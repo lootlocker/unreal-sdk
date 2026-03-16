@@ -349,6 +349,27 @@ struct FLootLockerMultiplePlayerNamesAndPlatformsRequest {
 		TArray<FString> player_public_uids;
 };
 
+USTRUCT(BlueprintType)
+struct FLootLockerInventoryItemPurchaseData
+{
+	GENERATED_BODY()
+	/**
+	 The store from which this item was purchased, if it was purchased
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString store = "";
+	/**
+	 The entitlement id for this purchase if it was purchased, which can be used to look up the entitlement and its details or refund the purchase if necessary
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString entitlement_id = "";
+	/**
+	 The purchase group id for this purchase if it was purchased as part of a group, which can be used to look up information about the purchase
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString purchase_group_id = "";
+};
+
 /**
  * A simplified inventory item for optimized inventory listing
  */
@@ -396,6 +417,11 @@ struct FLootLockerSimpleInventoryItem
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	TArray<FLootLockerMetadataEntry> Metadata;
+
+    /*
+     Get the purchase information for this inventory item if it exists. Will return false if the acquisition source is not a purchase or if the purchase data is missing.
+     */
+    LOOTLOCKERSDK_API bool TryGetPurchaseData(FLootLockerInventoryItemPurchaseData& Output) const;
 };
 
 /**

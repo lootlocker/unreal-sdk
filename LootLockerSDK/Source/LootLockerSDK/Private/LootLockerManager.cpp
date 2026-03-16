@@ -494,6 +494,11 @@ FString ULootLockerManager::ListCharacterInventory(const FString& ForPlayerWithU
     }), ForPlayerWithUlid);
 }
 
+bool ULootLockerManager::GetPurchaseDataForInventoryItem(const FLootLockerSimpleInventoryItem& Item, FLootLockerInventoryItemPurchaseData& OutPurchaseData)
+{
+    return Item.TryGetPurchaseData(OutPurchaseData);
+}
+
 FString ULootLockerManager::CheckPlayerAssetActivationNotification(const FString& ForPlayerWithUlid, const FPAssetNotificationResponseBP& OnCheckPlayerAssetDeactivationNotificationRequestCompleted)
 {
     return ULootLockerSDKManager::CheckPlayerAssetActivationNotification(FLootLockerAssetNotificationResponse::CreateLambda([OnCheckPlayerAssetDeactivationNotificationRequestCompleted](FLootLockerPlayerAssetNotificationResponse Response)
