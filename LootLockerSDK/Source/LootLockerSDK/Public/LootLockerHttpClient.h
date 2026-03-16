@@ -16,8 +16,8 @@ class LOOTLOCKERSDK_API ULootLockerHttpClient : public UObject
      
 public:
     ULootLockerHttpClient();
-    static FString SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders = TMap<FString, FString>(), bool bIsRetryAttempt = false);
-    static FString UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString>& AdditionalFields, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders = TMap<FString, FString>(), bool bIsRetryAttempt = false);
+    static FString SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders = TMap<FString, FString>(), bool bIsRetryAttempt = false, const FString& RequestIdOverride = TEXT(""));
+    static FString UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString>& AdditionalFields, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders = TMap<FString, FString>(), bool bIsRetryAttempt = false, const FString& RequestIdOverride = TEXT(""));
 
     static void LogSuccessfulRequestInformation(const FLootLockerResponse& Response, const FString& AllHeadersDelimited);
     static void LogFailedRequestInformation(const FLootLockerResponse& Response, const FString& AllHeadersDelimited);
@@ -34,6 +34,7 @@ private:
     {
         FString EndPoint;
         FString RequestType;
+        FString OriginalRequestId;
         FString Data;
         FResponseCallback OnCompleteRequest;
         FLootLockerPlayerData PlayerData;
@@ -46,17 +47,17 @@ private:
         FLootLockerRetryRequestData() = default;
         
         // Constructor for regular API calls
-        FLootLockerRetryRequestData(const FString& InEndPoint, const FString& InRequestType, const FString& InData, 
+        FLootLockerRetryRequestData(const FString& InEndPoint, const FString& InRequestType, const FString& InOriginalRequestId, const FString& InData, 
                                    const FResponseCallback& InOnCompleteRequest, const FLootLockerPlayerData& InPlayerData, 
                                    const TMap<FString, FString>& InCustomHeaders, bool InIsRetryAttempt = false)
-            : EndPoint(InEndPoint), RequestType(InRequestType), Data(InData), OnCompleteRequest(InOnCompleteRequest)
+            : EndPoint(InEndPoint), RequestType(InRequestType), OriginalRequestId(InOriginalRequestId), Data(InData), OnCompleteRequest(InOnCompleteRequest)
             , PlayerData(InPlayerData), CustomHeaders(InCustomHeaders), bIsFileUpload(false), bIsRetryAttempt(InIsRetryAttempt) {}
         
         // Constructor for file upload calls
-        FLootLockerRetryRequestData(const FString& InEndPoint, const FString& InRequestType, const FString& InFilePath,
+        FLootLockerRetryRequestData(const FString& InEndPoint, const FString& InRequestType, const FString& InOriginalRequestId, const FString& InFilePath,
                                    const TMap<FString, FString>& InAdditionalFields, const FResponseCallback& InOnCompleteRequest, 
                                    const FLootLockerPlayerData& InPlayerData, const TMap<FString, FString>& InCustomHeaders, bool InIsRetryAttempt = false)
-            : EndPoint(InEndPoint), RequestType(InRequestType), OnCompleteRequest(InOnCompleteRequest)
+            : EndPoint(InEndPoint), RequestType(InRequestType), OriginalRequestId(InOriginalRequestId), OnCompleteRequest(InOnCompleteRequest)
             , PlayerData(InPlayerData), CustomHeaders(InCustomHeaders), bIsFileUpload(true), bIsRetryAttempt(InIsRetryAttempt)
             , FilePath(InFilePath), AdditionalFields(InAdditionalFields) {}
     };
