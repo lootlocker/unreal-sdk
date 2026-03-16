@@ -43,7 +43,7 @@ bool ULootLockerHttpClient::ResponseIsSuccess(const FHttpResponsePtr& InResponse
     return EHttpResponseCodes::IsOk(InResponse->GetResponseCode());
 }
 
-FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders, bool bIsRetryAttempt)
+FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders, bool bIsRetryAttempt, const FString& RequestIdOverride)
 {
 	FHttpModule* HttpModule = &FHttpModule::Get();
     if(SDKVersion.IsEmpty())
@@ -57,6 +57,7 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
     }
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = HttpModule->CreateRequest();
 	Request->SetURL(endPoint);
+    const FString requestId = RequestIdOverride.IsEmpty() ? FGuid::NewGuid().ToString() : RequestIdOverride;
     if (!PlayerData.Token.IsEmpty())
     {
         Request->SetHeader(TEXT("x-session-token"), PlayerData.Token);
@@ -66,6 +67,11 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
     Request->SetHeader(TEXT("LL-SDK-Version"), SDKVersion);
     Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
     Request->SetHeader(TEXT("Accept"), TEXT("application/json"));
+    Request->SetHeader(TEXT("LL-Request-Id"), requestId);
+    if (bIsRetryAttempt)
+    {
+        Request->SetHeader(TEXT("LL-Retry-Attempt"), TEXT("1"));
+    }
 
     for (TTuple<FString, FString> CustomHeader : customHeaders)
     {
@@ -83,8 +89,6 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
     {
         DelimitedHeaders += TEXT("    ") + Header + TEXT("\n");
     }
-
-    FString requestId = FGuid::NewGuid().ToString();
 
 	Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, endPoint, requestType, data, playerUlid, requestTime, DelimitedHeaders, requestId, PlayerData, customHeaders, bIsRetryAttempt](FHttpRequestPtr Req, const FHttpResponsePtr& Response, bool bWasSuccessful)
 	{
@@ -128,7 +132,7 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
                     *requestType, *endPoint, response.StatusCode));
                 
                 // Store original request data for retry
-                FLootLockerRetryRequestData RetryData(endPoint, requestType, data, onCompleteRequest, PlayerData, customHeaders);
+                FLootLockerRetryRequestData RetryData(endPoint, requestType, requestId, data, onCompleteRequest, PlayerData, customHeaders);
                 
                 // Attempt session refresh
                 RefreshSessionForPlatform(PlayerData, [RetryData, response, onCompleteRequest](bool bRefreshSuccess) {
@@ -155,7 +159,7 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
     return requestId;
 }
 
-FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString>& AdditionalFields, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders, bool bIsRetryAttempt)
+FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString>& AdditionalFields, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders, bool bIsRetryAttempt, const FString& RequestIdOverride)
 {
     FHttpModule* HttpModule = &FHttpModule::Get();
     if (SDKVersion.IsEmpty())
@@ -168,6 +172,7 @@ FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString
     }
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = HttpModule->CreateRequest();
 	Request->SetURL(endPoint);
+    const FString requestId = RequestIdOverride.IsEmpty() ? FGuid::NewGuid().ToString() : RequestIdOverride;
 
     FString Boundary = "lootlockerboundary";
 
@@ -178,6 +183,11 @@ FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString
 	Request->SetHeader(TEXT("User-Agent"), UserAgent);
 	Request->SetHeader(TEXT("LL-Instance-Identifier"), UserInstanceIdentifier);
     Request->SetHeader(TEXT("LL-SDK-Version"), SDKVersion);
+    Request->SetHeader(TEXT("LL-Request-Id"), requestId);
+    if (bIsRetryAttempt)
+    {
+        Request->SetHeader(TEXT("LL-Retry-Attempt"), TEXT("1"));
+    }
 
     Request->SetHeader(TEXT("Content-Type"), TEXT("multipart/form-data; boundary=" + Boundary));
 
@@ -242,8 +252,6 @@ FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString
     Request->SetContent(Data);
 
     FString playerUlid = PlayerData.PlayerUlid;
-    FString requestId = FGuid::NewGuid().ToString();
-
     Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, requestType, endPoint, playerUlid, requestTime, DelimitedHeaders, requestId, PlayerData, customHeaders, FilePath, AdditionalFields, bIsRetryAttempt](FHttpRequestPtr Req, const FHttpResponsePtr& Response, bool bWasSuccessful)
         {
             if (!Response.IsValid())
@@ -280,7 +288,7 @@ FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString
                         *requestType, *endPoint, response.StatusCode));
                     
                     // Store original request data for retry
-                    FLootLockerRetryRequestData RetryData(endPoint, requestType, FilePath, AdditionalFields, onCompleteRequest, PlayerData, customHeaders);
+                    FLootLockerRetryRequestData RetryData(endPoint, requestType, requestId, FilePath, AdditionalFields, onCompleteRequest, PlayerData, customHeaders);
                     
                     // Attempt session refresh
                     RefreshSessionForPlatform(PlayerData, [RetryData, response, onCompleteRequest](bool bRefreshSuccess) {
@@ -502,11 +510,11 @@ void ULootLockerHttpClient::RetryOriginalRequest(const FLootLockerRetryRequestDa
     if (RetryData.bIsFileUpload)
     {
         UploadFile(RetryData.EndPoint, RetryData.RequestType, RetryData.FilePath, RetryData.AdditionalFields, 
-                  RetryData.OnCompleteRequest, UpdatedPlayerData, RetryData.CustomHeaders, true);
+                  RetryData.OnCompleteRequest, UpdatedPlayerData, RetryData.CustomHeaders, true, RetryData.OriginalRequestId);
     }
     else
     {
         SendApi(RetryData.EndPoint, RetryData.RequestType, RetryData.Data, 
-               RetryData.OnCompleteRequest, UpdatedPlayerData, RetryData.CustomHeaders, true);
+               RetryData.OnCompleteRequest, UpdatedPlayerData, RetryData.CustomHeaders, true, RetryData.OriginalRequestId);
     }
 }
