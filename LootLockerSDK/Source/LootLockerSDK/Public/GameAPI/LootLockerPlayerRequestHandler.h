@@ -488,7 +488,7 @@ struct FLootLockerSimpleInventoryResponse : public FLootLockerResponse
 	 * Pagination information for the inventory items returned
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FLootLockerIndexBasedPagination Pagination;
+	FLootLockerExtendedIndexBasedPagination Pagination;
 };
 
 DECLARE_DELEGATE_OneParam(FLootLockerGetCurrentPlayerInfoResponseDelegate, FLootLockerGetCurrentPlayerInfoResponse);
