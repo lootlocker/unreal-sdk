@@ -539,7 +539,12 @@ struct FLootLockerCreateStripeCheckoutSessionResponse : public FLootLockerRespon
      * The URL of the Stripe-hosted checkout page. Open this in a browser or webview to let the player complete the payment.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString url = "";
+    FString checkout_link = "";
+    /**
+     * The LootLocker entitlement id tied to this purchase. Use this to track purchase progress via the entitlements endpoint.
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString entitlement_id = "";
 };
 
 DECLARE_DELEGATE_OneParam(FLootLockerCreateStripeCheckoutSessionDelegate, FLootLockerCreateStripeCheckoutSessionResponse);
