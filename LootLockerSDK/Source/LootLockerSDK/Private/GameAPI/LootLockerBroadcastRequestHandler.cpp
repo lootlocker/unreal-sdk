@@ -84,6 +84,11 @@ FLootLockerBroadcastLanguage::FLootLockerBroadcastLanguage(const FLootLockerInte
             action = Localization.value;
             continue;
         }
+        else if (Localization.key == TEXT("ll.action_name"))
+        {
+            action_name = Localization.value;
+            continue;
+        }
         
         // Add other localizations to the map and list
         localizations.Add(Localization.key, Localization.value);
