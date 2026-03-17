@@ -163,6 +163,12 @@ struct FLootLockerBroadcastLanguage
     FString action = "";
     
     /**
+     * The action name for this broadcast message
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString action_name = "";
+    
+    /**
      * List of the keys available in the localizations dictionary
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
