@@ -100,9 +100,9 @@ FString ULootLockerPurchasesRequestHandler::RefundByEntitlementIds(const FLootLo
     return LLAPI<FLootLockerRefundByEntitlementIdsResponse>::CallAPI(FLootLockerRefundByEntitlementIdsRequest{ EntitlementIds }, ULootLockerGameEndpoints::RefundByEntitlementIds, {}, {}, PlayerData, OnCompleted);
 }
 
-FString ULootLockerPurchasesRequestHandler::CreateStripeCheckoutSession(const FLootLockerPlayerData& PlayerData, const FString& CatalogItemId, const FString& ItemName, const FLootLockerCreateStripeCheckoutSessionDelegate& OnCompleted)
+FString ULootLockerPurchasesRequestHandler::CreateStripeCheckoutSession(const FLootLockerPlayerData& PlayerData, const FString& CatalogItemId, const FLootLockerCreateStripeCheckoutSessionDelegate& OnCompleted)
 {
-    const FLootLockerCreateStripeCheckoutSessionRequest Request{ CatalogItemId, ItemName };
+    const FLootLockerCreateStripeCheckoutSessionRequest Request{ CatalogItemId };
     return LLAPI<FLootLockerCreateStripeCheckoutSessionResponse>::CallAPI(Request, ULootLockerGameEndpoints::CreateStripeCheckoutSession, {}, {}, PlayerData, OnCompleted);
 }
 
