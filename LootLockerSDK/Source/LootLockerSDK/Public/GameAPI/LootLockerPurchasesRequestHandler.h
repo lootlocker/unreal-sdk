@@ -521,11 +521,6 @@ struct FLootLockerCreateStripeCheckoutSessionRequest
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Catalog_item_id = "";
-    /**
-     * The display name of the item shown on the Stripe Checkout page
-     */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Item_name = "";
 };
 
 /**
@@ -587,7 +582,7 @@ public:
 
     static FString RefundByEntitlementIds(const FLootLockerPlayerData& PlayerData, const TArray<FString>& EntitlementIds, const FLootLockerRefundByEntitlementIdsDelegate& OnCompleted);
 
-    static FString CreateStripeCheckoutSession(const FLootLockerPlayerData& PlayerData, const FString& CatalogItemId, const FString& ItemName, const FLootLockerCreateStripeCheckoutSessionDelegate& OnCompleted);
+    static FString CreateStripeCheckoutSession(const FLootLockerPlayerData& PlayerData, const FString& CatalogItemId, const FLootLockerCreateStripeCheckoutSessionDelegate& OnCompleted);
 
     static FString InitiateAsyncPurchase(const FLootLockerPlayerData& PlayerData, const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair>& Items, const FLootLockerAsyncPurchaseInitiatedDelegate& OnCompleted);
 

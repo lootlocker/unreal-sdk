@@ -2876,18 +2876,19 @@ public:
 
     /**
       Create a Stripe Checkout session for a catalog item.
-      This initiates a Stripe-hosted checkout flow. The response contains a url — open it in a browser or
-      webview so the player can complete the payment on Stripe's hosted checkout page.
+
+      This initiates a Stripe-hosted checkout flow. The response contains a <c>checkout_link</c> — open it in a browser or webview so the player can complete the payment on Stripe's hosted checkout page.
+      The response also contains an <c>entitlement_id</c> which can be used to track the purchase progress via the entitlements endpoint.
+
       Stripe in-app purchases must be configured in the LootLocker dashboard for this to work.
 
       @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
       @param CatalogItemId The ULID of the catalog item to purchase
-      @param ItemName The display name of the item shown on the Stripe Checkout page
       @param OnCompletedRequest Delegate for handling the server response
       @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static UPARAM(DisplayName = "RequestId") FString CreateStripeCheckoutSession(const FString& ForPlayerWithUlid, const FString& CatalogItemId, const FString& ItemName, const FLootLockerCreateStripeCheckoutSessionDelegateBP& OnCompletedRequest);
+    static UPARAM(DisplayName = "RequestId") FString CreateStripeCheckoutSession(const FString& ForPlayerWithUlid, const FString& CatalogItemId, const FLootLockerCreateStripeCheckoutSessionDelegateBP& OnCompletedRequest);
 
     /**
       Initiate an async purchase of a single catalog item using a specified wallet.
