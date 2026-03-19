@@ -26,7 +26,7 @@
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FLootLockerConfigSavePreservesOtherIniSettingsTest,
     "LootLocker.Config.SaveConfigPreservesOtherIniSettings",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::SmokeFilter
+    EAutomationTestFlags::EditorContext | EAutomationTestFlags::SmokeFilter
 )
 
 bool FLootLockerConfigSavePreservesOtherIniSettingsTest::RunTest(const FString& Parameters)
@@ -52,13 +52,37 @@ bool FLootLockerConfigSavePreservesOtherIniSettingsTest::RunTest(const FString& 
     // 3. Write a "sentinel" entry into a section that LootLocker has nothing to
     //    do with, simulating settings from another plugin stored in the same
     //    DefaultGame.ini.
+    //
+    //    We write directly with FFileHelper (not via GConfig) to avoid issues
+    //    with GConfig's path normalisation or missing Config/ directory in a
+    //    freshly-created test project.
     // -------------------------------------------------------------------------
-    const TCHAR* SentinelSection = TEXT("/Script/IssueRegression1411.SentinelConfig");
-    const TCHAR* SentinelKey     = TEXT("SentinelValue_1411");
-    const TCHAR* SentinelValue   = TEXT("MUST_BE_PRESERVED_ACROSS_SAVECONFIG");
+    const FString SentinelSection = TEXT("/Script/IssueRegression1411.SentinelConfig");
+    const FString SentinelKey     = TEXT("SentinelValue_1411");
+    const FString SentinelValue   = TEXT("MUST_BE_PRESERVED_ACROSS_SAVECONFIG");
 
-    GConfig->SetString(SentinelSection, SentinelKey, SentinelValue, ConfigFilename);
-    GConfig->Flush(false, ConfigFilename);
+    // Ensure the Config directory exists (it may not in a brand-new test project).
+    IPlatformFile::GetPlatformPhysical().CreateDirectoryTree(*FPaths::GetPath(ConfigFilename));
+
+    // Read any existing content, then append the sentinel section.
+    FString InitialContent;
+    FFileHelper::LoadFileToString(InitialContent, *ConfigFilename);
+
+    if (!InitialContent.IsEmpty() && !InitialContent.EndsWith(TEXT("\n")))
+    {
+        InitialContent += TEXT("\r\n");
+    }
+    InitialContent += FString::Printf(
+        TEXT("[%s]\r\n%s=%s\r\n"), *SentinelSection, *SentinelKey, *SentinelValue);
+
+    if (!TestTrue("Setup: should be able to write sentinel to config file",
+            FFileHelper::SaveStringToFile(InitialContent, *ConfigFilename)))
+    {
+        return false;
+    }
+
+    // Reload the file into GConfig so in-memory and on-disk state match.
+    GConfig->LoadFile(ConfigFilename);
 
     // Confirm the sentinel is on disk before we do any LootLocker operations.
     FString DiskContentsBeforeEnable;
@@ -73,21 +97,31 @@ bool FLootLockerConfigSavePreservesOtherIniSettingsTest::RunTest(const FString& 
     // -------------------------------------------------------------------------
     // 4. EnableFileLogging — this triggered the bug before the fix.
     // -------------------------------------------------------------------------
-    ULootLockerConfig::EnableFileLogging(TEXT("LootLockerTestLog_1411"));
+    const FString TestLogFileName = TEXT("LootLockerTestLog_1411");
+    ULootLockerConfig::EnableFileLogging(TestLogFileName);
 
     // Read the file directly from disk (bypasses GConfig in-memory state).
     FString DiskContentsAfterEnable;
     TestTrue("Config file should still be readable from disk after EnableFileLogging",
         FFileHelper::LoadFileToString(DiskContentsAfterEnable, *ConfigFilename));
 
+    // The sentinel from another plugin must still be there.
     const bool bSentinelSurvivesEnable = DiskContentsAfterEnable.Contains(SentinelValue);
     TestTrue(
         "After EnableFileLogging, settings from unrelated sections must not be erased "
         "from DefaultGame.ini.  A FAIL here indicates issue #1411 is not fixed.",
         bSentinelSurvivesEnable);
 
+    // The enable flag and file name must be persisted so the setting actually works.
+    TestTrue(
+        "After EnableFileLogging, bEnableFileLogging=True must be written to DefaultGame.ini on disk",
+        DiskContentsAfterEnable.Contains(TEXT("bEnableFileLogging=True")));
+    TestTrue(
+        "After EnableFileLogging, the log file name must be written to DefaultGame.ini on disk",
+        DiskContentsAfterEnable.Contains(TestLogFileName));
+
     // -------------------------------------------------------------------------
-    // 5. DisableFileLogging — same check.
+    // 5. DisableFileLogging — same checks.
     // -------------------------------------------------------------------------
     ULootLockerConfig::DisableFileLogging();
 
@@ -101,10 +135,18 @@ bool FLootLockerConfigSavePreservesOtherIniSettingsTest::RunTest(const FString& 
         "from DefaultGame.ini.  A FAIL here indicates issue #1411 is not fixed.",
         bSentinelSurvivesDisable);
 
+    // The disable must also be persisted.
+    TestTrue(
+        "After DisableFileLogging, bEnableFileLogging=False must be written to DefaultGame.ini on disk",
+        DiskContentsAfterDisable.Contains(TEXT("bEnableFileLogging=False")));
+
     // -------------------------------------------------------------------------
-    // 6. Cleanup — remove the sentinel and restore the original logging config.
+    // 6. Cleanup — remove the sentinel from the file and restore the original
+    //    logging config.
     // -------------------------------------------------------------------------
-    GConfig->RemoveKey(SentinelSection, SentinelKey, ConfigFilename);
+    // Remove the sentinel section from the file directly (same pattern we used
+    // to write it) so subsequent test runs start clean.
+    GConfig->RemoveKey(*SentinelSection, *SentinelKey, ConfigFilename);
     GConfig->Flush(false, ConfigFilename);
 
     if (bWasEnabled)
@@ -113,7 +155,7 @@ bool FLootLockerConfigSavePreservesOtherIniSettingsTest::RunTest(const FString& 
             OriginalLogFileName.IsEmpty() ? TEXT("LootLockerLog") : OriginalLogFileName);
     }
 
-    return bSentinelSurvivesEnable && bSentinelSurvivesDisable;
+    return true;
 }
 
 #endif // ENGINE_MAJOR_VERSION > 4

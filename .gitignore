@@ -89,5 +89,6 @@ DemoProject/DerivedDataCache/*
 # Local Unreal SDK dev settings (machine-specific, contains path to UE installation)
 unreal-dev-settings.json
 
-# Temporary build output from .github/scripts/verify-compilation.ps1
+# Temporary build/test output from .github/scripts/
 Build~/
+Temp~/
