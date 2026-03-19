@@ -2563,18 +2563,17 @@ public:
     /**
      Create a Stripe Checkout session for a catalog item.
 
-     Initiates a Stripe-hosted checkout flow. The response contains a url — open it in a browser or
-     webview so the player can complete the payment on Stripe's hosted checkout page.
+     This initiates a Stripe-hosted checkout flow. The response contains a <c>checkout_link</c> — open it in a browser or webview so the player can complete the payment on Stripe's hosted checkout page.
+     The response also contains an <c>entitlement_id</c> which can be used to track the purchase progress via the entitlements endpoint.
 
      Stripe in-app purchases must be configured in the LootLocker dashboard for this to work.
 
      @param CatalogItemId The ULID of the catalog item to purchase
-     @param ItemName The display name of the item shown on the Stripe Checkout page
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
-    static FString CreateStripeCheckoutSession(const FString& CatalogItemId, const FString& ItemName, const FLootLockerCreateStripeCheckoutSessionDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+    static FString CreateStripeCheckoutSession(const FString& CatalogItemId, const FLootLockerCreateStripeCheckoutSessionDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     //==================================================
     // Triggers

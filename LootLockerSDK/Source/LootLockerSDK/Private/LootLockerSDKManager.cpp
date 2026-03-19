@@ -1124,9 +1124,9 @@ FString ULootLockerSDKManager::RefundByEntitlementIds(const TArray<FString>& Ent
     return ULootLockerPurchasesRequestHandler::RefundByEntitlementIds(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), EntitlementIds, OnCompletedRequest);
 }
 
-FString ULootLockerSDKManager::CreateStripeCheckoutSession(const FString& CatalogItemId, const FString& ItemName, const FLootLockerCreateStripeCheckoutSessionDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+FString ULootLockerSDKManager::CreateStripeCheckoutSession(const FString& CatalogItemId, const FLootLockerCreateStripeCheckoutSessionDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    return ULootLockerPurchasesRequestHandler::CreateStripeCheckoutSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CatalogItemId, ItemName, OnCompletedRequest);
+    return ULootLockerPurchasesRequestHandler::CreateStripeCheckoutSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CatalogItemId, OnCompletedRequest);
 }
 
 FString ULootLockerSDKManager::InitiateAsyncPurchaseCatalogItems(const FString& WalletId, const TArray<FLootLockerCatalogItemAndQuantityPair>& Items, const FLootLockerAsyncPurchaseInitiatedDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
