@@ -816,7 +816,9 @@ void ULootLockerPresenceClient::InitializeConnectionStats()
     ConnectionStats.MinLatencyMs = FLT_MAX;
     ConnectionStats.MaxLatencyMs = 0.0f;
 
-    RecentLatencies->Empty();    
+    if (RecentLatencies != nullptr) {
+        RecentLatencies->Empty();    
+    }
     RecentLatenciesSum = 0.0f;
 }
 
