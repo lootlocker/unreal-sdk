@@ -10,8 +10,20 @@
 #include "Utils/LootLockerUtilities.h"
 #include "LootLockerLogger.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
+#include "GameAPI/LootLockerConnectedAccountsRequestHandler.h"
 
 TMap<FString, FLootLockerRemoteSessionProcess> ULootLockerRemoteSessionRequestHandler::RemoteSessionProcesses = TMap<FString, FLootLockerRemoteSessionProcess>();
+
+static FString GetProviderUrlParam(ELootLockerAccountProvider Provider)
+{
+	if (Provider == ELootLockerAccountProvider::Guest)
+	{
+		return TEXT("");
+	}
+	FString ProviderStr = ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerAccountProvider"), static_cast<int32>(Provider)).ToLower();
+	ProviderStr.ReplaceInline(TEXT(" "), TEXT("_"));
+	return ProviderStr;
+}
 
 FLootLockerRemoteSessionProcess::FLootLockerRemoteSessionProcess(const float _PollingIntervalSeconds, 
                                                                  float timeOutAfterMinutes)
@@ -38,7 +50,8 @@ FString ULootLockerRemoteSessionRequestHandler::StartRemoteSession(
 	const FLootLockerStartRemoteSessionResponseDelegate& OnComplete,
 	float PollingIntervalSeconds,
 	float TimeOutAfterMinutes,
-	const FString& ForPlayerWithUlid)
+	const FString& ForPlayerWithUlid,
+	ELootLockerAccountProvider Provider)
 {
 	// Cancel any previously ongoing processes
 	for (auto& RemoteSessionProcess : RemoteSessionProcesses)
@@ -56,7 +69,8 @@ FString ULootLockerRemoteSessionRequestHandler::StartRemoteSession(
 			RemoteSessionLeaseInformation,
 			RemoteSessionLeaseStatusUpdate,
 			OnComplete,
-			ProcessID](const FLootLockerGameInfoResponse& GameInfoResponse) 
+			ProcessID,
+			Provider](const FLootLockerGameInfoResponse& GameInfoResponse) 
 	{
 		if(!GameInfoResponse.success) {
 				FLootLockerRemoteSessionProcess* _processPtr = RemoteSessionProcesses.Find(ProcessID);
@@ -106,8 +120,9 @@ FString ULootLockerRemoteSessionRequestHandler::StartRemoteSession(
 					_process.LastUpdatedAt = FDateTime::UtcNow();
 					_process.LastUpdatedStatus = LeaseResponse.Status;
 					ContinualPollingAction(ProcessID, RemoteSessionLeaseStatusUpdate, OnComplete);
-				}));
-				
+				}),
+			Provider);
+			
 		}));
 	return ProcessID;
 }
@@ -246,7 +261,8 @@ FString ULootLockerRemoteSessionRequestHandler::LeaseRemoteSession(
     const FString& EnvironmentId,
     ELootLockerRemoteSessionLeaseIntent Intent,
     const FString& ForPlayerWithUlid,
-    const LLAPI<FLootLockerLeaseRemoteSessionResponse>::FResponseInspectorCallback& OnCompleteCallback)
+    const LLAPI<FLootLockerLeaseRemoteSessionResponse>::FResponseInspectorCallback& OnCompleteCallback,
+    ELootLockerAccountProvider Provider)
 {
 	FLootLockerEndPoints Endpoint = ULootLockerGameEndpoints::LeaseRemoteSessionEndpoint;
 	FLootLockerPlayerData UserData = FLootLockerPlayerData();
@@ -268,7 +284,17 @@ FString ULootLockerRemoteSessionRequestHandler::LeaseRemoteSession(
     RequestBody.Environment_id = EnvironmentId;
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	RequestBody.Game_version = config ? config->GameVersion : TEXT("");
-    return LLAPI<FLootLockerLeaseRemoteSessionResponse>::CallAPI(RequestBody, Endpoint, {}, {}, UserData, OnCompleteCallback);
+	const FString ProviderStr = GetProviderUrlParam(Provider);
+	if (ProviderStr.IsEmpty())
+	{
+		return LLAPI<FLootLockerLeaseRemoteSessionResponse>::CallAPI(RequestBody, Endpoint, {}, {}, UserData, OnCompleteCallback);
+	}
+    return LLAPI<FLootLockerLeaseRemoteSessionResponse>::CallAPI(RequestBody, Endpoint, {}, {}, UserData, OnCompleteCallback,
+        LLAPI<FLootLockerLeaseRemoteSessionResponse>::FResponseInspectorCallback::CreateLambda(
+            [ProviderStr](FLootLockerLeaseRemoteSessionResponse& LeaseResponse)
+            {
+                LeaseResponse.Redirect_url = LootLockerUtilities::AppendParameterToUrl(LeaseResponse.Redirect_url, TEXT("provider=") + ProviderStr);
+            }));
 }
 
 FString ULootLockerRemoteSessionRequestHandler::StartRemoteSession(const FString& LeaseCode, const FString& LeaseNonce, const LLAPI<FLootLockerStartRemoteSessionResponse>::FResponseInspectorCallback& OnCompleteCallback)
@@ -413,22 +439,24 @@ void ULootLockerAsyncStartRemoteSession::HandleLeaseProcessCompleted(const FLoot
 	SetReadyToDestroy();
 }
 
-ULootLockerAsyncStartRemoteSession* ULootLockerAsyncStartRemoteSession::AsyncStartRemoteSession(UObject* WorldContextObject, float PollingIntervalSeconds, float TimeOutAfterMinutes)
+ULootLockerAsyncStartRemoteSession* ULootLockerAsyncStartRemoteSession::AsyncStartRemoteSession(UObject* WorldContextObject, float PollingIntervalSeconds, float TimeOutAfterMinutes, ELootLockerAccountProvider Provider)
 {
 	ULootLockerAsyncStartRemoteSession* Action = NewObject<ULootLockerAsyncStartRemoteSession>();
 	Action->PollingIntervalInSeconds = PollingIntervalSeconds;
 	Action->TimeoutAfterMinutes = TimeOutAfterMinutes;
+	Action->Provider = Provider;
 	Action->RegisterWithGameInstance(WorldContextObject);
 	return Action;
 }
 
-ULootLockerAsyncStartRemoteSession* ULootLockerAsyncStartRemoteSession::AsyncStartRemoteSessionForLinking(UObject* WorldContextObject, FString ForPlayerWithUlid, float PollingIntervalSeconds, float TimeOutAfterMinutes)
+ULootLockerAsyncStartRemoteSession* ULootLockerAsyncStartRemoteSession::AsyncStartRemoteSessionForLinking(UObject* WorldContextObject, FString ForPlayerWithUlid, float PollingIntervalSeconds, float TimeOutAfterMinutes, ELootLockerAccountProvider Provider)
 {
 	ULootLockerAsyncStartRemoteSession* Action = NewObject<ULootLockerAsyncStartRemoteSession>();
 	Action->PollingIntervalInSeconds = PollingIntervalSeconds;
 	Action->TimeoutAfterMinutes = TimeOutAfterMinutes;
 	Action->Intent = ELootLockerRemoteSessionLeaseIntent::link;
 	Action->ForPlayerWithUlid = ForPlayerWithUlid;
+	Action->Provider = Provider;
 	Action->RegisterWithGameInstance(WorldContextObject);
 	return Action;
 }
@@ -444,5 +472,6 @@ void ULootLockerAsyncStartRemoteSession::Activate()
 		FLootLockerStartRemoteSessionResponseDelegate::CreateLambda([this](const FLootLockerStartRemoteSessionResponse& R) { HandleLeaseProcessCompleted(R); }),
 		PollingIntervalInSeconds,
 		TimeoutAfterMinutes,
-		ForPlayerWithUlid);
+		ForPlayerWithUlid,
+		Provider);
 }

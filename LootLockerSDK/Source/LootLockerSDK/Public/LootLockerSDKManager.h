@@ -675,6 +675,7 @@ public:
      @param OnComplete Called when process completes (success or failure)
      @param PollingIntervalSeconds Optional: Status polling interval seconds
      @param TimeOutAfterMinutes Optional: Max duration minutes before timeout
+     @param Provider Optional: Account provider to append as a URL parameter to the redirect_url in the lease response (Guest means no provider is appended)
      @return Remote session process id
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
@@ -683,7 +684,8 @@ public:
         const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate,
         const FLootLockerStartRemoteSessionResponseDelegate& OnComplete,
         float PollingIntervalSeconds = 1.0f,
-        float TimeOutAfterMinutes = 5.0f);
+        float TimeOutAfterMinutes = 5.0f,
+        ELootLockerAccountProvider Provider = ELootLockerAccountProvider::Guest);
 
     /**
      Start a remote session lease process for linking into a specific player.
@@ -694,6 +696,7 @@ public:
      @param OnComplete Called when process completes (success or failure)
      @param PollingIntervalSeconds Optional: Status polling interval seconds
      @param TimeOutAfterMinutes Optional: Max duration minutes before timeout
+     @param Provider Optional: Account provider to append as a URL parameter to the redirect_url in the lease response (Guest means no provider is appended)
      @return Remote session process id
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
@@ -703,7 +706,8 @@ public:
         const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate,
         const FLootLockerStartRemoteSessionResponseDelegate& OnComplete,
         float PollingIntervalSeconds = 1.0f,
-        float TimeOutAfterMinutes = 5.0f);
+        float TimeOutAfterMinutes = 5.0f,
+        ELootLockerAccountProvider Provider = ELootLockerAccountProvider::Guest);
 
     /**
      Cancel a remote session process.

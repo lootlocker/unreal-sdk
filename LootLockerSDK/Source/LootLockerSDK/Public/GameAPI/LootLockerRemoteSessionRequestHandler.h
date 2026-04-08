@@ -9,6 +9,7 @@
 #include "TimerManager.h"
 #include "Kismet/BlueprintAsyncActionBase.h"
 #include "LootLockerSDK/Private/Utils/LootLockerUtilities.h"
+#include "GameAPI/LootLockerConnectedAccountsRequestHandler.h"
 #include "LootLockerRemoteSessionRequestHandler.generated.h"
 
 //==================================================
@@ -389,7 +390,8 @@ public:
         const FLootLockerStartRemoteSessionResponseDelegate& OnComplete = FLootLockerStartRemoteSessionResponseDelegate(),
         float PollingIntervalSeconds = 1.0f,
         float TimeOutAfterMinutes = 5.0f,
-        const FString& ForPlayerWithUlid = "");
+        const FString& ForPlayerWithUlid = "",
+        ELootLockerAccountProvider Provider = ELootLockerAccountProvider::Guest);
     static FString RefreshRemoteSession(const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegate& OnComplete);
     static FString ContinualPollingAction(const FString& ProcessID,
         const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate = FLootLockerRemoteSessionStatusPollingResponseDelegate(),
@@ -402,7 +404,8 @@ protected:
         const FString& EnvironmentId,
         ELootLockerRemoteSessionLeaseIntent Intent,
         const FString& ForPlayerWithUlid,
-        const LLAPI<FLootLockerLeaseRemoteSessionResponse>::FResponseInspectorCallback& OnCompleteCallback);
+        const LLAPI<FLootLockerLeaseRemoteSessionResponse>::FResponseInspectorCallback& OnCompleteCallback,
+        ELootLockerAccountProvider Provider = ELootLockerAccountProvider::Guest);
     static FString StartRemoteSession(const FString& LeaseCode, const FString& LeaseNonce, const LLAPI<FLootLockerStartRemoteSessionResponse>::FResponseInspectorCallback& OnCompleteCallback);
     static void SetTimer(FTimerHandle TimerHandle, const FTimerDelegate& BaseDelegate, float TimeToNextPoll);
     static void ClearTimer(FTimerHandle TimerHandle);
@@ -448,9 +451,10 @@ public:
      * @param WorldContextObject Non input: Automatic context for async node
      * @param PollingIntervalSeconds Optional: How often to poll the status of the remote session process
      * @param TimeOutAfterMinutes Optional: How long to allow the process to take in its entirety
+     * @param Provider Optional: Account provider to append as a URL parameter to the redirect_url in the lease response (Guest means no provider is appended)
      */
-    UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", Category = "LootLocker Methods | Remote Session", WorldContext = "WorldContextObject", AdvancedDisplay = "PollingIntervalSeconds,TimeOutAfterMinutes,ForPlayerWithUlid", PollingIntervalSeconds = 1.0f, TimeOutAfterMinutes = 5.0f, ForPlayerWithUlid = ""))
-    static LOOTLOCKERSDK_API ULootLockerAsyncStartRemoteSession* AsyncStartRemoteSession(UObject* WorldContextObjectfloat, float PollingIntervalSeconds, float TimeOutAfterMinutes);
+    UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", Category = "LootLocker Methods | Remote Session", WorldContext = "WorldContextObject", AdvancedDisplay = "PollingIntervalSeconds,TimeOutAfterMinutes,ForPlayerWithUlid,Provider", PollingIntervalSeconds = 1.0f, TimeOutAfterMinutes = 5.0f, ForPlayerWithUlid = ""))
+    static LOOTLOCKERSDK_API ULootLockerAsyncStartRemoteSession* AsyncStartRemoteSession(UObject* WorldContextObjectfloat, float PollingIntervalSeconds, float TimeOutAfterMinutes, ELootLockerAccountProvider Provider = ELootLockerAccountProvider::Guest);
 
     /**
      * Start a remote session with the intent to use the remote session for connecting accounts
@@ -471,10 +475,11 @@ public:
      * @param ForPlayerWithUlid Execute the request for the specified player (the player that you intend to link the remote account into).
      * @param PollingIntervalSeconds Optional: How often to poll the status of the remote session process
      * @param TimeOutAfterMinutes Optional: How long to allow the process to take in its entirety
+     * @param Provider Optional: Account provider to append as a URL parameter to the redirect_url in the lease response (Guest means no provider is appended)
      * @return
      */
-    UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", Category = "LootLocker Methods | Remote Session", WorldContext = "WorldContextObject", AdvancedDisplay = "PollingIntervalSeconds,TimeOutAfterMinutes,ForPlayerWithUlid", PollingIntervalSeconds = 1.0f, TimeOutAfterMinutes = 5.0f, ForPlayerWithUlid = ""))
-    static LOOTLOCKERSDK_API ULootLockerAsyncStartRemoteSession* AsyncStartRemoteSessionForLinking(UObject* WorldContextObject, FString ForPlayerWithUlid, float PollingIntervalSeconds, float TimeOutAfterMinutes);
+    UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", Category = "LootLocker Methods | Remote Session", WorldContext = "WorldContextObject", AdvancedDisplay = "PollingIntervalSeconds,TimeOutAfterMinutes,ForPlayerWithUlid,Provider", PollingIntervalSeconds = 1.0f, TimeOutAfterMinutes = 5.0f, ForPlayerWithUlid = ""))
+    static LOOTLOCKERSDK_API ULootLockerAsyncStartRemoteSession* AsyncStartRemoteSessionForLinking(UObject* WorldContextObject, FString ForPlayerWithUlid, float PollingIntervalSeconds, float TimeOutAfterMinutes, ELootLockerAccountProvider Provider = ELootLockerAccountProvider::Guest);
 
 
 	/** Triggered once the lease process has successfully been started and the LeaseData property has been populated with the necessary information */
@@ -505,6 +510,7 @@ public:
 protected:
     FString ForPlayerWithUlid = "";
     ELootLockerRemoteSessionLeaseIntent Intent = ELootLockerRemoteSessionLeaseIntent::login;
+    ELootLockerAccountProvider Provider = ELootLockerAccountProvider::Guest;
     FString LeaseProcessID = "";
     float PollingIntervalInSeconds = 0.0f;
     float TimeoutAfterMinutes = 0.0f;
