@@ -1,4 +1,5 @@
 #pragma once
+
 #include "CoreMinimal.h"
 #include "GameAPI/LootLockerPlayerRequestHandler.h"
 #include "GameAPI/LootLockerAssetsRequestHandler.h"
@@ -162,13 +163,22 @@ struct FLootLockerHeroGlobalAssetVariation : public FLootLockerHeroGlobalAsset
 	FLootLockerHeroGlobalAssetVariation() {}
 	FLootLockerHeroGlobalAssetVariation(int32 AssetID, int32 AssetVariationID) : FLootLockerHeroGlobalAsset{ AssetID }, asset_variation_id(AssetVariationID) {}
 };
+/// @addtogroup Hero
+/// @{
+/** C++ response callback delegate; receives an @ref FLootLockerHeroResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerHeroDelegate, FLootLockerHeroResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerGameHeroListResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerGameHeroListDelegate, FLootLockerGameHeroListResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerHeroListResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerHeroListDelegate, FLootLockerHeroListResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerPlayerHeroResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerPlayerHeroDelegate, FLootLockerPlayerHeroResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerResponse result. */
 DECLARE_DELEGATE_OneParam(FLLHeroDefaultResponseDelegate, FLootLockerResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerHeroLoadoutResponse result. */
 DECLARE_DELEGATE_OneParam(FHeroLoadoutReseponseDelegate, FLootLockerHeroLoadoutResponse);
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerHeroRequestHandler : public UObject
 {

@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
@@ -11,10 +12,12 @@
 // Enum Definitions
 //==================================================
 
+/// @addtogroup Triggers
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
 /**
  * Possible reasons for a trigger key to fail
  */
-UENUM(BlueprintType, Category = "LootLocker")
 enum class ELootLockerTriggerFailureReasons : uint8
 {
     Trigger_limit_reached = 0,
@@ -22,13 +25,14 @@ enum class ELootLockerTriggerFailureReasons : uint8
     Reward_not_found = 2,
     Player_not_in_segment = 3,
 };
+/// @}
 
 //==================================================
 // Data Type Definitions
 //==================================================
 
 /**
- *
+ * Holds the key of a trigger that was successfully invoked.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerSuccessfulKey
@@ -42,7 +46,7 @@ struct FLootLockerSuccessfulKey
 };
 
 /**
- * 
+ * Holds the key and failure reason of a trigger that could not be invoked.
  */
 USTRUCT(BlueprintType, Category="LootLocker")
 struct FLootLockerFailedKey
@@ -65,7 +69,7 @@ struct FLootLockerFailedKey
 //==================================================
 
 /**
- *
+ * Request to invoke one or more triggers identified by their string keys.
  */
 USTRUCT(BlueprintType, Category="LootLocker")
 struct FLootLockerInvokeTriggersByKeyRequest
@@ -105,11 +109,14 @@ struct FLootLockerInvokeTriggersByKeyResponse : public FLootLockerResponse
 //==================================================
 // API Class Definition
 //==================================================
+/// @addtogroup Triggers
+/// @{
 /**
  * C++ response delegate for invoking a set of triggers by key
  */
 DECLARE_DELEGATE_OneParam(FLootLockerInvokeTriggersByKeyResponseDelegate, FLootLockerInvokeTriggersByKeyResponse);
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerTriggersRequestHandler : public UObject
 {

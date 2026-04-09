@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
@@ -83,10 +84,15 @@ struct FLootLockerLeaderboardArchiveResponse : public FLootLockerResponse
 	TArray<FLootLockerLeaderboardArchive> archives;
 };
 
+/// @addtogroup Leaderboard
+/// @{
+/** C++ response callback delegate; receives an @ref FLootLockerLeaderboardArchiveResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerLeaderboardArchiveResponseDelegate, FLootLockerLeaderboardArchiveResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerLeaderboardArchiveDetailsResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerLeaderboardArchiveDetailResponseDelegate, FLootLockerLeaderboardArchiveDetailsResponse);
 
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerLeaderboardArchiveRequestHandler : public UObject
 {

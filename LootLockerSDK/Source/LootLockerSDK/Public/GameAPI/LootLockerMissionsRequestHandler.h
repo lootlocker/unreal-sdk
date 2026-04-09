@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
@@ -142,11 +143,18 @@ struct FLootLockerFinishMissionResponse : public FLootLockerResponse
     bool check_grant_notifications = false;
 };
 
+/// @addtogroup Missions
+/// @{
+/** C++ response callback delegate; receives an @ref FLootLockerMissionsResponse result. */
 DECLARE_DELEGATE_OneParam(FMissionsResponseDelegate, FLootLockerMissionsResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerMissionResponse result. */
 DECLARE_DELEGATE_OneParam(FMissionResponseDelegate, FLootLockerMissionResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerStartMissionResponse result. */
 DECLARE_DELEGATE_OneParam(FStartMissionResponseDelegate, FLootLockerStartMissionResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerFinishMissionResponse result. */
 DECLARE_DELEGATE_OneParam(FFinishMissionResponseDelegate, FLootLockerFinishMissionResponse);
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerMissionsRequestHandler : public UObject
 {

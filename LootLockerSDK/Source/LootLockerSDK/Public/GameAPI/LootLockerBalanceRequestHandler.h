@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerCurrencyRequestHandler.h"
 #include "LootLockerResponse.h"
@@ -13,18 +14,21 @@
 //==================================================
 
 
+/// @addtogroup Balances
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
 /**
  * Possible wallet holder types
  */
-UENUM(BlueprintType, Category = "LootLocker")
 enum class ELootLockerWalletHolderTypes : uint8
 {
     character = 0,
     player = 1,
 };
+/// @}
 
 /**
- * 
+ * Represents a currency balance in a wallet, including the amount, currency details, wallet identifier, and creation timestamp.
  */
 USTRUCT(BlueprintType, Category="LootLocker")
 struct FLootLockerBalance
@@ -53,7 +57,7 @@ struct FLootLockerBalance
 };
 
 /**
- *
+ * Describes a currency balance modifier with a scaling factor, currency reference, and optional expiration time that adjusts effective wallet balances.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerBalanceModifiers
@@ -96,7 +100,7 @@ struct FLootLockerBalanceModifiers
 //==================================================
 
 /**
- *
+ * Request to create a wallet for a specified holder, identified by ULID and holder type.
  */
 USTRUCT(BlueprintType, Category="LootLocker")
 struct FLootLockerCreateWalletRequest
@@ -120,7 +124,7 @@ struct FLootLockerCreateWalletRequest
 };
 
 /**
- *
+ * Request to credit a specified amount of a given currency to a wallet.
  */
 USTRUCT(BlueprintType, Category="LootLocker")
 struct FLootLockerCreditRequest
@@ -143,7 +147,7 @@ struct FLootLockerCreditRequest
 };
 
 /**
- *
+ * Request to debit a specified amount of a given currency from a wallet.
  */
 USTRUCT(BlueprintType, Category="LootLocker")
 struct FLootLockerDebitRequest
@@ -171,7 +175,7 @@ struct FLootLockerDebitRequest
 //==================================================
 
 /**
- *
+ * Response containing the list of currency balances held in a specific wallet.
  */
 USTRUCT(BlueprintType, Category="LootLocker")
 struct FLootLockerListBalancesForWalletResponse : public FLootLockerResponse
@@ -185,7 +189,7 @@ struct FLootLockerListBalancesForWalletResponse : public FLootLockerResponse
 };
 
 /**
- *
+ * Response containing a wallet's holder identifier, holder type, and active balance modifiers.
  */
 USTRUCT(BlueprintType, Category="LootLocker")
 struct FLootLockerGetWalletResponse : public FLootLockerResponse
@@ -214,7 +218,7 @@ struct FLootLockerGetWalletResponse : public FLootLockerResponse
 };
 
 /**
- *
+ * Response containing the resulting balance entry after crediting currency to a wallet.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerCreditWalletResponse : public FLootLockerResponse
@@ -243,7 +247,7 @@ struct FLootLockerCreditWalletResponse : public FLootLockerResponse
 };
 
 /**
- *
+ * Response containing the resulting balance entry after debiting currency from a wallet.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerDebitWalletResponse : public FLootLockerResponse
@@ -272,7 +276,7 @@ struct FLootLockerDebitWalletResponse : public FLootLockerResponse
 };
 
 /**
- *
+ * Response containing the unique identifier of the newly created wallet.
  */
 USTRUCT(BlueprintType, Category="LootLocker")
 struct FLootLockerCreateWalletResponse : public FLootLockerResponse
@@ -287,6 +291,8 @@ struct FLootLockerCreateWalletResponse : public FLootLockerResponse
 //==================================================
 // Delegate Definitions
 //==================================================
+/// @addtogroup Balances
+/// @{
 /**
  * C++ response delegate for listing balances in a wallet
  */
@@ -313,6 +319,7 @@ DECLARE_DELEGATE_OneParam(FLootLockerCreateWalletResponseDelegate, FLootLockerCr
 // API Class Definition
 //==================================================
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerBalanceRequestHandler : public UObject
 {

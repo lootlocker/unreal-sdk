@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
@@ -66,8 +67,13 @@ struct FLootLockerPickDropsFromDropTableRequest
 };
 
 
+/// @addtogroup DropTables
+/// @{
+/** C++ response callback delegate; receives an @ref FLootLockerComputeAndLockDropTableResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerComputeAndLockDropTableResponseDelegate, FLootLockerComputeAndLockDropTableResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerPickDropsFromDropTableResponse result. */
 DECLARE_DELEGATE_OneParam(FFLootLockerPickDropsFromDropTableResponseDelegate, FLootLockerPickDropsFromDropTableResponse);
+/// @}
 /**
  * 
  */

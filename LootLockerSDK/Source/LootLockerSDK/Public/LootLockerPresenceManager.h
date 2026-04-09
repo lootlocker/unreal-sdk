@@ -2,6 +2,9 @@
 
 #pragma once
 
+/// @addtogroup Presence
+/// @{
+
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "Engine/Engine.h"
@@ -282,7 +285,7 @@ private:
     /** Current manager configuration */
     FLootLockerPresenceManagerConfig Configuration;
 
-    TMap<FString /*Player Ulid*/, FLootLockerCachedPresenceStatusUpdate> CachedStatusUpdate;
+    TMap<FString /**Player Ulid*/, FLootLockerCachedPresenceStatusUpdate> CachedStatusUpdate;
 
     // ====================================================================
     // PRIVATE METHODS - CLIENT LIFECYCLE
@@ -358,15 +361,13 @@ public:
      * Notify manager that a player has been activated (e.g., logged in)
      * 
      * @param PlayerUlid The player ULID that was activated
-     * @param SessionToken The session token for the activated player
      */
     static void NotifyPlayerActivated(const FString& PlayerUlid);
 
     /**
-     * Notify manager that a player has been activated (e.g., logged in)
+     * Notify manager that a player has been deactivated (e.g., logged out)
      * 
-     * @param PlayerUlid The player ULID that was activated
-     * @param SessionToken The session token for the activated player
+     * @param PlayerUlid The player ULID that was deactivated
      */
     static void NotifyPlayerDeactivated(const FString& PlayerUlid);
 private:
@@ -376,3 +377,4 @@ private:
     /** Critical section for singleton creation */
     static FCriticalSection InstanceLock;
 };
+/// @}

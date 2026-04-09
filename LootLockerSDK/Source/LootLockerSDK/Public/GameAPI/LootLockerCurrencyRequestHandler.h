@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
@@ -95,7 +96,7 @@ struct FLootLockerDenomination
 //==================================================
 
 /**
- *
+ * Response containing the list of all currencies available in the game.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerListCurrenciesResponse : public FLootLockerResponse
@@ -109,7 +110,7 @@ struct FLootLockerListCurrenciesResponse : public FLootLockerResponse
 };
 
 /**
- *
+ * Response containing the list of denominations defined for a specific currency.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerListDenominationsResponse : public FLootLockerResponse
@@ -160,6 +161,8 @@ struct FLootLockerGetCurrencyDetailsResponse : public FLootLockerResponse
 // Delegate Definitions
 //==================================================
 
+/// @addtogroup Currency
+/// @{
 /**
  * C++ response delegate for listing currencies
  */
@@ -178,6 +181,7 @@ DECLARE_DELEGATE_OneParam(FLootLockerListDenominationsResponseDelegate, FLootLoc
 // API Class Definition
 //==================================================
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerCurrencyRequestHandler : public UObject
 {
