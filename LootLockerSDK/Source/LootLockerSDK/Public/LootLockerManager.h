@@ -3651,6 +3651,22 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static UPARAM(DisplayName = "RequestId") FString SendUGCFeedback(const FString& ForPlayerWithUlid, const FString& Ulid, const FString& Description, const FString& CategoryID, const FLootLockerSendFeedbackResponseBP& OnComplete);
 
+    /**
+     Send a report about a failed LootLocker request to be viewable in the LootLocker dashboard.
+
+     This is intended for cases where a request fails and you want to report the details to LootLocker for debugging.
+     It will not work for successful requests, unauthorized requests (HTTP 401), or throttled requests (HTTP 429).
+     The request must have failed with a server response containing error details.
+     Requires a feedback category named "lootlocker_request_failure" to exist in the game's feedback categories.
+
+    @param UserDescription Optional description from the developer or player about the circumstances of the failure
+    @param FailedResponse The response from the failed request to report
+    @param OnComplete Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Feedback")
+    static UPARAM(DisplayName = "RequestId") FString SendLootLockerErrorReport(const FString& UserDescription, const FLootLockerResponse& FailedResponse, const FLootLockerSendFeedbackResponseBP& OnComplete);
+
     //==================================================
     // Metadata
     //==================================================

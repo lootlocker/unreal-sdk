@@ -3,11 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "LootLockerFailedRequestReport.h"
 #include "LootLockerPlayerData.h"
 #include "LootLockerRequestContext.h"
 #include "LootLockerResponse.h"
 #include "Interfaces/IHttpRequest.h"
 #include "LootLockerHttpClient.generated.h"
+
+DECLARE_DELEGATE_OneParam(FLootLockerRefreshFailureFeedbackCategoryIdDelegate, bool);
 
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerHttpClient : public UObject
@@ -21,6 +24,32 @@ public:
 
     static void LogSuccessfulRequestInformation(const FLootLockerResponse& Response, const FString& AllHeadersDelimited);
     static void LogFailedRequestInformation(const FLootLockerResponse& Response, const FString& AllHeadersDelimited);
+
+    // === Failure Reporting ===
+
+    /**
+     * Returns whether failure reporting is currently enabled.
+     * Failure reporting is enabled when a feedback category named "lootlocker_request_failure" has been found.
+     */
+    static bool IsFailureReportingEnabled();
+
+    /**
+     * Returns the feedback category id used for failure reporting, or an empty string if disabled.
+     */
+    static FString GetFailureFeedbackCategoryId();
+
+    /**
+     * Looks up the "lootlocker_request_failure" feedback category and caches its id for future use.
+     * Invokes OnComplete with true if the category was found, false otherwise.
+     */
+    static void RefreshFailureFeedbackCategoryId(const FLootLockerRefreshFailureFeedbackCategoryIdDelegate& OnComplete);
+
+    /**
+     * Attempts to retrieve the stored failure report for a given client request id.
+     * Returns true and populates OutReport if found, otherwise returns false.
+     */
+    static bool TryGetFailedRequestReportForRequestId(const FString& RequestId, FLootLockerFailedRequestReport& OutReport);
+
 private:
     static bool ResponseIsSuccess(const FHttpResponsePtr& InResponse, bool bWasSuccessful);
     
@@ -63,7 +92,14 @@ private:
     };
     
     static void RetryOriginalRequest(const FLootLockerRetryRequestData& RetryData);
-    
+
+    // === Failure Reporting (private) ===
+    static void StoreFailedRequestReport(const FLootLockerResponse& FailedResponse, const FString& RequestBody, const TArray<FString>& AllRequestHeaders, const FHttpResponsePtr& HttpResponse, int32 RetryAttempts, const FDateTime& RequestStartTime);
+
+    static TArray<FLootLockerFailedRequestReport> FailedRequestHistory;
+    static FString LootLockerFailureFeedbackCategoryId;
+    static constexpr int32 MaxFailedRequestHistory = 30;
+
     static const FString UserAgent;
     static const FString UserInstanceIdentifier;
     static FString SDKVersion;

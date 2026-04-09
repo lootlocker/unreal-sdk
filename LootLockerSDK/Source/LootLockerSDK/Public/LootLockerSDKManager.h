@@ -3320,6 +3320,21 @@ public:
     */
     static FString SendUGCFeedback(const FString & Ulid, const FString & Description, const FString & CategoryID, const FLootLockerSendFeedbackResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
+    /**
+     Send a report about a failed LootLocker request to be viewable in the LootLocker dashboard.
+
+     This is intended for cases where a request fails and you want to report the details to LootLocker for debugging.
+     It will not work for successful requests, unauthorized requests (HTTP 401), or throttled requests (HTTP 429).
+     The request must have failed with a server response containing error details.
+     Requires a feedback category named "lootlocker_request_failure" to exist in the game's feedback categories.
+
+     @param UserDescription Optional description from the developer or player about the circumstances of the failure
+     @param FailedResponse The response from the failed request to report
+     @param OnComplete Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+    */
+    static FString SendLootLockerErrorReport(const FString& UserDescription, const FLootLockerResponse& FailedResponse, const FLootLockerSendFeedbackResponseDelegate& OnComplete);
+
     /// @}
 
     //==================================================
