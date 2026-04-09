@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerPlayerData.h"
 #include "LootLockerResponse.h"
@@ -10,10 +11,12 @@
 //==================================================
 // Data Type Definitions
 //==================================================
+/// @addtogroup Catalog
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
 /**
  * Possible entity kinds that catalog entries can have
  */
-UENUM(BlueprintType, Category = "LootLocker")
 enum class ELootLockerCatalogEntryEntityKind : uint8
 {
     Asset = 0,
@@ -22,17 +25,18 @@ enum class ELootLockerCatalogEntryEntityKind : uint8
     Progression_Reset = 3,
     Group = 4,
 };
+/// @}
 
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerItemDetailsKey
 {
     GENERATED_BODY()
-    /*
+    /**
     * The id of the catalog listing
     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Catalog_listing_id = "";
-    /*
+    /**
     * The id of the item
     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -55,23 +59,23 @@ USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerAssetItemDetailsKey
 {
     GENERATED_BODY()
-    /*
+    /**
     * The id of the catalog listing
     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Catalog_listing_id = "";
-    /*
+    /**
     * The id of the item
     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Item_id = "";
-    /*
+    /**
     * The Asset Variation ID
     * Asset Variations is a deprecated feature, this is added for backward compatibility only
     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Asset_variation_id = "";
-    /*
+    /**
     * The Asset Rental option ID
     * Asset Rental Options is a deprecated feature, this is added for backward compatibility only
     */
@@ -124,7 +128,7 @@ public:
 };
 
 /**
- * 
+ * Represents a catalog with its name, unique key, identifier, and creation and deletion timestamps.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerCatalog
@@ -163,7 +167,7 @@ struct FLootLockerCatalog
 };
 
 /**
- *
+ * Represents a price for a catalog entry in a specific currency, including the numeric amount, display-friendly string, and unique price identifier.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerCatalogEntryPrice
@@ -202,7 +206,7 @@ struct FLootLockerCatalogEntryPrice
 };
 
 /**
- *
+ * Holds the Apple App Store product identifier for a catalog entry that can be purchased through that store.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerCatalogAppleAppStoreListing
@@ -216,7 +220,7 @@ struct FLootLockerCatalogAppleAppStoreListing
 };
 
 /**
- *
+ * Holds the Google Play Store product identifier for a catalog entry that can be purchased through that store.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerCatalogGooglePlayStoreListing
@@ -230,7 +234,7 @@ struct FLootLockerCatalogGooglePlayStoreListing
 };
 
 /**
- *
+ * Represents a single price point for a Steam Store listing, specifying the currency code and amount.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerCatalogSteamStoreListingPrice
@@ -249,7 +253,7 @@ struct FLootLockerCatalogSteamStoreListingPrice
 };
 
 /**
- *
+ * Holds the Steam Store listing for a catalog entry, including a description and the available prices.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerCatalogSteamStoreListing
@@ -268,7 +272,7 @@ struct FLootLockerCatalogSteamStoreListing
 };
 
 /**
- *
+ * Holds the Stripe payment details for a catalog entry, including the currency and charge amount in the smallest currency unit.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerCatalogStripeStoreListing
@@ -287,7 +291,7 @@ struct FLootLockerCatalogStripeStoreListing
 };
 
 /**
- *
+ * Holds the Epic Games Store audience item identifier associated with a catalog entry listing.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerCatalogEpicGamesStoreListing
@@ -301,7 +305,7 @@ struct FLootLockerCatalogEpicGamesStoreListing
 };
 
 /**
- *
+ * Holds the PlayStation Store entitlement label associated with a catalog entry listing.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerCatalogPlaystationStoreListing
@@ -315,7 +319,7 @@ struct FLootLockerCatalogPlaystationStoreListing
 };
 
 /**
- *
+ * Aggregates the platform-specific store listing information configured for a catalog entry across all supported storefronts.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerCatalogEntryListings
@@ -354,7 +358,7 @@ struct FLootLockerCatalogEntryListings
 };
 
 /**
- *
+ * Represents a single purchasable item in a catalog, including its entity type, prices, platform store listings, purchasability flag, and unique catalog listing identifier.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerCatalogEntry
@@ -404,7 +408,7 @@ struct FLootLockerCatalogEntry
 };
 
 /**
- *
+ * Holds detail information about an asset catalog entity, including its name, ULID, legacy numeric id, thumbnail, and optional variation or rental option identifiers.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerAssetDetails
@@ -449,7 +453,7 @@ struct FLootLockerAssetDetails
 };
 
 /**
- *
+ * Holds details about a progression-points catalog entity, including the target progression key, name, ULID, and the number of points to be awarded.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerProgressionPointDetails
@@ -483,7 +487,7 @@ struct FLootLockerProgressionPointDetails
 };
 
 /**
- *
+ * Holds details about a progression-reset catalog entity, identifying the progression to be reset by key, name, and ULID.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerProgressionResetDetails
@@ -513,7 +517,7 @@ struct FLootLockerProgressionResetDetails
 };
 
 /**
- *
+ * Holds details about a currency catalog entity, including the currency name, short code, amount to be awarded, and ULID.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerCurrencyDetails
@@ -628,7 +632,7 @@ struct FLootLockerGroupDetails
 // Response Definitions
 //==================================================
 /**
- *
+ * Response containing the list of all catalogs configured for the game.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerListCatalogsResponse : public FLootLockerResponse
@@ -764,7 +768,7 @@ struct FLootLockerInlinedCatalogEntry : public FLootLockerCatalogEntry
 };
 
 /**
- *
+ * Response containing catalog entries with entity-typed lookup maps for asset, progression, currency, and group details, plus key-based pagination.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerListCatalogPricesResponse : public FLootLockerResponse
@@ -839,7 +843,7 @@ struct FLootLockerListCatalogPricesResponse : public FLootLockerResponse
 };
 
 /**
- *
+ * Response containing catalog entries with entity-typed lookup maps for asset, progression, currency, and group details, plus extended index-based pagination for the v2 catalog endpoint.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerListCatalogPricesV2Response : public FLootLockerResponse
@@ -916,6 +920,8 @@ struct FLootLockerListCatalogPricesV2Response : public FLootLockerResponse
 // Delegate Definitions
 //==================================================
 
+/// @addtogroup Catalog
+/// @{
 /**
  * C++ response delegate for listing catalogs
  */
@@ -942,6 +948,7 @@ DECLARE_DELEGATE_OneParam(FInternalLootLockerListCatalogPricesV2ResponseDelegate
 // API Class Definition
 //==================================================
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerCatalogRequestHandler : public UObject
 {

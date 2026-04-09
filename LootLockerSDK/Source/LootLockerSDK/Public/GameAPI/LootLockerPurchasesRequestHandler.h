@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
@@ -19,7 +20,7 @@ struct FLootLockerActivateRentalAssetResponse : public FLootLockerResponse
 };
 
 /**
- * 
+ * Pairs a catalog listing identifier with the quantity to purchase.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerCatalogItemAndQuantityPair
@@ -38,7 +39,7 @@ struct FLootLockerCatalogItemAndQuantityPair
 };
 
 /**
- * 
+ * Request to purchase one or more catalog items from a specific wallet.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerPurchaseCatalogItemRequest
@@ -57,7 +58,7 @@ struct FLootLockerPurchaseCatalogItemRequest
 };
 
 /**
- *
+ * Request to redeem an Apple App Store purchase for the current player using a transaction identifier, with an optional sandbox flag.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerRedeemAppleAppStorePurchaseForPlayerRequest
@@ -76,7 +77,7 @@ struct FLootLockerRedeemAppleAppStorePurchaseForPlayerRequest
 };
 
 /**
- *
+ * Request to redeem an Apple App Store purchase for a specific class, extending the player request with a class identifier.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerRedeemAppleAppStorePurchaseForClassRequest : public FLootLockerRedeemAppleAppStorePurchaseForPlayerRequest
@@ -90,7 +91,7 @@ struct FLootLockerRedeemAppleAppStorePurchaseForClassRequest : public FLootLocke
 };
 
 /**
- *
+ * Request to redeem a Google Play Store purchase for the current player using a product identifier and purchase token.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerRedeemGooglePlayStorePurchaseForPlayerRequest
@@ -109,7 +110,7 @@ struct FLootLockerRedeemGooglePlayStorePurchaseForPlayerRequest
 };
 
 /**
- *
+ * Request to redeem a Google Play Store purchase for a specific class using a product identifier, purchase token, and class identifier.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerRedeemGooglePlayStorePurchaseForClassRequest : public FLootLockerRedeemGooglePlayStorePurchaseForPlayerRequest
@@ -123,7 +124,7 @@ struct FLootLockerRedeemGooglePlayStorePurchaseForClassRequest : public FLootLoc
 };
 
 /**
- *
+ * Request to redeem one or more Epic Games Store entitlements for the current player using an Epic account identifier, authorization token, and sandbox identifier.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerRedeemEpicStorePurchaseForPlayerRequest
@@ -152,7 +153,7 @@ struct FLootLockerRedeemEpicStorePurchaseForPlayerRequest
 };
 
 /**
- *
+ * Request to redeem one or more Epic Games Store entitlements for a specific character, extending the player request with a character ULID.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerRedeemEpicStorePurchaseForCharacterRequest : public FLootLockerRedeemEpicStorePurchaseForPlayerRequest
@@ -165,10 +166,12 @@ struct FLootLockerRedeemEpicStorePurchaseForCharacterRequest : public FLootLocke
     FString Character_id = "";
 };
 
+/// @addtogroup Purchasing
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
 /**
  * Possible statuses a Steam Purchase can have
  */
-UENUM(BlueprintType, Category = "LootLocker")
 enum class ELootLockerSteamPurchaseRedemptionStatus : uint8
 {
     Init = 0,
@@ -181,9 +184,10 @@ enum class ELootLockerSteamPurchaseRedemptionStatus : uint8
     RefundedSuspectedFraud = 7,
     RefundedFriendlyFraud = 8,
 };
+/// @}
 
 /**
- *
+ * Request to begin the Steam purchase redemption process for a catalog item, specifying the Steam user identifier, currency, and language.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerBeginSteamPurchaseRedemptionRequest
@@ -212,7 +216,7 @@ struct FLootLockerBeginSteamPurchaseRedemptionRequest
 };
 
 /**
- *
+ * Request to begin the Steam purchase redemption process for a catalog item for a specific class, extending the player request with a class identifier.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerBeginSteamPurchaseRedemptionForClassRequest : public FLootLockerBeginSteamPurchaseRedemptionRequest
@@ -226,7 +230,7 @@ struct FLootLockerBeginSteamPurchaseRedemptionForClassRequest : public FLootLock
 };
 
 /**
- *
+ * Response indicating whether the Steam purchase redemption process started successfully, along with the associated entitlement identifier.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerBeginSteamPurchaseRedemptionResponse : public FLootLockerResponse
@@ -245,7 +249,7 @@ struct FLootLockerBeginSteamPurchaseRedemptionResponse : public FLootLockerRespo
 };
 
 /**
- *
+ * Request to query the current status of a Steam purchase redemption by entitlement identifier.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerQuerySteamPurchaseRedemptionStatusRequest
@@ -259,7 +263,7 @@ struct FLootLockerQuerySteamPurchaseRedemptionStatusRequest
 };
 
 /**
- *
+ * Response containing the current redemption status of a Steam purchase.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerQuerySteamPurchaseRedemptionStatusResponse : public FLootLockerResponse
@@ -273,7 +277,7 @@ struct FLootLockerQuerySteamPurchaseRedemptionStatusResponse : public FLootLocke
 };
 
 /**
- *
+ * Request to finalize a completed Steam purchase redemption by entitlement identifier.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerFinalizeSteamPurchaseRedemptionRequest
@@ -286,30 +290,38 @@ struct FLootLockerFinalizeSteamPurchaseRedemptionRequest
     FString Entitlement_id = "";
 };
 
+/// @addtogroup Purchasing
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
 /**
  * Possible actions for a player inventory event during a refund
  */
-UENUM(BlueprintType, Category = "LootLocker")
 enum class ELootLockerRefundInventoryEventAction : uint8
 {
     removed = 0,
     skipped = 1,
 };
+/// @}
 
+/// @addtogroup Purchasing
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
 /**
  * Possible kinds of non-reversible rewards in a refund warning
  */
-UENUM(BlueprintType, Category = "LootLocker")
 enum class ELootLockerRefundNonReversibleRewardKind : uint8
 {
     progression_points = 0,
     progression_reset = 1,
 };
+/// @}
 
+/// @addtogroup Purchasing
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
 /**
  * Possible warning types in a refund response
  */
-UENUM(BlueprintType, Category = "LootLocker")
 enum class ELootLockerRefundWarningDetailType : uint8
 {
     non_reversible_rewards = 0,
@@ -317,6 +329,7 @@ enum class ELootLockerRefundWarningDetailType : uint8
     already_refunded = 2,
     refund_failed = 3,
 };
+/// @}
 
 USTRUCT(BlueprintType)
 struct FLootLockerRefundByEntitlementIdsRequest
@@ -423,7 +436,7 @@ struct FLootLockerRefundByEntitlementIdsResponse : public FLootLockerResponse
     TArray<FLootLockerRefundCurrencyEntry> currency_clawback;
     /**
      * Warnings encountered during refund processing, grouped by entitlement.
-     * A non-empty warnings array does not mean the refund failed — it means some aspects could not be fully reversed.
+     * A non-empty warnings array does not mean the refund failed â€” it means some aspects could not be fully reversed.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerRefundWarning> warnings;
@@ -433,10 +446,12 @@ struct FLootLockerRefundByEntitlementIdsResponse : public FLootLockerResponse
 // Async Purchase Types
 //==================================================
 
+/// @addtogroup Purchasing
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
 /**
  * Possible statuses for an async purchase
  */
-UENUM(BlueprintType, Category = "LootLocker")
 enum class ELootLockerAsyncPurchaseStatus : uint8
 {
     Pending = 0,
@@ -445,6 +460,7 @@ enum class ELootLockerAsyncPurchaseStatus : uint8
     TimedOut = 3,
     Cancelled = 4,
 };
+/// @}
 
 /**
  * Response from initiating an async purchase
@@ -484,7 +500,11 @@ struct FLootLockerAsyncPurchaseStatusResponse : public FLootLockerResponse
     FString Error = "";
 };
 
+/// @addtogroup Purchasing
+/// @{
+/** C++ response callback delegate; receives an @ref FLootLockerAsyncPurchaseInitiatedResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerAsyncPurchaseInitiatedDelegate, FLootLockerAsyncPurchaseInitiatedResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerAsyncPurchaseStatusResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerAsyncPurchaseStatusDelegate, FLootLockerAsyncPurchaseStatusResponse);
 
 struct FLootLockerAsyncPurchaseProcess
@@ -504,9 +524,13 @@ struct FLootLockerAsyncPurchaseProcess
     FLootLockerAsyncPurchaseProcess(float _PollingIntervalSeconds, float TimeoutAfterMinutes);
 };
 
+/** C++ response callback delegate; receives an @ref FLootLockerActivateRentalAssetResponse result. */
 DECLARE_DELEGATE_OneParam(FActivateRentalAssetResponseDelegate, FLootLockerActivateRentalAssetResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerBeginSteamPurchaseRedemptionResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerBeginSteamPurchaseRedemptionDelegate, FLootLockerBeginSteamPurchaseRedemptionResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerQuerySteamPurchaseRedemptionStatusResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerQuerySteamPurchaseRedemptionStatusDelegate, FLootLockerQuerySteamPurchaseRedemptionStatusResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerRefundByEntitlementIdsResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerRefundByEntitlementIdsDelegate, FLootLockerRefundByEntitlementIdsResponse);
 
 /**
@@ -542,8 +566,10 @@ struct FLootLockerCreateStripeCheckoutSessionResponse : public FLootLockerRespon
     FString entitlement_id = "";
 };
 
+/** C++ response callback delegate; receives an @ref FLootLockerCreateStripeCheckoutSessionResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerCreateStripeCheckoutSessionDelegate, FLootLockerCreateStripeCheckoutSessionResponse);
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerPurchasesRequestHandler : public UObject
 {

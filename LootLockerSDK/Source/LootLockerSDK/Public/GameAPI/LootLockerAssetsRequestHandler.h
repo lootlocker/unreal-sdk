@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
@@ -269,7 +270,10 @@ struct FLootLockerGetAssetsResponse : public FLootLockerResponse
     TArray<FLootLockerAsset> assets;
 };
 
+/// @addtogroup Assets
+/// @{
 UENUM(BlueprintType)
+/** Filters applicable when querying the asset list. */
 enum class ELootLockerAssetFilter : uint8
 {
     None = 0,
@@ -280,8 +284,12 @@ enum class ELootLockerAssetFilter : uint8
     Popular = 5,
     UnPopular = 6
 };
+/// @}
 
+/// @addtogroup Assets
+/// @{
 UENUM(BlueprintType)
+/** Fields by which an asset list can be ordered. */
 enum class ELootLockerOrderAssetListBy : uint8
 {
     None = 0,
@@ -290,14 +298,19 @@ enum class ELootLockerOrderAssetListBy : uint8
     Created_at = 3,
     Updated_at = 4
 };
+/// @}
 
+/// @addtogroup Assets
+/// @{
 UENUM(BlueprintType)
+/** Sort direction when ordering an asset list. */
 enum class ELootLockerOrderAssetListDirection : uint8
 {
     None = 0,
     Asc = 1,
     Desc = 2
 };
+/// @}
 
 USTRUCT(BlueprintType)
 struct FLootLockerUniversalAssets
@@ -557,14 +570,24 @@ struct FLootLockerListSimpleAssetsResponse : public FLootLockerResponse
     FLootLockerExtendedIndexBasedPagination pagination;
 };
 
+/// @addtogroup Assets
+/// @{
+/** C++ response callback delegate; receives an @ref FLootLockerGetContextResponse result. */
 DECLARE_DELEGATE_OneParam(FContextDelegate, FLootLockerGetContextResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerGetAssetsResponse result. */
 DECLARE_DELEGATE_OneParam(FAssetsResponseDelegate, FLootLockerGetAssetsResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerGetAssetBonesResponse result. */
 DECLARE_DELEGATE_OneParam(FAssetBonesResponseDelegate, FLootLockerGetAssetBonesResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerGetFavouriteAssetIndicesResponse result. */
 DECLARE_DELEGATE_OneParam(FGetFavouriteAssetIndicesResponseDelegate, FLootLockerGetFavouriteAssetIndicesResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerUniversalAssetsResponse result. */
 DECLARE_DELEGATE_OneParam(FUniversalAssetResponseDelegate, FLootLockerUniversalAssetsResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerGrantAssetResponse result. */
 DECLARE_DELEGATE_OneParam(FGrantAssetResponseDelegate, FLootLockerGrantAssetResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerListSimpleAssetsResponse result. */
 DECLARE_DELEGATE_OneParam(FListSimpleAssetsResponseDelegate, FLootLockerListSimpleAssetsResponse);
 
+/// @}
 /**
  *
  */

@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
@@ -281,12 +282,17 @@ public:
 //==================================================
 // Delegate Definitions
 //==================================================
+/// @addtogroup Broadcasts
+/// @{
+/** C++ response callback delegate; receives an @ref FLootLockerListBroadcastsResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerListBroadcastsResponseDelegate, FLootLockerListBroadcastsResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerInternalListBroadcastsResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerInternalListBroadcastsResponseDelegate, FLootLockerInternalListBroadcastsResponse);
 
 //==================================================
 // Request Handler
 //==================================================
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerBroadcastRequestHandler : public UObject
 {

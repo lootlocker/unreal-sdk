@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
@@ -78,8 +79,12 @@ struct FLootLockerCollectablesResponse : public FLootLockerResponse {
     TArray<FLootLockerCollectable> collectables;
 };
 
+/// @addtogroup Collectables
+/// @{
+/** C++ response callback delegate; receives an @ref FLootLockerCollectablesResponse result. */
 DECLARE_DELEGATE_OneParam(FCollectablesResponseDelegate, FLootLockerCollectablesResponse);
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerCollectablesRequestHandler : public UObject
 {

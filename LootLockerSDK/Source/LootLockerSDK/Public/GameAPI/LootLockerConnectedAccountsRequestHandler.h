@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
@@ -10,10 +11,12 @@
 //==================================================
 // Data Type Definitions
 //==================================================
+/// @addtogroup ConnectedAccounts
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
 /**
  * Account providers possible to use for connected accounts
  */
-UENUM(BlueprintType, Category = "LootLocker")
 enum class ELootLockerAccountProvider : uint8
 {
     Guest = 0,
@@ -28,11 +31,14 @@ enum class ELootLockerAccountProvider : uint8
     Twitch = 9,
     Discord = 10
 };
+/// @}
 
+/// @addtogroup ConnectedAccounts
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
 /**
  * Google OAuth2 Client platform
  */
-UENUM(BlueprintType, Category = "LootLocker")
 enum class EGoogleAccountProviderPlatform : uint8
 {
     web = 0,
@@ -40,9 +46,10 @@ enum class EGoogleAccountProviderPlatform : uint8
     ios = 2,
     desktop = 4
 };
+/// @}
 
 /**
- *
+ * Represents an account provider that can be connected to a LootLocker account, identified by provider type and display name.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerConnectedAccountProvider
@@ -64,7 +71,7 @@ struct FLootLockerConnectedAccountProvider
 // Request Definitions
 //==================================================
 /**
- *
+ * Request to connect a Google account to the current player account using a Google sign-in ID token.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerConnectGoogleProviderToAccountRequest
@@ -78,7 +85,7 @@ struct FLootLockerConnectGoogleProviderToAccountRequest
 };
 
 /**
- *
+ * Request to connect a Google account to the current player account using an ID token and a specific OAuth2 client platform.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerConnectGoogleProviderToAccountWithPlatformRequest
@@ -97,7 +104,7 @@ struct FLootLockerConnectGoogleProviderToAccountWithPlatformRequest
 };
 
 /**
- *
+ * Request to connect an Apple account to the current player account using an Apple REST Sign In authorization code.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerConnectAppleRestProviderToAccountRequest
@@ -111,7 +118,7 @@ struct FLootLockerConnectAppleRestProviderToAccountRequest
 };
 
 /**
- *
+ * Request to connect an Epic Games account to the current player account using an Epic sign-in token.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerConnectEpicProviderToAccountRequest
@@ -125,7 +132,7 @@ struct FLootLockerConnectEpicProviderToAccountRequest
 };
 
 /**
- *
+ * Request to connect a PlayStation account to the current player account using a sign-in code and environment identifier.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerConnectPlaystationProviderToAccountRequest
@@ -144,7 +151,7 @@ struct FLootLockerConnectPlaystationProviderToAccountRequest
 };
 
 /**
- *
+ * Request to connect a Discord account to the current player account using a Discord sign-in token.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerConnectDiscordProviderToAccountRequest
@@ -158,7 +165,7 @@ struct FLootLockerConnectDiscordProviderToAccountRequest
 };
 
 /**
- *
+ * Request to connect a Twitch account to the current player account using a Twitch authorization code.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerConnectTwitchProviderToAccountRequest
@@ -172,7 +179,7 @@ struct FLootLockerConnectTwitchProviderToAccountRequest
 };
 
 /**
- *
+ * Request to connect a remote session lease to the current player account using the lease code and its nonce.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerConnectRemoteSessionToAccountRequest
@@ -191,7 +198,7 @@ struct FLootLockerConnectRemoteSessionToAccountRequest
 };
 
 /**
- *
+ * Request to transfer one or more identity providers from a source player account to a target player account using their respective session tokens.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerTransferProvidersBetweenAccountsRequest
@@ -215,7 +222,7 @@ struct FLootLockerTransferProvidersBetweenAccountsRequest
 };
 
 /**
- *
+ * Holds the provider type and display name of an account that was successfully connected to a player account.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerAccountConnectedStruct
@@ -238,7 +245,7 @@ struct FLootLockerAccountConnectedStruct
 //==================================================
 
 /**
- *
+ * Response returned after connecting a provider to a player account, containing the details of the newly connected account.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerAccountConnectedResponse : public FLootLockerResponse
@@ -252,7 +259,7 @@ struct FLootLockerAccountConnectedResponse : public FLootLockerResponse
 };
 
 /**
- *
+ * Response containing the list of account providers currently connected to the player's LootLocker account.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerListConnectedAccountsResponse : public FLootLockerResponse
@@ -268,6 +275,8 @@ struct FLootLockerListConnectedAccountsResponse : public FLootLockerResponse
 //==================================================
 // Delegate Definitions
 //==================================================
+/// @addtogroup ConnectedAccounts
+/// @{
 /**
  * C++ response delegate for connecting a provider to an account
  */
@@ -281,6 +290,7 @@ DECLARE_DELEGATE_OneParam(FLootLockerListConnectedAccountsResponseDelegate, FLoo
 // API Class Definition
 //==================================================
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerConnectedAccountsRequestHandler : public UObject
 {

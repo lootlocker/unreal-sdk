@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
@@ -51,9 +52,14 @@ struct FLootLockerPersistentStorageItemResponse : public FLootLockerResponse
     FLootLockerPersistentStorageItem payload;
 };
 
+/// @addtogroup PlayerStorage
+/// @{
+/** C++ response callback delegate; receives an @ref FLootLockerPersistentStorageItemsResponse result. */
 DECLARE_DELEGATE_OneParam(FPersistentStorageItemsResponseDelegate, FLootLockerPersistentStorageItemsResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerPersistentStorageItemResponse result. */
 DECLARE_DELEGATE_OneParam(FPersistentStorageItemResponseDelegate, FLootLockerPersistentStorageItemResponse);
 
+/// @}
 /**
  * 
  */
