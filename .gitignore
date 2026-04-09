@@ -92,3 +92,17 @@ unreal-dev-settings.json
 # Temporary build/test output from .github/scripts/
 Build~/
 Temp~/
+
+# Other temporary files
+tmp/
+temp/
+
+# Generated Doxygen output
+docs/html/
+docs/latex/
+docs/xml/
+
+# Doxygen maintenance scripts — generated tools, not SDK source; likely to be
+# outdated before next use. Regenerate from the script invocations in the
+# .github/instructions/documentation.md workflow notes if needed.
+.doxygen/scripts/
