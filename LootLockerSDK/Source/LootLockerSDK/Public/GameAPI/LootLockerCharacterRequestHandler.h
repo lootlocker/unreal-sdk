@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerAssetsRequestHandler.h"
 #include "LootLockerResponse.h"
@@ -159,12 +160,19 @@ struct FLootLockerListPlayerCharactersResponse : public FLootLockerResponse {
 	TArray<FLootLockerListCharacterResponseItem> items;
 };
 
+/// @addtogroup Hero
+/// @{
+/** C++ response callback delegate; receives an @ref FLootLockerCharacterLoadoutResponse result. */
 DECLARE_DELEGATE_OneParam(FCharacterLoadoutResponse, FLootLockerCharacterLoadoutResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerCharacterDefaultResponse, FLootLockerResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerListCharacterTypesResponse result. */
 DECLARE_DELEGATE_OneParam(FPLootLockerListCharacterTypesResponse, FLootLockerListCharacterTypesResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerListPlayerCharactersResponse result. */
 DECLARE_DELEGATE_OneParam(FPLootLockerListPlayerCharactersResponse, FLootLockerListPlayerCharactersResponse);
 
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerCharacterRequestHandler : public UObject
 {
@@ -190,5 +198,3 @@ public:
 	static FString GetOtherPlayersCharacterLoadouts(const FLootLockerPlayerData& PlayerData, const FString& OtherPlayerId, const FString& OtherPlayerPlatform, const FCharacterLoadoutResponse& OnCompletedRequest);
 	static FString GetOtherPlayersCharacterLoadoutsByUid(const FLootLockerPlayerData& PlayerData, const FString& OtherPlayerUid, const FCharacterLoadoutResponse& OnCompletedRequest);
 };
-
-

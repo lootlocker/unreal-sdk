@@ -49,6 +49,8 @@ public:
     //==================================================
     // Player State
     //==================================================
+    /// @addtogroup MultiUserManagement
+    /// @{
     /**
      Get active player ULIDs since game start (or state initialization)
 
@@ -124,9 +126,13 @@ public:
      */
     static void ClearAllPlayerCaches();
 
+    /// @}
+
     //==================================================
     // Authentication
     //==================================================
+    /// @addtogroup Authentication
+    /// @{
 
     /**
      Add a player state manually from externally sourced data (e.g. after a server token exchange) without performing an authentication call.
@@ -525,9 +531,13 @@ public:
      */
     static FString EndSession(const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Connected Accounts
     //==================================================
+    /// @addtogroup ConnectedAccounts
+    /// @{
     /**
      List connected identity providers (Apple, Google, etc.).
 
@@ -648,9 +658,13 @@ public:
      */
     static FString TransferIdentityProvidersBetweenAccounts(const FString& FromPlayerWithUlid, const FString& ToPlayerWithUlid, TArray<ELootLockerAccountProvider> ProvidersToTransfer, const FLootLockerListConnectedAccountsResponseDelegate& OnComplete);
 
+    /// @}
+
     //==================================================
     // Remote Sessions
     //==================================================
+    /// @addtogroup RemoteSessions
+    /// @{
 
     /**
      Start a remote session lease process.
@@ -721,9 +735,13 @@ public:
      */
     static FString RefreshRemoteSession(const FString& RefreshToken, const FLootLockerRefreshRemoteSessionResponseDelegate& OnCompletedRequest);
 
+    /// @}
+
     //==================================================
     // White Label
     //==================================================
+    /// @addtogroup WhiteLabel
+    /// @{
 
     /**
      Create a White Label user.
@@ -824,9 +842,13 @@ public:
      */
     static FString WhiteLabelRequestPasswordReset(const FString& Email, const FLootLockerDefaultDelegate& OnCompletedRequest);
 
+    /// @}
+
     //==================================================
     // Player calls
     //==================================================
+    /// @addtogroup Player
+    /// @{
 
     /**
      Get current player profile information (ids, name and identifiers) for subsequent requests.
@@ -1025,9 +1047,13 @@ public:
      */
     static FString DeletePlayer(const FLootLockerDefaultDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Files
     //==================================================
+    /// @addtogroup PlayerFiles
+    /// @{
 
     /**
      Upload a file owned by the player (initial creation).
@@ -1090,9 +1116,13 @@ public:
      */
     static FString DeletePlayerFile(const int32 FileID, const FLootLockerFileDeletedDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Player Progressions
     //==================================================
+    /// @addtogroup PlayerProgressions
+    /// @{
 
     /**
      List player progressions (paginated).
@@ -1220,9 +1250,13 @@ public:
      */
     static FString GetOtherPlayersProgression(const FString& PlayerUlid, const FString& ProgressionKey, const FLootLockerPlayerProgressionResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Asset Instance Progressions   
     //==================================================
+    /// @addtogroup AssetInstanceProgressions
+    /// @{
 
         /**
          List progressions the asset instance is on (paginated).
@@ -1314,9 +1348,13 @@ public:
     static FString DeleteInstanceProgression(const int32 AssetInstanceId, const FString & ProgressionKey, const FLootLockerDeleteProgressionDelegate & OnComplete = FLootLockerDeleteProgressionDelegate(), const FString& ForPlayerWithUlid = "");
 
 
+    /// @}
+
     //==================================================
     // Heroes
     //==================================================
+    /// @addtogroup Hero
+    /// @{
 
     /**
      List game hero templates (names and character info).
@@ -1482,9 +1520,13 @@ public:
      */
     static FString RemoveAssetToHeroLoadout(const int32 HeroID, const int32 AssetInstanceID, const FHeroLoadoutReseponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Characters
     //==================================================
+    /// @addtogroup Hero
+    /// @{
 
     /**
      List loadouts for all characters owned by the player including basic character info.
@@ -1678,9 +1720,13 @@ public:
     static FString GetOtherPlayersCharacterLoadoutsByUid(const FString& OtherPlayerUid, const FCharacterLoadoutResponse& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
 
+    /// @}
+
     //==================================================
     // Character Progressions
     //==================================================
+    /// @addtogroup CharacterProgressions
+    /// @{
 
     /**
      List progressions the character is currently on (paginated).
@@ -1772,9 +1818,13 @@ public:
      */
     static FString DeleteCharacterProgression(const int32 & CharacterId, const FString & ProgressionKey, const FLootLockerDeleteProgressionDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Persistent Storage
     //==================================================
+    /// @addtogroup PlayerStorage
+    /// @{
 
     /**
      List all key/value pairs in the player's persistent storage (may return a large payload).
@@ -1841,9 +1891,13 @@ public:
      */
     static FString GetPlayerPersistentStorage(const FString & PlayerId, const FPersistentStorageItemsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Assets
     //==================================================
+    /// @addtogroup Assets
+    /// @{
 
     /**
      Get all the contexts the game has.
@@ -1974,9 +2028,13 @@ public:
     static FString ListAssets(const FLootLockerListSimpleAssetsRequest& Request, const FListSimpleAssetsResponseDelegate & OnCompletedRequest, int PerPage = 0, int Page = 0, ELootLockerOrderAssetListBy OrderBy = ELootLockerOrderAssetListBy::None, ELootLockerOrderAssetListDirection OrderDirection = ELootLockerOrderAssetListDirection::None, const FString& ForPlayerWithUlid = "");
 
 
+    /// @}
+
     //==================================================
     // Asset Instances
     //==================================================
+    /// @addtogroup AssetInstance
+    /// @{
 
     /**
      List all key/value pairs for an asset instance.
@@ -2075,9 +2133,13 @@ public:
     static FString DeleteAssetInstanceFromPlayerInventory(int AssetInstanceID, const FDeleteAssetInstanceResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
 
+    /// @}
+
     //==================================================
     // User Generated Content
     //==================================================
+    /// @addtogroup UserGeneratedContent
+    /// @{
 
     /**
      Create an asset candidate (UGC submission draft).
@@ -2162,9 +2224,13 @@ public:
      */
     static FString DeleteFileFromAssetCandidate(int AssetCandidateId, int FileId, const FResponseCallback & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Progressions
     //==================================================
+    /// @addtogroup Progressions
+    /// @{
 
     /**
      List progressions (paginated).
@@ -2239,9 +2305,13 @@ public:
      */
     static FString GetProgressionTiers(const FString & ProgressionKey, const FLootLockerPaginatedProgressionTiersResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Missions
     //==================================================
+    /// @addtogroup Missions
+    /// @{
 
     /**
      List all missions available to the player.
@@ -2283,9 +2353,13 @@ public:
      */
     static FString FinishMission(int MissionId, const FLootLockerFinishMissionData & MissionData, const FFinishMissionResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Maps
     //==================================================
+    /// @addtogroup Maps
+    /// @{
 
     /**
      List maps configured for the game.
@@ -2296,9 +2370,13 @@ public:
      */
     static FString GetMaps(const FGetMapsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Purchases
     //==================================================
+    /// @addtogroup Purchasing
+    /// @{
 
     /**
      Activate a purchased rental asset so it becomes available to the player.
@@ -2575,9 +2653,13 @@ public:
      */
     static FString CreateStripeCheckoutSession(const FString& CatalogItemId, const FLootLockerCreateStripeCheckoutSessionDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Triggers
     //==================================================
+    /// @addtogroup Triggers
+    /// @{
 
     /**
      Invoke triggers by key.
@@ -2591,9 +2673,13 @@ public:
      */
     static FString InvokeTriggersByKey(const TArray<FString>&KeysToInvoke, const FLootLockerInvokeTriggersByKeyResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Notifications
     //==================================================
+    /// @addtogroup Notifications
+    /// @{
 
     /**
      List notifications (default pagination, no filters).
@@ -2635,7 +2721,7 @@ public:
     */
     static FString ListNotificationsWithPriority(ELootLockerNotificationPriority WithPriority, bool ShowRead, const FString & OfType, const FString & WithSource, ELootLockerCustomNotificationFiltering CustomNotificationsFilter, int PerPage, int Page, const FLootLockerListNotificationsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
-    /*
+    /**
      Get the content body as a UStruct of your choice. Returns true if value could be parsed in which case Output contains the parsed UStruct, returns false if the value field was not present or not parseable.
 
      @param Content The notification content for which you want to get the body parsed as a UStruct.
@@ -2683,9 +2769,13 @@ public:
     */
     static FString MarkNotificationsAsReadByIds(const TArray<FString>&NotificationIDs, const FLootLockerReadNotificationsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Broadcasts
     //==================================================
+    /// @addtogroup Broadcasts
+    /// @{
 
     /**
      List broadcast messages for this game with default localisation and limit
@@ -2717,9 +2807,13 @@ public:
      */
     static FString ListBroadcasts(const TArray<FString>& Languages, int32 Limit, const FLootLockerListBroadcastsResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Collectables
     //==================================================
+    /// @addtogroup Collectables
+    /// @{
 
     /**
      List all collectables configured for the game (collectables -> groups -> items).
@@ -2740,9 +2834,13 @@ public:
      */
     static FString CollectItem(const FLootLockerCollectItemPayload & Item, const FCollectablesResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Messages
     //==================================================
+    /// @addtogroup Messages
+    /// @{
 
     /**
      List all messages for the player.
@@ -2753,9 +2851,13 @@ public:
      */
     static FString GetMessages(const FMessagesResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Leaderboard
     //==================================================
+    /// @addtogroup Leaderboard
+    /// @{
 
     /**
      List leaderboards with their details.
@@ -2914,9 +3016,13 @@ public:
     */
     static FString GetLeaderboardDetails(const FString & LeaderboardKey, const FLootLockerLeaderboardDetailsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Drop Table
     //==================================================
+    /// @addtogroup DropTables
+    /// @{
 
     /**
      Compute and lock a drop table (generates drops for later pickup).
@@ -2939,9 +3045,13 @@ public:
      */
     static FString PickDropsFromDropTable(const TArray<int> Picks, const int TableId, const FFLootLockerPickDropsFromDropTableResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Currencies
     //==================================================
+    /// @addtogroup Currency
+    /// @{
 
     /**
      List available game currencies.
@@ -2972,9 +3082,13 @@ public:
      */
     static FString GetCurrencyDenominationsByCode(const FString & CurrencyCode, const FLootLockerListDenominationsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Balances
     //==================================================
+    /// @addtogroup Balances
+    /// @{
 
     /**
      List balances in a wallet.
@@ -3031,9 +3145,13 @@ public:
      */
     static FString DebitBalanceToWallet(const FString & WalletID, const FString & CurrencyID, const FString & Amount, const FLootLockerDebitWalletResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Catalogs
     //==================================================
+    /// @addtogroup Catalog
+    /// @{
     /**
      List game catalogs.
 
@@ -3094,9 +3212,13 @@ public:
      */
     static FString ListCatalogItems(const FString & CatalogKey, const FLootLockerListCatalogPricesV2ResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "") { return ListCatalogItems(CatalogKey, -1, 0, OnComplete, ForPlayerWithUlid); }
 
+    /// @}
+
     //==================================================
     // Entitlements
     //==================================================
+    /// @addtogroup Entitlements
+    /// @{
 
     /**
      List player's historical entitlements (paginated, all origins: progression, purchases, rewards).
@@ -3128,9 +3250,13 @@ public:
     */
     static FString GetEntitlement(const FString & EntitlementID, FLootLockerSingleEntitlementResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Feedback
     //==================================================
+    /// @addtogroup Feedback
+    /// @{
 
     /**
      List player feedback categories (for reporting or positive notes).
@@ -3194,9 +3320,13 @@ public:
     */
     static FString SendUGCFeedback(const FString & Ulid, const FString & Description, const FString & CategoryID, const FLootLockerSendFeedbackResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Metadata
     //==================================================
+    /// @addtogroup Metadata
+    /// @{
 
     /**
      List metadata (default pagination) for a source.
@@ -3288,7 +3418,7 @@ public:
     */
     static FString SetMetadata(const ELootLockerMetadataSources Source, const FString & SourceID, const TArray<FLootLockerSetMetadataAction>&MetadataToActionsToPerform, const FLootLockerSetMetadataResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
-    /*
+    /**
     Get the value as a UStruct of your choice. Returns true if value could be found in which case Output contains the parsed UStruct, returns false if the value field was not present or not parseable.
 
     @param Entry The entry for which you want to get the UStruct value.
@@ -3306,10 +3436,10 @@ public:
         return FJsonObjectConverter::JsonObjectToUStruct<T>(jsonObject.ToSharedRef(), &Output, 0, 0);
     }
 
-    /*
+    /**
     Factory method that makes an FLootLockerMetadataEntry with a UStruct Value
 
-    @param Entry The key you want for this entry
+    @param Key The key you want for this entry
     @param Tags The tags you want for this entry
     @param Access The access level you want to set for this entry
     @param Value The UStruct object that you to be converted to json and set as the value for this metadata entry
@@ -3328,9 +3458,13 @@ public:
         return Entry;
     }
     
+    /// @}
+
     //==================================================
     // Followers
     //==================================================    
+    /// @addtogroup Followers
+    /// @{
 
     /**
      List followers for a player (by public UID).
@@ -3434,9 +3568,13 @@ public:
      */
     static FString UnfollowPlayer(const FString& PlayerPublicId, const FLootLockerFollowActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Friends
     //==================================================
+    /// @addtogroup Friends
+    /// @{
 
     /**
      List friends for the requesting player.
@@ -3609,9 +3747,13 @@ public:
      */
     static FString UnblockPlayer(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
 
+    /// @}
+
     //==================================================
     // Miscellaneous
     //==================================================
+    /// @addtogroup Misc
+    /// @{
 
     /**
      Get current server time (ping).
@@ -3639,9 +3781,13 @@ public:
      */
     static FString GetGameInfo(const FGameInfoResponseDelegate& OnComplete);
 
+    /// @}
+
     //==================================================
     // Presence
     //==================================================
+    /// @addtogroup Presence
+    /// @{
 
     /**
      Force start the Presence WebSocket connection manually.
@@ -3792,4 +3938,6 @@ public:
      @return True if auto-disconnect on focus change is enabled, false otherwise
      */
     static bool IsPresenceAutoDisconnectOnFocusChangeEnabled();
+    /// @}
+
 };

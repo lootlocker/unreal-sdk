@@ -2,13 +2,14 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
 #include "LootLockerProgressionsRequestHandler.generated.h"
 
-/* PURE DATA STRUCTS */
+/** PURE DATA STRUCTS */
 USTRUCT(BlueprintType)
 struct FLootLockerProgression
 {
@@ -159,7 +160,7 @@ struct FLootLockerProgressionTier
     FLootLockerRewards Rewards;
 };
 
-/* RESPONSE STRUCTS */
+/** RESPONSE STRUCTS */
 
 USTRUCT(BlueprintType)
 struct FLootLockerProgressionResponse : public FLootLockerResponse
@@ -291,7 +292,7 @@ struct FLootLockerPaginatedInstanceProgressionResponse : public FLootLockerPagin
     GENERATED_BODY()
 };
 
-/* REQUEST STRUCTS */
+/** REQUEST STRUCTS */
 USTRUCT()
 struct FLootLockerModifyScoreRequest
 {
@@ -300,20 +301,36 @@ struct FLootLockerModifyScoreRequest
         int32 Amount = 0;
 };
 
+/// @addtogroup Progressions
+/// @{
+/** C++ response callback delegate; receives an @ref FLootLockerProgressionResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerProgressionResponseDelegate, FLootLockerProgressionResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerPaginatedProgressionsResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerPaginatedProgressionsResponseDelegate, FLootLockerPaginatedProgressionsResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerPlayerProgressionResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerPlayerProgressionResponseDelegate, FLootLockerPlayerProgressionResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerPaginatedPlayerProgressionResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerPaginatedPlayerProgressionsResponseDelegate, FLootLockerPaginatedPlayerProgressionResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerPlayerProgressionWithRewardsResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerPlayerProgressionWithRewardsResponseDelegate, FLootLockerPlayerProgressionWithRewardsResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerCharacterProgressionResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerCharacterProgressionResponseDelegate, FLootLockerCharacterProgressionResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerPaginatedCharacterProgressionResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerPaginatedCharacterProgressionsResponseDelegate, FLootLockerPaginatedCharacterProgressionResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerCharacterProgressionWithRewardsResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerCharacterProgressionWithRewardsResponseDelegate, FLootLockerCharacterProgressionWithRewardsResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerPaginatedProgressionTiersResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerPaginatedProgressionTiersResponseDelegate, FLootLockerPaginatedProgressionTiersResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerDeleteProgressionDelegate, FLootLockerResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerInstanceProgressionResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerInstanceProgressionResponseDelegate, FLootLockerInstanceProgressionResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerPaginatedInstanceProgressionResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerPaginatedInstanceProgressionsResponseDelegate, FLootLockerPaginatedInstanceProgressionResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerInstanceProgressionWithRewardsResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerInstanceProgressionWithRewardsResponseDelegate, FLootLockerInstanceProgressionWithRewardsResponse);
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerProgressionsRequestHandler : public UObject
 {

@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "LootLockerResponse.h"
@@ -39,8 +40,12 @@ struct FLootLockerMessagesResponse : public FLootLockerResponse {
     TArray<FLootLockerMessage> messages;
 };
 
+/// @addtogroup Messages
+/// @{
+/** C++ response callback delegate; receives an @ref FLootLockerMessagesResponse result. */
 DECLARE_DELEGATE_OneParam(FMessagesResponseDelegate, FLootLockerMessagesResponse);
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerMessagesRequestHandler : public UObject
 {

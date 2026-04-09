@@ -38,6 +38,12 @@ Closes lootlocker/index#
 - [ ] Blueprint facade (`LootLockerManager.h`) updated if the feature is Blueprint-accessible
 - [ ] C++ facade (`LootLockerSDKManager.h`) updated if the feature is C++-accessible
 
+**Documentation** *(skip if no public types were added or changed)*
+- [ ] Every new `DECLARE_DELEGATE_*` has a `/** … */` doc comment directly above it, inside an `@addtogroup` block
+- [ ] Every new `UENUM` / `enum class` has its doc comment **between** `UENUM(…)` and `enum class`, wrapped in its own `@addtogroup/@{…@}` block
+- [ ] Every new `USTRUCT` on the public surface has at least a one-sentence `/** … */` description
+- [ ] `doxygen .doxygen/Doxyfile` runs without new errors, and the new type appears on its feature group page and is linked in function signatures
+
 **Verification**
 - [ ] Compile Check CI workflow passes (or verification has been run locally via `.github/scripts/verify-compilation.ps1` / `.sh`)
 

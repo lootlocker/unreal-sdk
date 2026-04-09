@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerPlayerData.h"
 #include "LootLockerResponse.h"
@@ -83,13 +84,21 @@ struct FLootLockerDeleteAssetInstanceResponse : public FLootLockerResponse
     GENERATED_BODY()
 };
 
+/// @addtogroup AssetInstance
+/// @{
+/** C++ response callback delegate; receives an @ref FLootLockerAssetInstanceStorageItemsResponse result. */
 DECLARE_DELEGATE_OneParam(FAssetInstanceStorageItemsResponseDelegate, FLootLockerAssetInstanceStorageItemsResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerAssetInstanceStorageItemResponse result. */
 DECLARE_DELEGATE_OneParam(FAssetInstanceStorageItemResponseDelegate, FLootLockerAssetInstanceStorageItemResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerLootBoxContentResponse result. */
 DECLARE_DELEGATE_OneParam(FLootBoxContentResponseDelegate, FLootLockerLootBoxContentResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerOpenLootBoxResponse result. */
 DECLARE_DELEGATE_OneParam(FOpenLootBoxResponseDelegate, FLootLockerOpenLootBoxResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerDeleteAssetInstanceResponse result. */
 DECLARE_DELEGATE_OneParam(FDeleteAssetInstanceResponseDelegate, FLootLockerDeleteAssetInstanceResponse);
 
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerAssetInstancesRequestHandler : public UObject
 {

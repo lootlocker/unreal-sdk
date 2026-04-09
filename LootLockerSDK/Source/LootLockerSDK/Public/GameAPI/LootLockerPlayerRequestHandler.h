@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
@@ -276,9 +277,11 @@ struct FLootLockerMultiplePlayersNamesResponse : public FLootLockerResponse {
 	TArray<FLootLockerMultiplePlayersNames> players;
 };
 
+/// @addtogroup Player
+/// @{
+UENUM(BlueprintType)
 /**
  */
-UENUM(BlueprintType)
 enum class ELootLockerPlayerDataLookupIdType : uint8
 {
 	Player_id = 0,
@@ -292,6 +295,7 @@ enum class ELootLockerPlayerDataLookupIdType : uint8
 	Epic_games_id = 8,
 	Google_play_games_id = 9
 };
+/// @}
 
 /**
  */
@@ -299,12 +303,12 @@ USTRUCT(BlueprintType)
 struct FLootLockerPlayerDataLookupPair
 {
 	GENERATED_BODY()
-	/*
+	/**
 	 The type of id that you want to look up
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	ELootLockerPlayerDataLookupIdType IdType = ELootLockerPlayerDataLookupIdType::Player_id;
-	/*
+	/**
 	 The id you want to look up
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -418,7 +422,7 @@ struct FLootLockerSimpleInventoryItem
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	TArray<FLootLockerMetadataEntry> Metadata;
 
-    /*
+    /**
      Get the purchase information for this inventory item if it exists. Will return false if the acquisition source is not a purchase or if the purchase data is missing.
      */
     LOOTLOCKERSDK_API bool TryGetPurchaseData(FLootLockerInventoryItemPurchaseData& Output) const;
@@ -517,26 +521,39 @@ struct FLootLockerSimpleInventoryResponse : public FLootLockerResponse
 	FLootLockerExtendedIndexBasedPagination Pagination;
 };
 
+/// @addtogroup Player
+/// @{
+/** C++ response callback delegate; receives an @ref FLootLockerGetCurrentPlayerInfoResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerGetCurrentPlayerInfoResponseDelegate, FLootLockerGetCurrentPlayerInfoResponse);
 
+/** C++ response callback delegate; receives an @ref FLootLockerListPlayerInfoResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerListPlayerInfoResponseDelegate, FLootLockerListPlayerInfoResponse);
 
+/** C++ response callback delegate; receives an @ref FLootLockerInventoryResponse result. */
 DECLARE_DELEGATE_OneParam(FInventoryResponse, FLootLockerInventoryResponse);
 
+/** C++ response callback delegate; receives an @ref FLootLockerPlayerAssetNotificationResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerAssetNotificationResponse, FLootLockerPlayerAssetNotificationResponse);
 
+/** C++ response callback delegate; receives an @ref FLootLockerBalanceResponse result. */
 DECLARE_DELEGATE_OneParam(FPBalanceResponse, FLootLockerBalanceResponse);
 
+/** C++ response callback delegate; receives an @ref FLootLockerDlcResponse result. */
 DECLARE_DELEGATE_OneParam(FPDlcResponse, FLootLockerDlcResponse);
 
+/** C++ response callback delegate; receives an @ref FLootLockerNameResponse result. */
 DECLARE_DELEGATE_OneParam(FPNameResponse, FLootLockerNameResponse);
 
-DECLARE_DELEGATE_OneParam(FPMultiplePlayerNames, FLootLockerMultiplePlayersNamesResponse)
+/** C++ response callback delegate; receives an @ref FLootLockerMultiplePlayersNamesResponse result. */
+DECLARE_DELEGATE_OneParam(FPMultiplePlayerNames, FLootLockerMultiplePlayersNamesResponse);
 
+/** C++ response callback delegate; receives an @ref FLootLockerMultiplePlayersPlatformIdsResponse result. */
 DECLARE_DELEGATE_OneParam(FPMultiplePlayersPlatformIdsNames, FLootLockerMultiplePlayersPlatformIdsResponse);
 
+/** C++ response callback delegate; receives an @ref FLootLockerSimpleInventoryResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerSimpleInventoryResponseDelegate, FLootLockerSimpleInventoryResponse);
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerPlayerRequestHandler : public UObject
 {

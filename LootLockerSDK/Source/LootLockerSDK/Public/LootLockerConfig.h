@@ -2,6 +2,9 @@
 
 #pragma once
 
+/// @addtogroup Init
+/// @{
+
 #include "Runtime/Launch/Resources/Version.h"
 #if ENGINE_MAJOR_VERSION >= 5
 #include <regex>
@@ -198,7 +201,7 @@ private:
 	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")
 	bool IsValidGameVersion = true;
 	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")
-	bool IsOutdatedSDK /* Value in ifdef */
+	bool IsOutdatedSDK /** Value in ifdef */
 #ifdef LOOTLOCKER_SHOW_OUTDATED_SDK_MESSAGE
 		= true
 #else
@@ -213,3 +216,4 @@ public:
     ULootLockerConfig();
 private:
 };
+/// @}
