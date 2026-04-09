@@ -430,6 +430,24 @@ FString ULootLockerManager::StartRemoteSession(const FLootLockerLeaseRemoteSessi
         TimeOutAfterMinutes);
 }
 
+FString ULootLockerManager::StartRemoteSessionForLinking(const FString& ForPlayerWithUlid, const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegateBP& OnComplete, float PollingIntervalSeconds, float TimeOutAfterMinutes, ELootLockerAccountProvider Provider)
+{
+    return ULootLockerSDKManager::StartRemoteSessionForLinking(
+        ForPlayerWithUlid,
+        FLootLockerLeaseRemoteSessionResponseDelegate::CreateLambda([RemoteSessionLeaseInformation](FLootLockerLeaseRemoteSessionResponse Response) {
+            RemoteSessionLeaseInformation.ExecuteIfBound(Response);
+        }),
+        FLootLockerRemoteSessionStatusPollingResponseDelegate::CreateLambda([RemoteSessionLeaseStatusUpdate](FLootLockerRemoteSessionStatusPollingResponse Response) {
+            RemoteSessionLeaseStatusUpdate.ExecuteIfBound(Response);
+        }),
+        FLootLockerStartRemoteSessionResponseDelegate::CreateLambda([OnComplete](FLootLockerStartRemoteSessionResponse Response) {
+            OnComplete.ExecuteIfBound(Response);
+        }),
+        PollingIntervalSeconds,
+        TimeOutAfterMinutes,
+        Provider);
+}
+
 void ULootLockerManager::CancelRemoteSessionProcess(FString ProcessID)
 {
     ULootLockerSDKManager::CancelRemoteSessionProcess(ProcessID);

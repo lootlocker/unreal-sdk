@@ -1176,6 +1176,22 @@ public:
     static UPARAM(DisplayName = "RequestId") FString StartRemoteSession(const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegateBP& OnComplete, float PollingIntervalSeconds, float TimeOutAfterMinutes);
 
     /**
+     Start a remote session lease process with the intent to link an account to an existing player.
+     Provides lease information for a secondary device and polls its status until completion or timeout.
+
+     @param ForPlayerWithUlid The ULID of the player to link the remote account into
+     @param RemoteSessionLeaseInformation Delegate invoked once with lease info for the secondary device
+     @param RemoteSessionLeaseStatusUpdate Delegate invoked periodically with updated lease status
+     @param OnComplete Delegate invoked when the process completes (success or failure)
+     @param PollingIntervalSeconds Optional: Seconds between status polls (default 1.0)
+     @param TimeOutAfterMinutes Optional: Total minutes before timing out the process (default 5.0)
+     @param Provider Optional: Preloads the connection flow with which account provider to use for linking, so the user does not have to select it manually. Leave as Guest to let the user choose.
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Remote Session", meta = (AdvancedDisplay = "PollingIntervalSeconds,TimeOutAfterMinutes,Provider", PollingIntervalSeconds = 1.0f, TimeOutAfterMinutes = 5.0f))
+    static UPARAM(DisplayName = "RequestId") FString StartRemoteSessionForLinking(const FString& ForPlayerWithUlid, const FLootLockerLeaseRemoteSessionResponseDelegateBP& RemoteSessionLeaseInformation, const FLootLockerRemoteSessionStatusPollingResponseDelegateBP& RemoteSessionLeaseStatusUpdate, const FLootLockerStartRemoteSessionResponseDelegateBP& OnComplete, float PollingIntervalSeconds, float TimeOutAfterMinutes, ELootLockerAccountProvider Provider = ELootLockerAccountProvider::Guest);
+
+    /**
      Cancel an ongoing remote session process.
 
      @param ProcessID Identifier of the remote session process to cancel

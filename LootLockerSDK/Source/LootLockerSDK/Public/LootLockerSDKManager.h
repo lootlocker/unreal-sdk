@@ -662,7 +662,7 @@ public:
      @param OnComplete Called when process completes (success or failure)
      @param PollingIntervalSeconds Optional: Status polling interval seconds
      @param TimeOutAfterMinutes Optional: Max duration minutes before timeout
-     @param Provider Optional: Account provider to append as a URL parameter to the redirect_url in the lease response (Guest means no provider is appended)
+     @param Provider Optional: Preloads the connection flow with which account provider to use for linking, so the user does not have to select it manually. Leave as Guest to let the user choose.
      @return Remote session process id
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
@@ -683,7 +683,7 @@ public:
      @param OnComplete Called when process completes (success or failure)
      @param PollingIntervalSeconds Optional: Status polling interval seconds
      @param TimeOutAfterMinutes Optional: Max duration minutes before timeout
-     @param Provider Optional: Account provider to append as a URL parameter to the redirect_url in the lease response (Guest means no provider is appended)
+     @param Provider Optional: Preloads the connection flow with which account provider to use for linking, so the user does not have to select it manually. Leave as Guest to let the user choose.
      @return Remote session process id
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */

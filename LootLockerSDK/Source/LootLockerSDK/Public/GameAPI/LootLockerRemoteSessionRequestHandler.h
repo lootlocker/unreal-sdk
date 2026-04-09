@@ -441,7 +441,7 @@ public:
      * @param WorldContextObject Non input: Automatic context for async node
      * @param PollingIntervalSeconds Optional: How often to poll the status of the remote session process
      * @param TimeOutAfterMinutes Optional: How long to allow the process to take in its entirety
-     * @param Provider Optional: Account provider to append as a URL parameter to the redirect_url in the lease response (Guest means no provider is appended)
+     * @param Provider Optional: Preloads the connection flow with which account provider to use for linking, so the user does not have to select it manually. Leave as Guest to let the user choose.
      */
     UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", Category = "LootLocker Methods | Remote Session", WorldContext = "WorldContextObject", AdvancedDisplay = "PollingIntervalSeconds,TimeOutAfterMinutes,ForPlayerWithUlid,Provider", PollingIntervalSeconds = 1.0f, TimeOutAfterMinutes = 5.0f, ForPlayerWithUlid = ""))
     static LOOTLOCKERSDK_API ULootLockerAsyncStartRemoteSession* AsyncStartRemoteSession(UObject* WorldContextObjectfloat, float PollingIntervalSeconds, float TimeOutAfterMinutes, ELootLockerAccountProvider Provider = ELootLockerAccountProvider::Guest);
@@ -465,7 +465,7 @@ public:
      * @param ForPlayerWithUlid Execute the request for the specified player (the player that you intend to link the remote account into).
      * @param PollingIntervalSeconds Optional: How often to poll the status of the remote session process
      * @param TimeOutAfterMinutes Optional: How long to allow the process to take in its entirety
-     * @param Provider Optional: Account provider to append as a URL parameter to the redirect_url in the lease response (Guest means no provider is appended)
+     * @param Provider Optional: Preloads the connection flow with which account provider to use for linking, so the user does not have to select it manually. Leave as Guest to let the user choose.
      * @return
      */
     UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", Category = "LootLocker Methods | Remote Session", WorldContext = "WorldContextObject", AdvancedDisplay = "PollingIntervalSeconds,TimeOutAfterMinutes,ForPlayerWithUlid,Provider", PollingIntervalSeconds = 1.0f, TimeOutAfterMinutes = 5.0f, ForPlayerWithUlid = ""))
