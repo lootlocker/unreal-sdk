@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
@@ -71,6 +72,8 @@ struct FLootLockerFollowActionResponse : public FLootLockerResponse
 // Delegate Definitions
 //==================================================
 
+/// @addtogroup Followers
+/// @{
 /**
  * C++ response delegate for listing followers/following.
  */
@@ -86,6 +89,7 @@ DECLARE_DELEGATE_OneParam(FLootLockerFollowActionResponseDelegate, FLootLockerFo
 // API Class Definition
 //==================================================
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerFollowersRequestHandler : public UObject
 {

@@ -2,12 +2,16 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
 #include "LootLockerLeaderboardRequestHandler.generated.h"
 
+/// @addtogroup Leaderboard
+/// @{
 UENUM(BlueprintType, Category = "LootLocker")
+/** Entity kinds that can be given as leaderboard rewards. */
 enum class ELootLockerLeaderboardRewardEntityKind : uint8
 {
     Asset = 0,
@@ -16,6 +20,7 @@ enum class ELootLockerLeaderboardRewardEntityKind : uint8
     Progression_Reset = 3,
     Group = 4,
 };
+/// @}
 
 USTRUCT(BlueprintType)
 struct FLootLockerPlayer
@@ -378,62 +383,62 @@ USTRUCT(BlueprintType)
 struct FLootLockerLeaderboardDetails
 {
     GENERATED_BODY()
-    /*
+    /**
      * The date the Leaderboard was created.
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Created_at = "";
-    /*
+    /**
      * The date the Leaderboard was last updated.
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Updated_at = "";
-    /*
+    /**
      * The Leaderboard's Key.
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Key = "";
-    /*
+    /**
      * The direction of the Leaderboard (Ascending / Descending).
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Direction_method = "";
-    /*
+    /**
      * The name of the Leaderboard.
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Name = "";
-    /*
+    /**
      * The type of the Leaderboard (Player / Generic).
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Type = "";
-    /*
+    /**
      * The Id of this leaderboard
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int Id = 0;
-    /*
+    /**
      * The ulid of this leaderboard
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString ulid = "";
-    /*
+    /**
      * Will the score be overwritten even if it was less than the original score.
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool Overwrite_score_on_submit = false;
-    /*
+    /**
      * Does the Leaderboard have metadata.
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool Has_metadata = false;
-    /*
+    /**
      * Schedule of the Leaderboard.
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerLeaderboardSchedule Schedule;
-    /*
+    /**
      * A List of rewards tied to the Leaderboard.
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -444,57 +449,57 @@ USTRUCT(BlueprintType)
 struct FLootLockerLeaderboardDetailsResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
-    /*
+    /**
      * The date the Leaderboard was created.
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Created_at = "";
-    /*
+    /**
      * The date the Leaderboard was last updated.
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Updated_at = "";
-    /*
+    /**
      * The Leaderboard's Key.
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Key = "";
-    /*
+    /**
      * The direction of the Leaderboard (Ascending / Descending).
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Direction_method = "";
-    /*
+    /**
      * The name of the Leaderboard.
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Name = "";
-    /*
+    /**
      * The type of the Leaderboard (Player / Generic).
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Type = "";
-    /*
+    /**
      * The id of this leaderboard
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int Id = 0;
-    /*
+    /**
      * Will the score be overwritten even if it was less than the original score.
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool Overwrite_score_on_submit = false;
-    /*
+    /**
      * Does the Leaderboard have metadata.
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool Has_metadata = false;
-    /*
+    /**
      * Schedule of the Leaderboard.
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerLeaderboardSchedule Schedule;
-    /*
+    /**
      * A List of rewards tied to the Leaderboard.
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -577,12 +582,12 @@ USTRUCT()
 struct FLootLockerListLeaderboardsResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
-    /*
+    /**
      * Pagination data for this request
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerIndexBasedPagination Pagination;
-    /*
+    /**
      * A list of players and details from the archived Leaderboard
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -590,14 +595,24 @@ struct FLootLockerListLeaderboardsResponse : public FLootLockerResponse
 
 };
 
+/// @addtogroup Leaderboard
+/// @{
+/** C++ response callback delegate; receives an @ref FLootLockerListLeaderboardsResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerListLeaderboardsResponseDelegate, FLootLockerListLeaderboardsResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerGetMemberRankResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerGetMemberRankResponseDelegate, FLootLockerGetMemberRankResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerGetByListOfMembersResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerGetByListOfMembersResponseDelegate, FLootLockerGetByListOfMembersResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerGetScoreListResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerGetScoreListResponseDelegate, FLootLockerGetScoreListResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerSubmitScoreResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerSubmitScoreResponseDelegate, FLootLockerSubmitScoreResponse);
-DECLARE_DELEGATE_OneParam(FLootLockerGetAllMemberRanksResponseDelegate, FLootLockerGetAllMemberRanksResponse)
-DECLARE_DELEGATE_OneParam(FLootLockerLeaderboardDetailsResponseDelegate, FLootLockerLeaderboardDetailsResponse)
+/** C++ response callback delegate; receives an @ref FLootLockerGetAllMemberRanksResponse result. */
+DECLARE_DELEGATE_OneParam(FLootLockerGetAllMemberRanksResponseDelegate, FLootLockerGetAllMemberRanksResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerLeaderboardDetailsResponse result. */
+DECLARE_DELEGATE_OneParam(FLootLockerLeaderboardDetailsResponseDelegate, FLootLockerLeaderboardDetailsResponse);
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerLeaderboardRequestHandler : public UObject
 {

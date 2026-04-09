@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerAuthenticationRequestHandler.h"
 #include "LootLockerResponse.h"
@@ -13,10 +14,12 @@
 //==================================================
 // Data Type Definitions
 //==================================================
+/// @addtogroup RemoteSessions
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
 /**
  * Possible entity kinds that catalog entries can have
  */
-UENUM(BlueprintType, Category = "LootLocker")
 enum class ELootLockerRemoteSessionLeaseStatus : uint8
 {
     Created = 0,
@@ -27,11 +30,14 @@ enum class ELootLockerRemoteSessionLeaseStatus : uint8
     Timed_out = 5,
     Failed = 6
 };
+/// @}
 
+/// @addtogroup RemoteSessions
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
 /**
  * Possible intents for remote sessions
  */
-UENUM(BlueprintType, Category = "LootLocker")
 enum class ELootLockerRemoteSessionLeaseIntent : uint8
 {
     /**
@@ -43,9 +49,10 @@ enum class ELootLockerRemoteSessionLeaseIntent : uint8
      */
     link = 1
 };
+/// @}
 
 /**
- *
+ * Holds the player data returned when a remote session lease is successfully authorized, including identity fields, progression state, and notification check flags.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerRemoteSessionPlayerData
@@ -124,7 +131,7 @@ struct FLootLockerRemoteSessionPlayerData
 };
 
 /**
- *
+ * Holds the lease codes, redirect URL, Base64 QR code, and display URL needed to drive the remote session authentication flow on a secondary device.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerRemoteSessionLeaseData
@@ -186,7 +193,7 @@ struct FLootLockerLeaseRemoteSessionRequest
 };
 
 /**
- *
+ * Request to exchange a remote session lease code and nonce for an authorized session using the game API key and version.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerStartRemoteSessionRequest
@@ -227,7 +234,7 @@ struct FLootLockerRefreshRemoteSessionRequest : public FLootLockerBaseAuthReques
 //==================================================
 
 /**
- *
+ * Response containing the lease codes, redirect URLs, current lease status, and intent returned when starting a remote session lease process.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerLeaseRemoteSessionResponse : public FLootLockerResponse
@@ -271,7 +278,7 @@ struct FLootLockerLeaseRemoteSessionResponse : public FLootLockerResponse
 };
 
 /**
- *
+ * Response containing the current lease status of a remote session when polled during the authorization flow.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerRemoteSessionStatusPollingResponse : public FLootLockerResponse
@@ -285,7 +292,7 @@ struct FLootLockerRemoteSessionStatusPollingResponse : public FLootLockerRespons
 };
 
 /**
- *
+ * Response returned when remote session polling completes, containing the lease status and, on authorization, the session and refresh tokens.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerStartRemoteSessionResponse : public FLootLockerAuthenticationResponse
@@ -309,7 +316,7 @@ struct FLootLockerStartRemoteSessionResponse : public FLootLockerAuthenticationR
 };
 
 /**
- *
+ * Response containing the refreshed authentication data and a new refresh token for an existing remote session.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerRefreshRemoteSessionResponse : public FLootLockerAuthenticationResponse
@@ -326,6 +333,8 @@ struct FLootLockerRefreshRemoteSessionResponse : public FLootLockerAuthenticatio
 // Delegate Definitions
 //==================================================
 
+/// @addtogroup RemoteSessions
+/// @{
 /**
  * C++ response delegate for receiving the remote session lease information
  */
@@ -364,6 +373,7 @@ struct FLootLockerRemoteSessionProcess
     FLootLockerRemoteSessionProcess(float _PollingIntervalSeconds, float timeOutAfterMinutes);
 };
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerRemoteSessionRequestHandler : public UObject
 {

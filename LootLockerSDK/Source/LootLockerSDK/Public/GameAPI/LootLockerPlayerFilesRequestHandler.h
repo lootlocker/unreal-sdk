@@ -1,6 +1,7 @@
 // Copyright LootLocker AB
 
 #pragma once
+
 #include "CoreMinimal.h"
 #include "Dom/JsonValue.h"
 #include "LootLockerResponse.h"
@@ -87,12 +88,18 @@ struct FLootLockerFileListResponse : public FLootLockerResponse
 	TArray<FLootLockerPlayerFile> items;
 };
 
+/// @addtogroup PlayerFiles
+/// @{
+/** C++ response callback delegate; receives an @ref FLootLockerPlayerFileResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerUploadFileDelegate, FLootLockerPlayerFileResponse);
 
+/** C++ response callback delegate; receives an @ref FLootLockerFileListResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerFileListDelegate, FLootLockerFileListResponse);
 
+/** C++ response callback delegate; receives an @ref FLootLockerResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerFileDeletedDelegate, FLootLockerResponse);
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULLPlayerFilesRequestHandler : public UObject
 {

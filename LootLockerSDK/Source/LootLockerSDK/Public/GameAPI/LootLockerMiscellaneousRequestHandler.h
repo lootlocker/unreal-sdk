@@ -1,6 +1,7 @@
-﻿// Copyright (c) 2021 LootLocker
+// Copyright (c) 2021 LootLocker
 
 #pragma once
+
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
@@ -13,7 +14,7 @@
 // Data Definitions
 //==================================================
 
-/*
+/**
 */
 USTRUCT(BlueprintType)
 struct FLootLockerGameInfo
@@ -36,7 +37,7 @@ struct FLootLockerGameInfo
 //==================================================
 // Request Definitions
 //==================================================
-/*
+/**
 */
 USTRUCT(BlueprintType)
 struct FLootLockerGameInfoRequest
@@ -49,7 +50,7 @@ struct FLootLockerGameInfoRequest
 //==================================================
 // Response Definitions
 //==================================================
-/*
+/**
 */
 USTRUCT(BlueprintType)
 struct FLootLockerTimeResponse : public FLootLockerResponse
@@ -59,7 +60,7 @@ struct FLootLockerTimeResponse : public FLootLockerResponse
 	FString date = "";
 };
 
-/*
+/**
 */
 USTRUCT(BlueprintType)
 struct FLootLockerGameInfoResponse : public FLootLockerResponse
@@ -73,6 +74,8 @@ struct FLootLockerGameInfoResponse : public FLootLockerResponse
 //==================================================
 // Delegate Definitions
 //==================================================
+/// @addtogroup Misc
+/// @{
 /**
  * C++ response delegate for fetching server time
  */
@@ -85,6 +88,7 @@ DECLARE_DELEGATE_OneParam(FGameInfoResponseDelegate, FLootLockerGameInfoResponse
 //==================================================
 // API Class Definition
 //==================================================
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerMiscellaneousRequestHandler : public UObject
 {

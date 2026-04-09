@@ -2,16 +2,19 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
 #include "LootLockerSessionOptionals.h"
 #include "LootLockerAuthenticationRequestHandler.generated.h"
 
-/*
+/// @addtogroup Authentication
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
+/**
  * Google OAuth2 Client platform
  */
-UENUM(BlueprintType, Category = "LootLocker")
 enum class ELootLockerGoogleClientPlatform : uint8
 {
 	Web = 0			UMETA(DisplayName = "Web"),
@@ -19,6 +22,7 @@ enum class ELootLockerGoogleClientPlatform : uint8
 	Ios = 2			UMETA(DisplayName = "iOS"),
 	Desktop = 3		UMETA(DisplayName = "Desktop")
 };
+/// @}
 
 USTRUCT()
 struct FLootLockerAuthResponse : public FLootLockerResponse
@@ -556,19 +560,33 @@ struct FLootLockerDiscordSessionResponse : public FLootLockerAuthenticationRespo
 	FString refresh_token = "";
 };
 
+/// @addtogroup Authentication
+/// @{
+/** C++ response callback delegate; receives an @ref FLootLockerAuthenticationResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerSessionResponse, FLootLockerAuthenticationResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerAppleSessionResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerAppleSessionResponseDelegate, FLootLockerAppleSessionResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerGoogleSessionResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerGoogleSessionResponseDelegate, FLootLockerGoogleSessionResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerGooglePlayGamesSessionResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerGooglePlayGamesSessionResponseDelegate, FLootLockerGooglePlayGamesSessionResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerEpicSessionResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerEpicSessionResponseDelegate, FLootLockerEpicSessionResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerLoginResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerLoginResponseDelegate, FLootLockerLoginResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerWhiteLabelVerifySessionResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerWhiteLabelVerifySessionDelegate, FLootLockerWhiteLabelVerifySessionResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerWhiteLabelLoginAndSessionResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerWhiteLabelLoginAndSessionResponseDelegate, FLootLockerWhiteLabelLoginAndSessionResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerAppleGameCenterSessionResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerAppleGameCenterSessionResponseDelegate, FLootLockerAppleGameCenterSessionResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerMetaSessionResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerMetaSessionResponseDelegate, FLootLockerMetaSessionResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerDiscordSessionResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerDiscordSessionResponseDelegate, FLootLockerDiscordSessionResponse);
 
 
+/// @}
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class LOOTLOCKERSDK_API ULootLockerAuthenticationRequestHandler : public UObject
 {

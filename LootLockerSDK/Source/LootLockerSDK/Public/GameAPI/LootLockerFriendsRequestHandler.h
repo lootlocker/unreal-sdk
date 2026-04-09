@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerPlayerData.h"
 #include "LootLockerResponse.h"
@@ -189,6 +190,8 @@ struct FLootLockerGetFriendResponse : public FLootLockerResponse
 //==================================================
 
 /** C++ response delegate for listing friends */
+/// @addtogroup Friends
+/// @{
 DECLARE_DELEGATE_OneParam(FLootLockerListFriendsResponseDelegate, FLootLockerListFriendsResponse);
 /** C++ response delegate for listing incoming friend requests */
 DECLARE_DELEGATE_OneParam(FLootLockerListIncomingFriendRequestsResponseDelegate, FLootLockerListIncomingFriendRequestsResponse);
@@ -206,6 +209,7 @@ DECLARE_DELEGATE_OneParam(FLootLockerGetFriendResponseDelegate, FLootLockerGetFr
 // API Class Definition
 //==================================================
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerFriendsRequestHandler : public UObject
 {

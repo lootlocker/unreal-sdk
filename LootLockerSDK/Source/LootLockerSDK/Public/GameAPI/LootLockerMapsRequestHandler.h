@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
@@ -52,8 +53,12 @@ struct FLootLockerGetMapsResponse : public FLootLockerResponse
     TArray<FLootLockerMap> maps;
 };
 
+/// @addtogroup Maps
+/// @{
+/** C++ response callback delegate; receives an @ref FLootLockerGetMapsResponse result. */
 DECLARE_DELEGATE_OneParam(FGetMapsResponseDelegate, FLootLockerGetMapsResponse);
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerMapsRequestHandler : public UObject
 {

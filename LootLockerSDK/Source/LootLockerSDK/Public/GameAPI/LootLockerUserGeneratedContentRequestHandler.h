@@ -2,18 +2,23 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
 #include "LootLockerUserGeneratedContentRequestHandler.generated.h"
 
+/// @addtogroup UserGeneratedContent
+/// @{
 UENUM(BlueprintType)
+/** Purpose values for files attached to an asset candidate. */
 enum class ELootLockerAssetFilePurpose : uint8
 {
     PRIMARY_THUMBNAIL = 0,
     THUMBNAIL = 1,
     FILE = 2
 };
+/// @}
 
 USTRUCT(BlueprintType)
 struct FLootLockerContentKeyValuePair {
@@ -130,10 +135,16 @@ struct FLootLockerAssetCandidatesResponse : public FLootLockerResponse
     TArray<FLootLockerResponseAssetCandidate> asset_candidates;
 };
 
+/// @addtogroup UserGeneratedContent
+/// @{
+/** C++ response callback delegate; receives an @ref FLootLockerCreateAssetCandidateResponse result. */
 DECLARE_DELEGATE_OneParam(FCreateAssetCandidateResponseDelegate, FLootLockerCreateAssetCandidateResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerAssetCandidateResponse result. */
 DECLARE_DELEGATE_OneParam(FAssetCandidateResponseDelegate, FLootLockerAssetCandidateResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerAssetCandidatesResponse result. */
 DECLARE_DELEGATE_OneParam(FAssetCandidatesResponseDelegate, FLootLockerAssetCandidatesResponse);
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerUserGeneratedContentRequestHandler : public UObject
 {

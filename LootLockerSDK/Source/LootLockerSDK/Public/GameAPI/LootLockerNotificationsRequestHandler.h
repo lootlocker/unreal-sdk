@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "Dom/JsonObject.h"
 #include "LootLockerResponse.h"
@@ -12,10 +13,12 @@
 // Enum Definitions
 //==================================================
 
+/// @addtogroup Notifications
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
 /**
  * Enum of the different available priorities for notifications
  */
-UENUM(BlueprintType, Category = "LootLocker")
 enum class ELootLockerNotificationPriority : uint8
 {
     low = 0,
@@ -23,11 +26,14 @@ enum class ELootLockerNotificationPriority : uint8
     high = 2,
     emergency = 3,
 };
+/// @}
 
+/// @addtogroup Notifications
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
 /**
  * Enum of the different available sources for notifications
  */
-UENUM(BlueprintType, Category = "LootLocker")
 enum class ELootLockerNotificationSource : uint8
 {
     triggers = 0,
@@ -40,11 +46,14 @@ enum class ELootLockerNotificationSource : uint8
     lootlocker_server_api = 7,
     lootlocker_admin_api = 8,
 };
+/// @}
 
+/// @addtogroup Notifications
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
 /**
  * Enum of the different types of values that can be in the notification body. Use this to know how to parse the body.
  */
-UENUM(BlueprintType, Category = "LootLocker")
 enum class ELootLockerNotificationContentBodyType : uint8
 {
     none = 0,
@@ -63,11 +72,14 @@ enum class ELootLockerNotificationContentBodyType : uint8
     json_array_object = 13,
     unknown = 14,
 };
+/// @}
 
+/// @addtogroup Notifications
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
 /**
  * Enum of the different kinds of notification bodies possible, use this to figure out how to parse the notification body
  */
-UENUM(BlueprintType, Category = "LootLocker")
 enum class ELootLockerNotificationContentRewardKind : uint8
 {
     group = 0,
@@ -76,17 +88,21 @@ enum class ELootLockerNotificationContentRewardKind : uint8
     progression_reset = 3,
     progression_points = 4,
 };
+/// @}
 
+/// @addtogroup Notifications
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
 /**
  * Enum for custom notification filtering
  */
-UENUM(BlueprintType, Category = "LootLocker")
 enum class ELootLockerCustomNotificationFiltering : uint8
 {
     All = 0,
     Custom_only = 1,
     LootLocker_only = 2,
 };
+/// @}
 
 //==================================================
 // Static String Definitions
@@ -340,6 +356,7 @@ struct FLootLockerNotificationIdentifyingValueLookupStruct
 };
 
 /**
+ * Holds a single key-value context entry attached to a notification's content.
 */
 USTRUCT(BlueprintType)
 struct FLootLockerNotificationContextEntry
@@ -358,6 +375,7 @@ struct FLootLockerNotificationContextEntry
 };
 
 /**
+ * Holds the display details of a currency referenced in a notification reward, including its name, short code, amount, and ULID.
 */
 USTRUCT(BlueprintType)
 struct FLootLockerNotificationRewardCurrencyDetails
@@ -386,6 +404,7 @@ struct FLootLockerNotificationRewardCurrencyDetails
 };
 
 /**
+ * Represents a currency reward in a notification, linking the reward to a currency amount and its currency details.
 */
 USTRUCT(BlueprintType)
 struct FLootLockerNotificationRewardCurrency
@@ -424,6 +443,7 @@ struct FLootLockerNotificationRewardCurrency
 };
 
 /**
+ * Holds the display details of a progression referenced in a progression-points notification reward, including its key, name, ULID, and point amount.
 */
 USTRUCT(BlueprintType)
 struct FLootLockerNotificationRewardProgressionDetails
@@ -452,6 +472,7 @@ struct FLootLockerNotificationRewardProgressionDetails
 };
 
 /**
+ * Represents a progression-points reward in a notification, linking the reward to a progression and the number of points to be granted.
 */
 USTRUCT(BlueprintType)
 struct FLootLockerNotificationRewardProgression
@@ -490,6 +511,7 @@ struct FLootLockerNotificationRewardProgression
 };
 
 /**
+ * Holds the display details of a progression referenced in a progression-reset notification reward, identified by key, name, and ULID.
 */
 USTRUCT(BlueprintType)
 struct FLootLockerNotificationRewardProgressionResetDetails
@@ -513,6 +535,7 @@ struct FLootLockerNotificationRewardProgressionResetDetails
 };
 
 /**
+ * Represents a progression-reset reward in a notification, linking the reward to the affected progression.
 */
 USTRUCT(BlueprintType)
 struct FLootLockerNotificationRewardProgressionReset
@@ -546,6 +569,7 @@ struct FLootLockerNotificationRewardProgressionReset
 };
 
 /**
+ * Holds the display details of an asset referenced in a notification reward, including its name, thumbnail URL, ULID, legacy numeric id, and optional variation or rental option information.
 */
 USTRUCT(BlueprintType)
 struct FLootLockerNotificationRewardAssetDetails
@@ -594,6 +618,7 @@ struct FLootLockerNotificationRewardAssetDetails
 };
 
 /**
+ * Represents an asset reward in a notification, linking the reward to an asset and its optional variation or rental option.
 */
 USTRUCT(BlueprintType)
 struct FLootLockerNotificationRewardAsset
@@ -642,6 +667,7 @@ struct FLootLockerNotificationRewardAsset
 };
 
 /**
+ * Holds one member reward within a notification group reward, identified by kind, with the relevant reward type's data populated.
 */
 USTRUCT(BlueprintType)
 struct FLootLockerNotificationGroupRewardAssociations
@@ -675,6 +701,7 @@ struct FLootLockerNotificationGroupRewardAssociations
 };
 
 /**
+ * Represents a group reward in a notification, bundling multiple reward-type associations under a shared name and description.
 */
 USTRUCT(BlueprintType)
 struct FLootLockerNotificationRewardGroup
@@ -712,6 +739,7 @@ struct FLootLockerNotificationRewardGroup
 };
 
 /**
+ * Holds the full reward body of a notification's content, with the active reward type determined by the Kind field.
 */
 USTRUCT(BlueprintType)
 struct FLootLockerNotificationContentRewardBody
@@ -750,6 +778,7 @@ struct FLootLockerNotificationContentRewardBody
 };
 
 /**
+ * Holds the content of a notification, including context key-value pairs, body type hint, and helper methods for parsing the body into typed values or reward objects.
 */
 USTRUCT(BlueprintType)
 struct FLootLockerNotificationContent
@@ -785,57 +814,58 @@ struct FLootLockerNotificationContent
      */
     TSharedPtr<FJsonValue> BodyAsJsonValue;
 
-    /*
+    /**
      Get the body as a String. Returns true if body could be parsed in which case Output contains the string body untouched, returns false if parsing failed.
      */
     LOOTLOCKERSDK_API bool TryGetContentBodyAsString(FString& Output) const;
-    /*
+    /**
      Get the body as a float. Returns true if body could be parsed in which case Output contains the float, returns false if parsing failed which can happen if the body is not numeric, the conversion under or overflows, or the string body precision is larger than can be dealt within a float.
      */
     LOOTLOCKERSDK_API bool TryGetContentBodyAsFloat(float& Output) const;
-    /*
+    /**
      Get the body as an integer. TReturns true if body could be parsed in which case Output contains the int, returns false if parsing failed which can happen if
      */
     LOOTLOCKERSDK_API bool TryGetContentBodyAsInteger(int& Output) const;
-    /*
+    /**
      Get the body as a boolean. Returns true if body could be parsed in which case Output contains the bool, returns false if parsing failed which can happen if the string is not a convertible to a boolean (those are for example "0", "1", "true", "False", "yes", "NO", etc).
      */
     LOOTLOCKERSDK_API bool TryGetContentBodyAsBool(bool& Output) const;
-    /*
+    /**
      Get the body as a String. Returns true if body could be parsed in which case Output contains the string body untouched, returns false if parsing failed.
      */
     LOOTLOCKERSDK_API bool TryGetContentBodyAsStringArray(TArray<FString>& Output) const;
-    /*
+    /**
      Get the body as a float. Returns true if body could be parsed in which case Output contains the float, returns false if parsing failed which can happen if the body is not numeric, the conversion under or overflows, or the string body precision is larger than can be dealt within a float.
      */
     LOOTLOCKERSDK_API bool TryGetContentBodyAsFloatArray(TArray<float>& Output) const;
-    /*
+    /**
      Get the body as an integer. TReturns true if body could be parsed in which case Output contains the int, returns false if parsing failed which can happen if
      */
     LOOTLOCKERSDK_API bool TryGetContentBodyAsIntegerArray(TArray<int>& Output) const;
-    /*
+    /**
      Get the body as a boolean. Returns true if body could be parsed in which case Output contains the bool, returns false if parsing failed which can happen if the string is not a convertible to a boolean (those are for example "0", "1", "true", "False", "yes", "NO", etc).
      */
     LOOTLOCKERSDK_API bool TryGetContentBodyAsBoolArray(TArray<bool>& Output) const;
-    /*
+    /**
      Get the body as an unparsed json body. Returns true if body could be found in which case Output contains the JsonValue, returns false if the body field was not present.
      */
     LOOTLOCKERSDK_API bool TryGetRawValue(TSharedPtr<FJsonValue>& Output) const;
-    /*
+    /**
      Get the body as a Json Object. Returns true if body could be parsed in which case Output contains the Json Object, returns false if parsing failed which can happen if the body is not a valid json object string.
      */
     LOOTLOCKERSDK_API bool TryGetContentBodyAsJsonObject(TSharedPtr<FJsonObject>& Output) const;
-    /*
+    /**
      Get the body as a Json Array. Returns true if body could be parsed in which case Output contains the Json Array, returns false if parsing failed which can happen if the body is not a valid json array string
      */
     LOOTLOCKERSDK_API bool TryGetContentBodyAsJsonArray(TArray<TSharedPtr<FJsonValue>>& Output) const;
-    /*
+    /**
      Get the body as a LootLockerNotificationContentBody object. Returns true if body could be parsed in which case Output contains the FLootLockerMetadataBase64Value, returns false if parsing failed.
      */
     LOOTLOCKERSDK_API bool TryGetContentBodyAsRewardNotification(FLootLockerNotificationContentRewardBody& Output) const;
 };
 
 /**
+ * Represents a full notification record for a player, including its type, priority, source, content, read state, and lifecycle timestamps.
 */
 USTRUCT(BlueprintType)
 struct FLootLockerNotification
@@ -908,7 +938,7 @@ struct FLootLockerNotification
 //==================================================
 
 /**
- *
+ * Request to mark a list of notifications as read by their identifiers.
  */
 USTRUCT(BlueprintType, Category="LootLocker")
 struct FLootLockerReadNotificationsRequest
@@ -926,7 +956,7 @@ struct FLootLockerReadNotificationsRequest
 //==================================================
 
 /**
- *
+ * Response from marking notifications as read, containing only base response status unless errors occurred.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerReadNotificationsResponse : public FLootLockerResponse
@@ -936,7 +966,7 @@ struct FLootLockerReadNotificationsResponse : public FLootLockerResponse
 };
 
 /**
- *
+ * Response containing a paginated list of notifications for the player, with a lookup helper for finding notifications by their identifying context value.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerListNotificationsResponse : public FLootLockerResponse
@@ -977,6 +1007,8 @@ private:
 //==================================================
 // Delegate Definitions
 //==================================================
+/// @addtogroup Notifications
+/// @{
 /**
  * C++ response delegate for handling List Notifications Responses
  */
@@ -991,6 +1023,7 @@ DECLARE_DELEGATE_OneParam(FLootLockerReadNotificationsResponseDelegate, FLootLoc
 // API Class Definition
 //==================================================
 
+/// @}
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerNotificationsRequestHandler : public UObject
 {
