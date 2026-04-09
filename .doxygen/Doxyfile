@@ -1,0 +1,110 @@
+# Doxyfile — LootLocker Unreal SDK
+# Run from the repo root:  doxygen .doxygen/Doxyfile
+# All relative paths are resolved from the working directory where doxygen is invoked.
+
+#---------------------------------------------------------------------------
+# Project
+#---------------------------------------------------------------------------
+PROJECT_NAME           = "LootLocker Unreal SDK"
+PROJECT_BRIEF          = "Game backend SDK for Unreal Engine"
+PROJECT_LOGO           = .doxygen/images/lootlocker-logo.png
+OUTPUT_DIRECTORY       = docs
+
+#---------------------------------------------------------------------------
+# Build options
+#---------------------------------------------------------------------------
+EXTRACT_ALL = NO
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = YES
+HIDE_UNDOC_MEMBERS     = YES
+# NO: types without a struct-level description still get pages.
+# Silently hiding undocumented types is a worse failure mode than noisy output.
+# The JS nav filter already prevents bare types appearing in the Topics sidebar.
+HIDE_UNDOC_CLASSES     = NO
+INTERNAL_DOCS          = NO
+JAVADOC_AUTOBRIEF      = YES
+OPTIMIZE_OUTPUT_FOR_C = YES
+WARN_AS_ERROR          = NO
+
+#---------------------------------------------------------------------------
+# Input
+#---------------------------------------------------------------------------
+INPUT                  = LootLockerSDK/Source/LootLockerSDK/Public \
+                         .doxygen/groups.dox \
+                         .doxygen/mainpage.md
+RECURSIVE              = YES
+FILE_PATTERNS          = *.h *.dox *.md
+# LootLockerManager.h is the Blueprint interface facade — excluded because
+# blueprint-callable visualisation requires a different treatment and is
+# not yet part of the reference docs.
+# The other files below are internal implementation details not part of the
+# public SDK surface.
+EXCLUDE                = LootLockerSDK/Source/LootLockerSDK/Public/LootLockerManager.h \
+                         LootLockerSDK/Source/LootLockerSDK/Public/LootLockerHttpClient.h \
+                         LootLockerSDK/Source/LootLockerSDK/Public/LootLockerLogViewerWidget.h \
+                         LootLockerSDK/Source/LootLockerSDK/Public/LootLockerLogger.h \
+                         LootLockerSDK/Source/LootLockerSDK/Public/LootLockerLogLevel.h \
+                         LootLockerSDK/Source/LootLockerSDK/Public/LootLockerPreprocessorDirectives.h \
+                         LootLockerSDK/Source/LootLockerSDK/Public/LootLockerGameEndpoints.h \
+                         LootLockerSDK/Source/LootLockerSDK/Public/LootLockerLifeCycleManager.h \
+                         LootLockerSDK/Source/LootLockerSDK/Public/LootLockerPlatformManager.h \
+                         LootLockerSDK/Source/LootLockerSDK/Public/LootLockerPresenceClient.h
+USE_MDFILE_AS_MAINPAGE = .doxygen/mainpage.md
+IMAGE_PATH             = .doxygen/images
+
+#---------------------------------------------------------------------------
+# Unreal Engine macro expansion
+# Strip UE reflection macros so Doxygen sees clean C++ types.
+#---------------------------------------------------------------------------
+MACRO_EXPANSION        = YES
+EXPAND_ONLY_PREDEF     = NO
+PREDEFINED             = GENERATED_BODY()= \
+                         UCLASS(...)= \
+                         USTRUCT(...)= \
+                         UENUM(...)= \
+                         UFUNCTION(...)= \
+                         UPROPERTY(...)= \
+                         UINTERFACE(...)= \
+                         LOOTLOCKERSDK_API= \
+                         UMETA(...)= \
+                         DECLARE_LOG_CATEGORY_EXTERN(...)= \
+                         "DECLARE_DELEGATE_OneParam(Name,T1)=typedef void (*Name)(T1)" \
+                         "DECLARE_DELEGATE_TwoParams(Name,T1,T2)=typedef void (*Name)(T1,T2)" \
+                         "DECLARE_DELEGATE_ThreeParams(Name,T1,T2,T3)=typedef void (*Name)(T1,T2,T3)" \
+                         "DECLARE_DELEGATE_FourParams(Name,T1,T2,T3,T4)=typedef void (*Name)(T1,T2,T3,T4)" \
+                         "DECLARE_MULTICAST_DELEGATE_OneParam(Name,T1)=typedef void (*Name)(T1)" \
+                         "DECLARE_MULTICAST_DELEGATE_TwoParams(Name,T1,T2)=typedef void (*Name)(T1,T2)" \
+                         "DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(Name,T1,T1Name)=typedef void (*Name)(T1)"
+
+#---------------------------------------------------------------------------
+# HTML output
+#---------------------------------------------------------------------------
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+HTML_HEADER            = .doxygen/header.html
+HTML_FOOTER            = .doxygen/footer.html
+HTML_COLORSTYLE        = LIGHT
+GENERATE_TREEVIEW      = YES
+DISABLE_INDEX          = NO
+FULL_SIDEBAR           = YES
+LAYOUT_FILE            = .doxygen/DoxygenLayout.xml
+HTML_EXTRA_STYLESHEET  = .doxygen/doxygen-awesome/doxygen-awesome.css \
+                         .doxygen/doxygen-awesome/doxygen-awesome-sidebar-only.css \
+                         .doxygen/custom-layout-fixes.css \
+                         .doxygen/lootlocker-theme.css
+HTML_EXTRA_FILES       = .doxygen/images/lootlocker-logo.png \
+                         .doxygen/nav-customization.js
+
+#---------------------------------------------------------------------------
+# Disable unused outputs
+#---------------------------------------------------------------------------
+GENERATE_LATEX         = NO
+SOURCE_BROWSER         = NO
+SHOW_USED_FILES        = NO
+
+
+
+
+
+
+

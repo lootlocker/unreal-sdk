@@ -1,0 +1,77 @@
+name: Generate Docs
+run-name: "Generate Docs on ${{ github.ref_name }}"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+      - dev
+    types:
+      - opened
+      - synchronize
+  release:
+    types: [published]
+  workflow_dispatch: {}
+
+jobs:
+  generate-docs:
+    name: Generate SDK reference docs
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    outputs:
+      sdk-version: ${{ steps.sdk-version.outputs.version }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get SDK version
+        id: sdk-version
+        run: echo "version=$(jq -r '.VersionName' LootLockerSDK/LootLockerSDK.uplugin)" >> "$GITHUB_OUTPUT"
+
+      - name: Install Doxygen
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y doxygen graphviz
+
+      - name: Sync navigation table
+        run: bash .doxygen/sync-nav.sh
+
+      - name: Generate docs
+        run: doxygen .doxygen/Doxyfile
+
+      - name: Upload docs artifact
+        if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: sdk-docs-${{ steps.sdk-version.outputs.version }}
+          path: docs/html/
+          retention-days: 30
+
+  attach-release:
+    name: Attach docs to release
+    runs-on: ubuntu-latest
+    needs: generate-docs
+    if: github.event_name == 'release'
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download docs artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: sdk-docs-${{ needs.generate-docs.outputs.sdk-version }}
+          path: docs/html/
+
+      - name: Package docs for release
+        run: zip -r docs-${{ github.ref_name }}.zip docs/html/
+
+      - name: Attach docs to GitHub release
+        run: gh release upload --clobber ${{ github.ref_name }} docs-${{ github.ref_name }}.zip
+        env:
+          GH_TOKEN: ${{ github.token }}
