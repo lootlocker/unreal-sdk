@@ -4,7 +4,9 @@
 
 #include "LootLockerStateData.h"
 #include "LootLockerPresenceManager.h"
+#include "LootLockerHttpClient.h"
 #include "GameAPI/LootLockerFriendsRequestHandler.h"
+#include "Utils/LootLockerUtilities.h"
 
 // Player State
 TArray<FString> ULootLockerSDKManager::GetActivePlayerUlids()
@@ -1436,6 +1438,71 @@ FString ULootLockerSDKManager::SendUGCFeedback(const FString& Ulid, const FStrin
 {
     return ULootLockerFeedbackRequestHandler::SendFeedback(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Ulid, Description, CategoryID, ELootLockerFeedbackType::Ugc, OnComplete);
 
+}
+
+FString ULootLockerSDKManager::SendLootLockerErrorReport(const FString& UserDescription, const FLootLockerResponse& FailedResponse, const FLootLockerSendFeedbackResponseDelegate& OnComplete)
+{
+    if (FailedResponse.success)
+    {
+        FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>("Cannot send error report for a successful response", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, FailedResponse.Context.PlayerUlid);
+        OnComplete.ExecuteIfBound(Error);
+        return "";
+    }
+    if (FailedResponse.Context.RequestId.IsEmpty())
+    {
+        FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>("Cannot send error report: failed response is missing request context", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, FailedResponse.Context.PlayerUlid);
+        OnComplete.ExecuteIfBound(Error);
+        return "";
+    }
+    if (FailedResponse.StatusCode == 401)
+    {
+        FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>("Cannot send error report for an unauthorized request (HTTP 401). Session token is invalid", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, FailedResponse.Context.PlayerUlid);
+        OnComplete.ExecuteIfBound(Error);
+        return "";
+    }
+    if (FailedResponse.ErrorData.Retry_after_seconds > 0)
+    {
+        FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>(FString::Printf(TEXT("Cannot send error report for a throttled request. Retry after %d seconds"), FailedResponse.ErrorData.Retry_after_seconds), LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, FailedResponse.Context.PlayerUlid);
+        OnComplete.ExecuteIfBound(Error);
+        return "";
+    }
+    FLootLockerFailedRequestReport Report;
+    if (!ULootLockerHttpClient::TryGetFailedRequestReportForRequestId(FailedResponse.Context.RequestId, Report))
+    {
+        FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>(FString::Printf(TEXT("Cannot send error report: no stored details found for request id %s. The request may have been evicted from history"), *FailedResponse.Context.RequestId), LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, FailedResponse.Context.PlayerUlid);
+        OnComplete.ExecuteIfBound(Error);
+        return "";
+    }
+
+    Report.user_description = UserDescription;
+    FString ReportJsonString = LootLockerUtilities::UStructToJsonString(Report);
+    FLootLockerPlayerData PlayerData = GetSavedStateOrDefaultOrEmptyForPlayer(FailedResponse.Context.PlayerUlid);
+    FString PlayerUlid = FailedResponse.Context.PlayerUlid;
+
+    FString CategoryId = ULootLockerHttpClient::GetFailureFeedbackCategoryId();
+    if (CategoryId.Equals(TEXT("Not Initialized")))
+    {
+        ULootLockerHttpClient::RefreshFailureFeedbackCategoryId(
+            FLootLockerRefreshFailureFeedbackCategoryIdDelegate::CreateLambda([PlayerData, ReportJsonString, PlayerUlid, OnComplete](bool bFound)
+            {
+                if (!bFound)
+                {
+                    FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>("Cannot send error report because failure reporting is not enabled. Ensure a feedback category named 'lootlocker_request_failure' exists", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, PlayerUlid);
+                    OnComplete.ExecuteIfBound(Error);
+                    return;
+                }
+                ULootLockerFeedbackRequestHandler::SendFeedback(PlayerData, TEXT(""), ReportJsonString, ULootLockerHttpClient::GetFailureFeedbackCategoryId(), ELootLockerFeedbackType::Game, OnComplete);
+            })
+        );
+        return "";
+    }
+    if (CategoryId.IsEmpty())
+    {
+        FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>("Cannot send error report because failure reporting is not enabled. Ensure a feedback category named 'lootlocker_request_failure' exists", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, FailedResponse.Context.PlayerUlid);
+        OnComplete.ExecuteIfBound(Error);
+        return "";
+    }
+    return ULootLockerFeedbackRequestHandler::SendFeedback(PlayerData, TEXT(""), ReportJsonString, CategoryId, ELootLockerFeedbackType::Game, OnComplete);
 }
 
 // Metadata
