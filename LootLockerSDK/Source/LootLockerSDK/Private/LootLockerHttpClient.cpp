@@ -20,6 +20,8 @@
 const FString ULootLockerHttpClient::UserAgent = FString::Format(TEXT("X-UnrealEngine-Agent/{0}"), { ENGINE_VERSION_STRING });
 const FString ULootLockerHttpClient::UserInstanceIdentifier = FGuid::NewGuid().ToString();
 FString ULootLockerHttpClient::SDKVersion = "";
+TArray<FLootLockerFailedRequestReport> ULootLockerHttpClient::FailedRequestHistory;
+FString ULootLockerHttpClient::LootLockerFailureFeedbackCategoryId = TEXT("Not Initialized");
 
 ULootLockerHttpClient::ULootLockerHttpClient()
 {
@@ -82,7 +84,8 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
     Request->SetContentAsString(data);
 
     FString playerUlid = PlayerData.PlayerUlid;
-    FString requestTime = FDateTime::Now().ToString();
+    FDateTime requestStartTime = FDateTime::Now();
+    FString requestTime = requestStartTime.ToString();
     FString DelimitedHeaders = "";
     TArray<FString> AllHeaders = Request->GetAllHeaders();
     for (auto Header : AllHeaders)
@@ -90,7 +93,7 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
         DelimitedHeaders += TEXT("    ") + Header + TEXT("\n");
     }
 
-	Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, endPoint, requestType, data, playerUlid, requestTime, DelimitedHeaders, requestId, PlayerData, customHeaders, RetryAttemptCount](FHttpRequestPtr Req, const FHttpResponsePtr& Response, bool bWasSuccessful)
+	Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, endPoint, requestType, data, playerUlid, requestTime, requestStartTime, DelimitedHeaders, AllHeaders, requestId, PlayerData, customHeaders, RetryAttemptCount](FHttpRequestPtr Req, const FHttpResponsePtr& Response, bool bWasSuccessful)
 	{
         if (!Response.IsValid())
         {
@@ -147,6 +150,8 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
                 });
                 return; // Don't call the original callback yet
             }
+
+            StoreFailedRequestReport(response, data, AllHeaders, Response, RetryAttemptCount, requestStartTime);
 		}
         else
         {
@@ -204,7 +209,8 @@ FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString
 
     Request->SetVerb(requestType);
 
-    FString requestTime = FDateTime::Now().ToString();
+    FDateTime requestStartTime = FDateTime::Now();
+    FString requestTime = requestStartTime.ToString();
     TArray<uint8> UpFileRawData;
     if (!FFileHelper::LoadFileToArray(UpFileRawData, *FilePath)) {
         FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>("HTTP Response was invalid", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_HTTP, PlayerData.PlayerUlid);
@@ -252,7 +258,7 @@ FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString
     Request->SetContent(Data);
 
     FString playerUlid = PlayerData.PlayerUlid;
-    Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, requestType, endPoint, playerUlid, requestTime, DelimitedHeaders, requestId, PlayerData, customHeaders, FilePath, AdditionalFields, RetryAttemptCount](FHttpRequestPtr Req, const FHttpResponsePtr& Response, bool bWasSuccessful)
+    Request->OnProcessRequestComplete().BindLambda([onCompleteRequest, requestType, endPoint, playerUlid, requestTime, requestStartTime, DelimitedHeaders, AllHeaders, requestId, PlayerData, customHeaders, FilePath, AdditionalFields, RetryAttemptCount](FHttpRequestPtr Req, const FHttpResponsePtr& Response, bool bWasSuccessful)
         {
             if (!Response.IsValid())
             {
@@ -303,6 +309,8 @@ FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString
                     });
                     return; // Don't call the original callback yet
                 }
+
+                StoreFailedRequestReport(response, FString(), AllHeaders, Response, RetryAttemptCount, requestStartTime);
             }
     		else
             {
@@ -518,3 +526,159 @@ void ULootLockerHttpClient::RetryOriginalRequest(const FLootLockerRetryRequestDa
                RetryData.OnCompleteRequest, UpdatedPlayerData, RetryData.CustomHeaders, RetryData.RetryAttemptCount, RetryData.OriginalRequestId);
     }
 }
+
+// === Failure Reporting ===
+
+bool ULootLockerHttpClient::IsFailureReportingEnabled()
+{
+    return !LootLockerFailureFeedbackCategoryId.IsEmpty() && !LootLockerFailureFeedbackCategoryId.Equals(TEXT("Not Initialized"));
+}
+
+FString ULootLockerHttpClient::GetFailureFeedbackCategoryId()
+{
+    return LootLockerFailureFeedbackCategoryId;
+}
+
+void ULootLockerHttpClient::RefreshFailureFeedbackCategoryId(const FLootLockerRefreshFailureFeedbackCategoryIdDelegate& OnComplete)
+{
+    if (LootLockerFailureFeedbackCategoryId.IsEmpty())
+    {
+        // Already determined that no category exists
+        OnComplete.ExecuteIfBound(false);
+        return;
+    }
+
+    if (!LootLockerFailureFeedbackCategoryId.Equals(TEXT("Not Initialized")))
+    {
+        // Already initialized with a valid category id
+        OnComplete.ExecuteIfBound(true);
+        return;
+    }
+
+    // Look up feedback categories to find the "lootlocker_request_failure" category
+    FString DefaultPlayerUlid = ULootLockerStateData::GetDefaultPlayerUlid();
+    ULootLockerSDKManager::ListGameFeedbackCategories(
+        FLootLockerListFeedbackCategoryResponseDelegate::CreateLambda([OnComplete](const FLootLockerFeedbackCategoryResponse& Response)
+        {
+            if (!Response.success)
+            {
+                FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Failed to retrieve feedback categories for error report. Status: %d, Message: %s"), Response.StatusCode, *Response.ErrorData.Message));
+                LootLockerFailureFeedbackCategoryId = TEXT("");
+                OnComplete.ExecuteIfBound(false);
+                return;
+            }
+            for (const FLootLockerFeedbackCategory& Category : Response.categories)
+            {
+                if (Category.name.Equals(TEXT("lootlocker_request_failure")))
+                {
+                    LootLockerFailureFeedbackCategoryId = Category.id;
+                    OnComplete.ExecuteIfBound(true);
+                    return;
+                }
+            }
+            LootLockerFailureFeedbackCategoryId = TEXT("");
+            FLootLockerLogger::LogVerbose(TEXT("Failed to find appropriate category to send error report under. Feedback categories retrieved successfully but no category with name 'lootlocker_request_failure' was found. LootLocker Error reporting turned off"));
+            OnComplete.ExecuteIfBound(false);
+        }),
+        DefaultPlayerUlid
+    );
+}
+
+bool ULootLockerHttpClient::TryGetFailedRequestReportForRequestId(const FString& RequestId, FLootLockerFailedRequestReport& OutReport)
+{
+    for (const FLootLockerFailedRequestReport& Report : FailedRequestHistory)
+    {
+        if (Report.client_request_id.Equals(RequestId))
+        {
+            OutReport = Report;
+            return true;
+        }
+    }
+    return false;
+}
+
+void ULootLockerHttpClient::StoreFailedRequestReport(const FLootLockerResponse& FailedResponse, const FString& RequestBody, const TArray<FString>& AllRequestHeaders, const FHttpResponsePtr& HttpResponse, int32 RetryAttempts, const FDateTime& RequestStartTime)
+{
+    if (LootLockerFailureFeedbackCategoryId.IsEmpty())
+    {
+        // Failure reporting is disabled
+        return;
+    }
+    if (FailedResponse.StatusCode == 401)
+    {
+        FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Request unauthorized - cannot construct valid error report for a request that was unauthorized. Player ULID: %s"), *FailedResponse.Context.PlayerUlid));
+        return;
+    }
+    if (FailedResponse.ErrorData.Retry_after_seconds > 0)
+    {
+        FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Request throttled - cannot construct valid error report for a request that was throttled. Retry after %d seconds. Player ULID: %s"), FailedResponse.ErrorData.Retry_after_seconds, *FailedResponse.Context.PlayerUlid));
+        return;
+    }
+    if (FailedResponse.ErrorData.Message.IsEmpty() && FailedResponse.ErrorData.Code.IsEmpty())
+    {
+        FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Failed response had no error data, cannot construct valid error report. Player ULID: %s"), *FailedResponse.Context.PlayerUlid));
+        return;
+    }
+
+    FLootLockerFailedRequestReport Report;
+    Report.client_request_id = FailedResponse.Context.RequestId;
+    Report.server_request_id = FailedResponse.ErrorData.Request_id;
+    Report.trace_id = FailedResponse.ErrorData.Trace_id;
+    Report.status_code = FailedResponse.StatusCode;
+    Report.message = FailedResponse.ErrorData.Message;
+    Report.endpoint = FailedResponse.Context.RequestURL;
+    Report.http_method = FailedResponse.Context.RequestMethod;
+    Report.response_json_body = LootLockerUtilities::ObfuscateJsonStringForLogging(FailedResponse.FullTextFromServer);
+    Report.request_body = LootLockerUtilities::ObfuscateJsonStringForLogging(RequestBody);
+    Report.retry_attempts = RetryAttempts;
+    Report.player_ulid = FailedResponse.Context.PlayerUlid;
+    Report.client_timestamp = RequestStartTime.ToIso8601();
+
+    FTimespan Duration = FDateTime::Now() - RequestStartTime;
+    Report.request_duration_seconds = static_cast<float>(Duration.GetTotalSeconds());
+
+    // Capture request headers, omitting sensitive auth headers
+    for (const FString& Header : AllRequestHeaders)
+    {
+        FString LowerHeader = Header.ToLower();
+        if (!LowerHeader.StartsWith(TEXT("x-session-token")) && !LowerHeader.StartsWith(TEXT("authorization")))
+        {
+            Report.request_headers.Add(Header);
+        }
+    }
+
+    // Capture response headers and server timestamp
+    if (HttpResponse.IsValid())
+    {
+        Report.response_headers = HttpResponse->GetAllHeaders();
+        FString DateHeader = HttpResponse->GetHeader(TEXT("Date"));
+        if (!DateHeader.IsEmpty())
+        {
+            Report.server_timestamp = DateHeader;
+        }
+    }
+
+    // Store in history, replacing the oldest entry if at capacity
+    if (FailedRequestHistory.Num() < MaxFailedRequestHistory)
+    {
+        FailedRequestHistory.Add(Report);
+        return;
+    }
+
+    int32 OldestIndex = 0;
+    FDateTime OldestTime(MAX_int64);
+    for (int32 i = 0; i < FailedRequestHistory.Num(); i++)
+    {
+        FDateTime EntryTime;
+        if (FDateTime::ParseIso8601(*FailedRequestHistory[i].client_timestamp, EntryTime))
+        {
+            if (EntryTime < OldestTime)
+            {
+                OldestTime = EntryTime;
+                OldestIndex = i;
+            }
+        }
+    }
+    FailedRequestHistory[OldestIndex] = Report;
+}
+

@@ -2001,6 +2001,14 @@ FString ULootLockerManager::SendUGCFeedback(const FString& ForPlayerWithUlid, co
 
 }
 
+FString ULootLockerManager::SendLootLockerErrorReport(const FString& UserDescription, const FLootLockerResponse& FailedResponse, const FLootLockerSendFeedbackResponseBP& OnComplete)
+{
+    return ULootLockerSDKManager::SendLootLockerErrorReport(UserDescription, FailedResponse, FLootLockerSendFeedbackResponseDelegate::CreateLambda([OnComplete](const FLootLockerResponse& Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }));
+}
+
 // Metadata
 
 FString ULootLockerManager::ListMetadata(const FString& ForPlayerWithUlid, const ELootLockerMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const bool IgnoreFiles, const FLootLockerListMetadataResponseBP& OnComplete)
