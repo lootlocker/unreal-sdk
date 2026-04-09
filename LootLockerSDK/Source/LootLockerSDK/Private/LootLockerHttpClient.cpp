@@ -654,7 +654,11 @@ void ULootLockerHttpClient::StoreFailedRequestReport(const FLootLockerResponse& 
         FString DateHeader = HttpResponse->GetHeader(TEXT("Date"));
         if (!DateHeader.IsEmpty())
         {
-            Report.server_timestamp = DateHeader;
+            FDateTime ParsedDate;
+            if (FDateTime::ParseHttpDate(DateHeader, ParsedDate))
+            {
+                Report.server_timestamp = ParsedDate.ToIso8601();
+            }
         }
     }
 
