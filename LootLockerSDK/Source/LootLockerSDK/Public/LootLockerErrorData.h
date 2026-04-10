@@ -9,16 +9,16 @@ USTRUCT(BlueprintType)
 struct FLootLockerErrorData
 {
     GENERATED_BODY()
-	// A descriptive code identifying the error.
+	/// A descriptive code identifying the error.
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Code = "";
-    // A link to further documentation on the error.
+    /// A link to further documentation on the error.
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Doc_url = "";
-    // A unique identifier of the request to use in contact with support.
+    /// A unique identifier of the request to use in contact with support.
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Request_id = "";
-    // A unique identifier for tracing the request through LootLocker systems, use this in contact with support.
+    /// A unique identifier for tracing the request through LootLocker systems, use this in contact with support.
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Trace_id = "";
     /// <summary>
@@ -26,7 +26,7 @@ struct FLootLockerErrorData
     /// </summary>
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int Retry_after_seconds = -1;
-    // A free text description of the problem and potential suggestions for fixing it
+    /// A free text description of the problem and potential suggestions for fixing it
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Message = "";
 };
