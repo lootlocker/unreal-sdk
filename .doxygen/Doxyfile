@@ -7,6 +7,7 @@
 #---------------------------------------------------------------------------
 PROJECT_NAME           = "LootLocker Unreal SDK"
 PROJECT_BRIEF          = "Game backend SDK for Unreal Engine"
+PROJECT_NUMBER         = $(LL_SDK_VERSION)
 PROJECT_LOGO           = .doxygen/images/lootlocker-logo.png
 OUTPUT_DIRECTORY       = docs
 
