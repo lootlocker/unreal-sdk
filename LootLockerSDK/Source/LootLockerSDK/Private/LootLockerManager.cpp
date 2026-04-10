@@ -2139,7 +2139,7 @@ void ULootLockerManager::ParseLootLockerMetadataEntry(const FLootLockerMetadataE
             MetadataTypeSwitch = ELootLockerMetadataParserOutputTypes::OnBase64;
             return;
         }
-        ErrorMessage = "Could not parse value \"" + ValueToParse + "\" because it is not a valid LootLocker Metadata Base64 Object";
+        ErrorMessage = "Could not parse value \"" + ValueToParse + "\" because it is not a valid Metadata Base64 Object";
         return;
     }
     default:
