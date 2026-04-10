@@ -13,10 +13,9 @@ OUTPUT_DIRECTORY       = docs
 #---------------------------------------------------------------------------
 # Build options
 #---------------------------------------------------------------------------
-EXTRACT_ALL = NO
+EXTRACT_ALL            = YES
 EXTRACT_PRIVATE        = NO
 EXTRACT_STATIC         = YES
-HIDE_UNDOC_MEMBERS     = YES
 # NO: types without a struct-level description still get pages.
 # Silently hiding undocumented types is a worse failure mode than noisy output.
 # The JS nav filter already prevents bare types appearing in the Topics sidebar.
