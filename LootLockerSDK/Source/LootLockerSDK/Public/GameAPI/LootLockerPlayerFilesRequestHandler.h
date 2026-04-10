@@ -12,7 +12,7 @@ USTRUCT(BlueprintType)
 struct FLootLockerFileUploadRequest
 {
     GENERATED_BODY()
-	// Path to the file
+	/// Path to the file
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString file = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -25,7 +25,7 @@ USTRUCT(BlueprintType)
 struct FLootLockerFileUpdateRequest
 {
 	GENERATED_BODY()
-	// Path to the file
+	/// Path to the file
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString file = "";
 };
