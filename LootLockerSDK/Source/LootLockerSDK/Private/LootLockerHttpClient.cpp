@@ -577,7 +577,7 @@ void ULootLockerHttpClient::RefreshFailureFeedbackCategoryId(const FLootLockerRe
                 }
             }
             LootLockerFailureFeedbackCategoryId = TEXT("");
-            FLootLockerLogger::LogVerbose(TEXT("Failed to find appropriate category to send error report under. Feedback categories retrieved successfully but no category with name 'lootlocker_request_failure' was found. LootLocker Error reporting turned off"));
+            FLootLockerLogger::LogVerbose(TEXT("Failed to find appropriate category to send error report under. Feedback categories retrieved successfully but no category with name 'lootlocker_request_failure' was found. Error reporting turned off"));
             OnComplete.ExecuteIfBound(false);
         }),
         DefaultPlayerUlid
