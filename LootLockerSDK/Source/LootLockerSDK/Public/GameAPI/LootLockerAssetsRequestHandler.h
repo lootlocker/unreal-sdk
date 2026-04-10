@@ -421,16 +421,16 @@ USTRUCT(BlueprintType)
 struct FLootLockerSimpleAssetIncludes
 {
     GENERATED_BODY()
-    // If set to true, response will include storage key-value pairs.
+    /// If set to true, response will include storage key-value pairs.
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     bool storage = false;
-    // If set to true, response will include files.
+    /// If set to true, response will include files.
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     bool files = false;
-    // If set to true, response will include asset data entities.
+    /// If set to true, response will include asset data entities.
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     bool data_entities = false;
-    // If set to true, response will include asset metadata.
+    /// If set to true, response will include asset metadata.
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     bool metadata = false;
 };
@@ -440,7 +440,7 @@ USTRUCT(BlueprintType)
 struct FLootLockerSimpleAssetExcludes
 {
     GENERATED_BODY()
-    // If set to true, UGC assets authors will not be returned.
+    /// If set to true, UGC assets authors will not be returned.
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     bool authors = false;
 };
@@ -450,10 +450,10 @@ USTRUCT(BlueprintType)
 struct FLootLockerSimpleAssetFilter
 {
     GENERATED_BODY()
-    // The key for which to look for the filtered values
+    /// The key for which to look for the filtered values
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     FString key = "";
-    // A list of values to filter by. If the asset has any of these values for the given key, it will be included in the results.
+    /// A list of values to filter by. If the asset has any of these values for the given key, it will be included in the results.
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     TArray<FString> values;
 };
@@ -463,13 +463,13 @@ USTRUCT(BlueprintType)
 struct FLootLockerSimpleAssetFilters
 {
     GENERATED_BODY()
-    // If true only UGC assets are returned
+    /// If true only UGC assets are returned
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     bool ugc_only = false;
-    // If provided only the requested ids will be returned (max 100, server enforced). Pagination ignored.
+    /// If provided only the requested ids will be returned (max 100, server enforced). Pagination ignored.
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     TArray<int> asset_ids;
-    // Filters to apply to the asset listing based on key-value pairs.
+    /// Filters to apply to the asset listing based on key-value pairs.
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     TArray<FLootLockerSimpleAssetFilter> asset_filters;
 };
@@ -479,13 +479,13 @@ USTRUCT(BlueprintType)
 struct FLootLockerListSimpleAssetsRequest
 {
     GENERATED_BODY()
-    // Fields to include in the response.
+    /// Fields to include in the response.
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     FLootLockerSimpleAssetIncludes includes;
-    // Fields to exclude from the response.
+    /// Fields to exclude from the response.
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     FLootLockerSimpleAssetExcludes excludes;
-    // Filters to apply to the asset listing.
+    /// Filters to apply to the asset listing.
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     FLootLockerSimpleAssetFilters filters;
 };
@@ -562,10 +562,10 @@ USTRUCT(BlueprintType)
 struct FLootLockerListSimpleAssetsResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
-    // List of assets returned by the endpoint.
+    /// List of assets returned by the endpoint.
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     TArray<FLootLockerSimpleAsset> assets;
-    // Pagination data for this request
+    /// Pagination data for this request
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     FLootLockerExtendedIndexBasedPagination pagination;
 };

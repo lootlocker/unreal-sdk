@@ -10,22 +10,22 @@ USTRUCT(BlueprintType)
 struct FLootLockerRequestContext
 {
     GENERATED_BODY()
-    // What player this request was made on behalf of
+    /// What player this request was made on behalf of
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString PlayerUlid = "";
-    // The time that this request was made
+    /// The time that this request was made
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString RequestTime = "";
-    // The unique identifier for this request
+    /// The unique identifier for this request
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString RequestId = "";
-    // The url that this request was made to
+    /// The url that this request was made to
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString RequestURL = "";
-    // The HTTP Method that was used for this request
+    /// The HTTP Method that was used for this request
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString RequestMethod = "";
-    // The request parameters as a json string.
+    /// The request parameters as a json string.
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString RequestParametersJsonString = "";
 };
