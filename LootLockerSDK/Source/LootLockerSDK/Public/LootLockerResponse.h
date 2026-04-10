@@ -18,19 +18,19 @@ USTRUCT(BlueprintType)
 struct FLootLockerResponse
 {
     GENERATED_BODY()
-    // Whether this request was a success
+    /// Whether this request was a success
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool success = false;
-    // HTTP Status code from the request to LootLockers backend 
+    /// HTTP Status code from the request to LootLockers backend 
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int StatusCode = 0;
-    // Raw text/http body from the server response
+    /// Raw text/http body from the server response
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString FullTextFromServer = "";
-    // If this request was not a success, this structure holds all the information needed to identify the problem
+    /// If this request was not a success, this structure holds all the information needed to identify the problem
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerErrorData ErrorData;
-    // Context for the request
+    /// Context for the request
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerRequestContext Context;
 };
