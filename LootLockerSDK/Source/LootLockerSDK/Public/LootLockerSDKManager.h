@@ -14,6 +14,7 @@
 #include "GameAPI/LootLockerCurrencyRequestHandler.h"
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
 #include "GameAPI/LootLockerEntitlementRequestHandler.h"
+#include "GameAPI/LootLockerErrorReportRequestHandler.h"
 #include "GameAPI/LootLockerFeedbackRequestHandler.h"
 #include "GameAPI/LootLockerFollowersRequestHandler.h"
 #include "GameAPI/LootLockerFriendsRequestHandler.h"
@@ -3249,7 +3250,6 @@ public:
      This is intended for cases where a request fails and you want to report the details to LootLocker for debugging.
      It will not work for successful requests, unauthorized requests (HTTP 401), or throttled requests (HTTP 429).
      The request must have failed with a server response containing error details.
-     Requires a feedback category named "lootlocker_request_failure" to exist in the game's feedback categories.
 
      @param UserDescription Optional description from the developer or player about the circumstances of the failure
      @param FailedResponse The response from the failed request to report
