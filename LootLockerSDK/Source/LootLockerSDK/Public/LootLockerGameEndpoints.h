@@ -328,6 +328,9 @@ public:
     static FLootLockerEndPoints ListFeedbackCategories;
     static FLootLockerEndPoints SendFeedback;
 
+    // Error Reporting
+    static FLootLockerEndPoints ReportSDKError;
+
     // Metadata
     static FLootLockerEndPoints ListMetadata;
     static FLootLockerEndPoints GetMultisourceMetadata;
