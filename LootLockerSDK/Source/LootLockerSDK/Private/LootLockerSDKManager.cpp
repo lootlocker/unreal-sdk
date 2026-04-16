@@ -1442,50 +1442,28 @@ FString ULootLockerSDKManager::SendLootLockerErrorReport(const FString& UserDesc
         return "";
     }
 
-    Report.user_description = UserDescription;
-    FString ReportJsonString = LootLockerUtilities::UStructToJsonString(Report);
+    FLootLockerErrorReportRequest RequestBody;
+    RequestBody.user_description = UserDescription;
+    RequestBody.client_request_id = Report.client_request_id;
+    RequestBody.server_request_id = Report.server_request_id;
+    RequestBody.trace_id = Report.trace_id;
+    RequestBody.status_code = Report.status_code;
+    RequestBody.message = Report.message;
+    RequestBody.endpoint = Report.endpoint;
+    RequestBody.http_method = Report.http_method;
+    RequestBody.response_json_body = Report.response_json_body;
+    RequestBody.response_headers = Report.response_headers;
+    RequestBody.request_body = Report.request_body;
+    RequestBody.request_headers = Report.request_headers;
+    RequestBody.retry_attempts = Report.retry_attempts;
+    RequestBody.request_duration_seconds = Report.request_duration_seconds;
+    RequestBody.server_timestamp = Report.server_timestamp;
+    RequestBody.client_timestamp = Report.client_timestamp;
+    RequestBody.player_ulid = Report.player_ulid;
+    RequestBody.sdk_version = ULootLockerHttpClient::SDKVersion;
+
     FLootLockerPlayerData PlayerData = GetSavedStateOrDefaultOrEmptyForPlayer(FailedResponse.Context.PlayerUlid);
-    FString PlayerUlid = FailedResponse.Context.PlayerUlid;
-
-    const FString DeferredRequestId = FGuid::NewGuid().ToString(EGuidFormats::DigitsWithHyphens);
-
-    FString CategoryId = ULootLockerHttpClient::GetFailureFeedbackCategoryId();
-    if (CategoryId.Equals(TEXT("Not Initialized")))
-    {
-        ULootLockerHttpClient::RefreshFailureFeedbackCategoryId(
-            FLootLockerRefreshFailureFeedbackCategoryIdDelegate::CreateLambda([PlayerData, ReportJsonString, PlayerUlid, OnComplete, DeferredRequestId](bool bFound)
-            {
-                if (!bFound)
-                {
-                    FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>("Cannot send error report because failure reporting is not enabled. Ensure a feedback category named 'lootlocker_request_failure' exists", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, PlayerUlid);
-                    Error.Context.RequestId = DeferredRequestId;
-                    OnComplete.ExecuteIfBound(Error);
-                    return;
-                }
-                ULootLockerFeedbackRequestHandler::SendFeedback(
-                    PlayerData,
-                    TEXT(""),
-                    ReportJsonString,
-                    ULootLockerHttpClient::GetFailureFeedbackCategoryId(),
-                    ELootLockerFeedbackType::Game,
-                    FLootLockerSendFeedbackResponseDelegate::CreateLambda([OnComplete, DeferredRequestId](const FLootLockerResponse& Response)
-                    {
-                        FLootLockerResponse ResponseWithStableRequestId = Response;
-                        ResponseWithStableRequestId.Context.RequestId = DeferredRequestId;
-                        OnComplete.ExecuteIfBound(ResponseWithStableRequestId);
-                    })
-                );
-            })
-        );
-        return DeferredRequestId;
-    }
-    if (CategoryId.IsEmpty())
-    {
-        FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>("Cannot send error report because failure reporting is not enabled. Ensure a feedback category named 'lootlocker_request_failure' exists", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, FailedResponse.Context.PlayerUlid);
-        OnComplete.ExecuteIfBound(Error);
-        return "";
-    }
-    return ULootLockerFeedbackRequestHandler::SendFeedback(PlayerData, TEXT(""), ReportJsonString, CategoryId, ELootLockerFeedbackType::Game, OnComplete);
+    return ULootLockerErrorReportRequestHandler::ReportSDKError(PlayerData, RequestBody, OnComplete);
 }
 
 // Metadata

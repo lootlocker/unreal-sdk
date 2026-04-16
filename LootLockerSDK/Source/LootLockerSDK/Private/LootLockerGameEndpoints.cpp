@@ -289,6 +289,9 @@ FLootLockerEndPoints ULootLockerGameEndpoints::Crashes = InitEndpoint("v1/crash"
 FLootLockerEndPoints ULootLockerGameEndpoints::ListFeedbackCategories = InitEndpoint("feedback/category/entity/{0}", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::SendFeedback = InitEndpoint("feedback", ELootLockerHTTPMethod::POST);
 
+// Error Reporting
+FLootLockerEndPoints ULootLockerGameEndpoints::ReportSDKError = InitEndpoint("error-report", ELootLockerHTTPMethod::POST);
+
 // Metadata
 FLootLockerEndPoints ULootLockerGameEndpoints::ListMetadata = InitEndpoint("metadata/source/{0}/id/{1}", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetMultisourceMetadata = InitEndpoint("metadata/multisource", ELootLockerHTTPMethod::POST);
