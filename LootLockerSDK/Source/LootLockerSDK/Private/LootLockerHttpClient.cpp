@@ -681,3 +681,7 @@ void ULootLockerHttpClient::StoreFailedRequestReport(const FLootLockerResponse& 
     FailedRequestHistory[OldestIndex] = Report;
 }
 
+FString ULootLockerHttpClient::GetSDKVersion()
+{
+    return SDKVersion;
+}
