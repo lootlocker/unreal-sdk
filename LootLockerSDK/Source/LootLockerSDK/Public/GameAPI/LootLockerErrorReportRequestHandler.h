@@ -58,6 +58,8 @@ struct FLootLockerErrorReportRequest
 // Handler
 //==================================================
 
+DECLARE_DELEGATE_OneParam(FLootLockerSendErrorReportDelegate, FLootLockerResponse);
+
 UCLASS()
 class LOOTLOCKERSDK_API ULootLockerErrorReportRequestHandler : public UObject
 {
@@ -70,5 +72,5 @@ public:
      * @param OnComplete Delegate called when the request completes
      * @return A unique id for this request used to match callbacks
      */
-    static FString ReportSDKError(const FLootLockerPlayerData& PlayerData, const FLootLockerErrorReportRequest& Report, const FLootLockerResponseDelegate& OnComplete);
+    static FString ReportSDKError(const FLootLockerPlayerData& PlayerData, const FLootLockerErrorReportRequest& Report, const FLootLockerSendErrorReportDelegate& OnComplete);
 };
