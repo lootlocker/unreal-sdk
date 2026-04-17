@@ -3256,7 +3256,7 @@ public:
      @param OnComplete Delegate for handling the server response
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
-    static FString SendLootLockerErrorReport(const FString& UserDescription, const FLootLockerResponse& FailedResponse, const FLootLockerSendFeedbackResponseDelegate& OnComplete);
+    static FString SendLootLockerErrorReport(const FString& UserDescription, const FLootLockerResponse& FailedResponse, const FLootLockerSendErrorReportDelegate& OnComplete);
 
     /// @}
 

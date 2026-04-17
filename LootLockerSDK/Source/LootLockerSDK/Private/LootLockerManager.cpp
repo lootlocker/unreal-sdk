@@ -1952,7 +1952,7 @@ FString ULootLockerManager::SendUGCFeedback(const FString& ForPlayerWithUlid, co
 
 FString ULootLockerManager::SendLootLockerErrorReport(const FString& UserDescription, const FLootLockerResponse& FailedResponse, const FLootLockerSendFeedbackResponseBP& OnComplete)
 {
-    return ULootLockerSDKManager::SendLootLockerErrorReport(UserDescription, FailedResponse, FLootLockerSendFeedbackResponseDelegate::CreateLambda([OnComplete](const FLootLockerResponse& Response)
+    return ULootLockerSDKManager::SendLootLockerErrorReport(UserDescription, FailedResponse, FLootLockerSendErrorReportDelegate::CreateLambda([OnComplete](const FLootLockerResponse& Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }));
