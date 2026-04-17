@@ -1408,7 +1408,7 @@ FString ULootLockerSDKManager::SendUGCFeedback(const FString& Ulid, const FStrin
 
 }
 
-FString ULootLockerSDKManager::SendLootLockerErrorReport(const FString& UserDescription, const FLootLockerResponse& FailedResponse, const FLootLockerSendFeedbackResponseDelegate& OnComplete)
+FString ULootLockerSDKManager::SendLootLockerErrorReport(const FString& UserDescription, const FLootLockerResponse& FailedResponse, const FLootLockerSendErrorReportDelegate& OnComplete)
 {
     if (FailedResponse.success)
     {
