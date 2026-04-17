@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
-#include "LootLockerFailedRequestReport.h"
 #include "LootLockerErrorReportRequestHandler.generated.h"
 
 //==================================================

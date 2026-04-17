@@ -599,11 +599,6 @@ bool ULootLockerHttpClient::TryGetFailedRequestReportForRequestId(const FString&
 
 void ULootLockerHttpClient::StoreFailedRequestReport(const FLootLockerResponse& FailedResponse, const FString& RequestBody, const TArray<FString>& AllRequestHeaders, const FHttpResponsePtr& HttpResponse, int32 RetryAttempts, const FDateTime& RequestStartTime)
 {
-    if (LootLockerFailureFeedbackCategoryId.IsEmpty())
-    {
-        // Failure reporting is disabled
-        return;
-    }
     if (FailedResponse.StatusCode == 401)
     {
         FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Request unauthorized - cannot construct valid error report for a request that was unauthorized. Player ULID: %s"), *FailedResponse.Context.PlayerUlid));
