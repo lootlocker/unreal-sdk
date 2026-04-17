@@ -1460,7 +1460,7 @@ FString ULootLockerSDKManager::SendLootLockerErrorReport(const FString& UserDesc
     RequestBody.server_timestamp = Report.server_timestamp;
     RequestBody.client_timestamp = Report.client_timestamp;
     RequestBody.player_ulid = Report.player_ulid;
-    RequestBody.sdk_version = ULootLockerHttpClient::SDKVersion;
+    RequestBody.sdk_version = ULootLockerHttpClient::GetSDKVersion();
 
     FLootLockerPlayerData PlayerData = GetSavedStateOrDefaultOrEmptyForPlayer(FailedResponse.Context.PlayerUlid);
     return ULootLockerErrorReportRequestHandler::ReportSDKError(PlayerData, RequestBody, OnComplete);

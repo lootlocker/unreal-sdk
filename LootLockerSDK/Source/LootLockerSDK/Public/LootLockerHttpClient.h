@@ -50,6 +50,8 @@ public:
      */
     static bool TryGetFailedRequestReportForRequestId(const FString& RequestId, FLootLockerFailedRequestReport& OutReport);
 
+    static FString GetSDKVersion();
+
 private:
     static bool ResponseIsSuccess(const FHttpResponsePtr& InResponse, bool bWasSuccessful);
     
