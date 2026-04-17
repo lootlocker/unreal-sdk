@@ -2,6 +2,7 @@
 
 #include "GameAPI/LootLockerErrorReportRequestHandler.h"
 #include "LootLockerGameEndpoints.h"
+#include "Utils/LootLockerUtilities.h"
 
 FString ULootLockerErrorReportRequestHandler::ReportSDKError(const FLootLockerPlayerData& PlayerData, const FLootLockerErrorReportRequest& Report, const FLootLockerResponseDelegate& OnComplete)
 {
