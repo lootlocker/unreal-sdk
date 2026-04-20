@@ -3,6 +3,7 @@
 
 #include "LootLockerHttpClient.h"
 #include "LootLockerLogger.h"
+#include "LootLockerHTTPExecutionQueue.h"
 
 #include "HttpModule.h"
 #include "JsonObjectConverter.h"
@@ -47,6 +48,24 @@ bool ULootLockerHttpClient::ResponseIsSuccess(const FHttpResponsePtr& InResponse
 
 FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& requestType, const FString& data, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders, int32 RetryAttemptCount, const FString& RequestIdOverride)
 {
+#if !LOOTLOCKER_FORCE_LEGACY_HTTP_STACK
+    if (!GetDefault<ULootLockerConfig>()->bUseLegacyHTTPStack && FLootLockerHTTPExecutionQueue::IsInitialized())
+    {
+        FLootLockerHTTPRequestData RequestData;
+        RequestData.RequestId        = RequestIdOverride.IsEmpty() ? FGuid::NewGuid().ToString() : RequestIdOverride;
+        RequestData.ForPlayerUlid    = PlayerData.PlayerUlid;
+        RequestData.Endpoint         = endPoint;
+        RequestData.Verb             = requestType;
+        RequestData.Body             = data;
+        RequestData.ExtraHeaders     = customHeaders;
+        RequestData.PlayerData       = PlayerData;
+        RequestData.TimesRetried     = RetryAttemptCount;
+        RequestData.RequestStartTime = FPlatformTime::Seconds();
+        RequestData.Listeners.Add(onCompleteRequest);
+        FLootLockerHTTPExecutionQueue::Get().ScheduleRequest(RequestData);
+        return RequestData.RequestId;
+    }
+#endif
 	FHttpModule* HttpModule = &FHttpModule::Get();
     if(SDKVersion.IsEmpty())
     {
@@ -179,6 +198,26 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
 
 FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString& requestType, const FString& FilePath, const TMap<FString, FString>& AdditionalFields, const FResponseCallback& onCompleteRequest, const FLootLockerPlayerData& PlayerData, TMap<FString, FString> customHeaders, int32 RetryAttemptCount, const FString& RequestIdOverride)
 {
+#if !LOOTLOCKER_FORCE_LEGACY_HTTP_STACK
+    if (!GetDefault<ULootLockerConfig>()->bUseLegacyHTTPStack && FLootLockerHTTPExecutionQueue::IsInitialized())
+    {
+        FLootLockerHTTPRequestData RequestData;
+        RequestData.RequestId        = RequestIdOverride.IsEmpty() ? FGuid::NewGuid().ToString() : RequestIdOverride;
+        RequestData.ForPlayerUlid    = PlayerData.PlayerUlid;
+        RequestData.Endpoint         = endPoint;
+        RequestData.Verb             = requestType;
+        RequestData.ExtraHeaders     = customHeaders;
+        RequestData.PlayerData       = PlayerData;
+        RequestData.TimesRetried     = RetryAttemptCount;
+        RequestData.RequestStartTime = FPlatformTime::Seconds();
+        RequestData.bIsFileUpload    = true;
+        RequestData.FilePath         = FilePath;
+        RequestData.AdditionalFields = AdditionalFields;
+        RequestData.Listeners.Add(onCompleteRequest);
+        FLootLockerHTTPExecutionQueue::Get().ScheduleRequest(RequestData);
+        return RequestData.RequestId;
+    }
+#endif
     FHttpModule* HttpModule = &FHttpModule::Get();
     if (SDKVersion.IsEmpty())
     {

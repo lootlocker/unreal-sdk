@@ -50,6 +50,14 @@ public:
      */
     static bool TryGetFailedRequestReportForRequestId(const FString& RequestId, FLootLockerFailedRequestReport& OutReport);
 
+    /**
+     * Attempts to refresh the session for the given player using whatever credential
+     * type is appropriate for their current platform.  Invokes OnRefreshCompleted
+     * with true on success, false on failure or unsupported platform.
+     * Also used by FLootLockerHTTPExecutionQueue as its session-refresh delegate.
+     */
+    static void RefreshSessionForPlatform(const FLootLockerPlayerData& PlayerData, TFunction<void(bool)> OnRefreshCompleted);
+
     static FString GetSDKVersion();
 
 private:
@@ -58,7 +66,6 @@ private:
     // Token refresh functionality
     static bool ShouldRefreshSession(int32 StatusCode, const FLootLockerPlayerData& PlayerData, int32 RetryAttemptCount = 0);
     static bool CanRefreshSession(const FLootLockerPlayerData& PlayerData);
-    static void RefreshSessionForPlatform(const FLootLockerPlayerData& PlayerData, TFunction<void(bool)> OnRefreshCompleted);
     
     // Structure to hold original request data for retry after refresh
     struct FLootLockerRetryRequestData
