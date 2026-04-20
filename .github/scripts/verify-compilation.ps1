@@ -156,6 +156,7 @@ $noUbaXml = @'
   <BuildConfiguration>
     <bAllowUBAExecutor>false</bAllowUBAExecutor>
     <bAllowUBALocalExecutor>false</bAllowUBALocalExecutor>
+    <bAllowUBALocalExecutor>false</bAllowUBALocalExecutor>
   </BuildConfiguration>
 </Configuration>
 '@
