@@ -14,6 +14,7 @@
 
 #include <atomic>
 
+#include "Runtime/Launch/Resources/Version.h"
 #include "LootLockerHttpClient.h"
 #include "LootLockerPlayerData.h"
 #include "LootLockerResponse.h"
