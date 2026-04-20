@@ -2,6 +2,7 @@
 
 #include "LootLockerSDK.h"
 #include "LootLockerHTTPExecutionQueue.h"
+#include "LootLockerHttpClient.h"
 #include "LootLockerLifeCycleManager.h"
 #include "LootLockerPresenceManager.h"
 #if WITH_EDITOR
@@ -39,6 +40,11 @@ void FLootLockerSDKModule::StartupModule()
 	if (!GetDefault<ULootLockerConfig>()->bUseLegacyHTTPStack)
 	{
 		FLootLockerHTTPExecutionQueue::Initialize();
+		FLootLockerHTTPExecutionQueue::Get().SetSessionRefreshDelegate(
+			[](const FLootLockerPlayerData& PlayerData, TFunction<void(bool)> OnDone)
+			{
+				ULootLockerHttpClient::RefreshSessionForPlatform(PlayerData, MoveTemp(OnDone));
+			});
 	}
 #endif
 }

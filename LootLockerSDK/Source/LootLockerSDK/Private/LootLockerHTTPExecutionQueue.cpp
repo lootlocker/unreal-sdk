@@ -12,6 +12,8 @@
 #include "LootLockerPlayerData.h"
 #include "LootLockerPlatformManager.h"
 #include "LootLockerResponse.h"
+#include "LootLockerStateData.h"
+#include "Misc/FileHelper.h"
 #include "Misc/Guid.h"
 #include "Runtime/Launch/Resources/Version.h"
 
@@ -341,8 +343,6 @@ bool FLootLockerHTTPExecutionQueue::CreateAndSendRequest(FLootLockerHTTPExecutio
     Request->SetHeader(TEXT("User-Agent"),              UserAgent);
     Request->SetHeader(TEXT("LL-Instance-Identifier"), UserInstanceIdentifier);
     Request->SetHeader(TEXT("LL-SDK-Version"),         SDKVersion);
-    Request->SetHeader(TEXT("Content-Type"),           TEXT("application/json"));
-    Request->SetHeader(TEXT("Accept"),                 TEXT("application/json"));
     Request->SetHeader(TEXT("LL-Request-Id"),          Item.RequestData.RequestId);
 
     if (Item.RequestData.TimesRetried > 0)
@@ -357,7 +357,62 @@ bool FLootLockerHTTPExecutionQueue::CreateAndSendRequest(FLootLockerHTTPExecutio
         Request->SetHeader(Header.Key, Header.Value);
     }
 
-    Request->SetContentAsString(Item.RequestData.Body);
+    if (Item.RequestData.bIsFileUpload)
+    {
+        const FString Boundary = TEXT("lootlockerboundary");
+        Request->SetHeader(TEXT("Content-Type"), TEXT("multipart/form-data; boundary=") + Boundary);
+
+        TArray<uint8> BodyData;
+        const FString BeginBoundary = TEXT("\r\n--") + Boundary + TEXT("\r\n");
+        const FString EndBoundary   = TEXT("\r\n--") + Boundary + TEXT("--\r\n");
+
+        for (const auto& KV : Item.RequestData.AdditionalFields)
+        {
+            const auto BeginBoundaryAnsi = StringCast<ANSICHAR>(*BeginBoundary);
+            BodyData.Append(reinterpret_cast<const uint8*>(BeginBoundaryAnsi.Get()), BeginBoundaryAnsi.Length());
+            FString ParameterEntry = TEXT("Content-Type: text/plain; charset=\"utf-8\"\r\n");
+            ParameterEntry        += TEXT("Content-Disposition: form-data; name=\"") + KV.Key + TEXT("\"\r\n\r\n") + KV.Value;
+            const auto ParameterEntryAnsi = StringCast<ANSICHAR>(*ParameterEntry);
+            BodyData.Append(reinterpret_cast<const uint8*>(ParameterEntryAnsi.Get()), ParameterEntryAnsi.Length());
+        }
+
+        const auto BeginBoundaryAnsi = StringCast<ANSICHAR>(*BeginBoundary);
+        BodyData.Append(reinterpret_cast<const uint8*>(BeginBoundaryAnsi.Get()), BeginBoundaryAnsi.Length());
+
+        int32 LastSlash = INDEX_NONE;
+        if (!Item.RequestData.FilePath.FindLastChar('/', LastSlash))
+        {
+            Item.RequestData.FilePath.FindLastChar('\\', LastSlash);
+        }
+        const FString FileName = Item.RequestData.FilePath.RightChop(LastSlash + 1);
+
+        FString FileHeader  = TEXT("Content-Type: application/octet-stream\r\n");
+        FileHeader         += TEXT("Content-disposition: form-data; name=\"file\"; filename=\"") + FileName + TEXT("\"\r\n\r\n");
+        const auto FileHeaderAnsi = StringCast<ANSICHAR>(*FileHeader);
+        BodyData.Append(reinterpret_cast<const uint8*>(FileHeaderAnsi.Get()), FileHeaderAnsi.Length());
+
+        TArray<uint8> FileData;
+        if (!FFileHelper::LoadFileToArray(FileData, *Item.RequestData.FilePath))
+        {
+            MarkItemDone(Item, LootLockerResponseFactory::Error<FLootLockerResponse>(
+                FString::Printf(TEXT("Failed to read file for upload: %s"), *Item.RequestData.FilePath),
+                LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_HTTP,
+                Item.RequestData.ForPlayerUlid));
+            return false;
+        }
+        BodyData.Append(FileData);
+
+        const auto EndBoundaryAnsi = StringCast<ANSICHAR>(*EndBoundary);
+        BodyData.Append(reinterpret_cast<const uint8*>(EndBoundaryAnsi.Get()), EndBoundaryAnsi.Length());
+
+        Request->SetContent(BodyData);
+    }
+    else
+    {
+        Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
+        Request->SetHeader(TEXT("Accept"),       TEXT("application/json"));
+        Request->SetContentAsString(Item.RequestData.Body);
+    }
 
     Item.RequestStartTime = FPlatformTime::Seconds();
     Item.HttpRequest = Request;
@@ -409,6 +464,7 @@ FLootLockerHTTPExecutionQueue::ProcessOngoingRequest(FLootLockerHTTPExecutionQue
         if (EHttpResponseCodes::IsOk(StatusCode))
         {
             LLResponse.success = true;
+            ULootLockerStateData::MakePlayerActive(Item.RequestData.ForPlayerUlid);
             Item.Response = LLResponse;
             return ELootLockerHTTPExecutionQueueProcessingResult::Completed_Success;
         }
