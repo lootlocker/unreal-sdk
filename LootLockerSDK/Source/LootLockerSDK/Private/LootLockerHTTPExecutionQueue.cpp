@@ -12,7 +12,6 @@
 #include "LootLockerPlayerData.h"
 #include "LootLockerPlatformManager.h"
 #include "LootLockerResponse.h"
-#include "LootLockerStateData.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Guid.h"
 #include "Runtime/Launch/Resources/Version.h"
@@ -464,7 +463,6 @@ FLootLockerHTTPExecutionQueue::ProcessOngoingRequest(FLootLockerHTTPExecutionQue
         if (EHttpResponseCodes::IsOk(StatusCode))
         {
             LLResponse.success = true;
-            ULootLockerStateData::MakePlayerActive(Item.RequestData.ForPlayerUlid);
             Item.Response = LLResponse;
             return ELootLockerHTTPExecutionQueueProcessingResult::Completed_Success;
         }
