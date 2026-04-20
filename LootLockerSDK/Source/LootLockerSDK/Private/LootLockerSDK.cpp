@@ -1,6 +1,7 @@
 // Copyright (c) 2021 LootLocker
 
 #include "LootLockerSDK.h"
+#include "LootLockerHTTPExecutionQueue.h"
 #include "LootLockerLifeCycleManager.h"
 #include "LootLockerPresenceManager.h"
 #if WITH_EDITOR
@@ -34,6 +35,7 @@ void FLootLockerSDKModule::StartupModule()
 	// Initialize LifeCycle Manager - this ensures it's always available and properly initialized
 	ULootLockerLifeCycleManager::Initialize();
 	ULootLockerPresenceManager::Initialize();
+	FLootLockerHTTPExecutionQueue::Initialize();
 }
 
 void FLootLockerSDKModule::ShutdownModule()
@@ -44,6 +46,7 @@ void FLootLockerSDKModule::ShutdownModule()
 	// Shutdown LifeCycle Manager
 	ULootLockerPresenceManager::Shutdown();
 	ULootLockerLifeCycleManager::Shutdown();
+	FLootLockerHTTPExecutionQueue::Shutdown();
 }
 
 #undef LOCTEXT_NAMESPACE
