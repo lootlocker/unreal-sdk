@@ -24,6 +24,7 @@
 #include "LootLockerHttpClient.h"
 #include "LootLockerPlayerData.h"
 #include "LootLockerResponse.h"
+#include "HttpModule.h"
 #include "Misc/AutomationTest.h"
 #include "Misc/DateTime.h"
 #include "Misc/FileHelper.h"
@@ -70,22 +71,29 @@ void FLootLockerHTTPPerformanceBenchmark::RunBenchmark(int32 NumRequests, const 
     FLootLockerPlayerData EmptyPlayerData;
     const FString FakeEndpoint = TEXT("http://localhost/api/benchmark");
 
+    // Enable NullHttp so SendApi() creates FNullHttpRequests — no real network
+    // activity, no connection-refused error logs, no async callbacks that would
+    // race with the test framework.  We only care about dispatch overhead here.
+    FHttpModule::Get().ToggleNullHttp(true);
+
     // Measure only the submission loop — how long does it take to dispatch N requests.
-    // Callbacks are intentionally ignored; the metric is scheduling overhead per call.
     const double StartTime = FPlatformTime::Seconds();
 
     for (int32 i = 0; i < NumRequests; i++)
     {
         ULootLockerHttpClient::SendApi(
             FakeEndpoint,
-            TEXT("GET"),
+            TEXT("POST"),
             TEXT("{}"),
             FResponseCallback::CreateLambda([](const FLootLockerResponse& /*Response*/) {}),
             EmptyPlayerData);
     }
 
-    const double SubmissionMs    = (FPlatformTime::Seconds() - StartTime) * 1000.0;
-    const double PerRequestUs    = (SubmissionMs * 1000.0) / NumRequests;
+    const double SubmissionMs = (FPlatformTime::Seconds() - StartTime) * 1000.0;
+    const double PerRequestUs = (SubmissionMs * 1000.0) / NumRequests;
+
+    // Restore real HTTP transport immediately — NullHttp affects the whole module.
+    FHttpModule::Get().ToggleNullHttp(false);
 
     UE_LOG(LogTemp, Log,
         TEXT("[LootLocker Benchmark] %s | requests=%d  submission=%.3fms  per_request=%.2f\u03bcs"),
