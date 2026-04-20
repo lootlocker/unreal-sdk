@@ -231,12 +231,6 @@ public:
     static FLootLockerEndPoints AddFileToAssetCandidateEndpoint;
     static FLootLockerEndPoints DeleteFileFromAssetCandidateEndpoint;
 
-    //Missions
-    static FLootLockerEndPoints GetAllMissionsEndpoint;
-    static FLootLockerEndPoints GetMissionEndpoint;
-    static FLootLockerEndPoints StartMissionEndpoint;
-    static FLootLockerEndPoints FinishMissionEndpoint;
-
     //Maps
     static FLootLockerEndPoints GetAllMapsEndpoint;
 
@@ -274,10 +268,6 @@ public:
 
     // Broadcasts
     static FLootLockerEndPoints ListBroadcasts;
-
-    //Collectables
-    static FLootLockerEndPoints GetAllCollectablesEndpoint;
-    static FLootLockerEndPoints CollectItemEndpoint;
 
     //Messages
     static FLootLockerEndPoints GetMessagesEndpoint;

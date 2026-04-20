@@ -11,7 +11,6 @@
 #include "GameAPI/LootLockerBroadcastRequestHandler.h"
 #include "GameAPI/LootLockerCatalogRequestHandler.h"
 #include "GameAPI/LootLockerCharacterRequestHandler.h"
-#include "GameAPI/LootLockerCollectablesRequestHandler.h"
 #include "GameAPI/LootLockerConnectedAccountsRequestHandler.h"
 #include "GameAPI/LootLockerCurrencyRequestHandler.h"
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
@@ -25,7 +24,6 @@
 #include "GameAPI/LootLockerMessagesRequestHandler.h"
 #include "GameAPI/LootLockerMetadataRequestHandler.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
-#include "GameAPI/LootLockerMissionsRequestHandler.h"
 #include "GameAPI/LootLockerPersistentStorageRequestHandler.h"
 #include "GameAPI/LootLockerPlayerFilesRequestHandler.h"
 #include "GameAPI/LootLockerPlayerRequestHandler.h"
@@ -262,18 +260,6 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerPaginatedInstanceProgressionsRespon
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerInstanceProgressionWithRewardsResponseBP, FLootLockerInstanceProgressionWithRewardsResponse, Response);
 
 //==================================================
-// Mission Delegates
-//==================================================
-/** Blueprint response delegate for missions responses */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FMissionsResponseDelegateBP, FLootLockerMissionsResponse, Response);
-/** Blueprint response delegate for mission responses */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FMissionResponseDelegateBP, FLootLockerMissionResponse, Response);
-/** Blueprint response delegate for starting mission responses */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FStartMissionResponseDelegateBP, FLootLockerStartMissionResponse, Response);
-/** Blueprint response delegate for finishing mission responses */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FFinishMissionResponseDelegateBP, FLootLockerFinishMissionResponse, Response);
-
-//==================================================
 // Map Delegates
 //==================================================
 /** Blueprint response delegate for getting maps responses */
@@ -318,12 +304,6 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerReadNotificationsResponseBP, FLootL
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListBroadcastsResponseBP, FLootLockerListBroadcastsResponse, Response);
 /** Blueprint response delegate for internal listing broadcasts responses */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerInternalListBroadcastsResponseBP, FLootLockerInternalListBroadcastsResponse, Response);
-
-//==================================================
-// Collectables Delegates
-//==================================================
-/** Blueprint response delegate for collectables responses */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FCollectablesResponseDelegateBP, FLootLockerCollectablesResponse, Response);
 
 //==================================================
 // Message Delegates
@@ -2582,54 +2562,6 @@ public:
     static UPARAM(DisplayName = "RequestId") FString DeleteInstanceProgression(const FString& ForPlayerWithUlid, const int32 AssetInstanceId, const FString& ProgressionKey, const FLootLockerDeleteProgressionBP& OnCompletedRequestBP);
 
     //==================================================
-    // Missions
-    //==================================================
-
-    /**
-      List all missions accessible to the player.
-     
-      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
-      @param OnGetAllMissionsCompleted Delegate for handling the server response (Missions list)
-     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
-     */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static UPARAM(DisplayName = "RequestId") FString GetAllMissions(const FString& ForPlayerWithUlid, const FMissionsResponseDelegateBP& OnGetAllMissionsCompleted);
-
-    /**
-      Get details for a single mission.
-     
-      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
-      @param MissionId Id of the mission to fetch
-      @param OnGetMissionCompleted Delegate for handling the server response (Mission details)
-     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
-     */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static UPARAM(DisplayName = "RequestId") FString GetMission(const FString& ForPlayerWithUlid, int MissionId, const FMissionResponseDelegateBP& OnGetMissionCompleted);
-
-    /**
-      Start (begin) a mission for the player.
-     
-      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
-      @param MissionId Id of the mission to start
-      @param OnStartMissionCompleted Delegate for handling the server response (start confirmation / state)
-     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
-     */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static UPARAM(DisplayName = "RequestId") FString StartMission(const FString& ForPlayerWithUlid, int MissionId, const  FStartMissionResponseDelegateBP& OnStartMissionCompleted);
-
-    /**
-      Finish a mission and submit completion data.
-     
-      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
-      @param MissionId Id of the mission to finish
-      @param MissionData Completion data (objectives, scores, etc.)
-      @param OnFinishMissionCompleted Delegate for handling the server response (final mission results / rewards)
-     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
-     */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Missions", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static UPARAM(DisplayName = "RequestId") FString FinishMission(const FString& ForPlayerWithUlid, int MissionId, const FLootLockerFinishMissionData& MissionData, const FFinishMissionResponseDelegateBP& OnFinishMissionCompleted);
-
-    //==================================================
     // Maps
     //==================================================
 
@@ -3169,31 +3101,6 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Broadcasts", meta = (AdvancedDisplay = "Languages,Limit,ForPlayerWithUlid", ForPlayerWithUlid = "", Limit = -1, AutoCreateRefTerm="Languages"))
     static UPARAM(DisplayName = "RequestId") FString ListBroadcasts(const TArray<FString>& Languages, int32 Limit, const FString& ForPlayerWithUlid, const FLootLockerListBroadcastsResponseBP& OnComplete);
-
-    //==================================================
-    // Collectables
-    //==================================================
-
-    /**
-     List all collectables with their groups and items.
-
-     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
-     @param OnGetAllCollectablesCompleted Delegate for handling the server response
-     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
-    */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Collectables", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static UPARAM(DisplayName = "RequestId") FString GetAllCollectables(const FString& ForPlayerWithUlid, const FCollectablesResponseDelegateBP& OnGetAllCollectablesCompleted);
-
-    /**
-     Collect an item.
-
-     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
-     @param Item Slug combining collectable, group and item names separated by '.'
-     @param OnCollectItemCompleted Delegate for handling the server response
-     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
-    */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Collectables", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static UPARAM(DisplayName = "RequestId") FString CollectItem(const FString& ForPlayerWithUlid, const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegateBP& OnCollectItemCompleted);
 
     //==================================================
     // Messages

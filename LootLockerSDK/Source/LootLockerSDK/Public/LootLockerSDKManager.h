@@ -10,7 +10,6 @@
 #include "GameAPI/LootLockerBroadcastRequestHandler.h"
 #include "GameAPI/LootLockerCatalogRequestHandler.h"
 #include "GameAPI/LootLockerCharacterRequestHandler.h"
-#include "GameAPI/LootLockerCollectablesRequestHandler.h"
 #include "GameAPI/LootLockerConnectedAccountsRequestHandler.h"
 #include "GameAPI/LootLockerCurrencyRequestHandler.h"
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
@@ -25,7 +24,6 @@
 #include "GameAPI/LootLockerMessagesRequestHandler.h"
 #include "GameAPI/LootLockerMetadataRequestHandler.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
-#include "GameAPI/LootLockerMissionsRequestHandler.h"
 #include "GameAPI/LootLockerNotificationsRequestHandler.h"
 #include "GameAPI/LootLockerPersistentStorageRequestHandler.h"
 #include "GameAPI/LootLockerPlayerFilesRequestHandler.h"
@@ -2308,54 +2306,6 @@ public:
     /// @}
 
     //==================================================
-    // Missions
-    //==================================================
-    /// @addtogroup Missions
-    /// @{
-
-    /**
-     List all missions available to the player.
-
-     @param OnCompletedRequest Delegate for handling the server response
-     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
-     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
-     */
-    static FString GetAllMissions(const FMissionsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
-
-    /**
-     Get a mission by id.
-
-     @param MissionId Mission id
-     @param OnCompletedRequest Delegate for handling the server response
-     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
-     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
-     */
-    static FString GetMission(int MissionId, const FMissionResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
-
-    /**
-     Start a mission for the player.
-
-     @param MissionId Mission id
-     @param OnCompletedRequest Delegate for handling the server response
-     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
-     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
-     */
-    static FString StartMission(int MissionId, const FStartMissionResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
-
-    /**
-     Finish a mission and submit completion data (rewards granted on success).
-
-     @param MissionId Mission id
-     @param MissionData Mission completion data
-     @param OnCompletedRequest Delegate for handling the server response
-     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
-     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
-     */
-    static FString FinishMission(int MissionId, const FLootLockerFinishMissionData & MissionData, const FFinishMissionResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
-
-    /// @}
-
-    //==================================================
     // Maps
     //==================================================
     /// @addtogroup Maps
@@ -2806,33 +2756,6 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListBroadcasts(const TArray<FString>& Languages, int32 Limit, const FLootLockerListBroadcastsResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
-
-    /// @}
-
-    //==================================================
-    // Collectables
-    //==================================================
-    /// @addtogroup Collectables
-    /// @{
-
-    /**
-     List all collectables configured for the game (collectables -> groups -> items).
-
-     @param OnCompletedRequest Delegate for handling the server response
-     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
-     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
-     */
-    static FString GetAllCollectables(const FCollectablesResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
-
-    /**
-     Collect a collectable item.
-
-     @param Item Item slug (Collectable.Group.Item)
-     @param OnCompletedRequest Delegate for handling the server response
-     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
-     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
-     */
-    static FString CollectItem(const FLootLockerCollectItemPayload & Item, const FCollectablesResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     /// @}
 
