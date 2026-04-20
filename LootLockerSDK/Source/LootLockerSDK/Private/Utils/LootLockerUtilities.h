@@ -7,7 +7,6 @@
 #include "LootLockerConfig.h"
 #include "LootLockerGameEndpoints.h"
 #include "GameAPI/LootLockerCharacterRequestHandler.h"
-#include "GameAPI/LootLockerMissionsRequestHandler.h"
 #include "GenericPlatform/GenericPlatformHttp.h"
 #include "LootLockerUtilities.generated.h"
 
@@ -46,10 +45,6 @@ public:
 namespace LootLockerUtilities
 {
     FString AppendParameterToUrl(const FString& Url, const FString& Parameter);
-
-    TArray<FLootLockerMissionCheckpoint> ParseMissionCheckpoints(const TSharedPtr<FJsonObject>& MissionJson);
-
-    TArray<TSharedPtr<FJsonValue>> SerializeMissionCheckpoints(const TArray<FLootLockerMissionCheckpoint>& Checkpoints);
 
     template<typename T>
     static FString JsonStringWithTopLevelArrayOfObjects(const TArray<T>& ItemArray)
