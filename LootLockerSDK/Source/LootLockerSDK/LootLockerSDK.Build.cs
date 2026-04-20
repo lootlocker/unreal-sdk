@@ -98,5 +98,9 @@ public class LootLockerSDK : ModuleRules
         {
             PublicDefinitions.Add("LOOTLOCKER_FORCE_LEGACY_HTTP_STACK=1");
         }
+        else
+        {
+            PublicDefinitions.Add("LOOTLOCKER_FORCE_LEGACY_HTTP_STACK=0");
+        }
     }
 }
