@@ -88,6 +88,13 @@ public:
 	/// Domain Key used to talk to LootLocker. The Domain key can be found in `Settings > API Keys` in the Web Console: https://console.lootlocker.com/settings/api-keys
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	FString DomainKey = "";
+	/// When true, HTTP requests are routed through the legacy ULootLockerHttpClient stack instead of the new
+	/// FLootLockerHTTPExecutionQueue. Use this as a temporary escape hatch if you encounter issues with the
+	/// new queue. This setting has no effect when the project is compiled with LOOTLOCKER_FORCE_LEGACY_HTTP_STACK=1
+	/// (which always uses the legacy stack regardless of this value). This option will be removed once the
+	/// execution queue is declared stable.
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker", Meta = (DisplayName = "Use Legacy HTTP Stack"))
+	bool bUseLegacyHTTPStack = false;
 	/// Allow LootLocker to log non error logs outside the editor. This is false by default to avoid log spamming and unintentional logging of data (as LootLocker logs requests and responses vs LootLocker).
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Logging")
 	bool LogOutsideOfEditor = false;
