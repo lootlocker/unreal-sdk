@@ -11,6 +11,16 @@ public class LootLockerSDK : ModuleRules
     public static bool bForceLocalDevEnv = false;
     public static bool bTargetLocalDevEnv = bForceLocalDevEnv || !string.IsNullOrEmpty(System.Environment.GetEnvironmentVariable("LOOTLOCKER_USE_LOCAL_DEVENV"));
     public static bool bEnableBetaErrorReporting = false;
+    /// <summary>
+    /// Set to true to opt out of the new HTTP execution queue and keep using the
+    /// legacy ULootLockerHttpClient stack.  Intended as a temporary escape hatch
+    /// during the grace period while the new queue is being stabilised; the flag
+    /// will be removed once the queue is declared stable.
+    /// When false (the default) the execution queue is active and the runtime
+    /// DefaultLootLocker.ini setting [LootLockerSDK.LootLockerConfig] bUseLegacyHTTPStack
+    /// can still override to true at runtime without a recompile.
+    /// </summary>
+    public static bool bForceLegacyHTTPStack = false;
     public LootLockerSDK(ReadOnlyTargetRules Target) : base(Target)
     {
         PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
@@ -83,6 +93,10 @@ public class LootLockerSDK : ModuleRules
         if (bEnableBetaErrorReporting)
         {
             PublicDefinitions.Add("LOOTLOCKER_BETA_ENABLE_ERROR_REPORTING=1");
+        }
+        if (bForceLegacyHTTPStack)
+        {
+            PublicDefinitions.Add("LOOTLOCKER_FORCE_LEGACY_HTTP_STACK=1");
         }
     }
 }

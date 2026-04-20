@@ -46,6 +46,11 @@ void FLootLockerHTTPExecutionQueue::Initialize()
     Instance->bIsInitialized = true;
 }
 
+bool FLootLockerHTTPExecutionQueue::IsInitialized()
+{
+    return Instance.IsValid() && Instance->bIsInitialized;
+}
+
 void FLootLockerHTTPExecutionQueue::Shutdown()
 {
     if (!Instance.IsValid())

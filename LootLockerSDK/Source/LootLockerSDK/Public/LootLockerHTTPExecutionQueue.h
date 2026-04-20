@@ -40,6 +40,9 @@ public:
     /** Creates and starts ticking the singleton.  Safe to call multiple times. */
     static void Initialize();
 
+    /** Returns true if Initialize() has been called and Shutdown() has not yet been called. */
+    static bool IsInitialized();
+
     /**
      * Aborts all in-flight requests, drains the queue with error callbacks, and
      * destroys the singleton.
