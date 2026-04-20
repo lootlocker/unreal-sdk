@@ -35,7 +35,12 @@ void FLootLockerSDKModule::StartupModule()
 	// Initialize LifeCycle Manager - this ensures it's always available and properly initialized
 	ULootLockerLifeCycleManager::Initialize();
 	ULootLockerPresenceManager::Initialize();
-	FLootLockerHTTPExecutionQueue::Initialize();
+#if !LOOTLOCKER_FORCE_LEGACY_HTTP_STACK
+	if (!GetDefault<ULootLockerConfig>()->bUseLegacyHTTPStack)
+	{
+		FLootLockerHTTPExecutionQueue::Initialize();
+	}
+#endif
 }
 
 void FLootLockerSDKModule::ShutdownModule()
@@ -46,7 +51,12 @@ void FLootLockerSDKModule::ShutdownModule()
 	// Shutdown LifeCycle Manager
 	ULootLockerPresenceManager::Shutdown();
 	ULootLockerLifeCycleManager::Shutdown();
-	FLootLockerHTTPExecutionQueue::Shutdown();
+#if !LOOTLOCKER_FORCE_LEGACY_HTTP_STACK
+	if (FLootLockerHTTPExecutionQueue::IsInitialized())
+	{
+		FLootLockerHTTPExecutionQueue::Shutdown();
+	}
+#endif
 }
 
 #undef LOCTEXT_NAMESPACE
