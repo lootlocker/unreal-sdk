@@ -1014,27 +1014,6 @@ FString ULootLockerSDKManager::GetProgressionTiers(const FString& ProgressionKey
     return GetProgressionTiers(ProgressionKey, -1, 0, OnComplete, ForPlayerWithUlid);
 }
 
-//Missions
-FString ULootLockerSDKManager::GetAllMissions(const FMissionsResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
-{
-    return ULootLockerMissionsRequestHandler::GetAllMissions(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
-}
-
-FString ULootLockerSDKManager::GetMission(int MissionId, const FMissionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
-{
-    return ULootLockerMissionsRequestHandler::GetMission(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), MissionId, OnCompletedRequest);
-}
-
-FString ULootLockerSDKManager::StartMission(int MissionId, const FStartMissionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
-{
-    return ULootLockerMissionsRequestHandler::StartMission(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), MissionId, OnCompletedRequest);
-}
-
-FString ULootLockerSDKManager::FinishMission(int MissionId, const FLootLockerFinishMissionData& MissionData, const FFinishMissionResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
-{
-    return ULootLockerMissionsRequestHandler::FinishMission(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), MissionId, MissionData, OnCompletedRequest);
-}
-
 //Maps
 FString ULootLockerSDKManager::GetMaps(const FGetMapsResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
@@ -1215,17 +1194,6 @@ FString ULootLockerSDKManager::ListTopBroadcastsLocalized(const TArray<FString>&
 FString ULootLockerSDKManager::ListBroadcasts(const TArray<FString>& Languages, int32 Limit, const FLootLockerListBroadcastsResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
     return ULootLockerBroadcastRequestHandler::ListBroadcasts(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Languages, Limit, OnComplete);
-}
-
-//Collectables
-FString ULootLockerSDKManager::GetAllCollectables(const FCollectablesResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
-{
-    return ULootLockerCollectablesRequestHandler::GetAllCollectables(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
-}
-
-FString ULootLockerSDKManager::CollectItem(const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
-{
-    return ULootLockerCollectablesRequestHandler::CollectItem(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Item, OnCompletedRequest);
 }
 
 //Messages
