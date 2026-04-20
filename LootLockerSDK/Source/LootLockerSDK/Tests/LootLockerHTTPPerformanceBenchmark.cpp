@@ -1,10 +1,18 @@
 // Copyright (c) 2021 LootLocker
 
-// Phase 0 — HTTP Performance Baseline Benchmark
-// Measures the raw throughput of ULootLockerHttpClient BEFORE the queue refactor.
+// Phase 0 — HTTP Submission Throughput Baseline Benchmark
+// Measures dispatch overhead of ULootLockerHttpClient BEFORE the queue refactor.
 // Re-run (without modification) after Phase 4 to compare post-queue numbers.
 //
-// Uses FHttpModule NullHttp mode — no backend connection required.
+// What is measured: the wall-clock time to submit N ULootLockerHttpClient::SendApi()
+// calls, i.e., the pure scheduling/dispatch overhead per request. Callback completion
+// is NOT measured here because UE's FNullHttpRequest never fires completion delegates.
+// After Phase 4, the same test will measure FLootLockerHTTPExecutionQueue::ScheduleRequest()
+// overhead, giving a direct apples-to-apples comparison.
+//
+// No backend required — requests target http://localhost/api/benchmark which will
+// be refused, but the benchmark completes before callbacks would ever arrive.
+//
 // Tagged EngineFilter so it is excluded from the default smoke pass.
 //
 // Run manually:
@@ -12,20 +20,16 @@
 //     -ExecCmds="automation RunTests LootLocker.HTTP.PerformanceBenchmark"
 //     -unattended -nullrhi -nosound -stdout
 
-#include <atomic>
-
 #include "Runtime/Launch/Resources/Version.h"
 #include "LootLockerHttpClient.h"
 #include "LootLockerPlayerData.h"
 #include "LootLockerResponse.h"
-#include "HttpModule.h"
 #include "Misc/AutomationTest.h"
 #include "Misc/DateTime.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
 #include "HAL/FileManager.h"
 #include "HAL/PlatformTime.h"
-#include "HAL/PlatformProcess.h"
 
 #if ENGINE_MAJOR_VERSION > 4
 
@@ -34,14 +38,11 @@ BEGIN_DEFINE_SPEC(
     "LootLocker.HTTP.PerformanceBenchmark",
     EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
 
-    // Runs one benchmark scenario and logs + appends a CSV row.
-    // NumRequests  — how many concurrent SendApi() calls to submit
-    // Label        — identifier written to the CSV (e.g. "Baseline_100")
+    // Submits NumRequests SendApi() calls and records the wall-clock submission
+    // time to a shared CSV file. Always passes — this is an informational benchmark.
     void RunBenchmark(int32 NumRequests, const FString& Label);
 
-    // Path to the shared CSV file for this test session.
-    // Populated lazily on the first RunBenchmark() call so the timestamp
-    // reflects actual test execution time rather than spec-registration time.
+    // Shared CSV file path for the session (lazily initialised on first call).
     FString CSVFilePath;
 
 END_DEFINE_SPEC(FLootLockerHTTPPerformanceBenchmark)
@@ -50,7 +51,7 @@ END_DEFINE_SPEC(FLootLockerHTTPPerformanceBenchmark)
 
 void FLootLockerHTTPPerformanceBenchmark::RunBenchmark(int32 NumRequests, const FString& Label)
 {
-    // Lazy CSV initialisation — all three scenarios share one file per session.
+    // Lazy CSV initialisation — all scenarios share one file per session.
     if (CSVFilePath.IsEmpty())
     {
         CSVFilePath = FPaths::ProjectSavedDir() /
@@ -58,124 +59,73 @@ void FLootLockerHTTPPerformanceBenchmark::RunBenchmark(int32 NumRequests, const 
                 *FDateTime::Now().ToString(TEXT("%Y%m%d_%H%M%S")));
 
         FFileHelper::SaveStringToFile(
-            FString(TEXT("Label,NumRequests,Completed,PeakInFlight,DurationSeconds")) + LINE_TERMINATOR,
+            FString(TEXT("Label,NumRequests,SubmissionMs,PerRequestUs")) + LINE_TERMINATOR,
             *CSVFilePath);
 
         UE_LOG(LogTemp, Log,
             TEXT("[LootLocker Benchmark] Results will be written to: %s"), *CSVFilePath);
     }
 
-    // Redirect all HTTP traffic through the null handler — no backend needed.
-    FHttpModule::Get().ToggleNullHttp(true);
-
-    // Thread-safe counters shared between the submission loop and callbacks.
-    // RunBenchmark() blocks until all callbacks have fired, so capturing these
-    // by reference inside the delegate lambdas is safe.
-    std::atomic<int32> CompletedCount(0);
-    std::atomic<int32> CurrentInFlight(0);
-    std::atomic<int32> PeakInFlight(0);
-
     // Empty player data — no session token, so no session-refresh paths fire.
     FLootLockerPlayerData EmptyPlayerData;
     const FString FakeEndpoint = TEXT("http://localhost/api/benchmark");
 
+    // Measure only the submission loop — how long does it take to dispatch N requests.
+    // Callbacks are intentionally ignored; the metric is scheduling overhead per call.
     const double StartTime = FPlatformTime::Seconds();
 
     for (int32 i = 0; i < NumRequests; i++)
     {
-        // Increment before the request is dispatched so we see the peak
-        // in-flight value even when NullHttp fires callbacks synchronously.
-        const int32 InFlight = ++CurrentInFlight;
-
-        // Non-locking CAS loop to track the running maximum.
-        int32 CurrentPeak = PeakInFlight.load(std::memory_order_relaxed);
-        while (InFlight > CurrentPeak &&
-               !PeakInFlight.compare_exchange_weak(
-                   CurrentPeak, InFlight, std::memory_order_relaxed))
-        {
-        }
-
         ULootLockerHttpClient::SendApi(
             FakeEndpoint,
             TEXT("GET"),
             TEXT("{}"),
-            FResponseCallback::CreateLambda(
-                [&CompletedCount, &CurrentInFlight](const FLootLockerResponse& /*Response*/)
-                {
-                    --CurrentInFlight;
-                    ++CompletedCount;
-                }),
+            FResponseCallback::CreateLambda([](const FLootLockerResponse& /*Response*/) {}),
             EmptyPlayerData);
     }
 
-    // Poll until all callbacks have fired, with a generous timeout to handle
-    // slow CI machines. 30 s is far more than NullHttp needs in practice.
-    constexpr double TimeoutSeconds = 30.0;
-    const double     WaitStart      = FPlatformTime::Seconds();
-    while (CompletedCount.load() < NumRequests)
-    {
-        if ((FPlatformTime::Seconds() - WaitStart) > TimeoutSeconds)
-        {
-            UE_LOG(LogTemp, Warning,
-                TEXT("[LootLocker Benchmark] %s timed out: %d/%d callbacks received"),
-                *Label, CompletedCount.load(), NumRequests);
-            break;
-        }
-        FPlatformProcess::Sleep(0.001f);
-    }
-
-    const double DurationSeconds = FPlatformTime::Seconds() - StartTime;
-    const int32  Completed       = CompletedCount.load();
-    const int32  Peak            = PeakInFlight.load();
+    const double SubmissionMs    = (FPlatformTime::Seconds() - StartTime) * 1000.0;
+    const double PerRequestUs    = (SubmissionMs * 1000.0) / NumRequests;
 
     UE_LOG(LogTemp, Log,
-        TEXT("[LootLocker Benchmark] %s | requests=%d  completed=%d  peak_in_flight=%d  duration=%.4fs"),
-        *Label, NumRequests, Completed, Peak, DurationSeconds);
+        TEXT("[LootLocker Benchmark] %s | requests=%d  submission=%.3fms  per_request=%.2f\u03bcs"),
+        *Label, NumRequests, SubmissionMs, PerRequestUs);
 
-    // Append one CSV row (FILEWRITE_Append | FILEWRITE_AllowRead).
+    // Append one CSV row.
     FFileHelper::SaveStringToFile(
-        FString::Printf(TEXT("%s,%d,%d,%d,%.6f"), *Label, NumRequests, Completed, Peak, DurationSeconds)
+        FString::Printf(TEXT("%s,%d,%.3f,%.2f"), *Label, NumRequests, SubmissionMs, PerRequestUs)
             + LINE_TERMINATOR,
         *CSVFilePath,
         FFileHelper::EEncodingOptions::AutoDetect,
         &IFileManager::Get(),
         FILEWRITE_Append | FILEWRITE_AllowRead);
 
-    // Restore real HTTP transport before asserting so a test failure here
-    // does not leave the module in NullHttp mode for subsequent tests.
-    FHttpModule::Get().ToggleNullHttp(false);
-
-    TestEqual(
-        FString::Printf(TEXT("%s: all %d requests completed"), *Label, NumRequests),
-        Completed, NumRequests);
+    // Surface results in the automation report (informational, always passes).
+    AddInfo(FString::Printf(
+        TEXT("%s: submitted %d requests in %.3f ms (%.2f \u03bcs/req)"),
+        *Label, NumRequests, SubmissionMs, PerRequestUs));
 }
 
 // ---------------------------------------------------------------------------
 
 void FLootLockerHTTPPerformanceBenchmark::Define()
 {
-    Describe("HTTP Performance Benchmark (NullHttp — no backend required)", [this]()
+    Describe("HTTP Submission Throughput Benchmark (no backend required)", [this]()
     {
-        LatentIt("Baseline: 100 concurrent submissions", EAsyncExecution::ThreadPool,
-            [this](const FDoneDelegate TestDone)
-            {
-                RunBenchmark(100, TEXT("Baseline_100"));
-                TestDone.Execute();
-            });
+        It("Baseline: 100 concurrent submissions", [this]()
+        {
+            RunBenchmark(100, TEXT("Baseline_100"));
+        });
 
-        LatentIt("Baseline: 500 concurrent submissions", EAsyncExecution::ThreadPool,
-            [this](const FDoneDelegate TestDone)
-            {
-                RunBenchmark(500, TEXT("Baseline_500"));
-                TestDone.Execute();
-            });
+        It("Baseline: 500 concurrent submissions", [this]()
+        {
+            RunBenchmark(500, TEXT("Baseline_500"));
+        });
 
-        LatentIt("Baseline: 1000 concurrent submissions", EAsyncExecution::ThreadPool,
-            [this](const FDoneDelegate TestDone)
-            {
-                RunBenchmark(1000, TEXT("Baseline_1000"));
-                TestDone.Execute();
-            });
+        It("Baseline: 1000 concurrent submissions", [this]()
+        {
+            RunBenchmark(1000, TEXT("Baseline_1000"));
+        });
     });
 }
 
