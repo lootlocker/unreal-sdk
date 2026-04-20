@@ -1362,39 +1362,6 @@ FString ULootLockerManager::DeleteInstanceProgression(const FString& ForPlayerWi
     }), ForPlayerWithUlid);
 }
 
-// Missions
-FString ULootLockerManager::GetAllMissions(const FString& ForPlayerWithUlid, const FMissionsResponseDelegateBP& OnGetAllMissionsCompleted)
-{
-    return ULootLockerSDKManager::GetAllMissions(FMissionsResponseDelegate::CreateLambda([OnGetAllMissionsCompleted](FLootLockerMissionsResponse Response)
-    {
-        OnGetAllMissionsCompleted.ExecuteIfBound(Response);
-    }), ForPlayerWithUlid);
-}
-
-FString ULootLockerManager::GetMission(const FString& ForPlayerWithUlid, int MissionId, const FMissionResponseDelegateBP& OnGetMissionCompleted)
-{
-    return ULootLockerSDKManager::GetMission(MissionId, FMissionResponseDelegate::CreateLambda([OnGetMissionCompleted](FLootLockerMissionResponse Response)
-    {
-        OnGetMissionCompleted.ExecuteIfBound(Response);
-    }), ForPlayerWithUlid);
-}
-
-FString ULootLockerManager::StartMission(const FString& ForPlayerWithUlid, int MissionId, const  FStartMissionResponseDelegateBP& OnStartMissionCompleted)
-{
-    return ULootLockerSDKManager::StartMission(MissionId, FStartMissionResponseDelegate::CreateLambda([OnStartMissionCompleted](FLootLockerStartMissionResponse Response)
-    {
-        OnStartMissionCompleted.ExecuteIfBound(Response);
-    }), ForPlayerWithUlid);
-}
-
-FString ULootLockerManager::FinishMission(const FString& ForPlayerWithUlid, int MissionId, const FLootLockerFinishMissionData& MissionData, const FFinishMissionResponseDelegateBP& OnFinishMissionCompleted)
-{
-    return ULootLockerSDKManager::FinishMission(MissionId, MissionData, FFinishMissionResponseDelegate::CreateLambda([OnFinishMissionCompleted](FLootLockerFinishMissionResponse Response)
-    {
-        OnFinishMissionCompleted.ExecuteIfBound(Response);
-    }), ForPlayerWithUlid);
-}
-
 FString ULootLockerManager::GetMaps(const FString& ForPlayerWithUlid, const FGetMapsResponseDelegateBP& OnGetMapsCompleted)
 {
     return ULootLockerSDKManager::GetMaps(FGetMapsResponseDelegate::CreateLambda([OnGetMapsCompleted](FLootLockerGetMapsResponse Response)
@@ -1684,24 +1651,6 @@ FString ULootLockerManager::ListBroadcasts(const TArray<FString>& Languages, int
     return ULootLockerSDKManager::ListBroadcasts(Languages, Limit, FLootLockerListBroadcastsResponseDelegate::CreateLambda([OnComplete](const FLootLockerListBroadcastsResponse& Response)
     {
         OnComplete.ExecuteIfBound(Response);
-    }), ForPlayerWithUlid);
-}
-
-// Collectables
-
-FString ULootLockerManager::GetAllCollectables(const FString& ForPlayerWithUlid, const FCollectablesResponseDelegateBP& OnGetAllCollectablesCompleted)
-{
-    return ULootLockerSDKManager::GetAllCollectables(FCollectablesResponseDelegate::CreateLambda([OnGetAllCollectablesCompleted](const FLootLockerCollectablesResponse& Response)
-    {
-        OnGetAllCollectablesCompleted.ExecuteIfBound(Response);
-    }), ForPlayerWithUlid);
-}
-
-FString ULootLockerManager::CollectItem(const FString& ForPlayerWithUlid, const FLootLockerCollectItemPayload& Item, const FCollectablesResponseDelegateBP& OnCollectItemCompleted)
-{
-    return ULootLockerSDKManager::CollectItem(Item, FCollectablesResponseDelegate::CreateLambda([OnCollectItemCompleted](const FLootLockerCollectablesResponse& Response)
-    {
-        OnCollectItemCompleted.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
