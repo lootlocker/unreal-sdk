@@ -6,6 +6,7 @@ public class LootLockerSDK : ModuleRules
 {
     public static bool bEnableGoogleSubsystemHelper = false;
     public static bool bShowOutdatedSDKMessage = false; // Set to true when submitting to fab for engine versions < the last 3
+    public static bool bTargetLocalDevEnv = false || !string.IsNullOrEmpty(System.Environment.GetEnvironmentVariable("LOOTLOCKER_USE_LOCAL_DEVENV"));
     public static bool bEnableBetaErrorReporting = false;
     public LootLockerSDK(ReadOnlyTargetRules Target) : base(Target)
     {
@@ -71,6 +72,10 @@ public class LootLockerSDK : ModuleRules
         if (bShowOutdatedSDKMessage)
         {
 	        PublicDefinitions.Add("LOOTLOCKER_SHOW_OUTDATED_SDK_MESSAGE=1");
+        }
+        if (bTargetLocalDevEnv)
+        {
+            PublicDefinitions.Add("LOOTLOCKER_USE_LOCAL_DEVENV=1");
         }
         if (bEnableBetaErrorReporting)
         {
