@@ -65,19 +65,51 @@ bool FLootLockerAdminRequest::EnsureSignedIn()
 	}
 
 	FString Email, Password;
-	if (!GetCredentials(Email, Password))
+	const bool bHaveExplicitCredentials = GetCredentials(Email, Password);
+
+	if (!bHaveExplicitCredentials)
 	{
-		UE_LOG(LogTemp, Error,
-			TEXT("LootLockerAdmin: No credentials found. "
-			     "Set LOOTLOCKER_ADMIN_EMAIL / LOOTLOCKER_ADMIN_PASSWORD env vars, "
-			     "or pass -adminemail=<email> -adminpassword=<pass> on the command line."));
+		// Generate deterministic date-based credentials (mirrors Unity SDK pattern).
+		// Email and password are both derived from the current UTC date+hour so that
+		// all test processes in the same hour reuse the same account, and a new one
+		// is created automatically on first use.
+		const FDateTime Now = FDateTime::UtcNow();
+		const FString DateStr = FString::Printf(TEXT("%04d-%02d-%02d-%02dh"),
+			Now.GetYear(), Now.GetMonth(), Now.GetDay(), Now.GetHour());
+		const FString UserName = TEXT("testrun+") + DateStr;
+		Email    = TEXT("unreal+ci-") + UserName + TEXT("@lootlocker.com");
+		Password = UserName;
+	}
+
+	bool bWas401 = false;
+	if (Login(Email, Password, &bWas401))
+	{
+		return true;
+	}
+
+	// With explicit credentials we never attempt signup — fail immediately.
+	if (bHaveExplicitCredentials || !bWas401)
+	{
+		if (bHaveExplicitCredentials)
+		{
+			UE_LOG(LogTemp, Error,
+				TEXT("LootLockerAdmin: Login failed with supplied credentials. "
+				     "Check LOOTLOCKER_ADMIN_EMAIL / LOOTLOCKER_ADMIN_PASSWORD."));
+		}
+		return false;
+	}
+
+	// First run for this hour — create the account then log in.
+	UE_LOG(LogTemp, Log, TEXT("LootLockerAdmin: Account not found, attempting signup for %s"), *Email);
+	if (!Signup(Email, Password, TEXT("CI Test User"), TEXT("CI Organisation")))
+	{
 		return false;
 	}
 
 	return Login(Email, Password);
 }
 
-bool FLootLockerAdminRequest::Login(const FString& Email, const FString& Password)
+bool FLootLockerAdminRequest::Login(const FString& Email, const FString& Password, bool* OutWas401)
 {
 	TSharedRef<FJsonObject> RequestJson = MakeShared<FJsonObject>();
 	RequestJson->SetStringField(TEXT("email"),    Email);
@@ -92,6 +124,7 @@ bool FLootLockerAdminRequest::Login(const FString& Email, const FString& Passwor
 
 	if (!Response.bSuccess)
 	{
+		if (OutWas401) { *OutWas401 = (Response.StatusCode == 401); }
 		UE_LOG(LogTemp, Error, TEXT("LootLockerAdmin: Login failed (%d): %s"),
 			Response.StatusCode, *Response.Body);
 		return false;
@@ -124,6 +157,34 @@ bool FLootLockerAdminRequest::Login(const FString& Email, const FString& Passwor
 	}
 
 	UE_LOG(LogTemp, Log, TEXT("LootLockerAdmin: Signed in (org %d)"), OrganisationId);
+	return true;
+}
+
+bool FLootLockerAdminRequest::Signup(
+	const FString& Email, const FString& Password,
+	const FString& Name,  const FString& Organisation)
+{
+	TSharedRef<FJsonObject> RequestJson = MakeShared<FJsonObject>();
+	RequestJson->SetStringField(TEXT("email"),        Email);
+	RequestJson->SetStringField(TEXT("password"),     Password);
+	RequestJson->SetStringField(TEXT("name"),         Name);
+	RequestJson->SetStringField(TEXT("organisation"), Organisation);
+
+	FString JsonBody;
+	TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&JsonBody);
+	FJsonSerializer::Serialize(RequestJson, Writer);
+
+	const FLootLockerAdminResponse Response =
+		SendOnce(GetBaseUrl() + TEXT("v1/signup"), TEXT("POST"), JsonBody);
+
+	if (!Response.bSuccess)
+	{
+		UE_LOG(LogTemp, Error, TEXT("LootLockerAdmin: Signup failed (%d): %s"),
+			Response.StatusCode, *Response.Body);
+		return false;
+	}
+
+	UE_LOG(LogTemp, Log, TEXT("LootLockerAdmin: Signed up as %s"), *Email);
 	return true;
 }
 
