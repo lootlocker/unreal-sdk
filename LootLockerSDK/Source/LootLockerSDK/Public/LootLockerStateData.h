@@ -116,6 +116,7 @@ public:
 	static const TSharedPtr<FLootLockerPlayerData> GetStateForPlayerOrDefaultIfActive(const FString& PlayerUlid = "");
 	static FString GetDefaultPlayerUlid();
 	static bool SetDefaultPlayerUlid(const FString& PlayerUlid);
+	static const FLootLockerPlayerData& GetSavedStateForFirstPlayer() { return GetAndActivateSavedStateOrDefaultOrEmptyForPlayer(GetDefaultPlayerUlid()); }
 	static void SavePlayerData(const FLootLockerPlayerData& PlayerData);
 	static bool ClearSavedStateForPlayer(const FString& PlayerUlid);
     static void ClearAllSavedStatesExceptForPlayer(const FString& PlayerUlid);
