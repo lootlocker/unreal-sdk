@@ -143,6 +143,16 @@ private:
     void DispatchSessionRefreshForItem(const FString& RequestId);
 
     /**
+     * Called when a session refresh completes.  Resumes the request if the refresh
+     * succeeded, or marks it done with the stored failure response if not.
+     *
+     * Invoked from the session-refresh callback lambda instead of capturing `this`
+     * directly, so the callback is safe to call even if Shutdown() has run
+     * (IsInitialized() is checked before entering this method).
+     */
+    void OnSessionRefreshCompleted(const FString& RequestId, bool bRefreshSuccess);
+
+    /**
      * Stores Response on Item, marks it done, removes it from OngoingRequestIds,
      * and adds it to CompletedRequestIds so the cleanup phase will invoke its
      * listeners.

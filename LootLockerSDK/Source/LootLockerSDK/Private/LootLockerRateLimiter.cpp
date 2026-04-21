@@ -136,11 +136,19 @@ bool FLootLockerRateLimiter::AddRequestAndCheckIfRateLimitHit()
 #endif
 
             // Rate limit clears once all current requests age out of the moving-average
-            // window: round down to the start of the current bucket, then add the full
-            // window duration (36 buckets × 5 s = 180 s).
-            const int32 SecondsIntoCurrentBucket = Now.GetSecond() % SecondsPerBucket;
+            // window: derive the current bucket boundary from the rate limiter's own
+            // tracked bucket timing, then add the full window duration
+            // (36 buckets × 5 s = 180 s).
+            const int64 BucketDurationTicks = static_cast<int64>(SecondsPerBucket) * ETimespan::TicksPerSecond;
+            FDateTime CurrentBucketStart = Now;
+            if (LastBucketChangeTime != FDateTime(0))
+            {
+                const int64 ElapsedTicks = (Now - LastBucketChangeTime).GetTicks();
+                const int64 CompletedBucketTicks = (ElapsedTicks / BucketDurationTicks) * BucketDurationTicks;
+                CurrentBucketStart = LastBucketChangeTime + FTimespan(CompletedBucketTicks);
+            }
             RateLimitResolvesAt =
-                (Now - FTimespan::FromSeconds(SecondsIntoCurrentBucket))
+                CurrentBucketStart
                 + FTimespan::FromSeconds(static_cast<double>(RateLimitMovingAverageBucketCount * SecondsPerBucket));
         }
     }
@@ -148,7 +156,19 @@ bool FLootLockerRateLimiter::AddRequestAndCheckIfRateLimitHit()
     // Advance the bucket pointer if time moved forward.
     if (CurrentBucket != LastBucket)
     {
-        LastBucketChangeTime = Now;
+        if (LastBucketChangeTime == FDateTime(0))
+        {
+            LastBucketChangeTime = Now;
+        }
+        else
+        {
+            // Snap to the actual bucket boundary rather than the raw detection timestamp
+            // to prevent sub-bucket remainder from accumulating as drift over time.
+            const int64 BucketDurationTicks = static_cast<int64>(SecondsPerBucket) * ETimespan::TicksPerSecond;
+            const int64 ElapsedTicks = (Now - LastBucketChangeTime).GetTicks();
+            const int64 BucketsElapsed = ElapsedTicks / BucketDurationTicks;
+            LastBucketChangeTime = LastBucketChangeTime + FTimespan(BucketsElapsed * BucketDurationTicks);
+        }
         LastBucket = CurrentBucket;
     }
 

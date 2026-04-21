@@ -104,9 +104,13 @@ void FLootLockerHTTPExecutionQueue::ScheduleRequest(const FLootLockerHTTPRequest
         }
 #endif
         FLootLockerHTTPRequestData MutableRequest = Request;
-        MutableRequest.CallListenersWithResult(
-            LootLockerResponseFactory::Error<FLootLockerResponse>(
-                ErrorMessage, 0, Request.ForPlayerUlid));
+        FLootLockerResponse QueueFullResponse = LootLockerResponseFactory::Error<FLootLockerResponse>(
+            ErrorMessage, 0, Request.ForPlayerUlid);
+        QueueFullResponse.Context.RequestId                   = Request.RequestId;
+        QueueFullResponse.Context.RequestURL                  = Request.Endpoint;
+        QueueFullResponse.Context.RequestMethod               = Request.Verb;
+        QueueFullResponse.Context.RequestParametersJsonString = Request.Body;
+        MutableRequest.CallListenersWithResult(QueueFullResponse);
         return;
     }
 
@@ -126,9 +130,13 @@ void FLootLockerHTTPExecutionQueue::ScheduleRequest(const FLootLockerHTTPRequest
         }
 #endif
         FLootLockerHTTPRequestData MutableRequest = Request;
-        MutableRequest.CallListenersWithResult(
-            LootLockerResponseFactory::Error<FLootLockerResponse>(
-                ErrorMessage, 0, Request.ForPlayerUlid));
+        FLootLockerResponse ChokeResponse = LootLockerResponseFactory::Error<FLootLockerResponse>(
+            ErrorMessage, 0, Request.ForPlayerUlid);
+        ChokeResponse.Context.RequestId                   = Request.RequestId;
+        ChokeResponse.Context.RequestURL                  = Request.Endpoint;
+        ChokeResponse.Context.RequestMethod               = Request.Verb;
+        ChokeResponse.Context.RequestParametersJsonString = Request.Body;
+        MutableRequest.CallListenersWithResult(ChokeResponse);
         return;
     }
 
@@ -247,12 +255,14 @@ void FLootLockerHTTPExecutionQueue::Tick(float DeltaTime)
 
     // Choke warning (logged once per tick when the queue is backed up)
     const int32 PendingCount = ExecutionQueue.Num() - static_cast<int32>(OngoingRequestIds.Num());
-    if (PendingCount > Configuration.ChokeWarningThreshold)
+#if WITH_EDITOR
+    if (PendingCount > Configuration.ChokeWarningThreshold && Configuration.LogQueueRejections)
     {
         FLootLockerLogger::LogWarning(FString::Printf(
             TEXT("HTTP Execution Queue is overloaded. Requests currently waiting for execution: '%d'"),
             PendingCount));
     }
+#endif
 
     // ---- Phase 2: LateUpdate — invoke listeners and remove completed items ----
 
@@ -314,8 +324,13 @@ bool FLootLockerHTTPExecutionQueue::CreateAndSendRequest(FLootLockerHTTPExecutio
             TEXT("Request to %s was rate limited. Try again in %d seconds."),
             *Item.RequestData.Endpoint,
             RateLimiter->GetSecondsLeftOfRateLimit());
-        MarkItemDone(Item, LootLockerResponseFactory::Error<FLootLockerResponse>(
-            RateLimitMsg, 429, Item.RequestData.ForPlayerUlid));
+        FLootLockerResponse RateLimitedResponse = LootLockerResponseFactory::Error<FLootLockerResponse>(
+            RateLimitMsg, 429, Item.RequestData.ForPlayerUlid);
+        RateLimitedResponse.Context.RequestId                   = Item.RequestData.RequestId;
+        RateLimitedResponse.Context.RequestURL                  = Item.RequestData.Endpoint;
+        RateLimitedResponse.Context.RequestMethod               = Item.RequestData.Verb;
+        RateLimitedResponse.Context.RequestParametersJsonString = Item.RequestData.Body;
+        MarkItemDone(Item, RateLimitedResponse);
         return false;
     }
 
@@ -393,10 +408,14 @@ bool FLootLockerHTTPExecutionQueue::CreateAndSendRequest(FLootLockerHTTPExecutio
         TArray<uint8> FileData;
         if (!FFileHelper::LoadFileToArray(FileData, *Item.RequestData.FilePath))
         {
-            MarkItemDone(Item, LootLockerResponseFactory::Error<FLootLockerResponse>(
+            FLootLockerResponse FileReadError = LootLockerResponseFactory::Error<FLootLockerResponse>(
                 FString::Printf(TEXT("Failed to read file for upload: %s"), *Item.RequestData.FilePath),
                 LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_HTTP,
-                Item.RequestData.ForPlayerUlid));
+                Item.RequestData.ForPlayerUlid);
+            FileReadError.Context.RequestId     = Item.RequestData.RequestId;
+            FileReadError.Context.RequestURL    = Item.RequestData.Endpoint;
+            FileReadError.Context.RequestMethod = Item.RequestData.Verb;
+            MarkItemDone(Item, FileReadError);
             return false;
         }
         BodyData.Append(FileData);
@@ -528,10 +547,15 @@ void FLootLockerHTTPExecutionQueue::HandleRequestResult(
 
         case ELootLockerHTTPExecutionQueueProcessingResult::Completed_TimedOut:
         {
-            MarkItemDone(Item, LootLockerResponseFactory::Error<FLootLockerResponse>(
+            FLootLockerResponse TimeoutResponse = LootLockerResponseFactory::Error<FLootLockerResponse>(
                 TEXT("Request timed out"),
                 LootLockerStaticRequestErrorStatusCodes::LL_UNDEFINED_BEHAVIOUR_ERROR,
-                Item.RequestData.ForPlayerUlid));
+                Item.RequestData.ForPlayerUlid);
+            TimeoutResponse.Context.RequestId                   = Item.RequestData.RequestId;
+            TimeoutResponse.Context.RequestURL                  = Item.RequestData.Endpoint;
+            TimeoutResponse.Context.RequestMethod               = Item.RequestData.Verb;
+            TimeoutResponse.Context.RequestParametersJsonString = Item.RequestData.Body;
+            MarkItemDone(Item, TimeoutResponse);
             break;
         }
 
@@ -594,28 +618,37 @@ void FLootLockerHTTPExecutionQueue::DispatchSessionRefreshForItem(const FString&
         return;
     }
 
-    OnRefreshSession(PlayerData, [this, RequestId](bool bRefreshSuccess)
+    OnRefreshSession(PlayerData, [RequestId](bool bRefreshSuccess)
     {
-        TSharedPtr<FLootLockerHTTPExecutionQueueItem>* FoundItemPtr = ExecutionQueue.Find(RequestId);
-        if (!FoundItemPtr || !(*FoundItemPtr).IsValid())
+        if (!FLootLockerHTTPExecutionQueue::IsInitialized())
         {
             return;
         }
-        FLootLockerHTTPExecutionQueueItem& Item = **FoundItemPtr;
-        Item.bIsWaitingForSessionRefresh = false;
-
-        if (bRefreshSuccess)
-        {
-            // The refresh updated session state — reset the retry-after delay so
-            // Tick() picks this item up as an unsent request on the next frame.
-            Item.RetryAfter.Reset();
-        }
-        else
-        {
-            // Refresh failed — deliver the stored failure response to listeners
-            MarkItemDone(Item, Item.Response);
-        }
+        FLootLockerHTTPExecutionQueue::Get().OnSessionRefreshCompleted(RequestId, bRefreshSuccess);
     });
+}
+
+void FLootLockerHTTPExecutionQueue::OnSessionRefreshCompleted(const FString& RequestId, bool bRefreshSuccess)
+{
+    TSharedPtr<FLootLockerHTTPExecutionQueueItem>* FoundItemPtr = ExecutionQueue.Find(RequestId);
+    if (!FoundItemPtr || !(*FoundItemPtr).IsValid())
+    {
+        return;
+    }
+    FLootLockerHTTPExecutionQueueItem& Item = **FoundItemPtr;
+    Item.bIsWaitingForSessionRefresh = false;
+
+    if (bRefreshSuccess)
+    {
+        // The refresh updated session state — reset the retry-after delay so
+        // Tick() picks this item up as an unsent request on the next frame.
+        Item.RetryAfter.Reset();
+    }
+    else
+    {
+        // Refresh failed — deliver the stored failure response to listeners
+        MarkItemDone(Item, Item.Response);
+    }
 }
 
 void FLootLockerHTTPExecutionQueue::MarkItemDone(
