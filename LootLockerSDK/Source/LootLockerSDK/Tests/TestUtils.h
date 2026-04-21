@@ -1,4 +1,6 @@
 ﻿#pragma once
+#include "HAL/PlatformMisc.h"
+#include "LootLockerConfig.h"
 #include "LootLockerPlatformManager.h"
 #include "LootLockerStateData.h"
 
@@ -23,6 +25,27 @@ namespace test_util
 
 	inline void StartSession()
 	{
+		// Allow LOOTLOCKER_GAME_API_KEY env var to configure the SDK without project settings.
+		// Useful for local test runs where admin provisioning is not available.
+		// Tests that use FLootLockerTestGame::CreateGame() + InitializeLootLockerSDK() do not
+		// need this — the config is already set before StartSession() is called.
+		const FString EnvKey = FPlatformMisc::GetEnvironmentVariable(TEXT("LOOTLOCKER_GAME_API_KEY"));
+		if (!EnvKey.IsEmpty())
+		{
+			ULootLockerConfig* Config = GetMutableDefault<ULootLockerConfig>();
+			Config->LootLockerGameKey = EnvKey;
+			if (Config->GameVersion.IsEmpty())
+			{
+				Config->GameVersion = TEXT("0.0.0.1");
+			}
+			const FString DomainKey =
+				FPlatformMisc::GetEnvironmentVariable(TEXT("LOOTLOCKER_GAME_DOMAIN_KEY"));
+			if (!DomainKey.IsEmpty())
+			{
+				Config->DomainKey = DomainKey;
+			}
+		}
+
 		const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerAuthenticationResponse,FLootLockerSessionResponse>();
 
 		ULootLockerSDKManager::GuestLogin(Delegate, TEXT("unreal_unit_test_user"));
