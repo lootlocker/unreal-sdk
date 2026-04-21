@@ -53,8 +53,16 @@ public:
 
 	/**
 	 * Authenticate with the given credentials and populate AdminToken / OrganisationId.
+	 * If OutWas401 is non-null it will be set to true when the server returns HTTP 401.
 	 */
-	static bool Login(const FString& Email, const FString& Password);
+	static bool Login(const FString& Email, const FString& Password, bool* OutWas401 = nullptr);
+
+	/**
+	 * Create a new admin account with the given credentials.
+	 * Called automatically by EnsureSignedIn() when no account exists yet for the
+	 * auto-generated date-based credentials.
+	 */
+	static bool Signup(const FString& Email, const FString& Password, const FString& Name, const FString& Organisation);
 
 	/**
 	 * Send a synchronous (blocking) admin API request.
