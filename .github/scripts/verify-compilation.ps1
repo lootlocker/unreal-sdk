@@ -167,6 +167,10 @@ $WroteUbtConfig = $true
 # has higher priority than any file-based config. Setting this env var
 # ensures bAllowUBAExecutor=false is injected into that highest-priority
 # file and applies to ALL UBT passes (Development AND Shipping).
+$env:UnrealBuildTool_BuildConfiguration__bAllowUBAExecutor = "false"# UE 5.7 generates a per-invocation "environment XML" from env vars that
+# has higher priority than any file-based config. Setting this env var
+# ensures bAllowUBAExecutor=false is injected into that highest-priority
+# file and applies to ALL UBT passes (Development AND Shipping).
 $env:UnrealBuildTool_BuildConfiguration__bAllowUBAExecutor = "false"
 
 # Kill any lingering dotnet processes that are specifically running
