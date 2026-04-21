@@ -2,7 +2,11 @@
 
 #include "LootLockerGameEndpoints.h"
 
+#ifdef LOOTLOCKER_USE_LOCAL_DEVENV
+FString ULootLockerGameEndpoints::BaseUrl = "http://localhost:8080/";
+#else
 FString ULootLockerGameEndpoints::BaseUrl = "https://{domainKey}api.lootlocker.com/";
+#endif
 FString ULootLockerGameEndpoints::GameUrlSuffix = "game/";
 
 //Auth

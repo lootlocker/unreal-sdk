@@ -27,16 +27,11 @@ int32   FLootLockerAdminRequest::ActiveGameId   = 0;
 
 FString FLootLockerAdminRequest::GetBaseUrl()
 {
-	FString Url = FPlatformMisc::GetEnvironmentVariable(TEXT("LOOTLOCKER_ADMIN_API_URL"));
-	if (Url.IsEmpty())
-	{
-		Url = TEXT("https://api.lootlocker.com/");
-	}
-	if (!Url.EndsWith(TEXT("/")))
-	{
-		Url.AppendChar(TEXT('/'));
-	}
-	return Url;
+#ifdef LOOTLOCKER_USE_LOCAL_DEVENV
+	return TEXT("http://localhost:8080/");
+#else
+	return TEXT("https://api.lootlocker.com/");
+#endif
 }
 
 bool FLootLockerAdminRequest::GetCredentials(FString& OutEmail, FString& OutPassword)
