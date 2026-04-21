@@ -2,6 +2,7 @@
 
 #include "LootLockerHTTPRequestData.h"
 #include "LootLockerLogger.h"
+#include <exception>
 
 void FLootLockerHTTPRequestData::CallListenersWithResult(const FLootLockerResponse& Response)
 {

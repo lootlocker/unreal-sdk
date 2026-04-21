@@ -55,6 +55,10 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
         {
             const FString RequestId = RequestIdOverride.IsEmpty() ? FGuid::NewGuid().ToString() : RequestIdOverride;
             FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>("HTTP Execution Queue is not initialized", LootLockerStaticRequestErrorStatusCodes::LL_UNDEFINED_BEHAVIOUR_ERROR, PlayerData.PlayerUlid);
+            Error.Context.RequestId                   = RequestId;
+            Error.Context.RequestURL                  = endPoint;
+            Error.Context.RequestMethod               = requestType;
+            Error.Context.RequestParametersJsonString = data;
             onCompleteRequest.ExecuteIfBound(Error);
             return RequestId;
         }
@@ -212,6 +216,9 @@ FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString
         {
             const FString RequestId = RequestIdOverride.IsEmpty() ? FGuid::NewGuid().ToString() : RequestIdOverride;
             FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>("HTTP Execution Queue is not initialized", LootLockerStaticRequestErrorStatusCodes::LL_UNDEFINED_BEHAVIOUR_ERROR, PlayerData.PlayerUlid);
+            Error.Context.RequestId     = RequestId;
+            Error.Context.RequestURL    = endPoint;
+            Error.Context.RequestMethod = requestType;
             onCompleteRequest.ExecuteIfBound(Error);
             return RequestId;
         }
