@@ -59,5 +59,37 @@ namespace test_util
 	inline void EndSession()
 	{
 	}
+
+	struct FTestPlayerSession
+	{
+		FString PlayerUlid;
+		FString PlayerPublicUid;
+		bool bSuccess = false;
+	};
+
+	/**
+	 * Log in a second (or Nth) guest player and register their session data alongside the first player.
+	 * Returns the new player's ULID and public UID so tests can reference them in ForPlayerWithUlid calls.
+	 */
+	inline FTestPlayerSession StartAdditionalSession()
+	{
+		const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerAuthenticationResponse, FLootLockerSessionResponse>();
+		ULootLockerSDKManager::GuestLogin(Delegate, FGuid::NewGuid().ToString());
+		const auto Response = Promise->get_future().get();
+		FTestPlayerSession Out;
+		if (Response.success)
+		{
+			FLootLockerPlayerData NewPlayerData = FLootLockerPlayerData::Create(
+				Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid,
+				"", "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Guest),
+				FDateTime::Now().ToString(), Response.player_created_at);
+			ULootLockerStateData::SavePlayerData(NewPlayerData);
+			Out.PlayerUlid = Response.player_ulid;
+			Out.PlayerPublicUid = Response.public_uid;
+			Out.bSuccess = true;
+		}
+		delete Promise;
+		return Out;
+	}
 }
 #endif
