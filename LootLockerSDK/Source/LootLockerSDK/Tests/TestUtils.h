@@ -1,4 +1,6 @@
 ﻿#pragma once
+#include <chrono>
+#include <future>
 #include "HAL/PlatformMisc.h"
 #include "LootLockerConfig.h"
 #include "LootLockerPlatformManager.h"
@@ -20,6 +22,29 @@ namespace test_util
 				});
 
 		return make_pair(ResponsePromise,Delegate);
+	}
+
+	/**
+	 * Wait up to TimeoutSeconds for the promise to be fulfilled, then return the value.
+	 * On success the promise is deleted. On timeout the promise is intentionally leaked
+	 * (the HTTP callback may still fire and call set_value on it later).
+	 * Returns a default-constructed (success=false) ResponseType on timeout.
+	 */
+	template <typename ResponseType>
+	static ResponseType WaitAndGet(std::promise<ResponseType>* Promise, int32 TimeoutSeconds = 30)
+	{
+		std::future<ResponseType> Future = Promise->get_future();
+		if (Future.wait_for(std::chrono::seconds(TimeoutSeconds)) == std::future_status::timeout)
+		{
+			UE_LOG(LogTemp, Warning,
+				TEXT("LootLockerTest: WaitAndGet timed out after %ds — the HTTP callback may still be in flight"),
+				TimeoutSeconds);
+			// Do NOT delete Promise: the in-flight callback may still call set_value.
+			return ResponseType{};
+		}
+		ResponseType Result = Future.get();
+		delete Promise;
+		return Result;
 	}
 
 
@@ -46,14 +71,17 @@ namespace test_util
 			}
 		}
 
+		// Clear any saved state from a previous test so GuestLogin always creates a fresh session
+		// for the newly-provisioned game instead of reusing a stale token from an old game.
+		ULootLockerStateData::ClearAllSavedStates();
+
 		const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerAuthenticationResponse,FLootLockerSessionResponse>();
 
 		ULootLockerSDKManager::GuestLogin(Delegate, TEXT("unreal_unit_test_user"));
 
-		const auto Response = Promise->get_future().get();
+		const auto Response = WaitAndGet(Promise, 60);
 		FLootLockerPlayerData NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, "", "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Guest), FDateTime::Now().ToString(), Response.player_created_at);
 		ULootLockerStateData::SavePlayerData(NewPlayerData);
-		delete(Promise);
 	}
 
 	inline void EndSession()
@@ -75,7 +103,7 @@ namespace test_util
 	{
 		const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerAuthenticationResponse, FLootLockerSessionResponse>();
 		ULootLockerSDKManager::GuestLogin(Delegate, FGuid::NewGuid().ToString());
-		const auto Response = Promise->get_future().get();
+		const auto Response = WaitAndGet(Promise, 60);
 		FTestPlayerSession Out;
 		if (Response.success)
 		{
@@ -88,7 +116,6 @@ namespace test_util
 			Out.PlayerPublicUid = Response.public_uid;
 			Out.bSuccess = true;
 		}
-		delete Promise;
 		return Out;
 	}
 }

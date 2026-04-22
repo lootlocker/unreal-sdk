@@ -14,14 +14,21 @@
     See .github/instructions/verification.md for setup instructions.
 
 .PARAMETER TestFilter
-    Automation test filter passed to "automation RunTests <filter>".
-    Defaults to "LootLocker" which runs all LootLocker tests.
+    Substring matched against test names/paths by the UE automation system
+    (passed to "automation RunTests <filter>").  Every LootLocker test path
+    starts with "LootLocker.", so the default "LootLocker" runs all of them.
+    Use a more specific substring to run a subset — e.g. "LootLocker.Balances".
+
+.PARAMETER Clean
+    Delete the previous build output before building. Omit for a faster
+    incremental build (UAT reuses cached artifacts).
 
 .NOTES
     Exit codes: 0 = all tests passed, 1 = one or more tests failed or setup error.
 #>
 param(
-    [string]$TestFilter = "LootLocker"
+    [string]$TestFilter = "LootLocker",
+    [switch]$Clean
 )
 
 $ErrorActionPreference = 'Stop'
@@ -131,11 +138,16 @@ $BuildLogDir = Split-Path $BuildLog
 if (-not (Test-Path $BuildLogDir)) { New-Item -ItemType Directory -Path $BuildLogDir -Force | Out-Null }
 if (Test-Path $BuildLog) { Remove-Item $BuildLog -Force }
 
-if (Test-Path $BuildOutput) {
-    & cmd /c "rmdir /S /Q `"$BuildOutput`"" 2>&1 | Out-Null
+if ($Clean) {
     if (Test-Path $BuildOutput) {
-        Write-Warn "Warning: Could not fully remove previous build output - UAT will attempt to overwrite."
+        Write-Step "Cleaning previous build output..."
+        & cmd /c "rmdir /S /Q `"$BuildOutput`"" 2>&1 | Out-Null
+        if (Test-Path $BuildOutput) {
+            Write-Warn "Warning: Could not fully remove previous build output - UAT will attempt to overwrite."
+        }
     }
+} elseif (Test-Path $BuildOutput) {
+    Write-Step "Reusing existing build output (pass -Clean to force a full rebuild)."
 }
 
 $prevEAP = $ErrorActionPreference

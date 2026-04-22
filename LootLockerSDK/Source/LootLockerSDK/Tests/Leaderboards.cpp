@@ -13,27 +13,31 @@ BEGIN_DEFINE_SPEC(FLootLockersTestLeaderboards, "LootLocker.Leaderboards", EAuto
 	FLootLockerTestGame Game;
 	FString LeaderboardKey;
 	FString PlayerUlid;
+	FString PlayerPublicUid;
 END_DEFINE_SPEC(FLootLockersTestLeaderboards)
 
 void FLootLockersTestLeaderboards::Define()
 {
-	BeforeEach([this]()
+	LatentBeforeEach(EAsyncExecution::ThreadPool, [this](const FDoneDelegate& Done)
 	{
-		LeaderboardKey = TEXT("ci_lb_") + FGuid::NewGuid().ToString(EGuidFormats::Short);
+		LeaderboardKey = TEXT("ci_lb_") + FGuid::NewGuid().ToString(EGuidFormats::Digits).ToLower();
 		bool bOk = FLootLockerTestGame::CreateGame(Game, TEXT("Leaderboards"));
-		if (!bOk) { return; }
+		if (!bOk) { Done.Execute(); return; }
 		bOk = Game.EnableGuestLogin();
-		if (!bOk) { return; }
-		bOk = Game.CreateLeaderboard(LeaderboardKey, TEXT("player"), TEXT("Descending"));
-		if (!bOk) { return; }
+		if (!bOk) { Done.Execute(); return; }
+		bOk = Game.CreateLeaderboard(LeaderboardKey, TEXT("generic"), TEXT("descending"));
+		if (!bOk) { Done.Execute(); return; }
 		Game.InitializeLootLockerSDK();
 		test_util::StartSession();
 		PlayerUlid = ULootLockerStateData::GetSavedStateForFirstPlayer().PlayerUlid;
+		PlayerPublicUid = ULootLockerStateData::GetSavedStateForFirstPlayer().PlayerPublicUid;
+		Done.Execute();
 	});
 
-	AfterEach([this]()
+	LatentAfterEach(EAsyncExecution::ThreadPool, [this](const FDoneDelegate& Done)
 	{
 		Game.DeleteGame();
+		Done.Execute();
 	});
 
 	Describe("Leaderboards", [this]()
@@ -42,23 +46,21 @@ void FLootLockersTestLeaderboards::Define()
 		{
 			if (!Game.IsValid()) { AddError(TEXT("Game setup failed")); TestDone.Execute(); return; }
 
-			// Submit a score
+			// Submit a score using the ULID as member ID (works for generic leaderboards)
 			{
 				const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerSubmitScoreResponse, FLootLockerSubmitScoreResponseDelegate>();
 				ULootLockerSDKManager::SubmitScore(PlayerUlid, LeaderboardKey, 1000, TEXT(""), Delegate);
-				const auto Response = Promise->get_future().get();
+				const auto Response = test_util::WaitAndGet(Promise, 30);
 				TestTrue("SubmitScore succeeded", Response.success);
-				delete Promise;
 			}
 
-			// Verify via GetMemberRank
+			// Verify via GetMemberRank (same member ID as used for submit)
 			{
 				const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerGetMemberRankResponse, FLootLockerGetMemberRankResponseDelegate>();
 				ULootLockerSDKManager::GetMemberRank(LeaderboardKey, PlayerUlid, Delegate);
-				const auto Response = Promise->get_future().get();
+				const auto Response = test_util::WaitAndGet(Promise, 30);
 				TestTrue("GetMemberRank succeeded", Response.success);
 				TestEqual("Score matches submitted value", Response.score, 1000);
-				delete Promise;
 			}
 
 			TestDone.Execute();
@@ -72,19 +74,17 @@ void FLootLockersTestLeaderboards::Define()
 			{
 				const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerSubmitScoreResponse, FLootLockerSubmitScoreResponseDelegate>();
 				ULootLockerSDKManager::SubmitScore(PlayerUlid, LeaderboardKey, 500, TEXT(""), Delegate);
-				const auto Response = Promise->get_future().get();
+				const auto Response = test_util::WaitAndGet(Promise, 30);
 				TestTrue("SubmitScore succeeded", Response.success);
-				delete Promise;
 			}
 
 			// Get leaderboard and verify entry is present
 			{
 				const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerGetScoreListResponse, FLootLockerGetScoreListResponseDelegate>();
 				ULootLockerSDKManager::GetScoreListInitial(LeaderboardKey, 10, Delegate);
-				const auto Response = Promise->get_future().get();
+				const auto Response = test_util::WaitAndGet(Promise, 30);
 				TestTrue("GetScoreListInitial succeeded", Response.success);
 				TestTrue("Score list is non-empty", Response.items.Num() > 0);
-				delete Promise;
 			}
 
 			TestDone.Execute();
@@ -98,19 +98,17 @@ void FLootLockersTestLeaderboards::Define()
 			{
 				const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerSubmitScoreResponse, FLootLockerSubmitScoreResponseDelegate>();
 				ULootLockerSDKManager::SubmitScore(PlayerUlid, LeaderboardKey, 750, TEXT(""), Delegate);
-				const auto Response = Promise->get_future().get();
+				const auto Response = test_util::WaitAndGet(Promise, 30);
 				TestTrue("SubmitScore succeeded", Response.success);
-				delete Promise;
 			}
 
 			// Query placement for a score value
 			{
 				const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerSubmitScoreResponse, FLootLockerSubmitScoreResponseDelegate>();
 				ULootLockerSDKManager::QueryScore(LeaderboardKey, 750, Delegate);
-				const auto Response = Promise->get_future().get();
+				const auto Response = test_util::WaitAndGet(Promise, 30);
 				TestTrue("QueryScore succeeded", Response.success);
 				TestTrue("Rank is valid", Response.rank > 0);
-				delete Promise;
 			}
 
 			TestDone.Execute();
@@ -124,19 +122,17 @@ void FLootLockersTestLeaderboards::Define()
 			{
 				const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerSubmitScoreResponse, FLootLockerSubmitScoreResponseDelegate>();
 				ULootLockerSDKManager::SubmitScore(PlayerUlid, LeaderboardKey, 200, TEXT(""), Delegate);
-				const auto Response = Promise->get_future().get();
+				const auto Response = test_util::WaitAndGet(Promise, 30);
 				TestTrue("Initial SubmitScore succeeded", Response.success);
-				delete Promise;
 			}
 
 			// Increment by 100
 			{
 				const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerSubmitScoreResponse, FLootLockerSubmitScoreResponseDelegate>();
 				ULootLockerSDKManager::IncrementScore(PlayerUlid, LeaderboardKey, 100, Delegate);
-				const auto Response = Promise->get_future().get();
+				const auto Response = test_util::WaitAndGet(Promise, 30);
 				TestTrue("IncrementScore succeeded", Response.success);
 				TestEqual("Score after increment is 300", Response.score, 300);
-				delete Promise;
 			}
 
 			TestDone.Execute();
