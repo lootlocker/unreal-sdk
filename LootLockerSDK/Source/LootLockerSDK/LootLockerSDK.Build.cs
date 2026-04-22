@@ -6,6 +6,7 @@ public class LootLockerSDK : ModuleRules
 {
     public static bool bEnableGoogleSubsystemHelper = false;
     public static bool bShowOutdatedSDKMessage = false; // Set to true when submitting to fab for engine versions < the last 3
+    public static bool bEnableBetaErrorReporting = false;
     public LootLockerSDK(ReadOnlyTargetRules Target) : base(Target)
     {
         PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
@@ -70,6 +71,10 @@ public class LootLockerSDK : ModuleRules
         if (bShowOutdatedSDKMessage)
         {
 	        PublicDefinitions.Add("LOOTLOCKER_SHOW_OUTDATED_SDK_MESSAGE=1");
+        }
+        if (bEnableBetaErrorReporting)
+        {
+            PublicDefinitions.Add("LOOTLOCKER_BETA_ENABLE_ERROR_REPORTING=1");
         }
     }
 }
