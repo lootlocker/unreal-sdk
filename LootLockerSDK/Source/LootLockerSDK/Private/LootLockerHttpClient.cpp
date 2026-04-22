@@ -151,7 +151,7 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
                 return; // Don't call the original callback yet
             }
 
-#if LOOTLOCKER_BETA_ENABLE_ERROR_REPORTING
+#ifdef LOOTLOCKER_BETA_ENABLE_ERROR_REPORTING
             StoreFailedRequestReport(response, data, AllHeaders, Response, RetryAttemptCount, requestStartTime);
 #endif
 		}
@@ -312,7 +312,7 @@ FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString
                     return; // Don't call the original callback yet
                 }
 
-#if LOOTLOCKER_BETA_ENABLE_ERROR_REPORTING                
+#ifdef LOOTLOCKER_BETA_ENABLE_ERROR_REPORTING                
                 StoreFailedRequestReport(response, FString(), AllHeaders, Response, RetryAttemptCount, requestStartTime);
 #endif
             }
