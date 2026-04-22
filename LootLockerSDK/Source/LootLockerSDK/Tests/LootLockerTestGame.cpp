@@ -111,7 +111,8 @@ bool FLootLockerTestGame::CreateGame(FLootLockerTestGame& OutGame, const FString
 	OutGame.SwitchToProdEnvironment();
 
 	TSharedRef<FJsonObject> ProdKeyBody = MakeShared<FJsonObject>();
-	ProdKeyBody->SetStringField(TEXT("name"), TEXT("ci-prod"));
+	ProdKeyBody->SetStringField(TEXT("name"),     TEXT("ci-prod"));
+	ProdKeyBody->SetStringField(TEXT("api_type"), TEXT("game"));
 
 	const FLootLockerAdminResponse ProdKeyResponse =
 		FLootLockerAdminRequest::Send(
@@ -134,7 +135,8 @@ bool FLootLockerTestGame::CreateGame(FLootLockerTestGame& OutGame, const FString
 	OutGame.SwitchToStageEnvironment();
 
 	TSharedRef<FJsonObject> DevKeyBody = MakeShared<FJsonObject>();
-	DevKeyBody->SetStringField(TEXT("name"), TEXT("ci-dev"));
+	DevKeyBody->SetStringField(TEXT("name"),     TEXT("ci-dev"));
+	DevKeyBody->SetStringField(TEXT("api_type"), TEXT("game"));
 
 	const FLootLockerAdminResponse DevKeyResponse =
 		FLootLockerAdminRequest::Send(
@@ -234,15 +236,104 @@ bool FLootLockerTestGame::CreateLeaderboard(
 
 bool FLootLockerTestGame::CreateTrigger(const FString& Key, const FString& Name)
 {
-	TSharedRef<FJsonObject> Body = MakeShared<FJsonObject>();
-	Body->SetStringField(TEXT("key"),   Key);
-	Body->SetStringField(TEXT("name"),  Name);
-	Body->SetNumberField(TEXT("limit"), 0); // 0 = unlimited invocations
+	// Step 1: Get asset context ID
+	const FLootLockerAdminResponse CtxResponse =
+		FLootLockerAdminRequest::Send(TEXT("v1/game/#GAMEID#/assets/contexts"), TEXT("GET"));
+	if (!CtxResponse.bSuccess)
+	{
+		UE_LOG(LogTemp, Error, TEXT("LootLockerTestGame: GetAssetContexts failed (%d): %s"),
+			CtxResponse.StatusCode, *CtxResponse.Body);
+		return false;
+	}
+
+	int32 ContextId = 1;
+	TSharedPtr<FJsonObject> CtxJson = ParseJson(CtxResponse.Body);
+	if (CtxJson.IsValid())
+	{
+		const TArray<TSharedPtr<FJsonValue>>* Contexts;
+		if (CtxJson->TryGetArrayField(TEXT("contexts"), Contexts) && Contexts->Num() > 0)
+		{
+			const TSharedPtr<FJsonObject>* First;
+			if ((*Contexts)[0]->TryGetObject(First))
+			{
+				(*First)->TryGetNumberField(TEXT("id"), ContextId);
+			}
+		}
+	}
+
+	// Step 2: Create an asset in the game
+	TSharedRef<FJsonObject> AssetBody = MakeShared<FJsonObject>();
+	AssetBody->SetNumberField(TEXT("context_id"), ContextId);
+	AssetBody->SetStringField(TEXT("name"),       TEXT("CI Trigger Asset"));
+
+	const FLootLockerAdminResponse AssetResponse =
+		FLootLockerAdminRequest::Send(
+			TEXT("v1/game/#GAMEID#/asset"), TEXT("POST"), SerializeJson(AssetBody));
+	if (!AssetResponse.bSuccess)
+	{
+		UE_LOG(LogTemp, Error, TEXT("LootLockerTestGame: CreateAsset for trigger failed (%d): %s"),
+			AssetResponse.StatusCode, *AssetResponse.Body);
+		return false;
+	}
+
+	FString AssetUlid;
+	TSharedPtr<FJsonObject> AssetJson = ParseJson(AssetResponse.Body);
+	if (AssetJson.IsValid())
+	{
+		const TSharedPtr<FJsonObject>* AssetObj;
+		if (AssetJson->TryGetObjectField(TEXT("asset"), AssetObj))
+		{
+			(*AssetObj)->TryGetStringField(TEXT("ulid"), AssetUlid);
+		}
+	}
+	if (AssetUlid.IsEmpty())
+	{
+		UE_LOG(LogTemp, Error, TEXT("LootLockerTestGame: CreateAsset response missing asset.ulid"));
+		return false;
+	}
+
+	// Step 3: Create a reward backed by the asset
+	TSharedRef<FJsonObject> RewardBody = MakeShared<FJsonObject>();
+	RewardBody->SetStringField(TEXT("entity_id"),   AssetUlid);
+	RewardBody->SetStringField(TEXT("entity_kind"), TEXT("asset"));
+
+	const FLootLockerAdminResponse RewardResponse =
+		FLootLockerAdminRequest::Send(
+			TEXT("game/#GAMEID#/reward"), TEXT("POST"), SerializeJson(RewardBody));
+	if (!RewardResponse.bSuccess)
+	{
+		UE_LOG(LogTemp, Error, TEXT("LootLockerTestGame: CreateReward for trigger failed (%d): %s"),
+			RewardResponse.StatusCode, *RewardResponse.Body);
+		return false;
+	}
+
+	FString RewardId;
+	TSharedPtr<FJsonObject> RewardJson = ParseJson(RewardResponse.Body);
+	if (RewardJson.IsValid())
+	{
+		RewardJson->TryGetStringField(TEXT("id"), RewardId);
+	}
+	if (RewardId.IsEmpty())
+	{
+		UE_LOG(LogTemp, Error, TEXT("LootLockerTestGame: CreateReward response missing id"));
+		return false;
+	}
+
+	// Step 4: Create the trigger with the nested body and reward_id
+	TSharedRef<FJsonObject> TriggerInner = MakeShared<FJsonObject>();
+	TriggerInner->SetStringField(TEXT("key"),       Key);
+	TriggerInner->SetStringField(TEXT("name"),      Name);
+	TriggerInner->SetNumberField(TEXT("limit"),     0);
+	TriggerInner->SetStringField(TEXT("reward_id"), RewardId);
+
+	TSharedRef<FJsonObject> TriggerBody = MakeShared<FJsonObject>();
+	TriggerBody->SetObjectField(TEXT("trigger"), TriggerInner);
+	TArray<TSharedPtr<FJsonValue>> EmptySegments;
+	TriggerBody->SetArrayField(TEXT("segments"), EmptySegments);
 
 	const FLootLockerAdminResponse Response =
 		FLootLockerAdminRequest::Send(
-			TEXT("game/#GAMEID#/triggers/cozy-crusader/v1"), TEXT("POST"), SerializeJson(Body));
-
+			TEXT("game/#GAMEID#/triggers/cozy-crusader/v1"), TEXT("POST"), SerializeJson(TriggerBody));
 	if (!Response.bSuccess)
 	{
 		UE_LOG(LogTemp, Error, TEXT("LootLockerTestGame: CreateTrigger '%s' failed (%d): %s"),
@@ -258,7 +349,7 @@ bool FLootLockerTestGame::CreateCurrency(
 	TSharedRef<FJsonObject> CurrencyBody = MakeShared<FJsonObject>();
 	CurrencyBody->SetStringField(TEXT("name"), Name);
 	CurrencyBody->SetStringField(TEXT("code"), Code);
-	CurrencyBody->SetStringField(TEXT("type"), TEXT("soft"));
+	CurrencyBody->SetStringField(TEXT("initial_denomination_name"), TEXT("base"));
 
 	const FLootLockerAdminResponse CreateResponse =
 		FLootLockerAdminRequest::Send(
@@ -274,11 +365,7 @@ bool FLootLockerTestGame::CreateCurrency(
 	TSharedPtr<FJsonObject> Json = ParseJson(CreateResponse.Body);
 	if (Json.IsValid())
 	{
-		const TSharedPtr<FJsonObject>* CurrencyObj;
-		if (Json->TryGetObjectField(TEXT("currency"), CurrencyObj))
-		{
-			(*CurrencyObj)->TryGetStringField(TEXT("id"), OutCurrencyId);
-		}
+		Json->TryGetStringField(TEXT("id"), OutCurrencyId);
 	}
 
 	if (OutCurrencyId.IsEmpty())
@@ -310,6 +397,8 @@ bool FLootLockerTestGame::CreateProgression(const FString& Key, const FString& N
 	TSharedRef<FJsonObject> Body = MakeShared<FJsonObject>();
 	Body->SetStringField(TEXT("key"),  Key);
 	Body->SetStringField(TEXT("name"), Name);
+	Body->SetBoolField(TEXT("allow_game_writes"), true);
+	Body->SetBoolField(TEXT("active"), true);
 
 	const FLootLockerAdminResponse Response =
 		FLootLockerAdminRequest::Send(
@@ -319,8 +408,37 @@ bool FLootLockerTestGame::CreateProgression(const FString& Key, const FString& N
 	{
 		UE_LOG(LogTemp, Error, TEXT("LootLockerTestGame: CreateProgression '%s' failed (%d): %s"),
 			*Key, Response.StatusCode, *Response.Body);
+		return false;
 	}
-	return Response.bSuccess;
+
+	// Parse the progression ULID id so we can create a usable tier.
+	// The auto-created step=1 tier has threshold=0, which causes all points to be
+	// clamped to 0. Adding step=2 with threshold=1000 allows points to accumulate.
+	TSharedPtr<FJsonObject> ProgressionJson = ParseJson(Response.Body);
+	FString ProgressionId;
+	if (!ProgressionJson.IsValid() || !ProgressionJson->TryGetStringField(TEXT("id"), ProgressionId) || ProgressionId.IsEmpty())
+	{
+		UE_LOG(LogTemp, Error, TEXT("LootLockerTestGame: CreateProgression '%s' - could not parse progression id from response"), *Key);
+		return false;
+	}
+
+	TSharedRef<FJsonObject> TierBody = MakeShared<FJsonObject>();
+	TierBody->SetNumberField(TEXT("step"), 2);
+	TierBody->SetNumberField(TEXT("points_threshold"), 1000);
+
+	const FLootLockerAdminResponse TierResponse =
+		FLootLockerAdminRequest::Send(
+			*(TEXT("game/#GAMEID#/progressions/") + ProgressionId + TEXT("/tiers")),
+			TEXT("POST"), SerializeJson(TierBody));
+
+	if (!TierResponse.bSuccess)
+	{
+		UE_LOG(LogTemp, Error, TEXT("LootLockerTestGame: CreateProgressionTier for '%s' failed (%d): %s"),
+			*Key, TierResponse.StatusCode, *TierResponse.Body);
+		return false;
+	}
+
+	return true;
 }
 
 bool FLootLockerTestGame::CreateAsset(int32& OutAssetId, const FString& Name)

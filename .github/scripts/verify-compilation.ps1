@@ -10,9 +10,16 @@
 
     See .github/instructions/verification.md for setup instructions.
 
+.PARAMETER Clean
+    Delete the previous build output and plugin Intermediate/Binaries before
+    building. Omit for a faster incremental build (UAT reuses cached artifacts).
+
 .NOTES
     Exit codes: 0 = compilation succeeded, 1 = compilation failed or setup error.
 #>
+param(
+    [switch]$Clean
+)
 
 $ErrorActionPreference = 'Stop'
 
@@ -67,6 +74,7 @@ if (-not (Test-Path $RunUAT)) {
 # 2. Locate the plugin uplugin file
 # ---------------------------------------------------------------------------
 $PluginFile = Get-ChildItem -Path $RepoRoot -Filter "*.uplugin" -Recurse -Depth 2 |
+              Where-Object { $_.FullName -notlike "*\Build~\*" } |
               Select-Object -First 1
 
 if (-not $PluginFile) {
@@ -86,19 +94,39 @@ Write-Step ""
 # Use cmd rmdir rather than Remove-Item: it's more forceful about releasing
 # Windows file handles that are still held by antivirus / Explorer after a
 # previous crashed build.
-if (Test-Path $BuildOutput) {
-    Write-Step "Clearing previous build output..."
-    & cmd /c "rmdir /S /Q `"$BuildOutput`"" 2>&1 | Out-Null
-    # If anything is still locked, warn but continue - UAT will overwrite it.
+if ($Clean) {
     if (Test-Path $BuildOutput) {
-        Write-Warn "Warning: Could not fully remove previous build output at $BuildOutput - UAT will attempt to overwrite it."
+        Write-Step "Cleaning previous build output..."
+        & cmd /c "rmdir /S /Q `"$BuildOutput`"" 2>&1 | Out-Null
+        # If anything is still locked, warn but continue - UAT will overwrite it.
+        if (Test-Path $BuildOutput) {
+            Write-Warn "Warning: Could not fully remove previous build output at $BuildOutput - UAT will attempt to overwrite it."
+        }
     }
+} elseif (Test-Path $BuildOutput) {
+    Write-Step "Reusing existing build output (pass -Clean to force a full rebuild)."
 }
 $LogDir = Split-Path $LogFile
 if (-not (Test-Path $LogDir)) { New-Item -ItemType Directory -Path $LogDir -Force | Out-Null }
 # Remove the previous run's log immediately so a stale file is never
 # mistaken for the current run's output if UAT is interrupted.
 if (Test-Path $LogFile) { Remove-Item $LogFile -Force }
+
+# Clear the plugin's Intermediate and Binaries directories before UAT runs.
+# UAT copies the entire plugin source (including Intermediate/) into the
+# HostProject and then tries to delete it there. With a large Intermediate
+# directory (1+ GB), antivirus scans the newly-copied files and holds locks,
+# causing the delete to fail with Error_Unknown. Clearing them from source
+# beforehand means nothing gets copied, so there is nothing to lock.
+if ($Clean) {
+    foreach ($staleDir in @("Intermediate", "Binaries")) {
+        $dirPath = Join-Path (Split-Path $PluginFile.FullName) $staleDir
+        if (Test-Path $dirPath) {
+            Write-Step "Clearing plugin $staleDir directory before UAT copy..."
+            & cmd /c "rmdir /S /Q `"$dirPath`"" 2>&1 | Out-Null
+        }
+    }
+}
 
 # ---------------------------------------------------------------------------
 # 4. Temporarily disable UBA local execution
@@ -127,11 +155,26 @@ $noUbaXml = @'
 <Configuration xmlns="https://www.unrealengine.com/BuildConfiguration">
   <BuildConfiguration>
     <bAllowUBAExecutor>false</bAllowUBAExecutor>
+    <bAllowUBALocalExecutor>false</bAllowUBALocalExecutor>
   </BuildConfiguration>
 </Configuration>
 '@
 [IO.File]::WriteAllText($UbtConfigFile, $noUbaXml)
 $WroteUbtConfig = $true
+
+# UE 5.7 generates a per-invocation "environment XML" from env vars that
+# has higher priority than any file-based config. Setting this env var
+# ensures bAllowUBAExecutor=false is injected into that highest-priority
+# file and applies to ALL UBT passes (Development AND Shipping).
+$env:UnrealBuildTool_BuildConfiguration__bAllowUBAExecutor = "false"
+
+# Kill any lingering dotnet (UnrealBuildTool) processes from a previous crashed
+# build that might hold DLL locks or have already loaded their own UBA-enabled
+# config before ours was written.
+Get-Process -Name "dotnet" -ErrorAction SilentlyContinue |
+    Where-Object { $_.MainModule.FileName -like "*DotNet*" } |
+    Stop-Process -Force -ErrorAction SilentlyContinue
+
 Write-Step "Note: Disabled UBA local executor to avoid UbaDetours/rc.exe crash (restored after build)."
 Write-Step ""
 
@@ -176,6 +219,9 @@ try {
             Remove-Item $UbtConfigFile -Force -ErrorAction SilentlyContinue
         }
     }
+
+    # Remove the env var injected for the UBA env-XML mechanism.
+    Remove-Item Env:\UnrealBuildTool_BuildConfiguration__bAllowUBAExecutor -ErrorAction SilentlyContinue
 }
 $script:uat_exit = $LASTEXITCODE
 

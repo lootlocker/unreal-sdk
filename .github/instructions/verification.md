@@ -72,7 +72,11 @@ Create `unreal-dev-settings.json` at the repo root:
 **Windows (PowerShell 5+):**
 
 ```powershell
+# Incremental build (fast — reuses previous build output)
 .github\scripts\verify-compilation.ps1
+
+# Full clean rebuild (use after structural changes or a failed incremental)
+.github\scripts\verify-compilation.ps1 -Clean
 ```
 
 **macOS / Linux (bash):**
@@ -89,8 +93,37 @@ The script will:
 4. Print any compiler errors to the console.
 5. Exit `0` on success, `1` on any compiler error.
 
+By default the script reuses the existing `Build~/PluginBuild/` output for a
+faster incremental build. Pass `-Clean` to delete it first (equivalent to the
+previous behaviour).
+
 Build artefacts land in `Build~/PluginBuild/` (gitignored); the full UAT log
 is written to `Build~/UAT.log`.
+
+---
+
+## Running automation tests locally
+
+```powershell
+# Run all LootLocker tests (default filter = "LootLocker" matches all test paths)
+.github\scripts\run-tests.ps1
+
+# Run only a specific subset by test-path substring
+.github\scripts\run-tests.ps1 -TestFilter LootLocker.Balances
+.github\scripts\run-tests.ps1 -TestFilter LootLocker.Leaderboards
+
+# Force a clean rebuild before running tests
+.github\scripts\run-tests.ps1 -Clean
+.github\scripts\run-tests.ps1 -TestFilter LootLocker.Balances -Clean
+```
+
+The `-TestFilter` value is a substring matched against **test path names** by UE's
+`automation RunTests` command. Every LootLocker test is registered under a path that
+starts with `LootLocker.`, so `"LootLocker"` (the default) runs all of them.
+
+The `-Clean` flag deletes `Build~/PluginBuild/` before building. Omitting it
+lets UAT reuse cached intermediate files for a significantly faster turnaround
+during iterative test work.
 
 ---
 

@@ -18,22 +18,24 @@ END_DEFINE_SPEC(FTestLootLockerProgressions)
 
 void FTestLootLockerProgressions::Define()
 {
-	BeforeEach([this]()
+	LatentBeforeEach(EAsyncExecution::ThreadPool, [this](const FDoneDelegate& Done)
 	{
-		ProgressionKey = TEXT("ci_prog_") + FGuid::NewGuid().ToString(EGuidFormats::Short);
+		ProgressionKey = TEXT("ci_prog_") + FGuid::NewGuid().ToString(EGuidFormats::Digits).ToLower();
 		bool bOk = FLootLockerTestGame::CreateGame(Game, TEXT("Progressions"));
-		if (!bOk) { return; }
+		if (!bOk) { Done.Execute(); return; }
 		bOk = Game.EnableGuestLogin();
-		if (!bOk) { return; }
+		if (!bOk) { Done.Execute(); return; }
 		bOk = Game.CreateProgression(ProgressionKey, TEXT("CI Progression"));
-		if (!bOk) { return; }
+		if (!bOk) { Done.Execute(); return; }
 		Game.InitializeLootLockerSDK();
 		test_util::StartSession();
+		Done.Execute();
 	});
 
-	AfterEach([this]()
+	LatentAfterEach(EAsyncExecution::ThreadPool, [this](const FDoneDelegate& Done)
 	{
 		Game.DeleteGame();
+		Done.Execute();
 	});
 
 	Describe("Progressions", [this]()
@@ -44,9 +46,8 @@ void FTestLootLockerProgressions::Define()
 
 			const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerPaginatedPlayerProgressionResponse, FLootLockerPaginatedPlayerProgressionsResponseDelegate>();
 			ULootLockerSDKManager::GetPlayerProgressions(Delegate);
-			const auto Response = Promise->get_future().get();
+			const auto Response = test_util::WaitAndGet(Promise, 30);
 			TestTrue("GetPlayerProgressions succeeded", Response.success);
-			delete Promise;
 
 			TestDone.Execute();
 		});
@@ -59,17 +60,16 @@ void FTestLootLockerProgressions::Define()
 			{
 				const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerPlayerProgressionWithRewardsResponse, FLootLockerPlayerProgressionWithRewardsResponseDelegate>();
 				ULootLockerSDKManager::AddPointsToPlayerProgression(ProgressionKey, 100, Delegate);
-				const auto Response = Promise->get_future().get();
+				const auto Response = test_util::WaitAndGet(Promise, 30);
 				TestTrue("AddPointsToPlayerProgression succeeded", Response.success);
 				TestEqual("Points added correctly", Response.Points, 100);
-				delete Promise;
 			}
 
 			// Verify via list
 			{
 				const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerPaginatedPlayerProgressionResponse, FLootLockerPaginatedPlayerProgressionsResponseDelegate>();
 				ULootLockerSDKManager::GetPlayerProgressions(Delegate);
-				const auto Response = Promise->get_future().get();
+				const auto Response = test_util::WaitAndGet(Promise, 30);
 				TestTrue("GetPlayerProgressions succeeded after add", Response.success);
 				bool bFound = false;
 				for (const FLootLockerPlayerProgression& Entry : Response.Items)
@@ -82,7 +82,6 @@ void FTestLootLockerProgressions::Define()
 					}
 				}
 				TestTrue("Progression entry present in list", bFound);
-				delete Promise;
 			}
 
 			TestDone.Execute();

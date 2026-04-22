@@ -19,21 +19,23 @@ END_DEFINE_SPEC(FTestLootLockerBalances)
 
 void FTestLootLockerBalances::Define()
 {
-	BeforeEach([this]()
+	LatentBeforeEach(EAsyncExecution::ThreadPool, [this](const FDoneDelegate& Done)
 	{
 		bool bOk = FLootLockerTestGame::CreateGame(Game, TEXT("Balances"));
-		if (!bOk) { return; }
+		if (!bOk) { Done.Execute(); return; }
 		bOk = Game.EnableGuestLogin();
-		if (!bOk) { return; }
-		bOk = Game.CreateCurrency(TEXT("CI Gold"), TEXT("CIGLD"), CurrencyId);
-		if (!bOk) { return; }
+		if (!bOk) { Done.Execute(); return; }
+		bOk = Game.CreateCurrency(TEXT("CI Gold"), TEXT("CIG"), CurrencyId);
+		if (!bOk) { Done.Execute(); return; }
 		Game.InitializeLootLockerSDK();
 		test_util::StartSession();
+		Done.Execute();
 	});
 
-	AfterEach([this]()
+	LatentAfterEach(EAsyncExecution::ThreadPool, [this](const FDoneDelegate& Done)
 	{
 		Game.DeleteGame();
+		Done.Execute();
 	});
 
 	Describe("Balances", [this]()
@@ -44,7 +46,7 @@ void FTestLootLockerBalances::Define()
 
 			const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerListCurrenciesResponse, FLootLockerListCurrenciesResponseDelegate>();
 			ULootLockerSDKManager::ListCurrencies(Delegate);
-			const auto Response = Promise->get_future().get();
+			const auto Response = test_util::WaitAndGet(Promise, 30);
 			TestTrue("ListCurrencies succeeded", Response.success);
 			bool bFound = false;
 			for (const FLootLockerCurrency& C : Response.Currencies)
@@ -52,7 +54,6 @@ void FTestLootLockerBalances::Define()
 				if (C.Id == CurrencyId) { bFound = true; break; }
 			}
 			TestTrue("Created currency appears in list", bFound);
-			delete Promise;
 
 			TestDone.Execute();
 		});
@@ -66,10 +67,9 @@ void FTestLootLockerBalances::Define()
 
 			const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerGetWalletResponse, FLootLockerGetWalletResponseDelegate>();
 			ULootLockerSDKManager::GetWalletByHolderID(PlayerUlid, ELootLockerWalletHolderTypes::player, Delegate);
-			const auto Response = Promise->get_future().get();
+			const auto Response = test_util::WaitAndGet(Promise, 30);
 			TestTrue("GetWalletByHolderID succeeded", Response.success);
 			TestFalse("Wallet ID is set", Response.Id.IsEmpty());
-			delete Promise;
 
 			TestDone.Execute();
 		});
