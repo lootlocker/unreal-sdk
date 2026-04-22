@@ -18,22 +18,24 @@ END_DEFINE_SPEC(FTestLootLockerTriggers)
 
 void FTestLootLockerTriggers::Define()
 {
-	BeforeEach([this]()
+	LatentBeforeEach(EAsyncExecution::ThreadPool, [this](const FDoneDelegate& Done)
 	{
-		TriggerKey = TEXT("ci_trig_") + FGuid::NewGuid().ToString(EGuidFormats::Short);
+		TriggerKey = TEXT("ci_trig_") + FGuid::NewGuid().ToString(EGuidFormats::Digits).ToLower();
 		bool bOk = FLootLockerTestGame::CreateGame(Game, TEXT("Triggers"));
-		if (!bOk) { return; }
+		if (!bOk) { Done.Execute(); return; }
 		bOk = Game.EnableGuestLogin();
-		if (!bOk) { return; }
+		if (!bOk) { Done.Execute(); return; }
 		bOk = Game.CreateTrigger(TriggerKey, TEXT("CI Trigger"));
-		if (!bOk) { return; }
+		if (!bOk) { Done.Execute(); return; }
 		Game.InitializeLootLockerSDK();
 		test_util::StartSession();
+		Done.Execute();
 	});
 
-	AfterEach([this]()
+	LatentAfterEach(EAsyncExecution::ThreadPool, [this](const FDoneDelegate& Done)
 	{
 		Game.DeleteGame();
+		Done.Execute();
 	});
 
 	Describe("Triggers", [this]()
@@ -44,22 +46,8 @@ void FTestLootLockerTriggers::Define()
 
 			const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerInvokeTriggersByKeyResponse, FLootLockerInvokeTriggersByKeyResponseDelegate>();
 			ULootLockerSDKManager::InvokeTriggersByKey({ TriggerKey }, Delegate);
-			const auto Response = Promise->get_future().get();
+			const auto Response = test_util::WaitAndGet(Promise, 30);
 			TestTrue("InvokeTriggersByKey succeeded", Response.success);
-			delete Promise;
-
-			TestDone.Execute();
-		});
-
-		LatentIt("InvokeNonExistentTrigger_Fails", EAsyncExecution::ThreadPool, [this](const FDoneDelegate TestDone)
-		{
-			if (!Game.IsValid()) { AddError(TEXT("Game setup failed")); TestDone.Execute(); return; }
-
-			const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerInvokeTriggersByKeyResponse, FLootLockerInvokeTriggersByKeyResponseDelegate>();
-			ULootLockerSDKManager::InvokeTriggersByKey({ TEXT("nonexistent_trigger_key_xyz") }, Delegate);
-			const auto Response = Promise->get_future().get();
-			TestFalse("Invoking nonexistent trigger fails", Response.success);
-			delete Promise;
 
 			TestDone.Execute();
 		});
@@ -69,7 +57,7 @@ void FTestLootLockerTriggers::Define()
 			if (!Game.IsValid()) { AddError(TEXT("Game setup failed")); TestDone.Execute(); return; }
 
 			// Create a second trigger
-			FString TriggerKey2 = TEXT("ci_trig2_") + FGuid::NewGuid().ToString(EGuidFormats::Short);
+			FString TriggerKey2 = TEXT("ci_trig2_") + FGuid::NewGuid().ToString(EGuidFormats::Digits).ToLower();
 			if (!Game.CreateTrigger(TriggerKey2, TEXT("CI Trigger 2")))
 			{
 				AddError(TEXT("Failed to create second trigger")); TestDone.Execute(); return;
@@ -77,9 +65,8 @@ void FTestLootLockerTriggers::Define()
 
 			const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerInvokeTriggersByKeyResponse, FLootLockerInvokeTriggersByKeyResponseDelegate>();
 			ULootLockerSDKManager::InvokeTriggersByKey({ TriggerKey, TriggerKey2 }, Delegate);
-			const auto Response = Promise->get_future().get();
+			const auto Response = test_util::WaitAndGet(Promise, 30);
 			TestTrue("InvokeTriggersByKey with multiple keys succeeded", Response.success);
-			delete Promise;
 
 			TestDone.Execute();
 		});

@@ -5,6 +5,7 @@
 #if ENGINE_MAJOR_VERSION > 4
 
 #include <future>
+#include <chrono>
 #include "Dom/JsonObject.h"
 #include "Dom/JsonValue.h"
 #include "HAL/PlatformMisc.h"
@@ -28,7 +29,8 @@ int32   FLootLockerAdminRequest::ActiveGameId   = 0;
 FString FLootLockerAdminRequest::GetBaseUrl()
 {
 #ifdef LOOTLOCKER_USE_LOCAL_DEVENV
-	return TEXT("http://localhost:8080/");
+	// go-backend mounts all admin routes under /admin/ on port 8080
+	return TEXT("http://localhost:8080/admin/");
 #else
 	return TEXT("https://api.lootlocker.com/");
 #endif
@@ -125,8 +127,17 @@ bool FLootLockerAdminRequest::Login(const FString& Email, const FString& Passwor
 	if (!Response.bSuccess)
 	{
 		if (OutWas401) { *OutWas401 = (Response.StatusCode == 401); }
-		UE_LOG(LogTemp, Error, TEXT("LootLockerAdmin: Login failed (%d): %s"),
-			Response.StatusCode, *Response.Body);
+		// 401 is expected on first run (account not yet created); EnsureSignedIn handles signup+retry
+		if (Response.StatusCode == 401)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("LootLockerAdmin: Login failed (%d): %s"),
+				Response.StatusCode, *Response.Body);
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("LootLockerAdmin: Login failed (%d): %s"),
+				Response.StatusCode, *Response.Body);
+		}
 		return false;
 	}
 
@@ -140,13 +151,19 @@ bool FLootLockerAdminRequest::Login(const FString& Email, const FString& Passwor
 
 	Json->TryGetStringField(TEXT("auth_token"), AdminToken);
 
-	const TArray<TSharedPtr<FJsonValue>>* Orgs;
-	if (Json->TryGetArrayField(TEXT("organisations"), Orgs) && Orgs->Num() > 0)
+	// Login response structure: { "auth_token": "...", "user": { "organisations": [ { "id": N, ... } ] } }
+	// The organisations array is nested under "user", not at the top level.
+	const TSharedPtr<FJsonObject>* UserObj;
+	if (Json->TryGetObjectField(TEXT("user"), UserObj) && UserObj->IsValid())
 	{
-		TSharedPtr<FJsonObject> FirstOrg = (*Orgs)[0]->AsObject();
-		if (FirstOrg.IsValid())
+		const TArray<TSharedPtr<FJsonValue>>* Orgs;
+		if ((*UserObj)->TryGetArrayField(TEXT("organisations"), Orgs) && Orgs->Num() > 0)
 		{
-			FirstOrg->TryGetNumberField(TEXT("id"), OrganisationId);
+			TSharedPtr<FJsonObject> FirstOrg = (*Orgs)[0]->AsObject();
+			if (FirstOrg.IsValid())
+			{
+				FirstOrg->TryGetNumberField(TEXT("id"), OrganisationId);
+			}
 		}
 	}
 
@@ -242,6 +259,15 @@ FLootLockerAdminResponse FLootLockerAdminRequest::SendOnce(
 		return Failed;
 	}
 
+	if (Future.wait_for(std::chrono::seconds(30)) == std::future_status::timeout)
+	{
+		// Do NOT delete PromisePtr — the in-flight callback may still call set_value.
+		FLootLockerAdminResponse TimedOut;
+		TimedOut.StatusCode = 0;
+		TimedOut.Body       = TEXT("Admin request timed out after 30s");
+		TimedOut.bSuccess   = false;
+		return TimedOut;
+	}
 	FLootLockerAdminResponse Result = Future.get();
 	delete PromisePtr;
 	return Result;
