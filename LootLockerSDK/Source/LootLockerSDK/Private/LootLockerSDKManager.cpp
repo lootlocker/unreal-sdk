@@ -1410,6 +1410,7 @@ FString ULootLockerSDKManager::SendUGCFeedback(const FString& Ulid, const FStrin
 
 FString ULootLockerSDKManager::SendLootLockerErrorReport(const FString& UserDescription, const FLootLockerResponse& FailedResponse, const FLootLockerSendErrorReportDelegate& OnComplete)
 {
+#if LOOTLOCKER_BETA_ENABLE_ERROR_REPORTING
     if (FailedResponse.success)
     {
         FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>("Cannot send error report for a successful response", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, FailedResponse.Context.PlayerUlid);
@@ -1464,6 +1465,11 @@ FString ULootLockerSDKManager::SendLootLockerErrorReport(const FString& UserDesc
 
     FLootLockerPlayerData PlayerData = GetSavedStateOrDefaultOrEmptyForPlayer(FailedResponse.Context.PlayerUlid);
     return ULootLockerErrorReportRequestHandler::ReportSDKError(PlayerData, RequestBody, OnComplete);
+#else
+    FLootLockerResponse Error = LootLockerResponseFactory::Error<FLootLockerResponse>("Error reporting is not enabled for this build. To enable, define LOOTLOCKER_BETA_ENABLE_ERROR_REPORTING and ensure the game is configured for the feature in the console.", LootLockerStaticRequestErrorStatusCodes::LL_ERROR_FEATURE_NOT_ENABLED, FailedResponse.Context.PlayerUlid);
+    OnComplete.ExecuteIfBound(Error);
+    return "";
+#endif
 }
 
 // Metadata
