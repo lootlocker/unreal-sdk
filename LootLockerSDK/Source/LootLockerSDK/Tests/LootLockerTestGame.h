@@ -9,6 +9,22 @@
 #include "CoreMinimal.h"
 #include "LootLockerAdminRequest.h"
 
+/** A single broadcast entry from the admin list-broadcasts response. */
+struct FLootLockerAdminBroadcast
+{
+	FString id;
+	FString name;
+	/** Start time from the first publication setting (ISO 8601 UTC). */
+	FString start_time;
+};
+
+/** Response from the admin list-broadcasts endpoint. */
+struct FLootLockerAdminListBroadcastsResponse
+{
+	bool success = false;
+	TArray<FLootLockerAdminBroadcast> broadcasts;
+};
+
 /**
  * Credentials and metadata for a single admin-provisioned test game.
  *
@@ -130,7 +146,29 @@ struct FLootLockerTestGame
 	 * Grant an asset instance to a player identified by ULID.
 	 * @param OutInstanceId  Populated with the created asset instance ID.
 	 */
-	bool GrantAssetToPlayer(const FString& PlayerUlid, int32 AssetId, int32& OutInstanceId);
+bool GrantAssetToPlayer(const FString& PlayerLegacyId, int32 AssetId, int32& OutInstanceId);
+
+	/**
+	 * Create a broadcast visible to this game.
+	 * The broadcast is published immediately (start = now, no end).
+	 * @param Name         Internal broadcast name.
+	 * @param Headline     English headline text.
+	 * @param Body         English body text.
+	 * @param OutBroadcastId  Populated with the created broadcast's UUID string.
+	 */
+	bool CreateBroadcast(const FString& Name, const FString& Headline, const FString& Body, FString& OutBroadcastId);
+
+	/**
+	 * List broadcasts for this organisation via the admin API (synchronous).
+	 * Invokes OnComplete inline before returning.
+	 * @param Languages  Language codes to filter localizations (e.g. {"en"}).
+	 * @param Limit      Maximum number of broadcasts to return.
+	 * @param OnComplete Called with the parsed response.
+	 */
+	void ListBroadcasts(
+		const TArray<FString>& Languages,
+		int32 Limit,
+		TFunction<void(const FLootLockerAdminListBroadcastsResponse&)> OnComplete) const;
 
 	// ─── SDK initialization ───────────────────────────────────────────────────
 

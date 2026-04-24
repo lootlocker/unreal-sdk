@@ -1,5 +1,6 @@
 #include "LootLockerLogViewerWidget.h"
 
+#include "Async/TaskGraphInterfaces.h"
 #include "Editor.h"
 #include "Editor/EditorEngine.h"
 #include "Framework/Application/SlateApplication.h"
@@ -75,6 +76,18 @@ void SLootLockerLogViewerWidget::Construct(const FArguments& InArgs)
 
 void SLootLockerLogViewerWidget::AddLogEntry(const FString& Message, ELootLockerLogLevel Level)
 {
+    if (!IsInGameThread())
+    {
+        TWeakPtr<SLootLockerLogViewerWidget> WeakSelf = SharedThis(this);
+        AsyncTask(ENamedThreads::GameThread, [WeakSelf, Message, Level]()
+        {
+            if (TSharedPtr<SLootLockerLogViewerWidget> Pinned = WeakSelf.Pin())
+            {
+                Pinned->AddLogEntry(Message, Level);
+            }
+        });
+        return;
+    }
     // Only handle non-HTTP logs here. HTTP logs should use AddHttpLogEntry.
     if (Message.Contains("request to ") && (Level == ELootLockerLogLevel::Log || Level == ELootLockerLogLevel::Error))
     {
@@ -92,6 +105,19 @@ void SLootLockerLogViewerWidget::AddLogEntry(const FString& Message, ELootLocker
 
 void SLootLockerLogViewerWidget::AddHttpLogEntry(const FLootLockerHttpLogEntry& HttpEntry)
 {
+    if (!IsInGameThread())
+    {
+        TWeakPtr<SLootLockerLogViewerWidget> WeakSelf = SharedThis(this);
+        FLootLockerHttpLogEntry EntryCopy = HttpEntry;
+        AsyncTask(ENamedThreads::GameThread, [WeakSelf, EntryCopy]()
+        {
+            if (TSharedPtr<SLootLockerLogViewerWidget> Pinned = WeakSelf.Pin())
+            {
+                Pinned->AddHttpLogEntry(EntryCopy);
+            }
+        });
+        return;
+    }
     FLootLockerLogEntryPtr Entry = MakeShared<FLootLockerLogEntry>();
     Entry->bIsRequestLog = true;
     Entry->HttpMethod = HttpEntry.Method;

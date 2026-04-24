@@ -286,6 +286,8 @@ FLootLockerAdminResponse FLootLockerAdminRequest::Send(
 
 		if (Response.StatusCode != 429)
 		{
+			UE_LOG(LogTemp, Log, TEXT("LootLockerAdmin: %s %s => %d (attempt %d/%d), Response: %s"),
+				*Method, *ProcessedEndpoint, Response.StatusCode, Attempt + 1, MaxRetries + 1, *Response.Body);
 			return Response;
 		}
 
