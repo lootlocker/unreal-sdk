@@ -1,41 +1,56 @@
-﻿#include <future>
+﻿// Copyright (c) 2021 LootLocker
 
-#include "LootLockerManager.h"
+#include <future>
+
 #include "LootLockerSDKManager.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
 #include "Misc/AutomationTest.h"
 #include "Tests/AutomationCommon.h"
 #include "TestUtils.h"
+#include "LootLockerTestGame.h"
 
 #if ENGINE_MAJOR_VERSION > 4
-BEGIN_DEFINE_SPEC(FTestLootLockerMiscellaneous, "LootLocker.Miscellaneous", EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+BEGIN_DEFINE_SPEC(FTestLootLockerMiscellaneous, "LootLocker.Miscellaneous",
+	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	FLootLockerTestGame Game;
 END_DEFINE_SPEC(FTestLootLockerMiscellaneous)
 
 void FTestLootLockerMiscellaneous::Define()
 {
+	LatentBeforeEach(EAsyncExecution::ThreadPool, [this](const FDoneDelegate& Done)
+	{
+		bool bOk = FLootLockerTestGame::CreateGame(Game, TEXT("Miscellaneous"));
+		if (!bOk) { Done.Execute(); return; }
+		bOk = Game.EnableGuestLogin();
+		if (!bOk) { Done.Execute(); return; }
+		Game.InitializeLootLockerSDK();
+		test_util::StartSession();
+		Done.Execute();
+	});
+
+	LatentAfterEach(EAsyncExecution::ThreadPool, [this](const FDoneDelegate& Done)
+	{
+		Game.DeleteGame();
+		Done.Execute();
+	});
+
 	Describe("Miscellaneous", [this]()
 	{
-		LatentIt("When Working with ServerTime", EAsyncExecution::ThreadPool, [this](const FDoneDelegate TestDone)
+		LatentIt("GetServerTime_ReturnsValidTime", EAsyncExecution::ThreadPool, [this](const FDoneDelegate TestDone)
 		{
-			// TODO: uses blocking future::get() without timeout — hangs if backend is slow; rewrite with WaitAndGet
-			UE_LOG(LogTemp, Warning, TEXT("SKIPPED: When Working with ServerTime — uses blocking get() without timeout"));
-			TestDone.Execute();
-			return;
-
-			test_util::StartSession();
-
+			if (!Game.IsValid())
 			{
-				const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerTimeResponse,FTimeResponseDelegate>();
-
-				ULootLockerSDKManager::GetServerTime(Delegate);
-
-				const auto Response = Promise ->get_future().get();
-				TestTrue("GetMaps success", Response.success);
-				// TestTrue("GetCharacterLoadouts available", Response.loadouts.Num()>0);
-				delete(Promise);
+				AddError(TEXT("Game setup failed")); TestDone.Execute(); return;
 			}
 
-			test_util::EndSession();
+			const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerTimeResponse, FTimeResponseDelegate>();
+			ULootLockerSDKManager::GetServerTime(Delegate);
+			const auto Response = test_util::WaitAndGet(Promise, 30);
+
+			TestTrue("GetServerTime succeeded", Response.success);
+			TestFalse("ServerTime date is non-empty", Response.date.IsEmpty());
+
+			TestDone.Execute();
 		});
 	});
 }

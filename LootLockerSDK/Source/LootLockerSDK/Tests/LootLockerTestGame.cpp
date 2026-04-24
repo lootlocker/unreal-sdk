@@ -443,9 +443,36 @@ bool FLootLockerTestGame::CreateProgression(const FString& Key, const FString& N
 
 bool FLootLockerTestGame::CreateAsset(int32& OutAssetId, const FString& Name)
 {
+	// Step 1: Fetch the asset context ID for this game
+	const FLootLockerAdminResponse CtxResponse =
+		FLootLockerAdminRequest::Send(TEXT("v1/game/#GAMEID#/assets/contexts"), TEXT("GET"));
+	if (!CtxResponse.bSuccess)
+	{
+		UE_LOG(LogTemp, Error,
+			TEXT("LootLockerTestGame: CreateAsset '%s': GetAssetContexts failed (%d): %s"),
+			*Name, CtxResponse.StatusCode, *CtxResponse.Body);
+		return false;
+	}
+
+	int32 ContextId = 1;
+	TSharedPtr<FJsonObject> CtxJson = ParseJson(CtxResponse.Body);
+	if (CtxJson.IsValid())
+	{
+		const TArray<TSharedPtr<FJsonValue>>* Contexts;
+		if (CtxJson->TryGetArrayField(TEXT("contexts"), Contexts) && Contexts->Num() > 0)
+		{
+			const TSharedPtr<FJsonObject>* First;
+			if ((*Contexts)[0]->TryGetObject(First))
+			{
+				(*First)->TryGetNumberField(TEXT("id"), ContextId);
+			}
+		}
+	}
+
+	// Step 2: Create the asset
 	TSharedRef<FJsonObject> Body = MakeShared<FJsonObject>();
-	Body->SetStringField(TEXT("name"),    Name);
-	Body->SetNumberField(TEXT("context"), 1); // Default asset context
+	Body->SetStringField(TEXT("name"),       Name);
+	Body->SetNumberField(TEXT("context_id"), ContextId);
 
 	const FLootLockerAdminResponse CreateResponse =
 		FLootLockerAdminRequest::Send(
@@ -482,7 +509,7 @@ bool FLootLockerTestGame::CreateAsset(int32& OutAssetId, const FString& Name)
 }
 
 bool FLootLockerTestGame::GrantAssetToPlayer(
-	const FString& PlayerUlid, int32 AssetId, int32& OutInstanceId)
+	const FString& PlayerLegacyId, int32 AssetId, int32& OutInstanceId)
 {
 	TSharedRef<FJsonObject> Body = MakeShared<FJsonObject>();
 	Body->SetNumberField(TEXT("asset_id"), AssetId);
@@ -490,7 +517,7 @@ bool FLootLockerTestGame::GrantAssetToPlayer(
 	const FLootLockerAdminResponse Response =
 		FLootLockerAdminRequest::Send(
 			FString::Printf(
-				TEXT("game/#GAMEID#/player/%s/inventory/grant"), *PlayerUlid),
+				TEXT("game/#GAMEID#/player/%s/inventory/grant"), *PlayerLegacyId),
 			TEXT("POST"), SerializeJson(Body));
 
 	if (!Response.bSuccess)
@@ -498,7 +525,7 @@ bool FLootLockerTestGame::GrantAssetToPlayer(
 		UE_LOG(LogTemp, Error,
 			TEXT("LootLockerTestGame: GrantAssetToPlayer failed "
 			     "(player=%s, asset=%d, status=%d): %s"),
-			*PlayerUlid, AssetId, Response.StatusCode, *Response.Body);
+			*PlayerLegacyId, AssetId, Response.StatusCode, *Response.Body);
 		return false;
 	}
 
@@ -509,6 +536,126 @@ bool FLootLockerTestGame::GrantAssetToPlayer(
 	}
 
 	return true;
+}
+
+bool FLootLockerTestGame::CreateBroadcast(
+	const FString& Name, const FString& Headline, const FString& Body, FString& OutBroadcastId)
+{
+	if (!FLootLockerAdminRequest::EnsureSignedIn())
+	{
+		return false;
+	}
+
+	// Build a localization entry for "en"
+	TSharedRef<FJsonObject> Localization = MakeShared<FJsonObject>();
+	Localization->SetStringField(TEXT("language"),  TEXT("en"));
+	Localization->SetStringField(TEXT("headline"),  Headline);
+	Localization->SetStringField(TEXT("image_url"), TEXT(""));
+	Localization->SetStringField(TEXT("action"),    TEXT(""));
+	Localization->SetStringField(TEXT("body"),      Body);
+	Localization->SetArrayField (TEXT("extras"),    TArray<TSharedPtr<FJsonValue>>());
+
+	// Publication window: starts now, no end
+	TSharedRef<FJsonObject> PubSetting = MakeShared<FJsonObject>();
+	const FString Start = (FDateTime::UtcNow() - FTimespan::FromHours(14)).ToIso8601();
+	PubSetting->SetStringField(TEXT("start"), Start);
+	// Use year-9999 sentinel for "no end" — the DB query filters bp.end > NOW(),
+	// so NULL end causes the broadcast to never appear in game listings.
+	PubSetting->SetStringField(TEXT("end"),   TEXT("9999-12-31T23:59:59Z"));
+	PubSetting->SetStringField(TEXT("tz"),    TEXT("UTC"));
+
+	// The handler expects fields nested under a "broadcast" key, with a top-level "segments" array.
+	TSharedRef<FJsonObject> BroadcastData = MakeShared<FJsonObject>();
+	BroadcastData->SetStringField(TEXT("name"), Name);
+	// Use the active game ID — CreateGame leaves ActiveGameId = DevelopmentGameId (stage),
+	// and InitializeLootLockerSDK configures the SDK with the same game's key, so the
+	// ListTopBroadcasts call will query by that game ID.
+	TArray<TSharedPtr<FJsonValue>> GameIds;
+	GameIds.Add(MakeShared<FJsonValueNumber>(static_cast<double>(ActiveGameId)));
+	BroadcastData->SetArrayField(TEXT("games"), GameIds);
+	BroadcastData->SetArrayField(TEXT("localizations"), TArray<TSharedPtr<FJsonValue>>{
+		MakeShared<FJsonValueObject>(Localization)});
+	BroadcastData->SetArrayField(TEXT("publication_settings"), TArray<TSharedPtr<FJsonValue>>{
+		MakeShared<FJsonValueObject>(PubSetting)});
+
+	TSharedRef<FJsonObject> RequestBody = MakeShared<FJsonObject>();
+	RequestBody->SetObjectField(TEXT("broadcast"), BroadcastData);
+	RequestBody->SetArrayField(TEXT("segments"), TArray<TSharedPtr<FJsonValue>>());
+
+	const FLootLockerAdminResponse CreateResponse =
+		FLootLockerAdminRequest::Send(
+			FString::Printf(
+				TEXT("broadcasts/v1/organisation/%d"), FLootLockerAdminRequest::OrganisationId),
+			TEXT("POST"), SerializeJson(RequestBody));
+
+	if (!CreateResponse.bSuccess)
+	{
+		UE_LOG(LogTemp, Error, TEXT("LootLockerTestGame: CreateBroadcast '%s' failed (%d): %s"),
+			*Name, CreateResponse.StatusCode, *CreateResponse.Body);
+		return false;
+	}
+
+	TSharedPtr<FJsonObject> Json = ParseJson(CreateResponse.Body);
+	if (Json.IsValid())
+	{
+		Json->TryGetStringField(TEXT("id"), OutBroadcastId);
+	}
+
+	return true;
+}
+
+void FLootLockerTestGame::ListBroadcasts(
+	const TArray<FString>& Languages,
+	int32 Limit,
+	TFunction<void(const FLootLockerAdminListBroadcastsResponse&)> OnComplete) const
+{
+	FLootLockerAdminListBroadcastsResponse Result;
+
+	FString Path = FString::Printf(
+		TEXT("broadcasts/v1/organisation/%d?limit=%d"),
+		FLootLockerAdminRequest::OrganisationId, Limit);
+
+	const FLootLockerAdminResponse Response =
+		FLootLockerAdminRequest::Send(Path, TEXT("GET"));
+
+	Result.success = Response.bSuccess;
+
+	if (Response.bSuccess)
+	{
+		TSharedPtr<FJsonObject> Json = ParseJson(Response.Body);
+		if (Json.IsValid())
+		{
+			const TArray<TSharedPtr<FJsonValue>>* BroadcastsArr;
+			if (Json->TryGetArrayField(TEXT("broadcasts"), BroadcastsArr))
+			{
+				for (const TSharedPtr<FJsonValue>& Val : *BroadcastsArr)
+				{
+					const TSharedPtr<FJsonObject>* Obj;
+					if (!Val->TryGetObject(Obj)) continue;
+
+					FLootLockerAdminBroadcast B;
+					(*Obj)->TryGetStringField(TEXT("id"),   B.id);
+					(*Obj)->TryGetStringField(TEXT("name"), B.name);
+
+					// Pull start_time from the first publication_settings entry
+					const TArray<TSharedPtr<FJsonValue>>* PubArr;
+					if ((*Obj)->TryGetArrayField(TEXT("publication_settings"), PubArr)
+						&& PubArr->Num() > 0)
+					{
+						const TSharedPtr<FJsonObject>* PubObj;
+						if ((*PubArr)[0]->TryGetObject(PubObj))
+						{
+							(*PubObj)->TryGetStringField(TEXT("start"), B.start_time);
+						}
+					}
+
+					Result.broadcasts.Add(MoveTemp(B));
+				}
+			}
+		}
+	}
+
+	OnComplete(Result);
 }
 
 // ─── SDK initialization ───────────────────────────────────────────────────────
