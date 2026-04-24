@@ -21,7 +21,6 @@ public:
     }
 
     void SetTime(const FDateTime& NewTime)          { CurrentTime = NewTime; }
-    FDateTime GetCurrentTime() const                { return CurrentTime; }
     void AddSecondsToCurrentTime(int32 Seconds)     { CurrentTime += FTimespan::FromSeconds(Seconds); }
 
 protected:

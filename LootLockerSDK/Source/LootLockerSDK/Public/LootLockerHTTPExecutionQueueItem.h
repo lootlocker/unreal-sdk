@@ -70,10 +70,11 @@ struct LOOTLOCKERSDK_API FLootLockerHTTPExecutionQueueItem
     double RequestStartTime = 0.0;
 
     /**
-     * When set, the request must not be retried until after this point in time
+     * When non-zero, the request must not be retried until after this point in time
      * (honouring a Retry-After header returned by the server).
+     * FDateTime(0) is used as the "not set" sentinel (== January 1, AD 1).
      */
-    TOptional<FDateTime> RetryAfter;
+    FDateTime RetryAfter = FDateTime(0);
 
     /**
      * True while the queue is waiting for a session-refresh handshake to complete
@@ -93,6 +94,7 @@ struct LOOTLOCKERSDK_API FLootLockerHTTPExecutionQueueItem
     /**
      * Cancels the in-flight IHttpRequest and releases the shared pointer.
      * Safe to call on an item whose HttpRequest has already been reset.
+     * Callers are responsible for invoking listeners before or after calling this.
      */
     void AbortRequest()
     {

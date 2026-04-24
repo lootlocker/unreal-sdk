@@ -13,7 +13,7 @@ struct FLootLockerPlayerData;
 /**
  * Manages the LootLocker HTTP request queue as a tickable singleton.
  *
- * Maintains a two-phase per-frame loop (Update + LateUpdate equivalent) that:
+ * Maintains a two-phase per-frame loop that:
  *  1. Promotes pending requests to in-flight status (respecting MaxOngoingRequests
  *     and Retry-After delays).
  *  2. Polls in-flight requests for completion, handles retries, session refresh,
@@ -27,14 +27,11 @@ struct FLootLockerPlayerData;
 class LOOTLOCKERSDK_API FLootLockerHTTPExecutionQueue : public FTickableGameObject
 {
 public:
-    /** Signature for a session-refresh handler injected at runtime. */
-    using FSessionRefreshDelegate = TFunction<void(const FLootLockerPlayerData&, TFunction<void(bool)>)>;
-
     // -------------------------------------------------------------------------
     // Singleton lifecycle
     // -------------------------------------------------------------------------
 
-    /** Returns the singleton instance.  Asserts that Initialize() has been called. */
+    /** Returns the singleton instance.  Lazy-initializes if not already initialized. */
     static FLootLockerHTTPExecutionQueue& Get();
 
     /** Creates and starts ticking the singleton.  Safe to call multiple times. */
@@ -66,13 +63,6 @@ public:
     /** Replaces the active configuration.  Takes effect from the next Tick(). */
     void OverrideConfiguration(const FLootLockerHTTPClientConfiguration& NewConfig);
 
-    /**
-     * Registers the callback used to refresh an expired player session.
-     * If not set, a session-refresh attempt results in an immediate auth-failure
-     * response delivered to the request's listeners.
-     */
-    void SetSessionRefreshDelegate(FSessionRefreshDelegate InDelegate);
-
     // -------------------------------------------------------------------------
     // FTickableGameObject interface
     // -------------------------------------------------------------------------
@@ -80,16 +70,16 @@ public:
     virtual void Tick(float DeltaTime) override;
     virtual bool IsTickable() const override { return bIsInitialized; }
     virtual TStatId GetStatId() const override;
-
-private:
+    
+    /** Do not construct directly — use Get() or Initialize() instead. */
     FLootLockerHTTPExecutionQueue() = default;
 
+private:
     static TUniquePtr<FLootLockerHTTPExecutionQueue> Instance;
 
     bool bIsInitialized = false;
     FLootLockerHTTPClientConfiguration Configuration;
     TUniquePtr<FLootLockerRateLimiter> RateLimiter;
-    FSessionRefreshDelegate OnRefreshSession;
 
     /** Pending + in-flight queue, keyed by RequestId. */
     TMap<FString, TSharedPtr<FLootLockerHTTPExecutionQueueItem>> ExecutionQueue;

@@ -1,6 +1,7 @@
 // Copyright (c) 2021 LootLocker
 
 #include "LootLockerRateLimiter.h"
+#include "LootLockerGameEndpoints.h"
 #include "LootLockerLogger.h"
 
 FLootLockerRateLimiter::FLootLockerRateLimiter()
@@ -33,7 +34,7 @@ int32 FLootLockerRateLimiter::GetSecondsLeftOfRateLimit() const
     {
         return 0;
     }
-    return FMath::CeilToInt(static_cast<float>((RateLimitResolvesAt - GetTimeNow()).GetTotalSeconds()));
+    return FMath::Max(0, FMath::CeilToInt(static_cast<float>((RateLimitResolvesAt - GetTimeNow()).GetTotalSeconds())));
 }
 
 int32 FLootLockerRateLimiter::MoveCurrentBucket(const FDateTime& Now)
@@ -78,9 +79,9 @@ bool FLootLockerRateLimiter::AddRequestAndCheckIfRateLimitHit()
 {
     if (!bFirstRequestSent)
     {
-        // TODO (Phase 4): enable only when targeting the production environment,
-        //   matching the Unity SDK's LootLockerConfig.IsTargetingProductionEnvironment() check.
-        bEnableRateLimiter = true;
+        // Enable the rate limiter only when targeting the production environment,
+        // matching the expected behaviour for live traffic.
+        bEnableRateLimiter = ULootLockerGameEndpoints::GetBaseUrl().Contains(TEXT("api.lootlocker.com"));
         bFirstRequestSent = true;
     }
 
@@ -144,7 +145,9 @@ bool FLootLockerRateLimiter::AddRequestAndCheckIfRateLimitHit()
             if (LastBucketChangeTime != FDateTime(0))
             {
                 const int64 ElapsedTicks = (Now - LastBucketChangeTime).GetTicks();
-                const int64 CompletedBucketTicks = (ElapsedTicks / BucketDurationTicks) * BucketDurationTicks;
+                // Integer division truncates, intentionally snapping ElapsedTicks down to
+            // the most recent complete bucket boundary (floor behaviour).
+            const int64 CompletedBucketTicks = (ElapsedTicks / BucketDurationTicks) * BucketDurationTicks;
                 CurrentBucketStart = LastBucketChangeTime + FTimespan(CompletedBucketTicks);
             }
             RateLimitResolvesAt =

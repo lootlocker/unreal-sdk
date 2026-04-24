@@ -9,7 +9,7 @@
  *
  * Construct an instance with custom values and pass it to
  * ULootLockerHttpClient::OverrideConfiguration() to tune the SDK's HTTP behaviour
- * at runtime. The defaults mirror the Unity SDK configuration.
+ * at runtime.
  */
 struct LOOTLOCKERSDK_API FLootLockerHTTPClientConfiguration
 {
@@ -53,6 +53,12 @@ struct LOOTLOCKERSDK_API FLootLockerHTTPClientConfiguration
      * client is approaching capacity.
      */
     int32 ChokeWarningThreshold = 500;
+
+    /**
+     * Client-side request timeout in seconds. If the server has not responded within
+     * this time, the request is cancelled and reported as timed out.
+     */
+    int32 RequestTimeoutSeconds = 300;
 
     /**
      * When true, incoming requests are immediately rejected (with a synthetic error

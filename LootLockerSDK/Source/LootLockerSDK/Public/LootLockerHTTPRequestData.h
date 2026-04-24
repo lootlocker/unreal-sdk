@@ -13,24 +13,26 @@
  */
 struct LOOTLOCKERSDK_API FLootLockerHTTPRequestData
 {
-    /** Unique identifier for this request (derived from endpoint + headers + body). */
-    FString RequestId;
+    /** Unique identifier for this request. Assigned as a GUID at request creation
+     *  time; used for queue lookup, deduplication, and correlation in logs.
+     */
+    FString RequestId = TEXT("");
 
     /**
      * ULID of the player this request is being made on behalf of.
      * Used to look up the player's session state for auth-token injection and
      * session-refresh decisions.
      */
-    FString ForPlayerUlid;
+    FString ForPlayerUlid = TEXT("");
 
     /** Fully-formed URL endpoint (before any run-time query-param appending). */
-    FString Endpoint;
+    FString Endpoint = TEXT("");
 
     /** HTTP verb ("GET", "POST", "PUT", "PATCH", "DELETE", …). */
-    FString Verb;
+    FString Verb = TEXT("");
 
     /** JSON body string. Empty for GET/HEAD/OPTIONS requests and file uploads. */
-    FString Body;
+    FString Body = TEXT("");
 
     /** Additional headers to merge on top of the SDK defaults for this request. */
     TMap<FString, FString> ExtraHeaders;
@@ -69,7 +71,7 @@ struct LOOTLOCKERSDK_API FLootLockerHTTPRequestData
     bool bIsFileUpload = false;
 
     /** Absolute path to the file to upload (only used when bIsFileUpload is true). */
-    FString FilePath;
+    FString FilePath = TEXT("");
 
     /** Additional form-data fields to include alongside the file (only used when bIsFileUpload is true). */
     TMap<FString, FString> AdditionalFields;
