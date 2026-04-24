@@ -343,4 +343,7 @@ private:
     static FString BaseUrl;
     static FString GameUrlSuffix;
     static FLootLockerEndPoints InitEndpoint(const FString& Endpoint, ELootLockerHTTPMethod Method, ELootLockerApiType ApiType = ELootLockerApiType::LL_GAME);
+public:
+    /** Returns the configured base URL (e.g. "https://{domainKey}api.lootlocker.com/"). */
+    static const FString& GetBaseUrl() { return BaseUrl; }
 };

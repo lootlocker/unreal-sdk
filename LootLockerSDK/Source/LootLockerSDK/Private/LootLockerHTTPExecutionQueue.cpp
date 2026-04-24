@@ -8,6 +8,7 @@
 #include "Interfaces/IPluginManager.h"
 #include "JsonObjectConverter.h"
 #include "LootLockerConfig.h"
+#include "LootLockerHttpClient.h"
 #include "LootLockerLogger.h"
 #include "LootLockerPlayerData.h"
 #include "LootLockerPlatformManager.h"
@@ -32,7 +33,10 @@ const FString      FLootLockerHTTPExecutionQueue::UserInstanceIdentifier = FGuid
 
 FLootLockerHTTPExecutionQueue& FLootLockerHTTPExecutionQueue::Get()
 {
-    check(Instance.IsValid());
+    if (!Instance.IsValid())
+    {
+        Initialize();
+    }
     return *Instance;
 }
 
@@ -42,7 +46,7 @@ void FLootLockerHTTPExecutionQueue::Initialize()
     {
         return;
     }
-    Instance = TUniquePtr<FLootLockerHTTPExecutionQueue>(new FLootLockerHTTPExecutionQueue());
+    Instance = MakeUnique<FLootLockerHTTPExecutionQueue>();
     Instance->RateLimiter = MakeUnique<FLootLockerRateLimiter>();
     Instance->bIsInitialized = true;
 }
@@ -120,7 +124,7 @@ void FLootLockerHTTPExecutionQueue::ScheduleRequest(const FLootLockerHTTPRequest
         PendingCount > Configuration.ChokeWarningThreshold)
     {
         const FString ErrorMessage = FString::Printf(
-            TEXT("Request was denied because there are currently too many requests in queue (%d queued, threshold: %d)"),
+            TEXT("Request was denied because there are currently too many unsent requests in queue (%d queued, threshold: %d)"),
             PendingCount, Configuration.ChokeWarningThreshold);
 #if WITH_EDITOR
         if (Configuration.LogQueueRejections)
@@ -143,6 +147,15 @@ void FLootLockerHTTPExecutionQueue::ScheduleRequest(const FLootLockerHTTPRequest
     // Deduplicate: merge listeners into existing item if same RequestId
     if (TSharedPtr<FLootLockerHTTPExecutionQueueItem>* ExistingItem = ExecutionQueue.Find(Request.RequestId))
     {
+        // Guard: if the existing item has already delivered its response, its
+        // listeners are stale — replace the item so the new request gets a fresh dispatch.
+        if ((*ExistingItem)->RequestData.HaveListenersBeenInvoked)
+        {
+            TSharedPtr<FLootLockerHTTPExecutionQueueItem> NewItem = MakeShared<FLootLockerHTTPExecutionQueueItem>();
+            NewItem->RequestData = Request;
+            ExecutionQueue[Request.RequestId] = NewItem;
+            return;
+        }
         for (const FResponseCallback& Listener : Request.Listeners)
         {
             (*ExistingItem)->RequestData.Listeners.Add(Listener);
@@ -162,17 +175,13 @@ void FLootLockerHTTPExecutionQueue::OverrideConfiguration(
     Configuration = NewConfig;
 }
 
-void FLootLockerHTTPExecutionQueue::SetSessionRefreshDelegate(FSessionRefreshDelegate InDelegate)
-{
-    OnRefreshSession = MoveTemp(InDelegate);
-}
-
 // -------------------------------------------------------------------------
 // FTickableGameObject interface
 // -------------------------------------------------------------------------
 
 TStatId FLootLockerHTTPExecutionQueue::GetStatId() const
 {
+    // Standard implementation for FTickableGameObject subclasses.
     RETURN_QUICK_DECLARE_CYCLE_STAT(FLootLockerHTTPExecutionQueue, STATGROUP_Tickables);
 }
 
@@ -201,7 +210,7 @@ void FLootLockerHTTPExecutionQueue::Tick(float DeltaTime)
         if (!Item.HttpRequest.IsValid())
         {
             // Not yet dispatched — check if we should send now
-            if (Item.RetryAfter.IsSet() && Item.RetryAfter.GetValue() > FDateTime::UtcNow())
+            if (Item.RetryAfter != FDateTime(0) && Item.RetryAfter > FDateTime::UtcNow())
             {
                 // Still waiting for the retry-after delay
                 continue;
@@ -278,12 +287,13 @@ void FLootLockerHTTPExecutionQueue::Tick(float DeltaTime)
         {
             continue;
         }
+        Item.AbortRequest();
+        ExecutionQueue.Remove(CompletedId);
+        OngoingRequestIds.Remove(CompletedId);
         if (!Item.RequestData.HaveListenersBeenInvoked)
         {
             Item.RequestData.CallListenersWithResult(Item.Response);
         }
-        ExecutionQueue.Remove(CompletedId);
-        OngoingRequestIds.Remove(CompletedId);
     }
     CompletedRequestIds.Empty();
 
@@ -371,10 +381,39 @@ bool FLootLockerHTTPExecutionQueue::CreateAndSendRequest(FLootLockerHTTPExecutio
         Request->SetHeader(Header.Key, Header.Value);
     }
 
-    if (Item.RequestData.bIsFileUpload)
+    if (!Item.RequestData.bIsFileUpload)
+    {
+        Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
+        Request->SetHeader(TEXT("Accept"),       TEXT("application/json"));
+        Request->SetContentAsString(Item.RequestData.Body);
+    }
+    else
     {
         const FString Boundary = TEXT("lootlockerboundary");
         Request->SetHeader(TEXT("Content-Type"), TEXT("multipart/form-data; boundary=") + Boundary);
+
+        // Resolve the filename before allocating any body buffers
+        int32 LastSlash = INDEX_NONE;
+        if (!Item.RequestData.FilePath.FindLastChar('/', LastSlash))
+        {
+            Item.RequestData.FilePath.FindLastChar('\\', LastSlash);
+        }
+        const FString FileName = Item.RequestData.FilePath.RightChop(LastSlash + 1);
+
+        // Load the file early so we can bail out before allocating the rest of the body
+        TArray<uint8> FileData;
+        if (!FFileHelper::LoadFileToArray(FileData, *Item.RequestData.FilePath))
+        {
+            FLootLockerResponse FileReadError = LootLockerResponseFactory::Error<FLootLockerResponse>(
+                FString::Printf(TEXT("Failed to read file for upload: %s"), *Item.RequestData.FilePath),
+                LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_HTTP,
+                Item.RequestData.ForPlayerUlid);
+            FileReadError.Context.RequestId     = Item.RequestData.RequestId;
+            FileReadError.Context.RequestURL    = Item.RequestData.Endpoint;
+            FileReadError.Context.RequestMethod = Item.RequestData.Verb;
+            MarkItemDone(Item, FileReadError);
+            return false;
+        }
 
         TArray<uint8> BodyData;
         const FString BeginBoundary = TEXT("\r\n--") + Boundary + TEXT("\r\n");
@@ -393,43 +432,17 @@ bool FLootLockerHTTPExecutionQueue::CreateAndSendRequest(FLootLockerHTTPExecutio
         const auto BeginBoundaryAnsi = StringCast<ANSICHAR>(*BeginBoundary);
         BodyData.Append(reinterpret_cast<const uint8*>(BeginBoundaryAnsi.Get()), BeginBoundaryAnsi.Length());
 
-        int32 LastSlash = INDEX_NONE;
-        if (!Item.RequestData.FilePath.FindLastChar('/', LastSlash))
-        {
-            Item.RequestData.FilePath.FindLastChar('\\', LastSlash);
-        }
-        const FString FileName = Item.RequestData.FilePath.RightChop(LastSlash + 1);
-
         FString FileHeader  = TEXT("Content-Type: application/octet-stream\r\n");
         FileHeader         += TEXT("Content-disposition: form-data; name=\"file\"; filename=\"") + FileName + TEXT("\"\r\n\r\n");
         const auto FileHeaderAnsi = StringCast<ANSICHAR>(*FileHeader);
         BodyData.Append(reinterpret_cast<const uint8*>(FileHeaderAnsi.Get()), FileHeaderAnsi.Length());
 
-        TArray<uint8> FileData;
-        if (!FFileHelper::LoadFileToArray(FileData, *Item.RequestData.FilePath))
-        {
-            FLootLockerResponse FileReadError = LootLockerResponseFactory::Error<FLootLockerResponse>(
-                FString::Printf(TEXT("Failed to read file for upload: %s"), *Item.RequestData.FilePath),
-                LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_HTTP,
-                Item.RequestData.ForPlayerUlid);
-            FileReadError.Context.RequestId     = Item.RequestData.RequestId;
-            FileReadError.Context.RequestURL    = Item.RequestData.Endpoint;
-            FileReadError.Context.RequestMethod = Item.RequestData.Verb;
-            MarkItemDone(Item, FileReadError);
-            return false;
-        }
         BodyData.Append(FileData);
 
         const auto EndBoundaryAnsi = StringCast<ANSICHAR>(*EndBoundary);
         BodyData.Append(reinterpret_cast<const uint8*>(EndBoundaryAnsi.Get()), EndBoundaryAnsi.Length());
 
         Request->SetContent(BodyData);
-    }
-    else
-    {
-        Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
-        Request->SetHeader(TEXT("Accept"),       TEXT("application/json"));
-        Request->SetContentAsString(Item.RequestData.Body);
     }
 
     Item.RequestStartTime = FPlatformTime::Seconds();
@@ -455,7 +468,10 @@ FLootLockerHTTPExecutionQueue::ProcessOngoingRequest(FLootLockerHTTPExecutionQue
     {
         // Check for client-side timeout
         constexpr double DefaultTimeoutSeconds = 300.0;
-        if ((FPlatformTime::Seconds() - Item.RequestStartTime) >= DefaultTimeoutSeconds)
+        const double TimeoutSeconds = (Configuration.RequestTimeoutSeconds > 0)
+            ? static_cast<double>(Configuration.RequestTimeoutSeconds)
+            : DefaultTimeoutSeconds;
+        if ((FPlatformTime::Seconds() - Item.RequestStartTime) >= TimeoutSeconds)
         {
             Item.HttpRequest->CancelRequest();
             return ELootLockerHTTPExecutionQueueProcessingResult::Completed_TimedOut;
@@ -514,9 +530,10 @@ FLootLockerHTTPExecutionQueue::ProcessOngoingRequest(FLootLockerHTTPExecutionQue
         TEXT("HTTP request failed — connection error"),
         LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_HTTP,
         Item.RequestData.ForPlayerUlid);
-    ErrorResponse.Context.RequestId     = Item.RequestData.RequestId;
-    ErrorResponse.Context.RequestURL    = Item.RequestData.Endpoint;
-    ErrorResponse.Context.RequestMethod = Item.RequestData.Verb;
+    ErrorResponse.Context.RequestId                    = Item.RequestData.RequestId;
+    ErrorResponse.Context.RequestURL                   = Item.RequestData.Endpoint;
+    ErrorResponse.Context.RequestMethod                = Item.RequestData.Verb;
+    ErrorResponse.Context.RequestParametersJsonString  = Item.RequestData.Body;
     Item.Response = ErrorResponse;
 
     if (ShouldRetryRequest(0, Item.RequestData.TimesRetried))
@@ -525,6 +542,7 @@ FLootLockerHTTPExecutionQueue::ProcessOngoingRequest(FLootLockerHTTPExecutionQue
     }
     return ELootLockerHTTPExecutionQueueProcessingResult::Completed_Failed;
 }
+
 
 void FLootLockerHTTPExecutionQueue::HandleRequestResult(
     FLootLockerHTTPExecutionQueueItem& Item,
@@ -549,7 +567,7 @@ void FLootLockerHTTPExecutionQueue::HandleRequestResult(
         {
             FLootLockerResponse TimeoutResponse = LootLockerResponseFactory::Error<FLootLockerResponse>(
                 TEXT("Request timed out"),
-                LootLockerStaticRequestErrorStatusCodes::LL_UNDEFINED_BEHAVIOUR_ERROR,
+                LootLockerStaticRequestErrorStatusCodes::LL_ERROR_REQUEST_TIMED_OUT,
                 Item.RequestData.ForPlayerUlid);
             TimeoutResponse.Context.RequestId                   = Item.RequestData.RequestId;
             TimeoutResponse.Context.RequestURL                  = Item.RequestData.Endpoint;
@@ -561,36 +579,26 @@ void FLootLockerHTTPExecutionQueue::HandleRequestResult(
 
         case ELootLockerHTTPExecutionQueueProcessingResult::ShouldBeRetried:
         {
-            if (Item.RequestData.TimesRetried >= Configuration.MaxRetries)
-            {
-                // Retries exhausted — deliver the stored failure response
-                MarkItemDone(Item, Item.Response);
-                break;
-            }
-
             // Compute the retry-after delay using exponential back-off
             const int32 RetryAfterSeconds = Item.Response.ErrorData.Retry_after_seconds;
-            int32 BackoffMs = Configuration.InitialRetryWaitTimeMs;
-            for (int32 i = 0; i < Item.RequestData.TimesRetried; ++i)
-            {
-                BackoffMs *= Configuration.IncrementalBackoffFactor;
-            }
+            const int32 BackoffMs = Configuration.InitialRetryWaitTimeMs *
+                FMath::RoundToInt(FMath::Pow(
+                    static_cast<float>(Configuration.IncrementalBackoffFactor),
+                    static_cast<float>(Item.RequestData.TimesRetried)));
 
-            FDateTime RetryAt;
             if (RetryAfterSeconds > 0)
             {
-                RetryAt = FDateTime::UtcNow() + FTimespan::FromSeconds(RetryAfterSeconds);
+                Item.RetryAfter = FDateTime::UtcNow() + FTimespan::FromSeconds(RetryAfterSeconds);
             }
             else
             {
-                RetryAt = FDateTime::UtcNow() + FTimespan::FromMilliseconds(BackoffMs);
+                Item.RetryAfter = FDateTime::UtcNow() + FTimespan::FromMilliseconds(BackoffMs);
             }
 
             // Reset item for re-dispatch
             OngoingRequestIds.Remove(Item.RequestData.RequestId);
             Item.AbortRequest();
             Item.RequestData.TimesRetried++;
-            Item.RetryAfter = RetryAt;
             break;
         }
     }
@@ -606,19 +614,7 @@ void FLootLockerHTTPExecutionQueue::DispatchSessionRefreshForItem(const FString&
 
     const FLootLockerPlayerData PlayerData = (*ItemPtr)->RequestData.PlayerData;
 
-    if (!OnRefreshSession)
-    {
-        // No refresh delegate registered — fail immediately
-        FLootLockerHTTPExecutionQueueItem& Item = **ItemPtr;
-        Item.bIsWaitingForSessionRefresh = false;
-        MarkItemDone(Item, LootLockerResponseFactory::Error<FLootLockerResponse>(
-            TEXT("Session refresh is not configured"),
-            LootLockerStaticRequestErrorStatusCodes::LL_UNDEFINED_BEHAVIOUR_ERROR,
-            PlayerData.PlayerUlid));
-        return;
-    }
-
-    OnRefreshSession(PlayerData, [RequestId](bool bRefreshSuccess)
+    ULootLockerHttpClient::RefreshSessionForPlatform(PlayerData, [RequestId](bool bRefreshSuccess)
     {
         if (!FLootLockerHTTPExecutionQueue::IsInitialized())
         {
@@ -642,7 +638,7 @@ void FLootLockerHTTPExecutionQueue::OnSessionRefreshCompleted(const FString& Req
     {
         // The refresh updated session state — reset the retry-after delay so
         // Tick() picks this item up as an unsent request on the next frame.
-        Item.RetryAfter.Reset();
+        Item.RetryAfter = FDateTime(0);
     }
     else
     {
@@ -689,6 +685,10 @@ bool FLootLockerHTTPExecutionQueue::ShouldRefreshSession(
 {
     // Do not attempt a refresh if this is already a retry attempt
     if (TimesRetried > 0)
+    {
+        return false;
+    }
+    if (PlayerData.PlayerUlid.IsEmpty())
     {
         return false;
     }

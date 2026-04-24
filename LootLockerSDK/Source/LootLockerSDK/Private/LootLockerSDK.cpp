@@ -40,11 +40,6 @@ void FLootLockerSDKModule::StartupModule()
 	if (!GetDefault<ULootLockerConfig>()->bUseLegacyHTTPStack)
 	{
 		FLootLockerHTTPExecutionQueue::Initialize();
-		FLootLockerHTTPExecutionQueue::Get().SetSessionRefreshDelegate(
-			[](const FLootLockerPlayerData& PlayerData, TFunction<void(bool)> OnDone)
-			{
-				ULootLockerHttpClient::RefreshSessionForPlatform(PlayerData, MoveTemp(OnDone));
-			});
 	}
 #endif
 }

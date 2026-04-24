@@ -152,6 +152,8 @@ struct LootLockerStaticRequestErrorStatusCodes
     static const int LL_ERROR_INVALID_INPUT = -2;
     static const int LL_ERROR_PARSE_ERROR = -3;
     static const int LL_UNDEFINED_BEHAVIOUR_ERROR = -4;
+    static const int LL_ERROR_REQUEST_TIMED_OUT = -5;
+    static const int LL_ERROR_SESSION_REFRESH_FAILED = -6;
 };
 
 class LootLockerResponseFactory
