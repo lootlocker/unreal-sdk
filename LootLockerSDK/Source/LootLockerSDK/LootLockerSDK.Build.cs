@@ -19,6 +19,8 @@ public class LootLockerSDK : ModuleRules
     /// When false (the default) the execution queue is active and the runtime
     /// DefaultLootLocker.ini setting [LootLockerSDK.LootLockerConfig] bUseLegacyHTTPStack
     /// can still override to true at runtime without a recompile.
+    /// If you need to set this to true, please report it at https://github.com/lootlocker/unreal-sdk/issues
+    /// so we know something is not working with the new stack.
     /// </summary>
     public static bool bForceLegacyHTTPStack = false;
     public LootLockerSDK(ReadOnlyTargetRules Target) : base(Target)

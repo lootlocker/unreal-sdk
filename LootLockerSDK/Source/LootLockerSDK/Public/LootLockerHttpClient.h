@@ -54,7 +54,6 @@ public:
      * Attempts to refresh the session for the given player using whatever credential
      * type is appropriate for their current platform.  Invokes OnRefreshCompleted
      * with true on success, false on failure or unsupported platform.
-     * Also used by FLootLockerHTTPExecutionQueue as its session-refresh delegate.
      */
     static void RefreshSessionForPlatform(const FLootLockerPlayerData& PlayerData, TFunction<void(bool)> OnRefreshCompleted);
 
