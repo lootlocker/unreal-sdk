@@ -5,6 +5,8 @@
 #include "LevelEditor.h"
 #include "ToolMenus.h"
 #include "Widgets/Layout/SBox.h"
+#include "Framework/Application/SlateApplication.h"
+#include "Misc/App.h"
 
 static const FName LootLockerLogViewerTabName("LootLockerLogViewer");
 
@@ -13,6 +15,14 @@ class FLootLockerSDKEditorModule : public IModuleInterface
 public:
     virtual void StartupModule() override
     {
+        // Do not register Slate widgets in headless/unattended mode (automated tests,
+        // commandlets). The widget binds raw delegates to the logger which fires from
+        // background threads; Slate is not safe to call off the game thread.
+        if (FApp::IsUnattended() || !FSlateApplication::IsInitialized())
+        {
+            return;
+        }
+
         FGlobalTabmanager::Get()->RegisterNomadTabSpawner(LootLockerLogViewerTabName,
             FOnSpawnTab::CreateLambda([](const FSpawnTabArgs& Args) {
                 return SNew(SDockTab)

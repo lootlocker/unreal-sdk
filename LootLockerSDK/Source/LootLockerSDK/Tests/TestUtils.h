@@ -4,6 +4,7 @@
 #include "HAL/PlatformMisc.h"
 #include "LootLockerConfig.h"
 #include "LootLockerPlatformManager.h"
+#include "LootLockerSessionOptionals.h"
 #include "LootLockerStateData.h"
 
 #if ENGINE_MAJOR_VERSION > 4
@@ -77,7 +78,9 @@ namespace test_util
 
 		const auto [Promise , Delegate] = test_util::CreateDelegate<FLootLockerAuthenticationResponse,FLootLockerSessionResponse>();
 
-		ULootLockerSDKManager::GuestLogin(Delegate, TEXT("unreal_unit_test_user"));
+		FLootLockerSessionOptionals Optionals;
+		Optionals.Timezone = TEXT("UTC");
+		ULootLockerSDKManager::GuestLogin(Delegate, TEXT("unreal_unit_test_user"), Optionals);
 
 		const auto Response = WaitAndGet(Promise, 60);
 		FLootLockerPlayerData NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, "", "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Guest), FDateTime::Now().ToString(), Response.player_created_at);
@@ -102,7 +105,9 @@ namespace test_util
 	inline FTestPlayerSession StartAdditionalSession()
 	{
 		const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerAuthenticationResponse, FLootLockerSessionResponse>();
-		ULootLockerSDKManager::GuestLogin(Delegate, FGuid::NewGuid().ToString());
+		FLootLockerSessionOptionals Optionals;
+		Optionals.Timezone = TEXT("UTC");
+		ULootLockerSDKManager::GuestLogin(Delegate, FGuid::NewGuid().ToString(), Optionals);
 		const auto Response = WaitAndGet(Promise, 60);
 		FTestPlayerSession Out;
 		if (Response.success)
