@@ -36,11 +36,6 @@ struct FLootLockerPersistentStorageItemsResponse : public FLootLockerResponse
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerPersistentStorageItem> payload;
     TMap<FString, FString> Map;
-    FLootLockerPersistentStorageItemsResponse()
-    {
-        for (auto Item : payload)
-            Map.Add(Item.key, Item.value);
-    }
 };
 
 USTRUCT(BlueprintType)
