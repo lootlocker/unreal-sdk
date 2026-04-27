@@ -25,8 +25,13 @@ struct FLootLockerFriend
     /**
      * The name (if any has been set) of the player
      */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Player_name = "";
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker", meta = (DeprecatedProperty, DeprecationMessage="This property is deprecated. Use property `Name` instead.") 
+    FString Player_name = ""; // Deprecation date 20260427
+    /**
+     * The name (if any has been set) of the player
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker") 
+    FString Name = ""; 
     /**
      * The public uid of the player
      */
@@ -158,9 +163,16 @@ struct FLootLockerGetFriendResponse : public FLootLockerResponse
     /** The id of the player */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Player_id = "";
-    /** The name of the player */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Player_name = "";
+    /**
+     * The name (if any has been set) of the player
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker", meta = (DeprecatedProperty, DeprecationMessage="This property is deprecated. Use property `Name` instead.") 
+    FString Player_name = ""; // Deprecation date 20260427
+    /**
+     * The name (if any has been set) of the player
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker") 
+    FString Name = ""; 
     /** The public uid of the player */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Public_uid = "";
