@@ -25,7 +25,7 @@ struct FLootLockerFriend
     /**
      * The name (if any has been set) of the player
      */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker", meta = (DeprecatedProperty, DeprecationMessage="This property is deprecated. Use property `Name` instead.") 
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker", meta = (DeprecatedProperty, DeprecationMessage="This property is deprecated. Use property `Name` instead."))
     FString Player_name = ""; // Deprecation date 20260427
     /**
      * The name (if any has been set) of the player
@@ -166,7 +166,7 @@ struct FLootLockerGetFriendResponse : public FLootLockerResponse
     /**
      * The name (if any has been set) of the player
      */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker", meta = (DeprecatedProperty, DeprecationMessage="This property is deprecated. Use property `Name` instead.") 
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker", meta = (DeprecatedProperty, DeprecationMessage="This property is deprecated. Use property `Name` instead."))
     FString Player_name = ""; // Deprecation date 20260427
     /**
      * The name (if any has been set) of the player
