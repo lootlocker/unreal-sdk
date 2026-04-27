@@ -9,7 +9,12 @@
 
 FString ULootLockerPersistentStorageRequestHandler::GetEntirePersistentStorage(const FLootLockerPlayerData& PlayerData, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest)
 {
-    return LLAPI<FLootLockerPersistentStorageItemsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetEntirePersistentStorageEndpoint, { }, EmptyQueryParams, PlayerData, OnCompletedRequest);
+    return LLAPI<FLootLockerPersistentStorageItemsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetEntirePersistentStorageEndpoint, { }, EmptyQueryParams, PlayerData, OnCompletedRequest, LLAPI<FLootLockerPersistentStorageItemsResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerPersistentStorageItemsResponse& Response) {
+        for (auto Item : Response.payload)
+        {
+            Response.Map.Add(Item.key, Item.value);
+        }
+    }));
 }
 
 FString ULootLockerPersistentStorageRequestHandler::GetItemFromPersistentStorage(const FLootLockerPlayerData& PlayerData, const FString& Key, const FPersistentStorageItemResponseDelegate& OnCompletedRequest)
@@ -22,7 +27,12 @@ FString ULootLockerPersistentStorageRequestHandler::GetItemFromPersistentStorage
 
 FString ULootLockerPersistentStorageRequestHandler::AddItemsToPersistentStorage(const FLootLockerPlayerData& PlayerData, const FLootLockerPersistentStorageItems& payload, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest)
 {
-    return LLAPI<FLootLockerPersistentStorageItemsResponse>::CallAPI(payload, ULootLockerGameEndpoints::UpdateOrCreateKeyValuePairToPersistentStorageEndpoint, { }, EmptyQueryParams, PlayerData, OnCompletedRequest);
+    return LLAPI<FLootLockerPersistentStorageItemsResponse>::CallAPI(payload, ULootLockerGameEndpoints::UpdateOrCreateKeyValuePairToPersistentStorageEndpoint, { }, EmptyQueryParams, PlayerData, OnCompletedRequest, LLAPI<FLootLockerPersistentStorageItemsResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerPersistentStorageItemsResponse& Response) {
+        for (auto Item : Response.payload)
+        {
+            Response.Map.Add(Item.key, Item.value);
+        }
+    }));
 }
 
 FString ULootLockerPersistentStorageRequestHandler::AddItemToPersistentStorage(const FLootLockerPlayerData& PlayerData, const FLootLockerPersistentStorageItem& payload, const FPersistentStorageItemResponseDelegate& OnCompletedRequest)
@@ -37,10 +47,20 @@ FString ULootLockerPersistentStorageRequestHandler::DeleteItemFromPersistentStor
     TMultiMap<FString, FString> QueryParams;
 
     QueryParams.Add("key", Key);
-    return LLAPI<FLootLockerPersistentStorageItemsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteAKeyValuePairFromPersistentStorageEndpoint, {  }, QueryParams, PlayerData, OnCompletedRequest);
+    return LLAPI<FLootLockerPersistentStorageItemsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteAKeyValuePairFromPersistentStorageEndpoint, {  }, QueryParams, PlayerData, OnCompletedRequest, LLAPI<FLootLockerPersistentStorageItemsResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerPersistentStorageItemsResponse& Response) {
+        for (auto Item : Response.payload)
+        {
+            Response.Map.Add(Item.key, Item.value);
+        }
+    }));
 }
 
 FString ULootLockerPersistentStorageRequestHandler::GetPlayerPersistentStorage(const FLootLockerPlayerData& PlayerData, const FString& PlayerId, const FPersistentStorageItemsResponseDelegate& OnCompletedRequest)
 {
-    return LLAPI<FLootLockerPersistentStorageItemsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOtherPlayersPublicKeyValuePairs, { PlayerId }, EmptyQueryParams, PlayerData, OnCompletedRequest);
+    return LLAPI<FLootLockerPersistentStorageItemsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetOtherPlayersPublicKeyValuePairs, { PlayerId }, EmptyQueryParams, PlayerData, OnCompletedRequest, LLAPI<FLootLockerPersistentStorageItemsResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerPersistentStorageItemsResponse& Response) {
+        for (auto Item : Response.payload)
+        {
+            Response.Map.Add(Item.key, Item.value);
+        }
+    }));
 }
