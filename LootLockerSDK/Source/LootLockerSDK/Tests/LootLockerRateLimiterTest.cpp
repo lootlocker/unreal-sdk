@@ -14,7 +14,8 @@ class FLootLockerTestRateLimiter : public FLootLockerRateLimiter
 public:
     FLootLockerTestRateLimiter()
     {
-        // Skip the first-request production-environment check; keep limiter on.
+        // Force the limiter into the enabled state for deterministic testing
+        // (bypasses the first-request production-environment guard).
         bEnableRateLimiter = true;
         bFirstRequestSent  = true;
         CurrentTime        = FDateTime(2021, 1, 1);

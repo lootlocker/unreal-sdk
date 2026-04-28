@@ -5,10 +5,8 @@
 #include "LootLockerLogger.h"
 
 FLootLockerRateLimiter::FLootLockerRateLimiter()
-    : LastBucketChangeTime(0)   // FDateTime(0) == January 1, AD 1 — used as "not set" sentinel
-    , RateLimitResolvesAt(0)
 {
-    FMemory::Memset(Buckets, 0, sizeof(Buckets));
+    Reset();
 }
 
 void FLootLockerRateLimiter::Reset()
