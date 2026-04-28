@@ -150,6 +150,24 @@ private:
     void MarkItemDone(FLootLockerHTTPExecutionQueueItem& Item, const FLootLockerResponse& Response);
 
     /**
+     * Centralised terminal-completion path for all real HTTP outcomes (success,
+     * failure, timeout, and session-refresh failure).
+     *
+     * In order:
+     *  1. Captures request headers from the live HttpRequest (before MarkItemDone
+     *     resets the pointer).
+     *  2. On success: calls ULootLockerStateData::MakePlayerActive.
+     *     On failure: calls ULootLockerHttpClient::StoreFailedRequestReport.
+     *  3. Calls FLootLockerLogger::LogHttpRequest to write to console/file and
+     *     broadcast to the editor Log Viewer.
+     *  4. Calls MarkItemDone to hand the item to the cleanup phase.
+     *
+     * Do NOT call this for synthetic pre-queue rejections (queue-full, choke,
+     * rate-limit) — those have no real HTTP request and call MarkItemDone directly.
+     */
+    void CompleteItem(FLootLockerHTTPExecutionQueueItem& Item, const FLootLockerResponse& Response);
+
+    /**
      * Returns true when the HTTP status code and retry count indicate the request
      * should be retried (5xx, network errors, and 429).
      */
@@ -161,4 +179,8 @@ private:
      */
     bool ShouldRefreshSession(int32 StatusCode, const FLootLockerPlayerData& PlayerData,
                               int32 TimesRetried) const;
+
+    /** Timestamp (FPlatformTime::Seconds()) of the last choke-warning log entry.
+     *  Used to throttle the per-tick warning to at most once per ChokeWarningLogIntervalSeconds. */
+    double LastChokeWarningLogTime = 0.0;
 };

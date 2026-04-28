@@ -57,6 +57,13 @@ public:
      */
     static void RefreshSessionForPlatform(const FLootLockerPlayerData& PlayerData, TFunction<void(bool)> OnRefreshCompleted);
 
+    /**
+     * Records a failed request in the in-memory history and, if failure reporting is
+     * enabled, submits it as a feedback entry.  Called by both the legacy HTTP path
+     * and the execution queue on terminal failures and timeouts.
+     */
+    static void StoreFailedRequestReport(const FLootLockerResponse& FailedResponse, const FString& RequestBody, const TArray<FString>& AllRequestHeaders, const FHttpResponsePtr& HttpResponse, int32 RetryAttempts, const FDateTime& RequestStartTime);
+
     static FString GetSDKVersion();
 
 private:
@@ -100,9 +107,6 @@ private:
     };
     
     static void RetryOriginalRequest(const FLootLockerRetryRequestData& RetryData);
-
-    // === Failure Reporting (private) ===
-    static void StoreFailedRequestReport(const FLootLockerResponse& FailedResponse, const FString& RequestBody, const TArray<FString>& AllRequestHeaders, const FHttpResponsePtr& HttpResponse, int32 RetryAttempts, const FDateTime& RequestStartTime);
 
     static TArray<FLootLockerFailedRequestReport> FailedRequestHistory;
     static FString LootLockerFailureFeedbackCategoryId;
