@@ -652,8 +652,14 @@ void FLootLockerHTTPExecutionQueue::OnSessionRefreshCompleted(const FString& Req
 
     if (bRefreshSuccess)
     {
-        // The refresh updated session state — reset the retry-after delay so
-        // Tick() picks this item up as an unsent request on the next frame.
+        // Pull the freshly-issued token from state so the re-dispatched request
+        // sends the new session token rather than the stale one captured at
+        // enqueue time.
+        Item.RequestData.PlayerData =
+            ULootLockerStateData::GetAndActivateSavedStateOrDefaultOrEmptyForPlayer(
+                Item.RequestData.ForPlayerUlid);
+        // Reset the retry-after delay so Tick() picks this item up as an
+        // unsent request on the next frame.
         Item.RetryAfter = FDateTime(0);
     }
     else
