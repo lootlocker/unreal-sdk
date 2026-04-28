@@ -70,8 +70,9 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
         RequestData.Body             = data;
         RequestData.ExtraHeaders     = customHeaders;
         RequestData.PlayerData       = PlayerData;
-        RequestData.TimesRetried     = RetryAttemptCount;
-        RequestData.RequestStartTime = FPlatformTime::Seconds();
+        RequestData.TimesRetried          = RetryAttemptCount;
+        RequestData.RequestStartTime      = FPlatformTime::Seconds();
+        RequestData.RequestStartDateTime  = FDateTime::UtcNow();
         RequestData.Listeners.Add(onCompleteRequest);
         FLootLockerHTTPExecutionQueue::Get().ScheduleRequest(RequestData);
         return RequestData.RequestId;
@@ -229,9 +230,10 @@ FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString
         RequestData.Verb             = requestType;
         RequestData.ExtraHeaders     = customHeaders;
         RequestData.PlayerData       = PlayerData;
-        RequestData.TimesRetried     = RetryAttemptCount;
-        RequestData.RequestStartTime = FPlatformTime::Seconds();
-        RequestData.bIsFileUpload    = true;
+        RequestData.TimesRetried          = RetryAttemptCount;
+        RequestData.RequestStartTime      = FPlatformTime::Seconds();
+        RequestData.RequestStartDateTime  = FDateTime::UtcNow();
+        RequestData.bIsFileUpload         = true;
         RequestData.FilePath         = FilePath;
         RequestData.AdditionalFields = AdditionalFields;
         RequestData.Listeners.Add(onCompleteRequest);

@@ -79,5 +79,13 @@ struct LOOTLOCKERSDK_API FLootLockerHTTPClientConfiguration
         false;
 #endif
 
+    /**
+     * Minimum interval in seconds between consecutive choke-warning log entries.
+     * Prevents the log from being flooded when the queue is consistently backed up
+     * over many ticks. Only applies in editor builds (where LogQueueRejections is
+     * checked).
+     */
+    float ChokeWarningLogIntervalSeconds = 2.0f;
+
     FLootLockerHTTPClientConfiguration() = default;
 };

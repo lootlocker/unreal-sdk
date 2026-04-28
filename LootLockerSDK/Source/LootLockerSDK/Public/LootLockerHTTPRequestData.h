@@ -60,6 +60,13 @@ struct LOOTLOCKERSDK_API FLootLockerHTTPRequestData
     double RequestStartTime = 0.0;
 
     /**
+     * UTC calendar time when the request was first submitted to the queue.
+     * Stored alongside RequestStartTime so that FLootLockerRequestContext::RequestTime
+     * can be populated as a formatted string for logging and error reporting.
+     */
+    FDateTime RequestStartDateTime = FDateTime(0);
+
+    /**
      * True once all Listeners have been invoked via CallListenersWithResult().
      * Prevents double-delivery if a retry path calls the method more than once.
      */
