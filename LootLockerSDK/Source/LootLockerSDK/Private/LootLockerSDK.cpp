@@ -2,7 +2,6 @@
 
 #include "LootLockerSDK.h"
 #include "LootLockerHTTPExecutionQueue.h"
-#include "LootLockerHttpClient.h"
 #include "LootLockerLifeCycleManager.h"
 #include "LootLockerPresenceManager.h"
 #if WITH_EDITOR
