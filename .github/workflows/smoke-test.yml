@@ -1,0 +1,218 @@
+name: Smoke Test
+run-name: "Smoke Test on ${{ github.ref_name }} (${{ github.sha }})"
+
+# End-to-end smoke test: packages the SDK into a minimal UE Linux game, runs it
+# against a real LootLocker production backend, and checks that all 9 API calls succeed.
+# See lootlocker/unreal-sdk-smoketest-project for the test project.
+
+on:
+  pull_request:
+    branches:
+      - main
+      - dev*
+    types:
+      - opened
+      - synchronize
+  push:
+    branches:
+      - main
+      - ci/*
+  workflow_dispatch: {}
+
+concurrency:
+  group: smoke-test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  smoke-test:
+    name: Smoke test with ${{ matrix.UE_IMAGE }}
+    runs-on: ubuntu-22.04-4-core
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        UE_IMAGE: ${{ fromJson(vars.CI_SMOKE_TEST_IMAGES) }}
+
+    steps:
+      - name: Setup git
+        run: |
+          git config --global --add safe.directory /__w/unreal-sdk/unreal-sdk
+
+      - name: Checkout SDK (this repo)
+        uses: actions/checkout@v4
+        with:
+          path: sdk
+
+      - name: Checkout smoketest project
+        uses: actions/checkout@v4
+        with:
+          repository: lootlocker/unreal-sdk-smoketest-project
+          token: ${{ secrets.UNREAL_CI_PERSONAL_ACCESS_TOKEN }}
+          path: smoketest-project
+
+      - name: Pull Unreal Engine image ${{ matrix.UE_IMAGE }}
+        run: |
+          docker login ghcr.io \
+            -u ${{ secrets.UNREAL_DOCKER_PACKAGES_READ_USERNAME }} \
+            -p ${{ secrets.UNREAL_DOCKER_PACKAGES_READ_ACCESS_TOKEN }}
+          docker pull ghcr.io/epicgames/unreal-engine:${{ matrix.UE_IMAGE }}
+
+      - name: Inject LootLockerSDK plugin into smoketest project
+        run: |
+          mkdir -p smoketest-project/Plugins
+          cp -r sdk/LootLockerSDK smoketest-project/Plugins/LootLockerSDK
+
+      - name: Prepare output directories
+        run: |
+          mkdir -p tmp/logs
+          mkdir -p packaged
+
+      - name: Package smoketest project (BuildCookRun)
+        id: package
+        continue-on-error: true
+        run: |
+          chmod 777 tmp
+          chmod 777 packaged
+          chmod -R 777 smoketest-project
+          docker run --rm \
+            -v "$(pwd)/sdk:/mnt/sdk" \
+            -v "$(pwd)/smoketest-project:/mnt/smoketest-project" \
+            -v "$(pwd)/packaged:/mnt/packaged" \
+            ghcr.io/epicgames/unreal-engine:${{ matrix.UE_IMAGE }} \
+            sh -c "/home/ue4/UnrealEngine/Engine/Build/BatchFiles/RunUAT.sh \
+              BuildCookRun \
+              -project=/mnt/smoketest-project/SmokeTest.uproject \
+              -targetplatform=Linux \
+              -clientconfig=Development \
+              -cook \
+              -build \
+              -stage \
+              -pak \
+              -package \
+              -archive \
+              -archivedirectory=/mnt/packaged \
+              -rocket \
+              -noP4" \
+            2>&1 | tee tmp/logs/BuildCookRun.log
+
+      - name: Fix packaged output permissions
+        if: always()
+        run: |
+          # Files created by the ue4 user inside Docker are owned by uid 1000 ('packer' on the runner).
+          # Make them readable/executable by the runner for subsequent steps.
+          sudo chown -R "$USER" packaged/ 2>/dev/null || true
+          sudo chown -R "$USER" smoketest-project/ 2>/dev/null || true
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.UE_IMAGE }}-BuildCookRun.log
+          path: tmp/logs/BuildCookRun.log
+          if-no-files-found: warn
+
+      - name: Check package result
+        if: steps.package.outcome != 'success'
+        run: |
+          echo "## ❌ Packaging Failed" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "**UE image:** \`${{ matrix.UE_IMAGE }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "See \`${{ matrix.UE_IMAGE }}-BuildCookRun.log\` artifact for details." >> "$GITHUB_STEP_SUMMARY"
+          grep -iE "^(ERROR|FATAL):" tmp/logs/BuildCookRun.log | head -20 || true
+          exit 1
+
+      - name: Locate packaged binary
+        run: |
+          BINARY=$(find packaged/Linux -type f -name "SmokeTest" -o -name "SmokeTest-Linux-Development" 2>/dev/null | head -1)
+          if [ -z "$BINARY" ]; then
+            echo "ERROR: Could not find packaged SmokeTest binary under packaged/Linux" >&2
+            find packaged/ -type f | head -30
+            exit 1
+          fi
+          echo "Found binary: $BINARY"
+          echo "SMOKE_BINARY=$BINARY" >> $GITHUB_ENV
+
+      - name: Run smoke test binary
+        run: |
+          "${{ env.SMOKE_BINARY }}" \
+            -nullrhi \
+            -nosound \
+            -nopause \
+            -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LootLockerGameKey=${{ secrets.SMOKE_TEST_GAME_KEY }} \
+            -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:DomainKey=${{ secrets.SMOKE_TEST_DOMAIN_KEY }} \
+            -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:GameVersion=0.0.0.1 \
+            -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LootLockerLogLevel=VeryVerbose \
+            -ini:Game:[/Script/LootLockerSDK.LootLockerConfig]:LogOutsideOfEditor=True \
+            "-ini:Engine:[/Script/EngineSettings.GameMapsSettings]:GlobalDefaultGameMode=/Script/SmokeTest.SmokeTestGameMode" \
+            > tmp/logs/smoke-run-stdout.log 2>&1 &
+          echo "SMOKE_PID=$!" >> $GITHUB_ENV
+
+      - name: Poll for LLSmokeOutput.txt (120s timeout)
+        run: |
+          OUTPUT_FILE=$(find packaged/Linux -name "LLSmokeOutput.txt" 2>/dev/null | head -1)
+          ELAPSED=0
+          while [ -z "$OUTPUT_FILE" ] && [ $ELAPSED -lt 120 ]; do
+            sleep 2
+            ELAPSED=$((ELAPSED + 2))
+            OUTPUT_FILE=$(find packaged/Linux -name "LLSmokeOutput.txt" 2>/dev/null | head -1)
+          done
+
+          if [ -z "$OUTPUT_FILE" ]; then
+            echo "## ❌ Smoke Test Timed Out" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "LLSmokeOutput.txt not found within 120s. The binary may have crashed or hung." >> "$GITHUB_STEP_SUMMARY"
+            kill ${{ env.SMOKE_PID }} 2>/dev/null || true
+            exit 1
+          fi
+
+          echo "SMOKE_OUTPUT=$OUTPUT_FILE" >> $GITHUB_ENV
+          cat "$OUTPUT_FILE"
+
+      - name: Check smoke test result
+        run: |
+          if grep -q "Run Succeeded" "${{ env.SMOKE_OUTPUT }}"; then
+            echo "## ✅ Smoke Test Passed" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "**UE image:** \`${{ matrix.UE_IMAGE }}\`" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "### Per-call results" >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+            cat "${{ env.SMOKE_OUTPUT }}" >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          echo "## ❌ Smoke Test Failed" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "**UE image:** \`${{ matrix.UE_IMAGE }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "### Per-call results" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          cat "${{ env.SMOKE_OUTPUT }}" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          exit 1
+
+      - name: Upload game log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.UE_IMAGE }}-SmokeTest.log
+          path: packaged/Linux/SmokeTest/Saved/Logs/SmokeTest.log
+          if-no-files-found: warn
+
+      - name: Upload smoke output on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.UE_IMAGE }}-LLSmokeOutput.txt
+          path: packaged/Linux/SmokeTest/Saved/LLSmokeOutput.txt
+          if-no-files-found: warn
+
+      - name: Upload binary stdout on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.UE_IMAGE }}-smoke-run-stdout.log
+          path: tmp/logs/smoke-run-stdout.log
+          if-no-files-found: warn
