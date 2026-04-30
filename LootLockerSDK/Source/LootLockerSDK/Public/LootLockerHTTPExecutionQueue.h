@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Tickable.h"
+#include "Containers/Ticker.h"
 #include "LootLockerHTTPClientConfiguration.h"
 #include "LootLockerHTTPExecutionQueueItem.h"
 #include "LootLockerRateLimiter.h"
@@ -11,7 +11,7 @@
 struct FLootLockerPlayerData;
 
 /**
- * Manages the LootLocker HTTP request queue as a tickable singleton.
+ * Manages the LootLocker HTTP request queue as a per-frame singleton.
  *
  * Maintains a two-phase per-frame loop that:
  *  1. Promotes pending requests to in-flight status (respecting MaxOngoingRequests
@@ -20,11 +20,14 @@ struct FLootLockerPlayerData;
  *     and rate limiting.
  *  3. Cleans up completed items and invokes response listeners.
  *
+ * Ticks via FTSTicker::GetCoreTicker() — exactly once per frame, always on the
+ * game thread, regardless of how many worlds are active (no PIE multi-tick race).
+ *
  * Access the singleton via Get(). Call Initialize() once on startup (done
  * automatically by FLootLockerSDKModule::StartupModule()) and Shutdown() on
  * teardown.
  */
-class LOOTLOCKERSDK_API FLootLockerHTTPExecutionQueue : public FTickableGameObject
+class LOOTLOCKERSDK_API FLootLockerHTTPExecutionQueue
 {
 public:
     // -------------------------------------------------------------------------
@@ -63,14 +66,6 @@ public:
     /** Replaces the active configuration.  Takes effect from the next Tick(). */
     void OverrideConfiguration(const FLootLockerHTTPClientConfiguration& NewConfig);
 
-    // -------------------------------------------------------------------------
-    // FTickableGameObject interface
-    // -------------------------------------------------------------------------
-
-    virtual void Tick(float DeltaTime) override;
-    virtual bool IsTickable() const override { return bIsInitialized; }
-    virtual TStatId GetStatId() const override;
-    
     /** Do not construct directly — use Get() or Initialize() instead. */
     FLootLockerHTTPExecutionQueue() = default;
 
@@ -183,4 +178,21 @@ private:
     /** Timestamp (FPlatformTime::Seconds()) of the last choke-warning log entry.
      *  Used to throttle the per-tick warning to at most once per ChokeWarningLogIntervalSeconds. */
     double LastChokeWarningLogTime = 0.0;
+
+    // --- Ticker ---
+
+    /** Handle returned by FTSTicker used to unregister during Shutdown(). */
+    FTSTicker::FDelegateHandle TickerHandle;
+
+    /** Registers Tick() with the core ticker.  Called by Initialize(). */
+    void StartTicker();
+
+    /** Unregisters from the core ticker.  Called by Shutdown(). */
+    void StopTicker();
+
+    /**
+     * Per-frame tick driven by FTSTicker::GetCoreTicker().
+     * Returns true to keep ticking, false to auto-unregister.
+     */
+    bool Tick(float DeltaTime);
 };
