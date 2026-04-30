@@ -50,6 +50,7 @@ void FLootLockerHTTPExecutionQueue::Initialize()
     Instance = MakeUnique<FLootLockerHTTPExecutionQueue>();
     Instance->RateLimiter = MakeUnique<FLootLockerRateLimiter>();
     Instance->bIsInitialized = true;
+    Instance->StartTicker();
 }
 
 bool FLootLockerHTTPExecutionQueue::IsInitialized()
@@ -64,6 +65,7 @@ void FLootLockerHTTPExecutionQueue::Shutdown()
         return;
     }
 
+    Instance->StopTicker();
     Instance->bIsInitialized = false;
 
     const FLootLockerResponse ShutdownError = LootLockerResponseFactory::Error<FLootLockerResponse>(
@@ -181,17 +183,37 @@ void FLootLockerHTTPExecutionQueue::OverrideConfiguration(
 }
 
 // -------------------------------------------------------------------------
-// FTickableGameObject interface
+// Ticker
 // -------------------------------------------------------------------------
 
-TStatId FLootLockerHTTPExecutionQueue::GetStatId() const
+void FLootLockerHTTPExecutionQueue::StartTicker()
 {
-    // Standard implementation for FTickableGameObject subclasses.
-    RETURN_QUICK_DECLARE_CYCLE_STAT(FLootLockerHTTPExecutionQueue, STATGROUP_Tickables);
+    TickerHandle =
+#if ENGINE_MAJOR_VERSION >= 5
+        FTSTicker::GetCoreTicker()
+#else
+        FTicker::GetCoreTicker()
+#endif
+        .AddTicker(FTickerDelegate::CreateRaw(this, &FLootLockerHTTPExecutionQueue::Tick));
 }
 
-void FLootLockerHTTPExecutionQueue::Tick(float DeltaTime)
+void FLootLockerHTTPExecutionQueue::StopTicker()
 {
+#if ENGINE_MAJOR_VERSION >= 5
+    FTSTicker::GetCoreTicker().RemoveTicker(TickerHandle);
+#else
+    FTicker::GetCoreTicker().RemoveTicker(TickerHandle);
+#endif
+    TickerHandle.Reset();
+}
+
+bool FLootLockerHTTPExecutionQueue::Tick(float DeltaTime)
+{
+    if (!bIsInitialized)
+    {
+        return false;
+    }
+
     // ---- Phase 1: Update — process each item in the queue ----
 
     for (auto& Pair : ExecutionQueue)
@@ -292,7 +314,9 @@ void FLootLockerHTTPExecutionQueue::Tick(float DeltaTime)
         {
             continue;
         }
-        FLootLockerHTTPExecutionQueueItem& Item = **ItemPtr;
+        // Keep a local TSharedPtr so the item stays alive after ExecutionQueue.Remove().
+        TSharedPtr<FLootLockerHTTPExecutionQueueItem> LiveItem = *ItemPtr;
+        FLootLockerHTTPExecutionQueueItem& Item = *LiveItem;
         if (!Item.bDone)
         {
             continue;
@@ -302,7 +326,25 @@ void FLootLockerHTTPExecutionQueue::Tick(float DeltaTime)
         OngoingRequestIds.Remove(CompletedId);
         if (!Item.RequestData.HaveListenersBeenInvoked)
         {
-            Item.RequestData.CallListenersWithResult(Item.Response);
+            if (Configuration.SlowListenerWarningThresholdMs > 0.0f)
+            {
+                const double ListenerStartTime = FPlatformTime::Seconds();
+                Item.RequestData.CallListenersWithResult(Item.Response);
+                const double ElapsedMs = (FPlatformTime::Seconds() - ListenerStartTime) * 1000.0;
+                if (ElapsedMs > static_cast<double>(Configuration.SlowListenerWarningThresholdMs))
+                {
+                    FLootLockerLogger::LogWarning(FString::Printf(
+                        TEXT("Response listener for request %s took %.1f ms on the game thread "
+                             "(threshold: %.0f ms). Avoid heavy work inside SDK callbacks — "
+                             "consider dispatching to a background task instead."),
+                        *CompletedId, ElapsedMs,
+                        static_cast<double>(Configuration.SlowListenerWarningThresholdMs)));
+                }
+            }
+            else
+            {
+                Item.RequestData.CallListenersWithResult(Item.Response);
+            }
         }
     }
     CompletedRequestIds.Empty();
@@ -329,6 +371,8 @@ void FLootLockerHTTPExecutionQueue::Tick(float DeltaTime)
     {
         OngoingRequestIds.Remove(StaleId);
     }
+
+    return true;
 }
 
 // -------------------------------------------------------------------------

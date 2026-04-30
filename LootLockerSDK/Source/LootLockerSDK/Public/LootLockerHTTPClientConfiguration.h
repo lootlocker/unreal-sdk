@@ -87,5 +87,18 @@ struct LOOTLOCKERSDK_API FLootLockerHTTPClientConfiguration
      */
     float ChokeWarningLogIntervalSeconds = 2.0f;
 
+    /**
+     * Wall-clock threshold in milliseconds above which a warning is emitted if a
+     * single response listener takes too long to execute.
+     *
+     * Listeners run on the game thread inside Tick(). Heavy work inside a callback
+     * (asset loading, synchronous I/O, complex computation) will stall the game
+     * thread for every frame it occupies. This threshold gives developers an early
+     * warning when that happens.
+     *
+     * Set to 0 to disable the check. Defaults to 16 ms (one frame at 60 fps).
+     */
+    float SlowListenerWarningThresholdMs = 16.0f;
+
     FLootLockerHTTPClientConfiguration() = default;
 };
