@@ -111,12 +111,12 @@ enum class ELootLockerCustomNotificationFiltering : uint8
 /**
  * Set of static string definitions to use for matching in different Notification contexts
  */
-struct LootLockerNotificationsStaticStrings
+struct LOOTLOCKERSDK_API LootLockerNotificationsStaticStrings
 {
     /**
      * Possible types of notifications
      */
-    struct NotificationTypes
+    struct LOOTLOCKERSDK_API NotificationTypes
     {
         static const FString PullRewardAcquired;
     };
@@ -124,10 +124,10 @@ struct LootLockerNotificationsStaticStrings
     /**
      * Possible sources for notifications
      */
-    struct NotificationSources
+    struct LOOTLOCKERSDK_API NotificationSources
     {
         static const FString Triggers;
-        struct Purchasing
+        struct LOOTLOCKERSDK_API Purchasing
         {
             static const FString SteamStore;
             static const FString AppleAppStore;
@@ -143,12 +143,12 @@ struct LootLockerNotificationsStaticStrings
     /**
      * The standard context keys to expect for different notification sources
      */
-    struct StandardContextKeys
+    struct LOOTLOCKERSDK_API StandardContextKeys
     {
         /**
          * Standard context keys to expect when source is triggers
          */
-        struct Triggers
+        struct LOOTLOCKERSDK_API Triggers
         {
             static const FString Id;
             static const FString Key;
@@ -158,12 +158,12 @@ struct LootLockerNotificationsStaticStrings
         /**
          * Standard context keys to expect when source is purchasing
          */
-        struct Purchasing
+        struct LOOTLOCKERSDK_API Purchasing
         {
             /**
              * Standard context keys to expect when source is purchasing from the Steam store
              */
-            struct SteamStore
+            struct LOOTLOCKERSDK_API SteamStore
             {
                 static const FString CatalogId;
                 static const FString CatalogItemId;
@@ -173,7 +173,7 @@ struct LootLockerNotificationsStaticStrings
             /**
              * Standard context keys to expect when source is purchasing from the Apple app store
              */
-            struct AppleAppStore
+            struct LOOTLOCKERSDK_API AppleAppStore
             {
                 static const FString CatalogId;
                 static const FString CatalogItemId;
@@ -182,7 +182,7 @@ struct LootLockerNotificationsStaticStrings
             /**
              * Standard context keys to expect when source is purchasing from the GooglePlay store
              */
-            struct GooglePlayStore
+            struct LOOTLOCKERSDK_API GooglePlayStore
             {
                 static const FString CatalogId;
                 static const FString CatalogItemId;
@@ -191,7 +191,7 @@ struct LootLockerNotificationsStaticStrings
             /**
              * Standard context keys to expect when source is purchasing from LootLocker
              */
-            struct LootLocker
+            struct LOOTLOCKERSDK_API LootLocker
             {
                 static const FString CatalogId;
                 static const FString CatalogItemId;
@@ -200,7 +200,7 @@ struct LootLockerNotificationsStaticStrings
         /**
          * Standard context keys to expect when source is a Twitch Drop
          */
-        struct TwitchDrop
+        struct LOOTLOCKERSDK_API TwitchDrop
         {
             static const FString TwitchRewardId;
         };
