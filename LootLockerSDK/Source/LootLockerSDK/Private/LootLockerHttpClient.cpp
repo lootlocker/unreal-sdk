@@ -126,6 +126,17 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
             if(!RetryAfterHeader.IsEmpty()) {
                 response.ErrorData.Retry_after_seconds = FCString::Atoi(*RetryAfterHeader);
             }
+            if(response.ErrorData.Message.IsEmpty() && response.ErrorData.Code.IsEmpty() && response.ErrorData.Doc_url.IsEmpty() && response.ErrorData.Request_id.IsEmpty() && response.ErrorData.Trace_id.IsEmpty())
+            {
+                if(response.FullTextFromServer.IsEmpty())
+                {
+                    response.ErrorData.Message = "Request failed with no response body";
+                }
+                else
+                {
+                    response.ErrorData.Message = response.FullTextFromServer;
+                }
+            }
             LogFailedRequestInformation(response, DelimitedHeaders);
             
             // Check if we should attempt session refresh
@@ -286,6 +297,17 @@ FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString
                 FString RetryAfterHeader = Response->GetHeader("retry-after");
                 if(!RetryAfterHeader.IsEmpty()) {
                     response.ErrorData.Retry_after_seconds = FCString::Atoi(*RetryAfterHeader);
+                }
+                if(response.ErrorData.Message.IsEmpty() && response.ErrorData.Code.IsEmpty() && response.ErrorData.Doc_url.IsEmpty() && response.ErrorData.Request_id.IsEmpty() && response.ErrorData.Trace_id.IsEmpty())
+                {
+                    if(response.FullTextFromServer.IsEmpty())
+                    {
+                        response.ErrorData.Message = "Request failed with no response body";
+                    }
+                    else
+                    {
+                        response.ErrorData.Message = response.FullTextFromServer;
+                    }
                 }
                 LogFailedRequestInformation(response, DelimitedHeaders);
                 
