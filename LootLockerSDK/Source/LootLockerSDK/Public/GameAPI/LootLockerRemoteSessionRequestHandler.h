@@ -159,6 +159,11 @@ struct FLootLockerRemoteSessionLeaseData
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Redirect_url_qr_base64 = "";
     /**
+     * A QR code representation of the redirect_url parsed as a Texture2D*
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    UTexture2D* Redirect_url_qr_texture = nullptr;
+    /**
      * A clean version of the redirect_url without the code visible that you can use in your UI
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -514,6 +519,7 @@ protected:
     FString LeaseProcessID = "";
     float PollingIntervalInSeconds = 0.0f;
     float TimeoutAfterMinutes = 0.0f;
+    UPROPERTY()
     FLootLockerRemoteSessionLeaseData LeaseData;
 
     UFUNCTION()

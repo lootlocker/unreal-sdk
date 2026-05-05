@@ -11,6 +11,9 @@
 #include "LootLockerLogger.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
 #include "GameAPI/LootLockerConnectedAccountsRequestHandler.h"
+#if ENGINE_MAJOR_VERSION >= 5
+#include <ImageUtils.h>
+#endif
 
 TMap<FString, FLootLockerRemoteSessionProcess> ULootLockerRemoteSessionRequestHandler::RemoteSessionProcesses = TMap<FString, FLootLockerRemoteSessionProcess>();
 
@@ -326,11 +329,22 @@ void ULootLockerAsyncStartRemoteSession::HandleLeaseProcessStarted(const FLootLo
 		return;
 	}
 
+	UTexture2D* Texture = nullptr;
+#if ENGINE_MAJOR_VERSION >= 5
+	TArray<uint8> DecodedBytes;
+    FBase64::Decode(LeaseProcessStartedResponse.Redirect_url_qr_base64, DecodedBytes);
+    if (DecodedBytes.Num() > 0)
+    {
+        Texture = FImageUtils::ImportBufferAsTexture2D(DecodedBytes);
+    }
+#endif
+
 	LeaseData = FLootLockerRemoteSessionLeaseData{
 		LeaseProcessStartedResponse.Code,
 		LeaseProcessStartedResponse.Nonce,
 		LeaseProcessStartedResponse.Redirect_url,
 		LeaseProcessStartedResponse.Redirect_url_qr_base64,
+		Texture,
 		LeaseProcessStartedResponse.Display_url
 	};
 	OnProcessStarted.Broadcast(LeaseProcessID, LeaseData, false, "", "", FLootLockerRemoteSessionPlayerData(), static_cast<FLootLockerResponse>(LeaseProcessStartedResponse));
