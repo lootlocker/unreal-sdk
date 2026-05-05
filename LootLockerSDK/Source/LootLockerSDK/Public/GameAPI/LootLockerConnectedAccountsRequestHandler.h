@@ -270,7 +270,7 @@ struct FLootLockerListConnectedAccountsResponse : public FLootLockerResponse
      * List of the accounts connected (allowed to start sessions for) to this LootLocker account
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerConnectedAccountProvider> ConnectedAccounts;
+    TArray<FLootLockerConnectedAccountProvider> Connected_accounts;
 };
 
 //==================================================
