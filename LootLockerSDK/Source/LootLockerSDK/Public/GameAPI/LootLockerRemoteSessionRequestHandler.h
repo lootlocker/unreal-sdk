@@ -12,6 +12,8 @@
 #include "GameAPI/LootLockerConnectedAccountsRequestHandler.h"
 #include "LootLockerRemoteSessionRequestHandler.generated.h"
 
+class UTexture2D;
+
 //==================================================
 // Data Type Definitions
 //==================================================
