@@ -29,7 +29,8 @@ enum class ELootLockerAccountProvider : uint8
     Xbox = 7,
     Playstation = 8,
     Twitch = 9,
-    Discord = 10
+    Discord = 10,
+    Google_play_games = 11,
 };
 /// @}
 
