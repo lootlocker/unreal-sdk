@@ -82,7 +82,10 @@ FString ULootLockerConnectedAccountsRequestHandler::TransferIdentityProvidersBet
     TArray<FString> providers;
     for (const auto& Provider : ProvidersToTransfer)
     {
-        providers.Add(ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerAccountProvider"), static_cast<int32>(Provider)).ToLower());
+        FString ProviderString = ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerAccountProvider"), static_cast<int32>(Provider));
+        ProviderString = ProviderString.ToLower();
+        ProviderString.ReplaceCharInline(TEXT(' '), TEXT('_'));
+        providers.Add(ProviderString);
     }
 
     FLootLockerTransferProvidersBetweenAccountsRequest Request{
