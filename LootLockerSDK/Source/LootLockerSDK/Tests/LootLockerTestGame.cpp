@@ -40,17 +40,19 @@ FString SerializeJson(const TSharedRef<FJsonObject>& Object)
 
 bool FLootLockerTestGame::CreateGame(FLootLockerTestGame& OutGame, const FString& TestName)
 {
-	// Shortcut: use a pre-existing key from env var (no admin credentials needed)
+	// Shortcut: use a pre-existing key from env var (no admin credentials needed).
+	// Mark ids as invalid so later setup code does not treat this as a fully
+	// provisioned admin-managed test game.
 	const FString EnvKey = FPlatformMisc::GetEnvironmentVariable(TEXT("LOOTLOCKER_GAME_API_KEY"));
 	if (!EnvKey.IsEmpty())
 	{
 		OutGame.GameApiKey            = EnvKey;
 		OutGame.DevelopmentGameApiKey = EnvKey;
-		OutGame.GameId                = -1; // Sentinel: DeleteGame() is a no-op
-		OutGame.DevelopmentGameId     = -1;
-		OutGame.ActiveGameId          = -1;
+		OutGame.GameId                = 0;
+		OutGame.DevelopmentGameId     = 0;
+		OutGame.ActiveGameId          = 0;
 		UE_LOG(LogTemp, Log,
-			TEXT("LootLockerTestGame: Using LOOTLOCKER_GAME_API_KEY env var (skipping game creation)"));
+			TEXT("LootLockerTestGame: Using LOOTLOCKER_GAME_API_KEY env var (skipping game creation and marking game ids invalid for admin provisioning)"));
 		return true;
 	}
 
@@ -535,7 +537,7 @@ bool FLootLockerTestGame::GrantAssetToPlayer(
 		Json->TryGetNumberField(TEXT("instance_id"), OutInstanceId);
 	}
 
-	return true;
+	return OutInstanceId != 0;
 }
 
 bool FLootLockerTestGame::CreateBroadcast(
@@ -596,9 +598,17 @@ bool FLootLockerTestGame::CreateBroadcast(
 	}
 
 	TSharedPtr<FJsonObject> Json = ParseJson(CreateResponse.Body);
-	if (Json.IsValid())
+	if (!Json.IsValid())
 	{
-		Json->TryGetStringField(TEXT("id"), OutBroadcastId);
+		UE_LOG(LogTemp, Error, TEXT("LootLockerTestGame: CreateBroadcast '%s' returned invalid JSON: %s"),
+			*Name, *CreateResponse.Body);
+		return false;
+	}
+	if (!Json->TryGetStringField(TEXT("id"), OutBroadcastId) || OutBroadcastId.IsEmpty())
+	{
+		UE_LOG(LogTemp, Error, TEXT("LootLockerTestGame: CreateBroadcast '%s' succeeded but response did not include a valid id: %s"),
+			*Name, *CreateResponse.Body);
+		return false;
 	}
 
 	return true;
@@ -614,6 +624,11 @@ void FLootLockerTestGame::ListBroadcasts(
 	FString Path = FString::Printf(
 		TEXT("broadcasts/v1/organisation/%d?limit=%d"),
 		FLootLockerAdminRequest::OrganisationId, Limit);
+
+	if (Languages.Num() > 0)
+	{
+		Path += TEXT("&languages=") + FString::Join(Languages, TEXT(","));
+	}
 
 	const FLootLockerAdminResponse Response =
 		FLootLockerAdminRequest::Send(Path, TEXT("GET"));

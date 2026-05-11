@@ -132,7 +132,7 @@ struct FLootLockerTestGame
 	bool CreateCurrency(const FString& Name, const FString& Code, FString& OutCurrencyId);
 
 	/**
-	 * Create a player progression with no tiers.
+	 * * Create a player progression with an additional tier at step = 2 so points can accumulate.
 	 */
 	bool CreateProgression(const FString& Key, const FString& Name);
 
@@ -143,10 +143,11 @@ struct FLootLockerTestGame
 	bool CreateAsset(int32& OutAssetId, const FString& Name);
 
 	/**
-	 * Grant an asset instance to a player identified by ULID.
-	 * @param OutInstanceId  Populated with the created asset instance ID.
+	 * Grant an asset instance to a player identified by legacy player_id.
+	 * @param PlayerLegacyId  Numeric legacy player ID (player_id), passed as a string.
+	 * @param OutInstanceId   Populated with the created asset instance ID.
 	 */
-bool GrantAssetToPlayer(const FString& PlayerLegacyId, int32 AssetId, int32& OutInstanceId);
+	bool GrantAssetToPlayer(const FString& PlayerLegacyId, int32 AssetId, int32& OutInstanceId);
 
 	/**
 	 * Create a broadcast visible to this game.

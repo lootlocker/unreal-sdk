@@ -10,6 +10,7 @@ const TArray<FObfuscationDetails> UObfuscationSettings::FieldsToObfuscate =
     FObfuscationDetails(FString("game_key"), "*", 4, 3, false),
     FObfuscationDetails(FString("game_api_key"), "*", 4, 3, false),
     FObfuscationDetails(FString("api_key"), "*", 4, 3, false),
+    FObfuscationDetails(FString("key"), "*", 4, 3, false),
     FObfuscationDetails(FString("email"), "*", 3, 3, true),
     FObfuscationDetails(FString("password"), "*", 0, 0, true),
     FObfuscationDetails(FString("domain_key"), "*", 3, 3, true),
