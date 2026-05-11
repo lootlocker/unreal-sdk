@@ -46,7 +46,7 @@ void FTestLootLockerBroadcasts::Define()
 
 	LatentAfterEach(EAsyncExecution::ThreadPool, [this](const FDoneDelegate& Done)
 	{
-		//Game.DeleteGame();
+		Game.DeleteGame();
 		BroadcastId.Empty();
 		ExpectedHeadline.Empty();
 		BroadcastName.Empty();

@@ -168,12 +168,14 @@ $WroteUbtConfig = $true
 # file and applies to ALL UBT passes (Development AND Shipping).
 $env:UnrealBuildTool_BuildConfiguration__bAllowUBAExecutor = "false"
 
-# Kill any lingering dotnet (UnrealBuildTool) processes from a previous crashed
-# build that might hold DLL locks or have already loaded their own UBA-enabled
-# config before ours was written.
-Get-Process -Name "dotnet" -ErrorAction SilentlyContinue |
-    Where-Object { $_.MainModule.FileName -like "*DotNet*" } |
-    Stop-Process -Force -ErrorAction SilentlyContinue
+# Kill any lingering dotnet processes that are specifically running
+# UnrealBuildTool from a previous crashed build. Avoid terminating unrelated
+# .NET applications or other builds running on the machine.
+Get-CimInstance Win32_Process -Filter "Name = 'dotnet.exe'" -ErrorAction SilentlyContinue |
+    Where-Object { $_.CommandLine -like "*UnrealBuildTool.dll*" } |
+    ForEach-Object {
+        Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue
+    }
 
 Write-Step "Note: Disabled UBA local executor to avoid UbaDetours/rc.exe crash (restored after build)."
 Write-Step ""
