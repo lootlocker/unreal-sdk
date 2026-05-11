@@ -1,6 +1,7 @@
 // Copyright (c) 2021 LootLocker
 
 #include "LootLockerAdminRequest.h"
+#include "LootLockerSDK/Private/Utils/LootLockerUtilities.h"
 
 #if ENGINE_MAJOR_VERSION > 4
 
