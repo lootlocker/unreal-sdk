@@ -314,7 +314,8 @@ FString ULootLockerSDKManager::StartRemoteSession(
     const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate,
     const FLootLockerStartRemoteSessionResponseDelegate& OnComplete,
     float PollingIntervalSeconds,
-    float TimeOutAfterMinutes)
+    float TimeOutAfterMinutes,
+    ELootLockerAccountProvider Provider)
 {
     return ULootLockerRemoteSessionRequestHandler::StartRemoteSession(
         ELootLockerRemoteSessionLeaseIntent::login,
@@ -323,7 +324,8 @@ FString ULootLockerSDKManager::StartRemoteSession(
         OnComplete,
         PollingIntervalSeconds,
         TimeOutAfterMinutes,
-        "");
+        "",
+        Provider);
 }
 
 FString ULootLockerSDKManager::StartRemoteSessionForLinking(
@@ -332,7 +334,8 @@ FString ULootLockerSDKManager::StartRemoteSessionForLinking(
     const FLootLockerRemoteSessionStatusPollingResponseDelegate& RemoteSessionLeaseStatusUpdate,
     const FLootLockerStartRemoteSessionResponseDelegate& OnComplete,
     float PollingIntervalSeconds,
-    float TimeOutAfterMinutes)
+    float TimeOutAfterMinutes,
+    ELootLockerAccountProvider Provider)
 {
     return ULootLockerRemoteSessionRequestHandler::StartRemoteSession(
         ELootLockerRemoteSessionLeaseIntent::link,
@@ -341,7 +344,8 @@ FString ULootLockerSDKManager::StartRemoteSessionForLinking(
         OnComplete,
         PollingIntervalSeconds,
         TimeOutAfterMinutes,
-        ForPlayerWithUlid);
+        ForPlayerWithUlid,
+        Provider);
 }
 
 void ULootLockerSDKManager::CancelRemoteSessionProcess(const FString& ProcessID)
