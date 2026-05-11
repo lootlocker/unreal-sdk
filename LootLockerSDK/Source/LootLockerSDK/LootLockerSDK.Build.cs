@@ -8,7 +8,7 @@ public class LootLockerSDK : ModuleRules
     public static bool bShowOutdatedSDKMessage = false; // Set to true when submitting to fab for engine versions < the last 3
     // Set bForceLocalDevEnv = true here to always target localhost regardless of the environment variable.
     // Leave false (the default) so the env var LOOTLOCKER_USE_LOCAL_DEVENV controls it at build time.
-    public static bool bForceLocalDevEnv = true;
+    public static bool bForceLocalDevEnv = false;
     public static bool bTargetLocalDevEnv = bForceLocalDevEnv || !string.IsNullOrEmpty(System.Environment.GetEnvironmentVariable("LOOTLOCKER_USE_LOCAL_DEVENV"));
     public static bool bEnableBetaErrorReporting = false;
     public LootLockerSDK(ReadOnlyTargetRules Target) : base(Target)

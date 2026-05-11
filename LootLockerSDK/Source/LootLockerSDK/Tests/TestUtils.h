@@ -83,6 +83,11 @@ namespace test_util
 		ULootLockerSDKManager::GuestLogin(Delegate, TEXT("unreal_unit_test_user"), Optionals);
 
 		const auto Response = WaitAndGet(Promise, 60);
+		if(!Response.success)
+		{
+			UE_LOG(LogTemp, Error, TEXT("LootLockerTest: GuestLogin failed in StartSession()"));
+			return;
+		}
 		FLootLockerPlayerData NewPlayerData = FLootLockerPlayerData::Create(Response.session_token, "", Response.player_identifier, Response.player_ulid, Response.public_uid, "", "", "", ULootLockerPlatforms::GetPlatformRepresentationForPlatform(ELootLockerPlatform::Guest), FDateTime::Now().ToString(), Response.player_created_at);
 		ULootLockerStateData::SavePlayerData(NewPlayerData);
 	}

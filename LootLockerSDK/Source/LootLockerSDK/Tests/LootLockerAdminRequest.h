@@ -30,7 +30,7 @@ struct FLootLockerAdminResponse
  *   2. Command-line args:     -adminemail=<email>  -adminpassword=<password>
  *
  * The admin API base URL defaults to https://api.lootlocker.io/ and can be
- * overridden via the LOOTLOCKER_ADMIN_API_URL env var.
+ * overridden with the LOOTLOCKER_ADMIN_API_URL env var.
  */
 class FLootLockerAdminRequest
 {
@@ -81,7 +81,7 @@ public:
 		const FString& Method,
 		const FString& JsonBody = TEXT(""));
 
-	/** Returns the admin base URL (LOOTLOCKER_ADMIN_API_URL env var, or https://api.lootlocker.io/). */
+	/** Returns the admin base URL (https://localhost:8080/admin if LOOTLOCKER_USE_LOCAL_DEVENV, or https://api.lootlocker.com/). */
 	static FString GetBaseUrl();
 
 private:

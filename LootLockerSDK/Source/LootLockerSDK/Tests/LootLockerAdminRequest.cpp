@@ -32,7 +32,7 @@ FString FLootLockerAdminRequest::GetBaseUrl()
 	// go-backend mounts all admin routes under /admin/ on port 8080
 	return TEXT("http://localhost:8080/admin/");
 #else
-	return TEXT("https://api.lootlocker.com/");
+	return TEXT("https://api.lootlocker.com/admin/");
 #endif
 }
 
@@ -286,8 +286,9 @@ FLootLockerAdminResponse FLootLockerAdminRequest::Send(
 
 		if (Response.StatusCode != 429)
 		{
+			FString LogBody = LootLockerUtilities::ObfuscateJsonStringForLogging(Response.Body);
 			UE_LOG(LogTemp, Log, TEXT("LootLockerAdmin: %s %s => %d (attempt %d/%d), Response: %s"),
-				*Method, *ProcessedEndpoint, Response.StatusCode, Attempt + 1, MaxRetries + 1, *Response.Body);
+				*Method, *ProcessedEndpoint, Response.StatusCode, Attempt + 1, MaxRetries + 1, *LogBody);
 			return Response;
 		}
 
