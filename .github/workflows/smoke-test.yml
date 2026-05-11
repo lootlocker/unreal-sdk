@@ -26,6 +26,7 @@ concurrency:
 jobs:
   smoke-test:
     name: Smoke test with ${{ matrix.UE_IMAGE }}
+    if: github.event.pull_request.head.repo.fork != true
     runs-on: ubuntu-22.04-4-core
     timeout-minutes: 90
     strategy:
@@ -124,7 +125,7 @@ jobs:
 
       - name: Locate packaged binary
         run: |
-          BINARY=$(find packaged/Linux -type f -name "SmokeTest" -o -name "SmokeTest-Linux-Development" 2>/dev/null | head -1)
+          BINARY=$(find packaged/Linux -type f \( -name "SmokeTest" -o -name "SmokeTest-Linux-Development" \) 2>/dev/null | head -1)
           if [ -z "$BINARY" ]; then
             echo "ERROR: Could not find packaged SmokeTest binary under packaged/Linux" >&2
             find packaged/ -type f | head -30
@@ -167,6 +168,8 @@ jobs:
           fi
 
           echo "SMOKE_OUTPUT=$OUTPUT_FILE" >> $GITHUB_ENV
+          GAME_LOG=$(find packaged/Linux -name "SmokeTest.log" -path "*/Logs/*" 2>/dev/null | head -1)
+          echo "SMOKE_LOG=${GAME_LOG}" >> $GITHUB_ENV
           cat "$OUTPUT_FILE"
 
       - name: Check smoke test result
@@ -198,7 +201,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.UE_IMAGE }}-SmokeTest.log
-          path: packaged/Linux/SmokeTest/Saved/Logs/SmokeTest.log
+          path: ${{ env.SMOKE_LOG }}
           if-no-files-found: warn
 
       - name: Upload smoke output on failure
@@ -206,7 +209,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.UE_IMAGE }}-LLSmokeOutput.txt
-          path: packaged/Linux/SmokeTest/Saved/LLSmokeOutput.txt
+          path: ${{ env.SMOKE_OUTPUT }}
           if-no-files-found: warn
 
       - name: Upload binary stdout on failure
