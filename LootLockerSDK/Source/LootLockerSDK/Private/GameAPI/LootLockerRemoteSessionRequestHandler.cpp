@@ -9,6 +9,7 @@
 #include "LootLockerStateData.h"
 #include "Utils/LootLockerUtilities.h"
 #include "LootLockerLogger.h"
+#include "Misc/Base64.h"
 #include "GameAPI/LootLockerMiscellaneousRequestHandler.h"
 #include "GameAPI/LootLockerConnectedAccountsRequestHandler.h"
 #if ENGINE_MAJOR_VERSION >= 5
