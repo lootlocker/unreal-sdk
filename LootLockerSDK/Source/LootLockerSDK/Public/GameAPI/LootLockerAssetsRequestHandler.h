@@ -466,9 +466,12 @@ struct FLootLockerSimpleAssetFilters
     /// If true only UGC assets are returned
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     bool ugc_only = false;
-    /// If provided only the requested ids will be returned (max 100, server enforced). Pagination ignored.
+    /// If provided only the requested ids will be returned (max 100, server enforced). When this is set, pagination is ignored.
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     TArray<int> asset_ids;
+    /// If provided only assets from the specified contexts will be returned.
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
+    TArray<int> context_ids;
     /// Filters to apply to the asset listing based on key-value pairs.
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="LootLocker")
     TArray<FLootLockerSimpleAssetFilter> asset_filters;
