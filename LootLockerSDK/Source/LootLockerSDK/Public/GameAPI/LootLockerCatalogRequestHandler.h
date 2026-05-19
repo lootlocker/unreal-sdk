@@ -404,6 +404,11 @@ struct FLootLockerCatalogEntry
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool Purchasable = false;
+    /**
+     * Whether this entry is refundable. If false, purchases of this entry cannot be refunded.
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool Non_refundable = false;
 
 };
 
