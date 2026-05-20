@@ -20,6 +20,50 @@
  */
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLootLockerConfigurationUpdateDelegate, const FString&, SettingName);
 
+/**
+ * Controls how the SDK handles multiple player sessions when a new authentication succeeds.
+ * Determines which player is considered the "default" for API calls that do not specify a player ULID.
+ */
+UENUM(BlueprintType, Category = "LootLocker")
+enum class ELootLockerMultiUserSessionMode : uint8
+{
+	/**
+	 * [Not yet configured] The SDK will automatically set the correct mode the first time the project is
+	 * loaded with this version of the SDK: new installs (no API key) get SingleSession, existing projects
+	 * get Hotseat for backwards compatibility. This value should never be set manually.
+	 */
+	NotSet          UMETA(Hidden),
+
+	/**
+	 * Multiple active sessions are allowed simultaneously.
+	 * The first player to authenticate in a game session becomes the default.
+	 * Subsequent authentications are additive — they join the active pool but do not change the default.
+	 * All player data is retained in persistent cache between sessions.
+	 *
+	 * Best for: local multiplayer, couch co-op, or any game where multiple players share a device at the same time.
+	 */
+	Hotseat         UMETA(DisplayName = "Hotseat"),
+
+	/**
+	 * Only one player session exists at any given time.
+	 * Each new authentication completely wipes all previous session data before saving the new player as the sole active default.
+	 * There is always exactly one player in the system; no historical data is kept.
+	 *
+	 * Best for: standard single-player games where only one account should ever exist on the device.
+	 */
+	SingleSession   UMETA(DisplayName = "Single Session"),
+
+	/**
+	 * Only one player is active at a time, but historical player sessions are retained in a cold cache.
+	 * Each new authentication makes that player the sole active and default while all previously active
+	 * players are deactivated — but their session data remains on-device.
+	 * You can switch back to a previously-authenticated player without re-authenticating.
+	 *
+	 * Best for: games with an account selection screen, or games where players switch between accounts.
+	 */
+	ProfileSwitching UMETA(DisplayName = "Profile Switching"),
+};
+
 UCLASS(Config = Game, DefaultConfig, meta = (DisplayName = "LootLocker SDK Settings"))
 class LOOTLOCKERSDK_API ULootLockerConfig : public UObject
 {
@@ -63,6 +107,7 @@ public:
 	virtual void PostInitProperties() override
 	{
 		IsValidGameVersion = IsSemverString(GameVersion);
+		MigrateSettingsIfNeeded();
 		if(bEnableFileLogging)
 		{
 			EnableFileLogging(LogFileName.IsEmpty() ? "LootLockerLog" : LogFileName);
@@ -203,6 +248,26 @@ public:
 	/** Enable presence features in the editor (for testing purposes) */
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Presence", Meta = (DisplayName = "Enable In Editor", EditCondition = "bEnablePresence", EditConditionHides))
 	bool bEnablePresenceInEditor = true;
+
+	// ========================================================================
+	// MULTI USER CONFIGURATION
+	// ========================================================================
+
+	/**
+	 * Controls how the SDK handles multiple player sessions when a new authentication succeeds.
+	 *
+	 * Hotseat: Multiple active sessions allowed. The first authenticated player is default; subsequent
+	 * authentications are additive. Best for local multiplayer / couch co-op.
+	 *
+	 * Single Session: Only one player session exists at a time. New authentications wipe all previous
+	 * session data. Best for standard single-player games.
+	 *
+	 * Profile Switching: Only one player active at a time, but historical players kept in cold cache.
+	 * Each new authentication deactivates all others and becomes the sole active default. Best for
+	 * games with account selection screens.
+	 */
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Multi User", Meta = (DisplayName = "Multi User Session Mode"))
+	ELootLockerMultiUserSessionMode MultiUserSessionMode = ELootLockerMultiUserSessionMode::NotSet;
 private:
 	FString LogFilePath = "";
 	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")
@@ -218,6 +283,12 @@ private:
 #if ENGINE_MAJOR_VERSION >= 5
 	inline static const std::regex SemverPattern = std::regex("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:\\.(0|[1-9]\\d*))?(?:\\.(0|[1-9]\\d*))?$" );
 #endif
+
+	/** Performs a one-time migration of settings that were introduced after initial project setup.
+	 *  Specifically handles MultiUserSessionMode: if not present in DefaultGame.ini (pre-migration install),
+	 *  sets Hotseat for existing projects (backwards compatible) or SingleSession for new installs,
+	 *  then persists the result so subsequent loads skip this check. */
+	void MigrateSettingsIfNeeded();
 
 public:
     ULootLockerConfig();

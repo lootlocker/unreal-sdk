@@ -3,6 +3,7 @@
 #include "LootLockerConfig.h"
 #include "Misc/Paths.h"
 #include "Misc/DateTime.h"
+#include "Misc/ConfigCacheIni.h"
 
 namespace {
     // Used for runtime log level override
@@ -96,6 +97,39 @@ bool ULootLockerConfig::IsPresenceAutoDisconnectOnFocusChangeEnabled()
 {
     const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
     return Config->bEnablePresence && Config->bEnablePresenceAutoDisconnectOnFocusChange;
+}
+
+// ========================================================================
+// MULTI USER CONFIGURATION IMPLEMENTATION
+// ========================================================================
+
+void ULootLockerConfig::MigrateSettingsIfNeeded()
+{
+	// Check whether MultiUserSessionMode has ever been written to the INI file.
+	// If the key is absent (pre-migration install), choose the correct default:
+	//   - Existing project (API key already configured) -> Hotseat, for backwards compatibility.
+	//   - New install (no API key yet)                  -> SingleSession, the simpler default.
+	// After writing the value the key will be present on all subsequent loads and this block is skipped.
+	const FString IniFilePath = FPaths::ProjectConfigDir() / TEXT("DefaultGame.ini");
+	FString ExistingValue;
+	const bool bWasExplicitlySet = GConfig && GConfig->GetString(
+		TEXT("/Script/LootLockerSDK.LootLockerConfig"),
+		TEXT("MultiUserSessionMode"),
+		ExistingValue,
+		IniFilePath
+	);
+
+	if (!bWasExplicitlySet)
+	{
+		MultiUserSessionMode = LootLockerGameKey.IsEmpty()
+			? ELootLockerMultiUserSessionMode::SingleSession
+			: ELootLockerMultiUserSessionMode::Hotseat;
+#if ENGINE_MAJOR_VERSION >= 5
+		TryUpdateDefaultConfigFile();
+#else
+		UpdateDefaultConfigFile();
+#endif
+	}
 }
 
 bool ULootLockerConfig::IsPresenceEnabledInEditor()
