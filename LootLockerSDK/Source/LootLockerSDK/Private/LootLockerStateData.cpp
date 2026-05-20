@@ -3,6 +3,7 @@
 
 #include "LootLockerStateData.h"
 
+#include "LootLockerConfig.h"
 #include "LootLockerPlayerData.h"
 #include "LootLockerPresenceManager.h"
 #include "LootLockerSDK.h"
@@ -139,6 +140,15 @@ void ULootLockerStateData::SavePlayerData(const FLootLockerPlayerData& PlayerDat
 		return;
 	}
 
+	const ELootLockerMultiUserSessionMode Mode = GetDefault<ULootLockerConfig>()->MultiUserSessionMode;
+
+	if (Mode == ELootLockerMultiUserSessionMode::SingleSession)
+	{
+		// Wipe all existing player state before saving the new player.
+		// There should only ever be one player in the system.
+		ClearAllSavedStates();
+	}
+
 	FString TargetSaveSlot = PlayerDataSaveSlot + "_" + PlayerData.PlayerUlid;
 	if (!UGameplayStatics::SaveGameToSlot(ULootLockerPlayerDataSaveGame::Create(PlayerData), TargetSaveSlot, SaveIndex)) {
 		FLootLockerLogger::LogWarning(FString::Printf(TEXT("Failed to save LootLocker state to disk for player with ulid %s"), *PlayerData.PlayerUlid));
@@ -146,12 +156,33 @@ void ULootLockerStateData::SavePlayerData(const FLootLockerPlayerData& PlayerDat
 	}
 	FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Saved LootLocker player state to disk for player with ulid %s"), *PlayerData.PlayerUlid));
 
+	// Note: after ClearAllSavedStates() the meta state is freshly empty — LoadMetaState() returns a clean slate.
 	FLootLockerStateMetaData metaState = LoadMetaState();
-	if (metaState.DefaultPlayer.IsEmpty() || ActivePlayerData.Num() == 0)
+
+	if (Mode == ELootLockerMultiUserSessionMode::ProfileSwitching)
 	{
+		// Deactivate all other players (keep in cold cache) and set the new player as the sole active default.
+		SetAllPlayersToInactiveExceptForPlayer(PlayerData.PlayerUlid);
+		metaState = LoadMetaState(); // reload after the deactivation may have updated default
+		metaState.DefaultPlayer = PlayerData.PlayerUlid;
+	}
+	else if (Mode == ELootLockerMultiUserSessionMode::SingleSession)
+	{
+		// Only one player ever exists — always make them the default.
 		metaState.DefaultPlayer = PlayerData.PlayerUlid;
 		SetDefaultPlayerUlid(PlayerData.PlayerUlid);
 	}
+	else
+	{
+		// Hotseat (and NotSet, which resolves to Hotseat at runtime): the first authenticated
+		// player in the session is the default; subsequent authentications do not change it.
+		if (metaState.DefaultPlayer.IsEmpty() || ActivePlayerData.Num() == 0)
+		{
+			metaState.DefaultPlayer = PlayerData.PlayerUlid;
+			SetDefaultPlayerUlid(PlayerData.PlayerUlid);
+		}
+	}
+
 	if (!metaState.SavedPlayerStateUlids.Contains(PlayerData.PlayerUlid))
 	{
 		metaState.SavedPlayerStateUlids.Add(PlayerData.PlayerUlid);
