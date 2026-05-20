@@ -110,7 +110,9 @@ void ULootLockerConfig::MigrateSettingsIfNeeded()
 	//   - Existing project (API key already configured) -> Hotseat, for backwards compatibility.
 	//   - New install (no API key yet)                  -> SingleSession, the simpler default.
 	// After writing the value the key will be present on all subsequent loads and this block is skipped.
-	const FString IniFilePath = FPaths::ProjectConfigDir() / TEXT("DefaultGame.ini");
+	// Use GetDefaultConfigFilename() so the read target matches the write target used by
+	// TryUpdateDefaultConfigFile()/UpdateDefaultConfigFile(), regardless of platform or test harness.
+	const FString IniFilePath = GetDefaultConfigFilename();
 	FString ExistingValue;
 	const bool bWasExplicitlySet = GConfig && GConfig->GetString(
 		TEXT("/Script/LootLockerSDK.LootLockerConfig"),
@@ -124,10 +126,14 @@ void ULootLockerConfig::MigrateSettingsIfNeeded()
 		MultiUserSessionMode = LootLockerGameKey.IsEmpty()
 			? ELootLockerMultiUserSessionMode::SingleSession
 			: ELootLockerMultiUserSessionMode::Hotseat;
+#if WITH_EDITOR
+		// Only persist to disk in Editor contexts — packaged builds may be installed to
+		// read-only locations, and the runtime value set above is sufficient there.
 #if ENGINE_MAJOR_VERSION >= 5
 		TryUpdateDefaultConfigFile();
 #else
 		UpdateDefaultConfigFile();
+#endif
 #endif
 	}
 }
