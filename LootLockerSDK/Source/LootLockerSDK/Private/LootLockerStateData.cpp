@@ -142,13 +142,6 @@ void ULootLockerStateData::SavePlayerData(const FLootLockerPlayerData& PlayerDat
 
 	const ELootLockerMultiUserSessionMode Mode = GetDefault<ULootLockerConfig>()->MultiUserSessionMode;
 
-	if (Mode == ELootLockerMultiUserSessionMode::SingleSession)
-	{
-		// Wipe all existing player state before saving the new player.
-		// There should only ever be one player in the system.
-		ClearAllSavedStates();
-	}
-
 	FString TargetSaveSlot = PlayerDataSaveSlot + "_" + PlayerData.PlayerUlid;
 	if (!UGameplayStatics::SaveGameToSlot(ULootLockerPlayerDataSaveGame::Create(PlayerData), TargetSaveSlot, SaveIndex)) {
 		FLootLockerLogger::LogWarning(FString::Printf(TEXT("Failed to save LootLocker state to disk for player with ulid %s"), *PlayerData.PlayerUlid));
@@ -156,7 +149,14 @@ void ULootLockerStateData::SavePlayerData(const FLootLockerPlayerData& PlayerDat
 	}
 	FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Saved LootLocker player state to disk for player with ulid %s"), *PlayerData.PlayerUlid));
 
-	// Note: after ClearAllSavedStates() the meta state is freshly empty — LoadMetaState() returns a clean slate.
+	if (Mode == ELootLockerMultiUserSessionMode::SingleSession)
+	{
+		// Wipe all saved state for other players. The new player has already been saved above,
+		// so clearing after the successful save prevents irreversible data loss on IO errors.
+		ClearAllSavedStatesExceptForPlayer(PlayerData.PlayerUlid);
+	}
+
+	// Note: after ClearAllSavedStatesExceptForPlayer() the meta state retains only this player.
 	FLootLockerStateMetaData metaState = LoadMetaState();
 
 	if (Mode == ELootLockerMultiUserSessionMode::ProfileSwitching)
