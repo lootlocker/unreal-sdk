@@ -149,46 +149,45 @@ void ULootLockerStateData::SavePlayerData(const FLootLockerPlayerData& PlayerDat
 	}
 	FLootLockerLogger::LogVerbose(FString::Printf(TEXT("Saved LootLocker player state to disk for player with ulid %s"), *PlayerData.PlayerUlid));
 
-	if (Mode == ELootLockerMultiUserSessionMode::SingleSession)
+	ActivePlayerData.Add(PlayerData.PlayerUlid, MakeShared<FLootLockerPlayerData>(PlayerData));
+	
 	{
-		// Wipe all saved state for other players. The new player has already been saved above,
-		// so clearing after the successful save prevents irreversible data loss on IO errors.
-		ClearAllSavedStatesExceptForPlayer(PlayerData.PlayerUlid);
+		FLootLockerStateMetaData metaState = LoadMetaState();
+		metaState.SavedPlayerStateUlids.AddUnique(PlayerData.PlayerUlid);
+		SetMetaState(metaState);
 	}
 
-	// Note: after ClearAllSavedStatesExceptForPlayer() the meta state retains only this player.
-	FLootLockerStateMetaData metaState = LoadMetaState();
-
-	if (Mode == ELootLockerMultiUserSessionMode::ProfileSwitching)
+	switch (Mode)
 	{
-		// Deactivate all other players (keep in cold cache) and set the new player as the sole active default.
-		SetAllPlayersToInactiveExceptForPlayer(PlayerData.PlayerUlid);
-		metaState = LoadMetaState(); // reload after the deactivation may have updated default
-		metaState.DefaultPlayer = PlayerData.PlayerUlid;
-	}
-	else if (Mode == ELootLockerMultiUserSessionMode::SingleSession)
-	{
-		// Only one player ever exists — always make them the default.
-		metaState.DefaultPlayer = PlayerData.PlayerUlid;
-		SetDefaultPlayerUlid(PlayerData.PlayerUlid);
-	}
-	else
-	{
-		// Hotseat (and NotSet, which resolves to Hotseat at runtime): the first authenticated
-		// player in the session is the default; subsequent authentications do not change it.
-		if (metaState.DefaultPlayer.IsEmpty() || ActivePlayerData.Num() == 0)
+	case ELootLockerMultiUserSessionMode::SingleSession:
 		{
-			metaState.DefaultPlayer = PlayerData.PlayerUlid;
-			SetDefaultPlayerUlid(PlayerData.PlayerUlid);
+			// Wipe all saved state for other players. The new player has already been saved above,
+			// so clearing after the successful save prevents irreversible data loss on IO errors.
+			// This also sets the new player as the default and updates the meta state
+			ClearAllSavedStatesExceptForPlayer(PlayerData.PlayerUlid);
+		}
+		break;
+	case ELootLockerMultiUserSessionMode::ProfileSwitching:
+		{
+			// Deactivate all other players (keep in cold cache) and set the new player as the sole active default.
+			// This also sets the new player as the default and updates the meta state
+			SetAllPlayersToInactiveExceptForPlayer(PlayerData.PlayerUlid);
+		}
+		break;
+	case ELootLockerMultiUserSessionMode::NotSet:
+	case ELootLockerMultiUserSessionMode::Hotseat:
+	default:
+		{
+			FLootLockerStateMetaData metaState = LoadMetaState();
+			// Hotseat (and NotSet, which resolves to Hotseat at runtime): the first authenticated
+			// player in the session is the default; subsequent authentications do not change it.
+			if (metaState.DefaultPlayer.IsEmpty() || ActivePlayerData.Num() == 0 || (ActivePlayerData.Num() == 1 && ActivePlayerData.Contains(PlayerData.PlayerUlid)))
+			{
+				SetDefaultPlayerUlid(PlayerData.PlayerUlid);
+			}
 		}
 	}
 
-	if (!metaState.SavedPlayerStateUlids.Contains(PlayerData.PlayerUlid))
-	{
-		metaState.SavedPlayerStateUlids.Add(PlayerData.PlayerUlid);
-		SetMetaState(metaState);
-	}
-	ActivePlayerData.Add(PlayerData.PlayerUlid, MakeShared<FLootLockerPlayerData>(PlayerData));
 	ULootLockerPresenceManager::NotifyPlayerActivated(PlayerData.PlayerUlid);
 }
 
