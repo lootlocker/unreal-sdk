@@ -681,6 +681,7 @@ void FLootLockerTestGame::InitializeLootLockerSDK() const
 	Config->LootLockerGameKey = GetActiveApiKey();
 	Config->GameVersion       = TEXT("0.0.0.1");
 	Config->DomainKey         = GameDomainKey;
+	Config->MultiUserSessionMode = ELootLockerMultiUserSessionMode::Hotseat;
 
 	// If the domain key is empty (e.g. env-var shortcut), check for a companion env var
 	if (Config->DomainKey.IsEmpty())
