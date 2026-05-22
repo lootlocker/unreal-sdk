@@ -19,16 +19,28 @@
     starts with "LootLocker.", so the default "LootLocker" runs all of them.
     Use a more specific substring to run a subset — e.g. "LootLocker.Balances".
 
+.PARAMETER NoBuild
+    Skip the BuildPlugin step and reuse the previously built binaries. Useful
+    for iterating on tests without waiting for a full rebuild. Ignored (build
+    always runs) when -Clean is also specified.
+
 .PARAMETER Clean
     Delete the previous build output before building. Omit for a faster
-    incremental build (UAT reuses cached artifacts).
+    incremental build (UAT reuses cached artifacts). Overrides -NoBuild.
+
+.PARAMETER TimeoutSeconds
+    Maximum seconds to wait for UnrealEditor-Cmd.exe to exit after tests finish.
+    If exceeded the process is killed and the run is reported as failed.
+    Defaults to 600 (10 minutes).
 
 .NOTES
     Exit codes: 0 = all tests passed, 1 = one or more tests failed or setup error.
 #>
 param(
     [string]$TestFilter = "LootLocker",
-    [switch]$Clean
+    [switch]$NoBuild,
+    [switch]$Clean,
+    [int]$TimeoutSeconds = 600
 )
 
 $ErrorActionPreference = 'Stop'
@@ -89,27 +101,15 @@ if (-not $PluginFile) {
     exit 1
 }
 
+$ShouldBuild = $Clean -or (-not $NoBuild)
+
 # ---------------------------------------------------------------------------
-# 2. Temporarily disable UBA (same reason as in verify-compilation.ps1)
+# 2. Temporarily disable UBA + 3. Build the plugin
 # ---------------------------------------------------------------------------
 $UbtConfigDir    = Join-Path $env:APPDATA "Unreal Engine\UnrealBuildTool"
 $UbtConfigFile   = Join-Path $UbtConfigDir "BuildConfiguration.xml"
 $UbtConfigBackup = $UbtConfigFile + ".run-tests-backup"
 $WroteUbtConfig  = $false
-
-if (-not (Test-Path $UbtConfigDir)) { New-Item -ItemType Directory -Path $UbtConfigDir -Force | Out-Null }
-if (Test-Path $UbtConfigFile) { Copy-Item $UbtConfigFile $UbtConfigBackup -Force }
-
-$noUbaXml = @'
-<?xml version="1.0" encoding="utf-8" ?>
-<Configuration xmlns="https://www.unrealengine.com/BuildConfiguration">
-  <BuildConfiguration>
-    <bAllowUBAExecutor>false</bAllowUBAExecutor>
-  </BuildConfiguration>
-</Configuration>
-'@
-[IO.File]::WriteAllText($UbtConfigFile, $noUbaXml)
-$WroteUbtConfig = $true
 
 function Restore-UbtConfig {
     if ($script:WroteUbtConfig) {
@@ -122,72 +122,93 @@ function Restore-UbtConfig {
     }
 }
 
-Write-Step "Note: Disabled UBA local executor (restored after tests)."
-Write-Step ""
+if ($ShouldBuild) {
+    # Temporarily disable UBA (same reason as in verify-compilation.ps1)
+    if (-not (Test-Path $UbtConfigDir)) { New-Item -ItemType Directory -Path $UbtConfigDir -Force | Out-Null }
+    if (Test-Path $UbtConfigFile) { Copy-Item $UbtConfigFile $UbtConfigBackup -Force }
 
-# ---------------------------------------------------------------------------
-# 3. Build the plugin (ensures the latest test code is compiled into binaries)
-# ---------------------------------------------------------------------------
-Write-Step "Step 1/3 - Building plugin via RunUAT BuildPlugin ..."
-Write-Step "Plugin  : $($PluginFile.FullName)"
-Write-Step "Engine  : $UnrealRoot"
-Write-Step "Output  : $BuildOutput"
-Write-Step ""
+    $noUbaXml = @'
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration xmlns="https://www.unrealengine.com/BuildConfiguration">
+  <BuildConfiguration>
+    <bAllowUBAExecutor>false</bAllowUBAExecutor>
+  </BuildConfiguration>
+</Configuration>
+'@
+    [IO.File]::WriteAllText($UbtConfigFile, $noUbaXml)
+    $WroteUbtConfig = $true
+    Write-Step "Note: Disabled UBA local executor (restored after tests)."
+    Write-Step ""
 
-$BuildLogDir = Split-Path $BuildLog
-if (-not (Test-Path $BuildLogDir)) { New-Item -ItemType Directory -Path $BuildLogDir -Force | Out-Null }
-if (Test-Path $BuildLog) { Remove-Item $BuildLog -Force }
+    # Build the plugin (ensures the latest test code is compiled into binaries)
+    Write-Step "Step 1/3 - Building plugin via RunUAT BuildPlugin ..."
+    Write-Step "Plugin  : $($PluginFile.FullName)"
+    Write-Step "Engine  : $UnrealRoot"
+    Write-Step "Output  : $BuildOutput"
+    Write-Step ""
 
-if ($Clean) {
-    if (Test-Path $BuildOutput) {
-        Write-Step "Cleaning previous build output..."
-        & cmd /c "rmdir /S /Q `"$BuildOutput`"" 2>&1 | Out-Null
+    $BuildLogDir = Split-Path $BuildLog
+    if (-not (Test-Path $BuildLogDir)) { New-Item -ItemType Directory -Path $BuildLogDir -Force | Out-Null }
+    if (Test-Path $BuildLog) { Remove-Item $BuildLog -Force }
+
+    if ($Clean) {
         if (Test-Path $BuildOutput) {
-            Write-Warn "Warning: Could not fully remove previous build output - UAT will attempt to overwrite."
+            Write-Step "Cleaning previous build output..."
+            & cmd /c "rmdir /S /Q `"$BuildOutput`"" 2>&1 | Out-Null
+            if (Test-Path $BuildOutput) {
+                Write-Warn "Warning: Could not fully remove previous build output - UAT will attempt to overwrite."
+            }
         }
+    } elseif (Test-Path $BuildOutput) {
+        Write-Step "Reusing existing build output (pass -Clean to force a full rebuild)."
     }
-} elseif (Test-Path $BuildOutput) {
-    Write-Step "Reusing existing build output (pass -Clean to force a full rebuild)."
-}
 
-$prevEAP = $ErrorActionPreference
-$ErrorActionPreference = 'Continue'
+    $prevEAP = $ErrorActionPreference
+    $ErrorActionPreference = 'Continue'
 
-$buildLines  = [System.Collections.Generic.List[string]]::new()
-$buildStream = [System.IO.StreamWriter]::new($BuildLog, $false, [System.Text.Encoding]::UTF8)
+    $buildLines  = [System.Collections.Generic.List[string]]::new()
+    $buildStream = [System.IO.StreamWriter]::new($BuildLog, $false, [System.Text.Encoding]::UTF8)
 
-$uatArgs = @(
-    "BuildPlugin"
-    "-Plugin=`"$($PluginFile.FullName)`""
-    "-Package=`"$BuildOutput`""
-    "-Rocket"
-    "-TargetPlatforms=Win64"
-    "-VS2022"
-)
+    $uatArgs = @(
+        "BuildPlugin"
+        "-Plugin=`"$($PluginFile.FullName)`""
+        "-Package=`"$BuildOutput`""
+        "-Rocket"
+        "-TargetPlatforms=Win64"
+        "-VS2022"
+    )
 
-try {
-    & $RunUAT @uatArgs 2>&1 | ForEach-Object {
-        $line = "$_"
-        $buildLines.Add($line)
-        $buildStream.WriteLine($line)
-        $buildStream.Flush()
-        Write-Host $line
+    try {
+        & $RunUAT @uatArgs 2>&1 | ForEach-Object {
+            $line = "$_"
+            $buildLines.Add($line)
+            $buildStream.WriteLine($line)
+            $buildStream.Flush()
+            Write-Host $line
+        }
+    } finally {
+        $buildStream.Close()
     }
-} finally {
-    $buildStream.Close()
-}
-$buildExit = $LASTEXITCODE
-$ErrorActionPreference = $prevEAP
+    $buildExit = $LASTEXITCODE
+    $ErrorActionPreference = $prevEAP
 
-if ($buildExit -ne 0) {
-    Restore-UbtConfig
-    Write-Fail "BUILD FAILED - cannot run tests without compiled binaries."
-    Write-Step "Full build log: $BuildLog"
-    exit 1
+    if ($buildExit -ne 0) {
+        Restore-UbtConfig
+        Write-Fail "BUILD FAILED - cannot run tests without compiled binaries."
+        Write-Step "Full build log: $BuildLog"
+        exit 1
+    }
+    Write-Step ""
+    Write-Ok "Plugin built successfully."
+    Write-Step ""
+} else {
+    if (-not (Test-Path $BuildOutput)) {
+        Write-Fail "ERROR: No previous build found at $BuildOutput - run without -NoBuild first."
+        exit 1
+    }
+    Write-Warn "Skipping build (-NoBuild). Reusing existing binaries in: $BuildOutput"
+    Write-Step ""
 }
-Write-Step ""
-Write-Ok "Plugin built successfully."
-Write-Step ""
 
 # ---------------------------------------------------------------------------
 # 4. Set up VerificationProject pointing at the compiled plugin output
@@ -248,7 +269,10 @@ $TestLogDir = Split-Path $TestLog
 if (-not (Test-Path $TestLogDir)) { New-Item -ItemType Directory -Path $TestLogDir -Force | Out-Null }
 if (Test-Path $TestLog) { Remove-Item $TestLog -Force }
 
-$execCmd    = "automation RunTests $TestFilter;quit"
+# UE's -ExecCmds treats ',' as a command separator, so translate to '+' which
+# is the automation system's own OR-filter separator.
+$automationFilter = $TestFilter -replace ',', '+'
+$execCmd    = "automation RunTests $automationFilter;quit"
 $editorArgs = @(
     "`"$ProjectFile`""
     "-unattended"
@@ -256,29 +280,90 @@ $editorArgs = @(
     "-nosound"
     "-NoSplash"
     "-NoPause"
+    "-NoTargetPlatforms"
     "-stdout"
     "-FullStdOutLogOutput"
     "-SkipBadPlugins"
+    "-LogCmds=`"LogTemp Verbose`""
     "-ExecCmds=`"$execCmd`""
 )
 
+$prevEAP = $ErrorActionPreference
 $ErrorActionPreference = 'Continue'
 $outputLines = [System.Collections.Generic.List[string]]::new()
 $testStream  = [System.IO.StreamWriter]::new($TestLog, $false, [System.Text.Encoding]::UTF8)
+$timedOut    = $false
+
+# Run the editor inside a separate runspace so the main thread can enforce a
+# hard timeout. We keep PowerShell's native & call operator (not
+# ProcessStartInfo redirection) so UE's -stdout/-FullStdOutLogOutput flags
+# work correctly — UE suppresses output when stdout is redirected at the OS level.
+$outputQueue = [System.Collections.Concurrent.ConcurrentQueue[string]]::new()
+$ueRunspace  = [System.Management.Automation.Runspaces.RunspaceFactory]::CreateRunspace()
+$ueRunspace.Open()
+$ueRunspace.SessionStateProxy.SetVariable('EditorCmd',   $EditorCmd)
+$ueRunspace.SessionStateProxy.SetVariable('editorArgs',  $editorArgs)
+$ueRunspace.SessionStateProxy.SetVariable('outputQueue', $outputQueue)
+
+$uePowerShell = [System.Management.Automation.PowerShell]::Create()
+$uePowerShell.Runspace = $ueRunspace
+[void]$uePowerShell.AddScript({
+    & $EditorCmd @editorArgs 2>&1 | ForEach-Object { $outputQueue.Enqueue("$_") }
+})
+
+# Snapshot existing UE pids so we can kill only our new instance on timeout.
+$priorUEPids = @(Get-Process -Name "UnrealEditor-Cmd" -ErrorAction SilentlyContinue |
+                 Select-Object -ExpandProperty Id)
+$ueProc   = $null
+$ueHandle = $uePowerShell.BeginInvoke()
 
 try {
-    & $EditorCmd @editorArgs 2>&1 | ForEach-Object {
-        $line = "$_"
-        $outputLines.Add($line)
-        $testStream.WriteLine($line)
+    # Wait up to 30 s for our editor process to appear so we have its PID for a targeted kill.
+    $spawnDeadline = [DateTime]::Now.AddSeconds(30)
+    while ($null -eq $ueProc -and [DateTime]::Now -lt $spawnDeadline -and -not $ueHandle.IsCompleted) {
+        $ueProc = Get-Process -Name "UnrealEditor-Cmd" -ErrorAction SilentlyContinue |
+                  Where-Object { $priorUEPids -notcontains $_.Id } |
+                  Select-Object -First 1
+        if ($null -eq $ueProc) { Start-Sleep -Milliseconds 500 }
+    }
+
+    $deadline = [DateTime]::Now.AddSeconds($TimeoutSeconds)
+    while (-not $ueHandle.IsCompleted) {
+        $item = $null
+        while ($outputQueue.TryDequeue([ref]$item)) {
+            $outputLines.Add($item)
+            $testStream.WriteLine($item)
+            $testStream.Flush()
+            Write-Host $item
+            $item = $null
+        }
+        if ([DateTime]::Now -gt $deadline) {
+            $timedOut = $true
+            Write-Warn ""
+            Write-Warn "TIMEOUT: killing UnrealEditor-Cmd.exe (no exit within $TimeoutSeconds s)"
+            if ($null -ne $ueProc -and -not $ueProc.HasExited) { $ueProc.Kill() }
+            $uePowerShell.Stop()
+            break
+        }
+        Start-Sleep -Milliseconds 100
+    }
+    if (-not $timedOut) { try { [void]$uePowerShell.EndInvoke($ueHandle) } catch {} }
+    # Drain any output still queued after the runspace finished.
+    $item = $null
+    while ($outputQueue.TryDequeue([ref]$item)) {
+        $outputLines.Add($item)
+        $testStream.WriteLine($item)
         $testStream.Flush()
-        Write-Host $line
+        Write-Host $item
+        $item = $null
     }
 } finally {
     $testStream.Close()
+    $uePowerShell.Dispose()
+    $ueRunspace.Close()
+    $ueRunspace.Dispose()
     Restore-UbtConfig
 }
-$editorExit = $LASTEXITCODE
 $ErrorActionPreference = $prevEAP
 
 # ---------------------------------------------------------------------------
@@ -291,6 +376,12 @@ $ErrorActionPreference = $prevEAP
 Write-Step ""
 Write-Step "--- Test results ---"
 Write-Step ""
+
+if ($timedOut) {
+    Write-Fail "TIMED OUT - UnrealEditor-Cmd.exe did not exit within $TimeoutSeconds seconds"
+    Write-Step "Full log: $TestLog"
+    exit 1
+}
 
 $passedLines = $outputLines | Select-String -Pattern "Test Completed\. Result=\{?(?:Passed|Success)\}?"
 $failedLines  = $outputLines | Select-String -Pattern "Test Completed\. Result=\{?(?:Failed|Fail)\}?"

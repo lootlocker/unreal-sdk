@@ -26,6 +26,7 @@ void FTestLootLockerMultiUserManagement::Define()
 		bOk = Game.EnableGuestLogin();
 		if (!bOk) { Done.Execute(); return; }
 		Game.InitializeLootLockerSDK();
+		GetMutableDefault<ULootLockerConfig>()->MultiUserSessionMode = ELootLockerMultiUserSessionMode::Hotseat;
 
 		// Start player 1 as the main session
 		test_util::StartSession();
