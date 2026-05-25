@@ -31,6 +31,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::SteamSessionEndpoint = InitEndpoi
 FLootLockerEndPoints ULootLockerGameEndpoints::StartDiscordSessionEndpoint = InitEndpoint("session/discord", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::RefreshDiscordSessionEndpoint = InitEndpoint("session/discord", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::PlaystationNetworkV3SessionEndpoint = InitEndpoint("session/psn-v3/v1/login", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetPlayerBanStatusEndpoint = InitEndpoint("session/ban-status", ELootLockerHTTPMethod::POST);
 
 // Connected Accounts
 FLootLockerEndPoints ULootLockerGameEndpoints::ListConnectedAccountsEndpoint = InitEndpoint("v1/connected-accounts", ELootLockerHTTPMethod::GET);

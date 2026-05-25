@@ -6,6 +6,7 @@
 #include "GameAPI/LootLockerAssetInstancesRequestHandler.h"
 #include "GameAPI/LootLockerAssetsRequestHandler.h"
 #include "GameAPI/LootLockerAuthenticationRequestHandler.h"
+#include "GameAPI/LootLockerBanRequestHandler.h"
 #include "GameAPI/LootLockerBalanceRequestHandler.h"
 #include "GameAPI/LootLockerBroadcastRequestHandler.h"
 #include "GameAPI/LootLockerCatalogRequestHandler.h"
@@ -529,6 +530,19 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString EndSession(const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Get the ban status for a player.
+
+     Use this after a session start fails with error code `player_banned` to retrieve the ban
+     reason and duration so the game client can surface it to the player.
+     This endpoint authenticates with a game API key and does not require an active player session.
+
+     @param PlayerUlid The ULID of the player to query
+     @param OnCompletedRequest Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString GetPlayerBanStatus(const FString& PlayerUlid, const FLootLockerBanStatusDelegate& OnCompletedRequest);
 
     /// @}
 

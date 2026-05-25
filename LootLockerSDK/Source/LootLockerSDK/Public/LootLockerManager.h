@@ -7,6 +7,7 @@
 #include "GameAPI/LootLockerAssetInstancesRequestHandler.h"
 #include "GameAPI/LootLockerAssetsRequestHandler.h"
 #include "GameAPI/LootLockerAuthenticationRequestHandler.h"
+#include "GameAPI/LootLockerBanRequestHandler.h"
 #include "GameAPI/LootLockerBalanceRequestHandler.h"
 #include "GameAPI/LootLockerBroadcastRequestHandler.h"
 #include "GameAPI/LootLockerCatalogRequestHandler.h"
@@ -74,6 +75,8 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAppleGameCenterSessionResponseBP, F
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerMetaSessionResponseBP, FLootLockerMetaSessionResponse, Var);
 /** Blueprint response delegate for Discord authentication session responses */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FDiscordSessionResponseBP, FLootLockerDiscordSessionResponse, Var);
+/** Blueprint response delegate for player ban status responses */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerBanStatusResponseBP, FLootLockerBanStatusResponse, Response);
 
 //==================================================
 // Connected Accounts Delegates
@@ -1000,6 +1003,20 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static UPARAM(DisplayName = "RequestId") FString EndSession(const FString& ForPlayerWithUlid, const FLootLockerDefaultResponseBP& OnEndSessionRequestCompleted);
+
+    /**
+     Get the ban status for a player.
+
+     Use this after a session start fails with error code `player_banned` to retrieve the ban
+     reason and duration so the game client can surface it to the player.
+     This endpoint authenticates with a game API key and does not require an active player session.
+
+     @param PlayerUlid The ULID of the player to query
+     @param OnCompletedRequest Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "PlayerUlid", PlayerUlid = ""))
+    static UPARAM(DisplayName = "RequestId") FString GetPlayerBanStatus(const FString& PlayerUlid, const FLootLockerBanStatusResponseBP& OnCompletedRequest);
 
     //==================================================
     // Connected Accounts
