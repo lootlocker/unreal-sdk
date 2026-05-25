@@ -1,5 +1,6 @@
 #include "LootLockerLogViewerWidget.h"
 
+#include "Async/Async.h"
 #include "Async/TaskGraphInterfaces.h"
 #include "Editor.h"
 #include "Editor/EditorEngine.h"

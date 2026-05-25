@@ -189,7 +189,7 @@ void FLootLockerHTTPExecutionQueue::OverrideConfiguration(
 void FLootLockerHTTPExecutionQueue::StartTicker()
 {
     TickerHandle =
-#if ENGINE_MAJOR_VERSION >= 5
+#if ENGINE_MAJOR_VERSION > 5 || (ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 3)
         FTSTicker::GetCoreTicker()
 #else
         FTicker::GetCoreTicker()
@@ -199,7 +199,7 @@ void FLootLockerHTTPExecutionQueue::StartTicker()
 
 void FLootLockerHTTPExecutionQueue::StopTicker()
 {
-#if ENGINE_MAJOR_VERSION >= 5
+#if ENGINE_MAJOR_VERSION > 5 || (ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 3)
     FTSTicker::GetCoreTicker().RemoveTicker(TickerHandle);
 #else
     FTicker::GetCoreTicker().RemoveTicker(TickerHandle);
