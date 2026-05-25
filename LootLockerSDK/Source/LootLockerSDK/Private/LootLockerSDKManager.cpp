@@ -247,6 +247,11 @@ FString ULootLockerSDKManager::EndSession(const FLootLockerDefaultDelegate& OnCo
     return ULootLockerAuthenticationRequestHandler::EndSession(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompleteRequest);
 }
 
+FString ULootLockerSDKManager::GetPlayerBanStatus(const FString& PlayerUlid, const FLootLockerBanStatusDelegate& OnCompletedRequest)
+{
+    return ULootLockerBanRequestHandler::GetPlayerBanStatus(PlayerUlid, OnCompletedRequest);
+}
+
 //==================================================
 // Connected Accounts
 //==================================================
