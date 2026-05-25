@@ -5,6 +5,26 @@
 #include "CoreMinimal.h"
 #include "LootLockerErrorData.generated.h"
 
+/// Details about a player's active ban.
+USTRUCT(BlueprintType)
+struct FLootLockerBanInfo
+{
+    GENERATED_BODY()
+    /// The reason for the ban. One of "manual" or "chargeback".
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString ban_reason = "";
+    /// The time the ban was issued, as an ISO 8601 timestamp.
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString banned_on = "";
+    /// The time the ban expires, as an ISO 8601 timestamp.
+    /// Empty string when the ban is permanent; check the Permanent field to confirm.
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString banned_until = "";
+    /// True if the ban has no expiry date.
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool permanent = false;
+};
+
 USTRUCT(BlueprintType)
 struct FLootLockerErrorData
 {
@@ -29,4 +49,8 @@ struct FLootLockerErrorData
     /// A free text description of the problem and potential suggestions for fixing it
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Message = "";
+    /// When Code is "player_banned", contains sanitized details about the active ban.
+    /// Fields will have default (empty/false) values for all other error codes.
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerBanInfo ban;
 };

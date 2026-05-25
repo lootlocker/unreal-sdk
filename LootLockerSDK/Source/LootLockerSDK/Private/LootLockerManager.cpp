@@ -320,6 +320,14 @@ FString ULootLockerManager::EndSession(const FString& ForPlayerWithUlid, const F
     }), ForPlayerWithUlid);
 }
 
+FString ULootLockerManager::GetPlayerBanStatus(const FString& PlayerUlid, const FLootLockerBanStatusResponseBP& OnCompletedRequest)
+{
+    return ULootLockerSDKManager::GetPlayerBanStatus(PlayerUlid, FLootLockerBanStatusDelegate::CreateLambda([OnCompletedRequest](const FLootLockerBanStatusResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }));
+}
+
 //==================================================
 // Connected Accounts
 //==================================================
