@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Containers/Ticker.h"
+#include "Runtime/Launch/Resources/Version.h"
 #include "LootLockerHTTPClientConfiguration.h"
 #include "LootLockerHTTPExecutionQueueItem.h"
 #include "LootLockerRateLimiter.h"
@@ -181,8 +182,12 @@ private:
 
     // --- Ticker ---
 
-    /** Handle returned by FTSTicker used to unregister during Shutdown(). */
+    /** Handle returned by the core ticker, used to unregister during Shutdown(). */
+#if ENGINE_MAJOR_VERSION > 5 || (ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 3)
     FTSTicker::FDelegateHandle TickerHandle;
+#else
+    FDelegateHandle TickerHandle;
+#endif
 
     /** Registers Tick() with the core ticker.  Called by Initialize(). */
     void StartTicker();

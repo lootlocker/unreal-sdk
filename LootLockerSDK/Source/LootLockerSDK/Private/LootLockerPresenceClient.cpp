@@ -832,7 +832,7 @@ void ULootLockerPresenceClient::StartTicker()
     {
         ShouldTick = true;
         TWeakObjectPtr<ULootLockerPresenceClient> WeakThis = MakeWeakObjectPtr(this);
-#if ENGINE_MAJOR_VERSION >= 5
+#if ENGINE_MAJOR_VERSION > 5 || (ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 3)
         FTSTicker::GetCoreTicker()
 #else
         FTicker::GetCoreTicker()
