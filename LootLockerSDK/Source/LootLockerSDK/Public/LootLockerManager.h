@@ -1015,7 +1015,7 @@ public:
      @param OnCompletedRequest Delegate for handling the server response
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication", meta = (AdvancedDisplay = "PlayerUlid", PlayerUlid = ""))
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static UPARAM(DisplayName = "RequestId") FString GetPlayerBanStatus(const FString& PlayerUlid, const FLootLockerBanStatusResponseBP& OnCompletedRequest);
 
     //==================================================

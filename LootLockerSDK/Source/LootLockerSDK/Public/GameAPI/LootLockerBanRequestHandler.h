@@ -33,7 +33,7 @@ struct FLootLockerBanStatusResponse : public FLootLockerResponse
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool is_banned = false;
     /// Details about the active ban. Populated when is_banned is true.
-    /// Check Code == "player_banned" or is_banned before accessing these fields.
+    /// Check is_banned before accessing these fields. On failure, ErrorData.Code contains the error code.
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerBanInfo ban;
 };
