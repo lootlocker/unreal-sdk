@@ -1,0 +1,17 @@
+<map id="FLootLockerCatalogEntry" name="FLootLockerCatalogEntry">
+<area shape="rect" id="Node000001" title="Represents a single purchasable item in a catalog, including its entity type, prices,..." alt="" coords="743,173,927,198"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerCatalogEntryListings.html" title="Aggregates the platform&#45;specific store listing information configured for a catalog entry across all ..." alt="" coords="405,173,640,198"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="654,183,742,183,742,188,654,188"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerCatalogAppleAppStoreListing.html" title="Holds the Apple App Store product identifier for a catalog entry that can be purchased through that s..." alt="" coords="13,5,225,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="230,46,306,68,382,96,452,134,506,170,503,175,449,139,380,101,304,73,228,51"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerCatalogGooglePlayStoreListing.html" title="Holds the Google Play Store product identifier for a catalog entry that can be purchased through that..." alt="" coords="21,69,217,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="231,109,382,143,480,170,479,175,381,148,230,114"/>
+<area shape="rect" id="Node000005" href="$structFLootLockerCatalogSteamStoreListing.html" title="Holds the Steam Store listing for a catalog entry, including a description and the available prices." alt="" coords="5,133,232,173"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="246,161,405,173,405,179,246,166"/>
+<area shape="rect" id="Node000006" href="$structFLootLockerCatalogStripeStoreListing.html" title="Holds the Stripe payment details for a catalog entry, including the currency and charge amount in the..." alt="" coords="25,197,213,237"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="226,206,405,192,405,197,227,212"/>
+<area shape="rect" id="Node000007" href="$structFLootLockerCatalogEpicGamesStoreListing.html" title="Holds the Epic Games Store audience item identifier associated with a catalog entry listing." alt="" coords="7,261,230,301"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="238,256,381,224,480,196,482,201,382,229,239,261"/>
+<area shape="rect" id="Node000008" href="$structFLootLockerCatalogPlaystationStoreListing.html" title="Holds the PlayStation Store entitlement label associated with a catalog entry listing." alt="" coords="7,325,230,365"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="235,319,308,299,380,272,450,233,503,196,507,200,453,238,382,277,310,304,237,325"/>
+</map>

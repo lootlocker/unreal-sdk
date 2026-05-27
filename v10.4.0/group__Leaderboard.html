@@ -1,0 +1,1351 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: Leaderboards</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.4.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('group__Leaderboard.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">Leaderboards</div></div>
+</div><!--header-->
+<div class="contents">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Rank players or any custom key by score, with optional resets and rewards. </p>
+<p>Two leaderboard types are supported: <b>Player Type</b> (scores tied to player IDs — traditional rankings) and <b>Generic Type</b> (scores tied to custom string keys — rank UGC, teams, or any entity). Metadata can be stored alongside each score for contextual enrichment. Periodic <b>resets</b> can be configured in the console to clear rankings on a schedule and automatically distribute rewards to top-placed players.</p>
+<p>See the <a href="https://docs.lootlocker.com/game-systems/leaderboards">LootLocker documentation</a>. </p>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="gaf99303594783254d7a4d55dfb70d1571" name="gaf99303594783254d7a4d55dfb70d1571"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf99303594783254d7a4d55dfb70d1571">&#9670;&#160;</a></span>FLootLockerGetAllMemberRanksResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerGetAllMemberRanksResponseDelegate) (<a class="el" href="structFLootLockerGetAllMemberRanksResponse.html">FLootLockerGetAllMemberRanksResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerGetAllMemberRanksResponse.html">FLootLockerGetAllMemberRanksResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga24c476445e3e3893d3fcc10004a679de" name="ga24c476445e3e3893d3fcc10004a679de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga24c476445e3e3893d3fcc10004a679de">&#9670;&#160;</a></span>FLootLockerGetByListOfMembersResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerGetByListOfMembersResponseDelegate) (<a class="el" href="structFLootLockerGetByListOfMembersResponse.html">FLootLockerGetByListOfMembersResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerGetByListOfMembersResponse.html">FLootLockerGetByListOfMembersResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga353e59d90a93800b93f2225ff63c83cd" name="ga353e59d90a93800b93f2225ff63c83cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga353e59d90a93800b93f2225ff63c83cd">&#9670;&#160;</a></span>FLootLockerGetMemberRankResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerGetMemberRankResponseDelegate) (<a class="el" href="structFLootLockerGetMemberRankResponse.html">FLootLockerGetMemberRankResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerGetMemberRankResponse.html">FLootLockerGetMemberRankResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga8fd9959d4c708764965aea2661a9921a" name="ga8fd9959d4c708764965aea2661a9921a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8fd9959d4c708764965aea2661a9921a">&#9670;&#160;</a></span>FLootLockerGetScoreListResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerGetScoreListResponseDelegate) (<a class="el" href="structFLootLockerGetScoreListResponse.html">FLootLockerGetScoreListResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerGetScoreListResponse.html">FLootLockerGetScoreListResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga39d3b9ae5f922dad27a84c731b12e906" name="ga39d3b9ae5f922dad27a84c731b12e906"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga39d3b9ae5f922dad27a84c731b12e906">&#9670;&#160;</a></span>FLootLockerLeaderboardArchiveDetailResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerLeaderboardArchiveDetailResponseDelegate) (<a class="el" href="structFLootLockerLeaderboardArchiveDetailsResponse.html">FLootLockerLeaderboardArchiveDetailsResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerLeaderboardArchiveDetailsResponse.html">FLootLockerLeaderboardArchiveDetailsResponse</a> result. </p>
+
+</div>
+</div>
+<a id="gaee5db6732d4cb0d917fef276e1c3fe97" name="gaee5db6732d4cb0d917fef276e1c3fe97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaee5db6732d4cb0d917fef276e1c3fe97">&#9670;&#160;</a></span>FLootLockerLeaderboardArchiveResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerLeaderboardArchiveResponseDelegate) (<a class="el" href="structFLootLockerLeaderboardArchiveResponse.html">FLootLockerLeaderboardArchiveResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerLeaderboardArchiveResponse.html">FLootLockerLeaderboardArchiveResponse</a> result. </p>
+
+</div>
+</div>
+<a id="gaed2d133b707e7a1dc25a5fb2257dbf7b" name="gaed2d133b707e7a1dc25a5fb2257dbf7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaed2d133b707e7a1dc25a5fb2257dbf7b">&#9670;&#160;</a></span>FLootLockerLeaderboardDetailsResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerLeaderboardDetailsResponseDelegate) (<a class="el" href="structFLootLockerLeaderboardDetailsResponse.html">FLootLockerLeaderboardDetailsResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerLeaderboardDetailsResponse.html">FLootLockerLeaderboardDetailsResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga5cb9b95257881034d0b5e3b546ded238" name="ga5cb9b95257881034d0b5e3b546ded238"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5cb9b95257881034d0b5e3b546ded238">&#9670;&#160;</a></span>FLootLockerListLeaderboardsResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerListLeaderboardsResponseDelegate) (<a class="el" href="structFLootLockerListLeaderboardsResponse.html">FLootLockerListLeaderboardsResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerListLeaderboardsResponse.html">FLootLockerListLeaderboardsResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga6fa5ec9600178878caff100642cba557" name="ga6fa5ec9600178878caff100642cba557"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6fa5ec9600178878caff100642cba557">&#9670;&#160;</a></span>FLootLockerSubmitScoreResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerSubmitScoreResponseDelegate) (<a class="el" href="structFLootLockerSubmitScoreResponse.html">FLootLockerSubmitScoreResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerSubmitScoreResponse.html">FLootLockerSubmitScoreResponse</a> result. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="ga7985ca9fbbcf2f9947ecdbb9115ccd9f" name="ga7985ca9fbbcf2f9947ecdbb9115ccd9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7985ca9fbbcf2f9947ecdbb9115ccd9f">&#9670;&#160;</a></span>ELootLockerLeaderboardRewardEntityKind</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__Leaderboard.html#ga7985ca9fbbcf2f9947ecdbb9115ccd9f">ELootLockerLeaderboardRewardEntityKind</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Entity kinds that can be given as leaderboard rewards. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga7985ca9fbbcf2f9947ecdbb9115ccd9fa26e9054be7f40079575582b7ad3f7363" name="gga7985ca9fbbcf2f9947ecdbb9115ccd9fa26e9054be7f40079575582b7ad3f7363"></a>Asset&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga7985ca9fbbcf2f9947ecdbb9115ccd9fa386c339d37e737a436499d423a77df0c" name="gga7985ca9fbbcf2f9947ecdbb9115ccd9fa386c339d37e737a436499d423a77df0c"></a>Currency&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga7985ca9fbbcf2f9947ecdbb9115ccd9fa57110c4e7cd03218864bf9155573e1dd" name="gga7985ca9fbbcf2f9947ecdbb9115ccd9fa57110c4e7cd03218864bf9155573e1dd"></a>Progression_Points&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga7985ca9fbbcf2f9947ecdbb9115ccd9fa6b177f161f23a5b58f59f1784891f575" name="gga7985ca9fbbcf2f9947ecdbb9115ccd9fa6b177f161f23a5b58f59f1784891f575"></a>Progression_Reset&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga7985ca9fbbcf2f9947ecdbb9115ccd9fa03937134cedab9078be39a77ee3a48a0" name="gga7985ca9fbbcf2f9947ecdbb9115ccd9fa03937134cedab9078be39a77ee3a48a0"></a>Group&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ga771b28adbbb678e400f1ce1fa2962833" name="ga771b28adbbb678e400f1ce1fa2962833"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga771b28adbbb678e400f1ce1fa2962833">&#9670;&#160;</a></span>GetAllMemberRanks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetAllMemberRanks </td>
+          <td>(</td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>MemberId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>Count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>After</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Leaderboard.html#gaf99303594783254d7a4d55dfb70d1571">FLootLockerGetAllMemberRanksResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List all leaderboards with this member's rank/score (and player info for player leaderboards). </p>
+<p>Metadata included if enabled.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MemberId</td><td>Member/player id </td></tr>
+    <tr><td class="paramname">Count</td><td>Members per page </td></tr>
+    <tr><td class="paramname">After</td><td>Pagination cursor </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gaa57a408bae7ee95b29a2523d76b6d940" name="gaa57a408bae7ee95b29a2523d76b6d940"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa57a408bae7ee95b29a2523d76b6d940">&#9670;&#160;</a></span>GetByListOfMembers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetByListOfMembers </td>
+          <td>(</td>
+          <td class="paramtype">TArray&lt; FString &gt;&#160;</td>
+          <td class="paramname"><em>Members</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>LeaderboardKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Leaderboard.html#ga24c476445e3e3893d3fcc10004a679de">FLootLockerGetByListOfMembersResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get ranks for multiple members. </p>
+<p>If the leaderboard is player type, player info is included.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Members</td><td>Member/player ids to query </td></tr>
+    <tr><td class="paramname">LeaderboardKey</td><td>Leaderboard key </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga80dfe4dd6ea996c7e5a674675bcb20ce" name="ga80dfe4dd6ea996c7e5a674675bcb20ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga80dfe4dd6ea996c7e5a674675bcb20ce">&#9670;&#160;</a></span>GetLeaderboardArchive() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetLeaderboardArchive </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Leaderboard.html#ga39d3b9ae5f922dad27a84c731b12e906">FLootLockerLeaderboardArchiveDetailResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a leaderboard archive (all entries). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Key</td><td>Leaderboard key </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gaa83f776c61a069a6bd67fb91250e4564" name="gaa83f776c61a069a6bd67fb91250e4564"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa83f776c61a069a6bd67fb91250e4564">&#9670;&#160;</a></span>GetLeaderboardArchive() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetLeaderboardArchive </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>Count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>After</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Leaderboard.html#ga39d3b9ae5f922dad27a84c731b12e906">FLootLockerLeaderboardArchiveDetailResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a leaderboard archive (paginated entries with ranks, scores, rewards). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Key</td><td>Leaderboard key </td></tr>
+    <tr><td class="paramname">Count</td><td>Optional: Entry count </td></tr>
+    <tr><td class="paramname">After</td><td>Optional: Pagination cursor </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga7c991e6e974264ea2cce386f626d0702" name="ga7c991e6e974264ea2cce386f626d0702"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7c991e6e974264ea2cce386f626d0702">&#9670;&#160;</a></span>GetLeaderboardDetails()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetLeaderboardDetails </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>LeaderboardKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Leaderboard.html#gaed2d133b707e7a1dc25a5fb2257dbf7b">FLootLockerLeaderboardDetailsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get leaderboard details (schedule, rewards, reward details). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">LeaderboardKey</td><td>Leaderboard key </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gadc164b46238af89374cb193eeb072b41" name="gadc164b46238af89374cb193eeb072b41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadc164b46238af89374cb193eeb072b41">&#9670;&#160;</a></span>GetMemberRank()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetMemberRank </td>
+          <td>(</td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>LeaderboardKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>MemberId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Leaderboard.html#ga353e59d90a93800b93f2225ff63c83cd">FLootLockerGetMemberRankResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get rank for a single member. </p>
+<p>If the leaderboard is player type, player info is included.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">LeaderboardKey</td><td>Leaderboard key </td></tr>
+    <tr><td class="paramname">MemberId</td><td>Member/player id </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga7dc7e8ae271b5faca447c52167fd18a2" name="ga7dc7e8ae271b5faca447c52167fd18a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7dc7e8ae271b5faca447c52167fd18a2">&#9670;&#160;</a></span>GetScoreList()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetScoreList </td>
+          <td>(</td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>LeaderboardKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>Count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>After</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Leaderboard.html#ga8fd9959d4c708764965aea2661a9921a">FLootLockerGetScoreListResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List ranked members (paginated). </p>
+<p>Max 2000 per request. Player info included for player leaderboards.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">LeaderboardKey</td><td>Leaderboard key </td></tr>
+    <tr><td class="paramname">Count</td><td>Members per page </td></tr>
+    <tr><td class="paramname">After</td><td>Pagination cursor </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga2ee5405880ce77e43fadfbfc654c1910" name="ga2ee5405880ce77e43fadfbfc654c1910"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2ee5405880ce77e43fadfbfc654c1910">&#9670;&#160;</a></span>GetScoreListInitial()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetScoreListInitial </td>
+          <td>(</td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>LeaderboardKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>Count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Leaderboard.html#ga8fd9959d4c708764965aea2661a9921a">FLootLockerGetScoreListResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List ranked members starting from top (initial page). </p>
+<p>Max 2000. Player info included for player leaderboards.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">LeaderboardKey</td><td>Leaderboard key </td></tr>
+    <tr><td class="paramname">Count</td><td>Members to return </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga3f57d4b1e230508e5988acdb0d5c6f7c" name="ga3f57d4b1e230508e5988acdb0d5c6f7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3f57d4b1e230508e5988acdb0d5c6f7c">&#9670;&#160;</a></span>IncrementScore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::IncrementScore </td>
+          <td>(</td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>MemberId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString&#160;</td>
+          <td class="paramname"><em>LeaderboardKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>Amount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Leaderboard.html#ga6fa5ec9600178878caff100642cba557">FLootLockerSubmitScoreResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Increment an existing score by an amount (positive or negative). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MemberId</td><td>Member/player id (blank for player leaderboard default) </td></tr>
+    <tr><td class="paramname">LeaderboardKey</td><td>Leaderboard key </td></tr>
+    <tr><td class="paramname">Amount</td><td>Amount to add (or subtract if negative) </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gadeb6b5310b090a3045bd5f993dc9fa8d" name="gadeb6b5310b090a3045bd5f993dc9fa8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadeb6b5310b090a3045bd5f993dc9fa8d">&#9670;&#160;</a></span>ListLeaderboardArchive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListLeaderboardArchive </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>LeaderboardKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Leaderboard.html#gaee5db6732d4cb0d917fef276e1c3fe97">FLootLockerLeaderboardArchiveResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List archived versions of a leaderboard. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">LeaderboardKey</td><td>Leaderboard key </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gac5428569dcdc7c39e6fd8202d5671e31" name="gac5428569dcdc7c39e6fd8202d5671e31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac5428569dcdc7c39e6fd8202d5671e31">&#9670;&#160;</a></span>ListLeaderboards() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListLeaderboards </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Leaderboard.html#ga5cb9b95257881034d0b5e3b546ded238">FLootLockerListLeaderboardsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List leaderboards with their details. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga74df85b253199b3db7a043694546edf5" name="ga74df85b253199b3db7a043694546edf5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga74df85b253199b3db7a043694546edf5">&#9670;&#160;</a></span>ListLeaderboards() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListLeaderboards </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>Count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>After</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Leaderboard.html#ga5cb9b95257881034d0b5e3b546ded238">FLootLockerListLeaderboardsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List leaderboards (paginated) with details. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Count</td><td>Optional: Number of items to retrieve </td></tr>
+    <tr><td class="paramname">After</td><td>Optional: Pagination cursor id to start after </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gaa0b74ae57d9d322b8e3022186319fc31" name="gaa0b74ae57d9d322b8e3022186319fc31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa0b74ae57d9d322b8e3022186319fc31">&#9670;&#160;</a></span>QueryScore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::QueryScore </td>
+          <td>(</td>
+          <td class="paramtype">const FString&#160;</td>
+          <td class="paramname"><em>LeaderboardKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>Score</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Leaderboard.html#ga6fa5ec9600178878caff100642cba557">FLootLockerSubmitScoreResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Query the projected rank for a hypothetical score (does not submit). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">LeaderboardKey</td><td>Leaderboard key </td></tr>
+    <tr><td class="paramname">Score</td><td>Score value to evaluate </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga488837a41abaeafb5407adadaa29f053" name="ga488837a41abaeafb5407adadaa29f053"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga488837a41abaeafb5407adadaa29f053">&#9670;&#160;</a></span>SubmitScore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::SubmitScore </td>
+          <td>(</td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>MemberId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString&#160;</td>
+          <td class="paramname"><em>LeaderboardKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>Score</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>Metadata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Leaderboard.html#ga6fa5ec9600178878caff100642cba557">FLootLockerSubmitScoreResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Submit a score for a member. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MemberId</td><td>Member/player id (blank for player leaderboard to use default) </td></tr>
+    <tr><td class="paramname">LeaderboardKey</td><td>Leaderboard key </td></tr>
+    <tr><td class="paramname">Score</td><td>Score value </td></tr>
+    <tr><td class="paramname">Metadata</td><td>Optional: Metadata (if enabled for leaderboard) </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:gaee5db6732d4cb0d917fef276e1c3fe97" id="r_gaee5db6732d4cb0d917fef276e1c3fe97"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#gaee5db6732d4cb0d917fef276e1c3fe97">FLootLockerLeaderboardArchiveResponseDelegate</a>) (<a class="el" href="structFLootLockerLeaderboardArchiveResponse.html">FLootLockerLeaderboardArchiveResponse</a>)</td></tr>
+<tr class="memdesc:gaee5db6732d4cb0d917fef276e1c3fe97"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerLeaderboardArchiveResponse.html">FLootLockerLeaderboardArchiveResponse</a> result.  <br /></td></tr>
+<tr class="separator:gaee5db6732d4cb0d917fef276e1c3fe97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga39d3b9ae5f922dad27a84c731b12e906" id="r_ga39d3b9ae5f922dad27a84c731b12e906"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#ga39d3b9ae5f922dad27a84c731b12e906">FLootLockerLeaderboardArchiveDetailResponseDelegate</a>) (<a class="el" href="structFLootLockerLeaderboardArchiveDetailsResponse.html">FLootLockerLeaderboardArchiveDetailsResponse</a>)</td></tr>
+<tr class="memdesc:ga39d3b9ae5f922dad27a84c731b12e906"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerLeaderboardArchiveDetailsResponse.html">FLootLockerLeaderboardArchiveDetailsResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga39d3b9ae5f922dad27a84c731b12e906"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5cb9b95257881034d0b5e3b546ded238" id="r_ga5cb9b95257881034d0b5e3b546ded238"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#ga5cb9b95257881034d0b5e3b546ded238">FLootLockerListLeaderboardsResponseDelegate</a>) (<a class="el" href="structFLootLockerListLeaderboardsResponse.html">FLootLockerListLeaderboardsResponse</a>)</td></tr>
+<tr class="memdesc:ga5cb9b95257881034d0b5e3b546ded238"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerListLeaderboardsResponse.html">FLootLockerListLeaderboardsResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga5cb9b95257881034d0b5e3b546ded238"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga353e59d90a93800b93f2225ff63c83cd" id="r_ga353e59d90a93800b93f2225ff63c83cd"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#ga353e59d90a93800b93f2225ff63c83cd">FLootLockerGetMemberRankResponseDelegate</a>) (<a class="el" href="structFLootLockerGetMemberRankResponse.html">FLootLockerGetMemberRankResponse</a>)</td></tr>
+<tr class="memdesc:ga353e59d90a93800b93f2225ff63c83cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerGetMemberRankResponse.html">FLootLockerGetMemberRankResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga353e59d90a93800b93f2225ff63c83cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga24c476445e3e3893d3fcc10004a679de" id="r_ga24c476445e3e3893d3fcc10004a679de"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#ga24c476445e3e3893d3fcc10004a679de">FLootLockerGetByListOfMembersResponseDelegate</a>) (<a class="el" href="structFLootLockerGetByListOfMembersResponse.html">FLootLockerGetByListOfMembersResponse</a>)</td></tr>
+<tr class="memdesc:ga24c476445e3e3893d3fcc10004a679de"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerGetByListOfMembersResponse.html">FLootLockerGetByListOfMembersResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga24c476445e3e3893d3fcc10004a679de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8fd9959d4c708764965aea2661a9921a" id="r_ga8fd9959d4c708764965aea2661a9921a"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#ga8fd9959d4c708764965aea2661a9921a">FLootLockerGetScoreListResponseDelegate</a>) (<a class="el" href="structFLootLockerGetScoreListResponse.html">FLootLockerGetScoreListResponse</a>)</td></tr>
+<tr class="memdesc:ga8fd9959d4c708764965aea2661a9921a"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerGetScoreListResponse.html">FLootLockerGetScoreListResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga8fd9959d4c708764965aea2661a9921a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6fa5ec9600178878caff100642cba557" id="r_ga6fa5ec9600178878caff100642cba557"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#ga6fa5ec9600178878caff100642cba557">FLootLockerSubmitScoreResponseDelegate</a>) (<a class="el" href="structFLootLockerSubmitScoreResponse.html">FLootLockerSubmitScoreResponse</a>)</td></tr>
+<tr class="memdesc:ga6fa5ec9600178878caff100642cba557"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerSubmitScoreResponse.html">FLootLockerSubmitScoreResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga6fa5ec9600178878caff100642cba557"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf99303594783254d7a4d55dfb70d1571" id="r_gaf99303594783254d7a4d55dfb70d1571"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#gaf99303594783254d7a4d55dfb70d1571">FLootLockerGetAllMemberRanksResponseDelegate</a>) (<a class="el" href="structFLootLockerGetAllMemberRanksResponse.html">FLootLockerGetAllMemberRanksResponse</a>)</td></tr>
+<tr class="memdesc:gaf99303594783254d7a4d55dfb70d1571"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerGetAllMemberRanksResponse.html">FLootLockerGetAllMemberRanksResponse</a> result.  <br /></td></tr>
+<tr class="separator:gaf99303594783254d7a4d55dfb70d1571"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaed2d133b707e7a1dc25a5fb2257dbf7b" id="r_gaed2d133b707e7a1dc25a5fb2257dbf7b"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#gaed2d133b707e7a1dc25a5fb2257dbf7b">FLootLockerLeaderboardDetailsResponseDelegate</a>) (<a class="el" href="structFLootLockerLeaderboardDetailsResponse.html">FLootLockerLeaderboardDetailsResponse</a>)</td></tr>
+<tr class="memdesc:gaed2d133b707e7a1dc25a5fb2257dbf7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerLeaderboardDetailsResponse.html">FLootLockerLeaderboardDetailsResponse</a> result.  <br /></td></tr>
+<tr class="separator:gaed2d133b707e7a1dc25a5fb2257dbf7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga7985ca9fbbcf2f9947ecdbb9115ccd9f" id="r_ga7985ca9fbbcf2f9947ecdbb9115ccd9f"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#ga7985ca9fbbcf2f9947ecdbb9115ccd9f">ELootLockerLeaderboardRewardEntityKind</a> : uint8 { <br />
+&#160;&#160;<a class="el" href="group__Leaderboard.html#gga7985ca9fbbcf2f9947ecdbb9115ccd9fa26e9054be7f40079575582b7ad3f7363">ELootLockerLeaderboardRewardEntityKind::Asset</a> = 0
+, <a class="el" href="group__Leaderboard.html#gga7985ca9fbbcf2f9947ecdbb9115ccd9fa386c339d37e737a436499d423a77df0c">ELootLockerLeaderboardRewardEntityKind::Currency</a> = 1
+, <a class="el" href="group__Leaderboard.html#gga7985ca9fbbcf2f9947ecdbb9115ccd9fa57110c4e7cd03218864bf9155573e1dd">ELootLockerLeaderboardRewardEntityKind::Progression_Points</a> = 2
+, <a class="el" href="group__Leaderboard.html#gga7985ca9fbbcf2f9947ecdbb9115ccd9fa6b177f161f23a5b58f59f1784891f575">ELootLockerLeaderboardRewardEntityKind::Progression_Reset</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="group__Leaderboard.html#gga7985ca9fbbcf2f9947ecdbb9115ccd9fa03937134cedab9078be39a77ee3a48a0">ELootLockerLeaderboardRewardEntityKind::Group</a> = 4
+<br />
+ }</td></tr>
+<tr class="memdesc:ga7985ca9fbbcf2f9947ecdbb9115ccd9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entity kinds that can be given as leaderboard rewards.  <a href="group__Leaderboard.html#ga7985ca9fbbcf2f9947ecdbb9115ccd9f">More...</a><br /></td></tr>
+<tr class="separator:ga7985ca9fbbcf2f9947ecdbb9115ccd9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gac5428569dcdc7c39e6fd8202d5671e31" id="r_gac5428569dcdc7c39e6fd8202d5671e31"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#gac5428569dcdc7c39e6fd8202d5671e31">ULootLockerSDKManager::ListLeaderboards</a> (const <a class="el" href="group__Leaderboard.html#ga5cb9b95257881034d0b5e3b546ded238">FLootLockerListLeaderboardsResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gac5428569dcdc7c39e6fd8202d5671e31"><td class="mdescLeft">&#160;</td><td class="mdescRight">List leaderboards with their details.  <br /></td></tr>
+<tr class="separator:gac5428569dcdc7c39e6fd8202d5671e31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga74df85b253199b3db7a043694546edf5" id="r_ga74df85b253199b3db7a043694546edf5"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#ga74df85b253199b3db7a043694546edf5">ULootLockerSDKManager::ListLeaderboards</a> (int Count, int After, const <a class="el" href="group__Leaderboard.html#ga5cb9b95257881034d0b5e3b546ded238">FLootLockerListLeaderboardsResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga74df85b253199b3db7a043694546edf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">List leaderboards (paginated) with details.  <br /></td></tr>
+<tr class="separator:ga74df85b253199b3db7a043694546edf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadc164b46238af89374cb193eeb072b41" id="r_gadc164b46238af89374cb193eeb072b41"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#gadc164b46238af89374cb193eeb072b41">ULootLockerSDKManager::GetMemberRank</a> (FString LeaderboardKey, FString MemberId, const <a class="el" href="group__Leaderboard.html#ga353e59d90a93800b93f2225ff63c83cd">FLootLockerGetMemberRankResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gadc164b46238af89374cb193eeb072b41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get rank for a single member.  <br /></td></tr>
+<tr class="separator:gadc164b46238af89374cb193eeb072b41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa57a408bae7ee95b29a2523d76b6d940" id="r_gaa57a408bae7ee95b29a2523d76b6d940"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#gaa57a408bae7ee95b29a2523d76b6d940">ULootLockerSDKManager::GetByListOfMembers</a> (TArray&lt; FString &gt; Members, FString LeaderboardKey, const <a class="el" href="group__Leaderboard.html#ga24c476445e3e3893d3fcc10004a679de">FLootLockerGetByListOfMembersResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gaa57a408bae7ee95b29a2523d76b6d940"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get ranks for multiple members.  <br /></td></tr>
+<tr class="separator:gaa57a408bae7ee95b29a2523d76b6d940"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7dc7e8ae271b5faca447c52167fd18a2" id="r_ga7dc7e8ae271b5faca447c52167fd18a2"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#ga7dc7e8ae271b5faca447c52167fd18a2">ULootLockerSDKManager::GetScoreList</a> (FString LeaderboardKey, int Count, int After, const <a class="el" href="group__Leaderboard.html#ga8fd9959d4c708764965aea2661a9921a">FLootLockerGetScoreListResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga7dc7e8ae271b5faca447c52167fd18a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">List ranked members (paginated).  <br /></td></tr>
+<tr class="separator:ga7dc7e8ae271b5faca447c52167fd18a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2ee5405880ce77e43fadfbfc654c1910" id="r_ga2ee5405880ce77e43fadfbfc654c1910"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#ga2ee5405880ce77e43fadfbfc654c1910">ULootLockerSDKManager::GetScoreListInitial</a> (FString LeaderboardKey, int Count, const <a class="el" href="group__Leaderboard.html#ga8fd9959d4c708764965aea2661a9921a">FLootLockerGetScoreListResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga2ee5405880ce77e43fadfbfc654c1910"><td class="mdescLeft">&#160;</td><td class="mdescRight">List ranked members starting from top (initial page).  <br /></td></tr>
+<tr class="separator:ga2ee5405880ce77e43fadfbfc654c1910"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga488837a41abaeafb5407adadaa29f053" id="r_ga488837a41abaeafb5407adadaa29f053"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#ga488837a41abaeafb5407adadaa29f053">ULootLockerSDKManager::SubmitScore</a> (FString MemberId, const FString LeaderboardKey, const int Score, FString Metadata, const <a class="el" href="group__Leaderboard.html#ga6fa5ec9600178878caff100642cba557">FLootLockerSubmitScoreResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga488837a41abaeafb5407adadaa29f053"><td class="mdescLeft">&#160;</td><td class="mdescRight">Submit a score for a member.  <br /></td></tr>
+<tr class="separator:ga488837a41abaeafb5407adadaa29f053"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa0b74ae57d9d322b8e3022186319fc31" id="r_gaa0b74ae57d9d322b8e3022186319fc31"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#gaa0b74ae57d9d322b8e3022186319fc31">ULootLockerSDKManager::QueryScore</a> (const FString LeaderboardKey, const int Score, const <a class="el" href="group__Leaderboard.html#ga6fa5ec9600178878caff100642cba557">FLootLockerSubmitScoreResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gaa0b74ae57d9d322b8e3022186319fc31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query the projected rank for a hypothetical score (does not submit).  <br /></td></tr>
+<tr class="separator:gaa0b74ae57d9d322b8e3022186319fc31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3f57d4b1e230508e5988acdb0d5c6f7c" id="r_ga3f57d4b1e230508e5988acdb0d5c6f7c"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#ga3f57d4b1e230508e5988acdb0d5c6f7c">ULootLockerSDKManager::IncrementScore</a> (FString MemberId, const FString LeaderboardKey, const int Amount, const <a class="el" href="group__Leaderboard.html#ga6fa5ec9600178878caff100642cba557">FLootLockerSubmitScoreResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga3f57d4b1e230508e5988acdb0d5c6f7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increment an existing score by an amount (positive or negative).  <br /></td></tr>
+<tr class="separator:ga3f57d4b1e230508e5988acdb0d5c6f7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga771b28adbbb678e400f1ce1fa2962833" id="r_ga771b28adbbb678e400f1ce1fa2962833"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#ga771b28adbbb678e400f1ce1fa2962833">ULootLockerSDKManager::GetAllMemberRanks</a> (FString MemberId, const int Count, const int After, const <a class="el" href="group__Leaderboard.html#gaf99303594783254d7a4d55dfb70d1571">FLootLockerGetAllMemberRanksResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga771b28adbbb678e400f1ce1fa2962833"><td class="mdescLeft">&#160;</td><td class="mdescRight">List all leaderboards with this member's rank/score (and player info for player leaderboards).  <br /></td></tr>
+<tr class="separator:ga771b28adbbb678e400f1ce1fa2962833"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadeb6b5310b090a3045bd5f993dc9fa8d" id="r_gadeb6b5310b090a3045bd5f993dc9fa8d"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#gadeb6b5310b090a3045bd5f993dc9fa8d">ULootLockerSDKManager::ListLeaderboardArchive</a> (const FString &amp;LeaderboardKey, const <a class="el" href="group__Leaderboard.html#gaee5db6732d4cb0d917fef276e1c3fe97">FLootLockerLeaderboardArchiveResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gadeb6b5310b090a3045bd5f993dc9fa8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">List archived versions of a leaderboard.  <br /></td></tr>
+<tr class="separator:gadeb6b5310b090a3045bd5f993dc9fa8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa83f776c61a069a6bd67fb91250e4564" id="r_gaa83f776c61a069a6bd67fb91250e4564"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#gaa83f776c61a069a6bd67fb91250e4564">ULootLockerSDKManager::GetLeaderboardArchive</a> (const FString &amp;Key, int Count, const FString &amp;After, const <a class="el" href="group__Leaderboard.html#ga39d3b9ae5f922dad27a84c731b12e906">FLootLockerLeaderboardArchiveDetailResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gaa83f776c61a069a6bd67fb91250e4564"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a leaderboard archive (paginated entries with ranks, scores, rewards).  <br /></td></tr>
+<tr class="separator:gaa83f776c61a069a6bd67fb91250e4564"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga80dfe4dd6ea996c7e5a674675bcb20ce" id="r_ga80dfe4dd6ea996c7e5a674675bcb20ce"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#ga80dfe4dd6ea996c7e5a674675bcb20ce">ULootLockerSDKManager::GetLeaderboardArchive</a> (const FString &amp;Key, const <a class="el" href="group__Leaderboard.html#ga39d3b9ae5f922dad27a84c731b12e906">FLootLockerLeaderboardArchiveDetailResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga80dfe4dd6ea996c7e5a674675bcb20ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a leaderboard archive (all entries).  <br /></td></tr>
+<tr class="separator:ga80dfe4dd6ea996c7e5a674675bcb20ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7c991e6e974264ea2cce386f626d0702" id="r_ga7c991e6e974264ea2cce386f626d0702"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Leaderboard.html#ga7c991e6e974264ea2cce386f626d0702">ULootLockerSDKManager::GetLeaderboardDetails</a> (const FString &amp;LeaderboardKey, const <a class="el" href="group__Leaderboard.html#gaed2d133b707e7a1dc25a5fb2257dbf7b">FLootLockerLeaderboardDetailsResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga7c991e6e974264ea2cce386f626d0702"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get leaderboard details (schedule, rewards, reward details).  <br /></td></tr>
+<tr class="separator:ga7c991e6e974264ea2cce386f626d0702"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

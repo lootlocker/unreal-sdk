@@ -1,0 +1,5 @@
+<map id="FLootLockerListBalancesForWalletResponse" name="FLootLockerListBalancesForWalletResponse">
+<area shape="rect" id="Node000001" title="Response containing the list of currency balances held in a specific wallet." alt="" coords="5,79,208,119"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="25,5,188,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,44,109,79,104,79,104,44"/>
+</map>

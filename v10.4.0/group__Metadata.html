@@ -1,0 +1,1157 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: Metadata</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.4.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('group__Metadata.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">Metadata</div></div>
+</div><!--header-->
+<div class="contents">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Attach and retrieve typed key-value metadata on any LootLocker entity. </p>
+<p>Metadata can be attached to Progressions, Leaderboards, Catalogs, Currencies, Assets, and more. Values are strongly typed: String, Boolean, Number, JSON, or Base64-encoded binary. Entries support optional <b>Tags</b> for filtering (e.g., seasonal, featured) and a <b>Game Read</b> flag that restricts visibility to the Server API only — useful for keeping sensitive data out of the game client.</p>
+<p>See the <a href="https://docs.lootlocker.com/shared-systems/metadata">LootLocker documentation</a>. </p>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="gae1dd4f7c29e87bf7aeaf5c97badc824e" name="gae1dd4f7c29e87bf7aeaf5c97badc824e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae1dd4f7c29e87bf7aeaf5c97badc824e">&#9670;&#160;</a></span>FLootLockerGetMetadataResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerGetMetadataResponseDelegate) (<a class="el" href="structFLootLockerGetMetadataResponse.html">FLootLockerGetMetadataResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for getting a single metadata entry. </p>
+
+</div>
+</div>
+<a id="ga27cd1fc35c6ea5f01acfa7757912e88c" name="ga27cd1fc35c6ea5f01acfa7757912e88c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga27cd1fc35c6ea5f01acfa7757912e88c">&#9670;&#160;</a></span>FLootLockerGetMultisourceMetadataResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerGetMultisourceMetadataResponseDelegate) (<a class="el" href="structFLootLockerGetMultisourceMetadataResponse.html">FLootLockerGetMultisourceMetadataResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Blueprint response delegate for getting multi source metadata. </p>
+
+</div>
+</div>
+<a id="gacf296901bb69f3a4bb4ca5744ba091da" name="gacf296901bb69f3a4bb4ca5744ba091da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacf296901bb69f3a4bb4ca5744ba091da">&#9670;&#160;</a></span>FLootLockerListMetadataResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerListMetadataResponseDelegate) (<a class="el" href="structFLootLockerListMetadataResponse.html">FLootLockerListMetadataResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for listing metadata. </p>
+
+</div>
+</div>
+<a id="gaa806513179fb9125a52ab8da09260630" name="gaa806513179fb9125a52ab8da09260630"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa806513179fb9125a52ab8da09260630">&#9670;&#160;</a></span>FLootLockerSetMetadataResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerSetMetadataResponseDelegate) (<a class="el" href="structFLootLockerSetMetadataResponse.html">FLootLockerSetMetadataResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Blueprint response delegate for setting metadata. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="ga14b96920b0ce0f3c43c571c63df077bd" name="ga14b96920b0ce0f3c43c571c63df077bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga14b96920b0ce0f3c43c571c63df077bd">&#9670;&#160;</a></span>ELootLockerMetadataActions</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__Metadata.html#ga14b96920b0ce0f3c43c571c63df077bd">ELootLockerMetadataActions</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Possible metadata actions. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga14b96920b0ce0f3c43c571c63df077bda686e697538050e4664636337cc3b834f" name="gga14b96920b0ce0f3c43c571c63df077bda686e697538050e4664636337cc3b834f"></a>Create&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga14b96920b0ce0f3c43c571c63df077bda06933067aafd48425d67bcb01bba5cb6" name="gga14b96920b0ce0f3c43c571c63df077bda06933067aafd48425d67bcb01bba5cb6"></a>Update&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga14b96920b0ce0f3c43c571c63df077bdaf2a6c498fb90ee345d997f888fce3b18" name="gga14b96920b0ce0f3c43c571c63df077bdaf2a6c498fb90ee345d997f888fce3b18"></a>Delete&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga14b96920b0ce0f3c43c571c63df077bdab513ac9d9210aff17a0f7d41470e1a3c" name="gga14b96920b0ce0f3c43c571c63df077bdab513ac9d9210aff17a0f7d41470e1a3c"></a>Create_or_Update&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga14b96920b0ce0f3c43c571c63df077bdac4ead0b03a124a25304b4c9cf7b7be1a" name="gga14b96920b0ce0f3c43c571c63df077bdac4ead0b03a124a25304b4c9cf7b7be1a"></a>Upsert&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="ga968d19da79e0c3ee8caee0c9e45f3511" name="ga968d19da79e0c3ee8caee0c9e45f3511"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga968d19da79e0c3ee8caee0c9e45f3511">&#9670;&#160;</a></span>ELootLockerMetadataParserOutputTypes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__Metadata.html#ga968d19da79e0c3ee8caee0c9e45f3511">ELootLockerMetadataParserOutputTypes</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Possible metadata parser output types. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga968d19da79e0c3ee8caee0c9e45f3511a1ad7fd3adea0f02d25b43a1fde6325c8" name="gga968d19da79e0c3ee8caee0c9e45f3511a1ad7fd3adea0f02d25b43a1fde6325c8"></a>OnString&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga968d19da79e0c3ee8caee0c9e45f3511aaf3689136beb58f79a85c2c67044f3c8" name="gga968d19da79e0c3ee8caee0c9e45f3511aaf3689136beb58f79a85c2c67044f3c8"></a>OnInteger&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga968d19da79e0c3ee8caee0c9e45f3511a484fa9391469a0779c26a575c90db38e" name="gga968d19da79e0c3ee8caee0c9e45f3511a484fa9391469a0779c26a575c90db38e"></a>OnFloat&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga968d19da79e0c3ee8caee0c9e45f3511a4b9e5617d1edc08518fd19931c3b94d9" name="gga968d19da79e0c3ee8caee0c9e45f3511a4b9e5617d1edc08518fd19931c3b94d9"></a>OnNumber&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga968d19da79e0c3ee8caee0c9e45f3511aef1867752a0c7050c655c827d9ff34df" name="gga968d19da79e0c3ee8caee0c9e45f3511aef1867752a0c7050c655c827d9ff34df"></a>OnBool&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga968d19da79e0c3ee8caee0c9e45f3511ae9697cb9bc63b1652f16f34e2c8b2d74" name="gga968d19da79e0c3ee8caee0c9e45f3511ae9697cb9bc63b1652f16f34e2c8b2d74"></a>OnJson&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga968d19da79e0c3ee8caee0c9e45f3511a9dcced0abe7554df05f16c12b17cea5b" name="gga968d19da79e0c3ee8caee0c9e45f3511a9dcced0abe7554df05f16c12b17cea5b"></a>OnBase64&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga968d19da79e0c3ee8caee0c9e45f3511a44cdeb54c6f2aebad54611201c26d6f0" name="gga968d19da79e0c3ee8caee0c9e45f3511a44cdeb54c6f2aebad54611201c26d6f0"></a>OnError&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="ga3d86f36677809018b3cb5db0418ac804" name="ga3d86f36677809018b3cb5db0418ac804"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3d86f36677809018b3cb5db0418ac804">&#9670;&#160;</a></span>ELootLockerMetadataSources</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Possible metadata sources. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga3d86f36677809018b3cb5db0418ac804af9b11ed03ce21394fd0e5b19ae2d3873" name="gga3d86f36677809018b3cb5db0418ac804af9b11ed03ce21394fd0e5b19ae2d3873"></a>reward&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga3d86f36677809018b3cb5db0418ac804a58317cd236f36059667cd6d7adf4ef45" name="gga3d86f36677809018b3cb5db0418ac804a58317cd236f36059667cd6d7adf4ef45"></a>leaderboard&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga3d86f36677809018b3cb5db0418ac804ab1da95002d09ca22d2806ba45a27e8a5" name="gga3d86f36677809018b3cb5db0418ac804ab1da95002d09ca22d2806ba45a27e8a5"></a>catalog_item&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga3d86f36677809018b3cb5db0418ac804a9dc57f4fdd090e9f7681ffe9a8f23b08" name="gga3d86f36677809018b3cb5db0418ac804a9dc57f4fdd090e9f7681ffe9a8f23b08"></a>progression&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga3d86f36677809018b3cb5db0418ac804a1af0389838508d7016a9841eb6273962" name="gga3d86f36677809018b3cb5db0418ac804a1af0389838508d7016a9841eb6273962"></a>currency&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga3d86f36677809018b3cb5db0418ac804a912af0dff974604f1321254ca8ff38b6" name="gga3d86f36677809018b3cb5db0418ac804a912af0dff974604f1321254ca8ff38b6"></a>player&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga3d86f36677809018b3cb5db0418ac804a590f53e8699817c6fa498cc11a4cbe63" name="gga3d86f36677809018b3cb5db0418ac804a590f53e8699817c6fa498cc11a4cbe63"></a>self&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga3d86f36677809018b3cb5db0418ac804ac04e34d445e31a2159c1bfeb882ba212" name="gga3d86f36677809018b3cb5db0418ac804ac04e34d445e31a2159c1bfeb882ba212"></a>asset&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga3d86f36677809018b3cb5db0418ac804a447b7147e84be512208dcc0995d67ebc" name="gga3d86f36677809018b3cb5db0418ac804a447b7147e84be512208dcc0995d67ebc"></a>item&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="ga7ae3db614872bb456a6b01bee377ec3e" name="ga7ae3db614872bb456a6b01bee377ec3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7ae3db614872bb456a6b01bee377ec3e">&#9670;&#160;</a></span>ELootLockerMetadataTypes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__Metadata.html#ga7ae3db614872bb456a6b01bee377ec3e">ELootLockerMetadataTypes</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Possible metadata types. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga7ae3db614872bb456a6b01bee377ec3ea27118326006d3829667a400ad23d5d98" name="gga7ae3db614872bb456a6b01bee377ec3ea27118326006d3829667a400ad23d5d98"></a>String&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga7ae3db614872bb456a6b01bee377ec3eab2ee912b91d69b435159c7c3f6df7f5f" name="gga7ae3db614872bb456a6b01bee377ec3eab2ee912b91d69b435159c7c3f6df7f5f"></a>Number&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga7ae3db614872bb456a6b01bee377ec3eac26f15e86e3de4c398a8273272aba034" name="gga7ae3db614872bb456a6b01bee377ec3eac26f15e86e3de4c398a8273272aba034"></a>Bool&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga7ae3db614872bb456a6b01bee377ec3eaeed8d85b888a6c015834240885ee6333" name="gga7ae3db614872bb456a6b01bee377ec3eaeed8d85b888a6c015834240885ee6333"></a>Json&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga7ae3db614872bb456a6b01bee377ec3ea1eb445fa6bd078346bf63ecac35fa77c" name="gga7ae3db614872bb456a6b01bee377ec3ea1eb445fa6bd078346bf63ecac35fa77c"></a>Base64&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ga9744f2e2b76af14e0b036749c9fb1a4a" name="ga9744f2e2b76af14e0b036749c9fb1a4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9744f2e2b76af14e0b036749c9fb1a4a">&#9670;&#160;</a></span>GetMetadata()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetMetadata </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a>&#160;</td>
+          <td class="paramname"><em>Source</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>SourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Metadata.html#gae1dd4f7c29e87bf7aeaf5c97badc824e">FLootLockerGetMetadataResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>IgnoreFiles</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get metadata by key. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Source</td><td>Metadata source type </td></tr>
+    <tr><td class="paramname">SourceID</td><td>Source id </td></tr>
+    <tr><td class="paramname">Key</td><td>Metadata key </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">IgnoreFiles</td><td>Optional: Redact file contents </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga09b8ee2e188aeed2da4c4c541236ec2e" name="ga09b8ee2e188aeed2da4c4c541236ec2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga09b8ee2e188aeed2da4c4c541236ec2e">&#9670;&#160;</a></span>GetMultisourceMetadata()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetMultisourceMetadata </td>
+          <td>(</td>
+          <td class="paramtype">const TArray&lt; <a class="el" href="structFLootLockerMetadataSourceAndKeys.html">FLootLockerMetadataSourceAndKeys</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>SourcesAndKeysToGet</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Metadata.html#ga27cd1fc35c6ea5f01acfa7757912e88c">FLootLockerGetMultisourceMetadataResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>IgnoreFiles</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get metadata for multiple sources/keys. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SourcesAndKeysToGet</td><td>Sources and their keys </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">IgnoreFiles</td><td>Optional: Redact file contents </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga16202061e9bc82c5dcc37167b09fdec5" name="ga16202061e9bc82c5dcc37167b09fdec5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga16202061e9bc82c5dcc37167b09fdec5">&#9670;&#160;</a></span>ListMetadata() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListMetadata </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a>&#160;</td>
+          <td class="paramname"><em>Source</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>SourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Metadata.html#gacf296901bb69f3a4bb4ca5744ba091da">FLootLockerListMetadataResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>IgnoreFiles</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List metadata (default pagination) for a source. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Source</td><td>Metadata source type </td></tr>
+    <tr><td class="paramname">SourceID</td><td>Source id (use "self" when Source is self) </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">IgnoreFiles</td><td>Optional: Redact file contents (empty payload with content_type application/x-redacted) </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gaf750c7c243afcfc541292c5a902cc4fd" name="gaf750c7c243afcfc541292c5a902cc4fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf750c7c243afcfc541292c5a902cc4fd">&#9670;&#160;</a></span>ListMetadata() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListMetadata </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a>&#160;</td>
+          <td class="paramname"><em>Source</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>SourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>Page</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>PerPage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Metadata.html#gacf296901bb69f3a4bb4ca5744ba091da">FLootLockerListMetadataResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>IgnoreFiles</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List metadata (paginated) for a source. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Source</td><td>Metadata source type </td></tr>
+    <tr><td class="paramname">SourceID</td><td>Source id (use "self" when Source is self) </td></tr>
+    <tr><td class="paramname">Page</td><td>Page index </td></tr>
+    <tr><td class="paramname">PerPage</td><td>Items per page </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">IgnoreFiles</td><td>Optional: Redact file contents </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gae9bb3a6e8781ada4bdb7ac35c3b9cf89" name="gae9bb3a6e8781ada4bdb7ac35c3b9cf89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae9bb3a6e8781ada4bdb7ac35c3b9cf89">&#9670;&#160;</a></span>ListMetadataWithTags() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListMetadataWithTags </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a>&#160;</td>
+          <td class="paramname"><em>Source</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>SourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Tags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Metadata.html#gacf296901bb69f3a4bb4ca5744ba091da">FLootLockerListMetadataResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>IgnoreFiles</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List metadata with tags (default pagination). </p>
+<p>All specified tags must match.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Source</td><td>Metadata source type </td></tr>
+    <tr><td class="paramname">SourceID</td><td>Source id </td></tr>
+    <tr><td class="paramname">Tags</td><td>Tags required (must all be present) </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">IgnoreFiles</td><td>Optional: Redact file contents </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga1b26e9247507760ae3a7a8ed08f5d777" name="ga1b26e9247507760ae3a7a8ed08f5d777"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1b26e9247507760ae3a7a8ed08f5d777">&#9670;&#160;</a></span>ListMetadataWithTags() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListMetadataWithTags </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a>&#160;</td>
+          <td class="paramname"><em>Source</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>SourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Tags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>Page</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>PerPage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Metadata.html#gacf296901bb69f3a4bb4ca5744ba091da">FLootLockerListMetadataResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>IgnoreFiles</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List metadata with tags (paginated). </p>
+<p>All specified tags must match.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Source</td><td>Metadata source type </td></tr>
+    <tr><td class="paramname">SourceID</td><td>Source id </td></tr>
+    <tr><td class="paramname">Tags</td><td>Tags required </td></tr>
+    <tr><td class="paramname">Page</td><td>Page index </td></tr>
+    <tr><td class="paramname">PerPage</td><td>Items per page </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">IgnoreFiles</td><td>Optional: Redact file contents </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga19b7dc488f7dfa3a4887630a10c2cf12" name="ga19b7dc488f7dfa3a4887630a10c2cf12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga19b7dc488f7dfa3a4887630a10c2cf12">&#9670;&#160;</a></span>MakeMetadataEntryWithUStructValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a> ULootLockerSDKManager::MakeMetadataEntryWithUStructValue </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Tags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Access</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>Value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Factory method that makes an <a class="el" href="structFLootLockerMetadataEntry.html" title="Represents a single typed metadata entry with a key, value type, tags, and access level,...">FLootLockerMetadataEntry</a> with a UStruct Value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Key</td><td>The key you want for this entry </td></tr>
+    <tr><td class="paramname">Tags</td><td>The tags you want for this entry </td></tr>
+    <tr><td class="paramname">Access</td><td>The access level you want to set for this entry </td></tr>
+    <tr><td class="paramname">Value</td><td>The UStruct object that you to be converted to json and set as the value for this metadata entry </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The filled out metadata entry (or empty if it could not be constructed). </dd></dl>
+
+</div>
+</div>
+<a id="ga45eb3bba1b127ef1404b32a6be82052e" name="ga45eb3bba1b127ef1404b32a6be82052e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga45eb3bba1b127ef1404b32a6be82052e">&#9670;&#160;</a></span>SetMetadata()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::SetMetadata </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a>&#160;</td>
+          <td class="paramname"><em>Source</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>SourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; <a class="el" href="structFLootLockerSetMetadataAction.html">FLootLockerSetMetadataAction</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>MetadataToActionsToPerform</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Metadata.html#gaa806513179fb9125a52ab8da09260630">FLootLockerSetMetadataResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set metadata for a source. </p>
+<p>Some operations may fail independently; inspect errors array.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Source</td><td>Metadata source type </td></tr>
+    <tr><td class="paramname">SourceID</td><td>Source id </td></tr>
+    <tr><td class="paramname">MetadataToActionsToPerform</td><td>Metadata actions to perform </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gab0be1e18881f191524a7ed44f7ab5677" name="gab0be1e18881f191524a7ed44f7ab5677"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab0be1e18881f191524a7ed44f7ab5677">&#9670;&#160;</a></span>TryGetMetadataValueAsUStruct()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool ULootLockerSDKManager::TryGetMetadataValueAsUStruct </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a> &amp;&#160;</td>
+          <td class="paramname"><em>Entry</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T &amp;&#160;</td>
+          <td class="paramname"><em>Output</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the value as a UStruct of your choice. </p>
+<p>Returns true if value could be found in which case Output contains the parsed UStruct, returns false if the value field was not present or not parseable.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Entry</td><td>The entry for which you want to get the UStruct value. </td></tr>
+    <tr><td class="paramname">Output</td><td>The UStruct object that you want to be filled with data if the value was successfully parsed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the value could be parsed as the provided UStruct </dd></dl>
+
+</div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:gacf296901bb69f3a4bb4ca5744ba091da" id="r_gacf296901bb69f3a4bb4ca5744ba091da"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#gacf296901bb69f3a4bb4ca5744ba091da">FLootLockerListMetadataResponseDelegate</a>) (<a class="el" href="structFLootLockerListMetadataResponse.html">FLootLockerListMetadataResponse</a>)</td></tr>
+<tr class="memdesc:gacf296901bb69f3a4bb4ca5744ba091da"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for listing metadata.  <br /></td></tr>
+<tr class="separator:gacf296901bb69f3a4bb4ca5744ba091da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae1dd4f7c29e87bf7aeaf5c97badc824e" id="r_gae1dd4f7c29e87bf7aeaf5c97badc824e"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#gae1dd4f7c29e87bf7aeaf5c97badc824e">FLootLockerGetMetadataResponseDelegate</a>) (<a class="el" href="structFLootLockerGetMetadataResponse.html">FLootLockerGetMetadataResponse</a>)</td></tr>
+<tr class="memdesc:gae1dd4f7c29e87bf7aeaf5c97badc824e"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for getting a single metadata entry.  <br /></td></tr>
+<tr class="separator:gae1dd4f7c29e87bf7aeaf5c97badc824e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga27cd1fc35c6ea5f01acfa7757912e88c" id="r_ga27cd1fc35c6ea5f01acfa7757912e88c"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#ga27cd1fc35c6ea5f01acfa7757912e88c">FLootLockerGetMultisourceMetadataResponseDelegate</a>) (<a class="el" href="structFLootLockerGetMultisourceMetadataResponse.html">FLootLockerGetMultisourceMetadataResponse</a>)</td></tr>
+<tr class="memdesc:ga27cd1fc35c6ea5f01acfa7757912e88c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blueprint response delegate for getting multi source metadata.  <br /></td></tr>
+<tr class="separator:ga27cd1fc35c6ea5f01acfa7757912e88c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa806513179fb9125a52ab8da09260630" id="r_gaa806513179fb9125a52ab8da09260630"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#gaa806513179fb9125a52ab8da09260630">FLootLockerSetMetadataResponseDelegate</a>) (<a class="el" href="structFLootLockerSetMetadataResponse.html">FLootLockerSetMetadataResponse</a>)</td></tr>
+<tr class="memdesc:gaa806513179fb9125a52ab8da09260630"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blueprint response delegate for setting metadata.  <br /></td></tr>
+<tr class="separator:gaa806513179fb9125a52ab8da09260630"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga3d86f36677809018b3cb5db0418ac804" id="r_ga3d86f36677809018b3cb5db0418ac804"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a> : uint8 { <br />
+&#160;&#160;<a class="el" href="group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804af9b11ed03ce21394fd0e5b19ae2d3873">ELootLockerMetadataSources::reward</a> = 0
+, <a class="el" href="group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804a58317cd236f36059667cd6d7adf4ef45">ELootLockerMetadataSources::leaderboard</a> = 1
+, <a class="el" href="group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804ab1da95002d09ca22d2806ba45a27e8a5">ELootLockerMetadataSources::catalog_item</a> = 2
+, <a class="el" href="group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804a9dc57f4fdd090e9f7681ffe9a8f23b08">ELootLockerMetadataSources::progression</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804a1af0389838508d7016a9841eb6273962">ELootLockerMetadataSources::currency</a> = 4
+, <a class="el" href="group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804a912af0dff974604f1321254ca8ff38b6">ELootLockerMetadataSources::player</a> = 5
+, <a class="el" href="group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804a590f53e8699817c6fa498cc11a4cbe63">ELootLockerMetadataSources::self</a> = 6
+, <a class="el" href="group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804ac04e34d445e31a2159c1bfeb882ba212">ELootLockerMetadataSources::asset</a> = 7
+, <br />
+&#160;&#160;<a class="el" href="group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804a447b7147e84be512208dcc0995d67ebc">ELootLockerMetadataSources::item</a> = 8
+<br />
+ }</td></tr>
+<tr class="memdesc:ga3d86f36677809018b3cb5db0418ac804"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible metadata sources.  <a href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">More...</a><br /></td></tr>
+<tr class="separator:ga3d86f36677809018b3cb5db0418ac804"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7ae3db614872bb456a6b01bee377ec3e" id="r_ga7ae3db614872bb456a6b01bee377ec3e"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#ga7ae3db614872bb456a6b01bee377ec3e">ELootLockerMetadataTypes</a> : uint8 { <br />
+&#160;&#160;<a class="el" href="group__Metadata.html#gga7ae3db614872bb456a6b01bee377ec3ea27118326006d3829667a400ad23d5d98">ELootLockerMetadataTypes::String</a> = 0
+, <a class="el" href="group__Metadata.html#gga7ae3db614872bb456a6b01bee377ec3eab2ee912b91d69b435159c7c3f6df7f5f">ELootLockerMetadataTypes::Number</a> = 1
+, <a class="el" href="group__Metadata.html#gga7ae3db614872bb456a6b01bee377ec3eac26f15e86e3de4c398a8273272aba034">ELootLockerMetadataTypes::Bool</a> = 2
+, <a class="el" href="group__Metadata.html#gga7ae3db614872bb456a6b01bee377ec3eaeed8d85b888a6c015834240885ee6333">ELootLockerMetadataTypes::Json</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="group__Metadata.html#gga7ae3db614872bb456a6b01bee377ec3ea1eb445fa6bd078346bf63ecac35fa77c">ELootLockerMetadataTypes::Base64</a> = 4
+<br />
+ }</td></tr>
+<tr class="memdesc:ga7ae3db614872bb456a6b01bee377ec3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible metadata types.  <a href="group__Metadata.html#ga7ae3db614872bb456a6b01bee377ec3e">More...</a><br /></td></tr>
+<tr class="separator:ga7ae3db614872bb456a6b01bee377ec3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga14b96920b0ce0f3c43c571c63df077bd" id="r_ga14b96920b0ce0f3c43c571c63df077bd"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#ga14b96920b0ce0f3c43c571c63df077bd">ELootLockerMetadataActions</a> : uint8 { <br />
+&#160;&#160;<a class="el" href="group__Metadata.html#gga14b96920b0ce0f3c43c571c63df077bda686e697538050e4664636337cc3b834f">ELootLockerMetadataActions::Create</a> = 0
+, <a class="el" href="group__Metadata.html#gga14b96920b0ce0f3c43c571c63df077bda06933067aafd48425d67bcb01bba5cb6">ELootLockerMetadataActions::Update</a> = 1
+, <a class="el" href="group__Metadata.html#gga14b96920b0ce0f3c43c571c63df077bdaf2a6c498fb90ee345d997f888fce3b18">ELootLockerMetadataActions::Delete</a> = 2
+, <a class="el" href="group__Metadata.html#gga14b96920b0ce0f3c43c571c63df077bdab513ac9d9210aff17a0f7d41470e1a3c">ELootLockerMetadataActions::Create_or_Update</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="group__Metadata.html#gga14b96920b0ce0f3c43c571c63df077bdac4ead0b03a124a25304b4c9cf7b7be1a">ELootLockerMetadataActions::Upsert</a> = 4
+<br />
+ }</td></tr>
+<tr class="memdesc:ga14b96920b0ce0f3c43c571c63df077bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible metadata actions.  <a href="group__Metadata.html#ga14b96920b0ce0f3c43c571c63df077bd">More...</a><br /></td></tr>
+<tr class="separator:ga14b96920b0ce0f3c43c571c63df077bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga968d19da79e0c3ee8caee0c9e45f3511" id="r_ga968d19da79e0c3ee8caee0c9e45f3511"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#ga968d19da79e0c3ee8caee0c9e45f3511">ELootLockerMetadataParserOutputTypes</a> : uint8 { <br />
+&#160;&#160;<a class="el" href="group__Metadata.html#gga968d19da79e0c3ee8caee0c9e45f3511a1ad7fd3adea0f02d25b43a1fde6325c8">ELootLockerMetadataParserOutputTypes::OnString</a> = 0
+, <a class="el" href="group__Metadata.html#gga968d19da79e0c3ee8caee0c9e45f3511aaf3689136beb58f79a85c2c67044f3c8">ELootLockerMetadataParserOutputTypes::OnInteger</a> = 1
+, <a class="el" href="group__Metadata.html#gga968d19da79e0c3ee8caee0c9e45f3511a484fa9391469a0779c26a575c90db38e">ELootLockerMetadataParserOutputTypes::OnFloat</a> = 2
+, <a class="el" href="group__Metadata.html#gga968d19da79e0c3ee8caee0c9e45f3511a4b9e5617d1edc08518fd19931c3b94d9">ELootLockerMetadataParserOutputTypes::OnNumber</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="group__Metadata.html#gga968d19da79e0c3ee8caee0c9e45f3511aef1867752a0c7050c655c827d9ff34df">ELootLockerMetadataParserOutputTypes::OnBool</a> = 4
+, <a class="el" href="group__Metadata.html#gga968d19da79e0c3ee8caee0c9e45f3511ae9697cb9bc63b1652f16f34e2c8b2d74">ELootLockerMetadataParserOutputTypes::OnJson</a> = 5
+, <a class="el" href="group__Metadata.html#gga968d19da79e0c3ee8caee0c9e45f3511a9dcced0abe7554df05f16c12b17cea5b">ELootLockerMetadataParserOutputTypes::OnBase64</a> = 6
+, <a class="el" href="group__Metadata.html#gga968d19da79e0c3ee8caee0c9e45f3511a44cdeb54c6f2aebad54611201c26d6f0">ELootLockerMetadataParserOutputTypes::OnError</a> = 7
+<br />
+ }</td></tr>
+<tr class="memdesc:ga968d19da79e0c3ee8caee0c9e45f3511"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible metadata parser output types.  <a href="group__Metadata.html#ga968d19da79e0c3ee8caee0c9e45f3511">More...</a><br /></td></tr>
+<tr class="separator:ga968d19da79e0c3ee8caee0c9e45f3511"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga16202061e9bc82c5dcc37167b09fdec5" id="r_ga16202061e9bc82c5dcc37167b09fdec5"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#ga16202061e9bc82c5dcc37167b09fdec5">ULootLockerSDKManager::ListMetadata</a> (const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a> Source, const FString &amp;SourceID, const <a class="el" href="group__Metadata.html#gacf296901bb69f3a4bb4ca5744ba091da">FLootLockerListMetadataResponseDelegate</a> &amp;OnComplete, const bool IgnoreFiles=false, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga16202061e9bc82c5dcc37167b09fdec5"><td class="mdescLeft">&#160;</td><td class="mdescRight">List metadata (default pagination) for a source.  <br /></td></tr>
+<tr class="separator:ga16202061e9bc82c5dcc37167b09fdec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf750c7c243afcfc541292c5a902cc4fd" id="r_gaf750c7c243afcfc541292c5a902cc4fd"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#gaf750c7c243afcfc541292c5a902cc4fd">ULootLockerSDKManager::ListMetadata</a> (const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a> Source, const FString &amp;SourceID, const int Page, const int PerPage, const <a class="el" href="group__Metadata.html#gacf296901bb69f3a4bb4ca5744ba091da">FLootLockerListMetadataResponseDelegate</a> &amp;OnComplete, const bool IgnoreFiles=false, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gaf750c7c243afcfc541292c5a902cc4fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">List metadata (paginated) for a source.  <br /></td></tr>
+<tr class="separator:gaf750c7c243afcfc541292c5a902cc4fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae9bb3a6e8781ada4bdb7ac35c3b9cf89" id="r_gae9bb3a6e8781ada4bdb7ac35c3b9cf89"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#gae9bb3a6e8781ada4bdb7ac35c3b9cf89">ULootLockerSDKManager::ListMetadataWithTags</a> (const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a> Source, const FString &amp;SourceID, const TArray&lt; FString &gt; &amp;Tags, const <a class="el" href="group__Metadata.html#gacf296901bb69f3a4bb4ca5744ba091da">FLootLockerListMetadataResponseDelegate</a> &amp;OnComplete, const bool IgnoreFiles=false, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gae9bb3a6e8781ada4bdb7ac35c3b9cf89"><td class="mdescLeft">&#160;</td><td class="mdescRight">List metadata with tags (default pagination).  <br /></td></tr>
+<tr class="separator:gae9bb3a6e8781ada4bdb7ac35c3b9cf89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1b26e9247507760ae3a7a8ed08f5d777" id="r_ga1b26e9247507760ae3a7a8ed08f5d777"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#ga1b26e9247507760ae3a7a8ed08f5d777">ULootLockerSDKManager::ListMetadataWithTags</a> (const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a> Source, const FString &amp;SourceID, const TArray&lt; FString &gt; &amp;Tags, const int Page, const int PerPage, const <a class="el" href="group__Metadata.html#gacf296901bb69f3a4bb4ca5744ba091da">FLootLockerListMetadataResponseDelegate</a> &amp;OnComplete, const bool IgnoreFiles=false, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga1b26e9247507760ae3a7a8ed08f5d777"><td class="mdescLeft">&#160;</td><td class="mdescRight">List metadata with tags (paginated).  <br /></td></tr>
+<tr class="separator:ga1b26e9247507760ae3a7a8ed08f5d777"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9744f2e2b76af14e0b036749c9fb1a4a" id="r_ga9744f2e2b76af14e0b036749c9fb1a4a"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#ga9744f2e2b76af14e0b036749c9fb1a4a">ULootLockerSDKManager::GetMetadata</a> (const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a> Source, const FString &amp;SourceID, const FString &amp;Key, const <a class="el" href="group__Metadata.html#gae1dd4f7c29e87bf7aeaf5c97badc824e">FLootLockerGetMetadataResponseDelegate</a> &amp;OnComplete, const bool IgnoreFiles=false, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga9744f2e2b76af14e0b036749c9fb1a4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get metadata by key.  <br /></td></tr>
+<tr class="separator:ga9744f2e2b76af14e0b036749c9fb1a4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga09b8ee2e188aeed2da4c4c541236ec2e" id="r_ga09b8ee2e188aeed2da4c4c541236ec2e"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#ga09b8ee2e188aeed2da4c4c541236ec2e">ULootLockerSDKManager::GetMultisourceMetadata</a> (const TArray&lt; <a class="el" href="structFLootLockerMetadataSourceAndKeys.html">FLootLockerMetadataSourceAndKeys</a> &gt; &amp;SourcesAndKeysToGet, const <a class="el" href="group__Metadata.html#ga27cd1fc35c6ea5f01acfa7757912e88c">FLootLockerGetMultisourceMetadataResponseDelegate</a> &amp;OnComplete, const bool IgnoreFiles=false, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga09b8ee2e188aeed2da4c4c541236ec2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get metadata for multiple sources/keys.  <br /></td></tr>
+<tr class="separator:ga09b8ee2e188aeed2da4c4c541236ec2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga45eb3bba1b127ef1404b32a6be82052e" id="r_ga45eb3bba1b127ef1404b32a6be82052e"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#ga45eb3bba1b127ef1404b32a6be82052e">ULootLockerSDKManager::SetMetadata</a> (const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a> Source, const FString &amp;SourceID, const TArray&lt; <a class="el" href="structFLootLockerSetMetadataAction.html">FLootLockerSetMetadataAction</a> &gt; &amp;MetadataToActionsToPerform, const <a class="el" href="group__Metadata.html#gaa806513179fb9125a52ab8da09260630">FLootLockerSetMetadataResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga45eb3bba1b127ef1404b32a6be82052e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set metadata for a source.  <br /></td></tr>
+<tr class="separator:ga45eb3bba1b127ef1404b32a6be82052e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab0be1e18881f191524a7ed44f7ab5677" id="r_gab0be1e18881f191524a7ed44f7ab5677"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gab0be1e18881f191524a7ed44f7ab5677"><td class="memTemplItemLeft" align="right" valign="top">static bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Metadata.html#gab0be1e18881f191524a7ed44f7ab5677">ULootLockerSDKManager::TryGetMetadataValueAsUStruct</a> (const <a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a> &amp;Entry, T &amp;Output)</td></tr>
+<tr class="memdesc:gab0be1e18881f191524a7ed44f7ab5677"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value as a UStruct of your choice.  <br /></td></tr>
+<tr class="separator:gab0be1e18881f191524a7ed44f7ab5677"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga19b7dc488f7dfa3a4887630a10c2cf12" id="r_ga19b7dc488f7dfa3a4887630a10c2cf12"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga19b7dc488f7dfa3a4887630a10c2cf12"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Metadata.html#ga19b7dc488f7dfa3a4887630a10c2cf12">ULootLockerSDKManager::MakeMetadataEntryWithUStructValue</a> (const FString &amp;Key, const TArray&lt; FString &gt; &amp;Tags, const TArray&lt; FString &gt; &amp;Access, const T &amp;Value)</td></tr>
+<tr class="memdesc:ga19b7dc488f7dfa3a4887630a10c2cf12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factory method that makes an <a class="el" href="structFLootLockerMetadataEntry.html" title="Represents a single typed metadata entry with a key, value type, tags, and access level,...">FLootLockerMetadataEntry</a> with a UStruct Value.  <br /></td></tr>
+<tr class="separator:ga19b7dc488f7dfa3a4887630a10c2cf12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

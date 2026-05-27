@@ -1,0 +1,2490 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: Authentication</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.4.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('group__Authentication.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">Authentication</div></div>
+</div><!--header-->
+<div class="contents">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Start and end player sessions via Guest, Platform, or White Label login. </p>
+<p>Three login families are supported:</p><ul>
+<li><b>Guest Login</b> — assigns each player a unique device-local ID; no account required. Ideal for fast entry on mobile or web.</li>
+<li><b>Platform Login</b> — delegates to a first-party platform (Steam, PlayStation, Xbox, Nintendo Switch, Epic Games, Google Play, Apple Game Center, Meta/Oculus, Amazon Luna, Discord).</li>
+<li><b>White Label Login</b> — custom email/password accounts for your game.</li>
+</ul>
+<p>See also <a class="el" href="group__WhiteLabel.html">White Label Login</a> and <a class="el" href="group__ConnectedAccounts.html">Connected Accounts</a>.</p>
+<p>See the <a href="https://docs.lootlocker.com/players/authentication">LootLocker documentation</a>. </p>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="ga74df43aa1fbde2acb479a271270bb97a" name="ga74df43aa1fbde2acb479a271270bb97a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga74df43aa1fbde2acb479a271270bb97a">&#9670;&#160;</a></span>FLootLockerAppleGameCenterSessionResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerAppleGameCenterSessionResponseDelegate) (<a class="el" href="structFLootLockerAppleGameCenterSessionResponse.html">FLootLockerAppleGameCenterSessionResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerAppleGameCenterSessionResponse.html">FLootLockerAppleGameCenterSessionResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga46f76cb254b70075a987f49689f03f28" name="ga46f76cb254b70075a987f49689f03f28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga46f76cb254b70075a987f49689f03f28">&#9670;&#160;</a></span>FLootLockerAppleSessionResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerAppleSessionResponseDelegate) (<a class="el" href="structFLootLockerAppleSessionResponse.html">FLootLockerAppleSessionResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerAppleSessionResponse.html">FLootLockerAppleSessionResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga4782fbc582fb13b704dce53fd213cf16" name="ga4782fbc582fb13b704dce53fd213cf16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4782fbc582fb13b704dce53fd213cf16">&#9670;&#160;</a></span>FLootLockerDiscordSessionResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerDiscordSessionResponseDelegate) (<a class="el" href="structFLootLockerDiscordSessionResponse.html">FLootLockerDiscordSessionResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerDiscordSessionResponse.html">FLootLockerDiscordSessionResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga9ee445ddb3e563ae75788edc576de91b" name="ga9ee445ddb3e563ae75788edc576de91b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9ee445ddb3e563ae75788edc576de91b">&#9670;&#160;</a></span>FLootLockerEpicSessionResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerEpicSessionResponseDelegate) (<a class="el" href="structFLootLockerEpicSessionResponse.html">FLootLockerEpicSessionResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerEpicSessionResponse.html">FLootLockerEpicSessionResponse</a> result. </p>
+
+</div>
+</div>
+<a id="gafc2aca24c5c95ef834d7b681d599df03" name="gafc2aca24c5c95ef834d7b681d599df03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafc2aca24c5c95ef834d7b681d599df03">&#9670;&#160;</a></span>FLootLockerGooglePlayGamesSessionResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerGooglePlayGamesSessionResponseDelegate) (<a class="el" href="structFLootLockerGooglePlayGamesSessionResponse.html">FLootLockerGooglePlayGamesSessionResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerGooglePlayGamesSessionResponse.html">FLootLockerGooglePlayGamesSessionResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga3ed6a7c06292389a33e89491f44fa728" name="ga3ed6a7c06292389a33e89491f44fa728"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3ed6a7c06292389a33e89491f44fa728">&#9670;&#160;</a></span>FLootLockerGoogleSessionResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerGoogleSessionResponseDelegate) (<a class="el" href="structFLootLockerGoogleSessionResponse.html">FLootLockerGoogleSessionResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerGoogleSessionResponse.html">FLootLockerGoogleSessionResponse</a> result. </p>
+
+</div>
+</div>
+<a id="gad43a851209a55414955265c14f9d4e60" name="gad43a851209a55414955265c14f9d4e60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad43a851209a55414955265c14f9d4e60">&#9670;&#160;</a></span>FLootLockerLoginResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerLoginResponseDelegate) (<a class="el" href="structFLootLockerLoginResponse.html">FLootLockerLoginResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerLoginResponse.html">FLootLockerLoginResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga44f69d575358bb105b10f581c1043801" name="ga44f69d575358bb105b10f581c1043801"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga44f69d575358bb105b10f581c1043801">&#9670;&#160;</a></span>FLootLockerMetaSessionResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerMetaSessionResponseDelegate) (<a class="el" href="structFLootLockerMetaSessionResponse.html">FLootLockerMetaSessionResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerMetaSessionResponse.html">FLootLockerMetaSessionResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga98fc9b8d0305aab7f5668a0658b9ae1c" name="ga98fc9b8d0305aab7f5668a0658b9ae1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga98fc9b8d0305aab7f5668a0658b9ae1c">&#9670;&#160;</a></span>FLootLockerSessionResponse</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerSessionResponse) (<a class="el" href="structFLootLockerAuthenticationResponse.html">FLootLockerAuthenticationResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerAuthenticationResponse.html">FLootLockerAuthenticationResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga002968d0fa32442e9759ab0526cc5e2e" name="ga002968d0fa32442e9759ab0526cc5e2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga002968d0fa32442e9759ab0526cc5e2e">&#9670;&#160;</a></span>FLootLockerWhiteLabelLoginAndSessionResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerWhiteLabelLoginAndSessionResponseDelegate) (<a class="el" href="structFLootLockerWhiteLabelLoginAndSessionResponse.html">FLootLockerWhiteLabelLoginAndSessionResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerWhiteLabelLoginAndSessionResponse.html">FLootLockerWhiteLabelLoginAndSessionResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga5272aace2f494fc0cb15fc4a828594bf" name="ga5272aace2f494fc0cb15fc4a828594bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5272aace2f494fc0cb15fc4a828594bf">&#9670;&#160;</a></span>FLootLockerWhiteLabelVerifySessionDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerWhiteLabelVerifySessionDelegate) (<a class="el" href="structFLootLockerWhiteLabelVerifySessionResponse.html">FLootLockerWhiteLabelVerifySessionResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerWhiteLabelVerifySessionResponse.html">FLootLockerWhiteLabelVerifySessionResponse</a> result. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="gae4ebc57a876c42d49c752c3af6c1f611" name="gae4ebc57a876c42d49c752c3af6c1f611"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae4ebc57a876c42d49c752c3af6c1f611">&#9670;&#160;</a></span>ELootLockerGoogleClientPlatform</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__Authentication.html#gae4ebc57a876c42d49c752c3af6c1f611">ELootLockerGoogleClientPlatform</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Google OAuth2 Client platform. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggae4ebc57a876c42d49c752c3af6c1f611ac6e190b284633c48e39e55049da3cce8" name="ggae4ebc57a876c42d49c752c3af6c1f611ac6e190b284633c48e39e55049da3cce8"></a>Web&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggae4ebc57a876c42d49c752c3af6c1f611ae84e30b9390cdb64db6db2c9ab87846d" name="ggae4ebc57a876c42d49c752c3af6c1f611ae84e30b9390cdb64db6db2c9ab87846d"></a>Android&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggae4ebc57a876c42d49c752c3af6c1f611aa756d26ca5161ae6fcc2bde4b2bcf169" name="ggae4ebc57a876c42d49c752c3af6c1f611aa756d26ca5161ae6fcc2bde4b2bcf169"></a>Ios&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggae4ebc57a876c42d49c752c3af6c1f611a2310408a63388fe57e3a4177168a8798" name="ggae4ebc57a876c42d49c752c3af6c1f611a2310408a63388fe57e3a4177168a8798"></a>Desktop&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="gaba10707e433a9a049488864639935180" name="gaba10707e433a9a049488864639935180"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaba10707e433a9a049488864639935180">&#9670;&#160;</a></span>EndSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::EndSession </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>End the active session (if any). </p>
+<p>Terminates the session; subsequent requests with its token return 401. Succeeds if a session existed or none were active.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga5f4c1eb0f2d8215a897e951b5231adb4" name="ga5f4c1eb0f2d8215a897e951b5231adb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5f4c1eb0f2d8215a897e951b5231adb4">&#9670;&#160;</a></span>GuestLogin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GuestLogin </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>PlayerIdentifier</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Start a guest session. </p>
+<p>Optionally provide a custom unique player identifier (otherwise one will be generated).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">PlayerIdentifier</td><td>Optional: Custom unique identifier to associate with this guest player (auto-generated if empty) </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga2e129c10499dd7c16bfa4d87de01c01d" name="ga2e129c10499dd7c16bfa4d87de01c01d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2e129c10499dd7c16bfa4d87de01c01d">&#9670;&#160;</a></span>RefreshAppleGameCenterSession() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RefreshAppleGameCenterSession </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga74df43aa1fbde2acb479a271270bb97a">FLootLockerAppleGameCenterSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Refresh an existing Apple Game Center session. </p>
+<p>HTTP 401 (Unauthorized) indicates the refresh token expired and a new login is required. The Apple platform must be enabled for your game.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga75ab3b6e7ef1e0ae622190ddb943e3c8" name="ga75ab3b6e7ef1e0ae622190ddb943e3c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga75ab3b6e7ef1e0ae622190ddb943e3c8">&#9670;&#160;</a></span>RefreshAppleGameCenterSession() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RefreshAppleGameCenterSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>RefreshToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga74df43aa1fbde2acb479a271270bb97a">FLootLockerAppleGameCenterSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnRefreshAppleGameCenterSessionCompleted</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Refresh an existing Apple Game Center session using an explicit refresh token. </p>
+<p>HTTP 401 (Unauthorized) indicates the refresh token expired and a new login is required. The Apple platform must be enabled for your game.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">RefreshToken</td><td>Refresh token from StartAppleGameCenterSession (resolved from stored data if empty) </td></tr>
+    <tr><td class="paramname">OnRefreshAppleGameCenterSessionCompleted</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gae5c9708248efa855137464a6775a7db2" name="gae5c9708248efa855137464a6775a7db2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae5c9708248efa855137464a6775a7db2">&#9670;&#160;</a></span>RefreshAppleSession() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RefreshAppleSession </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga46f76cb254b70075a987f49689f03f28">FLootLockerAppleSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Refresh an existing Sign in with Apple session. </p>
+<p>HTTP 401 (Unauthorized) indicates the refresh token expired and a new login is required. The Apple sign-in platform must be enabled for your game.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga36fc47347de7269ac12df48795d426c3" name="ga36fc47347de7269ac12df48795d426c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga36fc47347de7269ac12df48795d426c3">&#9670;&#160;</a></span>RefreshAppleSession() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RefreshAppleSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>RefreshToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga46f76cb254b70075a987f49689f03f28">FLootLockerAppleSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Refresh an existing Sign in with Apple session using an explicit refresh token. </p>
+<p>HTTP 401 (Unauthorized) indicates the refresh token expired and a new login is required. The Apple sign-in platform must be enabled for your game.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">RefreshToken</td><td>Refresh token from StartAppleSession </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga121eef2e1cdebecea4cf18c4a5af3e8c" name="ga121eef2e1cdebecea4cf18c4a5af3e8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga121eef2e1cdebecea4cf18c4a5af3e8c">&#9670;&#160;</a></span>RefreshDiscordSession() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RefreshDiscordSession </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga4782fbc582fb13b704dce53fd213cf16">FLootLockerDiscordSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Refresh a Discord session. </p>
+<p>HTTP 401 means the refresh token expired and a new login is required. Discord platform must be enabled.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga9f9d2d6b10ae993f47d198f7eb06f654" name="ga9f9d2d6b10ae993f47d198f7eb06f654"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9f9d2d6b10ae993f47d198f7eb06f654">&#9670;&#160;</a></span>RefreshDiscordSession() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RefreshDiscordSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>RefreshToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga4782fbc582fb13b704dce53fd213cf16">FLootLockerDiscordSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Refresh a Discord session with an explicit refresh token. </p>
+<p>HTTP 401 means the refresh token expired and a new login is required.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">RefreshToken</td><td>Refresh token from StartDiscordSession </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gada1108d212970d2cf83905c31df77d68" name="gada1108d212970d2cf83905c31df77d68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gada1108d212970d2cf83905c31df77d68">&#9670;&#160;</a></span>RefreshEpicSession() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RefreshEpicSession </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga9ee445ddb3e563ae75788edc576de91b">FLootLockerEpicSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Refresh an existing Epic session. </p>
+<p>HTTP 401 (Unauthorized) indicates the refresh token expired and a new login is required. The Epic Games platform must be enabled for your game.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga8c3380942d2c2faf396ae5bdf62314a9" name="ga8c3380942d2c2faf396ae5bdf62314a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8c3380942d2c2faf396ae5bdf62314a9">&#9670;&#160;</a></span>RefreshEpicSession() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RefreshEpicSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>RefreshToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga9ee445ddb3e563ae75788edc576de91b">FLootLockerEpicSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Refresh an existing Epic session using an explicit refresh token. </p>
+<p>HTTP 401 (Unauthorized) indicates the refresh token expired and a new login is required. The Epic Games platform must be enabled for your game.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">RefreshToken</td><td>Refresh token from StartEpicSession (resolved from stored data if empty) </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gae2fabba8f080a9a41a05928ffc4b8ac4" name="gae2fabba8f080a9a41a05928ffc4b8ac4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae2fabba8f080a9a41a05928ffc4b8ac4">&#9670;&#160;</a></span>RefreshGooglePlayGamesSession() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RefreshGooglePlayGamesSession </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#gafc2aca24c5c95ef834d7b681d599df03">FLootLockerGooglePlayGamesSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Refresh an existing Google Play Games session. </p>
+<p>HTTP 401 (Unauthorized) indicates the refresh token expired and a new login is required. The Google Play Games platform must be enabled for your game.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gad2b24ae4724b072e9025850a7f7bfd13" name="gad2b24ae4724b072e9025850a7f7bfd13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad2b24ae4724b072e9025850a7f7bfd13">&#9670;&#160;</a></span>RefreshGooglePlayGamesSession() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RefreshGooglePlayGamesSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>RefreshToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#gafc2aca24c5c95ef834d7b681d599df03">FLootLockerGooglePlayGamesSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Refresh an existing Google Play Games session using an explicit refresh token. </p>
+<p>HTTP 401 (Unauthorized) indicates the refresh token expired and a new login is required. The Google Play Games platform must be enabled for your game.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">RefreshToken</td><td>Refresh token from StartGooglePlayGamesSession </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gae159e6539bcd76487a86d3fe1572d802" name="gae159e6539bcd76487a86d3fe1572d802"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae159e6539bcd76487a86d3fe1572d802">&#9670;&#160;</a></span>RefreshGoogleSession() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RefreshGoogleSession </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga3ed6a7c06292389a33e89491f44fa728">FLootLockerGoogleSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Refresh an existing Google session. </p>
+<p>HTTP 401 (Unauthorized) indicates the refresh token expired and a new login is required. The Google platform must be enabled for your game.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga7bbeb2613c14cea658b8f32985ed6cd4" name="ga7bbeb2613c14cea658b8f32985ed6cd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7bbeb2613c14cea658b8f32985ed6cd4">&#9670;&#160;</a></span>RefreshGoogleSession() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RefreshGoogleSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>RefreshToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga3ed6a7c06292389a33e89491f44fa728">FLootLockerGoogleSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Refresh an existing Google session using an explicit refresh token. </p>
+<p>HTTP 401 (Unauthorized) indicates the refresh token expired and a new login is required. The Google platform must be enabled for your game.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">RefreshToken</td><td>Refresh token from StartGoogleSession </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gafec2a22e47096278bdb4b8b7ec1cf257" name="gafec2a22e47096278bdb4b8b7ec1cf257"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafec2a22e47096278bdb4b8b7ec1cf257">&#9670;&#160;</a></span>RefreshMetaSession() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RefreshMetaSession </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga44f69d575358bb105b10f581c1043801">FLootLockerMetaSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OncompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Refresh an existing Meta / Oculus session. </p>
+<p>HTTP 401 (Unauthorized) indicates the refresh token expired and a new login is required. The Meta platform must be enabled for your game.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OncompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gaa165fc8b4765977d29b384a2d35f683f" name="gaa165fc8b4765977d29b384a2d35f683f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa165fc8b4765977d29b384a2d35f683f">&#9670;&#160;</a></span>RefreshMetaSession() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RefreshMetaSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>RefreshToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga44f69d575358bb105b10f581c1043801">FLootLockerMetaSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OncompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Refresh an existing Meta / Oculus session using an explicit refresh token. </p>
+<p>HTTP 401 (Unauthorized) indicates the refresh token expired and a new login is required. The Meta platform must be enabled for your game.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">RefreshToken</td><td>Refresh token from StartMetaSession (resolved from stored data if empty) </td></tr>
+    <tr><td class="paramname">OncompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga4ff21ff179d549468e8f17e57418d6b7" name="ga4ff21ff179d549468e8f17e57418d6b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4ff21ff179d549468e8f17e57418d6b7">&#9670;&#160;</a></span>StartAmazonLunaSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::StartAmazonLunaSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>AmazonLunaGuid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Start a LootLocker session for an Amazon Luna user. </p>
+<p>A game can support multiple platforms, but each build should typically target only one.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AmazonLunaGuid</td><td>Amazon Luna GUID identifying the player </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga7868b009c2322f4296fa3f1d58d1279d" name="ga7868b009c2322f4296fa3f1d58d1279d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7868b009c2322f4296fa3f1d58d1279d">&#9670;&#160;</a></span>StartAndroidSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::StartAndroidSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>DeviceId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Start a LootLocker session for an Android user. </p>
+<p>A game can support multiple platforms, but each build should typically target only one.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">DeviceId</td><td>Device identifier for the player </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga39d1ad2747e4c54cbffb564d01dbbfb5" name="ga39d1ad2747e4c54cbffb564d01dbbfb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga39d1ad2747e4c54cbffb564d01dbbfb5">&#9670;&#160;</a></span>StartAppleGameCenterSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::StartAppleGameCenterSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>BundleId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>PlayerId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>PublicKeyUrl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Signature</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Salt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Timestamp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga74df43aa1fbde2acb479a271270bb97a">FLootLockerAppleGameCenterSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnStartedAppleGameCenterSessionCompleted</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Start a LootLocker session using Apple Game Center identity verification. </p>
+<p>The Apple platform must be enabled for your game.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">BundleId</td><td>Apple Game Center bundle id of your app </td></tr>
+    <tr><td class="paramname">PlayerId</td><td>Apple Game Center player id </td></tr>
+    <tr><td class="paramname">PublicKeyUrl</td><td>Public key URL from Apple Game Center Identity Verification </td></tr>
+    <tr><td class="paramname">Signature</td><td>Signature from Apple Game Center Identity Verification </td></tr>
+    <tr><td class="paramname">Salt</td><td>Salt value from Apple Game Center Identity Verification </td></tr>
+    <tr><td class="paramname">Timestamp</td><td>Timestamp from Apple Game Center Identity Verification </td></tr>
+    <tr><td class="paramname">OnStartedAppleGameCenterSessionCompleted</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga2325bd58360f518ce0e226a66b6cc322" name="ga2325bd58360f518ce0e226a66b6cc322"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2325bd58360f518ce0e226a66b6cc322">&#9670;&#160;</a></span>StartAppleSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::StartAppleSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>AuthorizationCode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga46f76cb254b70075a987f49689f03f28">FLootLockerAppleSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Start a LootLocker session using Sign in with Apple. </p>
+<p>The Apple sign-in platform must be enabled for your game.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AuthorizationCode</td><td>Authorization code provided by Apple </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga3438c38a6c329155b1bd87d57ecb7947" name="ga3438c38a6c329155b1bd87d57ecb7947"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3438c38a6c329155b1bd87d57ecb7947">&#9670;&#160;</a></span>StartDiscordSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::StartDiscordSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>AccessToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga4782fbc582fb13b704dce53fd213cf16">FLootLockerDiscordSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Start a LootLocker session for a Discord user. </p>
+<p>The Discord sign-in platform must be enabled for your game.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AccessToken</td><td>Access token from Discord OAuth </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gab3a915781b5c6112d7ae4ec02137f962" name="gab3a915781b5c6112d7ae4ec02137f962"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab3a915781b5c6112d7ae4ec02137f962">&#9670;&#160;</a></span>StartEpicSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::StartEpicSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>IdToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga9ee445ddb3e563ae75788edc576de91b">FLootLockerEpicSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Start a LootLocker session for an Epic Online Services (EOS) user. </p>
+<p>The Epic Games platform must be enabled for your game.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">IdToken</td><td>EOS ID token </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga0182f07c76efd43743d647887683db27" name="ga0182f07c76efd43743d647887683db27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0182f07c76efd43743d647887683db27">&#9670;&#160;</a></span>StartGooglePlayGamesSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::StartGooglePlayGamesSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>AuthCode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#gafc2aca24c5c95ef834d7b681d599df03">FLootLockerGooglePlayGamesSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Start a LootLocker session for a Google Play Games user. </p>
+<p>The Google Play Games platform must be enabled for your game.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AuthCode</td><td>Authorization code from Google Play Games sign-in </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga0feffe1d1a3d82de86f1d66f3285f69b" name="ga0feffe1d1a3d82de86f1d66f3285f69b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0feffe1d1a3d82de86f1d66f3285f69b">&#9670;&#160;</a></span>StartGoogleSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::StartGoogleSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>IdToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga3ed6a7c06292389a33e89491f44fa728">FLootLockerGoogleSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Start a LootLocker session for a Google user (default platform). </p>
+<p>The Google sign-in platform must be enabled for your game.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">IdToken</td><td>Google ID token </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga04fc598b772d338c6a09a6372de8dd07" name="ga04fc598b772d338c6a09a6372de8dd07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga04fc598b772d338c6a09a6372de8dd07">&#9670;&#160;</a></span>StartGoogleSessionForPlatform()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::StartGoogleSessionForPlatform </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>IdToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__Authentication.html#gae4ebc57a876c42d49c752c3af6c1f611">ELootLockerGoogleClientPlatform</a>&#160;</td>
+          <td class="paramname"><em>Platform</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga3ed6a7c06292389a33e89491f44fa728">FLootLockerGoogleSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Start a LootLocker session for a Google user targeting a specific Google OAuth2 Client ID platform. </p>
+<p>The desired Google platform must be enabled for your game.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">IdToken</td><td>Google ID token </td></tr>
+    <tr><td class="paramname">Platform</td><td>Google OAuth2 client platform enum value </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga028d391810047667bf6c8e0cf1b10b8e" name="ga028d391810047667bf6c8e0cf1b10b8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga028d391810047667bf6c8e0cf1b10b8e">&#9670;&#160;</a></span>StartMetaSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::StartMetaSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>UserId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Nonce</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga44f69d575358bb105b10f581c1043801">FLootLockerMetaSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OncompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Start a LootLocker session for a Meta / Oculus user. </p>
+<p>The Meta platform must be enabled for your game.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">UserId</td><td>User id received from Oculus </td></tr>
+    <tr><td class="paramname">Nonce</td><td>Nonce received from Oculus </td></tr>
+    <tr><td class="paramname">OncompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga5194f95943fde3c54d5b2811c449fefc" name="ga5194f95943fde3c54d5b2811c449fefc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5194f95943fde3c54d5b2811c449fefc">&#9670;&#160;</a></span>StartNintendoSwitchSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::StartNintendoSwitchSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>NSAIdToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Start a LootLocker session for a Nintendo Switch user. </p>
+<p>The Nintendo Switch platform must be enabled for your game.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">NSAIdToken</td><td>Nintendo Switch Account (NSA) id token </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gaa610c2a13df2ff1e520f0051b39543ca" name="gaa610c2a13df2ff1e520f0051b39543ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa610c2a13df2ff1e520f0051b39543ca">&#9670;&#160;</a></span>StartPlaystationNetworkSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::StartPlaystationNetworkSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>PsnOnlineId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Start a PlayStation Network session (Deprecated – use VerifyPlayerAndStartPlaystationNetworkSession). </p>
+<p>A game can support multiple platforms, but each build should typically target only one.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">PsnOnlineId</td><td>PSN Online ID of the player </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga77af7ace5f7d895a523ed659042bad0d" name="ga77af7ace5f7d895a523ed659042bad0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga77af7ace5f7d895a523ed659042bad0d">&#9670;&#160;</a></span>StartSessionManual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void ULootLockerSDKManager::StartSessionManual </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Add a player state manually from externally sourced data (e.g. </p>
+<p>after a server token exchange) without performing an authentication call.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ForPlayer</td><td>Player state to cache and use for future requests </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gac68e816f2d87d860f1c24df5bf72d863" name="gac68e816f2d87d860f1c24df5bf72d863"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac68e816f2d87d860f1c24df5bf72d863">&#9670;&#160;</a></span>StartSteamSessionUsingTicket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::StartSteamSessionUsingTicket </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>SteamSessionTicket</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>SteamAppId</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Start a LootLocker session for a Steam user using a session ticket. </p>
+<p>Optionally specify a Steam App ID if multiple are configured for your game. A game can support multiple platforms, but each build should typically target only one.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SteamSessionTicket</td><td>Steam session ticket token </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">SteamAppId</td><td>Optional: Specific Steam App ID to verify against (blank = default) </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gab1479486719c925962dcb061c9d27ddf" name="gab1479486719c925962dcb061c9d27ddf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab1479486719c925962dcb061c9d27ddf">&#9670;&#160;</a></span>StartXboxSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::StartXboxSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>XboxUserToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Start a LootLocker session for an Xbox user. </p>
+<p>The Xbox platform must be enabled for your game.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">XboxUserToken</td><td>Xbox user token </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gaec4ec052796e3454b842aaf03e7e00a7" name="gaec4ec052796e3454b842aaf03e7e00a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaec4ec052796e3454b842aaf03e7e00a7">&#9670;&#160;</a></span>VerifyPlayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::VerifyPlayer </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>PlatformToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Platform</em> = <code>FString(TEXT(&quot;&quot;))</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>(Deprecated) Verify player identity for a platform before starting a session. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">PlatformToken</td><td>Platform-specific token </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">Platform</td><td>Optional: Explicit platform identifier override </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gacfd99e287b47541cd95012e1511dda6b" name="gacfd99e287b47541cd95012e1511dda6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacfd99e287b47541cd95012e1511dda6b">&#9670;&#160;</a></span>VerifyPlayerAndStartPlaystationNetworkSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::VerifyPlayerAndStartPlaystationNetworkSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>AuthCode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>AccountID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>PsnIssuerId</em> = <code>256</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Start a PlayStation Network session (v1/v2). </p>
+<p>If your token starts with v3 use VerifyPlayerAndStartPlaystationNetworkV3Session. A game can support multiple platforms, but each build should typically target only one.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AuthCode</td><td>Authorization code received from PSN after login </td></tr>
+    <tr><td class="paramname">AccountID</td><td>Numeric account id returned by PSN </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">PsnIssuerId</td><td>Optional: PSN issuer id (default 256 = production) </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gaa0616c935713a0e0cc31a225933f2b69" name="gaa0616c935713a0e0cc31a225933f2b69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa0616c935713a0e0cc31a225933f2b69">&#9670;&#160;</a></span>VerifyPlayerAndStartPlaystationNetworkV3Session()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::VerifyPlayerAndStartPlaystationNetworkV3Session </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>AuthCode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>EnvIssuerId</em> = <code>256</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em> = <code><a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Start a PlayStation Network session (v3 flow – tokens starting with v3). </p>
+<p>A game can support multiple platforms, but each build should typically target only one.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AuthCode</td><td>Authorization code received from PSN (v3) </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">EnvIssuerId</td><td>Optional: Environment issuer id (default 256 = production) </td></tr>
+    <tr><td class="paramname">Optionals</td><td>Optional: Additional session options applied when starting the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga98fc9b8d0305aab7f5668a0658b9ae1c" id="r_ga98fc9b8d0305aab7f5668a0658b9ae1c"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a>) (<a class="el" href="structFLootLockerAuthenticationResponse.html">FLootLockerAuthenticationResponse</a>)</td></tr>
+<tr class="memdesc:ga98fc9b8d0305aab7f5668a0658b9ae1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerAuthenticationResponse.html">FLootLockerAuthenticationResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga98fc9b8d0305aab7f5668a0658b9ae1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga46f76cb254b70075a987f49689f03f28" id="r_ga46f76cb254b70075a987f49689f03f28"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga46f76cb254b70075a987f49689f03f28">FLootLockerAppleSessionResponseDelegate</a>) (<a class="el" href="structFLootLockerAppleSessionResponse.html">FLootLockerAppleSessionResponse</a>)</td></tr>
+<tr class="memdesc:ga46f76cb254b70075a987f49689f03f28"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerAppleSessionResponse.html">FLootLockerAppleSessionResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga46f76cb254b70075a987f49689f03f28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3ed6a7c06292389a33e89491f44fa728" id="r_ga3ed6a7c06292389a33e89491f44fa728"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga3ed6a7c06292389a33e89491f44fa728">FLootLockerGoogleSessionResponseDelegate</a>) (<a class="el" href="structFLootLockerGoogleSessionResponse.html">FLootLockerGoogleSessionResponse</a>)</td></tr>
+<tr class="memdesc:ga3ed6a7c06292389a33e89491f44fa728"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerGoogleSessionResponse.html">FLootLockerGoogleSessionResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga3ed6a7c06292389a33e89491f44fa728"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafc2aca24c5c95ef834d7b681d599df03" id="r_gafc2aca24c5c95ef834d7b681d599df03"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gafc2aca24c5c95ef834d7b681d599df03">FLootLockerGooglePlayGamesSessionResponseDelegate</a>) (<a class="el" href="structFLootLockerGooglePlayGamesSessionResponse.html">FLootLockerGooglePlayGamesSessionResponse</a>)</td></tr>
+<tr class="memdesc:gafc2aca24c5c95ef834d7b681d599df03"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerGooglePlayGamesSessionResponse.html">FLootLockerGooglePlayGamesSessionResponse</a> result.  <br /></td></tr>
+<tr class="separator:gafc2aca24c5c95ef834d7b681d599df03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9ee445ddb3e563ae75788edc576de91b" id="r_ga9ee445ddb3e563ae75788edc576de91b"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga9ee445ddb3e563ae75788edc576de91b">FLootLockerEpicSessionResponseDelegate</a>) (<a class="el" href="structFLootLockerEpicSessionResponse.html">FLootLockerEpicSessionResponse</a>)</td></tr>
+<tr class="memdesc:ga9ee445ddb3e563ae75788edc576de91b"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerEpicSessionResponse.html">FLootLockerEpicSessionResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga9ee445ddb3e563ae75788edc576de91b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad43a851209a55414955265c14f9d4e60" id="r_gad43a851209a55414955265c14f9d4e60"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gad43a851209a55414955265c14f9d4e60">FLootLockerLoginResponseDelegate</a>) (<a class="el" href="structFLootLockerLoginResponse.html">FLootLockerLoginResponse</a>)</td></tr>
+<tr class="memdesc:gad43a851209a55414955265c14f9d4e60"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerLoginResponse.html">FLootLockerLoginResponse</a> result.  <br /></td></tr>
+<tr class="separator:gad43a851209a55414955265c14f9d4e60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5272aace2f494fc0cb15fc4a828594bf" id="r_ga5272aace2f494fc0cb15fc4a828594bf"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga5272aace2f494fc0cb15fc4a828594bf">FLootLockerWhiteLabelVerifySessionDelegate</a>) (<a class="el" href="structFLootLockerWhiteLabelVerifySessionResponse.html">FLootLockerWhiteLabelVerifySessionResponse</a>)</td></tr>
+<tr class="memdesc:ga5272aace2f494fc0cb15fc4a828594bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerWhiteLabelVerifySessionResponse.html">FLootLockerWhiteLabelVerifySessionResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga5272aace2f494fc0cb15fc4a828594bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga002968d0fa32442e9759ab0526cc5e2e" id="r_ga002968d0fa32442e9759ab0526cc5e2e"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga002968d0fa32442e9759ab0526cc5e2e">FLootLockerWhiteLabelLoginAndSessionResponseDelegate</a>) (<a class="el" href="structFLootLockerWhiteLabelLoginAndSessionResponse.html">FLootLockerWhiteLabelLoginAndSessionResponse</a>)</td></tr>
+<tr class="memdesc:ga002968d0fa32442e9759ab0526cc5e2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerWhiteLabelLoginAndSessionResponse.html">FLootLockerWhiteLabelLoginAndSessionResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga002968d0fa32442e9759ab0526cc5e2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga74df43aa1fbde2acb479a271270bb97a" id="r_ga74df43aa1fbde2acb479a271270bb97a"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga74df43aa1fbde2acb479a271270bb97a">FLootLockerAppleGameCenterSessionResponseDelegate</a>) (<a class="el" href="structFLootLockerAppleGameCenterSessionResponse.html">FLootLockerAppleGameCenterSessionResponse</a>)</td></tr>
+<tr class="memdesc:ga74df43aa1fbde2acb479a271270bb97a"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerAppleGameCenterSessionResponse.html">FLootLockerAppleGameCenterSessionResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga74df43aa1fbde2acb479a271270bb97a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga44f69d575358bb105b10f581c1043801" id="r_ga44f69d575358bb105b10f581c1043801"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga44f69d575358bb105b10f581c1043801">FLootLockerMetaSessionResponseDelegate</a>) (<a class="el" href="structFLootLockerMetaSessionResponse.html">FLootLockerMetaSessionResponse</a>)</td></tr>
+<tr class="memdesc:ga44f69d575358bb105b10f581c1043801"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerMetaSessionResponse.html">FLootLockerMetaSessionResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga44f69d575358bb105b10f581c1043801"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4782fbc582fb13b704dce53fd213cf16" id="r_ga4782fbc582fb13b704dce53fd213cf16"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga4782fbc582fb13b704dce53fd213cf16">FLootLockerDiscordSessionResponseDelegate</a>) (<a class="el" href="structFLootLockerDiscordSessionResponse.html">FLootLockerDiscordSessionResponse</a>)</td></tr>
+<tr class="memdesc:ga4782fbc582fb13b704dce53fd213cf16"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerDiscordSessionResponse.html">FLootLockerDiscordSessionResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga4782fbc582fb13b704dce53fd213cf16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:gae4ebc57a876c42d49c752c3af6c1f611" id="r_gae4ebc57a876c42d49c752c3af6c1f611"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gae4ebc57a876c42d49c752c3af6c1f611">ELootLockerGoogleClientPlatform</a> : uint8 { <a class="el" href="group__Authentication.html#ggae4ebc57a876c42d49c752c3af6c1f611ac6e190b284633c48e39e55049da3cce8">ELootLockerGoogleClientPlatform::Web</a> = 0
+, <a class="el" href="group__Authentication.html#ggae4ebc57a876c42d49c752c3af6c1f611ae84e30b9390cdb64db6db2c9ab87846d">ELootLockerGoogleClientPlatform::Android</a> = 1
+, <a class="el" href="group__Authentication.html#ggae4ebc57a876c42d49c752c3af6c1f611aa756d26ca5161ae6fcc2bde4b2bcf169">ELootLockerGoogleClientPlatform::Ios</a> = 2
+, <a class="el" href="group__Authentication.html#ggae4ebc57a876c42d49c752c3af6c1f611a2310408a63388fe57e3a4177168a8798">ELootLockerGoogleClientPlatform::Desktop</a> = 3
+ }</td></tr>
+<tr class="memdesc:gae4ebc57a876c42d49c752c3af6c1f611"><td class="mdescLeft">&#160;</td><td class="mdescRight">Google OAuth2 Client platform.  <a href="group__Authentication.html#gae4ebc57a876c42d49c752c3af6c1f611">More...</a><br /></td></tr>
+<tr class="separator:gae4ebc57a876c42d49c752c3af6c1f611"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga77af7ace5f7d895a523ed659042bad0d" id="r_ga77af7ace5f7d895a523ed659042bad0d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga77af7ace5f7d895a523ed659042bad0d">ULootLockerSDKManager::StartSessionManual</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;ForPlayer)</td></tr>
+<tr class="memdesc:ga77af7ace5f7d895a523ed659042bad0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a player state manually from externally sourced data (e.g.  <br /></td></tr>
+<tr class="separator:ga77af7ace5f7d895a523ed659042bad0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa610c2a13df2ff1e520f0051b39543ca" id="r_gaa610c2a13df2ff1e520f0051b39543ca"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gaa610c2a13df2ff1e520f0051b39543ca">ULootLockerSDKManager::StartPlaystationNetworkSession</a> (const FString &amp;PsnOnlineId, const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;OnCompletedRequest, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:gaa610c2a13df2ff1e520f0051b39543ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a PlayStation Network session (Deprecated – use VerifyPlayerAndStartPlaystationNetworkSession).  <br /></td></tr>
+<tr class="separator:gaa610c2a13df2ff1e520f0051b39543ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacfd99e287b47541cd95012e1511dda6b" id="r_gacfd99e287b47541cd95012e1511dda6b"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gacfd99e287b47541cd95012e1511dda6b">ULootLockerSDKManager::VerifyPlayerAndStartPlaystationNetworkSession</a> (const FString &amp;AuthCode, const FString &amp;AccountID, const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;OnCompletedRequest, int PsnIssuerId=256, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:gacfd99e287b47541cd95012e1511dda6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a PlayStation Network session (v1/v2).  <br /></td></tr>
+<tr class="separator:gacfd99e287b47541cd95012e1511dda6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa0616c935713a0e0cc31a225933f2b69" id="r_gaa0616c935713a0e0cc31a225933f2b69"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gaa0616c935713a0e0cc31a225933f2b69">ULootLockerSDKManager::VerifyPlayerAndStartPlaystationNetworkV3Session</a> (const FString &amp;AuthCode, const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;OnCompletedRequest, int EnvIssuerId=256, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:gaa0616c935713a0e0cc31a225933f2b69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a PlayStation Network session (v3 flow – tokens starting with v3).  <br /></td></tr>
+<tr class="separator:gaa0616c935713a0e0cc31a225933f2b69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7868b009c2322f4296fa3f1d58d1279d" id="r_ga7868b009c2322f4296fa3f1d58d1279d"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga7868b009c2322f4296fa3f1d58d1279d">ULootLockerSDKManager::StartAndroidSession</a> (const FString &amp;DeviceId, const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;OnCompletedRequest, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:ga7868b009c2322f4296fa3f1d58d1279d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a LootLocker session for an Android user.  <br /></td></tr>
+<tr class="separator:ga7868b009c2322f4296fa3f1d58d1279d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4ff21ff179d549468e8f17e57418d6b7" id="r_ga4ff21ff179d549468e8f17e57418d6b7"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga4ff21ff179d549468e8f17e57418d6b7">ULootLockerSDKManager::StartAmazonLunaSession</a> (const FString &amp;AmazonLunaGuid, const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;OnCompletedRequest, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:ga4ff21ff179d549468e8f17e57418d6b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a LootLocker session for an Amazon Luna user.  <br /></td></tr>
+<tr class="separator:ga4ff21ff179d549468e8f17e57418d6b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac68e816f2d87d860f1c24df5bf72d863" id="r_gac68e816f2d87d860f1c24df5bf72d863"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gac68e816f2d87d860f1c24df5bf72d863">ULootLockerSDKManager::StartSteamSessionUsingTicket</a> (const FString &amp;SteamSessionTicket, const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;OnCompletedRequest, const FString &amp;SteamAppId=&quot;&quot;, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:gac68e816f2d87d860f1c24df5bf72d863"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a LootLocker session for a Steam user using a session ticket.  <br /></td></tr>
+<tr class="separator:gac68e816f2d87d860f1c24df5bf72d863"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5194f95943fde3c54d5b2811c449fefc" id="r_ga5194f95943fde3c54d5b2811c449fefc"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga5194f95943fde3c54d5b2811c449fefc">ULootLockerSDKManager::StartNintendoSwitchSession</a> (const FString &amp;NSAIdToken, const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;OnCompletedRequest, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:ga5194f95943fde3c54d5b2811c449fefc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a LootLocker session for a Nintendo Switch user.  <br /></td></tr>
+<tr class="separator:ga5194f95943fde3c54d5b2811c449fefc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab1479486719c925962dcb061c9d27ddf" id="r_gab1479486719c925962dcb061c9d27ddf"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gab1479486719c925962dcb061c9d27ddf">ULootLockerSDKManager::StartXboxSession</a> (const FString &amp;XboxUserToken, const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;OnCompletedRequest, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:gab1479486719c925962dcb061c9d27ddf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a LootLocker session for an Xbox user.  <br /></td></tr>
+<tr class="separator:gab1479486719c925962dcb061c9d27ddf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0feffe1d1a3d82de86f1d66f3285f69b" id="r_ga0feffe1d1a3d82de86f1d66f3285f69b"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga0feffe1d1a3d82de86f1d66f3285f69b">ULootLockerSDKManager::StartGoogleSession</a> (const FString &amp;IdToken, const <a class="el" href="group__Authentication.html#ga3ed6a7c06292389a33e89491f44fa728">FLootLockerGoogleSessionResponseDelegate</a> &amp;OnCompletedRequest, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:ga0feffe1d1a3d82de86f1d66f3285f69b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a LootLocker session for a Google user (default platform).  <br /></td></tr>
+<tr class="separator:ga0feffe1d1a3d82de86f1d66f3285f69b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga04fc598b772d338c6a09a6372de8dd07" id="r_ga04fc598b772d338c6a09a6372de8dd07"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga04fc598b772d338c6a09a6372de8dd07">ULootLockerSDKManager::StartGoogleSessionForPlatform</a> (const FString &amp;IdToken, <a class="el" href="group__Authentication.html#gae4ebc57a876c42d49c752c3af6c1f611">ELootLockerGoogleClientPlatform</a> Platform, const <a class="el" href="group__Authentication.html#ga3ed6a7c06292389a33e89491f44fa728">FLootLockerGoogleSessionResponseDelegate</a> &amp;OnCompletedRequest, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:ga04fc598b772d338c6a09a6372de8dd07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a LootLocker session for a Google user targeting a specific Google OAuth2 Client ID platform.  <br /></td></tr>
+<tr class="separator:ga04fc598b772d338c6a09a6372de8dd07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae159e6539bcd76487a86d3fe1572d802" id="r_gae159e6539bcd76487a86d3fe1572d802"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gae159e6539bcd76487a86d3fe1572d802">ULootLockerSDKManager::RefreshGoogleSession</a> (const <a class="el" href="group__Authentication.html#ga3ed6a7c06292389a33e89491f44fa728">FLootLockerGoogleSessionResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:gae159e6539bcd76487a86d3fe1572d802"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh an existing Google session.  <br /></td></tr>
+<tr class="separator:gae159e6539bcd76487a86d3fe1572d802"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7bbeb2613c14cea658b8f32985ed6cd4" id="r_ga7bbeb2613c14cea658b8f32985ed6cd4"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga7bbeb2613c14cea658b8f32985ed6cd4">ULootLockerSDKManager::RefreshGoogleSession</a> (const FString &amp;RefreshToken, const <a class="el" href="group__Authentication.html#ga3ed6a7c06292389a33e89491f44fa728">FLootLockerGoogleSessionResponseDelegate</a> &amp;OnCompletedRequest, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:ga7bbeb2613c14cea658b8f32985ed6cd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh an existing Google session using an explicit refresh token.  <br /></td></tr>
+<tr class="separator:ga7bbeb2613c14cea658b8f32985ed6cd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0182f07c76efd43743d647887683db27" id="r_ga0182f07c76efd43743d647887683db27"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga0182f07c76efd43743d647887683db27">ULootLockerSDKManager::StartGooglePlayGamesSession</a> (const FString &amp;AuthCode, const <a class="el" href="group__Authentication.html#gafc2aca24c5c95ef834d7b681d599df03">FLootLockerGooglePlayGamesSessionResponseDelegate</a> &amp;OnCompletedRequest, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:ga0182f07c76efd43743d647887683db27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a LootLocker session for a Google Play Games user.  <br /></td></tr>
+<tr class="separator:ga0182f07c76efd43743d647887683db27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae2fabba8f080a9a41a05928ffc4b8ac4" id="r_gae2fabba8f080a9a41a05928ffc4b8ac4"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gae2fabba8f080a9a41a05928ffc4b8ac4">ULootLockerSDKManager::RefreshGooglePlayGamesSession</a> (const <a class="el" href="group__Authentication.html#gafc2aca24c5c95ef834d7b681d599df03">FLootLockerGooglePlayGamesSessionResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:gae2fabba8f080a9a41a05928ffc4b8ac4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh an existing Google Play Games session.  <br /></td></tr>
+<tr class="separator:gae2fabba8f080a9a41a05928ffc4b8ac4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad2b24ae4724b072e9025850a7f7bfd13" id="r_gad2b24ae4724b072e9025850a7f7bfd13"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gad2b24ae4724b072e9025850a7f7bfd13">ULootLockerSDKManager::RefreshGooglePlayGamesSession</a> (const FString &amp;RefreshToken, const <a class="el" href="group__Authentication.html#gafc2aca24c5c95ef834d7b681d599df03">FLootLockerGooglePlayGamesSessionResponseDelegate</a> &amp;OnCompletedRequest, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:gad2b24ae4724b072e9025850a7f7bfd13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh an existing Google Play Games session using an explicit refresh token.  <br /></td></tr>
+<tr class="separator:gad2b24ae4724b072e9025850a7f7bfd13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2325bd58360f518ce0e226a66b6cc322" id="r_ga2325bd58360f518ce0e226a66b6cc322"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga2325bd58360f518ce0e226a66b6cc322">ULootLockerSDKManager::StartAppleSession</a> (const FString &amp;AuthorizationCode, const <a class="el" href="group__Authentication.html#ga46f76cb254b70075a987f49689f03f28">FLootLockerAppleSessionResponseDelegate</a> &amp;OnCompletedRequest, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:ga2325bd58360f518ce0e226a66b6cc322"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a LootLocker session using Sign in with Apple.  <br /></td></tr>
+<tr class="separator:ga2325bd58360f518ce0e226a66b6cc322"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae5c9708248efa855137464a6775a7db2" id="r_gae5c9708248efa855137464a6775a7db2"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gae5c9708248efa855137464a6775a7db2">ULootLockerSDKManager::RefreshAppleSession</a> (const <a class="el" href="group__Authentication.html#ga46f76cb254b70075a987f49689f03f28">FLootLockerAppleSessionResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:gae5c9708248efa855137464a6775a7db2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh an existing Sign in with Apple session.  <br /></td></tr>
+<tr class="separator:gae5c9708248efa855137464a6775a7db2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga36fc47347de7269ac12df48795d426c3" id="r_ga36fc47347de7269ac12df48795d426c3"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga36fc47347de7269ac12df48795d426c3">ULootLockerSDKManager::RefreshAppleSession</a> (const FString &amp;RefreshToken, const <a class="el" href="group__Authentication.html#ga46f76cb254b70075a987f49689f03f28">FLootLockerAppleSessionResponseDelegate</a> &amp;OnCompletedRequest, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:ga36fc47347de7269ac12df48795d426c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh an existing Sign in with Apple session using an explicit refresh token.  <br /></td></tr>
+<tr class="separator:ga36fc47347de7269ac12df48795d426c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga39d1ad2747e4c54cbffb564d01dbbfb5" id="r_ga39d1ad2747e4c54cbffb564d01dbbfb5"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga39d1ad2747e4c54cbffb564d01dbbfb5">ULootLockerSDKManager::StartAppleGameCenterSession</a> (const FString &amp;BundleId, const FString &amp;PlayerId, const FString &amp;PublicKeyUrl, const FString &amp;Signature, const FString &amp;Salt, const FString &amp;Timestamp, const <a class="el" href="group__Authentication.html#ga74df43aa1fbde2acb479a271270bb97a">FLootLockerAppleGameCenterSessionResponseDelegate</a> &amp;OnStartedAppleGameCenterSessionCompleted, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:ga39d1ad2747e4c54cbffb564d01dbbfb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a LootLocker session using Apple Game Center identity verification.  <br /></td></tr>
+<tr class="separator:ga39d1ad2747e4c54cbffb564d01dbbfb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2e129c10499dd7c16bfa4d87de01c01d" id="r_ga2e129c10499dd7c16bfa4d87de01c01d"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga2e129c10499dd7c16bfa4d87de01c01d">ULootLockerSDKManager::RefreshAppleGameCenterSession</a> (const <a class="el" href="group__Authentication.html#ga74df43aa1fbde2acb479a271270bb97a">FLootLockerAppleGameCenterSessionResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:ga2e129c10499dd7c16bfa4d87de01c01d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh an existing Apple Game Center session.  <br /></td></tr>
+<tr class="separator:ga2e129c10499dd7c16bfa4d87de01c01d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga75ab3b6e7ef1e0ae622190ddb943e3c8" id="r_ga75ab3b6e7ef1e0ae622190ddb943e3c8"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga75ab3b6e7ef1e0ae622190ddb943e3c8">ULootLockerSDKManager::RefreshAppleGameCenterSession</a> (const FString &amp;RefreshToken, const <a class="el" href="group__Authentication.html#ga74df43aa1fbde2acb479a271270bb97a">FLootLockerAppleGameCenterSessionResponseDelegate</a> &amp;OnRefreshAppleGameCenterSessionCompleted, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:ga75ab3b6e7ef1e0ae622190ddb943e3c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh an existing Apple Game Center session using an explicit refresh token.  <br /></td></tr>
+<tr class="separator:ga75ab3b6e7ef1e0ae622190ddb943e3c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab3a915781b5c6112d7ae4ec02137f962" id="r_gab3a915781b5c6112d7ae4ec02137f962"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gab3a915781b5c6112d7ae4ec02137f962">ULootLockerSDKManager::StartEpicSession</a> (const FString &amp;IdToken, const <a class="el" href="group__Authentication.html#ga9ee445ddb3e563ae75788edc576de91b">FLootLockerEpicSessionResponseDelegate</a> &amp;OnCompletedRequest, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:gab3a915781b5c6112d7ae4ec02137f962"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a LootLocker session for an Epic Online Services (EOS) user.  <br /></td></tr>
+<tr class="separator:gab3a915781b5c6112d7ae4ec02137f962"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gada1108d212970d2cf83905c31df77d68" id="r_gada1108d212970d2cf83905c31df77d68"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gada1108d212970d2cf83905c31df77d68">ULootLockerSDKManager::RefreshEpicSession</a> (const <a class="el" href="group__Authentication.html#ga9ee445ddb3e563ae75788edc576de91b">FLootLockerEpicSessionResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:gada1108d212970d2cf83905c31df77d68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh an existing Epic session.  <br /></td></tr>
+<tr class="separator:gada1108d212970d2cf83905c31df77d68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8c3380942d2c2faf396ae5bdf62314a9" id="r_ga8c3380942d2c2faf396ae5bdf62314a9"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga8c3380942d2c2faf396ae5bdf62314a9">ULootLockerSDKManager::RefreshEpicSession</a> (const FString &amp;RefreshToken, const <a class="el" href="group__Authentication.html#ga9ee445ddb3e563ae75788edc576de91b">FLootLockerEpicSessionResponseDelegate</a> &amp;OnCompletedRequest, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:ga8c3380942d2c2faf396ae5bdf62314a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh an existing Epic session using an explicit refresh token.  <br /></td></tr>
+<tr class="separator:ga8c3380942d2c2faf396ae5bdf62314a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga028d391810047667bf6c8e0cf1b10b8e" id="r_ga028d391810047667bf6c8e0cf1b10b8e"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga028d391810047667bf6c8e0cf1b10b8e">ULootLockerSDKManager::StartMetaSession</a> (const FString &amp;UserId, const FString &amp;Nonce, const <a class="el" href="group__Authentication.html#ga44f69d575358bb105b10f581c1043801">FLootLockerMetaSessionResponseDelegate</a> &amp;OncompletedRequest, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:ga028d391810047667bf6c8e0cf1b10b8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a LootLocker session for a Meta / Oculus user.  <br /></td></tr>
+<tr class="separator:ga028d391810047667bf6c8e0cf1b10b8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafec2a22e47096278bdb4b8b7ec1cf257" id="r_gafec2a22e47096278bdb4b8b7ec1cf257"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gafec2a22e47096278bdb4b8b7ec1cf257">ULootLockerSDKManager::RefreshMetaSession</a> (const <a class="el" href="group__Authentication.html#ga44f69d575358bb105b10f581c1043801">FLootLockerMetaSessionResponseDelegate</a> &amp;OncompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:gafec2a22e47096278bdb4b8b7ec1cf257"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh an existing Meta / Oculus session.  <br /></td></tr>
+<tr class="separator:gafec2a22e47096278bdb4b8b7ec1cf257"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa165fc8b4765977d29b384a2d35f683f" id="r_gaa165fc8b4765977d29b384a2d35f683f"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gaa165fc8b4765977d29b384a2d35f683f">ULootLockerSDKManager::RefreshMetaSession</a> (const FString &amp;RefreshToken, const <a class="el" href="group__Authentication.html#ga44f69d575358bb105b10f581c1043801">FLootLockerMetaSessionResponseDelegate</a> &amp;OncompletedRequest, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:gaa165fc8b4765977d29b384a2d35f683f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh an existing Meta / Oculus session using an explicit refresh token.  <br /></td></tr>
+<tr class="separator:gaa165fc8b4765977d29b384a2d35f683f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5f4c1eb0f2d8215a897e951b5231adb4" id="r_ga5f4c1eb0f2d8215a897e951b5231adb4"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga5f4c1eb0f2d8215a897e951b5231adb4">ULootLockerSDKManager::GuestLogin</a> (const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;OnCompletedRequest, const FString &amp;PlayerIdentifier=&quot;&quot;, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:ga5f4c1eb0f2d8215a897e951b5231adb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a guest session.  <br /></td></tr>
+<tr class="separator:ga5f4c1eb0f2d8215a897e951b5231adb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3438c38a6c329155b1bd87d57ecb7947" id="r_ga3438c38a6c329155b1bd87d57ecb7947"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga3438c38a6c329155b1bd87d57ecb7947">ULootLockerSDKManager::StartDiscordSession</a> (const FString &amp;AccessToken, const <a class="el" href="group__Authentication.html#ga4782fbc582fb13b704dce53fd213cf16">FLootLockerDiscordSessionResponseDelegate</a> &amp;OnCompletedRequest, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:ga3438c38a6c329155b1bd87d57ecb7947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a LootLocker session for a Discord user.  <br /></td></tr>
+<tr class="separator:ga3438c38a6c329155b1bd87d57ecb7947"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga121eef2e1cdebecea4cf18c4a5af3e8c" id="r_ga121eef2e1cdebecea4cf18c4a5af3e8c"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga121eef2e1cdebecea4cf18c4a5af3e8c">ULootLockerSDKManager::RefreshDiscordSession</a> (const <a class="el" href="group__Authentication.html#ga4782fbc582fb13b704dce53fd213cf16">FLootLockerDiscordSessionResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:ga121eef2e1cdebecea4cf18c4a5af3e8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh a Discord session.  <br /></td></tr>
+<tr class="separator:ga121eef2e1cdebecea4cf18c4a5af3e8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9f9d2d6b10ae993f47d198f7eb06f654" id="r_ga9f9d2d6b10ae993f47d198f7eb06f654"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga9f9d2d6b10ae993f47d198f7eb06f654">ULootLockerSDKManager::RefreshDiscordSession</a> (const FString &amp;RefreshToken, const <a class="el" href="group__Authentication.html#ga4782fbc582fb13b704dce53fd213cf16">FLootLockerDiscordSessionResponseDelegate</a> &amp;OnCompletedRequest, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals=<a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</td></tr>
+<tr class="memdesc:ga9f9d2d6b10ae993f47d198f7eb06f654"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh a Discord session with an explicit refresh token.  <br /></td></tr>
+<tr class="separator:ga9f9d2d6b10ae993f47d198f7eb06f654"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaec4ec052796e3454b842aaf03e7e00a7" id="r_gaec4ec052796e3454b842aaf03e7e00a7"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gaec4ec052796e3454b842aaf03e7e00a7">ULootLockerSDKManager::VerifyPlayer</a> (const FString &amp;PlatformToken, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest, const FString &amp;Platform=FString(TEXT(&quot;&quot;)), const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gaec4ec052796e3454b842aaf03e7e00a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Deprecated) Verify player identity for a platform before starting a session.  <br /></td></tr>
+<tr class="separator:gaec4ec052796e3454b842aaf03e7e00a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaba10707e433a9a049488864639935180" id="r_gaba10707e433a9a049488864639935180"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gaba10707e433a9a049488864639935180">ULootLockerSDKManager::EndSession</a> (const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gaba10707e433a9a049488864639935180"><td class="mdescLeft">&#160;</td><td class="mdescRight">End the active session (if any).  <br /></td></tr>
+<tr class="separator:gaba10707e433a9a049488864639935180"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

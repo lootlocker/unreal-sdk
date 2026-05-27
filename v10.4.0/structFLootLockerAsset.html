@@ -1,0 +1,866 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: FLootLockerAsset Struct Reference</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.4.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('structFLootLockerAsset.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
+  <div class="headertitle"><div class="title">FLootLockerAsset Struct Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="LootLockerAssetsRequestHandler_8h_source.html">LootLockerAssetsRequestHandler.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for FLootLockerAsset:</div>
+<div class="dyncontent">
+<div class="center"><img src="structFLootLockerAsset__inherit__graph.png" border="0" usemap="#aFLootLockerAsset_inherit__map" alt="Inheritance graph"/></div>
+<map name="aFLootLockerAsset_inherit__map" id="aFLootLockerAsset_inherit__map">
+<area shape="rect" title=" " alt="" coords="55,79,191,104"/>
+<area shape="rect" href="structFLootLockerHasKeyValueStorage.html" title=" " alt="" coords="5,5,240,31"/>
+<area shape="poly" title=" " alt="" coords="125,44,125,79,120,79,120,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for FLootLockerAsset:</div>
+<div class="dyncontent">
+<div class="center"><img src="structFLootLockerAsset__coll__graph.png" border="0" usemap="#aFLootLockerAsset_coll__map" alt="Collaboration graph"/></div>
+<map name="aFLootLockerAsset_coll__map" id="aFLootLockerAsset_coll__map">
+<area shape="rect" title=" " alt="" coords="725,80,861,105"/>
+<area shape="rect" href="structFLootLockerHasKeyValueStorage.html" title=" " alt="" coords="312,5,547,31"/>
+<area shape="poly" title=" " alt="" coords="561,29,631,40,702,55,764,77,763,82,701,61,630,45,560,34"/>
+<area shape="rect" href="structFLootLockerRarity.html" title=" " alt="" coords="360,55,499,80"/>
+<area shape="poly" title=" " alt="" coords="513,70,725,85,725,91,512,76"/>
+<area shape="rect" href="structFLootLockerAssetCandidate.html" title=" " alt="" coords="328,104,531,129"/>
+<area shape="poly" title=" " alt="" coords="545,116,622,115,701,109,738,103,739,108,702,114,622,120,545,122"/>
+<area shape="rect" href="structFLootLockerExternalIdentifiers.html" title=" " alt="" coords="320,153,539,179"/>
+<area shape="poly" title=" " alt="" coords="553,161,627,153,701,137,739,121,771,103,774,108,741,126,702,142,627,158,553,166"/>
+<area shape="rect" href="structFLootLockerPsn.html" title=" " alt="" coords="17,104,140,129"/>
+<area shape="poly" title=" " alt="" coords="154,124,288,143,340,151,339,156,288,149,153,130"/>
+<area shape="rect" href="structFLootLockerApple.html" title=" " alt="" coords="10,153,147,179"/>
+<area shape="poly" title=" " alt="" coords="161,163,320,163,320,169,161,169"/>
+<area shape="rect" href="structFLootLockerGoogle.html" title=" " alt="" coords="5,203,152,228"/>
+<area shape="poly" title=" " alt="" coords="165,201,288,183,339,176,340,181,288,189,166,206"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a3c842c6e44825ae43bc9bf7561fefccb" id="r_a3c842c6e44825ae43bc9bf7561fefccb"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a3c842c6e44825ae43bc9bf7561fefccb">id</a> = 0</td></tr>
+<tr class="separator:a3c842c6e44825ae43bc9bf7561fefccb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a914e1b4ede3c02c3ea3e5c10b1b5366b" id="r_a914e1b4ede3c02c3ea3e5c10b1b5366b"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a914e1b4ede3c02c3ea3e5c10b1b5366b">uuid</a> = &quot;&quot;</td></tr>
+<tr class="separator:a914e1b4ede3c02c3ea3e5c10b1b5366b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad23a342fc2f8ec8395c8f897df59a65e" id="r_ad23a342fc2f8ec8395c8f897df59a65e"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#ad23a342fc2f8ec8395c8f897df59a65e">ulid</a> = &quot;&quot;</td></tr>
+<tr class="separator:ad23a342fc2f8ec8395c8f897df59a65e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cbd2ecb92282dfca4ef2b11acacc5d3" id="r_a2cbd2ecb92282dfca4ef2b11acacc5d3"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a2cbd2ecb92282dfca4ef2b11acacc5d3">name</a> = &quot;&quot;</td></tr>
+<tr class="separator:a2cbd2ecb92282dfca4ef2b11acacc5d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27a15883e42e7e235c460bf372d06bef" id="r_a27a15883e42e7e235c460bf372d06bef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a27a15883e42e7e235c460bf372d06bef">active</a> = false</td></tr>
+<tr class="separator:a27a15883e42e7e235c460bf372d06bef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c5dcdf2d9fb2b58af179a1b791cf20b" id="r_a2c5dcdf2d9fb2b58af179a1b791cf20b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a2c5dcdf2d9fb2b58af179a1b791cf20b">purchasable</a> = false</td></tr>
+<tr class="separator:a2c5dcdf2d9fb2b58af179a1b791cf20b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a431dcbf20f6ce9ea0513fec828fce51c" id="r_a431dcbf20f6ce9ea0513fec828fce51c"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a431dcbf20f6ce9ea0513fec828fce51c">type</a> = &quot;&quot;</td></tr>
+<tr class="separator:a431dcbf20f6ce9ea0513fec828fce51c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cb4fabb33240365abd4d9fc5ca3ecff" id="r_a6cb4fabb33240365abd4d9fc5ca3ecff"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a6cb4fabb33240365abd4d9fc5ca3ecff">price</a> = 0</td></tr>
+<tr class="separator:a6cb4fabb33240365abd4d9fc5ca3ecff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cdba719631655a8f5b04ad6c1d7097a" id="r_a4cdba719631655a8f5b04ad6c1d7097a"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a4cdba719631655a8f5b04ad6c1d7097a">sales_price</a> = &quot;&quot;</td></tr>
+<tr class="separator:a4cdba719631655a8f5b04ad6c1d7097a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d3339fa2ad0272eae67727a94a65051" id="r_a7d3339fa2ad0272eae67727a94a65051"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a7d3339fa2ad0272eae67727a94a65051">display_price</a> = &quot;&quot;</td></tr>
+<tr class="separator:a7d3339fa2ad0272eae67727a94a65051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a347ea4fda8b1160ec6efa4f896d4d754" id="r_a347ea4fda8b1160ec6efa4f896d4d754"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a347ea4fda8b1160ec6efa4f896d4d754">context</a> = &quot;&quot;</td></tr>
+<tr class="separator:a347ea4fda8b1160ec6efa4f896d4d754"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a990cdc388e7bd2ae95e0c06a4ba6f698" id="r_a990cdc388e7bd2ae95e0c06a4ba6f698"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a990cdc388e7bd2ae95e0c06a4ba6f698">context_id</a> = 0</td></tr>
+<tr class="separator:a990cdc388e7bd2ae95e0c06a4ba6f698"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1d13dc16b321ed4666e1c105bf8dfa9" id="r_aa1d13dc16b321ed4666e1c105bf8dfa9"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#aa1d13dc16b321ed4666e1c105bf8dfa9">unlocks_context</a> = &quot;&quot;</td></tr>
+<tr class="separator:aa1d13dc16b321ed4666e1c105bf8dfa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae55d6d4b201cb4cf1f975a14ff982711" id="r_ae55d6d4b201cb4cf1f975a14ff982711"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#ae55d6d4b201cb4cf1f975a14ff982711">detachable</a> = false</td></tr>
+<tr class="separator:ae55d6d4b201cb4cf1f975a14ff982711"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a655695e49ced06cfb227f79ac3fe7ddd" id="r_a655695e49ced06cfb227f79ac3fe7ddd"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a655695e49ced06cfb227f79ac3fe7ddd">updated</a> = &quot;&quot;</td></tr>
+<tr class="separator:a655695e49ced06cfb227f79ac3fe7ddd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d4ab9601d5e37d1770f7724ccac535c" id="r_a3d4ab9601d5e37d1770f7724ccac535c"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a3d4ab9601d5e37d1770f7724ccac535c">marked_new</a> = &quot;&quot;</td></tr>
+<tr class="separator:a3d4ab9601d5e37d1770f7724ccac535c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a142ce77de9c293c617d37151e00b8e6b" id="r_a142ce77de9c293c617d37151e00b8e6b"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a142ce77de9c293c617d37151e00b8e6b">default_variation_id</a> = 0</td></tr>
+<tr class="separator:a142ce77de9c293c617d37151e00b8e6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a665505e9d8a3aef100c53a7858ff0325" id="r_a665505e9d8a3aef100c53a7858ff0325"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a665505e9d8a3aef100c53a7858ff0325">description</a> = &quot;&quot;</td></tr>
+<tr class="separator:a665505e9d8a3aef100c53a7858ff0325"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac70a2eb7cf41233f428f9474fc89d232" id="r_ac70a2eb7cf41233f428f9474fc89d232"><td class="memItemLeft" align="right" valign="top">TMap&lt; FString, FString &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#ac70a2eb7cf41233f428f9474fc89d232">links</a></td></tr>
+<tr class="separator:ac70a2eb7cf41233f428f9474fc89d232"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed7f7a6f37613992c064552b8bb0c8c3" id="r_aed7f7a6f37613992c064552b8bb0c8c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structFLootLockerRarity.html">FLootLockerRarity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#aed7f7a6f37613992c064552b8bb0c8c3">rarity</a></td></tr>
+<tr class="separator:aed7f7a6f37613992c064552b8bb0c8c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf08a772ceeb946c1e7bad1a24c08293" id="r_acf08a772ceeb946c1e7bad1a24c08293"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#acf08a772ceeb946c1e7bad1a24c08293">popular</a> = false</td></tr>
+<tr class="separator:acf08a772ceeb946c1e7bad1a24c08293"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab644a15ae94db57120f4d3413212efe7" id="r_ab644a15ae94db57120f4d3413212efe7"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#ab644a15ae94db57120f4d3413212efe7">popularity_score</a> = 0</td></tr>
+<tr class="separator:ab644a15ae94db57120f4d3413212efe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd59e4050b52d79916e0439725bc2237" id="r_afd59e4050b52d79916e0439725bc2237"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#afd59e4050b52d79916e0439725bc2237">unique_instance</a> = false</td></tr>
+<tr class="separator:afd59e4050b52d79916e0439725bc2237"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b0fd2e5936088973368b9c51c56d647" id="r_a7b0fd2e5936088973368b9c51c56d647"><td class="memItemLeft" align="right" valign="top">TArray&lt; <a class="el" href="structFLootLockerRentalOption.html">FLootLockerRentalOption</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a7b0fd2e5936088973368b9c51c56d647">rental_options</a></td></tr>
+<tr class="separator:a7b0fd2e5936088973368b9c51c56d647"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e0870f9ed8c252d2ac7f1742e40c9cb" id="r_a4e0870f9ed8c252d2ac7f1742e40c9cb"><td class="memItemLeft" align="right" valign="top">TArray&lt; <a class="el" href="structFLootLockerFilter.html">FLootLockerFilter</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a4e0870f9ed8c252d2ac7f1742e40c9cb">filters</a></td></tr>
+<tr class="separator:a4e0870f9ed8c252d2ac7f1742e40c9cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea5c3cd325273823dbb325bbcb761376" id="r_aea5c3cd325273823dbb325bbcb761376"><td class="memItemLeft" align="right" valign="top">TArray&lt; <a class="el" href="structFLootLockerVariation.html">FLootLockerVariation</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#aea5c3cd325273823dbb325bbcb761376">variations</a></td></tr>
+<tr class="separator:aea5c3cd325273823dbb325bbcb761376"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a943e57f4bf0f6aee7072ebe906f03259" id="r_a943e57f4bf0f6aee7072ebe906f03259"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a943e57f4bf0f6aee7072ebe906f03259">featured</a> = false</td></tr>
+<tr class="separator:a943e57f4bf0f6aee7072ebe906f03259"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf61beb9b49713fd8776940e0529e5b6" id="r_adf61beb9b49713fd8776940e0529e5b6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#adf61beb9b49713fd8776940e0529e5b6">context_locked</a> = false</td></tr>
+<tr class="separator:adf61beb9b49713fd8776940e0529e5b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9929426c1a72752379c610531a6c15a" id="r_ae9929426c1a72752379c610531a6c15a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#ae9929426c1a72752379c610531a6c15a">initially_purchasable</a> = false</td></tr>
+<tr class="separator:ae9929426c1a72752379c610531a6c15a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bbbc9d0b1fd6ffbf4888c1454da00f2" id="r_a9bbbc9d0b1fd6ffbf4888c1454da00f2"><td class="memItemLeft" align="right" valign="top">TArray&lt; <a class="el" href="structFLootLockerFile.html">FLootLockerFile</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a9bbbc9d0b1fd6ffbf4888c1454da00f2">files</a></td></tr>
+<tr class="separator:a9bbbc9d0b1fd6ffbf4888c1454da00f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb6c92ff33851ff018cbd0fd864e0968" id="r_afb6c92ff33851ff018cbd0fd864e0968"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structFLootLockerAssetCandidate.html">FLootLockerAssetCandidate</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#afb6c92ff33851ff018cbd0fd864e0968">asset_candidate</a></td></tr>
+<tr class="separator:afb6c92ff33851ff018cbd0fd864e0968"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02b317b4ff615daf70f2655aee5f2e68" id="r_a02b317b4ff615daf70f2655aee5f2e68"><td class="memItemLeft" align="right" valign="top">TArray&lt; FString &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a02b317b4ff615daf70f2655aee5f2e68">data_entities</a></td></tr>
+<tr class="separator:a02b317b4ff615daf70f2655aee5f2e68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97f1e8158ae95183a591e6880846e3fb" id="r_a97f1e8158ae95183a591e6880846e3fb"><td class="memItemLeft" align="right" valign="top">TArray&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a97f1e8158ae95183a591e6880846e3fb">character_classes</a></td></tr>
+<tr class="separator:a97f1e8158ae95183a591e6880846e3fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a840c48deb2a539eaf9d2dbcfb48d328d" id="r_a840c48deb2a539eaf9d2dbcfb48d328d"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a840c48deb2a539eaf9d2dbcfb48d328d">shop_thumbnail</a> = &quot;&quot;</td></tr>
+<tr class="separator:a840c48deb2a539eaf9d2dbcfb48d328d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bac8841da116bdfdc54c9c50ff01cdb" id="r_a9bac8841da116bdfdc54c9c50ff01cdb"><td class="memItemLeft" align="right" valign="top">TMap&lt; FString, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a9bac8841da116bdfdc54c9c50ff01cdb">default_loadouts</a></td></tr>
+<tr class="separator:a9bac8841da116bdfdc54c9c50ff01cdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaadee3341b59d908899c43a31fc3fe6" id="r_afaadee3341b59d908899c43a31fc3fe6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structFLootLockerExternalIdentifiers.html">FLootLockerExternalIdentifiers</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#afaadee3341b59d908899c43a31fc3fe6">external_identifiers</a></td></tr>
+<tr class="separator:afaadee3341b59d908899c43a31fc3fe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fb119947142259816375d521de33609" id="r_a9fb119947142259816375d521de33609"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsset.html#a9fb119947142259816375d521de33609">drop_table_max_picks</a> = &quot;&quot;</td></tr>
+<tr class="separator:a9fb119947142259816375d521de33609"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_attribs_structFLootLockerHasKeyValueStorage"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_structFLootLockerHasKeyValueStorage')"><img src="closed.png" alt="-"/>&#160;Data Fields inherited from <a class="el" href="structFLootLockerHasKeyValueStorage.html">FLootLockerHasKeyValueStorage</a></td></tr>
+<tr class="memitem:a0cc65f2c1d6697e2063dff2e7d7e6235 inherit pub_attribs_structFLootLockerHasKeyValueStorage" id="r_a0cc65f2c1d6697e2063dff2e7d7e6235"><td class="memItemLeft" align="right" valign="top">TArray&lt; <a class="el" href="structFLootLockerPersistentStorageItem.html">FLootLockerPersistentStorageItem</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerHasKeyValueStorage.html#a0cc65f2c1d6697e2063dff2e7d7e6235">storage</a></td></tr>
+<tr class="separator:a0cc65f2c1d6697e2063dff2e7d7e6235 inherit pub_attribs_structFLootLockerHasKeyValueStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_methods_structFLootLockerHasKeyValueStorage"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_structFLootLockerHasKeyValueStorage')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="structFLootLockerHasKeyValueStorage.html">FLootLockerHasKeyValueStorage</a></td></tr>
+<tr class="memitem:a0affd43b592d7b2d4d2e70169f39c1e8 inherit pub_methods_structFLootLockerHasKeyValueStorage" id="r_a0affd43b592d7b2d4d2e70169f39c1e8"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerHasKeyValueStorage.html#a0affd43b592d7b2d4d2e70169f39c1e8">GetKeyValue</a> (const FString &amp;Key)</td></tr>
+<tr class="separator:a0affd43b592d7b2d4d2e70169f39c1e8 inherit pub_methods_structFLootLockerHasKeyValueStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="a27a15883e42e7e235c460bf372d06bef" name="a27a15883e42e7e235c460bf372d06bef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27a15883e42e7e235c460bf372d06bef">&#9670;&#160;</a></span>active</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerAsset::active = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afb6c92ff33851ff018cbd0fd864e0968" name="afb6c92ff33851ff018cbd0fd864e0968"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb6c92ff33851ff018cbd0fd864e0968">&#9670;&#160;</a></span>asset_candidate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structFLootLockerAssetCandidate.html">FLootLockerAssetCandidate</a> FLootLockerAsset::asset_candidate</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a97f1e8158ae95183a591e6880846e3fb" name="a97f1e8158ae95183a591e6880846e3fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97f1e8158ae95183a591e6880846e3fb">&#9670;&#160;</a></span>character_classes</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TArray&lt;int&gt; FLootLockerAsset::character_classes</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a347ea4fda8b1160ec6efa4f896d4d754" name="a347ea4fda8b1160ec6efa4f896d4d754"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a347ea4fda8b1160ec6efa4f896d4d754">&#9670;&#160;</a></span>context</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerAsset::context = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a990cdc388e7bd2ae95e0c06a4ba6f698" name="a990cdc388e7bd2ae95e0c06a4ba6f698"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a990cdc388e7bd2ae95e0c06a4ba6f698">&#9670;&#160;</a></span>context_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32 FLootLockerAsset::context_id = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adf61beb9b49713fd8776940e0529e5b6" name="adf61beb9b49713fd8776940e0529e5b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf61beb9b49713fd8776940e0529e5b6">&#9670;&#160;</a></span>context_locked</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerAsset::context_locked = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a02b317b4ff615daf70f2655aee5f2e68" name="a02b317b4ff615daf70f2655aee5f2e68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02b317b4ff615daf70f2655aee5f2e68">&#9670;&#160;</a></span>data_entities</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TArray&lt;FString&gt; FLootLockerAsset::data_entities</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9bac8841da116bdfdc54c9c50ff01cdb" name="a9bac8841da116bdfdc54c9c50ff01cdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bac8841da116bdfdc54c9c50ff01cdb">&#9670;&#160;</a></span>default_loadouts</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TMap&lt;FString, bool&gt; FLootLockerAsset::default_loadouts</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a142ce77de9c293c617d37151e00b8e6b" name="a142ce77de9c293c617d37151e00b8e6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a142ce77de9c293c617d37151e00b8e6b">&#9670;&#160;</a></span>default_variation_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32 FLootLockerAsset::default_variation_id = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a665505e9d8a3aef100c53a7858ff0325" name="a665505e9d8a3aef100c53a7858ff0325"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a665505e9d8a3aef100c53a7858ff0325">&#9670;&#160;</a></span>description</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerAsset::description = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae55d6d4b201cb4cf1f975a14ff982711" name="ae55d6d4b201cb4cf1f975a14ff982711"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae55d6d4b201cb4cf1f975a14ff982711">&#9670;&#160;</a></span>detachable</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerAsset::detachable = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7d3339fa2ad0272eae67727a94a65051" name="a7d3339fa2ad0272eae67727a94a65051"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d3339fa2ad0272eae67727a94a65051">&#9670;&#160;</a></span>display_price</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerAsset::display_price = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9fb119947142259816375d521de33609" name="a9fb119947142259816375d521de33609"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fb119947142259816375d521de33609">&#9670;&#160;</a></span>drop_table_max_picks</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerAsset::drop_table_max_picks = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afaadee3341b59d908899c43a31fc3fe6" name="afaadee3341b59d908899c43a31fc3fe6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afaadee3341b59d908899c43a31fc3fe6">&#9670;&#160;</a></span>external_identifiers</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structFLootLockerExternalIdentifiers.html">FLootLockerExternalIdentifiers</a> FLootLockerAsset::external_identifiers</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a943e57f4bf0f6aee7072ebe906f03259" name="a943e57f4bf0f6aee7072ebe906f03259"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a943e57f4bf0f6aee7072ebe906f03259">&#9670;&#160;</a></span>featured</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerAsset::featured = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9bbbc9d0b1fd6ffbf4888c1454da00f2" name="a9bbbc9d0b1fd6ffbf4888c1454da00f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bbbc9d0b1fd6ffbf4888c1454da00f2">&#9670;&#160;</a></span>files</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TArray&lt;<a class="el" href="structFLootLockerFile.html">FLootLockerFile</a>&gt; FLootLockerAsset::files</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4e0870f9ed8c252d2ac7f1742e40c9cb" name="a4e0870f9ed8c252d2ac7f1742e40c9cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e0870f9ed8c252d2ac7f1742e40c9cb">&#9670;&#160;</a></span>filters</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TArray&lt;<a class="el" href="structFLootLockerFilter.html">FLootLockerFilter</a>&gt; FLootLockerAsset::filters</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3c842c6e44825ae43bc9bf7561fefccb" name="a3c842c6e44825ae43bc9bf7561fefccb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c842c6e44825ae43bc9bf7561fefccb">&#9670;&#160;</a></span>id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32 FLootLockerAsset::id = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae9929426c1a72752379c610531a6c15a" name="ae9929426c1a72752379c610531a6c15a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9929426c1a72752379c610531a6c15a">&#9670;&#160;</a></span>initially_purchasable</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerAsset::initially_purchasable = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac70a2eb7cf41233f428f9474fc89d232" name="ac70a2eb7cf41233f428f9474fc89d232"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac70a2eb7cf41233f428f9474fc89d232">&#9670;&#160;</a></span>links</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TMap&lt;FString, FString&gt; FLootLockerAsset::links</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3d4ab9601d5e37d1770f7724ccac535c" name="a3d4ab9601d5e37d1770f7724ccac535c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d4ab9601d5e37d1770f7724ccac535c">&#9670;&#160;</a></span>marked_new</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerAsset::marked_new = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2cbd2ecb92282dfca4ef2b11acacc5d3" name="a2cbd2ecb92282dfca4ef2b11acacc5d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2cbd2ecb92282dfca4ef2b11acacc5d3">&#9670;&#160;</a></span>name</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerAsset::name = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acf08a772ceeb946c1e7bad1a24c08293" name="acf08a772ceeb946c1e7bad1a24c08293"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf08a772ceeb946c1e7bad1a24c08293">&#9670;&#160;</a></span>popular</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerAsset::popular = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab644a15ae94db57120f4d3413212efe7" name="ab644a15ae94db57120f4d3413212efe7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab644a15ae94db57120f4d3413212efe7">&#9670;&#160;</a></span>popularity_score</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32 FLootLockerAsset::popularity_score = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6cb4fabb33240365abd4d9fc5ca3ecff" name="a6cb4fabb33240365abd4d9fc5ca3ecff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cb4fabb33240365abd4d9fc5ca3ecff">&#9670;&#160;</a></span>price</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32 FLootLockerAsset::price = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2c5dcdf2d9fb2b58af179a1b791cf20b" name="a2c5dcdf2d9fb2b58af179a1b791cf20b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c5dcdf2d9fb2b58af179a1b791cf20b">&#9670;&#160;</a></span>purchasable</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerAsset::purchasable = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aed7f7a6f37613992c064552b8bb0c8c3" name="aed7f7a6f37613992c064552b8bb0c8c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed7f7a6f37613992c064552b8bb0c8c3">&#9670;&#160;</a></span>rarity</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structFLootLockerRarity.html">FLootLockerRarity</a> FLootLockerAsset::rarity</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7b0fd2e5936088973368b9c51c56d647" name="a7b0fd2e5936088973368b9c51c56d647"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b0fd2e5936088973368b9c51c56d647">&#9670;&#160;</a></span>rental_options</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TArray&lt;<a class="el" href="structFLootLockerRentalOption.html">FLootLockerRentalOption</a>&gt; FLootLockerAsset::rental_options</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4cdba719631655a8f5b04ad6c1d7097a" name="a4cdba719631655a8f5b04ad6c1d7097a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cdba719631655a8f5b04ad6c1d7097a">&#9670;&#160;</a></span>sales_price</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerAsset::sales_price = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a840c48deb2a539eaf9d2dbcfb48d328d" name="a840c48deb2a539eaf9d2dbcfb48d328d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a840c48deb2a539eaf9d2dbcfb48d328d">&#9670;&#160;</a></span>shop_thumbnail</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerAsset::shop_thumbnail = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a431dcbf20f6ce9ea0513fec828fce51c" name="a431dcbf20f6ce9ea0513fec828fce51c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a431dcbf20f6ce9ea0513fec828fce51c">&#9670;&#160;</a></span>type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerAsset::type = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad23a342fc2f8ec8395c8f897df59a65e" name="ad23a342fc2f8ec8395c8f897df59a65e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad23a342fc2f8ec8395c8f897df59a65e">&#9670;&#160;</a></span>ulid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerAsset::ulid = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afd59e4050b52d79916e0439725bc2237" name="afd59e4050b52d79916e0439725bc2237"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd59e4050b52d79916e0439725bc2237">&#9670;&#160;</a></span>unique_instance</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerAsset::unique_instance = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa1d13dc16b321ed4666e1c105bf8dfa9" name="aa1d13dc16b321ed4666e1c105bf8dfa9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1d13dc16b321ed4666e1c105bf8dfa9">&#9670;&#160;</a></span>unlocks_context</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerAsset::unlocks_context = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a655695e49ced06cfb227f79ac3fe7ddd" name="a655695e49ced06cfb227f79ac3fe7ddd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a655695e49ced06cfb227f79ac3fe7ddd">&#9670;&#160;</a></span>updated</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerAsset::updated = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a914e1b4ede3c02c3ea3e5c10b1b5366b" name="a914e1b4ede3c02c3ea3e5c10b1b5366b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a914e1b4ede3c02c3ea3e5c10b1b5366b">&#9670;&#160;</a></span>uuid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerAsset::uuid = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aea5c3cd325273823dbb325bbcb761376" name="aea5c3cd325273823dbb325bbcb761376"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea5c3cd325273823dbb325bbcb761376">&#9670;&#160;</a></span>variations</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TArray&lt;<a class="el" href="structFLootLockerVariation.html">FLootLockerVariation</a>&gt; FLootLockerAsset::variations</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structFLootLockerAsset.html">FLootLockerAsset</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

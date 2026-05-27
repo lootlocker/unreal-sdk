@@ -1,0 +1,24 @@
+var searchData=
+[
+  ['incrementscore_0',['incrementscore',['../group__Leaderboard.html#ga3f57d4b1e230508e5988acdb0d5c6f7c',1,'ULootLockerSDKManager::IncrementScore()'],['../classULootLockerLeaderboardRequestHandler.html#a8a475481234e70c0aae30800d6be584f',1,'ULootLockerLeaderboardRequestHandler::IncrementScore()']]],
+  ['initialize_1',['initialize',['../classFLootLockerHTTPExecutionQueue.html#abe98fc2bbf9535993e78a2a3e559639e',1,'FLootLockerHTTPExecutionQueue::Initialize()'],['../classULootLockerPresenceManager.html#a23a1f853aa8f3388a4b97f7d369198f4',1,'ULootLockerPresenceManager::Initialize()']]],
+  ['initiateasyncpurchase_2',['InitiateAsyncPurchase',['../classULootLockerPurchasesRequestHandler.html#ac267e034105b88afca87e153108e94c5',1,'ULootLockerPurchasesRequestHandler']]],
+  ['initiateasyncpurchasecatalogitems_3',['InitiateAsyncPurchaseCatalogItems',['../group__Purchasing.html#ga2f18da45179c87ad10fc462d14aff298',1,'ULootLockerSDKManager']]],
+  ['initiatedlcmigration_4',['initiatedlcmigration',['../classULootLockerPlayerRequestHandler.html#aaa502d0d635ed1575869ea1a3f169bc0',1,'ULootLockerPlayerRequestHandler::InitiateDLCMigration()'],['../group__Player.html#ga6a07bf16befc3abf19da9458266df74a',1,'ULootLockerSDKManager::InitiateDLCMigration()']]],
+  ['inspectlootbox_5',['inspectlootbox',['../classULootLockerAssetInstancesRequestHandler.html#a02e5e7d1272eb93312304db54bf3d2e7',1,'ULootLockerAssetInstancesRequestHandler::InspectLootBox()'],['../group__AssetInstance.html#ga11316007f4f43aca071832a03a7c95e2',1,'ULootLockerSDKManager::InspectLootBox()']]],
+  ['invoketriggersbykey_6',['invoketriggersbykey',['../classULootLockerTriggersRequestHandler.html#a69667a7879bc85ac56c740ec77539740',1,'ULootLockerTriggersRequestHandler::InvokeTriggersByKey()'],['../group__Triggers.html#ga59f7dafdbf9aa7e3acc6662d708ce8f5',1,'ULootLockerSDKManager::InvokeTriggersByKey()']]],
+  ['isautoconnectenabled_7',['IsAutoConnectEnabled',['../classULootLockerPresenceManager.html#a0bd7095af0f9eb799c62c214c1fd2415',1,'ULootLockerPresenceManager']]],
+  ['isenabled_8',['IsEnabled',['../classULootLockerPresenceManager.html#ac46041af62159bff52967b293976b627',1,'ULootLockerPresenceManager']]],
+  ['isenabledineditor_9',['IsEnabledInEditor',['../classULootLockerPresenceManager.html#a9fe4ded97c8862772d4244de8900d28d',1,'ULootLockerPresenceManager']]],
+  ['isfileloggingenabled_10',['IsFileLoggingEnabled',['../classULootLockerConfig.html#a62eac1ffaaf77b4ad74bbab77c90560a',1,'ULootLockerConfig']]],
+  ['isinitialized_11',['IsInitialized',['../classFLootLockerHTTPExecutionQueue.html#ac435200efd73768e3db4412746a95d71',1,'FLootLockerHTTPExecutionQueue']]],
+  ['ispauseonbackgroundenabled_12',['IsPauseOnBackgroundEnabled',['../classULootLockerPresenceManager.html#a95554216c7bf21a53e9c1b16460ba897',1,'ULootLockerPresenceManager']]],
+  ['ispresenceactiveforplayer_13',['IsPresenceActiveForPlayer',['../classULootLockerPresenceManager.html#a317f44b1931fceab8dc49e2bf3663514',1,'ULootLockerPresenceManager']]],
+  ['ispresenceautoconnectenabled_14',['ispresenceautoconnectenabled',['../classULootLockerConfig.html#af922baffa17bf450ab29c9540a20e3de',1,'ULootLockerConfig::IsPresenceAutoConnectEnabled()'],['../group__Presence.html#ga0a42fb466e4b20439a67ab71e8bd6e6f',1,'ULootLockerSDKManager::IsPresenceAutoConnectEnabled()']]],
+  ['ispresenceautodisconnectonfocuschangeenabled_15',['ispresenceautodisconnectonfocuschangeenabled',['../classULootLockerConfig.html#aef6e08fc9071780410cf53405bb6c691',1,'ULootLockerConfig::IsPresenceAutoDisconnectOnFocusChangeEnabled()'],['../group__Presence.html#gad13a20e2b752bef77e1db9536f71de10',1,'ULootLockerSDKManager::IsPresenceAutoDisconnectOnFocusChangeEnabled()']]],
+  ['ispresenceconnected_16',['IsPresenceConnected',['../group__Presence.html#gac6cd9540d0325b42498c709a0d721a8f',1,'ULootLockerSDKManager']]],
+  ['ispresenceenabled_17',['ispresenceenabled',['../classULootLockerConfig.html#aed9f653112d6d5463b35f18bf816ad99',1,'ULootLockerConfig::IsPresenceEnabled()'],['../group__Presence.html#ga99e4f30a0a04a273c0b38d4caf3a2728',1,'ULootLockerSDKManager::IsPresenceEnabled()']]],
+  ['ispresenceenabledineditor_18',['IsPresenceEnabledInEditor',['../classULootLockerConfig.html#a50b6e612c5213b4dcffed6cf828663a0',1,'ULootLockerConfig']]],
+  ['issemverstring_19',['IsSemverString',['../classULootLockerConfig.html#abd9be5bc62ff63170f0af26008dc71f0',1,'ULootLockerConfig']]],
+  ['isset_20',['IsSet',['../structFLootLockerSessionOptionals.html#a784f399e548153d01a93c4cc30af03e1',1,'FLootLockerSessionOptionals']]]
+];

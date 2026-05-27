@@ -1,0 +1,13 @@
+var searchData=
+[
+  ['name_0',['Name',['../group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987',1,'LootLockerAssetsRequestHandler.h']]],
+  ['needssessionrefresh_1',['NeedsSessionRefresh',['../LootLockerHTTPExecutionQueueItem_8h.html#a367c957239f49291c04402bc5fcf8fc3a431e52ecbf5ee22d059bd6b76880bb31',1,'LootLockerHTTPExecutionQueueItem.h']]],
+  ['nintendo_2',['Nintendo',['../group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da073b7e4ff1d153a52b07eadb5898cb92',1,'LootLockerConnectedAccountsRequestHandler.h']]],
+  ['nintendo_5feshop_3',['Nintendo_eshop',['../group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903ab16b0ec8b92afab2691a23d126c1b5f7',1,'LootLockerEntitlementRequestHandler.h']]],
+  ['non_5freversible_5frewards_4',['non_reversible_rewards',['../group__Purchasing.html#ggab2e52341cdc59639e6f0c7595778ed66a6f3d3eb449617f1052e73d928ffc92af',1,'LootLockerPurchasesRequestHandler.h']]],
+  ['none_5',['none',['../group__Notifications.html#gga9f4e18af9784e0fa371ee72a21ab31d2a334c4a4c42fdb79d7ebc3e73b517e6f8',1,'none:&#160;LootLockerNotificationsRequestHandler.h'],['../group__Assets.html#gga8ae3c9c1e8732f482e668772d87be798a6adf97f83acf6453d4a6a4b1070f3754',1,'None:&#160;LootLockerAssetsRequestHandler.h'],['../group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea6adf97f83acf6453d4a6a4b1070f3754',1,'None:&#160;LootLockerAssetsRequestHandler.h'],['../group__Assets.html#gga818e8fd802b77963e278cde865749bdea6adf97f83acf6453d4a6a4b1070f3754',1,'None:&#160;LootLockerAssetsRequestHandler.h'],['../group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a6adf97f83acf6453d4a6a4b1070f3754',1,'None:&#160;LootLockerEntitlementRequestHandler.h'],['../group__Entitlements.html#gga01dbb08b2160f96b89d68803979d5526a6adf97f83acf6453d4a6a4b1070f3754',1,'None:&#160;LootLockerEntitlementRequestHandler.h'],['../LootLockerHTTPExecutionQueueItem_8h.html#a367c957239f49291c04402bc5fcf8fc3a6adf97f83acf6453d4a6a4b1070f3754',1,'None:&#160;LootLockerHTTPExecutionQueueItem.h']]],
+  ['nonpurchasable_6',['NonPurchasable',['../group__Assets.html#gga8ae3c9c1e8732f482e668772d87be798a08b6a0e0d8d50f11df790f6d64d59897',1,'LootLockerAssetsRequestHandler.h']]],
+  ['nonrentable_7',['NonRentable',['../group__Assets.html#gga8ae3c9c1e8732f482e668772d87be798ac0809c7caf95b37949396c933e1cd167',1,'LootLockerAssetsRequestHandler.h']]],
+  ['null_8',['null',['../group__Notifications.html#gga9f4e18af9784e0fa371ee72a21ab31d2a37a6259cc0c1dae299a7866489dff0bd',1,'LootLockerNotificationsRequestHandler.h']]],
+  ['number_9',['Number',['../group__Metadata.html#gga7ae3db614872bb456a6b01bee377ec3eab2ee912b91d69b435159c7c3f6df7f5f',1,'LootLockerMetadataRequestHandler.h']]]
+];

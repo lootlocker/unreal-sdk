@@ -1,0 +1,1895 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: Purchasing</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.4.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('group__Purchasing.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">Purchasing</div></div>
+</div><!--header-->
+<div class="contents">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Initiate and validate purchases — both real-money (IAP) and virtual-currency. </p>
+<p><b>Real-money purchases</b> integrate with first-party payment systems (Apple App Store, Google Play, Steam) to process and server-side validate IAP receipts. <b>Virtual purchases</b> debit a player's Wallet and grant the catalog item. Both flows produce an entitlement inspectable via <a class="el" href="group__Entitlements.html">Entitlements</a>.</p>
+<p>See the <a href="https://docs.lootlocker.com/commerce/real-money-purchases">LootLocker documentation — Real-Money Purchases</a> and <a href="https://docs.lootlocker.com/commerce/virtual-purchases">Virtual Purchases</a>. </p>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="gafc0a3647c39c159969a0d74cf31d8683" name="gafc0a3647c39c159969a0d74cf31d8683"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafc0a3647c39c159969a0d74cf31d8683">&#9670;&#160;</a></span>FActivateRentalAssetResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FActivateRentalAssetResponseDelegate) (<a class="el" href="structFLootLockerActivateRentalAssetResponse.html">FLootLockerActivateRentalAssetResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerActivateRentalAssetResponse.html">FLootLockerActivateRentalAssetResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga9e2a98d49ea9c3f0966bbc92e73d4e27" name="ga9e2a98d49ea9c3f0966bbc92e73d4e27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9e2a98d49ea9c3f0966bbc92e73d4e27">&#9670;&#160;</a></span>FLootLockerAsyncPurchaseInitiatedDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerAsyncPurchaseInitiatedDelegate) (<a class="el" href="structFLootLockerAsyncPurchaseInitiatedResponse.html">FLootLockerAsyncPurchaseInitiatedResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerAsyncPurchaseInitiatedResponse.html">FLootLockerAsyncPurchaseInitiatedResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga95e1d497b38fae0688dc48ac9d25329e" name="ga95e1d497b38fae0688dc48ac9d25329e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga95e1d497b38fae0688dc48ac9d25329e">&#9670;&#160;</a></span>FLootLockerAsyncPurchaseStatusDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerAsyncPurchaseStatusDelegate) (<a class="el" href="structFLootLockerAsyncPurchaseStatusResponse.html">FLootLockerAsyncPurchaseStatusResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerAsyncPurchaseStatusResponse.html">FLootLockerAsyncPurchaseStatusResponse</a> result. </p>
+
+</div>
+</div>
+<a id="gadd0ca10c3190c3ba08b2f60818b7f5aa" name="gadd0ca10c3190c3ba08b2f60818b7f5aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadd0ca10c3190c3ba08b2f60818b7f5aa">&#9670;&#160;</a></span>FLootLockerBeginSteamPurchaseRedemptionDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerBeginSteamPurchaseRedemptionDelegate) (<a class="el" href="structFLootLockerBeginSteamPurchaseRedemptionResponse.html">FLootLockerBeginSteamPurchaseRedemptionResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerBeginSteamPurchaseRedemptionResponse.html">FLootLockerBeginSteamPurchaseRedemptionResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga43b6f430a7b313b9030fdf2ce1c29a70" name="ga43b6f430a7b313b9030fdf2ce1c29a70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga43b6f430a7b313b9030fdf2ce1c29a70">&#9670;&#160;</a></span>FLootLockerCreateStripeCheckoutSessionDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerCreateStripeCheckoutSessionDelegate) (<a class="el" href="structFLootLockerCreateStripeCheckoutSessionResponse.html">FLootLockerCreateStripeCheckoutSessionResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerCreateStripeCheckoutSessionResponse.html">FLootLockerCreateStripeCheckoutSessionResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga907a0b497e4cbd62155f8f9d07dfdc32" name="ga907a0b497e4cbd62155f8f9d07dfdc32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga907a0b497e4cbd62155f8f9d07dfdc32">&#9670;&#160;</a></span>FLootLockerQuerySteamPurchaseRedemptionStatusDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerQuerySteamPurchaseRedemptionStatusDelegate) (<a class="el" href="structFLootLockerQuerySteamPurchaseRedemptionStatusResponse.html">FLootLockerQuerySteamPurchaseRedemptionStatusResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerQuerySteamPurchaseRedemptionStatusResponse.html">FLootLockerQuerySteamPurchaseRedemptionStatusResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga236be60b2d88bd125c16a74aa59a8008" name="ga236be60b2d88bd125c16a74aa59a8008"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga236be60b2d88bd125c16a74aa59a8008">&#9670;&#160;</a></span>FLootLockerRefundByEntitlementIdsDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerRefundByEntitlementIdsDelegate) (<a class="el" href="structFLootLockerRefundByEntitlementIdsResponse.html">FLootLockerRefundByEntitlementIdsResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerRefundByEntitlementIdsResponse.html">FLootLockerRefundByEntitlementIdsResponse</a> result. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="gabaef8ebd4a801b8519288eaf0bc8be7f" name="gabaef8ebd4a801b8519288eaf0bc8be7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabaef8ebd4a801b8519288eaf0bc8be7f">&#9670;&#160;</a></span>ELootLockerAsyncPurchaseStatus</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__Purchasing.html#gabaef8ebd4a801b8519288eaf0bc8be7f">ELootLockerAsyncPurchaseStatus</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Possible statuses for an async purchase. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggabaef8ebd4a801b8519288eaf0bc8be7fa2d13df6f8b5e4c5af9f87e0dc39df69d" name="ggabaef8ebd4a801b8519288eaf0bc8be7fa2d13df6f8b5e4c5af9f87e0dc39df69d"></a>Pending&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggabaef8ebd4a801b8519288eaf0bc8be7fa4d3d769b812b6faa6b76e1a8abaece2d" name="ggabaef8ebd4a801b8519288eaf0bc8be7fa4d3d769b812b6faa6b76e1a8abaece2d"></a>Active&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggabaef8ebd4a801b8519288eaf0bc8be7fad7c8c85bf79bbe1b7188497c32c3b0ca" name="ggabaef8ebd4a801b8519288eaf0bc8be7fad7c8c85bf79bbe1b7188497c32c3b0ca"></a>Failed&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggabaef8ebd4a801b8519288eaf0bc8be7fa9541eb2348d883dd8e32ae0420274c4c" name="ggabaef8ebd4a801b8519288eaf0bc8be7fa9541eb2348d883dd8e32ae0420274c4c"></a>TimedOut&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggabaef8ebd4a801b8519288eaf0bc8be7faa149e85a44aeec9140e92733d9ed694e" name="ggabaef8ebd4a801b8519288eaf0bc8be7faa149e85a44aeec9140e92733d9ed694e"></a>Cancelled&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="ga0c28d2d074ad7998a1d90dd37980acd4" name="ga0c28d2d074ad7998a1d90dd37980acd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0c28d2d074ad7998a1d90dd37980acd4">&#9670;&#160;</a></span>ELootLockerRefundInventoryEventAction</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__Purchasing.html#ga0c28d2d074ad7998a1d90dd37980acd4">ELootLockerRefundInventoryEventAction</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Possible actions for a player inventory event during a refund. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga0c28d2d074ad7998a1d90dd37980acd4ab07286ebbb5bc7aa91cc3eaa8bc19711" name="gga0c28d2d074ad7998a1d90dd37980acd4ab07286ebbb5bc7aa91cc3eaa8bc19711"></a>removed&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga0c28d2d074ad7998a1d90dd37980acd4ae52e279299e912838f689d4380c81f4a" name="gga0c28d2d074ad7998a1d90dd37980acd4ae52e279299e912838f689d4380c81f4a"></a>skipped&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="ga36ab814393452e2efea2915295a0d5be" name="ga36ab814393452e2efea2915295a0d5be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga36ab814393452e2efea2915295a0d5be">&#9670;&#160;</a></span>ELootLockerRefundNonReversibleRewardKind</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__Purchasing.html#ga36ab814393452e2efea2915295a0d5be">ELootLockerRefundNonReversibleRewardKind</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Possible kinds of non-reversible rewards in a refund warning. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga36ab814393452e2efea2915295a0d5bea411b9f1aeb1018a2966c3491601312eb" name="gga36ab814393452e2efea2915295a0d5bea411b9f1aeb1018a2966c3491601312eb"></a>progression_points&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga36ab814393452e2efea2915295a0d5bea09efb74d9914e0f320c221f00080b4f2" name="gga36ab814393452e2efea2915295a0d5bea09efb74d9914e0f320c221f00080b4f2"></a>progression_reset&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="gab2e52341cdc59639e6f0c7595778ed66" name="gab2e52341cdc59639e6f0c7595778ed66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab2e52341cdc59639e6f0c7595778ed66">&#9670;&#160;</a></span>ELootLockerRefundWarningDetailType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__Purchasing.html#gab2e52341cdc59639e6f0c7595778ed66">ELootLockerRefundWarningDetailType</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Possible warning types in a refund response. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggab2e52341cdc59639e6f0c7595778ed66a6f3d3eb449617f1052e73d928ffc92af" name="ggab2e52341cdc59639e6f0c7595778ed66a6f3d3eb449617f1052e73d928ffc92af"></a>non_reversible_rewards&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggab2e52341cdc59639e6f0c7595778ed66a695c9713c870681ffae14296ea6cd060" name="ggab2e52341cdc59639e6f0c7595778ed66a695c9713c870681ffae14296ea6cd060"></a>insufficient_funds&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggab2e52341cdc59639e6f0c7595778ed66aee2a58f7c0c685119d384e2e2c6e3e8c" name="ggab2e52341cdc59639e6f0c7595778ed66aee2a58f7c0c685119d384e2e2c6e3e8c"></a>already_refunded&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggab2e52341cdc59639e6f0c7595778ed66a153dc3973f152526a16472cb67d4c114" name="ggab2e52341cdc59639e6f0c7595778ed66a153dc3973f152526a16472cb67d4c114"></a>refund_failed&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="ga946691c7987a353ff57418eba974893e" name="ga946691c7987a353ff57418eba974893e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga946691c7987a353ff57418eba974893e">&#9670;&#160;</a></span>ELootLockerSteamPurchaseRedemptionStatus</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__Purchasing.html#ga946691c7987a353ff57418eba974893e">ELootLockerSteamPurchaseRedemptionStatus</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Possible statuses a Steam Purchase can have. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga946691c7987a353ff57418eba974893ea95b19f7739b0b7ea7d6b07586be54f36" name="gga946691c7987a353ff57418eba974893ea95b19f7739b0b7ea7d6b07586be54f36"></a>Init&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga946691c7987a353ff57418eba974893ea6f8063417ab31f38d864c28302f3de2f" name="gga946691c7987a353ff57418eba974893ea6f8063417ab31f38d864c28302f3de2f"></a>Approved&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga946691c7987a353ff57418eba974893ea66d02c2f8a582446f8dd8752366002b5" name="gga946691c7987a353ff57418eba974893ea66d02c2f8a582446f8dd8752366002b5"></a>Succeeded&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga946691c7987a353ff57418eba974893ead7c8c85bf79bbe1b7188497c32c3b0ca" name="gga946691c7987a353ff57418eba974893ead7c8c85bf79bbe1b7188497c32c3b0ca"></a>Failed&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga946691c7987a353ff57418eba974893eacc61945cbbf46721a053467c395c666f" name="gga946691c7987a353ff57418eba974893eacc61945cbbf46721a053467c395c666f"></a>Refunded&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga946691c7987a353ff57418eba974893eab00b9affe284992998aa5c7907647a1f" name="gga946691c7987a353ff57418eba974893eab00b9affe284992998aa5c7907647a1f"></a>PartialRefund&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga946691c7987a353ff57418eba974893ea630e80bcd9993867032e5f2af1271335" name="gga946691c7987a353ff57418eba974893ea630e80bcd9993867032e5f2af1271335"></a>ChargedBack&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga946691c7987a353ff57418eba974893ea3b63d4d0647bef2bdb0533cfd11dda92" name="gga946691c7987a353ff57418eba974893ea3b63d4d0647bef2bdb0533cfd11dda92"></a>RefundedSuspectedFraud&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga946691c7987a353ff57418eba974893eac62fb5419229ad3fc585aa5cf6ba38a5" name="gga946691c7987a353ff57418eba974893eac62fb5419229ad3fc585aa5cf6ba38a5"></a>RefundedFriendlyFraud&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ga27eba47193fc653daa1ca410459501bc" name="ga27eba47193fc653daa1ca410459501bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga27eba47193fc653daa1ca410459501bc">&#9670;&#160;</a></span>ActivateRentalAsset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ActivateRentalAsset </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>AssetInstanceId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Purchasing.html#gafc0a3647c39c159969a0d74cf31d8683">FActivateRentalAssetResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Activate a purchased rental asset so it becomes available to the player. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AssetInstanceId</td><td>Asset instance id </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gab09c8a7827abb75a69d0665b0a5e3c49" name="gab09c8a7827abb75a69d0665b0a5e3c49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab09c8a7827abb75a69d0665b0a5e3c49">&#9670;&#160;</a></span>BeginSteamPurchaseRedemption()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::BeginSteamPurchaseRedemption </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>SteamId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Currency</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Language</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>CatalogItemId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Purchasing.html#gadd0ca10c3190c3ba08b2f60818b7f5aa">FLootLockerBeginSteamPurchaseRedemptionDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Begin a Steam purchase (player) that can later be finalized and redeemed. </p>
+<p>Use QuerySteamPurchaseRedemptionStatus for status; finalize with FinalizeSteamPurchaseRedemption when Approved.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SteamId</td><td>Steam user id </td></tr>
+    <tr><td class="paramname">Currency</td><td>Currency code </td></tr>
+    <tr><td class="paramname">Language</td><td>Language code </td></tr>
+    <tr><td class="paramname">CatalogItemId</td><td>Catalog item id </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga08d56c917f7a6f76feabc16536f17111" name="ga08d56c917f7a6f76feabc16536f17111"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga08d56c917f7a6f76feabc16536f17111">&#9670;&#160;</a></span>BeginSteamPurchaseRedemptionForClass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::BeginSteamPurchaseRedemptionForClass </td>
+          <td>(</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>ClassId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>SteamId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Currency</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Language</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>CatalogItemId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Purchasing.html#gadd0ca10c3190c3ba08b2f60818b7f5aa">FLootLockerBeginSteamPurchaseRedemptionDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Begin a Steam purchase (class) to later finalize and redeem to that class. </p>
+<p>Use QuerySteamPurchaseRedemptionStatus for status; finalize with FinalizeSteamPurchaseRedemption when Approved.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ClassId</td><td>Class id </td></tr>
+    <tr><td class="paramname">SteamId</td><td>Steam user id </td></tr>
+    <tr><td class="paramname">Currency</td><td>Currency code </td></tr>
+    <tr><td class="paramname">Language</td><td>Language code </td></tr>
+    <tr><td class="paramname">CatalogItemId</td><td>Catalog item id </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga329752ecec1c677f812e6670588387ea" name="ga329752ecec1c677f812e6670588387ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga329752ecec1c677f812e6670588387ea">&#9670;&#160;</a></span>CancelAsyncPurchasePolling()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void ULootLockerSDKManager::CancelAsyncPurchasePolling </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProcessID</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cancel an ongoing async purchase polling process. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ProcessID</td><td>The process id returned by StartAsyncPurchasePolling </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga3ddadd29b2da142f5c94e3c4b202dbac" name="ga3ddadd29b2da142f5c94e3c4b202dbac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3ddadd29b2da142f5c94e3c4b202dbac">&#9670;&#160;</a></span>CreateStripeCheckoutSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::CreateStripeCheckoutSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>CatalogItemId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Purchasing.html#ga43b6f430a7b313b9030fdf2ce1c29a70">FLootLockerCreateStripeCheckoutSessionDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a Stripe Checkout session for a catalog item. </p>
+<p>This initiates a Stripe-hosted checkout flow. The response contains a <code>checkout_link</code> — open it in a browser or webview so the player can complete the payment on Stripe's hosted checkout page. The response also contains an <code>entitlement_id</code> which can be used to track the purchase progress via the entitlements endpoint.</p>
+<p>Stripe in-app purchases must be configured in the LootLocker dashboard for this to work.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">CatalogItemId</td><td>The ULID of the catalog item to purchase </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gac1371f0dcd3ebf38ed4817cfe5d08c6a" name="gac1371f0dcd3ebf38ed4817cfe5d08c6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac1371f0dcd3ebf38ed4817cfe5d08c6a">&#9670;&#160;</a></span>FinalizeSteamPurchaseRedemption()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::FinalizeSteamPurchaseRedemption </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>EntitlementId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Finalize an Approved Steam purchase and redeem associated catalog items. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">EntitlementId</td><td>Entitlement id (must be Approved) </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga8bb72410b74c0d464cf9d26f28709d11" name="ga8bb72410b74c0d464cf9d26f28709d11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8bb72410b74c0d464cf9d26f28709d11">&#9670;&#160;</a></span>GetAsyncPurchaseStatus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetAsyncPurchaseStatus </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>EntitlementId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Purchasing.html#ga95e1d497b38fae0688dc48ac9d25329e">FLootLockerAsyncPurchaseStatusDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the current status of an async purchase. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">EntitlementId</td><td>The entitlement id returned when initiating the async purchase </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga2f18da45179c87ad10fc462d14aff298" name="ga2f18da45179c87ad10fc462d14aff298"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2f18da45179c87ad10fc462d14aff298">&#9670;&#160;</a></span>InitiateAsyncPurchaseCatalogItems()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::InitiateAsyncPurchaseCatalogItems </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>WalletId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; <a class="el" href="structFLootLockerCatalogItemAndQuantityPair.html">FLootLockerCatalogItemAndQuantityPair</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Items</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Purchasing.html#ga9e2a98d49ea9c3f0966bbc92e73d4e27">FLootLockerAsyncPurchaseInitiatedDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initiate an async purchase of one or more catalog items using a specified wallet. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">WalletId</td><td>The id of the wallet to use for the purchase </td></tr>
+    <tr><td class="paramname">Items</td><td>The catalog items with quantities to purchase </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga4fd5bdddbc982e9135a13204907e0e17" name="ga4fd5bdddbc982e9135a13204907e0e17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4fd5bdddbc982e9135a13204907e0e17">&#9670;&#160;</a></span>LootLockerPurchaseCatalogItems()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::LootLockerPurchaseCatalogItems </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>WalletId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; <a class="el" href="structFLootLockerCatalogItemAndQuantityPair.html">FLootLockerCatalogItemAndQuantityPair</a> &gt;&#160;</td>
+          <td class="paramname"><em>ItemsToPurchase</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Purchase multiple catalog items (with quantities) using a wallet. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">WalletId</td><td>Wallet id to debit </td></tr>
+    <tr><td class="paramname">ItemsToPurchase</td><td>Items and quantities to purchase </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gaad51aa4ca85bfb52216265ceda333980" name="gaad51aa4ca85bfb52216265ceda333980"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaad51aa4ca85bfb52216265ceda333980">&#9670;&#160;</a></span>LootLockerPurchaseSingleCatalogItem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::LootLockerPurchaseSingleCatalogItem </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>WalletId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>CatalogItemListingId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Purchase a single catalog item using a wallet. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">WalletId</td><td>Wallet id to debit </td></tr>
+    <tr><td class="paramname">CatalogItemListingId</td><td>Catalog item listing id to purchase </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga13e6c8d2d10e2e2178adb570d33e8c62" name="ga13e6c8d2d10e2e2178adb570d33e8c62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga13e6c8d2d10e2e2178adb570d33e8c62">&#9670;&#160;</a></span>QuerySteamPurchaseRedemptionStatus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::QuerySteamPurchaseRedemptionStatus </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>EntitlementId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Purchasing.html#ga907a0b497e4cbd62155f8f9d07dfdc32">FLootLockerQuerySteamPurchaseRedemptionStatusDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Query Steam purchase status for an entitlement (poll until Approved before finalizing). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">EntitlementId</td><td>Entitlement id </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gac523adbbb13733875121483c8154b8ef" name="gac523adbbb13733875121483c8154b8ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac523adbbb13733875121483c8154b8ef">&#9670;&#160;</a></span>RedeemAppleAppStorePurchaseForClass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RedeemAppleAppStorePurchaseForClass </td>
+          <td>(</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>ClassId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>TransactionId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>Sandboxed</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Redeem an Apple App Store transaction for a class. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ClassId</td><td>Class id to receive items </td></tr>
+    <tr><td class="paramname">TransactionId</td><td>Apple transaction id </td></tr>
+    <tr><td class="paramname">Sandboxed</td><td>Optional: Redeem against sandbox store (default false) </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gae59f1f9c27486275b6cdbdacad7a3a38" name="gae59f1f9c27486275b6cdbdacad7a3a38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae59f1f9c27486275b6cdbdacad7a3a38">&#9670;&#160;</a></span>RedeemAppleAppStorePurchaseForPlayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RedeemAppleAppStorePurchaseForPlayer </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>TransactionId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>Sandboxed</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Redeem an Apple App Store transaction for the player. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TransactionId</td><td>Apple transaction id </td></tr>
+    <tr><td class="paramname">Sandboxed</td><td>Optional: Redeem against sandbox store (default false) </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga57e5191903070588eca97b4bca57d354" name="ga57e5191903070588eca97b4bca57d354"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga57e5191903070588eca97b4bca57d354">&#9670;&#160;</a></span>RedeemEpicStorePurchase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RedeemEpicStorePurchase </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>AccountId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>BearerToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>EntitlementIds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>SandboxId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Redeem Epic Games Store entitlements for the player. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AccountId</td><td>Epic account id </td></tr>
+    <tr><td class="paramname">BearerToken</td><td>Epic bearer/auth token (server auth ticket) </td></tr>
+    <tr><td class="paramname">EntitlementIds</td><td>Entitlement ids to redeem </td></tr>
+    <tr><td class="paramname">SandboxId</td><td>Epic sandbox id </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga8fee13f7bb0c27420cea084b03669935" name="ga8fee13f7bb0c27420cea084b03669935"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8fee13f7bb0c27420cea084b03669935">&#9670;&#160;</a></span>RedeemEpicStorePurchaseForCharacter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RedeemEpicStorePurchaseForCharacter </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>CharacterId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>AccountId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>BearerToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>EntitlementIds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>SandboxId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Redeem Epic Games Store entitlements for a character. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">CharacterId</td><td>Character ULID </td></tr>
+    <tr><td class="paramname">AccountId</td><td>Epic account id </td></tr>
+    <tr><td class="paramname">BearerToken</td><td>Epic bearer/auth token </td></tr>
+    <tr><td class="paramname">EntitlementIds</td><td>Entitlement ids to redeem </td></tr>
+    <tr><td class="paramname">SandboxId</td><td>Epic sandbox id (use for sandbox purchases) </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga8bc9cee3b1aebb20f78da9d6eaa4e2fd" name="ga8bc9cee3b1aebb20f78da9d6eaa4e2fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8bc9cee3b1aebb20f78da9d6eaa4e2fd">&#9670;&#160;</a></span>RedeemGooglePlayStorePurchaseForClass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RedeemGooglePlayStorePurchaseForClass </td>
+          <td>(</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>ClassId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProductId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>PurchaseToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Redeem a Google Play Store purchase for a class. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ClassId</td><td>Class id </td></tr>
+    <tr><td class="paramname">ProductId</td><td>Product id </td></tr>
+    <tr><td class="paramname">PurchaseToken</td><td>Google Play purchase token </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga4fe1f6b219a401d0562c193281a5743c" name="ga4fe1f6b219a401d0562c193281a5743c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4fe1f6b219a401d0562c193281a5743c">&#9670;&#160;</a></span>RedeemGooglePlayStorePurchaseForPlayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RedeemGooglePlayStorePurchaseForPlayer </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProductId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>PurchaseToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Redeem a Google Play Store purchase for the player. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ProductId</td><td>Product id </td></tr>
+    <tr><td class="paramname">PurchaseToken</td><td>Google Play purchase token </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gaa9d0d98404ca9c25d9b64bd5ae9e1cff" name="gaa9d0d98404ca9c25d9b64bd5ae9e1cff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa9d0d98404ca9c25d9b64bd5ae9e1cff">&#9670;&#160;</a></span>RefundByEntitlementIds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RefundByEntitlementIds </td>
+          <td>(</td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>EntitlementIds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Purchasing.html#ga236be60b2d88bd125c16a74aa59a8008">FLootLockerRefundByEntitlementIdsDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Refund one or more entitlements by their IDs. </p>
+<p>Submits a refund request for the specified entitlement IDs. Assets associated with the entitlements will be removed from the player's inventory where possible, the original purchase currency will be credited back, and any currency rewards tied to the entitlement will be clawed back. The response includes details on what was reversed and any warnings for items that could not be fully reversed.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">EntitlementIds</td><td>The IDs of the entitlements to refund </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gacfac4f3f445629b13ac62dba0b84c65b" name="gacfac4f3f445629b13ac62dba0b84c65b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacfac4f3f445629b13ac62dba0b84c65b">&#9670;&#160;</a></span>RetryAsyncPurchase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RetryAsyncPurchase </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>EntitlementId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>WalletId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; <a class="el" href="structFLootLockerCatalogItemAndQuantityPair.html">FLootLockerCatalogItemAndQuantityPair</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Items</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Purchasing.html#ga9e2a98d49ea9c3f0966bbc92e73d4e27">FLootLockerAsyncPurchaseInitiatedDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retry a failed async purchase. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">EntitlementId</td><td>The entitlement id of the failed purchase </td></tr>
+    <tr><td class="paramname">WalletId</td><td>The id of the wallet to use for the retry </td></tr>
+    <tr><td class="paramname">Items</td><td>The catalog items with quantities from the original purchase </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga12a38ec3554c0200a3c846b43f927b1b" name="ga12a38ec3554c0200a3c846b43f927b1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga12a38ec3554c0200a3c846b43f927b1b">&#9670;&#160;</a></span>StartAsyncPurchasePolling()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::StartAsyncPurchasePolling </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>WalletId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; <a class="el" href="structFLootLockerCatalogItemAndQuantityPair.html">FLootLockerCatalogItemAndQuantityPair</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Items</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Purchasing.html#ga95e1d497b38fae0688dc48ac9d25329e">FLootLockerAsyncPurchaseStatusDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnStatusUpdate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Purchasing.html#ga95e1d497b38fae0688dc48ac9d25329e">FLootLockerAsyncPurchaseStatusDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>PollingIntervalSeconds</em> = <code>1.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>TimeoutAfterMinutes</em> = <code>5.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initiate an async purchase and automatically poll for its result. </p>
+<p>While pending, OnStatusUpdate is called on each poll. When the purchase reaches a terminal state (active or failed, or timeout), OnComplete is called.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">WalletId</td><td>The id of the wallet to use for the purchase </td></tr>
+    <tr><td class="paramname">Items</td><td>The catalog items with quantities to purchase </td></tr>
+    <tr><td class="paramname">OnStatusUpdate</td><td>Delegate called on each poll while the purchase is pending </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate called when the purchase reaches a terminal state </td></tr>
+    <tr><td class="paramname">PollingIntervalSeconds</td><td>How often to poll in seconds (minimum 1) </td></tr>
+    <tr><td class="paramname">TimeoutAfterMinutes</td><td>How many minutes before the process times out </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A process id string that can be passed to CancelAsyncPurchasePolling </dd></dl>
+
+</div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAsyncPurchaseProcess.html">FLootLockerAsyncPurchaseProcess</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerCreateStripeCheckoutSessionRequest.html">FLootLockerCreateStripeCheckoutSessionRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request to create a Stripe Checkout session for a catalog item.  <a href="structFLootLockerCreateStripeCheckoutSessionRequest.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerCreateStripeCheckoutSessionResponse.html">FLootLockerCreateStripeCheckoutSessionResponse</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Response from creating a Stripe Checkout session.  <a href="structFLootLockerCreateStripeCheckoutSessionResponse.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga9e2a98d49ea9c3f0966bbc92e73d4e27" id="r_ga9e2a98d49ea9c3f0966bbc92e73d4e27"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga9e2a98d49ea9c3f0966bbc92e73d4e27">FLootLockerAsyncPurchaseInitiatedDelegate</a>) (<a class="el" href="structFLootLockerAsyncPurchaseInitiatedResponse.html">FLootLockerAsyncPurchaseInitiatedResponse</a>)</td></tr>
+<tr class="memdesc:ga9e2a98d49ea9c3f0966bbc92e73d4e27"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerAsyncPurchaseInitiatedResponse.html">FLootLockerAsyncPurchaseInitiatedResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga9e2a98d49ea9c3f0966bbc92e73d4e27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga95e1d497b38fae0688dc48ac9d25329e" id="r_ga95e1d497b38fae0688dc48ac9d25329e"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga95e1d497b38fae0688dc48ac9d25329e">FLootLockerAsyncPurchaseStatusDelegate</a>) (<a class="el" href="structFLootLockerAsyncPurchaseStatusResponse.html">FLootLockerAsyncPurchaseStatusResponse</a>)</td></tr>
+<tr class="memdesc:ga95e1d497b38fae0688dc48ac9d25329e"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerAsyncPurchaseStatusResponse.html">FLootLockerAsyncPurchaseStatusResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga95e1d497b38fae0688dc48ac9d25329e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafc0a3647c39c159969a0d74cf31d8683" id="r_gafc0a3647c39c159969a0d74cf31d8683"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#gafc0a3647c39c159969a0d74cf31d8683">FActivateRentalAssetResponseDelegate</a>) (<a class="el" href="structFLootLockerActivateRentalAssetResponse.html">FLootLockerActivateRentalAssetResponse</a>)</td></tr>
+<tr class="memdesc:gafc0a3647c39c159969a0d74cf31d8683"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerActivateRentalAssetResponse.html">FLootLockerActivateRentalAssetResponse</a> result.  <br /></td></tr>
+<tr class="separator:gafc0a3647c39c159969a0d74cf31d8683"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadd0ca10c3190c3ba08b2f60818b7f5aa" id="r_gadd0ca10c3190c3ba08b2f60818b7f5aa"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#gadd0ca10c3190c3ba08b2f60818b7f5aa">FLootLockerBeginSteamPurchaseRedemptionDelegate</a>) (<a class="el" href="structFLootLockerBeginSteamPurchaseRedemptionResponse.html">FLootLockerBeginSteamPurchaseRedemptionResponse</a>)</td></tr>
+<tr class="memdesc:gadd0ca10c3190c3ba08b2f60818b7f5aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerBeginSteamPurchaseRedemptionResponse.html">FLootLockerBeginSteamPurchaseRedemptionResponse</a> result.  <br /></td></tr>
+<tr class="separator:gadd0ca10c3190c3ba08b2f60818b7f5aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga907a0b497e4cbd62155f8f9d07dfdc32" id="r_ga907a0b497e4cbd62155f8f9d07dfdc32"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga907a0b497e4cbd62155f8f9d07dfdc32">FLootLockerQuerySteamPurchaseRedemptionStatusDelegate</a>) (<a class="el" href="structFLootLockerQuerySteamPurchaseRedemptionStatusResponse.html">FLootLockerQuerySteamPurchaseRedemptionStatusResponse</a>)</td></tr>
+<tr class="memdesc:ga907a0b497e4cbd62155f8f9d07dfdc32"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerQuerySteamPurchaseRedemptionStatusResponse.html">FLootLockerQuerySteamPurchaseRedemptionStatusResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga907a0b497e4cbd62155f8f9d07dfdc32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga236be60b2d88bd125c16a74aa59a8008" id="r_ga236be60b2d88bd125c16a74aa59a8008"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga236be60b2d88bd125c16a74aa59a8008">FLootLockerRefundByEntitlementIdsDelegate</a>) (<a class="el" href="structFLootLockerRefundByEntitlementIdsResponse.html">FLootLockerRefundByEntitlementIdsResponse</a>)</td></tr>
+<tr class="memdesc:ga236be60b2d88bd125c16a74aa59a8008"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerRefundByEntitlementIdsResponse.html">FLootLockerRefundByEntitlementIdsResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga236be60b2d88bd125c16a74aa59a8008"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga43b6f430a7b313b9030fdf2ce1c29a70" id="r_ga43b6f430a7b313b9030fdf2ce1c29a70"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga43b6f430a7b313b9030fdf2ce1c29a70">FLootLockerCreateStripeCheckoutSessionDelegate</a>) (<a class="el" href="structFLootLockerCreateStripeCheckoutSessionResponse.html">FLootLockerCreateStripeCheckoutSessionResponse</a>)</td></tr>
+<tr class="memdesc:ga43b6f430a7b313b9030fdf2ce1c29a70"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerCreateStripeCheckoutSessionResponse.html">FLootLockerCreateStripeCheckoutSessionResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga43b6f430a7b313b9030fdf2ce1c29a70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga946691c7987a353ff57418eba974893e" id="r_ga946691c7987a353ff57418eba974893e"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga946691c7987a353ff57418eba974893e">ELootLockerSteamPurchaseRedemptionStatus</a> : uint8 { <br />
+&#160;&#160;<a class="el" href="group__Purchasing.html#gga946691c7987a353ff57418eba974893ea95b19f7739b0b7ea7d6b07586be54f36">ELootLockerSteamPurchaseRedemptionStatus::Init</a> = 0
+, <a class="el" href="group__Purchasing.html#gga946691c7987a353ff57418eba974893ea6f8063417ab31f38d864c28302f3de2f">ELootLockerSteamPurchaseRedemptionStatus::Approved</a> = 1
+, <a class="el" href="group__Purchasing.html#gga946691c7987a353ff57418eba974893ea66d02c2f8a582446f8dd8752366002b5">ELootLockerSteamPurchaseRedemptionStatus::Succeeded</a> = 2
+, <a class="el" href="group__Purchasing.html#gga946691c7987a353ff57418eba974893ead7c8c85bf79bbe1b7188497c32c3b0ca">ELootLockerSteamPurchaseRedemptionStatus::Failed</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="group__Purchasing.html#gga946691c7987a353ff57418eba974893eacc61945cbbf46721a053467c395c666f">ELootLockerSteamPurchaseRedemptionStatus::Refunded</a> = 4
+, <a class="el" href="group__Purchasing.html#gga946691c7987a353ff57418eba974893eab00b9affe284992998aa5c7907647a1f">ELootLockerSteamPurchaseRedemptionStatus::PartialRefund</a> = 5
+, <a class="el" href="group__Purchasing.html#gga946691c7987a353ff57418eba974893ea630e80bcd9993867032e5f2af1271335">ELootLockerSteamPurchaseRedemptionStatus::ChargedBack</a> = 6
+, <a class="el" href="group__Purchasing.html#gga946691c7987a353ff57418eba974893ea3b63d4d0647bef2bdb0533cfd11dda92">ELootLockerSteamPurchaseRedemptionStatus::RefundedSuspectedFraud</a> = 7
+, <br />
+&#160;&#160;<a class="el" href="group__Purchasing.html#gga946691c7987a353ff57418eba974893eac62fb5419229ad3fc585aa5cf6ba38a5">ELootLockerSteamPurchaseRedemptionStatus::RefundedFriendlyFraud</a> = 8
+<br />
+ }</td></tr>
+<tr class="memdesc:ga946691c7987a353ff57418eba974893e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible statuses a Steam Purchase can have.  <a href="group__Purchasing.html#ga946691c7987a353ff57418eba974893e">More...</a><br /></td></tr>
+<tr class="separator:ga946691c7987a353ff57418eba974893e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0c28d2d074ad7998a1d90dd37980acd4" id="r_ga0c28d2d074ad7998a1d90dd37980acd4"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga0c28d2d074ad7998a1d90dd37980acd4">ELootLockerRefundInventoryEventAction</a> : uint8 { <a class="el" href="group__Purchasing.html#gga0c28d2d074ad7998a1d90dd37980acd4ab07286ebbb5bc7aa91cc3eaa8bc19711">ELootLockerRefundInventoryEventAction::removed</a> = 0
+, <a class="el" href="group__Purchasing.html#gga0c28d2d074ad7998a1d90dd37980acd4ae52e279299e912838f689d4380c81f4a">ELootLockerRefundInventoryEventAction::skipped</a> = 1
+ }</td></tr>
+<tr class="memdesc:ga0c28d2d074ad7998a1d90dd37980acd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible actions for a player inventory event during a refund.  <a href="group__Purchasing.html#ga0c28d2d074ad7998a1d90dd37980acd4">More...</a><br /></td></tr>
+<tr class="separator:ga0c28d2d074ad7998a1d90dd37980acd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga36ab814393452e2efea2915295a0d5be" id="r_ga36ab814393452e2efea2915295a0d5be"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga36ab814393452e2efea2915295a0d5be">ELootLockerRefundNonReversibleRewardKind</a> : uint8 { <a class="el" href="group__Purchasing.html#gga36ab814393452e2efea2915295a0d5bea411b9f1aeb1018a2966c3491601312eb">ELootLockerRefundNonReversibleRewardKind::progression_points</a> = 0
+, <a class="el" href="group__Purchasing.html#gga36ab814393452e2efea2915295a0d5bea09efb74d9914e0f320c221f00080b4f2">ELootLockerRefundNonReversibleRewardKind::progression_reset</a> = 1
+ }</td></tr>
+<tr class="memdesc:ga36ab814393452e2efea2915295a0d5be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible kinds of non-reversible rewards in a refund warning.  <a href="group__Purchasing.html#ga36ab814393452e2efea2915295a0d5be">More...</a><br /></td></tr>
+<tr class="separator:ga36ab814393452e2efea2915295a0d5be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab2e52341cdc59639e6f0c7595778ed66" id="r_gab2e52341cdc59639e6f0c7595778ed66"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#gab2e52341cdc59639e6f0c7595778ed66">ELootLockerRefundWarningDetailType</a> : uint8 { <a class="el" href="group__Purchasing.html#ggab2e52341cdc59639e6f0c7595778ed66a6f3d3eb449617f1052e73d928ffc92af">ELootLockerRefundWarningDetailType::non_reversible_rewards</a> = 0
+, <a class="el" href="group__Purchasing.html#ggab2e52341cdc59639e6f0c7595778ed66a695c9713c870681ffae14296ea6cd060">ELootLockerRefundWarningDetailType::insufficient_funds</a> = 1
+, <a class="el" href="group__Purchasing.html#ggab2e52341cdc59639e6f0c7595778ed66aee2a58f7c0c685119d384e2e2c6e3e8c">ELootLockerRefundWarningDetailType::already_refunded</a> = 2
+, <a class="el" href="group__Purchasing.html#ggab2e52341cdc59639e6f0c7595778ed66a153dc3973f152526a16472cb67d4c114">ELootLockerRefundWarningDetailType::refund_failed</a> = 3
+ }</td></tr>
+<tr class="memdesc:gab2e52341cdc59639e6f0c7595778ed66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible warning types in a refund response.  <a href="group__Purchasing.html#gab2e52341cdc59639e6f0c7595778ed66">More...</a><br /></td></tr>
+<tr class="separator:gab2e52341cdc59639e6f0c7595778ed66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabaef8ebd4a801b8519288eaf0bc8be7f" id="r_gabaef8ebd4a801b8519288eaf0bc8be7f"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#gabaef8ebd4a801b8519288eaf0bc8be7f">ELootLockerAsyncPurchaseStatus</a> : uint8 { <br />
+&#160;&#160;<a class="el" href="group__Purchasing.html#ggabaef8ebd4a801b8519288eaf0bc8be7fa2d13df6f8b5e4c5af9f87e0dc39df69d">ELootLockerAsyncPurchaseStatus::Pending</a> = 0
+, <a class="el" href="group__Purchasing.html#ggabaef8ebd4a801b8519288eaf0bc8be7fa4d3d769b812b6faa6b76e1a8abaece2d">ELootLockerAsyncPurchaseStatus::Active</a> = 1
+, <a class="el" href="group__Purchasing.html#ggabaef8ebd4a801b8519288eaf0bc8be7fad7c8c85bf79bbe1b7188497c32c3b0ca">ELootLockerAsyncPurchaseStatus::Failed</a> = 2
+, <a class="el" href="group__Purchasing.html#ggabaef8ebd4a801b8519288eaf0bc8be7fa9541eb2348d883dd8e32ae0420274c4c">ELootLockerAsyncPurchaseStatus::TimedOut</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="group__Purchasing.html#ggabaef8ebd4a801b8519288eaf0bc8be7faa149e85a44aeec9140e92733d9ed694e">ELootLockerAsyncPurchaseStatus::Cancelled</a> = 4
+<br />
+ }</td></tr>
+<tr class="memdesc:gabaef8ebd4a801b8519288eaf0bc8be7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible statuses for an async purchase.  <a href="group__Purchasing.html#gabaef8ebd4a801b8519288eaf0bc8be7f">More...</a><br /></td></tr>
+<tr class="separator:gabaef8ebd4a801b8519288eaf0bc8be7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga27eba47193fc653daa1ca410459501bc" id="r_ga27eba47193fc653daa1ca410459501bc"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga27eba47193fc653daa1ca410459501bc">ULootLockerSDKManager::ActivateRentalAsset</a> (int AssetInstanceId, const <a class="el" href="group__Purchasing.html#gafc0a3647c39c159969a0d74cf31d8683">FActivateRentalAssetResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga27eba47193fc653daa1ca410459501bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activate a purchased rental asset so it becomes available to the player.  <br /></td></tr>
+<tr class="separator:ga27eba47193fc653daa1ca410459501bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaad51aa4ca85bfb52216265ceda333980" id="r_gaad51aa4ca85bfb52216265ceda333980"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#gaad51aa4ca85bfb52216265ceda333980">ULootLockerSDKManager::LootLockerPurchaseSingleCatalogItem</a> (const FString &amp;WalletId, const FString &amp;CatalogItemListingId, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gaad51aa4ca85bfb52216265ceda333980"><td class="mdescLeft">&#160;</td><td class="mdescRight">Purchase a single catalog item using a wallet.  <br /></td></tr>
+<tr class="separator:gaad51aa4ca85bfb52216265ceda333980"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4fd5bdddbc982e9135a13204907e0e17" id="r_ga4fd5bdddbc982e9135a13204907e0e17"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga4fd5bdddbc982e9135a13204907e0e17">ULootLockerSDKManager::LootLockerPurchaseCatalogItems</a> (const FString &amp;WalletId, const TArray&lt; <a class="el" href="structFLootLockerCatalogItemAndQuantityPair.html">FLootLockerCatalogItemAndQuantityPair</a> &gt; ItemsToPurchase, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga4fd5bdddbc982e9135a13204907e0e17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Purchase multiple catalog items (with quantities) using a wallet.  <br /></td></tr>
+<tr class="separator:ga4fd5bdddbc982e9135a13204907e0e17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae59f1f9c27486275b6cdbdacad7a3a38" id="r_gae59f1f9c27486275b6cdbdacad7a3a38"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#gae59f1f9c27486275b6cdbdacad7a3a38">ULootLockerSDKManager::RedeemAppleAppStorePurchaseForPlayer</a> (const FString &amp;TransactionId, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest, bool Sandboxed=false, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gae59f1f9c27486275b6cdbdacad7a3a38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Redeem an Apple App Store transaction for the player.  <br /></td></tr>
+<tr class="separator:gae59f1f9c27486275b6cdbdacad7a3a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac523adbbb13733875121483c8154b8ef" id="r_gac523adbbb13733875121483c8154b8ef"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#gac523adbbb13733875121483c8154b8ef">ULootLockerSDKManager::RedeemAppleAppStorePurchaseForClass</a> (const int ClassId, const FString &amp;TransactionId, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest, bool Sandboxed=false, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gac523adbbb13733875121483c8154b8ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Redeem an Apple App Store transaction for a class.  <br /></td></tr>
+<tr class="separator:gac523adbbb13733875121483c8154b8ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4fe1f6b219a401d0562c193281a5743c" id="r_ga4fe1f6b219a401d0562c193281a5743c"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga4fe1f6b219a401d0562c193281a5743c">ULootLockerSDKManager::RedeemGooglePlayStorePurchaseForPlayer</a> (const FString &amp;ProductId, const FString &amp;PurchaseToken, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga4fe1f6b219a401d0562c193281a5743c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Redeem a Google Play Store purchase for the player.  <br /></td></tr>
+<tr class="separator:ga4fe1f6b219a401d0562c193281a5743c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8bc9cee3b1aebb20f78da9d6eaa4e2fd" id="r_ga8bc9cee3b1aebb20f78da9d6eaa4e2fd"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga8bc9cee3b1aebb20f78da9d6eaa4e2fd">ULootLockerSDKManager::RedeemGooglePlayStorePurchaseForClass</a> (const int ClassId, const FString &amp;ProductId, const FString &amp;PurchaseToken, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga8bc9cee3b1aebb20f78da9d6eaa4e2fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Redeem a Google Play Store purchase for a class.  <br /></td></tr>
+<tr class="separator:ga8bc9cee3b1aebb20f78da9d6eaa4e2fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga57e5191903070588eca97b4bca57d354" id="r_ga57e5191903070588eca97b4bca57d354"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga57e5191903070588eca97b4bca57d354">ULootLockerSDKManager::RedeemEpicStorePurchase</a> (const FString &amp;AccountId, const FString &amp;BearerToken, const TArray&lt; FString &gt; &amp;EntitlementIds, const FString &amp;SandboxId, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga57e5191903070588eca97b4bca57d354"><td class="mdescLeft">&#160;</td><td class="mdescRight">Redeem Epic Games Store entitlements for the player.  <br /></td></tr>
+<tr class="separator:ga57e5191903070588eca97b4bca57d354"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8fee13f7bb0c27420cea084b03669935" id="r_ga8fee13f7bb0c27420cea084b03669935"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga8fee13f7bb0c27420cea084b03669935">ULootLockerSDKManager::RedeemEpicStorePurchaseForCharacter</a> (const FString &amp;CharacterId, const FString &amp;AccountId, const FString &amp;BearerToken, const TArray&lt; FString &gt; &amp;EntitlementIds, const FString &amp;SandboxId, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga8fee13f7bb0c27420cea084b03669935"><td class="mdescLeft">&#160;</td><td class="mdescRight">Redeem Epic Games Store entitlements for a character.  <br /></td></tr>
+<tr class="separator:ga8fee13f7bb0c27420cea084b03669935"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab09c8a7827abb75a69d0665b0a5e3c49" id="r_gab09c8a7827abb75a69d0665b0a5e3c49"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#gab09c8a7827abb75a69d0665b0a5e3c49">ULootLockerSDKManager::BeginSteamPurchaseRedemption</a> (const FString &amp;SteamId, const FString &amp;<a class="el" href="group__Catalog.html#gga577a31dc9665d687667d28b20f1a3742a386c339d37e737a436499d423a77df0c">Currency</a>, const FString &amp;Language, const FString &amp;CatalogItemId, const <a class="el" href="group__Purchasing.html#gadd0ca10c3190c3ba08b2f60818b7f5aa">FLootLockerBeginSteamPurchaseRedemptionDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gab09c8a7827abb75a69d0665b0a5e3c49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begin a Steam purchase (player) that can later be finalized and redeemed.  <br /></td></tr>
+<tr class="separator:gab09c8a7827abb75a69d0665b0a5e3c49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga08d56c917f7a6f76feabc16536f17111" id="r_ga08d56c917f7a6f76feabc16536f17111"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga08d56c917f7a6f76feabc16536f17111">ULootLockerSDKManager::BeginSteamPurchaseRedemptionForClass</a> (const int ClassId, const FString &amp;SteamId, const FString &amp;<a class="el" href="group__Catalog.html#gga577a31dc9665d687667d28b20f1a3742a386c339d37e737a436499d423a77df0c">Currency</a>, const FString &amp;Language, const FString &amp;CatalogItemId, const <a class="el" href="group__Purchasing.html#gadd0ca10c3190c3ba08b2f60818b7f5aa">FLootLockerBeginSteamPurchaseRedemptionDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga08d56c917f7a6f76feabc16536f17111"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begin a Steam purchase (class) to later finalize and redeem to that class.  <br /></td></tr>
+<tr class="separator:ga08d56c917f7a6f76feabc16536f17111"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga13e6c8d2d10e2e2178adb570d33e8c62" id="r_ga13e6c8d2d10e2e2178adb570d33e8c62"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga13e6c8d2d10e2e2178adb570d33e8c62">ULootLockerSDKManager::QuerySteamPurchaseRedemptionStatus</a> (const FString &amp;EntitlementId, const <a class="el" href="group__Purchasing.html#ga907a0b497e4cbd62155f8f9d07dfdc32">FLootLockerQuerySteamPurchaseRedemptionStatusDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga13e6c8d2d10e2e2178adb570d33e8c62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query Steam purchase status for an entitlement (poll until Approved before finalizing).  <br /></td></tr>
+<tr class="separator:ga13e6c8d2d10e2e2178adb570d33e8c62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac1371f0dcd3ebf38ed4817cfe5d08c6a" id="r_gac1371f0dcd3ebf38ed4817cfe5d08c6a"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#gac1371f0dcd3ebf38ed4817cfe5d08c6a">ULootLockerSDKManager::FinalizeSteamPurchaseRedemption</a> (const FString &amp;EntitlementId, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gac1371f0dcd3ebf38ed4817cfe5d08c6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finalize an Approved Steam purchase and redeem associated catalog items.  <br /></td></tr>
+<tr class="separator:gac1371f0dcd3ebf38ed4817cfe5d08c6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2f18da45179c87ad10fc462d14aff298" id="r_ga2f18da45179c87ad10fc462d14aff298"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga2f18da45179c87ad10fc462d14aff298">ULootLockerSDKManager::InitiateAsyncPurchaseCatalogItems</a> (const FString &amp;WalletId, const TArray&lt; <a class="el" href="structFLootLockerCatalogItemAndQuantityPair.html">FLootLockerCatalogItemAndQuantityPair</a> &gt; &amp;Items, const <a class="el" href="group__Purchasing.html#ga9e2a98d49ea9c3f0966bbc92e73d4e27">FLootLockerAsyncPurchaseInitiatedDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga2f18da45179c87ad10fc462d14aff298"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initiate an async purchase of one or more catalog items using a specified wallet.  <br /></td></tr>
+<tr class="separator:ga2f18da45179c87ad10fc462d14aff298"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8bb72410b74c0d464cf9d26f28709d11" id="r_ga8bb72410b74c0d464cf9d26f28709d11"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga8bb72410b74c0d464cf9d26f28709d11">ULootLockerSDKManager::GetAsyncPurchaseStatus</a> (const FString &amp;EntitlementId, const <a class="el" href="group__Purchasing.html#ga95e1d497b38fae0688dc48ac9d25329e">FLootLockerAsyncPurchaseStatusDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga8bb72410b74c0d464cf9d26f28709d11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current status of an async purchase.  <br /></td></tr>
+<tr class="separator:ga8bb72410b74c0d464cf9d26f28709d11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacfac4f3f445629b13ac62dba0b84c65b" id="r_gacfac4f3f445629b13ac62dba0b84c65b"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#gacfac4f3f445629b13ac62dba0b84c65b">ULootLockerSDKManager::RetryAsyncPurchase</a> (const FString &amp;EntitlementId, const FString &amp;WalletId, const TArray&lt; <a class="el" href="structFLootLockerCatalogItemAndQuantityPair.html">FLootLockerCatalogItemAndQuantityPair</a> &gt; &amp;Items, const <a class="el" href="group__Purchasing.html#ga9e2a98d49ea9c3f0966bbc92e73d4e27">FLootLockerAsyncPurchaseInitiatedDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gacfac4f3f445629b13ac62dba0b84c65b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retry a failed async purchase.  <br /></td></tr>
+<tr class="separator:gacfac4f3f445629b13ac62dba0b84c65b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga12a38ec3554c0200a3c846b43f927b1b" id="r_ga12a38ec3554c0200a3c846b43f927b1b"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga12a38ec3554c0200a3c846b43f927b1b">ULootLockerSDKManager::StartAsyncPurchasePolling</a> (const FString &amp;WalletId, const TArray&lt; <a class="el" href="structFLootLockerCatalogItemAndQuantityPair.html">FLootLockerCatalogItemAndQuantityPair</a> &gt; &amp;Items, const <a class="el" href="group__Purchasing.html#ga95e1d497b38fae0688dc48ac9d25329e">FLootLockerAsyncPurchaseStatusDelegate</a> &amp;OnStatusUpdate, const <a class="el" href="group__Purchasing.html#ga95e1d497b38fae0688dc48ac9d25329e">FLootLockerAsyncPurchaseStatusDelegate</a> &amp;OnComplete, float PollingIntervalSeconds=1.0f, float TimeoutAfterMinutes=5.0f, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga12a38ec3554c0200a3c846b43f927b1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initiate an async purchase and automatically poll for its result.  <br /></td></tr>
+<tr class="separator:ga12a38ec3554c0200a3c846b43f927b1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga329752ecec1c677f812e6670588387ea" id="r_ga329752ecec1c677f812e6670588387ea"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga329752ecec1c677f812e6670588387ea">ULootLockerSDKManager::CancelAsyncPurchasePolling</a> (const FString &amp;ProcessID)</td></tr>
+<tr class="memdesc:ga329752ecec1c677f812e6670588387ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel an ongoing async purchase polling process.  <br /></td></tr>
+<tr class="separator:ga329752ecec1c677f812e6670588387ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa9d0d98404ca9c25d9b64bd5ae9e1cff" id="r_gaa9d0d98404ca9c25d9b64bd5ae9e1cff"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#gaa9d0d98404ca9c25d9b64bd5ae9e1cff">ULootLockerSDKManager::RefundByEntitlementIds</a> (const TArray&lt; FString &gt; &amp;EntitlementIds, const <a class="el" href="group__Purchasing.html#ga236be60b2d88bd125c16a74aa59a8008">FLootLockerRefundByEntitlementIdsDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gaa9d0d98404ca9c25d9b64bd5ae9e1cff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refund one or more entitlements by their IDs.  <br /></td></tr>
+<tr class="separator:gaa9d0d98404ca9c25d9b64bd5ae9e1cff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3ddadd29b2da142f5c94e3c4b202dbac" id="r_ga3ddadd29b2da142f5c94e3c4b202dbac"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga3ddadd29b2da142f5c94e3c4b202dbac">ULootLockerSDKManager::CreateStripeCheckoutSession</a> (const FString &amp;CatalogItemId, const <a class="el" href="group__Purchasing.html#ga43b6f430a7b313b9030fdf2ce1c29a70">FLootLockerCreateStripeCheckoutSessionDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga3ddadd29b2da142f5c94e3c4b202dbac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a Stripe Checkout session for a catalog item.  <br /></td></tr>
+<tr class="separator:ga3ddadd29b2da142f5c94e3c4b202dbac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

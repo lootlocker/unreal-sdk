@@ -1,0 +1,5 @@
+<map id="FLootLockerPlayerData" name="FLootLockerPlayerData">
+<area shape="rect" id="Node000001" title=" " alt="" coords="25,93,197,119"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerSessionOptionals.html" title="Optional parameters that can be sent when starting a session." alt="" coords="5,5,217,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,45,114,93,109,93,109,45"/>
+</map>
