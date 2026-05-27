@@ -1,0 +1,2412 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: Hero</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.4.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('group__Hero.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">Hero</div></div>
+</div><!--header-->
+<div class="contents">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Create and manage hero instances for the current player. </p>
+<p>Heroes are player-owned instances of a Hero Class, which in turn extends a Base Class. Hero Classes inherit the default loadout and equippable asset rules of their Base Class but may override them with exceptions (e.g., a Healer Hero that can also wield two-handed weapons). This group covers listing available heroes, creating player hero instances, and managing equipped item loadouts.</p>
+<p>See the <a href="https://docs.lootlocker.com/game-systems/classes-and-heroes">LootLocker documentation</a>. </p>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="gaf5aa49e49005e8b1cddea8dd887540d7" name="gaf5aa49e49005e8b1cddea8dd887540d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf5aa49e49005e8b1cddea8dd887540d7">&#9670;&#160;</a></span>FCharacterLoadoutResponse</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FCharacterLoadoutResponse) (<a class="el" href="structFLootLockerCharacterLoadoutResponse.html">FLootLockerCharacterLoadoutResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerCharacterLoadoutResponse.html">FLootLockerCharacterLoadoutResponse</a> result. </p>
+
+</div>
+</div>
+<a id="gacd79ecabb9a86e3bc2b360cd53c850f3" name="gacd79ecabb9a86e3bc2b360cd53c850f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacd79ecabb9a86e3bc2b360cd53c850f3">&#9670;&#160;</a></span>FHeroLoadoutReseponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FHeroLoadoutReseponseDelegate) (<a class="el" href="structFLootLockerHeroLoadoutResponse.html">FLootLockerHeroLoadoutResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerHeroLoadoutResponse.html">FLootLockerHeroLoadoutResponse</a> result. </p>
+
+</div>
+</div>
+<a id="gafdebc7dacd94834e8afc0b70b75644c4" name="gafdebc7dacd94834e8afc0b70b75644c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafdebc7dacd94834e8afc0b70b75644c4">&#9670;&#160;</a></span>FLLHeroDefaultResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLLHeroDefaultResponseDelegate) (<a class="el" href="structFLootLockerResponse.html">FLootLockerResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerResponse.html">FLootLockerResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga4a6ac45f5800c35a900ec36beb114ef5" name="ga4a6ac45f5800c35a900ec36beb114ef5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4a6ac45f5800c35a900ec36beb114ef5">&#9670;&#160;</a></span>FLootLockerCharacterDefaultResponse</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerCharacterDefaultResponse) (<a class="el" href="structFLootLockerResponse.html">FLootLockerResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerResponse.html">FLootLockerResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga9264a719a7de4969323f681716d62901" name="ga9264a719a7de4969323f681716d62901"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9264a719a7de4969323f681716d62901">&#9670;&#160;</a></span>FLootLockerGameHeroListDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerGameHeroListDelegate) (<a class="el" href="structFLootLockerGameHeroListResponse.html">FLootLockerGameHeroListResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerGameHeroListResponse.html">FLootLockerGameHeroListResponse</a> result. </p>
+
+</div>
+</div>
+<a id="gab9156f324a3fa3ae617e157b97ab3f49" name="gab9156f324a3fa3ae617e157b97ab3f49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab9156f324a3fa3ae617e157b97ab3f49">&#9670;&#160;</a></span>FLootLockerHeroDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerHeroDelegate) (<a class="el" href="structFLootLockerHeroResponse.html">FLootLockerHeroResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerHeroResponse.html">FLootLockerHeroResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga9055d1dea0049dd607329435d7735330" name="ga9055d1dea0049dd607329435d7735330"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9055d1dea0049dd607329435d7735330">&#9670;&#160;</a></span>FLootLockerHeroListDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerHeroListDelegate) (<a class="el" href="structFLootLockerHeroListResponse.html">FLootLockerHeroListResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerHeroListResponse.html">FLootLockerHeroListResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga02415de40d58119918e20db51af92922" name="ga02415de40d58119918e20db51af92922"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga02415de40d58119918e20db51af92922">&#9670;&#160;</a></span>FLootLockerPlayerHeroDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerPlayerHeroDelegate) (<a class="el" href="structFLootLockerPlayerHeroResponse.html">FLootLockerPlayerHeroResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerPlayerHeroResponse.html">FLootLockerPlayerHeroResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga30810d54abf2b70df29ed6c6c0f1e3eb" name="ga30810d54abf2b70df29ed6c6c0f1e3eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga30810d54abf2b70df29ed6c6c0f1e3eb">&#9670;&#160;</a></span>FPLootLockerListCharacterTypesResponse</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FPLootLockerListCharacterTypesResponse) (<a class="el" href="structFLootLockerListCharacterTypesResponse.html">FLootLockerListCharacterTypesResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerListCharacterTypesResponse.html">FLootLockerListCharacterTypesResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga5d10eaefc3d6759f9b538199b2508119" name="ga5d10eaefc3d6759f9b538199b2508119"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5d10eaefc3d6759f9b538199b2508119">&#9670;&#160;</a></span>FPLootLockerListPlayerCharactersResponse</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FPLootLockerListPlayerCharactersResponse) (<a class="el" href="structFLootLockerListPlayerCharactersResponse.html">FLootLockerListPlayerCharactersResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerListPlayerCharactersResponse.html">FLootLockerListPlayerCharactersResponse</a> result. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ga13c8cabf438d3234b05125f1a3a0e2ba" name="ga13c8cabf438d3234b05125f1a3a0e2ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga13c8cabf438d3234b05125f1a3a0e2ba">&#9670;&#160;</a></span>AddAssetToHeroLoadout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::AddAssetToHeroLoadout </td>
+          <td>(</td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>HeroID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>AssetInstanceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Equip an existing asset instance to a hero. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">HeroID</td><td>Id of the hero </td></tr>
+    <tr><td class="paramname">AssetInstanceID</td><td>Id of the asset instance to equip </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga56518c0212ef7c346e21ec983dbc6fda" name="ga56518c0212ef7c346e21ec983dbc6fda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga56518c0212ef7c346e21ec983dbc6fda">&#9670;&#160;</a></span>AddGlobalAssetToHeroLoadout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::AddGlobalAssetToHeroLoadout </td>
+          <td>(</td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>HeroID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>AssetID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Equip a global asset (default variation) to a hero. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">HeroID</td><td>Id of the hero </td></tr>
+    <tr><td class="paramname">AssetID</td><td>Id of the global asset </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gadfab0d0e1dac43caa3bb0c9ed101897c" name="gadfab0d0e1dac43caa3bb0c9ed101897c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadfab0d0e1dac43caa3bb0c9ed101897c">&#9670;&#160;</a></span>AddGlobalAssetVariationToHeroLoadout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::AddGlobalAssetVariationToHeroLoadout </td>
+          <td>(</td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>HeroID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>AssetID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>AssetVariationID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Equip a specific global asset variation to a hero. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">HeroID</td><td>Id of the hero </td></tr>
+    <tr><td class="paramname">AssetID</td><td>Id of the global asset </td></tr>
+    <tr><td class="paramname">AssetVariationID</td><td>Variation id of the global asset </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gaddaeb437eed9cfc6fb043c122c3917aa" name="gaddaeb437eed9cfc6fb043c122c3917aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaddaeb437eed9cfc6fb043c122c3917aa">&#9670;&#160;</a></span>CreateCharacter() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::CreateCharacter </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>IsDefault</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>CharacterName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>CharacterTypeId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a character of a specified type and name (optionally set as default). </p>
+<p>Use ListCharacterTypes to enumerate available character types.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">IsDefault</td><td>Whether the new character should be default </td></tr>
+    <tr><td class="paramname">CharacterName</td><td>Character name </td></tr>
+    <tr><td class="paramname">CharacterTypeId</td><td>Character type id </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gaf7d11c1303ad4e85076a668b6dfc32a5" name="gaf7d11c1303ad4e85076a668b6dfc32a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf7d11c1303ad4e85076a668b6dfc32a5">&#9670;&#160;</a></span>CreateCharacter() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::CreateCharacter </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>IsDefault</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>CharacterName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>CharacterTypeId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a character of a specified type and name (optionally set as default). </p>
+<p>Use ListCharacterTypes to enumerate available character types.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">IsDefault</td><td>Whether the new character should be default </td></tr>
+    <tr><td class="paramname">CharacterName</td><td>Character name </td></tr>
+    <tr><td class="paramname">CharacterTypeId</td><td>Character type id </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga898b201d5d57d967aa247f90edc4f1e9" name="ga898b201d5d57d967aa247f90edc4f1e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga898b201d5d57d967aa247f90edc4f1e9">&#9670;&#160;</a></span>CreateHero()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::CreateHero </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerCreateHeroRequest.html">FLootLockerCreateHeroRequest</a> &amp;&#160;</td>
+          <td class="paramname"><em>Request</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga02415de40d58119918e20db51af92922">FLootLockerPlayerHeroDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompleteRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a hero from a game hero template. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Request</td><td>Request containing template hero id and desired hero name </td></tr>
+    <tr><td class="paramname">OnCompleteRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga3aefed643c43e27e13d8816367f53c09" name="ga3aefed643c43e27e13d8816367f53c09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3aefed643c43e27e13d8816367f53c09">&#9670;&#160;</a></span>CreateHeroWithVariation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::CreateHeroWithVariation </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerCreateHeroWithVariationRequest.html">FLootLockerCreateHeroWithVariationRequest</a> &amp;&#160;</td>
+          <td class="paramname"><em>Request</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga02415de40d58119918e20db51af92922">FLootLockerPlayerHeroDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompleteRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a hero with a specific variation and optional default flag. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Request</td><td>Request including template hero id, hero name, variation id and default flag </td></tr>
+    <tr><td class="paramname">OnCompleteRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga2e87c5a9ded7b10b9c22d17c2540b042" name="ga2e87c5a9ded7b10b9c22d17c2540b042"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2e87c5a9ded7b10b9c22d17c2540b042">&#9670;&#160;</a></span>DeleteCharacter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::DeleteCharacter </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>CharacterId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga4a6ac45f5800c35a900ec36beb114ef5">FLootLockerCharacterDefaultResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequestBP</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Delete a character by id (irreversible) and return its equipped items to inventory. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">CharacterId</td><td>Id of the character to delete </td></tr>
+    <tr><td class="paramname">OnCompletedRequestBP</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gac8346ca2a21ebdf9af7536a962728a64" name="gac8346ca2a21ebdf9af7536a962728a64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac8346ca2a21ebdf9af7536a962728a64">&#9670;&#160;</a></span>DeleteHero()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::DeleteHero </td>
+          <td>(</td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>HeroID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#gafdebc7dacd94834e8afc0b70b75644c4">FLLHeroDefaultResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Delete a hero (irreversible; hero inventory is returned to player inventory and loadout reset). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">HeroID</td><td>Id of the hero to delete </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga73a5d2470f6cd3ee5839fd40c44800f4" name="ga73a5d2470f6cd3ee5839fd40c44800f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga73a5d2470f6cd3ee5839fd40c44800f4">&#9670;&#160;</a></span>EquipAssetToCharacterById() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::EquipAssetToCharacterById </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>CharacterId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>AssetId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>AssetVariationId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga4a6ac45f5800c35a900ec36beb114ef5">FLootLockerCharacterDefaultResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Equip an asset (by asset id and variation) to a specific character. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">CharacterId</td><td>Id of the character </td></tr>
+    <tr><td class="paramname">AssetId</td><td>Asset id </td></tr>
+    <tr><td class="paramname">AssetVariationId</td><td>Asset variation id </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga7fb285a4e33d7f09349a92c2b1fa9a53" name="ga7fb285a4e33d7f09349a92c2b1fa9a53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7fb285a4e33d7f09349a92c2b1fa9a53">&#9670;&#160;</a></span>EquipAssetToCharacterById() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::EquipAssetToCharacterById </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>CharacterId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>InstanceId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga4a6ac45f5800c35a900ec36beb114ef5">FLootLockerCharacterDefaultResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Equip an asset instance to a specific character. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">CharacterId</td><td>Id of the character </td></tr>
+    <tr><td class="paramname">InstanceId</td><td>Asset instance id </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga16b185fe240f5f959d1a8c66823242f0" name="ga16b185fe240f5f959d1a8c66823242f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga16b185fe240f5f959d1a8c66823242f0">&#9670;&#160;</a></span>EquipAssetToDefaultCharacter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::EquipAssetToDefaultCharacter </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>InstanceId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga4a6ac45f5800c35a900ec36beb114ef5">FLootLockerCharacterDefaultResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Equip an asset instance to the player's default character. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstanceId</td><td>Asset instance id (from inventory or loadout) </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga3a8d57a0e710ffead0171b95e610060a" name="ga3a8d57a0e710ffead0171b95e610060a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3a8d57a0e710ffead0171b95e610060a">&#9670;&#160;</a></span>GetCharacterLoadout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetCharacterLoadout </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List loadouts for all characters owned by the player including basic character info. </p>
+<p>Succeeds even if there are no characters (response may be empty).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga99a41799f73bb93a1eead6773a6c5e83" name="ga99a41799f73bb93a1eead6773a6c5e83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga99a41799f73bb93a1eead6773a6c5e83">&#9670;&#160;</a></span>GetCurrentLoadoutToDefaultCharacter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetCurrentLoadoutToDefaultCharacter </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the asset instances currently equipped on the player's default character. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gabcf8912fb3a3b533b7deb72271acd6c6" name="gabcf8912fb3a3b533b7deb72271acd6c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabcf8912fb3a3b533b7deb72271acd6c6">&#9670;&#160;</a></span>GetEquipableContextsByCharacterId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetEquipableContextsByCharacterId </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>OtherCharacterId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Assets.html#ga5f638ad6d77d7e328d6ff56f6b4f677c">FContextDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List equipable contexts for another player's character by character id. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OtherCharacterId</td><td>Target character id </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga894082b935f3fb9487fdf8d5c8342fc7" name="ga894082b935f3fb9487fdf8d5c8342fc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga894082b935f3fb9487fdf8d5c8342fc7">&#9670;&#160;</a></span>GetEquipableContextsToDefaultCharacter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetEquipableContextsToDefaultCharacter </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Assets.html#ga5f638ad6d77d7e328d6ff56f6b4f677c">FContextDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List equipable contexts (slots/categories) for the player's default character. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga2b30d965fdbd7362d5b0932ddb95d0bb" name="ga2b30d965fdbd7362d5b0932ddb95d0bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2b30d965fdbd7362d5b0932ddb95d0bb">&#9670;&#160;</a></span>GetGameHeroes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetGameHeroes </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga9264a719a7de4969323f681716d62901">FLootLockerGameHeroListDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompleteRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List game hero templates (names and character info). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompleteRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gab613e7cde9cf9415d767715288f7bb30" name="gab613e7cde9cf9415d767715288f7bb30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab613e7cde9cf9415d767715288f7bb30">&#9670;&#160;</a></span>GetHero()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetHero </td>
+          <td>(</td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>HeroID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga02415de40d58119918e20db51af92922">FLootLockerPlayerHeroDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get information about a specific hero owned by the player. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">HeroID</td><td>Id of the hero to fetch </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga6d592fbaf40d0b3cae586d7384a2d4c0" name="ga6d592fbaf40d0b3cae586d7384a2d4c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6d592fbaf40d0b3cae586d7384a2d4c0">&#9670;&#160;</a></span>GetHeroInventory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetHeroInventory </td>
+          <td>(</td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>HeroID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Player.html#ga64a1e054c8b53622d38fda6a94319413">FInventoryResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompleteRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List asset instances owned by the specified hero (first page only; endpoint is paginated). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">HeroID</td><td>Id of the hero </td></tr>
+    <tr><td class="paramname">OnCompleteRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga5df28281918c7c01ecbec52ef31967b1" name="ga5df28281918c7c01ecbec52ef31967b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5df28281918c7c01ecbec52ef31967b1">&#9670;&#160;</a></span>GetHeroLoadout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetHeroLoadout </td>
+          <td>(</td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>HeroID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the loadout (equipped items) for a hero owned by the player. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">HeroID</td><td>Id of the hero </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga26f848fd06233a7afa498ca9d66c58bd" name="ga26f848fd06233a7afa498ca9d66c58bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga26f848fd06233a7afa498ca9d66c58bd">&#9670;&#160;</a></span>GetOtherPlayersCharacterLoadouts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetOtherPlayersCharacterLoadouts </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>OtherPlayerId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>OtherPlayerPlatform</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get character loadouts for another player by platform-specific id. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OtherPlayerId</td><td>Platform-specific id of the target player </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+    <tr><td class="paramname">OtherPlayerPlatform</td><td>Optional: Platform the id refers to (if differing) </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gae441d517ae6294ddbf73ec2e6d7bc0a4" name="gae441d517ae6294ddbf73ec2e6d7bc0a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae441d517ae6294ddbf73ec2e6d7bc0a4">&#9670;&#160;</a></span>GetOtherPlayersCharacterLoadoutsByUid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetOtherPlayersCharacterLoadoutsByUid </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>OtherPlayerUid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get character loadouts for another player by public UID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+    <tr><td class="paramname">OtherPlayerUid</td><td>Public UID of the target player </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga57c46e5bc3b0a213a4f38a5acd65f411" name="ga57c46e5bc3b0a213a4f38a5acd65f411"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga57c46e5bc3b0a213a4f38a5acd65f411">&#9670;&#160;</a></span>GetOtherPlayersCurrentLoadoutToDefaultCharacter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetOtherPlayersCurrentLoadoutToDefaultCharacter </td>
+          <td>(</td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>OtherPlayerId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>OtherPlayerPlatform</em> = <code>FString(TEXT(&quot;&quot;))</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the default character loadout for another player identified by a platform-specific id. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OtherPlayerId</td><td>Platform-specific id of the target player </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">OtherPlayerPlatform</td><td>Optional: Platform the id refers to (if different than current) </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga515ebad40ff1243a790b4ea3ebe18e55" name="ga515ebad40ff1243a790b4ea3ebe18e55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga515ebad40ff1243a790b4ea3ebe18e55">&#9670;&#160;</a></span>GetOtherPlayersDefaultHeroBySteamID64()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetOtherPlayersDefaultHeroBySteamID64 </td>
+          <td>(</td>
+          <td class="paramtype">const int64&#160;</td>
+          <td class="paramname"><em>SteamID64</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga02415de40d58119918e20db51af92922">FLootLockerPlayerHeroDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompleteRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the default hero for another player by SteamID64. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SteamID64</td><td>SteamID64 of the target player </td></tr>
+    <tr><td class="paramname">OnCompleteRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga01533f713266121819ac771cb8357498" name="ga01533f713266121819ac771cb8357498"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga01533f713266121819ac771cb8357498">&#9670;&#160;</a></span>GetOtherPlayersHeroLoadout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetOtherPlayersHeroLoadout </td>
+          <td>(</td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>HeroID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the loadout for another player's hero. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">HeroID</td><td>Id of the hero </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga065454862b413ee91a3f934b338f09b5" name="ga065454862b413ee91a3f934b338f09b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga065454862b413ee91a3f934b338f09b5">&#9670;&#160;</a></span>ListCharacterTypes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListCharacterTypes </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga30810d54abf2b70df29ed6c6c0f1e3eb">FPLootLockerListCharacterTypesResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List character types configured for the game. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gae2931afda41eb9bab4dc085d4192c70d" name="gae2931afda41eb9bab4dc085d4192c70d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae2931afda41eb9bab4dc085d4192c70d">&#9670;&#160;</a></span>ListOtherPlayersHeroesBySteamID64()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListOtherPlayersHeroesBySteamID64 </td>
+          <td>(</td>
+          <td class="paramtype">const int64&#160;</td>
+          <td class="paramname"><em>SteamID64</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga9055d1dea0049dd607329435d7735330">FLootLockerHeroListDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompleteRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List heroes owned by another player identified by SteamID64. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SteamID64</td><td>SteamID64 of the target player </td></tr>
+    <tr><td class="paramname">OnCompleteRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga2993ce890ea15e27f0a17160a357826b" name="ga2993ce890ea15e27f0a17160a357826b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2993ce890ea15e27f0a17160a357826b">&#9670;&#160;</a></span>ListPlayerCharacters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListPlayerCharacters </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga5d10eaefc3d6759f9b538199b2508119">FPLootLockerListPlayerCharactersResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List characters owned by the player. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga07b61c7c174b25c010472a84f16116f3" name="ga07b61c7c174b25c010472a84f16116f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga07b61c7c174b25c010472a84f16116f3">&#9670;&#160;</a></span>ListPlayerHeroes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListPlayerHeroes </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga9055d1dea0049dd607329435d7735330">FLootLockerHeroListDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompleteRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List heroes owned by the player. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompleteRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gae9ae7d47a59bab9ac16dc66f103aba46" name="gae9ae7d47a59bab9ac16dc66f103aba46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae9ae7d47a59bab9ac16dc66f103aba46">&#9670;&#160;</a></span>RemoveAssetToHeroLoadout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RemoveAssetToHeroLoadout </td>
+          <td>(</td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>HeroID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>AssetInstanceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Unequip an asset instance from a hero. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">HeroID</td><td>Id of the hero </td></tr>
+    <tr><td class="paramname">AssetInstanceID</td><td>Id of the asset instance to unequip </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga96285206e6c10e7f39f4a2a0890992f5" name="ga96285206e6c10e7f39f4a2a0890992f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga96285206e6c10e7f39f4a2a0890992f5">&#9670;&#160;</a></span>UnEquipAssetToCharacterById()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::UnEquipAssetToCharacterById </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>CharacterId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>InstanceId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga4a6ac45f5800c35a900ec36beb114ef5">FLootLockerCharacterDefaultResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Unequip an asset instance from a specific character. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">CharacterId</td><td>Id of the character </td></tr>
+    <tr><td class="paramname">InstanceId</td><td>Asset instance id </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga276389913a8ebab437372e897e071c3a" name="ga276389913a8ebab437372e897e071c3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga276389913a8ebab437372e897e071c3a">&#9670;&#160;</a></span>UnEquipAssetToDefaultCharacter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::UnEquipAssetToDefaultCharacter </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>InstanceId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga4a6ac45f5800c35a900ec36beb114ef5">FLootLockerCharacterDefaultResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Unequip an asset instance from the player's default character. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstanceId</td><td>Asset instance id </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga21da23dbd8d4dd17f0287f4c29521180" name="ga21da23dbd8d4dd17f0287f4c29521180"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga21da23dbd8d4dd17f0287f4c29521180">&#9670;&#160;</a></span>UpdateCharacter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::UpdateCharacter </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>CharacterId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>IsDefault</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FString &amp;&#160;</td>
+          <td class="paramname"><em>Name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Update a character's name and/or mark it as the default character. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">CharacterId</td><td>Id of the character to update </td></tr>
+    <tr><td class="paramname">IsDefault</td><td>Whether the character should become default </td></tr>
+    <tr><td class="paramname">Name</td><td>New character name </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga66e8ea5df2635ce67ec5e5bb798a8c39" name="ga66e8ea5df2635ce67ec5e5bb798a8c39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga66e8ea5df2635ce67ec5e5bb798a8c39">&#9670;&#160;</a></span>UpdateHero()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::UpdateHero </td>
+          <td>(</td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>HeroID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerUpdateHeroRequest.html">FLootLockerUpdateHeroRequest</a> &amp;&#160;</td>
+          <td class="paramname"><em>Request</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga02415de40d58119918e20db51af92922">FLootLockerPlayerHeroDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Update a hero's name and/or mark it as the default hero. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">HeroID</td><td>Id of the hero to update </td></tr>
+    <tr><td class="paramname">Request</td><td>Request specifying new name and default flag </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:gaf5aa49e49005e8b1cddea8dd887540d7" id="r_gaf5aa49e49005e8b1cddea8dd887540d7"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a>) (<a class="el" href="structFLootLockerCharacterLoadoutResponse.html">FLootLockerCharacterLoadoutResponse</a>)</td></tr>
+<tr class="memdesc:gaf5aa49e49005e8b1cddea8dd887540d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerCharacterLoadoutResponse.html">FLootLockerCharacterLoadoutResponse</a> result.  <br /></td></tr>
+<tr class="separator:gaf5aa49e49005e8b1cddea8dd887540d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4a6ac45f5800c35a900ec36beb114ef5" id="r_ga4a6ac45f5800c35a900ec36beb114ef5"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga4a6ac45f5800c35a900ec36beb114ef5">FLootLockerCharacterDefaultResponse</a>) (<a class="el" href="structFLootLockerResponse.html">FLootLockerResponse</a>)</td></tr>
+<tr class="memdesc:ga4a6ac45f5800c35a900ec36beb114ef5"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerResponse.html">FLootLockerResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga4a6ac45f5800c35a900ec36beb114ef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga30810d54abf2b70df29ed6c6c0f1e3eb" id="r_ga30810d54abf2b70df29ed6c6c0f1e3eb"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga30810d54abf2b70df29ed6c6c0f1e3eb">FPLootLockerListCharacterTypesResponse</a>) (<a class="el" href="structFLootLockerListCharacterTypesResponse.html">FLootLockerListCharacterTypesResponse</a>)</td></tr>
+<tr class="memdesc:ga30810d54abf2b70df29ed6c6c0f1e3eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerListCharacterTypesResponse.html">FLootLockerListCharacterTypesResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga30810d54abf2b70df29ed6c6c0f1e3eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5d10eaefc3d6759f9b538199b2508119" id="r_ga5d10eaefc3d6759f9b538199b2508119"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga5d10eaefc3d6759f9b538199b2508119">FPLootLockerListPlayerCharactersResponse</a>) (<a class="el" href="structFLootLockerListPlayerCharactersResponse.html">FLootLockerListPlayerCharactersResponse</a>)</td></tr>
+<tr class="memdesc:ga5d10eaefc3d6759f9b538199b2508119"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerListPlayerCharactersResponse.html">FLootLockerListPlayerCharactersResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga5d10eaefc3d6759f9b538199b2508119"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab9156f324a3fa3ae617e157b97ab3f49" id="r_gab9156f324a3fa3ae617e157b97ab3f49"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#gab9156f324a3fa3ae617e157b97ab3f49">FLootLockerHeroDelegate</a>) (<a class="el" href="structFLootLockerHeroResponse.html">FLootLockerHeroResponse</a>)</td></tr>
+<tr class="memdesc:gab9156f324a3fa3ae617e157b97ab3f49"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerHeroResponse.html">FLootLockerHeroResponse</a> result.  <br /></td></tr>
+<tr class="separator:gab9156f324a3fa3ae617e157b97ab3f49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9264a719a7de4969323f681716d62901" id="r_ga9264a719a7de4969323f681716d62901"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga9264a719a7de4969323f681716d62901">FLootLockerGameHeroListDelegate</a>) (<a class="el" href="structFLootLockerGameHeroListResponse.html">FLootLockerGameHeroListResponse</a>)</td></tr>
+<tr class="memdesc:ga9264a719a7de4969323f681716d62901"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerGameHeroListResponse.html">FLootLockerGameHeroListResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga9264a719a7de4969323f681716d62901"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9055d1dea0049dd607329435d7735330" id="r_ga9055d1dea0049dd607329435d7735330"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga9055d1dea0049dd607329435d7735330">FLootLockerHeroListDelegate</a>) (<a class="el" href="structFLootLockerHeroListResponse.html">FLootLockerHeroListResponse</a>)</td></tr>
+<tr class="memdesc:ga9055d1dea0049dd607329435d7735330"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerHeroListResponse.html">FLootLockerHeroListResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga9055d1dea0049dd607329435d7735330"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga02415de40d58119918e20db51af92922" id="r_ga02415de40d58119918e20db51af92922"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga02415de40d58119918e20db51af92922">FLootLockerPlayerHeroDelegate</a>) (<a class="el" href="structFLootLockerPlayerHeroResponse.html">FLootLockerPlayerHeroResponse</a>)</td></tr>
+<tr class="memdesc:ga02415de40d58119918e20db51af92922"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerPlayerHeroResponse.html">FLootLockerPlayerHeroResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga02415de40d58119918e20db51af92922"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafdebc7dacd94834e8afc0b70b75644c4" id="r_gafdebc7dacd94834e8afc0b70b75644c4"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#gafdebc7dacd94834e8afc0b70b75644c4">FLLHeroDefaultResponseDelegate</a>) (<a class="el" href="structFLootLockerResponse.html">FLootLockerResponse</a>)</td></tr>
+<tr class="memdesc:gafdebc7dacd94834e8afc0b70b75644c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerResponse.html">FLootLockerResponse</a> result.  <br /></td></tr>
+<tr class="separator:gafdebc7dacd94834e8afc0b70b75644c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacd79ecabb9a86e3bc2b360cd53c850f3" id="r_gacd79ecabb9a86e3bc2b360cd53c850f3"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a>) (<a class="el" href="structFLootLockerHeroLoadoutResponse.html">FLootLockerHeroLoadoutResponse</a>)</td></tr>
+<tr class="memdesc:gacd79ecabb9a86e3bc2b360cd53c850f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerHeroLoadoutResponse.html">FLootLockerHeroLoadoutResponse</a> result.  <br /></td></tr>
+<tr class="separator:gacd79ecabb9a86e3bc2b360cd53c850f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga2b30d965fdbd7362d5b0932ddb95d0bb" id="r_ga2b30d965fdbd7362d5b0932ddb95d0bb"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga2b30d965fdbd7362d5b0932ddb95d0bb">ULootLockerSDKManager::GetGameHeroes</a> (const <a class="el" href="group__Hero.html#ga9264a719a7de4969323f681716d62901">FLootLockerGameHeroListDelegate</a> &amp;OnCompleteRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga2b30d965fdbd7362d5b0932ddb95d0bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">List game hero templates (names and character info).  <br /></td></tr>
+<tr class="separator:ga2b30d965fdbd7362d5b0932ddb95d0bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga07b61c7c174b25c010472a84f16116f3" id="r_ga07b61c7c174b25c010472a84f16116f3"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga07b61c7c174b25c010472a84f16116f3">ULootLockerSDKManager::ListPlayerHeroes</a> (const <a class="el" href="group__Hero.html#ga9055d1dea0049dd607329435d7735330">FLootLockerHeroListDelegate</a> &amp;OnCompleteRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga07b61c7c174b25c010472a84f16116f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">List heroes owned by the player.  <br /></td></tr>
+<tr class="separator:ga07b61c7c174b25c010472a84f16116f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae2931afda41eb9bab4dc085d4192c70d" id="r_gae2931afda41eb9bab4dc085d4192c70d"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#gae2931afda41eb9bab4dc085d4192c70d">ULootLockerSDKManager::ListOtherPlayersHeroesBySteamID64</a> (const int64 SteamID64, const <a class="el" href="group__Hero.html#ga9055d1dea0049dd607329435d7735330">FLootLockerHeroListDelegate</a> &amp;OnCompleteRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gae2931afda41eb9bab4dc085d4192c70d"><td class="mdescLeft">&#160;</td><td class="mdescRight">List heroes owned by another player identified by SteamID64.  <br /></td></tr>
+<tr class="separator:gae2931afda41eb9bab4dc085d4192c70d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga898b201d5d57d967aa247f90edc4f1e9" id="r_ga898b201d5d57d967aa247f90edc4f1e9"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga898b201d5d57d967aa247f90edc4f1e9">ULootLockerSDKManager::CreateHero</a> (const <a class="el" href="structFLootLockerCreateHeroRequest.html">FLootLockerCreateHeroRequest</a> &amp;Request, const <a class="el" href="group__Hero.html#ga02415de40d58119918e20db51af92922">FLootLockerPlayerHeroDelegate</a> &amp;OnCompleteRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga898b201d5d57d967aa247f90edc4f1e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a hero from a game hero template.  <br /></td></tr>
+<tr class="separator:ga898b201d5d57d967aa247f90edc4f1e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3aefed643c43e27e13d8816367f53c09" id="r_ga3aefed643c43e27e13d8816367f53c09"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga3aefed643c43e27e13d8816367f53c09">ULootLockerSDKManager::CreateHeroWithVariation</a> (const <a class="el" href="structFLootLockerCreateHeroWithVariationRequest.html">FLootLockerCreateHeroWithVariationRequest</a> &amp;Request, const <a class="el" href="group__Hero.html#ga02415de40d58119918e20db51af92922">FLootLockerPlayerHeroDelegate</a> &amp;OnCompleteRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga3aefed643c43e27e13d8816367f53c09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a hero with a specific variation and optional default flag.  <br /></td></tr>
+<tr class="separator:ga3aefed643c43e27e13d8816367f53c09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab613e7cde9cf9415d767715288f7bb30" id="r_gab613e7cde9cf9415d767715288f7bb30"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#gab613e7cde9cf9415d767715288f7bb30">ULootLockerSDKManager::GetHero</a> (const int32 HeroID, const <a class="el" href="group__Hero.html#ga02415de40d58119918e20db51af92922">FLootLockerPlayerHeroDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gab613e7cde9cf9415d767715288f7bb30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get information about a specific hero owned by the player.  <br /></td></tr>
+<tr class="separator:gab613e7cde9cf9415d767715288f7bb30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga515ebad40ff1243a790b4ea3ebe18e55" id="r_ga515ebad40ff1243a790b4ea3ebe18e55"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga515ebad40ff1243a790b4ea3ebe18e55">ULootLockerSDKManager::GetOtherPlayersDefaultHeroBySteamID64</a> (const int64 SteamID64, const <a class="el" href="group__Hero.html#ga02415de40d58119918e20db51af92922">FLootLockerPlayerHeroDelegate</a> &amp;OnCompleteRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga515ebad40ff1243a790b4ea3ebe18e55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the default hero for another player by SteamID64.  <br /></td></tr>
+<tr class="separator:ga515ebad40ff1243a790b4ea3ebe18e55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga66e8ea5df2635ce67ec5e5bb798a8c39" id="r_ga66e8ea5df2635ce67ec5e5bb798a8c39"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga66e8ea5df2635ce67ec5e5bb798a8c39">ULootLockerSDKManager::UpdateHero</a> (const int32 HeroID, const <a class="el" href="structFLootLockerUpdateHeroRequest.html">FLootLockerUpdateHeroRequest</a> &amp;Request, const <a class="el" href="group__Hero.html#ga02415de40d58119918e20db51af92922">FLootLockerPlayerHeroDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga66e8ea5df2635ce67ec5e5bb798a8c39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update a hero's name and/or mark it as the default hero.  <br /></td></tr>
+<tr class="separator:ga66e8ea5df2635ce67ec5e5bb798a8c39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac8346ca2a21ebdf9af7536a962728a64" id="r_gac8346ca2a21ebdf9af7536a962728a64"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#gac8346ca2a21ebdf9af7536a962728a64">ULootLockerSDKManager::DeleteHero</a> (const int32 HeroID, const <a class="el" href="group__Hero.html#gafdebc7dacd94834e8afc0b70b75644c4">FLLHeroDefaultResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gac8346ca2a21ebdf9af7536a962728a64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a hero (irreversible; hero inventory is returned to player inventory and loadout reset).  <br /></td></tr>
+<tr class="separator:gac8346ca2a21ebdf9af7536a962728a64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6d592fbaf40d0b3cae586d7384a2d4c0" id="r_ga6d592fbaf40d0b3cae586d7384a2d4c0"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga6d592fbaf40d0b3cae586d7384a2d4c0">ULootLockerSDKManager::GetHeroInventory</a> (const int32 HeroID, const <a class="el" href="group__Player.html#ga64a1e054c8b53622d38fda6a94319413">FInventoryResponse</a> &amp;OnCompleteRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga6d592fbaf40d0b3cae586d7384a2d4c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">List asset instances owned by the specified hero (first page only; endpoint is paginated).  <br /></td></tr>
+<tr class="separator:ga6d592fbaf40d0b3cae586d7384a2d4c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5df28281918c7c01ecbec52ef31967b1" id="r_ga5df28281918c7c01ecbec52ef31967b1"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga5df28281918c7c01ecbec52ef31967b1">ULootLockerSDKManager::GetHeroLoadout</a> (const int32 HeroID, const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga5df28281918c7c01ecbec52ef31967b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the loadout (equipped items) for a hero owned by the player.  <br /></td></tr>
+<tr class="separator:ga5df28281918c7c01ecbec52ef31967b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga01533f713266121819ac771cb8357498" id="r_ga01533f713266121819ac771cb8357498"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga01533f713266121819ac771cb8357498">ULootLockerSDKManager::GetOtherPlayersHeroLoadout</a> (const int32 HeroID, const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga01533f713266121819ac771cb8357498"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the loadout for another player's hero.  <br /></td></tr>
+<tr class="separator:ga01533f713266121819ac771cb8357498"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga13c8cabf438d3234b05125f1a3a0e2ba" id="r_ga13c8cabf438d3234b05125f1a3a0e2ba"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga13c8cabf438d3234b05125f1a3a0e2ba">ULootLockerSDKManager::AddAssetToHeroLoadout</a> (const int32 HeroID, const int32 AssetInstanceID, const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga13c8cabf438d3234b05125f1a3a0e2ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equip an existing asset instance to a hero.  <br /></td></tr>
+<tr class="separator:ga13c8cabf438d3234b05125f1a3a0e2ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga56518c0212ef7c346e21ec983dbc6fda" id="r_ga56518c0212ef7c346e21ec983dbc6fda"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga56518c0212ef7c346e21ec983dbc6fda">ULootLockerSDKManager::AddGlobalAssetToHeroLoadout</a> (const int32 HeroID, const int32 AssetID, const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga56518c0212ef7c346e21ec983dbc6fda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equip a global asset (default variation) to a hero.  <br /></td></tr>
+<tr class="separator:ga56518c0212ef7c346e21ec983dbc6fda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadfab0d0e1dac43caa3bb0c9ed101897c" id="r_gadfab0d0e1dac43caa3bb0c9ed101897c"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#gadfab0d0e1dac43caa3bb0c9ed101897c">ULootLockerSDKManager::AddGlobalAssetVariationToHeroLoadout</a> (const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gadfab0d0e1dac43caa3bb0c9ed101897c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equip a specific global asset variation to a hero.  <br /></td></tr>
+<tr class="separator:gadfab0d0e1dac43caa3bb0c9ed101897c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae9ae7d47a59bab9ac16dc66f103aba46" id="r_gae9ae7d47a59bab9ac16dc66f103aba46"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#gae9ae7d47a59bab9ac16dc66f103aba46">ULootLockerSDKManager::RemoveAssetToHeroLoadout</a> (const int32 HeroID, const int32 AssetInstanceID, const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gae9ae7d47a59bab9ac16dc66f103aba46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unequip an asset instance from a hero.  <br /></td></tr>
+<tr class="separator:gae9ae7d47a59bab9ac16dc66f103aba46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3a8d57a0e710ffead0171b95e610060a" id="r_ga3a8d57a0e710ffead0171b95e610060a"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga3a8d57a0e710ffead0171b95e610060a">ULootLockerSDKManager::GetCharacterLoadout</a> (const <a class="el" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga3a8d57a0e710ffead0171b95e610060a"><td class="mdescLeft">&#160;</td><td class="mdescRight">List loadouts for all characters owned by the player including basic character info.  <br /></td></tr>
+<tr class="separator:ga3a8d57a0e710ffead0171b95e610060a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga21da23dbd8d4dd17f0287f4c29521180" id="r_ga21da23dbd8d4dd17f0287f4c29521180"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga21da23dbd8d4dd17f0287f4c29521180">ULootLockerSDKManager::UpdateCharacter</a> (int CharacterId, bool IsDefault, FString &amp;<a class="el" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987">Name</a>, const <a class="el" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga21da23dbd8d4dd17f0287f4c29521180"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update a character's name and/or mark it as the default character.  <br /></td></tr>
+<tr class="separator:ga21da23dbd8d4dd17f0287f4c29521180"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaddaeb437eed9cfc6fb043c122c3917aa" id="r_gaddaeb437eed9cfc6fb043c122c3917aa"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#gaddaeb437eed9cfc6fb043c122c3917aa">ULootLockerSDKManager::CreateCharacter</a> (bool IsDefault, const FString &amp;CharacterName, const FString &amp;CharacterTypeId, const <a class="el" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gaddaeb437eed9cfc6fb043c122c3917aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a character of a specified type and name (optionally set as default).  <br /></td></tr>
+<tr class="separator:gaddaeb437eed9cfc6fb043c122c3917aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf7d11c1303ad4e85076a668b6dfc32a5" id="r_gaf7d11c1303ad4e85076a668b6dfc32a5"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#gaf7d11c1303ad4e85076a668b6dfc32a5">ULootLockerSDKManager::CreateCharacter</a> (bool IsDefault, const FString &amp;CharacterName, const int &amp;CharacterTypeId, const <a class="el" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gaf7d11c1303ad4e85076a668b6dfc32a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a character of a specified type and name (optionally set as default).  <br /></td></tr>
+<tr class="separator:gaf7d11c1303ad4e85076a668b6dfc32a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2e87c5a9ded7b10b9c22d17c2540b042" id="r_ga2e87c5a9ded7b10b9c22d17c2540b042"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga2e87c5a9ded7b10b9c22d17c2540b042">ULootLockerSDKManager::DeleteCharacter</a> (int CharacterId, const <a class="el" href="group__Hero.html#ga4a6ac45f5800c35a900ec36beb114ef5">FLootLockerCharacterDefaultResponse</a> &amp;OnCompletedRequestBP, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga2e87c5a9ded7b10b9c22d17c2540b042"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a character by id (irreversible) and return its equipped items to inventory.  <br /></td></tr>
+<tr class="separator:ga2e87c5a9ded7b10b9c22d17c2540b042"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga065454862b413ee91a3f934b338f09b5" id="r_ga065454862b413ee91a3f934b338f09b5"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga065454862b413ee91a3f934b338f09b5">ULootLockerSDKManager::ListCharacterTypes</a> (const <a class="el" href="group__Hero.html#ga30810d54abf2b70df29ed6c6c0f1e3eb">FPLootLockerListCharacterTypesResponse</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga065454862b413ee91a3f934b338f09b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">List character types configured for the game.  <br /></td></tr>
+<tr class="separator:ga065454862b413ee91a3f934b338f09b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga16b185fe240f5f959d1a8c66823242f0" id="r_ga16b185fe240f5f959d1a8c66823242f0"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga16b185fe240f5f959d1a8c66823242f0">ULootLockerSDKManager::EquipAssetToDefaultCharacter</a> (int InstanceId, const <a class="el" href="group__Hero.html#ga4a6ac45f5800c35a900ec36beb114ef5">FLootLockerCharacterDefaultResponse</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga16b185fe240f5f959d1a8c66823242f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equip an asset instance to the player's default character.  <br /></td></tr>
+<tr class="separator:ga16b185fe240f5f959d1a8c66823242f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga73a5d2470f6cd3ee5839fd40c44800f4" id="r_ga73a5d2470f6cd3ee5839fd40c44800f4"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga73a5d2470f6cd3ee5839fd40c44800f4">ULootLockerSDKManager::EquipAssetToCharacterById</a> (int CharacterId, int AssetId, int AssetVariationId, const <a class="el" href="group__Hero.html#ga4a6ac45f5800c35a900ec36beb114ef5">FLootLockerCharacterDefaultResponse</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga73a5d2470f6cd3ee5839fd40c44800f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equip an asset (by asset id and variation) to a specific character.  <br /></td></tr>
+<tr class="separator:ga73a5d2470f6cd3ee5839fd40c44800f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7fb285a4e33d7f09349a92c2b1fa9a53" id="r_ga7fb285a4e33d7f09349a92c2b1fa9a53"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga7fb285a4e33d7f09349a92c2b1fa9a53">ULootLockerSDKManager::EquipAssetToCharacterById</a> (int CharacterId, int InstanceId, const <a class="el" href="group__Hero.html#ga4a6ac45f5800c35a900ec36beb114ef5">FLootLockerCharacterDefaultResponse</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga7fb285a4e33d7f09349a92c2b1fa9a53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equip an asset instance to a specific character.  <br /></td></tr>
+<tr class="separator:ga7fb285a4e33d7f09349a92c2b1fa9a53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga276389913a8ebab437372e897e071c3a" id="r_ga276389913a8ebab437372e897e071c3a"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga276389913a8ebab437372e897e071c3a">ULootLockerSDKManager::UnEquipAssetToDefaultCharacter</a> (int InstanceId, const <a class="el" href="group__Hero.html#ga4a6ac45f5800c35a900ec36beb114ef5">FLootLockerCharacterDefaultResponse</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga276389913a8ebab437372e897e071c3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unequip an asset instance from the player's default character.  <br /></td></tr>
+<tr class="separator:ga276389913a8ebab437372e897e071c3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga96285206e6c10e7f39f4a2a0890992f5" id="r_ga96285206e6c10e7f39f4a2a0890992f5"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga96285206e6c10e7f39f4a2a0890992f5">ULootLockerSDKManager::UnEquipAssetToCharacterById</a> (int CharacterId, int InstanceId, const <a class="el" href="group__Hero.html#ga4a6ac45f5800c35a900ec36beb114ef5">FLootLockerCharacterDefaultResponse</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga96285206e6c10e7f39f4a2a0890992f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unequip an asset instance from a specific character.  <br /></td></tr>
+<tr class="separator:ga96285206e6c10e7f39f4a2a0890992f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga99a41799f73bb93a1eead6773a6c5e83" id="r_ga99a41799f73bb93a1eead6773a6c5e83"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga99a41799f73bb93a1eead6773a6c5e83">ULootLockerSDKManager::GetCurrentLoadoutToDefaultCharacter</a> (const <a class="el" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga99a41799f73bb93a1eead6773a6c5e83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the asset instances currently equipped on the player's default character.  <br /></td></tr>
+<tr class="separator:ga99a41799f73bb93a1eead6773a6c5e83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga57c46e5bc3b0a213a4f38a5acd65f411" id="r_ga57c46e5bc3b0a213a4f38a5acd65f411"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga57c46e5bc3b0a213a4f38a5acd65f411">ULootLockerSDKManager::GetOtherPlayersCurrentLoadoutToDefaultCharacter</a> (FString OtherPlayerId, const <a class="el" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a> &amp;OnCompletedRequest, const FString &amp;OtherPlayerPlatform=FString(TEXT(&quot;&quot;)), const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga57c46e5bc3b0a213a4f38a5acd65f411"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the default character loadout for another player identified by a platform-specific id.  <br /></td></tr>
+<tr class="separator:ga57c46e5bc3b0a213a4f38a5acd65f411"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga894082b935f3fb9487fdf8d5c8342fc7" id="r_ga894082b935f3fb9487fdf8d5c8342fc7"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga894082b935f3fb9487fdf8d5c8342fc7">ULootLockerSDKManager::GetEquipableContextsToDefaultCharacter</a> (const <a class="el" href="group__Assets.html#ga5f638ad6d77d7e328d6ff56f6b4f677c">FContextDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga894082b935f3fb9487fdf8d5c8342fc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">List equipable contexts (slots/categories) for the player's default character.  <br /></td></tr>
+<tr class="separator:ga894082b935f3fb9487fdf8d5c8342fc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabcf8912fb3a3b533b7deb72271acd6c6" id="r_gabcf8912fb3a3b533b7deb72271acd6c6"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#gabcf8912fb3a3b533b7deb72271acd6c6">ULootLockerSDKManager::GetEquipableContextsByCharacterId</a> (int OtherCharacterId, const <a class="el" href="group__Assets.html#ga5f638ad6d77d7e328d6ff56f6b4f677c">FContextDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gabcf8912fb3a3b533b7deb72271acd6c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">List equipable contexts for another player's character by character id.  <br /></td></tr>
+<tr class="separator:gabcf8912fb3a3b533b7deb72271acd6c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2993ce890ea15e27f0a17160a357826b" id="r_ga2993ce890ea15e27f0a17160a357826b"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga2993ce890ea15e27f0a17160a357826b">ULootLockerSDKManager::ListPlayerCharacters</a> (const <a class="el" href="group__Hero.html#ga5d10eaefc3d6759f9b538199b2508119">FPLootLockerListPlayerCharactersResponse</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga2993ce890ea15e27f0a17160a357826b"><td class="mdescLeft">&#160;</td><td class="mdescRight">List characters owned by the player.  <br /></td></tr>
+<tr class="separator:ga2993ce890ea15e27f0a17160a357826b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga26f848fd06233a7afa498ca9d66c58bd" id="r_ga26f848fd06233a7afa498ca9d66c58bd"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#ga26f848fd06233a7afa498ca9d66c58bd">ULootLockerSDKManager::GetOtherPlayersCharacterLoadouts</a> (const FString &amp;OtherPlayerId, const <a class="el" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;, const FString &amp;OtherPlayerPlatform=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga26f848fd06233a7afa498ca9d66c58bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get character loadouts for another player by platform-specific id.  <br /></td></tr>
+<tr class="separator:ga26f848fd06233a7afa498ca9d66c58bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae441d517ae6294ddbf73ec2e6d7bc0a4" id="r_gae441d517ae6294ddbf73ec2e6d7bc0a4"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Hero.html#gae441d517ae6294ddbf73ec2e6d7bc0a4">ULootLockerSDKManager::GetOtherPlayersCharacterLoadoutsByUid</a> (const FString &amp;OtherPlayerUid, const <a class="el" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gae441d517ae6294ddbf73ec2e6d7bc0a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get character loadouts for another player by public UID.  <br /></td></tr>
+<tr class="separator:gae441d517ae6294ddbf73ec2e6d7bc0a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

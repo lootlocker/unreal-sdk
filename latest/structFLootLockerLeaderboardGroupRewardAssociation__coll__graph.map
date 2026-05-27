@@ -1,0 +1,19 @@
+<map id="FLootLockerLeaderboardGroupRewardAssociation" name="FLootLockerLeaderboardGroupRewardAssociation">
+<area shape="rect" id="Node000001" title=" " alt="" coords="767,107,987,147"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerLeaderboardCurrencyReward.html" title=" " alt="" coords="343,5,581,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="586,45,743,81,818,104,817,109,742,87,585,51"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerCurrencyRewardDetails.html" title=" " alt="" coords="17,5,224,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="238,23,342,23,342,28,238,28"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerLeaderboardProgressionResetReward.html" title=" " alt="" coords="333,69,591,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="604,99,767,114,766,119,604,105"/>
+<area shape="rect" id="Node000005" href="$structFLootLockerProgressionResetRewardDetails.html" title=" " alt="" coords="14,69,227,109"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="241,87,333,87,333,92,241,92"/>
+<area shape="rect" id="Node000006" href="$structFLootLockerLeaderboardProgressionPointsReward.html" title=" " alt="" coords="333,133,591,173"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="604,144,742,136,766,134,767,140,743,141,605,150"/>
+<area shape="rect" id="Node000007" href="$structFLootLockerProgressionPointRewardDetails.html" title=" " alt="" coords="16,133,225,173"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="239,151,333,151,333,156,239,156"/>
+<area shape="rect" id="Node000008" href="$structFLootLockerLeaderboardAssetReward.html" title=" " alt="" coords="353,197,571,237"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="584,196,742,164,813,144,814,149,743,169,585,201"/>
+<area shape="rect" id="Node000009" href="$structFLootLockerAssetRewardDetails.html" title=" " alt="" coords="5,205,236,230"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="250,215,353,215,353,220,250,220"/>
+</map>

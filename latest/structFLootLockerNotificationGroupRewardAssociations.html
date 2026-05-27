@@ -1,0 +1,358 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: FLootLockerNotificationGroupRewardAssociations Struct Reference</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.4.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('structFLootLockerNotificationGroupRewardAssociations.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
+  <div class="headertitle"><div class="title">FLootLockerNotificationGroupRewardAssociations Struct Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Holds one member reward within a notification group reward, identified by kind, with the relevant reward type's data populated.  
+ <a href="structFLootLockerNotificationGroupRewardAssociations.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="LootLockerNotificationsRequestHandler_8h_source.html">LootLockerNotificationsRequestHandler.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for FLootLockerNotificationGroupRewardAssociations:</div>
+<div class="dyncontent">
+<div class="center"><img src="structFLootLockerNotificationGroupRewardAssociations__coll__graph.png" border="0" usemap="#aFLootLockerNotificationGroupRewardAssociations_coll__map" alt="Collaboration graph"/></div>
+<map name="aFLootLockerNotificationGroupRewardAssociations_coll__map" id="aFLootLockerNotificationGroupRewardAssociations_coll__map">
+<area shape="rect" title="Holds one member reward within a notification group reward, identified by kind, with the relevant rew..." alt="" coords="728,101,943,141"/>
+<area shape="rect" href="structFLootLockerNotificationRewardCurrency.html" title="Represents a currency reward in a notification, linking the reward to a currency amount and its curre..." alt="" coords="328,5,552,45"/>
+<area shape="poly" title=" " alt="" coords="560,46,705,79,774,99,772,104,703,84,559,51"/>
+<area shape="rect" href="structFLootLockerNotificationRewardCurrencyDetails.html" title="Holds the display details of a currency referenced in a notification reward, including its name,..." alt="" coords="5,5,229,45"/>
+<area shape="poly" title=" " alt="" coords="243,23,328,23,328,28,243,28"/>
+<area shape="rect" href="structFLootLockerNotificationRewardAsset.html" title="Represents an asset reward in a notification, linking the reward to an asset and its optional variati..." alt="" coords="328,69,552,109"/>
+<area shape="poly" title=" " alt="" coords="566,97,728,110,728,115,566,102"/>
+<area shape="rect" href="structFLootLockerNotificationRewardAssetDetails.html" title="Holds the display details of an asset referenced in a notification reward, including its name,..." alt="" coords="5,69,229,109"/>
+<area shape="poly" title=" " alt="" coords="243,87,328,87,328,92,243,92"/>
+<area shape="rect" href="structFLootLockerNotificationRewardProgressionReset.html" title="Represents a progression&#45;reset reward in a notification, linking the reward to the affected progressi..." alt="" coords="328,133,552,173"/>
+<area shape="poly" title=" " alt="" coords="566,141,728,127,728,133,566,146"/>
+<area shape="rect" href="structFLootLockerNotificationRewardProgressionResetDetails.html" title="Holds the display details of a progression referenced in a progression&#45;reset notification reward,..." alt="" coords="5,133,229,173"/>
+<area shape="poly" title=" " alt="" coords="243,151,328,151,328,156,243,156"/>
+<area shape="rect" href="structFLootLockerNotificationRewardProgression.html" title="Represents a progression&#45;points reward in a notification, linking the reward to a progression and the..." alt="" coords="328,197,552,237"/>
+<area shape="poly" title=" " alt="" coords="564,192,703,160,775,139,776,144,705,165,565,197"/>
+<area shape="rect" href="structFLootLockerNotificationRewardProgressionDetails.html" title="Holds the display details of a progression referenced in a progression&#45;points notification reward,..." alt="" coords="5,197,229,237"/>
+<area shape="poly" title=" " alt="" coords="243,215,328,215,328,220,243,220"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a3b4f7739d5485b62c083a061aa258e0a" id="r_a3b4f7739d5485b62c083a061aa258e0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__Notifications.html#gab713f8b30131b4b601d114bee196e02a">ELootLockerNotificationContentRewardKind</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationGroupRewardAssociations.html#a3b4f7739d5485b62c083a061aa258e0a">Kind</a> = <a class="el" href="group__Notifications.html#ggab713f8b30131b4b601d114bee196e02aac04e34d445e31a2159c1bfeb882ba212">ELootLockerNotificationContentRewardKind::asset</a></td></tr>
+<tr class="memdesc:a3b4f7739d5485b62c083a061aa258e0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The kind of reward, (asset / currency / progression points / progression reset).  <br /></td></tr>
+<tr class="separator:a3b4f7739d5485b62c083a061aa258e0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69ce3cb520fa7da08a634d065b568fb0" id="r_a69ce3cb520fa7da08a634d065b568fb0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structFLootLockerNotificationRewardCurrency.html">FLootLockerNotificationRewardCurrency</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationGroupRewardAssociations.html#a69ce3cb520fa7da08a634d065b568fb0">Currency</a></td></tr>
+<tr class="memdesc:a69ce3cb520fa7da08a634d065b568fb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The details on the Currency.  <br /></td></tr>
+<tr class="separator:a69ce3cb520fa7da08a634d065b568fb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07057f0589f6fe3f88f4cb4e00b963ac" id="r_a07057f0589f6fe3f88f4cb4e00b963ac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structFLootLockerNotificationRewardAsset.html">FLootLockerNotificationRewardAsset</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationGroupRewardAssociations.html#a07057f0589f6fe3f88f4cb4e00b963ac">Asset</a></td></tr>
+<tr class="memdesc:a07057f0589f6fe3f88f4cb4e00b963ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">The details on the Asset.  <br /></td></tr>
+<tr class="separator:a07057f0589f6fe3f88f4cb4e00b963ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ff7f659f77d79a7cbaba49227fbb8d4" id="r_a9ff7f659f77d79a7cbaba49227fbb8d4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structFLootLockerNotificationRewardProgressionReset.html">FLootLockerNotificationRewardProgressionReset</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationGroupRewardAssociations.html#a9ff7f659f77d79a7cbaba49227fbb8d4">Progression_reset</a></td></tr>
+<tr class="memdesc:a9ff7f659f77d79a7cbaba49227fbb8d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Progression Reset reward, will be null if the reward is of another type.  <br /></td></tr>
+<tr class="separator:a9ff7f659f77d79a7cbaba49227fbb8d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03e76a2bc54eaf99ebce061907cb826f" id="r_a03e76a2bc54eaf99ebce061907cb826f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structFLootLockerNotificationRewardProgression.html">FLootLockerNotificationRewardProgression</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationGroupRewardAssociations.html#a03e76a2bc54eaf99ebce061907cb826f">Progression_points</a></td></tr>
+<tr class="memdesc:a03e76a2bc54eaf99ebce061907cb826f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Progression Points reward, will be null if the reward is of another type.  <br /></td></tr>
+<tr class="separator:a03e76a2bc54eaf99ebce061907cb826f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Holds one member reward within a notification group reward, identified by kind, with the relevant reward type's data populated. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a id="a07057f0589f6fe3f88f4cb4e00b963ac" name="a07057f0589f6fe3f88f4cb4e00b963ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07057f0589f6fe3f88f4cb4e00b963ac">&#9670;&#160;</a></span>Asset</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structFLootLockerNotificationRewardAsset.html">FLootLockerNotificationRewardAsset</a> FLootLockerNotificationGroupRewardAssociations::Asset</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The details on the Asset. </p>
+
+</div>
+</div>
+<a id="a69ce3cb520fa7da08a634d065b568fb0" name="a69ce3cb520fa7da08a634d065b568fb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69ce3cb520fa7da08a634d065b568fb0">&#9670;&#160;</a></span>Currency</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structFLootLockerNotificationRewardCurrency.html">FLootLockerNotificationRewardCurrency</a> FLootLockerNotificationGroupRewardAssociations::Currency</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The details on the Currency. </p>
+
+</div>
+</div>
+<a id="a3b4f7739d5485b62c083a061aa258e0a" name="a3b4f7739d5485b62c083a061aa258e0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b4f7739d5485b62c083a061aa258e0a">&#9670;&#160;</a></span>Kind</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__Notifications.html#gab713f8b30131b4b601d114bee196e02a">ELootLockerNotificationContentRewardKind</a> FLootLockerNotificationGroupRewardAssociations::Kind = <a class="el" href="group__Notifications.html#ggab713f8b30131b4b601d114bee196e02aac04e34d445e31a2159c1bfeb882ba212">ELootLockerNotificationContentRewardKind::asset</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The kind of reward, (asset / currency / progression points / progression reset). </p>
+<p>Note that a group is not allowed to contain another group </p>
+
+</div>
+</div>
+<a id="a03e76a2bc54eaf99ebce061907cb826f" name="a03e76a2bc54eaf99ebce061907cb826f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03e76a2bc54eaf99ebce061907cb826f">&#9670;&#160;</a></span>Progression_points</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structFLootLockerNotificationRewardProgression.html">FLootLockerNotificationRewardProgression</a> FLootLockerNotificationGroupRewardAssociations::Progression_points</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The Progression Points reward, will be null if the reward is of another type. </p>
+
+</div>
+</div>
+<a id="a9ff7f659f77d79a7cbaba49227fbb8d4" name="a9ff7f659f77d79a7cbaba49227fbb8d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ff7f659f77d79a7cbaba49227fbb8d4">&#9670;&#160;</a></span>Progression_reset</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structFLootLockerNotificationRewardProgressionReset.html">FLootLockerNotificationRewardProgressionReset</a> FLootLockerNotificationGroupRewardAssociations::Progression_reset</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The Progression Reset reward, will be null if the reward is of another type. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structFLootLockerNotificationGroupRewardAssociations.html">FLootLockerNotificationGroupRewardAssociations</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

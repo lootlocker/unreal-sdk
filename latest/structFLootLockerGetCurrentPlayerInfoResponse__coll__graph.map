@@ -1,0 +1,11 @@
+<map id="FLootLockerGetCurrentPlayerInfoResponse" name="FLootLockerGetCurrentPlayerInfoResponse">
+<area shape="rect" id="Node000001" title=" " alt="" coords="179,181,391,221"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="109,93,272,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="214,126,268,179,264,183,210,130"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerErrorData.html" title=" " alt="" coords="5,5,168,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="113,37,178,91,175,95,109,41"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerRequestContext.html" title=" " alt="" coords="193,5,397,31"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="272,41,206,95,203,91,269,37"/>
+<area shape="rect" id="Node000005" href="$structFLootLockerPlayerInfo.html" title="A set of important information about a player." alt="" coords="297,93,463,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="361,130,306,183,303,179,357,126"/>
+</map>

@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['canceled_0',['Canceled',['../group__Entitlements.html#gga01dbb08b2160f96b89d68803979d5526a0e22fe7d45f8e5632a4abf369b24e29c',1,'LootLockerEntitlementRequestHandler.h']]],
+  ['cancelled_1',['cancelled',['../group__Purchasing.html#ggabaef8ebd4a801b8519288eaf0bc8be7faa149e85a44aeec9140e92733d9ed694e',1,'Cancelled:&#160;LootLockerPurchasesRequestHandler.h'],['../group__RemoteSessions.html#ggafbf5579027e972d12305aec3ce9afc38aa149e85a44aeec9140e92733d9ed694e',1,'Cancelled:&#160;LootLockerRemoteSessionRequestHandler.h']]],
+  ['catalog_5fitem_2',['catalog_item',['../group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804ab1da95002d09ca22d2806ba45a27e8a5',1,'LootLockerMetadataRequestHandler.h']]],
+  ['character_3',['character',['../group__Balances.html#gga43ee520d8b9a78d3700e17a181c9f216aa956161a69928cd130a889b88082fb6e',1,'LootLockerBalanceRequestHandler.h']]],
+  ['chargedback_4',['ChargedBack',['../group__Purchasing.html#gga946691c7987a353ff57418eba974893ea630e80bcd9993867032e5f2af1271335',1,'LootLockerPurchasesRequestHandler.h']]],
+  ['claimed_5',['Claimed',['../group__RemoteSessions.html#ggafbf5579027e972d12305aec3ce9afc38a9d8b15ef78357692564f5aced0c68eaf',1,'LootLockerRemoteSessionRequestHandler.h']]],
+  ['completed_5ffailed_6',['Completed_Failed',['../LootLockerHTTPExecutionQueueItem_8h.html#a367c957239f49291c04402bc5fcf8fc3aceea8e4ac27c033149190e236ca79898',1,'LootLockerHTTPExecutionQueueItem.h']]],
+  ['completed_5fsuccess_7',['Completed_Success',['../LootLockerHTTPExecutionQueueItem_8h.html#a367c957239f49291c04402bc5fcf8fc3aea7fbb7ce58b7ddaa194790e19457905',1,'LootLockerHTTPExecutionQueueItem.h']]],
+  ['completed_5ftimedout_8',['Completed_TimedOut',['../LootLockerHTTPExecutionQueueItem_8h.html#a367c957239f49291c04402bc5fcf8fc3ae341fac04bceed72b6e9dc555674fcbb',1,'LootLockerHTTPExecutionQueueItem.h']]],
+  ['create_9',['Create',['../group__Metadata.html#gga14b96920b0ce0f3c43c571c63df077bda686e697538050e4664636337cc3b834f',1,'LootLockerMetadataRequestHandler.h']]],
+  ['create_5for_5fupdate_10',['Create_or_Update',['../group__Metadata.html#gga14b96920b0ce0f3c43c571c63df077bdab513ac9d9210aff17a0f7d41470e1a3c',1,'LootLockerMetadataRequestHandler.h']]],
+  ['created_11',['Created',['../group__RemoteSessions.html#ggafbf5579027e972d12305aec3ce9afc38a0eceeb45861f9585dd7a97a3e36f85c6',1,'LootLockerRemoteSessionRequestHandler.h']]],
+  ['created_5fat_12',['Created_at',['../group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea4e0b5c2418b622cb71664c2a3b615d77',1,'LootLockerAssetsRequestHandler.h']]],
+  ['credentials_13',['Credentials',['../group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da2daf1cb573c2c61422faf64610cf9402',1,'LootLockerConnectedAccountsRequestHandler.h']]],
+  ['currency_14',['currency',['../group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804a1af0389838508d7016a9841eb6273962',1,'currency:&#160;LootLockerMetadataRequestHandler.h'],['../group__Notifications.html#ggab713f8b30131b4b601d114bee196e02aa1af0389838508d7016a9841eb6273962',1,'currency:&#160;LootLockerNotificationsRequestHandler.h'],['../group__Catalog.html#gga577a31dc9665d687667d28b20f1a3742a386c339d37e737a436499d423a77df0c',1,'Currency:&#160;LootLockerCatalogRequestHandler.h'],['../group__Entitlements.html#ggab4845b2f8a8460f690419e10305c13f2a386c339d37e737a436499d423a77df0c',1,'Currency:&#160;LootLockerEntitlementRequestHandler.h'],['../group__Leaderboard.html#gga7985ca9fbbcf2f9947ecdbb9115ccd9fa386c339d37e737a436499d423a77df0c',1,'Currency:&#160;LootLockerLeaderboardRequestHandler.h']]],
+  ['custom_5fonly_15',['Custom_only',['../group__Notifications.html#gga62a981521752e480537c7c1e6a478ec3a1c40b6170eae49d30c73ae70c5021681',1,'LootLockerNotificationsRequestHandler.h']]]
+];

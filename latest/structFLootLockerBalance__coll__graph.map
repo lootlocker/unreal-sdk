@@ -1,0 +1,5 @@
+<map id="FLootLockerBalance" name="FLootLockerBalance">
+<area shape="rect" id="Node000001" title="Represents a currency balance in a wallet, including the amount, currency details,..." alt="" coords="9,93,161,119"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerCurrency.html" title="Details about a particular currency." alt="" coords="5,5,164,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,45,87,93,82,93,82,45"/>
+</map>

@@ -1,0 +1,899 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: Progressions</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.4.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('group__Progressions.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">Progressions</div></div>
+</div><!--header-->
+<div class="contents">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Configure and query the shared progression infrastructure. </p>
+<p>Progressions are points-based levelling systems with configurable tiers and configurable per-tier rewards (assets, currency, progression points). The same progression can be applied to players (<a class="el" href="group__PlayerProgressions.html">Player Progressions</a>), characters (<a class="el" href="group__CharacterProgressions.html">Character Progressions</a>), or asset instances (<a class="el" href="group__AssetInstanceProgressions.html">Asset Instance Progressions</a>). This group covers cross-cutting endpoints: reading tier and reward definitions, awarding generic points, and resetting a progression. Progressions also support custom Metadata.</p>
+<p>See the <a href="https://docs.lootlocker.com/game-systems/progressions">LootLocker documentation</a>. </p>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="gac1f49a770b521df4f82d487a865a0ed1" name="gac1f49a770b521df4f82d487a865a0ed1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac1f49a770b521df4f82d487a865a0ed1">&#9670;&#160;</a></span>FLootLockerCharacterProgressionResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerCharacterProgressionResponseDelegate) (<a class="el" href="structFLootLockerCharacterProgressionResponse.html">FLootLockerCharacterProgressionResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerCharacterProgressionResponse.html">FLootLockerCharacterProgressionResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga61a2b03df0e62a3816228852bf26fbd5" name="ga61a2b03df0e62a3816228852bf26fbd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga61a2b03df0e62a3816228852bf26fbd5">&#9670;&#160;</a></span>FLootLockerCharacterProgressionWithRewardsResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerCharacterProgressionWithRewardsResponseDelegate) (<a class="el" href="structFLootLockerCharacterProgressionWithRewardsResponse.html">FLootLockerCharacterProgressionWithRewardsResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerCharacterProgressionWithRewardsResponse.html">FLootLockerCharacterProgressionWithRewardsResponse</a> result. </p>
+
+</div>
+</div>
+<a id="gace346039db9b7a573c80a23120f8f3e4" name="gace346039db9b7a573c80a23120f8f3e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gace346039db9b7a573c80a23120f8f3e4">&#9670;&#160;</a></span>FLootLockerDeleteProgressionDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerDeleteProgressionDelegate) (<a class="el" href="structFLootLockerResponse.html">FLootLockerResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerResponse.html">FLootLockerResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga88cf61301fda75b54edff4cb72d83fed" name="ga88cf61301fda75b54edff4cb72d83fed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga88cf61301fda75b54edff4cb72d83fed">&#9670;&#160;</a></span>FLootLockerInstanceProgressionResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerInstanceProgressionResponseDelegate) (<a class="el" href="structFLootLockerInstanceProgressionResponse.html">FLootLockerInstanceProgressionResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerInstanceProgressionResponse.html">FLootLockerInstanceProgressionResponse</a> result. </p>
+
+</div>
+</div>
+<a id="gac76bae289bbc2ed829289cd9aeec8db2" name="gac76bae289bbc2ed829289cd9aeec8db2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac76bae289bbc2ed829289cd9aeec8db2">&#9670;&#160;</a></span>FLootLockerInstanceProgressionWithRewardsResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerInstanceProgressionWithRewardsResponseDelegate) (<a class="el" href="structFLootLockerInstanceProgressionWithRewardsResponse.html">FLootLockerInstanceProgressionWithRewardsResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerInstanceProgressionWithRewardsResponse.html">FLootLockerInstanceProgressionWithRewardsResponse</a> result. </p>
+
+</div>
+</div>
+<a id="gad7eb868d3629b20c424ad9d397ea7b30" name="gad7eb868d3629b20c424ad9d397ea7b30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad7eb868d3629b20c424ad9d397ea7b30">&#9670;&#160;</a></span>FLootLockerPaginatedCharacterProgressionsResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerPaginatedCharacterProgressionsResponseDelegate) (<a class="el" href="structFLootLockerPaginatedCharacterProgressionResponse.html">FLootLockerPaginatedCharacterProgressionResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerPaginatedCharacterProgressionResponse.html">FLootLockerPaginatedCharacterProgressionResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga998a4425b75194a2af1d9c061c9e2698" name="ga998a4425b75194a2af1d9c061c9e2698"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga998a4425b75194a2af1d9c061c9e2698">&#9670;&#160;</a></span>FLootLockerPaginatedInstanceProgressionsResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerPaginatedInstanceProgressionsResponseDelegate) (<a class="el" href="structFLootLockerPaginatedInstanceProgressionResponse.html">FLootLockerPaginatedInstanceProgressionResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerPaginatedInstanceProgressionResponse.html">FLootLockerPaginatedInstanceProgressionResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga2a0f789dfea31de2099202028ef5e26b" name="ga2a0f789dfea31de2099202028ef5e26b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2a0f789dfea31de2099202028ef5e26b">&#9670;&#160;</a></span>FLootLockerPaginatedPlayerProgressionsResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerPaginatedPlayerProgressionsResponseDelegate) (<a class="el" href="structFLootLockerPaginatedPlayerProgressionResponse.html">FLootLockerPaginatedPlayerProgressionResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerPaginatedPlayerProgressionResponse.html">FLootLockerPaginatedPlayerProgressionResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga3ab793ed7d1b772cc6a30f1618eefae2" name="ga3ab793ed7d1b772cc6a30f1618eefae2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3ab793ed7d1b772cc6a30f1618eefae2">&#9670;&#160;</a></span>FLootLockerPaginatedProgressionsResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerPaginatedProgressionsResponseDelegate) (<a class="el" href="structFLootLockerPaginatedProgressionsResponse.html">FLootLockerPaginatedProgressionsResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerPaginatedProgressionsResponse.html">FLootLockerPaginatedProgressionsResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga9ec3314243b30822f98e6db92319424d" name="ga9ec3314243b30822f98e6db92319424d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9ec3314243b30822f98e6db92319424d">&#9670;&#160;</a></span>FLootLockerPaginatedProgressionTiersResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerPaginatedProgressionTiersResponseDelegate) (<a class="el" href="structFLootLockerPaginatedProgressionTiersResponse.html">FLootLockerPaginatedProgressionTiersResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerPaginatedProgressionTiersResponse.html">FLootLockerPaginatedProgressionTiersResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga79d9af2b36e28e25e736ad0fbdb71d70" name="ga79d9af2b36e28e25e736ad0fbdb71d70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga79d9af2b36e28e25e736ad0fbdb71d70">&#9670;&#160;</a></span>FLootLockerPlayerProgressionResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerPlayerProgressionResponseDelegate) (<a class="el" href="structFLootLockerPlayerProgressionResponse.html">FLootLockerPlayerProgressionResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerPlayerProgressionResponse.html">FLootLockerPlayerProgressionResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga103171f1b4a0ea13bb756770a3562105" name="ga103171f1b4a0ea13bb756770a3562105"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga103171f1b4a0ea13bb756770a3562105">&#9670;&#160;</a></span>FLootLockerPlayerProgressionWithRewardsResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerPlayerProgressionWithRewardsResponseDelegate) (<a class="el" href="structFLootLockerPlayerProgressionWithRewardsResponse.html">FLootLockerPlayerProgressionWithRewardsResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerPlayerProgressionWithRewardsResponse.html">FLootLockerPlayerProgressionWithRewardsResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga2764194441cacef0158bfdcacf527e9c" name="ga2764194441cacef0158bfdcacf527e9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2764194441cacef0158bfdcacf527e9c">&#9670;&#160;</a></span>FLootLockerProgressionResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerProgressionResponseDelegate) (<a class="el" href="structFLootLockerProgressionResponse.html">FLootLockerProgressionResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerProgressionResponse.html">FLootLockerProgressionResponse</a> result. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ga1ceff704b57030445b777c8a0ef6a83f" name="ga1ceff704b57030445b777c8a0ef6a83f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1ceff704b57030445b777c8a0ef6a83f">&#9670;&#160;</a></span>GetProgression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetProgression </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProgressionKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#ga2764194441cacef0158bfdcacf527e9c">FLootLockerProgressionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a single progression by key. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ProgressionKey</td><td>Progression key </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response (progression) </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gaae806209fb20e2990768d131b344293e" name="gaae806209fb20e2990768d131b344293e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaae806209fb20e2990768d131b344293e">&#9670;&#160;</a></span>GetProgressions() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetProgressions </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#ga3ab793ed7d1b772cc6a30f1618eefae2">FLootLockerPaginatedProgressionsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List progressions (default page size, first page). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response (paginated progressions) </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gaf44489eb56c2b2c9adef83a8ac2e2b36" name="gaf44489eb56c2b2c9adef83a8ac2e2b36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf44489eb56c2b2c9adef83a8ac2e2b36">&#9670;&#160;</a></span>GetProgressions() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetProgressions </td>
+          <td>(</td>
+          <td class="paramtype">const int32 &amp;&#160;</td>
+          <td class="paramname"><em>Count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#ga3ab793ed7d1b772cc6a30f1618eefae2">FLootLockerPaginatedProgressionsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List progressions (first page only). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Count</td><td>Number of entries to return </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response (paginated progressions) </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gadc3884a43201eaa01a387c7681df1343" name="gadc3884a43201eaa01a387c7681df1343"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadc3884a43201eaa01a387c7681df1343">&#9670;&#160;</a></span>GetProgressions() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetProgressions </td>
+          <td>(</td>
+          <td class="paramtype">const int32 &amp;&#160;</td>
+          <td class="paramname"><em>Count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>After</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#ga3ab793ed7d1b772cc6a30f1618eefae2">FLootLockerPaginatedProgressionsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List progressions (paginated). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Count</td><td>Number of entries to return (page size) </td></tr>
+    <tr><td class="paramname">After</td><td>Optional: Pagination cursor (progression id to start after) </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response (paginated progressions) </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga39d5dd8119cc66e534cdfea9fa76cd7d" name="ga39d5dd8119cc66e534cdfea9fa76cd7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga39d5dd8119cc66e534cdfea9fa76cd7d">&#9670;&#160;</a></span>GetProgressionTiers() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetProgressionTiers </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProgressionKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#ga9ec3314243b30822f98e6db92319424d">FLootLockerPaginatedProgressionTiersResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List progression tiers (default page size, first page) for a progression. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ProgressionKey</td><td>Progression key </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response (paginated progression tiers) </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gac7b3471e733aa26cee9da11f4c409674" name="gac7b3471e733aa26cee9da11f4c409674"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac7b3471e733aa26cee9da11f4c409674">&#9670;&#160;</a></span>GetProgressionTiers() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetProgressionTiers </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProgressionKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32 &amp;&#160;</td>
+          <td class="paramname"><em>Count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#ga9ec3314243b30822f98e6db92319424d">FLootLockerPaginatedProgressionTiersResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List progression tiers (first page only) for a progression. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ProgressionKey</td><td>Progression key </td></tr>
+    <tr><td class="paramname">Count</td><td>Number of tiers to return </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response (paginated progression tiers) </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga36b0e38e2832a0104bb1c5700d0d675a" name="ga36b0e38e2832a0104bb1c5700d0d675a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga36b0e38e2832a0104bb1c5700d0d675a">&#9670;&#160;</a></span>GetProgressionTiers() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetProgressionTiers </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProgressionKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32 &amp;&#160;</td>
+          <td class="paramname"><em>Count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32 &amp;&#160;</td>
+          <td class="paramname"><em>After</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#ga9ec3314243b30822f98e6db92319424d">FLootLockerPaginatedProgressionTiersResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List progression tiers (paginated) for a progression. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ProgressionKey</td><td>Progression key </td></tr>
+    <tr><td class="paramname">Count</td><td>Number of tiers to return (page size) </td></tr>
+    <tr><td class="paramname">After</td><td>Optional: Pagination cursor (tier id); use next_cursor / previous_cursor from prior response </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response (paginated progression tiers) </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga2764194441cacef0158bfdcacf527e9c" id="r_ga2764194441cacef0158bfdcacf527e9c"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Progressions.html#ga2764194441cacef0158bfdcacf527e9c">FLootLockerProgressionResponseDelegate</a>) (<a class="el" href="structFLootLockerProgressionResponse.html">FLootLockerProgressionResponse</a>)</td></tr>
+<tr class="memdesc:ga2764194441cacef0158bfdcacf527e9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerProgressionResponse.html">FLootLockerProgressionResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga2764194441cacef0158bfdcacf527e9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3ab793ed7d1b772cc6a30f1618eefae2" id="r_ga3ab793ed7d1b772cc6a30f1618eefae2"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Progressions.html#ga3ab793ed7d1b772cc6a30f1618eefae2">FLootLockerPaginatedProgressionsResponseDelegate</a>) (<a class="el" href="structFLootLockerPaginatedProgressionsResponse.html">FLootLockerPaginatedProgressionsResponse</a>)</td></tr>
+<tr class="memdesc:ga3ab793ed7d1b772cc6a30f1618eefae2"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerPaginatedProgressionsResponse.html">FLootLockerPaginatedProgressionsResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga3ab793ed7d1b772cc6a30f1618eefae2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga79d9af2b36e28e25e736ad0fbdb71d70" id="r_ga79d9af2b36e28e25e736ad0fbdb71d70"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Progressions.html#ga79d9af2b36e28e25e736ad0fbdb71d70">FLootLockerPlayerProgressionResponseDelegate</a>) (<a class="el" href="structFLootLockerPlayerProgressionResponse.html">FLootLockerPlayerProgressionResponse</a>)</td></tr>
+<tr class="memdesc:ga79d9af2b36e28e25e736ad0fbdb71d70"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerPlayerProgressionResponse.html">FLootLockerPlayerProgressionResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga79d9af2b36e28e25e736ad0fbdb71d70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2a0f789dfea31de2099202028ef5e26b" id="r_ga2a0f789dfea31de2099202028ef5e26b"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Progressions.html#ga2a0f789dfea31de2099202028ef5e26b">FLootLockerPaginatedPlayerProgressionsResponseDelegate</a>) (<a class="el" href="structFLootLockerPaginatedPlayerProgressionResponse.html">FLootLockerPaginatedPlayerProgressionResponse</a>)</td></tr>
+<tr class="memdesc:ga2a0f789dfea31de2099202028ef5e26b"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerPaginatedPlayerProgressionResponse.html">FLootLockerPaginatedPlayerProgressionResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga2a0f789dfea31de2099202028ef5e26b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga103171f1b4a0ea13bb756770a3562105" id="r_ga103171f1b4a0ea13bb756770a3562105"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Progressions.html#ga103171f1b4a0ea13bb756770a3562105">FLootLockerPlayerProgressionWithRewardsResponseDelegate</a>) (<a class="el" href="structFLootLockerPlayerProgressionWithRewardsResponse.html">FLootLockerPlayerProgressionWithRewardsResponse</a>)</td></tr>
+<tr class="memdesc:ga103171f1b4a0ea13bb756770a3562105"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerPlayerProgressionWithRewardsResponse.html">FLootLockerPlayerProgressionWithRewardsResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga103171f1b4a0ea13bb756770a3562105"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac1f49a770b521df4f82d487a865a0ed1" id="r_gac1f49a770b521df4f82d487a865a0ed1"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Progressions.html#gac1f49a770b521df4f82d487a865a0ed1">FLootLockerCharacterProgressionResponseDelegate</a>) (<a class="el" href="structFLootLockerCharacterProgressionResponse.html">FLootLockerCharacterProgressionResponse</a>)</td></tr>
+<tr class="memdesc:gac1f49a770b521df4f82d487a865a0ed1"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerCharacterProgressionResponse.html">FLootLockerCharacterProgressionResponse</a> result.  <br /></td></tr>
+<tr class="separator:gac1f49a770b521df4f82d487a865a0ed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad7eb868d3629b20c424ad9d397ea7b30" id="r_gad7eb868d3629b20c424ad9d397ea7b30"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Progressions.html#gad7eb868d3629b20c424ad9d397ea7b30">FLootLockerPaginatedCharacterProgressionsResponseDelegate</a>) (<a class="el" href="structFLootLockerPaginatedCharacterProgressionResponse.html">FLootLockerPaginatedCharacterProgressionResponse</a>)</td></tr>
+<tr class="memdesc:gad7eb868d3629b20c424ad9d397ea7b30"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerPaginatedCharacterProgressionResponse.html">FLootLockerPaginatedCharacterProgressionResponse</a> result.  <br /></td></tr>
+<tr class="separator:gad7eb868d3629b20c424ad9d397ea7b30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga61a2b03df0e62a3816228852bf26fbd5" id="r_ga61a2b03df0e62a3816228852bf26fbd5"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Progressions.html#ga61a2b03df0e62a3816228852bf26fbd5">FLootLockerCharacterProgressionWithRewardsResponseDelegate</a>) (<a class="el" href="structFLootLockerCharacterProgressionWithRewardsResponse.html">FLootLockerCharacterProgressionWithRewardsResponse</a>)</td></tr>
+<tr class="memdesc:ga61a2b03df0e62a3816228852bf26fbd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerCharacterProgressionWithRewardsResponse.html">FLootLockerCharacterProgressionWithRewardsResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga61a2b03df0e62a3816228852bf26fbd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9ec3314243b30822f98e6db92319424d" id="r_ga9ec3314243b30822f98e6db92319424d"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Progressions.html#ga9ec3314243b30822f98e6db92319424d">FLootLockerPaginatedProgressionTiersResponseDelegate</a>) (<a class="el" href="structFLootLockerPaginatedProgressionTiersResponse.html">FLootLockerPaginatedProgressionTiersResponse</a>)</td></tr>
+<tr class="memdesc:ga9ec3314243b30822f98e6db92319424d"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerPaginatedProgressionTiersResponse.html">FLootLockerPaginatedProgressionTiersResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga9ec3314243b30822f98e6db92319424d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gace346039db9b7a573c80a23120f8f3e4" id="r_gace346039db9b7a573c80a23120f8f3e4"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Progressions.html#gace346039db9b7a573c80a23120f8f3e4">FLootLockerDeleteProgressionDelegate</a>) (<a class="el" href="structFLootLockerResponse.html">FLootLockerResponse</a>)</td></tr>
+<tr class="memdesc:gace346039db9b7a573c80a23120f8f3e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerResponse.html">FLootLockerResponse</a> result.  <br /></td></tr>
+<tr class="separator:gace346039db9b7a573c80a23120f8f3e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga88cf61301fda75b54edff4cb72d83fed" id="r_ga88cf61301fda75b54edff4cb72d83fed"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Progressions.html#ga88cf61301fda75b54edff4cb72d83fed">FLootLockerInstanceProgressionResponseDelegate</a>) (<a class="el" href="structFLootLockerInstanceProgressionResponse.html">FLootLockerInstanceProgressionResponse</a>)</td></tr>
+<tr class="memdesc:ga88cf61301fda75b54edff4cb72d83fed"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerInstanceProgressionResponse.html">FLootLockerInstanceProgressionResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga88cf61301fda75b54edff4cb72d83fed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga998a4425b75194a2af1d9c061c9e2698" id="r_ga998a4425b75194a2af1d9c061c9e2698"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Progressions.html#ga998a4425b75194a2af1d9c061c9e2698">FLootLockerPaginatedInstanceProgressionsResponseDelegate</a>) (<a class="el" href="structFLootLockerPaginatedInstanceProgressionResponse.html">FLootLockerPaginatedInstanceProgressionResponse</a>)</td></tr>
+<tr class="memdesc:ga998a4425b75194a2af1d9c061c9e2698"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerPaginatedInstanceProgressionResponse.html">FLootLockerPaginatedInstanceProgressionResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga998a4425b75194a2af1d9c061c9e2698"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac76bae289bbc2ed829289cd9aeec8db2" id="r_gac76bae289bbc2ed829289cd9aeec8db2"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Progressions.html#gac76bae289bbc2ed829289cd9aeec8db2">FLootLockerInstanceProgressionWithRewardsResponseDelegate</a>) (<a class="el" href="structFLootLockerInstanceProgressionWithRewardsResponse.html">FLootLockerInstanceProgressionWithRewardsResponse</a>)</td></tr>
+<tr class="memdesc:gac76bae289bbc2ed829289cd9aeec8db2"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerInstanceProgressionWithRewardsResponse.html">FLootLockerInstanceProgressionWithRewardsResponse</a> result.  <br /></td></tr>
+<tr class="separator:gac76bae289bbc2ed829289cd9aeec8db2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gadc3884a43201eaa01a387c7681df1343" id="r_gadc3884a43201eaa01a387c7681df1343"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Progressions.html#gadc3884a43201eaa01a387c7681df1343">ULootLockerSDKManager::GetProgressions</a> (const int32 &amp;Count, const FString &amp;After, const <a class="el" href="group__Progressions.html#ga3ab793ed7d1b772cc6a30f1618eefae2">FLootLockerPaginatedProgressionsResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gadc3884a43201eaa01a387c7681df1343"><td class="mdescLeft">&#160;</td><td class="mdescRight">List progressions (paginated).  <br /></td></tr>
+<tr class="separator:gadc3884a43201eaa01a387c7681df1343"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf44489eb56c2b2c9adef83a8ac2e2b36" id="r_gaf44489eb56c2b2c9adef83a8ac2e2b36"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Progressions.html#gaf44489eb56c2b2c9adef83a8ac2e2b36">ULootLockerSDKManager::GetProgressions</a> (const int32 &amp;Count, const <a class="el" href="group__Progressions.html#ga3ab793ed7d1b772cc6a30f1618eefae2">FLootLockerPaginatedProgressionsResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gaf44489eb56c2b2c9adef83a8ac2e2b36"><td class="mdescLeft">&#160;</td><td class="mdescRight">List progressions (first page only).  <br /></td></tr>
+<tr class="separator:gaf44489eb56c2b2c9adef83a8ac2e2b36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaae806209fb20e2990768d131b344293e" id="r_gaae806209fb20e2990768d131b344293e"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Progressions.html#gaae806209fb20e2990768d131b344293e">ULootLockerSDKManager::GetProgressions</a> (const <a class="el" href="group__Progressions.html#ga3ab793ed7d1b772cc6a30f1618eefae2">FLootLockerPaginatedProgressionsResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gaae806209fb20e2990768d131b344293e"><td class="mdescLeft">&#160;</td><td class="mdescRight">List progressions (default page size, first page).  <br /></td></tr>
+<tr class="separator:gaae806209fb20e2990768d131b344293e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1ceff704b57030445b777c8a0ef6a83f" id="r_ga1ceff704b57030445b777c8a0ef6a83f"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Progressions.html#ga1ceff704b57030445b777c8a0ef6a83f">ULootLockerSDKManager::GetProgression</a> (const FString &amp;ProgressionKey, const <a class="el" href="group__Progressions.html#ga2764194441cacef0158bfdcacf527e9c">FLootLockerProgressionResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga1ceff704b57030445b777c8a0ef6a83f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a single progression by key.  <br /></td></tr>
+<tr class="separator:ga1ceff704b57030445b777c8a0ef6a83f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga36b0e38e2832a0104bb1c5700d0d675a" id="r_ga36b0e38e2832a0104bb1c5700d0d675a"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Progressions.html#ga36b0e38e2832a0104bb1c5700d0d675a">ULootLockerSDKManager::GetProgressionTiers</a> (const FString &amp;ProgressionKey, const int32 &amp;Count, const int32 &amp;After, const <a class="el" href="group__Progressions.html#ga9ec3314243b30822f98e6db92319424d">FLootLockerPaginatedProgressionTiersResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga36b0e38e2832a0104bb1c5700d0d675a"><td class="mdescLeft">&#160;</td><td class="mdescRight">List progression tiers (paginated) for a progression.  <br /></td></tr>
+<tr class="separator:ga36b0e38e2832a0104bb1c5700d0d675a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac7b3471e733aa26cee9da11f4c409674" id="r_gac7b3471e733aa26cee9da11f4c409674"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Progressions.html#gac7b3471e733aa26cee9da11f4c409674">ULootLockerSDKManager::GetProgressionTiers</a> (const FString &amp;ProgressionKey, const int32 &amp;Count, const <a class="el" href="group__Progressions.html#ga9ec3314243b30822f98e6db92319424d">FLootLockerPaginatedProgressionTiersResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gac7b3471e733aa26cee9da11f4c409674"><td class="mdescLeft">&#160;</td><td class="mdescRight">List progression tiers (first page only) for a progression.  <br /></td></tr>
+<tr class="separator:gac7b3471e733aa26cee9da11f4c409674"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga39d5dd8119cc66e534cdfea9fa76cd7d" id="r_ga39d5dd8119cc66e534cdfea9fa76cd7d"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Progressions.html#ga39d5dd8119cc66e534cdfea9fa76cd7d">ULootLockerSDKManager::GetProgressionTiers</a> (const FString &amp;ProgressionKey, const <a class="el" href="group__Progressions.html#ga9ec3314243b30822f98e6db92319424d">FLootLockerPaginatedProgressionTiersResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga39d5dd8119cc66e534cdfea9fa76cd7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">List progression tiers (default page size, first page) for a progression.  <br /></td></tr>
+<tr class="separator:ga39d5dd8119cc66e534cdfea9fa76cd7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

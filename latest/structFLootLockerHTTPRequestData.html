@@ -1,0 +1,628 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: FLootLockerHTTPRequestData Struct Reference</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.4.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('structFLootLockerHTTPRequestData.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Data Fields</a>  </div>
+  <div class="headertitle"><div class="title">FLootLockerHTTPRequestData Struct Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Captures everything needed to dispatch — and later retry — a single SDK HTTP request.  
+ <a href="structFLootLockerHTTPRequestData.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="LootLockerHTTPRequestData_8h_source.html">LootLockerHTTPRequestData.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for FLootLockerHTTPRequestData:</div>
+<div class="dyncontent">
+<div class="center"><img src="structFLootLockerHTTPRequestData__coll__graph.png" border="0" usemap="#aFLootLockerHTTPRequestData_coll__map" alt="Collaboration graph"/></div>
+<map name="aFLootLockerHTTPRequestData_coll__map" id="aFLootLockerHTTPRequestData_coll__map">
+<area shape="rect" title="Captures everything needed to dispatch — and later retry — a single SDK HTTP request." alt="" coords="5,181,224,207"/>
+<area shape="rect" href="structFLootLockerPlayerData.html" title=" " alt="" coords="29,93,201,119"/>
+<area shape="poly" title=" " alt="" coords="117,133,117,181,112,181,112,133"/>
+<area shape="rect" href="structFLootLockerSessionOptionals.html" title="Optional parameters that can be sent when starting a session." alt="" coords="9,5,221,31"/>
+<area shape="poly" title=" " alt="" coords="117,45,117,93,112,93,112,45"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a726c05a8001dd2bb15770e8e66d2f545" id="r_a726c05a8001dd2bb15770e8e66d2f545"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerHTTPRequestData.html#a726c05a8001dd2bb15770e8e66d2f545">CallListenersWithResult</a> (const <a class="el" href="structFLootLockerResponse.html">FLootLockerResponse</a> &amp;Response)</td></tr>
+<tr class="memdesc:a726c05a8001dd2bb15770e8e66d2f545"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invokes every registered Listener with the supplied Response.  <br /></td></tr>
+<tr class="separator:a726c05a8001dd2bb15770e8e66d2f545"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86420ba80d24fda757e34824b5a4de66" id="r_a86420ba80d24fda757e34824b5a4de66"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerHTTPRequestData.html#a86420ba80d24fda757e34824b5a4de66">operator==</a> (const <a class="el" href="structFLootLockerHTTPRequestData.html">FLootLockerHTTPRequestData</a> &amp;Other) const</td></tr>
+<tr class="separator:a86420ba80d24fda757e34824b5a4de66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9090c98c336780cb0e8581d9fd66632" id="r_ae9090c98c336780cb0e8581d9fd66632"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerHTTPRequestData.html#ae9090c98c336780cb0e8581d9fd66632">operator!=</a> (const <a class="el" href="structFLootLockerHTTPRequestData.html">FLootLockerHTTPRequestData</a> &amp;Other) const</td></tr>
+<tr class="separator:ae9090c98c336780cb0e8581d9fd66632"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a9f499a0f3ee22186b0b599148befa60c" id="r_a9f499a0f3ee22186b0b599148befa60c"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerHTTPRequestData.html#a9f499a0f3ee22186b0b599148befa60c">RequestId</a> = TEXT(&quot;&quot;)</td></tr>
+<tr class="memdesc:a9f499a0f3ee22186b0b599148befa60c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unique identifier for this request.  <br /></td></tr>
+<tr class="separator:a9f499a0f3ee22186b0b599148befa60c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcf4035230b9a18ecf7f219792dccf69" id="r_adcf4035230b9a18ecf7f219792dccf69"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerHTTPRequestData.html#adcf4035230b9a18ecf7f219792dccf69">ForPlayerUlid</a> = TEXT(&quot;&quot;)</td></tr>
+<tr class="memdesc:adcf4035230b9a18ecf7f219792dccf69"><td class="mdescLeft">&#160;</td><td class="mdescRight">ULID of the player this request is being made on behalf of.  <br /></td></tr>
+<tr class="separator:adcf4035230b9a18ecf7f219792dccf69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1ae579d8aec0b2d5f64afcd83cfe8cf" id="r_af1ae579d8aec0b2d5f64afcd83cfe8cf"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerHTTPRequestData.html#af1ae579d8aec0b2d5f64afcd83cfe8cf">Endpoint</a> = TEXT(&quot;&quot;)</td></tr>
+<tr class="memdesc:af1ae579d8aec0b2d5f64afcd83cfe8cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fully-formed URL endpoint (before any run-time query-param appending).  <br /></td></tr>
+<tr class="separator:af1ae579d8aec0b2d5f64afcd83cfe8cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1e3437e4d8d4fd550a9a00bbb68e4f2" id="r_af1e3437e4d8d4fd550a9a00bbb68e4f2"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerHTTPRequestData.html#af1e3437e4d8d4fd550a9a00bbb68e4f2">Verb</a> = TEXT(&quot;&quot;)</td></tr>
+<tr class="memdesc:af1e3437e4d8d4fd550a9a00bbb68e4f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">HTTP verb ("GET", "POST", "PUT", "PATCH", "DELETE", …).  <br /></td></tr>
+<tr class="separator:af1e3437e4d8d4fd550a9a00bbb68e4f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0df52ef5a56a08139a372270a9c98d42" id="r_a0df52ef5a56a08139a372270a9c98d42"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerHTTPRequestData.html#a0df52ef5a56a08139a372270a9c98d42">Body</a> = TEXT(&quot;&quot;)</td></tr>
+<tr class="memdesc:a0df52ef5a56a08139a372270a9c98d42"><td class="mdescLeft">&#160;</td><td class="mdescRight">JSON body string.  <br /></td></tr>
+<tr class="separator:a0df52ef5a56a08139a372270a9c98d42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae125700739ef0d53ac390c9e2e51d30e" id="r_ae125700739ef0d53ac390c9e2e51d30e"><td class="memItemLeft" align="right" valign="top">TMap&lt; FString, FString &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerHTTPRequestData.html#ae125700739ef0d53ac390c9e2e51d30e">ExtraHeaders</a></td></tr>
+<tr class="memdesc:ae125700739ef0d53ac390c9e2e51d30e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Additional headers to merge on top of the SDK defaults for this request.  <br /></td></tr>
+<tr class="separator:ae125700739ef0d53ac390c9e2e51d30e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03eb066437389e796e4642e7e26e5fb7" id="r_a03eb066437389e796e4642e7e26e5fb7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerHTTPRequestData.html#a03eb066437389e796e4642e7e26e5fb7">PlayerData</a></td></tr>
+<tr class="memdesc:a03eb066437389e796e4642e7e26e5fb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Player session data used for auth-token injection and session-refresh decisions.  <br /></td></tr>
+<tr class="separator:a03eb066437389e796e4642e7e26e5fb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69f8e6985502c9446117634e5e18997c" id="r_a69f8e6985502c9446117634e5e18997c"><td class="memItemLeft" align="right" valign="top">TArray&lt; <a class="el" href="LootLockerResponse_8h.html#aa97cce4df0064cb2cd714143a427c861">FResponseCallback</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerHTTPRequestData.html#a69f8e6985502c9446117634e5e18997c">Listeners</a></td></tr>
+<tr class="memdesc:a69f8e6985502c9446117634e5e18997c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registered completion callbacks.  <br /></td></tr>
+<tr class="separator:a69f8e6985502c9446117634e5e18997c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d3dc815b0074c8a28879e6d817991b0" id="r_a9d3dc815b0074c8a28879e6d817991b0"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerHTTPRequestData.html#a9d3dc815b0074c8a28879e6d817991b0">TimesRetried</a> = 0</td></tr>
+<tr class="memdesc:a9d3dc815b0074c8a28879e6d817991b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of retry attempts made for this request so far.  <br /></td></tr>
+<tr class="separator:a9d3dc815b0074c8a28879e6d817991b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46c839070504999884eb9ca7f5b241d3" id="r_a46c839070504999884eb9ca7f5b241d3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerHTTPRequestData.html#a46c839070504999884eb9ca7f5b241d3">RequestStartTime</a> = 0.0</td></tr>
+<tr class="memdesc:a46c839070504999884eb9ca7f5b241d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wall-clock time (FPlatformTime::Seconds()) when the request was first submitted to the queue.  <br /></td></tr>
+<tr class="separator:a46c839070504999884eb9ca7f5b241d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3c20d53c155a771a17d9d7e09882b1b" id="r_ab3c20d53c155a771a17d9d7e09882b1b"><td class="memItemLeft" align="right" valign="top">FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerHTTPRequestData.html#ab3c20d53c155a771a17d9d7e09882b1b">RequestStartDateTime</a> = FDateTime(0)</td></tr>
+<tr class="memdesc:ab3c20d53c155a771a17d9d7e09882b1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">UTC calendar time when the request was first submitted to the queue.  <br /></td></tr>
+<tr class="separator:ab3c20d53c155a771a17d9d7e09882b1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55acbf456b211dd09f2b6c89128a5041" id="r_a55acbf456b211dd09f2b6c89128a5041"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerHTTPRequestData.html#a55acbf456b211dd09f2b6c89128a5041">HaveListenersBeenInvoked</a> = false</td></tr>
+<tr class="memdesc:a55acbf456b211dd09f2b6c89128a5041"><td class="mdescLeft">&#160;</td><td class="mdescRight">True once all Listeners have been invoked via <a class="el" href="structFLootLockerHTTPRequestData.html#a726c05a8001dd2bb15770e8e66d2f545" title="Invokes every registered Listener with the supplied Response.">CallListenersWithResult()</a>.  <br /></td></tr>
+<tr class="separator:a55acbf456b211dd09f2b6c89128a5041"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46fa03e1fdbd1ccb2935208501165af8" id="r_a46fa03e1fdbd1ccb2935208501165af8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerHTTPRequestData.html#a46fa03e1fdbd1ccb2935208501165af8">bIsFileUpload</a> = false</td></tr>
+<tr class="memdesc:a46fa03e1fdbd1ccb2935208501165af8"><td class="mdescLeft">&#160;</td><td class="mdescRight">True when this request represents a file upload rather than a JSON call.  <br /></td></tr>
+<tr class="separator:a46fa03e1fdbd1ccb2935208501165af8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f09e6e09e930018cd4a6910d2a8d830" id="r_a4f09e6e09e930018cd4a6910d2a8d830"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerHTTPRequestData.html#a4f09e6e09e930018cd4a6910d2a8d830">FilePath</a> = TEXT(&quot;&quot;)</td></tr>
+<tr class="memdesc:a4f09e6e09e930018cd4a6910d2a8d830"><td class="mdescLeft">&#160;</td><td class="mdescRight">Absolute path to the file to upload (only used when bIsFileUpload is true).  <br /></td></tr>
+<tr class="separator:a4f09e6e09e930018cd4a6910d2a8d830"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fb1e9741a186805188187de69f332cd" id="r_a2fb1e9741a186805188187de69f332cd"><td class="memItemLeft" align="right" valign="top">TMap&lt; FString, FString &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerHTTPRequestData.html#a2fb1e9741a186805188187de69f332cd">AdditionalFields</a></td></tr>
+<tr class="memdesc:a2fb1e9741a186805188187de69f332cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Additional form-data fields to include alongside the file (only used when bIsFileUpload is true).  <br /></td></tr>
+<tr class="separator:a2fb1e9741a186805188187de69f332cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Captures everything needed to dispatch — and later retry — a single SDK HTTP request. </p>
+<p>Instances are created by ULootLockerHttpClient::SendApi() / UploadFile() and enqueued into <a class="el" href="classFLootLockerHTTPExecutionQueue.html" title="Manages the LootLocker HTTP request queue as a per-frame singleton.">FLootLockerHTTPExecutionQueue</a>. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a726c05a8001dd2bb15770e8e66d2f545" name="a726c05a8001dd2bb15770e8e66d2f545"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a726c05a8001dd2bb15770e8e66d2f545">&#9670;&#160;</a></span>CallListenersWithResult()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FLootLockerHTTPRequestData::CallListenersWithResult </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerResponse.html">FLootLockerResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>Response</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Invokes every registered Listener with the supplied Response. </p>
+<p>Exceptions thrown inside individual listeners are caught and logged so that remaining listeners are still called. Sets HaveListenersBeenInvoked = true after all listeners have been attempted. </p>
+
+</div>
+</div>
+<a id="ae9090c98c336780cb0e8581d9fd66632" name="ae9090c98c336780cb0e8581d9fd66632"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9090c98c336780cb0e8581d9fd66632">&#9670;&#160;</a></span>operator!=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerHTTPRequestData::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerHTTPRequestData.html">FLootLockerHTTPRequestData</a> &amp;&#160;</td>
+          <td class="paramname"><em>Other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a86420ba80d24fda757e34824b5a4de66" name="a86420ba80d24fda757e34824b5a4de66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86420ba80d24fda757e34824b5a4de66">&#9670;&#160;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerHTTPRequestData::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerHTTPRequestData.html">FLootLockerHTTPRequestData</a> &amp;&#160;</td>
+          <td class="paramname"><em>Other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="a2fb1e9741a186805188187de69f332cd" name="a2fb1e9741a186805188187de69f332cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fb1e9741a186805188187de69f332cd">&#9670;&#160;</a></span>AdditionalFields</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TMap&lt;FString, FString&gt; FLootLockerHTTPRequestData::AdditionalFields</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Additional form-data fields to include alongside the file (only used when bIsFileUpload is true). </p>
+
+</div>
+</div>
+<a id="a46fa03e1fdbd1ccb2935208501165af8" name="a46fa03e1fdbd1ccb2935208501165af8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46fa03e1fdbd1ccb2935208501165af8">&#9670;&#160;</a></span>bIsFileUpload</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerHTTPRequestData::bIsFileUpload = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>True when this request represents a file upload rather than a JSON call. </p>
+
+</div>
+</div>
+<a id="a0df52ef5a56a08139a372270a9c98d42" name="a0df52ef5a56a08139a372270a9c98d42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0df52ef5a56a08139a372270a9c98d42">&#9670;&#160;</a></span>Body</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerHTTPRequestData::Body = TEXT(&quot;&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>JSON body string. </p>
+<p>Empty for GET/HEAD/OPTIONS requests and file uploads. </p>
+
+</div>
+</div>
+<a id="af1ae579d8aec0b2d5f64afcd83cfe8cf" name="af1ae579d8aec0b2d5f64afcd83cfe8cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1ae579d8aec0b2d5f64afcd83cfe8cf">&#9670;&#160;</a></span>Endpoint</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerHTTPRequestData::Endpoint = TEXT(&quot;&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fully-formed URL endpoint (before any run-time query-param appending). </p>
+
+</div>
+</div>
+<a id="ae125700739ef0d53ac390c9e2e51d30e" name="ae125700739ef0d53ac390c9e2e51d30e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae125700739ef0d53ac390c9e2e51d30e">&#9670;&#160;</a></span>ExtraHeaders</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TMap&lt;FString, FString&gt; FLootLockerHTTPRequestData::ExtraHeaders</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Additional headers to merge on top of the SDK defaults for this request. </p>
+
+</div>
+</div>
+<a id="a4f09e6e09e930018cd4a6910d2a8d830" name="a4f09e6e09e930018cd4a6910d2a8d830"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f09e6e09e930018cd4a6910d2a8d830">&#9670;&#160;</a></span>FilePath</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerHTTPRequestData::FilePath = TEXT(&quot;&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Absolute path to the file to upload (only used when bIsFileUpload is true). </p>
+
+</div>
+</div>
+<a id="adcf4035230b9a18ecf7f219792dccf69" name="adcf4035230b9a18ecf7f219792dccf69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcf4035230b9a18ecf7f219792dccf69">&#9670;&#160;</a></span>ForPlayerUlid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerHTTPRequestData::ForPlayerUlid = TEXT(&quot;&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ULID of the player this request is being made on behalf of. </p>
+<p>Used to look up the player's session state for auth-token injection and session-refresh decisions. </p>
+
+</div>
+</div>
+<a id="a55acbf456b211dd09f2b6c89128a5041" name="a55acbf456b211dd09f2b6c89128a5041"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55acbf456b211dd09f2b6c89128a5041">&#9670;&#160;</a></span>HaveListenersBeenInvoked</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerHTTPRequestData::HaveListenersBeenInvoked = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>True once all Listeners have been invoked via <a class="el" href="structFLootLockerHTTPRequestData.html#a726c05a8001dd2bb15770e8e66d2f545" title="Invokes every registered Listener with the supplied Response.">CallListenersWithResult()</a>. </p>
+<p>Prevents double-delivery if a retry path calls the method more than once. </p>
+
+</div>
+</div>
+<a id="a69f8e6985502c9446117634e5e18997c" name="a69f8e6985502c9446117634e5e18997c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69f8e6985502c9446117634e5e18997c">&#9670;&#160;</a></span>Listeners</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TArray&lt;<a class="el" href="LootLockerResponse_8h.html#aa97cce4df0064cb2cd714143a427c861">FResponseCallback</a>&gt; FLootLockerHTTPRequestData::Listeners</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Registered completion callbacks. </p>
+<p>All are invoked (in registration order) when the request finishes — whether successfully or not. Use <a class="el" href="structFLootLockerHTTPRequestData.html#a726c05a8001dd2bb15770e8e66d2f545" title="Invokes every registered Listener with the supplied Response.">CallListenersWithResult()</a> to invoke them safely. </p>
+
+</div>
+</div>
+<a id="a03eb066437389e796e4642e7e26e5fb7" name="a03eb066437389e796e4642e7e26e5fb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03eb066437389e796e4642e7e26e5fb7">&#9670;&#160;</a></span>PlayerData</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> FLootLockerHTTPRequestData::PlayerData</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Player session data used for auth-token injection and session-refresh decisions. </p>
+<p>Copied at enqueue time so the request carries a stable snapshot. </p>
+
+</div>
+</div>
+<a id="a9f499a0f3ee22186b0b599148befa60c" name="a9f499a0f3ee22186b0b599148befa60c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f499a0f3ee22186b0b599148befa60c">&#9670;&#160;</a></span>RequestId</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerHTTPRequestData::RequestId = TEXT(&quot;&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unique identifier for this request. </p>
+<p>Assigned as a GUID at request creation time; used for queue lookup, deduplication, and correlation in logs. </p>
+
+</div>
+</div>
+<a id="ab3c20d53c155a771a17d9d7e09882b1b" name="ab3c20d53c155a771a17d9d7e09882b1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3c20d53c155a771a17d9d7e09882b1b">&#9670;&#160;</a></span>RequestStartDateTime</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FDateTime FLootLockerHTTPRequestData::RequestStartDateTime = FDateTime(0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>UTC calendar time when the request was first submitted to the queue. </p>
+<p>Stored alongside RequestStartTime so that <a class="el" href="structFLootLockerRequestContext.html#aaadc003cfdbabf41b1de0859b57fdea1" title="The time that this request was made.">FLootLockerRequestContext::RequestTime</a> can be populated as a formatted string for logging and error reporting. </p>
+
+</div>
+</div>
+<a id="a46c839070504999884eb9ca7f5b241d3" name="a46c839070504999884eb9ca7f5b241d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46c839070504999884eb9ca7f5b241d3">&#9670;&#160;</a></span>RequestStartTime</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double FLootLockerHTTPRequestData::RequestStartTime = 0.0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Wall-clock time (FPlatformTime::Seconds()) when the request was first submitted to the queue. </p>
+
+</div>
+</div>
+<a id="a9d3dc815b0074c8a28879e6d817991b0" name="a9d3dc815b0074c8a28879e6d817991b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d3dc815b0074c8a28879e6d817991b0">&#9670;&#160;</a></span>TimesRetried</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32 FLootLockerHTTPRequestData::TimesRetried = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of retry attempts made for this request so far. </p>
+
+</div>
+</div>
+<a id="af1e3437e4d8d4fd550a9a00bbb68e4f2" name="af1e3437e4d8d4fd550a9a00bbb68e4f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1e3437e4d8d4fd550a9a00bbb68e4f2">&#9670;&#160;</a></span>Verb</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerHTTPRequestData::Verb = TEXT(&quot;&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>HTTP verb ("GET", "POST", "PUT", "PATCH", "DELETE", …). </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structFLootLockerHTTPRequestData.html">FLootLockerHTTPRequestData</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

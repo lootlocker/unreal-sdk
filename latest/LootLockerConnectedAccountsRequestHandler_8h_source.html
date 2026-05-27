@@ -1,0 +1,506 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: LootLockerSDK/Source/LootLockerSDK/Public/GameAPI/LootLockerConnectedAccountsRequestHandler.h Source File</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.4.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('LootLockerConnectedAccountsRequestHandler_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LootLockerConnectedAccountsRequestHandler.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="LootLockerConnectedAccountsRequestHandler_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright (c) 2021 LootLocker</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerResponse_8h.html">LootLockerResponse.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;LootLockerConnectedAccountsRequestHandler.generated.h&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">// Data Type Definitions</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>UENUM(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="group__ConnectedAccounts.html#ga52ca2d9826a43c89fc5913c416e0894d">   20</a></span>enum class <a class="code hl_enumeration" href="group__ConnectedAccounts.html#ga52ca2d9826a43c89fc5913c416e0894d">ELootLockerAccountProvider</a> : uint8</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_enumvalue" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894daadb831a7fdd83dd1e2a309ce7591dff8">Guest</a> = 0,</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <a class="code hl_enumvalue" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da8b36e9207c24c76e6719268e49201d94">Google</a> = 1,</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_enumvalue" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da9f6290f4436e5a2351f12e03b6433c3c">Apple</a> = 2,</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_enumvalue" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da4db4563826bad0eb2f60ee6e42d0ea4b">Steam</a> = 3,</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_enumvalue" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da54c97686ee5f90f5da86d03c84be7015">Epic_games</a> = 4,</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_enumvalue" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da2daf1cb573c2c61422faf64610cf9402">Credentials</a> = 5, <span class="comment">// White Label Login</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_enumvalue" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da073b7e4ff1d153a52b07eadb5898cb92">Nintendo</a> = 6,</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_enumvalue" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da183709ebe3a1d675014d32b94ad7ed94">Xbox</a> = 7,</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_enumvalue" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894daab7048c58ea2afa826c06bf8d756e8d1">Playstation</a> = 8,</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_enumvalue" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da6a057ee64a34177e388abe7304fd3d78">Twitch</a> = 9,</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_enumvalue" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da8f5cc6430613f1c12f36965050bb7197">Discord</a> = 10,</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_enumvalue" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da15b8772f2d06a15fee9f32b6477660b8">Google_play_games</a> = 11,</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>};</div>
+</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>UENUM(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00043" data-start="{" data-end="};">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="group__ConnectedAccounts.html#gaa4f10f240f9352981514d0af1bff8e11">   43</a></span>enum class <a class="code hl_enumeration" href="group__ConnectedAccounts.html#gaa4f10f240f9352981514d0af1bff8e11">EGoogleAccountProviderPlatform</a> : uint8</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>{</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <a class="code hl_enumvalue" href="group__ConnectedAccounts.html#ggaa4f10f240f9352981514d0af1bff8e11a2567a5ec9705eb7ac2c984033e06189d">web</a> = 0,</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_enumvalue" href="group__ConnectedAccounts.html#ggaa4f10f240f9352981514d0af1bff8e11ac31b32364ce19ca8fcd150a417ecce58">android</a> = 1,</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <a class="code hl_enumvalue" href="group__ConnectedAccounts.html#ggaa4f10f240f9352981514d0af1bff8e11a9e304d4e8df1b74cfa009913198428ab">ios</a> = 2,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_enumvalue" href="group__ConnectedAccounts.html#ggaa4f10f240f9352981514d0af1bff8e11ab2c79ad7dcf03ba266dc0885e1266675">desktop</a> = 4</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>};</div>
+</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00056" data-start="{" data-end="};">
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="structFLootLockerConnectedAccountProvider.html">   56</a></span>struct <a class="code hl_struct" href="structFLootLockerConnectedAccountProvider.html">FLootLockerConnectedAccountProvider</a></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>{</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="structFLootLockerConnectedAccountProvider.html#a24e8241838269e92ff2e0861c730a3a3">   63</a></span>    <a class="code hl_enumeration" href="group__ConnectedAccounts.html#ga52ca2d9826a43c89fc5913c416e0894d">ELootLockerAccountProvider</a> Provider = <a class="code hl_enumeration" href="group__ConnectedAccounts.html#ga52ca2d9826a43c89fc5913c416e0894d">ELootLockerAccountProvider</a>::<a class="code hl_enumvalue" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894daadb831a7fdd83dd1e2a309ce7591dff8">Guest</a>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="structFLootLockerConnectedAccountProvider.html#a5072db77bd778f8053ab1c627fdcb7d5">   68</a></span>    FString Provider_name = &quot;&quot;;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>};</div>
+</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">// Request Definitions</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00078" data-start="{" data-end="};">
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="structFLootLockerConnectGoogleProviderToAccountRequest.html">   78</a></span>struct <a class="code hl_struct" href="structFLootLockerConnectGoogleProviderToAccountRequest.html">FLootLockerConnectGoogleProviderToAccountRequest</a></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>{</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="structFLootLockerConnectGoogleProviderToAccountRequest.html#a6f1ef3993021b677aad6e07f2d664099">   85</a></span>    FString Id_token = &quot;&quot;;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>};</div>
+</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00092" data-start="{" data-end="};">
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="structFLootLockerConnectGoogleProviderToAccountWithPlatformRequest.html">   92</a></span>struct <a class="code hl_struct" href="structFLootLockerConnectGoogleProviderToAccountWithPlatformRequest.html">FLootLockerConnectGoogleProviderToAccountWithPlatformRequest</a></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>{</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="structFLootLockerConnectGoogleProviderToAccountWithPlatformRequest.html#a249d61e636f9c50ee92b9569ba4d49bc">   99</a></span>    FString Id_token = &quot;&quot;;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="structFLootLockerConnectGoogleProviderToAccountWithPlatformRequest.html#a9acf146636aad81c1baae8e510df9ff9">  104</a></span>    FString Platform = &quot;&quot;;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>};</div>
+</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00111" data-start="{" data-end="};">
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="structFLootLockerConnectAppleRestProviderToAccountRequest.html">  111</a></span>struct <a class="code hl_struct" href="structFLootLockerConnectAppleRestProviderToAccountRequest.html">FLootLockerConnectAppleRestProviderToAccountRequest</a></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>{</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="structFLootLockerConnectAppleRestProviderToAccountRequest.html#abbbd28dc83bb4dec05fe4fa7be6e288a">  118</a></span>    FString Authorization_code = &quot;&quot;;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>};</div>
+</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00125" data-start="{" data-end="};">
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="structFLootLockerConnectEpicProviderToAccountRequest.html">  125</a></span>struct <a class="code hl_struct" href="structFLootLockerConnectEpicProviderToAccountRequest.html">FLootLockerConnectEpicProviderToAccountRequest</a></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>{</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="structFLootLockerConnectEpicProviderToAccountRequest.html#aacd80ce8eb0eac87c3b1ab19c5802637">  132</a></span>    FString Token = &quot;&quot;;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>};</div>
+</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00139" data-start="{" data-end="};">
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="structFLootLockerConnectPlaystationProviderToAccountRequest.html">  139</a></span>struct <a class="code hl_struct" href="structFLootLockerConnectPlaystationProviderToAccountRequest.html">FLootLockerConnectPlaystationProviderToAccountRequest</a></div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>{</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno"><a class="line" href="structFLootLockerConnectPlaystationProviderToAccountRequest.html#ad3910850dc720c8f9ebbf19939f48cd4">  146</a></span>    FString Environment = &quot;&quot;;</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno"><a class="line" href="structFLootLockerConnectPlaystationProviderToAccountRequest.html#af91525d550fb446998abdac301f0541b">  151</a></span>    FString Code = &quot;&quot;;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>};</div>
+</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00158" data-start="{" data-end="};">
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="structFLootLockerConnectDiscordProviderToAccountRequest.html">  158</a></span>struct <a class="code hl_struct" href="structFLootLockerConnectDiscordProviderToAccountRequest.html">FLootLockerConnectDiscordProviderToAccountRequest</a></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>{</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno"><a class="line" href="structFLootLockerConnectDiscordProviderToAccountRequest.html#a2ec91c039622e8ac97d7f4e7306772a5">  165</a></span>    FString Token = &quot;&quot;;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>};</div>
+</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00172" data-start="{" data-end="};">
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="structFLootLockerConnectTwitchProviderToAccountRequest.html">  172</a></span>struct <a class="code hl_struct" href="structFLootLockerConnectTwitchProviderToAccountRequest.html">FLootLockerConnectTwitchProviderToAccountRequest</a></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>{</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno"><a class="line" href="structFLootLockerConnectTwitchProviderToAccountRequest.html#a9c4ac3bdf8275379cef37650dfc037d5">  179</a></span>    FString Authorization_code = &quot;&quot;;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>};</div>
+</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00186" data-start="{" data-end="};">
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="structFLootLockerConnectRemoteSessionToAccountRequest.html">  186</a></span>struct <a class="code hl_struct" href="structFLootLockerConnectRemoteSessionToAccountRequest.html">FLootLockerConnectRemoteSessionToAccountRequest</a></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>{</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno"><a class="line" href="structFLootLockerConnectRemoteSessionToAccountRequest.html#ace3d7c40ba51c10b33d9a6b96d40bdd5">  193</a></span>    FString Code = &quot;&quot;;</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno"><a class="line" href="structFLootLockerConnectRemoteSessionToAccountRequest.html#a466b7e5989c618ab6b26e25a44f65603">  198</a></span>    FString Nonce = &quot;&quot;;</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>};</div>
+</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00205" data-start="{" data-end="};">
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno"><a class="line" href="structFLootLockerTransferProvidersBetweenAccountsRequest.html">  205</a></span>struct <a class="code hl_struct" href="structFLootLockerTransferProvidersBetweenAccountsRequest.html">FLootLockerTransferProvidersBetweenAccountsRequest</a></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>{</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno"><a class="line" href="structFLootLockerTransferProvidersBetweenAccountsRequest.html#a0304a1cdbd1c30d28f5e75cd036b50e5">  212</a></span>    FString Source_token = &quot;&quot;;</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno"><a class="line" href="structFLootLockerTransferProvidersBetweenAccountsRequest.html#a409c18603c5257382f55e12c61abe3b2">  217</a></span>    FString Target_token = &quot;&quot;;</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno"><a class="line" href="structFLootLockerTransferProvidersBetweenAccountsRequest.html#ae48b4801d844e2a3db438ef42cf15941">  222</a></span>    TArray&lt;FString&gt; Identity_providers;</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>};</div>
+</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00229" data-start="{" data-end="};">
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno"><a class="line" href="structFLootLockerAccountConnectedStruct.html">  229</a></span>struct <a class="code hl_struct" href="structFLootLockerAccountConnectedStruct.html">FLootLockerAccountConnectedStruct</a></div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>{</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno"><a class="line" href="structFLootLockerAccountConnectedStruct.html#aebfa5af7352baa72f339de3bb8e8bbf1">  236</a></span>    <a class="code hl_enumeration" href="group__ConnectedAccounts.html#ga52ca2d9826a43c89fc5913c416e0894d">ELootLockerAccountProvider</a> Provider = <a class="code hl_enumeration" href="group__ConnectedAccounts.html#ga52ca2d9826a43c89fc5913c416e0894d">ELootLockerAccountProvider</a>::<a class="code hl_enumvalue" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894daadb831a7fdd83dd1e2a309ce7591dff8">Guest</a>;</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno"><a class="line" href="structFLootLockerAccountConnectedStruct.html#a922d3d7d8adc9dcb3cc7eeca37e877c4">  241</a></span>    FString Provider_name = &quot;&quot;;</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>};</div>
+</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="comment">// Response Definitions</span></div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00252" data-start="{" data-end="};">
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno"><a class="line" href="structFLootLockerAccountConnectedResponse.html">  252</a></span>struct <a class="code hl_struct" href="structFLootLockerAccountConnectedResponse.html">FLootLockerAccountConnectedResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>{</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno"><a class="line" href="structFLootLockerAccountConnectedResponse.html#a8dd1ac88ce1c914ecf48cb85af6b6859">  259</a></span>    <a class="code hl_struct" href="structFLootLockerAccountConnectedStruct.html">FLootLockerAccountConnectedStruct</a> Connected_account;</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>};</div>
+</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00266" data-start="{" data-end="};">
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno"><a class="line" href="structFLootLockerListConnectedAccountsResponse.html">  266</a></span>struct <a class="code hl_struct" href="structFLootLockerListConnectedAccountsResponse.html">FLootLockerListConnectedAccountsResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>{</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno"><a class="line" href="structFLootLockerListConnectedAccountsResponse.html#ad80db0adfe7119ca24d13a4bb3d3ff7c">  273</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerConnectedAccountProvider.html">FLootLockerConnectedAccountProvider</a>&gt; Connected_accounts;</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>};</div>
+</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span> </div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span><span class="comment">// Delegate Definitions</span></div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span> </div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno"><a class="line" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">  284</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerAccountConnectedResponse.html">FLootLockerAccountConnectedResponse</a>);</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno"><a class="line" href="group__ConnectedAccounts.html#ga5af86cd4a77617973db4a3f165d5b3f3">  288</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__ConnectedAccounts.html#ga5af86cd4a77617973db4a3f165d5b3f3">FLootLockerListConnectedAccountsResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerListConnectedAccountsResponse.html">FLootLockerListConnectedAccountsResponse</a>);</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span><span class="comment">// API Class Definition</span></div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span> </div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>UCLASS()</div>
+<div class="foldopen" id="foldopen00296" data-start="{" data-end="};">
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno"><a class="line" href="classULootLockerConnectedAccountsRequestHandler.html">  296</a></span>class LOOTLOCKERSDK_API <a class="code hl_class" href="classULootLockerConnectedAccountsRequestHandler.html">ULootLockerConnectedAccountsRequestHandler</a> : public UObject</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>{</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno"><a class="line" href="classULootLockerConnectedAccountsRequestHandler.html#a2320074d1f310fc8c219c5e9e0d2de24">  300</a></span>    <a class="code hl_function" href="classULootLockerConnectedAccountsRequestHandler.html#a2320074d1f310fc8c219c5e9e0d2de24">ULootLockerConnectedAccountsRequestHandler</a>() {};</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno"><a class="line" href="classULootLockerConnectedAccountsRequestHandler.html#a7ea311c7c3cfb0b4c1cd5caf81de1328">  302</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerConnectedAccountsRequestHandler.html#a7ea311c7c3cfb0b4c1cd5caf81de1328">ListConnectedAccounts</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_typedef" href="group__ConnectedAccounts.html#ga5af86cd4a77617973db4a3f165d5b3f3">FLootLockerListConnectedAccountsResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno"><a class="line" href="classULootLockerConnectedAccountsRequestHandler.html#adf0c5526240aef03625c17bc05724297">  303</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerConnectedAccountsRequestHandler.html#adf0c5526240aef03625c17bc05724297">DisconnectAccount</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_enumeration" href="group__ConnectedAccounts.html#ga52ca2d9826a43c89fc5913c416e0894d">ELootLockerAccountProvider</a> AccountToDisconnect, <span class="keyword">const</span> <a class="code hl_typedef" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno"><a class="line" href="classULootLockerConnectedAccountsRequestHandler.html#af98c15102b14d94cc6fc30beed0164e3">  304</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerConnectedAccountsRequestHandler.html#af98c15102b14d94cc6fc30beed0164e3">ConnectGoogleAccount</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; IdToken, <span class="keyword">const</span> <a class="code hl_typedef" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno"><a class="line" href="classULootLockerConnectedAccountsRequestHandler.html#a936a5814e5d2f1edd9628fd38cd96b29">  305</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerConnectedAccountsRequestHandler.html#a936a5814e5d2f1edd9628fd38cd96b29">ConnectGoogleAccount</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; IdToken, <a class="code hl_enumeration" href="group__ConnectedAccounts.html#gaa4f10f240f9352981514d0af1bff8e11">EGoogleAccountProviderPlatform</a> Platform, <span class="keyword">const</span> <a class="code hl_typedef" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno"><a class="line" href="classULootLockerConnectedAccountsRequestHandler.html#af21ba2908b625c21d9e939add1187f95">  306</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerConnectedAccountsRequestHandler.html#af21ba2908b625c21d9e939add1187f95">ConnectAppleAccountByRestSignIn</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; AuthorizationCode, <span class="keyword">const</span> <a class="code hl_typedef" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno"><a class="line" href="classULootLockerConnectedAccountsRequestHandler.html#aba86118088e6f493c9ae0cd069d98e8d">  307</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerConnectedAccountsRequestHandler.html#aba86118088e6f493c9ae0cd069d98e8d">ConnectEpicAccount</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; Token, <span class="keyword">const</span> <a class="code hl_typedef" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno"><a class="line" href="classULootLockerConnectedAccountsRequestHandler.html#a9c3bdc6a3136a06e71c1f50fbf659ebe">  308</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerConnectedAccountsRequestHandler.html#a9c3bdc6a3136a06e71c1f50fbf659ebe">ConnectPlaystationAccount</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; Environment, <span class="keyword">const</span> FString&amp; Code, <span class="keyword">const</span> <a class="code hl_typedef" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno"><a class="line" href="classULootLockerConnectedAccountsRequestHandler.html#af8db87dbb2585f982e046bb65ff17b85">  309</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerConnectedAccountsRequestHandler.html#af8db87dbb2585f982e046bb65ff17b85">ConnectDiscordAccount</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; Token, <span class="keyword">const</span> <a class="code hl_typedef" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno"><a class="line" href="classULootLockerConnectedAccountsRequestHandler.html#a33cc29c5abc126a52cd60fde733b3c5d">  310</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerConnectedAccountsRequestHandler.html#a33cc29c5abc126a52cd60fde733b3c5d">ConnectTwitchAccount</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; AuthorizationCode, <span class="keyword">const</span> <a class="code hl_typedef" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno"><a class="line" href="classULootLockerConnectedAccountsRequestHandler.html#a50f0d87c8d94d57a4afd27d6bc870c14">  311</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerConnectedAccountsRequestHandler.html#a50f0d87c8d94d57a4afd27d6bc870c14">ConnectRemoteSessionAccount</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; Code, <span class="keyword">const</span> FString&amp; Nonce, <span class="keyword">const</span> <a class="code hl_typedef" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno"><a class="line" href="classULootLockerConnectedAccountsRequestHandler.html#adf02854c1e0d6f9ce4fd90ac9131b45f">  312</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerConnectedAccountsRequestHandler.html#adf02854c1e0d6f9ce4fd90ac9131b45f">TransferIdentityProvidersBetweenAccounts</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; SourcePlayerData, <span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; TargetPlayerData, TArray&lt;ELootLockerAccountProvider&gt; ProvidersToTransfer, <span class="keyword">const</span> <a class="code hl_typedef" href="group__ConnectedAccounts.html#ga5af86cd4a77617973db4a3f165d5b3f3">FLootLockerListConnectedAccountsResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>};</div>
+</div>
+<div class="ttc" id="aLootLockerPlayerData_8h_html"><div class="ttname"><a href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a></div></div>
+<div class="ttc" id="aLootLockerResponse_8h_html"><div class="ttname"><a href="LootLockerResponse_8h.html">LootLockerResponse.h</a></div></div>
+<div class="ttc" id="aLootLockerResponse_8h_html_a5d3509fd52be6960e390df86b764fcdb"><div class="ttname"><a href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a></div><div class="ttdeci">void(* FLootLockerDefaultDelegate)(FLootLockerResponse)</div><div class="ttdef"><b>Definition</b> LootLockerResponse.h:38</div></div>
+<div class="ttc" id="aclassULootLockerConnectedAccountsRequestHandler_html"><div class="ttname"><a href="classULootLockerConnectedAccountsRequestHandler.html">ULootLockerConnectedAccountsRequestHandler</a></div><div class="ttdef"><b>Definition</b> LootLockerConnectedAccountsRequestHandler.h:297</div></div>
+<div class="ttc" id="aclassULootLockerConnectedAccountsRequestHandler_html_a2320074d1f310fc8c219c5e9e0d2de24"><div class="ttname"><a href="classULootLockerConnectedAccountsRequestHandler.html#a2320074d1f310fc8c219c5e9e0d2de24">ULootLockerConnectedAccountsRequestHandler::ULootLockerConnectedAccountsRequestHandler</a></div><div class="ttdeci">ULootLockerConnectedAccountsRequestHandler()</div><div class="ttdef"><b>Definition</b> LootLockerConnectedAccountsRequestHandler.h:300</div></div>
+<div class="ttc" id="aclassULootLockerConnectedAccountsRequestHandler_html_a33cc29c5abc126a52cd60fde733b3c5d"><div class="ttname"><a href="classULootLockerConnectedAccountsRequestHandler.html#a33cc29c5abc126a52cd60fde733b3c5d">ULootLockerConnectedAccountsRequestHandler::ConnectTwitchAccount</a></div><div class="ttdeci">static FString ConnectTwitchAccount(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;AuthorizationCode, const FLootLockerAccountConnectedResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerConnectedAccountsRequestHandler_html_a50f0d87c8d94d57a4afd27d6bc870c14"><div class="ttname"><a href="classULootLockerConnectedAccountsRequestHandler.html#a50f0d87c8d94d57a4afd27d6bc870c14">ULootLockerConnectedAccountsRequestHandler::ConnectRemoteSessionAccount</a></div><div class="ttdeci">static FString ConnectRemoteSessionAccount(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;Code, const FString &amp;Nonce, const FLootLockerAccountConnectedResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerConnectedAccountsRequestHandler_html_a7ea311c7c3cfb0b4c1cd5caf81de1328"><div class="ttname"><a href="classULootLockerConnectedAccountsRequestHandler.html#a7ea311c7c3cfb0b4c1cd5caf81de1328">ULootLockerConnectedAccountsRequestHandler::ListConnectedAccounts</a></div><div class="ttdeci">static FString ListConnectedAccounts(const FLootLockerPlayerData &amp;PlayerData, const FLootLockerListConnectedAccountsResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerConnectedAccountsRequestHandler_html_a936a5814e5d2f1edd9628fd38cd96b29"><div class="ttname"><a href="classULootLockerConnectedAccountsRequestHandler.html#a936a5814e5d2f1edd9628fd38cd96b29">ULootLockerConnectedAccountsRequestHandler::ConnectGoogleAccount</a></div><div class="ttdeci">static FString ConnectGoogleAccount(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;IdToken, EGoogleAccountProviderPlatform Platform, const FLootLockerAccountConnectedResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerConnectedAccountsRequestHandler_html_a9c3bdc6a3136a06e71c1f50fbf659ebe"><div class="ttname"><a href="classULootLockerConnectedAccountsRequestHandler.html#a9c3bdc6a3136a06e71c1f50fbf659ebe">ULootLockerConnectedAccountsRequestHandler::ConnectPlaystationAccount</a></div><div class="ttdeci">static FString ConnectPlaystationAccount(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;Environment, const FString &amp;Code, const FLootLockerAccountConnectedResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerConnectedAccountsRequestHandler_html_aba86118088e6f493c9ae0cd069d98e8d"><div class="ttname"><a href="classULootLockerConnectedAccountsRequestHandler.html#aba86118088e6f493c9ae0cd069d98e8d">ULootLockerConnectedAccountsRequestHandler::ConnectEpicAccount</a></div><div class="ttdeci">static FString ConnectEpicAccount(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;Token, const FLootLockerAccountConnectedResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerConnectedAccountsRequestHandler_html_adf02854c1e0d6f9ce4fd90ac9131b45f"><div class="ttname"><a href="classULootLockerConnectedAccountsRequestHandler.html#adf02854c1e0d6f9ce4fd90ac9131b45f">ULootLockerConnectedAccountsRequestHandler::TransferIdentityProvidersBetweenAccounts</a></div><div class="ttdeci">static FString TransferIdentityProvidersBetweenAccounts(const FLootLockerPlayerData &amp;SourcePlayerData, const FLootLockerPlayerData &amp;TargetPlayerData, TArray&lt; ELootLockerAccountProvider &gt; ProvidersToTransfer, const FLootLockerListConnectedAccountsResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerConnectedAccountsRequestHandler_html_adf0c5526240aef03625c17bc05724297"><div class="ttname"><a href="classULootLockerConnectedAccountsRequestHandler.html#adf0c5526240aef03625c17bc05724297">ULootLockerConnectedAccountsRequestHandler::DisconnectAccount</a></div><div class="ttdeci">static FString DisconnectAccount(const FLootLockerPlayerData &amp;PlayerData, const ELootLockerAccountProvider AccountToDisconnect, const FLootLockerDefaultDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerConnectedAccountsRequestHandler_html_af21ba2908b625c21d9e939add1187f95"><div class="ttname"><a href="classULootLockerConnectedAccountsRequestHandler.html#af21ba2908b625c21d9e939add1187f95">ULootLockerConnectedAccountsRequestHandler::ConnectAppleAccountByRestSignIn</a></div><div class="ttdeci">static FString ConnectAppleAccountByRestSignIn(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;AuthorizationCode, const FLootLockerAccountConnectedResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerConnectedAccountsRequestHandler_html_af8db87dbb2585f982e046bb65ff17b85"><div class="ttname"><a href="classULootLockerConnectedAccountsRequestHandler.html#af8db87dbb2585f982e046bb65ff17b85">ULootLockerConnectedAccountsRequestHandler::ConnectDiscordAccount</a></div><div class="ttdeci">static FString ConnectDiscordAccount(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;Token, const FLootLockerAccountConnectedResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerConnectedAccountsRequestHandler_html_af98c15102b14d94cc6fc30beed0164e3"><div class="ttname"><a href="classULootLockerConnectedAccountsRequestHandler.html#af98c15102b14d94cc6fc30beed0164e3">ULootLockerConnectedAccountsRequestHandler::ConnectGoogleAccount</a></div><div class="ttdeci">static FString ConnectGoogleAccount(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;IdToken, const FLootLockerAccountConnectedResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="agroup__ConnectedAccounts_html_ga52ca2d9826a43c89fc5913c416e0894d"><div class="ttname"><a href="group__ConnectedAccounts.html#ga52ca2d9826a43c89fc5913c416e0894d">ELootLockerAccountProvider</a></div><div class="ttdeci">ELootLockerAccountProvider</div><div class="ttdoc">Account providers possible to use for connected accounts.</div><div class="ttdef"><b>Definition</b> LootLockerConnectedAccountsRequestHandler.h:21</div></div>
+<div class="ttc" id="agroup__ConnectedAccounts_html_ga5af86cd4a77617973db4a3f165d5b3f3"><div class="ttname"><a href="group__ConnectedAccounts.html#ga5af86cd4a77617973db4a3f165d5b3f3">FLootLockerListConnectedAccountsResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerListConnectedAccountsResponseDelegate)(FLootLockerListConnectedAccountsResponse)</div><div class="ttdoc">C++ response delegate for listing connected accounts.</div><div class="ttdef"><b>Definition</b> LootLockerConnectedAccountsRequestHandler.h:288</div></div>
+<div class="ttc" id="agroup__ConnectedAccounts_html_ga667242bda8f3874f4472d351e30307e5"><div class="ttname"><a href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerAccountConnectedResponseDelegate)(FLootLockerAccountConnectedResponse)</div><div class="ttdoc">C++ response delegate for connecting a provider to an account.</div><div class="ttdef"><b>Definition</b> LootLockerConnectedAccountsRequestHandler.h:284</div></div>
+<div class="ttc" id="agroup__ConnectedAccounts_html_gaa4f10f240f9352981514d0af1bff8e11"><div class="ttname"><a href="group__ConnectedAccounts.html#gaa4f10f240f9352981514d0af1bff8e11">EGoogleAccountProviderPlatform</a></div><div class="ttdeci">EGoogleAccountProviderPlatform</div><div class="ttdoc">Google OAuth2 Client platform.</div><div class="ttdef"><b>Definition</b> LootLockerConnectedAccountsRequestHandler.h:44</div></div>
+<div class="ttc" id="agroup__ConnectedAccounts_html_gga52ca2d9826a43c89fc5913c416e0894da073b7e4ff1d153a52b07eadb5898cb92"><div class="ttname"><a href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da073b7e4ff1d153a52b07eadb5898cb92">ELootLockerAccountProvider::Nintendo</a></div><div class="ttdeci">@ Nintendo</div></div>
+<div class="ttc" id="agroup__ConnectedAccounts_html_gga52ca2d9826a43c89fc5913c416e0894da15b8772f2d06a15fee9f32b6477660b8"><div class="ttname"><a href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da15b8772f2d06a15fee9f32b6477660b8">ELootLockerAccountProvider::Google_play_games</a></div><div class="ttdeci">@ Google_play_games</div></div>
+<div class="ttc" id="agroup__ConnectedAccounts_html_gga52ca2d9826a43c89fc5913c416e0894da183709ebe3a1d675014d32b94ad7ed94"><div class="ttname"><a href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da183709ebe3a1d675014d32b94ad7ed94">ELootLockerAccountProvider::Xbox</a></div><div class="ttdeci">@ Xbox</div></div>
+<div class="ttc" id="agroup__ConnectedAccounts_html_gga52ca2d9826a43c89fc5913c416e0894da2daf1cb573c2c61422faf64610cf9402"><div class="ttname"><a href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da2daf1cb573c2c61422faf64610cf9402">ELootLockerAccountProvider::Credentials</a></div><div class="ttdeci">@ Credentials</div></div>
+<div class="ttc" id="agroup__ConnectedAccounts_html_gga52ca2d9826a43c89fc5913c416e0894da4db4563826bad0eb2f60ee6e42d0ea4b"><div class="ttname"><a href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da4db4563826bad0eb2f60ee6e42d0ea4b">ELootLockerAccountProvider::Steam</a></div><div class="ttdeci">@ Steam</div></div>
+<div class="ttc" id="agroup__ConnectedAccounts_html_gga52ca2d9826a43c89fc5913c416e0894da54c97686ee5f90f5da86d03c84be7015"><div class="ttname"><a href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da54c97686ee5f90f5da86d03c84be7015">ELootLockerAccountProvider::Epic_games</a></div><div class="ttdeci">@ Epic_games</div></div>
+<div class="ttc" id="agroup__ConnectedAccounts_html_gga52ca2d9826a43c89fc5913c416e0894da6a057ee64a34177e388abe7304fd3d78"><div class="ttname"><a href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da6a057ee64a34177e388abe7304fd3d78">ELootLockerAccountProvider::Twitch</a></div><div class="ttdeci">@ Twitch</div></div>
+<div class="ttc" id="agroup__ConnectedAccounts_html_gga52ca2d9826a43c89fc5913c416e0894da8b36e9207c24c76e6719268e49201d94"><div class="ttname"><a href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da8b36e9207c24c76e6719268e49201d94">ELootLockerAccountProvider::Google</a></div><div class="ttdeci">@ Google</div></div>
+<div class="ttc" id="agroup__ConnectedAccounts_html_gga52ca2d9826a43c89fc5913c416e0894da8f5cc6430613f1c12f36965050bb7197"><div class="ttname"><a href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da8f5cc6430613f1c12f36965050bb7197">ELootLockerAccountProvider::Discord</a></div><div class="ttdeci">@ Discord</div></div>
+<div class="ttc" id="agroup__ConnectedAccounts_html_gga52ca2d9826a43c89fc5913c416e0894da9f6290f4436e5a2351f12e03b6433c3c"><div class="ttname"><a href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da9f6290f4436e5a2351f12e03b6433c3c">ELootLockerAccountProvider::Apple</a></div><div class="ttdeci">@ Apple</div></div>
+<div class="ttc" id="agroup__ConnectedAccounts_html_gga52ca2d9826a43c89fc5913c416e0894daab7048c58ea2afa826c06bf8d756e8d1"><div class="ttname"><a href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894daab7048c58ea2afa826c06bf8d756e8d1">ELootLockerAccountProvider::Playstation</a></div><div class="ttdeci">@ Playstation</div></div>
+<div class="ttc" id="agroup__ConnectedAccounts_html_gga52ca2d9826a43c89fc5913c416e0894daadb831a7fdd83dd1e2a309ce7591dff8"><div class="ttname"><a href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894daadb831a7fdd83dd1e2a309ce7591dff8">ELootLockerAccountProvider::Guest</a></div><div class="ttdeci">@ Guest</div></div>
+<div class="ttc" id="agroup__ConnectedAccounts_html_ggaa4f10f240f9352981514d0af1bff8e11a2567a5ec9705eb7ac2c984033e06189d"><div class="ttname"><a href="group__ConnectedAccounts.html#ggaa4f10f240f9352981514d0af1bff8e11a2567a5ec9705eb7ac2c984033e06189d">EGoogleAccountProviderPlatform::web</a></div><div class="ttdeci">@ web</div></div>
+<div class="ttc" id="agroup__ConnectedAccounts_html_ggaa4f10f240f9352981514d0af1bff8e11a9e304d4e8df1b74cfa009913198428ab"><div class="ttname"><a href="group__ConnectedAccounts.html#ggaa4f10f240f9352981514d0af1bff8e11a9e304d4e8df1b74cfa009913198428ab">EGoogleAccountProviderPlatform::ios</a></div><div class="ttdeci">@ ios</div></div>
+<div class="ttc" id="agroup__ConnectedAccounts_html_ggaa4f10f240f9352981514d0af1bff8e11ab2c79ad7dcf03ba266dc0885e1266675"><div class="ttname"><a href="group__ConnectedAccounts.html#ggaa4f10f240f9352981514d0af1bff8e11ab2c79ad7dcf03ba266dc0885e1266675">EGoogleAccountProviderPlatform::desktop</a></div><div class="ttdeci">@ desktop</div></div>
+<div class="ttc" id="agroup__ConnectedAccounts_html_ggaa4f10f240f9352981514d0af1bff8e11ac31b32364ce19ca8fcd150a417ecce58"><div class="ttname"><a href="group__ConnectedAccounts.html#ggaa4f10f240f9352981514d0af1bff8e11ac31b32364ce19ca8fcd150a417ecce58">EGoogleAccountProviderPlatform::android</a></div><div class="ttdeci">@ android</div></div>
+<div class="ttc" id="astructFLootLockerAccountConnectedResponse_html"><div class="ttname"><a href="structFLootLockerAccountConnectedResponse.html">FLootLockerAccountConnectedResponse</a></div><div class="ttdoc">Response returned after connecting a provider to a player account, containing the details of the newl...</div><div class="ttdef"><b>Definition</b> LootLockerConnectedAccountsRequestHandler.h:253</div></div>
+<div class="ttc" id="astructFLootLockerAccountConnectedStruct_html"><div class="ttname"><a href="structFLootLockerAccountConnectedStruct.html">FLootLockerAccountConnectedStruct</a></div><div class="ttdoc">Holds the provider type and display name of an account that was successfully connected to a player ac...</div><div class="ttdef"><b>Definition</b> LootLockerConnectedAccountsRequestHandler.h:230</div></div>
+<div class="ttc" id="astructFLootLockerConnectAppleRestProviderToAccountRequest_html"><div class="ttname"><a href="structFLootLockerConnectAppleRestProviderToAccountRequest.html">FLootLockerConnectAppleRestProviderToAccountRequest</a></div><div class="ttdoc">Request to connect an Apple account to the current player account using an Apple REST Sign In authori...</div><div class="ttdef"><b>Definition</b> LootLockerConnectedAccountsRequestHandler.h:112</div></div>
+<div class="ttc" id="astructFLootLockerConnectDiscordProviderToAccountRequest_html"><div class="ttname"><a href="structFLootLockerConnectDiscordProviderToAccountRequest.html">FLootLockerConnectDiscordProviderToAccountRequest</a></div><div class="ttdoc">Request to connect a Discord account to the current player account using a Discord sign-in token.</div><div class="ttdef"><b>Definition</b> LootLockerConnectedAccountsRequestHandler.h:159</div></div>
+<div class="ttc" id="astructFLootLockerConnectEpicProviderToAccountRequest_html"><div class="ttname"><a href="structFLootLockerConnectEpicProviderToAccountRequest.html">FLootLockerConnectEpicProviderToAccountRequest</a></div><div class="ttdoc">Request to connect an Epic Games account to the current player account using an Epic sign-in token.</div><div class="ttdef"><b>Definition</b> LootLockerConnectedAccountsRequestHandler.h:126</div></div>
+<div class="ttc" id="astructFLootLockerConnectGoogleProviderToAccountRequest_html"><div class="ttname"><a href="structFLootLockerConnectGoogleProviderToAccountRequest.html">FLootLockerConnectGoogleProviderToAccountRequest</a></div><div class="ttdoc">Request to connect a Google account to the current player account using a Google sign-in ID token.</div><div class="ttdef"><b>Definition</b> LootLockerConnectedAccountsRequestHandler.h:79</div></div>
+<div class="ttc" id="astructFLootLockerConnectGoogleProviderToAccountWithPlatformRequest_html"><div class="ttname"><a href="structFLootLockerConnectGoogleProviderToAccountWithPlatformRequest.html">FLootLockerConnectGoogleProviderToAccountWithPlatformRequest</a></div><div class="ttdoc">Request to connect a Google account to the current player account using an ID token and a specific OA...</div><div class="ttdef"><b>Definition</b> LootLockerConnectedAccountsRequestHandler.h:93</div></div>
+<div class="ttc" id="astructFLootLockerConnectPlaystationProviderToAccountRequest_html"><div class="ttname"><a href="structFLootLockerConnectPlaystationProviderToAccountRequest.html">FLootLockerConnectPlaystationProviderToAccountRequest</a></div><div class="ttdoc">Request to connect a PlayStation account to the current player account using a sign-in code and envir...</div><div class="ttdef"><b>Definition</b> LootLockerConnectedAccountsRequestHandler.h:140</div></div>
+<div class="ttc" id="astructFLootLockerConnectRemoteSessionToAccountRequest_html"><div class="ttname"><a href="structFLootLockerConnectRemoteSessionToAccountRequest.html">FLootLockerConnectRemoteSessionToAccountRequest</a></div><div class="ttdoc">Request to connect a remote session lease to the current player account using the lease code and its ...</div><div class="ttdef"><b>Definition</b> LootLockerConnectedAccountsRequestHandler.h:187</div></div>
+<div class="ttc" id="astructFLootLockerConnectTwitchProviderToAccountRequest_html"><div class="ttname"><a href="structFLootLockerConnectTwitchProviderToAccountRequest.html">FLootLockerConnectTwitchProviderToAccountRequest</a></div><div class="ttdoc">Request to connect a Twitch account to the current player account using a Twitch authorization code.</div><div class="ttdef"><b>Definition</b> LootLockerConnectedAccountsRequestHandler.h:173</div></div>
+<div class="ttc" id="astructFLootLockerConnectedAccountProvider_html"><div class="ttname"><a href="structFLootLockerConnectedAccountProvider.html">FLootLockerConnectedAccountProvider</a></div><div class="ttdoc">Represents an account provider that can be connected to a LootLocker account, identified by provider ...</div><div class="ttdef"><b>Definition</b> LootLockerConnectedAccountsRequestHandler.h:57</div></div>
+<div class="ttc" id="astructFLootLockerListConnectedAccountsResponse_html"><div class="ttname"><a href="structFLootLockerListConnectedAccountsResponse.html">FLootLockerListConnectedAccountsResponse</a></div><div class="ttdoc">Response containing the list of account providers currently connected to the player's LootLocker acco...</div><div class="ttdef"><b>Definition</b> LootLockerConnectedAccountsRequestHandler.h:267</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html"><div class="ttname"><a href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a></div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:12</div></div>
+<div class="ttc" id="astructFLootLockerResponse_html"><div class="ttname"><a href="structFLootLockerResponse.html">FLootLockerResponse</a></div><div class="ttdoc">Base response struct — every SDK callback receives a struct that derives from this.</div><div class="ttdef"><b>Definition</b> LootLockerResponse.h:19</div></div>
+<div class="ttc" id="astructFLootLockerTransferProvidersBetweenAccountsRequest_html"><div class="ttname"><a href="structFLootLockerTransferProvidersBetweenAccountsRequest.html">FLootLockerTransferProvidersBetweenAccountsRequest</a></div><div class="ttdoc">Request to transfer one or more identity providers from a source player account to a target player ac...</div><div class="ttdef"><b>Definition</b> LootLockerConnectedAccountsRequestHandler.h:206</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_426131f2e7e3782155028ac49ab5e11c.html">LootLockerSDK</a></li><li class="navelem"><a class="el" href="dir_63662f8d869795fbcfe09e29de292894.html">Source</a></li><li class="navelem"><a class="el" href="dir_529bffb88e47999e071ca27db50fed71.html">LootLockerSDK</a></li><li class="navelem"><a class="el" href="dir_6800d9c9fc95b443eb5325340bc06d03.html">Public</a></li><li class="navelem"><a class="el" href="dir_c4276055a6e8dd41429ac8d6d68c790b.html">GameAPI</a></li><li class="navelem"><a class="el" href="LootLockerConnectedAccountsRequestHandler_8h.html">LootLockerConnectedAccountsRequestHandler.h</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

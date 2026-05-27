@@ -1,0 +1,13 @@
+<map id="FInternalLootLockerListCatalogPricesResponse" name="FInternalLootLockerListCatalogPricesResponse">
+<area shape="rect" id="Node000001" title="This is what the response looks like, but we want to expose the Mapped variant." alt="" coords="261,181,483,221"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="109,93,272,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="226,123,337,179,334,184,224,127"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerErrorData.html" title=" " alt="" coords="5,5,168,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="113,37,178,91,175,95,109,41"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerRequestContext.html" title=" " alt="" coords="193,5,397,31"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="272,41,206,95,203,91,269,37"/>
+<area shape="rect" id="Node000005" href="$structFLootLockerCatalog.html" title="Represents a catalog with its name, unique key, identifier, and creation and deletion timestamps." alt="" coords="297,93,447,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="375,132,375,181,369,181,369,132"/>
+<area shape="rect" id="Node000006" href="$structFLootLockerKeyBasedPagination.html" title=" " alt="" coords="472,93,704,119"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="550,126,417,184,414,179,548,122"/>
+</map>

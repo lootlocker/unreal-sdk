@@ -1,0 +1,648 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: FLootLockerNotificationContent Struct Reference</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.4.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('structFLootLockerNotificationContent.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Data Fields</a>  </div>
+  <div class="headertitle"><div class="title">FLootLockerNotificationContent Struct Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Holds the content of a notification, including context key-value pairs, body type hint, and helper methods for parsing the body into typed values or reward objects.  
+ <a href="structFLootLockerNotificationContent.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="LootLockerNotificationsRequestHandler_8h_source.html">LootLockerNotificationsRequestHandler.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ad054ac42b72dfb0c94050b85f4f65f68" id="r_ad054ac42b72dfb0c94050b85f4f65f68"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationContent.html#ad054ac42b72dfb0c94050b85f4f65f68">TryGetContentBodyAsString</a> (FString &amp;Output) const</td></tr>
+<tr class="memdesc:ad054ac42b72dfb0c94050b85f4f65f68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the body as a String.  <br /></td></tr>
+<tr class="separator:ad054ac42b72dfb0c94050b85f4f65f68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af29263dd908200a40bd22a5ed3906044" id="r_af29263dd908200a40bd22a5ed3906044"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationContent.html#af29263dd908200a40bd22a5ed3906044">TryGetContentBodyAsFloat</a> (float &amp;Output) const</td></tr>
+<tr class="memdesc:af29263dd908200a40bd22a5ed3906044"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the body as a float.  <br /></td></tr>
+<tr class="separator:af29263dd908200a40bd22a5ed3906044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07f051176ef7f7a752f47f0e96823588" id="r_a07f051176ef7f7a752f47f0e96823588"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationContent.html#a07f051176ef7f7a752f47f0e96823588">TryGetContentBodyAsInteger</a> (int &amp;Output) const</td></tr>
+<tr class="memdesc:a07f051176ef7f7a752f47f0e96823588"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the body as an integer.  <br /></td></tr>
+<tr class="separator:a07f051176ef7f7a752f47f0e96823588"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2aa4b608e25f27a943836cb5ba6033cc" id="r_a2aa4b608e25f27a943836cb5ba6033cc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationContent.html#a2aa4b608e25f27a943836cb5ba6033cc">TryGetContentBodyAsBool</a> (bool &amp;Output) const</td></tr>
+<tr class="memdesc:a2aa4b608e25f27a943836cb5ba6033cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the body as a boolean.  <br /></td></tr>
+<tr class="separator:a2aa4b608e25f27a943836cb5ba6033cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace399072112b0311af3b1fccc799a207" id="r_ace399072112b0311af3b1fccc799a207"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationContent.html#ace399072112b0311af3b1fccc799a207">TryGetContentBodyAsStringArray</a> (TArray&lt; FString &gt; &amp;Output) const</td></tr>
+<tr class="memdesc:ace399072112b0311af3b1fccc799a207"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the body as a String.  <br /></td></tr>
+<tr class="separator:ace399072112b0311af3b1fccc799a207"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86dc53842808aaa5e02e63bb473b0dc8" id="r_a86dc53842808aaa5e02e63bb473b0dc8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationContent.html#a86dc53842808aaa5e02e63bb473b0dc8">TryGetContentBodyAsFloatArray</a> (TArray&lt; float &gt; &amp;Output) const</td></tr>
+<tr class="memdesc:a86dc53842808aaa5e02e63bb473b0dc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the body as a float.  <br /></td></tr>
+<tr class="separator:a86dc53842808aaa5e02e63bb473b0dc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb70e2c8d95b4fde2364aeacafd105b2" id="r_afb70e2c8d95b4fde2364aeacafd105b2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationContent.html#afb70e2c8d95b4fde2364aeacafd105b2">TryGetContentBodyAsIntegerArray</a> (TArray&lt; int &gt; &amp;Output) const</td></tr>
+<tr class="memdesc:afb70e2c8d95b4fde2364aeacafd105b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the body as an integer.  <br /></td></tr>
+<tr class="separator:afb70e2c8d95b4fde2364aeacafd105b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65c3c70f2e675a19b840ec4ce3e380e7" id="r_a65c3c70f2e675a19b840ec4ce3e380e7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationContent.html#a65c3c70f2e675a19b840ec4ce3e380e7">TryGetContentBodyAsBoolArray</a> (TArray&lt; bool &gt; &amp;Output) const</td></tr>
+<tr class="memdesc:a65c3c70f2e675a19b840ec4ce3e380e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the body as a boolean.  <br /></td></tr>
+<tr class="separator:a65c3c70f2e675a19b840ec4ce3e380e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae282e363075a59742450f0a0b8238c7b" id="r_ae282e363075a59742450f0a0b8238c7b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationContent.html#ae282e363075a59742450f0a0b8238c7b">TryGetRawValue</a> (TSharedPtr&lt; FJsonValue &gt; &amp;Output) const</td></tr>
+<tr class="memdesc:ae282e363075a59742450f0a0b8238c7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the body as an unparsed json body.  <br /></td></tr>
+<tr class="separator:ae282e363075a59742450f0a0b8238c7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0aa0e60f9709bac6614a80268f605043" id="r_a0aa0e60f9709bac6614a80268f605043"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationContent.html#a0aa0e60f9709bac6614a80268f605043">TryGetContentBodyAsJsonObject</a> (TSharedPtr&lt; FJsonObject &gt; &amp;Output) const</td></tr>
+<tr class="memdesc:a0aa0e60f9709bac6614a80268f605043"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the body as a Json Object.  <br /></td></tr>
+<tr class="separator:a0aa0e60f9709bac6614a80268f605043"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a941b192c3cb8610cda99b5a16ec94265" id="r_a941b192c3cb8610cda99b5a16ec94265"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationContent.html#a941b192c3cb8610cda99b5a16ec94265">TryGetContentBodyAsJsonArray</a> (TArray&lt; TSharedPtr&lt; FJsonValue &gt; &gt; &amp;Output) const</td></tr>
+<tr class="memdesc:a941b192c3cb8610cda99b5a16ec94265"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the body as a Json Array.  <br /></td></tr>
+<tr class="separator:a941b192c3cb8610cda99b5a16ec94265"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c96899de139a7c198147246e7034e1d" id="r_a3c96899de139a7c198147246e7034e1d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationContent.html#a3c96899de139a7c198147246e7034e1d">TryGetContentBodyAsRewardNotification</a> (<a class="el" href="structFLootLockerNotificationContentRewardBody.html">FLootLockerNotificationContentRewardBody</a> &amp;Output) const</td></tr>
+<tr class="memdesc:a3c96899de139a7c198147246e7034e1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the body as a LootLockerNotificationContentBody object.  <br /></td></tr>
+<tr class="separator:a3c96899de139a7c198147246e7034e1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a6e67e68ced884d7cab783b4ca10830a1" id="r_a6e67e68ced884d7cab783b4ca10830a1"><td class="memItemLeft" align="right" valign="top">TArray&lt; <a class="el" href="structFLootLockerNotificationContextEntry.html">FLootLockerNotificationContextEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationContent.html#a6e67e68ced884d7cab783b4ca10830a1">Context</a></td></tr>
+<tr class="memdesc:a6e67e68ced884d7cab783b4ca10830a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The context for this content.  <br /></td></tr>
+<tr class="separator:a6e67e68ced884d7cab783b4ca10830a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d3881513f30856e6c414a17ab13bd31" id="r_a7d3881513f30856e6c414a17ab13bd31"><td class="memItemLeft" align="right" valign="top">TMap&lt; FString, FString &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationContent.html#a7d3881513f30856e6c414a17ab13bd31">ContextAsDictionary</a></td></tr>
+<tr class="memdesc:a7d3881513f30856e6c414a17ab13bd31"><td class="mdescLeft">&#160;</td><td class="mdescRight">The context for this content.  <br /></td></tr>
+<tr class="separator:a7d3881513f30856e6c414a17ab13bd31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee453946875187244994677fedcbae99" id="r_aee453946875187244994677fedcbae99"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationContent.html#aee453946875187244994677fedcbae99">IdentifyingContextKey</a> = &quot;&quot;</td></tr>
+<tr class="memdesc:aee453946875187244994677fedcbae99"><td class="mdescLeft">&#160;</td><td class="mdescRight">The key from the context that will most likely help in identifying this notification.  <br /></td></tr>
+<tr class="separator:aee453946875187244994677fedcbae99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0116134bdfaa50cb377b1daf1b9f2a52" id="r_a0116134bdfaa50cb377b1daf1b9f2a52"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__Notifications.html#ga9f4e18af9784e0fa371ee72a21ab31d2">ELootLockerNotificationContentBodyType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationContent.html#a0116134bdfaa50cb377b1daf1b9f2a52">BodyType</a> = <a class="el" href="group__Notifications.html#gga9f4e18af9784e0fa371ee72a21ab31d2aad921d60486366258809553a3db49a4a">ELootLockerNotificationContentBodyType::unknown</a></td></tr>
+<tr class="memdesc:a0116134bdfaa50cb377b1daf1b9f2a52"><td class="mdescLeft">&#160;</td><td class="mdescRight">The interpreted type of the content body.  <br /></td></tr>
+<tr class="separator:a0116134bdfaa50cb377b1daf1b9f2a52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7cfc4a25d5786b900fc972b8629c023" id="r_ac7cfc4a25d5786b900fc972b8629c023"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationContent.html#ac7cfc4a25d5786b900fc972b8629c023">BodyAsJsonString</a> = &quot;&quot;</td></tr>
+<tr class="memdesc:ac7cfc4a25d5786b900fc972b8629c023"><td class="mdescLeft">&#160;</td><td class="mdescRight">The body for this notification content as a json string, use the dedicated methods to parse this.  <br /></td></tr>
+<tr class="separator:ac7cfc4a25d5786b900fc972b8629c023"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c07f27d8e8825f71084d901468a1bb0" id="r_a9c07f27d8e8825f71084d901468a1bb0"><td class="memItemLeft" align="right" valign="top">TSharedPtr&lt; FJsonValue &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationContent.html#a9c07f27d8e8825f71084d901468a1bb0">BodyAsJsonValue</a></td></tr>
+<tr class="memdesc:a9c07f27d8e8825f71084d901468a1bb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The body for this notification content as a json value, use the dedicated methods to parse this.  <br /></td></tr>
+<tr class="separator:a9c07f27d8e8825f71084d901468a1bb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Holds the content of a notification, including context key-value pairs, body type hint, and helper methods for parsing the body into typed values or reward objects. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a2aa4b608e25f27a943836cb5ba6033cc" name="a2aa4b608e25f27a943836cb5ba6033cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2aa4b608e25f27a943836cb5ba6033cc">&#9670;&#160;</a></span>TryGetContentBodyAsBool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerNotificationContent::TryGetContentBodyAsBool </td>
+          <td>(</td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>Output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the body as a boolean. </p>
+<p>Returns true if body could be parsed in which case Output contains the bool, returns false if parsing failed which can happen if the string is not a convertible to a boolean (those are for example "0", "1", "true", "False", "yes", "NO", etc). </p>
+
+</div>
+</div>
+<a id="a65c3c70f2e675a19b840ec4ce3e380e7" name="a65c3c70f2e675a19b840ec4ce3e380e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65c3c70f2e675a19b840ec4ce3e380e7">&#9670;&#160;</a></span>TryGetContentBodyAsBoolArray()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerNotificationContent::TryGetContentBodyAsBoolArray </td>
+          <td>(</td>
+          <td class="paramtype">TArray&lt; bool &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the body as a boolean. </p>
+<p>Returns true if body could be parsed in which case Output contains the bool, returns false if parsing failed which can happen if the string is not a convertible to a boolean (those are for example "0", "1", "true", "False", "yes", "NO", etc). </p>
+
+</div>
+</div>
+<a id="af29263dd908200a40bd22a5ed3906044" name="af29263dd908200a40bd22a5ed3906044"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af29263dd908200a40bd22a5ed3906044">&#9670;&#160;</a></span>TryGetContentBodyAsFloat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerNotificationContent::TryGetContentBodyAsFloat </td>
+          <td>(</td>
+          <td class="paramtype">float &amp;&#160;</td>
+          <td class="paramname"><em>Output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the body as a float. </p>
+<p>Returns true if body could be parsed in which case Output contains the float, returns false if parsing failed which can happen if the body is not numeric, the conversion under or overflows, or the string body precision is larger than can be dealt within a float. </p>
+
+</div>
+</div>
+<a id="a86dc53842808aaa5e02e63bb473b0dc8" name="a86dc53842808aaa5e02e63bb473b0dc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86dc53842808aaa5e02e63bb473b0dc8">&#9670;&#160;</a></span>TryGetContentBodyAsFloatArray()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerNotificationContent::TryGetContentBodyAsFloatArray </td>
+          <td>(</td>
+          <td class="paramtype">TArray&lt; float &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the body as a float. </p>
+<p>Returns true if body could be parsed in which case Output contains the float, returns false if parsing failed which can happen if the body is not numeric, the conversion under or overflows, or the string body precision is larger than can be dealt within a float. </p>
+
+</div>
+</div>
+<a id="a07f051176ef7f7a752f47f0e96823588" name="a07f051176ef7f7a752f47f0e96823588"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07f051176ef7f7a752f47f0e96823588">&#9670;&#160;</a></span>TryGetContentBodyAsInteger()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerNotificationContent::TryGetContentBodyAsInteger </td>
+          <td>(</td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>Output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the body as an integer. </p>
+<p>TReturns true if body could be parsed in which case Output contains the int, returns false if parsing failed which can happen if </p>
+
+</div>
+</div>
+<a id="afb70e2c8d95b4fde2364aeacafd105b2" name="afb70e2c8d95b4fde2364aeacafd105b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb70e2c8d95b4fde2364aeacafd105b2">&#9670;&#160;</a></span>TryGetContentBodyAsIntegerArray()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerNotificationContent::TryGetContentBodyAsIntegerArray </td>
+          <td>(</td>
+          <td class="paramtype">TArray&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the body as an integer. </p>
+<p>TReturns true if body could be parsed in which case Output contains the int, returns false if parsing failed which can happen if </p>
+
+</div>
+</div>
+<a id="a941b192c3cb8610cda99b5a16ec94265" name="a941b192c3cb8610cda99b5a16ec94265"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a941b192c3cb8610cda99b5a16ec94265">&#9670;&#160;</a></span>TryGetContentBodyAsJsonArray()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerNotificationContent::TryGetContentBodyAsJsonArray </td>
+          <td>(</td>
+          <td class="paramtype">TArray&lt; TSharedPtr&lt; FJsonValue &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the body as a Json Array. </p>
+<p>Returns true if body could be parsed in which case Output contains the Json Array, returns false if parsing failed which can happen if the body is not a valid json array string </p>
+
+</div>
+</div>
+<a id="a0aa0e60f9709bac6614a80268f605043" name="a0aa0e60f9709bac6614a80268f605043"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0aa0e60f9709bac6614a80268f605043">&#9670;&#160;</a></span>TryGetContentBodyAsJsonObject()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerNotificationContent::TryGetContentBodyAsJsonObject </td>
+          <td>(</td>
+          <td class="paramtype">TSharedPtr&lt; FJsonObject &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the body as a Json Object. </p>
+<p>Returns true if body could be parsed in which case Output contains the Json Object, returns false if parsing failed which can happen if the body is not a valid json object string. </p>
+
+</div>
+</div>
+<a id="a3c96899de139a7c198147246e7034e1d" name="a3c96899de139a7c198147246e7034e1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c96899de139a7c198147246e7034e1d">&#9670;&#160;</a></span>TryGetContentBodyAsRewardNotification()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerNotificationContent::TryGetContentBodyAsRewardNotification </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structFLootLockerNotificationContentRewardBody.html">FLootLockerNotificationContentRewardBody</a> &amp;&#160;</td>
+          <td class="paramname"><em>Output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the body as a LootLockerNotificationContentBody object. </p>
+<p>Returns true if body could be parsed in which case Output contains the <a class="el" href="structFLootLockerMetadataBase64Value.html" title="Holds a Base64-encoded metadata value together with its MIME content type.">FLootLockerMetadataBase64Value</a>, returns false if parsing failed. </p>
+
+</div>
+</div>
+<a id="ad054ac42b72dfb0c94050b85f4f65f68" name="ad054ac42b72dfb0c94050b85f4f65f68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad054ac42b72dfb0c94050b85f4f65f68">&#9670;&#160;</a></span>TryGetContentBodyAsString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerNotificationContent::TryGetContentBodyAsString </td>
+          <td>(</td>
+          <td class="paramtype">FString &amp;&#160;</td>
+          <td class="paramname"><em>Output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the body as a String. </p>
+<p>Returns true if body could be parsed in which case Output contains the string body untouched, returns false if parsing failed. </p>
+
+</div>
+</div>
+<a id="ace399072112b0311af3b1fccc799a207" name="ace399072112b0311af3b1fccc799a207"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace399072112b0311af3b1fccc799a207">&#9670;&#160;</a></span>TryGetContentBodyAsStringArray()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerNotificationContent::TryGetContentBodyAsStringArray </td>
+          <td>(</td>
+          <td class="paramtype">TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the body as a String. </p>
+<p>Returns true if body could be parsed in which case Output contains the string body untouched, returns false if parsing failed. </p>
+
+</div>
+</div>
+<a id="ae282e363075a59742450f0a0b8238c7b" name="ae282e363075a59742450f0a0b8238c7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae282e363075a59742450f0a0b8238c7b">&#9670;&#160;</a></span>TryGetRawValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerNotificationContent::TryGetRawValue </td>
+          <td>(</td>
+          <td class="paramtype">TSharedPtr&lt; FJsonValue &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the body as an unparsed json body. </p>
+<p>Returns true if body could be found in which case Output contains the JsonValue, returns false if the body field was not present. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="ac7cfc4a25d5786b900fc972b8629c023" name="ac7cfc4a25d5786b900fc972b8629c023"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7cfc4a25d5786b900fc972b8629c023">&#9670;&#160;</a></span>BodyAsJsonString</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerNotificationContent::BodyAsJsonString = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The body for this notification content as a json string, use the dedicated methods to parse this. </p>
+
+</div>
+</div>
+<a id="a9c07f27d8e8825f71084d901468a1bb0" name="a9c07f27d8e8825f71084d901468a1bb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c07f27d8e8825f71084d901468a1bb0">&#9670;&#160;</a></span>BodyAsJsonValue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TSharedPtr&lt;FJsonValue&gt; FLootLockerNotificationContent::BodyAsJsonValue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The body for this notification content as a json value, use the dedicated methods to parse this. </p>
+
+</div>
+</div>
+<a id="a0116134bdfaa50cb377b1daf1b9f2a52" name="a0116134bdfaa50cb377b1daf1b9f2a52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0116134bdfaa50cb377b1daf1b9f2a52">&#9670;&#160;</a></span>BodyType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__Notifications.html#ga9f4e18af9784e0fa371ee72a21ab31d2">ELootLockerNotificationContentBodyType</a> FLootLockerNotificationContent::BodyType = <a class="el" href="group__Notifications.html#gga9f4e18af9784e0fa371ee72a21ab31d2aad921d60486366258809553a3db49a4a">ELootLockerNotificationContentBodyType::unknown</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The interpreted type of the content body. </p>
+<p>Use this as a hint on how to parse the body. </p>
+
+</div>
+</div>
+<a id="a6e67e68ced884d7cab783b4ca10830a1" name="a6e67e68ced884d7cab783b4ca10830a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e67e68ced884d7cab783b4ca10830a1">&#9670;&#160;</a></span>Context</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TArray&lt;<a class="el" href="structFLootLockerNotificationContextEntry.html">FLootLockerNotificationContextEntry</a>&gt; FLootLockerNotificationContent::Context</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The context for this content. </p>
+<p>This is a set of key value pairs that hold additional context information about this notification. </p>
+
+</div>
+</div>
+<a id="a7d3881513f30856e6c414a17ab13bd31" name="a7d3881513f30856e6c414a17ab13bd31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d3881513f30856e6c414a17ab13bd31">&#9670;&#160;</a></span>ContextAsDictionary</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TMap&lt;FString, FString&gt; FLootLockerNotificationContent::ContextAsDictionary</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The context for this content. </p>
+<p>This is a set of key value pairs that hold additional context information about this notification. </p>
+
+</div>
+</div>
+<a id="aee453946875187244994677fedcbae99" name="aee453946875187244994677fedcbae99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee453946875187244994677fedcbae99">&#9670;&#160;</a></span>IdentifyingContextKey</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerNotificationContent::IdentifyingContextKey = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The key from the context that will most likely help in identifying this notification. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structFLootLockerNotificationContent.html">FLootLockerNotificationContent</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

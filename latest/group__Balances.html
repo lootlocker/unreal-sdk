@@ -1,0 +1,687 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: Balances</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.4.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('group__Balances.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">Balances</div></div>
+</div><!--header-->
+<div class="contents">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Read and adjust a player's wallet balances for each currency. </p>
+<p>Each player (and optionally each character or hero) holds a Wallet with a unique ID. Balances update automatically when currency is granted via rewards or spent via Catalog purchases, and can also be credited or debited directly through the API or Web Console. See <a class="el" href="group__Currency.html">Currency</a> for currency type definitions.</p>
+<p>See the <a href="https://docs.lootlocker.com/commerce/wallets">LootLocker documentation</a>. </p>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="ga7e6152d8a4124e8c0301fba3551f439d" name="ga7e6152d8a4124e8c0301fba3551f439d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7e6152d8a4124e8c0301fba3551f439d">&#9670;&#160;</a></span>FLootLockerCreateWalletResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerCreateWalletResponseDelegate) (<a class="el" href="structFLootLockerCreateWalletResponse.html">FLootLockerCreateWalletResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for creating a wallet. </p>
+
+</div>
+</div>
+<a id="gafbe8f5ad561ad5f62d82572aad9222c9" name="gafbe8f5ad561ad5f62d82572aad9222c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafbe8f5ad561ad5f62d82572aad9222c9">&#9670;&#160;</a></span>FLootLockerCreditWalletResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerCreditWalletResponseDelegate) (<a class="el" href="structFLootLockerCreditWalletResponse.html">FLootLockerCreditWalletResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for crediting currency to a wallet. </p>
+
+</div>
+</div>
+<a id="gafc2119b704cb639aad10bf0a03f5d052" name="gafc2119b704cb639aad10bf0a03f5d052"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafc2119b704cb639aad10bf0a03f5d052">&#9670;&#160;</a></span>FLootLockerDebitWalletResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerDebitWalletResponseDelegate) (<a class="el" href="structFLootLockerDebitWalletResponse.html">FLootLockerDebitWalletResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for debiting currency from a wallet. </p>
+
+</div>
+</div>
+<a id="gaaf3349c6e03cf998577e33f16089f54d" name="gaaf3349c6e03cf998577e33f16089f54d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaaf3349c6e03cf998577e33f16089f54d">&#9670;&#160;</a></span>FLootLockerGetWalletResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerGetWalletResponseDelegate) (<a class="el" href="structFLootLockerGetWalletResponse.html">FLootLockerGetWalletResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for getting a wallet. </p>
+
+</div>
+</div>
+<a id="gad084060794d6f7eec9dc3e18e4f347a8" name="gad084060794d6f7eec9dc3e18e4f347a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad084060794d6f7eec9dc3e18e4f347a8">&#9670;&#160;</a></span>FLootLockerListBalancesForWalletResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerListBalancesForWalletResponseDelegate) (<a class="el" href="structFLootLockerListBalancesForWalletResponse.html">FLootLockerListBalancesForWalletResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for listing balances in a wallet. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="ga43ee520d8b9a78d3700e17a181c9f216" name="ga43ee520d8b9a78d3700e17a181c9f216"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga43ee520d8b9a78d3700e17a181c9f216">&#9670;&#160;</a></span>ELootLockerWalletHolderTypes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__Balances.html#ga43ee520d8b9a78d3700e17a181c9f216">ELootLockerWalletHolderTypes</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Possible wallet holder types. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga43ee520d8b9a78d3700e17a181c9f216aa956161a69928cd130a889b88082fb6e" name="gga43ee520d8b9a78d3700e17a181c9f216aa956161a69928cd130a889b88082fb6e"></a>character&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga43ee520d8b9a78d3700e17a181c9f216a912af0dff974604f1321254ca8ff38b6" name="gga43ee520d8b9a78d3700e17a181c9f216a912af0dff974604f1321254ca8ff38b6"></a>player&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ga4d80bd5c9a72d2955238c36b0a01cac3" name="ga4d80bd5c9a72d2955238c36b0a01cac3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4d80bd5c9a72d2955238c36b0a01cac3">&#9670;&#160;</a></span>CreditBalanceToWallet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::CreditBalanceToWallet </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>WalletID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>CurrencyID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Amount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Balances.html#gafbe8f5ad561ad5f62d82572aad9222c9">FLootLockerCreditWalletResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Credit (increase) a wallet balance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">WalletID</td><td>Wallet id </td></tr>
+    <tr><td class="paramname">CurrencyID</td><td>Currency id </td></tr>
+    <tr><td class="paramname">Amount</td><td>Amount to credit </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga494a2b07c0b99ec7b57d78f0aa5216e3" name="ga494a2b07c0b99ec7b57d78f0aa5216e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga494a2b07c0b99ec7b57d78f0aa5216e3">&#9670;&#160;</a></span>DebitBalanceToWallet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::DebitBalanceToWallet </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>WalletID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>CurrencyID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Amount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Balances.html#gafc2119b704cb639aad10bf0a03f5d052">FLootLockerDebitWalletResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Debit (decrease) a wallet balance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">WalletID</td><td>Wallet id </td></tr>
+    <tr><td class="paramname">CurrencyID</td><td>Currency id </td></tr>
+    <tr><td class="paramname">Amount</td><td>Amount to debit </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gaa7bf1a5222fb6e248eb3f966afa9143b" name="gaa7bf1a5222fb6e248eb3f966afa9143b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa7bf1a5222fb6e248eb3f966afa9143b">&#9670;&#160;</a></span>GetWalletByHolderID()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetWalletByHolderID </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>HolderULID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Balances.html#ga43ee520d8b9a78d3700e17a181c9f216">ELootLockerWalletHolderTypes</a> &amp;&#160;</td>
+          <td class="paramname"><em>HolderType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Balances.html#gaaf3349c6e03cf998577e33f16089f54d">FLootLockerGetWalletResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get wallet information by holder ULID and type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">HolderULID</td><td>Holder ULID </td></tr>
+    <tr><td class="paramname">HolderType</td><td>Holder type </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga11929e79c00125948a06a49f07aa4228" name="ga11929e79c00125948a06a49f07aa4228"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga11929e79c00125948a06a49f07aa4228">&#9670;&#160;</a></span>GetWalletByWalletID()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetWalletByWalletID </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>WalletID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Balances.html#gaaf3349c6e03cf998577e33f16089f54d">FLootLockerGetWalletResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get wallet information by wallet id. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">WalletID</td><td>Wallet id </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga8fbe6761fcbdd17281f55c32757eeb99" name="ga8fbe6761fcbdd17281f55c32757eeb99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8fbe6761fcbdd17281f55c32757eeb99">&#9670;&#160;</a></span>ListBalancesInWallet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListBalancesInWallet </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>WalletID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Balances.html#gad084060794d6f7eec9dc3e18e4f347a8">FLootLockerListBalancesForWalletResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List balances in a wallet. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">WalletID</td><td>Wallet id </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:gad084060794d6f7eec9dc3e18e4f347a8" id="r_gad084060794d6f7eec9dc3e18e4f347a8"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Balances.html#gad084060794d6f7eec9dc3e18e4f347a8">FLootLockerListBalancesForWalletResponseDelegate</a>) (<a class="el" href="structFLootLockerListBalancesForWalletResponse.html">FLootLockerListBalancesForWalletResponse</a>)</td></tr>
+<tr class="memdesc:gad084060794d6f7eec9dc3e18e4f347a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for listing balances in a wallet.  <br /></td></tr>
+<tr class="separator:gad084060794d6f7eec9dc3e18e4f347a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaf3349c6e03cf998577e33f16089f54d" id="r_gaaf3349c6e03cf998577e33f16089f54d"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Balances.html#gaaf3349c6e03cf998577e33f16089f54d">FLootLockerGetWalletResponseDelegate</a>) (<a class="el" href="structFLootLockerGetWalletResponse.html">FLootLockerGetWalletResponse</a>)</td></tr>
+<tr class="memdesc:gaaf3349c6e03cf998577e33f16089f54d"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for getting a wallet.  <br /></td></tr>
+<tr class="separator:gaaf3349c6e03cf998577e33f16089f54d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafbe8f5ad561ad5f62d82572aad9222c9" id="r_gafbe8f5ad561ad5f62d82572aad9222c9"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Balances.html#gafbe8f5ad561ad5f62d82572aad9222c9">FLootLockerCreditWalletResponseDelegate</a>) (<a class="el" href="structFLootLockerCreditWalletResponse.html">FLootLockerCreditWalletResponse</a>)</td></tr>
+<tr class="memdesc:gafbe8f5ad561ad5f62d82572aad9222c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for crediting currency to a wallet.  <br /></td></tr>
+<tr class="separator:gafbe8f5ad561ad5f62d82572aad9222c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafc2119b704cb639aad10bf0a03f5d052" id="r_gafc2119b704cb639aad10bf0a03f5d052"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Balances.html#gafc2119b704cb639aad10bf0a03f5d052">FLootLockerDebitWalletResponseDelegate</a>) (<a class="el" href="structFLootLockerDebitWalletResponse.html">FLootLockerDebitWalletResponse</a>)</td></tr>
+<tr class="memdesc:gafc2119b704cb639aad10bf0a03f5d052"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for debiting currency from a wallet.  <br /></td></tr>
+<tr class="separator:gafc2119b704cb639aad10bf0a03f5d052"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7e6152d8a4124e8c0301fba3551f439d" id="r_ga7e6152d8a4124e8c0301fba3551f439d"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Balances.html#ga7e6152d8a4124e8c0301fba3551f439d">FLootLockerCreateWalletResponseDelegate</a>) (<a class="el" href="structFLootLockerCreateWalletResponse.html">FLootLockerCreateWalletResponse</a>)</td></tr>
+<tr class="memdesc:ga7e6152d8a4124e8c0301fba3551f439d"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for creating a wallet.  <br /></td></tr>
+<tr class="separator:ga7e6152d8a4124e8c0301fba3551f439d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga43ee520d8b9a78d3700e17a181c9f216" id="r_ga43ee520d8b9a78d3700e17a181c9f216"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Balances.html#ga43ee520d8b9a78d3700e17a181c9f216">ELootLockerWalletHolderTypes</a> : uint8 { <a class="el" href="group__Balances.html#gga43ee520d8b9a78d3700e17a181c9f216aa956161a69928cd130a889b88082fb6e">ELootLockerWalletHolderTypes::character</a> = 0
+, <a class="el" href="group__Balances.html#gga43ee520d8b9a78d3700e17a181c9f216a912af0dff974604f1321254ca8ff38b6">ELootLockerWalletHolderTypes::player</a> = 1
+ }</td></tr>
+<tr class="memdesc:ga43ee520d8b9a78d3700e17a181c9f216"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible wallet holder types.  <a href="group__Balances.html#ga43ee520d8b9a78d3700e17a181c9f216">More...</a><br /></td></tr>
+<tr class="separator:ga43ee520d8b9a78d3700e17a181c9f216"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga8fbe6761fcbdd17281f55c32757eeb99" id="r_ga8fbe6761fcbdd17281f55c32757eeb99"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Balances.html#ga8fbe6761fcbdd17281f55c32757eeb99">ULootLockerSDKManager::ListBalancesInWallet</a> (const FString &amp;WalletID, const <a class="el" href="group__Balances.html#gad084060794d6f7eec9dc3e18e4f347a8">FLootLockerListBalancesForWalletResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga8fbe6761fcbdd17281f55c32757eeb99"><td class="mdescLeft">&#160;</td><td class="mdescRight">List balances in a wallet.  <br /></td></tr>
+<tr class="separator:ga8fbe6761fcbdd17281f55c32757eeb99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga11929e79c00125948a06a49f07aa4228" id="r_ga11929e79c00125948a06a49f07aa4228"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Balances.html#ga11929e79c00125948a06a49f07aa4228">ULootLockerSDKManager::GetWalletByWalletID</a> (const FString &amp;WalletID, const <a class="el" href="group__Balances.html#gaaf3349c6e03cf998577e33f16089f54d">FLootLockerGetWalletResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga11929e79c00125948a06a49f07aa4228"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get wallet information by wallet id.  <br /></td></tr>
+<tr class="separator:ga11929e79c00125948a06a49f07aa4228"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa7bf1a5222fb6e248eb3f966afa9143b" id="r_gaa7bf1a5222fb6e248eb3f966afa9143b"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Balances.html#gaa7bf1a5222fb6e248eb3f966afa9143b">ULootLockerSDKManager::GetWalletByHolderID</a> (const FString &amp;HolderULID, const <a class="el" href="group__Balances.html#ga43ee520d8b9a78d3700e17a181c9f216">ELootLockerWalletHolderTypes</a> &amp;HolderType, const <a class="el" href="group__Balances.html#gaaf3349c6e03cf998577e33f16089f54d">FLootLockerGetWalletResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gaa7bf1a5222fb6e248eb3f966afa9143b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get wallet information by holder ULID and type.  <br /></td></tr>
+<tr class="separator:gaa7bf1a5222fb6e248eb3f966afa9143b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4d80bd5c9a72d2955238c36b0a01cac3" id="r_ga4d80bd5c9a72d2955238c36b0a01cac3"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Balances.html#ga4d80bd5c9a72d2955238c36b0a01cac3">ULootLockerSDKManager::CreditBalanceToWallet</a> (const FString &amp;WalletID, const FString &amp;CurrencyID, const FString &amp;Amount, const <a class="el" href="group__Balances.html#gafbe8f5ad561ad5f62d82572aad9222c9">FLootLockerCreditWalletResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga4d80bd5c9a72d2955238c36b0a01cac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Credit (increase) a wallet balance.  <br /></td></tr>
+<tr class="separator:ga4d80bd5c9a72d2955238c36b0a01cac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga494a2b07c0b99ec7b57d78f0aa5216e3" id="r_ga494a2b07c0b99ec7b57d78f0aa5216e3"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Balances.html#ga494a2b07c0b99ec7b57d78f0aa5216e3">ULootLockerSDKManager::DebitBalanceToWallet</a> (const FString &amp;WalletID, const FString &amp;CurrencyID, const FString &amp;Amount, const <a class="el" href="group__Balances.html#gafc2119b704cb639aad10bf0a03f5d052">FLootLockerDebitWalletResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga494a2b07c0b99ec7b57d78f0aa5216e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debit (decrease) a wallet balance.  <br /></td></tr>
+<tr class="separator:ga494a2b07c0b99ec7b57d78f0aa5216e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

@@ -1,0 +1,619 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: Entitlements</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.4.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('group__Entitlements.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">Entitlements</div></div>
+</div><!--header-->
+<div class="contents">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Inspect a player's purchase history and individual transaction statuses. </p>
+<p>An entitlement records that a player has <em>access rights</em> to an item rather than outright ownership. Use this group to list all purchases, check the status of in-flight transactions, and display a transaction history — a requirement imposed by some First Party platforms.</p>
+<p>See the <a href="https://docs.lootlocker.com/commerce/entitlements">LootLocker documentation</a>. </p>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="ga87af48c4881c61f319120b7fe5b748d6" name="ga87af48c4881c61f319120b7fe5b748d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga87af48c4881c61f319120b7fe5b748d6">&#9670;&#160;</a></span>FLootLockerListEntitlementsResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerListEntitlementsResponseDelegate) (<a class="el" href="structFLootLockerEntitlementHistoryResponse.html">FLootLockerEntitlementHistoryResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for listing entitlement history. </p>
+
+</div>
+</div>
+<a id="ga1f163f6839b632a874aba50edf9ca0e7" name="ga1f163f6839b632a874aba50edf9ca0e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1f163f6839b632a874aba50edf9ca0e7">&#9670;&#160;</a></span>FLootLockerSingleEntitlementResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerSingleEntitlementResponseDelegate) (<a class="el" href="structFLootLockerSingleEntitlementResponse.html">FLootLockerSingleEntitlementResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerSingleEntitlementResponse.html">FLootLockerSingleEntitlementResponse</a> result. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="ga01dbb08b2160f96b89d68803979d5526" name="ga01dbb08b2160f96b89d68803979d5526"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga01dbb08b2160f96b89d68803979d5526">&#9670;&#160;</a></span>ELootLockerEntitlementHistoryListingStatus</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__Entitlements.html#ga01dbb08b2160f96b89d68803979d5526">ELootLockerEntitlementHistoryListingStatus</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Status of the entitlement. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga01dbb08b2160f96b89d68803979d5526a6adf97f83acf6453d4a6a4b1070f3754" name="gga01dbb08b2160f96b89d68803979d5526a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga01dbb08b2160f96b89d68803979d5526a4d3d769b812b6faa6b76e1a8abaece2d" name="gga01dbb08b2160f96b89d68803979d5526a4d3d769b812b6faa6b76e1a8abaece2d"></a>Active&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga01dbb08b2160f96b89d68803979d5526a2d13df6f8b5e4c5af9f87e0dc39df69d" name="gga01dbb08b2160f96b89d68803979d5526a2d13df6f8b5e4c5af9f87e0dc39df69d"></a>Pending&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga01dbb08b2160f96b89d68803979d5526a24fe48030f7d3097d5882535b04c3fa8" name="gga01dbb08b2160f96b89d68803979d5526a24fe48030f7d3097d5882535b04c3fa8"></a>Expired&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga01dbb08b2160f96b89d68803979d5526a0e22fe7d45f8e5632a4abf369b24e29c" name="gga01dbb08b2160f96b89d68803979d5526a0e22fe7d45f8e5632a4abf369b24e29c"></a>Canceled&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga01dbb08b2160f96b89d68803979d5526acc61945cbbf46721a053467c395c666f" name="gga01dbb08b2160f96b89d68803979d5526acc61945cbbf46721a053467c395c666f"></a>Refunded&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="gaa8b3363f44f89367edb3391761eb7903" name="gaa8b3363f44f89367edb3391761eb7903"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa8b3363f44f89367edb3391761eb7903">&#9670;&#160;</a></span>ELootLockerEntitlementHistoryListingStore</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__Entitlements.html#gaa8b3363f44f89367edb3391761eb7903">ELootLockerEntitlementHistoryListingStore</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>An enum with the supported stores that can generate entitlements. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggaa8b3363f44f89367edb3391761eb7903a6adf97f83acf6453d4a6a4b1070f3754" name="ggaa8b3363f44f89367edb3391761eb7903a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggaa8b3363f44f89367edb3391761eb7903a7af51761a9dc3e558b8f8c3c96f1facd" name="ggaa8b3363f44f89367edb3391761eb7903a7af51761a9dc3e558b8f8c3c96f1facd"></a>Apple_app_store&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggaa8b3363f44f89367edb3391761eb7903a6abfec52c2173bbda0d29243559c74bb" name="ggaa8b3363f44f89367edb3391761eb7903a6abfec52c2173bbda0d29243559c74bb"></a>Google_play_store&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggaa8b3363f44f89367edb3391761eb7903a405bfe9e4b9a6d852b9f21a58f998eec" name="ggaa8b3363f44f89367edb3391761eb7903a405bfe9e4b9a6d852b9f21a58f998eec"></a>Steam_store&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggaa8b3363f44f89367edb3391761eb7903ad06f524d952475f99375eb746d050a0e" name="ggaa8b3363f44f89367edb3391761eb7903ad06f524d952475f99375eb746d050a0e"></a>Playstation_network&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggaa8b3363f44f89367edb3391761eb7903ab16b0ec8b92afab2691a23d126c1b5f7" name="ggaa8b3363f44f89367edb3391761eb7903ab16b0ec8b92afab2691a23d126c1b5f7"></a>Nintendo_eshop&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggaa8b3363f44f89367edb3391761eb7903a2b0d034755b04e2926fba39a21f41c84" name="ggaa8b3363f44f89367edb3391761eb7903a2b0d034755b04e2926fba39a21f41c84"></a>Lootlocker&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="ga9c9c8da68ce2cb9275c436451fe140fa" name="ga9c9c8da68ce2cb9275c436451fe140fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9c9c8da68ce2cb9275c436451fe140fa">&#9670;&#160;</a></span>ELootLockerEntitlementHistoryListingType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__Entitlements.html#ga9c9c8da68ce2cb9275c436451fe140fa">ELootLockerEntitlementHistoryListingType</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Status of the entitlement. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga9c9c8da68ce2cb9275c436451fe140faaec0fc0100c4fc1ce4eea230c3dc10360" name="gga9c9c8da68ce2cb9275c436451fe140faaec0fc0100c4fc1ce4eea230c3dc10360"></a>Undefined&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga9c9c8da68ce2cb9275c436451fe140faad342acdfab4eabc0456d1381174eeab5" name="gga9c9c8da68ce2cb9275c436451fe140faad342acdfab4eabc0456d1381174eeab5"></a>One_time_purchase&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga9c9c8da68ce2cb9275c436451fe140faac3f96f3c3092c434c742815fa9fc2756" name="gga9c9c8da68ce2cb9275c436451fe140faac3f96f3c3092c434c742815fa9fc2756"></a>Leaderboard_reward&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga9c9c8da68ce2cb9275c436451fe140faa787ad0b7a17de4ad6b1711bbf8d79fcb" name="gga9c9c8da68ce2cb9275c436451fe140faa787ad0b7a17de4ad6b1711bbf8d79fcb"></a>Subscription&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="gab4845b2f8a8460f690419e10305c13f2" name="gab4845b2f8a8460f690419e10305c13f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab4845b2f8a8460f690419e10305c13f2">&#9670;&#160;</a></span>ELootLockerEntitlementRewardEntityKind</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__Entitlements.html#gab4845b2f8a8460f690419e10305c13f2">ELootLockerEntitlementRewardEntityKind</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Possible entity kinds that rewards entries can have. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggab4845b2f8a8460f690419e10305c13f2a26e9054be7f40079575582b7ad3f7363" name="ggab4845b2f8a8460f690419e10305c13f2a26e9054be7f40079575582b7ad3f7363"></a>Asset&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggab4845b2f8a8460f690419e10305c13f2a386c339d37e737a436499d423a77df0c" name="ggab4845b2f8a8460f690419e10305c13f2a386c339d37e737a436499d423a77df0c"></a>Currency&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggab4845b2f8a8460f690419e10305c13f2a57110c4e7cd03218864bf9155573e1dd" name="ggab4845b2f8a8460f690419e10305c13f2a57110c4e7cd03218864bf9155573e1dd"></a>Progression_Points&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggab4845b2f8a8460f690419e10305c13f2a6b177f161f23a5b58f59f1784891f575" name="ggab4845b2f8a8460f690419e10305c13f2a6b177f161f23a5b58f59f1784891f575"></a>Progression_Reset&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggab4845b2f8a8460f690419e10305c13f2a03937134cedab9078be39a77ee3a48a0" name="ggab4845b2f8a8460f690419e10305c13f2a03937134cedab9078be39a77ee3a48a0"></a>Group&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="gaa870d8fa1cd6e31d58b7450ae8453f7a" name="gaa870d8fa1cd6e31d58b7450ae8453f7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa870d8fa1cd6e31d58b7450ae8453f7a">&#9670;&#160;</a></span>GetEntitlement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetEntitlement </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>EntitlementID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__Entitlements.html#ga1f163f6839b632a874aba50edf9ca0e7">FLootLockerSingleEntitlementResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get entitlement details. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">EntitlementID</td><td>Entitlement id </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga3af990df2fb9ab41c4641de9cb19b509" name="ga3af990df2fb9ab41c4641de9cb19b509"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3af990df2fb9ab41c4641de9cb19b509">&#9670;&#160;</a></span>ListEntitlements() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListEntitlements </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Entitlements.html#ga87af48c4881c61f319120b7fe5b748d6">FLootLockerListEntitlementsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List player's historical entitlements (default pagination). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga346aacfce6b8726a89785cacece3c652" name="ga346aacfce6b8726a89785cacece3c652"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga346aacfce6b8726a89785cacece3c652">&#9670;&#160;</a></span>ListEntitlements() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListEntitlements </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>Count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>After</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Entitlements.html#ga87af48c4881c61f319120b7fe5b748d6">FLootLockerListEntitlementsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List player's historical entitlements (paginated, all origins: progression, purchases, rewards). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Count</td><td>Optional: Entries to return (-1 for default) </td></tr>
+    <tr><td class="paramname">After</td><td>Optional: Pagination cursor (empty for start) </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga87af48c4881c61f319120b7fe5b748d6" id="r_ga87af48c4881c61f319120b7fe5b748d6"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Entitlements.html#ga87af48c4881c61f319120b7fe5b748d6">FLootLockerListEntitlementsResponseDelegate</a>) (<a class="el" href="structFLootLockerEntitlementHistoryResponse.html">FLootLockerEntitlementHistoryResponse</a>)</td></tr>
+<tr class="memdesc:ga87af48c4881c61f319120b7fe5b748d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for listing entitlement history.  <br /></td></tr>
+<tr class="separator:ga87af48c4881c61f319120b7fe5b748d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1f163f6839b632a874aba50edf9ca0e7" id="r_ga1f163f6839b632a874aba50edf9ca0e7"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Entitlements.html#ga1f163f6839b632a874aba50edf9ca0e7">FLootLockerSingleEntitlementResponseDelegate</a>) (<a class="el" href="structFLootLockerSingleEntitlementResponse.html">FLootLockerSingleEntitlementResponse</a>)</td></tr>
+<tr class="memdesc:ga1f163f6839b632a874aba50edf9ca0e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerSingleEntitlementResponse.html">FLootLockerSingleEntitlementResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga1f163f6839b632a874aba50edf9ca0e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:gaa8b3363f44f89367edb3391761eb7903" id="r_gaa8b3363f44f89367edb3391761eb7903"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Entitlements.html#gaa8b3363f44f89367edb3391761eb7903">ELootLockerEntitlementHistoryListingStore</a> : uint8 { <br />
+&#160;&#160;<a class="el" href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a6adf97f83acf6453d4a6a4b1070f3754">ELootLockerEntitlementHistoryListingStore::None</a> = 0
+, <a class="el" href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a7af51761a9dc3e558b8f8c3c96f1facd">ELootLockerEntitlementHistoryListingStore::Apple_app_store</a> = 1
+, <a class="el" href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a6abfec52c2173bbda0d29243559c74bb">ELootLockerEntitlementHistoryListingStore::Google_play_store</a> = 2
+, <a class="el" href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a405bfe9e4b9a6d852b9f21a58f998eec">ELootLockerEntitlementHistoryListingStore::Steam_store</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903ad06f524d952475f99375eb746d050a0e">ELootLockerEntitlementHistoryListingStore::Playstation_network</a> = 4
+, <a class="el" href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903ab16b0ec8b92afab2691a23d126c1b5f7">ELootLockerEntitlementHistoryListingStore::Nintendo_eshop</a> = 5
+, <a class="el" href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a2b0d034755b04e2926fba39a21f41c84">ELootLockerEntitlementHistoryListingStore::Lootlocker</a> = 6
+<br />
+ }</td></tr>
+<tr class="memdesc:gaa8b3363f44f89367edb3391761eb7903"><td class="mdescLeft">&#160;</td><td class="mdescRight">An enum with the supported stores that can generate entitlements.  <a href="group__Entitlements.html#gaa8b3363f44f89367edb3391761eb7903">More...</a><br /></td></tr>
+<tr class="separator:gaa8b3363f44f89367edb3391761eb7903"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga01dbb08b2160f96b89d68803979d5526" id="r_ga01dbb08b2160f96b89d68803979d5526"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Entitlements.html#ga01dbb08b2160f96b89d68803979d5526">ELootLockerEntitlementHistoryListingStatus</a> : uint8 { <br />
+&#160;&#160;<a class="el" href="group__Entitlements.html#gga01dbb08b2160f96b89d68803979d5526a6adf97f83acf6453d4a6a4b1070f3754">ELootLockerEntitlementHistoryListingStatus::None</a> = 0
+, <a class="el" href="group__Entitlements.html#gga01dbb08b2160f96b89d68803979d5526a4d3d769b812b6faa6b76e1a8abaece2d">ELootLockerEntitlementHistoryListingStatus::Active</a> = 1
+, <a class="el" href="group__Entitlements.html#gga01dbb08b2160f96b89d68803979d5526a2d13df6f8b5e4c5af9f87e0dc39df69d">ELootLockerEntitlementHistoryListingStatus::Pending</a> = 2
+, <a class="el" href="group__Entitlements.html#gga01dbb08b2160f96b89d68803979d5526a24fe48030f7d3097d5882535b04c3fa8">ELootLockerEntitlementHistoryListingStatus::Expired</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="group__Entitlements.html#gga01dbb08b2160f96b89d68803979d5526a0e22fe7d45f8e5632a4abf369b24e29c">ELootLockerEntitlementHistoryListingStatus::Canceled</a> = 4
+, <a class="el" href="group__Entitlements.html#gga01dbb08b2160f96b89d68803979d5526acc61945cbbf46721a053467c395c666f">ELootLockerEntitlementHistoryListingStatus::Refunded</a> = 5
+<br />
+ }</td></tr>
+<tr class="memdesc:ga01dbb08b2160f96b89d68803979d5526"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status of the entitlement.  <a href="group__Entitlements.html#ga01dbb08b2160f96b89d68803979d5526">More...</a><br /></td></tr>
+<tr class="separator:ga01dbb08b2160f96b89d68803979d5526"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9c9c8da68ce2cb9275c436451fe140fa" id="r_ga9c9c8da68ce2cb9275c436451fe140fa"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Entitlements.html#ga9c9c8da68ce2cb9275c436451fe140fa">ELootLockerEntitlementHistoryListingType</a> : uint8 { <a class="el" href="group__Entitlements.html#gga9c9c8da68ce2cb9275c436451fe140faaec0fc0100c4fc1ce4eea230c3dc10360">ELootLockerEntitlementHistoryListingType::Undefined</a> = 0
+, <a class="el" href="group__Entitlements.html#gga9c9c8da68ce2cb9275c436451fe140faad342acdfab4eabc0456d1381174eeab5">ELootLockerEntitlementHistoryListingType::One_time_purchase</a> = 1
+, <a class="el" href="group__Entitlements.html#gga9c9c8da68ce2cb9275c436451fe140faac3f96f3c3092c434c742815fa9fc2756">ELootLockerEntitlementHistoryListingType::Leaderboard_reward</a> = 2
+, <a class="el" href="group__Entitlements.html#gga9c9c8da68ce2cb9275c436451fe140faa787ad0b7a17de4ad6b1711bbf8d79fcb">ELootLockerEntitlementHistoryListingType::Subscription</a> = 3
+ }</td></tr>
+<tr class="memdesc:ga9c9c8da68ce2cb9275c436451fe140fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status of the entitlement.  <a href="group__Entitlements.html#ga9c9c8da68ce2cb9275c436451fe140fa">More...</a><br /></td></tr>
+<tr class="separator:ga9c9c8da68ce2cb9275c436451fe140fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab4845b2f8a8460f690419e10305c13f2" id="r_gab4845b2f8a8460f690419e10305c13f2"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Entitlements.html#gab4845b2f8a8460f690419e10305c13f2">ELootLockerEntitlementRewardEntityKind</a> : uint8 { <br />
+&#160;&#160;<a class="el" href="group__Entitlements.html#ggab4845b2f8a8460f690419e10305c13f2a26e9054be7f40079575582b7ad3f7363">ELootLockerEntitlementRewardEntityKind::Asset</a> = 0
+, <a class="el" href="group__Entitlements.html#ggab4845b2f8a8460f690419e10305c13f2a386c339d37e737a436499d423a77df0c">ELootLockerEntitlementRewardEntityKind::Currency</a> = 1
+, <a class="el" href="group__Entitlements.html#ggab4845b2f8a8460f690419e10305c13f2a57110c4e7cd03218864bf9155573e1dd">ELootLockerEntitlementRewardEntityKind::Progression_Points</a> = 2
+, <a class="el" href="group__Entitlements.html#ggab4845b2f8a8460f690419e10305c13f2a6b177f161f23a5b58f59f1784891f575">ELootLockerEntitlementRewardEntityKind::Progression_Reset</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="group__Entitlements.html#ggab4845b2f8a8460f690419e10305c13f2a03937134cedab9078be39a77ee3a48a0">ELootLockerEntitlementRewardEntityKind::Group</a> = 4
+<br />
+ }</td></tr>
+<tr class="memdesc:gab4845b2f8a8460f690419e10305c13f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible entity kinds that rewards entries can have.  <a href="group__Entitlements.html#gab4845b2f8a8460f690419e10305c13f2">More...</a><br /></td></tr>
+<tr class="separator:gab4845b2f8a8460f690419e10305c13f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga346aacfce6b8726a89785cacece3c652" id="r_ga346aacfce6b8726a89785cacece3c652"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Entitlements.html#ga346aacfce6b8726a89785cacece3c652">ULootLockerSDKManager::ListEntitlements</a> (int Count, const FString &amp;After, const <a class="el" href="group__Entitlements.html#ga87af48c4881c61f319120b7fe5b748d6">FLootLockerListEntitlementsResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga346aacfce6b8726a89785cacece3c652"><td class="mdescLeft">&#160;</td><td class="mdescRight">List player's historical entitlements (paginated, all origins: progression, purchases, rewards).  <br /></td></tr>
+<tr class="separator:ga346aacfce6b8726a89785cacece3c652"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3af990df2fb9ab41c4641de9cb19b509" id="r_ga3af990df2fb9ab41c4641de9cb19b509"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Entitlements.html#ga3af990df2fb9ab41c4641de9cb19b509">ULootLockerSDKManager::ListEntitlements</a> (const <a class="el" href="group__Entitlements.html#ga87af48c4881c61f319120b7fe5b748d6">FLootLockerListEntitlementsResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga3af990df2fb9ab41c4641de9cb19b509"><td class="mdescLeft">&#160;</td><td class="mdescRight">List player's historical entitlements (default pagination).  <br /></td></tr>
+<tr class="separator:ga3af990df2fb9ab41c4641de9cb19b509"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa870d8fa1cd6e31d58b7450ae8453f7a" id="r_gaa870d8fa1cd6e31d58b7450ae8453f7a"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Entitlements.html#gaa870d8fa1cd6e31d58b7450ae8453f7a">ULootLockerSDKManager::GetEntitlement</a> (const FString &amp;EntitlementID, <a class="el" href="group__Entitlements.html#ga1f163f6839b632a874aba50edf9ca0e7">FLootLockerSingleEntitlementResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gaa870d8fa1cd6e31d58b7450ae8453f7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get entitlement details.  <br /></td></tr>
+<tr class="separator:gaa870d8fa1cd6e31d58b7450ae8453f7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

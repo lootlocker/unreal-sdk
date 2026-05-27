@@ -1,0 +1,9 @@
+<map id="FLootLockerListSimplifiedInventoryRequest" name="FLootLockerListSimplifiedInventoryRequest">
+<area shape="rect" id="Node000001" title="Request filters for simplified inventory listing." alt="" coords="615,47,803,87"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerListSimplifiedInventoryIncludes.html" title="Includes to add extra data to simplified inventory responses." alt="" coords="320,5,508,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="522,38,615,51,614,56,521,43"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerListSimplifiedInventoryMetadataIncludes.html" title="Specifies which metadata keys to include in simplified inventory responses." alt="" coords="5,5,205,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="219,23,320,23,320,28,219,28"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerListSimplifiedInventoryFilter.html" title="Request filters for simplified inventory listing." alt="" coords="320,69,508,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="522,81,590,76,614,74,615,79,591,81,522,86"/>
+</map>

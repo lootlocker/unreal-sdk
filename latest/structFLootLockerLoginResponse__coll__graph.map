@@ -1,0 +1,11 @@
+<map id="FLootLockerLoginResponse" name="FLootLockerLoginResponse">
+<area shape="rect" id="Node000001" title=" " alt="" coords="91,243,290,268"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerAuthResponse.html" title=" " alt="" coords="94,168,287,193"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,208,193,242,188,242,188,208"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="109,93,272,119"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="193,133,193,168,188,168,188,133"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerErrorData.html" title=" " alt="" coords="5,5,168,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="113,37,178,91,175,95,109,41"/>
+<area shape="rect" id="Node000005" href="$structFLootLockerRequestContext.html" title=" " alt="" coords="193,5,397,31"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="272,41,206,95,203,91,269,37"/>
+</map>

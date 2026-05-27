@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$structFLootLockerCatalogEntry.html" title="Represents a single purchasable item in a catalog, including its entity type, prices,..." alt="" coords="5,13,189,38"/>
+<area shape="rect" id="Node000001" href="$structFLootLockerInlinedCatalogEntry.html" title="A Convenience type to use when you need inlined catalog items." alt="" coords="237,5,432,45"/>
+<area shape="poly" id="edge25_Node000000_Node000001" title=" " alt="" coords="203,23,237,23,237,28,203,28"/>
+</map>

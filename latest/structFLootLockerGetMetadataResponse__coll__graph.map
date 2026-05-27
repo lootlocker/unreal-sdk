@@ -1,0 +1,11 @@
+<map id="FLootLockerGetMetadataResponse" name="FLootLockerGetMetadataResponse">
+<area shape="rect" id="Node000001" title="Response containing the single requested metadata entry." alt="" coords="168,181,416,207"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="109,93,272,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="217,126,280,179,276,183,213,130"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerErrorData.html" title=" " alt="" coords="5,5,168,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="113,37,178,91,175,95,109,41"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerRequestContext.html" title=" " alt="" coords="193,5,397,31"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="272,41,206,95,203,91,269,37"/>
+<area shape="rect" id="Node000005" href="$structFLootLockerMetadataEntry.html" title="Represents a single typed metadata entry with a key, value type, tags, and access level,..." alt="" coords="297,93,493,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="372,130,308,183,305,179,368,126"/>
+</map>

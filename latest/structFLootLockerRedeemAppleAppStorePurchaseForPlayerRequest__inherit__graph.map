@@ -1,0 +1,5 @@
+<map id="FLootLockerRedeemAppleAppStorePurchaseForPlayerRequest" name="FLootLockerRedeemAppleAppStorePurchaseForPlayerRequest">
+<area shape="rect" id="Node000001" title="Request to redeem an Apple App Store purchase for the current player using a transaction identifier,..." alt="" coords="5,5,235,45"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerRedeemAppleAppStorePurchaseForClassRequest.html" title="Request to redeem an Apple App Store purchase for a specific class, extending the player request with..." alt="" coords="9,93,231,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="123,59,123,93,117,93,117,59"/>
+</map>
