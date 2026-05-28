@@ -665,10 +665,12 @@ struct FLootLockerNotificationRewardAsset
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Asset_ulid = "";
     /**
-      The ID of the Asset Instance that was granted. Will be 0 if the reward did not result in an asset instance grant (for example in group rewards).
+      The IDs of the Asset Instances that were granted. Will be empty if the reward did not result
+      in any asset instance grants. For multi-quantity purchases all granted instance IDs are listed.
+      For group rewards each nested asset entry carries its own Asset_instance_ids.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int Asset_instance_id = 0;
+    TArray<int64> Asset_instance_ids;
 };
 
 /**
