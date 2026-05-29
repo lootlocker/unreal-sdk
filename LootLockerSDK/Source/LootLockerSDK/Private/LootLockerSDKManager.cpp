@@ -2,6 +2,7 @@
 
 #include "LootLockerSDKManager.h"
 
+#include "LootLockerConfig.h"
 #include "LootLockerStateData.h"
 #include "LootLockerPresenceManager.h"
 #include "LootLockerHttpClient.h"
@@ -301,6 +302,17 @@ FString ULootLockerSDKManager::ConnectRemoteSessionAccount(const FString& Code, 
 
 FString ULootLockerSDKManager::TransferIdentityProvidersBetweenAccounts(const FString& FromPlayerWithUlid,	const FString& ToPlayerWithUlid, TArray<ELootLockerAccountProvider> ProvidersToTransfer, const FLootLockerListConnectedAccountsResponseDelegate& OnComplete)
 {
+    const ELootLockerMultiUserSessionMode CurrentMode = GetDefault<ULootLockerConfig>()->MultiUserSessionMode;
+    if (CurrentMode == ELootLockerMultiUserSessionMode::SingleSession || CurrentMode == ELootLockerMultiUserSessionMode::ProfileSwitching)
+    {
+        const FString ModeString = UEnum::GetValueAsString(CurrentMode);
+        auto ErrorResponse = LootLockerResponseFactory::Error<FLootLockerListConnectedAccountsResponse>(
+            FString::Printf(TEXT("TransferIdentityProvidersBetweenAccounts requires Hotseat multi-user session mode because it needs two simultaneously active local sessions. Current mode: %s"), *ModeString),
+            LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT,
+            FromPlayerWithUlid);
+        OnComplete.ExecuteIfBound(ErrorResponse);
+        return "";
+    }
     const auto& fromPlayer = GetSavedStateOrDefaultOrEmptyForPlayer(FromPlayerWithUlid);
     const auto& toPlayer = GetSavedStateOrDefaultOrEmptyForPlayer(ToPlayerWithUlid);
     return ULootLockerConnectedAccountsRequestHandler::TransferIdentityProvidersBetweenAccounts(fromPlayer, toPlayer, ProvidersToTransfer, OnComplete);
