@@ -644,6 +644,10 @@ public:
 
      Destructive: providers move from source to target player. Entire operation fails if any provider cannot be transferred.
 
+     NOTE: Requires ELootLockerMultiUserSessionMode::Hotseat to be configured (ULootLockerConfig::MultiUserSessionMode),
+     because this method needs two simultaneously active local sessions. It returns an error if the current mode is
+     SingleSession or ProfileSwitching.
+
      Limitations:
       - Source must own each provider
       - Target must not already have provider

@@ -1128,6 +1128,10 @@ public:
      IMPORTANT: This is destructive for the source player; transferred providers will no longer authenticate that player.
      Limitations: Source must own the providers; destination must not already have them; providers must be active in game settings.
 
+     NOTE: Requires ELootLockerMultiUserSessionMode::Hotseat to be configured (ULootLockerConfig::MultiUserSessionMode),
+     because this method needs two simultaneously active local sessions. It returns an error if the current mode is
+     SingleSession or ProfileSwitching.
+
      @param FromPlayerWithUlid ULID of the authenticated source player (providers moved FROM)
      @param ToPlayerWithUlid ULID of the authenticated destination player (providers moved TO)
      @param ProvidersToTransfer List of identity providers to transfer
