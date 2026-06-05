@@ -380,6 +380,30 @@ struct FLootLockerLeaderboardReward
 };
 
 USTRUCT(BlueprintType)
+/**
+ * A pending manual reset for a leaderboard that has been requested but not yet processed.
+ **/
+struct FLootLockerLeaderboardUpcomingReset
+{
+    GENERATED_BODY()
+    /**
+     * The unique ID of this manual reset request.
+     **/
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int Id = 0;
+    /**
+     * An optional human-readable name for this reset request.
+     **/
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Name = "";
+    /**
+     * The UTC time at which this reset is scheduled to be processed (ISO 8601).
+     **/
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Scheduled_for = "";
+};
+
+USTRUCT(BlueprintType)
 struct FLootLockerLeaderboardDetails
 {
     GENERATED_BODY()
@@ -434,6 +458,11 @@ struct FLootLockerLeaderboardDetails
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool Has_metadata = false;
     /**
+     * Whether this leaderboard allows manual resets to be requested via the server API.
+     **/
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool Allow_manual_resets = false;
+    /**
      * Schedule of the Leaderboard.
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -443,6 +472,12 @@ struct FLootLockerLeaderboardDetails
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerLeaderboardReward> Rewards;
+    /**
+     * Pending manual resets that have been requested but not yet processed, ordered by scheduled_for ascending.
+     * Only populated when Allow_manual_resets is true.
+     **/
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerLeaderboardUpcomingReset> Upcoming_resets;
 };
 
 USTRUCT(BlueprintType)
@@ -495,6 +530,11 @@ struct FLootLockerLeaderboardDetailsResponse : public FLootLockerResponse
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool Has_metadata = false;
     /**
+     * Whether this leaderboard allows manual resets to be requested via the server API.
+     **/
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool Allow_manual_resets = false;
+    /**
      * Schedule of the Leaderboard.
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -504,6 +544,12 @@ struct FLootLockerLeaderboardDetailsResponse : public FLootLockerResponse
      **/
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerLeaderboardReward> Rewards;
+    /**
+     * Pending manual resets that have been requested but not yet processed, ordered by scheduled_for ascending.
+     * Only populated when Allow_manual_resets is true.
+     **/
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerLeaderboardUpcomingReset> Upcoming_resets;
 };
 
 USTRUCT(BlueprintType)
