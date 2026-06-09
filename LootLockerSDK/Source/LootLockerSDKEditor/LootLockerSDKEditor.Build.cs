@@ -8,7 +8,7 @@ public class LootLockerSDKEditor : ModuleRules
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
         PrivateDependencyModuleNames.AddRange(new string[] {
-            "Core", "CoreUObject", "Engine", "Slate", "SlateCore", "UnrealEd", "ToolMenus", "LootLockerSDK", "InputCore"
+            "Core", "CoreUObject", "Engine", "Slate", "SlateCore", "UnrealEd", "ToolMenus", "LootLockerSDK", "InputCore", "Json", "JsonUtilities"
         });
 
         PublicDependencyModuleNames.AddRange(new string[] {
