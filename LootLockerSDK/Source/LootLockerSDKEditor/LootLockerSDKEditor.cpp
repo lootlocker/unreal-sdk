@@ -1,6 +1,7 @@
 // Copyright (c) LootLocker. All Rights Reserved.
 #include "Modules/ModuleManager.h"
 #include "LootLockerLogViewerWidget.h"
+#include "LootLockerUpdateChecker.h"
 #include "Widgets/Docking/SDockTab.h"
 #include "LevelEditor.h"
 #include "ToolMenus.h"
@@ -51,12 +52,23 @@ public:
                         FGlobalTabmanager::Get()->TryInvokeTab(LootLockerLogViewerTabName);
                     }))
                 );
+                Section.AddMenuEntry(
+                    "LootLockerCheckForUpdates",
+                    FText::FromString("Check for Updates"),
+                    FText::FromString("Check if a newer version of the LootLocker SDK is available."),
+                    FSlateIcon(),
+                    FUIAction(FExecuteAction::CreateStatic(&FLootLockerUpdateChecker::ManualCheck))
+                );
             }
         }));
+
+        // Delayed update check (fires after StartupDelaySeconds)
+        FLootLockerUpdateChecker::Initialize();
     }
 
     virtual void ShutdownModule() override
     {
+        FLootLockerUpdateChecker::Shutdown();
         FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(LootLockerLogViewerTabName);
     }
 };
