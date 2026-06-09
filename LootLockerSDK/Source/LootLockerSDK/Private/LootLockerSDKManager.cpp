@@ -22,7 +22,7 @@ void ULootLockerSDKManager::SetPlayerUlidToInactive(const FString& PlayerUlid)
 
 void ULootLockerSDKManager::SetPlayerUlidToActive(const FString& PlayerUlid)
 {
-    return ULootLockerStateData::MakePlayerActive(PlayerUlid);
+    ULootLockerStateData::MakePlayerActive(PlayerUlid);
 }
 
 void ULootLockerSDKManager::SetAllPlayersToInactive()
@@ -1697,6 +1697,7 @@ FString ULootLockerSDKManager::CheckConnectionStatus(const FLootLockerConnection
         Error.success = false;
         Error.StatusCode = 0;
         Error.State = ELootLockerConnectionState::NotInitialized;
+        Error.Context.PlayerUlid = ForPlayerWithUlid;
         OnCompletedRequest.ExecuteIfBound(Error);
         return "";
     }
@@ -1713,6 +1714,7 @@ FString ULootLockerSDKManager::CheckConnectionStatus(const FLootLockerConnection
         FLootLockerConnectionStateResponse Error;
         Error.success = false;
         Error.StatusCode = 0;
+        Error.Context.PlayerUlid = ResolvedUlid;
         // Distinguish: saved credentials that are inactive vs. no credentials at all.
         Error.State = (!ResolvedUlid.IsEmpty() && ULootLockerStateData::SaveStateExistsForPlayer(ResolvedUlid))
             ? ELootLockerConnectionState::SavedButInactive

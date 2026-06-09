@@ -23,7 +23,7 @@ void ULootLockerManager::SetPlayerUlidToInactive(const FString& PlayerUlid)
 
 void ULootLockerManager::SetPlayerUlidToActive(const FString& PlayerUlid)
 {
-    return ULootLockerStateData::SetPlayerUlidToActive(PlayerUlid);
+    ULootLockerStateData::MakePlayerActive(PlayerUlid);
 }
 
 void ULootLockerManager::SetAllPlayersToInactive()
