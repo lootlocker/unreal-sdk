@@ -445,6 +445,10 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FTimeResponseDelegateBP, FLootLockerTimeRespon
  Blueprint response delegate for fetching game info
 */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FGameInfoResponseDelegateBP, FLootLockerGameInfoResponse, Response);
+/**
+ Blueprint response delegate for CheckConnectionStatus
+*/
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerConnectionStateResponseBP, FLootLockerConnectionStateResponse, Response);
 
 //==================================================
 // Presence Delegates
@@ -477,6 +481,14 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player State")
     static void SetPlayerUlidToInactive(const FString& PlayerUlid);
+
+    /**
+     Mark a player's state as active
+
+    @param PlayerUlid ULID of the player to set active
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Player State")
+    static void SetPlayerUlidToActive(const FString& PlayerUlid);
 
     /**
      Mark all currently active players as inactive
@@ -4081,6 +4093,32 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous")
     static UPARAM(DisplayName = "RequestId") FString GetGameInfo(const FGameInfoResponseDelegateBP& OnCompletedRequestBP);
+
+    /**
+     Check the current connection and session state for a player.
+
+     Performs fast local checks first, then a lightweight ping to the LootLocker servers.
+     Returns one of the following states:
+     - NotInitialized      — the SDK has not been configured (game API key is not set).
+     - NotSignedIn         — no saved credentials exist for the specified player.
+     - SavedButInactive    — the player has saved credentials but is not currently active in the
+                             multi-player session. Call MakePlayerActive or start a new session first.
+     - NoConnection        — the server could not be reached (no network, timeout, or status 0).
+     - SignedInAndConnected — the session is valid and the server is reachable.
+     - SessionExpired      — a session exists but the token is no longer valid (401 or non-ban 403).
+     - Banned              — the player is currently banned; BanDetails is populated.
+     - ServerError         — the server returned a 5xx or other unexpected error.
+
+     Note: if automatic token refresh is enabled in the SDK config (AllowTokenRefresh), the underlying
+     HTTP client may attempt a refresh when the ping returns 401 or 403. This method reports the
+     resulting state after any such automatic behavior — it does not explicitly request a refresh.
+
+    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+    @param OnCompletedRequestBP Delegate for handling the response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString CheckConnectionStatus(const FString& ForPlayerWithUlid, const FLootLockerConnectionStateResponseBP& OnCompletedRequestBP);
 
     //==================================================
     // Presence
