@@ -22,7 +22,6 @@ DEFINE_LOG_CATEGORY_STATIC(LogLootLockerSDKEditor, Log, All);
 
 // --- Static member definitions ---
 FTSTicker::FDelegateHandle FLootLockerUpdateChecker::TickerHandle;
-double FLootLockerUpdateChecker::ElapsedStartupSeconds = 0.0;
 const TCHAR* FLootLockerUpdateChecker::ConfigSection = TEXT("/Script/LootLockerSDKEditor.UpdateChecker");
 const TCHAR* FLootLockerUpdateChecker::GitHubReleasesUrl =
     TEXT("https://api.github.com/repos/lootlocker/unreal-sdk/releases/latest");
@@ -31,10 +30,10 @@ const TCHAR* FLootLockerUpdateChecker::GitHubReleasesUrl =
 
 void FLootLockerUpdateChecker::Initialize()
 {
-    ElapsedStartupSeconds = 0.0;
+    // Fire once after StartupDelaySeconds — return false in the callback to auto-unregister.
     TickerHandle = FTSTicker::GetCoreTicker().AddTicker(
         FTickerDelegate::CreateStatic(&FLootLockerUpdateChecker::OnStartupTick),
-        0.0f  // tick every frame; we measure elapsed time ourselves
+        StartupDelaySeconds
     );
 }
 
@@ -54,15 +53,8 @@ void FLootLockerUpdateChecker::ManualCheck()
 
 bool FLootLockerUpdateChecker::OnStartupTick(float DeltaTime)
 {
-    ElapsedStartupSeconds += DeltaTime;
-    if (ElapsedStartupSeconds >= StartupDelaySeconds)
-    {
-        // Remove ticker — we only need one startup check
-        TickerHandle.Reset();
-        CheckForUpdate(/*bManual=*/false);
-        return false;  // unregister
-    }
-    return true;  // keep ticking
+    CheckForUpdate(/*bManual=*/false);
+    return false;  // one-shot — unregister immediately
 }
 
 void FLootLockerUpdateChecker::CheckForUpdate(bool bManual)
@@ -150,8 +142,15 @@ void FLootLockerUpdateChecker::OnResponseReceived(
         return;
     }
 
-    FString TagName = JsonObject->GetStringField(TEXT("tag_name"));  // e.g. "v10.5.0"
-    const FString HtmlUrl = JsonObject->GetStringField(TEXT("html_url"));
+    FString TagName;
+    FString HtmlUrl;
+    if (!JsonObject->TryGetStringField(TEXT("tag_name"), TagName) ||
+        !JsonObject->TryGetStringField(TEXT("html_url"), HtmlUrl))
+    {
+        UE_LOG(LogLootLockerSDKEditor, Warning,
+            TEXT("LootLocker update check: GitHub response is missing expected fields."));
+        return;
+    }
 
     // Strip leading 'v' or 'V'
     if (TagName.StartsWith(TEXT("v")) || TagName.StartsWith(TEXT("V")))
@@ -177,7 +176,7 @@ void FLootLockerUpdateChecker::OnResponseReceived(
     {
         if (bManual || ShouldNotify(TagName))
         {
-            ShowUpdateNotification(TagName, HtmlUrl, bManual);
+            ShowUpdateNotification(TagName, HtmlUrl);
         }
     }
     else if (bManual)
@@ -187,7 +186,7 @@ void FLootLockerUpdateChecker::OnResponseReceived(
 }
 
 void FLootLockerUpdateChecker::ShowUpdateNotification(
-    const FString& LatestVersion, const FString& ReleaseUrl, bool bManual)
+    const FString& LatestVersion, const FString& ReleaseUrl)
 {
     if (!FSlateApplication::IsInitialized())
     {
@@ -236,16 +235,6 @@ bool FLootLockerUpdateChecker::IsVersionNewer(const FString& RemoteVersion, cons
         if (Remote < Local) return false;
     }
     return false;  // equal
-}
-
-bool FLootLockerUpdateChecker::IsFabManaged()
-{
-    const TSharedPtr<IPlugin> Plugin = IPluginManager::Get().FindPlugin(TEXT("LootLockerSDK"));
-    if (!Plugin.IsValid())
-    {
-        return false;
-    }
-    return Plugin->GetBaseDir().Contains(TEXT("Marketplace"));
 }
 
 FString FLootLockerUpdateChecker::GetCurrentVersion()
