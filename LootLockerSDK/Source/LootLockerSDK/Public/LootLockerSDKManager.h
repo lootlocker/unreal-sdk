@@ -66,6 +66,13 @@ public:
     static void SetPlayerUlidToInactive(const FString& PlayerUlid);
 
     /**
+    Mark a player's state as active
+
+     @param PlayerUlid ULID of the player to set active
+     */
+    static void SetPlayerUlidToActive(const FString& PlayerUlid);
+
+    /**
      Mark all currently active players as inactive
      */
     static void SetAllPlayersToInactive();
@@ -3740,6 +3747,31 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetGameInfo(const FGameInfoResponseDelegate& OnComplete);
+
+    /**
+     Check the current connection and session state for a player.
+
+     Performs fast local checks first, then a lightweight ping to the LootLocker servers.
+     Returns one of the following states:
+     - NotInitialized   — the SDK has not been configured (game API key is not set).
+     - NotSignedIn      — no saved credentials exist for the specified player.
+     - SavedButInactive — the player has saved credentials but is not currently active in the
+                          multi-player session. Call SetPlayerUlidToActive or start a new session first.
+     - NoConnection     — the server could not be reached (no network, timeout, or status 0).
+     - SignedInAndConnected — the session is valid and the server is reachable.
+     - SessionExpired   — a session exists but the token is no longer valid (401 or non-ban 403).
+     - Banned           — the player is currently banned; BanDetails is populated.
+     - ServerError      — the server returned a 5xx or other unexpected error.
+
+     Note: if automatic token refresh is enabled in the SDK config (AllowTokenRefresh), the underlying
+     HTTP client may attempt a refresh when the ping returns 401 or 403. This method reports the
+     resulting state after any such automatic behavior — it does not explicitly request a refresh.
+
+     @param OnCompletedRequest Delegate called when the check is complete
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString CheckConnectionStatus(const FLootLockerConnectionStateDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     /// @}
 
