@@ -48,15 +48,12 @@ private:
         FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful, bool bManual);
 
     static void ShowUpdateNotification(
-        const FString& LatestVersion, const FString& ReleaseUrl, bool bManual);
+        const FString& LatestVersion, const FString& ReleaseUrl);
 
     static void ShowUpToDateNotification();
 
     /** Numeric semver comparison — returns true if RemoteVersion is strictly newer than LocalVersion. */
     static bool IsVersionNewer(const FString& RemoteVersion, const FString& LocalVersion);
-
-    /** Returns true if the plugin appears to be installed via Fab (engine Marketplace directory). */
-    static bool IsFabManaged();
 
     /** Reads the current SDK version from the plugin descriptor. */
     static FString GetCurrentVersion();
@@ -69,9 +66,8 @@ private:
     static void SaveLastCheckedTime(const FDateTime& Time);
 
     static FTSTicker::FDelegateHandle TickerHandle;
-    static double ElapsedStartupSeconds;
 
-    static constexpr double StartupDelaySeconds = 15.0;
+    static constexpr float StartupDelaySeconds = 180.0f;
     static constexpr double CheckIntervalHours = 24.0;
     static const TCHAR* ConfigSection;
     static const TCHAR* GitHubReleasesUrl;
