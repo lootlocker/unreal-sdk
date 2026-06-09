@@ -20,6 +20,11 @@ void ULootLockerSDKManager::SetPlayerUlidToInactive(const FString& PlayerUlid)
     return ULootLockerStateData::SetPlayerUlidToInactive(PlayerUlid);
 }
 
+void ULootLockerSDKManager::SetPlayerUlidToActive(const FString& PlayerUlid)
+{
+    return ULootLockerStateData::MakePlayerActive(PlayerUlid);
+}
+
 void ULootLockerSDKManager::SetAllPlayersToInactive()
 {
     ULootLockerStateData::SetAllPlayersToInactive();
@@ -1681,6 +1686,42 @@ FString ULootLockerSDKManager::GetLastActivePlatform(const FString& ForPlayerWit
 FString ULootLockerSDKManager::GetGameInfo(const FGameInfoResponseDelegate& OnComplete)
 {
     return ULootLockerMiscellaneousRequestHandler::GetGameInfo(OnComplete);
+}
+
+FString ULootLockerSDKManager::CheckConnectionStatus(const FLootLockerConnectionStateDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    const ULootLockerConfig* Config = GetDefault<ULootLockerConfig>();
+    if (Config == nullptr || Config->LootLockerGameKey.IsEmpty())
+    {
+        FLootLockerConnectionStateResponse Error;
+        Error.success = false;
+        Error.StatusCode = 0;
+        Error.State = ELootLockerConnectionState::NotInitialized;
+        OnCompletedRequest.ExecuteIfBound(Error);
+        return "";
+    }
+
+    // Resolve the ULID so we can pass it to SaveStateExistsForPlayer if needed.
+    FString ResolvedUlid = ForPlayerWithUlid.IsEmpty() ? ULootLockerStateData::GetDefaultPlayerUlid() : ForPlayerWithUlid;
+
+    // Only proceed if the player is currently active in the multi-player session.
+    // Using an inactive player's credentials would risk activating them as a side
+    // effect of a successful ping or an automatic token refresh.
+    const TSharedPtr<FLootLockerPlayerData> PlayerData = ULootLockerStateData::GetStateForPlayerOrDefaultIfActive(ResolvedUlid);
+    if (!PlayerData.IsValid() || PlayerData->Token.IsEmpty())
+    {
+        FLootLockerConnectionStateResponse Error;
+        Error.success = false;
+        Error.StatusCode = 0;
+        // Distinguish: saved credentials that are inactive vs. no credentials at all.
+        Error.State = (!ResolvedUlid.IsEmpty() && ULootLockerStateData::SaveStateExistsForPlayer(ResolvedUlid))
+            ? ELootLockerConnectionState::SavedButInactive
+            : ELootLockerConnectionState::NotSignedIn;
+        OnCompletedRequest.ExecuteIfBound(Error);
+        return "";
+    }
+
+    return ULootLockerMiscellaneousRequestHandler::CheckConnectionStatus(*PlayerData, OnCompletedRequest);
 }
 
 // ========================================================================

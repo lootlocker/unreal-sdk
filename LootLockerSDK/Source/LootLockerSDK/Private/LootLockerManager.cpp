@@ -21,6 +21,11 @@ void ULootLockerManager::SetPlayerUlidToInactive(const FString& PlayerUlid)
     return ULootLockerStateData::SetPlayerUlidToInactive(PlayerUlid);
 }
 
+void ULootLockerManager::SetPlayerUlidToActive(const FString& PlayerUlid)
+{
+    return ULootLockerStateData::SetPlayerUlidToActive(PlayerUlid);
+}
+
 void ULootLockerManager::SetAllPlayersToInactive()
 {
     ULootLockerStateData::SetAllPlayersToInactive();
@@ -2196,6 +2201,14 @@ FString ULootLockerManager::GetGameInfo(const FGameInfoResponseDelegateBP& OnCom
     {
         OnCompletedRequestBP.ExecuteIfBound(Response);
     }));
+}
+
+FString ULootLockerManager::CheckConnectionStatus(const FString& ForPlayerWithUlid, const FLootLockerConnectionStateResponseBP& OnCompletedRequestBP)
+{
+    return ULootLockerSDKManager::CheckConnectionStatus(FLootLockerConnectionStateDelegate::CreateLambda([OnCompletedRequestBP](FLootLockerConnectionStateResponse Response)
+    {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
 }
 
 // Followers (Unified with optional pagination parameters)
