@@ -4102,7 +4102,7 @@ public:
      - NotInitialized      — the SDK has not been configured (game API key is not set).
      - NotSignedIn         — no saved credentials exist for the specified player.
      - SavedButInactive    — the player has saved credentials but is not currently active in the
-                             multi-player session. Call MakePlayerActive or start a new session first.
+                             multi-player session. Call SetPlayerUlidToActive or start a new session first.
      - NoConnection        — the server could not be reached (no network, timeout, or status 0).
      - SignedInAndConnected — the session is valid and the server is reachable.
      - SessionExpired      — a session exists but the token is no longer valid (401 or non-ban 403).
