@@ -1,5 +1,6 @@
 // Copyright (c) LootLocker. All Rights Reserved.
 #include "LootLockerUpdateChecker.h"
+#include "LootLockerConfig.h"
 #include "SLootLockerUpdateNotification.h"
 #include "HttpModule.h"
 #include "Interfaces/IHttpRequest.h"
@@ -120,11 +121,8 @@ void FLootLockerUpdateChecker::OnResponseReceived(
     {
         if (bManual)
         {
-            UE_LOG(LogLootLockerSDKEditor, Warning,
-                TEXT("LootLocker update check failed (HTTP %d)."),
-                Response.IsValid() ? Response->GetResponseCode() : 0);
-
-            FNotificationInfo Info(FText::FromString(TEXT("LootLocker: Could not reach GitHub to check for updates.")));
+            FNotificationInfo Info(FText::FromString(
+                FString::Printf(TEXT("%s: Could not reach GitHub to check for updates."), *ULootLockerConfig::PackageName)));
             Info.ExpireDuration = 5.0f;
             Info.bFireAndForget = true;
             FSlateNotificationManager::Get().AddNotification(Info);
@@ -194,7 +192,7 @@ void FLootLockerUpdateChecker::ShowUpdateNotification(
     }
 
     const TSharedRef<SWindow> Window = SNew(SWindow)
-        .Title(FText::FromString(TEXT("LootLocker SDK Update Available")))
+        .Title(FText::FromString(FString::Printf(TEXT("%s SDK Update Available"), *ULootLockerConfig::PackageName)))
         .ClientSize(FVector2D(560.0f, 210.0f))
         .SupportsMinimize(false)
         .SupportsMaximize(false)
@@ -214,7 +212,8 @@ void FLootLockerUpdateChecker::ShowUpdateNotification(
 
 void FLootLockerUpdateChecker::ShowUpToDateNotification()
 {
-    FNotificationInfo Info(FText::FromString(TEXT("LootLocker SDK is up to date!")));
+    FNotificationInfo Info(FText::FromString(
+        FString::Printf(TEXT("%s SDK is up to date!"), *ULootLockerConfig::PackageName)));
     Info.ExpireDuration = 5.0f;
     Info.bFireAndForget = true;
     FSlateNotificationManager::Get().AddNotification(Info);

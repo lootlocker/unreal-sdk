@@ -82,6 +82,9 @@ public:
 	
 	FLootLockerConfigurationUpdateDelegate OnConfigurationUpdated;
 
+	/** Display name used in all editor UI. Publishers change this to rebrand the SDK. */
+	inline static const FString PackageName = TEXT("LootLocker");
+
 #if WITH_EDITOR
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override
 	{

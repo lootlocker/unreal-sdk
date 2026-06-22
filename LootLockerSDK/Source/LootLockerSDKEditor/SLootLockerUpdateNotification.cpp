@@ -1,6 +1,7 @@
 // Copyright (c) LootLocker. All Rights Reserved.
 #include "SLootLockerUpdateNotification.h"
 #include "LootLockerUpdateChecker.h"
+#include "LootLockerConfig.h"
 #include "Widgets/Layout/SBorder.h"
 #include "Widgets/Layout/SBox.h"
 #include "Widgets/Layout/SSpacer.h"
@@ -30,7 +31,7 @@ void SLootLockerUpdateNotification::Construct(const FArguments& InArgs)
             .Padding(0.0f, 0.0f, 0.0f, 8.0f)
             [
                 SNew(STextBlock)
-                .Text(FText::FromString(TEXT("A new version of the LootLocker SDK is available.")))
+                .Text(FText::FromString(FString::Printf(TEXT("A new version of the %s SDK is available."), *ULootLockerConfig::PackageName)))
                 .Font(FCoreStyle::GetDefaultFontStyle("Bold", 12))
             ]
 
@@ -82,6 +83,21 @@ void SLootLockerUpdateNotification::Construct(const FArguments& InArgs)
                     .Text(FText::FromString(TEXT("See what's new \u2197")))
                     .ColorAndOpacity(FSlateColor(FLinearColor(0.2f, 0.6f, 1.0f)))
                 ]
+            ]
+
+            // Powered-by notice (shown when SDK is rebranded by a publisher)
+            + SVerticalBox::Slot()
+            .AutoHeight()
+            .Padding(0.0f, 0.0f, 0.0f, 8.0f)
+            [
+                SNew(STextBlock)
+                .Visibility(ULootLockerConfig::PackageName != TEXT("LootLocker")
+                    ? EVisibility::Visible : EVisibility::Collapsed)
+                .Text(FText::FromString(FString::Printf(
+                    TEXT("%s SDK is powered by LootLocker \u2014 release notes are on the LootLocker GitHub page."),
+                    *ULootLockerConfig::PackageName)))
+                .ColorAndOpacity(FSlateColor(FLinearColor(0.5f, 0.5f, 0.5f)))
+                .AutoWrapText(true)
             ]
 
             // Action buttons — fill available width evenly
