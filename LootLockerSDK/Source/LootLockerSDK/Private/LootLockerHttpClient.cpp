@@ -81,7 +81,7 @@ FString ULootLockerHttpClient::SendApi(const FString& endPoint, const FString& r
 	FHttpModule* HttpModule = &FHttpModule::Get();
     if(SDKVersion.IsEmpty())
     {
-	    const TSharedPtr<IPlugin> Ptr = IPluginManager::Get().FindPlugin("LootLockerSDK");
+	    const TSharedPtr<IPlugin> Ptr = IPluginManager::Get().FindPlugin(*ULootLockerConfig::PluginName);
         if (Ptr.IsValid())
         {
             SDKVersion = Ptr->GetDescriptor().VersionName;
@@ -244,7 +244,7 @@ FString ULootLockerHttpClient::UploadFile(const FString& endPoint, const FString
     FHttpModule* HttpModule = &FHttpModule::Get();
     if (SDKVersion.IsEmpty())
     {
-        TSharedPtr<IPlugin> Ptr = IPluginManager::Get().FindPlugin("LootLockerSDK");
+        TSharedPtr<IPlugin> Ptr = IPluginManager::Get().FindPlugin(*ULootLockerConfig::PluginName);
         if (Ptr.IsValid())
         {
             SDKVersion = Ptr->GetDescriptor().VersionName;
