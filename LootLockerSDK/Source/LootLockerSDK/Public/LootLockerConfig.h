@@ -12,6 +12,7 @@
 #include "CoreMinimal.h"
 #include "Logging/LogVerbosity.h"
 #include "LootLockerLogLevel.h"
+#include "LootLockerFileConfig.h"
 
 #include "LootLockerConfig.generated.h"
 
@@ -82,12 +83,35 @@ public:
 	
 	FLootLockerConfigurationUpdateDelegate OnConfigurationUpdated;
 
+	/**
+	 * Returns true when a pre-configured file config is active and governing settings.
+	 * When true, the Project Settings panel is locked to prevent drift from the file config.
+	 */
+	static bool IsFileConfigActive();
+
+	/**
+	 * Parses a pre-config file's raw content (plain JSON or encrypted) into an FLootLockerFileConfig.
+	 * Returns an empty TOptional when content is invalid or api_key is missing/empty.
+	 * Exposed publicly so unit tests can call it without needing a real plugin on disk.
+	 */
+	static TOptional<FLootLockerFileConfig> ParseFileConfigContent(const FString& Content);
+
 	/** Display name used in all editor UI. Publishers change this to rebrand the SDK. */
 	inline static const FString PackageName = TEXT("LootLocker");
+
+	/** Name of the Unreal plugin (matches the .uplugin filename). Does not change when PackageName is rebranded. */
+	inline static const FString PluginName = TEXT("LootLockerSDK");
+
+	/**
+	 * Optional identifier appended to the pre-config file name, e.g. setting this to "acme" causes
+	 * the SDK to look for "LootLockerPreConfig-acme.bytes" instead of "LootLockerPreConfig.bytes".
+	 */
+	inline static const FString ConfigFileIdentifier = TEXT("");
 
 #if WITH_EDITOR
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override
 	{
+		ApplyFileConfigIfPresent();
 		if (PropertyChangedEvent.GetPropertyName() == "GameVersion")
 		{
 			IsValidGameVersion = IsSemverString(GameVersion);
@@ -111,6 +135,8 @@ public:
 	{
 		IsValidGameVersion = IsSemverString(GameVersion);
 		MigrateSettingsIfNeeded();
+		LoadFileConfig();
+		ApplyFileConfigIfPresent();
 		if(bEnableFileLogging)
 		{
 			EnableFileLogging(LogFileName.IsEmpty() ? "LootLockerLog" : LogFileName);
@@ -124,30 +150,32 @@ public:
 
 	UPROPERTY(Config, VisibleAnywhere, BlueprintReadOnly, Category = "LootLocker", Meta = (EditCondition = "IsOutdatedSDK", EditConditionHides), Meta = (MultiLine = true), Meta = (DisplayName = "WARNING:"), Transient)
 	FString OutdatedSDKWarning = "This version of LootLocker is no longer updated through fab because of fab guidelines. Please use GitHub releases to update: https://github.com/lootlocker/unreal-sdk/releases";
+	UPROPERTY(Config, VisibleAnywhere, BlueprintReadOnly, Category = "LootLocker", Meta = (EditCondition = "bIsFileConfigLocked", EditConditionHides), Meta = (MultiLine = true), Meta = (DisplayName = "INFO:"), Transient)
+	FString FileConfigActiveNotice = "Settings are governed by the pre-configured file config shipped with the plugin and cannot be changed from the editor.";
 	/// API Key used to talk to LootLocker. The API key can be found in `Settings > API Keys` in the Web Console: https://console.lootlocker.com/settings/api-keys
-	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker", Meta = (DisplayName = "LootLocker API Key"))
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker", Meta = (DisplayName = "LootLocker API Key", EditCondition = "!bIsFileConfigLocked"))
 	FString LootLockerGameKey = "";
-	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker", Meta = (EditCondition = "!bIsFileConfigLocked"))
     FString GameVersion = "";
 	UPROPERTY(Config, VisibleAnywhere, BlueprintReadOnly, Category = "LootLocker", Meta = (EditCondition = "!IsValidGameVersion", EditConditionHides), Meta = (MultiLine = true), Meta = (DisplayName = "WARNING:"), Transient)
 	FString InvalidGameVersionWarning = "Game version needs to follow a numeric Semantic Versioning pattern: X.Y.Z.B with the sections denoting MAJOR.MINOR.PATCH.BUILD and the last two being optional. Read more at https://docs.lootlocker.com/the-basics/core-concepts/glossary#game-version";
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	bool AllowTokenRefresh = true;
 	/// Domain Key used to talk to LootLocker. The Domain key can be found in `Settings > API Keys` in the Web Console: https://console.lootlocker.com/settings/api-keys
-	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker", Meta = (EditCondition = "!bIsFileConfigLocked"))
 	FString DomainKey = "";
 	/// When true, HTTP requests are routed through the legacy ULootLockerHttpClient stack instead of the new
 	/// FLootLockerHTTPExecutionQueue. Use this as a temporary escape hatch if you encounter issues with the
 	/// new queue. This setting has no effect when the project is compiled with LOOTLOCKER_FORCE_LEGACY_HTTP_STACK=1
 	/// (which always uses the legacy stack regardless of this value). This option will be removed once the
 	/// execution queue is declared stable.
-	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker", Meta = (DisplayName = "Use Legacy HTTP Stack"))
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker", Meta = (DisplayName = "Use Legacy HTTP Stack", EditCondition = "!bIsFileConfigLocked"))
 	bool bUseLegacyHTTPStack = false;
 	/// Allow LootLocker to log non error logs outside the editor. This is false by default to avoid log spamming and unintentional logging of data (as LootLocker logs requests and responses vs LootLocker).
-	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Logging")
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Logging", Meta = (EditCondition = "!bIsFileConfigLocked"))
 	bool LogOutsideOfEditor = false;
-    UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Logging", Meta = (DisplayName = "LootLocker Log Level"))
-    ELootLockerLogLevel LootLockerLogLevel;
+    UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Logging", Meta = (DisplayName = "LootLocker Log Level", EditCondition = "!bIsFileConfigLocked"))
+    ELootLockerLogLevel LootLockerLogLevel = ELootLockerLogLevel::Warning;
 
 	UFUNCTION()
 	static bool ShouldLog()
@@ -225,9 +253,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker|Presence")
     static bool IsPresenceEnabledInEditor();
 
-    UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Logging", Meta = (DisplayName = "Enable File Logging"))
+    UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Logging", Meta = (DisplayName = "Enable File Logging", EditCondition = "!bIsFileConfigLocked"))
     bool bEnableFileLogging = false;
-    UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Logging", Meta = (DisplayName = "Name of LootLocker Log File", EditCondition = "bEnableFileLogging", EditConditionHides))
+    UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Logging", Meta = (DisplayName = "Name of LootLocker Log File", EditCondition = "bEnableFileLogging && !bIsFileConfigLocked", EditConditionHides))
     FString LogFileName = TEXT("LootLockerLog");
 	UPROPERTY(Config, VisibleAnywhere, BlueprintReadOnly, Category = "LootLocker|Logging", Meta = (EditCondition = "bEnableFileLogging", EditConditionHides), Meta = (MultiLine = true), Meta = (DisplayName = "Actual Log File (on current device)"), Transient)
 	FString LongLogFilePath = "";
@@ -237,19 +265,19 @@ public:
 	// ========================================================================
 	
 	/** Enable or disable the entire Presence system globally */
-	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Presence", Meta = (DisplayName = "Enable Presence System"))
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Presence", Meta = (DisplayName = "Enable Presence System", EditCondition = "!bIsFileConfigLocked"))
 	bool bEnablePresence = false;
 
 	/** Whether to automatically connect presence when sessions are established */
-	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Presence", Meta = (DisplayName = "Auto-Connect on Session Start", EditCondition = "bEnablePresence", EditConditionHides))
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Presence", Meta = (DisplayName = "Auto-Connect on Session Start", EditCondition = "bEnablePresence && !bIsFileConfigLocked", EditConditionHides))
 	bool bEnablePresenceAutoConnect = true;
 
 	/** Whether to automatically disconnect presence when the application loses focus or goes to background */
-	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Presence", Meta = (DisplayName = "Auto-Disconnect on Focus Loss", EditCondition = "bEnablePresence", EditConditionHides))
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Presence", Meta = (DisplayName = "Auto-Disconnect on Focus Loss", EditCondition = "bEnablePresence && !bIsFileConfigLocked", EditConditionHides))
 	bool bEnablePresenceAutoDisconnectOnFocusChange = true;
 
 	/** Enable presence features in the editor (for testing purposes) */
-	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Presence", Meta = (DisplayName = "Enable In Editor", EditCondition = "bEnablePresence", EditConditionHides))
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Presence", Meta = (DisplayName = "Enable In Editor", EditCondition = "bEnablePresence && !bIsFileConfigLocked", EditConditionHides))
 	bool bEnablePresenceInEditor = true;
 
 	// ========================================================================
@@ -269,12 +297,16 @@ public:
 	 * Each new authentication deactivates all others and becomes the sole active default. Best for
 	 * games with account selection screens.
 	 */
-	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Multi User", Meta = (DisplayName = "Multi User Session Mode"))
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "LootLocker|Multi User", Meta = (DisplayName = "Multi User Session Mode", EditCondition = "!bIsFileConfigLocked"))
 	ELootLockerMultiUserSessionMode MultiUserSessionMode = ELootLockerMultiUserSessionMode::NotSet;
 private:
 	FString LogFilePath = "";
 	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")
 	bool IsValidGameVersion = true;
+	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")
+	bool bIsFileConfigLocked = false;
+	inline static bool bFileConfigChecked = false;
+	inline static TOptional<FLootLockerFileConfig> FileConfig;
 	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")
 	bool IsOutdatedSDK /** Value in ifdef */
 #ifdef LOOTLOCKER_SHOW_OUTDATED_SDK_MESSAGE
@@ -293,8 +325,8 @@ private:
 	 *  then persists the result so subsequent loads skip this check. */
 	void MigrateSettingsIfNeeded();
 
-public:
-    ULootLockerConfig();
-private:
+	static void LoadFileConfig();
+	void ApplyFileConfigIfPresent();
 };
+
 /// @}
