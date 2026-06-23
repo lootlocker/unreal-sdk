@@ -112,7 +112,7 @@ public:
 
 	/**
 	 * Optional identifier appended to the pre-config file name, e.g. setting this to "acme" causes
-	 * the SDK to look for "LootLockerPreConfig-acme.bytes" instead of "LootLockerPreConfig.bytes".
+	 * the SDK to look for "<PackageName>PreConfig-acme.bytes" instead of "<PackageName>PreConfig.bytes".
 	 */
 #if ENGINE_MAJOR_VERSION >= 5
 	inline static const FString ConfigFileIdentifier = TEXT("");
@@ -123,7 +123,6 @@ public:
 #if WITH_EDITOR
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override
 	{
-		ApplyFileConfigIfPresent();
 		if (PropertyChangedEvent.GetPropertyName() == "GameVersion")
 		{
 			IsValidGameVersion = IsSemverString(GameVersion);
@@ -149,13 +148,18 @@ public:
 		MigrateSettingsIfNeeded();
 		LoadFileConfig();
 		ApplyFileConfigIfPresent();
-		if(bEnableFileLogging)
+		// File logging is already handled by ApplyFileConfigIfPresent
+		// when a file config is active. So skip it when file config is active.
+		if (!bIsFileConfigLocked)
 		{
-			EnableFileLogging(LogFileName.IsEmpty() ? "LootLockerLog" : LogFileName);
-		}
-		else
-		{
-			DisableFileLogging();
+			if(bEnableFileLogging)
+			{
+				EnableFileLogging(LogFileName.IsEmpty() ? "LootLockerLog" : LogFileName);
+			}
+			else
+			{
+				DisableFileLogging();
+			}
 		}
 		UObject::PostInitProperties();
 	}

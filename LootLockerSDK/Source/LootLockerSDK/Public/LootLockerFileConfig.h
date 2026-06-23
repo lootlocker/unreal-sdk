@@ -31,7 +31,7 @@
  *   enable_presence_auto_connect                  (bool, default true)
  *   enable_presence_auto_disconnect_on_focus_change (bool, default true)
  *   enable_presence_in_editor                     (bool, default true)
- *   multi_user_session_mode                       (string: "Hotseat"|"SingleSession"|"ProfileSwitching", default "NotSet")
+ *   multi_user_session_mode                       (string: "Hotseat"|"SingleSession"|"ProfileSwitching"|"NotSet", default "NotSet" is internal and will be resolved at first launch")
  *   use_legacy_http_stack                         (bool, default false)
  *
  * Build-time only (parsed by Build.cs, ignored at runtime):
@@ -79,7 +79,7 @@ struct LOOTLOCKERSDK_API FLootLockerFileConfig
 	UPROPERTY()
 	bool enable_presence_in_editor = true;
 
-	/** Enum name string: "Hotseat"|"SingleSession"|"ProfileSwitching" */
+	/** Enum name string: "Hotseat"|"SingleSession"|"ProfileSwitching". Default "NotSet" means "do not override". */
 	UPROPERTY()
 	FString multi_user_session_mode = TEXT("NotSet");
 

@@ -36,7 +36,7 @@ public:
         ).SetDisplayName(FText::FromString(ULootLockerConfig::PackageName + TEXT(" Log Viewer")))
          .SetMenuType(ETabSpawnerMenuType::Enabled);
 
-        // Register menu entry under Tools > LootLocker Tools
+        // Register menu entry under Tools > <PackageName> Tools
         UToolMenus::RegisterStartupCallback(FSimpleMulticastDelegate::FDelegate::CreateLambda([]
         {
             UToolMenu* Menu = UToolMenus::Get()->ExtendMenu("LevelEditor.MainMenu.Tools");
