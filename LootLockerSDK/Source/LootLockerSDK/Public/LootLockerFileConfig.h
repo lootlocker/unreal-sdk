@@ -9,8 +9,8 @@
 #include "LootLockerFileConfig.generated.h"
 
 /**
- * Data struct for the pre-configured file config, loaded at startup from the LootLockerPreConfig file
- * in the plugin's Config directory. When present and containing a non-empty api_key, it overrides
+ * Data struct for the pre-configured file config, loaded at startup from the "<PackageName>PreConfig[-<identifier>].bytes"
+ * file in the plugin's Config directory. When present and containing a non-empty api_key, it overrides
  * DefaultGame.ini settings and locks the editor UI to prevent drift.
  *
  * The file supports plain JSON or AES-256-ECB + PKCS7 + Base64 encrypted content. Plain JSON is
