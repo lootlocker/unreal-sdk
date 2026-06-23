@@ -154,7 +154,7 @@ bool ULootLockerConfig::IsFileConfigActive()
 {
     if (!bFileConfigChecked)
     {
-        GetDefault<ULootLockerConfig>()->LoadFileConfig();
+        ULootLockerConfig::LoadFileConfig();
     }
     return FileConfig.IsSet();
 }
@@ -295,7 +295,7 @@ void ULootLockerConfig::LoadFileConfig()
 
 void ULootLockerConfig::ApplyFileConfigIfPresent()
 {
-    if (!FileConfig.IsSet())
+    if (!IsFileConfigActive())
     {
         ULootLockerConfig* Default = GetMutableDefault<ULootLockerConfig>();
         Default->bIsFileConfigLocked = false;
