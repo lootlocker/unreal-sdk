@@ -9,7 +9,6 @@
 #include "JsonObjectConverter.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
-#include "HAL/PlatformProcess.h"
 #include "Misc/AES.h"
 #include "Misc/Base64.h"
 
@@ -201,6 +200,12 @@ TOptional<FLootLockerFileConfig> ULootLockerConfig::ParseFileConfigContent(const
             return {};
         }
 
+        // FAES operates on whole blocks (AES block size is 16 bytes)
+        if (EncryptedData.Num() == 0 || (EncryptedData.Num() % 16) != 0)
+        {
+            return {};
+        }
+
         const FAES::FAESKey DecryptionKey = GetFileConfigDecryptionKey();
         FAES::DecryptData(EncryptedData.GetData(), EncryptedData.Num(), DecryptionKey);
 
@@ -226,8 +231,9 @@ TOptional<FLootLockerFileConfig> ULootLockerConfig::ParseFileConfigContent(const
             }
         }
 
-        // Convert decrypted bytes to UTF-8 string
-        JsonString = FString(EncryptedData.Num(), UTF8_TO_TCHAR(reinterpret_cast<const char*>(EncryptedData.GetData())));
+        // Convert decrypted bytes to UTF-8 string (ensure null-terminated for UTF8_TO_TCHAR)
+        EncryptedData.Add(0);
+        JsonString = UTF8_TO_TCHAR(reinterpret_cast<const char*>(EncryptedData.GetData()));
 
         // Re-parse the decrypted JSON
         Reader = TJsonReaderFactory<>::Create(JsonString);
@@ -352,3 +358,11 @@ void ULootLockerConfig::ApplyFileConfigIfPresent()
         DisableFileLogging();
     }
 }
+
+#if ENGINE_MAJOR_VERSION < 5
+const FString ULootLockerConfig::PackageName = TEXT("LootLocker");
+const FString ULootLockerConfig::PluginName = TEXT("LootLockerSDK");
+const FString ULootLockerConfig::ConfigFileIdentifier = TEXT("");
+bool ULootLockerConfig::bFileConfigChecked = false;
+TOptional<FLootLockerFileConfig> ULootLockerConfig::FileConfig;
+#endif

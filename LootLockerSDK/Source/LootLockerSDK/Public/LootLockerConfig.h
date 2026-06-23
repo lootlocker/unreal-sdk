@@ -97,16 +97,28 @@ public:
 	static TOptional<FLootLockerFileConfig> ParseFileConfigContent(const FString& Content);
 
 	/** Display name used in all editor UI. Publishers change this to rebrand the SDK. */
+#if ENGINE_MAJOR_VERSION >= 5
 	inline static const FString PackageName = TEXT("LootLocker");
+#else
+	static const FString PackageName;
+#endif
 
 	/** Name of the Unreal plugin (matches the .uplugin filename). Does not change when PackageName is rebranded. */
+#if ENGINE_MAJOR_VERSION >= 5
 	inline static const FString PluginName = TEXT("LootLockerSDK");
+#else
+	static const FString PluginName;
+#endif
 
 	/**
 	 * Optional identifier appended to the pre-config file name, e.g. setting this to "acme" causes
 	 * the SDK to look for "LootLockerPreConfig-acme.bytes" instead of "LootLockerPreConfig.bytes".
 	 */
+#if ENGINE_MAJOR_VERSION >= 5
 	inline static const FString ConfigFileIdentifier = TEXT("");
+#else
+	static const FString ConfigFileIdentifier;
+#endif
 
 #if WITH_EDITOR
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override
@@ -305,8 +317,13 @@ private:
 	bool IsValidGameVersion = true;
 	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")
 	bool bIsFileConfigLocked = false;
+#if ENGINE_MAJOR_VERSION >= 5
 	inline static bool bFileConfigChecked = false;
 	inline static TOptional<FLootLockerFileConfig> FileConfig;
+#else
+	static bool bFileConfigChecked;
+	static TOptional<FLootLockerFileConfig> FileConfig;
+#endif
 	UPROPERTY(Config, VisibleInstanceOnly, Meta = (EditCondition = "false", EditConditionHides), Transient, Category = "LootLocker")
 	bool IsOutdatedSDK /** Value in ifdef */
 #ifdef LOOTLOCKER_SHOW_OUTDATED_SDK_MESSAGE
