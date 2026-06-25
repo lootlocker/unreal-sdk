@@ -21,7 +21,7 @@
 BEGIN_DEFINE_SPEC(
     FLootLockerFileConfigSpec,
     "LootLocker.FileConfig",
-    EAutomationTestFlags::EditorContext | EAutomationTestFlags::SmokeFilter)
+    EAutomationTestFlags::EditorContext | EAutomationTestFlags::ProductFilter)
 END_DEFINE_SPEC(FLootLockerFileConfigSpec)
 
 void FLootLockerFileConfigSpec::Define()
