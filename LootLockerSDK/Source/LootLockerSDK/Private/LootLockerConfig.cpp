@@ -265,22 +265,14 @@ void ULootLockerConfig::LoadFileConfig()
         return;
     }
 
-    const TSharedPtr<IPlugin> Plugin = IPluginManager::Get().FindPlugin(*PluginName);
+    const TSharedPtr<IPlugin> Plugin = IPluginManager::Get().FindPlugin(TEXT("LootLockerSDK"));
     if (!Plugin.IsValid())
     {
         bFileConfigChecked = true;
         return;
     }
 
-    // Build filename: PackageName + "PreConfig" + optional "-" + ConfigFileIdentifier + ".bytes"
-    FString FileName = PackageName + TEXT("PreConfig");
-    if (!ConfigFileIdentifier.IsEmpty())
-    {
-        FileName += TEXT("-") + ConfigFileIdentifier;
-    }
-    FileName += TEXT(".bytes");
-
-    const FString FilePath = FPaths::Combine(Plugin->GetBaseDir(), TEXT("Config"), FileName);
+    const FString FilePath = FPaths::Combine(Plugin->GetBaseDir(), TEXT("Config"), PreConfigFileName);
 
     FString Content;
     if (!FFileHelper::LoadFileToString(Content, *FilePath))
@@ -360,9 +352,7 @@ void ULootLockerConfig::ApplyFileConfigIfPresent()
 }
 
 #if ENGINE_MAJOR_VERSION < 5
-const FString ULootLockerConfig::PackageName = TEXT("LootLocker");
-const FString ULootLockerConfig::PluginName = TEXT("LootLockerSDK");
-const FString ULootLockerConfig::ConfigFileIdentifier = TEXT("");
+const FString ULootLockerConfig::PreConfigFileName = TEXT("LootLockerPreConfig.bytes");
 bool ULootLockerConfig::bFileConfigChecked = false;
 TOptional<FLootLockerFileConfig> ULootLockerConfig::FileConfig;
 #endif
