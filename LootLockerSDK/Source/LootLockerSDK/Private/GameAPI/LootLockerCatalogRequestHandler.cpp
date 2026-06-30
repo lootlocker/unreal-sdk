@@ -1,6 +1,7 @@
 // Copyright (c) 2021 LootLocker
 
 #include "GameAPI/LootLockerCatalogRequestHandler.h"
+#include "JsonObjectConverter.h"
 #include "LootLockerGameEndpoints.h"
 #include "Utils/LootLockerUtilities.h"
 
@@ -421,8 +422,6 @@ FLootLockerListCatalogPricesResponse::FLootLockerListCatalogPricesResponse(const
 			Detail.Catalog_listing_id,
 			Detail.Id
 			}, Detail);
-
-
 	}
 }
 
@@ -605,4 +604,72 @@ FString ULootLockerCatalogRequestHandler::ListCatalogItemsV2(const FLootLockerPl
     });
 
     return LLAPI<FInternalLootLockerListCatalogPricesV2Response>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListCatalogItemsByKey, { CatalogKey }, QueryParams, PlayerData, FInternalLootLockerListCatalogPricesV2ResponseDelegate(), InternalResponseConverter);
+}
+
+FString ULootLockerCatalogRequestHandler::ListCatalogItemsById(const FLootLockerPlayerData& PlayerData, const TArray<FString>& CatalogListingIds, bool IncludeMetadata, const TArray<FString>& MetadataKeys, const FLootLockerListCatalogItemsByIdResponseDelegate& OnComplete)
+{
+    FLootLockerListCatalogItemsByIdRequest Request;
+    Request.Ids = CatalogListingIds;
+
+    if (IncludeMetadata)
+    {
+        Request.Includes.Metadata.All = (MetadataKeys.Num() == 0);
+        Request.Includes.Metadata.Keys = MetadataKeys;
+    }
+
+    if (!IncludeMetadata)
+    {
+        return LLAPI<FLootLockerListCatalogItemsByIdResponse>::CallAPI(Request, ULootLockerGameEndpoints::ListCatalogItemsById, {}, {}, PlayerData, OnComplete);
+    }
+
+    LLAPI<FLootLockerListCatalogItemsByIdResponse>::FResponseInspectorCallback MetadataParser = LLAPI<FLootLockerListCatalogItemsByIdResponse>::FResponseInspectorCallback::CreateLambda([OnComplete](FLootLockerListCatalogItemsByIdResponse& Response)
+    {
+        if (!Response.success || Response.Items.Num() == 0)
+        {
+            OnComplete.ExecuteIfBound(Response);
+            return;
+        }
+        TSharedPtr<FJsonObject> FullJsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
+        if (!FullJsonObject.IsValid())
+        {
+            OnComplete.ExecuteIfBound(Response);
+            return;
+        }
+        TArray<TSharedPtr<FJsonValue>> JsonItems = FullJsonObject.Get()->GetArrayField(TEXT("items"));
+        if (JsonItems.Num() != Response.Items.Num())
+        {
+            OnComplete.ExecuteIfBound(Response);
+            return;
+        }
+
+        for (int i = 0; i < JsonItems.Num(); i++)
+        {
+            TSharedPtr<FJsonObject> JsonItemObject = JsonItems[i].Get()->AsObject();
+            // Parse entry-level metadata
+            TArray<TSharedPtr<FJsonValue>> JsonMetadataArray = JsonItemObject.Get()->GetArrayField(TEXT("metadata"));
+            FLootLockerListCatalogItemsByIdEntry& Entry = Response.Items[i];
+
+            for (int j = 0; j < JsonMetadataArray.Num(); j++)
+            {
+                if (j >= Entry.Metadata.Num())
+                {
+                    break;
+                }
+                TSharedPtr<FJsonObject> JsonMetadataObject = JsonMetadataArray[j].Get()->AsObject();
+                FString MetadataKey = JsonMetadataObject.Get()->GetStringField(TEXT("key"));
+                for (int k = 0; k < Entry.Metadata.Num(); k++)
+                {
+                    if (Entry.Metadata[k].Key.Equals(MetadataKey))
+                    {
+                        Entry.Metadata[k]._INTERNAL_SetJsonRepresentation(*JsonMetadataObject.Get());
+                        break;
+                    }
+                }
+            }
+        }
+
+        OnComplete.ExecuteIfBound(Response);
+    });
+
+    return LLAPI<FLootLockerListCatalogItemsByIdResponse>::CallAPI(Request, ULootLockerGameEndpoints::ListCatalogItemsById, {}, {}, PlayerData, FLootLockerListCatalogItemsByIdResponseDelegate(), MetadataParser);
 }

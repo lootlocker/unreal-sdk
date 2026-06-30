@@ -377,6 +377,8 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListCatalogsResponseBP, FLootLocker
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListCatalogPricesResponseBP, FLootLockerListCatalogPricesResponse, Response);
 /** Blueprint response delegate for listing catalog prices responses */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListCatalogPricesV2ResponseBP, FLootLockerListCatalogPricesV2Response, Response);
+/** Blueprint response delegate for listing catalog items by id responses */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListCatalogItemsByIdResponseBP, FLootLockerListCatalogItemsByIdResponse, Response);
 /** Blueprint response delegate for internal listing catalog prices responses */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FInternalLootLockerListCatalogPricesResponseBP, FInternalLootLockerListCatalogPricesResponse, Response);
 /** Blueprint response delegate for internal listing catalog prices responses */
@@ -3491,6 +3493,18 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Catalog", meta = (AdvancedDisplay = "PerPage,Page,ForPlayerWithUlid", PerPage = -1, Page = -1, ForPlayerWithUlid=""))
     static UPARAM(DisplayName = "RequestId") FString ListCatalogItemsV2(const FString& ForPlayerWithUlid, const FString& CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseBP& OnComplete);
+
+    /**
+     List catalog items by their catalog_listing_ids. Returns entries with entity details and optionally metadata inlined directly.
+     @param CatalogListingIds Array of catalog_listing_id strings to look up (max 100)
+     @param IncludeMetadata If true, includes metadata for each entry, filtered by MetadataKeys if provided
+     @param MetadataKeys Optional: Specific metadata keys to include. Only applicable if IncludeMetadata is true. If empty, all metadata is returned.
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Catalog", meta = (AdvancedDisplay = "IncludeMetadata,MetadataKeys,ForPlayerWithUlid"))
+    static UPARAM(DisplayName = "RequestId") FString ListCatalogItemsById(const FString& ForPlayerWithUlid, const TArray<FString>& CatalogListingIds, bool IncludeMetadata, const TArray<FString>& MetadataKeys, const FLootLockerListCatalogItemsByIdResponseBP& OnComplete);
 
     /**
      Inline the data items from a catalog response into the catalog items

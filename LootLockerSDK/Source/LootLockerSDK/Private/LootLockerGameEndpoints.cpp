@@ -278,6 +278,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::CreateWallet = InitEndpoint("wall
 FLootLockerEndPoints ULootLockerGameEndpoints::ListCatalogs = InitEndpoint("catalogs", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::DeprecatedListCatalogItemsByKey = InitEndpoint("catalog/key/{0}/prices", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::ListCatalogItemsByKey = InitEndpoint("catalogs/inspired-ibex/v1/catalog/key/{0}/list", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::ListCatalogItemsById = InitEndpoint("catalogs/inspired-ibex/v1/catalog/items", ELootLockerHTTPMethod::POST);
 
 // Entitlements
 FLootLockerEndPoints ULootLockerGameEndpoints::ListEntitlements = InitEndpoint("entitlements", ELootLockerHTTPMethod::GET);
