@@ -3503,7 +3503,7 @@ public:
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @return A unique id for this request
     */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Catalog", meta = (AdvancedDisplay = "IncludeMetadata,MetadataKeys,ForPlayerWithUlid"))
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Catalog", meta = (AdvancedDisplay = "IncludeMetadata,MetadataKeys,ForPlayerWithUlid", ForPlayerWithUlid=""))
     static UPARAM(DisplayName = "RequestId") FString ListCatalogItemsById(const FString& ForPlayerWithUlid, const TArray<FString>& CatalogListingIds, bool IncludeMetadata, const TArray<FString>& MetadataKeys, const FLootLockerListCatalogItemsByIdResponseBP& OnComplete);
 
     /**
