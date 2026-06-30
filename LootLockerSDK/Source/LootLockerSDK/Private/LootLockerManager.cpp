@@ -1902,6 +1902,14 @@ FString ULootLockerManager::ListCatalogItemsV2(const FString& ForPlayerWithUlid,
     }), ForPlayerWithUlid);
 }
 
+FString ULootLockerManager::ListCatalogItemsById(const FString& ForPlayerWithUlid, const TArray<FString>& CatalogListingIds, bool IncludeMetadata, const TArray<FString>& MetadataKeys, const FLootLockerListCatalogItemsByIdResponseBP& OnComplete)
+{
+    return ULootLockerSDKManager::ListCatalogItemsById(CatalogListingIds, IncludeMetadata, MetadataKeys, FLootLockerListCatalogItemsByIdResponseDelegate::CreateLambda([OnComplete](const FLootLockerListCatalogItemsByIdResponse& Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
 TArray<FLootLockerInlinedCatalogEntry> ULootLockerManager::ConvertCatalogToInlineItems(const FLootLockerListCatalogPricesResponse& Catalog)
 {
     return ULootLockerCatalogRequestHandler::ConvertCatalogToInlineItems(Catalog);

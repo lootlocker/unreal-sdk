@@ -1386,6 +1386,25 @@ FString ULootLockerSDKManager::ListCatalogItems(const FString& CatalogKey, int P
     return ULootLockerCatalogRequestHandler::ListCatalogItemsV2(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CatalogKey, PerPage, Page, OnComplete);
 }
 
+FString ULootLockerSDKManager::ListCatalogItemsById(const TArray<FString>& CatalogListingIds, bool IncludeMetadata, const TArray<FString>& MetadataKeys, const FLootLockerListCatalogItemsByIdResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    if (CatalogListingIds.Num() == 0)
+    {
+        FLootLockerListCatalogItemsByIdResponse ErrorResponse = LootLockerResponseFactory::Error<FLootLockerListCatalogItemsByIdResponse>("CatalogListingIds must not be empty", -1, ForPlayerWithUlid);
+        OnComplete.ExecuteIfBound(ErrorResponse);
+        return {};
+    }
+
+    if (CatalogListingIds.Num() > 100)
+    {
+        FLootLockerListCatalogItemsByIdResponse ErrorResponse = LootLockerResponseFactory::Error<FLootLockerListCatalogItemsByIdResponse>("CatalogListingIds must not exceed 100 items", -1, ForPlayerWithUlid);
+        OnComplete.ExecuteIfBound(ErrorResponse);
+        return {};
+    }
+
+    return ULootLockerCatalogRequestHandler::ListCatalogItemsById(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CatalogListingIds, IncludeMetadata, MetadataKeys, OnComplete);
+}
+
 // Entitlements
 FString ULootLockerSDKManager::ListEntitlements(const int Count, const FString& After, const FLootLockerListEntitlementsResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
