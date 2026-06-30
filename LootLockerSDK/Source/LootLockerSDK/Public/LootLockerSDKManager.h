@@ -3165,6 +3165,17 @@ public:
      */
     static FString ListCatalogItems(const FString & CatalogKey, const FLootLockerListCatalogPricesV2ResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "") { return ListCatalogItems(CatalogKey, -1, 0, OnComplete, ForPlayerWithUlid); }
 
+    /**
+     List catalog items by their catalog_listing_ids. Returns entries with entity details and optionally metadata inlined directly.
+     @param CatalogListingIds Array of catalog_listing_id strings to look up (max 100)
+     @param IncludeMetadata If true, includes metadata for each entry, filtered by MetadataKeys if provided
+     @param MetadataKeys Optional: Specific metadata keys to include. Only applicable if IncludeMetadata is true. If empty, all metadata is returned.
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request
+     */
+    static FString ListCatalogItemsById(const TArray<FString>& CatalogListingIds, bool IncludeMetadata, const TArray<FString>& MetadataKeys, const FLootLockerListCatalogItemsByIdResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
+
     /// @}
 
     //==================================================

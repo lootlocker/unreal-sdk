@@ -103,6 +103,8 @@ struct FLootLockerListCharacterResponseItem {
 	FString name = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString id = "";
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString ulid = "";
 };
 
 USTRUCT(BlueprintType)

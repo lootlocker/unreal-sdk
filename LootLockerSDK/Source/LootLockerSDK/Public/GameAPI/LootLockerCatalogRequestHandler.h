@@ -6,6 +6,7 @@
 #include "CoreMinimal.h"
 #include "LootLockerPlayerData.h"
 #include "LootLockerResponse.h"
+#include "GameAPI/LootLockerMetadataRequestHandler.h"
 #include "LootLockerCatalogRequestHandler.generated.h"
 
 //==================================================
@@ -610,9 +611,10 @@ struct FLootLockerGroupDetails
     FString Description = "";
     /**
      * The metadata of the Group.
+     * @deprecated This field was never used and will be removed.
      */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerCatalogGroupMetadata> Metadata;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker", meta = (DeprecatedProperty, DeprecationMessage = "This field was never used and will be removed"))
+    TArray<FLootLockerCatalogGroupMetadata> Metadata; // Deprecation date 2026-06-30
     /**
      * The ID of the reward.
      */
@@ -921,6 +923,233 @@ struct FLootLockerListCatalogPricesV2Response : public FLootLockerResponse
     TArray<FLootLockerInlinedCatalogEntry> GetLootLockerInlinedCatalogEntries() const;
 };
 
+/**
+ * Metadata include configuration for catalog items lookup.
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerMetadataInclude
+{
+    GENERATED_BODY()
+    /**
+    * If true, all metadata entries for the item are returned.
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool All = false;
+
+    /**
+    * Specific metadata key names to filter by. Only used when bAll is false.
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FString> Keys;
+};
+
+/**
+ * Optional includes configuration for catalog items lookup.
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerCatalogItemsIncludes
+{
+    GENERATED_BODY()
+    /**
+    * Metadata include configuration. If not set, metadata is not included.
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerMetadataInclude Metadata;
+};
+
+/**
+ * Request body for looking up catalog items by their catalog_listing_ids.
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerListCatalogItemsByIdRequest
+{
+    GENERATED_BODY()
+    /**
+    * Array of catalog_listing_id strings to look up (max 100)
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FString> Ids;
+
+    /**
+    * Optional includes configuration to control what additional data is returned
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerCatalogItemsIncludes Includes;
+};
+
+/**
+ * A group association with the entity detail inlined directly.
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerInlinedGroupAssociation
+{
+    GENERATED_BODY()
+    /**
+    * The entity kind of this association (asset, currency, progression_points, progression_reset)
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    ELootLockerCatalogEntryEntityKind Kind = ELootLockerCatalogEntryEntityKind::Asset;
+
+    /**
+    * The unique id of the entity
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Id;
+
+    /**
+    * The catalog listing id for this association
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Catalog_listing_id;
+
+    /**
+    * Asset details inlined, populated when kind is asset
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerAssetDetails Asset_detail;
+
+    /**
+    * Currency details inlined, populated when kind is currency
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerCurrencyDetails Currency_detail;
+
+    /**
+    * Progression point details inlined, populated when kind is progression_points
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerProgressionPointDetails Progression_point_detail;
+
+    /**
+    * Progression reset details inlined, populated when kind is progression_reset
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerProgressionResetDetails Progression_reset_detail;
+};
+
+/**
+ * Group detail used by the ListCatalogItemsById endpoint, where association details are
+ * inlined directly into each association entry by the backend.
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerInlinedGroupDetailsWithAssociations
+{
+    GENERATED_BODY()
+    /**
+    * The name of the Group.
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Name;
+
+    /**
+    * The description of the Group.
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Description;
+
+    /**
+    * The ID of the reward.
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Id;
+
+    /**
+    * The catalog listing id for this group detail.
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Catalog_listing_id;
+
+    /**
+    * Associations with entity details inlined directly.
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerInlinedGroupAssociation> Associations;
+};
+
+/**
+ * A catalog entry with entity details inlined directly. Used by the ListCatalogItemsById endpoint.
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerListCatalogItemsByIdEntry : public FLootLockerCatalogEntry
+{
+    GENERATED_BODY()
+    /**
+    * Asset details inlined, non-null when entity_kind is asset
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerAssetDetails Asset_detail;
+
+    /**
+    * Currency details inlined, non-null when entity_kind is currency
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerCurrencyDetails Currency_detail;
+
+    /**
+    * Progression point details inlined, non-null when entity_kind is progression_points
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerProgressionPointDetails Progression_point_detail;
+
+    /**
+    * Progression reset details inlined, non-null when entity_kind is progression_reset
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerProgressionResetDetails Progression_reset_detail;
+
+    /**
+    * Group details inlined, non-null when entity_kind is group
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerInlinedGroupDetailsWithAssociations Group_detail;
+
+    /**
+    * Metadata entries. Populated when includes.metadata is set.
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerMetadataEntry> Metadata;
+};
+
+/**
+ * Describes why a specific catalog_listing_id could not be resolved.
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerListCatalogItemsByIdError
+{
+    GENERATED_BODY()
+    /**
+    * The catalog_listing_id that failed
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Id;
+
+    /**
+    * The reason (e.g. "not_found")
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Reason;
+};
+
+/**
+ * Response for the ListCatalogItemsById endpoint.
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerListCatalogItemsByIdResponse : public FLootLockerResponse
+{
+    GENERATED_BODY()
+    /**
+    * Array of inlined catalog entries matching the successfully resolved IDs
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerListCatalogItemsByIdEntry> Items;
+
+    /**
+    * Errors for IDs that could not be resolved. Omitted when all IDs succeeded.
+    */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerListCatalogItemsByIdError> Errors;
+};
+
 //==================================================
 // Delegate Definitions
 //==================================================
@@ -947,7 +1176,10 @@ DECLARE_DELEGATE_OneParam(FInternalLootLockerListCatalogPricesResponseDelegate, 
  * Internal C++ response delegate for listing items and prices in a catalog with details as arrays
  */
 DECLARE_DELEGATE_OneParam(FInternalLootLockerListCatalogPricesV2ResponseDelegate, FInternalLootLockerListCatalogPricesV2Response);
-
+/**
+ * Delegate for ListCatalogItemsById response
+ */
+DECLARE_DELEGATE_OneParam(FLootLockerListCatalogItemsByIdResponseDelegate, FLootLockerListCatalogItemsByIdResponse);
 
 //==================================================
 // API Class Definition
@@ -964,6 +1196,7 @@ public:
     static FString ListCatalogs(const FLootLockerPlayerData& PlayerData, const FLootLockerListCatalogsResponseDelegate& OnComplete);
     static FString ListCatalogItems(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int Count, const FString& After, const FLootLockerListCatalogPricesResponseDelegate& OnComplete);
     static FString ListCatalogItemsV2(const FLootLockerPlayerData& PlayerData, const FString& CatalogKey, int PerPage, int Page, const FLootLockerListCatalogPricesV2ResponseDelegate& OnComplete);
+    static FString ListCatalogItemsById(const FLootLockerPlayerData& PlayerData, const TArray<FString>& CatalogListingIds, bool IncludeMetadata, const TArray<FString>& MetadataKeys, const FLootLockerListCatalogItemsByIdResponseDelegate& OnComplete);
     static TArray<FLootLockerInlinedCatalogEntry> ConvertCatalogToInlineItems(const FLootLockerListCatalogPricesResponse& Catalog)
     {
         return Catalog.GetLootLockerInlinedCatalogEntries();
