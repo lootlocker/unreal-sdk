@@ -651,10 +651,6 @@ FString ULootLockerCatalogRequestHandler::ListCatalogItemsById(const FLootLocker
 
             for (int j = 0; j < JsonMetadataArray.Num(); j++)
             {
-                if (j >= Entry.Metadata.Num())
-                {
-                    break;
-                }
                 TSharedPtr<FJsonObject> JsonMetadataObject = JsonMetadataArray[j].Get()->AsObject();
                 FString MetadataKey = JsonMetadataObject.Get()->GetStringField(TEXT("key"));
                 for (int k = 0; k < Entry.Metadata.Num(); k++)
