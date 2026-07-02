@@ -2463,6 +2463,38 @@ public:
      */
     static FString RedeemEpicStorePurchaseForCharacter(const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
+    /**
+     Get an Xbox service ticket that can be used to redeem an Xbox Store purchase.
+
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request
+     */
+    static FString GetXboxServiceTicket(const FLootLockerXboxServiceTicketDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Redeem a purchase made towards the Xbox Store for the current player.
+
+     @param UserCollectionsId The Xbox user collections ID (JWT) identifying the user
+     @param ProductId The Xbox Store product id to redeem
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request
+     */
+    static FString RedeemXboxStorePurchaseForPlayer(const FString& UserCollectionsId, const FString& ProductId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Redeem a purchase made towards the Xbox Store for a class owned by the player.
+
+     @param ClassId The id of the class to redeem this purchase for
+     @param UserCollectionsId The Xbox user collections ID (JWT) identifying the user
+     @param ProductId The Xbox Store product id to redeem
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request
+     */
+    static FString RedeemXboxStorePurchaseForClass(int ClassId, const FString& UserCollectionsId, const FString& ProductId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
 #ifdef LOOTLOCKER_BETA_PLAYSTATION_IAP
     /**
       Redeem a purchase that was made successfully towards the PlayStation Store for the current player

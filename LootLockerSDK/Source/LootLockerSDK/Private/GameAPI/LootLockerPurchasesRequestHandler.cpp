@@ -130,6 +130,32 @@ FString ULootLockerPurchasesRequestHandler::RedeemEpicStorePurchaseForCharacter(
     return LLAPI<FLootLockerResponse>::CallAPI(PurchaseRequest, ULootLockerGameEndpoints::RedeemEpicStorePurchase, {}, {}, PlayerData, OnCompleted);
 }
 
+FString ULootLockerPurchasesRequestHandler::GetXboxServiceTicket(const FLootLockerPlayerData& PlayerData, const FLootLockerXboxServiceTicketDelegate& OnCompleted)
+{
+    return LLAPI<FLootLockerXboxServiceTicketResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::XboxServiceTicket, {}, {}, PlayerData, OnCompleted);
+}
+
+FString ULootLockerPurchasesRequestHandler::RedeemXboxStorePurchaseForPlayer(const FLootLockerPlayerData& PlayerData, const FString& UserCollectionsId, const FString& ProductId, const FLootLockerDefaultDelegate& OnCompleted)
+{
+    const FLootLockerRedeemXboxStorePurchaseForPlayerRequest PurchaseRequest{
+        UserCollectionsId,
+        ProductId
+    };
+
+    return LLAPI<FLootLockerResponse>::CallAPI(PurchaseRequest, ULootLockerGameEndpoints::RedeemXboxStorePurchase, {}, {}, PlayerData, OnCompleted);
+}
+
+FString ULootLockerPurchasesRequestHandler::RedeemXboxStorePurchaseForClass(const FLootLockerPlayerData& PlayerData, const int ClassId, const FString& UserCollectionsId, const FString& ProductId, const FLootLockerDefaultDelegate& OnCompleted)
+{
+    FLootLockerRedeemXboxStorePurchaseForClassRequest PurchaseRequest = FLootLockerRedeemXboxStorePurchaseForClassRequest();
+    PurchaseRequest.Class_id = ClassId;
+    PurchaseRequest.User_collections_id = UserCollectionsId;
+    PurchaseRequest.Product_id = ProductId;
+    FString JsonString = LootLockerUtilities::UStructToJsonString(PurchaseRequest);
+    JsonString.ReplaceInline(TEXT("Class_id"), TEXT("character_id"), ESearchCase::IgnoreCase);
+    return LLAPI<FLootLockerResponse>::CallAPIUsingRawJSON(JsonString, ULootLockerGameEndpoints::RedeemXboxStorePurchase, {}, {}, PlayerData, OnCompleted);
+}
+
 FString ULootLockerPurchasesRequestHandler::RedeemPlayStationStorePurchaseForPlayer(const FLootLockerPlayerData& PlayerData, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FLootLockerDefaultDelegate& OnCompleted)
 {
     TSharedRef<FJsonObject> JsonObject = MakeShareable(new FJsonObject);

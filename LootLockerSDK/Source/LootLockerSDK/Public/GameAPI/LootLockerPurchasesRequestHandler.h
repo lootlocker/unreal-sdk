@@ -166,6 +166,63 @@ struct FLootLockerRedeemEpicStorePurchaseForCharacterRequest : public FLootLocke
     FString Character_id = "";
 };
 
+/**
+ * Response from a request to get an Xbox service ticket.
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerXboxServiceTicketResponse : public FLootLockerResponse
+{
+    GENERATED_BODY()
+    /**
+     * The service ticket to use for Xbox store purchase redemption
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Service_ticket = "";
+    /**
+     * How many seconds until the ticket expires
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int Expires_in = 0;
+    /**
+     * The date and time when the ticket expires
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Expires_at = "";
+};
+
+/**
+ * Request to redeem an Xbox Store purchase for the current player.
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerRedeemXboxStorePurchaseForPlayerRequest
+{
+    GENERATED_BODY()
+    /**
+     * The Xbox user collections ID (JWT) that identifies the user making the purchase
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString User_collections_id = "";
+    /**
+     * The id of the Xbox Store product to redeem
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Product_id = "";
+};
+
+/**
+ * Request to redeem an Xbox Store purchase for a class.
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerRedeemXboxStorePurchaseForClassRequest : public FLootLockerRedeemXboxStorePurchaseForPlayerRequest
+{
+    GENERATED_BODY()
+    /**
+     * The id of the class to redeem this purchase for
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    int Class_id = 0;
+};
+
 /// @addtogroup Purchasing
 /// @{
 UENUM(BlueprintType, Category = "LootLocker")
@@ -568,6 +625,8 @@ struct FLootLockerCreateStripeCheckoutSessionResponse : public FLootLockerRespon
 
 /** C++ response callback delegate; receives an @ref FLootLockerCreateStripeCheckoutSessionResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerCreateStripeCheckoutSessionDelegate, FLootLockerCreateStripeCheckoutSessionResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerXboxServiceTicketResponse result. */
+DECLARE_DELEGATE_OneParam(FLootLockerXboxServiceTicketDelegate, FLootLockerXboxServiceTicketResponse);
 
 /// @}
 UCLASS()
@@ -593,6 +652,12 @@ public:
     static FString RedeemEpicStorePurchase(const FLootLockerPlayerData& PlayerData, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultDelegate& OnCompleted);
 
     static FString RedeemEpicStorePurchaseForCharacter(const FLootLockerPlayerData& PlayerData, const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultDelegate& OnCompleted);
+
+    static FString GetXboxServiceTicket(const FLootLockerPlayerData& PlayerData, const FLootLockerXboxServiceTicketDelegate& OnCompleted);
+
+    static FString RedeemXboxStorePurchaseForPlayer(const FLootLockerPlayerData& PlayerData, const FString& UserCollectionsId, const FString& ProductId, const FLootLockerDefaultDelegate& OnCompleted);
+
+    static FString RedeemXboxStorePurchaseForClass(const FLootLockerPlayerData& PlayerData, const int ClassId, const FString& UserCollectionsId, const FString& ProductId, const FLootLockerDefaultDelegate& OnCompleted);
 
     static FString RedeemPlayStationStorePurchaseForPlayer(const FLootLockerPlayerData& PlayerData, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel = "", const FString& ServiceName = "", const int Environment = -1, const int UseCount = -1, const FLootLockerDefaultDelegate& OnCompleted = FLootLockerDefaultDelegate());
 
