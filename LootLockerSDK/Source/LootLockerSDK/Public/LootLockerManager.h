@@ -281,6 +281,8 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerQuerySteamPurchaseRedemptionStatusD
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerRefundByEntitlementIdsResponseDelegate, FLootLockerRefundByEntitlementIdsResponse, Response);
 /** Blueprint response delegate for creating a Stripe Checkout session */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerCreateStripeCheckoutSessionDelegateBP, FLootLockerCreateStripeCheckoutSessionResponse, Response);
+/** Blueprint response delegate for getting an Xbox service ticket */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerXboxServiceTicketResponseBP, FLootLockerXboxServiceTicketResponse, Response);
 /** Blueprint response delegate for initiating an async purchase */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAsyncPurchaseInitiatedDelegateBP, FLootLockerAsyncPurchaseInitiatedResponse, Response);
 /** Blueprint response delegate for polling the status of an async purchase */
@@ -2745,6 +2747,41 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static UPARAM(DisplayName = "RequestId") FString RedeemEpicStorePurchaseForCharacter(const FString& ForPlayerWithUlid, const FString& CharacterId, const FString& AccountId, const FString& BearerToken, const TArray<FString>& EntitlementIds, const FString& SandboxId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+
+    /**
+      Get an Xbox service ticket that can be used to redeem an Xbox Store purchase.
+
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+      @param OnCompletedRequest Delegate for handling the server response
+     @return A unique id for this request
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString GetXboxServiceTicket(const FString& ForPlayerWithUlid, const FLootLockerXboxServiceTicketResponseBP& OnCompletedRequest);
+
+    /**
+      Redeem a purchase made towards the Xbox Store for the current player.
+
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+      @param UserCollectionsId The Xbox user collections ID (JWT) identifying the user
+      @param ProductId The Xbox Store product id to redeem
+      @param OnCompletedRequest Delegate for handling the server response
+     @return A unique id for this request
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString RedeemXboxStorePurchaseForPlayer(const FString& ForPlayerWithUlid, const FString& UserCollectionsId, const FString& ProductId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+
+    /**
+      Redeem a purchase made towards the Xbox Store for a class owned by the player.
+
+      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used.
+      @param ClassId The id of the class to redeem this purchase for
+      @param UserCollectionsId The Xbox user collections ID (JWT) identifying the user
+      @param ProductId The Xbox Store product id to redeem
+      @param OnCompletedRequest Delegate for handling the server response
+     @return A unique id for this request
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Purchases", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString RedeemXboxStorePurchaseForClass(const FString& ForPlayerWithUlid, int ClassId, const FString& UserCollectionsId, const FString& ProductId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
 #ifdef LOOTLOCKER_BETA_PLAYSTATION_IAP
     /**
