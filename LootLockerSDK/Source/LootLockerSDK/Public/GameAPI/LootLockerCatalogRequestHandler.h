@@ -320,6 +320,20 @@ struct FLootLockerCatalogPlaystationStoreListing
 };
 
 /**
+ * Holds the Xbox Store product identifier associated with a catalog entry listing.
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerCatalogXboxStoreListing
+{
+    GENERATED_BODY()
+    /**
+     * The id of the product in Xbox Store that can be purchased and then used to redeem this catalog entry
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Product_id = "";
+};
+
+/**
  * Aggregates the platform-specific store listing information configured for a catalog entry across all supported storefronts.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
@@ -356,6 +370,11 @@ struct FLootLockerCatalogEntryListings
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerCatalogPlaystationStoreListing Playstation_store;
+    /**
+     * The listing information (if configured) for Xbox Store
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FLootLockerCatalogXboxStoreListing Xbox_store;
 };
 
 /**

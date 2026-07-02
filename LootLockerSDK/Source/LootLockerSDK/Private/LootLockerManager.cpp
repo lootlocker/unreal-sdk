@@ -1470,6 +1470,30 @@ FString ULootLockerManager::RedeemEpicStorePurchaseForCharacter(const FString& F
         }), ForPlayerWithUlid);
 }
 
+FString ULootLockerManager::GetXboxServiceTicket(const FString& ForPlayerWithUlid, const FLootLockerXboxServiceTicketResponseBP& OnCompletedRequest)
+{
+    return ULootLockerSDKManager::GetXboxServiceTicket(FLootLockerXboxServiceTicketDelegate::CreateLambda([OnCompletedRequest](FLootLockerXboxServiceTicketResponse Response)
+        {
+            OnCompletedRequest.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::RedeemXboxStorePurchaseForPlayer(const FString& ForPlayerWithUlid, const FString& UserCollectionsId, const FString& ProductId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+{
+    return ULootLockerSDKManager::RedeemXboxStorePurchaseForPlayer(UserCollectionsId, ProductId, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
+        {
+            OnCompletedRequest.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::RedeemXboxStorePurchaseForClass(const FString& ForPlayerWithUlid, int ClassId, const FString& UserCollectionsId, const FString& ProductId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+{
+    return ULootLockerSDKManager::RedeemXboxStorePurchaseForClass(ClassId, UserCollectionsId, ProductId, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
+        {
+            OnCompletedRequest.ExecuteIfBound(Response);
+        }), ForPlayerWithUlid);
+}
+
 #ifdef LOOTLOCKER_BETA_PLAYSTATION_IAP
 // FString ULootLockerManager::RedeemPlayStationStorePurchase(const FString& ForPlayerWithUlid, const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 // {

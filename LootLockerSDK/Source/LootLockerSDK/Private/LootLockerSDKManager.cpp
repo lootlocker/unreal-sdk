@@ -1094,6 +1094,21 @@ FString ULootLockerSDKManager::RedeemEpicStorePurchaseForCharacter(const FString
     return ULootLockerPurchasesRequestHandler::RedeemEpicStorePurchaseForCharacter(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CharacterId, AccountId, BearerToken, EntitlementIds, SandboxId, OnCompletedRequest);
 }
 
+FString ULootLockerSDKManager::GetXboxServiceTicket(const FLootLockerXboxServiceTicketDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid)
+{
+    return ULootLockerPurchasesRequestHandler::GetXboxServiceTicket(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
+}
+
+FString ULootLockerSDKManager::RedeemXboxStorePurchaseForPlayer(const FString& UserCollectionsId, const FString& ProductId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid)
+{
+    return ULootLockerPurchasesRequestHandler::RedeemXboxStorePurchaseForPlayer(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), UserCollectionsId, ProductId, OnCompletedRequest);
+}
+
+FString ULootLockerSDKManager::RedeemXboxStorePurchaseForClass(int ClassId, const FString& UserCollectionsId, const FString& ProductId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid)
+{
+    return ULootLockerPurchasesRequestHandler::RedeemXboxStorePurchaseForClass(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), ClassId, UserCollectionsId, ProductId, OnCompletedRequest);
+}
+
 #ifdef LOOTLOCKER_BETA_PLAYSTATION_IAP
 // FString ULootLockerSDKManager::RedeemPlayStationStorePurchase(const FString& TransactionId, const FString& AuthCode, const FString& EntitlementLabel, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ServiceLabel, const FString& ServiceName, const int Environment, const int UseCount, const FString& ForPlayerWithUlid)
 // {

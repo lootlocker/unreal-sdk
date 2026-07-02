@@ -210,6 +210,9 @@ FLootLockerEndPoints ULootLockerGameEndpoints::RedeemGooglePlayStorePurchase = I
 FLootLockerEndPoints ULootLockerGameEndpoints::RedeemEpicStorePurchase = InitEndpoint("store/epic/redeem", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::RedeemPlayStationStorePurchase = InitEndpoint("store/playstation/redeem", ELootLockerHTTPMethod::POST);
 
+FLootLockerEndPoints ULootLockerGameEndpoints::XboxServiceTicket = InitEndpoint("store/xbox/ticket", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::RedeemXboxStorePurchase = InitEndpoint("store/xbox/redeem", ELootLockerHTTPMethod::POST);
+
 FLootLockerEndPoints ULootLockerGameEndpoints::BeginSteamPurchaseRedemption = InitEndpoint("store/steam/redeem/begin", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::QuerySteamPurchaseRedemptionStatus = InitEndpoint("store/steam/redeem/query", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::FinalizeSteamPurchaseRedemption = InitEndpoint("store/steam/redeem/finalise", ELootLockerHTTPMethod::POST);
