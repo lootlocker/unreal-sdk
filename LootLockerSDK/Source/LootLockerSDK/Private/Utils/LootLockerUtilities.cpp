@@ -15,7 +15,26 @@ const TArray<FObfuscationDetails> UObfuscationSettings::FieldsToObfuscate =
     FObfuscationDetails(FString("password"), "*", 0, 0, true),
     FObfuscationDetails(FString("domain_key"), "*", 3, 3, true),
     FObfuscationDetails(FString("session_token"), "*", 3, 3, true),
-    FObfuscationDetails(FString("token"), "*", 3, 3, true)
+    FObfuscationDetails(FString("token"), "*", 3, 3, true),
+    // Auth & session credentials
+    FObfuscationDetails(FString("steam_ticket"), "*", 3, 3, true),
+    FObfuscationDetails(FString("id_token"), "*", 3, 3, true),
+    FObfuscationDetails(FString("auth_code"), "*", 3, 3, true),
+    FObfuscationDetails(FString("apple_authorization_code"), "*", 3, 3, true),
+    FObfuscationDetails(FString("xbox_user_token"), "*", 3, 3, true),
+    FObfuscationDetails(FString("nsa_id_token"), "*", 3, 3, true),
+    FObfuscationDetails(FString("access_token"), "*", 3, 3, true),
+    FObfuscationDetails(FString("refresh_token"), "*", 3, 3, true),
+    FObfuscationDetails(FString("nonce"), "*", 3, 3, true),
+    FObfuscationDetails(FString("signature"), "*", 3, 3, true),
+    FObfuscationDetails(FString("salt"), "*", 3, 3, true),
+    FObfuscationDetails(FString("source_token"), "*", 3, 3, true),
+    FObfuscationDetails(FString("target_token"), "*", 3, 3, true),
+    // Purchase / IAP credentials
+    FObfuscationDetails(FString("purchase_token"), "*", 3, 3, true),
+    FObfuscationDetails(FString("bearer_token"), "*", 3, 3, true),
+    FObfuscationDetails(FString("user_collections_id"), "*", 3, 3, true),
+    FObfuscationDetails(FString("service_ticket"), "*", 3, 3, true)
 };
 
 FString ULootLockerEnumUtils::GetEnum(const TCHAR* Enum, int32 EnumValue)

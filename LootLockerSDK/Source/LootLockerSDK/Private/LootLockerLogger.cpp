@@ -2,6 +2,7 @@
 #include "LootLockerLogger.h"
 #include "LootLockerSDK.h"
 #include "LootLockerConfig.h"
+#include "Utils/LootLockerUtilities.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
 
@@ -137,9 +138,9 @@ void FLootLockerLogger::LogHttpRequest(const FLootLockerHttpLogEntry& Entry)
         Entry.Duration,
         Entry.StatusCode);
     if (!Entry.RequestData.IsEmpty())
-        LogLine += FString::Printf(TEXT("\n   Request Data: %s"), *Entry.RequestData);
+        LogLine += FString::Printf(TEXT("\n   Request Data: %s"), *LootLockerUtilities::ObfuscateJsonStringForLogging(Entry.RequestData));
     if (!Entry.ResponseData.IsEmpty())
-        LogLine += FString::Printf(TEXT("\n   Response Data: %s"), *Entry.ResponseData);
+        LogLine += FString::Printf(TEXT("\n   Response Data: %s"), *LootLockerUtilities::ObfuscateJsonStringForLogging(Entry.ResponseData));
     if (!Entry.RequestHeaders.IsEmpty())
         LogLine += FString::Printf(TEXT("\n   Request Headers: %s"), *Entry.RequestHeaders);
     if (!Entry.ErrorData.Message.IsEmpty())
