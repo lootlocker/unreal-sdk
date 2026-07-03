@@ -65,7 +65,11 @@ private:
     static FDateTime GetLastCheckedTime();
     static void SaveLastCheckedTime(const FDateTime& Time);
 
+#if ENGINE_MAJOR_VERSION >= 5
     static FTSTicker::FDelegateHandle TickerHandle;
+#else
+    static FDelegateHandle TickerHandle;
+#endif
 
     static constexpr float StartupDelaySeconds = 180.0f;
     static constexpr double CheckIntervalHours = 24.0;
