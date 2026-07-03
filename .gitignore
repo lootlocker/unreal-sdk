@@ -106,3 +106,6 @@ docs/xml/
 # outdated before next use. Regenerate from the script invocations in the
 # .github/instructions/documentation.md workflow notes if needed.
 .doxygen/scripts/
+
+# Ignore config files
+LootLockerSDK/Config/*.bytes

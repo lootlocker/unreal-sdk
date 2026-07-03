@@ -21,7 +21,11 @@
 DEFINE_LOG_CATEGORY_STATIC(LogLootLockerSDKEditor, Log, All);
 
 // --- Static member definitions ---
+#if ENGINE_MAJOR_VERSION >= 5
 FTSTicker::FDelegateHandle FLootLockerUpdateChecker::TickerHandle;
+#else
+FDelegateHandle FLootLockerUpdateChecker::TickerHandle;
+#endif
 const TCHAR* FLootLockerUpdateChecker::ConfigSection = TEXT("/Script/LootLockerSDKEditor.UpdateChecker");
 const TCHAR* FLootLockerUpdateChecker::GitHubReleasesUrl =
     TEXT("https://api.github.com/repos/lootlocker/unreal-sdk/releases/latest");
@@ -31,17 +35,28 @@ const TCHAR* FLootLockerUpdateChecker::GitHubReleasesUrl =
 void FLootLockerUpdateChecker::Initialize()
 {
     // Fire once after StartupDelaySeconds — return false in the callback to auto-unregister.
+#if ENGINE_MAJOR_VERSION >= 5
     TickerHandle = FTSTicker::GetCoreTicker().AddTicker(
         FTickerDelegate::CreateStatic(&FLootLockerUpdateChecker::OnStartupTick),
         StartupDelaySeconds
     );
+#else
+    TickerHandle = FTicker::GetCoreTicker().AddTicker(
+        FTickerDelegate::CreateStatic(&FLootLockerUpdateChecker::OnStartupTick),
+        StartupDelaySeconds
+    );
+#endif
 }
 
 void FLootLockerUpdateChecker::Shutdown()
 {
     if (TickerHandle.IsValid())
     {
+#if ENGINE_MAJOR_VERSION >= 5
         FTSTicker::GetCoreTicker().RemoveTicker(TickerHandle);
+#else
+        FTicker::GetCoreTicker().RemoveTicker(TickerHandle);
+#endif
         TickerHandle.Reset();
     }
 }
@@ -96,7 +111,7 @@ bool FLootLockerUpdateChecker::ShouldNotify(const FString& LatestVersion)
 
 void FLootLockerUpdateChecker::FetchLatestRelease(bool bManual)
 {
-    TSharedRef<IHttpRequest> Request = FHttpModule::Get().CreateRequest();
+    FHttpRequestPtr Request = FHttpModule::Get().CreateRequest();
     Request->SetURL(GitHubReleasesUrl);
     Request->SetVerb(TEXT("GET"));
     Request->SetHeader(TEXT("Accept"), TEXT("application/vnd.github.v3+json"));
