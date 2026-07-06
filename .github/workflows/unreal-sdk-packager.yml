@@ -2,12 +2,17 @@ name: Unreal SDK Packager
 run-name: sdk-packager
 on:
   push:
-      branches: # Made towards the following
+      branches:
         - main
         - ci/*
       tags:
         - v**
+  release:
+    types: [published]
   workflow_dispatch: {}
+
+permissions:
+  contents: write
 
 jobs: 
   package-sdk:
@@ -30,6 +35,18 @@ jobs:
           SDK_PATH="$(pwd)"
           SDK_NAME=`find "$SDK_PATH" -type f -name "*.uplugin" | sed -n -r "s/.*\/([-A-Za-z0-9_]+)\.uplugin/\1/p"`
           SDK_VERSION=`sed -n -r 's/^ +\"VersionName\": \"([0-9]+.[0-9]+.[0-9]+)\",/\1/p' < "$SDK_PATH/$SDK_NAME/$SDK_NAME.uplugin"`
+          echo "SDK_PATH=${SDK_PATH}" >> $GITHUB_ENV
+          echo "SDK_NAME=${SDK_NAME}" >> $GITHUB_ENV
+          sed -i -r "s/^( +)(\"VersionName\": \"[0-9\.]+\",)/\1\2\n\1\"EngineVersion\": \"${{ matrix.UE_VERSION }}\",/g" "$SDK_PATH/$SDK_NAME/$SDK_NAME.uplugin"
+          CURRENT_PACKAGE_DIR="/home/runner/work/Packaged"
+          echo "PACKAGE_DIR=${CURRENT_PACKAGE_DIR}" >> $GITHUB_ENV
+          rm -rf "$CURRENT_PACKAGE_DIR"
+          mkdir -p "$CURRENT_PACKAGE_DIR"
+          PACKAGE_NAME="${SDK_NAME}v${SDK_VERSION}_for_Unreal_Engine_${{ matrix.UE_VERSION }}"
+          echo "PACKAGE_NAME=${PACKAGE_NAME}" >> $GITHUB_ENV
+          cp -r "$SDK_PATH/$SDK_NAME" "$CURRENT_PACKAGE_DIR/$SDK_NAME"
+          echo "  Package $PACKAGE_NAME produced to path $CURRENT_PACKAGE_DIR"
+          SDK_VERSION=`sed -n -r 's/^ +\"VersionName\": \"([0-9]+.[0-9]+.[0-9]+)\",/\1/p' < "$SDK_PATH/$SDK_NAME/$SDK_NAME.uplugin"`
           sed -i -r "s/^( +)(\"VersionName\": \"[0-9\.]+\",)/\1\2\n\1\"EngineVersion\": \"${{ matrix.UE_VERSION }}\",/g" "$SDK_PATH/$SDK_NAME/$SDK_NAME.uplugin"
           CURRENT_PACKAGE_DIR="/home/runner/work/Packaged"
           echo "PACKAGE_DIR=${CURRENT_PACKAGE_DIR}" >> $GITHUB_ENV
@@ -45,6 +62,15 @@ jobs:
         with:
           name: ${{ ENV.PACKAGE_NAME }}
           path: ${{ ENV.PACKAGE_DIR }}
+
+      - name: Attach package to release
+        if: github.event_name == 'release'
+        run: |
+          cd "$SDK_PATH"
+          zip -r "/tmp/$PACKAGE_NAME.zip" "$SDK_NAME"
+          gh release upload --clobber "${{ github.ref_name }}" "/tmp/$PACKAGE_NAME.zip"
+        env:
+          GH_TOKEN: ${{ secrets.UNREAL_CI_PERSONAL_ACCESS_TOKEN }}
         
       - name: Package SDKs with Outdated Engine Version Warning
         if: ${{ contains(fromJSON(VARS.OUTDATED_ENGINE_VERSIONS), matrix.UE_VERSION) }}
@@ -68,3 +94,12 @@ jobs:
         with:
           name: ${{ ENV.PACKAGE_NAME }}
           path: ${{ ENV.PACKAGE_DIR }}
+
+      - name: Attach outdated package to release
+        if: ${{ github.event_name == 'release' && contains(fromJSON(VARS.OUTDATED_ENGINE_VERSIONS), matrix.UE_VERSION) }}
+        run: |
+          cd "$SDK_PATH"
+          zip -r "/tmp/$PACKAGE_NAME.zip" "$SDK_NAME"
+          gh release upload --clobber "${{ github.ref_name }}" "/tmp/$PACKAGE_NAME.zip"
+        env:
+          GH_TOKEN: ${{ secrets.UNREAL_CI_PERSONAL_ACCESS_TOKEN }}
