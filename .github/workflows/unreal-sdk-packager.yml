@@ -1,12 +1,6 @@
 name: Unreal SDK Packager
 run-name: sdk-packager
 on:
-  push:
-      branches:
-        - main
-        - ci/*
-      tags:
-        - v**
   release:
     types: [published]
   workflow_dispatch: {}
@@ -37,16 +31,6 @@ jobs:
           SDK_VERSION=`sed -n -r 's/^ +\"VersionName\": \"([0-9]+.[0-9]+.[0-9]+)\",/\1/p' < "$SDK_PATH/$SDK_NAME/$SDK_NAME.uplugin"`
           echo "SDK_PATH=${SDK_PATH}" >> $GITHUB_ENV
           echo "SDK_NAME=${SDK_NAME}" >> $GITHUB_ENV
-          sed -i -r "s/^( +)(\"VersionName\": \"[0-9\.]+\",)/\1\2\n\1\"EngineVersion\": \"${{ matrix.UE_VERSION }}\",/g" "$SDK_PATH/$SDK_NAME/$SDK_NAME.uplugin"
-          CURRENT_PACKAGE_DIR="/home/runner/work/Packaged"
-          echo "PACKAGE_DIR=${CURRENT_PACKAGE_DIR}" >> $GITHUB_ENV
-          rm -rf "$CURRENT_PACKAGE_DIR"
-          mkdir -p "$CURRENT_PACKAGE_DIR"
-          PACKAGE_NAME="${SDK_NAME}v${SDK_VERSION}_for_Unreal_Engine_${{ matrix.UE_VERSION }}"
-          echo "PACKAGE_NAME=${PACKAGE_NAME}" >> $GITHUB_ENV
-          cp -r "$SDK_PATH/$SDK_NAME" "$CURRENT_PACKAGE_DIR/$SDK_NAME"
-          echo "  Package $PACKAGE_NAME produced to path $CURRENT_PACKAGE_DIR"
-          SDK_VERSION=`sed -n -r 's/^ +\"VersionName\": \"([0-9]+.[0-9]+.[0-9]+)\",/\1/p' < "$SDK_PATH/$SDK_NAME/$SDK_NAME.uplugin"`
           sed -i -r "s/^( +)(\"VersionName\": \"[0-9\.]+\",)/\1\2\n\1\"EngineVersion\": \"${{ matrix.UE_VERSION }}\",/g" "$SDK_PATH/$SDK_NAME/$SDK_NAME.uplugin"
           CURRENT_PACKAGE_DIR="/home/runner/work/Packaged"
           echo "PACKAGE_DIR=${CURRENT_PACKAGE_DIR}" >> $GITHUB_ENV
