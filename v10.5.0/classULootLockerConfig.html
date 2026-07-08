@@ -1,0 +1,1115 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: ULootLockerConfig Class Reference</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('classULootLockerConfig.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-attribs">Data Fields</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a>  </div>
+  <div class="headertitle"><div class="title">ULootLockerConfig Class Reference<div class="ingroups"><a class="el" href="group__Init.html">Initialization</a></div></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="LootLockerConfig_8h_source.html">LootLockerConfig.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for ULootLockerConfig:</div>
+<div class="dyncontent">
+<div class="center"><img src="classULootLockerConfig__inherit__graph.png" border="0" usemap="#aULootLockerConfig_inherit__map" alt="Inheritance graph"/></div>
+<map name="aULootLockerConfig_inherit__map" id="aULootLockerConfig_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,79,148,104"/>
+<area shape="rect" title=" " alt="" coords="39,5,114,31"/>
+<area shape="poly" title=" " alt="" coords="79,44,79,79,74,79,74,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for ULootLockerConfig:</div>
+<div class="dyncontent">
+<div class="center"><img src="classULootLockerConfig__coll__graph.png" border="0" usemap="#aULootLockerConfig_coll__map" alt="Collaboration graph"/></div>
+<map name="aULootLockerConfig_coll__map" id="aULootLockerConfig_coll__map">
+<area shape="rect" title=" " alt="" coords="5,79,148,104"/>
+<area shape="rect" title=" " alt="" coords="39,5,114,31"/>
+<area shape="poly" title=" " alt="" coords="79,44,79,79,74,79,74,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ac8af1f7a54df6c599f91448c9938bb70" id="r_ac8af1f7a54df6c599f91448c9938bb70"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#ac8af1f7a54df6c599f91448c9938bb70">PostInitProperties</a> () override</td></tr>
+<tr class="separator:ac8af1f7a54df6c599f91448c9938bb70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:abd9be5bc62ff63170f0af26008dc71f0" id="r_abd9be5bc62ff63170f0af26008dc71f0"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#abd9be5bc62ff63170f0af26008dc71f0">IsSemverString</a> (const FString &amp;str)</td></tr>
+<tr class="separator:abd9be5bc62ff63170f0af26008dc71f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a323c6318bcdd47eb3a41dc026dc142f9" id="r_a323c6318bcdd47eb3a41dc026dc142f9"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a323c6318bcdd47eb3a41dc026dc142f9">IsFileConfigActive</a> ()</td></tr>
+<tr class="memdesc:a323c6318bcdd47eb3a41dc026dc142f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true when a pre-configured file config is active and governing settings.  <br /></td></tr>
+<tr class="separator:a323c6318bcdd47eb3a41dc026dc142f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8ca1c1a7dd87075d43ca7461a304917" id="r_af8ca1c1a7dd87075d43ca7461a304917"><td class="memItemLeft" align="right" valign="top">static TOptional&lt; <a class="el" href="structFLootLockerFileConfig.html">FLootLockerFileConfig</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#af8ca1c1a7dd87075d43ca7461a304917">ParseFileConfigContent</a> (const FString &amp;Content)</td></tr>
+<tr class="memdesc:af8ca1c1a7dd87075d43ca7461a304917"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a pre-config file's raw content (plain JSON or encrypted) into an <a class="el" href="structFLootLockerFileConfig.html" title="Data struct for the pre-configured file config, loaded at startup from the &quot;&lt;PackageName&gt;PreConfig[-&lt;...">FLootLockerFileConfig</a>.  <br /></td></tr>
+<tr class="separator:af8ca1c1a7dd87075d43ca7461a304917"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae516abed33880e1ce16d0011718ae701" id="r_ae516abed33880e1ce16d0011718ae701"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#ae516abed33880e1ce16d0011718ae701">ShouldLog</a> ()</td></tr>
+<tr class="separator:ae516abed33880e1ce16d0011718ae701"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fb91c52842e9b0d770abc9855e9252c" id="r_a0fb91c52842e9b0d770abc9855e9252c"><td class="memItemLeft" align="right" valign="top">static ELootLockerLogLevel&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a0fb91c52842e9b0d770abc9855e9252c">GetConfiguredLogLevel</a> ()</td></tr>
+<tr class="separator:a0fb91c52842e9b0d770abc9855e9252c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ed13d6cbc4ee46f5e33a97c2dc8c035" id="r_a9ed13d6cbc4ee46f5e33a97c2dc8c035"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a9ed13d6cbc4ee46f5e33a97c2dc8c035">SetRuntimeLogLevel</a> (ELootLockerLogLevel NewLevel)</td></tr>
+<tr class="memdesc:a9ed13d6cbc4ee46f5e33a97c2dc8c035"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the log level at runtime (not persisted).  <br /></td></tr>
+<tr class="separator:a9ed13d6cbc4ee46f5e33a97c2dc8c035"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8637bec2c9ce545b8f5d8f6c87939b3a" id="r_a8637bec2c9ce545b8f5d8f6c87939b3a"><td class="memItemLeft" align="right" valign="top">static ELootLockerLogLevel&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a8637bec2c9ce545b8f5d8f6c87939b3a">GetRuntimeLogLevel</a> ()</td></tr>
+<tr class="memdesc:a8637bec2c9ce545b8f5d8f6c87939b3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current runtime log level (runtime override or config).  <br /></td></tr>
+<tr class="separator:a8637bec2c9ce545b8f5d8f6c87939b3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebe068653a78444e25c0eb591b489012" id="r_aebe068653a78444e25c0eb591b489012"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#aebe068653a78444e25c0eb591b489012">EnableFileLogging</a> (const FString &amp;FileName)</td></tr>
+<tr class="memdesc:aebe068653a78444e25c0eb591b489012"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables file logging to the specified file name.  <br /></td></tr>
+<tr class="separator:aebe068653a78444e25c0eb591b489012"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85fd117e721e4c16882df311db88d6ed" id="r_a85fd117e721e4c16882df311db88d6ed"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a85fd117e721e4c16882df311db88d6ed">DisableFileLogging</a> ()</td></tr>
+<tr class="memdesc:a85fd117e721e4c16882df311db88d6ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables file logging.  <br /></td></tr>
+<tr class="separator:a85fd117e721e4c16882df311db88d6ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62eac1ffaaf77b4ad74bbab77c90560a" id="r_a62eac1ffaaf77b4ad74bbab77c90560a"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a62eac1ffaaf77b4ad74bbab77c90560a">IsFileLoggingEnabled</a> ()</td></tr>
+<tr class="memdesc:a62eac1ffaaf77b4ad74bbab77c90560a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if file logging is enabled and a log file name is set.  <br /></td></tr>
+<tr class="separator:a62eac1ffaaf77b4ad74bbab77c90560a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3e7582228a3cc5402a2963939f42e34" id="r_ac3e7582228a3cc5402a2963939f42e34"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#ac3e7582228a3cc5402a2963939f42e34">GetLogFilePath</a> ()</td></tr>
+<tr class="memdesc:ac3e7582228a3cc5402a2963939f42e34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current log file path (may be empty if not enabled).  <br /></td></tr>
+<tr class="separator:ac3e7582228a3cc5402a2963939f42e34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed9f653112d6d5463b35f18bf816ad99" id="r_aed9f653112d6d5463b35f18bf816ad99"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#aed9f653112d6d5463b35f18bf816ad99">IsPresenceEnabled</a> ()</td></tr>
+<tr class="memdesc:aed9f653112d6d5463b35f18bf816ad99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if presence system is enabled globally.  <br /></td></tr>
+<tr class="separator:aed9f653112d6d5463b35f18bf816ad99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af922baffa17bf450ab29c9540a20e3de" id="r_af922baffa17bf450ab29c9540a20e3de"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#af922baffa17bf450ab29c9540a20e3de">IsPresenceAutoConnectEnabled</a> ()</td></tr>
+<tr class="memdesc:af922baffa17bf450ab29c9540a20e3de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if auto-connect is enabled for presence.  <br /></td></tr>
+<tr class="separator:af922baffa17bf450ab29c9540a20e3de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef6e08fc9071780410cf53405bb6c691" id="r_aef6e08fc9071780410cf53405bb6c691"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#aef6e08fc9071780410cf53405bb6c691">IsPresenceAutoDisconnectOnFocusChangeEnabled</a> ()</td></tr>
+<tr class="memdesc:aef6e08fc9071780410cf53405bb6c691"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if auto-disconnect on focus change is enabled.  <br /></td></tr>
+<tr class="separator:aef6e08fc9071780410cf53405bb6c691"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50b6e612c5213b4dcffed6cf828663a0" id="r_a50b6e612c5213b4dcffed6cf828663a0"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a50b6e612c5213b4dcffed6cf828663a0">IsPresenceEnabledInEditor</a> ()</td></tr>
+<tr class="memdesc:a50b6e612c5213b4dcffed6cf828663a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if presence is enabled in the editor.  <br /></td></tr>
+<tr class="separator:a50b6e612c5213b4dcffed6cf828663a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a09f93db3c149a80eed8a9572196d0d51" id="r_a09f93db3c149a80eed8a9572196d0d51"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__Init.html#ga3cb6baf0f1ed97c7d982b37ed121e0c7">FLootLockerConfigurationUpdateDelegate</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a09f93db3c149a80eed8a9572196d0d51">OnConfigurationUpdated</a></td></tr>
+<tr class="separator:a09f93db3c149a80eed8a9572196d0d51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62af31abfcd811136f0139e7b2f30e32" id="r_a62af31abfcd811136f0139e7b2f30e32"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a62af31abfcd811136f0139e7b2f30e32">OutdatedSDKWarning</a> = &quot;This version of LootLocker is no longer updated through fab because of fab guidelines. Please use GitHub releases to update: https://github.com/lootlocker/unreal-sdk/releases&quot;</td></tr>
+<tr class="separator:a62af31abfcd811136f0139e7b2f30e32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba3a4fbb76c774c1a19b4a0c23ee7b66" id="r_aba3a4fbb76c774c1a19b4a0c23ee7b66"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#aba3a4fbb76c774c1a19b4a0c23ee7b66">FileConfigActiveNotice</a> = &quot;Settings are governed by the pre-configured file config shipped with the plugin and cannot be changed from the editor.&quot;</td></tr>
+<tr class="separator:aba3a4fbb76c774c1a19b4a0c23ee7b66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a047747a83d7fa148689bfd6dd39e60ea" id="r_a047747a83d7fa148689bfd6dd39e60ea"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a047747a83d7fa148689bfd6dd39e60ea">LootLockerGameKey</a> = &quot;&quot;</td></tr>
+<tr class="memdesc:a047747a83d7fa148689bfd6dd39e60ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">API Key used to talk to LootLocker. The API key can be found in <code>Settings &gt; API Keys</code> in the Web Console: <a href="https://console.lootlocker.com/settings/api-keys">https://console.lootlocker.com/settings/api-keys</a>.  <br /></td></tr>
+<tr class="separator:a047747a83d7fa148689bfd6dd39e60ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac918cdc049beaacfa57e89ab00018f7c" id="r_ac918cdc049beaacfa57e89ab00018f7c"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#ac918cdc049beaacfa57e89ab00018f7c">GameVersion</a> = &quot;&quot;</td></tr>
+<tr class="separator:ac918cdc049beaacfa57e89ab00018f7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa206b19f318a915a44c881e82f25b09" id="r_aaa206b19f318a915a44c881e82f25b09"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#aaa206b19f318a915a44c881e82f25b09">InvalidGameVersionWarning</a> = &quot;Game version needs to follow a numeric Semantic Versioning pattern: X.Y.Z.B with the sections denoting MAJOR.MINOR.PATCH.BUILD and the last two being optional. Read more at https://docs.lootlocker.com/the-basics/core-concepts/glossary#game-version&quot;</td></tr>
+<tr class="separator:aaa206b19f318a915a44c881e82f25b09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe66700bd29ed963ebcae6d96006cf92" id="r_abe66700bd29ed963ebcae6d96006cf92"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#abe66700bd29ed963ebcae6d96006cf92">AllowTokenRefresh</a> = true</td></tr>
+<tr class="separator:abe66700bd29ed963ebcae6d96006cf92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7999a895b54756160e9d334f96d08e6" id="r_ae7999a895b54756160e9d334f96d08e6"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#ae7999a895b54756160e9d334f96d08e6">DomainKey</a> = &quot;&quot;</td></tr>
+<tr class="memdesc:ae7999a895b54756160e9d334f96d08e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Domain Key used to talk to LootLocker. The Domain key can be found in <code>Settings &gt; API Keys</code> in the Web Console: <a href="https://console.lootlocker.com/settings/api-keys">https://console.lootlocker.com/settings/api-keys</a>.  <br /></td></tr>
+<tr class="separator:ae7999a895b54756160e9d334f96d08e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a017e406e3d3b618fe2ac3184d69a83da" id="r_a017e406e3d3b618fe2ac3184d69a83da"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a017e406e3d3b618fe2ac3184d69a83da">bUseLegacyHTTPStack</a> = false</td></tr>
+<tr class="memdesc:a017e406e3d3b618fe2ac3184d69a83da"><td class="mdescLeft">&#160;</td><td class="mdescRight">When true, HTTP requests are routed through the legacy ULootLockerHttpClient stack instead of the new <a class="el" href="classFLootLockerHTTPExecutionQueue.html" title="Manages the LootLocker HTTP request queue as a per-frame singleton.">FLootLockerHTTPExecutionQueue</a>.  <br /></td></tr>
+<tr class="separator:a017e406e3d3b618fe2ac3184d69a83da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5488f96da83cbf2389127b8ed519ffc" id="r_ac5488f96da83cbf2389127b8ed519ffc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#ac5488f96da83cbf2389127b8ed519ffc">LogOutsideOfEditor</a> = false</td></tr>
+<tr class="memdesc:ac5488f96da83cbf2389127b8ed519ffc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allow LootLocker to log non error logs outside the editor. This is false by default to avoid log spamming and unintentional logging of data (as LootLocker logs requests and responses vs LootLocker).  <br /></td></tr>
+<tr class="separator:ac5488f96da83cbf2389127b8ed519ffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af947cdbfe3a34de73a9eb53b102d5a48" id="r_af947cdbfe3a34de73a9eb53b102d5a48"><td class="memItemLeft" align="right" valign="top">ELootLockerLogLevel&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#af947cdbfe3a34de73a9eb53b102d5a48">LootLockerLogLevel</a> = ELootLockerLogLevel::Warning</td></tr>
+<tr class="separator:af947cdbfe3a34de73a9eb53b102d5a48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a273123063a65a05cc0a2b3b50bd77c14" id="r_a273123063a65a05cc0a2b3b50bd77c14"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a273123063a65a05cc0a2b3b50bd77c14">bEnableFileLogging</a> = false</td></tr>
+<tr class="separator:a273123063a65a05cc0a2b3b50bd77c14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3b8e7f6259f806965daba463a3f8996" id="r_af3b8e7f6259f806965daba463a3f8996"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#af3b8e7f6259f806965daba463a3f8996">LogFileName</a> = TEXT(&quot;LootLockerLog&quot;)</td></tr>
+<tr class="separator:af3b8e7f6259f806965daba463a3f8996"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a09c98c00b26282cf7bc5846cf8efb7" id="r_a3a09c98c00b26282cf7bc5846cf8efb7"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a3a09c98c00b26282cf7bc5846cf8efb7">LongLogFilePath</a> = &quot;&quot;</td></tr>
+<tr class="separator:a3a09c98c00b26282cf7bc5846cf8efb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d8a912f0cbacb825ed0bc48ecb09055" id="r_a8d8a912f0cbacb825ed0bc48ecb09055"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a8d8a912f0cbacb825ed0bc48ecb09055">bEnablePresence</a> = false</td></tr>
+<tr class="memdesc:a8d8a912f0cbacb825ed0bc48ecb09055"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable the entire Presence system globally.  <br /></td></tr>
+<tr class="separator:a8d8a912f0cbacb825ed0bc48ecb09055"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73737c88ab409239f9b5744a1777d30b" id="r_a73737c88ab409239f9b5744a1777d30b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a73737c88ab409239f9b5744a1777d30b">bEnablePresenceAutoConnect</a> = true</td></tr>
+<tr class="memdesc:a73737c88ab409239f9b5744a1777d30b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to automatically connect presence when sessions are established.  <br /></td></tr>
+<tr class="separator:a73737c88ab409239f9b5744a1777d30b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1034441d733ef0fa28e7e2dfce4d6bf" id="r_ab1034441d733ef0fa28e7e2dfce4d6bf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#ab1034441d733ef0fa28e7e2dfce4d6bf">bEnablePresenceAutoDisconnectOnFocusChange</a> = true</td></tr>
+<tr class="memdesc:ab1034441d733ef0fa28e7e2dfce4d6bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to automatically disconnect presence when the application loses focus or goes to background.  <br /></td></tr>
+<tr class="separator:ab1034441d733ef0fa28e7e2dfce4d6bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9179071e3b30e35e3eb086d52ff392ac" id="r_a9179071e3b30e35e3eb086d52ff392ac"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a9179071e3b30e35e3eb086d52ff392ac">bEnablePresenceInEditor</a> = true</td></tr>
+<tr class="memdesc:a9179071e3b30e35e3eb086d52ff392ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable presence features in the editor (for testing purposes)  <br /></td></tr>
+<tr class="separator:a9179071e3b30e35e3eb086d52ff392ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae457bcd11400ddd49e2414dc1c8008e3" id="r_ae457bcd11400ddd49e2414dc1c8008e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__Init.html#gab6cbfe9c0c8733469624132e5afda1a5">ELootLockerMultiUserSessionMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#ae457bcd11400ddd49e2414dc1c8008e3">MultiUserSessionMode</a> = <a class="el" href="group__Init.html#ggab6cbfe9c0c8733469624132e5afda1a5afaf396cbd83927b72a84d2616fac76ff">ELootLockerMultiUserSessionMode::NotSet</a></td></tr>
+<tr class="memdesc:ae457bcd11400ddd49e2414dc1c8008e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls how the SDK handles multiple player sessions when a new authentication succeeds.  <br /></td></tr>
+<tr class="separator:ae457bcd11400ddd49e2414dc1c8008e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a022833e0adc3140254ac50ca8d72613a" id="r_a022833e0adc3140254ac50ca8d72613a"><td class="memItemLeft" align="right" valign="top">static const FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a022833e0adc3140254ac50ca8d72613a">PreConfigFileName</a></td></tr>
+<tr class="memdesc:a022833e0adc3140254ac50ca8d72613a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filename of the pre-config file that the SDK looks for in the plugin's Config directory.  <br /></td></tr>
+<tr class="separator:a022833e0adc3140254ac50ca8d72613a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a85fd117e721e4c16882df311db88d6ed" name="a85fd117e721e4c16882df311db88d6ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85fd117e721e4c16882df311db88d6ed">&#9670;&#160;</a></span>DisableFileLogging()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void ULootLockerConfig::DisableFileLogging </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Disables file logging. </p>
+
+</div>
+</div>
+<a id="aebe068653a78444e25c0eb591b489012" name="aebe068653a78444e25c0eb591b489012"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebe068653a78444e25c0eb591b489012">&#9670;&#160;</a></span>EnableFileLogging()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void ULootLockerConfig::EnableFileLogging </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>FileName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enables file logging to the specified file name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">FileName</td><td>The log file name (relative to project log dir). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0fb91c52842e9b0d770abc9855e9252c" name="a0fb91c52842e9b0d770abc9855e9252c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fb91c52842e9b0d770abc9855e9252c">&#9670;&#160;</a></span>GetConfiguredLogLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static ELootLockerLogLevel ULootLockerConfig::GetConfiguredLogLevel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac3e7582228a3cc5402a2963939f42e34" name="ac3e7582228a3cc5402a2963939f42e34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3e7582228a3cc5402a2963939f42e34">&#9670;&#160;</a></span>GetLogFilePath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerConfig::GetLogFilePath </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the current log file path (may be empty if not enabled). </p>
+
+</div>
+</div>
+<a id="a8637bec2c9ce545b8f5d8f6c87939b3a" name="a8637bec2c9ce545b8f5d8f6c87939b3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8637bec2c9ce545b8f5d8f6c87939b3a">&#9670;&#160;</a></span>GetRuntimeLogLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static ELootLockerLogLevel ULootLockerConfig::GetRuntimeLogLevel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the current runtime log level (runtime override or config). </p>
+
+</div>
+</div>
+<a id="a323c6318bcdd47eb3a41dc026dc142f9" name="a323c6318bcdd47eb3a41dc026dc142f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a323c6318bcdd47eb3a41dc026dc142f9">&#9670;&#160;</a></span>IsFileConfigActive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool ULootLockerConfig::IsFileConfigActive </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true when a pre-configured file config is active and governing settings. </p>
+<p>When true, the Project Settings panel is locked to prevent drift from the file config. </p>
+
+</div>
+</div>
+<a id="a62eac1ffaaf77b4ad74bbab77c90560a" name="a62eac1ffaaf77b4ad74bbab77c90560a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62eac1ffaaf77b4ad74bbab77c90560a">&#9670;&#160;</a></span>IsFileLoggingEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool ULootLockerConfig::IsFileLoggingEnabled </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true if file logging is enabled and a log file name is set. </p>
+
+</div>
+</div>
+<a id="af922baffa17bf450ab29c9540a20e3de" name="af922baffa17bf450ab29c9540a20e3de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af922baffa17bf450ab29c9540a20e3de">&#9670;&#160;</a></span>IsPresenceAutoConnectEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool ULootLockerConfig::IsPresenceAutoConnectEnabled </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if auto-connect is enabled for presence. </p>
+
+</div>
+</div>
+<a id="aef6e08fc9071780410cf53405bb6c691" name="aef6e08fc9071780410cf53405bb6c691"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef6e08fc9071780410cf53405bb6c691">&#9670;&#160;</a></span>IsPresenceAutoDisconnectOnFocusChangeEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool ULootLockerConfig::IsPresenceAutoDisconnectOnFocusChangeEnabled </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if auto-disconnect on focus change is enabled. </p>
+
+</div>
+</div>
+<a id="aed9f653112d6d5463b35f18bf816ad99" name="aed9f653112d6d5463b35f18bf816ad99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed9f653112d6d5463b35f18bf816ad99">&#9670;&#160;</a></span>IsPresenceEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool ULootLockerConfig::IsPresenceEnabled </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if presence system is enabled globally. </p>
+
+</div>
+</div>
+<a id="a50b6e612c5213b4dcffed6cf828663a0" name="a50b6e612c5213b4dcffed6cf828663a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50b6e612c5213b4dcffed6cf828663a0">&#9670;&#160;</a></span>IsPresenceEnabledInEditor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool ULootLockerConfig::IsPresenceEnabledInEditor </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if presence is enabled in the editor. </p>
+
+</div>
+</div>
+<a id="abd9be5bc62ff63170f0af26008dc71f0" name="abd9be5bc62ff63170f0af26008dc71f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd9be5bc62ff63170f0af26008dc71f0">&#9670;&#160;</a></span>IsSemverString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool ULootLockerConfig::IsSemverString </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af8ca1c1a7dd87075d43ca7461a304917" name="af8ca1c1a7dd87075d43ca7461a304917"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8ca1c1a7dd87075d43ca7461a304917">&#9670;&#160;</a></span>ParseFileConfigContent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static TOptional&lt; <a class="el" href="structFLootLockerFileConfig.html">FLootLockerFileConfig</a> &gt; ULootLockerConfig::ParseFileConfigContent </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Content</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Parses a pre-config file's raw content (plain JSON or encrypted) into an <a class="el" href="structFLootLockerFileConfig.html" title="Data struct for the pre-configured file config, loaded at startup from the &quot;&lt;PackageName&gt;PreConfig[-&lt;...">FLootLockerFileConfig</a>. </p>
+<p>Returns an empty TOptional when content is invalid or api_key is missing/empty. Exposed publicly so unit tests can call it without needing a real plugin on disk. </p>
+
+</div>
+</div>
+<a id="ac8af1f7a54df6c599f91448c9938bb70" name="ac8af1f7a54df6c599f91448c9938bb70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8af1f7a54df6c599f91448c9938bb70">&#9670;&#160;</a></span>PostInitProperties()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ULootLockerConfig::PostInitProperties </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9ed13d6cbc4ee46f5e33a97c2dc8c035" name="a9ed13d6cbc4ee46f5e33a97c2dc8c035"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ed13d6cbc4ee46f5e33a97c2dc8c035">&#9670;&#160;</a></span>SetRuntimeLogLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void ULootLockerConfig::SetRuntimeLogLevel </td>
+          <td>(</td>
+          <td class="paramtype">ELootLockerLogLevel&#160;</td>
+          <td class="paramname"><em>NewLevel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the log level at runtime (not persisted). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">NewLevel</td><td>The new log level to use for this session. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae516abed33880e1ce16d0011718ae701" name="ae516abed33880e1ce16d0011718ae701"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae516abed33880e1ce16d0011718ae701">&#9670;&#160;</a></span>ShouldLog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool ULootLockerConfig::ShouldLog </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="abe66700bd29ed963ebcae6d96006cf92" name="abe66700bd29ed963ebcae6d96006cf92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe66700bd29ed963ebcae6d96006cf92">&#9670;&#160;</a></span>AllowTokenRefresh</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ULootLockerConfig::AllowTokenRefresh = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a273123063a65a05cc0a2b3b50bd77c14" name="a273123063a65a05cc0a2b3b50bd77c14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a273123063a65a05cc0a2b3b50bd77c14">&#9670;&#160;</a></span>bEnableFileLogging</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ULootLockerConfig::bEnableFileLogging = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8d8a912f0cbacb825ed0bc48ecb09055" name="a8d8a912f0cbacb825ed0bc48ecb09055"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d8a912f0cbacb825ed0bc48ecb09055">&#9670;&#160;</a></span>bEnablePresence</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ULootLockerConfig::bEnablePresence = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable or disable the entire Presence system globally. </p>
+
+</div>
+</div>
+<a id="a73737c88ab409239f9b5744a1777d30b" name="a73737c88ab409239f9b5744a1777d30b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73737c88ab409239f9b5744a1777d30b">&#9670;&#160;</a></span>bEnablePresenceAutoConnect</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ULootLockerConfig::bEnablePresenceAutoConnect = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Whether to automatically connect presence when sessions are established. </p>
+
+</div>
+</div>
+<a id="ab1034441d733ef0fa28e7e2dfce4d6bf" name="ab1034441d733ef0fa28e7e2dfce4d6bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1034441d733ef0fa28e7e2dfce4d6bf">&#9670;&#160;</a></span>bEnablePresenceAutoDisconnectOnFocusChange</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ULootLockerConfig::bEnablePresenceAutoDisconnectOnFocusChange = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Whether to automatically disconnect presence when the application loses focus or goes to background. </p>
+
+</div>
+</div>
+<a id="a9179071e3b30e35e3eb086d52ff392ac" name="a9179071e3b30e35e3eb086d52ff392ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9179071e3b30e35e3eb086d52ff392ac">&#9670;&#160;</a></span>bEnablePresenceInEditor</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ULootLockerConfig::bEnablePresenceInEditor = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable presence features in the editor (for testing purposes) </p>
+
+</div>
+</div>
+<a id="a017e406e3d3b618fe2ac3184d69a83da" name="a017e406e3d3b618fe2ac3184d69a83da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a017e406e3d3b618fe2ac3184d69a83da">&#9670;&#160;</a></span>bUseLegacyHTTPStack</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ULootLockerConfig::bUseLegacyHTTPStack = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>When true, HTTP requests are routed through the legacy ULootLockerHttpClient stack instead of the new <a class="el" href="classFLootLockerHTTPExecutionQueue.html" title="Manages the LootLocker HTTP request queue as a per-frame singleton.">FLootLockerHTTPExecutionQueue</a>. </p>
+<p>Use this as a temporary escape hatch if you encounter issues with the new queue. This setting has no effect when the project is compiled with LOOTLOCKER_FORCE_LEGACY_HTTP_STACK=1 (which always uses the legacy stack regardless of this value). This option will be removed once the execution queue is declared stable. </p>
+
+</div>
+</div>
+<a id="ae7999a895b54756160e9d334f96d08e6" name="ae7999a895b54756160e9d334f96d08e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7999a895b54756160e9d334f96d08e6">&#9670;&#160;</a></span>DomainKey</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerConfig::DomainKey = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Domain Key used to talk to LootLocker. The Domain key can be found in <code>Settings &gt; API Keys</code> in the Web Console: <a href="https://console.lootlocker.com/settings/api-keys">https://console.lootlocker.com/settings/api-keys</a>. </p>
+
+</div>
+</div>
+<a id="aba3a4fbb76c774c1a19b4a0c23ee7b66" name="aba3a4fbb76c774c1a19b4a0c23ee7b66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba3a4fbb76c774c1a19b4a0c23ee7b66">&#9670;&#160;</a></span>FileConfigActiveNotice</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerConfig::FileConfigActiveNotice = &quot;Settings are governed by the pre-configured file config shipped with the plugin and cannot be changed from the editor.&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac918cdc049beaacfa57e89ab00018f7c" name="ac918cdc049beaacfa57e89ab00018f7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac918cdc049beaacfa57e89ab00018f7c">&#9670;&#160;</a></span>GameVersion</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerConfig::GameVersion = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaa206b19f318a915a44c881e82f25b09" name="aaa206b19f318a915a44c881e82f25b09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa206b19f318a915a44c881e82f25b09">&#9670;&#160;</a></span>InvalidGameVersionWarning</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerConfig::InvalidGameVersionWarning = &quot;Game version needs to follow a numeric Semantic Versioning pattern: X.Y.Z.B with the sections denoting MAJOR.MINOR.PATCH.BUILD and the last two being optional. Read more at https://docs.lootlocker.com/the-basics/core-concepts/glossary#game-version&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af3b8e7f6259f806965daba463a3f8996" name="af3b8e7f6259f806965daba463a3f8996"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3b8e7f6259f806965daba463a3f8996">&#9670;&#160;</a></span>LogFileName</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerConfig::LogFileName = TEXT(&quot;LootLockerLog&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac5488f96da83cbf2389127b8ed519ffc" name="ac5488f96da83cbf2389127b8ed519ffc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5488f96da83cbf2389127b8ed519ffc">&#9670;&#160;</a></span>LogOutsideOfEditor</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ULootLockerConfig::LogOutsideOfEditor = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allow LootLocker to log non error logs outside the editor. This is false by default to avoid log spamming and unintentional logging of data (as LootLocker logs requests and responses vs LootLocker). </p>
+
+</div>
+</div>
+<a id="a3a09c98c00b26282cf7bc5846cf8efb7" name="a3a09c98c00b26282cf7bc5846cf8efb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a09c98c00b26282cf7bc5846cf8efb7">&#9670;&#160;</a></span>LongLogFilePath</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerConfig::LongLogFilePath = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a047747a83d7fa148689bfd6dd39e60ea" name="a047747a83d7fa148689bfd6dd39e60ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a047747a83d7fa148689bfd6dd39e60ea">&#9670;&#160;</a></span>LootLockerGameKey</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerConfig::LootLockerGameKey = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>API Key used to talk to LootLocker. The API key can be found in <code>Settings &gt; API Keys</code> in the Web Console: <a href="https://console.lootlocker.com/settings/api-keys">https://console.lootlocker.com/settings/api-keys</a>. </p>
+
+</div>
+</div>
+<a id="af947cdbfe3a34de73a9eb53b102d5a48" name="af947cdbfe3a34de73a9eb53b102d5a48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af947cdbfe3a34de73a9eb53b102d5a48">&#9670;&#160;</a></span>LootLockerLogLevel</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ELootLockerLogLevel ULootLockerConfig::LootLockerLogLevel = ELootLockerLogLevel::Warning</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae457bcd11400ddd49e2414dc1c8008e3" name="ae457bcd11400ddd49e2414dc1c8008e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae457bcd11400ddd49e2414dc1c8008e3">&#9670;&#160;</a></span>MultiUserSessionMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__Init.html#gab6cbfe9c0c8733469624132e5afda1a5">ELootLockerMultiUserSessionMode</a> ULootLockerConfig::MultiUserSessionMode = <a class="el" href="group__Init.html#ggab6cbfe9c0c8733469624132e5afda1a5afaf396cbd83927b72a84d2616fac76ff">ELootLockerMultiUserSessionMode::NotSet</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Controls how the SDK handles multiple player sessions when a new authentication succeeds. </p>
+<p>Hotseat: Multiple active sessions allowed. The first authenticated player is default; subsequent authentications are additive. Best for local multiplayer / couch co-op.</p>
+<p>Single Session: Only one player session exists at a time. New authentications wipe all previous session data. Best for standard single-player games.</p>
+<p>Profile Switching: Only one player active at a time, but historical players kept in cold cache. Each new authentication deactivates all others and becomes the sole active default. Best for games with account selection screens. </p>
+
+</div>
+</div>
+<a id="a09f93db3c149a80eed8a9572196d0d51" name="a09f93db3c149a80eed8a9572196d0d51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09f93db3c149a80eed8a9572196d0d51">&#9670;&#160;</a></span>OnConfigurationUpdated</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__Init.html#ga3cb6baf0f1ed97c7d982b37ed121e0c7">FLootLockerConfigurationUpdateDelegate</a> ULootLockerConfig::OnConfigurationUpdated</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a62af31abfcd811136f0139e7b2f30e32" name="a62af31abfcd811136f0139e7b2f30e32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62af31abfcd811136f0139e7b2f30e32">&#9670;&#160;</a></span>OutdatedSDKWarning</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerConfig::OutdatedSDKWarning = &quot;This version of LootLocker is no longer updated through fab because of fab guidelines. Please use GitHub releases to update: https://github.com/lootlocker/unreal-sdk/releases&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a022833e0adc3140254ac50ca8d72613a" name="a022833e0adc3140254ac50ca8d72613a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a022833e0adc3140254ac50ca8d72613a">&#9670;&#160;</a></span>PreConfigFileName</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const FString ULootLockerConfig::PreConfigFileName</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Filename of the pre-config file that the SDK looks for in the plugin's Config directory. </p>
+<p>Default: "LootLockerPreConfig.bytes" </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="classULootLockerConfig.html">ULootLockerConfig</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

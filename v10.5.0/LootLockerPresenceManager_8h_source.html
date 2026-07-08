@@ -1,0 +1,478 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: LootLockerSDK/Source/LootLockerSDK/Public/LootLockerPresenceManager.h Source File</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('LootLockerPresenceManager_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LootLockerPresenceManager.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="LootLockerPresenceManager_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright (c) 2021 LootLocker</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;UObject/NoExportTypes.h&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;Engine/Engine.h&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;LootLockerPresenceClient.h&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;LootLockerPresenceManager.generated.h&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">// ========================================================================</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">// FORWARD DECLARATIONS &amp; DELEGATES</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">// ========================================================================</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="group__Presence.html#ga66af801886112d6f49e094e8fab0388c">   22</a></span>DECLARE_DELEGATE_FourParams(<a class="code hl_typedef" href="group__Presence.html#ga66af801886112d6f49e094e8fab0388c">FLootLockerPresenceConnectionDelegate</a>, <span class="keyword">const</span> FString&amp;, ELootLockerPresenceConnectionState, ELootLockerPresenceConnectionState, <span class="keyword">const</span> FString&amp;); <span class="comment">// (PlayerUlid, PreviousState, CurrentState, ErrorMessage)</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="group__Presence.html#ga90308851e93438eec33d18a55f713b62">   27</a></span>DECLARE_DELEGATE_TwoParams(<a class="code hl_typedef" href="group__Presence.html#ga90308851e93438eec33d18a55f713b62">FLootLockerPresenceCallbackDelegate</a>, <span class="keywordtype">bool</span>, <span class="keyword">const</span> FString&amp;); <span class="comment">// (Success, ErrorMessage)</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">// ========================================================================</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">// CONFIGURATION TYPES</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">// ========================================================================</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="};">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="structFLootLockerPresenceManagerConfig.html">   37</a></span>struct LOOTLOCKERSDK_API <a class="code hl_struct" href="structFLootLockerPresenceManagerConfig.html">FLootLockerPresenceManagerConfig</a></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>{</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="structFLootLockerPresenceManagerConfig.html#ad7eeac095bed705e9c70996adf20a302">   43</a></span>    bool bIsEnabled = true;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="structFLootLockerPresenceManagerConfig.html#a06868d8083c34483fca881469a979b26">   47</a></span>    <span class="keywordtype">bool</span> bAutoConnectEnabled = true;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="structFLootLockerPresenceManagerConfig.html#a2c6b8f713fbdf5880098d741f6939fbe">   51</a></span>    <span class="keywordtype">bool</span> bAutoDisconnectOnFocusChange = true;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="structFLootLockerPresenceManagerConfig.html#a8f3bbae77e0d7fad528ab0852082a0e9">   55</a></span>    <span class="keywordtype">bool</span> bEnabledInEditor = true;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>};</div>
+</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">// ========================================================================</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">// CACHED STATUS UPDATE STRUCTURE</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">// ========================================================================</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>USTRUCT()</div>
+<div class="foldopen" id="foldopen00062" data-start="{" data-end="};">
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="structFLootLockerCachedPresenceStatusUpdate.html">   62</a></span>struct <a class="code hl_struct" href="structFLootLockerCachedPresenceStatusUpdate.html">FLootLockerCachedPresenceStatusUpdate</a></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>{</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="structFLootLockerCachedPresenceStatusUpdate.html#a409e8d1e658f68b4005e29b3a8daadd9">   67</a></span>    FString Status;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structFLootLockerCachedPresenceStatusUpdate.html#ad9afb9f341904600ee6efe40d1abacb7">   70</a></span>    TMap&lt;FString, FString&gt; Metadata;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>};</div>
+</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment">// ========================================================================</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">// MAIN CLASS</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">// ========================================================================</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>UCLASS(BlueprintType)</div>
+<div class="foldopen" id="foldopen00084" data-start="{" data-end="};">
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html">   84</a></span>class LOOTLOCKERSDK_API <a class="code hl_class" href="classULootLockerPresenceManager.html">ULootLockerPresenceManager</a> : public UObject</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>{</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#af74c8a8bbcd01736a8c02acfca1acb81">   89</a></span>    <a class="code hl_function" href="classULootLockerPresenceManager.html#af74c8a8bbcd01736a8c02acfca1acb81">ULootLockerPresenceManager</a>();</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="comment">// PUBLIC API - MANUAL PRESENCE CONTROL</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a2786d66556d45e5951b471a65536b3bb">  100</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#a2786d66556d45e5951b471a65536b3bb">ConnectPresence</a>(<span class="keyword">const</span> FString&amp; PlayerUlid, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Presence.html#ga90308851e93438eec33d18a55f713b62">FLootLockerPresenceCallbackDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#affc507ae88501ffdc13fef334f0e96b8">  107</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#affc507ae88501ffdc13fef334f0e96b8">DisconnectPresence</a>(<span class="keyword">const</span> FString&amp; PlayerUlid, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Presence.html#ga90308851e93438eec33d18a55f713b62">FLootLockerPresenceCallbackDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#ab5480095b93942da9766119214027798">  116</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#ab5480095b93942da9766119214027798">UpdateStatus</a>(<span class="keyword">const</span> FString&amp; PlayerUlid, <span class="keyword">const</span> FString&amp; Status, <span class="keyword">const</span> TMap&lt;FString, FString&gt;&amp; Metadata, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Presence.html#ga90308851e93438eec33d18a55f713b62">FLootLockerPresenceCallbackDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a4947df8ab73899457f86bcfa084a3057">  123</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#a4947df8ab73899457f86bcfa084a3057">UpdateSessionToken</a>(<span class="keyword">const</span> FString&amp; PlayerUlid, <span class="keyword">const</span> FString&amp; NewToken);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="comment">// PUBLIC API - BULK OPERATIONS</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#affa44caca222a12f3c54e2ff29feea1f">  133</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#affa44caca222a12f3c54e2ff29feea1f">ConnectPresenceForAllActiveSessions</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="group__Presence.html#ga90308851e93438eec33d18a55f713b62">FLootLockerPresenceCallbackDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#aee95047432d01d440f907692e4b09f7a">  139</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#aee95047432d01d440f907692e4b09f7a">DisconnectAll</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="group__Presence.html#ga90308851e93438eec33d18a55f713b62">FLootLockerPresenceCallbackDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a63228fa2e91679f02f93d36ad4d10282">  145</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#a63228fa2e91679f02f93d36ad4d10282">PauseAllConnections</a>();</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a4bf3ca2ad60c3fadd2c433bf42bb76b4">  151</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#a4bf3ca2ad60c3fadd2c433bf42bb76b4">PauseConnection</a>(<span class="keyword">const</span> FString&amp; PlayerUlid);</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#aefc8b45b61057dfc273d5a6f36e772bf">  157</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#aefc8b45b61057dfc273d5a6f36e772bf">ResumeAllConnections</a>();</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a83b3043a698e36425da3d50e05773c15">  163</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#a83b3043a698e36425da3d50e05773c15">ResumeConnection</a>(<span class="keyword">const</span> FString&amp; PlayerUlid);</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#ae3720bd84f2f446cdc9569b93b8c13a7">  169</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#ae3720bd84f2f446cdc9569b93b8c13a7">GracefullyShutdown</a>();</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="comment">// PUBLIC API - QUERY &amp; STATUS</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a317f44b1931fceab8dc49e2bf3663514">  180</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#a317f44b1931fceab8dc49e2bf3663514">IsPresenceActiveForPlayer</a>(<span class="keyword">const</span> FString&amp; PlayerUlid) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a90fbae353f8bf21b16f31faa8c545cb8">  187</a></span>    ELootLockerPresenceConnectionState <a class="code hl_function" href="classULootLockerPresenceManager.html#a90fbae353f8bf21b16f31faa8c545cb8">GetPresenceStateForPlayer</a>(<span class="keyword">const</span> FString&amp; PlayerUlid) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a845dc0151b8c33747058d50576ae0b9b">  194</a></span>    FLootLockerPresenceConnectionStats <a class="code hl_function" href="classULootLockerPresenceManager.html#a845dc0151b8c33747058d50576ae0b9b">GetConnectionStatsForPlayer</a>(<span class="keyword">const</span> FString&amp; PlayerUlid) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#ac06b21c10abf7247c186baba5e51d66b">  200</a></span>    TArray&lt;FString&gt; <a class="code hl_function" href="classULootLockerPresenceManager.html#ac06b21c10abf7247c186baba5e51d66b">GetConnectedPlayerUlids</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span> </div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a96865b0971c9afd1c78455dac61cd2ee">  206</a></span>    int32 <a class="code hl_function" href="classULootLockerPresenceManager.html#a96865b0971c9afd1c78455dac61cd2ee">GetActiveConnectionCount</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="comment">// PUBLIC API - CONFIGURATION</span></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#ac46041af62159bff52967b293976b627">  216</a></span>    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#ac46041af62159bff52967b293976b627">IsEnabled</a>();</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span> </div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#aa1a71ef96bb7a6387ebe681b3833c9c3">  222</a></span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#aa1a71ef96bb7a6387ebe681b3833c9c3">SetEnabled</a>(<span class="keywordtype">bool</span> bEnabled);</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a0bd7095af0f9eb799c62c214c1fd2415">  228</a></span>    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#a0bd7095af0f9eb799c62c214c1fd2415">IsAutoConnectEnabled</a>();</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#aad9f095e9a4b4b8ab41246049d97a046">  234</a></span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#aad9f095e9a4b4b8ab41246049d97a046">SetAutoConnectEnabled</a>(<span class="keywordtype">bool</span> bEnabled);</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a95554216c7bf21a53e9c1b16460ba897">  240</a></span>    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#a95554216c7bf21a53e9c1b16460ba897">IsPauseOnBackgroundEnabled</a>();</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a3cbbb7d3043b902aec22abea1dfd9090">  246</a></span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#a3cbbb7d3043b902aec22abea1dfd9090">SetPauseOnBackgroundEnabled</a>(<span class="keywordtype">bool</span> bEnabled);</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a9fe4ded97c8862772d4244de8900d28d">  252</a></span>    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#a9fe4ded97c8862772d4244de8900d28d">IsEnabledInEditor</a>();</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a3bf498bdb2db654b2e7c5e035f1e8c21">  258</a></span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#a3bf498bdb2db654b2e7c5e035f1e8c21">SetEnabledInEditor</a>(<span class="keywordtype">bool</span> bEnabled);</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a5a63c97bdbc7d2689bcfa27db4f21006">  261</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#a5a63c97bdbc7d2689bcfa27db4f21006">BeginDestroy</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span> </div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    <span class="comment">// PRIVATE MEMBERS - CLIENT MANAGEMENT</span></div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    UPROPERTY()</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    TMap&lt;FString, ULootLockerPresenceClient*&gt; PresenceClients;</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    TSet&lt;FString&gt; ConnectingClients;</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    TSet&lt;FString&gt; PausedClients;</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span> </div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    mutable FCriticalSection ClientMapLock;</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    <span class="comment">// PRIVATE MEMBERS - CONFIGURATION &amp; STATE</span></div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    <a class="code hl_struct" href="structFLootLockerPresenceManagerConfig.html">FLootLockerPresenceManagerConfig</a> Configuration;</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span> </div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    TMap&lt;FString , <a class="code hl_struct" href="structFLootLockerCachedPresenceStatusUpdate.html">FLootLockerCachedPresenceStatusUpdate</a>&gt; CachedStatusUpdate;</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    <span class="comment">// PRIVATE METHODS - CLIENT LIFECYCLE</span></div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span> </div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    ULootLockerPresenceClient* CreatePresenceClient(const FString&amp; PlayerUlid, const FString&amp; SessionToken);</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span> </div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    <span class="keywordtype">void</span> HandleClientConnectionStateChange(const FString&amp; PlayerUlid, ELootLockerPresenceConnectionState OldState, ELootLockerPresenceConnectionState NewState, const FString&amp; ErrorMessage);</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span> </div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    <span class="comment">// LIFECYCLE EVENT HANDLERS</span></div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span> </div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>    UFUNCTION(Category=&quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    <span class="keywordtype">void</span> HandleStartup();</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span> </div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>    UFUNCTION(Category=&quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    <span class="keywordtype">void</span> HandleShutdown();</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span> </div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    UFUNCTION(Category=&quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    <span class="keywordtype">void</span> HandleApplicationBackground();</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    UFUNCTION(Category=&quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>    <span class="keywordtype">void</span> HandleApplicationForeground();</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span> </div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    <span class="comment">// OTHER EVENT HANDLERS</span></div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span> </div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    UFUNCTION(Category=&quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>    <span class="keywordtype">void</span> HandleConfigurationUpdated(const FString&amp; SettingName);</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span> </div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    <span class="comment">// SINGLETON MANAGEMENT</span></div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>public:</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a6ab2370d0a8229f0d71659fac5aa6cec">  345</a></span>    static <a class="code hl_class" href="classULootLockerPresenceManager.html">ULootLockerPresenceManager</a>* GetInstance();</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span> </div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a23a1f853aa8f3388a4b97f7d369198f4">  350</a></span>    static <span class="keywordtype">void</span> Initialize();</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a58d80bdd02556068dd22322414cbf8c4">  354</a></span>    static <span class="keywordtype">void</span> Shutdown();</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span> </div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>    <span class="comment">// PUBLIC API - EVENTS</span></div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span> </div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a3f09b338385d237776779c8c74f3138c">  365</a></span>    static <span class="keywordtype">void</span> NotifyPlayerActivated(const FString&amp; PlayerUlid);</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span> </div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#aef4af47601f226bbeb1f89d02f464aa2">  372</a></span>    static <span class="keywordtype">void</span> NotifyPlayerDeactivated(const FString&amp; PlayerUlid);</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>private:</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>    static <a class="code hl_class" href="classULootLockerPresenceManager.html">ULootLockerPresenceManager</a>* Instance;</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span> </div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>    static FCriticalSection InstanceLock;</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>};</div>
+</div>
+<div class="ttc" id="aLootLockerPlayerData_8h_html"><div class="ttname"><a href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a></div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html"><div class="ttname"><a href="classULootLockerPresenceManager.html">ULootLockerPresenceManager</a></div><div class="ttdoc">Manager for LootLocker presence functionality Coordinates presence connections for multiple players/s...</div><div class="ttdef"><b>Definition</b> LootLockerPresenceManager.h:85</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_a0bd7095af0f9eb799c62c214c1fd2415"><div class="ttname"><a href="classULootLockerPresenceManager.html#a0bd7095af0f9eb799c62c214c1fd2415">ULootLockerPresenceManager::IsAutoConnectEnabled</a></div><div class="ttdeci">static bool IsAutoConnectEnabled()</div><div class="ttdoc">Check if auto-connect is enabled.</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_a2786d66556d45e5951b471a65536b3bb"><div class="ttname"><a href="classULootLockerPresenceManager.html#a2786d66556d45e5951b471a65536b3bb">ULootLockerPresenceManager::ConnectPresence</a></div><div class="ttdeci">void ConnectPresence(const FString &amp;PlayerUlid, const FLootLockerPresenceCallbackDelegate &amp;OnComplete)</div><div class="ttdoc">Manually connect presence for a specific player.</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_a317f44b1931fceab8dc49e2bf3663514"><div class="ttname"><a href="classULootLockerPresenceManager.html#a317f44b1931fceab8dc49e2bf3663514">ULootLockerPresenceManager::IsPresenceActiveForPlayer</a></div><div class="ttdeci">bool IsPresenceActiveForPlayer(const FString &amp;PlayerUlid) const</div><div class="ttdoc">Check if presence is active for a specific player.</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_a3bf498bdb2db654b2e7c5e035f1e8c21"><div class="ttname"><a href="classULootLockerPresenceManager.html#a3bf498bdb2db654b2e7c5e035f1e8c21">ULootLockerPresenceManager::SetEnabledInEditor</a></div><div class="ttdeci">static void SetEnabledInEditor(bool bEnabled)</div><div class="ttdoc">Enable or disable presence in editor.</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_a3cbbb7d3043b902aec22abea1dfd9090"><div class="ttname"><a href="classULootLockerPresenceManager.html#a3cbbb7d3043b902aec22abea1dfd9090">ULootLockerPresenceManager::SetPauseOnBackgroundEnabled</a></div><div class="ttdeci">static void SetPauseOnBackgroundEnabled(bool bEnabled)</div><div class="ttdoc">Enable or disable pause-on-background behavior.</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_a4947df8ab73899457f86bcfa084a3057"><div class="ttname"><a href="classULootLockerPresenceManager.html#a4947df8ab73899457f86bcfa084a3057">ULootLockerPresenceManager::UpdateSessionToken</a></div><div class="ttdeci">void UpdateSessionToken(const FString &amp;PlayerUlid, const FString &amp;NewToken)</div><div class="ttdoc">Update session token for an existing presence connection.</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_a4bf3ca2ad60c3fadd2c433bf42bb76b4"><div class="ttname"><a href="classULootLockerPresenceManager.html#a4bf3ca2ad60c3fadd2c433bf42bb76b4">ULootLockerPresenceManager::PauseConnection</a></div><div class="ttdeci">void PauseConnection(const FString &amp;PlayerUlid)</div><div class="ttdoc">Pause presence connection for a specific player.</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_a5a63c97bdbc7d2689bcfa27db4f21006"><div class="ttname"><a href="classULootLockerPresenceManager.html#a5a63c97bdbc7d2689bcfa27db4f21006">ULootLockerPresenceManager::BeginDestroy</a></div><div class="ttdeci">virtual void BeginDestroy() override</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_a63228fa2e91679f02f93d36ad4d10282"><div class="ttname"><a href="classULootLockerPresenceManager.html#a63228fa2e91679f02f93d36ad4d10282">ULootLockerPresenceManager::PauseAllConnections</a></div><div class="ttdeci">void PauseAllConnections()</div><div class="ttdoc">Pause all active presence connections (keeps connections alive but stops activity) Called when app go...</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_a83b3043a698e36425da3d50e05773c15"><div class="ttname"><a href="classULootLockerPresenceManager.html#a83b3043a698e36425da3d50e05773c15">ULootLockerPresenceManager::ResumeConnection</a></div><div class="ttdeci">void ResumeConnection(const FString &amp;PlayerUlid)</div><div class="ttdoc">Resume presence connection for a specific player.</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_a845dc0151b8c33747058d50576ae0b9b"><div class="ttname"><a href="classULootLockerPresenceManager.html#a845dc0151b8c33747058d50576ae0b9b">ULootLockerPresenceManager::GetConnectionStatsForPlayer</a></div><div class="ttdeci">FLootLockerPresenceConnectionStats GetConnectionStatsForPlayer(const FString &amp;PlayerUlid) const</div><div class="ttdoc">Get connection statistics for a specific player.</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_a90fbae353f8bf21b16f31faa8c545cb8"><div class="ttname"><a href="classULootLockerPresenceManager.html#a90fbae353f8bf21b16f31faa8c545cb8">ULootLockerPresenceManager::GetPresenceStateForPlayer</a></div><div class="ttdeci">ELootLockerPresenceConnectionState GetPresenceStateForPlayer(const FString &amp;PlayerUlid) const</div><div class="ttdoc">Get connection state for a specific player.</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_a95554216c7bf21a53e9c1b16460ba897"><div class="ttname"><a href="classULootLockerPresenceManager.html#a95554216c7bf21a53e9c1b16460ba897">ULootLockerPresenceManager::IsPauseOnBackgroundEnabled</a></div><div class="ttdeci">static bool IsPauseOnBackgroundEnabled()</div><div class="ttdoc">Check if pause-on-background is enabled.</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_a96865b0971c9afd1c78455dac61cd2ee"><div class="ttname"><a href="classULootLockerPresenceManager.html#a96865b0971c9afd1c78455dac61cd2ee">ULootLockerPresenceManager::GetActiveConnectionCount</a></div><div class="ttdeci">int32 GetActiveConnectionCount() const</div><div class="ttdoc">Get count of currently active presence connections.</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_a9fe4ded97c8862772d4244de8900d28d"><div class="ttname"><a href="classULootLockerPresenceManager.html#a9fe4ded97c8862772d4244de8900d28d">ULootLockerPresenceManager::IsEnabledInEditor</a></div><div class="ttdeci">static bool IsEnabledInEditor()</div><div class="ttdoc">Check if presence is enabled in editor.</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_aa1a71ef96bb7a6387ebe681b3833c9c3"><div class="ttname"><a href="classULootLockerPresenceManager.html#aa1a71ef96bb7a6387ebe681b3833c9c3">ULootLockerPresenceManager::SetEnabled</a></div><div class="ttdeci">static void SetEnabled(bool bEnabled)</div><div class="ttdoc">Enable or disable presence manager globally.</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_aad9f095e9a4b4b8ab41246049d97a046"><div class="ttname"><a href="classULootLockerPresenceManager.html#aad9f095e9a4b4b8ab41246049d97a046">ULootLockerPresenceManager::SetAutoConnectEnabled</a></div><div class="ttdeci">static void SetAutoConnectEnabled(bool bEnabled)</div><div class="ttdoc">Enable or disable auto-connect behavior.</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_ab5480095b93942da9766119214027798"><div class="ttname"><a href="classULootLockerPresenceManager.html#ab5480095b93942da9766119214027798">ULootLockerPresenceManager::UpdateStatus</a></div><div class="ttdeci">void UpdateStatus(const FString &amp;PlayerUlid, const FString &amp;Status, const TMap&lt; FString, FString &gt; &amp;Metadata, const FLootLockerPresenceCallbackDelegate &amp;OnComplete)</div><div class="ttdoc">Update status for a player's presence connection.</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_ac06b21c10abf7247c186baba5e51d66b"><div class="ttname"><a href="classULootLockerPresenceManager.html#ac06b21c10abf7247c186baba5e51d66b">ULootLockerPresenceManager::GetConnectedPlayerUlids</a></div><div class="ttdeci">TArray&lt; FString &gt; GetConnectedPlayerUlids() const</div><div class="ttdoc">Get list of all currently connected player ULIDs.</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_ac46041af62159bff52967b293976b627"><div class="ttname"><a href="classULootLockerPresenceManager.html#ac46041af62159bff52967b293976b627">ULootLockerPresenceManager::IsEnabled</a></div><div class="ttdeci">static bool IsEnabled()</div><div class="ttdoc">Check if presence manager is globally enabled.</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_ae3720bd84f2f446cdc9569b93b8c13a7"><div class="ttname"><a href="classULootLockerPresenceManager.html#ae3720bd84f2f446cdc9569b93b8c13a7">ULootLockerPresenceManager::GracefullyShutdown</a></div><div class="ttdeci">void GracefullyShutdown()</div><div class="ttdoc">Gracefully shutdown all presence connections Called during application termination.</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_aee95047432d01d440f907692e4b09f7a"><div class="ttname"><a href="classULootLockerPresenceManager.html#aee95047432d01d440f907692e4b09f7a">ULootLockerPresenceManager::DisconnectAll</a></div><div class="ttdeci">void DisconnectAll(const FLootLockerPresenceCallbackDelegate &amp;OnComplete)</div><div class="ttdoc">Disconnect all active presence connections.</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_aefc8b45b61057dfc273d5a6f36e772bf"><div class="ttname"><a href="classULootLockerPresenceManager.html#aefc8b45b61057dfc273d5a6f36e772bf">ULootLockerPresenceManager::ResumeAllConnections</a></div><div class="ttdeci">void ResumeAllConnections()</div><div class="ttdoc">Resume all paused presence connections Called when app returns to foreground, network is restored,...</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_af74c8a8bbcd01736a8c02acfca1acb81"><div class="ttname"><a href="classULootLockerPresenceManager.html#af74c8a8bbcd01736a8c02acfca1acb81">ULootLockerPresenceManager::ULootLockerPresenceManager</a></div><div class="ttdeci">ULootLockerPresenceManager()</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_affa44caca222a12f3c54e2ff29feea1f"><div class="ttname"><a href="classULootLockerPresenceManager.html#affa44caca222a12f3c54e2ff29feea1f">ULootLockerPresenceManager::ConnectPresenceForAllActiveSessions</a></div><div class="ttdeci">void ConnectPresenceForAllActiveSessions(const FLootLockerPresenceCallbackDelegate &amp;OnComplete)</div><div class="ttdoc">Connect presence for all currently authenticated players/sessions.</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_affc507ae88501ffdc13fef334f0e96b8"><div class="ttname"><a href="classULootLockerPresenceManager.html#affc507ae88501ffdc13fef334f0e96b8">ULootLockerPresenceManager::DisconnectPresence</a></div><div class="ttdeci">void DisconnectPresence(const FString &amp;PlayerUlid, const FLootLockerPresenceCallbackDelegate &amp;OnComplete)</div><div class="ttdoc">Manually disconnect presence for a specific player.</div></div>
+<div class="ttc" id="agroup__Presence_html_ga66af801886112d6f49e094e8fab0388c"><div class="ttname"><a href="group__Presence.html#ga66af801886112d6f49e094e8fab0388c">FLootLockerPresenceConnectionDelegate</a></div><div class="ttdeci">void(* FLootLockerPresenceConnectionDelegate)(const FString &amp;, ELootLockerPresenceConnectionState, ELootLockerPresenceConnectionState, const FString &amp;)</div><div class="ttdoc">Delegate for presence connection state changes.</div><div class="ttdef"><b>Definition</b> LootLockerPresenceManager.h:22</div></div>
+<div class="ttc" id="agroup__Presence_html_ga90308851e93438eec33d18a55f713b62"><div class="ttname"><a href="group__Presence.html#ga90308851e93438eec33d18a55f713b62">FLootLockerPresenceCallbackDelegate</a></div><div class="ttdeci">void(* FLootLockerPresenceCallbackDelegate)(bool, const FString &amp;)</div><div class="ttdoc">Delegate for handling presence connection process callbacks.</div><div class="ttdef"><b>Definition</b> LootLockerPresenceManager.h:27</div></div>
+<div class="ttc" id="astructFLootLockerCachedPresenceStatusUpdate_html"><div class="ttname"><a href="structFLootLockerCachedPresenceStatusUpdate.html">FLootLockerCachedPresenceStatusUpdate</a></div><div class="ttdef"><b>Definition</b> LootLockerPresenceManager.h:63</div></div>
+<div class="ttc" id="astructFLootLockerPresenceManagerConfig_html"><div class="ttname"><a href="structFLootLockerPresenceManagerConfig.html">FLootLockerPresenceManagerConfig</a></div><div class="ttdoc">Configuration structure for presence manager behavior.</div><div class="ttdef"><b>Definition</b> LootLockerPresenceManager.h:38</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_426131f2e7e3782155028ac49ab5e11c.html">LootLockerSDK</a></li><li class="navelem"><a class="el" href="dir_63662f8d869795fbcfe09e29de292894.html">Source</a></li><li class="navelem"><a class="el" href="dir_529bffb88e47999e071ca27db50fed71.html">LootLockerSDK</a></li><li class="navelem"><a class="el" href="dir_6800d9c9fc95b443eb5325340bc06d03.html">Public</a></li><li class="navelem"><a class="el" href="LootLockerPresenceManager_8h.html">LootLockerPresenceManager.h</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

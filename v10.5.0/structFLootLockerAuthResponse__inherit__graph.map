@@ -1,0 +1,29 @@
+<map id="FLootLockerAuthResponse" name="FLootLockerAuthResponse">
+<area shape="rect" id="Node000001" title=" " alt="" coords="216,299,409,325"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerAuthenticationResponse.html" title=" " alt="" coords="464,235,659,275"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="381,294,474,272,475,277,382,299"/>
+<area shape="rect" id="Node000013" href="$structFLootLockerLoginResponse.html" title=" " alt="" coords="462,299,661,325"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="423,309,462,309,462,315,423,315"/>
+<area shape="rect" id="Node000014" href="$structFLootLockerWhiteLabelLoginAndSessionResponse.html" title=" " alt="" coords="457,349,665,389"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="382,325,475,347,474,352,381,330"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="5,299,168,325"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,309,216,309,216,315,182,315"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerAppleGameCenterSessionResponse.html" title=" " alt="" coords="729,5,948,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="576,221,598,182,629,137,667,93,712,55,734,43,737,48,715,60,671,97,633,141,603,185,581,224"/>
+<area shape="rect" id="Node000005" href="$structFLootLockerAppleSessionResponse.html" title=" " alt="" coords="713,70,964,95"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="583,222,637,162,673,131,712,106,744,93,746,98,715,110,676,135,641,166,587,225"/>
+<area shape="rect" id="Node000006" href="$structFLootLockerDiscordSessionResponse.html" title=" " alt="" coords="739,120,938,160"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="604,225,655,196,712,170,748,158,749,163,714,174,657,201,607,230"/>
+<area shape="rect" id="Node000007" href="$structFLootLockerEpicSessionResponse.html" title=" " alt="" coords="719,185,959,210"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="669,229,713,220,774,208,775,213,714,225,671,234"/>
+<area shape="rect" id="Node000008" href="$structFLootLockerGooglePlayGamesSessionResponse.html" title=" " alt="" coords="729,235,949,275"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="672,252,729,252,729,257,672,257"/>
+<area shape="rect" id="Node000009" href="$structFLootLockerGoogleSessionResponse.html" title=" " alt="" coords="741,299,937,339"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="663,275,752,296,751,301,661,280"/>
+<area shape="rect" id="Node000010" href="$structFLootLockerMetaSessionResponse.html" title=" " alt="" coords="715,363,962,389"/>
+<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="658,279,667,285,683,301,691,318,699,334,715,348,741,361,739,366,712,353,695,337,687,320,679,304,664,289,655,283"/>
+<area shape="rect" id="Node000011" href="$structFLootLockerRefreshRemoteSessionResponse.html" title="Response containing the refreshed authentication data and a new refresh token for an existing remote ..." alt="" coords="738,413,939,453"/>
+<area shape="poly" id="edge10_Node000003_Node000011" title=" " alt="" coords="662,280,667,285,680,299,687,314,692,344,696,373,703,386,715,399,739,414,736,419,712,403,699,389,691,374,686,345,682,316,675,302,663,289,658,284"/>
+<area shape="rect" id="Node000012" href="$structFLootLockerStartRemoteSessionResponse.html" title="Response returned when remote session polling completes, containing the lease status and,..." alt="" coords="723,477,955,517"/>
+<area shape="poly" id="edge11_Node000003_Node000012" title=" " alt="" coords="663,281,667,285,684,308,691,331,691,377,692,421,699,442,715,463,730,475,727,479,711,467,694,445,687,422,686,377,686,332,679,310,663,288,660,285"/>
+</map>

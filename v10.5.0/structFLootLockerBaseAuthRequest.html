@@ -1,0 +1,317 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: FLootLockerBaseAuthRequest Struct Reference</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('structFLootLockerBaseAuthRequest.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
+  <div class="headertitle"><div class="title">FLootLockerBaseAuthRequest Struct Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="LootLockerAuthenticationRequestHandler_8h_source.html">LootLockerAuthenticationRequestHandler.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for FLootLockerBaseAuthRequest:</div>
+<div class="dyncontent">
+<div class="center"><img src="structFLootLockerBaseAuthRequest__inherit__graph.png" border="0" usemap="#aFLootLockerBaseAuthRequest_inherit__map" alt="Inheritance graph"/></div>
+<map name="aFLootLockerBaseAuthRequest_inherit__map" id="aFLootLockerBaseAuthRequest_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,594,220,619"/>
+<area shape="rect" href="structFLootLockerAppleGameCenterSessionRequest.html" title=" " alt="" coords="281,5,500,45"/>
+<area shape="poly" title=" " alt="" coords="115,580,134,467,167,309,188,229,212,156,238,96,266,55,282,43,285,48,270,59,242,99,217,158,193,231,172,311,140,468,121,580"/>
+<area shape="rect" href="structFLootLockerAppleSessionRequest.html" title=" " alt="" coords="271,70,511,95"/>
+<area shape="poly" title=" " alt="" coords="111,580,115,490,122,428,135,361,154,292,181,224,218,161,241,132,266,106,285,93,288,98,270,110,245,136,223,164,186,226,159,294,140,362,127,429,120,490,116,581"/>
+<area shape="rect" href="structFLootLockerAuthenticationRequest.html" title=" " alt="" coords="293,120,488,160"/>
+<area shape="poly" title=" " alt="" coords="113,580,121,500,131,447,145,390,164,330,190,272,224,217,266,170,292,153,295,158,270,174,228,221,195,274,169,332,150,391,136,448,126,501,118,580"/>
+<area shape="rect" href="structFLootLockerDiscordSessionRequest.html" title=" " alt="" coords="291,184,490,224"/>
+<area shape="poly" title=" " alt="" coords="114,580,127,511,153,417,173,367,198,319,229,273,266,234,290,219,293,223,270,238,233,277,202,321,178,370,158,419,132,512,120,581"/>
+<area shape="rect" href="structFLootLockerEpicSessionRequest.html" title=" " alt="" coords="275,249,506,274"/>
+<area shape="poly" title=" " alt="" coords="116,580,131,519,158,438,178,396,203,355,232,317,266,285,288,272,291,276,270,289,236,321,207,358,183,398,163,440,136,520,121,581"/>
+<area shape="rect" href="structFLootLockerGooglePlayGamesSessionRequest.html" title=" " alt="" coords="281,299,501,339"/>
+<area shape="poly" title=" " alt="" coords="120,580,139,530,169,468,211,403,237,374,266,349,286,337,289,341,270,353,241,378,216,407,174,470,143,533,125,582"/>
+<area shape="rect" href="structFLootLockerGoogleSessionRequest.html" title=" " alt="" coords="293,363,489,403"/>
+<area shape="poly" title=" " alt="" coords="125,580,147,543,179,497,219,451,267,412,291,400,293,405,269,417,223,455,183,501,151,546,129,583"/>
+<area shape="rect" href="structFLootLockerNintendoSwitchSessionRequest.html" title=" " alt="" coords="289,427,492,467"/>
+<area shape="poly" title=" " alt="" coords="133,582,190,529,227,500,267,476,295,464,297,469,269,481,230,505,194,533,137,586"/>
+<area shape="rect" href="structFLootLockerRefreshAppleGameCenterSessionRequest.html" title=" " alt="" coords="277,491,504,531"/>
+<area shape="poly" title=" " alt="" coords="153,586,267,540,307,528,308,533,269,545,155,591"/>
+<area shape="rect" href="structFLootLockerRefreshAppleSessionRequest.html" title=" " alt="" coords="272,555,509,595"/>
+<area shape="poly" title=" " alt="" coords="233,590,272,586,272,591,234,595"/>
+<area shape="rect" href="structFLootLockerRefreshDiscordSessionRequest.html" title=" " alt="" coords="291,619,490,659"/>
+<area shape="poly" title=" " alt="" coords="234,618,291,625,291,630,234,623"/>
+<area shape="rect" href="structFLootLockerRefreshEpicSessionRequest.html" title=" " alt="" coords="277,683,504,723"/>
+<area shape="poly" title=" " alt="" coords="155,622,269,668,308,680,307,685,267,673,153,627"/>
+<area shape="rect" href="structFLootLockerRefreshGooglePlayGamesSessionRequest.html" title=" " alt="" coords="291,747,490,787"/>
+<area shape="poly" title=" " alt="" coords="137,628,194,681,230,708,269,732,297,744,295,749,267,737,227,713,190,685,133,632"/>
+<area shape="rect" href="structFLootLockerRefreshGoogleSessionRequest.html" title=" " alt="" coords="293,811,489,851"/>
+<area shape="poly" title=" " alt="" coords="129,630,151,668,183,713,223,758,269,796,293,809,291,814,267,801,219,762,179,716,147,670,125,633"/>
+<area shape="rect" href="structFLootLockerRefreshMetaSessionRequest.html" title=" " alt="" coords="274,875,507,915"/>
+<area shape="poly" title=" " alt="" coords="125,632,143,681,174,743,216,807,241,836,270,861,289,872,286,877,266,865,237,839,211,810,169,746,139,683,120,633"/>
+<area shape="rect" href="structFLootLockerRefreshRemoteSessionRequest.html" title=" " alt="" coords="290,939,491,979"/>
+<area shape="poly" title=" " alt="" coords="121,632,136,692,165,772,184,814,208,854,236,892,270,925,291,938,288,943,266,929,232,895,204,857,179,816,160,774,131,694,116,633"/>
+<area shape="rect" href="structFLootLockerStartMetaSessionRequest.html" title=" " alt="" coords="283,1003,498,1043"/>
+<area shape="poly" title=" " alt="" coords="119,633,131,704,156,801,176,852,201,902,232,948,270,989,287,1000,284,1005,266,993,228,952,196,905,171,854,151,802,125,705,114,634"/>
+<area shape="rect" href="structFLootLockerSteamSessionRequest.html" title=" " alt="" coords="268,1067,513,1093"/>
+<area shape="poly" title=" " alt="" coords="117,633,124,715,133,769,146,829,166,890,192,950,226,1005,270,1053,288,1065,285,1069,266,1057,222,1008,187,952,161,892,141,830,128,770,119,715,112,633"/>
+<area shape="rect" href="structFLootLockerWhiteLabelAuthRequest.html" title=" " alt="" coords="289,1117,492,1157"/>
+<area shape="poly" title=" " alt="" coords="116,633,121,723,129,783,142,850,161,918,188,986,224,1049,270,1103,290,1118,287,1122,266,1107,219,1052,183,988,156,920,136,851,124,784,116,723,111,633"/>
+<area shape="rect" href="structFLootLockerXboxSessionRequest.html" title=" " alt="" coords="273,1182,509,1207"/>
+<area shape="poly" title=" " alt="" coords="120,632,138,748,170,910,191,992,215,1067,241,1127,255,1150,270,1167,287,1180,284,1184,266,1171,251,1153,236,1130,210,1068,186,993,165,911,133,749,115,633"/>
+<area shape="rect" href="structFLootLockerGoogleSessionRequestWithPlatform.html" title=" " alt="" coords="575,363,771,403"/>
+<area shape="poly" title=" " alt="" coords="503,380,575,380,575,385,503,385"/>
+<area shape="rect" href="structFLootLockerSteamSessionWithAppIdRequest.html" title=" " alt="" coords="561,1060,784,1100"/>
+<area shape="poly" title=" " alt="" coords="527,1077,561,1077,561,1083,527,1083"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:ae2f3882935a37b3decc2e5c1be4f4a39" id="r_ae2f3882935a37b3decc2e5c1be4f4a39"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerBaseAuthRequest.html#ae2f3882935a37b3decc2e5c1be4f4a39">game_api_key</a> = &quot;&quot;</td></tr>
+<tr class="separator:ae2f3882935a37b3decc2e5c1be4f4a39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1d4ba549994d65ee3c41f5f92e4a3ea" id="r_aa1d4ba549994d65ee3c41f5f92e4a3ea"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerBaseAuthRequest.html#aa1d4ba549994d65ee3c41f5f92e4a3ea">game_version</a> = &quot;&quot;</td></tr>
+<tr class="separator:aa1d4ba549994d65ee3c41f5f92e4a3ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="ae2f3882935a37b3decc2e5c1be4f4a39" name="ae2f3882935a37b3decc2e5c1be4f4a39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2f3882935a37b3decc2e5c1be4f4a39">&#9670;&#160;</a></span>game_api_key</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerBaseAuthRequest::game_api_key = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa1d4ba549994d65ee3c41f5f92e4a3ea" name="aa1d4ba549994d65ee3c41f5f92e4a3ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1d4ba549994d65ee3c41f5f92e4a3ea">&#9670;&#160;</a></span>game_version</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerBaseAuthRequest::game_version = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structFLootLockerBaseAuthRequest.html">FLootLockerBaseAuthRequest</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

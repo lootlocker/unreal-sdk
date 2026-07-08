@@ -1,0 +1,21 @@
+<map id="FLootLockerWhiteLabelLoginAndSessionResponse" name="FLootLockerWhiteLabelLoginAndSessionResponse">
+<area shape="rect" id="Node000001" title=" " alt="" coords="209,447,417,487"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerAuthResponse.html" title=" " alt="" coords="236,256,429,281"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="333,296,317,447,312,446,327,295"/>
+<area shape="rect" id="Node000007" href="$structFLootLockerLoginResponse.html" title=" " alt="" coords="349,351,548,377"/>
+<area shape="poly" id="edge7_Node000007_Node000002" title=" " alt="" coords="359,288,436,349,433,353,356,292"/>
+<area shape="rect" id="Node000008" href="$structFLootLockerAuthenticationResponse.html" title=" " alt="" coords="46,344,241,384"/>
+<area shape="poly" id="edge9_Node000008_Node000002" title=" " alt="" coords="304,291,246,322,192,346,190,341,243,318,301,286"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="251,181,414,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="335,221,335,256,330,256,330,221"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerErrorData.html" title=" " alt="" coords="147,93,310,119"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="255,125,320,179,317,183,251,129"/>
+<area shape="rect" id="Node000005" href="$structFLootLockerBanInfo.html" title="Details about a player&#39;s active ban." alt="" coords="153,5,304,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="231,45,231,93,226,93,226,45"/>
+<area shape="rect" id="Node000006" href="$structFLootLockerRequestContext.html" title=" " alt="" coords="335,93,539,119"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="414,129,348,183,345,179,411,125"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="424,387,340,449,337,444,421,383"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="140,397,141,410,147,421,170,435,209,447,208,452,168,440,143,424,136,412,135,398"/>
+<area shape="rect" id="Node000009" href="$structFLootLockerLevelThresholds.html" title=" " alt="" coords="5,256,212,281"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="120,293,139,343,134,345,115,295"/>
+</map>

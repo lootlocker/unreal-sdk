@@ -1,0 +1,514 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: FLootLockerRemoteSessionPlayerData Struct Reference</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('structFLootLockerRemoteSessionPlayerData.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
+  <div class="headertitle"><div class="title">FLootLockerRemoteSessionPlayerData Struct Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Holds the player data returned when a remote session lease is successfully authorized, including identity fields, progression state, and notification check flags.  
+ <a href="structFLootLockerRemoteSessionPlayerData.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="LootLockerRemoteSessionRequestHandler_8h_source.html">LootLockerRemoteSessionRequestHandler.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for FLootLockerRemoteSessionPlayerData:</div>
+<div class="dyncontent">
+<div class="center"><img src="structFLootLockerRemoteSessionPlayerData__coll__graph.png" border="0" usemap="#aFLootLockerRemoteSessionPlayerData_coll__map" alt="Collaboration graph"/></div>
+<map name="aFLootLockerRemoteSessionPlayerData_coll__map" id="aFLootLockerRemoteSessionPlayerData_coll__map">
+<area shape="rect" title="Holds the player data returned when a remote session lease is successfully authorized,..." alt="" coords="8,93,209,133"/>
+<area shape="rect" href="structFLootLockerLevelThresholds.html" title=" " alt="" coords="5,5,212,31"/>
+<area shape="poly" title=" " alt="" coords="111,44,111,93,106,93,106,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a277341b4caaf6694c1d55aaa359e0c3e" id="r_a277341b4caaf6694c1d55aaa359e0c3e"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRemoteSessionPlayerData.html#a277341b4caaf6694c1d55aaa359e0c3e">player_name</a> = &quot;&quot;</td></tr>
+<tr class="memdesc:a277341b4caaf6694c1d55aaa359e0c3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The player's name if it has been set by using SetPlayerName().  <br /></td></tr>
+<tr class="separator:a277341b4caaf6694c1d55aaa359e0c3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f3b868464428873b29757a55d14c5de" id="r_a4f3b868464428873b29757a55d14c5de"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRemoteSessionPlayerData.html#a4f3b868464428873b29757a55d14c5de">player_id</a> = 0</td></tr>
+<tr class="memdesc:a4f3b868464428873b29757a55d14c5de"><td class="mdescLeft">&#160;</td><td class="mdescRight">The player id.  <br /></td></tr>
+<tr class="separator:a4f3b868464428873b29757a55d14c5de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc5b4bdf57beb9219ee3344e6038c2de" id="r_adc5b4bdf57beb9219ee3344e6038c2de"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRemoteSessionPlayerData.html#adc5b4bdf57beb9219ee3344e6038c2de">public_uid</a> = &quot;&quot;</td></tr>
+<tr class="memdesc:adc5b4bdf57beb9219ee3344e6038c2de"><td class="mdescLeft">&#160;</td><td class="mdescRight">The public UID for this player.  <br /></td></tr>
+<tr class="separator:adc5b4bdf57beb9219ee3344e6038c2de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a2d1949f900bf0ffd7eb59e99662195" id="r_a9a2d1949f900bf0ffd7eb59e99662195"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRemoteSessionPlayerData.html#a9a2d1949f900bf0ffd7eb59e99662195">player_ulid</a> = &quot;&quot;</td></tr>
+<tr class="memdesc:a9a2d1949f900bf0ffd7eb59e99662195"><td class="mdescLeft">&#160;</td><td class="mdescRight">The player ULID for this player.  <br /></td></tr>
+<tr class="separator:a9a2d1949f900bf0ffd7eb59e99662195"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9753c0c3cef5f076af50a1f3f714314" id="r_ab9753c0c3cef5f076af50a1f3f714314"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRemoteSessionPlayerData.html#ab9753c0c3cef5f076af50a1f3f714314">seen_before</a> = false</td></tr>
+<tr class="memdesc:ab9753c0c3cef5f076af50a1f3f714314"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether this player has been seen before (true) or is new (false)  <br /></td></tr>
+<tr class="separator:ab9753c0c3cef5f076af50a1f3f714314"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d43beb681bb96e693e02da001689252" id="r_a8d43beb681bb96e693e02da001689252"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRemoteSessionPlayerData.html#a8d43beb681bb96e693e02da001689252">check_grant_notifications</a> = false</td></tr>
+<tr class="memdesc:a8d43beb681bb96e693e02da001689252"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether this player has new information to check in grants.  <br /></td></tr>
+<tr class="separator:a8d43beb681bb96e693e02da001689252"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf2c969057ba758d8d7b7feb99be8ea8" id="r_abf2c969057ba758d8d7b7feb99be8ea8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRemoteSessionPlayerData.html#abf2c969057ba758d8d7b7feb99be8ea8">check_deactivation_notifications</a> = false</td></tr>
+<tr class="memdesc:abf2c969057ba758d8d7b7feb99be8ea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether this player has new information to check in deactivations.  <br /></td></tr>
+<tr class="separator:abf2c969057ba758d8d7b7feb99be8ea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24b94803636121a4c1945a8425609d28" id="r_a24b94803636121a4c1945a8425609d28"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRemoteSessionPlayerData.html#a24b94803636121a4c1945a8425609d28">xp</a> = 0</td></tr>
+<tr class="memdesc:a24b94803636121a4c1945a8425609d28"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current xp of this player.  <br /></td></tr>
+<tr class="separator:a24b94803636121a4c1945a8425609d28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77980dfea438330a12fb93aba2ab393e" id="r_a77980dfea438330a12fb93aba2ab393e"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRemoteSessionPlayerData.html#a77980dfea438330a12fb93aba2ab393e">level</a> = 0</td></tr>
+<tr class="memdesc:a77980dfea438330a12fb93aba2ab393e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current level of this player.  <br /></td></tr>
+<tr class="separator:a77980dfea438330a12fb93aba2ab393e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cb5cad7813850426842defb754864b3" id="r_a5cb5cad7813850426842defb754864b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structFLootLockerLevelThresholds.html">FLootLockerLevelThresholds</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRemoteSessionPlayerData.html#a5cb5cad7813850426842defb754864b3">level_thresholds</a></td></tr>
+<tr class="memdesc:a5cb5cad7813850426842defb754864b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The level_thresholds that the level and xp data relates to.  <br /></td></tr>
+<tr class="separator:a5cb5cad7813850426842defb754864b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a5e8f13adf4fadd19c2d27ed007ddf2" id="r_a4a5e8f13adf4fadd19c2d27ed007ddf2"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRemoteSessionPlayerData.html#a4a5e8f13adf4fadd19c2d27ed007ddf2">account_balance</a> = 0</td></tr>
+<tr class="memdesc:a4a5e8f13adf4fadd19c2d27ed007ddf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current balance in this account.  <br /></td></tr>
+<tr class="separator:a4a5e8f13adf4fadd19c2d27ed007ddf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f6dafbe04a83367eada84c3ebeb9ee1" id="r_a0f6dafbe04a83367eada84c3ebeb9ee1"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRemoteSessionPlayerData.html#a0f6dafbe04a83367eada84c3ebeb9ee1">player_identifier</a> = &quot;&quot;</td></tr>
+<tr class="memdesc:a0f6dafbe04a83367eada84c3ebeb9ee1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The player identifier of the player.  <br /></td></tr>
+<tr class="separator:a0f6dafbe04a83367eada84c3ebeb9ee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae45cde5c1fb8c828115a8ad7e315320" id="r_aae45cde5c1fb8c828115a8ad7e315320"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRemoteSessionPlayerData.html#aae45cde5c1fb8c828115a8ad7e315320">player_created_at</a> = &quot;&quot;</td></tr>
+<tr class="memdesc:aae45cde5c1fb8c828115a8ad7e315320"><td class="mdescLeft">&#160;</td><td class="mdescRight">When this player was first created.  <br /></td></tr>
+<tr class="separator:aae45cde5c1fb8c828115a8ad7e315320"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45fa6b5b461d6025f94a6c75449a16fe" id="r_a45fa6b5b461d6025f94a6c75449a16fe"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRemoteSessionPlayerData.html#a45fa6b5b461d6025f94a6c75449a16fe">wallet_id</a> = &quot;&quot;</td></tr>
+<tr class="memdesc:a45fa6b5b461d6025f94a6c75449a16fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">The id of the wallet for this account.  <br /></td></tr>
+<tr class="separator:a45fa6b5b461d6025f94a6c75449a16fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Holds the player data returned when a remote session lease is successfully authorized, including identity fields, progression state, and notification check flags. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a id="a4a5e8f13adf4fadd19c2d27ed007ddf2" name="a4a5e8f13adf4fadd19c2d27ed007ddf2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a5e8f13adf4fadd19c2d27ed007ddf2">&#9670;&#160;</a></span>account_balance</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32 FLootLockerRemoteSessionPlayerData::account_balance = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The current balance in this account. </p>
+
+</div>
+</div>
+<a id="abf2c969057ba758d8d7b7feb99be8ea8" name="abf2c969057ba758d8d7b7feb99be8ea8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf2c969057ba758d8d7b7feb99be8ea8">&#9670;&#160;</a></span>check_deactivation_notifications</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerRemoteSessionPlayerData::check_deactivation_notifications = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Whether this player has new information to check in deactivations. </p>
+
+</div>
+</div>
+<a id="a8d43beb681bb96e693e02da001689252" name="a8d43beb681bb96e693e02da001689252"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d43beb681bb96e693e02da001689252">&#9670;&#160;</a></span>check_grant_notifications</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerRemoteSessionPlayerData::check_grant_notifications = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Whether this player has new information to check in grants. </p>
+
+</div>
+</div>
+<a id="a77980dfea438330a12fb93aba2ab393e" name="a77980dfea438330a12fb93aba2ab393e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77980dfea438330a12fb93aba2ab393e">&#9670;&#160;</a></span>level</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32 FLootLockerRemoteSessionPlayerData::level = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The current level of this player. </p>
+
+</div>
+</div>
+<a id="a5cb5cad7813850426842defb754864b3" name="a5cb5cad7813850426842defb754864b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cb5cad7813850426842defb754864b3">&#9670;&#160;</a></span>level_thresholds</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structFLootLockerLevelThresholds.html">FLootLockerLevelThresholds</a> FLootLockerRemoteSessionPlayerData::level_thresholds</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The level_thresholds that the level and xp data relates to. </p>
+
+</div>
+</div>
+<a id="aae45cde5c1fb8c828115a8ad7e315320" name="aae45cde5c1fb8c828115a8ad7e315320"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae45cde5c1fb8c828115a8ad7e315320">&#9670;&#160;</a></span>player_created_at</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerRemoteSessionPlayerData::player_created_at = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>When this player was first created. </p>
+
+</div>
+</div>
+<a id="a4f3b868464428873b29757a55d14c5de" name="a4f3b868464428873b29757a55d14c5de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f3b868464428873b29757a55d14c5de">&#9670;&#160;</a></span>player_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32 FLootLockerRemoteSessionPlayerData::player_id = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The player id. </p>
+
+</div>
+</div>
+<a id="a0f6dafbe04a83367eada84c3ebeb9ee1" name="a0f6dafbe04a83367eada84c3ebeb9ee1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f6dafbe04a83367eada84c3ebeb9ee1">&#9670;&#160;</a></span>player_identifier</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerRemoteSessionPlayerData::player_identifier = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The player identifier of the player. </p>
+
+</div>
+</div>
+<a id="a277341b4caaf6694c1d55aaa359e0c3e" name="a277341b4caaf6694c1d55aaa359e0c3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a277341b4caaf6694c1d55aaa359e0c3e">&#9670;&#160;</a></span>player_name</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerRemoteSessionPlayerData::player_name = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The player's name if it has been set by using SetPlayerName(). </p>
+
+</div>
+</div>
+<a id="a9a2d1949f900bf0ffd7eb59e99662195" name="a9a2d1949f900bf0ffd7eb59e99662195"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a2d1949f900bf0ffd7eb59e99662195">&#9670;&#160;</a></span>player_ulid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerRemoteSessionPlayerData::player_ulid = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The player ULID for this player. </p>
+
+</div>
+</div>
+<a id="adc5b4bdf57beb9219ee3344e6038c2de" name="adc5b4bdf57beb9219ee3344e6038c2de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc5b4bdf57beb9219ee3344e6038c2de">&#9670;&#160;</a></span>public_uid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerRemoteSessionPlayerData::public_uid = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The public UID for this player. </p>
+
+</div>
+</div>
+<a id="ab9753c0c3cef5f076af50a1f3f714314" name="ab9753c0c3cef5f076af50a1f3f714314"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9753c0c3cef5f076af50a1f3f714314">&#9670;&#160;</a></span>seen_before</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerRemoteSessionPlayerData::seen_before = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Whether this player has been seen before (true) or is new (false) </p>
+
+</div>
+</div>
+<a id="a45fa6b5b461d6025f94a6c75449a16fe" name="a45fa6b5b461d6025f94a6c75449a16fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45fa6b5b461d6025f94a6c75449a16fe">&#9670;&#160;</a></span>wallet_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerRemoteSessionPlayerData::wallet_id = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The id of the wallet for this account. </p>
+
+</div>
+</div>
+<a id="a24b94803636121a4c1945a8425609d28" name="a24b94803636121a4c1945a8425609d28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24b94803636121a4c1945a8425609d28">&#9670;&#160;</a></span>xp</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32 FLootLockerRemoteSessionPlayerData::xp = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The current xp of this player. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structFLootLockerRemoteSessionPlayerData.html">FLootLockerRemoteSessionPlayerData</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

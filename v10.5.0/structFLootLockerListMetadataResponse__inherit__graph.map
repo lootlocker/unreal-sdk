@@ -1,0 +1,5 @@
+<map id="FLootLockerListMetadataResponse" name="FLootLockerListMetadataResponse">
+<area shape="rect" id="Node000001" title="Response containing a paginated page of metadata entries for a given source." alt="" coords="5,79,253,104"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="48,5,211,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,44,132,79,127,79,127,44"/>
+</map>

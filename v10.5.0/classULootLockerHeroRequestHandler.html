@@ -1,0 +1,1013 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: ULootLockerHeroRequestHandler Class Reference</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('classULootLockerHeroRequestHandler.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a>  </div>
+  <div class="headertitle"><div class="title">ULootLockerHeroRequestHandler Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="LootLockerHeroRequestHandler_8h_source.html">LootLockerHeroRequestHandler.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for ULootLockerHeroRequestHandler:</div>
+<div class="dyncontent">
+<div class="center"><img src="classULootLockerHeroRequestHandler__inherit__graph.png" border="0" usemap="#aULootLockerHeroRequestHandler_inherit__map" alt="Inheritance graph"/></div>
+<map name="aULootLockerHeroRequestHandler_inherit__map" id="aULootLockerHeroRequestHandler_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,79,243,104"/>
+<area shape="rect" title=" " alt="" coords="87,5,161,31"/>
+<area shape="poly" title=" " alt="" coords="127,44,127,79,121,79,121,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for ULootLockerHeroRequestHandler:</div>
+<div class="dyncontent">
+<div class="center"><img src="classULootLockerHeroRequestHandler__coll__graph.png" border="0" usemap="#aULootLockerHeroRequestHandler_coll__map" alt="Collaboration graph"/></div>
+<map name="aULootLockerHeroRequestHandler_coll__map" id="aULootLockerHeroRequestHandler_coll__map">
+<area shape="rect" title=" " alt="" coords="5,79,243,104"/>
+<area shape="rect" title=" " alt="" coords="87,5,161,31"/>
+<area shape="poly" title=" " alt="" coords="127,44,127,79,121,79,121,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a116c6c4c7edc7fb3a1941ef8de353225" id="r_a116c6c4c7edc7fb3a1941ef8de353225"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerHeroRequestHandler.html#a116c6c4c7edc7fb3a1941ef8de353225">ULootLockerHeroRequestHandler</a> ()</td></tr>
+<tr class="separator:a116c6c4c7edc7fb3a1941ef8de353225"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:aa6e3e9caa8c1f2d8e8aeb64cf72bf909" id="r_aa6e3e9caa8c1f2d8e8aeb64cf72bf909"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerHeroRequestHandler.html#aa6e3e9caa8c1f2d8e8aeb64cf72bf909">GetGameHeroes</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const <a class="el" href="group__Hero.html#ga9264a719a7de4969323f681716d62901">FLootLockerGameHeroListDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:aa6e3e9caa8c1f2d8e8aeb64cf72bf909"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ed963337b7452823376f8ce9111567b" id="r_a0ed963337b7452823376f8ce9111567b"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerHeroRequestHandler.html#a0ed963337b7452823376f8ce9111567b">ListPlayerHeroes</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const <a class="el" href="group__Hero.html#ga9055d1dea0049dd607329435d7735330">FLootLockerHeroListDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:a0ed963337b7452823376f8ce9111567b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5113e8e885f05ea2498f61126d64e02b" id="r_a5113e8e885f05ea2498f61126d64e02b"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerHeroRequestHandler.html#a5113e8e885f05ea2498f61126d64e02b">ListOtherPlayersHeroesBySteamID64</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int64 SteamID64, const <a class="el" href="group__Hero.html#ga9055d1dea0049dd607329435d7735330">FLootLockerHeroListDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:a5113e8e885f05ea2498f61126d64e02b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a205b23d44a6987e7835fa42e807d7bbb" id="r_a205b23d44a6987e7835fa42e807d7bbb"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerHeroRequestHandler.html#a205b23d44a6987e7835fa42e807d7bbb">CreateHero</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const <a class="el" href="structFLootLockerCreateHeroRequest.html">FLootLockerCreateHeroRequest</a> &amp;Request, const <a class="el" href="group__Hero.html#ga02415de40d58119918e20db51af92922">FLootLockerPlayerHeroDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:a205b23d44a6987e7835fa42e807d7bbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae89af34a842968ef16a3389c6ab88317" id="r_ae89af34a842968ef16a3389c6ab88317"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerHeroRequestHandler.html#ae89af34a842968ef16a3389c6ab88317">CreateHeroWithVariation</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const <a class="el" href="structFLootLockerCreateHeroWithVariationRequest.html">FLootLockerCreateHeroWithVariationRequest</a> &amp;Request, const <a class="el" href="group__Hero.html#ga02415de40d58119918e20db51af92922">FLootLockerPlayerHeroDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:ae89af34a842968ef16a3389c6ab88317"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a449364f4b4b5e81b78452c97b0578b35" id="r_a449364f4b4b5e81b78452c97b0578b35"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerHeroRequestHandler.html#a449364f4b4b5e81b78452c97b0578b35">GetHero</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 HeroID, const <a class="el" href="group__Hero.html#ga02415de40d58119918e20db51af92922">FLootLockerPlayerHeroDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:a449364f4b4b5e81b78452c97b0578b35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabb4c01668621a6a8e8419946f1c56cf" id="r_aabb4c01668621a6a8e8419946f1c56cf"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerHeroRequestHandler.html#aabb4c01668621a6a8e8419946f1c56cf">GetOtherPlayersDefaultHeroBySteamID64</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int64 SteamID64, const <a class="el" href="group__Hero.html#ga02415de40d58119918e20db51af92922">FLootLockerPlayerHeroDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:aabb4c01668621a6a8e8419946f1c56cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1aa616a5d8ad85721e71c025b0d7e99" id="r_ab1aa616a5d8ad85721e71c025b0d7e99"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerHeroRequestHandler.html#ab1aa616a5d8ad85721e71c025b0d7e99">UpdateHero</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 HeroID, const <a class="el" href="structFLootLockerUpdateHeroRequest.html">FLootLockerUpdateHeroRequest</a> &amp;Request, const <a class="el" href="group__Hero.html#ga02415de40d58119918e20db51af92922">FLootLockerPlayerHeroDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:ab1aa616a5d8ad85721e71c025b0d7e99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3efc08ae67681a4b0c5fa748b11581da" id="r_a3efc08ae67681a4b0c5fa748b11581da"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerHeroRequestHandler.html#a3efc08ae67681a4b0c5fa748b11581da">DeleteHero</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 HeroID, const <a class="el" href="group__Hero.html#gafdebc7dacd94834e8afc0b70b75644c4">FLLHeroDefaultResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:a3efc08ae67681a4b0c5fa748b11581da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb8e4d6d20998de782c035312e2aad5e" id="r_afb8e4d6d20998de782c035312e2aad5e"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerHeroRequestHandler.html#afb8e4d6d20998de782c035312e2aad5e">GetHeroInventory</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 HeroID, const <a class="el" href="group__Player.html#ga64a1e054c8b53622d38fda6a94319413">FInventoryResponse</a> &amp;OnComplete)</td></tr>
+<tr class="separator:afb8e4d6d20998de782c035312e2aad5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a823b220ed7eb6530ff3c8e58270f3030" id="r_a823b220ed7eb6530ff3c8e58270f3030"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerHeroRequestHandler.html#a823b220ed7eb6530ff3c8e58270f3030">GetHeroLoadout</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 HeroID, const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:a823b220ed7eb6530ff3c8e58270f3030"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acecdde628c276969b47b81183b4a4db6" id="r_acecdde628c276969b47b81183b4a4db6"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerHeroRequestHandler.html#acecdde628c276969b47b81183b4a4db6">GetOtherPlayersHeroLoadout</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 HeroID, const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:acecdde628c276969b47b81183b4a4db6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af88db4b157c41318d548c3dd84975910" id="r_af88db4b157c41318d548c3dd84975910"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerHeroRequestHandler.html#af88db4b157c41318d548c3dd84975910">AddAssetToHeroLoadout</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 HeroID, const int32 AssetInstanceID, const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:af88db4b157c41318d548c3dd84975910"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af38cf492f5c856faedb3cdb4c55520de" id="r_af38cf492f5c856faedb3cdb4c55520de"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerHeroRequestHandler.html#af38cf492f5c856faedb3cdb4c55520de">AddGlobalAssetToHeroLoadout</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 HeroID, const int32 AssetID, const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:af38cf492f5c856faedb3cdb4c55520de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4b12714e9a8dbc5fcaedda803d2330f" id="r_ab4b12714e9a8dbc5fcaedda803d2330f"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerHeroRequestHandler.html#ab4b12714e9a8dbc5fcaedda803d2330f">AddGlobalAssetVariationToHeroLoadout</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 HeroID, const int32 AssetID, const int32 AssetVariationID, const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:ab4b12714e9a8dbc5fcaedda803d2330f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27505ca52a840f3c14bea801b692d308" id="r_a27505ca52a840f3c14bea801b692d308"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerHeroRequestHandler.html#a27505ca52a840f3c14bea801b692d308">RemoveAssetToHeroLoadout</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 HeroID, const int32 AssetInstanceID, const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:a27505ca52a840f3c14bea801b692d308"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a116c6c4c7edc7fb3a1941ef8de353225" name="a116c6c4c7edc7fb3a1941ef8de353225"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a116c6c4c7edc7fb3a1941ef8de353225">&#9670;&#160;</a></span>ULootLockerHeroRequestHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ULootLockerHeroRequestHandler::ULootLockerHeroRequestHandler </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="af88db4b157c41318d548c3dd84975910" name="af88db4b157c41318d548c3dd84975910"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af88db4b157c41318d548c3dd84975910">&#9670;&#160;</a></span>AddAssetToHeroLoadout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerHeroRequestHandler::AddAssetToHeroLoadout </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>HeroID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>AssetInstanceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af38cf492f5c856faedb3cdb4c55520de" name="af38cf492f5c856faedb3cdb4c55520de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af38cf492f5c856faedb3cdb4c55520de">&#9670;&#160;</a></span>AddGlobalAssetToHeroLoadout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerHeroRequestHandler::AddGlobalAssetToHeroLoadout </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>HeroID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>AssetID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab4b12714e9a8dbc5fcaedda803d2330f" name="ab4b12714e9a8dbc5fcaedda803d2330f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4b12714e9a8dbc5fcaedda803d2330f">&#9670;&#160;</a></span>AddGlobalAssetVariationToHeroLoadout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerHeroRequestHandler::AddGlobalAssetVariationToHeroLoadout </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>HeroID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>AssetID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>AssetVariationID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a205b23d44a6987e7835fa42e807d7bbb" name="a205b23d44a6987e7835fa42e807d7bbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a205b23d44a6987e7835fa42e807d7bbb">&#9670;&#160;</a></span>CreateHero()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerHeroRequestHandler::CreateHero </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerCreateHeroRequest.html">FLootLockerCreateHeroRequest</a> &amp;&#160;</td>
+          <td class="paramname"><em>Request</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga02415de40d58119918e20db51af92922">FLootLockerPlayerHeroDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae89af34a842968ef16a3389c6ab88317" name="ae89af34a842968ef16a3389c6ab88317"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae89af34a842968ef16a3389c6ab88317">&#9670;&#160;</a></span>CreateHeroWithVariation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerHeroRequestHandler::CreateHeroWithVariation </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerCreateHeroWithVariationRequest.html">FLootLockerCreateHeroWithVariationRequest</a> &amp;&#160;</td>
+          <td class="paramname"><em>Request</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga02415de40d58119918e20db51af92922">FLootLockerPlayerHeroDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3efc08ae67681a4b0c5fa748b11581da" name="a3efc08ae67681a4b0c5fa748b11581da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3efc08ae67681a4b0c5fa748b11581da">&#9670;&#160;</a></span>DeleteHero()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerHeroRequestHandler::DeleteHero </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>HeroID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#gafdebc7dacd94834e8afc0b70b75644c4">FLLHeroDefaultResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa6e3e9caa8c1f2d8e8aeb64cf72bf909" name="aa6e3e9caa8c1f2d8e8aeb64cf72bf909"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6e3e9caa8c1f2d8e8aeb64cf72bf909">&#9670;&#160;</a></span>GetGameHeroes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerHeroRequestHandler::GetGameHeroes </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga9264a719a7de4969323f681716d62901">FLootLockerGameHeroListDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a449364f4b4b5e81b78452c97b0578b35" name="a449364f4b4b5e81b78452c97b0578b35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a449364f4b4b5e81b78452c97b0578b35">&#9670;&#160;</a></span>GetHero()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerHeroRequestHandler::GetHero </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>HeroID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga02415de40d58119918e20db51af92922">FLootLockerPlayerHeroDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afb8e4d6d20998de782c035312e2aad5e" name="afb8e4d6d20998de782c035312e2aad5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb8e4d6d20998de782c035312e2aad5e">&#9670;&#160;</a></span>GetHeroInventory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerHeroRequestHandler::GetHeroInventory </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>HeroID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Player.html#ga64a1e054c8b53622d38fda6a94319413">FInventoryResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a823b220ed7eb6530ff3c8e58270f3030" name="a823b220ed7eb6530ff3c8e58270f3030"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a823b220ed7eb6530ff3c8e58270f3030">&#9670;&#160;</a></span>GetHeroLoadout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerHeroRequestHandler::GetHeroLoadout </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>HeroID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aabb4c01668621a6a8e8419946f1c56cf" name="aabb4c01668621a6a8e8419946f1c56cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabb4c01668621a6a8e8419946f1c56cf">&#9670;&#160;</a></span>GetOtherPlayersDefaultHeroBySteamID64()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerHeroRequestHandler::GetOtherPlayersDefaultHeroBySteamID64 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int64&#160;</td>
+          <td class="paramname"><em>SteamID64</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga02415de40d58119918e20db51af92922">FLootLockerPlayerHeroDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acecdde628c276969b47b81183b4a4db6" name="acecdde628c276969b47b81183b4a4db6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acecdde628c276969b47b81183b4a4db6">&#9670;&#160;</a></span>GetOtherPlayersHeroLoadout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerHeroRequestHandler::GetOtherPlayersHeroLoadout </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>HeroID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5113e8e885f05ea2498f61126d64e02b" name="a5113e8e885f05ea2498f61126d64e02b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5113e8e885f05ea2498f61126d64e02b">&#9670;&#160;</a></span>ListOtherPlayersHeroesBySteamID64()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerHeroRequestHandler::ListOtherPlayersHeroesBySteamID64 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int64&#160;</td>
+          <td class="paramname"><em>SteamID64</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga9055d1dea0049dd607329435d7735330">FLootLockerHeroListDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0ed963337b7452823376f8ce9111567b" name="a0ed963337b7452823376f8ce9111567b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ed963337b7452823376f8ce9111567b">&#9670;&#160;</a></span>ListPlayerHeroes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerHeroRequestHandler::ListPlayerHeroes </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga9055d1dea0049dd607329435d7735330">FLootLockerHeroListDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a27505ca52a840f3c14bea801b692d308" name="a27505ca52a840f3c14bea801b692d308"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27505ca52a840f3c14bea801b692d308">&#9670;&#160;</a></span>RemoveAssetToHeroLoadout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerHeroRequestHandler::RemoveAssetToHeroLoadout </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>HeroID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>AssetInstanceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#gacd79ecabb9a86e3bc2b360cd53c850f3">FHeroLoadoutReseponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab1aa616a5d8ad85721e71c025b0d7e99" name="ab1aa616a5d8ad85721e71c025b0d7e99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1aa616a5d8ad85721e71c025b0d7e99">&#9670;&#160;</a></span>UpdateHero()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerHeroRequestHandler::UpdateHero </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>HeroID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerUpdateHeroRequest.html">FLootLockerUpdateHeroRequest</a> &amp;&#160;</td>
+          <td class="paramname"><em>Request</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Hero.html#ga02415de40d58119918e20db51af92922">FLootLockerPlayerHeroDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="classULootLockerHeroRequestHandler.html">ULootLockerHeroRequestHandler</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

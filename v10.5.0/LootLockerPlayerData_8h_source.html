@@ -1,0 +1,307 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: LootLockerSDK/Source/LootLockerSDK/Public/LootLockerPlayerData.h Source File</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('LootLockerPlayerData_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LootLockerPlayerData.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="LootLockerPlayerData_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright (c) 2021 LootLocker</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;LootLockerPlatformManager.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerSessionOptionals_8h.html">LootLockerSessionOptionals.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;LootLockerPlayerData.generated.h&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="};">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="structFLootLockerPlayerData.html">   11</a></span>struct LOOTLOCKERSDK_API <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="structFLootLockerPlayerData.html#a540cb19c701610b707baed0d2e84e804">   19</a></span>    FString Token = &quot;&quot;;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="structFLootLockerPlayerData.html#a7e455ae5e33b15646bba4777d3afe5ab">   24</a></span>    FString RefreshToken = &quot;&quot;;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="structFLootLockerPlayerData.html#a0f2db688a0de362b3f383936767c51f3">   28</a></span>    FString PlayerIdentifier = &quot;&quot;;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="structFLootLockerPlayerData.html#af18aa970c95f355e0050fe1843ad2c57">   32</a></span>    FString PlayerUlid = &quot;&quot;;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="structFLootLockerPlayerData.html#a2f6167c6a5afbb83c5209340fc644c1b">   36</a></span>    FString PlayerPublicUid = &quot;&quot;;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="structFLootLockerPlayerData.html#a1ea6ed98b217338dc52dce277b7afe11">   41</a></span>    FString PlayerName = &quot;&quot;;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="structFLootLockerPlayerData.html#abdf0dbd51cf4a7c4d8567c78a2338a71">   46</a></span>    FString WhiteLabelEmail = &quot;&quot;;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="structFLootLockerPlayerData.html#a8302e7d18b610d6940e7dfdf8343ef18">   51</a></span>    FString WhiteLabelToken = &quot;&quot;;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="structFLootLockerPlayerData.html#a774748f51ec33eee412ce083d7b40666">   56</a></span>    FLootLockerPlatformRepresentation CurrentPlatform;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="structFLootLockerPlayerData.html#a2040979d222701cc1b9d07d997378169">   61</a></span>    FString LastSignIn = &quot;&quot;;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="structFLootLockerPlayerData.html#af2ebb22b337b4170a1a9590e72506fb3">   66</a></span>    FString PlayerCreatedAt = &quot;&quot;;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="structFLootLockerPlayerData.html#a1d282472330c548e8cbda63ec2110100">   71</a></span>    <a class="code hl_struct" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> SessionOptionals;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="foldopen" id="foldopen00074" data-start="{" data-end="}">
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="structFLootLockerPlayerData.html#a2e791b855ec5f7352e10a50d3454c744">   74</a></span>    static <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> <a class="code hl_enumvalue" href="group__Metadata.html#gga14b96920b0ce0f3c43c571c63df077bda686e697538050e4664636337cc3b834f">Create</a>(const FString&amp; token = &quot;&quot;, const FString&amp; refreshToken = &quot;&quot;, const FString&amp; playerIdentifier = &quot;&quot;, const FString&amp; playerUlid = &quot;&quot;, const FString&amp; playerPublicUid = &quot;&quot;, const FString&amp; playerName = &quot;&quot;, const FString&amp; whiteLabelEmail = &quot;&quot;, const FString&amp; whiteLabelToken = &quot;&quot;, const FLootLockerPlatformRepresentation&amp; currentPlatform = FLootLockerPlatformRepresentation(), const FString&amp; lastSignIn = &quot;&quot;, const FString&amp; playerCreatedAt = &quot;&quot;, const <a class="code hl_struct" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>&amp; sessionOptionals = <a class="code hl_struct" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a>())</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> NewObj;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        NewObj.<a class="code hl_variable" href="structFLootLockerPlayerData.html#a540cb19c701610b707baed0d2e84e804">Token</a> = token;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        NewObj.<a class="code hl_variable" href="structFLootLockerPlayerData.html#a7e455ae5e33b15646bba4777d3afe5ab">RefreshToken</a> = refreshToken;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        NewObj.<a class="code hl_variable" href="structFLootLockerPlayerData.html#a0f2db688a0de362b3f383936767c51f3">PlayerIdentifier</a> = playerIdentifier;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        NewObj.<a class="code hl_variable" href="structFLootLockerPlayerData.html#af18aa970c95f355e0050fe1843ad2c57">PlayerUlid</a> = playerUlid;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        NewObj.<a class="code hl_variable" href="structFLootLockerPlayerData.html#a2f6167c6a5afbb83c5209340fc644c1b">PlayerPublicUid</a> = playerPublicUid;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        NewObj.<a class="code hl_variable" href="structFLootLockerPlayerData.html#a1ea6ed98b217338dc52dce277b7afe11">PlayerName</a> = playerName;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        NewObj.<a class="code hl_variable" href="structFLootLockerPlayerData.html#abdf0dbd51cf4a7c4d8567c78a2338a71">WhiteLabelEmail</a> = whiteLabelEmail;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        NewObj.<a class="code hl_variable" href="structFLootLockerPlayerData.html#a8302e7d18b610d6940e7dfdf8343ef18">WhiteLabelToken</a> = whiteLabelToken;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        NewObj.<a class="code hl_variable" href="structFLootLockerPlayerData.html#a774748f51ec33eee412ce083d7b40666">CurrentPlatform</a> = currentPlatform;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        NewObj.<a class="code hl_variable" href="structFLootLockerPlayerData.html#a2040979d222701cc1b9d07d997378169">LastSignIn</a> = lastSignIn;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        NewObj.<a class="code hl_variable" href="structFLootLockerPlayerData.html#af2ebb22b337b4170a1a9590e72506fb3">PlayerCreatedAt</a> = playerCreatedAt;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        NewObj.<a class="code hl_variable" href="structFLootLockerPlayerData.html#a1d282472330c548e8cbda63ec2110100">SessionOptionals</a> = sessionOptionals;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keywordflow">return</span> NewObj;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    }</div>
+</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>};</div>
+</div>
+<div class="ttc" id="aLootLockerSessionOptionals_8h_html"><div class="ttname"><a href="LootLockerSessionOptionals_8h.html">LootLockerSessionOptionals.h</a></div></div>
+<div class="ttc" id="agroup__Metadata_html_gga14b96920b0ce0f3c43c571c63df077bda686e697538050e4664636337cc3b834f"><div class="ttname"><a href="group__Metadata.html#gga14b96920b0ce0f3c43c571c63df077bda686e697538050e4664636337cc3b834f">ELootLockerMetadataActions::Create</a></div><div class="ttdeci">@ Create</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html"><div class="ttname"><a href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a></div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:12</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html_a0f2db688a0de362b3f383936767c51f3"><div class="ttname"><a href="structFLootLockerPlayerData.html#a0f2db688a0de362b3f383936767c51f3">FLootLockerPlayerData::PlayerIdentifier</a></div><div class="ttdeci">FString PlayerIdentifier</div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:28</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html_a1d282472330c548e8cbda63ec2110100"><div class="ttname"><a href="structFLootLockerPlayerData.html#a1d282472330c548e8cbda63ec2110100">FLootLockerPlayerData::SessionOptionals</a></div><div class="ttdeci">FLootLockerSessionOptionals SessionOptionals</div><div class="ttdoc">The session optionals that were used when starting the current session for this player.</div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:71</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html_a1ea6ed98b217338dc52dce277b7afe11"><div class="ttname"><a href="structFLootLockerPlayerData.html#a1ea6ed98b217338dc52dce277b7afe11">FLootLockerPlayerData::PlayerName</a></div><div class="ttdeci">FString PlayerName</div><div class="ttdoc">The name of the player if any has been set.</div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:41</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html_a2040979d222701cc1b9d07d997378169"><div class="ttname"><a href="structFLootLockerPlayerData.html#a2040979d222701cc1b9d07d997378169">FLootLockerPlayerData::LastSignIn</a></div><div class="ttdeci">FString LastSignIn</div><div class="ttdoc">When this player was last authenticated.</div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:61</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html_a2f6167c6a5afbb83c5209340fc644c1b"><div class="ttname"><a href="structFLootLockerPlayerData.html#a2f6167c6a5afbb83c5209340fc644c1b">FLootLockerPlayerData::PlayerPublicUid</a></div><div class="ttdeci">FString PlayerPublicUid</div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:36</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html_a540cb19c701610b707baed0d2e84e804"><div class="ttname"><a href="structFLootLockerPlayerData.html#a540cb19c701610b707baed0d2e84e804">FLootLockerPlayerData::Token</a></div><div class="ttdeci">FString Token</div><div class="ttdoc">The session token stored for this player session.</div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:19</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html_a774748f51ec33eee412ce083d7b40666"><div class="ttname"><a href="structFLootLockerPlayerData.html#a774748f51ec33eee412ce083d7b40666">FLootLockerPlayerData::CurrentPlatform</a></div><div class="ttdeci">FLootLockerPlatformRepresentation CurrentPlatform</div><div class="ttdoc">The platform/authentication method used to authorize this player.</div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:56</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html_a7e455ae5e33b15646bba4777d3afe5ab"><div class="ttname"><a href="structFLootLockerPlayerData.html#a7e455ae5e33b15646bba4777d3afe5ab">FLootLockerPlayerData::RefreshToken</a></div><div class="ttdeci">FString RefreshToken</div><div class="ttdoc">The Token to use when refreshing the session (only present for authentication methods that support it...</div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:24</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html_a8302e7d18b610d6940e7dfdf8343ef18"><div class="ttname"><a href="structFLootLockerPlayerData.html#a8302e7d18b610d6940e7dfdf8343ef18">FLootLockerPlayerData::WhiteLabelToken</a></div><div class="ttdeci">FString WhiteLabelToken</div><div class="ttdoc">If this player is authorized using white label, then this stores the token for authorizing the player...</div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:51</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html_abdf0dbd51cf4a7c4d8567c78a2338a71"><div class="ttname"><a href="structFLootLockerPlayerData.html#abdf0dbd51cf4a7c4d8567c78a2338a71">FLootLockerPlayerData::WhiteLabelEmail</a></div><div class="ttdeci">FString WhiteLabelEmail</div><div class="ttdoc">If this player is authorized using White Label, then this stores the email that was used.</div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:46</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html_af18aa970c95f355e0050fe1843ad2c57"><div class="ttname"><a href="structFLootLockerPlayerData.html#af18aa970c95f355e0050fe1843ad2c57">FLootLockerPlayerData::PlayerUlid</a></div><div class="ttdeci">FString PlayerUlid</div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:32</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html_af2ebb22b337b4170a1a9590e72506fb3"><div class="ttname"><a href="structFLootLockerPlayerData.html#af2ebb22b337b4170a1a9590e72506fb3">FLootLockerPlayerData::PlayerCreatedAt</a></div><div class="ttdeci">FString PlayerCreatedAt</div><div class="ttdoc">When this player was first created.</div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:66</div></div>
+<div class="ttc" id="astructFLootLockerSessionOptionals_html"><div class="ttname"><a href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a></div><div class="ttdoc">Optional parameters that can be sent when starting a session.</div><div class="ttdef"><b>Definition</b> LootLockerSessionOptionals.h:12</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_426131f2e7e3782155028ac49ab5e11c.html">LootLockerSDK</a></li><li class="navelem"><a class="el" href="dir_63662f8d869795fbcfe09e29de292894.html">Source</a></li><li class="navelem"><a class="el" href="dir_529bffb88e47999e071ca27db50fed71.html">LootLockerSDK</a></li><li class="navelem"><a class="el" href="dir_6800d9c9fc95b443eb5325340bc06d03.html">Public</a></li><li class="navelem"><a class="el" href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

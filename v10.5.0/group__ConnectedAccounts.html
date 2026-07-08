@@ -1,0 +1,1020 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: Connected Accounts</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('group__ConnectedAccounts.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">Connected Accounts</div></div>
+</div><!--header-->
+<div class="contents">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Link multiple platform accounts together under a single LootLocker player identity. </p>
+<p>Once linked, the same player profile loads regardless of which platform the game is started on, enabling cross-platform progression and cross-saves. Linking can be done via <b>External Linking</b> (redirects to the LootLocker <code>auth.game</code> website; recommended for most cases) or <b>Direct Linking</b> (used when the player is already on the target platform). Also supports transitioning a Guest Login to any other provider.</p>
+<p>See the <a href="https://docs.lootlocker.com/players/unified-player-accounts">LootLocker documentation</a>. </p>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="ga667242bda8f3874f4472d351e30307e5" name="ga667242bda8f3874f4472d351e30307e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga667242bda8f3874f4472d351e30307e5">&#9670;&#160;</a></span>FLootLockerAccountConnectedResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerAccountConnectedResponseDelegate) (<a class="el" href="structFLootLockerAccountConnectedResponse.html">FLootLockerAccountConnectedResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for connecting a provider to an account. </p>
+
+</div>
+</div>
+<a id="ga5af86cd4a77617973db4a3f165d5b3f3" name="ga5af86cd4a77617973db4a3f165d5b3f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5af86cd4a77617973db4a3f165d5b3f3">&#9670;&#160;</a></span>FLootLockerListConnectedAccountsResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerListConnectedAccountsResponseDelegate) (<a class="el" href="structFLootLockerListConnectedAccountsResponse.html">FLootLockerListConnectedAccountsResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for listing connected accounts. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="gaa4f10f240f9352981514d0af1bff8e11" name="gaa4f10f240f9352981514d0af1bff8e11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa4f10f240f9352981514d0af1bff8e11">&#9670;&#160;</a></span>EGoogleAccountProviderPlatform</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__ConnectedAccounts.html#gaa4f10f240f9352981514d0af1bff8e11">EGoogleAccountProviderPlatform</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Google OAuth2 Client platform. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggaa4f10f240f9352981514d0af1bff8e11a2567a5ec9705eb7ac2c984033e06189d" name="ggaa4f10f240f9352981514d0af1bff8e11a2567a5ec9705eb7ac2c984033e06189d"></a>web&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggaa4f10f240f9352981514d0af1bff8e11ac31b32364ce19ca8fcd150a417ecce58" name="ggaa4f10f240f9352981514d0af1bff8e11ac31b32364ce19ca8fcd150a417ecce58"></a>android&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggaa4f10f240f9352981514d0af1bff8e11a9e304d4e8df1b74cfa009913198428ab" name="ggaa4f10f240f9352981514d0af1bff8e11a9e304d4e8df1b74cfa009913198428ab"></a>ios&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggaa4f10f240f9352981514d0af1bff8e11ab2c79ad7dcf03ba266dc0885e1266675" name="ggaa4f10f240f9352981514d0af1bff8e11ab2c79ad7dcf03ba266dc0885e1266675"></a>desktop&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="ga52ca2d9826a43c89fc5913c416e0894d" name="ga52ca2d9826a43c89fc5913c416e0894d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga52ca2d9826a43c89fc5913c416e0894d">&#9670;&#160;</a></span>ELootLockerAccountProvider</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__ConnectedAccounts.html#ga52ca2d9826a43c89fc5913c416e0894d">ELootLockerAccountProvider</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Account providers possible to use for connected accounts. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga52ca2d9826a43c89fc5913c416e0894daadb831a7fdd83dd1e2a309ce7591dff8" name="gga52ca2d9826a43c89fc5913c416e0894daadb831a7fdd83dd1e2a309ce7591dff8"></a>Guest&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga52ca2d9826a43c89fc5913c416e0894da8b36e9207c24c76e6719268e49201d94" name="gga52ca2d9826a43c89fc5913c416e0894da8b36e9207c24c76e6719268e49201d94"></a>Google&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga52ca2d9826a43c89fc5913c416e0894da9f6290f4436e5a2351f12e03b6433c3c" name="gga52ca2d9826a43c89fc5913c416e0894da9f6290f4436e5a2351f12e03b6433c3c"></a>Apple&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga52ca2d9826a43c89fc5913c416e0894da4db4563826bad0eb2f60ee6e42d0ea4b" name="gga52ca2d9826a43c89fc5913c416e0894da4db4563826bad0eb2f60ee6e42d0ea4b"></a>Steam&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga52ca2d9826a43c89fc5913c416e0894da54c97686ee5f90f5da86d03c84be7015" name="gga52ca2d9826a43c89fc5913c416e0894da54c97686ee5f90f5da86d03c84be7015"></a>Epic_games&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga52ca2d9826a43c89fc5913c416e0894da2daf1cb573c2c61422faf64610cf9402" name="gga52ca2d9826a43c89fc5913c416e0894da2daf1cb573c2c61422faf64610cf9402"></a>Credentials&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga52ca2d9826a43c89fc5913c416e0894da073b7e4ff1d153a52b07eadb5898cb92" name="gga52ca2d9826a43c89fc5913c416e0894da073b7e4ff1d153a52b07eadb5898cb92"></a>Nintendo&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga52ca2d9826a43c89fc5913c416e0894da183709ebe3a1d675014d32b94ad7ed94" name="gga52ca2d9826a43c89fc5913c416e0894da183709ebe3a1d675014d32b94ad7ed94"></a>Xbox&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga52ca2d9826a43c89fc5913c416e0894daab7048c58ea2afa826c06bf8d756e8d1" name="gga52ca2d9826a43c89fc5913c416e0894daab7048c58ea2afa826c06bf8d756e8d1"></a>Playstation&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga52ca2d9826a43c89fc5913c416e0894da6a057ee64a34177e388abe7304fd3d78" name="gga52ca2d9826a43c89fc5913c416e0894da6a057ee64a34177e388abe7304fd3d78"></a>Twitch&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga52ca2d9826a43c89fc5913c416e0894da8f5cc6430613f1c12f36965050bb7197" name="gga52ca2d9826a43c89fc5913c416e0894da8f5cc6430613f1c12f36965050bb7197"></a>Discord&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga52ca2d9826a43c89fc5913c416e0894da15b8772f2d06a15fee9f32b6477660b8" name="gga52ca2d9826a43c89fc5913c416e0894da15b8772f2d06a15fee9f32b6477660b8"></a>Google_play_games&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ga1bd931747e76a76fb700e9f31d8a266a" name="ga1bd931747e76a76fb700e9f31d8a266a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1bd931747e76a76fb700e9f31d8a266a">&#9670;&#160;</a></span>ConnectAppleAccountByRestSignIn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ConnectAppleAccountByRestSignIn </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>AuthorizationCode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Link an Apple account (REST sign-in). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AuthorizationCode</td><td>Authorization code from Apple sign-in </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga4302ce89c2e13fb2f70dfe64e0c3d7ec" name="ga4302ce89c2e13fb2f70dfe64e0c3d7ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4302ce89c2e13fb2f70dfe64e0c3d7ec">&#9670;&#160;</a></span>ConnectDiscordAccount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ConnectDiscordAccount </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Link a Discord account. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Token</td><td>Token from Discord sign-in </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gae38a534f15a8d8a224c44e68cd704e69" name="gae38a534f15a8d8a224c44e68cd704e69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae38a534f15a8d8a224c44e68cd704e69">&#9670;&#160;</a></span>ConnectEpicAccount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ConnectEpicAccount </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Link an Epic account. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Token</td><td>Token from Epic sign-in </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gaa152a34038b8ec048bc19c371228748e" name="gaa152a34038b8ec048bc19c371228748e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa152a34038b8ec048bc19c371228748e">&#9670;&#160;</a></span>ConnectGoogleAccount() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ConnectGoogleAccount </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>IdToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Link a Google account. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">IdToken</td><td>ID token from Google sign-in </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga5fa56a8afdfef063ef6b01ca41a42df5" name="ga5fa56a8afdfef063ef6b01ca41a42df5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5fa56a8afdfef063ef6b01ca41a42df5">&#9670;&#160;</a></span>ConnectGoogleAccount() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ConnectGoogleAccount </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>IdToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__ConnectedAccounts.html#gaa4f10f240f9352981514d0af1bff8e11">EGoogleAccountProviderPlatform</a>&#160;</td>
+          <td class="paramname"><em>Platform</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Link a Google account for a specific Google platform. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">IdToken</td><td>ID token from Google sign-in </td></tr>
+    <tr><td class="paramname">Platform</td><td>Google OAuth2 client platform </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga41e5669729c5ef1dd505d5770b1ea4fe" name="ga41e5669729c5ef1dd505d5770b1ea4fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga41e5669729c5ef1dd505d5770b1ea4fe">&#9670;&#160;</a></span>ConnectPlaystationAccount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ConnectPlaystationAccount </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Environment</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Code</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Link a PlayStation account. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Environment</td><td>PlayStation environment (e.g. prod, dev, qa) </td></tr>
+    <tr><td class="paramname">Code</td><td>Authorization code (parameter missing in original doc) </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga53a176f3e124ca57d76973574e65f50e" name="ga53a176f3e124ca57d76973574e65f50e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga53a176f3e124ca57d76973574e65f50e">&#9670;&#160;</a></span>ConnectRemoteSessionAccount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ConnectRemoteSessionAccount </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Code</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Nonce</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Link an account via remote session lease. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Code</td><td>Lease code from start remote session </td></tr>
+    <tr><td class="paramname">Nonce</td><td>Nonce from start remote session </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga73978ccbfff6c3890d3b597687a8c429" name="ga73978ccbfff6c3890d3b597687a8c429"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga73978ccbfff6c3890d3b597687a8c429">&#9670;&#160;</a></span>ConnectTwitchAccount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ConnectTwitchAccount </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>AuthorizationCode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Link a Twitch account. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AuthorizationCode</td><td>Authorization code from Twitch sign-in </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gaea18f9deae72eacfedebd6b18c029367" name="gaea18f9deae72eacfedebd6b18c029367"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaea18f9deae72eacfedebd6b18c029367">&#9670;&#160;</a></span>DisconnectAccount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::DisconnectAccount </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__ConnectedAccounts.html#ga52ca2d9826a43c89fc5913c416e0894d">ELootLockerAccountProvider</a>&#160;</td>
+          <td class="paramname"><em>AccountToDisconnect</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Disconnect a linked identity provider. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AccountToDisconnect</td><td>Provider to disconnect </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga77f0d46d5768ef57076049851d37313d" name="ga77f0d46d5768ef57076049851d37313d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga77f0d46d5768ef57076049851d37313d">&#9670;&#160;</a></span>ListConnectedAccounts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListConnectedAccounts </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__ConnectedAccounts.html#ga5af86cd4a77617973db4a3f165d5b3f3">FLootLockerListConnectedAccountsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List connected identity providers (Apple, Google, etc.). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gaee9e93405649b901e27a170d341a2c81" name="gaee9e93405649b901e27a170d341a2c81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaee9e93405649b901e27a170d341a2c81">&#9670;&#160;</a></span>TransferIdentityProvidersBetweenAccounts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::TransferIdentityProvidersBetweenAccounts </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>FromPlayerWithUlid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ToPlayerWithUlid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TArray&lt; <a class="el" href="group__ConnectedAccounts.html#ga52ca2d9826a43c89fc5913c416e0894d">ELootLockerAccountProvider</a> &gt;&#160;</td>
+          <td class="paramname"><em>ProvidersToTransfer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__ConnectedAccounts.html#ga5af86cd4a77617973db4a3f165d5b3f3">FLootLockerListConnectedAccountsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Transfer identity providers between two authenticated players. </p>
+<p>Destructive: providers move from source to target player. Entire operation fails if any provider cannot be transferred.</p>
+<p>NOTE: Requires <a class="el" href="group__Init.html#ggab6cbfe9c0c8733469624132e5afda1a5aaca41c16b1e459f6897b49bc9e212d8e" title="Multiple active sessions are allowed simultaneously.">ELootLockerMultiUserSessionMode::Hotseat</a> to be configured (<a class="el" href="classULootLockerConfig.html#ae457bcd11400ddd49e2414dc1c8008e3" title="Controls how the SDK handles multiple player sessions when a new authentication succeeds.">ULootLockerConfig::MultiUserSessionMode</a>), because this method needs two simultaneously active local sessions. It returns an error if the current mode is SingleSession or ProfileSwitching.</p>
+<p>Limitations:</p><ul>
+<li>Source must own each provider</li>
+<li>Target must not already have provider</li>
+<li>Provider must be active in game settings</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">FromPlayerWithUlid</td><td>Source player ULID </td></tr>
+    <tr><td class="paramname">ToPlayerWithUlid</td><td>Target player ULID </td></tr>
+    <tr><td class="paramname">ProvidersToTransfer</td><td>Providers to transfer </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga667242bda8f3874f4472d351e30307e5" id="r_ga667242bda8f3874f4472d351e30307e5"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a>) (<a class="el" href="structFLootLockerAccountConnectedResponse.html">FLootLockerAccountConnectedResponse</a>)</td></tr>
+<tr class="memdesc:ga667242bda8f3874f4472d351e30307e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for connecting a provider to an account.  <br /></td></tr>
+<tr class="separator:ga667242bda8f3874f4472d351e30307e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5af86cd4a77617973db4a3f165d5b3f3" id="r_ga5af86cd4a77617973db4a3f165d5b3f3"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga5af86cd4a77617973db4a3f165d5b3f3">FLootLockerListConnectedAccountsResponseDelegate</a>) (<a class="el" href="structFLootLockerListConnectedAccountsResponse.html">FLootLockerListConnectedAccountsResponse</a>)</td></tr>
+<tr class="memdesc:ga5af86cd4a77617973db4a3f165d5b3f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for listing connected accounts.  <br /></td></tr>
+<tr class="separator:ga5af86cd4a77617973db4a3f165d5b3f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga52ca2d9826a43c89fc5913c416e0894d" id="r_ga52ca2d9826a43c89fc5913c416e0894d"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga52ca2d9826a43c89fc5913c416e0894d">ELootLockerAccountProvider</a> : uint8 { <br />
+&#160;&#160;<a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894daadb831a7fdd83dd1e2a309ce7591dff8">ELootLockerAccountProvider::Guest</a> = 0
+, <a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da8b36e9207c24c76e6719268e49201d94">ELootLockerAccountProvider::Google</a> = 1
+, <a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da9f6290f4436e5a2351f12e03b6433c3c">ELootLockerAccountProvider::Apple</a> = 2
+, <a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da4db4563826bad0eb2f60ee6e42d0ea4b">ELootLockerAccountProvider::Steam</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da54c97686ee5f90f5da86d03c84be7015">ELootLockerAccountProvider::Epic_games</a> = 4
+, <a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da2daf1cb573c2c61422faf64610cf9402">ELootLockerAccountProvider::Credentials</a> = 5
+, <a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da073b7e4ff1d153a52b07eadb5898cb92">ELootLockerAccountProvider::Nintendo</a> = 6
+, <a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da183709ebe3a1d675014d32b94ad7ed94">ELootLockerAccountProvider::Xbox</a> = 7
+, <br />
+&#160;&#160;<a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894daab7048c58ea2afa826c06bf8d756e8d1">ELootLockerAccountProvider::Playstation</a> = 8
+, <a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da6a057ee64a34177e388abe7304fd3d78">ELootLockerAccountProvider::Twitch</a> = 9
+, <a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da8f5cc6430613f1c12f36965050bb7197">ELootLockerAccountProvider::Discord</a> = 10
+, <a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da15b8772f2d06a15fee9f32b6477660b8">ELootLockerAccountProvider::Google_play_games</a> = 11
+<br />
+ }</td></tr>
+<tr class="memdesc:ga52ca2d9826a43c89fc5913c416e0894d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Account providers possible to use for connected accounts.  <a href="group__ConnectedAccounts.html#ga52ca2d9826a43c89fc5913c416e0894d">More...</a><br /></td></tr>
+<tr class="separator:ga52ca2d9826a43c89fc5913c416e0894d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa4f10f240f9352981514d0af1bff8e11" id="r_gaa4f10f240f9352981514d0af1bff8e11"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#gaa4f10f240f9352981514d0af1bff8e11">EGoogleAccountProviderPlatform</a> : uint8 { <a class="el" href="group__ConnectedAccounts.html#ggaa4f10f240f9352981514d0af1bff8e11a2567a5ec9705eb7ac2c984033e06189d">EGoogleAccountProviderPlatform::web</a> = 0
+, <a class="el" href="group__ConnectedAccounts.html#ggaa4f10f240f9352981514d0af1bff8e11ac31b32364ce19ca8fcd150a417ecce58">EGoogleAccountProviderPlatform::android</a> = 1
+, <a class="el" href="group__ConnectedAccounts.html#ggaa4f10f240f9352981514d0af1bff8e11a9e304d4e8df1b74cfa009913198428ab">EGoogleAccountProviderPlatform::ios</a> = 2
+, <a class="el" href="group__ConnectedAccounts.html#ggaa4f10f240f9352981514d0af1bff8e11ab2c79ad7dcf03ba266dc0885e1266675">EGoogleAccountProviderPlatform::desktop</a> = 4
+ }</td></tr>
+<tr class="memdesc:gaa4f10f240f9352981514d0af1bff8e11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Google OAuth2 Client platform.  <a href="group__ConnectedAccounts.html#gaa4f10f240f9352981514d0af1bff8e11">More...</a><br /></td></tr>
+<tr class="separator:gaa4f10f240f9352981514d0af1bff8e11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga77f0d46d5768ef57076049851d37313d" id="r_ga77f0d46d5768ef57076049851d37313d"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga77f0d46d5768ef57076049851d37313d">ULootLockerSDKManager::ListConnectedAccounts</a> (const <a class="el" href="group__ConnectedAccounts.html#ga5af86cd4a77617973db4a3f165d5b3f3">FLootLockerListConnectedAccountsResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga77f0d46d5768ef57076049851d37313d"><td class="mdescLeft">&#160;</td><td class="mdescRight">List connected identity providers (Apple, Google, etc.).  <br /></td></tr>
+<tr class="separator:ga77f0d46d5768ef57076049851d37313d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaea18f9deae72eacfedebd6b18c029367" id="r_gaea18f9deae72eacfedebd6b18c029367"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#gaea18f9deae72eacfedebd6b18c029367">ULootLockerSDKManager::DisconnectAccount</a> (const <a class="el" href="group__ConnectedAccounts.html#ga52ca2d9826a43c89fc5913c416e0894d">ELootLockerAccountProvider</a> AccountToDisconnect, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gaea18f9deae72eacfedebd6b18c029367"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disconnect a linked identity provider.  <br /></td></tr>
+<tr class="separator:gaea18f9deae72eacfedebd6b18c029367"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa152a34038b8ec048bc19c371228748e" id="r_gaa152a34038b8ec048bc19c371228748e"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#gaa152a34038b8ec048bc19c371228748e">ULootLockerSDKManager::ConnectGoogleAccount</a> (const FString &amp;IdToken, const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gaa152a34038b8ec048bc19c371228748e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link a Google account.  <br /></td></tr>
+<tr class="separator:gaa152a34038b8ec048bc19c371228748e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5fa56a8afdfef063ef6b01ca41a42df5" id="r_ga5fa56a8afdfef063ef6b01ca41a42df5"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga5fa56a8afdfef063ef6b01ca41a42df5">ULootLockerSDKManager::ConnectGoogleAccount</a> (const FString &amp;IdToken, <a class="el" href="group__ConnectedAccounts.html#gaa4f10f240f9352981514d0af1bff8e11">EGoogleAccountProviderPlatform</a> Platform, const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga5fa56a8afdfef063ef6b01ca41a42df5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link a Google account for a specific Google platform.  <br /></td></tr>
+<tr class="separator:ga5fa56a8afdfef063ef6b01ca41a42df5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1bd931747e76a76fb700e9f31d8a266a" id="r_ga1bd931747e76a76fb700e9f31d8a266a"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga1bd931747e76a76fb700e9f31d8a266a">ULootLockerSDKManager::ConnectAppleAccountByRestSignIn</a> (const FString &amp;AuthorizationCode, const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga1bd931747e76a76fb700e9f31d8a266a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link an Apple account (REST sign-in).  <br /></td></tr>
+<tr class="separator:ga1bd931747e76a76fb700e9f31d8a266a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga73978ccbfff6c3890d3b597687a8c429" id="r_ga73978ccbfff6c3890d3b597687a8c429"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga73978ccbfff6c3890d3b597687a8c429">ULootLockerSDKManager::ConnectTwitchAccount</a> (const FString &amp;AuthorizationCode, const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga73978ccbfff6c3890d3b597687a8c429"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link a Twitch account.  <br /></td></tr>
+<tr class="separator:ga73978ccbfff6c3890d3b597687a8c429"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae38a534f15a8d8a224c44e68cd704e69" id="r_gae38a534f15a8d8a224c44e68cd704e69"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#gae38a534f15a8d8a224c44e68cd704e69">ULootLockerSDKManager::ConnectEpicAccount</a> (const FString &amp;Token, const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gae38a534f15a8d8a224c44e68cd704e69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link an Epic account.  <br /></td></tr>
+<tr class="separator:gae38a534f15a8d8a224c44e68cd704e69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga41e5669729c5ef1dd505d5770b1ea4fe" id="r_ga41e5669729c5ef1dd505d5770b1ea4fe"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga41e5669729c5ef1dd505d5770b1ea4fe">ULootLockerSDKManager::ConnectPlaystationAccount</a> (const FString &amp;Environment, const FString &amp;Code, const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga41e5669729c5ef1dd505d5770b1ea4fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link a PlayStation account.  <br /></td></tr>
+<tr class="separator:ga41e5669729c5ef1dd505d5770b1ea4fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4302ce89c2e13fb2f70dfe64e0c3d7ec" id="r_ga4302ce89c2e13fb2f70dfe64e0c3d7ec"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga4302ce89c2e13fb2f70dfe64e0c3d7ec">ULootLockerSDKManager::ConnectDiscordAccount</a> (const FString &amp;Token, const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga4302ce89c2e13fb2f70dfe64e0c3d7ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link a Discord account.  <br /></td></tr>
+<tr class="separator:ga4302ce89c2e13fb2f70dfe64e0c3d7ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga53a176f3e124ca57d76973574e65f50e" id="r_ga53a176f3e124ca57d76973574e65f50e"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga53a176f3e124ca57d76973574e65f50e">ULootLockerSDKManager::ConnectRemoteSessionAccount</a> (const FString &amp;Code, const FString &amp;Nonce, const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga53a176f3e124ca57d76973574e65f50e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link an account via remote session lease.  <br /></td></tr>
+<tr class="separator:ga53a176f3e124ca57d76973574e65f50e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaee9e93405649b901e27a170d341a2c81" id="r_gaee9e93405649b901e27a170d341a2c81"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#gaee9e93405649b901e27a170d341a2c81">ULootLockerSDKManager::TransferIdentityProvidersBetweenAccounts</a> (const FString &amp;FromPlayerWithUlid, const FString &amp;ToPlayerWithUlid, TArray&lt; <a class="el" href="group__ConnectedAccounts.html#ga52ca2d9826a43c89fc5913c416e0894d">ELootLockerAccountProvider</a> &gt; ProvidersToTransfer, const <a class="el" href="group__ConnectedAccounts.html#ga5af86cd4a77617973db4a3f165d5b3f3">FLootLockerListConnectedAccountsResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="memdesc:gaee9e93405649b901e27a170d341a2c81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transfer identity providers between two authenticated players.  <br /></td></tr>
+<tr class="separator:gaee9e93405649b901e27a170d341a2c81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

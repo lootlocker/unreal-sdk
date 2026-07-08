@@ -1,0 +1,883 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: Presence</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('group__Presence.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">Presence</div></div>
+</div><!--header-->
+<div class="contents">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Track when and how players are active across all platforms in real time. </p>
+<p>Basic Presence records session start/end times, automatically computing CCU (concurrent users) and session length. <b>Rich Presence</b> (available to select customers) extends this with developer-defined per-session player statuses (e.g., <code>Main Menu</code>, <code>Level 3</code>) that produce a detailed activity timeline per session — useful for analytics, live-ops, and player support.</p>
+<p>See the <a href="https://docs.lootlocker.com/players/presence">LootLocker documentation</a>. </p>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="ga90308851e93438eec33d18a55f713b62" name="ga90308851e93438eec33d18a55f713b62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga90308851e93438eec33d18a55f713b62">&#9670;&#160;</a></span>FLootLockerPresenceCallbackDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerPresenceCallbackDelegate) (bool, const FString &amp;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Delegate for handling presence connection process callbacks. </p>
+
+</div>
+</div>
+<a id="ga66af801886112d6f49e094e8fab0388c" name="ga66af801886112d6f49e094e8fab0388c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga66af801886112d6f49e094e8fab0388c">&#9670;&#160;</a></span>FLootLockerPresenceConnectionDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerPresenceConnectionDelegate) (const FString &amp;, ELootLockerPresenceConnectionState, ELootLockerPresenceConnectionState, const FString &amp;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Delegate for presence connection state changes. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ga00a17162d85e596302d70be894579360" name="ga00a17162d85e596302d70be894579360"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga00a17162d85e596302d70be894579360">&#9670;&#160;</a></span>ForceStartPresenceConnection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void ULootLockerSDKManager::ForceStartPresenceConnection </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Presence.html#ga90308851e93438eec33d18a55f713b62">FLootLockerPresenceCallbackDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>TEXT(&quot;&quot;)</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Force start the Presence WebSocket connection manually. </p>
+<p>This will override the automatic presence management and manually establish a connection. Use this when you need precise control over presence connections, otherwise let the SDK auto-manage.</p>
+<p>NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnComplete</td><td>Callback indicating whether the connection and authentication succeeded </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute the request for the specified player. If not supplied, the default player will be used. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga6f3c3e2e74ac6ac2c849b3429f91ff02" name="ga6f3c3e2e74ac6ac2c849b3429f91ff02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6f3c3e2e74ac6ac2c849b3429f91ff02">&#9670;&#160;</a></span>ForceStopAllPresenceConnections()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void ULootLockerSDKManager::ForceStopAllPresenceConnections </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Force stop all Presence WebSocket connections manually. </p>
+<p>This will override the automatic presence management and disconnect all active connections. Use this when you need to immediately disconnect all presence connections.</p>
+<p>NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance. </p>
+
+</div>
+</div>
+<a id="gaefd461966f3678aa7c5d99fd73dd0ac7" name="gaefd461966f3678aa7c5d99fd73dd0ac7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaefd461966f3678aa7c5d99fd73dd0ac7">&#9670;&#160;</a></span>ForceStopPresenceConnection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void ULootLockerSDKManager::ForceStopPresenceConnection </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Presence.html#ga90308851e93438eec33d18a55f713b62">FLootLockerPresenceCallbackDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>TEXT(&quot;&quot;)</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Force stop the Presence WebSocket connection manually. </p>
+<p>This will override the automatic presence management and manually disconnect. Use this when you need precise control over presence connections, otherwise let the SDK auto-manage.</p>
+<p>NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnComplete</td><td>Optional callback indicating whether the disconnection succeeded </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute the request for the specified player. If not supplied, the default player will be used. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gad62b26e7ccb41da33b193e024888f05f" name="gad62b26e7ccb41da33b193e024888f05f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad62b26e7ccb41da33b193e024888f05f">&#9670;&#160;</a></span>GetCurrentPresenceStatus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetCurrentPresenceStatus </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>TEXT(&quot;&quot;)</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the last status that was sent for a specific player. </p>
+<p>NOTE: To use this the rich presence feature must be enabled for your game. Contact LootLocker support if you need assistance.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute the request for the specified player. If not supplied, the default player will be used. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The last sent status string, or empty if no client is found or no status has been sent </dd></dl>
+
+</div>
+</div>
+<a id="ga4873078d22672b87bad57b3b0f7b40a6" name="ga4873078d22672b87bad57b3b0f7b40a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4873078d22672b87bad57b3b0f7b40a6">&#9670;&#160;</a></span>GetPresenceConnectionState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static ELootLockerPresenceConnectionState ULootLockerSDKManager::GetPresenceConnectionState </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>TEXT(&quot;&quot;)</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the current Presence connection state for a specific player. </p>
+<p>NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute the request for the specified player. If not supplied, the default player will be used. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The current connection state </dd></dl>
+
+</div>
+</div>
+<a id="ga072cc7b190271166666d7d1db46d52a7" name="ga072cc7b190271166666d7d1db46d52a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga072cc7b190271166666d7d1db46d52a7">&#9670;&#160;</a></span>GetPresenceConnectionStats()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FLootLockerPresenceConnectionStats ULootLockerSDKManager::GetPresenceConnectionStats </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>TEXT(&quot;&quot;)</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get statistics about the Presence connection for a specific player. </p>
+<p>NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute the request for the specified player. If not supplied, the default player will be used. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Connection statistics </dd></dl>
+
+</div>
+</div>
+<a id="ga0a42fb466e4b20439a67ab71e8bd6e6f" name="ga0a42fb466e4b20439a67ab71e8bd6e6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0a42fb466e4b20439a67ab71e8bd6e6f">&#9670;&#160;</a></span>IsPresenceAutoConnectEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool ULootLockerSDKManager::IsPresenceAutoConnectEnabled </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if automatic presence connections are enabled. </p>
+<p>NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.</p>
+<dl class="section return"><dt>Returns</dt><dd>True if auto-connect is enabled, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="gad13a20e2b752bef77e1db9536f71de10" name="gad13a20e2b752bef77e1db9536f71de10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad13a20e2b752bef77e1db9536f71de10">&#9670;&#160;</a></span>IsPresenceAutoDisconnectOnFocusChangeEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool ULootLockerSDKManager::IsPresenceAutoDisconnectOnFocusChangeEnabled </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if automatic presence disconnection on focus change is enabled. </p>
+<p>NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.</p>
+<dl class="section return"><dt>Returns</dt><dd>True if auto-disconnect on focus change is enabled, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="gac6cd9540d0325b42498c709a0d721a8f" name="gac6cd9540d0325b42498c709a0d721a8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac6cd9540d0325b42498c709a0d721a8f">&#9670;&#160;</a></span>IsPresenceConnected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool ULootLockerSDKManager::IsPresenceConnected </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>TEXT(&quot;&quot;)</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if Presence is connected and authenticated for a specific player. </p>
+<p>NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute the request for the specified player. If not supplied, the default player will be used. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if connected and active, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="ga99e4f30a0a04a273c0b38d4caf3a2728" name="ga99e4f30a0a04a273c0b38d4caf3a2728"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga99e4f30a0a04a273c0b38d4caf3a2728">&#9670;&#160;</a></span>IsPresenceEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool ULootLockerSDKManager::IsPresenceEnabled </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if presence system is currently enabled. </p>
+<p>NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.</p>
+<dl class="section return"><dt>Returns</dt><dd>True if enabled, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="gabee14fcb0b83a5c0a54e58902972523a" name="gabee14fcb0b83a5c0a54e58902972523a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabee14fcb0b83a5c0a54e58902972523a">&#9670;&#160;</a></span>ListPresenceConnections()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static TArray&lt; FString &gt; ULootLockerSDKManager::ListPresenceConnections </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a list of player ULIDs that currently have active Presence connections. </p>
+<p>NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.</p>
+<dl class="section return"><dt>Returns</dt><dd>Array of player ULIDs that have active presence connections </dd></dl>
+
+</div>
+</div>
+<a id="ga10d52eb693e0703ef5c5241a2cbcb3d5" name="ga10d52eb693e0703ef5c5241a2cbcb3d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga10d52eb693e0703ef5c5241a2cbcb3d5">&#9670;&#160;</a></span>SetPresenceAutoConnectEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void ULootLockerSDKManager::SetPresenceAutoConnectEnabled </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bEnabled</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enable or disable automatic presence connection when sessions start. </p>
+<p>NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bEnabled</td><td>Whether to auto-connect presence </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga528f68da4dad90b56d1fb15d38d5d127" name="ga528f68da4dad90b56d1fb15d38d5d127"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga528f68da4dad90b56d1fb15d38d5d127">&#9670;&#160;</a></span>SetPresenceAutoDisconnectOnFocusChangeEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void ULootLockerSDKManager::SetPresenceAutoDisconnectOnFocusChangeEnabled </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bEnabled</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enable or disable automatic presence disconnection when the application loses focus or is paused. </p>
+<p>When enabled, presence connections will automatically disconnect when the app goes to background and reconnect when it returns to foreground. Useful for saving battery on mobile or managing resources.</p>
+<p>NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bEnabled</td><td>True to enable auto-disconnect on focus change, false to disable </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga3fbfb713571ff4fa5f2add9b2d717359" name="ga3fbfb713571ff4fa5f2add9b2d717359"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3fbfb713571ff4fa5f2add9b2d717359">&#9670;&#160;</a></span>SetPresenceEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void ULootLockerSDKManager::SetPresenceEnabled </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bEnabled</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enable or disable the entire Presence system. </p>
+<p>NOTE: To use this the presence feature must be enabled for your game. Contact LootLocker support if you need assistance.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bEnabled</td><td>Whether to enable presence </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga99743d398b94cc602bbbcaf0e3a0223c" name="ga99743d398b94cc602bbbcaf0e3a0223c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga99743d398b94cc602bbbcaf0e3a0223c">&#9670;&#160;</a></span>UpdatePresenceStatus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void ULootLockerSDKManager::UpdatePresenceStatus </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Status</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TMap&lt; FString, FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Metadata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Presence.html#ga90308851e93438eec33d18a55f713b62">FLootLockerPresenceCallbackDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>TEXT(&quot;&quot;)</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Update the player's presence status. </p>
+<p>NOTE: To use this the rich presence feature must be enabled for your game. Contact LootLocker support if you need assistance.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Status</td><td>The status to set (e.g., "online", "in_game", "away") </td></tr>
+    <tr><td class="paramname">Metadata</td><td>Optional metadata to include with the status </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Callback for the result of the operation </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute the request for the specified player. If not supplied, the default player will be used. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerPresenceManagerConfig.html">FLootLockerPresenceManagerConfig</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration structure for presence manager behavior.  <a href="structFLootLockerPresenceManagerConfig.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerCachedPresenceStatusUpdate.html">FLootLockerCachedPresenceStatusUpdate</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerPresenceManager.html">ULootLockerPresenceManager</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manager for LootLocker presence functionality Coordinates presence connections for multiple players/sessions and provides lifecycle management through external event integration.  <a href="classULootLockerPresenceManager.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga66af801886112d6f49e094e8fab0388c" id="r_ga66af801886112d6f49e094e8fab0388c"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Presence.html#ga66af801886112d6f49e094e8fab0388c">FLootLockerPresenceConnectionDelegate</a>) (const FString &amp;, ELootLockerPresenceConnectionState, ELootLockerPresenceConnectionState, const FString &amp;)</td></tr>
+<tr class="memdesc:ga66af801886112d6f49e094e8fab0388c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delegate for presence connection state changes.  <br /></td></tr>
+<tr class="separator:ga66af801886112d6f49e094e8fab0388c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga90308851e93438eec33d18a55f713b62" id="r_ga90308851e93438eec33d18a55f713b62"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Presence.html#ga90308851e93438eec33d18a55f713b62">FLootLockerPresenceCallbackDelegate</a>) (bool, const FString &amp;)</td></tr>
+<tr class="memdesc:ga90308851e93438eec33d18a55f713b62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delegate for handling presence connection process callbacks.  <br /></td></tr>
+<tr class="separator:ga90308851e93438eec33d18a55f713b62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga00a17162d85e596302d70be894579360" id="r_ga00a17162d85e596302d70be894579360"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Presence.html#ga00a17162d85e596302d70be894579360">ULootLockerSDKManager::ForceStartPresenceConnection</a> (const <a class="el" href="group__Presence.html#ga90308851e93438eec33d18a55f713b62">FLootLockerPresenceCallbackDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=TEXT(&quot;&quot;))</td></tr>
+<tr class="memdesc:ga00a17162d85e596302d70be894579360"><td class="mdescLeft">&#160;</td><td class="mdescRight">Force start the Presence WebSocket connection manually.  <br /></td></tr>
+<tr class="separator:ga00a17162d85e596302d70be894579360"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaefd461966f3678aa7c5d99fd73dd0ac7" id="r_gaefd461966f3678aa7c5d99fd73dd0ac7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Presence.html#gaefd461966f3678aa7c5d99fd73dd0ac7">ULootLockerSDKManager::ForceStopPresenceConnection</a> (const <a class="el" href="group__Presence.html#ga90308851e93438eec33d18a55f713b62">FLootLockerPresenceCallbackDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=TEXT(&quot;&quot;))</td></tr>
+<tr class="memdesc:gaefd461966f3678aa7c5d99fd73dd0ac7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Force stop the Presence WebSocket connection manually.  <br /></td></tr>
+<tr class="separator:gaefd461966f3678aa7c5d99fd73dd0ac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6f3c3e2e74ac6ac2c849b3429f91ff02" id="r_ga6f3c3e2e74ac6ac2c849b3429f91ff02"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Presence.html#ga6f3c3e2e74ac6ac2c849b3429f91ff02">ULootLockerSDKManager::ForceStopAllPresenceConnections</a> ()</td></tr>
+<tr class="memdesc:ga6f3c3e2e74ac6ac2c849b3429f91ff02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Force stop all Presence WebSocket connections manually.  <br /></td></tr>
+<tr class="separator:ga6f3c3e2e74ac6ac2c849b3429f91ff02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabee14fcb0b83a5c0a54e58902972523a" id="r_gabee14fcb0b83a5c0a54e58902972523a"><td class="memItemLeft" align="right" valign="top">static TArray&lt; FString &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Presence.html#gabee14fcb0b83a5c0a54e58902972523a">ULootLockerSDKManager::ListPresenceConnections</a> ()</td></tr>
+<tr class="memdesc:gabee14fcb0b83a5c0a54e58902972523a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a list of player ULIDs that currently have active Presence connections.  <br /></td></tr>
+<tr class="separator:gabee14fcb0b83a5c0a54e58902972523a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga99743d398b94cc602bbbcaf0e3a0223c" id="r_ga99743d398b94cc602bbbcaf0e3a0223c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Presence.html#ga99743d398b94cc602bbbcaf0e3a0223c">ULootLockerSDKManager::UpdatePresenceStatus</a> (const FString &amp;Status, const TMap&lt; FString, FString &gt; &amp;Metadata, const <a class="el" href="group__Presence.html#ga90308851e93438eec33d18a55f713b62">FLootLockerPresenceCallbackDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=TEXT(&quot;&quot;))</td></tr>
+<tr class="memdesc:ga99743d398b94cc602bbbcaf0e3a0223c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the player's presence status.  <br /></td></tr>
+<tr class="separator:ga99743d398b94cc602bbbcaf0e3a0223c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4873078d22672b87bad57b3b0f7b40a6" id="r_ga4873078d22672b87bad57b3b0f7b40a6"><td class="memItemLeft" align="right" valign="top">static ELootLockerPresenceConnectionState&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Presence.html#ga4873078d22672b87bad57b3b0f7b40a6">ULootLockerSDKManager::GetPresenceConnectionState</a> (const FString &amp;ForPlayerWithUlid=TEXT(&quot;&quot;))</td></tr>
+<tr class="memdesc:ga4873078d22672b87bad57b3b0f7b40a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current Presence connection state for a specific player.  <br /></td></tr>
+<tr class="separator:ga4873078d22672b87bad57b3b0f7b40a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac6cd9540d0325b42498c709a0d721a8f" id="r_gac6cd9540d0325b42498c709a0d721a8f"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Presence.html#gac6cd9540d0325b42498c709a0d721a8f">ULootLockerSDKManager::IsPresenceConnected</a> (const FString &amp;ForPlayerWithUlid=TEXT(&quot;&quot;))</td></tr>
+<tr class="memdesc:gac6cd9540d0325b42498c709a0d721a8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if Presence is connected and authenticated for a specific player.  <br /></td></tr>
+<tr class="separator:gac6cd9540d0325b42498c709a0d721a8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga072cc7b190271166666d7d1db46d52a7" id="r_ga072cc7b190271166666d7d1db46d52a7"><td class="memItemLeft" align="right" valign="top">static FLootLockerPresenceConnectionStats&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Presence.html#ga072cc7b190271166666d7d1db46d52a7">ULootLockerSDKManager::GetPresenceConnectionStats</a> (const FString &amp;ForPlayerWithUlid=TEXT(&quot;&quot;))</td></tr>
+<tr class="memdesc:ga072cc7b190271166666d7d1db46d52a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get statistics about the Presence connection for a specific player.  <br /></td></tr>
+<tr class="separator:ga072cc7b190271166666d7d1db46d52a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad62b26e7ccb41da33b193e024888f05f" id="r_gad62b26e7ccb41da33b193e024888f05f"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Presence.html#gad62b26e7ccb41da33b193e024888f05f">ULootLockerSDKManager::GetCurrentPresenceStatus</a> (const FString &amp;ForPlayerWithUlid=TEXT(&quot;&quot;))</td></tr>
+<tr class="memdesc:gad62b26e7ccb41da33b193e024888f05f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the last status that was sent for a specific player.  <br /></td></tr>
+<tr class="separator:gad62b26e7ccb41da33b193e024888f05f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3fbfb713571ff4fa5f2add9b2d717359" id="r_ga3fbfb713571ff4fa5f2add9b2d717359"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Presence.html#ga3fbfb713571ff4fa5f2add9b2d717359">ULootLockerSDKManager::SetPresenceEnabled</a> (bool bEnabled)</td></tr>
+<tr class="memdesc:ga3fbfb713571ff4fa5f2add9b2d717359"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable the entire Presence system.  <br /></td></tr>
+<tr class="separator:ga3fbfb713571ff4fa5f2add9b2d717359"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga99e4f30a0a04a273c0b38d4caf3a2728" id="r_ga99e4f30a0a04a273c0b38d4caf3a2728"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Presence.html#ga99e4f30a0a04a273c0b38d4caf3a2728">ULootLockerSDKManager::IsPresenceEnabled</a> ()</td></tr>
+<tr class="memdesc:ga99e4f30a0a04a273c0b38d4caf3a2728"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if presence system is currently enabled.  <br /></td></tr>
+<tr class="separator:ga99e4f30a0a04a273c0b38d4caf3a2728"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga10d52eb693e0703ef5c5241a2cbcb3d5" id="r_ga10d52eb693e0703ef5c5241a2cbcb3d5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Presence.html#ga10d52eb693e0703ef5c5241a2cbcb3d5">ULootLockerSDKManager::SetPresenceAutoConnectEnabled</a> (bool bEnabled)</td></tr>
+<tr class="memdesc:ga10d52eb693e0703ef5c5241a2cbcb3d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable automatic presence connection when sessions start.  <br /></td></tr>
+<tr class="separator:ga10d52eb693e0703ef5c5241a2cbcb3d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0a42fb466e4b20439a67ab71e8bd6e6f" id="r_ga0a42fb466e4b20439a67ab71e8bd6e6f"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Presence.html#ga0a42fb466e4b20439a67ab71e8bd6e6f">ULootLockerSDKManager::IsPresenceAutoConnectEnabled</a> ()</td></tr>
+<tr class="memdesc:ga0a42fb466e4b20439a67ab71e8bd6e6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if automatic presence connections are enabled.  <br /></td></tr>
+<tr class="separator:ga0a42fb466e4b20439a67ab71e8bd6e6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga528f68da4dad90b56d1fb15d38d5d127" id="r_ga528f68da4dad90b56d1fb15d38d5d127"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Presence.html#ga528f68da4dad90b56d1fb15d38d5d127">ULootLockerSDKManager::SetPresenceAutoDisconnectOnFocusChangeEnabled</a> (bool bEnabled)</td></tr>
+<tr class="memdesc:ga528f68da4dad90b56d1fb15d38d5d127"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable automatic presence disconnection when the application loses focus or is paused.  <br /></td></tr>
+<tr class="separator:ga528f68da4dad90b56d1fb15d38d5d127"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad13a20e2b752bef77e1db9536f71de10" id="r_gad13a20e2b752bef77e1db9536f71de10"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Presence.html#gad13a20e2b752bef77e1db9536f71de10">ULootLockerSDKManager::IsPresenceAutoDisconnectOnFocusChangeEnabled</a> ()</td></tr>
+<tr class="memdesc:gad13a20e2b752bef77e1db9536f71de10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if automatic presence disconnection on focus change is enabled.  <br /></td></tr>
+<tr class="separator:gad13a20e2b752bef77e1db9536f71de10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

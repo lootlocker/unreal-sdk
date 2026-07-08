@@ -1,0 +1,390 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: FLootLockerEntitlementListing Struct Reference</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('structFLootLockerEntitlementListing.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
+  <div class="headertitle"><div class="title">FLootLockerEntitlementListing Struct Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Represents a complete entitlement record, grouping its catalog items, system rewards, metadata, originating store, status, and type.  
+ <a href="structFLootLockerEntitlementListing.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="LootLockerEntitlementRequestHandler_8h_source.html">LootLockerEntitlementRequestHandler.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a0e2823d8c5df3d5e287bbcaf50c306aa" id="r_a0e2823d8c5df3d5e287bbcaf50c306aa"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerEntitlementListing.html#a0e2823d8c5df3d5e287bbcaf50c306aa">Created_at</a> = &quot;&quot;</td></tr>
+<tr class="memdesc:a0e2823d8c5df3d5e287bbcaf50c306aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">When this entitlement listing was created.  <br /></td></tr>
+<tr class="separator:a0e2823d8c5df3d5e287bbcaf50c306aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac90aa4e65bbda0d8b45e74ddc4a51e7a" id="r_ac90aa4e65bbda0d8b45e74ddc4a51e7a"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerEntitlementListing.html#ac90aa4e65bbda0d8b45e74ddc4a51e7a">Id</a> = &quot;&quot;</td></tr>
+<tr class="memdesc:ac90aa4e65bbda0d8b45e74ddc4a51e7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The unique identifier of this entitlement listing.  <br /></td></tr>
+<tr class="separator:ac90aa4e65bbda0d8b45e74ddc4a51e7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a313d104d52a8fff9a4aee081a48a9e5e" id="r_a313d104d52a8fff9a4aee081a48a9e5e"><td class="memItemLeft" align="right" valign="top">TArray&lt; <a class="el" href="structFLootLockerEntitlementHistoryItem.html">FLootLockerEntitlementHistoryItem</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerEntitlementListing.html#a313d104d52a8fff9a4aee081a48a9e5e">Items</a></td></tr>
+<tr class="memdesc:a313d104d52a8fff9a4aee081a48a9e5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of items in this entitlement (items are related to the catalog)  <br /></td></tr>
+<tr class="separator:a313d104d52a8fff9a4aee081a48a9e5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a132dca3d3c6defc569037542a2329984" id="r_a132dca3d3c6defc569037542a2329984"><td class="memItemLeft" align="right" valign="top">TArray&lt; <a class="el" href="structFLootLockerEntitlementHistoryReward.html">FLootLockerEntitlementHistoryReward</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerEntitlementListing.html#a132dca3d3c6defc569037542a2329984">Rewards</a></td></tr>
+<tr class="memdesc:a132dca3d3c6defc569037542a2329984"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of rewards in this entitlement (these are rewards from systems such as leaderboards, progressions, etc.)  <br /></td></tr>
+<tr class="separator:a132dca3d3c6defc569037542a2329984"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb675659c0b4ccbef9906ad588258b35" id="r_aeb675659c0b4ccbef9906ad588258b35"><td class="memItemLeft" align="right" valign="top">TArray&lt; <a class="el" href="structFLootLockerEntitlementHistoryMetadata.html">FLootLockerEntitlementHistoryMetadata</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerEntitlementListing.html#aeb675659c0b4ccbef9906ad588258b35">Metadata</a></td></tr>
+<tr class="memdesc:aeb675659c0b4ccbef9906ad588258b35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metadata related to this entitlement listing This array consists of key value pairs and contains various pieces of information about the entitlement, such as information from third party stores etc.  <br /></td></tr>
+<tr class="separator:aeb675659c0b4ccbef9906ad588258b35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a3dab010308b228f3424370ad666d3b" id="r_a7a3dab010308b228f3424370ad666d3b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__Entitlements.html#ga01dbb08b2160f96b89d68803979d5526">ELootLockerEntitlementHistoryListingStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerEntitlementListing.html#a7a3dab010308b228f3424370ad666d3b">Status</a> = <a class="el" href="group__Entitlements.html#gga01dbb08b2160f96b89d68803979d5526a6adf97f83acf6453d4a6a4b1070f3754">ELootLockerEntitlementHistoryListingStatus::None</a></td></tr>
+<tr class="memdesc:a7a3dab010308b228f3424370ad666d3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The status of this entitlement listing.  <br /></td></tr>
+<tr class="separator:a7a3dab010308b228f3424370ad666d3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc60c4543bfb472afe864e3b6f2999d3" id="r_afc60c4543bfb472afe864e3b6f2999d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__Entitlements.html#gaa8b3363f44f89367edb3391761eb7903">ELootLockerEntitlementHistoryListingStore</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerEntitlementListing.html#afc60c4543bfb472afe864e3b6f2999d3">Store</a> = <a class="el" href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a6adf97f83acf6453d4a6a4b1070f3754">ELootLockerEntitlementHistoryListingStore::None</a></td></tr>
+<tr class="memdesc:afc60c4543bfb472afe864e3b6f2999d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Which store (if any) that this entitlement listing relates to.  <br /></td></tr>
+<tr class="separator:afc60c4543bfb472afe864e3b6f2999d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4272344de2b7f38b67af5841740ba307" id="r_a4272344de2b7f38b67af5841740ba307"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__Entitlements.html#ga9c9c8da68ce2cb9275c436451fe140fa">ELootLockerEntitlementHistoryListingType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerEntitlementListing.html#a4272344de2b7f38b67af5841740ba307">Type</a> = <a class="el" href="group__Entitlements.html#gga9c9c8da68ce2cb9275c436451fe140faaec0fc0100c4fc1ce4eea230c3dc10360">ELootLockerEntitlementHistoryListingType::Undefined</a></td></tr>
+<tr class="memdesc:a4272344de2b7f38b67af5841740ba307"><td class="mdescLeft">&#160;</td><td class="mdescRight">Which type this entitlement listing is.  <br /></td></tr>
+<tr class="separator:a4272344de2b7f38b67af5841740ba307"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Represents a complete entitlement record, grouping its catalog items, system rewards, metadata, originating store, status, and type. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a id="a0e2823d8c5df3d5e287bbcaf50c306aa" name="a0e2823d8c5df3d5e287bbcaf50c306aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e2823d8c5df3d5e287bbcaf50c306aa">&#9670;&#160;</a></span>Created_at</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerEntitlementListing::Created_at = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>When this entitlement listing was created. </p>
+
+</div>
+</div>
+<a id="ac90aa4e65bbda0d8b45e74ddc4a51e7a" name="ac90aa4e65bbda0d8b45e74ddc4a51e7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac90aa4e65bbda0d8b45e74ddc4a51e7a">&#9670;&#160;</a></span>Id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerEntitlementListing::Id = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The unique identifier of this entitlement listing. </p>
+
+</div>
+</div>
+<a id="a313d104d52a8fff9a4aee081a48a9e5e" name="a313d104d52a8fff9a4aee081a48a9e5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a313d104d52a8fff9a4aee081a48a9e5e">&#9670;&#160;</a></span>Items</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TArray&lt;<a class="el" href="structFLootLockerEntitlementHistoryItem.html">FLootLockerEntitlementHistoryItem</a>&gt; FLootLockerEntitlementListing::Items</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>List of items in this entitlement (items are related to the catalog) </p>
+
+</div>
+</div>
+<a id="aeb675659c0b4ccbef9906ad588258b35" name="aeb675659c0b4ccbef9906ad588258b35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb675659c0b4ccbef9906ad588258b35">&#9670;&#160;</a></span>Metadata</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TArray&lt;<a class="el" href="structFLootLockerEntitlementHistoryMetadata.html">FLootLockerEntitlementHistoryMetadata</a>&gt; FLootLockerEntitlementListing::Metadata</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Metadata related to this entitlement listing This array consists of key value pairs and contains various pieces of information about the entitlement, such as information from third party stores etc. </p>
+
+</div>
+</div>
+<a id="a132dca3d3c6defc569037542a2329984" name="a132dca3d3c6defc569037542a2329984"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a132dca3d3c6defc569037542a2329984">&#9670;&#160;</a></span>Rewards</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TArray&lt;<a class="el" href="structFLootLockerEntitlementHistoryReward.html">FLootLockerEntitlementHistoryReward</a>&gt; FLootLockerEntitlementListing::Rewards</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>List of rewards in this entitlement (these are rewards from systems such as leaderboards, progressions, etc.) </p>
+
+</div>
+</div>
+<a id="a7a3dab010308b228f3424370ad666d3b" name="a7a3dab010308b228f3424370ad666d3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a3dab010308b228f3424370ad666d3b">&#9670;&#160;</a></span>Status</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__Entitlements.html#ga01dbb08b2160f96b89d68803979d5526">ELootLockerEntitlementHistoryListingStatus</a> FLootLockerEntitlementListing::Status = <a class="el" href="group__Entitlements.html#gga01dbb08b2160f96b89d68803979d5526a6adf97f83acf6453d4a6a4b1070f3754">ELootLockerEntitlementHistoryListingStatus::None</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The status of this entitlement listing. </p>
+
+</div>
+</div>
+<a id="afc60c4543bfb472afe864e3b6f2999d3" name="afc60c4543bfb472afe864e3b6f2999d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc60c4543bfb472afe864e3b6f2999d3">&#9670;&#160;</a></span>Store</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__Entitlements.html#gaa8b3363f44f89367edb3391761eb7903">ELootLockerEntitlementHistoryListingStore</a> FLootLockerEntitlementListing::Store = <a class="el" href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a6adf97f83acf6453d4a6a4b1070f3754">ELootLockerEntitlementHistoryListingStore::None</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Which store (if any) that this entitlement listing relates to. </p>
+
+</div>
+</div>
+<a id="a4272344de2b7f38b67af5841740ba307" name="a4272344de2b7f38b67af5841740ba307"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4272344de2b7f38b67af5841740ba307">&#9670;&#160;</a></span>Type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__Entitlements.html#ga9c9c8da68ce2cb9275c436451fe140fa">ELootLockerEntitlementHistoryListingType</a> FLootLockerEntitlementListing::Type = <a class="el" href="group__Entitlements.html#gga9c9c8da68ce2cb9275c436451fe140faaec0fc0100c4fc1ce4eea230c3dc10360">ELootLockerEntitlementHistoryListingType::Undefined</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Which type this entitlement listing is. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structFLootLockerEntitlementListing.html">FLootLockerEntitlementListing</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

@@ -1,0 +1,1935 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: ULootLockerAuthenticationRequestHandler Class Reference</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('classULootLockerAuthenticationRequestHandler.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a>  </div>
+  <div class="headertitle"><div class="title">ULootLockerAuthenticationRequestHandler Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="LootLockerAuthenticationRequestHandler_8h_source.html">LootLockerAuthenticationRequestHandler.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for ULootLockerAuthenticationRequestHandler:</div>
+<div class="dyncontent">
+<div class="center"><img src="classULootLockerAuthenticationRequestHandler__inherit__graph.png" border="0" usemap="#aULootLockerAuthenticationRequestHandler_inherit__map" alt="Inheritance graph"/></div>
+<map name="aULootLockerAuthenticationRequestHandler_inherit__map" id="aULootLockerAuthenticationRequestHandler_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,79,203,119"/>
+<area shape="rect" title=" " alt="" coords="67,5,141,31"/>
+<area shape="poly" title=" " alt="" coords="107,44,107,79,101,79,101,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for ULootLockerAuthenticationRequestHandler:</div>
+<div class="dyncontent">
+<div class="center"><img src="classULootLockerAuthenticationRequestHandler__coll__graph.png" border="0" usemap="#aULootLockerAuthenticationRequestHandler_coll__map" alt="Collaboration graph"/></div>
+<map name="aULootLockerAuthenticationRequestHandler_coll__map" id="aULootLockerAuthenticationRequestHandler_coll__map">
+<area shape="rect" title=" " alt="" coords="5,79,203,119"/>
+<area shape="rect" title=" " alt="" coords="67,5,141,31"/>
+<area shape="poly" title=" " alt="" coords="107,44,107,79,101,79,101,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a365fce7bddb4ca6025ce1ad7ee1a2261" id="r_a365fce7bddb4ca6025ce1ad7ee1a2261"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#a365fce7bddb4ca6025ce1ad7ee1a2261">ULootLockerAuthenticationRequestHandler</a> ()</td></tr>
+<tr class="separator:a365fce7bddb4ca6025ce1ad7ee1a2261"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ae15b082d07d063ef265f18fd867e2a1f" id="r_ae15b082d07d063ef265f18fd867e2a1f"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#ae15b082d07d063ef265f18fd867e2a1f">WhiteLabelCreateAccount</a> (const FString &amp;Email, const FString &amp;Password, const <a class="el" href="group__Authentication.html#gad43a851209a55414955265c14f9d4e60">FLootLockerLoginResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:ae15b082d07d063ef265f18fd867e2a1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ebb53ddbf37a567588eacd23c8b3a9f" id="r_a1ebb53ddbf37a567588eacd23c8b3a9f"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#a1ebb53ddbf37a567588eacd23c8b3a9f">WhiteLabelLogin</a> (const FString &amp;Email, const FString &amp;Password, const bool Remember, const <a class="el" href="group__Authentication.html#gad43a851209a55414955265c14f9d4e60">FLootLockerLoginResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:a1ebb53ddbf37a567588eacd23c8b3a9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd9a45febc61a57f534a091238ae9ce4" id="r_abd9a45febc61a57f534a091238ae9ce4"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#abd9a45febc61a57f534a091238ae9ce4">GuestLogin</a> (const FString &amp;playerIdentifier, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:abd9a45febc61a57f534a091238ae9ce4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a066ff5de14e706d8126ffb31955a6a17" id="r_a066ff5de14e706d8126ffb31955a6a17"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#a066ff5de14e706d8126ffb31955a6a17">WhiteLabelStartSessionManual</a> (const FString &amp;Email, const FString &amp;WhiteLabelToken, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:a066ff5de14e706d8126ffb31955a6a17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59d7e8d5d95754155f0c6da8ef40b35c" id="r_a59d7e8d5d95754155f0c6da8ef40b35c"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#a59d7e8d5d95754155f0c6da8ef40b35c">WhiteLabelStartSession</a> (const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:a59d7e8d5d95754155f0c6da8ef40b35c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa52384dde4535e66e3d981d05a59dd33" id="r_aa52384dde4535e66e3d981d05a59dd33"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#aa52384dde4535e66e3d981d05a59dd33">WhiteLabelVerifySession</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;ForPlayer, const <a class="el" href="group__Authentication.html#ga5272aace2f494fc0cb15fc4a828594bf">FLootLockerWhiteLabelVerifySessionDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:aa52384dde4535e66e3d981d05a59dd33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb6b66d5f76b8b03c7c3952fef02e8d9" id="r_abb6b66d5f76b8b03c7c3952fef02e8d9"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#abb6b66d5f76b8b03c7c3952fef02e8d9">WhiteLabelRequestUserVerification</a> (const int &amp;UserId, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:abb6b66d5f76b8b03c7c3952fef02e8d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae47e05391074cec8b5b457abc5a93c7a" id="r_ae47e05391074cec8b5b457abc5a93c7a"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#ae47e05391074cec8b5b457abc5a93c7a">WhiteLabelRequestUserVerificationByEmail</a> (const FString &amp;Email, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:ae47e05391074cec8b5b457abc5a93c7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fafe0b49bc08b41ee8aca17b6008654" id="r_a7fafe0b49bc08b41ee8aca17b6008654"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#a7fafe0b49bc08b41ee8aca17b6008654">WhiteLabelRequestPasswordReset</a> (const FString &amp;Email, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:a7fafe0b49bc08b41ee8aca17b6008654"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86c776992c78c8c3f54ac76849eed9d7" id="r_a86c776992c78c8c3f54ac76849eed9d7"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#a86c776992c78c8c3f54ac76849eed9d7">StartPlaystationNetworkSession</a> (const FString &amp;PsnOnlineId, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;Delegate)</td></tr>
+<tr class="separator:a86c776992c78c8c3f54ac76849eed9d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a647756e7d20389ed58b2ede58ef9bd7f" id="r_a647756e7d20389ed58b2ede58ef9bd7f"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#a647756e7d20389ed58b2ede58ef9bd7f">VerifyPlayerAndStartPlaystationNetworkSession</a> (const FString &amp;AuthCode, const FString &amp;AccountID, int PsnIssuerId, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;Delegate)</td></tr>
+<tr class="separator:a647756e7d20389ed58b2ede58ef9bd7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23a74c7112e25f838b510f200e71db20" id="r_a23a74c7112e25f838b510f200e71db20"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#a23a74c7112e25f838b510f200e71db20">VerifyPlayerAndStartPlaystationNetworkV3Session</a> (const FString &amp;AuthCode, int EnvIssuerId, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;Delegate)</td></tr>
+<tr class="separator:a23a74c7112e25f838b510f200e71db20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a548377e0a8964a9cf4cae9a2f99b241c" id="r_a548377e0a8964a9cf4cae9a2f99b241c"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#a548377e0a8964a9cf4cae9a2f99b241c">StartAndroidSession</a> (const FString &amp;DeviceId, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;Delegate)</td></tr>
+<tr class="separator:a548377e0a8964a9cf4cae9a2f99b241c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23c0fe515e8eb38a66b851d3747d4def" id="r_a23c0fe515e8eb38a66b851d3747d4def"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#a23c0fe515e8eb38a66b851d3747d4def">StartGoogleSession</a> (const FString &amp;IdToken, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga3ed6a7c06292389a33e89491f44fa728">FLootLockerGoogleSessionResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:a23c0fe515e8eb38a66b851d3747d4def"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affaeff0bab80e435cc86dd512ec44b13" id="r_affaeff0bab80e435cc86dd512ec44b13"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#affaeff0bab80e435cc86dd512ec44b13">StartGoogleSession</a> (const FString &amp;IdToken, const <a class="el" href="group__Authentication.html#gae4ebc57a876c42d49c752c3af6c1f611">ELootLockerGoogleClientPlatform</a> Platform, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga3ed6a7c06292389a33e89491f44fa728">FLootLockerGoogleSessionResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:affaeff0bab80e435cc86dd512ec44b13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47bf265d9584d4765474f8d98cf51aee" id="r_a47bf265d9584d4765474f8d98cf51aee"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#a47bf265d9584d4765474f8d98cf51aee">RefreshGoogleSession</a> (const FString &amp;RefreshToken, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga3ed6a7c06292389a33e89491f44fa728">FLootLockerGoogleSessionResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:a47bf265d9584d4765474f8d98cf51aee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e205eeca771d80e25bb7960f16cfb60" id="r_a1e205eeca771d80e25bb7960f16cfb60"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#a1e205eeca771d80e25bb7960f16cfb60">StartGooglePlayGamesSession</a> (const FString &amp;IdToken, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#gafc2aca24c5c95ef834d7b681d599df03">FLootLockerGooglePlayGamesSessionResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:a1e205eeca771d80e25bb7960f16cfb60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0f800768f376d32e7aba6369acfd137" id="r_af0f800768f376d32e7aba6369acfd137"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#af0f800768f376d32e7aba6369acfd137">RefreshGooglePlayGamesSession</a> (const FString &amp;RefreshToken, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#gafc2aca24c5c95ef834d7b681d599df03">FLootLockerGooglePlayGamesSessionResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:af0f800768f376d32e7aba6369acfd137"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a807b27533f63d689b9b1b40158d68ff4" id="r_a807b27533f63d689b9b1b40158d68ff4"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#a807b27533f63d689b9b1b40158d68ff4">StartEpicSession</a> (const FString &amp;IdToken, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga9ee445ddb3e563ae75788edc576de91b">FLootLockerEpicSessionResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:a807b27533f63d689b9b1b40158d68ff4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcd1ff5a96c4ce3c914370a06d59ce37" id="r_afcd1ff5a96c4ce3c914370a06d59ce37"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#afcd1ff5a96c4ce3c914370a06d59ce37">RefreshEpicSession</a> (const FString &amp;RefreshToken, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga9ee445ddb3e563ae75788edc576de91b">FLootLockerEpicSessionResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:afcd1ff5a96c4ce3c914370a06d59ce37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5ed58d17759a09d560a846755d21d7e" id="r_ab5ed58d17759a09d560a846755d21d7e"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#ab5ed58d17759a09d560a846755d21d7e">StartAmazonLunaSession</a> (const FString &amp;AmazonLunaGuid, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;Delegate)</td></tr>
+<tr class="separator:ab5ed58d17759a09d560a846755d21d7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5631d1a788e4ed4a9e5af45664c6b4e6" id="r_a5631d1a788e4ed4a9e5af45664c6b4e6"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#a5631d1a788e4ed4a9e5af45664c6b4e6">StartSteamSession</a> (const FString &amp;SteamId64, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;Delegate)</td></tr>
+<tr class="separator:a5631d1a788e4ed4a9e5af45664c6b4e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae381b9b57395c2c28154132994ccb8da" id="r_ae381b9b57395c2c28154132994ccb8da"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#ae381b9b57395c2c28154132994ccb8da">StartSteamSession</a> (const FString &amp;SteamSessionTicket, const FString &amp;SteamAppId, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;Delegate)</td></tr>
+<tr class="separator:ae381b9b57395c2c28154132994ccb8da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6e0f05b71bc24c0d4009272bc1bec70" id="r_aa6e0f05b71bc24c0d4009272bc1bec70"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#aa6e0f05b71bc24c0d4009272bc1bec70">StartNintendoSwitchSession</a> (const FString &amp;NSAIdToken, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:aa6e0f05b71bc24c0d4009272bc1bec70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed040dd9014b196ce497bb98e9ed8965" id="r_aed040dd9014b196ce497bb98e9ed8965"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#aed040dd9014b196ce497bb98e9ed8965">StartXboxSession</a> (const FString &amp;XboxUserToken, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:aed040dd9014b196ce497bb98e9ed8965"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3e817d70c0e2d26adca164d52d20c7b" id="r_ad3e817d70c0e2d26adca164d52d20c7b"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#ad3e817d70c0e2d26adca164d52d20c7b">StartAppleSession</a> (const FString &amp;AuthorizationCode, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga46f76cb254b70075a987f49689f03f28">FLootLockerAppleSessionResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:ad3e817d70c0e2d26adca164d52d20c7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3dea746c54cffe089ccedfb8462e28e" id="r_ab3dea746c54cffe089ccedfb8462e28e"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#ab3dea746c54cffe089ccedfb8462e28e">RefreshAppleSession</a> (const FString &amp;RefreshToken, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga46f76cb254b70075a987f49689f03f28">FLootLockerAppleSessionResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:ab3dea746c54cffe089ccedfb8462e28e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7816f1633f4b197434b9ad068991fe4" id="r_ae7816f1633f4b197434b9ad068991fe4"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#ae7816f1633f4b197434b9ad068991fe4">VerifyPlayer</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;ForPlayer, const FString &amp;PlatformToken, const FString &amp;Platform, const int SteamAppId=-1, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest=<a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a>())</td></tr>
+<tr class="separator:ae7816f1633f4b197434b9ad068991fe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad87032ef34a4603f3ba79223fae3e095" id="r_ad87032ef34a4603f3ba79223fae3e095"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#ad87032ef34a4603f3ba79223fae3e095">EndSession</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;ForPlayer, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:ad87032ef34a4603f3ba79223fae3e095"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3238c834c0dda01633b9be4e3a2a425" id="r_af3238c834c0dda01633b9be4e3a2a425"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#af3238c834c0dda01633b9be4e3a2a425">WhiteLabelLoginAndStartSession</a> (const FString &amp;Email, const FString &amp;Password, bool bRemember, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga002968d0fa32442e9759ab0526cc5e2e">FLootLockerWhiteLabelLoginAndSessionResponseDelegate</a> &amp;LootLockerWhiteLabelLoginAndSessionResponseDelegate)</td></tr>
+<tr class="separator:af3238c834c0dda01633b9be4e3a2a425"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94c171a1b8904556d4b1f9d1d2ec56ed" id="r_a94c171a1b8904556d4b1f9d1d2ec56ed"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#a94c171a1b8904556d4b1f9d1d2ec56ed">StartAppleGameCenterSession</a> (const FString &amp;BundleId, const FString &amp;PlayerId, const FString &amp;PublicKeyUrl, const FString &amp;Signature, const FString &amp;Salt, const FString &amp;Timestamp, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga74df43aa1fbde2acb479a271270bb97a">FLootLockerAppleGameCenterSessionResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:a94c171a1b8904556d4b1f9d1d2ec56ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdbe8eb436870361a2d8a1e1958d888f" id="r_acdbe8eb436870361a2d8a1e1958d888f"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#acdbe8eb436870361a2d8a1e1958d888f">RefreshAppleGameCenterSession</a> (const FString &amp;RefreshToken, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga74df43aa1fbde2acb479a271270bb97a">FLootLockerAppleGameCenterSessionResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:acdbe8eb436870361a2d8a1e1958d888f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5513a0e54ae0627aa333f430202d04ed" id="r_a5513a0e54ae0627aa333f430202d04ed"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#a5513a0e54ae0627aa333f430202d04ed">StartMetaSession</a> (const FString &amp;UserId, const FString &amp;Nonce, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga44f69d575358bb105b10f581c1043801">FLootLockerMetaSessionResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:a5513a0e54ae0627aa333f430202d04ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1070c235dce686b1c13d7ac1317da3fd" id="r_a1070c235dce686b1c13d7ac1317da3fd"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#a1070c235dce686b1c13d7ac1317da3fd">RefreshMetaSession</a> (const FString &amp;RefreshToken, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga44f69d575358bb105b10f581c1043801">FLootLockerMetaSessionResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:a1070c235dce686b1c13d7ac1317da3fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9b1213aa3558fb7ade5d8ee977ac40c" id="r_ab9b1213aa3558fb7ade5d8ee977ac40c"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#ab9b1213aa3558fb7ade5d8ee977ac40c">StartDiscordSession</a> (const FString &amp;AccessToken, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga4782fbc582fb13b704dce53fd213cf16">FLootLockerDiscordSessionResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:ab9b1213aa3558fb7ade5d8ee977ac40c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab21c75e49c68b42a077af304a2eb121f" id="r_ab21c75e49c68b42a077af304a2eb121f"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#ab21c75e49c68b42a077af304a2eb121f">RefreshDiscordSession</a> (const FString &amp;RefreshToken, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga4782fbc582fb13b704dce53fd213cf16">FLootLockerDiscordSessionResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:ab21c75e49c68b42a077af304a2eb121f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a365fce7bddb4ca6025ce1ad7ee1a2261" name="a365fce7bddb4ca6025ce1ad7ee1a2261"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a365fce7bddb4ca6025ce1ad7ee1a2261">&#9670;&#160;</a></span>ULootLockerAuthenticationRequestHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ULootLockerAuthenticationRequestHandler::ULootLockerAuthenticationRequestHandler </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad87032ef34a4603f3ba79223fae3e095" name="ad87032ef34a4603f3ba79223fae3e095"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad87032ef34a4603f3ba79223fae3e095">&#9670;&#160;</a></span>EndSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::EndSession </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abd9a45febc61a57f534a091238ae9ce4" name="abd9a45febc61a57f534a091238ae9ce4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd9a45febc61a57f534a091238ae9ce4">&#9670;&#160;</a></span>GuestLogin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::GuestLogin </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>playerIdentifier</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acdbe8eb436870361a2d8a1e1958d888f" name="acdbe8eb436870361a2d8a1e1958d888f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdbe8eb436870361a2d8a1e1958d888f">&#9670;&#160;</a></span>RefreshAppleGameCenterSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::RefreshAppleGameCenterSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>RefreshToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga74df43aa1fbde2acb479a271270bb97a">FLootLockerAppleGameCenterSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab3dea746c54cffe089ccedfb8462e28e" name="ab3dea746c54cffe089ccedfb8462e28e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3dea746c54cffe089ccedfb8462e28e">&#9670;&#160;</a></span>RefreshAppleSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::RefreshAppleSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>RefreshToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga46f76cb254b70075a987f49689f03f28">FLootLockerAppleSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab21c75e49c68b42a077af304a2eb121f" name="ab21c75e49c68b42a077af304a2eb121f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab21c75e49c68b42a077af304a2eb121f">&#9670;&#160;</a></span>RefreshDiscordSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::RefreshDiscordSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>RefreshToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga4782fbc582fb13b704dce53fd213cf16">FLootLockerDiscordSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afcd1ff5a96c4ce3c914370a06d59ce37" name="afcd1ff5a96c4ce3c914370a06d59ce37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcd1ff5a96c4ce3c914370a06d59ce37">&#9670;&#160;</a></span>RefreshEpicSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::RefreshEpicSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>RefreshToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga9ee445ddb3e563ae75788edc576de91b">FLootLockerEpicSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af0f800768f376d32e7aba6369acfd137" name="af0f800768f376d32e7aba6369acfd137"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0f800768f376d32e7aba6369acfd137">&#9670;&#160;</a></span>RefreshGooglePlayGamesSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::RefreshGooglePlayGamesSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>RefreshToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#gafc2aca24c5c95ef834d7b681d599df03">FLootLockerGooglePlayGamesSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a47bf265d9584d4765474f8d98cf51aee" name="a47bf265d9584d4765474f8d98cf51aee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47bf265d9584d4765474f8d98cf51aee">&#9670;&#160;</a></span>RefreshGoogleSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::RefreshGoogleSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>RefreshToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga3ed6a7c06292389a33e89491f44fa728">FLootLockerGoogleSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1070c235dce686b1c13d7ac1317da3fd" name="a1070c235dce686b1c13d7ac1317da3fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1070c235dce686b1c13d7ac1317da3fd">&#9670;&#160;</a></span>RefreshMetaSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::RefreshMetaSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>RefreshToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga44f69d575358bb105b10f581c1043801">FLootLockerMetaSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab5ed58d17759a09d560a846755d21d7e" name="ab5ed58d17759a09d560a846755d21d7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5ed58d17759a09d560a846755d21d7e">&#9670;&#160;</a></span>StartAmazonLunaSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::StartAmazonLunaSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>AmazonLunaGuid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>Delegate</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a548377e0a8964a9cf4cae9a2f99b241c" name="a548377e0a8964a9cf4cae9a2f99b241c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a548377e0a8964a9cf4cae9a2f99b241c">&#9670;&#160;</a></span>StartAndroidSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::StartAndroidSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>DeviceId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>Delegate</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a94c171a1b8904556d4b1f9d1d2ec56ed" name="a94c171a1b8904556d4b1f9d1d2ec56ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94c171a1b8904556d4b1f9d1d2ec56ed">&#9670;&#160;</a></span>StartAppleGameCenterSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::StartAppleGameCenterSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>BundleId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>PlayerId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>PublicKeyUrl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Signature</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Salt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Timestamp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga74df43aa1fbde2acb479a271270bb97a">FLootLockerAppleGameCenterSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad3e817d70c0e2d26adca164d52d20c7b" name="ad3e817d70c0e2d26adca164d52d20c7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3e817d70c0e2d26adca164d52d20c7b">&#9670;&#160;</a></span>StartAppleSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::StartAppleSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>AuthorizationCode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga46f76cb254b70075a987f49689f03f28">FLootLockerAppleSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab9b1213aa3558fb7ade5d8ee977ac40c" name="ab9b1213aa3558fb7ade5d8ee977ac40c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9b1213aa3558fb7ade5d8ee977ac40c">&#9670;&#160;</a></span>StartDiscordSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::StartDiscordSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>AccessToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga4782fbc582fb13b704dce53fd213cf16">FLootLockerDiscordSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a807b27533f63d689b9b1b40158d68ff4" name="a807b27533f63d689b9b1b40158d68ff4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a807b27533f63d689b9b1b40158d68ff4">&#9670;&#160;</a></span>StartEpicSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::StartEpicSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>IdToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga9ee445ddb3e563ae75788edc576de91b">FLootLockerEpicSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1e205eeca771d80e25bb7960f16cfb60" name="a1e205eeca771d80e25bb7960f16cfb60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e205eeca771d80e25bb7960f16cfb60">&#9670;&#160;</a></span>StartGooglePlayGamesSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::StartGooglePlayGamesSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>IdToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#gafc2aca24c5c95ef834d7b681d599df03">FLootLockerGooglePlayGamesSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="affaeff0bab80e435cc86dd512ec44b13" name="affaeff0bab80e435cc86dd512ec44b13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affaeff0bab80e435cc86dd512ec44b13">&#9670;&#160;</a></span>StartGoogleSession() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::StartGoogleSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>IdToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#gae4ebc57a876c42d49c752c3af6c1f611">ELootLockerGoogleClientPlatform</a>&#160;</td>
+          <td class="paramname"><em>Platform</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga3ed6a7c06292389a33e89491f44fa728">FLootLockerGoogleSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a23c0fe515e8eb38a66b851d3747d4def" name="a23c0fe515e8eb38a66b851d3747d4def"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23c0fe515e8eb38a66b851d3747d4def">&#9670;&#160;</a></span>StartGoogleSession() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::StartGoogleSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>IdToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga3ed6a7c06292389a33e89491f44fa728">FLootLockerGoogleSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5513a0e54ae0627aa333f430202d04ed" name="a5513a0e54ae0627aa333f430202d04ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5513a0e54ae0627aa333f430202d04ed">&#9670;&#160;</a></span>StartMetaSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::StartMetaSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>UserId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Nonce</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga44f69d575358bb105b10f581c1043801">FLootLockerMetaSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa6e0f05b71bc24c0d4009272bc1bec70" name="aa6e0f05b71bc24c0d4009272bc1bec70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6e0f05b71bc24c0d4009272bc1bec70">&#9670;&#160;</a></span>StartNintendoSwitchSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::StartNintendoSwitchSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>NSAIdToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a86c776992c78c8c3f54ac76849eed9d7" name="a86c776992c78c8c3f54ac76849eed9d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86c776992c78c8c3f54ac76849eed9d7">&#9670;&#160;</a></span>StartPlaystationNetworkSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::StartPlaystationNetworkSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>PsnOnlineId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>Delegate</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5631d1a788e4ed4a9e5af45664c6b4e6" name="a5631d1a788e4ed4a9e5af45664c6b4e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5631d1a788e4ed4a9e5af45664c6b4e6">&#9670;&#160;</a></span>StartSteamSession() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::StartSteamSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>SteamId64</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>Delegate</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae381b9b57395c2c28154132994ccb8da" name="ae381b9b57395c2c28154132994ccb8da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae381b9b57395c2c28154132994ccb8da">&#9670;&#160;</a></span>StartSteamSession() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::StartSteamSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>SteamSessionTicket</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>SteamAppId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>Delegate</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aed040dd9014b196ce497bb98e9ed8965" name="aed040dd9014b196ce497bb98e9ed8965"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed040dd9014b196ce497bb98e9ed8965">&#9670;&#160;</a></span>StartXboxSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::StartXboxSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>XboxUserToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae7816f1633f4b197434b9ad068991fe4" name="ae7816f1633f4b197434b9ad068991fe4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7816f1633f4b197434b9ad068991fe4">&#9670;&#160;</a></span>VerifyPlayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::VerifyPlayer </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>PlatformToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Platform</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>SteamAppId</em> = <code>-1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em> = <code><a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a647756e7d20389ed58b2ede58ef9bd7f" name="a647756e7d20389ed58b2ede58ef9bd7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a647756e7d20389ed58b2ede58ef9bd7f">&#9670;&#160;</a></span>VerifyPlayerAndStartPlaystationNetworkSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::VerifyPlayerAndStartPlaystationNetworkSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>AuthCode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>AccountID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>PsnIssuerId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>Delegate</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a23a74c7112e25f838b510f200e71db20" name="a23a74c7112e25f838b510f200e71db20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23a74c7112e25f838b510f200e71db20">&#9670;&#160;</a></span>VerifyPlayerAndStartPlaystationNetworkV3Session()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::VerifyPlayerAndStartPlaystationNetworkV3Session </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>AuthCode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>EnvIssuerId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>Delegate</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae15b082d07d063ef265f18fd867e2a1f" name="ae15b082d07d063ef265f18fd867e2a1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae15b082d07d063ef265f18fd867e2a1f">&#9670;&#160;</a></span>WhiteLabelCreateAccount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Email</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Password</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#gad43a851209a55414955265c14f9d4e60">FLootLockerLoginResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1ebb53ddbf37a567588eacd23c8b3a9f" name="a1ebb53ddbf37a567588eacd23c8b3a9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ebb53ddbf37a567588eacd23c8b3a9f">&#9670;&#160;</a></span>WhiteLabelLogin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::WhiteLabelLogin </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Email</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Password</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>Remember</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#gad43a851209a55414955265c14f9d4e60">FLootLockerLoginResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af3238c834c0dda01633b9be4e3a2a425" name="af3238c834c0dda01633b9be4e3a2a425"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3238c834c0dda01633b9be4e3a2a425">&#9670;&#160;</a></span>WhiteLabelLoginAndStartSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::WhiteLabelLoginAndStartSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Email</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Password</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bRemember</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga002968d0fa32442e9759ab0526cc5e2e">FLootLockerWhiteLabelLoginAndSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>LootLockerWhiteLabelLoginAndSessionResponseDelegate</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7fafe0b49bc08b41ee8aca17b6008654" name="a7fafe0b49bc08b41ee8aca17b6008654"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fafe0b49bc08b41ee8aca17b6008654">&#9670;&#160;</a></span>WhiteLabelRequestPasswordReset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::WhiteLabelRequestPasswordReset </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Email</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abb6b66d5f76b8b03c7c3952fef02e8d9" name="abb6b66d5f76b8b03c7c3952fef02e8d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb6b66d5f76b8b03c7c3952fef02e8d9">&#9670;&#160;</a></span>WhiteLabelRequestUserVerification()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::WhiteLabelRequestUserVerification </td>
+          <td>(</td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>UserId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae47e05391074cec8b5b457abc5a93c7a" name="ae47e05391074cec8b5b457abc5a93c7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae47e05391074cec8b5b457abc5a93c7a">&#9670;&#160;</a></span>WhiteLabelRequestUserVerificationByEmail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::WhiteLabelRequestUserVerificationByEmail </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Email</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a59d7e8d5d95754155f0c6da8ef40b35c" name="a59d7e8d5d95754155f0c6da8ef40b35c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59d7e8d5d95754155f0c6da8ef40b35c">&#9670;&#160;</a></span>WhiteLabelStartSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::WhiteLabelStartSession </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a066ff5de14e706d8126ffb31955a6a17" name="a066ff5de14e706d8126ffb31955a6a17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a066ff5de14e706d8126ffb31955a6a17">&#9670;&#160;</a></span>WhiteLabelStartSessionManual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::WhiteLabelStartSessionManual </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Email</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>WhiteLabelToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;&#160;</td>
+          <td class="paramname"><em>Optionals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa52384dde4535e66e3d981d05a59dd33" name="aa52384dde4535e66e3d981d05a59dd33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa52384dde4535e66e3d981d05a59dd33">&#9670;&#160;</a></span>WhiteLabelVerifySession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::WhiteLabelVerifySession </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga5272aace2f494fc0cb15fc4a828594bf">FLootLockerWhiteLabelVerifySessionDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="classULootLockerAuthenticationRequestHandler.html">ULootLockerAuthenticationRequestHandler</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

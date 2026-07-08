@@ -1,0 +1,937 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: LootLockerSDK/Source/LootLockerSDK/Public/GameAPI/LootLockerLeaderboardRequestHandler.h Source File</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('LootLockerLeaderboardRequestHandler_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LootLockerLeaderboardRequestHandler.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="LootLockerLeaderboardRequestHandler_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Fill out your copyright notice in the Description page of Project Settings.</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerResponse_8h.html">LootLockerResponse.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;LootLockerLeaderboardRequestHandler.generated.h&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>UENUM(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="group__Leaderboard.html#ga7985ca9fbbcf2f9947ecdbb9115ccd9f">   15</a></span>enum class <a class="code hl_enumeration" href="group__Leaderboard.html#ga7985ca9fbbcf2f9947ecdbb9115ccd9f">ELootLockerLeaderboardRewardEntityKind</a> : uint8</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <a class="code hl_enumvalue" href="group__Leaderboard.html#gga7985ca9fbbcf2f9947ecdbb9115ccd9fa26e9054be7f40079575582b7ad3f7363">Asset</a> = 0,</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <a class="code hl_enumvalue" href="group__Leaderboard.html#gga7985ca9fbbcf2f9947ecdbb9115ccd9fa386c339d37e737a436499d423a77df0c">Currency</a> = 1,</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <a class="code hl_enumvalue" href="group__Leaderboard.html#gga7985ca9fbbcf2f9947ecdbb9115ccd9fa57110c4e7cd03218864bf9155573e1dd">Progression_Points</a> = 2,</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <a class="code hl_enumvalue" href="group__Leaderboard.html#gga7985ca9fbbcf2f9947ecdbb9115ccd9fa6b177f161f23a5b58f59f1784891f575">Progression_Reset</a> = 3,</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <a class="code hl_enumvalue" href="group__Leaderboard.html#gga7985ca9fbbcf2f9947ecdbb9115ccd9fa03937134cedab9078be39a77ee3a48a0">Group</a> = 4,</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>};</div>
+</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="structFLootLockerPlayer.html">   26</a></span>struct <a class="code hl_struct" href="structFLootLockerPlayer.html">FLootLockerPlayer</a></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>{</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="structFLootLockerPlayer.html#aaf6f6d453fd7f1e35af769fe4e766c03">   30</a></span>    int <span class="keywordtype">id</span> = 0;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="structFLootLockerPlayer.html#a57850d290f87d34b09f2668731430846">   32</a></span>    FString public_uid = &quot;&quot;;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structFLootLockerPlayer.html#ad18790468c23fff9078a73bb0859fba2">   34</a></span>    FString name = &quot;&quot;;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>};</div>
+</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="};">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="structFLootLockerGetMemberRankResponse.html">   38</a></span>struct <a class="code hl_struct" href="structFLootLockerGetMemberRankResponse.html">FLootLockerGetMemberRankResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>{</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="structFLootLockerGetMemberRankResponse.html#a24174adc2c72e4afa99a696b86ad5d1a">   42</a></span>    FString member_id = &quot;&quot;;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="structFLootLockerGetMemberRankResponse.html#ad49a1524ea1e5a78d9d314cc94dd3bcf">   44</a></span>    <span class="keywordtype">int</span> rank = 0;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="structFLootLockerGetMemberRankResponse.html#ae9b892d38db2b24d42d5c492fec9040d">   46</a></span>    <span class="keywordtype">int</span> score = 0;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="structFLootLockerGetMemberRankResponse.html#ab5559793d5524326676a12da0f1df1bd">   48</a></span>    <a class="code hl_struct" href="structFLootLockerPlayer.html">FLootLockerPlayer</a> <a class="code hl_enumvalue" href="group__Balances.html#gga43ee520d8b9a78d3700e17a181c9f216a912af0dff974604f1321254ca8ff38b6">player</a>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="structFLootLockerGetMemberRankResponse.html#a3576394746a2555d1c1db15e30da6481">   50</a></span>    FString metadata = &quot;&quot;;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>};</div>
+</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00054" data-start="{" data-end="};">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="structFLootLockerMember.html">   54</a></span>struct <a class="code hl_struct" href="structFLootLockerMember.html">FLootLockerMember</a></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>{</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="structFLootLockerMember.html#a02511d64cba7d732d7a66c3591998a78">   58</a></span>    FString member_id = &quot;&quot;;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="structFLootLockerMember.html#a29288b211e24b8846f0cebdbe16d7375">   60</a></span>    <span class="keywordtype">int</span> rank = 0;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="structFLootLockerMember.html#a8d8f1cb52f6331605284579f29479406">   62</a></span>    <span class="keywordtype">int</span> score = 0;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="structFLootLockerMember.html#a1369a16fdbbdcf9e26cf2e48235f8da5">   64</a></span>    <a class="code hl_struct" href="structFLootLockerPlayer.html">FLootLockerPlayer</a> <a class="code hl_enumvalue" href="group__Balances.html#gga43ee520d8b9a78d3700e17a181c9f216a912af0dff974604f1321254ca8ff38b6">player</a>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="structFLootLockerMember.html#aee3b62ca75459b29d3ad53342b48e715">   66</a></span>    FString metadata = &quot;&quot;;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>};</div>
+</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00070" data-start="{" data-end="};">
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboard.html">   70</a></span>struct <a class="code hl_struct" href="structFLootLockerLeaderboard.html">FLootLockerLeaderboard</a></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>{</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboard.html#a3e065928d02ce47477159f777a02ad5a">   74</a></span>    int leaderboard_id = 0;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboard.html#aa2e15952c95efc47781179189ab15562">   76</a></span>    FString leaderboard_key = &quot;&quot;;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboard.html#aaecd3e6d3a25b3aafb31dc25da42912d">   78</a></span>    <a class="code hl_struct" href="structFLootLockerGetMemberRankResponse.html">FLootLockerGetMemberRankResponse</a> rank;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboard.html#a6f9d0f4b350d2ee9522e1ae892d90f69">   80</a></span>    FString ulid = &quot;&quot;;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>};</div>
+</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00084" data-start="{" data-end="};">
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="structFLootLockerPagination.html">   84</a></span>struct <a class="code hl_struct" href="structFLootLockerPagination.html">FLootLockerPagination</a></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>{</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="structFLootLockerPagination.html#a237edbcd6b2e9d2948188e025f4f7c8e">   88</a></span>    int total = 0;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="structFLootLockerPagination.html#af1e47d33512f81107f872bfca565f3ea">   90</a></span>    <span class="keywordtype">int</span> next_cursor = 0;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>};</div>
+</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00094" data-start="{" data-end="};">
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="structFLootLockerGetByListOfMembersResponse.html">   94</a></span>struct <a class="code hl_struct" href="structFLootLockerGetByListOfMembersResponse.html">FLootLockerGetByListOfMembersResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>{</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="structFLootLockerGetByListOfMembersResponse.html#a3d921b8c6ba7cae397059f0acff6bf0f">   98</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerMember.html">FLootLockerMember</a>&gt; members;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>};</div>
+</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00102" data-start="{" data-end="};">
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="structFLootLockerGetScoreListResponse.html">  102</a></span>struct <a class="code hl_struct" href="structFLootLockerGetScoreListResponse.html">FLootLockerGetScoreListResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>{</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="structFLootLockerGetScoreListResponse.html#ad2445794e6275b6621f34d5283c84abc">  106</a></span>    <a class="code hl_struct" href="structFLootLockerPagination.html">FLootLockerPagination</a> pagination;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="structFLootLockerGetScoreListResponse.html#af84af7661bc1907b6a3c46b4f385020a">  108</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerMember.html">FLootLockerMember</a>&gt; items;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>};</div>
+</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00112" data-start="{" data-end="};">
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="structFLootLockerGetAllMemberRanksResponse.html">  112</a></span>struct <a class="code hl_struct" href="structFLootLockerGetAllMemberRanksResponse.html">FLootLockerGetAllMemberRanksResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>{</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="structFLootLockerGetAllMemberRanksResponse.html#a7ad9ae57fd702535a66222b92f30d9af">  116</a></span>    <a class="code hl_struct" href="structFLootLockerPagination.html">FLootLockerPagination</a> pagination;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="structFLootLockerGetAllMemberRanksResponse.html#afef74754e45743b209bc0701f1042fe8">  118</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerLeaderboard.html">FLootLockerLeaderboard</a>&gt; leaderboards;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>};</div>
+</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00122" data-start="{" data-end="};">
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="structFLootLockerSubmitScoreResponse.html">  122</a></span>struct <a class="code hl_struct" href="structFLootLockerSubmitScoreResponse.html">FLootLockerSubmitScoreResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>{</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="structFLootLockerSubmitScoreResponse.html#a10c5203ac18aea4a944ae82b7236e1d0">  126</a></span>    FString member_id = &quot;&quot;;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="structFLootLockerSubmitScoreResponse.html#a4f42adc271c29ef09e6e0d6d1e5612d6">  128</a></span>    <span class="keywordtype">int</span> rank = 0;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno"><a class="line" href="structFLootLockerSubmitScoreResponse.html#a4786bc2135d85848e49e30766ce2252f">  130</a></span>    <span class="keywordtype">int</span> score = 0;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="structFLootLockerSubmitScoreResponse.html#a24f2a97a87a17ef45379a5077ce59541">  132</a></span>    FString metadata = &quot;&quot;;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>};</div>
+</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00136" data-start="{" data-end="};">
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno"><a class="line" href="structFLootLockerAssetRewardDetails.html">  136</a></span>struct <a class="code hl_struct" href="structFLootLockerAssetRewardDetails.html">FLootLockerAssetRewardDetails</a></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>{</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="structFLootLockerAssetRewardDetails.html#aa3e3b8a4152362e08459d57a5596d611">  140</a></span>    FString name = &quot;&quot;;</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno"><a class="line" href="structFLootLockerAssetRewardDetails.html#a0855b8bac535e298a526e807bac31cab">  142</a></span>    FString thumbnail = &quot;&quot;;</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno"><a class="line" href="structFLootLockerAssetRewardDetails.html#a6b4e93ca74cfb7b033d4e3fa525116a7">  144</a></span>    FString variation_name = &quot;&quot;;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno"><a class="line" href="structFLootLockerAssetRewardDetails.html#a2c7862a7220c3a6a5d03c9fe6956bea7">  146</a></span>    FString rental_option_name = &quot;&quot;;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno"><a class="line" href="structFLootLockerAssetRewardDetails.html#a53c5a33cb2aed13bcd7aa225908724d2">  148</a></span>    FString variation_id = &quot;&quot;;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="structFLootLockerAssetRewardDetails.html#ab812ece20a403234b89bf33e495f8c95">  150</a></span>    FString rental_option_id = &quot;&quot;;</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="structFLootLockerAssetRewardDetails.html#ac1baa1812a2369604ad620bb72497e01">  152</a></span>    <span class="keywordtype">int</span> legacy_id = 0;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno"><a class="line" href="structFLootLockerAssetRewardDetails.html#a505be313bcfcbff14d2fb64bf43f853b">  154</a></span>    FString <span class="keywordtype">id</span> = &quot;&quot;;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>};</div>
+</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00159" data-start="{" data-end="};">
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardAssetReward.html">  159</a></span>struct <a class="code hl_struct" href="structFLootLockerLeaderboardAssetReward.html">FLootLockerLeaderboardAssetReward</a></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>{</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardAssetReward.html#a7d969777b6cfc6c1209f5c31d87207cc">  163</a></span>    FString created_at = &quot;&quot;;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardAssetReward.html#a20400104a072ca33112000b4d1b74dbd">  165</a></span>    FString updated_at = &quot;&quot;;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardAssetReward.html#aa4c97745623fbecd755fa37cc6c1986e">  167</a></span>    <a class="code hl_struct" href="structFLootLockerAssetRewardDetails.html">FLootLockerAssetRewardDetails</a> details;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardAssetReward.html#ae17222c28e3166b6cf98d2c60874c5e9">  169</a></span>    FString asset_variation_id = &quot;&quot;;</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardAssetReward.html#ac1997d5bd432354ebac66477cccc5262">  171</a></span>    FString asset_rental_option_id = &quot;&quot;;</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardAssetReward.html#a1e66cb94a8534657ab10ae99a7ff836f">  173</a></span>    <span class="keywordtype">int</span> asset_id = 0;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardAssetReward.html#a0e5deb85528324ad859672335da2775f">  175</a></span>    FString reward_id = &quot;&quot;;</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardAssetReward.html#a75201e3dbc9d5e061386fc42e383572a">  177</a></span>    FString asset_ulid = &quot;&quot;;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>};</div>
+</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00181" data-start="{" data-end="};">
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="structFLootLockerCurrencyRewardDetails.html">  181</a></span>struct <a class="code hl_struct" href="structFLootLockerCurrencyRewardDetails.html">FLootLockerCurrencyRewardDetails</a></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>{</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="structFLootLockerCurrencyRewardDetails.html#a1a61bbe13bc9f36aceafb00e44b618a5">  185</a></span>    FString name = &quot;&quot;;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="structFLootLockerCurrencyRewardDetails.html#aa6eed02c1df6c24d3c33baca2c80eaf1">  187</a></span>    FString code = &quot;&quot;;</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="structFLootLockerCurrencyRewardDetails.html#a4d70381f94df87a5f81c5d3031b7c365">  189</a></span>    FString amount = &quot;&quot;;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="structFLootLockerCurrencyRewardDetails.html#ac7aa35f716d47b6d9b7208fed43a4cf5">  191</a></span>    FString <span class="keywordtype">id</span> = &quot;&quot;;</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>};</div>
+</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00195" data-start="{" data-end="};">
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardCurrencyReward.html">  195</a></span>struct <a class="code hl_struct" href="structFLootLockerLeaderboardCurrencyReward.html">FLootLockerLeaderboardCurrencyReward</a></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>{</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardCurrencyReward.html#a82f690d60389ef79969c5d9e536cc5c1">  199</a></span>    FString created_at = &quot;&quot;;</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardCurrencyReward.html#ac8e4268be46bb8b8e107676726fda77a">  201</a></span>    FString updated_at = &quot;&quot;;</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardCurrencyReward.html#a93b4d65fd4f60882509510adc1e92887">  203</a></span>    FString amount = &quot;&quot;;</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardCurrencyReward.html#add222ecbead16a3216cbde1800f51154">  205</a></span>    <a class="code hl_struct" href="structFLootLockerCurrencyRewardDetails.html">FLootLockerCurrencyRewardDetails</a> details;</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardCurrencyReward.html#a64abb3d452459d1e7a46cd5464f99899">  207</a></span>    FString reward_id = &quot;&quot;;</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardCurrencyReward.html#a0176df3aca214c3ad1d936531bc60a97">  209</a></span>    FString currency_id = &quot;&quot;;</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>};</div>
+</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00213" data-start="{" data-end="};">
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno"><a class="line" href="structFLootLockerProgressionResetRewardDetails.html">  213</a></span>struct <a class="code hl_struct" href="structFLootLockerProgressionResetRewardDetails.html">FLootLockerProgressionResetRewardDetails</a></div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>{</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno"><a class="line" href="structFLootLockerProgressionResetRewardDetails.html#a26173c72a1f66755f7f2887bf32cec10">  217</a></span>    FString key = &quot;&quot;;</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno"><a class="line" href="structFLootLockerProgressionResetRewardDetails.html#a1fad14b7c6eb8c05d4dbb4199ba72cfa">  219</a></span>    FString name = &quot;&quot;;</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno"><a class="line" href="structFLootLockerProgressionResetRewardDetails.html#a0319a9ef7bed8ab1279c840acda5ba20">  221</a></span>    FString <span class="keywordtype">id</span> = &quot;&quot;;</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>};</div>
+</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00225" data-start="{" data-end="};">
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardProgressionResetReward.html">  225</a></span>struct <a class="code hl_struct" href="structFLootLockerLeaderboardProgressionResetReward.html">FLootLockerLeaderboardProgressionResetReward</a></div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>{</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardProgressionResetReward.html#aa3d0dc307c67551f1a29f80775c91961">  229</a></span>    FString created_at = &quot;&quot;;</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardProgressionResetReward.html#a999cf9ce0e46399a6a035aaee1a81242">  231</a></span>    FString updated_at = &quot;&quot;;</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardProgressionResetReward.html#a9322e3170ff578e60a286f9b80733a50">  233</a></span>    FString progression_id = &quot;&quot;;</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardProgressionResetReward.html#ad9baeba156120c7684f91a9de736fde8">  235</a></span>    <a class="code hl_struct" href="structFLootLockerProgressionResetRewardDetails.html">FLootLockerProgressionResetRewardDetails</a> details;</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardProgressionResetReward.html#ac73bde41eb8211e76e4e0cbd39decc41">  237</a></span>    FString reward_id = &quot;&quot;;</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>};</div>
+</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span> </div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00242" data-start="{" data-end="};">
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno"><a class="line" href="structFLootLockerProgressionPointRewardDetails.html">  242</a></span>struct <a class="code hl_struct" href="structFLootLockerProgressionPointRewardDetails.html">FLootLockerProgressionPointRewardDetails</a></div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>{</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno"><a class="line" href="structFLootLockerProgressionPointRewardDetails.html#a6f710913a326339c789f3bab781250a3">  246</a></span>    FString key = &quot;&quot;;</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno"><a class="line" href="structFLootLockerProgressionPointRewardDetails.html#ac5f5122fde942e382c11c33722f7ab4a">  248</a></span>    FString name = &quot;&quot;;</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno"><a class="line" href="structFLootLockerProgressionPointRewardDetails.html#a8be53ff5113ee7742126efc0f0cda211">  250</a></span>    <span class="keywordtype">int</span> amount = 0;</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno"><a class="line" href="structFLootLockerProgressionPointRewardDetails.html#aacf475dd8e3370afc3ce1cd94646c703">  252</a></span>    FString <span class="keywordtype">id</span> = &quot;&quot;;</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>};</div>
+</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00257" data-start="{" data-end="};">
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardProgressionPointsReward.html">  257</a></span>struct <a class="code hl_struct" href="structFLootLockerLeaderboardProgressionPointsReward.html">FLootLockerLeaderboardProgressionPointsReward</a></div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>{</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardProgressionPointsReward.html#a930dadcc029555e743a300c7f18217f1">  261</a></span>    FString created_at = &quot;&quot;;</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardProgressionPointsReward.html#a56a7d9d70b1321a89580bb9939c4b504">  263</a></span>    FString updated_at = &quot;&quot;;</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardProgressionPointsReward.html#a86df5814829e13be510f0fcbcda6bee0">  265</a></span>    <a class="code hl_struct" href="structFLootLockerProgressionPointRewardDetails.html">FLootLockerProgressionPointRewardDetails</a> details;</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardProgressionPointsReward.html#a0b5a720204afe934368eee5541821643">  267</a></span>    <span class="keywordtype">int</span> amount = 0;</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardProgressionPointsReward.html#aabf793c914909c07cd0771fbb5cd2209">  269</a></span>    FString progression_id = &quot;&quot;;</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardProgressionPointsReward.html#ac197275ebaa9d8ad2aec2e3787d3c9ab">  271</a></span>    FString reward_id = &quot;&quot;;</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>};</div>
+</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00276" data-start="{" data-end="};">
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardRewardArgs.html">  276</a></span>struct <a class="code hl_struct" href="structFLootLockerLeaderboardRewardArgs.html">FLootLockerLeaderboardRewardArgs</a></div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>{</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardRewardArgs.html#a11435052e8c5dcab6eef144cf51e46a1">  280</a></span>    int max = 0;</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardRewardArgs.html#a37ec11cc84804006f3ba99cd5c1b581e">  282</a></span>    <span class="keywordtype">int</span> min = 0;</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardRewardArgs.html#a131e6cf95c117597e1e2fd4612748680">  284</a></span>    FString method = &quot;&quot;;</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardRewardArgs.html#a3e2e7e3549a886d8e6594c8f751b0347">  286</a></span>    FString direction = &quot;&quot;;</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>};</div>
+</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00290" data-start="{" data-end="};">
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetailPredicates.html">  290</a></span>struct <a class="code hl_struct" href="structFLootLockerLeaderboardDetailPredicates.html">FLootLockerLeaderboardDetailPredicates</a></div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>{</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetailPredicates.html#a0bbb844f4654e1a152d6132d3fe910bb">  294</a></span>    FString <span class="keywordtype">id</span> = &quot;&quot;;</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetailPredicates.html#a0f0576cbd2861a5e71d5a544cc925231">  296</a></span>    FString type = &quot;&quot;;</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetailPredicates.html#ab2f6bc48e244eb79f5e39d13f295783f">  298</a></span>    <a class="code hl_struct" href="structFLootLockerLeaderboardRewardArgs.html">FLootLockerLeaderboardRewardArgs</a> args;</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>};</div>
+</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span> </div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00302" data-start="{" data-end="};">
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardSchedule.html">  302</a></span>struct <a class="code hl_struct" href="structFLootLockerLeaderboardSchedule.html">FLootLockerLeaderboardSchedule</a> </div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>{</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardSchedule.html#a37b00e1737c110cf81ef4b5716e2ccdd">  306</a></span>    FString cron_expression = &quot;&quot;;</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardSchedule.html#a53217a3d25ae495b766e35f3922374fb">  308</a></span>    FString next_run = &quot;&quot;;</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardSchedule.html#abc3660a0bc99147205e74674a5bf4118">  310</a></span>    FString last_run = &quot;&quot;;</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardSchedule.html#acb29beaa2dbaf09a7ccaa3c320ad818a">  312</a></span>    TArray&lt;FString&gt; schedule;</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>};</div>
+</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span> </div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00316" data-start="{" data-end="};">
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardGroupRewardAssociation.html">  316</a></span>struct <a class="code hl_struct" href="structFLootLockerLeaderboardGroupRewardAssociation.html">FLootLockerLeaderboardGroupRewardAssociation</a> </div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>{</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardGroupRewardAssociation.html#a88d27a507502d2a13424f775de67a1e2">  320</a></span>    <a class="code hl_enumeration" href="group__Leaderboard.html#ga7985ca9fbbcf2f9947ecdbb9115ccd9f">ELootLockerLeaderboardRewardEntityKind</a> kind = <a class="code hl_enumeration" href="group__Leaderboard.html#ga7985ca9fbbcf2f9947ecdbb9115ccd9f">ELootLockerLeaderboardRewardEntityKind</a>::<a class="code hl_enumvalue" href="group__Leaderboard.html#gga7985ca9fbbcf2f9947ecdbb9115ccd9fa26e9054be7f40079575582b7ad3f7363">Asset</a>;</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardGroupRewardAssociation.html#a0d9fc370d9cb9da461701310bc4aebbc">  322</a></span>    <a class="code hl_struct" href="structFLootLockerLeaderboardCurrencyReward.html">FLootLockerLeaderboardCurrencyReward</a> <a class="code hl_enumvalue" href="group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804a1af0389838508d7016a9841eb6273962">currency</a>;</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardGroupRewardAssociation.html#acede2157fec8c82e16282918fec2e078">  324</a></span>    <a class="code hl_struct" href="structFLootLockerLeaderboardProgressionResetReward.html">FLootLockerLeaderboardProgressionResetReward</a> <a class="code hl_enumvalue" href="group__Notifications.html#ggab713f8b30131b4b601d114bee196e02aa09efb74d9914e0f320c221f00080b4f2">progression_reset</a>;</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardGroupRewardAssociation.html#a8a2a7449f68d56010ba46f9abc13eab4">  326</a></span>    <a class="code hl_struct" href="structFLootLockerLeaderboardProgressionPointsReward.html">FLootLockerLeaderboardProgressionPointsReward</a> <a class="code hl_enumvalue" href="group__Notifications.html#ggab713f8b30131b4b601d114bee196e02aa411b9f1aeb1018a2966c3491601312eb">progression_points</a>;</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardGroupRewardAssociation.html#a1836561444fb07e4fa58e4408862f3c1">  328</a></span>    <a class="code hl_struct" href="structFLootLockerLeaderboardAssetReward.html">FLootLockerLeaderboardAssetReward</a> <a class="code hl_enumvalue" href="group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804ac04e34d445e31a2159c1bfeb882ba212">asset</a>;</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>};</div>
+</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span> </div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00332" data-start="{" data-end="};">
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardGroupRewardMetadata.html">  332</a></span>struct <a class="code hl_struct" href="structFLootLockerLeaderboardGroupRewardMetadata.html">FLootLockerLeaderboardGroupRewardMetadata</a></div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>{</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardGroupRewardMetadata.html#ae843cad8d9df53ebd0e488f41695ed72">  336</a></span>    FString key = &quot;&quot;;</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardGroupRewardMetadata.html#a71a8a48c26ee9ce988db1727ac21138c">  338</a></span>    FString value = &quot;&quot;;</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>};</div>
+</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span> </div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00342" data-start="{" data-end="};">
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardGroupReward.html">  342</a></span>struct <a class="code hl_struct" href="structFLootLockerLeaderboardGroupReward.html">FLootLockerLeaderboardGroupReward</a></div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>{</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardGroupReward.html#a87a52a04f26212e6e9194e33fe9c49e0">  346</a></span>    FString created_at = &quot;&quot;;</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardGroupReward.html#a628ea084f7396780a3539a7650bddafc">  348</a></span>    FString name = &quot;&quot;;</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardGroupReward.html#a883ad55336d57df61bbe2cc345fb0a4f">  350</a></span>    FString description = &quot;&quot;;</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardGroupReward.html#a3cbc39cde97512c58afdb5fe929f0139">  352</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerLeaderboardGroupRewardMetadata.html">FLootLockerLeaderboardGroupRewardMetadata</a>&gt; metadata;</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardGroupReward.html#ae9a67f693bd86d256ed9d2bdee489ac1">  354</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerLeaderboardGroupRewardAssociation.html">FLootLockerLeaderboardGroupRewardAssociation</a>&gt; associations;</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardGroupReward.html#a2ad13fd3b7e7c7d190297985416a5035">  356</a></span>    FString reward_id = &quot;&quot;;</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>};</div>
+</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span> </div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00360" data-start="{" data-end="};">
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardReward.html">  360</a></span>struct <a class="code hl_struct" href="structFLootLockerLeaderboardReward.html">FLootLockerLeaderboardReward</a></div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>{</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardReward.html#aede772e2b9868b10b51ee2cb3a2295a1">  364</a></span>    <a class="code hl_enumeration" href="group__Leaderboard.html#ga7985ca9fbbcf2f9947ecdbb9115ccd9f">ELootLockerLeaderboardRewardEntityKind</a> reward_kind = <a class="code hl_enumeration" href="group__Leaderboard.html#ga7985ca9fbbcf2f9947ecdbb9115ccd9f">ELootLockerLeaderboardRewardEntityKind</a>::<a class="code hl_enumvalue" href="group__Leaderboard.html#gga7985ca9fbbcf2f9947ecdbb9115ccd9fa26e9054be7f40079575582b7ad3f7363">Asset</a>;</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardReward.html#af7f9e3053ebbc6eb9f1ec0938e3e09a4">  366</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerLeaderboardDetailPredicates.html">FLootLockerLeaderboardDetailPredicates</a>&gt; predicates;</div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardReward.html#a7ddd41334c9d4e5930d1957bcac63f61">  368</a></span>    <a class="code hl_struct" href="structFLootLockerLeaderboardCurrencyReward.html">FLootLockerLeaderboardCurrencyReward</a> <a class="code hl_enumvalue" href="group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804a1af0389838508d7016a9841eb6273962">currency</a>;</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardReward.html#ae9846fdba92ee6f7e239ab935e1e7b1e">  370</a></span>    <a class="code hl_struct" href="structFLootLockerLeaderboardProgressionResetReward.html">FLootLockerLeaderboardProgressionResetReward</a> <a class="code hl_enumvalue" href="group__Notifications.html#ggab713f8b30131b4b601d114bee196e02aa09efb74d9914e0f320c221f00080b4f2">progression_reset</a>;</div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardReward.html#aac10a265ac522e9cd6b41d104bfeb139">  372</a></span>    <a class="code hl_struct" href="structFLootLockerLeaderboardProgressionPointsReward.html">FLootLockerLeaderboardProgressionPointsReward</a> <a class="code hl_enumvalue" href="group__Notifications.html#ggab713f8b30131b4b601d114bee196e02aa411b9f1aeb1018a2966c3491601312eb">progression_points</a>;</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardReward.html#ae7c055b6d7a5f7538f45b0cd309c562b">  374</a></span>    <a class="code hl_struct" href="structFLootLockerLeaderboardAssetReward.html">FLootLockerLeaderboardAssetReward</a> <a class="code hl_enumvalue" href="group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804ac04e34d445e31a2159c1bfeb882ba212">asset</a>;</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardReward.html#a7691ac1e9e0cf9faff382cc261584327">  376</a></span>    <a class="code hl_struct" href="structFLootLockerLeaderboardGroupReward.html">FLootLockerLeaderboardGroupReward</a> <a class="code hl_enumvalue" href="group__Notifications.html#ggab713f8b30131b4b601d114bee196e02aadb0f6f37ebeb6ea09489124345af2a45">group</a>;</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardReward.html#aed6fa5f369d7c88ec372acbdf4e6682e">  378</a></span>    FString reward_id = &quot;&quot;;</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span> </div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>};</div>
+</div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span> </div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00386" data-start="{" data-end="};">
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardUpcomingReset.html">  386</a></span>struct <a class="code hl_struct" href="structFLootLockerLeaderboardUpcomingReset.html">FLootLockerLeaderboardUpcomingReset</a></div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>{</div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardUpcomingReset.html#a7cd5007f5d4cbdb8f024a2d56ef3d4e2">  393</a></span>    int <a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea490aa6e856ccf208a054389e47ce0d06">Id</a> = 0;</div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardUpcomingReset.html#a0dc4911aa80b62e4156dba9c8cea4607">  398</a></span>    FString <a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987">Name</a> = &quot;&quot;;</div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardUpcomingReset.html#a79ca2e4a271e21c1f6519b631e9ac847">  403</a></span>    FString Scheduled_for = &quot;&quot;;</div>
+<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>};</div>
+</div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span> </div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00407" data-start="{" data-end="};">
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetails.html">  407</a></span>struct <a class="code hl_struct" href="structFLootLockerLeaderboardDetails.html">FLootLockerLeaderboardDetails</a></div>
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>{</div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetails.html#a92c29907d1cbdf4c1d689d0bd1f701da">  414</a></span>    FString <a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea4e0b5c2418b622cb71664c2a3b615d77">Created_at</a> = &quot;&quot;;</div>
+<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00419" name="l00419"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetails.html#a90b8cca8618c3dc3e256a7e2107ad77c">  419</a></span>    FString <a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea96436d7e279bd89d1c47c17ef0d5050a">Updated_at</a> = &quot;&quot;;</div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00424" name="l00424"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetails.html#ab8016b4c4721f11f75b7b848b33a84b5">  424</a></span>    FString Key = &quot;&quot;;</div>
+<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00429" name="l00429"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetails.html#a6e9bebfd7717bced557258520778180f">  429</a></span>    FString Direction_method = &quot;&quot;;</div>
+<div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00434" name="l00434"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetails.html#ab90a2a1ee3affdb463e81ca5309ed048">  434</a></span>    FString <a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987">Name</a> = &quot;&quot;;</div>
+<div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00439" name="l00439"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetails.html#a47bc95f565407b331ea15da53708aed5">  439</a></span>    FString Type = &quot;&quot;;</div>
+<div class="line"><a id="l00443" name="l00443"></a><span class="lineno">  443</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00444" name="l00444"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetails.html#a4c2629853f0f7f862f68ac03020f8441">  444</a></span>    <span class="keywordtype">int</span> <a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea490aa6e856ccf208a054389e47ce0d06">Id</a> = 0;</div>
+<div class="line"><a id="l00448" name="l00448"></a><span class="lineno">  448</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00449" name="l00449"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetails.html#a342cb37f5990d66a6f2bc96974a20479">  449</a></span>    FString ulid = &quot;&quot;;</div>
+<div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00454" name="l00454"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetails.html#a889b7a954f9c0bf9cddd794d45756fa5">  454</a></span>    <span class="keywordtype">bool</span> Overwrite_score_on_submit = false;</div>
+<div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00459" name="l00459"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetails.html#aef64bbdc9fe259d057c06617577bf75f">  459</a></span>    <span class="keywordtype">bool</span> Has_metadata = false;</div>
+<div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00464" name="l00464"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetails.html#a2edc3081cdb846c2864801cdc8c7811e">  464</a></span>    <a class="code hl_struct" href="structFLootLockerLeaderboardSchedule.html">FLootLockerLeaderboardSchedule</a> Schedule;</div>
+<div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00469" name="l00469"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetails.html#a70316f975d8b2a5ec8af8bccc2a44861">  469</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerLeaderboardReward.html">FLootLockerLeaderboardReward</a>&gt; Rewards;</div>
+<div class="line"><a id="l00473" name="l00473"></a><span class="lineno">  473</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00474" name="l00474"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetails.html#a7946b00a7236e1bd9a661c2cb3c27310">  474</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerLeaderboardUpcomingReset.html">FLootLockerLeaderboardUpcomingReset</a>&gt; Upcoming_resets;</div>
+<div class="line"><a id="l00475" name="l00475"></a><span class="lineno">  475</span>};</div>
+</div>
+<div class="line"><a id="l00476" name="l00476"></a><span class="lineno">  476</span> </div>
+<div class="line"><a id="l00477" name="l00477"></a><span class="lineno">  477</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00478" data-start="{" data-end="};">
+<div class="line"><a id="l00478" name="l00478"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetailsResponse.html">  478</a></span>struct <a class="code hl_struct" href="structFLootLockerLeaderboardDetailsResponse.html">FLootLockerLeaderboardDetailsResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00479" name="l00479"></a><span class="lineno">  479</span>{</div>
+<div class="line"><a id="l00480" name="l00480"></a><span class="lineno">  480</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00484" name="l00484"></a><span class="lineno">  484</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00485" name="l00485"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetailsResponse.html#af474d9a6afb728c68deaad64be39caea">  485</a></span>    FString <a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea4e0b5c2418b622cb71664c2a3b615d77">Created_at</a> = &quot;&quot;;</div>
+<div class="line"><a id="l00489" name="l00489"></a><span class="lineno">  489</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00490" name="l00490"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetailsResponse.html#a8fd5e6455206159376077b2ecc04eced">  490</a></span>    FString <a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea96436d7e279bd89d1c47c17ef0d5050a">Updated_at</a> = &quot;&quot;;</div>
+<div class="line"><a id="l00494" name="l00494"></a><span class="lineno">  494</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00495" name="l00495"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetailsResponse.html#a25a9939a9b98231291d147c1ef1f9874">  495</a></span>    FString Key = &quot;&quot;;</div>
+<div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00500" name="l00500"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetailsResponse.html#a0296f9f9b09f5ca9f7e72278f55cb7b8">  500</a></span>    FString Direction_method = &quot;&quot;;</div>
+<div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00505" name="l00505"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetailsResponse.html#a5bd192fabe8ae96894b86566ab0a9ba8">  505</a></span>    FString <a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987">Name</a> = &quot;&quot;;</div>
+<div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00510" name="l00510"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetailsResponse.html#a8c6f470bfd1b0baac649e78d0f745d01">  510</a></span>    FString Type = &quot;&quot;;</div>
+<div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00515" name="l00515"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetailsResponse.html#aae3b8c45f0fd44c82f876555f62c5413">  515</a></span>    <span class="keywordtype">int</span> <a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea490aa6e856ccf208a054389e47ce0d06">Id</a> = 0;</div>
+<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00520" name="l00520"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetailsResponse.html#abd8c3773ed030c17a9fb70bcb316bdec">  520</a></span>    <span class="keywordtype">bool</span> Overwrite_score_on_submit = false;</div>
+<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00525" name="l00525"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetailsResponse.html#a7679318e3da04810b2e7e458112fe465">  525</a></span>    <span class="keywordtype">bool</span> Has_metadata = false;</div>
+<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00530" name="l00530"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetailsResponse.html#a49f70a7123c53fee64d33bd0cdfc2f12">  530</a></span>    <a class="code hl_struct" href="structFLootLockerLeaderboardSchedule.html">FLootLockerLeaderboardSchedule</a> Schedule;</div>
+<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00535" name="l00535"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetailsResponse.html#a7d350d23fa96a29c2ccc45a24c582617">  535</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerLeaderboardReward.html">FLootLockerLeaderboardReward</a>&gt; Rewards;</div>
+<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00540" name="l00540"></a><span class="lineno"><a class="line" href="structFLootLockerLeaderboardDetailsResponse.html#a7fa835d0344cdc6e8c97ca048d89b9ae">  540</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerLeaderboardUpcomingReset.html">FLootLockerLeaderboardUpcomingReset</a>&gt; Upcoming_resets;</div>
+<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>};</div>
+</div>
+<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span> </div>
+<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00544" data-start="{" data-end="};">
+<div class="line"><a id="l00544" name="l00544"></a><span class="lineno"><a class="line" href="structFLootLockerSubmitScoreRequest.html">  544</a></span>struct <a class="code hl_struct" href="structFLootLockerSubmitScoreRequest.html">FLootLockerSubmitScoreRequest</a></div>
+<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>{</div>
+<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00548" name="l00548"></a><span class="lineno"><a class="line" href="structFLootLockerSubmitScoreRequest.html#a90d6dba250d264ba41c4bca120329ffe">  548</a></span>    FString member_id = &quot;&quot;;</div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno"><a class="line" href="structFLootLockerSubmitScoreRequest.html#ac91f886bf83ccc98811d09aab4ae4b55">  550</a></span>    <span class="keywordtype">int</span> score = 0;</div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00552" name="l00552"></a><span class="lineno"><a class="line" href="structFLootLockerSubmitScoreRequest.html#a697ccf41f08435b856f0e56b5479a0d7">  552</a></span>    FString metadata = &quot;&quot;;</div>
+<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>};</div>
+</div>
+<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span> </div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00556" data-start="{" data-end="};">
+<div class="line"><a id="l00556" name="l00556"></a><span class="lineno"><a class="line" href="structFLootLockerQueryScoreRequest.html">  556</a></span>struct <a class="code hl_struct" href="structFLootLockerQueryScoreRequest.html">FLootLockerQueryScoreRequest</a></div>
+<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>{</div>
+<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00560" name="l00560"></a><span class="lineno"><a class="line" href="structFLootLockerQueryScoreRequest.html#a164952174672b0e550ed8889faf09cc2">  560</a></span>    int score = 0;</div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>};</div>
+</div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span> </div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00564" data-start="{" data-end="};">
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno"><a class="line" href="structFLootLockerIncrementScoreRequest.html">  564</a></span>struct <a class="code hl_struct" href="structFLootLockerIncrementScoreRequest.html">FLootLockerIncrementScoreRequest</a></div>
+<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>{</div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00568" name="l00568"></a><span class="lineno"><a class="line" href="structFLootLockerIncrementScoreRequest.html#ad88b1701df921cf59f1f37063b6ba62e">  568</a></span>    FString member_id = &quot;&quot;;</div>
+<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00570" name="l00570"></a><span class="lineno"><a class="line" href="structFLootLockerIncrementScoreRequest.html#adfcb4b5ce5605c94e3dfec611738c1b2">  570</a></span>    <span class="keywordtype">int</span> amount = 0;</div>
+<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>};</div>
+</div>
+<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span> </div>
+<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00574" data-start="{" data-end="};">
+<div class="line"><a id="l00574" name="l00574"></a><span class="lineno"><a class="line" href="structFLootLockerGetMemberRankRequest.html">  574</a></span>struct <a class="code hl_struct" href="structFLootLockerGetMemberRankRequest.html">FLootLockerGetMemberRankRequest</a></div>
+<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>{</div>
+<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00578" name="l00578"></a><span class="lineno"><a class="line" href="structFLootLockerGetMemberRankRequest.html#aa94d9fe567f66e67fb08ed466d621f44">  578</a></span>    FString leaderboard_key = &quot;&quot;;</div>
+<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00580" name="l00580"></a><span class="lineno"><a class="line" href="structFLootLockerGetMemberRankRequest.html#a89a029a23d54b39e5659fae19567c6ff">  580</a></span>    FString member_id = &quot;&quot;;</div>
+<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>};</div>
+</div>
+<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span> </div>
+<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00584" data-start="{" data-end="};">
+<div class="line"><a id="l00584" name="l00584"></a><span class="lineno"><a class="line" href="structFLootLockerGetScoreListRequest.html">  584</a></span>struct <a class="code hl_struct" href="structFLootLockerGetScoreListRequest.html">FLootLockerGetScoreListRequest</a></div>
+<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>{</div>
+<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00588" name="l00588"></a><span class="lineno"><a class="line" href="structFLootLockerGetScoreListRequest.html#a1e92264714116bbab8496f6631c0f614">  588</a></span>    FString leaderboard_key = &quot;&quot;;</div>
+<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00590" name="l00590"></a><span class="lineno"><a class="line" href="structFLootLockerGetScoreListRequest.html#ad8b7296c03dccda11e23f07607c0079d">  590</a></span>    <span class="keywordtype">int</span> count = 0;</div>
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00592" name="l00592"></a><span class="lineno"><a class="line" href="structFLootLockerGetScoreListRequest.html#a33d75d82c05316944df160fbdd9934ed">  592</a></span>    <span class="keywordtype">int</span> after = 0;</div>
+<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>};</div>
+</div>
+<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span> </div>
+<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00596" data-start="{" data-end="};">
+<div class="line"><a id="l00596" name="l00596"></a><span class="lineno"><a class="line" href="structFLootLockerGetAllMemberRanksRequest.html">  596</a></span>struct <a class="code hl_struct" href="structFLootLockerGetAllMemberRanksRequest.html">FLootLockerGetAllMemberRanksRequest</a></div>
+<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>{</div>
+<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00600" name="l00600"></a><span class="lineno"><a class="line" href="structFLootLockerGetAllMemberRanksRequest.html#a1d90a5102a87bc8df010db4ecf0732f4">  600</a></span>    FString member_id = &quot;&quot;;</div>
+<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00602" name="l00602"></a><span class="lineno"><a class="line" href="structFLootLockerGetAllMemberRanksRequest.html#af7cdbed8cb3dce406fa18caec01a7ac8">  602</a></span>    <span class="keywordtype">int</span> count = 0;</div>
+<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00604" name="l00604"></a><span class="lineno"><a class="line" href="structFLootLockerGetAllMemberRanksRequest.html#a2d8a68ca171f7d74f99ccfe55848fed1">  604</a></span>    <span class="keywordtype">int</span> after = 0;</div>
+<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>};</div>
+</div>
+<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span> </div>
+<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00608" data-start="{" data-end="};">
+<div class="line"><a id="l00608" name="l00608"></a><span class="lineno"><a class="line" href="structFLootLockerGetByListMembersRequest.html">  608</a></span>struct <a class="code hl_struct" href="structFLootLockerGetByListMembersRequest.html">FLootLockerGetByListMembersRequest</a></div>
+<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>{</div>
+<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00612" name="l00612"></a><span class="lineno"><a class="line" href="structFLootLockerGetByListMembersRequest.html#a30293c0365e4708eef0664bdb36ad8fd">  612</a></span>    TArray&lt;FString&gt; members;</div>
+<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>};</div>
+</div>
+<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span> </div>
+<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>USTRUCT()</div>
+<div class="foldopen" id="foldopen00616" data-start="{" data-end="};">
+<div class="line"><a id="l00616" name="l00616"></a><span class="lineno"><a class="line" href="structFLootLockerListLeaderboardsResponse.html">  616</a></span>struct <a class="code hl_struct" href="structFLootLockerListLeaderboardsResponse.html">FLootLockerListLeaderboardsResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span>{</div>
+<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00623" name="l00623"></a><span class="lineno"><a class="line" href="structFLootLockerListLeaderboardsResponse.html#aa4b6677e0e29c59c4313ada1b9840403">  623</a></span>    <a class="code hl_struct" href="structFLootLockerIndexBasedPagination.html">FLootLockerIndexBasedPagination</a> Pagination;</div>
+<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00628" name="l00628"></a><span class="lineno"><a class="line" href="structFLootLockerListLeaderboardsResponse.html#a6a67049636299c36b0b136e139a364c0">  628</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerLeaderboardDetails.html">FLootLockerLeaderboardDetails</a>&gt; Items;</div>
+<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span> </div>
+<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span>};</div>
+</div>
+<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span> </div>
+<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span> </div>
+<div class="line"><a id="l00635" name="l00635"></a><span class="lineno"><a class="line" href="group__Leaderboard.html#ga5cb9b95257881034d0b5e3b546ded238">  635</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Leaderboard.html#ga5cb9b95257881034d0b5e3b546ded238">FLootLockerListLeaderboardsResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerListLeaderboardsResponse.html">FLootLockerListLeaderboardsResponse</a>);</div>
+<div class="line"><a id="l00637" name="l00637"></a><span class="lineno"><a class="line" href="group__Leaderboard.html#ga353e59d90a93800b93f2225ff63c83cd">  637</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Leaderboard.html#ga353e59d90a93800b93f2225ff63c83cd">FLootLockerGetMemberRankResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerGetMemberRankResponse.html">FLootLockerGetMemberRankResponse</a>);</div>
+<div class="line"><a id="l00639" name="l00639"></a><span class="lineno"><a class="line" href="group__Leaderboard.html#ga24c476445e3e3893d3fcc10004a679de">  639</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Leaderboard.html#ga24c476445e3e3893d3fcc10004a679de">FLootLockerGetByListOfMembersResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerGetByListOfMembersResponse.html">FLootLockerGetByListOfMembersResponse</a>);</div>
+<div class="line"><a id="l00641" name="l00641"></a><span class="lineno"><a class="line" href="group__Leaderboard.html#ga8fd9959d4c708764965aea2661a9921a">  641</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Leaderboard.html#ga8fd9959d4c708764965aea2661a9921a">FLootLockerGetScoreListResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerGetScoreListResponse.html">FLootLockerGetScoreListResponse</a>);</div>
+<div class="line"><a id="l00643" name="l00643"></a><span class="lineno"><a class="line" href="group__Leaderboard.html#ga6fa5ec9600178878caff100642cba557">  643</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Leaderboard.html#ga6fa5ec9600178878caff100642cba557">FLootLockerSubmitScoreResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerSubmitScoreResponse.html">FLootLockerSubmitScoreResponse</a>);</div>
+<div class="line"><a id="l00645" name="l00645"></a><span class="lineno"><a class="line" href="group__Leaderboard.html#gaf99303594783254d7a4d55dfb70d1571">  645</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Leaderboard.html#gaf99303594783254d7a4d55dfb70d1571">FLootLockerGetAllMemberRanksResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerGetAllMemberRanksResponse.html">FLootLockerGetAllMemberRanksResponse</a>);</div>
+<div class="line"><a id="l00647" name="l00647"></a><span class="lineno"><a class="line" href="group__Leaderboard.html#gaed2d133b707e7a1dc25a5fb2257dbf7b">  647</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Leaderboard.html#gaed2d133b707e7a1dc25a5fb2257dbf7b">FLootLockerLeaderboardDetailsResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerLeaderboardDetailsResponse.html">FLootLockerLeaderboardDetailsResponse</a>);</div>
+<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span> </div>
+<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>UCLASS()</div>
+<div class="foldopen" id="foldopen00651" data-start="{" data-end="};">
+<div class="line"><a id="l00651" name="l00651"></a><span class="lineno"><a class="line" href="classULootLockerLeaderboardRequestHandler.html">  651</a></span>class LOOTLOCKERSDK_API <a class="code hl_class" href="classULootLockerLeaderboardRequestHandler.html">ULootLockerLeaderboardRequestHandler</a> : public UObject</div>
+<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>{</div>
+<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno"><a class="line" href="classULootLockerLeaderboardRequestHandler.html#a70a0d643304bf450e850047b57e80926">  655</a></span>    <a class="code hl_function" href="classULootLockerLeaderboardRequestHandler.html#a70a0d643304bf450e850047b57e80926">ULootLockerLeaderboardRequestHandler</a>() {};</div>
+<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span> </div>
+<div class="line"><a id="l00657" name="l00657"></a><span class="lineno"><a class="line" href="classULootLockerLeaderboardRequestHandler.html#af68b7f7aa1027bcf3afc2d43a3b6952e">  657</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerLeaderboardRequestHandler.html#af68b7f7aa1027bcf3afc2d43a3b6952e">ListLeaderboards</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keywordtype">int</span> Count, <span class="keywordtype">int</span> After, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Leaderboard.html#ga5cb9b95257881034d0b5e3b546ded238">FLootLockerListLeaderboardsResponseDelegate</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00658" name="l00658"></a><span class="lineno"><a class="line" href="classULootLockerLeaderboardRequestHandler.html#aaa61b4f32ebe460466bbc24eb98c5ae2">  658</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerLeaderboardRequestHandler.html#aaa61b4f32ebe460466bbc24eb98c5ae2">GetMemberRank</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerGetMemberRankRequest.html">FLootLockerGetMemberRankRequest</a>&amp; MemberRequest, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Leaderboard.html#ga353e59d90a93800b93f2225ff63c83cd">FLootLockerGetMemberRankResponseDelegate</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00659" name="l00659"></a><span class="lineno"><a class="line" href="classULootLockerLeaderboardRequestHandler.html#aa8fdcc4c736b1a5b94016d66450576cf">  659</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerLeaderboardRequestHandler.html#aa8fdcc4c736b1a5b94016d66450576cf">GetByListOfMembers</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerGetByListMembersRequest.html">FLootLockerGetByListMembersRequest</a>&amp; GetScoreByListRequests, FString LeaderboardKey, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Leaderboard.html#ga24c476445e3e3893d3fcc10004a679de">FLootLockerGetByListOfMembersResponseDelegate</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00660" name="l00660"></a><span class="lineno"><a class="line" href="classULootLockerLeaderboardRequestHandler.html#ab474ad145cd56146701fa6f3328efd88">  660</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerLeaderboardRequestHandler.html#ab474ad145cd56146701fa6f3328efd88">GetScoreList</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerGetScoreListRequest.html">FLootLockerGetScoreListRequest</a>&amp; GetScoreListRequests, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Leaderboard.html#ga8fd9959d4c708764965aea2661a9921a">FLootLockerGetScoreListResponseDelegate</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00661" name="l00661"></a><span class="lineno"><a class="line" href="classULootLockerLeaderboardRequestHandler.html#ac1a855ec1933e6d29387f587ef83b0a5">  661</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerLeaderboardRequestHandler.html#ac1a855ec1933e6d29387f587ef83b0a5">SubmitScore</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerSubmitScoreRequest.html">FLootLockerSubmitScoreRequest</a>&amp; SubmitScoreRequests, FString LeaderboardKey, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Leaderboard.html#ga6fa5ec9600178878caff100642cba557">FLootLockerSubmitScoreResponseDelegate</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00662" name="l00662"></a><span class="lineno"><a class="line" href="classULootLockerLeaderboardRequestHandler.html#a43536b77df0e4882be711ac832aa3412">  662</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerLeaderboardRequestHandler.html#a43536b77df0e4882be711ac832aa3412">QueryScore</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerQueryScoreRequest.html">FLootLockerQueryScoreRequest</a>&amp; QueryScoreRequests, FString LeaderboardKey, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Leaderboard.html#ga6fa5ec9600178878caff100642cba557">FLootLockerSubmitScoreResponseDelegate</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00663" name="l00663"></a><span class="lineno"><a class="line" href="classULootLockerLeaderboardRequestHandler.html#a8a475481234e70c0aae30800d6be584f">  663</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerLeaderboardRequestHandler.html#a8a475481234e70c0aae30800d6be584f">IncrementScore</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerIncrementScoreRequest.html">FLootLockerIncrementScoreRequest</a>&amp; IncrementScoreRequests, FString LeaderboardKey, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Leaderboard.html#ga6fa5ec9600178878caff100642cba557">FLootLockerSubmitScoreResponseDelegate</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00664" name="l00664"></a><span class="lineno"><a class="line" href="classULootLockerLeaderboardRequestHandler.html#a3f49e47aa98468a8720a49b146d838f2">  664</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerLeaderboardRequestHandler.html#a3f49e47aa98468a8720a49b146d838f2">GetAllMemberRanks</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerGetAllMemberRanksRequest.html">FLootLockerGetAllMemberRanksRequest</a>&amp; GetAllMemberRanksRequests, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Leaderboard.html#gaf99303594783254d7a4d55dfb70d1571">FLootLockerGetAllMemberRanksResponseDelegate</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00665" name="l00665"></a><span class="lineno"><a class="line" href="classULootLockerLeaderboardRequestHandler.html#ae763b14fb8395aa2ba34366079aad710">  665</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerLeaderboardRequestHandler.html#ae763b14fb8395aa2ba34366079aad710">GetLeaderboardDetails</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; LeaderboardKey, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Leaderboard.html#gaed2d133b707e7a1dc25a5fb2257dbf7b">FLootLockerLeaderboardDetailsResponseDelegate</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>};</div>
+</div>
+<div class="ttc" id="aLootLockerPlayerData_8h_html"><div class="ttname"><a href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a></div></div>
+<div class="ttc" id="aLootLockerResponse_8h_html"><div class="ttname"><a href="LootLockerResponse_8h.html">LootLockerResponse.h</a></div></div>
+<div class="ttc" id="aclassULootLockerLeaderboardRequestHandler_html"><div class="ttname"><a href="classULootLockerLeaderboardRequestHandler.html">ULootLockerLeaderboardRequestHandler</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:652</div></div>
+<div class="ttc" id="aclassULootLockerLeaderboardRequestHandler_html_a3f49e47aa98468a8720a49b146d838f2"><div class="ttname"><a href="classULootLockerLeaderboardRequestHandler.html#a3f49e47aa98468a8720a49b146d838f2">ULootLockerLeaderboardRequestHandler::GetAllMemberRanks</a></div><div class="ttdeci">static FString GetAllMemberRanks(const FLootLockerPlayerData &amp;PlayerData, const FLootLockerGetAllMemberRanksRequest &amp;GetAllMemberRanksRequests, const FLootLockerGetAllMemberRanksResponseDelegate &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerLeaderboardRequestHandler_html_a43536b77df0e4882be711ac832aa3412"><div class="ttname"><a href="classULootLockerLeaderboardRequestHandler.html#a43536b77df0e4882be711ac832aa3412">ULootLockerLeaderboardRequestHandler::QueryScore</a></div><div class="ttdeci">static FString QueryScore(const FLootLockerPlayerData &amp;PlayerData, const FLootLockerQueryScoreRequest &amp;QueryScoreRequests, FString LeaderboardKey, const FLootLockerSubmitScoreResponseDelegate &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerLeaderboardRequestHandler_html_a70a0d643304bf450e850047b57e80926"><div class="ttname"><a href="classULootLockerLeaderboardRequestHandler.html#a70a0d643304bf450e850047b57e80926">ULootLockerLeaderboardRequestHandler::ULootLockerLeaderboardRequestHandler</a></div><div class="ttdeci">ULootLockerLeaderboardRequestHandler()</div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:655</div></div>
+<div class="ttc" id="aclassULootLockerLeaderboardRequestHandler_html_a8a475481234e70c0aae30800d6be584f"><div class="ttname"><a href="classULootLockerLeaderboardRequestHandler.html#a8a475481234e70c0aae30800d6be584f">ULootLockerLeaderboardRequestHandler::IncrementScore</a></div><div class="ttdeci">static FString IncrementScore(const FLootLockerPlayerData &amp;PlayerData, const FLootLockerIncrementScoreRequest &amp;IncrementScoreRequests, FString LeaderboardKey, const FLootLockerSubmitScoreResponseDelegate &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerLeaderboardRequestHandler_html_aa8fdcc4c736b1a5b94016d66450576cf"><div class="ttname"><a href="classULootLockerLeaderboardRequestHandler.html#aa8fdcc4c736b1a5b94016d66450576cf">ULootLockerLeaderboardRequestHandler::GetByListOfMembers</a></div><div class="ttdeci">static FString GetByListOfMembers(const FLootLockerPlayerData &amp;PlayerData, const FLootLockerGetByListMembersRequest &amp;GetScoreByListRequests, FString LeaderboardKey, const FLootLockerGetByListOfMembersResponseDelegate &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerLeaderboardRequestHandler_html_aaa61b4f32ebe460466bbc24eb98c5ae2"><div class="ttname"><a href="classULootLockerLeaderboardRequestHandler.html#aaa61b4f32ebe460466bbc24eb98c5ae2">ULootLockerLeaderboardRequestHandler::GetMemberRank</a></div><div class="ttdeci">static FString GetMemberRank(const FLootLockerPlayerData &amp;PlayerData, const FLootLockerGetMemberRankRequest &amp;MemberRequest, const FLootLockerGetMemberRankResponseDelegate &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerLeaderboardRequestHandler_html_ab474ad145cd56146701fa6f3328efd88"><div class="ttname"><a href="classULootLockerLeaderboardRequestHandler.html#ab474ad145cd56146701fa6f3328efd88">ULootLockerLeaderboardRequestHandler::GetScoreList</a></div><div class="ttdeci">static FString GetScoreList(const FLootLockerPlayerData &amp;PlayerData, const FLootLockerGetScoreListRequest &amp;GetScoreListRequests, const FLootLockerGetScoreListResponseDelegate &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerLeaderboardRequestHandler_html_ac1a855ec1933e6d29387f587ef83b0a5"><div class="ttname"><a href="classULootLockerLeaderboardRequestHandler.html#ac1a855ec1933e6d29387f587ef83b0a5">ULootLockerLeaderboardRequestHandler::SubmitScore</a></div><div class="ttdeci">static FString SubmitScore(const FLootLockerPlayerData &amp;PlayerData, const FLootLockerSubmitScoreRequest &amp;SubmitScoreRequests, FString LeaderboardKey, const FLootLockerSubmitScoreResponseDelegate &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerLeaderboardRequestHandler_html_ae763b14fb8395aa2ba34366079aad710"><div class="ttname"><a href="classULootLockerLeaderboardRequestHandler.html#ae763b14fb8395aa2ba34366079aad710">ULootLockerLeaderboardRequestHandler::GetLeaderboardDetails</a></div><div class="ttdeci">static FString GetLeaderboardDetails(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;LeaderboardKey, const FLootLockerLeaderboardDetailsResponseDelegate &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerLeaderboardRequestHandler_html_af68b7f7aa1027bcf3afc2d43a3b6952e"><div class="ttname"><a href="classULootLockerLeaderboardRequestHandler.html#af68b7f7aa1027bcf3afc2d43a3b6952e">ULootLockerLeaderboardRequestHandler::ListLeaderboards</a></div><div class="ttdeci">static FString ListLeaderboards(const FLootLockerPlayerData &amp;PlayerData, int Count, int After, const FLootLockerListLeaderboardsResponseDelegate &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="agroup__Assets_html_gga2b2f1454f93df8f92665e355ce9b179ea490aa6e856ccf208a054389e47ce0d06"><div class="ttname"><a href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea490aa6e856ccf208a054389e47ce0d06">ELootLockerOrderAssetListBy::Id</a></div><div class="ttdeci">@ Id</div></div>
+<div class="ttc" id="agroup__Assets_html_gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987"><div class="ttname"><a href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987">ELootLockerOrderAssetListBy::Name</a></div><div class="ttdeci">@ Name</div></div>
+<div class="ttc" id="agroup__Assets_html_gga2b2f1454f93df8f92665e355ce9b179ea4e0b5c2418b622cb71664c2a3b615d77"><div class="ttname"><a href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea4e0b5c2418b622cb71664c2a3b615d77">ELootLockerOrderAssetListBy::Created_at</a></div><div class="ttdeci">@ Created_at</div></div>
+<div class="ttc" id="agroup__Assets_html_gga2b2f1454f93df8f92665e355ce9b179ea96436d7e279bd89d1c47c17ef0d5050a"><div class="ttname"><a href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea96436d7e279bd89d1c47c17ef0d5050a">ELootLockerOrderAssetListBy::Updated_at</a></div><div class="ttdeci">@ Updated_at</div></div>
+<div class="ttc" id="agroup__Balances_html_gga43ee520d8b9a78d3700e17a181c9f216a912af0dff974604f1321254ca8ff38b6"><div class="ttname"><a href="group__Balances.html#gga43ee520d8b9a78d3700e17a181c9f216a912af0dff974604f1321254ca8ff38b6">ELootLockerWalletHolderTypes::player</a></div><div class="ttdeci">@ player</div></div>
+<div class="ttc" id="agroup__Leaderboard_html_ga24c476445e3e3893d3fcc10004a679de"><div class="ttname"><a href="group__Leaderboard.html#ga24c476445e3e3893d3fcc10004a679de">FLootLockerGetByListOfMembersResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerGetByListOfMembersResponseDelegate)(FLootLockerGetByListOfMembersResponse)</div><div class="ttdoc">C++ response callback delegate; receives an FLootLockerGetByListOfMembersResponse result.</div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:639</div></div>
+<div class="ttc" id="agroup__Leaderboard_html_ga353e59d90a93800b93f2225ff63c83cd"><div class="ttname"><a href="group__Leaderboard.html#ga353e59d90a93800b93f2225ff63c83cd">FLootLockerGetMemberRankResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerGetMemberRankResponseDelegate)(FLootLockerGetMemberRankResponse)</div><div class="ttdoc">C++ response callback delegate; receives an FLootLockerGetMemberRankResponse result.</div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:637</div></div>
+<div class="ttc" id="agroup__Leaderboard_html_ga5cb9b95257881034d0b5e3b546ded238"><div class="ttname"><a href="group__Leaderboard.html#ga5cb9b95257881034d0b5e3b546ded238">FLootLockerListLeaderboardsResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerListLeaderboardsResponseDelegate)(FLootLockerListLeaderboardsResponse)</div><div class="ttdoc">C++ response callback delegate; receives an FLootLockerListLeaderboardsResponse result.</div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:635</div></div>
+<div class="ttc" id="agroup__Leaderboard_html_ga6fa5ec9600178878caff100642cba557"><div class="ttname"><a href="group__Leaderboard.html#ga6fa5ec9600178878caff100642cba557">FLootLockerSubmitScoreResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerSubmitScoreResponseDelegate)(FLootLockerSubmitScoreResponse)</div><div class="ttdoc">C++ response callback delegate; receives an FLootLockerSubmitScoreResponse result.</div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:643</div></div>
+<div class="ttc" id="agroup__Leaderboard_html_ga7985ca9fbbcf2f9947ecdbb9115ccd9f"><div class="ttname"><a href="group__Leaderboard.html#ga7985ca9fbbcf2f9947ecdbb9115ccd9f">ELootLockerLeaderboardRewardEntityKind</a></div><div class="ttdeci">ELootLockerLeaderboardRewardEntityKind</div><div class="ttdoc">Entity kinds that can be given as leaderboard rewards.</div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:16</div></div>
+<div class="ttc" id="agroup__Leaderboard_html_ga8fd9959d4c708764965aea2661a9921a"><div class="ttname"><a href="group__Leaderboard.html#ga8fd9959d4c708764965aea2661a9921a">FLootLockerGetScoreListResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerGetScoreListResponseDelegate)(FLootLockerGetScoreListResponse)</div><div class="ttdoc">C++ response callback delegate; receives an FLootLockerGetScoreListResponse result.</div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:641</div></div>
+<div class="ttc" id="agroup__Leaderboard_html_gaed2d133b707e7a1dc25a5fb2257dbf7b"><div class="ttname"><a href="group__Leaderboard.html#gaed2d133b707e7a1dc25a5fb2257dbf7b">FLootLockerLeaderboardDetailsResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerLeaderboardDetailsResponseDelegate)(FLootLockerLeaderboardDetailsResponse)</div><div class="ttdoc">C++ response callback delegate; receives an FLootLockerLeaderboardDetailsResponse result.</div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:647</div></div>
+<div class="ttc" id="agroup__Leaderboard_html_gaf99303594783254d7a4d55dfb70d1571"><div class="ttname"><a href="group__Leaderboard.html#gaf99303594783254d7a4d55dfb70d1571">FLootLockerGetAllMemberRanksResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerGetAllMemberRanksResponseDelegate)(FLootLockerGetAllMemberRanksResponse)</div><div class="ttdoc">C++ response callback delegate; receives an FLootLockerGetAllMemberRanksResponse result.</div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:645</div></div>
+<div class="ttc" id="agroup__Leaderboard_html_gga7985ca9fbbcf2f9947ecdbb9115ccd9fa03937134cedab9078be39a77ee3a48a0"><div class="ttname"><a href="group__Leaderboard.html#gga7985ca9fbbcf2f9947ecdbb9115ccd9fa03937134cedab9078be39a77ee3a48a0">ELootLockerLeaderboardRewardEntityKind::Group</a></div><div class="ttdeci">@ Group</div></div>
+<div class="ttc" id="agroup__Leaderboard_html_gga7985ca9fbbcf2f9947ecdbb9115ccd9fa26e9054be7f40079575582b7ad3f7363"><div class="ttname"><a href="group__Leaderboard.html#gga7985ca9fbbcf2f9947ecdbb9115ccd9fa26e9054be7f40079575582b7ad3f7363">ELootLockerLeaderboardRewardEntityKind::Asset</a></div><div class="ttdeci">@ Asset</div></div>
+<div class="ttc" id="agroup__Leaderboard_html_gga7985ca9fbbcf2f9947ecdbb9115ccd9fa386c339d37e737a436499d423a77df0c"><div class="ttname"><a href="group__Leaderboard.html#gga7985ca9fbbcf2f9947ecdbb9115ccd9fa386c339d37e737a436499d423a77df0c">ELootLockerLeaderboardRewardEntityKind::Currency</a></div><div class="ttdeci">@ Currency</div></div>
+<div class="ttc" id="agroup__Leaderboard_html_gga7985ca9fbbcf2f9947ecdbb9115ccd9fa57110c4e7cd03218864bf9155573e1dd"><div class="ttname"><a href="group__Leaderboard.html#gga7985ca9fbbcf2f9947ecdbb9115ccd9fa57110c4e7cd03218864bf9155573e1dd">ELootLockerLeaderboardRewardEntityKind::Progression_Points</a></div><div class="ttdeci">@ Progression_Points</div></div>
+<div class="ttc" id="agroup__Leaderboard_html_gga7985ca9fbbcf2f9947ecdbb9115ccd9fa6b177f161f23a5b58f59f1784891f575"><div class="ttname"><a href="group__Leaderboard.html#gga7985ca9fbbcf2f9947ecdbb9115ccd9fa6b177f161f23a5b58f59f1784891f575">ELootLockerLeaderboardRewardEntityKind::Progression_Reset</a></div><div class="ttdeci">@ Progression_Reset</div></div>
+<div class="ttc" id="agroup__Metadata_html_gga3d86f36677809018b3cb5db0418ac804a1af0389838508d7016a9841eb6273962"><div class="ttname"><a href="group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804a1af0389838508d7016a9841eb6273962">ELootLockerMetadataSources::currency</a></div><div class="ttdeci">@ currency</div></div>
+<div class="ttc" id="agroup__Metadata_html_gga3d86f36677809018b3cb5db0418ac804ac04e34d445e31a2159c1bfeb882ba212"><div class="ttname"><a href="group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804ac04e34d445e31a2159c1bfeb882ba212">ELootLockerMetadataSources::asset</a></div><div class="ttdeci">@ asset</div></div>
+<div class="ttc" id="agroup__Notifications_html_ggab713f8b30131b4b601d114bee196e02aa09efb74d9914e0f320c221f00080b4f2"><div class="ttname"><a href="group__Notifications.html#ggab713f8b30131b4b601d114bee196e02aa09efb74d9914e0f320c221f00080b4f2">ELootLockerNotificationContentRewardKind::progression_reset</a></div><div class="ttdeci">@ progression_reset</div></div>
+<div class="ttc" id="agroup__Notifications_html_ggab713f8b30131b4b601d114bee196e02aa411b9f1aeb1018a2966c3491601312eb"><div class="ttname"><a href="group__Notifications.html#ggab713f8b30131b4b601d114bee196e02aa411b9f1aeb1018a2966c3491601312eb">ELootLockerNotificationContentRewardKind::progression_points</a></div><div class="ttdeci">@ progression_points</div></div>
+<div class="ttc" id="agroup__Notifications_html_ggab713f8b30131b4b601d114bee196e02aadb0f6f37ebeb6ea09489124345af2a45"><div class="ttname"><a href="group__Notifications.html#ggab713f8b30131b4b601d114bee196e02aadb0f6f37ebeb6ea09489124345af2a45">ELootLockerNotificationContentRewardKind::group</a></div><div class="ttdeci">@ group</div></div>
+<div class="ttc" id="astructFLootLockerAssetRewardDetails_html"><div class="ttname"><a href="structFLootLockerAssetRewardDetails.html">FLootLockerAssetRewardDetails</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:137</div></div>
+<div class="ttc" id="astructFLootLockerCurrencyRewardDetails_html"><div class="ttname"><a href="structFLootLockerCurrencyRewardDetails.html">FLootLockerCurrencyRewardDetails</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:182</div></div>
+<div class="ttc" id="astructFLootLockerGetAllMemberRanksRequest_html"><div class="ttname"><a href="structFLootLockerGetAllMemberRanksRequest.html">FLootLockerGetAllMemberRanksRequest</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:597</div></div>
+<div class="ttc" id="astructFLootLockerGetAllMemberRanksResponse_html"><div class="ttname"><a href="structFLootLockerGetAllMemberRanksResponse.html">FLootLockerGetAllMemberRanksResponse</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:113</div></div>
+<div class="ttc" id="astructFLootLockerGetByListMembersRequest_html"><div class="ttname"><a href="structFLootLockerGetByListMembersRequest.html">FLootLockerGetByListMembersRequest</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:609</div></div>
+<div class="ttc" id="astructFLootLockerGetByListOfMembersResponse_html"><div class="ttname"><a href="structFLootLockerGetByListOfMembersResponse.html">FLootLockerGetByListOfMembersResponse</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:95</div></div>
+<div class="ttc" id="astructFLootLockerGetMemberRankRequest_html"><div class="ttname"><a href="structFLootLockerGetMemberRankRequest.html">FLootLockerGetMemberRankRequest</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:575</div></div>
+<div class="ttc" id="astructFLootLockerGetMemberRankResponse_html"><div class="ttname"><a href="structFLootLockerGetMemberRankResponse.html">FLootLockerGetMemberRankResponse</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:39</div></div>
+<div class="ttc" id="astructFLootLockerGetScoreListRequest_html"><div class="ttname"><a href="structFLootLockerGetScoreListRequest.html">FLootLockerGetScoreListRequest</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:585</div></div>
+<div class="ttc" id="astructFLootLockerGetScoreListResponse_html"><div class="ttname"><a href="structFLootLockerGetScoreListResponse.html">FLootLockerGetScoreListResponse</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:103</div></div>
+<div class="ttc" id="astructFLootLockerIncrementScoreRequest_html"><div class="ttname"><a href="structFLootLockerIncrementScoreRequest.html">FLootLockerIncrementScoreRequest</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:565</div></div>
+<div class="ttc" id="astructFLootLockerIndexBasedPagination_html"><div class="ttname"><a href="structFLootLockerIndexBasedPagination.html">FLootLockerIndexBasedPagination</a></div><div class="ttdef"><b>Definition</b> LootLockerResponse.h:64</div></div>
+<div class="ttc" id="astructFLootLockerLeaderboardAssetReward_html"><div class="ttname"><a href="structFLootLockerLeaderboardAssetReward.html">FLootLockerLeaderboardAssetReward</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:160</div></div>
+<div class="ttc" id="astructFLootLockerLeaderboardCurrencyReward_html"><div class="ttname"><a href="structFLootLockerLeaderboardCurrencyReward.html">FLootLockerLeaderboardCurrencyReward</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:196</div></div>
+<div class="ttc" id="astructFLootLockerLeaderboardDetailPredicates_html"><div class="ttname"><a href="structFLootLockerLeaderboardDetailPredicates.html">FLootLockerLeaderboardDetailPredicates</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:291</div></div>
+<div class="ttc" id="astructFLootLockerLeaderboardDetailsResponse_html"><div class="ttname"><a href="structFLootLockerLeaderboardDetailsResponse.html">FLootLockerLeaderboardDetailsResponse</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:479</div></div>
+<div class="ttc" id="astructFLootLockerLeaderboardDetails_html"><div class="ttname"><a href="structFLootLockerLeaderboardDetails.html">FLootLockerLeaderboardDetails</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:408</div></div>
+<div class="ttc" id="astructFLootLockerLeaderboardGroupRewardAssociation_html"><div class="ttname"><a href="structFLootLockerLeaderboardGroupRewardAssociation.html">FLootLockerLeaderboardGroupRewardAssociation</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:317</div></div>
+<div class="ttc" id="astructFLootLockerLeaderboardGroupRewardMetadata_html"><div class="ttname"><a href="structFLootLockerLeaderboardGroupRewardMetadata.html">FLootLockerLeaderboardGroupRewardMetadata</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:333</div></div>
+<div class="ttc" id="astructFLootLockerLeaderboardGroupReward_html"><div class="ttname"><a href="structFLootLockerLeaderboardGroupReward.html">FLootLockerLeaderboardGroupReward</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:343</div></div>
+<div class="ttc" id="astructFLootLockerLeaderboardProgressionPointsReward_html"><div class="ttname"><a href="structFLootLockerLeaderboardProgressionPointsReward.html">FLootLockerLeaderboardProgressionPointsReward</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:258</div></div>
+<div class="ttc" id="astructFLootLockerLeaderboardProgressionResetReward_html"><div class="ttname"><a href="structFLootLockerLeaderboardProgressionResetReward.html">FLootLockerLeaderboardProgressionResetReward</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:226</div></div>
+<div class="ttc" id="astructFLootLockerLeaderboardRewardArgs_html"><div class="ttname"><a href="structFLootLockerLeaderboardRewardArgs.html">FLootLockerLeaderboardRewardArgs</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:277</div></div>
+<div class="ttc" id="astructFLootLockerLeaderboardReward_html"><div class="ttname"><a href="structFLootLockerLeaderboardReward.html">FLootLockerLeaderboardReward</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:361</div></div>
+<div class="ttc" id="astructFLootLockerLeaderboardSchedule_html"><div class="ttname"><a href="structFLootLockerLeaderboardSchedule.html">FLootLockerLeaderboardSchedule</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:303</div></div>
+<div class="ttc" id="astructFLootLockerLeaderboardUpcomingReset_html"><div class="ttname"><a href="structFLootLockerLeaderboardUpcomingReset.html">FLootLockerLeaderboardUpcomingReset</a></div><div class="ttdoc">A pending manual reset for a leaderboard that has been requested but not yet processed.</div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:387</div></div>
+<div class="ttc" id="astructFLootLockerLeaderboard_html"><div class="ttname"><a href="structFLootLockerLeaderboard.html">FLootLockerLeaderboard</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:71</div></div>
+<div class="ttc" id="astructFLootLockerListLeaderboardsResponse_html"><div class="ttname"><a href="structFLootLockerListLeaderboardsResponse.html">FLootLockerListLeaderboardsResponse</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:617</div></div>
+<div class="ttc" id="astructFLootLockerMember_html"><div class="ttname"><a href="structFLootLockerMember.html">FLootLockerMember</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:55</div></div>
+<div class="ttc" id="astructFLootLockerPagination_html"><div class="ttname"><a href="structFLootLockerPagination.html">FLootLockerPagination</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:85</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html"><div class="ttname"><a href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a></div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:12</div></div>
+<div class="ttc" id="astructFLootLockerPlayer_html"><div class="ttname"><a href="structFLootLockerPlayer.html">FLootLockerPlayer</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:27</div></div>
+<div class="ttc" id="astructFLootLockerProgressionPointRewardDetails_html"><div class="ttname"><a href="structFLootLockerProgressionPointRewardDetails.html">FLootLockerProgressionPointRewardDetails</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:243</div></div>
+<div class="ttc" id="astructFLootLockerProgressionResetRewardDetails_html"><div class="ttname"><a href="structFLootLockerProgressionResetRewardDetails.html">FLootLockerProgressionResetRewardDetails</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:214</div></div>
+<div class="ttc" id="astructFLootLockerQueryScoreRequest_html"><div class="ttname"><a href="structFLootLockerQueryScoreRequest.html">FLootLockerQueryScoreRequest</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:557</div></div>
+<div class="ttc" id="astructFLootLockerResponse_html"><div class="ttname"><a href="structFLootLockerResponse.html">FLootLockerResponse</a></div><div class="ttdoc">Base response struct — every SDK callback receives a struct that derives from this.</div><div class="ttdef"><b>Definition</b> LootLockerResponse.h:19</div></div>
+<div class="ttc" id="astructFLootLockerSubmitScoreRequest_html"><div class="ttname"><a href="structFLootLockerSubmitScoreRequest.html">FLootLockerSubmitScoreRequest</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:545</div></div>
+<div class="ttc" id="astructFLootLockerSubmitScoreResponse_html"><div class="ttname"><a href="structFLootLockerSubmitScoreResponse.html">FLootLockerSubmitScoreResponse</a></div><div class="ttdef"><b>Definition</b> LootLockerLeaderboardRequestHandler.h:123</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_426131f2e7e3782155028ac49ab5e11c.html">LootLockerSDK</a></li><li class="navelem"><a class="el" href="dir_63662f8d869795fbcfe09e29de292894.html">Source</a></li><li class="navelem"><a class="el" href="dir_529bffb88e47999e071ca27db50fed71.html">LootLockerSDK</a></li><li class="navelem"><a class="el" href="dir_6800d9c9fc95b443eb5325340bc06d03.html">Public</a></li><li class="navelem"><a class="el" href="dir_c4276055a6e8dd41429ac8d6d68c790b.html">GameAPI</a></li><li class="navelem"><a class="el" href="LootLockerLeaderboardRequestHandler_8h.html">LootLockerLeaderboardRequestHandler.h</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

@@ -1,0 +1,478 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: LootLockerSDK/Source/LootLockerSDK/Public/GameAPI/LootLockerFriendsRequestHandler.h Source File</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('LootLockerFriendsRequestHandler_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LootLockerFriendsRequestHandler.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="LootLockerFriendsRequestHandler_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerResponse_8h.html">LootLockerResponse.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;LootLockerFriendsRequestHandler.generated.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">// Data Type Definitions</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="structFLootLockerFriend.html">   17</a></span>struct <a class="code hl_struct" href="structFLootLockerFriend.html">FLootLockerFriend</a></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="structFLootLockerFriend.html#a68a19b232bc6ae679280dbef80ad0bae">   25</a></span>    FString <a class="code hl_enumvalue" href="group__Player.html#gga3ddeac62fd1e00996ae918cf2f732625aaa89ce023d01d1cf3dac349911fcfd5f">Player_id</a> = &quot;&quot;;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;, meta = (DeprecatedProperty, DeprecationMessage=&quot;This property is deprecated. Use property `<a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987">Name</a>` instead.&quot;))</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="structFLootLockerFriend.html#ad043e4824447160f4f01027544e42762">   30</a></span>    FString <a class="code hl_enumvalue" href="group__Player.html#gga3ddeac62fd1e00996ae918cf2f732625a82d6915ffcb1d25a3eb03a4ed7a377c1">Player_name</a> = &quot;&quot;; <span class="comment">// Deprecation date 20260427</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;) </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="structFLootLockerFriend.html#a07f928811aacc0d02630fe1a5501f5e0">   35</a></span>    FString <a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987">Name</a> = &quot;&quot;; </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="structFLootLockerFriend.html#a5e394dff4275741d83164e5ba36ace71">   40</a></span>    FString Public_uid = &quot;&quot;;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="structFLootLockerFriend.html#a94894a7fffadaefc7ee61643192353c0">   45</a></span>    FString <a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea4e0b5c2418b622cb71664c2a3b615d77">Created_at</a> = &quot;&quot;;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>};</div>
+</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00053" data-start="{" data-end="};">
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="structFLootLockerAcceptedFriend.html">   53</a></span>struct <a class="code hl_struct" href="structFLootLockerAcceptedFriend.html">FLootLockerAcceptedFriend</a> : public <a class="code hl_struct" href="structFLootLockerFriend.html">FLootLockerFriend</a></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>{</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="comment">//UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="comment">//bool Online = false;</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="structFLootLockerAcceptedFriend.html#aeeb572b37612d54b226140eb21a48efb">   66</a></span>    FString Accepted_at = &quot;&quot;;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>};</div>
+</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00073" data-start="{" data-end="};">
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="structFLootLockerBlockedPlayer.html">   73</a></span>struct <a class="code hl_struct" href="structFLootLockerBlockedPlayer.html">FLootLockerBlockedPlayer</a> : public <a class="code hl_struct" href="structFLootLockerFriend.html">FLootLockerFriend</a></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>{</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="structFLootLockerBlockedPlayer.html#aec7fa2aa8dc34adf5546473641d5003b">   81</a></span>    FString Blocked_at = &quot;&quot;;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>};</div>
+</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">// Request Definitions</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment">// No custom request struct needed for list friends/incoming/outgoing</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">// Response Definitions</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00099" data-start="{" data-end="};">
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="structFLootLockerListFriendsResponse.html">   99</a></span>struct <a class="code hl_struct" href="structFLootLockerListFriendsResponse.html">FLootLockerListFriendsResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>{</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="structFLootLockerListFriendsResponse.html#ad47d4eef215eccc1c3185cd42eae3771">  104</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerAcceptedFriend.html">FLootLockerAcceptedFriend</a>&gt; Friends;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="structFLootLockerListFriendsResponse.html#a2c27dd39cfec85e689ef8aab504f7f57">  107</a></span>    <a class="code hl_struct" href="structFLootLockerExtendedIndexBasedPagination.html">FLootLockerExtendedIndexBasedPagination</a> Pagination;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>};</div>
+</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00114" data-start="{" data-end="};">
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="structFLootLockerListIncomingFriendRequestsResponse.html">  114</a></span>struct <a class="code hl_struct" href="structFLootLockerListIncomingFriendRequestsResponse.html">FLootLockerListIncomingFriendRequestsResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>{</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="structFLootLockerListIncomingFriendRequestsResponse.html#a3e035d6e3e16879a31c7c49ca03c402d">  119</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerFriend.html">FLootLockerFriend</a>&gt; Incoming;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="structFLootLockerListIncomingFriendRequestsResponse.html#a3b46277b1d0223010f169629c5e49a27">  122</a></span>    <a class="code hl_struct" href="structFLootLockerExtendedIndexBasedPagination.html">FLootLockerExtendedIndexBasedPagination</a> Pagination;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>};</div>
+</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00129" data-start="{" data-end="};">
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="structFLootLockerListOutgoingFriendRequestsResponse.html">  129</a></span>struct <a class="code hl_struct" href="structFLootLockerListOutgoingFriendRequestsResponse.html">FLootLockerListOutgoingFriendRequestsResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>{</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="structFLootLockerListOutgoingFriendRequestsResponse.html#a967783beedcd06e8a8113bcc85ad503c">  134</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerFriend.html">FLootLockerFriend</a>&gt; Outgoing;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="structFLootLockerListOutgoingFriendRequestsResponse.html#a62834ada6663d082f02d2c89736dd603">  137</a></span>    <a class="code hl_struct" href="structFLootLockerExtendedIndexBasedPagination.html">FLootLockerExtendedIndexBasedPagination</a> Pagination;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>};</div>
+</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00141" data-start="{" data-end="};">
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno"><a class="line" href="structFLootLockerFriendActionResponse.html">  141</a></span>struct <a class="code hl_struct" href="structFLootLockerFriendActionResponse.html">FLootLockerFriendActionResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>{</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>};</div>
+</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00147" data-start="{" data-end="};">
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="structFLootLockerListBlockedPlayersResponse.html">  147</a></span>struct <a class="code hl_struct" href="structFLootLockerListBlockedPlayersResponse.html">FLootLockerListBlockedPlayersResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>{</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="structFLootLockerListBlockedPlayersResponse.html#ac386a094a36ad1c3694c6612d19e610a">  152</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerBlockedPlayer.html">FLootLockerBlockedPlayer</a>&gt; Blocked;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="structFLootLockerListBlockedPlayersResponse.html#ad27a24ea70b7e0b877cbb38b6269e59a">  155</a></span>    <a class="code hl_struct" href="structFLootLockerExtendedIndexBasedPagination.html">FLootLockerExtendedIndexBasedPagination</a> Pagination;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>};</div>
+</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00160" data-start="{" data-end="};">
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno"><a class="line" href="structFLootLockerGetFriendResponse.html">  160</a></span>struct <a class="code hl_struct" href="structFLootLockerGetFriendResponse.html">FLootLockerGetFriendResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>{</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    </div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno"><a class="line" href="structFLootLockerGetFriendResponse.html#ae4b17d59746aacc7843115002c3acd20">  166</a></span>    FString <a class="code hl_enumvalue" href="group__Player.html#gga3ddeac62fd1e00996ae918cf2f732625aaa89ce023d01d1cf3dac349911fcfd5f">Player_id</a> = &quot;&quot;;</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;, meta = (DeprecatedProperty, DeprecationMessage=&quot;This property is deprecated. Use property `<a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987">Name</a>` instead.&quot;))</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno"><a class="line" href="structFLootLockerGetFriendResponse.html#a9eb84ca581763dd021dfde72b9a65295">  171</a></span>    FString <a class="code hl_enumvalue" href="group__Player.html#gga3ddeac62fd1e00996ae918cf2f732625a82d6915ffcb1d25a3eb03a4ed7a377c1">Player_name</a> = &quot;&quot;; <span class="comment">// Deprecation date 20260427</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;) </div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno"><a class="line" href="structFLootLockerGetFriendResponse.html#a2eab21ed76f46126e932511980a7beb7">  176</a></span>    FString <a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987">Name</a> = &quot;&quot;; </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno"><a class="line" href="structFLootLockerGetFriendResponse.html#a2530fba4f391af2a9ababe6a9bfc27c6">  179</a></span>    FString Public_uid = &quot;&quot;;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno"><a class="line" href="structFLootLockerGetFriendResponse.html#a8565461e32f7bb552b4f665c601a68b8">  182</a></span>    FString <a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea4e0b5c2418b622cb71664c2a3b615d77">Created_at</a> = &quot;&quot;;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="structFLootLockerGetFriendResponse.html#a260f4b0e9fe40bfd69753e586208ed81">  185</a></span>    FString Accepted_at = &quot;&quot;;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>};</div>
+</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="comment">// Delegate Definitions</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno"><a class="line" href="group__Friends.html#ga5a482bbddb3330e0a1860f7952dab12d">  195</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Friends.html#ga5a482bbddb3330e0a1860f7952dab12d">FLootLockerListFriendsResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerListFriendsResponse.html">FLootLockerListFriendsResponse</a>);</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno"><a class="line" href="group__Friends.html#ga4f40e98a153601be9fdd56ec5624b8bc">  197</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Friends.html#ga4f40e98a153601be9fdd56ec5624b8bc">FLootLockerListIncomingFriendRequestsResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerListIncomingFriendRequestsResponse.html">FLootLockerListIncomingFriendRequestsResponse</a>);</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno"><a class="line" href="group__Friends.html#ga0f945e610d7d725308e37133631c9f13">  199</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Friends.html#ga0f945e610d7d725308e37133631c9f13">FLootLockerListOutgoingFriendRequestsResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerListOutgoingFriendRequestsResponse.html">FLootLockerListOutgoingFriendRequestsResponse</a>);</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno"><a class="line" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">  201</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerFriendActionResponse.html">FLootLockerFriendActionResponse</a>);</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno"><a class="line" href="group__Friends.html#ga0e41cc7eee6f1a4f3f678fd82d0714e7">  203</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Friends.html#ga0e41cc7eee6f1a4f3f678fd82d0714e7">FLootLockerListBlockedPlayersResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerListBlockedPlayersResponse.html">FLootLockerListBlockedPlayersResponse</a>);</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno"><a class="line" href="group__Friends.html#ga861eb51a4e4e4a11e4d496a17a97b50a">  205</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Friends.html#ga861eb51a4e4e4a11e4d496a17a97b50a">FLootLockerGetFriendResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerGetFriendResponse.html">FLootLockerGetFriendResponse</a>);</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="comment">// API Class Definition</span></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>UCLASS()</div>
+<div class="foldopen" id="foldopen00214" data-start="{" data-end="};">
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno"><a class="line" href="classULootLockerFriendsRequestHandler.html">  214</a></span>class LOOTLOCKERSDK_API <a class="code hl_class" href="classULootLockerFriendsRequestHandler.html">ULootLockerFriendsRequestHandler</a> : public UObject</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>{</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno"><a class="line" href="classULootLockerFriendsRequestHandler.html#a97c798afcd04aad2d51f4a85af782e85">  218</a></span>    <a class="code hl_function" href="classULootLockerFriendsRequestHandler.html#a97c798afcd04aad2d51f4a85af782e85">ULootLockerFriendsRequestHandler</a>() {};</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno"><a class="line" href="classULootLockerFriendsRequestHandler.html#a86ee8447c59218afe033bf264a13ccd7">  220</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerFriendsRequestHandler.html#a86ee8447c59218afe033bf264a13ccd7">ListFriends</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Friends.html#ga5a482bbddb3330e0a1860f7952dab12d">FLootLockerListFriendsResponseDelegate</a>&amp; OnResponseCompleted);</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno"><a class="line" href="classULootLockerFriendsRequestHandler.html#a621aa6eb9de25330b80ec3b6236cd944">  221</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerFriendsRequestHandler.html#a621aa6eb9de25330b80ec3b6236cd944">ListFriendsPaginated</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, int32 Page, int32 PerPage, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Friends.html#ga5a482bbddb3330e0a1860f7952dab12d">FLootLockerListFriendsResponseDelegate</a>&amp; OnResponseCompleted);</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno"><a class="line" href="classULootLockerFriendsRequestHandler.html#a40d3be7b5855ba98c91bef3f9c80b591">  222</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerFriendsRequestHandler.html#a40d3be7b5855ba98c91bef3f9c80b591">ListFriendsByPlatform</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, ELootLockerPlatform Platform, int32 Page, int32 PerPage, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Friends.html#ga5a482bbddb3330e0a1860f7952dab12d">FLootLockerListFriendsResponseDelegate</a>&amp; OnResponseCompleted);</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno"><a class="line" href="classULootLockerFriendsRequestHandler.html#a5c353c43910d5aed8e3bfc5f888f0fcb">  224</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerFriendsRequestHandler.html#a5c353c43910d5aed8e3bfc5f888f0fcb">ListIncomingFriendRequests</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Friends.html#ga4f40e98a153601be9fdd56ec5624b8bc">FLootLockerListIncomingFriendRequestsResponseDelegate</a>&amp; OnResponseCompleted);</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno"><a class="line" href="classULootLockerFriendsRequestHandler.html#a87d9c2eb7024fdf1804b275729e817f1">  225</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerFriendsRequestHandler.html#a87d9c2eb7024fdf1804b275729e817f1">ListIncomingFriendRequestsPaginated</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, int32 Page, int32 PerPage, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Friends.html#ga4f40e98a153601be9fdd56ec5624b8bc">FLootLockerListIncomingFriendRequestsResponseDelegate</a>&amp; OnResponseCompleted);</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno"><a class="line" href="classULootLockerFriendsRequestHandler.html#af7f81ce372721058826f09dcbe4614ae">  227</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerFriendsRequestHandler.html#af7f81ce372721058826f09dcbe4614ae">ListOutgoingFriendRequests</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Friends.html#ga0f945e610d7d725308e37133631c9f13">FLootLockerListOutgoingFriendRequestsResponseDelegate</a>&amp; OnResponseCompleted);</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno"><a class="line" href="classULootLockerFriendsRequestHandler.html#a6237b95f6b13aea5e7d6aaa4dfc08e6d">  228</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerFriendsRequestHandler.html#a6237b95f6b13aea5e7d6aaa4dfc08e6d">ListOutgoingFriendRequestsPaginated</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, int32 Page, int32 PerPage, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Friends.html#ga0f945e610d7d725308e37133631c9f13">FLootLockerListOutgoingFriendRequestsResponseDelegate</a>&amp; OnResponseCompleted);</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno"><a class="line" href="classULootLockerFriendsRequestHandler.html#a55228d4a61f588dfa21da9597020c7ba">  230</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerFriendsRequestHandler.html#a55228d4a61f588dfa21da9597020c7ba">SendFriendRequest</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; PlayerULID, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a>&amp; OnResponseCompleted);</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno"><a class="line" href="classULootLockerFriendsRequestHandler.html#a85c8e7403207326a056ab0833aaf6c8f">  232</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerFriendsRequestHandler.html#a85c8e7403207326a056ab0833aaf6c8f">DeleteFriend</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; PlayerULID, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a>&amp; OnResponseCompleted);</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno"><a class="line" href="classULootLockerFriendsRequestHandler.html#af50323a499e90834137c2cfcf32ca670">  234</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerFriendsRequestHandler.html#af50323a499e90834137c2cfcf32ca670">CancelOutgoingFriendRequest</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; PlayerULID, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a>&amp; OnResponseCompleted);</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno"><a class="line" href="classULootLockerFriendsRequestHandler.html#a14fe9ce638441e6c286730c10051dba9">  236</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerFriendsRequestHandler.html#a14fe9ce638441e6c286730c10051dba9">AcceptIncomingFriendRequest</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; PlayerULID, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a>&amp; OnResponseCompleted);</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno"><a class="line" href="classULootLockerFriendsRequestHandler.html#aca80240325bf9f74b8d7f6ae3342ee56">  238</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerFriendsRequestHandler.html#aca80240325bf9f74b8d7f6ae3342ee56">DeclineIncomingFriendRequest</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; PlayerULID, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a>&amp; OnResponseCompleted);</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno"><a class="line" href="classULootLockerFriendsRequestHandler.html#abea01dc5573be0248c9ed75f0a39419d">  240</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerFriendsRequestHandler.html#abea01dc5573be0248c9ed75f0a39419d">ListBlockedPlayers</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Friends.html#ga0e41cc7eee6f1a4f3f678fd82d0714e7">FLootLockerListBlockedPlayersResponseDelegate</a>&amp; OnResponseCompleted);</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno"><a class="line" href="classULootLockerFriendsRequestHandler.html#a3508eebfa5f71a6f4c75bd4933298a0b">  241</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerFriendsRequestHandler.html#a3508eebfa5f71a6f4c75bd4933298a0b">ListBlockedPlayersPaginated</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, int32 Page, int32 PerPage, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Friends.html#ga0e41cc7eee6f1a4f3f678fd82d0714e7">FLootLockerListBlockedPlayersResponseDelegate</a>&amp; OnResponseCompleted);</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span> </div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno"><a class="line" href="classULootLockerFriendsRequestHandler.html#a81042ad7697fa1060e08dba9dec47d1f">  243</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerFriendsRequestHandler.html#a81042ad7697fa1060e08dba9dec47d1f">GetFriend</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; FriendUlid, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Friends.html#ga861eb51a4e4e4a11e4d496a17a97b50a">FLootLockerGetFriendResponseDelegate</a>&amp; OnResponseCompleted);</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno"><a class="line" href="classULootLockerFriendsRequestHandler.html#aac0afed42da8d53224a22eaacfb3c126">  245</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerFriendsRequestHandler.html#aac0afed42da8d53224a22eaacfb3c126">BlockPlayer</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; PlayerULID, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a>&amp; OnResponseCompleted);</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span> </div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno"><a class="line" href="classULootLockerFriendsRequestHandler.html#a248284865db0b599acb9231c0285182b">  247</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerFriendsRequestHandler.html#a248284865db0b599acb9231c0285182b">UnblockPlayer</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; PlayerULID, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a>&amp; OnResponseCompleted);</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>};</div>
+</div>
+<div class="ttc" id="aLootLockerPlayerData_8h_html"><div class="ttname"><a href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a></div></div>
+<div class="ttc" id="aLootLockerResponse_8h_html"><div class="ttname"><a href="LootLockerResponse_8h.html">LootLockerResponse.h</a></div></div>
+<div class="ttc" id="aclassULootLockerFriendsRequestHandler_html"><div class="ttname"><a href="classULootLockerFriendsRequestHandler.html">ULootLockerFriendsRequestHandler</a></div><div class="ttdef"><b>Definition</b> LootLockerFriendsRequestHandler.h:215</div></div>
+<div class="ttc" id="aclassULootLockerFriendsRequestHandler_html_a14fe9ce638441e6c286730c10051dba9"><div class="ttname"><a href="classULootLockerFriendsRequestHandler.html#a14fe9ce638441e6c286730c10051dba9">ULootLockerFriendsRequestHandler::AcceptIncomingFriendRequest</a></div><div class="ttdeci">static FString AcceptIncomingFriendRequest(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;PlayerULID, const FLootLockerFriendActionResponseDelegate &amp;OnResponseCompleted)</div></div>
+<div class="ttc" id="aclassULootLockerFriendsRequestHandler_html_a248284865db0b599acb9231c0285182b"><div class="ttname"><a href="classULootLockerFriendsRequestHandler.html#a248284865db0b599acb9231c0285182b">ULootLockerFriendsRequestHandler::UnblockPlayer</a></div><div class="ttdeci">static FString UnblockPlayer(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;PlayerULID, const FLootLockerFriendActionResponseDelegate &amp;OnResponseCompleted)</div></div>
+<div class="ttc" id="aclassULootLockerFriendsRequestHandler_html_a3508eebfa5f71a6f4c75bd4933298a0b"><div class="ttname"><a href="classULootLockerFriendsRequestHandler.html#a3508eebfa5f71a6f4c75bd4933298a0b">ULootLockerFriendsRequestHandler::ListBlockedPlayersPaginated</a></div><div class="ttdeci">static FString ListBlockedPlayersPaginated(const FLootLockerPlayerData &amp;PlayerData, int32 Page, int32 PerPage, const FLootLockerListBlockedPlayersResponseDelegate &amp;OnResponseCompleted)</div></div>
+<div class="ttc" id="aclassULootLockerFriendsRequestHandler_html_a40d3be7b5855ba98c91bef3f9c80b591"><div class="ttname"><a href="classULootLockerFriendsRequestHandler.html#a40d3be7b5855ba98c91bef3f9c80b591">ULootLockerFriendsRequestHandler::ListFriendsByPlatform</a></div><div class="ttdeci">static FString ListFriendsByPlatform(const FLootLockerPlayerData &amp;PlayerData, ELootLockerPlatform Platform, int32 Page, int32 PerPage, const FLootLockerListFriendsResponseDelegate &amp;OnResponseCompleted)</div></div>
+<div class="ttc" id="aclassULootLockerFriendsRequestHandler_html_a55228d4a61f588dfa21da9597020c7ba"><div class="ttname"><a href="classULootLockerFriendsRequestHandler.html#a55228d4a61f588dfa21da9597020c7ba">ULootLockerFriendsRequestHandler::SendFriendRequest</a></div><div class="ttdeci">static FString SendFriendRequest(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;PlayerULID, const FLootLockerFriendActionResponseDelegate &amp;OnResponseCompleted)</div></div>
+<div class="ttc" id="aclassULootLockerFriendsRequestHandler_html_a5c353c43910d5aed8e3bfc5f888f0fcb"><div class="ttname"><a href="classULootLockerFriendsRequestHandler.html#a5c353c43910d5aed8e3bfc5f888f0fcb">ULootLockerFriendsRequestHandler::ListIncomingFriendRequests</a></div><div class="ttdeci">static FString ListIncomingFriendRequests(const FLootLockerPlayerData &amp;PlayerData, const FLootLockerListIncomingFriendRequestsResponseDelegate &amp;OnResponseCompleted)</div></div>
+<div class="ttc" id="aclassULootLockerFriendsRequestHandler_html_a621aa6eb9de25330b80ec3b6236cd944"><div class="ttname"><a href="classULootLockerFriendsRequestHandler.html#a621aa6eb9de25330b80ec3b6236cd944">ULootLockerFriendsRequestHandler::ListFriendsPaginated</a></div><div class="ttdeci">static FString ListFriendsPaginated(const FLootLockerPlayerData &amp;PlayerData, int32 Page, int32 PerPage, const FLootLockerListFriendsResponseDelegate &amp;OnResponseCompleted)</div></div>
+<div class="ttc" id="aclassULootLockerFriendsRequestHandler_html_a6237b95f6b13aea5e7d6aaa4dfc08e6d"><div class="ttname"><a href="classULootLockerFriendsRequestHandler.html#a6237b95f6b13aea5e7d6aaa4dfc08e6d">ULootLockerFriendsRequestHandler::ListOutgoingFriendRequestsPaginated</a></div><div class="ttdeci">static FString ListOutgoingFriendRequestsPaginated(const FLootLockerPlayerData &amp;PlayerData, int32 Page, int32 PerPage, const FLootLockerListOutgoingFriendRequestsResponseDelegate &amp;OnResponseCompleted)</div></div>
+<div class="ttc" id="aclassULootLockerFriendsRequestHandler_html_a81042ad7697fa1060e08dba9dec47d1f"><div class="ttname"><a href="classULootLockerFriendsRequestHandler.html#a81042ad7697fa1060e08dba9dec47d1f">ULootLockerFriendsRequestHandler::GetFriend</a></div><div class="ttdeci">static FString GetFriend(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;FriendUlid, const FLootLockerGetFriendResponseDelegate &amp;OnResponseCompleted)</div></div>
+<div class="ttc" id="aclassULootLockerFriendsRequestHandler_html_a85c8e7403207326a056ab0833aaf6c8f"><div class="ttname"><a href="classULootLockerFriendsRequestHandler.html#a85c8e7403207326a056ab0833aaf6c8f">ULootLockerFriendsRequestHandler::DeleteFriend</a></div><div class="ttdeci">static FString DeleteFriend(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;PlayerULID, const FLootLockerFriendActionResponseDelegate &amp;OnResponseCompleted)</div></div>
+<div class="ttc" id="aclassULootLockerFriendsRequestHandler_html_a86ee8447c59218afe033bf264a13ccd7"><div class="ttname"><a href="classULootLockerFriendsRequestHandler.html#a86ee8447c59218afe033bf264a13ccd7">ULootLockerFriendsRequestHandler::ListFriends</a></div><div class="ttdeci">static FString ListFriends(const FLootLockerPlayerData &amp;PlayerData, const FLootLockerListFriendsResponseDelegate &amp;OnResponseCompleted)</div></div>
+<div class="ttc" id="aclassULootLockerFriendsRequestHandler_html_a87d9c2eb7024fdf1804b275729e817f1"><div class="ttname"><a href="classULootLockerFriendsRequestHandler.html#a87d9c2eb7024fdf1804b275729e817f1">ULootLockerFriendsRequestHandler::ListIncomingFriendRequestsPaginated</a></div><div class="ttdeci">static FString ListIncomingFriendRequestsPaginated(const FLootLockerPlayerData &amp;PlayerData, int32 Page, int32 PerPage, const FLootLockerListIncomingFriendRequestsResponseDelegate &amp;OnResponseCompleted)</div></div>
+<div class="ttc" id="aclassULootLockerFriendsRequestHandler_html_a97c798afcd04aad2d51f4a85af782e85"><div class="ttname"><a href="classULootLockerFriendsRequestHandler.html#a97c798afcd04aad2d51f4a85af782e85">ULootLockerFriendsRequestHandler::ULootLockerFriendsRequestHandler</a></div><div class="ttdeci">ULootLockerFriendsRequestHandler()</div><div class="ttdef"><b>Definition</b> LootLockerFriendsRequestHandler.h:218</div></div>
+<div class="ttc" id="aclassULootLockerFriendsRequestHandler_html_aac0afed42da8d53224a22eaacfb3c126"><div class="ttname"><a href="classULootLockerFriendsRequestHandler.html#aac0afed42da8d53224a22eaacfb3c126">ULootLockerFriendsRequestHandler::BlockPlayer</a></div><div class="ttdeci">static FString BlockPlayer(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;PlayerULID, const FLootLockerFriendActionResponseDelegate &amp;OnResponseCompleted)</div></div>
+<div class="ttc" id="aclassULootLockerFriendsRequestHandler_html_abea01dc5573be0248c9ed75f0a39419d"><div class="ttname"><a href="classULootLockerFriendsRequestHandler.html#abea01dc5573be0248c9ed75f0a39419d">ULootLockerFriendsRequestHandler::ListBlockedPlayers</a></div><div class="ttdeci">static FString ListBlockedPlayers(const FLootLockerPlayerData &amp;PlayerData, const FLootLockerListBlockedPlayersResponseDelegate &amp;OnResponseCompleted)</div></div>
+<div class="ttc" id="aclassULootLockerFriendsRequestHandler_html_aca80240325bf9f74b8d7f6ae3342ee56"><div class="ttname"><a href="classULootLockerFriendsRequestHandler.html#aca80240325bf9f74b8d7f6ae3342ee56">ULootLockerFriendsRequestHandler::DeclineIncomingFriendRequest</a></div><div class="ttdeci">static FString DeclineIncomingFriendRequest(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;PlayerULID, const FLootLockerFriendActionResponseDelegate &amp;OnResponseCompleted)</div></div>
+<div class="ttc" id="aclassULootLockerFriendsRequestHandler_html_af50323a499e90834137c2cfcf32ca670"><div class="ttname"><a href="classULootLockerFriendsRequestHandler.html#af50323a499e90834137c2cfcf32ca670">ULootLockerFriendsRequestHandler::CancelOutgoingFriendRequest</a></div><div class="ttdeci">static FString CancelOutgoingFriendRequest(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;PlayerULID, const FLootLockerFriendActionResponseDelegate &amp;OnResponseCompleted)</div></div>
+<div class="ttc" id="aclassULootLockerFriendsRequestHandler_html_af7f81ce372721058826f09dcbe4614ae"><div class="ttname"><a href="classULootLockerFriendsRequestHandler.html#af7f81ce372721058826f09dcbe4614ae">ULootLockerFriendsRequestHandler::ListOutgoingFriendRequests</a></div><div class="ttdeci">static FString ListOutgoingFriendRequests(const FLootLockerPlayerData &amp;PlayerData, const FLootLockerListOutgoingFriendRequestsResponseDelegate &amp;OnResponseCompleted)</div></div>
+<div class="ttc" id="agroup__Assets_html_gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987"><div class="ttname"><a href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987">ELootLockerOrderAssetListBy::Name</a></div><div class="ttdeci">@ Name</div></div>
+<div class="ttc" id="agroup__Assets_html_gga2b2f1454f93df8f92665e355ce9b179ea4e0b5c2418b622cb71664c2a3b615d77"><div class="ttname"><a href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea4e0b5c2418b622cb71664c2a3b615d77">ELootLockerOrderAssetListBy::Created_at</a></div><div class="ttdeci">@ Created_at</div></div>
+<div class="ttc" id="agroup__Friends_html_ga0e41cc7eee6f1a4f3f678fd82d0714e7"><div class="ttname"><a href="group__Friends.html#ga0e41cc7eee6f1a4f3f678fd82d0714e7">FLootLockerListBlockedPlayersResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerListBlockedPlayersResponseDelegate)(FLootLockerListBlockedPlayersResponse)</div><div class="ttdoc">C++ response delegate for listing blocked players.</div><div class="ttdef"><b>Definition</b> LootLockerFriendsRequestHandler.h:203</div></div>
+<div class="ttc" id="agroup__Friends_html_ga0f945e610d7d725308e37133631c9f13"><div class="ttname"><a href="group__Friends.html#ga0f945e610d7d725308e37133631c9f13">FLootLockerListOutgoingFriendRequestsResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerListOutgoingFriendRequestsResponseDelegate)(FLootLockerListOutgoingFriendRequestsResponse)</div><div class="ttdoc">C++ response delegate for listing outgoing friend requests.</div><div class="ttdef"><b>Definition</b> LootLockerFriendsRequestHandler.h:199</div></div>
+<div class="ttc" id="agroup__Friends_html_ga4f40e98a153601be9fdd56ec5624b8bc"><div class="ttname"><a href="group__Friends.html#ga4f40e98a153601be9fdd56ec5624b8bc">FLootLockerListIncomingFriendRequestsResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerListIncomingFriendRequestsResponseDelegate)(FLootLockerListIncomingFriendRequestsResponse)</div><div class="ttdoc">C++ response delegate for listing incoming friend requests.</div><div class="ttdef"><b>Definition</b> LootLockerFriendsRequestHandler.h:197</div></div>
+<div class="ttc" id="agroup__Friends_html_ga5a482bbddb3330e0a1860f7952dab12d"><div class="ttname"><a href="group__Friends.html#ga5a482bbddb3330e0a1860f7952dab12d">FLootLockerListFriendsResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerListFriendsResponseDelegate)(FLootLockerListFriendsResponse)</div><div class="ttdef"><b>Definition</b> LootLockerFriendsRequestHandler.h:195</div></div>
+<div class="ttc" id="agroup__Friends_html_ga861eb51a4e4e4a11e4d496a17a97b50a"><div class="ttname"><a href="group__Friends.html#ga861eb51a4e4e4a11e4d496a17a97b50a">FLootLockerGetFriendResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerGetFriendResponseDelegate)(FLootLockerGetFriendResponse)</div><div class="ttdoc">C++ response delegate for getting a friend.</div><div class="ttdef"><b>Definition</b> LootLockerFriendsRequestHandler.h:205</div></div>
+<div class="ttc" id="agroup__Friends_html_gad6b34954c6adeec08555e79cd0c0ae6e"><div class="ttname"><a href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerFriendActionResponseDelegate)(FLootLockerFriendActionResponse)</div><div class="ttdoc">C++ response delegate for actions taken towards the friends list.</div><div class="ttdef"><b>Definition</b> LootLockerFriendsRequestHandler.h:201</div></div>
+<div class="ttc" id="agroup__Player_html_gga3ddeac62fd1e00996ae918cf2f732625a82d6915ffcb1d25a3eb03a4ed7a377c1"><div class="ttname"><a href="group__Player.html#gga3ddeac62fd1e00996ae918cf2f732625a82d6915ffcb1d25a3eb03a4ed7a377c1">ELootLockerPlayerDataLookupIdType::Player_name</a></div><div class="ttdeci">@ Player_name</div></div>
+<div class="ttc" id="agroup__Player_html_gga3ddeac62fd1e00996ae918cf2f732625aaa89ce023d01d1cf3dac349911fcfd5f"><div class="ttname"><a href="group__Player.html#gga3ddeac62fd1e00996ae918cf2f732625aaa89ce023d01d1cf3dac349911fcfd5f">ELootLockerPlayerDataLookupIdType::Player_id</a></div><div class="ttdeci">@ Player_id</div></div>
+<div class="ttc" id="astructFLootLockerAcceptedFriend_html"><div class="ttname"><a href="structFLootLockerAcceptedFriend.html">FLootLockerAcceptedFriend</a></div><div class="ttdoc">Represents a single friend.</div><div class="ttdef"><b>Definition</b> LootLockerFriendsRequestHandler.h:54</div></div>
+<div class="ttc" id="astructFLootLockerBlockedPlayer_html"><div class="ttname"><a href="structFLootLockerBlockedPlayer.html">FLootLockerBlockedPlayer</a></div><div class="ttdoc">Represents a single blocked player.</div><div class="ttdef"><b>Definition</b> LootLockerFriendsRequestHandler.h:74</div></div>
+<div class="ttc" id="astructFLootLockerExtendedIndexBasedPagination_html"><div class="ttname"><a href="structFLootLockerExtendedIndexBasedPagination.html">FLootLockerExtendedIndexBasedPagination</a></div><div class="ttdef"><b>Definition</b> LootLockerResponse.h:101</div></div>
+<div class="ttc" id="astructFLootLockerFriendActionResponse_html"><div class="ttname"><a href="structFLootLockerFriendActionResponse.html">FLootLockerFriendActionResponse</a></div><div class="ttdef"><b>Definition</b> LootLockerFriendsRequestHandler.h:142</div></div>
+<div class="ttc" id="astructFLootLockerFriend_html"><div class="ttname"><a href="structFLootLockerFriend.html">FLootLockerFriend</a></div><div class="ttdoc">Represents a single friend.</div><div class="ttdef"><b>Definition</b> LootLockerFriendsRequestHandler.h:18</div></div>
+<div class="ttc" id="astructFLootLockerGetFriendResponse_html"><div class="ttname"><a href="structFLootLockerGetFriendResponse.html">FLootLockerGetFriendResponse</a></div><div class="ttdoc">Response struct for getting a single friend.</div><div class="ttdef"><b>Definition</b> LootLockerFriendsRequestHandler.h:161</div></div>
+<div class="ttc" id="astructFLootLockerListBlockedPlayersResponse_html"><div class="ttname"><a href="structFLootLockerListBlockedPlayersResponse.html">FLootLockerListBlockedPlayersResponse</a></div><div class="ttdef"><b>Definition</b> LootLockerFriendsRequestHandler.h:148</div></div>
+<div class="ttc" id="astructFLootLockerListFriendsResponse_html"><div class="ttname"><a href="structFLootLockerListFriendsResponse.html">FLootLockerListFriendsResponse</a></div><div class="ttdoc">Response struct for listing friends.</div><div class="ttdef"><b>Definition</b> LootLockerFriendsRequestHandler.h:100</div></div>
+<div class="ttc" id="astructFLootLockerListIncomingFriendRequestsResponse_html"><div class="ttname"><a href="structFLootLockerListIncomingFriendRequestsResponse.html">FLootLockerListIncomingFriendRequestsResponse</a></div><div class="ttdoc">Response struct for listing incoming friend requests.</div><div class="ttdef"><b>Definition</b> LootLockerFriendsRequestHandler.h:115</div></div>
+<div class="ttc" id="astructFLootLockerListOutgoingFriendRequestsResponse_html"><div class="ttname"><a href="structFLootLockerListOutgoingFriendRequestsResponse.html">FLootLockerListOutgoingFriendRequestsResponse</a></div><div class="ttdoc">Response struct for listing outgoing friend requests.</div><div class="ttdef"><b>Definition</b> LootLockerFriendsRequestHandler.h:130</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html"><div class="ttname"><a href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a></div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:12</div></div>
+<div class="ttc" id="astructFLootLockerResponse_html"><div class="ttname"><a href="structFLootLockerResponse.html">FLootLockerResponse</a></div><div class="ttdoc">Base response struct — every SDK callback receives a struct that derives from this.</div><div class="ttdef"><b>Definition</b> LootLockerResponse.h:19</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_426131f2e7e3782155028ac49ab5e11c.html">LootLockerSDK</a></li><li class="navelem"><a class="el" href="dir_63662f8d869795fbcfe09e29de292894.html">Source</a></li><li class="navelem"><a class="el" href="dir_529bffb88e47999e071ca27db50fed71.html">LootLockerSDK</a></li><li class="navelem"><a class="el" href="dir_6800d9c9fc95b443eb5325340bc06d03.html">Public</a></li><li class="navelem"><a class="el" href="dir_c4276055a6e8dd41429ac8d6d68c790b.html">GameAPI</a></li><li class="navelem"><a class="el" href="LootLockerFriendsRequestHandler_8h.html">LootLockerFriendsRequestHandler.h</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

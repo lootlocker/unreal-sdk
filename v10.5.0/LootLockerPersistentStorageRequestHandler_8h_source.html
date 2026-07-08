@@ -1,0 +1,330 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: LootLockerSDK/Source/LootLockerSDK/Public/GameAPI/LootLockerPersistentStorageRequestHandler.h Source File</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('LootLockerPersistentStorageRequestHandler_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LootLockerPersistentStorageRequestHandler.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="LootLockerPersistentStorageRequestHandler_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright (c) 2021 LootLocker</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerResponse_8h.html">LootLockerResponse.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;JsonObjectConverter.h&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;LootLockerPersistentStorageRequestHandler.generated.h&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00013" data-start="{" data-end="};">
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="structFLootLockerPersistentStorageItem.html">   13</a></span>struct <a class="code hl_struct" href="structFLootLockerPersistentStorageItem.html">FLootLockerPersistentStorageItem</a> {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="structFLootLockerPersistentStorageItem.html#aa347533f4fdb8325101069a7ce58dedb">   16</a></span>    FString key = &quot;&quot;;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="structFLootLockerPersistentStorageItem.html#a47d992b07cdba655890dd24a9e4fe19d">   18</a></span>    FString value = &quot;&quot;;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="structFLootLockerPersistentStorageItem.html#a06a8a846726a9fc7f8c5a7e735ffdfb7">   20</a></span>    <span class="keywordtype">bool</span> is_public = false;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="structFLootLockerPersistentStorageItem.html#ad2c14f0984a5926a212e208fb06343f2">   22</a></span>    <span class="keywordtype">int</span> order = 0;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>};</div>
+</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="structFLootLockerPersistentStorageItems.html">   26</a></span>struct <a class="code hl_struct" href="structFLootLockerPersistentStorageItems.html">FLootLockerPersistentStorageItems</a> {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="structFLootLockerPersistentStorageItems.html#a10a609ab7b8ca19f67e55970d91ad66b">   29</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerPersistentStorageItem.html">FLootLockerPersistentStorageItem</a>&gt; payload;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>};</div>
+</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00034" data-start="{" data-end="};">
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structFLootLockerPersistentStorageItemsResponse.html">   34</a></span>struct <a class="code hl_struct" href="structFLootLockerPersistentStorageItemsResponse.html">FLootLockerPersistentStorageItemsResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>{</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="structFLootLockerPersistentStorageItemsResponse.html#a74919ea114838e69430b9d1812db21c8">   38</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerPersistentStorageItem.html">FLootLockerPersistentStorageItem</a>&gt; payload;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="structFLootLockerPersistentStorageItemsResponse.html#a44ddfa3b3356ffe4c3c6100b437a5ad2">   39</a></span>    TMap&lt;FString, FString&gt; Map;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>};</div>
+</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00043" data-start="{" data-end="};">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="structFLootLockerPersistentStorageItemResponse.html">   43</a></span>struct <a class="code hl_struct" href="structFLootLockerPersistentStorageItemResponse.html">FLootLockerPersistentStorageItemResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>{</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="structFLootLockerPersistentStorageItemResponse.html#a623fd89dfb763eed6bd68b1d211aee00">   47</a></span>    <a class="code hl_struct" href="structFLootLockerPersistentStorageItem.html">FLootLockerPersistentStorageItem</a> payload;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>};</div>
+</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="group__PlayerStorage.html#gaa065f16ef595f865ff7cb3f305c77334">   53</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__PlayerStorage.html#gaa065f16ef595f865ff7cb3f305c77334">FPersistentStorageItemsResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerPersistentStorageItemsResponse.html">FLootLockerPersistentStorageItemsResponse</a>);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="group__PlayerStorage.html#ga6da4ae37e121a8fea8b51aeb266c2630">   55</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__PlayerStorage.html#ga6da4ae37e121a8fea8b51aeb266c2630">FPersistentStorageItemResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerPersistentStorageItemResponse.html">FLootLockerPersistentStorageItemResponse</a>);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>UCLASS()</div>
+<div class="foldopen" id="foldopen00062" data-start="{" data-end="};">
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="classULootLockerPersistentStorageRequestHandler.html">   62</a></span>class LOOTLOCKERSDK_API <a class="code hl_class" href="classULootLockerPersistentStorageRequestHandler.html">ULootLockerPersistentStorageRequestHandler</a> : public UObject</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>{</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="classULootLockerPersistentStorageRequestHandler.html#a6108dace6f89dbe5e4e4988e67ca37da">   67</a></span>    <a class="code hl_class" href="classULootLockerPersistentStorageRequestHandler.html">ULootLockerPersistentStorageRequestHandler</a>() {};</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="classULootLockerPersistentStorageRequestHandler.html#ad4d4a43ab4fa54016e1f6f59101d2384">   69</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerPersistentStorageRequestHandler.html#ad4d4a43ab4fa54016e1f6f59101d2384">GetEntirePersistentStorage</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_typedef" href="group__PlayerStorage.html#gaa065f16ef595f865ff7cb3f305c77334">FPersistentStorageItemsResponseDelegate</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="classULootLockerPersistentStorageRequestHandler.html#abad69099c6685067aeed10c09ffe6778">   71</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerPersistentStorageRequestHandler.html#abad69099c6685067aeed10c09ffe6778">GetItemFromPersistentStorage</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; Key, <span class="keyword">const</span> <a class="code hl_typedef" href="group__PlayerStorage.html#ga6da4ae37e121a8fea8b51aeb266c2630">FPersistentStorageItemResponseDelegate</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="classULootLockerPersistentStorageRequestHandler.html#ac5231adfe2f4efb913c3737ca64539f8">   73</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerPersistentStorageRequestHandler.html#ac5231adfe2f4efb913c3737ca64539f8">AddItemsToPersistentStorage</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPersistentStorageItems.html">FLootLockerPersistentStorageItems</a>&amp; Items, <span class="keyword">const</span> <a class="code hl_typedef" href="group__PlayerStorage.html#gaa065f16ef595f865ff7cb3f305c77334">FPersistentStorageItemsResponseDelegate</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="classULootLockerPersistentStorageRequestHandler.html#a9327eaef989be64beedca7ae8eef3a52">   75</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerPersistentStorageRequestHandler.html#a9327eaef989be64beedca7ae8eef3a52">AddItemToPersistentStorage</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPersistentStorageItem.html">FLootLockerPersistentStorageItem</a>&amp; Item, <span class="keyword">const</span> <a class="code hl_typedef" href="group__PlayerStorage.html#ga6da4ae37e121a8fea8b51aeb266c2630">FPersistentStorageItemResponseDelegate</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="classULootLockerPersistentStorageRequestHandler.html#ab0b5c517f9bdc7c911e98ecb06e2532d">   77</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerPersistentStorageRequestHandler.html#ab0b5c517f9bdc7c911e98ecb06e2532d">DeleteItemFromPersistentStorage</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; Key, <span class="keyword">const</span> <a class="code hl_typedef" href="group__PlayerStorage.html#gaa065f16ef595f865ff7cb3f305c77334">FPersistentStorageItemsResponseDelegate</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="classULootLockerPersistentStorageRequestHandler.html#aef46407a375262ca175c82651b5c3387">   79</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerPersistentStorageRequestHandler.html#aef46407a375262ca175c82651b5c3387">GetPlayerPersistentStorage</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; PlayerId, <span class="keyword">const</span> <a class="code hl_typedef" href="group__PlayerStorage.html#gaa065f16ef595f865ff7cb3f305c77334">FPersistentStorageItemsResponseDelegate</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>};</div>
+</div>
+<div class="ttc" id="aLootLockerPlayerData_8h_html"><div class="ttname"><a href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a></div></div>
+<div class="ttc" id="aLootLockerResponse_8h_html"><div class="ttname"><a href="LootLockerResponse_8h.html">LootLockerResponse.h</a></div></div>
+<div class="ttc" id="aclassULootLockerPersistentStorageRequestHandler_html"><div class="ttname"><a href="classULootLockerPersistentStorageRequestHandler.html">ULootLockerPersistentStorageRequestHandler</a></div><div class="ttdef"><b>Definition</b> LootLockerPersistentStorageRequestHandler.h:63</div></div>
+<div class="ttc" id="aclassULootLockerPersistentStorageRequestHandler_html_a9327eaef989be64beedca7ae8eef3a52"><div class="ttname"><a href="classULootLockerPersistentStorageRequestHandler.html#a9327eaef989be64beedca7ae8eef3a52">ULootLockerPersistentStorageRequestHandler::AddItemToPersistentStorage</a></div><div class="ttdeci">static FString AddItemToPersistentStorage(const FLootLockerPlayerData &amp;PlayerData, const FLootLockerPersistentStorageItem &amp;Item, const FPersistentStorageItemResponseDelegate &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerPersistentStorageRequestHandler_html_ab0b5c517f9bdc7c911e98ecb06e2532d"><div class="ttname"><a href="classULootLockerPersistentStorageRequestHandler.html#ab0b5c517f9bdc7c911e98ecb06e2532d">ULootLockerPersistentStorageRequestHandler::DeleteItemFromPersistentStorage</a></div><div class="ttdeci">static FString DeleteItemFromPersistentStorage(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;Key, const FPersistentStorageItemsResponseDelegate &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerPersistentStorageRequestHandler_html_abad69099c6685067aeed10c09ffe6778"><div class="ttname"><a href="classULootLockerPersistentStorageRequestHandler.html#abad69099c6685067aeed10c09ffe6778">ULootLockerPersistentStorageRequestHandler::GetItemFromPersistentStorage</a></div><div class="ttdeci">static FString GetItemFromPersistentStorage(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;Key, const FPersistentStorageItemResponseDelegate &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerPersistentStorageRequestHandler_html_ac5231adfe2f4efb913c3737ca64539f8"><div class="ttname"><a href="classULootLockerPersistentStorageRequestHandler.html#ac5231adfe2f4efb913c3737ca64539f8">ULootLockerPersistentStorageRequestHandler::AddItemsToPersistentStorage</a></div><div class="ttdeci">static FString AddItemsToPersistentStorage(const FLootLockerPlayerData &amp;PlayerData, const FLootLockerPersistentStorageItems &amp;Items, const FPersistentStorageItemsResponseDelegate &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerPersistentStorageRequestHandler_html_ad4d4a43ab4fa54016e1f6f59101d2384"><div class="ttname"><a href="classULootLockerPersistentStorageRequestHandler.html#ad4d4a43ab4fa54016e1f6f59101d2384">ULootLockerPersistentStorageRequestHandler::GetEntirePersistentStorage</a></div><div class="ttdeci">static FString GetEntirePersistentStorage(const FLootLockerPlayerData &amp;PlayerData, const FPersistentStorageItemsResponseDelegate &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerPersistentStorageRequestHandler_html_aef46407a375262ca175c82651b5c3387"><div class="ttname"><a href="classULootLockerPersistentStorageRequestHandler.html#aef46407a375262ca175c82651b5c3387">ULootLockerPersistentStorageRequestHandler::GetPlayerPersistentStorage</a></div><div class="ttdeci">static FString GetPlayerPersistentStorage(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;PlayerId, const FPersistentStorageItemsResponseDelegate &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="agroup__PlayerStorage_html_ga6da4ae37e121a8fea8b51aeb266c2630"><div class="ttname"><a href="group__PlayerStorage.html#ga6da4ae37e121a8fea8b51aeb266c2630">FPersistentStorageItemResponseDelegate</a></div><div class="ttdeci">void(* FPersistentStorageItemResponseDelegate)(FLootLockerPersistentStorageItemResponse)</div><div class="ttdoc">C++ response callback delegate; receives an FLootLockerPersistentStorageItemResponse result.</div><div class="ttdef"><b>Definition</b> LootLockerPersistentStorageRequestHandler.h:55</div></div>
+<div class="ttc" id="agroup__PlayerStorage_html_gaa065f16ef595f865ff7cb3f305c77334"><div class="ttname"><a href="group__PlayerStorage.html#gaa065f16ef595f865ff7cb3f305c77334">FPersistentStorageItemsResponseDelegate</a></div><div class="ttdeci">void(* FPersistentStorageItemsResponseDelegate)(FLootLockerPersistentStorageItemsResponse)</div><div class="ttdoc">C++ response callback delegate; receives an FLootLockerPersistentStorageItemsResponse result.</div><div class="ttdef"><b>Definition</b> LootLockerPersistentStorageRequestHandler.h:53</div></div>
+<div class="ttc" id="astructFLootLockerPersistentStorageItemResponse_html"><div class="ttname"><a href="structFLootLockerPersistentStorageItemResponse.html">FLootLockerPersistentStorageItemResponse</a></div><div class="ttdef"><b>Definition</b> LootLockerPersistentStorageRequestHandler.h:44</div></div>
+<div class="ttc" id="astructFLootLockerPersistentStorageItem_html"><div class="ttname"><a href="structFLootLockerPersistentStorageItem.html">FLootLockerPersistentStorageItem</a></div><div class="ttdef"><b>Definition</b> LootLockerPersistentStorageRequestHandler.h:13</div></div>
+<div class="ttc" id="astructFLootLockerPersistentStorageItemsResponse_html"><div class="ttname"><a href="structFLootLockerPersistentStorageItemsResponse.html">FLootLockerPersistentStorageItemsResponse</a></div><div class="ttdef"><b>Definition</b> LootLockerPersistentStorageRequestHandler.h:35</div></div>
+<div class="ttc" id="astructFLootLockerPersistentStorageItems_html"><div class="ttname"><a href="structFLootLockerPersistentStorageItems.html">FLootLockerPersistentStorageItems</a></div><div class="ttdef"><b>Definition</b> LootLockerPersistentStorageRequestHandler.h:26</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html"><div class="ttname"><a href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a></div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:12</div></div>
+<div class="ttc" id="astructFLootLockerResponse_html"><div class="ttname"><a href="structFLootLockerResponse.html">FLootLockerResponse</a></div><div class="ttdoc">Base response struct — every SDK callback receives a struct that derives from this.</div><div class="ttdef"><b>Definition</b> LootLockerResponse.h:19</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_426131f2e7e3782155028ac49ab5e11c.html">LootLockerSDK</a></li><li class="navelem"><a class="el" href="dir_63662f8d869795fbcfe09e29de292894.html">Source</a></li><li class="navelem"><a class="el" href="dir_529bffb88e47999e071ca27db50fed71.html">LootLockerSDK</a></li><li class="navelem"><a class="el" href="dir_6800d9c9fc95b443eb5325340bc06d03.html">Public</a></li><li class="navelem"><a class="el" href="dir_c4276055a6e8dd41429ac8d6d68c790b.html">GameAPI</a></li><li class="navelem"><a class="el" href="LootLockerPersistentStorageRequestHandler_8h.html">LootLockerPersistentStorageRequestHandler.h</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

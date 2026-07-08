@@ -1,0 +1,1252 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: FLootLockerMetadataEntry Struct Reference</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('structFLootLockerMetadataEntry.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-attribs">Data Fields</a>  </div>
+  <div class="headertitle"><div class="title">FLootLockerMetadataEntry Struct Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Represents a single typed metadata entry with a key, value type, tags, and access level, along with helper methods for reading and writing the value.  
+ <a href="structFLootLockerMetadataEntry.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="LootLockerMetadataRequestHandler_8h_source.html">LootLockerMetadataRequestHandler.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a3dec984a9da60573924064ea7d9a6d73" id="r_a3dec984a9da60573924064ea7d9a6d73"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#a3dec984a9da60573924064ea7d9a6d73">TryGetValueAsString</a> (FString &amp;Output) const</td></tr>
+<tr class="memdesc:a3dec984a9da60573924064ea7d9a6d73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value as a String.  <br /></td></tr>
+<tr class="separator:a3dec984a9da60573924064ea7d9a6d73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab3da81a7344c2a98d868660c4fbf59f" id="r_aab3da81a7344c2a98d868660c4fbf59f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#aab3da81a7344c2a98d868660c4fbf59f">TryGetValueAsFloat</a> (float &amp;Output) const</td></tr>
+<tr class="memdesc:aab3da81a7344c2a98d868660c4fbf59f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value as a float.  <br /></td></tr>
+<tr class="separator:aab3da81a7344c2a98d868660c4fbf59f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb8797d9ad8bbeb8c335b2a267640c87" id="r_acb8797d9ad8bbeb8c335b2a267640c87"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#acb8797d9ad8bbeb8c335b2a267640c87">TryGetValueAsInteger</a> (int &amp;Output) const</td></tr>
+<tr class="memdesc:acb8797d9ad8bbeb8c335b2a267640c87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value as an integer.  <br /></td></tr>
+<tr class="separator:acb8797d9ad8bbeb8c335b2a267640c87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07a3f1f1c38533592933d1b02aa438a9" id="r_a07a3f1f1c38533592933d1b02aa438a9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#a07a3f1f1c38533592933d1b02aa438a9">TryGetValueAsBool</a> (bool &amp;Output) const</td></tr>
+<tr class="memdesc:a07a3f1f1c38533592933d1b02aa438a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value as a boolean.  <br /></td></tr>
+<tr class="separator:a07a3f1f1c38533592933d1b02aa438a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76a47cd312b66900cf7eca7766992739" id="r_a76a47cd312b66900cf7eca7766992739"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#a76a47cd312b66900cf7eca7766992739">TryGetRawValue</a> (TSharedPtr&lt; FJsonValue &gt; &amp;Output) const</td></tr>
+<tr class="memdesc:a76a47cd312b66900cf7eca7766992739"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value as an unparsed json value.  <br /></td></tr>
+<tr class="separator:a76a47cd312b66900cf7eca7766992739"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90eb265b1844188dd18f780106620e38" id="r_a90eb265b1844188dd18f780106620e38"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#a90eb265b1844188dd18f780106620e38">TryGetSerializedValue</a> (FString &amp;Output) const</td></tr>
+<tr class="memdesc:a90eb265b1844188dd18f780106620e38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value in a json string format.  <br /></td></tr>
+<tr class="separator:a90eb265b1844188dd18f780106620e38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae416ceabf6abaf8fb2e0721b5bd56627" id="r_ae416ceabf6abaf8fb2e0721b5bd56627"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#ae416ceabf6abaf8fb2e0721b5bd56627">TryGetValueAsJsonObject</a> (TSharedPtr&lt; FJsonObject &gt; &amp;Output) const</td></tr>
+<tr class="memdesc:ae416ceabf6abaf8fb2e0721b5bd56627"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value as a Json Object.  <br /></td></tr>
+<tr class="separator:ae416ceabf6abaf8fb2e0721b5bd56627"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1502b696bb70742843802bababe26635" id="r_a1502b696bb70742843802bababe26635"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#a1502b696bb70742843802bababe26635">TryGetValueAsJsonArray</a> (TArray&lt; TSharedPtr&lt; FJsonValue &gt; &gt; &amp;Output) const</td></tr>
+<tr class="memdesc:a1502b696bb70742843802bababe26635"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value as a Json Array.  <br /></td></tr>
+<tr class="separator:a1502b696bb70742843802bababe26635"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5b9ec3cc478583aca434200879bc379" id="r_af5b9ec3cc478583aca434200879bc379"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#af5b9ec3cc478583aca434200879bc379">TryGetValueAsBase64</a> (<a class="el" href="structFLootLockerMetadataBase64Value.html">FLootLockerMetadataBase64Value</a> &amp;Output) const</td></tr>
+<tr class="memdesc:af5b9ec3cc478583aca434200879bc379"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value as a LootLockerMetadataBase64Value object.  <br /></td></tr>
+<tr class="separator:af5b9ec3cc478583aca434200879bc379"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0895ce007f557eb8d88f56421f330a0" id="r_ae0895ce007f557eb8d88f56421f330a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#ae0895ce007f557eb8d88f56421f330a0">SetValueAsString</a> (const FString &amp;Value)</td></tr>
+<tr class="memdesc:ae0895ce007f557eb8d88f56421f330a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value as a String.  <br /></td></tr>
+<tr class="separator:ae0895ce007f557eb8d88f56421f330a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7aca11b4ba717477dedc9fbfe902b859" id="r_a7aca11b4ba717477dedc9fbfe902b859"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#a7aca11b4ba717477dedc9fbfe902b859">SetValueAsFloat</a> (const float &amp;Value)</td></tr>
+<tr class="memdesc:a7aca11b4ba717477dedc9fbfe902b859"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value as a float.  <br /></td></tr>
+<tr class="separator:a7aca11b4ba717477dedc9fbfe902b859"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa95f0bfd5f95891bde54f1018955e949" id="r_aa95f0bfd5f95891bde54f1018955e949"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#aa95f0bfd5f95891bde54f1018955e949">SetValueAsInteger</a> (const int &amp;Value)</td></tr>
+<tr class="memdesc:aa95f0bfd5f95891bde54f1018955e949"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value as an integer.  <br /></td></tr>
+<tr class="separator:aa95f0bfd5f95891bde54f1018955e949"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accb845a407e74f8d2fecc03a96cccd02" id="r_accb845a407e74f8d2fecc03a96cccd02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#accb845a407e74f8d2fecc03a96cccd02">SetValueAsBool</a> (const bool &amp;Value)</td></tr>
+<tr class="memdesc:accb845a407e74f8d2fecc03a96cccd02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value as a bool.  <br /></td></tr>
+<tr class="separator:accb845a407e74f8d2fecc03a96cccd02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2a7abe4f6f356f01853eb3664f54c0b" id="r_ac2a7abe4f6f356f01853eb3664f54c0b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#ac2a7abe4f6f356f01853eb3664f54c0b">SetRawValue</a> (const TSharedPtr&lt; FJsonValue &gt; &amp;Value)</td></tr>
+<tr class="memdesc:ac2a7abe4f6f356f01853eb3664f54c0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value as a JsonValue.  <br /></td></tr>
+<tr class="separator:ac2a7abe4f6f356f01853eb3664f54c0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30bcf9579c81217d51307d5ee7fc8f73" id="r_a30bcf9579c81217d51307d5ee7fc8f73"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a30bcf9579c81217d51307d5ee7fc8f73"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#a30bcf9579c81217d51307d5ee7fc8f73">SetValueAsUStruct</a> (const T &amp;Value)</td></tr>
+<tr class="memdesc:a30bcf9579c81217d51307d5ee7fc8f73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value as the provided UStruct object.  <br /></td></tr>
+<tr class="separator:a30bcf9579c81217d51307d5ee7fc8f73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad18eb86d4e73adcd8dc1f6eef67d8b64" id="r_ad18eb86d4e73adcd8dc1f6eef67d8b64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#ad18eb86d4e73adcd8dc1f6eef67d8b64">SetValueAsJsonObject</a> (const FJsonObject &amp;Value)</td></tr>
+<tr class="memdesc:ad18eb86d4e73adcd8dc1f6eef67d8b64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value as a Json Object.  <br /></td></tr>
+<tr class="separator:ad18eb86d4e73adcd8dc1f6eef67d8b64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d7d8958568fd177112e8f5b19513c6a" id="r_a9d7d8958568fd177112e8f5b19513c6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#a9d7d8958568fd177112e8f5b19513c6a">SetValueAsJsonArray</a> (const TArray&lt; TSharedPtr&lt; FJsonValue &gt; &gt; &amp;Value)</td></tr>
+<tr class="memdesc:a9d7d8958568fd177112e8f5b19513c6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value as a Json Array.  <br /></td></tr>
+<tr class="separator:a9d7d8958568fd177112e8f5b19513c6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2041bc15cd62c8ada1f4a1ebe7c8a817" id="r_a2041bc15cd62c8ada1f4a1ebe7c8a817"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#a2041bc15cd62c8ada1f4a1ebe7c8a817">SetValueAsBase64</a> (const <a class="el" href="structFLootLockerMetadataBase64Value.html">FLootLockerMetadataBase64Value</a> &amp;Value)</td></tr>
+<tr class="memdesc:a2041bc15cd62c8ada1f4a1ebe7c8a817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value as a Base64 object.  <br /></td></tr>
+<tr class="separator:a2041bc15cd62c8ada1f4a1ebe7c8a817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8cfd91786a6b91cdb0b50a4b443489a" id="r_ae8cfd91786a6b91cdb0b50a4b443489a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#ae8cfd91786a6b91cdb0b50a4b443489a">_INTERNAL_SetJsonRepresentation</a> (const FJsonObject &amp;obj)</td></tr>
+<tr class="separator:ae8cfd91786a6b91cdb0b50a4b443489a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a64c90660db7cc92132118f7cd03b096e" id="r_a64c90660db7cc92132118f7cd03b096e"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#a64c90660db7cc92132118f7cd03b096e">MakeStringEntry</a> (const FString &amp;<a class="el" href="structFLootLockerMetadataEntry.html#ab461b786170c830fe285a232f610fdb0">Key</a>, const TArray&lt; FString &gt; &amp;<a class="el" href="structFLootLockerMetadataEntry.html#a906eb854f54f5a6eed76b6f192686ebb">Tags</a>, const TArray&lt; FString &gt; &amp;<a class="el" href="structFLootLockerMetadataEntry.html#a127d92cb29982977a27fe1e9dfd89eeb">Access</a>, const FString &amp;Value)</td></tr>
+<tr class="memdesc:a64c90660db7cc92132118f7cd03b096e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factory method that makes an <a class="el" href="structFLootLockerMetadataEntry.html" title="Represents a single typed metadata entry with a key, value type, tags, and access level,...">FLootLockerMetadataEntry</a> with a String Value.  <br /></td></tr>
+<tr class="separator:a64c90660db7cc92132118f7cd03b096e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a189c50d50643d6dca688df02623bb70f" id="r_a189c50d50643d6dca688df02623bb70f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#a189c50d50643d6dca688df02623bb70f">MakeFloatEntry</a> (const FString &amp;<a class="el" href="structFLootLockerMetadataEntry.html#ab461b786170c830fe285a232f610fdb0">Key</a>, const TArray&lt; FString &gt; &amp;<a class="el" href="structFLootLockerMetadataEntry.html#a906eb854f54f5a6eed76b6f192686ebb">Tags</a>, const TArray&lt; FString &gt; &amp;<a class="el" href="structFLootLockerMetadataEntry.html#a127d92cb29982977a27fe1e9dfd89eeb">Access</a>, const float &amp;Value)</td></tr>
+<tr class="memdesc:a189c50d50643d6dca688df02623bb70f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factory method that makes an <a class="el" href="structFLootLockerMetadataEntry.html" title="Represents a single typed metadata entry with a key, value type, tags, and access level,...">FLootLockerMetadataEntry</a> with a Float Value.  <br /></td></tr>
+<tr class="separator:a189c50d50643d6dca688df02623bb70f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4171a8f4e26d83780c8a113a0ae67c27" id="r_a4171a8f4e26d83780c8a113a0ae67c27"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#a4171a8f4e26d83780c8a113a0ae67c27">MakeIntegerEntry</a> (const FString &amp;<a class="el" href="structFLootLockerMetadataEntry.html#ab461b786170c830fe285a232f610fdb0">Key</a>, const TArray&lt; FString &gt; &amp;<a class="el" href="structFLootLockerMetadataEntry.html#a906eb854f54f5a6eed76b6f192686ebb">Tags</a>, const TArray&lt; FString &gt; &amp;<a class="el" href="structFLootLockerMetadataEntry.html#a127d92cb29982977a27fe1e9dfd89eeb">Access</a>, const int Value)</td></tr>
+<tr class="memdesc:a4171a8f4e26d83780c8a113a0ae67c27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factory method that makes an <a class="el" href="structFLootLockerMetadataEntry.html" title="Represents a single typed metadata entry with a key, value type, tags, and access level,...">FLootLockerMetadataEntry</a> with an Integer Value.  <br /></td></tr>
+<tr class="separator:a4171a8f4e26d83780c8a113a0ae67c27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13e8a46d82e45d133e3c905dbbc960a4" id="r_a13e8a46d82e45d133e3c905dbbc960a4"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#a13e8a46d82e45d133e3c905dbbc960a4">MakeBoolEntry</a> (const FString &amp;<a class="el" href="structFLootLockerMetadataEntry.html#ab461b786170c830fe285a232f610fdb0">Key</a>, const TArray&lt; FString &gt; &amp;<a class="el" href="structFLootLockerMetadataEntry.html#a906eb854f54f5a6eed76b6f192686ebb">Tags</a>, const TArray&lt; FString &gt; &amp;<a class="el" href="structFLootLockerMetadataEntry.html#a127d92cb29982977a27fe1e9dfd89eeb">Access</a>, const bool Value)</td></tr>
+<tr class="memdesc:a13e8a46d82e45d133e3c905dbbc960a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factory method that makes an <a class="el" href="structFLootLockerMetadataEntry.html" title="Represents a single typed metadata entry with a key, value type, tags, and access level,...">FLootLockerMetadataEntry</a> with a Bool Value.  <br /></td></tr>
+<tr class="separator:a13e8a46d82e45d133e3c905dbbc960a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a7d3214392709471db37ffc3d12f251" id="r_a5a7d3214392709471db37ffc3d12f251"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#a5a7d3214392709471db37ffc3d12f251">MakeJsonValueEntry</a> (const FString &amp;<a class="el" href="structFLootLockerMetadataEntry.html#ab461b786170c830fe285a232f610fdb0">Key</a>, const TArray&lt; FString &gt; &amp;<a class="el" href="structFLootLockerMetadataEntry.html#a906eb854f54f5a6eed76b6f192686ebb">Tags</a>, const TArray&lt; FString &gt; &amp;<a class="el" href="structFLootLockerMetadataEntry.html#a127d92cb29982977a27fe1e9dfd89eeb">Access</a>, const <a class="el" href="group__Metadata.html#ga7ae3db614872bb456a6b01bee377ec3e">ELootLockerMetadataTypes</a> <a class="el" href="structFLootLockerMetadataEntry.html#a807d854c8d40102da3ba67a5cd702002">Type</a>, const TSharedPtr&lt; FJsonValue &gt; Value)</td></tr>
+<tr class="memdesc:a5a7d3214392709471db37ffc3d12f251"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factory method that makes an <a class="el" href="structFLootLockerMetadataEntry.html" title="Represents a single typed metadata entry with a key, value type, tags, and access level,...">FLootLockerMetadataEntry</a> with a JsonValue Value.  <br /></td></tr>
+<tr class="separator:a5a7d3214392709471db37ffc3d12f251"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac89fc582eb5094e6d5859817ee90a926" id="r_ac89fc582eb5094e6d5859817ee90a926"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#ac89fc582eb5094e6d5859817ee90a926">MakeJsonObjectEntry</a> (const FString &amp;<a class="el" href="structFLootLockerMetadataEntry.html#ab461b786170c830fe285a232f610fdb0">Key</a>, const TArray&lt; FString &gt; &amp;<a class="el" href="structFLootLockerMetadataEntry.html#a906eb854f54f5a6eed76b6f192686ebb">Tags</a>, const TArray&lt; FString &gt; &amp;<a class="el" href="structFLootLockerMetadataEntry.html#a127d92cb29982977a27fe1e9dfd89eeb">Access</a>, const FJsonObject &amp;Value)</td></tr>
+<tr class="memdesc:ac89fc582eb5094e6d5859817ee90a926"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factory method that makes an <a class="el" href="structFLootLockerMetadataEntry.html" title="Represents a single typed metadata entry with a key, value type, tags, and access level,...">FLootLockerMetadataEntry</a> with a JsonObject Value.  <br /></td></tr>
+<tr class="separator:ac89fc582eb5094e6d5859817ee90a926"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f24a8849c080337fd58faad0d8d17a7" id="r_a3f24a8849c080337fd58faad0d8d17a7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#a3f24a8849c080337fd58faad0d8d17a7">MakeJsonArrayEntry</a> (const FString &amp;<a class="el" href="structFLootLockerMetadataEntry.html#ab461b786170c830fe285a232f610fdb0">Key</a>, const TArray&lt; FString &gt; &amp;<a class="el" href="structFLootLockerMetadataEntry.html#a906eb854f54f5a6eed76b6f192686ebb">Tags</a>, const TArray&lt; FString &gt; &amp;<a class="el" href="structFLootLockerMetadataEntry.html#a127d92cb29982977a27fe1e9dfd89eeb">Access</a>, const TArray&lt; TSharedPtr&lt; FJsonValue &gt; &gt; &amp;Value)</td></tr>
+<tr class="memdesc:a3f24a8849c080337fd58faad0d8d17a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factory method that makes an <a class="el" href="structFLootLockerMetadataEntry.html" title="Represents a single typed metadata entry with a key, value type, tags, and access level,...">FLootLockerMetadataEntry</a> with a JsonArray Value.  <br /></td></tr>
+<tr class="separator:a3f24a8849c080337fd58faad0d8d17a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cb37877ddeaf16d29ad45a2c9bfc208" id="r_a5cb37877ddeaf16d29ad45a2c9bfc208"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#a5cb37877ddeaf16d29ad45a2c9bfc208">MakeBase64Entry</a> (const FString &amp;<a class="el" href="structFLootLockerMetadataEntry.html#ab461b786170c830fe285a232f610fdb0">Key</a>, const TArray&lt; FString &gt; &amp;<a class="el" href="structFLootLockerMetadataEntry.html#a906eb854f54f5a6eed76b6f192686ebb">Tags</a>, const TArray&lt; FString &gt; &amp;<a class="el" href="structFLootLockerMetadataEntry.html#a127d92cb29982977a27fe1e9dfd89eeb">Access</a>, const <a class="el" href="structFLootLockerMetadataBase64Value.html">FLootLockerMetadataBase64Value</a> &amp;Value)</td></tr>
+<tr class="memdesc:a5cb37877ddeaf16d29ad45a2c9bfc208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factory method that makes an <a class="el" href="structFLootLockerMetadataEntry.html" title="Represents a single typed metadata entry with a key, value type, tags, and access level,...">FLootLockerMetadataEntry</a> with a Base64 Value.  <br /></td></tr>
+<tr class="separator:a5cb37877ddeaf16d29ad45a2c9bfc208"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdf9a9f23ecda779a39d8f0e6bbf2031" id="r_acdf9a9f23ecda779a39d8f0e6bbf2031"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#acdf9a9f23ecda779a39d8f0e6bbf2031">MakeEntryExceptValue</a> (const FString &amp;<a class="el" href="structFLootLockerMetadataEntry.html#ab461b786170c830fe285a232f610fdb0">Key</a>, const TArray&lt; FString &gt; &amp;<a class="el" href="structFLootLockerMetadataEntry.html#a906eb854f54f5a6eed76b6f192686ebb">Tags</a>, const TArray&lt; FString &gt; &amp;<a class="el" href="structFLootLockerMetadataEntry.html#a127d92cb29982977a27fe1e9dfd89eeb">Access</a>, const <a class="el" href="group__Metadata.html#ga7ae3db614872bb456a6b01bee377ec3e">ELootLockerMetadataTypes</a> <a class="el" href="structFLootLockerMetadataEntry.html#a807d854c8d40102da3ba67a5cd702002">Type</a>)</td></tr>
+<tr class="separator:acdf9a9f23ecda779a39d8f0e6bbf2031"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:ab461b786170c830fe285a232f610fdb0" id="r_ab461b786170c830fe285a232f610fdb0"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#ab461b786170c830fe285a232f610fdb0">Key</a> = &quot;&quot;</td></tr>
+<tr class="memdesc:ab461b786170c830fe285a232f610fdb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The metadata key.  <br /></td></tr>
+<tr class="separator:ab461b786170c830fe285a232f610fdb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a807d854c8d40102da3ba67a5cd702002" id="r_a807d854c8d40102da3ba67a5cd702002"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__Metadata.html#ga7ae3db614872bb456a6b01bee377ec3e">ELootLockerMetadataTypes</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#a807d854c8d40102da3ba67a5cd702002">Type</a> = <a class="el" href="group__Metadata.html#gga7ae3db614872bb456a6b01bee377ec3ea27118326006d3829667a400ad23d5d98">ELootLockerMetadataTypes::String</a></td></tr>
+<tr class="memdesc:a807d854c8d40102da3ba67a5cd702002"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of value this metadata contains.  <br /></td></tr>
+<tr class="separator:a807d854c8d40102da3ba67a5cd702002"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a906eb854f54f5a6eed76b6f192686ebb" id="r_a906eb854f54f5a6eed76b6f192686ebb"><td class="memItemLeft" align="right" valign="top">TArray&lt; FString &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#a906eb854f54f5a6eed76b6f192686ebb">Tags</a></td></tr>
+<tr class="memdesc:a906eb854f54f5a6eed76b6f192686ebb"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of tags applied to this metadata.  <br /></td></tr>
+<tr class="separator:a906eb854f54f5a6eed76b6f192686ebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a127d92cb29982977a27fe1e9dfd89eeb" id="r_a127d92cb29982977a27fe1e9dfd89eeb"><td class="memItemLeft" align="right" valign="top">TArray&lt; FString &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataEntry.html#a127d92cb29982977a27fe1e9dfd89eeb">Access</a></td></tr>
+<tr class="memdesc:a127d92cb29982977a27fe1e9dfd89eeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The access level set for this metadata entry.  <br /></td></tr>
+<tr class="separator:a127d92cb29982977a27fe1e9dfd89eeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Represents a single typed metadata entry with a key, value type, tags, and access level, along with helper methods for reading and writing the value. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae8cfd91786a6b91cdb0b50a4b443489a" name="ae8cfd91786a6b91cdb0b50a4b443489a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8cfd91786a6b91cdb0b50a4b443489a">&#9670;&#160;</a></span>_INTERNAL_SetJsonRepresentation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FLootLockerMetadataEntry::_INTERNAL_SetJsonRepresentation </td>
+          <td>(</td>
+          <td class="paramtype">const FJsonObject &amp;&#160;</td>
+          <td class="paramname"><em>obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5cb37877ddeaf16d29ad45a2c9bfc208" name="a5cb37877ddeaf16d29ad45a2c9bfc208"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cb37877ddeaf16d29ad45a2c9bfc208">&#9670;&#160;</a></span>MakeBase64Entry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a> FLootLockerMetadataEntry::MakeBase64Entry </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Tags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Access</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerMetadataBase64Value.html">FLootLockerMetadataBase64Value</a> &amp;&#160;</td>
+          <td class="paramname"><em>Value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Factory method that makes an <a class="el" href="structFLootLockerMetadataEntry.html" title="Represents a single typed metadata entry with a key, value type, tags, and access level,...">FLootLockerMetadataEntry</a> with a Base64 Value. </p>
+
+</div>
+</div>
+<a id="a13e8a46d82e45d133e3c905dbbc960a4" name="a13e8a46d82e45d133e3c905dbbc960a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13e8a46d82e45d133e3c905dbbc960a4">&#9670;&#160;</a></span>MakeBoolEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a> FLootLockerMetadataEntry::MakeBoolEntry </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Tags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Access</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>Value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Factory method that makes an <a class="el" href="structFLootLockerMetadataEntry.html" title="Represents a single typed metadata entry with a key, value type, tags, and access level,...">FLootLockerMetadataEntry</a> with a Bool Value. </p>
+
+</div>
+</div>
+<a id="acdf9a9f23ecda779a39d8f0e6bbf2031" name="acdf9a9f23ecda779a39d8f0e6bbf2031"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdf9a9f23ecda779a39d8f0e6bbf2031">&#9670;&#160;</a></span>MakeEntryExceptValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a> FLootLockerMetadataEntry::MakeEntryExceptValue </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Tags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Access</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Metadata.html#ga7ae3db614872bb456a6b01bee377ec3e">ELootLockerMetadataTypes</a>&#160;</td>
+          <td class="paramname"><em>Type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a189c50d50643d6dca688df02623bb70f" name="a189c50d50643d6dca688df02623bb70f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a189c50d50643d6dca688df02623bb70f">&#9670;&#160;</a></span>MakeFloatEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a> FLootLockerMetadataEntry::MakeFloatEntry </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Tags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Access</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float &amp;&#160;</td>
+          <td class="paramname"><em>Value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Factory method that makes an <a class="el" href="structFLootLockerMetadataEntry.html" title="Represents a single typed metadata entry with a key, value type, tags, and access level,...">FLootLockerMetadataEntry</a> with a Float Value. </p>
+
+</div>
+</div>
+<a id="a4171a8f4e26d83780c8a113a0ae67c27" name="a4171a8f4e26d83780c8a113a0ae67c27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4171a8f4e26d83780c8a113a0ae67c27">&#9670;&#160;</a></span>MakeIntegerEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a> FLootLockerMetadataEntry::MakeIntegerEntry </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Tags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Access</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>Value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Factory method that makes an <a class="el" href="structFLootLockerMetadataEntry.html" title="Represents a single typed metadata entry with a key, value type, tags, and access level,...">FLootLockerMetadataEntry</a> with an Integer Value. </p>
+
+</div>
+</div>
+<a id="a3f24a8849c080337fd58faad0d8d17a7" name="a3f24a8849c080337fd58faad0d8d17a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f24a8849c080337fd58faad0d8d17a7">&#9670;&#160;</a></span>MakeJsonArrayEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a> FLootLockerMetadataEntry::MakeJsonArrayEntry </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Tags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Access</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; TSharedPtr&lt; FJsonValue &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Factory method that makes an <a class="el" href="structFLootLockerMetadataEntry.html" title="Represents a single typed metadata entry with a key, value type, tags, and access level,...">FLootLockerMetadataEntry</a> with a JsonArray Value. </p>
+
+</div>
+</div>
+<a id="ac89fc582eb5094e6d5859817ee90a926" name="ac89fc582eb5094e6d5859817ee90a926"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac89fc582eb5094e6d5859817ee90a926">&#9670;&#160;</a></span>MakeJsonObjectEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a> FLootLockerMetadataEntry::MakeJsonObjectEntry </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Tags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Access</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FJsonObject &amp;&#160;</td>
+          <td class="paramname"><em>Value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Factory method that makes an <a class="el" href="structFLootLockerMetadataEntry.html" title="Represents a single typed metadata entry with a key, value type, tags, and access level,...">FLootLockerMetadataEntry</a> with a JsonObject Value. </p>
+
+</div>
+</div>
+<a id="a5a7d3214392709471db37ffc3d12f251" name="a5a7d3214392709471db37ffc3d12f251"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a7d3214392709471db37ffc3d12f251">&#9670;&#160;</a></span>MakeJsonValueEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a> FLootLockerMetadataEntry::MakeJsonValueEntry </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Tags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Access</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Metadata.html#ga7ae3db614872bb456a6b01bee377ec3e">ELootLockerMetadataTypes</a>&#160;</td>
+          <td class="paramname"><em>Type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TSharedPtr&lt; FJsonValue &gt;&#160;</td>
+          <td class="paramname"><em>Value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Factory method that makes an <a class="el" href="structFLootLockerMetadataEntry.html" title="Represents a single typed metadata entry with a key, value type, tags, and access level,...">FLootLockerMetadataEntry</a> with a JsonValue Value. </p>
+
+</div>
+</div>
+<a id="a64c90660db7cc92132118f7cd03b096e" name="a64c90660db7cc92132118f7cd03b096e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64c90660db7cc92132118f7cd03b096e">&#9670;&#160;</a></span>MakeStringEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a> FLootLockerMetadataEntry::MakeStringEntry </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Tags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Access</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Factory method that makes an <a class="el" href="structFLootLockerMetadataEntry.html" title="Represents a single typed metadata entry with a key, value type, tags, and access level,...">FLootLockerMetadataEntry</a> with a String Value. </p>
+
+</div>
+</div>
+<a id="ac2a7abe4f6f356f01853eb3664f54c0b" name="ac2a7abe4f6f356f01853eb3664f54c0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2a7abe4f6f356f01853eb3664f54c0b">&#9670;&#160;</a></span>SetRawValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FLootLockerMetadataEntry::SetRawValue </td>
+          <td>(</td>
+          <td class="paramtype">const TSharedPtr&lt; FJsonValue &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the value as a JsonValue. </p>
+
+</div>
+</div>
+<a id="a2041bc15cd62c8ada1f4a1ebe7c8a817" name="a2041bc15cd62c8ada1f4a1ebe7c8a817"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2041bc15cd62c8ada1f4a1ebe7c8a817">&#9670;&#160;</a></span>SetValueAsBase64()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FLootLockerMetadataEntry::SetValueAsBase64 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerMetadataBase64Value.html">FLootLockerMetadataBase64Value</a> &amp;&#160;</td>
+          <td class="paramname"><em>Value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the value as a Base64 object. </p>
+
+</div>
+</div>
+<a id="accb845a407e74f8d2fecc03a96cccd02" name="accb845a407e74f8d2fecc03a96cccd02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accb845a407e74f8d2fecc03a96cccd02">&#9670;&#160;</a></span>SetValueAsBool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FLootLockerMetadataEntry::SetValueAsBool </td>
+          <td>(</td>
+          <td class="paramtype">const bool &amp;&#160;</td>
+          <td class="paramname"><em>Value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the value as a bool. </p>
+
+</div>
+</div>
+<a id="a7aca11b4ba717477dedc9fbfe902b859" name="a7aca11b4ba717477dedc9fbfe902b859"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7aca11b4ba717477dedc9fbfe902b859">&#9670;&#160;</a></span>SetValueAsFloat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FLootLockerMetadataEntry::SetValueAsFloat </td>
+          <td>(</td>
+          <td class="paramtype">const float &amp;&#160;</td>
+          <td class="paramname"><em>Value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the value as a float. </p>
+
+</div>
+</div>
+<a id="aa95f0bfd5f95891bde54f1018955e949" name="aa95f0bfd5f95891bde54f1018955e949"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa95f0bfd5f95891bde54f1018955e949">&#9670;&#160;</a></span>SetValueAsInteger()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FLootLockerMetadataEntry::SetValueAsInteger </td>
+          <td>(</td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>Value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the value as an integer. </p>
+
+</div>
+</div>
+<a id="a9d7d8958568fd177112e8f5b19513c6a" name="a9d7d8958568fd177112e8f5b19513c6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d7d8958568fd177112e8f5b19513c6a">&#9670;&#160;</a></span>SetValueAsJsonArray()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FLootLockerMetadataEntry::SetValueAsJsonArray </td>
+          <td>(</td>
+          <td class="paramtype">const TArray&lt; TSharedPtr&lt; FJsonValue &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the value as a Json Array. </p>
+
+</div>
+</div>
+<a id="ad18eb86d4e73adcd8dc1f6eef67d8b64" name="ad18eb86d4e73adcd8dc1f6eef67d8b64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad18eb86d4e73adcd8dc1f6eef67d8b64">&#9670;&#160;</a></span>SetValueAsJsonObject()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FLootLockerMetadataEntry::SetValueAsJsonObject </td>
+          <td>(</td>
+          <td class="paramtype">const FJsonObject &amp;&#160;</td>
+          <td class="paramname"><em>Value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the value as a Json Object. </p>
+
+</div>
+</div>
+<a id="ae0895ce007f557eb8d88f56421f330a0" name="ae0895ce007f557eb8d88f56421f330a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0895ce007f557eb8d88f56421f330a0">&#9670;&#160;</a></span>SetValueAsString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FLootLockerMetadataEntry::SetValueAsString </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the value as a String. </p>
+
+</div>
+</div>
+<a id="a30bcf9579c81217d51307d5ee7fc8f73" name="a30bcf9579c81217d51307d5ee7fc8f73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30bcf9579c81217d51307d5ee7fc8f73">&#9670;&#160;</a></span>SetValueAsUStruct()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerMetadataEntry::SetValueAsUStruct </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>Value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the value as the provided UStruct object. </p>
+<p>Returns true if value could be serialized. </p>
+
+</div>
+</div>
+<a id="a76a47cd312b66900cf7eca7766992739" name="a76a47cd312b66900cf7eca7766992739"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76a47cd312b66900cf7eca7766992739">&#9670;&#160;</a></span>TryGetRawValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerMetadataEntry::TryGetRawValue </td>
+          <td>(</td>
+          <td class="paramtype">TSharedPtr&lt; FJsonValue &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the value as an unparsed json value. </p>
+<p>Returns true if value could be found in which case Output contains the JsonValue, returns false if the value field was not present. </p>
+
+</div>
+</div>
+<a id="a90eb265b1844188dd18f780106620e38" name="a90eb265b1844188dd18f780106620e38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90eb265b1844188dd18f780106620e38">&#9670;&#160;</a></span>TryGetSerializedValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerMetadataEntry::TryGetSerializedValue </td>
+          <td>(</td>
+          <td class="paramtype">FString &amp;&#160;</td>
+          <td class="paramname"><em>Output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the value in a json string format. </p>
+<p>Returns true if the value was present and could be serialized, returns false otherwise </p>
+
+</div>
+</div>
+<a id="af5b9ec3cc478583aca434200879bc379" name="af5b9ec3cc478583aca434200879bc379"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5b9ec3cc478583aca434200879bc379">&#9670;&#160;</a></span>TryGetValueAsBase64()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerMetadataEntry::TryGetValueAsBase64 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structFLootLockerMetadataBase64Value.html">FLootLockerMetadataBase64Value</a> &amp;&#160;</td>
+          <td class="paramname"><em>Output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the value as a LootLockerMetadataBase64Value object. </p>
+<p>Returns true if value could be parsed in which case Output contains the <a class="el" href="structFLootLockerMetadataBase64Value.html" title="Holds a Base64-encoded metadata value together with its MIME content type.">FLootLockerMetadataBase64Value</a>, returns false if parsing failed. </p>
+
+</div>
+</div>
+<a id="a07a3f1f1c38533592933d1b02aa438a9" name="a07a3f1f1c38533592933d1b02aa438a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07a3f1f1c38533592933d1b02aa438a9">&#9670;&#160;</a></span>TryGetValueAsBool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerMetadataEntry::TryGetValueAsBool </td>
+          <td>(</td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>Output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the value as a boolean. </p>
+<p>Returns true if value could be parsed in which case Output contains the bool, returns false if parsing failed which can happen if the string is not a convertible to a boolean (those are for example "0", "1", "true", "False", "yes", "NO", etc). </p>
+
+</div>
+</div>
+<a id="aab3da81a7344c2a98d868660c4fbf59f" name="aab3da81a7344c2a98d868660c4fbf59f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab3da81a7344c2a98d868660c4fbf59f">&#9670;&#160;</a></span>TryGetValueAsFloat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerMetadataEntry::TryGetValueAsFloat </td>
+          <td>(</td>
+          <td class="paramtype">float &amp;&#160;</td>
+          <td class="paramname"><em>Output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the value as a float. </p>
+<p>Returns true if value could be parsed in which case Output contains the float, returns false if parsing failed which can happen if the value is not numeric, the conversion under or overflows, or the string value precision is larger than can be dealt within a float. </p>
+
+</div>
+</div>
+<a id="acb8797d9ad8bbeb8c335b2a267640c87" name="acb8797d9ad8bbeb8c335b2a267640c87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb8797d9ad8bbeb8c335b2a267640c87">&#9670;&#160;</a></span>TryGetValueAsInteger()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerMetadataEntry::TryGetValueAsInteger </td>
+          <td>(</td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>Output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the value as an integer. </p>
+<p>TReturns true if value could be parsed in which case Output contains the int, returns false if parsing failed which can happen if </p>
+
+</div>
+</div>
+<a id="a1502b696bb70742843802bababe26635" name="a1502b696bb70742843802bababe26635"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1502b696bb70742843802bababe26635">&#9670;&#160;</a></span>TryGetValueAsJsonArray()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerMetadataEntry::TryGetValueAsJsonArray </td>
+          <td>(</td>
+          <td class="paramtype">TArray&lt; TSharedPtr&lt; FJsonValue &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the value as a Json Array. </p>
+<p>Returns true if value could be parsed in which case Output contains the Json Array, returns false if parsing failed which can happen if the value is not a valid json array string </p>
+
+</div>
+</div>
+<a id="ae416ceabf6abaf8fb2e0721b5bd56627" name="ae416ceabf6abaf8fb2e0721b5bd56627"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae416ceabf6abaf8fb2e0721b5bd56627">&#9670;&#160;</a></span>TryGetValueAsJsonObject()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerMetadataEntry::TryGetValueAsJsonObject </td>
+          <td>(</td>
+          <td class="paramtype">TSharedPtr&lt; FJsonObject &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the value as a Json Object. </p>
+<p>Returns true if value could be parsed in which case Output contains the Json Object, returns false if parsing failed which can happen if the value is not a valid json object string. </p>
+
+</div>
+</div>
+<a id="a3dec984a9da60573924064ea7d9a6d73" name="a3dec984a9da60573924064ea7d9a6d73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dec984a9da60573924064ea7d9a6d73">&#9670;&#160;</a></span>TryGetValueAsString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerMetadataEntry::TryGetValueAsString </td>
+          <td>(</td>
+          <td class="paramtype">FString &amp;&#160;</td>
+          <td class="paramname"><em>Output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the value as a String. </p>
+<p>Returns true if value could be parsed in which case Output contains the string value untouched, returns false if parsing failed. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="a127d92cb29982977a27fe1e9dfd89eeb" name="a127d92cb29982977a27fe1e9dfd89eeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a127d92cb29982977a27fe1e9dfd89eeb">&#9670;&#160;</a></span>Access</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TArray&lt;FString&gt; FLootLockerMetadataEntry::Access</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The access level set for this metadata entry. </p>
+<p>Valid values are game_api.read, game_api.write and player.read (only applicable for player metadata and means that the metadata entry is readable for all players, not only for the owner), though no values are required. Note that different sources can allow or disallow a subset of these values. </p>
+
+</div>
+</div>
+<a id="ab461b786170c830fe285a232f610fdb0" name="ab461b786170c830fe285a232f610fdb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab461b786170c830fe285a232f610fdb0">&#9670;&#160;</a></span>Key</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerMetadataEntry::Key = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The metadata key. </p>
+
+</div>
+</div>
+<a id="a906eb854f54f5a6eed76b6f192686ebb" name="a906eb854f54f5a6eed76b6f192686ebb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a906eb854f54f5a6eed76b6f192686ebb">&#9670;&#160;</a></span>Tags</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TArray&lt;FString&gt; FLootLockerMetadataEntry::Tags</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>List of tags applied to this metadata. </p>
+
+</div>
+</div>
+<a id="a807d854c8d40102da3ba67a5cd702002" name="a807d854c8d40102da3ba67a5cd702002"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a807d854c8d40102da3ba67a5cd702002">&#9670;&#160;</a></span>Type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__Metadata.html#ga7ae3db614872bb456a6b01bee377ec3e">ELootLockerMetadataTypes</a> FLootLockerMetadataEntry::Type = <a class="el" href="group__Metadata.html#gga7ae3db614872bb456a6b01bee377ec3ea27118326006d3829667a400ad23d5d98">ELootLockerMetadataTypes::String</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The type of value this metadata contains. </p>
+<p>Use this to parse the value. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structFLootLockerMetadataEntry.html">FLootLockerMetadataEntry</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

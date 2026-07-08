@@ -1,0 +1,1040 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: ULootLockerStaticNotificationStringBlueprintCallables Class Reference</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('classULootLockerStaticNotificationStringBlueprintCallables.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a>  </div>
+  <div class="headertitle"><div class="title">ULootLockerStaticNotificationStringBlueprintCallables Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Blueprint exposure of the set of static string definitions to use for matching in different Notification contexts.  
+ <a href="classULootLockerStaticNotificationStringBlueprintCallables.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="LootLockerNotificationsRequestHandler_8h_source.html">LootLockerNotificationsRequestHandler.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for ULootLockerStaticNotificationStringBlueprintCallables:</div>
+<div class="dyncontent">
+<div class="center"><img src="classULootLockerStaticNotificationStringBlueprintCallables__inherit__graph.png" border="0" usemap="#aULootLockerStaticNotificationStringBlueprintCallables_inherit__map" alt="Inheritance graph"/></div>
+<map name="aULootLockerStaticNotificationStringBlueprintCallables_inherit__map" id="aULootLockerStaticNotificationStringBlueprintCallables_inherit__map">
+<area shape="rect" title="Blueprint exposure of the set of static string definitions to use for matching in different Notificat..." alt="" coords="5,79,220,119"/>
+<area shape="rect" title=" " alt="" coords="75,5,150,31"/>
+<area shape="poly" title=" " alt="" coords="115,44,115,79,110,79,110,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for ULootLockerStaticNotificationStringBlueprintCallables:</div>
+<div class="dyncontent">
+<div class="center"><img src="classULootLockerStaticNotificationStringBlueprintCallables__coll__graph.png" border="0" usemap="#aULootLockerStaticNotificationStringBlueprintCallables_coll__map" alt="Collaboration graph"/></div>
+<map name="aULootLockerStaticNotificationStringBlueprintCallables_coll__map" id="aULootLockerStaticNotificationStringBlueprintCallables_coll__map">
+<area shape="rect" title="Blueprint exposure of the set of static string definitions to use for matching in different Notificat..." alt="" coords="5,79,220,119"/>
+<area shape="rect" title=" " alt="" coords="75,5,150,31"/>
+<area shape="poly" title=" " alt="" coords="115,44,115,79,110,79,110,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a6baa192c92b6c93f8df101e635b18932" id="r_a6baa192c92b6c93f8df101e635b18932"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a6baa192c92b6c93f8df101e635b18932">ULootLockerStaticNotificationStringBlueprintCallables</a> ()</td></tr>
+<tr class="separator:a6baa192c92b6c93f8df101e635b18932"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ab59fe8dce8b1da74f03b83b7db488c8e" id="r_ab59fe8dce8b1da74f03b83b7db488c8e"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#ab59fe8dce8b1da74f03b83b7db488c8e">GetTypePullRewardAcquiredString</a> ()</td></tr>
+<tr class="memdesc:ab59fe8dce8b1da74f03b83b7db488c8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notifications &ndash; Matching Notification type Pull Reward Acquired.  <br /></td></tr>
+<tr class="separator:ab59fe8dce8b1da74f03b83b7db488c8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2b60b4974afe8385218e6aebf17f4ed" id="r_ae2b60b4974afe8385218e6aebf17f4ed"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#ae2b60b4974afe8385218e6aebf17f4ed">GetNotificationsSourceTriggersString</a> ()</td></tr>
+<tr class="memdesc:ae2b60b4974afe8385218e6aebf17f4ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notifications &ndash; Matching Notification source Triggers.  <br /></td></tr>
+<tr class="separator:ae2b60b4974afe8385218e6aebf17f4ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae50733d2c3d9b9930e58e05bd9ca67d0" id="r_ae50733d2c3d9b9930e58e05bd9ca67d0"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#ae50733d2c3d9b9930e58e05bd9ca67d0">GetNotificationsSourcePurchasingSteamStoreString</a> ()</td></tr>
+<tr class="memdesc:ae50733d2c3d9b9930e58e05bd9ca67d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notifications &ndash; Matching Notification source Purchasing SteamStore.  <br /></td></tr>
+<tr class="separator:ae50733d2c3d9b9930e58e05bd9ca67d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5636aa0077c9325db8db14b5775053dd" id="r_a5636aa0077c9325db8db14b5775053dd"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a5636aa0077c9325db8db14b5775053dd">GetNotificationsSourcePurchasingAppleAppStoreString</a> ()</td></tr>
+<tr class="memdesc:a5636aa0077c9325db8db14b5775053dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notifications &ndash; Matching Notification source Purchasing AppleAppStore.  <br /></td></tr>
+<tr class="separator:a5636aa0077c9325db8db14b5775053dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abddd99edf9c3fd8d8fc936be1275311a" id="r_abddd99edf9c3fd8d8fc936be1275311a"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#abddd99edf9c3fd8d8fc936be1275311a">GetNotificationsSourcePurchasingGooglePlayStoreString</a> ()</td></tr>
+<tr class="memdesc:abddd99edf9c3fd8d8fc936be1275311a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notifications &ndash; Matching Notification source Purchasing GooglePlayStore.  <br /></td></tr>
+<tr class="separator:abddd99edf9c3fd8d8fc936be1275311a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab50645d705125ada2dbc6bac3b8480dd" id="r_ab50645d705125ada2dbc6bac3b8480dd"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#ab50645d705125ada2dbc6bac3b8480dd">GetNotificationsSourcePurchasingLootLockerString</a> ()</td></tr>
+<tr class="memdesc:ab50645d705125ada2dbc6bac3b8480dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notifications &ndash; Matching Notification source Purchasing LootLocker.  <br /></td></tr>
+<tr class="separator:ab50645d705125ada2dbc6bac3b8480dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78d7c2a0023700d29f9db0b33a75c7ec" id="r_a78d7c2a0023700d29f9db0b33a75c7ec"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a78d7c2a0023700d29f9db0b33a75c7ec">GetNotificationsSourceTwitchDropString</a> ()</td></tr>
+<tr class="memdesc:a78d7c2a0023700d29f9db0b33a75c7ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notifications &ndash; Matching Notification source Twitch Drop.  <br /></td></tr>
+<tr class="separator:a78d7c2a0023700d29f9db0b33a75c7ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ef1c76db71b548df168464a999b6bda" id="r_a5ef1c76db71b548df168464a999b6bda"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a5ef1c76db71b548df168464a999b6bda">GetNotificationsSourceLootLockerConsoleString</a> ()</td></tr>
+<tr class="memdesc:a5ef1c76db71b548df168464a999b6bda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notifications &ndash; Matching Notification source LootLocker Console.  <br /></td></tr>
+<tr class="separator:a5ef1c76db71b548df168464a999b6bda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a240fe5365e92169514d0a082a080b048" id="r_a240fe5365e92169514d0a082a080b048"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a240fe5365e92169514d0a082a080b048">GetNotificationsSourceLootLockerServerAPIString</a> ()</td></tr>
+<tr class="memdesc:a240fe5365e92169514d0a082a080b048"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notifications &ndash; Matching Notification source LootLocker Server API.  <br /></td></tr>
+<tr class="separator:a240fe5365e92169514d0a082a080b048"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad42ad68c2c534ef8db447ff11201fea0" id="r_ad42ad68c2c534ef8db447ff11201fea0"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#ad42ad68c2c534ef8db447ff11201fea0">GetStandardTriggersContextKeyIdString</a> ()</td></tr>
+<tr class="memdesc:ad42ad68c2c534ef8db447ff11201fea0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notification contexts &ndash; Standard Context Key for Triggers.  <br /></td></tr>
+<tr class="separator:ad42ad68c2c534ef8db447ff11201fea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e5cc3f81434e645a60c9168321d5640" id="r_a4e5cc3f81434e645a60c9168321d5640"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a4e5cc3f81434e645a60c9168321d5640">GetStandardTriggersContextKeyKeyString</a> ()</td></tr>
+<tr class="memdesc:a4e5cc3f81434e645a60c9168321d5640"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notification contexts &ndash; Standard Context Key for Triggers.  <br /></td></tr>
+<tr class="separator:a4e5cc3f81434e645a60c9168321d5640"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c6376700398e1550be1f9a6e9b50c26" id="r_a6c6376700398e1550be1f9a6e9b50c26"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a6c6376700398e1550be1f9a6e9b50c26">GetStandardTriggersContextKeyLimitString</a> ()</td></tr>
+<tr class="memdesc:a6c6376700398e1550be1f9a6e9b50c26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notification contexts &ndash; Standard Context Key for Triggers.  <br /></td></tr>
+<tr class="separator:a6c6376700398e1550be1f9a6e9b50c26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68c61180bf04f9e93c84a70abcb201b2" id="r_a68c61180bf04f9e93c84a70abcb201b2"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a68c61180bf04f9e93c84a70abcb201b2">GetStandardPurchasingSteamStoreContextKeyCatalogIdString</a> ()</td></tr>
+<tr class="memdesc:a68c61180bf04f9e93c84a70abcb201b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.SteamStore.  <br /></td></tr>
+<tr class="separator:a68c61180bf04f9e93c84a70abcb201b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7f65aadab5b3dc5c5c23f81acdc5f29" id="r_ae7f65aadab5b3dc5c5c23f81acdc5f29"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#ae7f65aadab5b3dc5c5c23f81acdc5f29">GetStandardPurchasingSteamStoreContextKeyCatalogItemIdString</a> ()</td></tr>
+<tr class="memdesc:ae7f65aadab5b3dc5c5c23f81acdc5f29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.SteamStore.  <br /></td></tr>
+<tr class="separator:ae7f65aadab5b3dc5c5c23f81acdc5f29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e30e8188cdddac9c64b87d4f9320dea" id="r_a3e30e8188cdddac9c64b87d4f9320dea"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a3e30e8188cdddac9c64b87d4f9320dea">GetStandardPurchasingSteamStoreContextKeyEntitlementIdString</a> ()</td></tr>
+<tr class="memdesc:a3e30e8188cdddac9c64b87d4f9320dea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.SteamStore.  <br /></td></tr>
+<tr class="separator:a3e30e8188cdddac9c64b87d4f9320dea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07edf81764c0992aff3eba1b36406457" id="r_a07edf81764c0992aff3eba1b36406457"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a07edf81764c0992aff3eba1b36406457">GetStandardPurchasingSteamStoreContextKeyCharacterIdString</a> ()</td></tr>
+<tr class="memdesc:a07edf81764c0992aff3eba1b36406457"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.SteamStore.  <br /></td></tr>
+<tr class="separator:a07edf81764c0992aff3eba1b36406457"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28e5e1ce8340a4fd35f7cbc96cba489c" id="r_a28e5e1ce8340a4fd35f7cbc96cba489c"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a28e5e1ce8340a4fd35f7cbc96cba489c">GetStandardPurchasingAppleAppStoreContextKeyCatalogIdString</a> ()</td></tr>
+<tr class="memdesc:a28e5e1ce8340a4fd35f7cbc96cba489c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.AppleAppStore.  <br /></td></tr>
+<tr class="separator:a28e5e1ce8340a4fd35f7cbc96cba489c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02f6a992368b0e9ae934813aed082108" id="r_a02f6a992368b0e9ae934813aed082108"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a02f6a992368b0e9ae934813aed082108">GetStandardPurchasingAppleAppStoreContextKeyCatalogItemIdString</a> ()</td></tr>
+<tr class="memdesc:a02f6a992368b0e9ae934813aed082108"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.AppleAppStore.  <br /></td></tr>
+<tr class="separator:a02f6a992368b0e9ae934813aed082108"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa615e3469d869128f8bea2cb3dbef367" id="r_aa615e3469d869128f8bea2cb3dbef367"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#aa615e3469d869128f8bea2cb3dbef367">GetStandardPurchasingAppleAppStoreContextKeyTransactionIdString</a> ()</td></tr>
+<tr class="memdesc:aa615e3469d869128f8bea2cb3dbef367"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.AppleAppStore.  <br /></td></tr>
+<tr class="separator:aa615e3469d869128f8bea2cb3dbef367"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a098264ba1a758b9829af2a919096d44c" id="r_a098264ba1a758b9829af2a919096d44c"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a098264ba1a758b9829af2a919096d44c">GetStandardPurchasingGooglePlayStoreContextKeyCatalogIdString</a> ()</td></tr>
+<tr class="memdesc:a098264ba1a758b9829af2a919096d44c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.GooglePlayStore.  <br /></td></tr>
+<tr class="separator:a098264ba1a758b9829af2a919096d44c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcad44d02fba8ac3cbdf2b2732425588" id="r_afcad44d02fba8ac3cbdf2b2732425588"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#afcad44d02fba8ac3cbdf2b2732425588">GetStandardPurchasingGooglePlayStoreContextKeyCatalogItemIdString</a> ()</td></tr>
+<tr class="memdesc:afcad44d02fba8ac3cbdf2b2732425588"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.GooglePlayStore.  <br /></td></tr>
+<tr class="separator:afcad44d02fba8ac3cbdf2b2732425588"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5f38dbedcae45e57567c81f693c1f6a" id="r_ad5f38dbedcae45e57567c81f693c1f6a"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#ad5f38dbedcae45e57567c81f693c1f6a">GetStandardPurchasingGooglePlayStoreContextKeyProductIdString</a> ()</td></tr>
+<tr class="memdesc:ad5f38dbedcae45e57567c81f693c1f6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.GooglePlayStore.  <br /></td></tr>
+<tr class="separator:ad5f38dbedcae45e57567c81f693c1f6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d9f5f04002b1cf6732d06c5babda7fc" id="r_a2d9f5f04002b1cf6732d06c5babda7fc"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a2d9f5f04002b1cf6732d06c5babda7fc">GetStandardPurchasingLootLockerContextKeyCatalogIdString</a> ()</td></tr>
+<tr class="memdesc:a2d9f5f04002b1cf6732d06c5babda7fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.LootLocker.  <br /></td></tr>
+<tr class="separator:a2d9f5f04002b1cf6732d06c5babda7fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8ed3a5beda8a9d233cabc921be38557" id="r_ad8ed3a5beda8a9d233cabc921be38557"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#ad8ed3a5beda8a9d233cabc921be38557">GetStandardPurchasingLootLockerContextKeyCatalogItemIdString</a> ()</td></tr>
+<tr class="memdesc:ad8ed3a5beda8a9d233cabc921be38557"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.LootLocker.  <br /></td></tr>
+<tr class="separator:ad8ed3a5beda8a9d233cabc921be38557"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0c492c0c81cbbaa4b4f41c27cd9ae09" id="r_aa0c492c0c81cbbaa4b4f41c27cd9ae09"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#aa0c492c0c81cbbaa4b4f41c27cd9ae09">GetStandardTwitchDropContextKeyTwitchRewardIdString</a> ()</td></tr>
+<tr class="memdesc:aa0c492c0c81cbbaa4b4f41c27cd9ae09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static String for use in Notification contexts &ndash; Standard Context Key for Twitch Drops.  <br /></td></tr>
+<tr class="separator:aa0c492c0c81cbbaa4b4f41c27cd9ae09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Blueprint exposure of the set of static string definitions to use for matching in different Notification contexts. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a6baa192c92b6c93f8df101e635b18932" name="a6baa192c92b6c93f8df101e635b18932"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6baa192c92b6c93f8df101e635b18932">&#9670;&#160;</a></span>ULootLockerStaticNotificationStringBlueprintCallables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ULootLockerStaticNotificationStringBlueprintCallables::ULootLockerStaticNotificationStringBlueprintCallables </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a5ef1c76db71b548df168464a999b6bda" name="a5ef1c76db71b548df168464a999b6bda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ef1c76db71b548df168464a999b6bda">&#9670;&#160;</a></span>GetNotificationsSourceLootLockerConsoleString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetNotificationsSourceLootLockerConsoleString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notifications &ndash; Matching Notification source LootLocker Console. </p>
+
+</div>
+</div>
+<a id="a240fe5365e92169514d0a082a080b048" name="a240fe5365e92169514d0a082a080b048"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a240fe5365e92169514d0a082a080b048">&#9670;&#160;</a></span>GetNotificationsSourceLootLockerServerAPIString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetNotificationsSourceLootLockerServerAPIString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notifications &ndash; Matching Notification source LootLocker Server API. </p>
+
+</div>
+</div>
+<a id="a5636aa0077c9325db8db14b5775053dd" name="a5636aa0077c9325db8db14b5775053dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5636aa0077c9325db8db14b5775053dd">&#9670;&#160;</a></span>GetNotificationsSourcePurchasingAppleAppStoreString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetNotificationsSourcePurchasingAppleAppStoreString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notifications &ndash; Matching Notification source Purchasing AppleAppStore. </p>
+
+</div>
+</div>
+<a id="abddd99edf9c3fd8d8fc936be1275311a" name="abddd99edf9c3fd8d8fc936be1275311a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abddd99edf9c3fd8d8fc936be1275311a">&#9670;&#160;</a></span>GetNotificationsSourcePurchasingGooglePlayStoreString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetNotificationsSourcePurchasingGooglePlayStoreString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notifications &ndash; Matching Notification source Purchasing GooglePlayStore. </p>
+
+</div>
+</div>
+<a id="ab50645d705125ada2dbc6bac3b8480dd" name="ab50645d705125ada2dbc6bac3b8480dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab50645d705125ada2dbc6bac3b8480dd">&#9670;&#160;</a></span>GetNotificationsSourcePurchasingLootLockerString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetNotificationsSourcePurchasingLootLockerString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notifications &ndash; Matching Notification source Purchasing LootLocker. </p>
+
+</div>
+</div>
+<a id="ae50733d2c3d9b9930e58e05bd9ca67d0" name="ae50733d2c3d9b9930e58e05bd9ca67d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae50733d2c3d9b9930e58e05bd9ca67d0">&#9670;&#160;</a></span>GetNotificationsSourcePurchasingSteamStoreString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetNotificationsSourcePurchasingSteamStoreString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notifications &ndash; Matching Notification source Purchasing SteamStore. </p>
+
+</div>
+</div>
+<a id="ae2b60b4974afe8385218e6aebf17f4ed" name="ae2b60b4974afe8385218e6aebf17f4ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2b60b4974afe8385218e6aebf17f4ed">&#9670;&#160;</a></span>GetNotificationsSourceTriggersString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetNotificationsSourceTriggersString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notifications &ndash; Matching Notification source Triggers. </p>
+
+</div>
+</div>
+<a id="a78d7c2a0023700d29f9db0b33a75c7ec" name="a78d7c2a0023700d29f9db0b33a75c7ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78d7c2a0023700d29f9db0b33a75c7ec">&#9670;&#160;</a></span>GetNotificationsSourceTwitchDropString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetNotificationsSourceTwitchDropString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notifications &ndash; Matching Notification source Twitch Drop. </p>
+
+</div>
+</div>
+<a id="a28e5e1ce8340a4fd35f7cbc96cba489c" name="a28e5e1ce8340a4fd35f7cbc96cba489c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28e5e1ce8340a4fd35f7cbc96cba489c">&#9670;&#160;</a></span>GetStandardPurchasingAppleAppStoreContextKeyCatalogIdString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetStandardPurchasingAppleAppStoreContextKeyCatalogIdString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.AppleAppStore. </p>
+
+</div>
+</div>
+<a id="a02f6a992368b0e9ae934813aed082108" name="a02f6a992368b0e9ae934813aed082108"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02f6a992368b0e9ae934813aed082108">&#9670;&#160;</a></span>GetStandardPurchasingAppleAppStoreContextKeyCatalogItemIdString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetStandardPurchasingAppleAppStoreContextKeyCatalogItemIdString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.AppleAppStore. </p>
+
+</div>
+</div>
+<a id="aa615e3469d869128f8bea2cb3dbef367" name="aa615e3469d869128f8bea2cb3dbef367"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa615e3469d869128f8bea2cb3dbef367">&#9670;&#160;</a></span>GetStandardPurchasingAppleAppStoreContextKeyTransactionIdString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetStandardPurchasingAppleAppStoreContextKeyTransactionIdString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.AppleAppStore. </p>
+
+</div>
+</div>
+<a id="a098264ba1a758b9829af2a919096d44c" name="a098264ba1a758b9829af2a919096d44c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a098264ba1a758b9829af2a919096d44c">&#9670;&#160;</a></span>GetStandardPurchasingGooglePlayStoreContextKeyCatalogIdString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetStandardPurchasingGooglePlayStoreContextKeyCatalogIdString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.GooglePlayStore. </p>
+
+</div>
+</div>
+<a id="afcad44d02fba8ac3cbdf2b2732425588" name="afcad44d02fba8ac3cbdf2b2732425588"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcad44d02fba8ac3cbdf2b2732425588">&#9670;&#160;</a></span>GetStandardPurchasingGooglePlayStoreContextKeyCatalogItemIdString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetStandardPurchasingGooglePlayStoreContextKeyCatalogItemIdString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.GooglePlayStore. </p>
+
+</div>
+</div>
+<a id="ad5f38dbedcae45e57567c81f693c1f6a" name="ad5f38dbedcae45e57567c81f693c1f6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5f38dbedcae45e57567c81f693c1f6a">&#9670;&#160;</a></span>GetStandardPurchasingGooglePlayStoreContextKeyProductIdString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetStandardPurchasingGooglePlayStoreContextKeyProductIdString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.GooglePlayStore. </p>
+
+</div>
+</div>
+<a id="a2d9f5f04002b1cf6732d06c5babda7fc" name="a2d9f5f04002b1cf6732d06c5babda7fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d9f5f04002b1cf6732d06c5babda7fc">&#9670;&#160;</a></span>GetStandardPurchasingLootLockerContextKeyCatalogIdString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetStandardPurchasingLootLockerContextKeyCatalogIdString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.LootLocker. </p>
+
+</div>
+</div>
+<a id="ad8ed3a5beda8a9d233cabc921be38557" name="ad8ed3a5beda8a9d233cabc921be38557"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8ed3a5beda8a9d233cabc921be38557">&#9670;&#160;</a></span>GetStandardPurchasingLootLockerContextKeyCatalogItemIdString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetStandardPurchasingLootLockerContextKeyCatalogItemIdString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.LootLocker. </p>
+
+</div>
+</div>
+<a id="a68c61180bf04f9e93c84a70abcb201b2" name="a68c61180bf04f9e93c84a70abcb201b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68c61180bf04f9e93c84a70abcb201b2">&#9670;&#160;</a></span>GetStandardPurchasingSteamStoreContextKeyCatalogIdString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetStandardPurchasingSteamStoreContextKeyCatalogIdString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.SteamStore. </p>
+
+</div>
+</div>
+<a id="ae7f65aadab5b3dc5c5c23f81acdc5f29" name="ae7f65aadab5b3dc5c5c23f81acdc5f29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7f65aadab5b3dc5c5c23f81acdc5f29">&#9670;&#160;</a></span>GetStandardPurchasingSteamStoreContextKeyCatalogItemIdString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetStandardPurchasingSteamStoreContextKeyCatalogItemIdString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.SteamStore. </p>
+
+</div>
+</div>
+<a id="a07edf81764c0992aff3eba1b36406457" name="a07edf81764c0992aff3eba1b36406457"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07edf81764c0992aff3eba1b36406457">&#9670;&#160;</a></span>GetStandardPurchasingSteamStoreContextKeyCharacterIdString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetStandardPurchasingSteamStoreContextKeyCharacterIdString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.SteamStore. </p>
+
+</div>
+</div>
+<a id="a3e30e8188cdddac9c64b87d4f9320dea" name="a3e30e8188cdddac9c64b87d4f9320dea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e30e8188cdddac9c64b87d4f9320dea">&#9670;&#160;</a></span>GetStandardPurchasingSteamStoreContextKeyEntitlementIdString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetStandardPurchasingSteamStoreContextKeyEntitlementIdString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notification contexts &ndash; Standard Context Key for Purchasing.SteamStore. </p>
+
+</div>
+</div>
+<a id="ad42ad68c2c534ef8db447ff11201fea0" name="ad42ad68c2c534ef8db447ff11201fea0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad42ad68c2c534ef8db447ff11201fea0">&#9670;&#160;</a></span>GetStandardTriggersContextKeyIdString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetStandardTriggersContextKeyIdString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notification contexts &ndash; Standard Context Key for Triggers. </p>
+
+</div>
+</div>
+<a id="a4e5cc3f81434e645a60c9168321d5640" name="a4e5cc3f81434e645a60c9168321d5640"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e5cc3f81434e645a60c9168321d5640">&#9670;&#160;</a></span>GetStandardTriggersContextKeyKeyString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetStandardTriggersContextKeyKeyString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notification contexts &ndash; Standard Context Key for Triggers. </p>
+
+</div>
+</div>
+<a id="a6c6376700398e1550be1f9a6e9b50c26" name="a6c6376700398e1550be1f9a6e9b50c26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c6376700398e1550be1f9a6e9b50c26">&#9670;&#160;</a></span>GetStandardTriggersContextKeyLimitString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetStandardTriggersContextKeyLimitString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notification contexts &ndash; Standard Context Key for Triggers. </p>
+
+</div>
+</div>
+<a id="aa0c492c0c81cbbaa4b4f41c27cd9ae09" name="aa0c492c0c81cbbaa4b4f41c27cd9ae09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0c492c0c81cbbaa4b4f41c27cd9ae09">&#9670;&#160;</a></span>GetStandardTwitchDropContextKeyTwitchRewardIdString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetStandardTwitchDropContextKeyTwitchRewardIdString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notification contexts &ndash; Standard Context Key for Twitch Drops. </p>
+
+</div>
+</div>
+<a id="ab59fe8dce8b1da74f03b83b7db488c8e" name="ab59fe8dce8b1da74f03b83b7db488c8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab59fe8dce8b1da74f03b83b7db488c8e">&#9670;&#160;</a></span>GetTypePullRewardAcquiredString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerStaticNotificationStringBlueprintCallables::GetTypePullRewardAcquiredString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static String for use in Notifications &ndash; Matching Notification type Pull Reward Acquired. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

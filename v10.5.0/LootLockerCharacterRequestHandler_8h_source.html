@@ -1,0 +1,506 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: LootLockerSDK/Source/LootLockerSDK/Public/GameAPI/LootLockerCharacterRequestHandler.h Source File</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('LootLockerCharacterRequestHandler_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LootLockerCharacterRequestHandler.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="LootLockerCharacterRequestHandler_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright (c) 2021 LootLocker</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerAssetsRequestHandler_8h.html">LootLockerAssetsRequestHandler.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerResponse_8h.html">LootLockerResponse.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;LootLockerCharacterRequestHandler.generated.h&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00014" data-start="{" data-end="};">
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="structFLootLockerCharacter.html">   14</a></span>struct <a class="code hl_struct" href="structFLootLockerCharacter.html">FLootLockerCharacter</a> {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="structFLootLockerCharacter.html#af481e1a1d4e592baab070368f97d5f82">   17</a></span>    int32 <span class="keywordtype">id</span> = 0;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="structFLootLockerCharacter.html#a1ccb4ada8d3eb1d200eef2ae60673938">   19</a></span>    FString type = &quot;&quot;;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="structFLootLockerCharacter.html#a020c2af6bcabf50eed4daac99228b726">   21</a></span>    FString name = &quot;&quot;;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="structFLootLockerCharacter.html#a2efe39239866e442784aea802c80ea67">   23</a></span>    int32 ulid = 0;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="structFLootLockerCharacter.html#a4a689f32739e1b4dcdc0d5ba062f8975">   25</a></span>    <span class="keywordtype">bool</span> is_default = false;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>};</div>
+</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00029" data-start="{" data-end="};">
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterRental.html">   29</a></span>struct <a class="code hl_struct" href="structFLootLockerCharacterRental.html">FLootLockerCharacterRental</a> {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterRental.html#aaf82c63cb44fbfce542e790b5644c803">   32</a></span>    bool is_rental = false;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterRental.html#a1c6f1af0928ab11e3a360776c193422d">   34</a></span>    FString time_left = &quot;&quot;;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterRental.html#ab52cecd2f5b4bef34ce3697007f1d5db">   36</a></span>    FString duration = &quot;&quot;;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterRental.html#ae1ec784b974c9472309ad3bd37219ba7">   38</a></span>    FString is_active = &quot;&quot;;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>};</div>
+</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00042" data-start="{" data-end="};">
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterLoadout.html">   42</a></span>struct <a class="code hl_struct" href="structFLootLockerCharacterLoadout.html">FLootLockerCharacterLoadout</a> {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterLoadout.html#a69337cc244531778559ee5a1f6d23ef0">   45</a></span>    int32 variation_id = 0;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterLoadout.html#aa92a87a779044e4d9f093fc6957f22f2">   47</a></span>    int32 instance_id = 0;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterLoadout.html#a543980a120a0ba211e0b6967f1d41389">   49</a></span>    FString mounted_at = &quot;&quot;;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterLoadout.html#a1e40b95dd19e0c1c93f4d5de09f90a25">   51</a></span>    <a class="code hl_struct" href="structFLootLockerAsset.html">FLootLockerAsset</a> <a class="code hl_enumvalue" href="group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804ac04e34d445e31a2159c1bfeb882ba212">asset</a>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterLoadout.html#ab7e18f847702a6f4b82d3f1105f9a07e">   53</a></span>    <a class="code hl_struct" href="structFLootLockerCharacterRental.html">FLootLockerCharacterRental</a> rental;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>};</div>
+</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="};">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterLoadoutArray.html">   57</a></span>struct <a class="code hl_struct" href="structFLootLockerCharacterLoadoutArray.html">FLootLockerCharacterLoadoutArray</a> {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterLoadoutArray.html#a20e381e4427494856101b0b5c21b1602">   60</a></span>    <a class="code hl_struct" href="structFLootLockerCharacter.html">FLootLockerCharacter</a> <a class="code hl_enumvalue" href="group__Balances.html#gga43ee520d8b9a78d3700e17a181c9f216aa956161a69928cd130a889b88082fb6e">character</a>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterLoadoutArray.html#aaefd3c59a8871c5669efb79d244c65d0">   62</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerCharacterLoadout.html">FLootLockerCharacterLoadout</a>&gt; loadout;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>};</div>
+</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="};">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="structFLootLockerEmptyRequest.html">   66</a></span>struct <a class="code hl_struct" href="structFLootLockerEmptyRequest.html">FLootLockerEmptyRequest</a> {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>};</div>
+</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00071" data-start="{" data-end="};">
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterLoadoutResponse.html">   71</a></span>struct <a class="code hl_struct" href="structFLootLockerCharacterLoadoutResponse.html">FLootLockerCharacterLoadoutResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a> {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterLoadoutResponse.html#a841d4a723367d71b061de1d76d5f0abb">   74</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerCharacterLoadoutArray.html">FLootLockerCharacterLoadoutArray</a>&gt; loadouts;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>};</div>
+</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00078" data-start="{" data-end="};">
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="structFLootLockerUpdateCharacterRequest.html">   78</a></span>struct <a class="code hl_struct" href="structFLootLockerUpdateCharacterRequest.html">FLootLockerUpdateCharacterRequest</a> {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="structFLootLockerUpdateCharacterRequest.html#ae19b83c341928aa1149003f01f5f4588">   81</a></span>    bool is_default = false;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="structFLootLockerUpdateCharacterRequest.html#a8ef3f21d119299004e2c767d1170ac2f">   83</a></span>    FString name = &quot;&quot;;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>};</div>
+</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00087" data-start="{" data-end="};">
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="structFLootLockerCreateCharacterRequest.html">   87</a></span>struct <a class="code hl_struct" href="structFLootLockerCreateCharacterRequest.html">FLootLockerCreateCharacterRequest</a> {</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="structFLootLockerCreateCharacterRequest.html#a30fb0e99029a5e1a5ef770c610b74f54">   90</a></span>    bool is_default = false;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="structFLootLockerCreateCharacterRequest.html#abc0bad06c51fc0ba00da7d97386f4e01">   92</a></span>    FString name = &quot;&quot;;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="structFLootLockerCreateCharacterRequest.html#ae8597840ff693521072f68f505a38dfd">   94</a></span>    int32 character_type_id = 0;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>};</div>
+</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00098" data-start="{" data-end="};">
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="structFLootLockerListCharacterResponseItem.html">   98</a></span>struct <a class="code hl_struct" href="structFLootLockerListCharacterResponseItem.html">FLootLockerListCharacterResponseItem</a> {</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="structFLootLockerListCharacterResponseItem.html#a23fadb410c68d6b40a4ae11d1c423c74">  101</a></span>    bool is_default = false;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="structFLootLockerListCharacterResponseItem.html#aa4a8d70020ebc24a6c19863b8b07bd98">  103</a></span>    FString name = &quot;&quot;;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="structFLootLockerListCharacterResponseItem.html#abad21993abc62544899d10aaa06213d7">  105</a></span>    FString <span class="keywordtype">id</span> = &quot;&quot;;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="structFLootLockerListCharacterResponseItem.html#abe2bd0978b7f3186b9fdcbe1a2534e5e">  107</a></span>    FString ulid = &quot;&quot;;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>};</div>
+</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00111" data-start="{" data-end="};">
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="structFLootLockerEquipAssetToCharacterWithInstanceRequest.html">  111</a></span>struct <a class="code hl_struct" href="structFLootLockerEquipAssetToCharacterWithInstanceRequest.html">FLootLockerEquipAssetToCharacterWithInstanceRequest</a> {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="structFLootLockerEquipAssetToCharacterWithInstanceRequest.html#a885d5e609a8cc51ace9c89ec8abc20cf">  114</a></span>    int32 instance_id = 0;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>};</div>
+</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00118" data-start="{" data-end="};">
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="structFLootLockerEquipUniversalAssetToCharacterRequest.html">  118</a></span>struct <a class="code hl_struct" href="structFLootLockerEquipUniversalAssetToCharacterRequest.html">FLootLockerEquipUniversalAssetToCharacterRequest</a> {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="structFLootLockerEquipUniversalAssetToCharacterRequest.html#a1f899263f67e16afb462499bde5e46b3">  121</a></span>    int32 asset_id = 0;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="structFLootLockerEquipUniversalAssetToCharacterRequest.html#a06c597bc9744e003b42fc2b9bc4f0d81">  123</a></span>    int32 asset_variation_id = 0;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>};</div>
+</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00127" data-start="{" data-end="};">
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterTypeDefaultLoadout.html">  127</a></span>struct <a class="code hl_struct" href="structFLootLockerCharacterTypeDefaultLoadout.html">FLootLockerCharacterTypeDefaultLoadout</a> {</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterTypeDefaultLoadout.html#a9802f8856dff91d30e5afb6a7f553b17">  130</a></span>    int32 asset_id = 0;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterTypeDefaultLoadout.html#ad3660e1b4af4752ef5a9f68f5448b1bb">  132</a></span>    int32 asset_variation_id = 0;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterTypeDefaultLoadout.html#a74d96ecffda2b996b992ec5e52b3c575">  134</a></span>    <a class="code hl_struct" href="structFLootLockerAsset.html">FLootLockerAsset</a> <a class="code hl_enumvalue" href="group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804ac04e34d445e31a2159c1bfeb882ba212">asset</a>;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>};</div>
+</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00138" data-start="{" data-end="};">
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterTypes.html">  138</a></span>struct <a class="code hl_struct" href="structFLootLockerCharacterTypes.html">FLootLockerCharacterTypes</a> : public <a class="code hl_struct" href="structFLootLockerHasKeyValueStorage.html">FLootLockerHasKeyValueStorage</a></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>{</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterTypes.html#adf7818a9f0ea7f6f03bae79ba33b1e96">  142</a></span>    int32 <span class="keywordtype">id</span> = 0;</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterTypes.html#a8a0ddd56c603f633f9032f7e76f2b724">  144</a></span>    <span class="keywordtype">bool</span> is_default = false;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterTypes.html#a7ee1ec690260f7d974ac12b29e15c3fd">  146</a></span>    FString name = &quot;&quot;;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno"><a class="line" href="structFLootLockerCharacterTypes.html#a9f2209f7cd3b7aabcf20241d54b80c92">  148</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerCharacterTypeDefaultLoadout.html">FLootLockerCharacterTypeDefaultLoadout</a>&gt; default_loadout;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>};</div>
+</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00152" data-start="{" data-end="};">
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="structFLootLockerListCharacterTypesResponse.html">  152</a></span>struct <a class="code hl_struct" href="structFLootLockerListCharacterTypesResponse.html">FLootLockerListCharacterTypesResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a> {</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="structFLootLockerListCharacterTypesResponse.html#a2c3de17a42a42e4107581e53b282bcbc">  155</a></span>    TArray&lt;struct <a class="code hl_struct" href="structFLootLockerCharacterTypes.html">FLootLockerCharacterTypes</a>&gt; character_types;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>};</div>
+</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00159" data-start="{" data-end="};">
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="structFLootLockerListPlayerCharactersResponse.html">  159</a></span>struct <a class="code hl_struct" href="structFLootLockerListPlayerCharactersResponse.html">FLootLockerListPlayerCharactersResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a> {</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno"><a class="line" href="structFLootLockerListPlayerCharactersResponse.html#aba20e0a15ee97d24e20785e5a1d592d9">  162</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerListCharacterResponseItem.html">FLootLockerListCharacterResponseItem</a>&gt; items;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>};</div>
+</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno"><a class="line" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">  168</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a>, <a class="code hl_struct" href="structFLootLockerCharacterLoadoutResponse.html">FLootLockerCharacterLoadoutResponse</a>);</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno"><a class="line" href="group__Hero.html#ga4a6ac45f5800c35a900ec36beb114ef5">  170</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Hero.html#ga4a6ac45f5800c35a900ec36beb114ef5">FLootLockerCharacterDefaultResponse</a>, <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a>);</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="group__Hero.html#ga30810d54abf2b70df29ed6c6c0f1e3eb">  172</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Hero.html#ga30810d54abf2b70df29ed6c6c0f1e3eb">FPLootLockerListCharacterTypesResponse</a>, <a class="code hl_struct" href="structFLootLockerListCharacterTypesResponse.html">FLootLockerListCharacterTypesResponse</a>);</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno"><a class="line" href="group__Hero.html#ga5d10eaefc3d6759f9b538199b2508119">  174</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Hero.html#ga5d10eaefc3d6759f9b538199b2508119">FPLootLockerListPlayerCharactersResponse</a>, <a class="code hl_struct" href="structFLootLockerListPlayerCharactersResponse.html">FLootLockerListPlayerCharactersResponse</a>);</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>UCLASS()</div>
+<div class="foldopen" id="foldopen00179" data-start="{" data-end="};">
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno"><a class="line" href="classULootLockerCharacterRequestHandler.html">  179</a></span>class LOOTLOCKERSDK_API <a class="code hl_class" href="classULootLockerCharacterRequestHandler.html">ULootLockerCharacterRequestHandler</a> : public UObject</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>{</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="classULootLockerCharacterRequestHandler.html#a7f82c5d8412dd750b492e4a4f7f5dddb">  183</a></span>    <a class="code hl_function" href="classULootLockerCharacterRequestHandler.html#a7f82c5d8412dd750b492e4a4f7f5dddb">ULootLockerCharacterRequestHandler</a>() {};</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="classULootLockerCharacterRequestHandler.html#ad4ca7f80d7a48fc4251417349c4db105">  185</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerCharacterRequestHandler.html#ad4ca7f80d7a48fc4251417349c4db105">GetCharacterLoadout</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="classULootLockerCharacterRequestHandler.html#a54e434c474e7b0254691de2a26a5c7b7">  186</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerCharacterRequestHandler.html#a54e434c474e7b0254691de2a26a5c7b7">UpdateCharacter</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keywordtype">int</span> CharacterId, <span class="keywordtype">bool</span> IsDefault, FString <a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987">Name</a>, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="classULootLockerCharacterRequestHandler.html#ad53c78c8d0142d8f9925bff839ce366b">  187</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerCharacterRequestHandler.html#ad53c78c8d0142d8f9925bff839ce366b">CreateCharacter</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keywordtype">bool</span> IsDefault, FString CharacterName, <span class="keywordtype">int</span> CharacterId, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno"><a class="line" href="classULootLockerCharacterRequestHandler.html#a0f7029ad9c7bc5969bdcc12282850548">  188</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerCharacterRequestHandler.html#a0f7029ad9c7bc5969bdcc12282850548">DeleteCharacter</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keywordtype">int</span> CharacterId, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Hero.html#ga4a6ac45f5800c35a900ec36beb114ef5">FLootLockerCharacterDefaultResponse</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="classULootLockerCharacterRequestHandler.html#abe100f8821ec311a84187971cb2fda3f">  189</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerCharacterRequestHandler.html#abe100f8821ec311a84187971cb2fda3f">ListPlayerCharacters</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Hero.html#ga5d10eaefc3d6759f9b538199b2508119">FPLootLockerListPlayerCharactersResponse</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="classULootLockerCharacterRequestHandler.html#a634171fcc3e98f0da2095d9c400bd3ee">  190</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerCharacterRequestHandler.html#a634171fcc3e98f0da2095d9c400bd3ee">ListCharacterTypes</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Hero.html#ga30810d54abf2b70df29ed6c6c0f1e3eb">FPLootLockerListCharacterTypesResponse</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="classULootLockerCharacterRequestHandler.html#af4d58bbb3a2d139c8fbb67b487a59283">  191</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerCharacterRequestHandler.html#af4d58bbb3a2d139c8fbb67b487a59283">EquipAssetToDefaultCharacter</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keywordtype">int</span> InstanceId, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Hero.html#ga4a6ac45f5800c35a900ec36beb114ef5">FLootLockerCharacterDefaultResponse</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="classULootLockerCharacterRequestHandler.html#a0f752c7cd49be67aae6c719384df4300">  192</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerCharacterRequestHandler.html#a0f752c7cd49be67aae6c719384df4300">EquipAssetToCharacterById</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keywordtype">int</span> CharacterId, <span class="keywordtype">int</span> InstanceId, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Hero.html#ga4a6ac45f5800c35a900ec36beb114ef5">FLootLockerCharacterDefaultResponse</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno"><a class="line" href="classULootLockerCharacterRequestHandler.html#ab7513cb64ef5648620c216ce2cb2ac57">  193</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerCharacterRequestHandler.html#ab7513cb64ef5648620c216ce2cb2ac57">EquipAssetToCharacterById</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keywordtype">int</span> CharacterId, <span class="keywordtype">int</span> AssetId, <span class="keywordtype">int</span> AssetVariationId, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Hero.html#ga4a6ac45f5800c35a900ec36beb114ef5">FLootLockerCharacterDefaultResponse</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="classULootLockerCharacterRequestHandler.html#abcba924efd8b9633a89e8aa633b33f53">  194</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerCharacterRequestHandler.html#abcba924efd8b9633a89e8aa633b33f53">UnEquipAssetToDefaultCharacter</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keywordtype">int</span> InstanceId, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Hero.html#ga4a6ac45f5800c35a900ec36beb114ef5">FLootLockerCharacterDefaultResponse</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno"><a class="line" href="classULootLockerCharacterRequestHandler.html#a24b5a857fab863d775f7e21e1d4b1a66">  195</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerCharacterRequestHandler.html#a24b5a857fab863d775f7e21e1d4b1a66">UnEquipAssetToCharacterById</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keywordtype">int</span> CharacterId, <span class="keywordtype">int</span> InstanceId, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Hero.html#ga4a6ac45f5800c35a900ec36beb114ef5">FLootLockerCharacterDefaultResponse</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno"><a class="line" href="classULootLockerCharacterRequestHandler.html#af7df29487e52cd09018ffcb35edef099">  196</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerCharacterRequestHandler.html#af7df29487e52cd09018ffcb35edef099">GetCurrentLoadoutToDefaultCharacter</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno"><a class="line" href="classULootLockerCharacterRequestHandler.html#accf7e8b4f6ab771eb335d497fdaa3c6e">  197</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerCharacterRequestHandler.html#accf7e8b4f6ab771eb335d497fdaa3c6e">GetOtherPlayersCurrentLoadoutToDefaultCharacter</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, FString&amp; OtherPlayerId, <span class="keyword">const</span> FString&amp; OtherPlayerPlatform, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno"><a class="line" href="classULootLockerCharacterRequestHandler.html#a0a54c1e6109e004ad2cac3cf608eae5d">  198</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerCharacterRequestHandler.html#a0a54c1e6109e004ad2cac3cf608eae5d">GetEquipableContextsToDefaultCharacter</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Assets.html#ga5f638ad6d77d7e328d6ff56f6b4f677c">FContextDelegate</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno"><a class="line" href="classULootLockerCharacterRequestHandler.html#a82b745c84afe4d26913c67b4a079a86b">  199</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerCharacterRequestHandler.html#a82b745c84afe4d26913c67b4a079a86b">GetEquipableContextsByCharacterId</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keywordtype">int</span> OtherCharacterId, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Assets.html#ga5f638ad6d77d7e328d6ff56f6b4f677c">FContextDelegate</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno"><a class="line" href="classULootLockerCharacterRequestHandler.html#a5bd8af0de461446d8716e3aef3eb2454">  200</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerCharacterRequestHandler.html#a5bd8af0de461446d8716e3aef3eb2454">GetOtherPlayersCharacterLoadouts</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; OtherPlayerId, <span class="keyword">const</span> FString&amp; OtherPlayerPlatform, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno"><a class="line" href="classULootLockerCharacterRequestHandler.html#a77e520d8a7b4e64590a332fbb651440f">  201</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerCharacterRequestHandler.html#a77e520d8a7b4e64590a332fbb651440f">GetOtherPlayersCharacterLoadoutsByUid</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; OtherPlayerUid, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>};</div>
+</div>
+<div class="ttc" id="aLootLockerAssetsRequestHandler_8h_html"><div class="ttname"><a href="LootLockerAssetsRequestHandler_8h.html">LootLockerAssetsRequestHandler.h</a></div></div>
+<div class="ttc" id="aLootLockerPlayerData_8h_html"><div class="ttname"><a href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a></div></div>
+<div class="ttc" id="aLootLockerResponse_8h_html"><div class="ttname"><a href="LootLockerResponse_8h.html">LootLockerResponse.h</a></div></div>
+<div class="ttc" id="aclassULootLockerCharacterRequestHandler_html"><div class="ttname"><a href="classULootLockerCharacterRequestHandler.html">ULootLockerCharacterRequestHandler</a></div><div class="ttdef"><b>Definition</b> LootLockerCharacterRequestHandler.h:180</div></div>
+<div class="ttc" id="aclassULootLockerCharacterRequestHandler_html_a0a54c1e6109e004ad2cac3cf608eae5d"><div class="ttname"><a href="classULootLockerCharacterRequestHandler.html#a0a54c1e6109e004ad2cac3cf608eae5d">ULootLockerCharacterRequestHandler::GetEquipableContextsToDefaultCharacter</a></div><div class="ttdeci">static FString GetEquipableContextsToDefaultCharacter(const FLootLockerPlayerData &amp;PlayerData, const FContextDelegate &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerCharacterRequestHandler_html_a0f7029ad9c7bc5969bdcc12282850548"><div class="ttname"><a href="classULootLockerCharacterRequestHandler.html#a0f7029ad9c7bc5969bdcc12282850548">ULootLockerCharacterRequestHandler::DeleteCharacter</a></div><div class="ttdeci">static FString DeleteCharacter(const FLootLockerPlayerData &amp;PlayerData, int CharacterId, const FLootLockerCharacterDefaultResponse &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerCharacterRequestHandler_html_a0f752c7cd49be67aae6c719384df4300"><div class="ttname"><a href="classULootLockerCharacterRequestHandler.html#a0f752c7cd49be67aae6c719384df4300">ULootLockerCharacterRequestHandler::EquipAssetToCharacterById</a></div><div class="ttdeci">static FString EquipAssetToCharacterById(const FLootLockerPlayerData &amp;PlayerData, int CharacterId, int InstanceId, const FLootLockerCharacterDefaultResponse &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerCharacterRequestHandler_html_a24b5a857fab863d775f7e21e1d4b1a66"><div class="ttname"><a href="classULootLockerCharacterRequestHandler.html#a24b5a857fab863d775f7e21e1d4b1a66">ULootLockerCharacterRequestHandler::UnEquipAssetToCharacterById</a></div><div class="ttdeci">static FString UnEquipAssetToCharacterById(const FLootLockerPlayerData &amp;PlayerData, int CharacterId, int InstanceId, const FLootLockerCharacterDefaultResponse &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerCharacterRequestHandler_html_a54e434c474e7b0254691de2a26a5c7b7"><div class="ttname"><a href="classULootLockerCharacterRequestHandler.html#a54e434c474e7b0254691de2a26a5c7b7">ULootLockerCharacterRequestHandler::UpdateCharacter</a></div><div class="ttdeci">static FString UpdateCharacter(const FLootLockerPlayerData &amp;PlayerData, int CharacterId, bool IsDefault, FString Name, const FCharacterLoadoutResponse &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerCharacterRequestHandler_html_a5bd8af0de461446d8716e3aef3eb2454"><div class="ttname"><a href="classULootLockerCharacterRequestHandler.html#a5bd8af0de461446d8716e3aef3eb2454">ULootLockerCharacterRequestHandler::GetOtherPlayersCharacterLoadouts</a></div><div class="ttdeci">static FString GetOtherPlayersCharacterLoadouts(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;OtherPlayerId, const FString &amp;OtherPlayerPlatform, const FCharacterLoadoutResponse &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerCharacterRequestHandler_html_a634171fcc3e98f0da2095d9c400bd3ee"><div class="ttname"><a href="classULootLockerCharacterRequestHandler.html#a634171fcc3e98f0da2095d9c400bd3ee">ULootLockerCharacterRequestHandler::ListCharacterTypes</a></div><div class="ttdeci">static FString ListCharacterTypes(const FLootLockerPlayerData &amp;PlayerData, const FPLootLockerListCharacterTypesResponse &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerCharacterRequestHandler_html_a77e520d8a7b4e64590a332fbb651440f"><div class="ttname"><a href="classULootLockerCharacterRequestHandler.html#a77e520d8a7b4e64590a332fbb651440f">ULootLockerCharacterRequestHandler::GetOtherPlayersCharacterLoadoutsByUid</a></div><div class="ttdeci">static FString GetOtherPlayersCharacterLoadoutsByUid(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;OtherPlayerUid, const FCharacterLoadoutResponse &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerCharacterRequestHandler_html_a7f82c5d8412dd750b492e4a4f7f5dddb"><div class="ttname"><a href="classULootLockerCharacterRequestHandler.html#a7f82c5d8412dd750b492e4a4f7f5dddb">ULootLockerCharacterRequestHandler::ULootLockerCharacterRequestHandler</a></div><div class="ttdeci">ULootLockerCharacterRequestHandler()</div><div class="ttdef"><b>Definition</b> LootLockerCharacterRequestHandler.h:183</div></div>
+<div class="ttc" id="aclassULootLockerCharacterRequestHandler_html_a82b745c84afe4d26913c67b4a079a86b"><div class="ttname"><a href="classULootLockerCharacterRequestHandler.html#a82b745c84afe4d26913c67b4a079a86b">ULootLockerCharacterRequestHandler::GetEquipableContextsByCharacterId</a></div><div class="ttdeci">static FString GetEquipableContextsByCharacterId(const FLootLockerPlayerData &amp;PlayerData, int OtherCharacterId, const FContextDelegate &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerCharacterRequestHandler_html_ab7513cb64ef5648620c216ce2cb2ac57"><div class="ttname"><a href="classULootLockerCharacterRequestHandler.html#ab7513cb64ef5648620c216ce2cb2ac57">ULootLockerCharacterRequestHandler::EquipAssetToCharacterById</a></div><div class="ttdeci">static FString EquipAssetToCharacterById(const FLootLockerPlayerData &amp;PlayerData, int CharacterId, int AssetId, int AssetVariationId, const FLootLockerCharacterDefaultResponse &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerCharacterRequestHandler_html_abcba924efd8b9633a89e8aa633b33f53"><div class="ttname"><a href="classULootLockerCharacterRequestHandler.html#abcba924efd8b9633a89e8aa633b33f53">ULootLockerCharacterRequestHandler::UnEquipAssetToDefaultCharacter</a></div><div class="ttdeci">static FString UnEquipAssetToDefaultCharacter(const FLootLockerPlayerData &amp;PlayerData, int InstanceId, const FLootLockerCharacterDefaultResponse &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerCharacterRequestHandler_html_abe100f8821ec311a84187971cb2fda3f"><div class="ttname"><a href="classULootLockerCharacterRequestHandler.html#abe100f8821ec311a84187971cb2fda3f">ULootLockerCharacterRequestHandler::ListPlayerCharacters</a></div><div class="ttdeci">static FString ListPlayerCharacters(const FLootLockerPlayerData &amp;PlayerData, const FPLootLockerListPlayerCharactersResponse &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerCharacterRequestHandler_html_accf7e8b4f6ab771eb335d497fdaa3c6e"><div class="ttname"><a href="classULootLockerCharacterRequestHandler.html#accf7e8b4f6ab771eb335d497fdaa3c6e">ULootLockerCharacterRequestHandler::GetOtherPlayersCurrentLoadoutToDefaultCharacter</a></div><div class="ttdeci">static FString GetOtherPlayersCurrentLoadoutToDefaultCharacter(const FLootLockerPlayerData &amp;PlayerData, FString &amp;OtherPlayerId, const FString &amp;OtherPlayerPlatform, const FCharacterLoadoutResponse &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerCharacterRequestHandler_html_ad4ca7f80d7a48fc4251417349c4db105"><div class="ttname"><a href="classULootLockerCharacterRequestHandler.html#ad4ca7f80d7a48fc4251417349c4db105">ULootLockerCharacterRequestHandler::GetCharacterLoadout</a></div><div class="ttdeci">static FString GetCharacterLoadout(const FLootLockerPlayerData &amp;PlayerData, const FCharacterLoadoutResponse &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerCharacterRequestHandler_html_ad53c78c8d0142d8f9925bff839ce366b"><div class="ttname"><a href="classULootLockerCharacterRequestHandler.html#ad53c78c8d0142d8f9925bff839ce366b">ULootLockerCharacterRequestHandler::CreateCharacter</a></div><div class="ttdeci">static FString CreateCharacter(const FLootLockerPlayerData &amp;PlayerData, bool IsDefault, FString CharacterName, int CharacterId, const FCharacterLoadoutResponse &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerCharacterRequestHandler_html_af4d58bbb3a2d139c8fbb67b487a59283"><div class="ttname"><a href="classULootLockerCharacterRequestHandler.html#af4d58bbb3a2d139c8fbb67b487a59283">ULootLockerCharacterRequestHandler::EquipAssetToDefaultCharacter</a></div><div class="ttdeci">static FString EquipAssetToDefaultCharacter(const FLootLockerPlayerData &amp;PlayerData, int InstanceId, const FLootLockerCharacterDefaultResponse &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerCharacterRequestHandler_html_af7df29487e52cd09018ffcb35edef099"><div class="ttname"><a href="classULootLockerCharacterRequestHandler.html#af7df29487e52cd09018ffcb35edef099">ULootLockerCharacterRequestHandler::GetCurrentLoadoutToDefaultCharacter</a></div><div class="ttdeci">static FString GetCurrentLoadoutToDefaultCharacter(const FLootLockerPlayerData &amp;PlayerData, const FCharacterLoadoutResponse &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="agroup__Assets_html_ga5f638ad6d77d7e328d6ff56f6b4f677c"><div class="ttname"><a href="group__Assets.html#ga5f638ad6d77d7e328d6ff56f6b4f677c">FContextDelegate</a></div><div class="ttdeci">void(* FContextDelegate)(FLootLockerGetContextResponse)</div><div class="ttdoc">C++ response callback delegate; receives an FLootLockerGetContextResponse result.</div><div class="ttdef"><b>Definition</b> LootLockerAssetsRequestHandler.h:579</div></div>
+<div class="ttc" id="agroup__Assets_html_gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987"><div class="ttname"><a href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987">ELootLockerOrderAssetListBy::Name</a></div><div class="ttdeci">@ Name</div></div>
+<div class="ttc" id="agroup__Balances_html_gga43ee520d8b9a78d3700e17a181c9f216aa956161a69928cd130a889b88082fb6e"><div class="ttname"><a href="group__Balances.html#gga43ee520d8b9a78d3700e17a181c9f216aa956161a69928cd130a889b88082fb6e">ELootLockerWalletHolderTypes::character</a></div><div class="ttdeci">@ character</div></div>
+<div class="ttc" id="agroup__Hero_html_ga30810d54abf2b70df29ed6c6c0f1e3eb"><div class="ttname"><a href="group__Hero.html#ga30810d54abf2b70df29ed6c6c0f1e3eb">FPLootLockerListCharacterTypesResponse</a></div><div class="ttdeci">void(* FPLootLockerListCharacterTypesResponse)(FLootLockerListCharacterTypesResponse)</div><div class="ttdoc">C++ response callback delegate; receives an FLootLockerListCharacterTypesResponse result.</div><div class="ttdef"><b>Definition</b> LootLockerCharacterRequestHandler.h:172</div></div>
+<div class="ttc" id="agroup__Hero_html_ga4a6ac45f5800c35a900ec36beb114ef5"><div class="ttname"><a href="group__Hero.html#ga4a6ac45f5800c35a900ec36beb114ef5">FLootLockerCharacterDefaultResponse</a></div><div class="ttdeci">void(* FLootLockerCharacterDefaultResponse)(FLootLockerResponse)</div><div class="ttdoc">C++ response callback delegate; receives an FLootLockerResponse result.</div><div class="ttdef"><b>Definition</b> LootLockerCharacterRequestHandler.h:170</div></div>
+<div class="ttc" id="agroup__Hero_html_ga5d10eaefc3d6759f9b538199b2508119"><div class="ttname"><a href="group__Hero.html#ga5d10eaefc3d6759f9b538199b2508119">FPLootLockerListPlayerCharactersResponse</a></div><div class="ttdeci">void(* FPLootLockerListPlayerCharactersResponse)(FLootLockerListPlayerCharactersResponse)</div><div class="ttdoc">C++ response callback delegate; receives an FLootLockerListPlayerCharactersResponse result.</div><div class="ttdef"><b>Definition</b> LootLockerCharacterRequestHandler.h:174</div></div>
+<div class="ttc" id="agroup__Hero_html_gaf5aa49e49005e8b1cddea8dd887540d7"><div class="ttname"><a href="group__Hero.html#gaf5aa49e49005e8b1cddea8dd887540d7">FCharacterLoadoutResponse</a></div><div class="ttdeci">void(* FCharacterLoadoutResponse)(FLootLockerCharacterLoadoutResponse)</div><div class="ttdoc">C++ response callback delegate; receives an FLootLockerCharacterLoadoutResponse result.</div><div class="ttdef"><b>Definition</b> LootLockerCharacterRequestHandler.h:168</div></div>
+<div class="ttc" id="agroup__Metadata_html_gga3d86f36677809018b3cb5db0418ac804ac04e34d445e31a2159c1bfeb882ba212"><div class="ttname"><a href="group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804ac04e34d445e31a2159c1bfeb882ba212">ELootLockerMetadataSources::asset</a></div><div class="ttdeci">@ asset</div></div>
+<div class="ttc" id="astructFLootLockerAsset_html"><div class="ttname"><a href="structFLootLockerAsset.html">FLootLockerAsset</a></div><div class="ttdef"><b>Definition</b> LootLockerAssetsRequestHandler.h:158</div></div>
+<div class="ttc" id="astructFLootLockerCharacterLoadoutArray_html"><div class="ttname"><a href="structFLootLockerCharacterLoadoutArray.html">FLootLockerCharacterLoadoutArray</a></div><div class="ttdef"><b>Definition</b> LootLockerCharacterRequestHandler.h:57</div></div>
+<div class="ttc" id="astructFLootLockerCharacterLoadoutResponse_html"><div class="ttname"><a href="structFLootLockerCharacterLoadoutResponse.html">FLootLockerCharacterLoadoutResponse</a></div><div class="ttdef"><b>Definition</b> LootLockerCharacterRequestHandler.h:71</div></div>
+<div class="ttc" id="astructFLootLockerCharacterLoadout_html"><div class="ttname"><a href="structFLootLockerCharacterLoadout.html">FLootLockerCharacterLoadout</a></div><div class="ttdef"><b>Definition</b> LootLockerCharacterRequestHandler.h:42</div></div>
+<div class="ttc" id="astructFLootLockerCharacterRental_html"><div class="ttname"><a href="structFLootLockerCharacterRental.html">FLootLockerCharacterRental</a></div><div class="ttdef"><b>Definition</b> LootLockerCharacterRequestHandler.h:29</div></div>
+<div class="ttc" id="astructFLootLockerCharacterTypeDefaultLoadout_html"><div class="ttname"><a href="structFLootLockerCharacterTypeDefaultLoadout.html">FLootLockerCharacterTypeDefaultLoadout</a></div><div class="ttdef"><b>Definition</b> LootLockerCharacterRequestHandler.h:127</div></div>
+<div class="ttc" id="astructFLootLockerCharacterTypes_html"><div class="ttname"><a href="structFLootLockerCharacterTypes.html">FLootLockerCharacterTypes</a></div><div class="ttdef"><b>Definition</b> LootLockerCharacterRequestHandler.h:139</div></div>
+<div class="ttc" id="astructFLootLockerCharacter_html"><div class="ttname"><a href="structFLootLockerCharacter.html">FLootLockerCharacter</a></div><div class="ttdef"><b>Definition</b> LootLockerCharacterRequestHandler.h:14</div></div>
+<div class="ttc" id="astructFLootLockerCreateCharacterRequest_html"><div class="ttname"><a href="structFLootLockerCreateCharacterRequest.html">FLootLockerCreateCharacterRequest</a></div><div class="ttdef"><b>Definition</b> LootLockerCharacterRequestHandler.h:87</div></div>
+<div class="ttc" id="astructFLootLockerEmptyRequest_html"><div class="ttname"><a href="structFLootLockerEmptyRequest.html">FLootLockerEmptyRequest</a></div><div class="ttdef"><b>Definition</b> LootLockerCharacterRequestHandler.h:66</div></div>
+<div class="ttc" id="astructFLootLockerEquipAssetToCharacterWithInstanceRequest_html"><div class="ttname"><a href="structFLootLockerEquipAssetToCharacterWithInstanceRequest.html">FLootLockerEquipAssetToCharacterWithInstanceRequest</a></div><div class="ttdef"><b>Definition</b> LootLockerCharacterRequestHandler.h:111</div></div>
+<div class="ttc" id="astructFLootLockerEquipUniversalAssetToCharacterRequest_html"><div class="ttname"><a href="structFLootLockerEquipUniversalAssetToCharacterRequest.html">FLootLockerEquipUniversalAssetToCharacterRequest</a></div><div class="ttdef"><b>Definition</b> LootLockerCharacterRequestHandler.h:118</div></div>
+<div class="ttc" id="astructFLootLockerHasKeyValueStorage_html"><div class="ttname"><a href="structFLootLockerHasKeyValueStorage.html">FLootLockerHasKeyValueStorage</a></div><div class="ttdef"><b>Definition</b> LootLockerAssetsRequestHandler.h:136</div></div>
+<div class="ttc" id="astructFLootLockerListCharacterResponseItem_html"><div class="ttname"><a href="structFLootLockerListCharacterResponseItem.html">FLootLockerListCharacterResponseItem</a></div><div class="ttdef"><b>Definition</b> LootLockerCharacterRequestHandler.h:98</div></div>
+<div class="ttc" id="astructFLootLockerListCharacterTypesResponse_html"><div class="ttname"><a href="structFLootLockerListCharacterTypesResponse.html">FLootLockerListCharacterTypesResponse</a></div><div class="ttdef"><b>Definition</b> LootLockerCharacterRequestHandler.h:152</div></div>
+<div class="ttc" id="astructFLootLockerListPlayerCharactersResponse_html"><div class="ttname"><a href="structFLootLockerListPlayerCharactersResponse.html">FLootLockerListPlayerCharactersResponse</a></div><div class="ttdef"><b>Definition</b> LootLockerCharacterRequestHandler.h:159</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html"><div class="ttname"><a href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a></div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:12</div></div>
+<div class="ttc" id="astructFLootLockerResponse_html"><div class="ttname"><a href="structFLootLockerResponse.html">FLootLockerResponse</a></div><div class="ttdoc">Base response struct — every SDK callback receives a struct that derives from this.</div><div class="ttdef"><b>Definition</b> LootLockerResponse.h:19</div></div>
+<div class="ttc" id="astructFLootLockerUpdateCharacterRequest_html"><div class="ttname"><a href="structFLootLockerUpdateCharacterRequest.html">FLootLockerUpdateCharacterRequest</a></div><div class="ttdef"><b>Definition</b> LootLockerCharacterRequestHandler.h:78</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_426131f2e7e3782155028ac49ab5e11c.html">LootLockerSDK</a></li><li class="navelem"><a class="el" href="dir_63662f8d869795fbcfe09e29de292894.html">Source</a></li><li class="navelem"><a class="el" href="dir_529bffb88e47999e071ca27db50fed71.html">LootLockerSDK</a></li><li class="navelem"><a class="el" href="dir_6800d9c9fc95b443eb5325340bc06d03.html">Public</a></li><li class="navelem"><a class="el" href="dir_c4276055a6e8dd41429ac8d6d68c790b.html">GameAPI</a></li><li class="navelem"><a class="el" href="LootLockerCharacterRequestHandler_8h.html">LootLockerCharacterRequestHandler.h</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

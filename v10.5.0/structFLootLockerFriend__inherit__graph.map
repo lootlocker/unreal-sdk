@@ -1,0 +1,7 @@
+<map id="FLootLockerFriend" name="FLootLockerFriend">
+<area shape="rect" id="Node000001" title="Represents a single friend." alt="" coords="145,5,285,31"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerAcceptedFriend.html" title="Represents a single friend." alt="" coords="5,79,205,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="187,40,125,81,122,76,184,36"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerBlockedPlayer.html" title="Represents a single blocked player." alt="" coords="229,79,421,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="245,36,309,76,306,81,243,40"/>
+</map>

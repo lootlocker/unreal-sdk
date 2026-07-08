@@ -1,0 +1,483 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: LootLockerSDK/Source/LootLockerSDK/Public/GameAPI/LootLockerEntitlementRequestHandler.h Source File</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('LootLockerEntitlementRequestHandler_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LootLockerEntitlementRequestHandler.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="LootLockerEntitlementRequestHandler_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright (c) 2021 LootLocker</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerResponse_8h.html">LootLockerResponse.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;LootLockerEntitlementRequestHandler.generated.h&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">// Data Type Definitions</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>UENUM(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00021" data-start="{" data-end="};">
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="group__Entitlements.html#gaa8b3363f44f89367edb3391761eb7903">   21</a></span>enum class <a class="code hl_enumeration" href="group__Entitlements.html#gaa8b3363f44f89367edb3391761eb7903">ELootLockerEntitlementHistoryListingStore</a> : uint8</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>{</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <a class="code hl_enumvalue" href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0,</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_enumvalue" href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a7af51761a9dc3e558b8f8c3c96f1facd">Apple_app_store</a> = 1,</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_enumvalue" href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a6abfec52c2173bbda0d29243559c74bb">Google_play_store</a> = 2,</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_enumvalue" href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a405bfe9e4b9a6d852b9f21a58f998eec">Steam_store</a> = 3,</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_enumvalue" href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903ad06f524d952475f99375eb746d050a0e">Playstation_network</a> = 4,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_enumvalue" href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903ab16b0ec8b92afab2691a23d126c1b5f7">Nintendo_eshop</a> = 5,</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_enumvalue" href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a2b0d034755b04e2926fba39a21f41c84">Lootlocker</a> = 6</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>};</div>
+</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>UENUM(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00039" data-start="{" data-end="};">
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="group__Entitlements.html#ga01dbb08b2160f96b89d68803979d5526">   39</a></span>enum class <a class="code hl_enumeration" href="group__Entitlements.html#ga01dbb08b2160f96b89d68803979d5526">ELootLockerEntitlementHistoryListingStatus</a> : uint8</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>{</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_enumvalue" href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0,</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_enumvalue" href="group__Entitlements.html#gga01dbb08b2160f96b89d68803979d5526a4d3d769b812b6faa6b76e1a8abaece2d">Active</a> = 1,</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_enumvalue" href="group__Entitlements.html#gga01dbb08b2160f96b89d68803979d5526a2d13df6f8b5e4c5af9f87e0dc39df69d">Pending</a> = 2,</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_enumvalue" href="group__Entitlements.html#gga01dbb08b2160f96b89d68803979d5526a24fe48030f7d3097d5882535b04c3fa8">Expired</a> = 3,</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <a class="code hl_enumvalue" href="group__Entitlements.html#gga01dbb08b2160f96b89d68803979d5526a0e22fe7d45f8e5632a4abf369b24e29c">Canceled</a> = 4,</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_enumvalue" href="group__Entitlements.html#gga01dbb08b2160f96b89d68803979d5526acc61945cbbf46721a053467c395c666f">Refunded</a> = 5</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>};</div>
+</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>UENUM(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00056" data-start="{" data-end="};">
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="group__Entitlements.html#ga9c9c8da68ce2cb9275c436451fe140fa">   56</a></span>enum class <a class="code hl_enumeration" href="group__Entitlements.html#ga9c9c8da68ce2cb9275c436451fe140fa">ELootLockerEntitlementHistoryListingType</a> : uint8</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>{</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_enumvalue" href="group__Entitlements.html#gga9c9c8da68ce2cb9275c436451fe140faaec0fc0100c4fc1ce4eea230c3dc10360">Undefined</a> = 0,</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <a class="code hl_enumvalue" href="group__Entitlements.html#gga9c9c8da68ce2cb9275c436451fe140faad342acdfab4eabc0456d1381174eeab5">One_time_purchase</a> = 1,</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <a class="code hl_enumvalue" href="group__Entitlements.html#gga9c9c8da68ce2cb9275c436451fe140faac3f96f3c3092c434c742815fa9fc2756">Leaderboard_reward</a> = 2,</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <a class="code hl_enumvalue" href="group__Entitlements.html#gga9c9c8da68ce2cb9275c436451fe140faa787ad0b7a17de4ad6b1711bbf8d79fcb">Subscription</a> = 3</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>};</div>
+</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>UENUM(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00071" data-start="{" data-end="};">
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="group__Entitlements.html#gab4845b2f8a8460f690419e10305c13f2">   71</a></span>enum class <a class="code hl_enumeration" href="group__Entitlements.html#gab4845b2f8a8460f690419e10305c13f2">ELootLockerEntitlementRewardEntityKind</a> : uint8</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>{</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <a class="code hl_enumvalue" href="group__Entitlements.html#ggab4845b2f8a8460f690419e10305c13f2a26e9054be7f40079575582b7ad3f7363">Asset</a> = 0,</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <a class="code hl_enumvalue" href="group__Entitlements.html#ggab4845b2f8a8460f690419e10305c13f2a386c339d37e737a436499d423a77df0c">Currency</a> = 1,</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <a class="code hl_enumvalue" href="group__Entitlements.html#ggab4845b2f8a8460f690419e10305c13f2a57110c4e7cd03218864bf9155573e1dd">Progression_Points</a> = 2,</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <a class="code hl_enumvalue" href="group__Entitlements.html#ggab4845b2f8a8460f690419e10305c13f2a6b177f161f23a5b58f59f1784891f575">Progression_Reset</a> = 3,</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <a class="code hl_enumvalue" href="group__Entitlements.html#ggab4845b2f8a8460f690419e10305c13f2a03937134cedab9078be39a77ee3a48a0">Group</a> = 4,</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>};</div>
+</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00085" data-start="{" data-end="};">
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementHistoryItem.html">   85</a></span>struct <a class="code hl_struct" href="structFLootLockerEntitlementHistoryItem.html">FLootLockerEntitlementHistoryItem</a></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>{</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementHistoryItem.html#aa883f2fa921af0f7f409e21d2304a0ec">   92</a></span>    FString <a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea4e0b5c2418b622cb71664c2a3b615d77">Created_at</a> = &quot;&quot;;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementHistoryItem.html#a52eb93b5963022bfa2c539d648f5b090">   98</a></span>    <a class="code hl_enumeration" href="group__Entitlements.html#gab4845b2f8a8460f690419e10305c13f2">ELootLockerEntitlementRewardEntityKind</a> Reward_kind = <a class="code hl_enumeration" href="group__Entitlements.html#gab4845b2f8a8460f690419e10305c13f2">ELootLockerEntitlementRewardEntityKind</a>::<a class="code hl_enumvalue" href="group__Entitlements.html#ggab4845b2f8a8460f690419e10305c13f2a26e9054be7f40079575582b7ad3f7363">Asset</a>;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementHistoryItem.html#ad42364f5fda56680043ed65d69893038">  104</a></span>    FString <a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea490aa6e856ccf208a054389e47ce0d06">Id</a> = &quot;&quot;;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementHistoryItem.html#a485155a706dc2db86685c12837e42b89">  110</a></span>    FString Reward_id = &quot;&quot;;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementHistoryItem.html#ada7d82715c87c3787139f4cdc51358b0">  116</a></span>    FString Catalog_id = &quot;&quot;;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementHistoryItem.html#ae85073105a0c6217ec66f71f8875e8c0">  121</a></span>    <span class="keywordtype">bool</span> <a class="code hl_enumvalue" href="group__Assets.html#gga8ae3c9c1e8732f482e668772d87be798aec210d41bd962f9c46784fd48b69a1d6">Purchasable</a> = false;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>};</div>
+</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00128" data-start="{" data-end="};">
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementHistoryMetadata.html">  128</a></span>struct <a class="code hl_struct" href="structFLootLockerEntitlementHistoryMetadata.html">FLootLockerEntitlementHistoryMetadata</a></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>{</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementHistoryMetadata.html#aef9d0b2b82daa729fbe613b15eff1d3c">  135</a></span>    FString Key = &quot;&quot;;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementHistoryMetadata.html#ae3b0e760fce4d85979c72d11b41d4b38">  141</a></span>    FString Value = &quot;&quot;;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>};</div>
+</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00148" data-start="{" data-end="};">
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementHistoryReward.html">  148</a></span>struct <a class="code hl_struct" href="structFLootLockerEntitlementHistoryReward.html">FLootLockerEntitlementHistoryReward</a></div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>{</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementHistoryReward.html#aea450ac435cc607bbac23767e559dbab">  155</a></span>    FString <a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea4e0b5c2418b622cb71664c2a3b615d77">Created_at</a> = &quot;&quot;;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementHistoryReward.html#ac5f5e96913dd4a088fe75f7085577d2d">  161</a></span>    FString Entitlement_id = &quot;&quot;;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementHistoryReward.html#ab9b90204db844409bc1f8628c068f4df">  167</a></span>    FString <a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea490aa6e856ccf208a054389e47ce0d06">Id</a> = &quot;&quot;;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>};</div>
+</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00174" data-start="{" data-end="};">
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementListing.html">  174</a></span>struct <a class="code hl_struct" href="structFLootLockerEntitlementListing.html">FLootLockerEntitlementListing</a></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>{</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementListing.html#a0e2823d8c5df3d5e287bbcaf50c306aa">  181</a></span>    FString <a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea4e0b5c2418b622cb71664c2a3b615d77">Created_at</a> = &quot;&quot;;</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementListing.html#ac90aa4e65bbda0d8b45e74ddc4a51e7a">  187</a></span>    FString <a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea490aa6e856ccf208a054389e47ce0d06">Id</a> = &quot;&quot;;</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementListing.html#a313d104d52a8fff9a4aee081a48a9e5e">  193</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerEntitlementHistoryItem.html">FLootLockerEntitlementHistoryItem</a>&gt; Items;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementListing.html#a132dca3d3c6defc569037542a2329984">  199</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerEntitlementHistoryReward.html">FLootLockerEntitlementHistoryReward</a>&gt; Rewards;</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementListing.html#aeb675659c0b4ccbef9906ad588258b35">  206</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerEntitlementHistoryMetadata.html">FLootLockerEntitlementHistoryMetadata</a>&gt; Metadata;</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementListing.html#a7a3dab010308b228f3424370ad666d3b">  212</a></span>    <a class="code hl_enumeration" href="group__Entitlements.html#ga01dbb08b2160f96b89d68803979d5526">ELootLockerEntitlementHistoryListingStatus</a> Status = <a class="code hl_enumeration" href="group__Entitlements.html#ga01dbb08b2160f96b89d68803979d5526">ELootLockerEntitlementHistoryListingStatus</a>::<a class="code hl_enumvalue" href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a6adf97f83acf6453d4a6a4b1070f3754">None</a>;</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementListing.html#afc60c4543bfb472afe864e3b6f2999d3">  218</a></span>    <a class="code hl_enumeration" href="group__Entitlements.html#gaa8b3363f44f89367edb3391761eb7903">ELootLockerEntitlementHistoryListingStore</a> Store = <a class="code hl_enumeration" href="group__Entitlements.html#gaa8b3363f44f89367edb3391761eb7903">ELootLockerEntitlementHistoryListingStore</a>::<a class="code hl_enumvalue" href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a6adf97f83acf6453d4a6a4b1070f3754">None</a>;</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementListing.html#a4272344de2b7f38b67af5841740ba307">  224</a></span>    <a class="code hl_enumeration" href="group__Entitlements.html#ga9c9c8da68ce2cb9275c436451fe140fa">ELootLockerEntitlementHistoryListingType</a> Type = <a class="code hl_enumeration" href="group__Entitlements.html#ga9c9c8da68ce2cb9275c436451fe140fa">ELootLockerEntitlementHistoryListingType</a>::<a class="code hl_enumvalue" href="group__Entitlements.html#gga9c9c8da68ce2cb9275c436451fe140faaec0fc0100c4fc1ce4eea230c3dc10360">Undefined</a>;</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>};</div>
+</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span><span class="comment">// Response Definitions</span></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00234" data-start="{" data-end="};">
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementHistoryResponse.html">  234</a></span>struct <a class="code hl_struct" href="structFLootLockerEntitlementHistoryResponse.html">FLootLockerEntitlementHistoryResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>{</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementHistoryResponse.html#ae2542721a2bea67d4648e47681ce2903">  241</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerEntitlementListing.html">FLootLockerEntitlementListing</a>&gt; Listings;</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno"><a class="line" href="structFLootLockerEntitlementHistoryResponse.html#a086d5e8f503ee0fc79f7c444f8cd2ed7">  247</a></span>    <a class="code hl_struct" href="structFLootLockerKeyBasedPagination.html">FLootLockerKeyBasedPagination</a> Pagination;</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>};</div>
+</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>USTRUCT(BlueprintType, Category = &quot;LootLocker&quot;)</div>
+<div class="foldopen" id="foldopen00251" data-start="{" data-end="};">
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno"><a class="line" href="structFLootLockerSingleEntitlementResponse.html">  251</a></span>struct <a class="code hl_struct" href="structFLootLockerSingleEntitlementResponse.html">FLootLockerSingleEntitlementResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>{</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno"><a class="line" href="structFLootLockerSingleEntitlementResponse.html#aae9b5907b95153a3e036f28a09deead2">  258</a></span>    FString created_at = &quot;&quot;;</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno"><a class="line" href="structFLootLockerSingleEntitlementResponse.html#a9d4c9d3d49ec322179d7d722ff311d2c">  263</a></span>    <a class="code hl_enumeration" href="group__Entitlements.html#ga01dbb08b2160f96b89d68803979d5526">ELootLockerEntitlementHistoryListingStatus</a> Status = <a class="code hl_enumeration" href="group__Entitlements.html#ga01dbb08b2160f96b89d68803979d5526">ELootLockerEntitlementHistoryListingStatus</a>::<a class="code hl_enumvalue" href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a6adf97f83acf6453d4a6a4b1070f3754">None</a>;</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span> </div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno"><a class="line" href="structFLootLockerSingleEntitlementResponse.html#a4196a5576cd367b336c834d7f4d5c4de">  269</a></span>    <a class="code hl_enumeration" href="group__Entitlements.html#gaa8b3363f44f89367edb3391761eb7903">ELootLockerEntitlementHistoryListingStore</a> Store = <a class="code hl_enumeration" href="group__Entitlements.html#gaa8b3363f44f89367edb3391761eb7903">ELootLockerEntitlementHistoryListingStore</a>::<a class="code hl_enumvalue" href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a6adf97f83acf6453d4a6a4b1070f3754">None</a>;</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno"><a class="line" href="structFLootLockerSingleEntitlementResponse.html#adc7a6c89ea432fa47b8a74f0f9199736">  275</a></span>    <a class="code hl_enumeration" href="group__Entitlements.html#ga9c9c8da68ce2cb9275c436451fe140fa">ELootLockerEntitlementHistoryListingType</a> Type = <a class="code hl_enumeration" href="group__Entitlements.html#ga9c9c8da68ce2cb9275c436451fe140fa">ELootLockerEntitlementHistoryListingType</a>::<a class="code hl_enumvalue" href="group__Entitlements.html#gga9c9c8da68ce2cb9275c436451fe140faaec0fc0100c4fc1ce4eea230c3dc10360">Undefined</a>;</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno"><a class="line" href="structFLootLockerSingleEntitlementResponse.html#aa16324584710472cbe92d29d8a971060">  280</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerEntitlementHistoryItem.html">FLootLockerEntitlementHistoryItem</a>&gt; Items;</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno"><a class="line" href="structFLootLockerSingleEntitlementResponse.html#a7b880785407220282122ae0e21fad567">  285</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerEntitlementHistoryMetadata.html">FLootLockerEntitlementHistoryMetadata</a>&gt; Metadata;</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>};</div>
+</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span> </div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span><span class="comment">// Delegate Definitions</span></div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span> </div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno"><a class="line" href="group__Entitlements.html#ga87af48c4881c61f319120b7fe5b748d6">  296</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Entitlements.html#ga87af48c4881c61f319120b7fe5b748d6">FLootLockerListEntitlementsResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerEntitlementHistoryResponse.html">FLootLockerEntitlementHistoryResponse</a>);</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno"><a class="line" href="group__Entitlements.html#ga1f163f6839b632a874aba50edf9ca0e7">  298</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Entitlements.html#ga1f163f6839b632a874aba50edf9ca0e7">FLootLockerSingleEntitlementResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerSingleEntitlementResponse.html">FLootLockerSingleEntitlementResponse</a>);</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span> </div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span><span class="comment">// API Class Definition</span></div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span> </div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>UCLASS()</div>
+<div class="foldopen" id="foldopen00306" data-start="{" data-end="};">
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno"><a class="line" href="classULootLockerEntitlementRequestHandler.html">  306</a></span>class LOOTLOCKERSDK_API <a class="code hl_class" href="classULootLockerEntitlementRequestHandler.html">ULootLockerEntitlementRequestHandler</a> : public UObject</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>{</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno"><a class="line" href="classULootLockerEntitlementRequestHandler.html#ab1a3010a2803bf46c7a1de2e3c9bfd47">  310</a></span>    <a class="code hl_function" href="classULootLockerEntitlementRequestHandler.html#ab1a3010a2803bf46c7a1de2e3c9bfd47">ULootLockerEntitlementRequestHandler</a>() {};</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span> </div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno"><a class="line" href="classULootLockerEntitlementRequestHandler.html#aad68b930988ea6c40b9d2e5ab8c7883d">  312</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerEntitlementRequestHandler.html#aad68b930988ea6c40b9d2e5ab8c7883d">ListEntitlements</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keywordtype">int</span> Count, <span class="keyword">const</span> FString&amp; After, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Entitlements.html#ga87af48c4881c61f319120b7fe5b748d6">FLootLockerListEntitlementsResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno"><a class="line" href="classULootLockerEntitlementRequestHandler.html#aa744900e18e132df143b383fe42200ad">  313</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerEntitlementRequestHandler.html#aa744900e18e132df143b383fe42200ad">GetEntitlement</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, FString EntitlementID, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Entitlements.html#ga1f163f6839b632a874aba50edf9ca0e7">FLootLockerSingleEntitlementResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>};</div>
+</div>
+<div class="ttc" id="aLootLockerPlayerData_8h_html"><div class="ttname"><a href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a></div></div>
+<div class="ttc" id="aLootLockerResponse_8h_html"><div class="ttname"><a href="LootLockerResponse_8h.html">LootLockerResponse.h</a></div></div>
+<div class="ttc" id="aclassULootLockerEntitlementRequestHandler_html"><div class="ttname"><a href="classULootLockerEntitlementRequestHandler.html">ULootLockerEntitlementRequestHandler</a></div><div class="ttdef"><b>Definition</b> LootLockerEntitlementRequestHandler.h:307</div></div>
+<div class="ttc" id="aclassULootLockerEntitlementRequestHandler_html_aa744900e18e132df143b383fe42200ad"><div class="ttname"><a href="classULootLockerEntitlementRequestHandler.html#aa744900e18e132df143b383fe42200ad">ULootLockerEntitlementRequestHandler::GetEntitlement</a></div><div class="ttdeci">static FString GetEntitlement(const FLootLockerPlayerData &amp;PlayerData, FString EntitlementID, const FLootLockerSingleEntitlementResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerEntitlementRequestHandler_html_aad68b930988ea6c40b9d2e5ab8c7883d"><div class="ttname"><a href="classULootLockerEntitlementRequestHandler.html#aad68b930988ea6c40b9d2e5ab8c7883d">ULootLockerEntitlementRequestHandler::ListEntitlements</a></div><div class="ttdeci">static FString ListEntitlements(const FLootLockerPlayerData &amp;PlayerData, int Count, const FString &amp;After, const FLootLockerListEntitlementsResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerEntitlementRequestHandler_html_ab1a3010a2803bf46c7a1de2e3c9bfd47"><div class="ttname"><a href="classULootLockerEntitlementRequestHandler.html#ab1a3010a2803bf46c7a1de2e3c9bfd47">ULootLockerEntitlementRequestHandler::ULootLockerEntitlementRequestHandler</a></div><div class="ttdeci">ULootLockerEntitlementRequestHandler()</div><div class="ttdef"><b>Definition</b> LootLockerEntitlementRequestHandler.h:310</div></div>
+<div class="ttc" id="agroup__Assets_html_gga2b2f1454f93df8f92665e355ce9b179ea490aa6e856ccf208a054389e47ce0d06"><div class="ttname"><a href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea490aa6e856ccf208a054389e47ce0d06">ELootLockerOrderAssetListBy::Id</a></div><div class="ttdeci">@ Id</div></div>
+<div class="ttc" id="agroup__Assets_html_gga2b2f1454f93df8f92665e355ce9b179ea4e0b5c2418b622cb71664c2a3b615d77"><div class="ttname"><a href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea4e0b5c2418b622cb71664c2a3b615d77">ELootLockerOrderAssetListBy::Created_at</a></div><div class="ttdeci">@ Created_at</div></div>
+<div class="ttc" id="agroup__Assets_html_gga8ae3c9c1e8732f482e668772d87be798aec210d41bd962f9c46784fd48b69a1d6"><div class="ttname"><a href="group__Assets.html#gga8ae3c9c1e8732f482e668772d87be798aec210d41bd962f9c46784fd48b69a1d6">ELootLockerAssetFilter::Purchasable</a></div><div class="ttdeci">@ Purchasable</div></div>
+<div class="ttc" id="agroup__Entitlements_html_ga01dbb08b2160f96b89d68803979d5526"><div class="ttname"><a href="group__Entitlements.html#ga01dbb08b2160f96b89d68803979d5526">ELootLockerEntitlementHistoryListingStatus</a></div><div class="ttdeci">ELootLockerEntitlementHistoryListingStatus</div><div class="ttdoc">Status of the entitlement.</div><div class="ttdef"><b>Definition</b> LootLockerEntitlementRequestHandler.h:40</div></div>
+<div class="ttc" id="agroup__Entitlements_html_ga1f163f6839b632a874aba50edf9ca0e7"><div class="ttname"><a href="group__Entitlements.html#ga1f163f6839b632a874aba50edf9ca0e7">FLootLockerSingleEntitlementResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerSingleEntitlementResponseDelegate)(FLootLockerSingleEntitlementResponse)</div><div class="ttdoc">C++ response callback delegate; receives an FLootLockerSingleEntitlementResponse result.</div><div class="ttdef"><b>Definition</b> LootLockerEntitlementRequestHandler.h:298</div></div>
+<div class="ttc" id="agroup__Entitlements_html_ga87af48c4881c61f319120b7fe5b748d6"><div class="ttname"><a href="group__Entitlements.html#ga87af48c4881c61f319120b7fe5b748d6">FLootLockerListEntitlementsResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerListEntitlementsResponseDelegate)(FLootLockerEntitlementHistoryResponse)</div><div class="ttdoc">C++ response delegate for listing entitlement history.</div><div class="ttdef"><b>Definition</b> LootLockerEntitlementRequestHandler.h:296</div></div>
+<div class="ttc" id="agroup__Entitlements_html_ga9c9c8da68ce2cb9275c436451fe140fa"><div class="ttname"><a href="group__Entitlements.html#ga9c9c8da68ce2cb9275c436451fe140fa">ELootLockerEntitlementHistoryListingType</a></div><div class="ttdeci">ELootLockerEntitlementHistoryListingType</div><div class="ttdoc">Status of the entitlement.</div><div class="ttdef"><b>Definition</b> LootLockerEntitlementRequestHandler.h:57</div></div>
+<div class="ttc" id="agroup__Entitlements_html_gaa8b3363f44f89367edb3391761eb7903"><div class="ttname"><a href="group__Entitlements.html#gaa8b3363f44f89367edb3391761eb7903">ELootLockerEntitlementHistoryListingStore</a></div><div class="ttdeci">ELootLockerEntitlementHistoryListingStore</div><div class="ttdoc">An enum with the supported stores that can generate entitlements.</div><div class="ttdef"><b>Definition</b> LootLockerEntitlementRequestHandler.h:22</div></div>
+<div class="ttc" id="agroup__Entitlements_html_gab4845b2f8a8460f690419e10305c13f2"><div class="ttname"><a href="group__Entitlements.html#gab4845b2f8a8460f690419e10305c13f2">ELootLockerEntitlementRewardEntityKind</a></div><div class="ttdeci">ELootLockerEntitlementRewardEntityKind</div><div class="ttdoc">Possible entity kinds that rewards entries can have.</div><div class="ttdef"><b>Definition</b> LootLockerEntitlementRequestHandler.h:72</div></div>
+<div class="ttc" id="agroup__Entitlements_html_gga01dbb08b2160f96b89d68803979d5526a0e22fe7d45f8e5632a4abf369b24e29c"><div class="ttname"><a href="group__Entitlements.html#gga01dbb08b2160f96b89d68803979d5526a0e22fe7d45f8e5632a4abf369b24e29c">ELootLockerEntitlementHistoryListingStatus::Canceled</a></div><div class="ttdeci">@ Canceled</div></div>
+<div class="ttc" id="agroup__Entitlements_html_gga01dbb08b2160f96b89d68803979d5526a24fe48030f7d3097d5882535b04c3fa8"><div class="ttname"><a href="group__Entitlements.html#gga01dbb08b2160f96b89d68803979d5526a24fe48030f7d3097d5882535b04c3fa8">ELootLockerEntitlementHistoryListingStatus::Expired</a></div><div class="ttdeci">@ Expired</div></div>
+<div class="ttc" id="agroup__Entitlements_html_gga01dbb08b2160f96b89d68803979d5526a2d13df6f8b5e4c5af9f87e0dc39df69d"><div class="ttname"><a href="group__Entitlements.html#gga01dbb08b2160f96b89d68803979d5526a2d13df6f8b5e4c5af9f87e0dc39df69d">ELootLockerEntitlementHistoryListingStatus::Pending</a></div><div class="ttdeci">@ Pending</div></div>
+<div class="ttc" id="agroup__Entitlements_html_gga01dbb08b2160f96b89d68803979d5526a4d3d769b812b6faa6b76e1a8abaece2d"><div class="ttname"><a href="group__Entitlements.html#gga01dbb08b2160f96b89d68803979d5526a4d3d769b812b6faa6b76e1a8abaece2d">ELootLockerEntitlementHistoryListingStatus::Active</a></div><div class="ttdeci">@ Active</div></div>
+<div class="ttc" id="agroup__Entitlements_html_gga01dbb08b2160f96b89d68803979d5526acc61945cbbf46721a053467c395c666f"><div class="ttname"><a href="group__Entitlements.html#gga01dbb08b2160f96b89d68803979d5526acc61945cbbf46721a053467c395c666f">ELootLockerEntitlementHistoryListingStatus::Refunded</a></div><div class="ttdeci">@ Refunded</div></div>
+<div class="ttc" id="agroup__Entitlements_html_gga9c9c8da68ce2cb9275c436451fe140faa787ad0b7a17de4ad6b1711bbf8d79fcb"><div class="ttname"><a href="group__Entitlements.html#gga9c9c8da68ce2cb9275c436451fe140faa787ad0b7a17de4ad6b1711bbf8d79fcb">ELootLockerEntitlementHistoryListingType::Subscription</a></div><div class="ttdeci">@ Subscription</div></div>
+<div class="ttc" id="agroup__Entitlements_html_gga9c9c8da68ce2cb9275c436451fe140faac3f96f3c3092c434c742815fa9fc2756"><div class="ttname"><a href="group__Entitlements.html#gga9c9c8da68ce2cb9275c436451fe140faac3f96f3c3092c434c742815fa9fc2756">ELootLockerEntitlementHistoryListingType::Leaderboard_reward</a></div><div class="ttdeci">@ Leaderboard_reward</div></div>
+<div class="ttc" id="agroup__Entitlements_html_gga9c9c8da68ce2cb9275c436451fe140faad342acdfab4eabc0456d1381174eeab5"><div class="ttname"><a href="group__Entitlements.html#gga9c9c8da68ce2cb9275c436451fe140faad342acdfab4eabc0456d1381174eeab5">ELootLockerEntitlementHistoryListingType::One_time_purchase</a></div><div class="ttdeci">@ One_time_purchase</div></div>
+<div class="ttc" id="agroup__Entitlements_html_gga9c9c8da68ce2cb9275c436451fe140faaec0fc0100c4fc1ce4eea230c3dc10360"><div class="ttname"><a href="group__Entitlements.html#gga9c9c8da68ce2cb9275c436451fe140faaec0fc0100c4fc1ce4eea230c3dc10360">ELootLockerEntitlementHistoryListingType::Undefined</a></div><div class="ttdeci">@ Undefined</div></div>
+<div class="ttc" id="agroup__Entitlements_html_ggaa8b3363f44f89367edb3391761eb7903a2b0d034755b04e2926fba39a21f41c84"><div class="ttname"><a href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a2b0d034755b04e2926fba39a21f41c84">ELootLockerEntitlementHistoryListingStore::Lootlocker</a></div><div class="ttdeci">@ Lootlocker</div></div>
+<div class="ttc" id="agroup__Entitlements_html_ggaa8b3363f44f89367edb3391761eb7903a405bfe9e4b9a6d852b9f21a58f998eec"><div class="ttname"><a href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a405bfe9e4b9a6d852b9f21a58f998eec">ELootLockerEntitlementHistoryListingStore::Steam_store</a></div><div class="ttdeci">@ Steam_store</div></div>
+<div class="ttc" id="agroup__Entitlements_html_ggaa8b3363f44f89367edb3391761eb7903a6abfec52c2173bbda0d29243559c74bb"><div class="ttname"><a href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a6abfec52c2173bbda0d29243559c74bb">ELootLockerEntitlementHistoryListingStore::Google_play_store</a></div><div class="ttdeci">@ Google_play_store</div></div>
+<div class="ttc" id="agroup__Entitlements_html_ggaa8b3363f44f89367edb3391761eb7903a6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a6adf97f83acf6453d4a6a4b1070f3754">ELootLockerEntitlementHistoryListingStore::None</a></div><div class="ttdeci">@ None</div></div>
+<div class="ttc" id="agroup__Entitlements_html_ggaa8b3363f44f89367edb3391761eb7903a7af51761a9dc3e558b8f8c3c96f1facd"><div class="ttname"><a href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a7af51761a9dc3e558b8f8c3c96f1facd">ELootLockerEntitlementHistoryListingStore::Apple_app_store</a></div><div class="ttdeci">@ Apple_app_store</div></div>
+<div class="ttc" id="agroup__Entitlements_html_ggaa8b3363f44f89367edb3391761eb7903ab16b0ec8b92afab2691a23d126c1b5f7"><div class="ttname"><a href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903ab16b0ec8b92afab2691a23d126c1b5f7">ELootLockerEntitlementHistoryListingStore::Nintendo_eshop</a></div><div class="ttdeci">@ Nintendo_eshop</div></div>
+<div class="ttc" id="agroup__Entitlements_html_ggaa8b3363f44f89367edb3391761eb7903ad06f524d952475f99375eb746d050a0e"><div class="ttname"><a href="group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903ad06f524d952475f99375eb746d050a0e">ELootLockerEntitlementHistoryListingStore::Playstation_network</a></div><div class="ttdeci">@ Playstation_network</div></div>
+<div class="ttc" id="agroup__Entitlements_html_ggab4845b2f8a8460f690419e10305c13f2a03937134cedab9078be39a77ee3a48a0"><div class="ttname"><a href="group__Entitlements.html#ggab4845b2f8a8460f690419e10305c13f2a03937134cedab9078be39a77ee3a48a0">ELootLockerEntitlementRewardEntityKind::Group</a></div><div class="ttdeci">@ Group</div></div>
+<div class="ttc" id="agroup__Entitlements_html_ggab4845b2f8a8460f690419e10305c13f2a26e9054be7f40079575582b7ad3f7363"><div class="ttname"><a href="group__Entitlements.html#ggab4845b2f8a8460f690419e10305c13f2a26e9054be7f40079575582b7ad3f7363">ELootLockerEntitlementRewardEntityKind::Asset</a></div><div class="ttdeci">@ Asset</div></div>
+<div class="ttc" id="agroup__Entitlements_html_ggab4845b2f8a8460f690419e10305c13f2a386c339d37e737a436499d423a77df0c"><div class="ttname"><a href="group__Entitlements.html#ggab4845b2f8a8460f690419e10305c13f2a386c339d37e737a436499d423a77df0c">ELootLockerEntitlementRewardEntityKind::Currency</a></div><div class="ttdeci">@ Currency</div></div>
+<div class="ttc" id="agroup__Entitlements_html_ggab4845b2f8a8460f690419e10305c13f2a57110c4e7cd03218864bf9155573e1dd"><div class="ttname"><a href="group__Entitlements.html#ggab4845b2f8a8460f690419e10305c13f2a57110c4e7cd03218864bf9155573e1dd">ELootLockerEntitlementRewardEntityKind::Progression_Points</a></div><div class="ttdeci">@ Progression_Points</div></div>
+<div class="ttc" id="agroup__Entitlements_html_ggab4845b2f8a8460f690419e10305c13f2a6b177f161f23a5b58f59f1784891f575"><div class="ttname"><a href="group__Entitlements.html#ggab4845b2f8a8460f690419e10305c13f2a6b177f161f23a5b58f59f1784891f575">ELootLockerEntitlementRewardEntityKind::Progression_Reset</a></div><div class="ttdeci">@ Progression_Reset</div></div>
+<div class="ttc" id="astructFLootLockerEntitlementHistoryItem_html"><div class="ttname"><a href="structFLootLockerEntitlementHistoryItem.html">FLootLockerEntitlementHistoryItem</a></div><div class="ttdoc">Represents a single catalog-related item within an entitlement, including its reward kind,...</div><div class="ttdef"><b>Definition</b> LootLockerEntitlementRequestHandler.h:86</div></div>
+<div class="ttc" id="astructFLootLockerEntitlementHistoryMetadata_html"><div class="ttname"><a href="structFLootLockerEntitlementHistoryMetadata.html">FLootLockerEntitlementHistoryMetadata</a></div><div class="ttdoc">Holds a single key-value metadata pair associated with an entitlement listing.</div><div class="ttdef"><b>Definition</b> LootLockerEntitlementRequestHandler.h:129</div></div>
+<div class="ttc" id="astructFLootLockerEntitlementHistoryResponse_html"><div class="ttname"><a href="structFLootLockerEntitlementHistoryResponse.html">FLootLockerEntitlementHistoryResponse</a></div><div class="ttdoc">Response containing a paginated list of entitlement history entries for the player.</div><div class="ttdef"><b>Definition</b> LootLockerEntitlementRequestHandler.h:235</div></div>
+<div class="ttc" id="astructFLootLockerEntitlementHistoryReward_html"><div class="ttname"><a href="structFLootLockerEntitlementHistoryReward.html">FLootLockerEntitlementHistoryReward</a></div><div class="ttdoc">Represents a non-catalog reward (such as a leaderboard or progression reward) attached to an entitlem...</div><div class="ttdef"><b>Definition</b> LootLockerEntitlementRequestHandler.h:149</div></div>
+<div class="ttc" id="astructFLootLockerEntitlementListing_html"><div class="ttname"><a href="structFLootLockerEntitlementListing.html">FLootLockerEntitlementListing</a></div><div class="ttdoc">Represents a complete entitlement record, grouping its catalog items, system rewards,...</div><div class="ttdef"><b>Definition</b> LootLockerEntitlementRequestHandler.h:175</div></div>
+<div class="ttc" id="astructFLootLockerKeyBasedPagination_html"><div class="ttname"><a href="structFLootLockerKeyBasedPagination.html">FLootLockerKeyBasedPagination</a></div><div class="ttdef"><b>Definition</b> LootLockerResponse.h:43</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html"><div class="ttname"><a href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a></div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:12</div></div>
+<div class="ttc" id="astructFLootLockerResponse_html"><div class="ttname"><a href="structFLootLockerResponse.html">FLootLockerResponse</a></div><div class="ttdoc">Base response struct — every SDK callback receives a struct that derives from this.</div><div class="ttdef"><b>Definition</b> LootLockerResponse.h:19</div></div>
+<div class="ttc" id="astructFLootLockerSingleEntitlementResponse_html"><div class="ttname"><a href="structFLootLockerSingleEntitlementResponse.html">FLootLockerSingleEntitlementResponse</a></div><div class="ttdef"><b>Definition</b> LootLockerEntitlementRequestHandler.h:252</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_426131f2e7e3782155028ac49ab5e11c.html">LootLockerSDK</a></li><li class="navelem"><a class="el" href="dir_63662f8d869795fbcfe09e29de292894.html">Source</a></li><li class="navelem"><a class="el" href="dir_529bffb88e47999e071ca27db50fed71.html">LootLockerSDK</a></li><li class="navelem"><a class="el" href="dir_6800d9c9fc95b443eb5325340bc06d03.html">Public</a></li><li class="navelem"><a class="el" href="dir_c4276055a6e8dd41429ac8d6d68c790b.html">GameAPI</a></li><li class="navelem"><a class="el" href="LootLockerEntitlementRequestHandler_8h.html">LootLockerEntitlementRequestHandler.h</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

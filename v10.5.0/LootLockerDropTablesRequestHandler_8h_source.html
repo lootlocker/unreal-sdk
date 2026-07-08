@@ -1,0 +1,342 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: LootLockerSDK/Source/LootLockerSDK/Public/GameAPI/LootLockerDropTablesRequestHandler.h Source File</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('LootLockerDropTablesRequestHandler_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LootLockerDropTablesRequestHandler.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="LootLockerDropTablesRequestHandler_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Fill out your copyright notice in the Description page of Project Settings.</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerResponse_8h.html">LootLockerResponse.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerAssetsRequestHandler_8h.html">GameAPI/LootLockerAssetsRequestHandler.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;LootLockerDropTablesRequestHandler.generated.h&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="structFLootLockerComputeAndLockItem.html">   15</a></span>struct <a class="code hl_struct" href="structFLootLockerComputeAndLockItem.html">FLootLockerComputeAndLockItem</a></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="structFLootLockerComputeAndLockItem.html#a09a59a38e03c024122208fa590ddf6c0">   19</a></span>    int asset_id = 0;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="structFLootLockerComputeAndLockItem.html#a2daefa36233713ce4ed3b397b013d096">   21</a></span>    <span class="keywordtype">int</span> asset_variation_id = 0;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="structFLootLockerComputeAndLockItem.html#ac0cb7ed189b161ab84837082424f5d72">   23</a></span>    <span class="keywordtype">int</span> asset_rental_option_id = 0;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="structFLootLockerComputeAndLockItem.html#a20090bb2bf293cc767aad91f50cec201">   25</a></span>    <span class="keywordtype">int</span> <span class="keywordtype">id</span> = 0;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>};</div>
+</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00029" data-start="{" data-end="};">
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="structFLootLockerComputeAndLockDropTableResponse.html">   29</a></span>struct <a class="code hl_struct" href="structFLootLockerComputeAndLockDropTableResponse.html">FLootLockerComputeAndLockDropTableResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>{</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="structFLootLockerComputeAndLockDropTableResponse.html#a4d34f7ce1c2170991983c3aeccf619b6">   33</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerComputeAndLockItem.html">FLootLockerComputeAndLockItem</a>&gt; items;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>};</div>
+</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="};">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="structFLootLockerPickDropsFromDropTableItem.html">   37</a></span>struct <a class="code hl_struct" href="structFLootLockerPickDropsFromDropTableItem.html">FLootLockerPickDropsFromDropTableItem</a></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>{</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="structFLootLockerPickDropsFromDropTableItem.html#a0fce97cb6705f021c8ac0b82f3b4bdbd">   41</a></span>    int instance_id = 0;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="structFLootLockerPickDropsFromDropTableItem.html#ab281c8173e638576bb8aa810f997f017">   43</a></span>    <span class="keywordtype">int</span> variation_id = 0;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="structFLootLockerPickDropsFromDropTableItem.html#a3bec545edff81a65401371ae0dc700f7">   45</a></span>    <span class="keywordtype">int</span> rental_option_id = 0;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="structFLootLockerPickDropsFromDropTableItem.html#af1f14597a16a11e20c56c8a9472e0146">   47</a></span>    <span class="keywordtype">int</span> quantity = 0;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="structFLootLockerPickDropsFromDropTableItem.html#aa90f087009d7a2bfb823b04f93b76ee1">   49</a></span>    <a class="code hl_struct" href="structFLootLockerAsset.html">FLootLockerAsset</a> <a class="code hl_enumvalue" href="group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804ac04e34d445e31a2159c1bfeb882ba212">asset</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>};</div>
+</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00053" data-start="{" data-end="};">
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="structFLootLockerPickDropsFromDropTableResponse.html">   53</a></span>struct <a class="code hl_struct" href="structFLootLockerPickDropsFromDropTableResponse.html">FLootLockerPickDropsFromDropTableResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>{</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="structFLootLockerPickDropsFromDropTableResponse.html#a7a6d73e43662e136e56c411fb26dec0e">   57</a></span>    TArray &lt;<a class="code hl_struct" href="structFLootLockerPickDropsFromDropTableItem.html">FLootLockerPickDropsFromDropTableItem</a>&gt; items;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>};</div>
+</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00062" data-start="{" data-end="};">
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="structFLootLockerPickDropsFromDropTableRequest.html">   62</a></span>struct <a class="code hl_struct" href="structFLootLockerPickDropsFromDropTableRequest.html">FLootLockerPickDropsFromDropTableRequest</a></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>{</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="structFLootLockerPickDropsFromDropTableRequest.html#ac810d17f82a66a2b6f717805f90f16e9">   66</a></span>    TArray&lt;<span class="keywordtype">int</span>&gt; picks;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>};</div>
+</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="group__DropTables.html#gaca34d8dc06d6f1d5a9cb2acb23af85a0">   73</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__DropTables.html#gaca34d8dc06d6f1d5a9cb2acb23af85a0">FLootLockerComputeAndLockDropTableResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerComputeAndLockDropTableResponse.html">FLootLockerComputeAndLockDropTableResponse</a>);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="group__DropTables.html#gaac3582e3a1d21559f9300681293c6a20">   75</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__DropTables.html#gaac3582e3a1d21559f9300681293c6a20">FFLootLockerPickDropsFromDropTableResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerPickDropsFromDropTableResponse.html">FLootLockerPickDropsFromDropTableResponse</a>);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>UCLASS()</div>
+<div class="foldopen" id="foldopen00081" data-start="{" data-end="};">
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="classULootLockerDropTablesRequestHandler.html">   81</a></span>class LOOTLOCKERSDK_API <a class="code hl_class" href="classULootLockerDropTablesRequestHandler.html">ULootLockerDropTablesRequestHandler</a> : public UObject</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>{</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="classULootLockerDropTablesRequestHandler.html#a1d380fddaffb0496d03017d7b2e70ace">   85</a></span>    <a class="code hl_function" href="classULootLockerDropTablesRequestHandler.html#a1d380fddaffb0496d03017d7b2e70ace">ULootLockerDropTablesRequestHandler</a>() {};</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="classULootLockerDropTablesRequestHandler.html#a7efb69f7dd754dc2ded4fa05653fb2dd">   87</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerDropTablesRequestHandler.html#a7efb69f7dd754dc2ded4fa05653fb2dd">ComputeAndLockDropTable</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keywordtype">int</span> TableId, <span class="keyword">const</span> <a class="code hl_typedef" href="group__DropTables.html#gaca34d8dc06d6f1d5a9cb2acb23af85a0">FLootLockerComputeAndLockDropTableResponseDelegate</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="classULootLockerDropTablesRequestHandler.html#a3a59a10d7ba5004ccb55277d85ed895f">   88</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerDropTablesRequestHandler.html#a3a59a10d7ba5004ccb55277d85ed895f">PickDropsFromDropTable</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPickDropsFromDropTableRequest.html">FLootLockerPickDropsFromDropTableRequest</a>&amp; request, <span class="keywordtype">int</span> TableId, <span class="keyword">const</span> <a class="code hl_typedef" href="group__DropTables.html#gaac3582e3a1d21559f9300681293c6a20">FFLootLockerPickDropsFromDropTableResponseDelegate</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>};</div>
+</div>
+<div class="ttc" id="aLootLockerAssetsRequestHandler_8h_html"><div class="ttname"><a href="LootLockerAssetsRequestHandler_8h.html">LootLockerAssetsRequestHandler.h</a></div></div>
+<div class="ttc" id="aLootLockerPlayerData_8h_html"><div class="ttname"><a href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a></div></div>
+<div class="ttc" id="aLootLockerResponse_8h_html"><div class="ttname"><a href="LootLockerResponse_8h.html">LootLockerResponse.h</a></div></div>
+<div class="ttc" id="aclassULootLockerDropTablesRequestHandler_html"><div class="ttname"><a href="classULootLockerDropTablesRequestHandler.html">ULootLockerDropTablesRequestHandler</a></div><div class="ttdef"><b>Definition</b> LootLockerDropTablesRequestHandler.h:82</div></div>
+<div class="ttc" id="aclassULootLockerDropTablesRequestHandler_html_a1d380fddaffb0496d03017d7b2e70ace"><div class="ttname"><a href="classULootLockerDropTablesRequestHandler.html#a1d380fddaffb0496d03017d7b2e70ace">ULootLockerDropTablesRequestHandler::ULootLockerDropTablesRequestHandler</a></div><div class="ttdeci">ULootLockerDropTablesRequestHandler()</div><div class="ttdef"><b>Definition</b> LootLockerDropTablesRequestHandler.h:85</div></div>
+<div class="ttc" id="aclassULootLockerDropTablesRequestHandler_html_a3a59a10d7ba5004ccb55277d85ed895f"><div class="ttname"><a href="classULootLockerDropTablesRequestHandler.html#a3a59a10d7ba5004ccb55277d85ed895f">ULootLockerDropTablesRequestHandler::PickDropsFromDropTable</a></div><div class="ttdeci">static FString PickDropsFromDropTable(const FLootLockerPlayerData &amp;PlayerData, const FLootLockerPickDropsFromDropTableRequest &amp;request, int TableId, const FFLootLockerPickDropsFromDropTableResponseDelegate &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULootLockerDropTablesRequestHandler_html_a7efb69f7dd754dc2ded4fa05653fb2dd"><div class="ttname"><a href="classULootLockerDropTablesRequestHandler.html#a7efb69f7dd754dc2ded4fa05653fb2dd">ULootLockerDropTablesRequestHandler::ComputeAndLockDropTable</a></div><div class="ttdeci">static FString ComputeAndLockDropTable(const FLootLockerPlayerData &amp;PlayerData, int TableId, const FLootLockerComputeAndLockDropTableResponseDelegate &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="agroup__DropTables_html_gaac3582e3a1d21559f9300681293c6a20"><div class="ttname"><a href="group__DropTables.html#gaac3582e3a1d21559f9300681293c6a20">FFLootLockerPickDropsFromDropTableResponseDelegate</a></div><div class="ttdeci">void(* FFLootLockerPickDropsFromDropTableResponseDelegate)(FLootLockerPickDropsFromDropTableResponse)</div><div class="ttdoc">C++ response callback delegate; receives an FLootLockerPickDropsFromDropTableResponse result.</div><div class="ttdef"><b>Definition</b> LootLockerDropTablesRequestHandler.h:75</div></div>
+<div class="ttc" id="agroup__DropTables_html_gaca34d8dc06d6f1d5a9cb2acb23af85a0"><div class="ttname"><a href="group__DropTables.html#gaca34d8dc06d6f1d5a9cb2acb23af85a0">FLootLockerComputeAndLockDropTableResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerComputeAndLockDropTableResponseDelegate)(FLootLockerComputeAndLockDropTableResponse)</div><div class="ttdoc">C++ response callback delegate; receives an FLootLockerComputeAndLockDropTableResponse result.</div><div class="ttdef"><b>Definition</b> LootLockerDropTablesRequestHandler.h:73</div></div>
+<div class="ttc" id="agroup__Metadata_html_gga3d86f36677809018b3cb5db0418ac804ac04e34d445e31a2159c1bfeb882ba212"><div class="ttname"><a href="group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804ac04e34d445e31a2159c1bfeb882ba212">ELootLockerMetadataSources::asset</a></div><div class="ttdeci">@ asset</div></div>
+<div class="ttc" id="astructFLootLockerAsset_html"><div class="ttname"><a href="structFLootLockerAsset.html">FLootLockerAsset</a></div><div class="ttdef"><b>Definition</b> LootLockerAssetsRequestHandler.h:158</div></div>
+<div class="ttc" id="astructFLootLockerComputeAndLockDropTableResponse_html"><div class="ttname"><a href="structFLootLockerComputeAndLockDropTableResponse.html">FLootLockerComputeAndLockDropTableResponse</a></div><div class="ttdef"><b>Definition</b> LootLockerDropTablesRequestHandler.h:30</div></div>
+<div class="ttc" id="astructFLootLockerComputeAndLockItem_html"><div class="ttname"><a href="structFLootLockerComputeAndLockItem.html">FLootLockerComputeAndLockItem</a></div><div class="ttdef"><b>Definition</b> LootLockerDropTablesRequestHandler.h:16</div></div>
+<div class="ttc" id="astructFLootLockerPickDropsFromDropTableItem_html"><div class="ttname"><a href="structFLootLockerPickDropsFromDropTableItem.html">FLootLockerPickDropsFromDropTableItem</a></div><div class="ttdef"><b>Definition</b> LootLockerDropTablesRequestHandler.h:38</div></div>
+<div class="ttc" id="astructFLootLockerPickDropsFromDropTableRequest_html"><div class="ttname"><a href="structFLootLockerPickDropsFromDropTableRequest.html">FLootLockerPickDropsFromDropTableRequest</a></div><div class="ttdef"><b>Definition</b> LootLockerDropTablesRequestHandler.h:63</div></div>
+<div class="ttc" id="astructFLootLockerPickDropsFromDropTableResponse_html"><div class="ttname"><a href="structFLootLockerPickDropsFromDropTableResponse.html">FLootLockerPickDropsFromDropTableResponse</a></div><div class="ttdef"><b>Definition</b> LootLockerDropTablesRequestHandler.h:54</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html"><div class="ttname"><a href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a></div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:12</div></div>
+<div class="ttc" id="astructFLootLockerResponse_html"><div class="ttname"><a href="structFLootLockerResponse.html">FLootLockerResponse</a></div><div class="ttdoc">Base response struct — every SDK callback receives a struct that derives from this.</div><div class="ttdef"><b>Definition</b> LootLockerResponse.h:19</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_426131f2e7e3782155028ac49ab5e11c.html">LootLockerSDK</a></li><li class="navelem"><a class="el" href="dir_63662f8d869795fbcfe09e29de292894.html">Source</a></li><li class="navelem"><a class="el" href="dir_529bffb88e47999e071ca27db50fed71.html">LootLockerSDK</a></li><li class="navelem"><a class="el" href="dir_6800d9c9fc95b443eb5325340bc06d03.html">Public</a></li><li class="navelem"><a class="el" href="dir_c4276055a6e8dd41429ac8d6d68c790b.html">GameAPI</a></li><li class="navelem"><a class="el" href="LootLockerDropTablesRequestHandler_8h.html">LootLockerDropTablesRequestHandler.h</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

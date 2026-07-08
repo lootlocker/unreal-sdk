@@ -1,0 +1,1459 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: ULootLockerProgressionsRequestHandler Class Reference</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('classULootLockerProgressionsRequestHandler.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a>  </div>
+  <div class="headertitle"><div class="title">ULootLockerProgressionsRequestHandler Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="LootLockerProgressionsRequestHandler_8h_source.html">LootLockerProgressionsRequestHandler.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for ULootLockerProgressionsRequestHandler:</div>
+<div class="dyncontent">
+<div class="center"><img src="classULootLockerProgressionsRequestHandler__inherit__graph.png" border="0" usemap="#aULootLockerProgressionsRequestHandler_inherit__map" alt="Inheritance graph"/></div>
+<map name="aULootLockerProgressionsRequestHandler_inherit__map" id="aULootLockerProgressionsRequestHandler_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,79,244,119"/>
+<area shape="rect" title=" " alt="" coords="87,5,162,31"/>
+<area shape="poly" title=" " alt="" coords="127,44,127,79,122,79,122,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for ULootLockerProgressionsRequestHandler:</div>
+<div class="dyncontent">
+<div class="center"><img src="classULootLockerProgressionsRequestHandler__coll__graph.png" border="0" usemap="#aULootLockerProgressionsRequestHandler_coll__map" alt="Collaboration graph"/></div>
+<map name="aULootLockerProgressionsRequestHandler_coll__map" id="aULootLockerProgressionsRequestHandler_coll__map">
+<area shape="rect" title=" " alt="" coords="5,79,244,119"/>
+<area shape="rect" title=" " alt="" coords="87,5,162,31"/>
+<area shape="poly" title=" " alt="" coords="127,44,127,79,122,79,122,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:adcacf2435ed90f6e672789958045a58a" id="r_adcacf2435ed90f6e672789958045a58a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#adcacf2435ed90f6e672789958045a58a">ULootLockerProgressionsRequestHandler</a> ()</td></tr>
+<tr class="separator:adcacf2435ed90f6e672789958045a58a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a86080ce2c5eb77ee3941555208a441e0" id="r_a86080ce2c5eb77ee3941555208a441e0"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#a86080ce2c5eb77ee3941555208a441e0">GetPlayerProgressions</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 Count, const FString &amp;After, const <a class="el" href="group__Progressions.html#ga2a0f789dfea31de2099202028ef5e26b">FLootLockerPaginatedPlayerProgressionsResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:a86080ce2c5eb77ee3941555208a441e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a164d3ac80d4384e3cf4a8acfad976323" id="r_a164d3ac80d4384e3cf4a8acfad976323"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#a164d3ac80d4384e3cf4a8acfad976323">GetPlayerProgression</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const FString &amp;ProgressionKey, const <a class="el" href="group__Progressions.html#ga79d9af2b36e28e25e736ad0fbdb71d70">FLootLockerPlayerProgressionResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:a164d3ac80d4384e3cf4a8acfad976323"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a235045bd0fcf00d6d6a7d1f2aeeb3a2c" id="r_a235045bd0fcf00d6d6a7d1f2aeeb3a2c"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#a235045bd0fcf00d6d6a7d1f2aeeb3a2c">AddPointsToPlayerProgression</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const FString &amp;ProgressionKey, const int32 Amount, const <a class="el" href="group__Progressions.html#ga103171f1b4a0ea13bb756770a3562105">FLootLockerPlayerProgressionWithRewardsResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:a235045bd0fcf00d6d6a7d1f2aeeb3a2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7133ef22f2dbacc77c85934b6e09677" id="r_ac7133ef22f2dbacc77c85934b6e09677"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#ac7133ef22f2dbacc77c85934b6e09677">SubtractPointsFromPlayerProgression</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const FString &amp;ProgressionKey, const int32 Amount, const <a class="el" href="group__Progressions.html#ga103171f1b4a0ea13bb756770a3562105">FLootLockerPlayerProgressionWithRewardsResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:ac7133ef22f2dbacc77c85934b6e09677"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a425b442d4795e663351721a0970e78e3" id="r_a425b442d4795e663351721a0970e78e3"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#a425b442d4795e663351721a0970e78e3">ResetPlayerProgression</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const FString &amp;ProgressionKey, const <a class="el" href="group__Progressions.html#ga103171f1b4a0ea13bb756770a3562105">FLootLockerPlayerProgressionWithRewardsResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:a425b442d4795e663351721a0970e78e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8479580e25cb6e4b2b1959c90ec175f3" id="r_a8479580e25cb6e4b2b1959c90ec175f3"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#a8479580e25cb6e4b2b1959c90ec175f3">DeletePlayerProgression</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const FString &amp;ProgressionKey, const <a class="el" href="group__Progressions.html#gace346039db9b7a573c80a23120f8f3e4">FLootLockerDeleteProgressionDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:a8479580e25cb6e4b2b1959c90ec175f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0b6f402a7716ebc298aeb85cb84f558" id="r_ab0b6f402a7716ebc298aeb85cb84f558"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#ab0b6f402a7716ebc298aeb85cb84f558">GetOtherPlayersProgressions</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const FString &amp;PlayerUlid, const int32 Count, const FString &amp;After, const <a class="el" href="group__Progressions.html#ga2a0f789dfea31de2099202028ef5e26b">FLootLockerPaginatedPlayerProgressionsResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:ab0b6f402a7716ebc298aeb85cb84f558"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d07a5dfb9409fd170f595e0a8b4b17a" id="r_a7d07a5dfb9409fd170f595e0a8b4b17a"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#a7d07a5dfb9409fd170f595e0a8b4b17a">GetOtherPlayersProgression</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const FString &amp;PlayerUlid, const FString &amp;ProgressionKey, const <a class="el" href="group__Progressions.html#ga79d9af2b36e28e25e736ad0fbdb71d70">FLootLockerPlayerProgressionResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:a7d07a5dfb9409fd170f595e0a8b4b17a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7777d840322267139b866b0f1cc0519c" id="r_a7777d840322267139b866b0f1cc0519c"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#a7777d840322267139b866b0f1cc0519c">GetCharacterProgressions</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 CharacterId, const int32 Count, const FString &amp;After, const <a class="el" href="group__Progressions.html#gad7eb868d3629b20c424ad9d397ea7b30">FLootLockerPaginatedCharacterProgressionsResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:a7777d840322267139b866b0f1cc0519c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade7cce71d7f96e6a5ba20dbf5380ab71" id="r_ade7cce71d7f96e6a5ba20dbf5380ab71"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#ade7cce71d7f96e6a5ba20dbf5380ab71">GetCharacterProgression</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 CharacterId, const FString &amp;ProgressionKey, const <a class="el" href="group__Progressions.html#gac1f49a770b521df4f82d487a865a0ed1">FLootLockerCharacterProgressionResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:ade7cce71d7f96e6a5ba20dbf5380ab71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab090aac3c36fea2c99ee682b9f54ad6a" id="r_ab090aac3c36fea2c99ee682b9f54ad6a"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#ab090aac3c36fea2c99ee682b9f54ad6a">AddPointsToCharacterProgression</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 CharacterId, const FString &amp;ProgressionKey, const int32 Amount, const <a class="el" href="group__Progressions.html#ga61a2b03df0e62a3816228852bf26fbd5">FLootLockerCharacterProgressionWithRewardsResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:ab090aac3c36fea2c99ee682b9f54ad6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedfb4dcb8b8dba19066044ddac7c2235" id="r_aedfb4dcb8b8dba19066044ddac7c2235"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#aedfb4dcb8b8dba19066044ddac7c2235">SubtractPointsFromCharacterProgression</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 CharacterId, const FString &amp;ProgressionKey, const int32 Amount, const <a class="el" href="group__Progressions.html#ga61a2b03df0e62a3816228852bf26fbd5">FLootLockerCharacterProgressionWithRewardsResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:aedfb4dcb8b8dba19066044ddac7c2235"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a037fe23f1c6a8d27c4fe7a6fbeabf217" id="r_a037fe23f1c6a8d27c4fe7a6fbeabf217"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#a037fe23f1c6a8d27c4fe7a6fbeabf217">ResetCharacterProgression</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 CharacterId, const FString &amp;ProgressionKey, const <a class="el" href="group__Progressions.html#ga61a2b03df0e62a3816228852bf26fbd5">FLootLockerCharacterProgressionWithRewardsResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:a037fe23f1c6a8d27c4fe7a6fbeabf217"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a442fc49f03f4d635e4affe0be3b4866d" id="r_a442fc49f03f4d635e4affe0be3b4866d"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#a442fc49f03f4d635e4affe0be3b4866d">DeleteCharacterProgression</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 CharacterId, const FString &amp;ProgressionKey, const <a class="el" href="group__Progressions.html#gace346039db9b7a573c80a23120f8f3e4">FLootLockerDeleteProgressionDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:a442fc49f03f4d635e4affe0be3b4866d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4095eeae2095cf458a2061ed7b9550f" id="r_ae4095eeae2095cf458a2061ed7b9550f"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#ae4095eeae2095cf458a2061ed7b9550f">GetProgressions</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 Count, const FString &amp;After, const <a class="el" href="group__Progressions.html#ga3ab793ed7d1b772cc6a30f1618eefae2">FLootLockerPaginatedProgressionsResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:ae4095eeae2095cf458a2061ed7b9550f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaaacfcd9e1d40471f62911d177dbca3b" id="r_aaaacfcd9e1d40471f62911d177dbca3b"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#aaaacfcd9e1d40471f62911d177dbca3b">GetProgression</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const FString &amp;ProgressionKey, const <a class="el" href="group__Progressions.html#ga2764194441cacef0158bfdcacf527e9c">FLootLockerProgressionResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:aaaacfcd9e1d40471f62911d177dbca3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b53cb1c899421271da9486ee212da32" id="r_a4b53cb1c899421271da9486ee212da32"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#a4b53cb1c899421271da9486ee212da32">GetProgressionTiers</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const FString &amp;ProgressionKey, const int32 Count, const int32 After, const <a class="el" href="group__Progressions.html#ga9ec3314243b30822f98e6db92319424d">FLootLockerPaginatedProgressionTiersResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:a4b53cb1c899421271da9486ee212da32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08876c4da0d7c82ed169e94f63b792ed" id="r_a08876c4da0d7c82ed169e94f63b792ed"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#a08876c4da0d7c82ed169e94f63b792ed">GetInstanceProgressions</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 AssetInstanceId, const int32 Count, const FString &amp;After, const <a class="el" href="group__Progressions.html#ga998a4425b75194a2af1d9c061c9e2698">FLootLockerPaginatedInstanceProgressionsResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:a08876c4da0d7c82ed169e94f63b792ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7041d3cac7f5ab14362f3ce253647a10" id="r_a7041d3cac7f5ab14362f3ce253647a10"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#a7041d3cac7f5ab14362f3ce253647a10">GetInstanceProgression</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 AssetInstanceId, const FString &amp;ProgressionKey, const <a class="el" href="group__Progressions.html#ga88cf61301fda75b54edff4cb72d83fed">FLootLockerInstanceProgressionResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:a7041d3cac7f5ab14362f3ce253647a10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25e2f0eec27283dd15039c5597ea3dc5" id="r_a25e2f0eec27283dd15039c5597ea3dc5"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#a25e2f0eec27283dd15039c5597ea3dc5">AddPointsToInstanceProgression</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 AssetInstanceId, const FString &amp;ProgressionKey, const int32 Amount, const <a class="el" href="group__Progressions.html#gac76bae289bbc2ed829289cd9aeec8db2">FLootLockerInstanceProgressionWithRewardsResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:a25e2f0eec27283dd15039c5597ea3dc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32133ffa5f59ce2cfb0512649415335c" id="r_a32133ffa5f59ce2cfb0512649415335c"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#a32133ffa5f59ce2cfb0512649415335c">SubtractPointsFromInstanceProgression</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 AssetInstanceId, const FString &amp;ProgressionKey, const int32 Amount, const <a class="el" href="group__Progressions.html#gac76bae289bbc2ed829289cd9aeec8db2">FLootLockerInstanceProgressionWithRewardsResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:a32133ffa5f59ce2cfb0512649415335c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91fc3902fdff90de4d7e4269e90273d9" id="r_a91fc3902fdff90de4d7e4269e90273d9"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#a91fc3902fdff90de4d7e4269e90273d9">ResetInstanceProgression</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 AssetInstanceId, const FString &amp;ProgressionKey, const <a class="el" href="group__Progressions.html#gac76bae289bbc2ed829289cd9aeec8db2">FLootLockerInstanceProgressionWithRewardsResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:a91fc3902fdff90de4d7e4269e90273d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa25cbc582260950fcd8b4bd3f54c7c55" id="r_aa25cbc582260950fcd8b4bd3f54c7c55"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerProgressionsRequestHandler.html#aa25cbc582260950fcd8b4bd3f54c7c55">DeleteInstanceProgression</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 AssetInstanceId, const FString &amp;ProgressionKey, const <a class="el" href="group__Progressions.html#gace346039db9b7a573c80a23120f8f3e4">FLootLockerDeleteProgressionDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="separator:aa25cbc582260950fcd8b4bd3f54c7c55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="adcacf2435ed90f6e672789958045a58a" name="adcacf2435ed90f6e672789958045a58a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcacf2435ed90f6e672789958045a58a">&#9670;&#160;</a></span>ULootLockerProgressionsRequestHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ULootLockerProgressionsRequestHandler::ULootLockerProgressionsRequestHandler </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab090aac3c36fea2c99ee682b9f54ad6a" name="ab090aac3c36fea2c99ee682b9f54ad6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab090aac3c36fea2c99ee682b9f54ad6a">&#9670;&#160;</a></span>AddPointsToCharacterProgression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::AddPointsToCharacterProgression </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>CharacterId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProgressionKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>Amount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#ga61a2b03df0e62a3816228852bf26fbd5">FLootLockerCharacterProgressionWithRewardsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a25e2f0eec27283dd15039c5597ea3dc5" name="a25e2f0eec27283dd15039c5597ea3dc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25e2f0eec27283dd15039c5597ea3dc5">&#9670;&#160;</a></span>AddPointsToInstanceProgression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::AddPointsToInstanceProgression </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>AssetInstanceId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProgressionKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>Amount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#gac76bae289bbc2ed829289cd9aeec8db2">FLootLockerInstanceProgressionWithRewardsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a235045bd0fcf00d6d6a7d1f2aeeb3a2c" name="a235045bd0fcf00d6d6a7d1f2aeeb3a2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a235045bd0fcf00d6d6a7d1f2aeeb3a2c">&#9670;&#160;</a></span>AddPointsToPlayerProgression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::AddPointsToPlayerProgression </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProgressionKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>Amount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#ga103171f1b4a0ea13bb756770a3562105">FLootLockerPlayerProgressionWithRewardsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a442fc49f03f4d635e4affe0be3b4866d" name="a442fc49f03f4d635e4affe0be3b4866d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a442fc49f03f4d635e4affe0be3b4866d">&#9670;&#160;</a></span>DeleteCharacterProgression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::DeleteCharacterProgression </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>CharacterId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProgressionKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#gace346039db9b7a573c80a23120f8f3e4">FLootLockerDeleteProgressionDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa25cbc582260950fcd8b4bd3f54c7c55" name="aa25cbc582260950fcd8b4bd3f54c7c55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa25cbc582260950fcd8b4bd3f54c7c55">&#9670;&#160;</a></span>DeleteInstanceProgression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::DeleteInstanceProgression </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>AssetInstanceId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProgressionKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#gace346039db9b7a573c80a23120f8f3e4">FLootLockerDeleteProgressionDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8479580e25cb6e4b2b1959c90ec175f3" name="a8479580e25cb6e4b2b1959c90ec175f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8479580e25cb6e4b2b1959c90ec175f3">&#9670;&#160;</a></span>DeletePlayerProgression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::DeletePlayerProgression </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProgressionKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#gace346039db9b7a573c80a23120f8f3e4">FLootLockerDeleteProgressionDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ade7cce71d7f96e6a5ba20dbf5380ab71" name="ade7cce71d7f96e6a5ba20dbf5380ab71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade7cce71d7f96e6a5ba20dbf5380ab71">&#9670;&#160;</a></span>GetCharacterProgression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::GetCharacterProgression </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>CharacterId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProgressionKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#gac1f49a770b521df4f82d487a865a0ed1">FLootLockerCharacterProgressionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7777d840322267139b866b0f1cc0519c" name="a7777d840322267139b866b0f1cc0519c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7777d840322267139b866b0f1cc0519c">&#9670;&#160;</a></span>GetCharacterProgressions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::GetCharacterProgressions </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>CharacterId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>Count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>After</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#gad7eb868d3629b20c424ad9d397ea7b30">FLootLockerPaginatedCharacterProgressionsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7041d3cac7f5ab14362f3ce253647a10" name="a7041d3cac7f5ab14362f3ce253647a10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7041d3cac7f5ab14362f3ce253647a10">&#9670;&#160;</a></span>GetInstanceProgression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::GetInstanceProgression </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>AssetInstanceId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProgressionKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#ga88cf61301fda75b54edff4cb72d83fed">FLootLockerInstanceProgressionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a08876c4da0d7c82ed169e94f63b792ed" name="a08876c4da0d7c82ed169e94f63b792ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08876c4da0d7c82ed169e94f63b792ed">&#9670;&#160;</a></span>GetInstanceProgressions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::GetInstanceProgressions </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>AssetInstanceId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>Count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>After</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#ga998a4425b75194a2af1d9c061c9e2698">FLootLockerPaginatedInstanceProgressionsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7d07a5dfb9409fd170f595e0a8b4b17a" name="a7d07a5dfb9409fd170f595e0a8b4b17a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d07a5dfb9409fd170f595e0a8b4b17a">&#9670;&#160;</a></span>GetOtherPlayersProgression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::GetOtherPlayersProgression </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>PlayerUlid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProgressionKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#ga79d9af2b36e28e25e736ad0fbdb71d70">FLootLockerPlayerProgressionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab0b6f402a7716ebc298aeb85cb84f558" name="ab0b6f402a7716ebc298aeb85cb84f558"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0b6f402a7716ebc298aeb85cb84f558">&#9670;&#160;</a></span>GetOtherPlayersProgressions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::GetOtherPlayersProgressions </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>PlayerUlid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>Count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>After</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#ga2a0f789dfea31de2099202028ef5e26b">FLootLockerPaginatedPlayerProgressionsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a164d3ac80d4384e3cf4a8acfad976323" name="a164d3ac80d4384e3cf4a8acfad976323"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a164d3ac80d4384e3cf4a8acfad976323">&#9670;&#160;</a></span>GetPlayerProgression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::GetPlayerProgression </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProgressionKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#ga79d9af2b36e28e25e736ad0fbdb71d70">FLootLockerPlayerProgressionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a86080ce2c5eb77ee3941555208a441e0" name="a86080ce2c5eb77ee3941555208a441e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86080ce2c5eb77ee3941555208a441e0">&#9670;&#160;</a></span>GetPlayerProgressions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::GetPlayerProgressions </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>Count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>After</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#ga2a0f789dfea31de2099202028ef5e26b">FLootLockerPaginatedPlayerProgressionsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaaacfcd9e1d40471f62911d177dbca3b" name="aaaacfcd9e1d40471f62911d177dbca3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaaacfcd9e1d40471f62911d177dbca3b">&#9670;&#160;</a></span>GetProgression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::GetProgression </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProgressionKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#ga2764194441cacef0158bfdcacf527e9c">FLootLockerProgressionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae4095eeae2095cf458a2061ed7b9550f" name="ae4095eeae2095cf458a2061ed7b9550f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4095eeae2095cf458a2061ed7b9550f">&#9670;&#160;</a></span>GetProgressions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::GetProgressions </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>Count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>After</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#ga3ab793ed7d1b772cc6a30f1618eefae2">FLootLockerPaginatedProgressionsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4b53cb1c899421271da9486ee212da32" name="a4b53cb1c899421271da9486ee212da32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b53cb1c899421271da9486ee212da32">&#9670;&#160;</a></span>GetProgressionTiers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::GetProgressionTiers </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProgressionKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>Count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>After</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#ga9ec3314243b30822f98e6db92319424d">FLootLockerPaginatedProgressionTiersResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a037fe23f1c6a8d27c4fe7a6fbeabf217" name="a037fe23f1c6a8d27c4fe7a6fbeabf217"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a037fe23f1c6a8d27c4fe7a6fbeabf217">&#9670;&#160;</a></span>ResetCharacterProgression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::ResetCharacterProgression </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>CharacterId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProgressionKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#ga61a2b03df0e62a3816228852bf26fbd5">FLootLockerCharacterProgressionWithRewardsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a91fc3902fdff90de4d7e4269e90273d9" name="a91fc3902fdff90de4d7e4269e90273d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91fc3902fdff90de4d7e4269e90273d9">&#9670;&#160;</a></span>ResetInstanceProgression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::ResetInstanceProgression </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>AssetInstanceId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProgressionKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#gac76bae289bbc2ed829289cd9aeec8db2">FLootLockerInstanceProgressionWithRewardsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a425b442d4795e663351721a0970e78e3" name="a425b442d4795e663351721a0970e78e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a425b442d4795e663351721a0970e78e3">&#9670;&#160;</a></span>ResetPlayerProgression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::ResetPlayerProgression </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProgressionKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#ga103171f1b4a0ea13bb756770a3562105">FLootLockerPlayerProgressionWithRewardsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aedfb4dcb8b8dba19066044ddac7c2235" name="aedfb4dcb8b8dba19066044ddac7c2235"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedfb4dcb8b8dba19066044ddac7c2235">&#9670;&#160;</a></span>SubtractPointsFromCharacterProgression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::SubtractPointsFromCharacterProgression </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>CharacterId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProgressionKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>Amount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#ga61a2b03df0e62a3816228852bf26fbd5">FLootLockerCharacterProgressionWithRewardsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a32133ffa5f59ce2cfb0512649415335c" name="a32133ffa5f59ce2cfb0512649415335c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32133ffa5f59ce2cfb0512649415335c">&#9670;&#160;</a></span>SubtractPointsFromInstanceProgression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::SubtractPointsFromInstanceProgression </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>AssetInstanceId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProgressionKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>Amount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#gac76bae289bbc2ed829289cd9aeec8db2">FLootLockerInstanceProgressionWithRewardsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac7133ef22f2dbacc77c85934b6e09677" name="ac7133ef22f2dbacc77c85934b6e09677"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7133ef22f2dbacc77c85934b6e09677">&#9670;&#160;</a></span>SubtractPointsFromPlayerProgression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerProgressionsRequestHandler::SubtractPointsFromPlayerProgression </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProgressionKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>Amount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Progressions.html#ga103171f1b4a0ea13bb756770a3562105">FLootLockerPlayerProgressionWithRewardsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="classULootLockerProgressionsRequestHandler.html">ULootLockerProgressionsRequestHandler</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

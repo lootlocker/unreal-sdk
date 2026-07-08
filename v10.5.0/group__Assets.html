@@ -1,0 +1,1220 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: Assets</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('group__Assets.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">Assets</div></div>
+</div><!--header-->
+<div class="contents">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Browse and filter the asset catalogue defined in the LootLocker console. </p>
+<p>Assets are anything a player can earn, purchase, possess, or equip — cosmetics, weapons, game configs, loot boxes, drop tables, or rental items. Each asset is assigned a Context (category) and a Complexity (Generic, Loot Box, Rental, or Drop Table) that adds behaviour. This group covers listing reference assets and their metadata; for player-owned instances see <a class="el" href="group__AssetInstance.html">Asset Instances</a>.</p>
+<p>See the <a href="https://docs.lootlocker.com/content/working-with-assets">LootLocker documentation</a>. </p>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="ga7182499475047439dc1fde89dbc4ab1f" name="ga7182499475047439dc1fde89dbc4ab1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7182499475047439dc1fde89dbc4ab1f">&#9670;&#160;</a></span>FAssetBonesResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FAssetBonesResponseDelegate) (<a class="el" href="structFLootLockerGetAssetBonesResponse.html">FLootLockerGetAssetBonesResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerGetAssetBonesResponse.html">FLootLockerGetAssetBonesResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga7e4ac7be6f66cc9fbdd2c6ca97975d82" name="ga7e4ac7be6f66cc9fbdd2c6ca97975d82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7e4ac7be6f66cc9fbdd2c6ca97975d82">&#9670;&#160;</a></span>FAssetsResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FAssetsResponseDelegate) (<a class="el" href="structFLootLockerGetAssetsResponse.html">FLootLockerGetAssetsResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerGetAssetsResponse.html">FLootLockerGetAssetsResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga5f638ad6d77d7e328d6ff56f6b4f677c" name="ga5f638ad6d77d7e328d6ff56f6b4f677c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5f638ad6d77d7e328d6ff56f6b4f677c">&#9670;&#160;</a></span>FContextDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FContextDelegate) (<a class="el" href="structFLootLockerGetContextResponse.html">FLootLockerGetContextResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerGetContextResponse.html">FLootLockerGetContextResponse</a> result. </p>
+
+</div>
+</div>
+<a id="gaa119ff6271f9062d24f98ce976817484" name="gaa119ff6271f9062d24f98ce976817484"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa119ff6271f9062d24f98ce976817484">&#9670;&#160;</a></span>FGetFavouriteAssetIndicesResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FGetFavouriteAssetIndicesResponseDelegate) (<a class="el" href="structFLootLockerGetFavouriteAssetIndicesResponse.html">FLootLockerGetFavouriteAssetIndicesResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerGetFavouriteAssetIndicesResponse.html">FLootLockerGetFavouriteAssetIndicesResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga909e38515c1109986de0857f5db4351f" name="ga909e38515c1109986de0857f5db4351f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga909e38515c1109986de0857f5db4351f">&#9670;&#160;</a></span>FGrantAssetResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FGrantAssetResponseDelegate) (<a class="el" href="structFLootLockerGrantAssetResponse.html">FLootLockerGrantAssetResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerGrantAssetResponse.html">FLootLockerGrantAssetResponse</a> result. </p>
+
+</div>
+</div>
+<a id="gaee91d3c03e78e9b670cea6290aab6840" name="gaee91d3c03e78e9b670cea6290aab6840"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaee91d3c03e78e9b670cea6290aab6840">&#9670;&#160;</a></span>FListSimpleAssetsResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FListSimpleAssetsResponseDelegate) (<a class="el" href="structFLootLockerListSimpleAssetsResponse.html">FLootLockerListSimpleAssetsResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerListSimpleAssetsResponse.html">FLootLockerListSimpleAssetsResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga95139e866cd317b7733c898c2d7546c8" name="ga95139e866cd317b7733c898c2d7546c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga95139e866cd317b7733c898c2d7546c8">&#9670;&#160;</a></span>FUniversalAssetResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FUniversalAssetResponseDelegate) (<a class="el" href="structFLootLockerUniversalAssetsResponse.html">FLootLockerUniversalAssetsResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerUniversalAssetsResponse.html">FLootLockerUniversalAssetsResponse</a> result. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="ga8ae3c9c1e8732f482e668772d87be798" name="ga8ae3c9c1e8732f482e668772d87be798"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8ae3c9c1e8732f482e668772d87be798">&#9670;&#160;</a></span>ELootLockerAssetFilter</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__Assets.html#ga8ae3c9c1e8732f482e668772d87be798">ELootLockerAssetFilter</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Filters applicable when querying the asset list. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga8ae3c9c1e8732f482e668772d87be798a6adf97f83acf6453d4a6a4b1070f3754" name="gga8ae3c9c1e8732f482e668772d87be798a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga8ae3c9c1e8732f482e668772d87be798aec210d41bd962f9c46784fd48b69a1d6" name="gga8ae3c9c1e8732f482e668772d87be798aec210d41bd962f9c46784fd48b69a1d6"></a>Purchasable&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga8ae3c9c1e8732f482e668772d87be798a08b6a0e0d8d50f11df790f6d64d59897" name="gga8ae3c9c1e8732f482e668772d87be798a08b6a0e0d8d50f11df790f6d64d59897"></a>NonPurchasable&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga8ae3c9c1e8732f482e668772d87be798ab5f534543c4f3f2c7ec06476eff80187" name="gga8ae3c9c1e8732f482e668772d87be798ab5f534543c4f3f2c7ec06476eff80187"></a>Rentable&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga8ae3c9c1e8732f482e668772d87be798ac0809c7caf95b37949396c933e1cd167" name="gga8ae3c9c1e8732f482e668772d87be798ac0809c7caf95b37949396c933e1cd167"></a>NonRentable&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga8ae3c9c1e8732f482e668772d87be798a2cc1943d4c0b46bfcf503a75c44f988b" name="gga8ae3c9c1e8732f482e668772d87be798a2cc1943d4c0b46bfcf503a75c44f988b"></a>Popular&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga8ae3c9c1e8732f482e668772d87be798a75885c20353ec1342fef9ae97f7c8573" name="gga8ae3c9c1e8732f482e668772d87be798a75885c20353ec1342fef9ae97f7c8573"></a>UnPopular&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="ga2b2f1454f93df8f92665e355ce9b179e" name="ga2b2f1454f93df8f92665e355ce9b179e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2b2f1454f93df8f92665e355ce9b179e">&#9670;&#160;</a></span>ELootLockerOrderAssetListBy</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__Assets.html#ga2b2f1454f93df8f92665e355ce9b179e">ELootLockerOrderAssetListBy</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fields by which an asset list can be ordered. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga2b2f1454f93df8f92665e355ce9b179ea6adf97f83acf6453d4a6a4b1070f3754" name="gga2b2f1454f93df8f92665e355ce9b179ea6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga2b2f1454f93df8f92665e355ce9b179ea490aa6e856ccf208a054389e47ce0d06" name="gga2b2f1454f93df8f92665e355ce9b179ea490aa6e856ccf208a054389e47ce0d06"></a>Id&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987" name="gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987"></a>Name&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga2b2f1454f93df8f92665e355ce9b179ea4e0b5c2418b622cb71664c2a3b615d77" name="gga2b2f1454f93df8f92665e355ce9b179ea4e0b5c2418b622cb71664c2a3b615d77"></a>Created_at&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga2b2f1454f93df8f92665e355ce9b179ea96436d7e279bd89d1c47c17ef0d5050a" name="gga2b2f1454f93df8f92665e355ce9b179ea96436d7e279bd89d1c47c17ef0d5050a"></a>Updated_at&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="ga818e8fd802b77963e278cde865749bde" name="ga818e8fd802b77963e278cde865749bde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga818e8fd802b77963e278cde865749bde">&#9670;&#160;</a></span>ELootLockerOrderAssetListDirection</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__Assets.html#ga818e8fd802b77963e278cde865749bde">ELootLockerOrderAssetListDirection</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sort direction when ordering an asset list. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga818e8fd802b77963e278cde865749bdea6adf97f83acf6453d4a6a4b1070f3754" name="gga818e8fd802b77963e278cde865749bdea6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga818e8fd802b77963e278cde865749bdeae8338cca05b6a68b1b516f4f0d6b0a0f" name="gga818e8fd802b77963e278cde865749bdeae8338cca05b6a68b1b516f4f0d6b0a0f"></a>Asc&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga818e8fd802b77963e278cde865749bdea5fc8b9a31666e95fddf7fdc19ba6070c" name="gga818e8fd802b77963e278cde865749bdea5fc8b9a31666e95fddf7fdc19ba6070c"></a>Desc&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="gac0911df607e0c915d93dbf25f5c35111" name="gac0911df607e0c915d93dbf25f5c35111"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac0911df607e0c915d93dbf25f5c35111">&#9670;&#160;</a></span>AddAssetToFavourites()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::AddAssetToFavourites </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>AssetId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Assets.html#gaa119ff6271f9062d24f98ce976817484">FGetFavouriteAssetIndicesResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Add an asset to the player's favourites. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AssetId</td><td>Asset id </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga25383e3bfa45cb71400a0a4b7f74b1ba" name="ga25383e3bfa45cb71400a0a4b7f74b1ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga25383e3bfa45cb71400a0a4b7f74b1ba">&#9670;&#160;</a></span>GetAssetBones()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetAssetBones </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Assets.html#ga7182499475047439dc1fde89dbc4ab1f">FAssetBonesResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List default bones and any binding overrides. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga9eec519140b0def84567e3f708c50806" name="ga9eec519140b0def84567e3f708c50806"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9eec519140b0def84567e3f708c50806">&#9670;&#160;</a></span>GetAssets()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetAssets </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Assets.html#ga7e4ac7be6f66cc9fbdd2c6ca97975d82">FAssetsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>StartFromIndex</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ItemsCount</em> = <code>50</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__Assets.html#ga8ae3c9c1e8732f482e668772d87be798">ELootLockerAssetFilter</a>&#160;</td>
+          <td class="paramname"><em>AssetFilter</em> = <code><a class="el" href="group__Assets.html#gga8ae3c9c1e8732f482e668772d87be798a6adf97f83acf6453d4a6a4b1070f3754">ELootLockerAssetFilter::None</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>Context</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>IncludeUGC</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List assets (paginated) with optional filtering. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">StartFromIndex</td><td>Optional: Index of first item (default 0) </td></tr>
+    <tr><td class="paramname">ItemsCount</td><td>Optional: Number of items (50-200, default 50) </td></tr>
+    <tr><td class="paramname">AssetFilter</td><td>Optional: Asset filter (default None) </td></tr>
+    <tr><td class="paramname">Context</td><td>Optional: Context id filter (default 0 = all) </td></tr>
+    <tr><td class="paramname">IncludeUGC</td><td>Optional: Include UGC assets (default false) </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga783981cc92b67e02f8804a8cbcf88193" name="ga783981cc92b67e02f8804a8cbcf88193"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga783981cc92b67e02f8804a8cbcf88193">&#9670;&#160;</a></span>GetAssetsByIds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetAssetsByIds </td>
+          <td>(</td>
+          <td class="paramtype">const TArray&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>AssetIds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Assets.html#ga7e4ac7be6f66cc9fbdd2c6ca97975d82">FAssetsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieve specific assets by id. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AssetIds</td><td>Asset ids to fetch </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga2ac1766828521721c67f92a461241faa" name="ga2ac1766828521721c67f92a461241faa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2ac1766828521721c67f92a461241faa">&#9670;&#160;</a></span>GetContexts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetContexts </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Assets.html#ga5f638ad6d77d7e328d6ff56f6b4f677c">FContextDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get all the contexts the game has. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gac2332ac9dc6f78a1da03d4c45361791c" name="gac2332ac9dc6f78a1da03d4c45361791c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac2332ac9dc6f78a1da03d4c45361791c">&#9670;&#160;</a></span>GetFavouriteAssetIndices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetFavouriteAssetIndices </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Assets.html#gaa119ff6271f9062d24f98ce976817484">FGetFavouriteAssetIndicesResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List the player's favourite asset ids. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga1ffb1d2285503617ee1cd3f11d5af1e0" name="ga1ffb1d2285503617ee1cd3f11d5af1e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1ffb1d2285503617ee1cd3f11d5af1e0">&#9670;&#160;</a></span>GetUniversalAssets()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetUniversalAssets </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>After</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ItemsCount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Assets.html#ga95139e866cd317b7733c898c2d7546c8">FUniversalAssetResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List universal assets (paginated). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">After</td><td>Optional: Last universal asset id to start after </td></tr>
+    <tr><td class="paramname">ItemsCount</td><td>Number of items to return (50-200) </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga4a569162862c144b90e7dcefabafe967" name="ga4a569162862c144b90e7dcefabafe967"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4a569162862c144b90e7dcefabafe967">&#9670;&#160;</a></span>GrantAssetToPlayerInventory() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GrantAssetToPlayerInventory </td>
+          <td>(</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>AssetID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Assets.html#ga909e38515c1109986de0857f5db4351f">FGrantAssetResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Grant an asset to the player (no variation or rental option). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AssetID</td><td>Asset id to grant </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga1c1a0281c4a1d9af9236f50bff28ece1" name="ga1c1a0281c4a1d9af9236f50bff28ece1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1c1a0281c4a1d9af9236f50bff28ece1">&#9670;&#160;</a></span>GrantAssetToPlayerInventory() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GrantAssetToPlayerInventory </td>
+          <td>(</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>AssetID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>AssetVariationID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>AssetRentalOptionID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Assets.html#ga909e38515c1109986de0857f5db4351f">FGrantAssetResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Grant an asset (optionally with variation and rental option) to the player. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AssetID</td><td>Asset id to grant </td></tr>
+    <tr><td class="paramname">AssetVariationID</td><td>Asset variation id (0 for none) </td></tr>
+    <tr><td class="paramname">AssetRentalOptionID</td><td>Rental option id (0 for none) </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga053788a7f28cddcaf23f9b9cb71f93a8" name="ga053788a7f28cddcaf23f9b9cb71f93a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga053788a7f28cddcaf23f9b9cb71f93a8">&#9670;&#160;</a></span>ListAssets()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListAssets </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerListSimpleAssetsRequest.html">FLootLockerListSimpleAssetsRequest</a> &amp;&#160;</td>
+          <td class="paramname"><em>Request</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Assets.html#gaee91d3c03e78e9b670cea6290aab6840">FListSimpleAssetsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>PerPage</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>Page</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__Assets.html#ga2b2f1454f93df8f92665e355ce9b179e">ELootLockerOrderAssetListBy</a>&#160;</td>
+          <td class="paramname"><em>OrderBy</em> = <code><a class="el" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea6adf97f83acf6453d4a6a4b1070f3754">ELootLockerOrderAssetListBy::None</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__Assets.html#ga818e8fd802b77963e278cde865749bde">ELootLockerOrderAssetListDirection</a>&#160;</td>
+          <td class="paramname"><em>OrderDirection</em> = <code><a class="el" href="group__Assets.html#gga818e8fd802b77963e278cde865749bdea6adf97f83acf6453d4a6a4b1070f3754">ELootLockerOrderAssetListDirection::None</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List assets returning only selected fields (performance focused). </p>
+<p>Use filters and field selection to minimize payload size.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Request</td><td>Field include/exclude and asset filtering settings </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">PerPage</td><td>Optional: Page size (used with Page). Set 0 to disable pagination. </td></tr>
+    <tr><td class="paramname">Page</td><td>Optional: Page index (1-based). Set 0 to disable pagination. </td></tr>
+    <tr><td class="paramname">OrderBy</td><td>Optional: Field to order by </td></tr>
+    <tr><td class="paramname">OrderDirection</td><td>Optional: Ordering direction </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga39fdcfac2802bd31ed85619163066c98" name="ga39fdcfac2802bd31ed85619163066c98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga39fdcfac2802bd31ed85619163066c98">&#9670;&#160;</a></span>ListAssetsWithDefaultParameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListAssetsWithDefaultParameters </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Assets.html#gaee91d3c03e78e9b670cea6290aab6840">FListSimpleAssetsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List assets with default pagination and no filters (lightweight helper). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gae7887411a5010f1de98c3e03b452fcf3" name="gae7887411a5010f1de98c3e03b452fcf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae7887411a5010f1de98c3e03b452fcf3">&#9670;&#160;</a></span>RemoveAssetFromFavourites()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RemoveAssetFromFavourites </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>AssetId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Assets.html#gaa119ff6271f9062d24f98ce976817484">FGetFavouriteAssetIndicesResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Remove an asset from the player's favourites. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AssetId</td><td>Asset id </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga5f638ad6d77d7e328d6ff56f6b4f677c" id="r_ga5f638ad6d77d7e328d6ff56f6b4f677c"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Assets.html#ga5f638ad6d77d7e328d6ff56f6b4f677c">FContextDelegate</a>) (<a class="el" href="structFLootLockerGetContextResponse.html">FLootLockerGetContextResponse</a>)</td></tr>
+<tr class="memdesc:ga5f638ad6d77d7e328d6ff56f6b4f677c"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerGetContextResponse.html">FLootLockerGetContextResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga5f638ad6d77d7e328d6ff56f6b4f677c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7e4ac7be6f66cc9fbdd2c6ca97975d82" id="r_ga7e4ac7be6f66cc9fbdd2c6ca97975d82"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Assets.html#ga7e4ac7be6f66cc9fbdd2c6ca97975d82">FAssetsResponseDelegate</a>) (<a class="el" href="structFLootLockerGetAssetsResponse.html">FLootLockerGetAssetsResponse</a>)</td></tr>
+<tr class="memdesc:ga7e4ac7be6f66cc9fbdd2c6ca97975d82"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerGetAssetsResponse.html">FLootLockerGetAssetsResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga7e4ac7be6f66cc9fbdd2c6ca97975d82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7182499475047439dc1fde89dbc4ab1f" id="r_ga7182499475047439dc1fde89dbc4ab1f"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Assets.html#ga7182499475047439dc1fde89dbc4ab1f">FAssetBonesResponseDelegate</a>) (<a class="el" href="structFLootLockerGetAssetBonesResponse.html">FLootLockerGetAssetBonesResponse</a>)</td></tr>
+<tr class="memdesc:ga7182499475047439dc1fde89dbc4ab1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerGetAssetBonesResponse.html">FLootLockerGetAssetBonesResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga7182499475047439dc1fde89dbc4ab1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa119ff6271f9062d24f98ce976817484" id="r_gaa119ff6271f9062d24f98ce976817484"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Assets.html#gaa119ff6271f9062d24f98ce976817484">FGetFavouriteAssetIndicesResponseDelegate</a>) (<a class="el" href="structFLootLockerGetFavouriteAssetIndicesResponse.html">FLootLockerGetFavouriteAssetIndicesResponse</a>)</td></tr>
+<tr class="memdesc:gaa119ff6271f9062d24f98ce976817484"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerGetFavouriteAssetIndicesResponse.html">FLootLockerGetFavouriteAssetIndicesResponse</a> result.  <br /></td></tr>
+<tr class="separator:gaa119ff6271f9062d24f98ce976817484"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga95139e866cd317b7733c898c2d7546c8" id="r_ga95139e866cd317b7733c898c2d7546c8"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Assets.html#ga95139e866cd317b7733c898c2d7546c8">FUniversalAssetResponseDelegate</a>) (<a class="el" href="structFLootLockerUniversalAssetsResponse.html">FLootLockerUniversalAssetsResponse</a>)</td></tr>
+<tr class="memdesc:ga95139e866cd317b7733c898c2d7546c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerUniversalAssetsResponse.html">FLootLockerUniversalAssetsResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga95139e866cd317b7733c898c2d7546c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga909e38515c1109986de0857f5db4351f" id="r_ga909e38515c1109986de0857f5db4351f"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Assets.html#ga909e38515c1109986de0857f5db4351f">FGrantAssetResponseDelegate</a>) (<a class="el" href="structFLootLockerGrantAssetResponse.html">FLootLockerGrantAssetResponse</a>)</td></tr>
+<tr class="memdesc:ga909e38515c1109986de0857f5db4351f"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerGrantAssetResponse.html">FLootLockerGrantAssetResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga909e38515c1109986de0857f5db4351f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaee91d3c03e78e9b670cea6290aab6840" id="r_gaee91d3c03e78e9b670cea6290aab6840"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Assets.html#gaee91d3c03e78e9b670cea6290aab6840">FListSimpleAssetsResponseDelegate</a>) (<a class="el" href="structFLootLockerListSimpleAssetsResponse.html">FLootLockerListSimpleAssetsResponse</a>)</td></tr>
+<tr class="memdesc:gaee91d3c03e78e9b670cea6290aab6840"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerListSimpleAssetsResponse.html">FLootLockerListSimpleAssetsResponse</a> result.  <br /></td></tr>
+<tr class="separator:gaee91d3c03e78e9b670cea6290aab6840"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga8ae3c9c1e8732f482e668772d87be798" id="r_ga8ae3c9c1e8732f482e668772d87be798"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Assets.html#ga8ae3c9c1e8732f482e668772d87be798">ELootLockerAssetFilter</a> : uint8 { <br />
+&#160;&#160;<a class="el" href="group__Assets.html#gga8ae3c9c1e8732f482e668772d87be798a6adf97f83acf6453d4a6a4b1070f3754">ELootLockerAssetFilter::None</a> = 0
+, <a class="el" href="group__Assets.html#gga8ae3c9c1e8732f482e668772d87be798aec210d41bd962f9c46784fd48b69a1d6">ELootLockerAssetFilter::Purchasable</a> = 1
+, <a class="el" href="group__Assets.html#gga8ae3c9c1e8732f482e668772d87be798a08b6a0e0d8d50f11df790f6d64d59897">ELootLockerAssetFilter::NonPurchasable</a> = 2
+, <a class="el" href="group__Assets.html#gga8ae3c9c1e8732f482e668772d87be798ab5f534543c4f3f2c7ec06476eff80187">ELootLockerAssetFilter::Rentable</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="group__Assets.html#gga8ae3c9c1e8732f482e668772d87be798ac0809c7caf95b37949396c933e1cd167">ELootLockerAssetFilter::NonRentable</a> = 4
+, <a class="el" href="group__Assets.html#gga8ae3c9c1e8732f482e668772d87be798a2cc1943d4c0b46bfcf503a75c44f988b">ELootLockerAssetFilter::Popular</a> = 5
+, <a class="el" href="group__Assets.html#gga8ae3c9c1e8732f482e668772d87be798a75885c20353ec1342fef9ae97f7c8573">ELootLockerAssetFilter::UnPopular</a> = 6
+<br />
+ }</td></tr>
+<tr class="memdesc:ga8ae3c9c1e8732f482e668772d87be798"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filters applicable when querying the asset list.  <a href="group__Assets.html#ga8ae3c9c1e8732f482e668772d87be798">More...</a><br /></td></tr>
+<tr class="separator:ga8ae3c9c1e8732f482e668772d87be798"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2b2f1454f93df8f92665e355ce9b179e" id="r_ga2b2f1454f93df8f92665e355ce9b179e"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Assets.html#ga2b2f1454f93df8f92665e355ce9b179e">ELootLockerOrderAssetListBy</a> : uint8 { <br />
+&#160;&#160;<a class="el" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea6adf97f83acf6453d4a6a4b1070f3754">ELootLockerOrderAssetListBy::None</a> = 0
+, <a class="el" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea490aa6e856ccf208a054389e47ce0d06">ELootLockerOrderAssetListBy::Id</a> = 1
+, <a class="el" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987">ELootLockerOrderAssetListBy::Name</a> = 2
+, <a class="el" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea4e0b5c2418b622cb71664c2a3b615d77">ELootLockerOrderAssetListBy::Created_at</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea96436d7e279bd89d1c47c17ef0d5050a">ELootLockerOrderAssetListBy::Updated_at</a> = 4
+<br />
+ }</td></tr>
+<tr class="memdesc:ga2b2f1454f93df8f92665e355ce9b179e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fields by which an asset list can be ordered.  <a href="group__Assets.html#ga2b2f1454f93df8f92665e355ce9b179e">More...</a><br /></td></tr>
+<tr class="separator:ga2b2f1454f93df8f92665e355ce9b179e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga818e8fd802b77963e278cde865749bde" id="r_ga818e8fd802b77963e278cde865749bde"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Assets.html#ga818e8fd802b77963e278cde865749bde">ELootLockerOrderAssetListDirection</a> : uint8 { <a class="el" href="group__Assets.html#gga818e8fd802b77963e278cde865749bdea6adf97f83acf6453d4a6a4b1070f3754">ELootLockerOrderAssetListDirection::None</a> = 0
+, <a class="el" href="group__Assets.html#gga818e8fd802b77963e278cde865749bdeae8338cca05b6a68b1b516f4f0d6b0a0f">ELootLockerOrderAssetListDirection::Asc</a> = 1
+, <a class="el" href="group__Assets.html#gga818e8fd802b77963e278cde865749bdea5fc8b9a31666e95fddf7fdc19ba6070c">ELootLockerOrderAssetListDirection::Desc</a> = 2
+ }</td></tr>
+<tr class="memdesc:ga818e8fd802b77963e278cde865749bde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sort direction when ordering an asset list.  <a href="group__Assets.html#ga818e8fd802b77963e278cde865749bde">More...</a><br /></td></tr>
+<tr class="separator:ga818e8fd802b77963e278cde865749bde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga2ac1766828521721c67f92a461241faa" id="r_ga2ac1766828521721c67f92a461241faa"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Assets.html#ga2ac1766828521721c67f92a461241faa">ULootLockerSDKManager::GetContexts</a> (const <a class="el" href="group__Assets.html#ga5f638ad6d77d7e328d6ff56f6b4f677c">FContextDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga2ac1766828521721c67f92a461241faa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get all the contexts the game has.  <br /></td></tr>
+<tr class="separator:ga2ac1766828521721c67f92a461241faa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9eec519140b0def84567e3f708c50806" id="r_ga9eec519140b0def84567e3f708c50806"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Assets.html#ga9eec519140b0def84567e3f708c50806">ULootLockerSDKManager::GetAssets</a> (const <a class="el" href="group__Assets.html#ga7e4ac7be6f66cc9fbdd2c6ca97975d82">FAssetsResponseDelegate</a> &amp;OnCompletedRequest, int StartFromIndex=0, int ItemsCount=50, <a class="el" href="group__Assets.html#ga8ae3c9c1e8732f482e668772d87be798">ELootLockerAssetFilter</a> AssetFilter=<a class="el" href="group__Assets.html#gga8ae3c9c1e8732f482e668772d87be798a6adf97f83acf6453d4a6a4b1070f3754">ELootLockerAssetFilter::None</a>, int Context=0, bool IncludeUGC=false, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga9eec519140b0def84567e3f708c50806"><td class="mdescLeft">&#160;</td><td class="mdescRight">List assets (paginated) with optional filtering.  <br /></td></tr>
+<tr class="separator:ga9eec519140b0def84567e3f708c50806"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1ffb1d2285503617ee1cd3f11d5af1e0" id="r_ga1ffb1d2285503617ee1cd3f11d5af1e0"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Assets.html#ga1ffb1d2285503617ee1cd3f11d5af1e0">ULootLockerSDKManager::GetUniversalAssets</a> (int After, int ItemsCount, const <a class="el" href="group__Assets.html#ga95139e866cd317b7733c898c2d7546c8">FUniversalAssetResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga1ffb1d2285503617ee1cd3f11d5af1e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">List universal assets (paginated).  <br /></td></tr>
+<tr class="separator:ga1ffb1d2285503617ee1cd3f11d5af1e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga783981cc92b67e02f8804a8cbcf88193" id="r_ga783981cc92b67e02f8804a8cbcf88193"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Assets.html#ga783981cc92b67e02f8804a8cbcf88193">ULootLockerSDKManager::GetAssetsByIds</a> (const TArray&lt; int &gt; &amp;AssetIds, const <a class="el" href="group__Assets.html#ga7e4ac7be6f66cc9fbdd2c6ca97975d82">FAssetsResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga783981cc92b67e02f8804a8cbcf88193"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve specific assets by id.  <br /></td></tr>
+<tr class="separator:ga783981cc92b67e02f8804a8cbcf88193"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga25383e3bfa45cb71400a0a4b7f74b1ba" id="r_ga25383e3bfa45cb71400a0a4b7f74b1ba"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Assets.html#ga25383e3bfa45cb71400a0a4b7f74b1ba">ULootLockerSDKManager::GetAssetBones</a> (const <a class="el" href="group__Assets.html#ga7182499475047439dc1fde89dbc4ab1f">FAssetBonesResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga25383e3bfa45cb71400a0a4b7f74b1ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">List default bones and any binding overrides.  <br /></td></tr>
+<tr class="separator:ga25383e3bfa45cb71400a0a4b7f74b1ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac2332ac9dc6f78a1da03d4c45361791c" id="r_gac2332ac9dc6f78a1da03d4c45361791c"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Assets.html#gac2332ac9dc6f78a1da03d4c45361791c">ULootLockerSDKManager::GetFavouriteAssetIndices</a> (const <a class="el" href="group__Assets.html#gaa119ff6271f9062d24f98ce976817484">FGetFavouriteAssetIndicesResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gac2332ac9dc6f78a1da03d4c45361791c"><td class="mdescLeft">&#160;</td><td class="mdescRight">List the player's favourite asset ids.  <br /></td></tr>
+<tr class="separator:gac2332ac9dc6f78a1da03d4c45361791c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac0911df607e0c915d93dbf25f5c35111" id="r_gac0911df607e0c915d93dbf25f5c35111"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Assets.html#gac0911df607e0c915d93dbf25f5c35111">ULootLockerSDKManager::AddAssetToFavourites</a> (int AssetId, const <a class="el" href="group__Assets.html#gaa119ff6271f9062d24f98ce976817484">FGetFavouriteAssetIndicesResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gac0911df607e0c915d93dbf25f5c35111"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an asset to the player's favourites.  <br /></td></tr>
+<tr class="separator:gac0911df607e0c915d93dbf25f5c35111"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae7887411a5010f1de98c3e03b452fcf3" id="r_gae7887411a5010f1de98c3e03b452fcf3"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Assets.html#gae7887411a5010f1de98c3e03b452fcf3">ULootLockerSDKManager::RemoveAssetFromFavourites</a> (int AssetId, const <a class="el" href="group__Assets.html#gaa119ff6271f9062d24f98ce976817484">FGetFavouriteAssetIndicesResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gae7887411a5010f1de98c3e03b452fcf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove an asset from the player's favourites.  <br /></td></tr>
+<tr class="separator:gae7887411a5010f1de98c3e03b452fcf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1c1a0281c4a1d9af9236f50bff28ece1" id="r_ga1c1a0281c4a1d9af9236f50bff28ece1"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Assets.html#ga1c1a0281c4a1d9af9236f50bff28ece1">ULootLockerSDKManager::GrantAssetToPlayerInventory</a> (const int AssetID, const int AssetVariationID, const int AssetRentalOptionID, const <a class="el" href="group__Assets.html#ga909e38515c1109986de0857f5db4351f">FGrantAssetResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga1c1a0281c4a1d9af9236f50bff28ece1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grant an asset (optionally with variation and rental option) to the player.  <br /></td></tr>
+<tr class="separator:ga1c1a0281c4a1d9af9236f50bff28ece1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4a569162862c144b90e7dcefabafe967" id="r_ga4a569162862c144b90e7dcefabafe967"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Assets.html#ga4a569162862c144b90e7dcefabafe967">ULootLockerSDKManager::GrantAssetToPlayerInventory</a> (const int AssetID, const <a class="el" href="group__Assets.html#ga909e38515c1109986de0857f5db4351f">FGrantAssetResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga4a569162862c144b90e7dcefabafe967"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grant an asset to the player (no variation or rental option).  <br /></td></tr>
+<tr class="separator:ga4a569162862c144b90e7dcefabafe967"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga39fdcfac2802bd31ed85619163066c98" id="r_ga39fdcfac2802bd31ed85619163066c98"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Assets.html#ga39fdcfac2802bd31ed85619163066c98">ULootLockerSDKManager::ListAssetsWithDefaultParameters</a> (const <a class="el" href="group__Assets.html#gaee91d3c03e78e9b670cea6290aab6840">FListSimpleAssetsResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga39fdcfac2802bd31ed85619163066c98"><td class="mdescLeft">&#160;</td><td class="mdescRight">List assets with default pagination and no filters (lightweight helper).  <br /></td></tr>
+<tr class="separator:ga39fdcfac2802bd31ed85619163066c98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga053788a7f28cddcaf23f9b9cb71f93a8" id="r_ga053788a7f28cddcaf23f9b9cb71f93a8"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Assets.html#ga053788a7f28cddcaf23f9b9cb71f93a8">ULootLockerSDKManager::ListAssets</a> (const <a class="el" href="structFLootLockerListSimpleAssetsRequest.html">FLootLockerListSimpleAssetsRequest</a> &amp;Request, const <a class="el" href="group__Assets.html#gaee91d3c03e78e9b670cea6290aab6840">FListSimpleAssetsResponseDelegate</a> &amp;OnCompletedRequest, int PerPage=0, int Page=0, <a class="el" href="group__Assets.html#ga2b2f1454f93df8f92665e355ce9b179e">ELootLockerOrderAssetListBy</a> OrderBy=<a class="el" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea6adf97f83acf6453d4a6a4b1070f3754">ELootLockerOrderAssetListBy::None</a>, <a class="el" href="group__Assets.html#ga818e8fd802b77963e278cde865749bde">ELootLockerOrderAssetListDirection</a> OrderDirection=<a class="el" href="group__Assets.html#gga818e8fd802b77963e278cde865749bdea6adf97f83acf6453d4a6a4b1070f3754">ELootLockerOrderAssetListDirection::None</a>, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga053788a7f28cddcaf23f9b9cb71f93a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">List assets returning only selected fields (performance focused).  <br /></td></tr>
+<tr class="separator:ga053788a7f28cddcaf23f9b9cb71f93a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

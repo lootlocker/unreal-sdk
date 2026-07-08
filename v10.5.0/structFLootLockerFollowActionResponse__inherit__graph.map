@@ -1,0 +1,5 @@
+<map id="FLootLockerFollowActionResponse" name="FLootLockerFollowActionResponse">
+<area shape="rect" id="Node000001" title="Response struct for follow/unfollow actions." alt="" coords="5,79,252,104"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="47,5,210,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="131,44,131,79,126,79,126,44"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="FLootLockerListSimplifiedInventoryIncludes" name="FLootLockerListSimplifiedInventoryIncludes">
+<area shape="rect" id="Node000001" title="Includes to add extra data to simplified inventory responses." alt="" coords="11,108,199,148"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerListSimplifiedInventoryMetadataIncludes.html" title="Specifies which metadata keys to include in simplified inventory responses." alt="" coords="5,5,205,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,59,108,108,103,108,103,59"/>
+</map>

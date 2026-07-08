@@ -1,0 +1,710 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: Remote Sessions</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('group__RemoteSessions.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">Remote Sessions</div></div>
+</div><!--header-->
+<div class="contents">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Log in to a different platform than the one you are currently playing on. </p>
+<p>Part of Unified Player Accounts (UPA). A player on one platform (e.g., Nintendo Switch) can authenticate as their account on another platform (e.g., Steam) without needing the target platform's native app. The flow uses an 8-digit code verified through <a href="https://auth.game">https://auth.game</a>.</p>
+<p>See the <a href="https://docs.lootlocker.com/players/unified-player-accounts#remote-login">LootLocker documentation</a>. </p>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="gaf967fe6c44736fdf3d46314c693d05c4" name="gaf967fe6c44736fdf3d46314c693d05c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf967fe6c44736fdf3d46314c693d05c4">&#9670;&#160;</a></span>FLootLockerLeaseRemoteSessionResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerLeaseRemoteSessionResponseDelegate) (<a class="el" href="structFLootLockerLeaseRemoteSessionResponse.html">FLootLockerLeaseRemoteSessionResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for receiving the remote session lease information. </p>
+
+</div>
+</div>
+<a id="ga6bfc9efceec00bb874c9d4d454c65889" name="ga6bfc9efceec00bb874c9d4d454c65889"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6bfc9efceec00bb874c9d4d454c65889">&#9670;&#160;</a></span>FLootLockerRefreshRemoteSessionResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerRefreshRemoteSessionResponseDelegate) (<a class="el" href="structFLootLockerRefreshRemoteSessionResponse.html">FLootLockerRefreshRemoteSessionResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for receiving the refreshed remote session. </p>
+
+</div>
+</div>
+<a id="gae69adbcf18bc6cba03d6418e0fddcf5a" name="gae69adbcf18bc6cba03d6418e0fddcf5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae69adbcf18bc6cba03d6418e0fddcf5a">&#9670;&#160;</a></span>FLootLockerRemoteSessionStatusPollingResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerRemoteSessionStatusPollingResponseDelegate) (<a class="el" href="structFLootLockerRemoteSessionStatusPollingResponse.html">FLootLockerRemoteSessionStatusPollingResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for receiving continual polling updates. </p>
+
+</div>
+</div>
+<a id="ga96de587a95360c9590cd82c47d430b60" name="ga96de587a95360c9590cd82c47d430b60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga96de587a95360c9590cd82c47d430b60">&#9670;&#160;</a></span>FLootLockerStartRemoteSessionResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerStartRemoteSessionResponseDelegate) (<a class="el" href="structFLootLockerStartRemoteSessionResponse.html">FLootLockerStartRemoteSessionResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for receiving the finalized remote session data (whether successful or not) </p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="gab280f509f0059be581bc6af423932ac5" name="gab280f509f0059be581bc6af423932ac5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab280f509f0059be581bc6af423932ac5">&#9670;&#160;</a></span>ELootLockerRemoteSessionLeaseIntent</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__RemoteSessions.html#gab280f509f0059be581bc6af423932ac5">ELootLockerRemoteSessionLeaseIntent</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Possible intents for remote sessions. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggab280f509f0059be581bc6af423932ac5ad56b699830e77ba53855679cb1d252da" name="ggab280f509f0059be581bc6af423932ac5ad56b699830e77ba53855679cb1d252da"></a>login&#160;</td><td class="fielddoc"><p>Intent is to log in using a leased remote session. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggab280f509f0059be581bc6af423932ac5a2a304a1348456ccd2234cd71a81bd338" name="ggab280f509f0059be581bc6af423932ac5a2a304a1348456ccd2234cd71a81bd338"></a>link&#160;</td><td class="fielddoc"><p>Intent is to link different providers. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="gafbf5579027e972d12305aec3ce9afc38" name="gafbf5579027e972d12305aec3ce9afc38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafbf5579027e972d12305aec3ce9afc38">&#9670;&#160;</a></span>ELootLockerRemoteSessionLeaseStatus</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__RemoteSessions.html#gafbf5579027e972d12305aec3ce9afc38">ELootLockerRemoteSessionLeaseStatus</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Possible entity kinds that catalog entries can have. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggafbf5579027e972d12305aec3ce9afc38a0eceeb45861f9585dd7a97a3e36f85c6" name="ggafbf5579027e972d12305aec3ce9afc38a0eceeb45861f9585dd7a97a3e36f85c6"></a>Created&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggafbf5579027e972d12305aec3ce9afc38a9d8b15ef78357692564f5aced0c68eaf" name="ggafbf5579027e972d12305aec3ce9afc38a9d8b15ef78357692564f5aced0c68eaf"></a>Claimed&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggafbf5579027e972d12305aec3ce9afc38a3f68e67dc6c397aaa9d1c24c356f754f" name="ggafbf5579027e972d12305aec3ce9afc38a3f68e67dc6c397aaa9d1c24c356f754f"></a>Verified&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggafbf5579027e972d12305aec3ce9afc38aa206428462686af481cb072b8db11784" name="ggafbf5579027e972d12305aec3ce9afc38aa206428462686af481cb072b8db11784"></a>Authorized&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggafbf5579027e972d12305aec3ce9afc38aa149e85a44aeec9140e92733d9ed694e" name="ggafbf5579027e972d12305aec3ce9afc38aa149e85a44aeec9140e92733d9ed694e"></a>Cancelled&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggafbf5579027e972d12305aec3ce9afc38a3b7c488460d613cc48feeb15b368f283" name="ggafbf5579027e972d12305aec3ce9afc38a3b7c488460d613cc48feeb15b368f283"></a>Timed_out&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ggafbf5579027e972d12305aec3ce9afc38ad7c8c85bf79bbe1b7188497c32c3b0ca" name="ggafbf5579027e972d12305aec3ce9afc38ad7c8c85bf79bbe1b7188497c32c3b0ca"></a>Failed&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="gae9152e8bc747cc8c43733eef0568c2fb" name="gae9152e8bc747cc8c43733eef0568c2fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae9152e8bc747cc8c43733eef0568c2fb">&#9670;&#160;</a></span>CancelRemoteSessionProcess()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void ULootLockerSDKManager::CancelRemoteSessionProcess </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProcessID</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cancel a remote session process. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ProcessID</td><td>Remote session process id </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga77ab51ab56a11ce76701a6e9122fea9b" name="ga77ab51ab56a11ce76701a6e9122fea9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga77ab51ab56a11ce76701a6e9122fea9b">&#9670;&#160;</a></span>RefreshRemoteSession() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RefreshRemoteSession </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__RemoteSessions.html#ga6bfc9efceec00bb874c9d4d454c65889">FLootLockerRefreshRemoteSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Refresh a remotely started session. </p>
+<p>401 means the refresh token expired and a new login is required.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga7bccb2ace8564cc3ffe3f4d671f54e42" name="ga7bccb2ace8564cc3ffe3f4d671f54e42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7bccb2ace8564cc3ffe3f4d671f54e42">&#9670;&#160;</a></span>RefreshRemoteSession() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RefreshRemoteSession </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>RefreshToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__RemoteSessions.html#ga6bfc9efceec00bb874c9d4d454c65889">FLootLockerRefreshRemoteSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Refresh a remotely started session with explicit refresh token. </p>
+<p>401 means the refresh token expired and a new login is required.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">RefreshToken</td><td>Refresh token from StartRemoteSession </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga6fb8fc36770a1da8045e797064933dda" name="ga6fb8fc36770a1da8045e797064933dda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6fb8fc36770a1da8045e797064933dda">&#9670;&#160;</a></span>StartRemoteSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::StartRemoteSession </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__RemoteSessions.html#gaf967fe6c44736fdf3d46314c693d05c4">FLootLockerLeaseRemoteSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>RemoteSessionLeaseInformation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__RemoteSessions.html#gae69adbcf18bc6cba03d6418e0fddcf5a">FLootLockerRemoteSessionStatusPollingResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>RemoteSessionLeaseStatusUpdate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__RemoteSessions.html#ga96de587a95360c9590cd82c47d430b60">FLootLockerStartRemoteSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>PollingIntervalSeconds</em> = <code>1.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>TimeOutAfterMinutes</em> = <code>5.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__ConnectedAccounts.html#ga52ca2d9826a43c89fc5913c416e0894d">ELootLockerAccountProvider</a>&#160;</td>
+          <td class="paramname"><em>Provider</em> = <code><a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894daadb831a7fdd83dd1e2a309ce7591dff8">ELootLockerAccountProvider::Guest</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Start a remote session lease process. </p>
+<p>Provides lease info, polls status, then returns success or failure.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">RemoteSessionLeaseInformation</td><td>Called once with lease info for secondary device </td></tr>
+    <tr><td class="paramname">RemoteSessionLeaseStatusUpdate</td><td>Called periodically with status updates </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Called when process completes (success or failure) </td></tr>
+    <tr><td class="paramname">PollingIntervalSeconds</td><td>Optional: Status polling interval seconds </td></tr>
+    <tr><td class="paramname">TimeOutAfterMinutes</td><td>Optional: Max duration minutes before timeout </td></tr>
+    <tr><td class="paramname">Provider</td><td>Optional: Preloads the connection flow with which account provider to use for linking, so the user does not have to select it manually. Leave as Guest to let the user choose. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Remote session process id </dd>
+<dd>
+A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gaffd58086c4a7a0fbc9f071e2c1f504a8" name="gaffd58086c4a7a0fbc9f071e2c1f504a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaffd58086c4a7a0fbc9f071e2c1f504a8">&#9670;&#160;</a></span>StartRemoteSessionForLinking()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::StartRemoteSessionForLinking </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__RemoteSessions.html#gaf967fe6c44736fdf3d46314c693d05c4">FLootLockerLeaseRemoteSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>RemoteSessionLeaseInformation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__RemoteSessions.html#gae69adbcf18bc6cba03d6418e0fddcf5a">FLootLockerRemoteSessionStatusPollingResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>RemoteSessionLeaseStatusUpdate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__RemoteSessions.html#ga96de587a95360c9590cd82c47d430b60">FLootLockerStartRemoteSessionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>PollingIntervalSeconds</em> = <code>1.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>TimeOutAfterMinutes</em> = <code>5.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__ConnectedAccounts.html#ga52ca2d9826a43c89fc5913c416e0894d">ELootLockerAccountProvider</a>&#160;</td>
+          <td class="paramname"><em>Provider</em> = <code><a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894daadb831a7fdd83dd1e2a309ce7591dff8">ELootLockerAccountProvider::Guest</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Start a remote session lease process for linking into a specific player. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Player ULID to link into </td></tr>
+    <tr><td class="paramname">RemoteSessionLeaseInformation</td><td>Called once with lease info for secondary device </td></tr>
+    <tr><td class="paramname">RemoteSessionLeaseStatusUpdate</td><td>Called periodically with status updates </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Called when process completes (success or failure) </td></tr>
+    <tr><td class="paramname">PollingIntervalSeconds</td><td>Optional: Status polling interval seconds </td></tr>
+    <tr><td class="paramname">TimeOutAfterMinutes</td><td>Optional: Max duration minutes before timeout </td></tr>
+    <tr><td class="paramname">Provider</td><td>Optional: Preloads the connection flow with which account provider to use for linking, so the user does not have to select it manually. Leave as Guest to let the user choose. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Remote session process id </dd>
+<dd>
+A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRemoteSessionProcess.html">FLootLockerRemoteSessionProcess</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:gaf967fe6c44736fdf3d46314c693d05c4" id="r_gaf967fe6c44736fdf3d46314c693d05c4"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__RemoteSessions.html#gaf967fe6c44736fdf3d46314c693d05c4">FLootLockerLeaseRemoteSessionResponseDelegate</a>) (<a class="el" href="structFLootLockerLeaseRemoteSessionResponse.html">FLootLockerLeaseRemoteSessionResponse</a>)</td></tr>
+<tr class="memdesc:gaf967fe6c44736fdf3d46314c693d05c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for receiving the remote session lease information.  <br /></td></tr>
+<tr class="separator:gaf967fe6c44736fdf3d46314c693d05c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae69adbcf18bc6cba03d6418e0fddcf5a" id="r_gae69adbcf18bc6cba03d6418e0fddcf5a"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__RemoteSessions.html#gae69adbcf18bc6cba03d6418e0fddcf5a">FLootLockerRemoteSessionStatusPollingResponseDelegate</a>) (<a class="el" href="structFLootLockerRemoteSessionStatusPollingResponse.html">FLootLockerRemoteSessionStatusPollingResponse</a>)</td></tr>
+<tr class="memdesc:gae69adbcf18bc6cba03d6418e0fddcf5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for receiving continual polling updates.  <br /></td></tr>
+<tr class="separator:gae69adbcf18bc6cba03d6418e0fddcf5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga96de587a95360c9590cd82c47d430b60" id="r_ga96de587a95360c9590cd82c47d430b60"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__RemoteSessions.html#ga96de587a95360c9590cd82c47d430b60">FLootLockerStartRemoteSessionResponseDelegate</a>) (<a class="el" href="structFLootLockerStartRemoteSessionResponse.html">FLootLockerStartRemoteSessionResponse</a>)</td></tr>
+<tr class="memdesc:ga96de587a95360c9590cd82c47d430b60"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for receiving the finalized remote session data (whether successful or not)  <br /></td></tr>
+<tr class="separator:ga96de587a95360c9590cd82c47d430b60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6bfc9efceec00bb874c9d4d454c65889" id="r_ga6bfc9efceec00bb874c9d4d454c65889"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__RemoteSessions.html#ga6bfc9efceec00bb874c9d4d454c65889">FLootLockerRefreshRemoteSessionResponseDelegate</a>) (<a class="el" href="structFLootLockerRefreshRemoteSessionResponse.html">FLootLockerRefreshRemoteSessionResponse</a>)</td></tr>
+<tr class="memdesc:ga6bfc9efceec00bb874c9d4d454c65889"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for receiving the refreshed remote session.  <br /></td></tr>
+<tr class="separator:ga6bfc9efceec00bb874c9d4d454c65889"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:gafbf5579027e972d12305aec3ce9afc38" id="r_gafbf5579027e972d12305aec3ce9afc38"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__RemoteSessions.html#gafbf5579027e972d12305aec3ce9afc38">ELootLockerRemoteSessionLeaseStatus</a> : uint8 { <br />
+&#160;&#160;<a class="el" href="group__RemoteSessions.html#ggafbf5579027e972d12305aec3ce9afc38a0eceeb45861f9585dd7a97a3e36f85c6">ELootLockerRemoteSessionLeaseStatus::Created</a> = 0
+, <a class="el" href="group__RemoteSessions.html#ggafbf5579027e972d12305aec3ce9afc38a9d8b15ef78357692564f5aced0c68eaf">ELootLockerRemoteSessionLeaseStatus::Claimed</a> = 1
+, <a class="el" href="group__RemoteSessions.html#ggafbf5579027e972d12305aec3ce9afc38a3f68e67dc6c397aaa9d1c24c356f754f">ELootLockerRemoteSessionLeaseStatus::Verified</a> = 2
+, <a class="el" href="group__RemoteSessions.html#ggafbf5579027e972d12305aec3ce9afc38aa206428462686af481cb072b8db11784">ELootLockerRemoteSessionLeaseStatus::Authorized</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="group__RemoteSessions.html#ggafbf5579027e972d12305aec3ce9afc38aa149e85a44aeec9140e92733d9ed694e">ELootLockerRemoteSessionLeaseStatus::Cancelled</a> = 4
+, <a class="el" href="group__RemoteSessions.html#ggafbf5579027e972d12305aec3ce9afc38a3b7c488460d613cc48feeb15b368f283">ELootLockerRemoteSessionLeaseStatus::Timed_out</a> = 5
+, <a class="el" href="group__RemoteSessions.html#ggafbf5579027e972d12305aec3ce9afc38ad7c8c85bf79bbe1b7188497c32c3b0ca">ELootLockerRemoteSessionLeaseStatus::Failed</a> = 6
+<br />
+ }</td></tr>
+<tr class="memdesc:gafbf5579027e972d12305aec3ce9afc38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible entity kinds that catalog entries can have.  <a href="group__RemoteSessions.html#gafbf5579027e972d12305aec3ce9afc38">More...</a><br /></td></tr>
+<tr class="separator:gafbf5579027e972d12305aec3ce9afc38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab280f509f0059be581bc6af423932ac5" id="r_gab280f509f0059be581bc6af423932ac5"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__RemoteSessions.html#gab280f509f0059be581bc6af423932ac5">ELootLockerRemoteSessionLeaseIntent</a> : uint8 { <a class="el" href="group__RemoteSessions.html#ggab280f509f0059be581bc6af423932ac5ad56b699830e77ba53855679cb1d252da">ELootLockerRemoteSessionLeaseIntent::login</a> = 0
+, <a class="el" href="group__RemoteSessions.html#ggab280f509f0059be581bc6af423932ac5a2a304a1348456ccd2234cd71a81bd338">ELootLockerRemoteSessionLeaseIntent::link</a> = 1
+ }</td></tr>
+<tr class="memdesc:gab280f509f0059be581bc6af423932ac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible intents for remote sessions.  <a href="group__RemoteSessions.html#gab280f509f0059be581bc6af423932ac5">More...</a><br /></td></tr>
+<tr class="separator:gab280f509f0059be581bc6af423932ac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga6fb8fc36770a1da8045e797064933dda" id="r_ga6fb8fc36770a1da8045e797064933dda"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__RemoteSessions.html#ga6fb8fc36770a1da8045e797064933dda">ULootLockerSDKManager::StartRemoteSession</a> (const <a class="el" href="group__RemoteSessions.html#gaf967fe6c44736fdf3d46314c693d05c4">FLootLockerLeaseRemoteSessionResponseDelegate</a> &amp;RemoteSessionLeaseInformation, const <a class="el" href="group__RemoteSessions.html#gae69adbcf18bc6cba03d6418e0fddcf5a">FLootLockerRemoteSessionStatusPollingResponseDelegate</a> &amp;RemoteSessionLeaseStatusUpdate, const <a class="el" href="group__RemoteSessions.html#ga96de587a95360c9590cd82c47d430b60">FLootLockerStartRemoteSessionResponseDelegate</a> &amp;OnComplete, float PollingIntervalSeconds=1.0f, float TimeOutAfterMinutes=5.0f, <a class="el" href="group__ConnectedAccounts.html#ga52ca2d9826a43c89fc5913c416e0894d">ELootLockerAccountProvider</a> Provider=<a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894daadb831a7fdd83dd1e2a309ce7591dff8">ELootLockerAccountProvider::Guest</a>)</td></tr>
+<tr class="memdesc:ga6fb8fc36770a1da8045e797064933dda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a remote session lease process.  <br /></td></tr>
+<tr class="separator:ga6fb8fc36770a1da8045e797064933dda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaffd58086c4a7a0fbc9f071e2c1f504a8" id="r_gaffd58086c4a7a0fbc9f071e2c1f504a8"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__RemoteSessions.html#gaffd58086c4a7a0fbc9f071e2c1f504a8">ULootLockerSDKManager::StartRemoteSessionForLinking</a> (const FString &amp;ForPlayerWithUlid, const <a class="el" href="group__RemoteSessions.html#gaf967fe6c44736fdf3d46314c693d05c4">FLootLockerLeaseRemoteSessionResponseDelegate</a> &amp;RemoteSessionLeaseInformation, const <a class="el" href="group__RemoteSessions.html#gae69adbcf18bc6cba03d6418e0fddcf5a">FLootLockerRemoteSessionStatusPollingResponseDelegate</a> &amp;RemoteSessionLeaseStatusUpdate, const <a class="el" href="group__RemoteSessions.html#ga96de587a95360c9590cd82c47d430b60">FLootLockerStartRemoteSessionResponseDelegate</a> &amp;OnComplete, float PollingIntervalSeconds=1.0f, float TimeOutAfterMinutes=5.0f, <a class="el" href="group__ConnectedAccounts.html#ga52ca2d9826a43c89fc5913c416e0894d">ELootLockerAccountProvider</a> Provider=<a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894daadb831a7fdd83dd1e2a309ce7591dff8">ELootLockerAccountProvider::Guest</a>)</td></tr>
+<tr class="memdesc:gaffd58086c4a7a0fbc9f071e2c1f504a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a remote session lease process for linking into a specific player.  <br /></td></tr>
+<tr class="separator:gaffd58086c4a7a0fbc9f071e2c1f504a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae9152e8bc747cc8c43733eef0568c2fb" id="r_gae9152e8bc747cc8c43733eef0568c2fb"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__RemoteSessions.html#gae9152e8bc747cc8c43733eef0568c2fb">ULootLockerSDKManager::CancelRemoteSessionProcess</a> (const FString &amp;ProcessID)</td></tr>
+<tr class="memdesc:gae9152e8bc747cc8c43733eef0568c2fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel a remote session process.  <br /></td></tr>
+<tr class="separator:gae9152e8bc747cc8c43733eef0568c2fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga77ab51ab56a11ce76701a6e9122fea9b" id="r_ga77ab51ab56a11ce76701a6e9122fea9b"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__RemoteSessions.html#ga77ab51ab56a11ce76701a6e9122fea9b">ULootLockerSDKManager::RefreshRemoteSession</a> (const <a class="el" href="group__RemoteSessions.html#ga6bfc9efceec00bb874c9d4d454c65889">FLootLockerRefreshRemoteSessionResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga77ab51ab56a11ce76701a6e9122fea9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh a remotely started session.  <br /></td></tr>
+<tr class="separator:ga77ab51ab56a11ce76701a6e9122fea9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7bccb2ace8564cc3ffe3f4d671f54e42" id="r_ga7bccb2ace8564cc3ffe3f4d671f54e42"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__RemoteSessions.html#ga7bccb2ace8564cc3ffe3f4d671f54e42">ULootLockerSDKManager::RefreshRemoteSession</a> (const FString &amp;RefreshToken, const <a class="el" href="group__RemoteSessions.html#ga6bfc9efceec00bb874c9d4d454c65889">FLootLockerRefreshRemoteSessionResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="memdesc:ga7bccb2ace8564cc3ffe3f4d671f54e42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh a remotely started session with explicit refresh token.  <br /></td></tr>
+<tr class="separator:ga7bccb2ace8564cc3ffe3f4d671f54e42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: Data Fields - Functions</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('functions_func_g.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="contents">
+<div class="textblock">Here is a list of all functions with links to the structures/unions they belong to:</div>
+
+<h3><a id="index_g" name="index_g"></a>- g -</h3><ul>
+<li>GenerateNewGuestIdentifier()&#160;:&#160;<a class="el" href="classULootLockerStateData.html#ace3c3bb67331768a9bb3de14112c90dc">ULootLockerStateData</a></li>
+<li>Get()&#160;:&#160;<a class="el" href="classFLootLockerHTTPExecutionQueue.html#af33c7c0a827472abecd334a8fc8a8eae">FLootLockerHTTPExecutionQueue</a></li>
+<li>GetActiveConnectionCount()&#160;:&#160;<a class="el" href="classULootLockerPresenceManager.html#a96865b0971c9afd1c78455dac61cd2ee">ULootLockerPresenceManager</a></li>
+<li>GetActivePlayerUlids()&#160;:&#160;<a class="el" href="group__MultiUserManagement.html#ga932f6165fc68ab0bd1c4b1934f5fb34d">ULootLockerSDKManager</a>, <a class="el" href="classULootLockerStateData.html#af2e98cf5977ec23b1843b837d2b5a892">ULootLockerStateData</a></li>
+<li>GetAKeyValuePairByIdForAssetInstance()&#160;:&#160;<a class="el" href="classULootLockerAssetInstancesRequestHandler.html#a4662ee338f80cfb30e6799686d794e1b">ULootLockerAssetInstancesRequestHandler</a>, <a class="el" href="group__AssetInstance.html#ga768b5ee6c43af0cb5148247608bbf3a7">ULootLockerSDKManager</a></li>
+<li>GetAllAssetCandidates()&#160;:&#160;<a class="el" href="group__UserGeneratedContent.html#ga9d49088feeafb894f1ab140d5ffd01cc">ULootLockerSDKManager</a>, <a class="el" href="classULootLockerUserGeneratedContentRequestHandler.html#ace24ddcc9bcf9b96a0fcc61a0a807e26">ULootLockerUserGeneratedContentRequestHandler</a></li>
+<li>GetAllKeyValuePairsForAssetInstance()&#160;:&#160;<a class="el" href="classULootLockerAssetInstancesRequestHandler.html#a8e5dd55ead3bd42e0da1c33179efee3e">ULootLockerAssetInstancesRequestHandler</a>, <a class="el" href="group__AssetInstance.html#ga547f330a1353444e1640e99d4be849e4">ULootLockerSDKManager</a></li>
+<li>GetAllKeyValuePairsToAnInstanceForAssetInstance()&#160;:&#160;<a class="el" href="classULootLockerAssetInstancesRequestHandler.html#a4efc5ee0aee02cabdd7b3329c31f4f4e">ULootLockerAssetInstancesRequestHandler</a></li>
+<li>GetAllMemberRanks()&#160;:&#160;<a class="el" href="classULootLockerLeaderboardRequestHandler.html#a3f49e47aa98468a8720a49b146d838f2">ULootLockerLeaderboardRequestHandler</a>, <a class="el" href="group__Leaderboard.html#ga771b28adbbb678e400f1ce1fa2962833">ULootLockerSDKManager</a></li>
+<li>GetAndActivateSavedStateOrDefaultOrEmptyForPlayer()&#160;:&#160;<a class="el" href="classULootLockerStateData.html#a4b91475b625eebc3cd25396bbe91c69f">ULootLockerStateData</a></li>
+<li>GetAssetBones()&#160;:&#160;<a class="el" href="classULootLockerAssetsRequestHandler.html#a9121c9967d1a866829bc24094cc939ea">ULootLockerAssetsRequestHandler</a>, <a class="el" href="group__Assets.html#ga25383e3bfa45cb71400a0a4b7f74b1ba">ULootLockerSDKManager</a></li>
+<li>GetAssetCandidate()&#160;:&#160;<a class="el" href="group__UserGeneratedContent.html#gaebb0f66192be4436564af56a0be4f4bb">ULootLockerSDKManager</a>, <a class="el" href="classULootLockerUserGeneratedContentRequestHandler.html#acf57380b7dca629654629c0d244b16c3">ULootLockerUserGeneratedContentRequestHandler</a></li>
+<li>GetAssets()&#160;:&#160;<a class="el" href="classULootLockerAssetsRequestHandler.html#a0f777be4204fe081e34c1cf20e175817">ULootLockerAssetsRequestHandler</a>, <a class="el" href="group__Assets.html#ga9eec519140b0def84567e3f708c50806">ULootLockerSDKManager</a></li>
+<li>GetAssetsByIds()&#160;:&#160;<a class="el" href="classULootLockerAssetsRequestHandler.html#a4aafa09eb6739107f5d77685950bbb7a">ULootLockerAssetsRequestHandler</a>, <a class="el" href="group__Assets.html#ga783981cc92b67e02f8804a8cbcf88193">ULootLockerSDKManager</a></li>
+<li>GetAsyncPurchaseStatus()&#160;:&#160;<a class="el" href="classULootLockerPurchasesRequestHandler.html#ae2f40b8aecf6357e34148e45c2bfed34">ULootLockerPurchasesRequestHandler</a>, <a class="el" href="group__Purchasing.html#ga8bb72410b74c0d464cf9d26f28709d11">ULootLockerSDKManager</a></li>
+<li>GetByListOfMembers()&#160;:&#160;<a class="el" href="classULootLockerLeaderboardRequestHandler.html#aa8fdcc4c736b1a5b94016d66450576cf">ULootLockerLeaderboardRequestHandler</a>, <a class="el" href="group__Leaderboard.html#gaa57a408bae7ee95b29a2523d76b6d940">ULootLockerSDKManager</a></li>
+<li>GetCachedPlayerUlids()&#160;:&#160;<a class="el" href="group__MultiUserManagement.html#gabbfb6d3ca9cf23b342f6f3317bebfb56">ULootLockerSDKManager</a>, <a class="el" href="classULootLockerStateData.html#a44c5b3e95843b23a597532a7e0adb981">ULootLockerStateData</a></li>
+<li>GetCharacterLoadout()&#160;:&#160;<a class="el" href="classULootLockerCharacterRequestHandler.html#ad4ca7f80d7a48fc4251417349c4db105">ULootLockerCharacterRequestHandler</a>, <a class="el" href="group__Hero.html#ga3a8d57a0e710ffead0171b95e610060a">ULootLockerSDKManager</a></li>
+<li>GetCharacterProgression()&#160;:&#160;<a class="el" href="classULootLockerProgressionsRequestHandler.html#ade7cce71d7f96e6a5ba20dbf5380ab71">ULootLockerProgressionsRequestHandler</a>, <a class="el" href="group__CharacterProgressions.html#gad7e3ae03aaa3cdf08964d0e86dfcb2b6">ULootLockerSDKManager</a></li>
+<li>GetCharacterProgressions()&#160;:&#160;<a class="el" href="classULootLockerProgressionsRequestHandler.html#a7777d840322267139b866b0f1cc0519c">ULootLockerProgressionsRequestHandler</a>, <a class="el" href="group__CharacterProgressions.html#gafb1e9cae8010297ffd25dbb112bc79e0">ULootLockerSDKManager</a></li>
+<li>GetConfiguredLogLevel()&#160;:&#160;<a class="el" href="classULootLockerConfig.html#a0fb91c52842e9b0d770abc9855e9252c">ULootLockerConfig</a></li>
+<li>GetConnectedPlayerUlids()&#160;:&#160;<a class="el" href="classULootLockerPresenceManager.html#ac06b21c10abf7247c186baba5e51d66b">ULootLockerPresenceManager</a></li>
+<li>GetConnectionStatsForPlayer()&#160;:&#160;<a class="el" href="classULootLockerPresenceManager.html#a845dc0151b8c33747058d50576ae0b9b">ULootLockerPresenceManager</a></li>
+<li>GetContexts()&#160;:&#160;<a class="el" href="classULootLockerAssetsRequestHandler.html#abad1f949cc9c26b69e23965255bcbc00">ULootLockerAssetsRequestHandler</a>, <a class="el" href="group__Assets.html#ga2ac1766828521721c67f92a461241faa">ULootLockerSDKManager</a></li>
+<li>GetCurrencyBalance()&#160;:&#160;<a class="el" href="classULootLockerPlayerRequestHandler.html#a2534b8f947c8e3c450caee43439eb777">ULootLockerPlayerRequestHandler</a>, <a class="el" href="group__Player.html#ga95f498299801c489ee4e2dcaf13199a6">ULootLockerSDKManager</a></li>
+<li>GetCurrencyDenominationsByCode()&#160;:&#160;<a class="el" href="classULootLockerCurrencyRequestHandler.html#a0784da7d849aa516f7deeb0b0a643ed3">ULootLockerCurrencyRequestHandler</a>, <a class="el" href="group__Currency.html#ga5543e6fd06dffa5556f922fe5533d8c2">ULootLockerSDKManager</a></li>
+<li>GetCurrencyDetails()&#160;:&#160;<a class="el" href="classULootLockerCurrencyRequestHandler.html#aff8637d762438acb2afd857c68e4c856">ULootLockerCurrencyRequestHandler</a>, <a class="el" href="group__Currency.html#gac702aea5d0d9151ad0686617ba596d52">ULootLockerSDKManager</a></li>
+<li>GetCurrentLoadoutToDefaultCharacter()&#160;:&#160;<a class="el" href="classULootLockerCharacterRequestHandler.html#af7df29487e52cd09018ffcb35edef099">ULootLockerCharacterRequestHandler</a>, <a class="el" href="group__Hero.html#ga99a41799f73bb93a1eead6773a6c5e83">ULootLockerSDKManager</a></li>
+<li>GetCurrentPlayerInfo()&#160;:&#160;<a class="el" href="classULootLockerPlayerRequestHandler.html#adb85b66f714dbccb0a5fe353398b6609">ULootLockerPlayerRequestHandler</a>, <a class="el" href="group__Player.html#ga74756ef5855165459c8e406ea7a777c9">ULootLockerSDKManager</a></li>
+<li>GetCurrentPresenceStatus()&#160;:&#160;<a class="el" href="group__Presence.html#gad62b26e7ccb41da33b193e024888f05f">ULootLockerSDKManager</a></li>
+<li>GetDefaultPlayerUlid()&#160;:&#160;<a class="el" href="group__MultiUserManagement.html#gaa766aed4780e4d5c06a94710c4cd3913">ULootLockerSDKManager</a>, <a class="el" href="classULootLockerStateData.html#a8fa96813c2f4486ad176a2c5fc3c8d2c">ULootLockerStateData</a></li>
+<li>GetDLCsMigration()&#160;:&#160;<a class="el" href="classULootLockerPlayerRequestHandler.html#add5a480abacfba7410b870109f61b259">ULootLockerPlayerRequestHandler</a>, <a class="el" href="group__Player.html#gaa2ec4db212df3242c0e4fd65dfcf9733">ULootLockerSDKManager</a></li>
+<li>GetEntirePersistentStorage()&#160;:&#160;<a class="el" href="classULootLockerPersistentStorageRequestHandler.html#ad4d4a43ab4fa54016e1f6f59101d2384">ULootLockerPersistentStorageRequestHandler</a>, <a class="el" href="group__PlayerStorage.html#gaebf2a09081a16e3c3901aea2e89b20d0">ULootLockerSDKManager</a></li>
+<li>GetEntitlement()&#160;:&#160;<a class="el" href="classULootLockerEntitlementRequestHandler.html#aa744900e18e132df143b383fe42200ad">ULootLockerEntitlementRequestHandler</a>, <a class="el" href="group__Entitlements.html#gaa870d8fa1cd6e31d58b7450ae8453f7a">ULootLockerSDKManager</a></li>
+<li>GetEquipableContextsByCharacterId()&#160;:&#160;<a class="el" href="classULootLockerCharacterRequestHandler.html#a82b745c84afe4d26913c67b4a079a86b">ULootLockerCharacterRequestHandler</a>, <a class="el" href="group__Hero.html#gabcf8912fb3a3b533b7deb72271acd6c6">ULootLockerSDKManager</a></li>
+<li>GetEquipableContextsToDefaultCharacter()&#160;:&#160;<a class="el" href="classULootLockerCharacterRequestHandler.html#a0a54c1e6109e004ad2cac3cf608eae5d">ULootLockerCharacterRequestHandler</a>, <a class="el" href="group__Hero.html#ga894082b935f3fb9487fdf8d5c8342fc7">ULootLockerSDKManager</a></li>
+<li>GetFavouriteAssetIndices()&#160;:&#160;<a class="el" href="classULootLockerAssetsRequestHandler.html#a3082b71dfeb8b3619c28f1772f616863">ULootLockerAssetsRequestHandler</a>, <a class="el" href="group__Assets.html#gac2332ac9dc6f78a1da03d4c45361791c">ULootLockerSDKManager</a></li>
+<li>GetFriend()&#160;:&#160;<a class="el" href="classULootLockerFriendsRequestHandler.html#a81042ad7697fa1060e08dba9dec47d1f">ULootLockerFriendsRequestHandler</a>, <a class="el" href="group__Friends.html#gafc7d5e27f9399fa6eab3e9b455976fa6">ULootLockerSDKManager</a></li>
+<li>GetFullInventory()&#160;:&#160;<a class="el" href="classULootLockerPlayerRequestHandler.html#aec9666c5ff445e6500006e964769e061">ULootLockerPlayerRequestHandler</a>, <a class="el" href="group__Player.html#ga5fef5a9c42d0c24b48d1fab418b0f9a3">ULootLockerSDKManager</a></li>
+<li>GetGameHeroes()&#160;:&#160;<a class="el" href="classULootLockerHeroRequestHandler.html#aa6e3e9caa8c1f2d8e8aeb64cf72bf909">ULootLockerHeroRequestHandler</a>, <a class="el" href="group__Hero.html#ga2b30d965fdbd7362d5b0932ddb95d0bb">ULootLockerSDKManager</a></li>
+<li>GetGameInfo()&#160;:&#160;<a class="el" href="classULootLockerMiscellaneousRequestHandler.html#ab71ebd6df134d36294fef6fa3d13a8e4">ULootLockerMiscellaneousRequestHandler</a>, <a class="el" href="group__Misc.html#ga9a5753659a7b1157a30d19338becf79d">ULootLockerSDKManager</a></li>
+<li>GetHero()&#160;:&#160;<a class="el" href="classULootLockerHeroRequestHandler.html#a449364f4b4b5e81b78452c97b0578b35">ULootLockerHeroRequestHandler</a>, <a class="el" href="group__Hero.html#gab613e7cde9cf9415d767715288f7bb30">ULootLockerSDKManager</a></li>
+<li>GetHeroInventory()&#160;:&#160;<a class="el" href="classULootLockerHeroRequestHandler.html#afb8e4d6d20998de782c035312e2aad5e">ULootLockerHeroRequestHandler</a>, <a class="el" href="group__Hero.html#ga6d592fbaf40d0b3cae586d7384a2d4c0">ULootLockerSDKManager</a></li>
+<li>GetHeroLoadout()&#160;:&#160;<a class="el" href="classULootLockerHeroRequestHandler.html#a823b220ed7eb6530ff3c8e58270f3030">ULootLockerHeroRequestHandler</a>, <a class="el" href="group__Hero.html#ga5df28281918c7c01ecbec52ef31967b1">ULootLockerSDKManager</a></li>
+<li>GetInstance()&#160;:&#160;<a class="el" href="classULootLockerPresenceManager.html#a6ab2370d0a8229f0d71659fac5aa6cec">ULootLockerPresenceManager</a></li>
+<li>GetInstanceProgression()&#160;:&#160;<a class="el" href="classULootLockerProgressionsRequestHandler.html#a7041d3cac7f5ab14362f3ce253647a10">ULootLockerProgressionsRequestHandler</a>, <a class="el" href="group__AssetInstanceProgressions.html#gae1f7e6d1c53be44679e0da0e3f69c761">ULootLockerSDKManager</a></li>
+<li>GetInstanceProgressions()&#160;:&#160;<a class="el" href="classULootLockerProgressionsRequestHandler.html#a08876c4da0d7c82ed169e94f63b792ed">ULootLockerProgressionsRequestHandler</a>, <a class="el" href="group__AssetInstanceProgressions.html#ga0418b31028030df0f68baddb6c7f97f5">ULootLockerSDKManager</a></li>
+<li>GetInventory()&#160;:&#160;<a class="el" href="classULootLockerPlayerRequestHandler.html#a29aa991910532ceeec76dba7212d48f7">ULootLockerPlayerRequestHandler</a>, <a class="el" href="group__Player.html#ga9659aaa361a79702d58d9c2e65b9215f">ULootLockerSDKManager</a></li>
+<li>GetItemFromPersistentStorage()&#160;:&#160;<a class="el" href="classULootLockerPersistentStorageRequestHandler.html#abad69099c6685067aeed10c09ffe6778">ULootLockerPersistentStorageRequestHandler</a>, <a class="el" href="group__PlayerStorage.html#ga80a7b8ae5b0616fc083be157cf3e2ae3">ULootLockerSDKManager</a></li>
+<li>GetKeyValue()&#160;:&#160;<a class="el" href="structFLootLockerHasKeyValueStorage.html#a0affd43b592d7b2d4d2e70169f39c1e8">FLootLockerHasKeyValueStorage</a></li>
+<li>GetLastActivePlatform()&#160;:&#160;<a class="el" href="classULootLockerMiscellaneousRequestHandler.html#a45f5fb515dbb3c5a0de5bd8b9dc5bdd1">ULootLockerMiscellaneousRequestHandler</a>, <a class="el" href="group__Misc.html#gad59c1448ea1b4f2ee9c72cf4bb62eeea">ULootLockerSDKManager</a></li>
+<li>GetLeaderboardArchive()&#160;:&#160;<a class="el" href="classULootLockerLeaderboardArchiveRequestHandler.html#a733d613533fabec77667dd589eff5102">ULootLockerLeaderboardArchiveRequestHandler</a>, <a class="el" href="group__Leaderboard.html#gaa83f776c61a069a6bd67fb91250e4564">ULootLockerSDKManager</a></li>
+<li>GetLeaderboardDetails()&#160;:&#160;<a class="el" href="classULootLockerLeaderboardRequestHandler.html#ae763b14fb8395aa2ba34366079aad710">ULootLockerLeaderboardRequestHandler</a>, <a class="el" href="group__Leaderboard.html#ga7c991e6e974264ea2cce386f626d0702">ULootLockerSDKManager</a></li>
+<li>GetLogFilePath()&#160;:&#160;<a class="el" href="classULootLockerConfig.html#ac3e7582228a3cc5402a2963939f42e34">ULootLockerConfig</a></li>
+<li>GetLootLockerInlinedCatalogEntries()&#160;:&#160;<a class="el" href="structFLootLockerListCatalogPricesResponse.html#a64b29a8187a018c767285dfdca5e5bc5">FLootLockerListCatalogPricesResponse</a>, <a class="el" href="structFLootLockerListCatalogPricesV2Response.html#afdf78cbbd38e8568ce4beed2caf2f102">FLootLockerListCatalogPricesV2Response</a></li>
+<li>GetMaps()&#160;:&#160;<a class="el" href="classULootLockerMapsRequestHandler.html#a3e19c7feb39c45015012c4ab839956d7">ULootLockerMapsRequestHandler</a>, <a class="el" href="group__Maps.html#ga41435e80f696f9cf829380ccc2e0bd74">ULootLockerSDKManager</a></li>
+<li>GetMemberRank()&#160;:&#160;<a class="el" href="classULootLockerLeaderboardRequestHandler.html#aaa61b4f32ebe460466bbc24eb98c5ae2">ULootLockerLeaderboardRequestHandler</a>, <a class="el" href="group__Leaderboard.html#gadc164b46238af89374cb193eeb072b41">ULootLockerSDKManager</a></li>
+<li>GetMessages()&#160;:&#160;<a class="el" href="classULootLockerMessagesRequestHandler.html#a1a0a2c4d5c74480b9ccf1191cdd6020b">ULootLockerMessagesRequestHandler</a>, <a class="el" href="group__Messages.html#gaefeb6bbde75d551dea346242c74d9c86">ULootLockerSDKManager</a></li>
+<li>GetMetadata()&#160;:&#160;<a class="el" href="classULootLockerMetadataRequestHandler.html#a1e886706e87f6b65cdceafe213581381">ULootLockerMetadataRequestHandler</a>, <a class="el" href="group__Metadata.html#ga9744f2e2b76af14e0b036749c9fb1a4a">ULootLockerSDKManager</a></li>
+<li>GetMultisourceMetadata()&#160;:&#160;<a class="el" href="classULootLockerMetadataRequestHandler.html#a498ffccd1c1f4aefa8a7a32dd3db03b7">ULootLockerMetadataRequestHandler</a>, <a class="el" href="group__Metadata.html#ga09b8ee2e188aeed2da4c4c541236ec2e">ULootLockerSDKManager</a></li>
+<li>GetNotificationsSourceLootLockerConsoleString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a5ef1c76db71b548df168464a999b6bda">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetNotificationsSourceLootLockerServerAPIString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a240fe5365e92169514d0a082a080b048">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetNotificationsSourcePurchasingAppleAppStoreString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a5636aa0077c9325db8db14b5775053dd">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetNotificationsSourcePurchasingGooglePlayStoreString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#abddd99edf9c3fd8d8fc936be1275311a">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetNotificationsSourcePurchasingLootLockerString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#ab50645d705125ada2dbc6bac3b8480dd">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetNotificationsSourcePurchasingSteamStoreString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#ae50733d2c3d9b9930e58e05bd9ca67d0">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetNotificationsSourceTriggersString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#ae2b60b4974afe8385218e6aebf17f4ed">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetNotificationsSourceTwitchDropString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a78d7c2a0023700d29f9db0b33a75c7ec">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetOtherPlayersCharacterLoadouts()&#160;:&#160;<a class="el" href="classULootLockerCharacterRequestHandler.html#a5bd8af0de461446d8716e3aef3eb2454">ULootLockerCharacterRequestHandler</a>, <a class="el" href="group__Hero.html#ga26f848fd06233a7afa498ca9d66c58bd">ULootLockerSDKManager</a></li>
+<li>GetOtherPlayersCharacterLoadoutsByUid()&#160;:&#160;<a class="el" href="classULootLockerCharacterRequestHandler.html#a77e520d8a7b4e64590a332fbb651440f">ULootLockerCharacterRequestHandler</a>, <a class="el" href="group__Hero.html#gae441d517ae6294ddbf73ec2e6d7bc0a4">ULootLockerSDKManager</a></li>
+<li>GetOtherPlayersCurrentLoadoutToDefaultCharacter()&#160;:&#160;<a class="el" href="classULootLockerCharacterRequestHandler.html#accf7e8b4f6ab771eb335d497fdaa3c6e">ULootLockerCharacterRequestHandler</a>, <a class="el" href="group__Hero.html#ga57c46e5bc3b0a213a4f38a5acd65f411">ULootLockerSDKManager</a></li>
+<li>GetOtherPlayersDefaultHeroBySteamID64()&#160;:&#160;<a class="el" href="classULootLockerHeroRequestHandler.html#aabb4c01668621a6a8e8419946f1c56cf">ULootLockerHeroRequestHandler</a>, <a class="el" href="group__Hero.html#ga515ebad40ff1243a790b4ea3ebe18e55">ULootLockerSDKManager</a></li>
+<li>GetOtherPlayersHeroLoadout()&#160;:&#160;<a class="el" href="classULootLockerHeroRequestHandler.html#acecdde628c276969b47b81183b4a4db6">ULootLockerHeroRequestHandler</a>, <a class="el" href="group__Hero.html#ga01533f713266121819ac771cb8357498">ULootLockerSDKManager</a></li>
+<li>GetOtherPlayersProgression()&#160;:&#160;<a class="el" href="classULootLockerProgressionsRequestHandler.html#a7d07a5dfb9409fd170f595e0a8b4b17a">ULootLockerProgressionsRequestHandler</a>, <a class="el" href="group__PlayerProgressions.html#gac9a98e7d4392093726ef1336cbfe2d2a">ULootLockerSDKManager</a></li>
+<li>GetOtherPlayersProgressions()&#160;:&#160;<a class="el" href="classULootLockerProgressionsRequestHandler.html#ab0b6f402a7716ebc298aeb85cb84f558">ULootLockerProgressionsRequestHandler</a>, <a class="el" href="group__PlayerProgressions.html#gaebfdf601ab56da5eec000d85a5b2b913">ULootLockerSDKManager</a></li>
+<li>GetPlayerBanStatus()&#160;:&#160;<a class="el" href="classULootLockerBanRequestHandler.html#a5ff702a22adca2f59c2c6893b43e38dc">ULootLockerBanRequestHandler</a>, <a class="el" href="group__Authentication.html#gaed3bd811dfdcf8d6ac6d78474a8566e2">ULootLockerSDKManager</a></li>
+<li>GetPlayerName()&#160;:&#160;<a class="el" href="classULootLockerPlayerRequestHandler.html#a1c9081b16796115d9e057e4647fd8fd1">ULootLockerPlayerRequestHandler</a>, <a class="el" href="group__Player.html#ga5aad351efa92d876ade0d4069f34bdfa">ULootLockerSDKManager</a></li>
+<li>GetPlayerPersistentStorage()&#160;:&#160;<a class="el" href="classULootLockerPersistentStorageRequestHandler.html#aef46407a375262ca175c82651b5c3387">ULootLockerPersistentStorageRequestHandler</a>, <a class="el" href="group__PlayerStorage.html#ga76d0458403ed6b434b5064acb142bbcd">ULootLockerSDKManager</a></li>
+<li>GetPlayerProgression()&#160;:&#160;<a class="el" href="classULootLockerProgressionsRequestHandler.html#a164d3ac80d4384e3cf4a8acfad976323">ULootLockerProgressionsRequestHandler</a>, <a class="el" href="group__PlayerProgressions.html#ga02fe328c075bae254abfaedcff4fa748">ULootLockerSDKManager</a></li>
+<li>GetPlayerProgressions()&#160;:&#160;<a class="el" href="classULootLockerProgressionsRequestHandler.html#a86080ce2c5eb77ee3941555208a441e0">ULootLockerProgressionsRequestHandler</a>, <a class="el" href="group__PlayerProgressions.html#gac9f805512487dc0c906484ea78a834e1">ULootLockerSDKManager</a></li>
+<li>GetPresenceConnectionState()&#160;:&#160;<a class="el" href="group__Presence.html#ga4873078d22672b87bad57b3b0f7b40a6">ULootLockerSDKManager</a></li>
+<li>GetPresenceConnectionStats()&#160;:&#160;<a class="el" href="group__Presence.html#ga072cc7b190271166666d7d1db46d52a7">ULootLockerSDKManager</a></li>
+<li>GetPresenceStateForPlayer()&#160;:&#160;<a class="el" href="classULootLockerPresenceManager.html#a90fbae353f8bf21b16f31faa8c545cb8">ULootLockerPresenceManager</a></li>
+<li>GetProgression()&#160;:&#160;<a class="el" href="classULootLockerProgressionsRequestHandler.html#aaaacfcd9e1d40471f62911d177dbca3b">ULootLockerProgressionsRequestHandler</a>, <a class="el" href="group__Progressions.html#ga1ceff704b57030445b777c8a0ef6a83f">ULootLockerSDKManager</a></li>
+<li>GetProgressions()&#160;:&#160;<a class="el" href="classULootLockerProgressionsRequestHandler.html#ae4095eeae2095cf458a2061ed7b9550f">ULootLockerProgressionsRequestHandler</a>, <a class="el" href="group__Progressions.html#gadc3884a43201eaa01a387c7681df1343">ULootLockerSDKManager</a></li>
+<li>GetProgressionTiers()&#160;:&#160;<a class="el" href="classULootLockerProgressionsRequestHandler.html#a4b53cb1c899421271da9486ee212da32">ULootLockerProgressionsRequestHandler</a>, <a class="el" href="group__Progressions.html#gac7b3471e733aa26cee9da11f4c409674">ULootLockerSDKManager</a></li>
+<li>GetRuntimeLogLevel()&#160;:&#160;<a class="el" href="classULootLockerConfig.html#a8637bec2c9ce545b8f5d8f6c87939b3a">ULootLockerConfig</a></li>
+<li>GetSavedStateForFirstPlayer()&#160;:&#160;<a class="el" href="classULootLockerStateData.html#ab3749af9ca4eda69ddfb2315b5425bbb">ULootLockerStateData</a></li>
+<li>GetSavedStateOrDefaultOrEmptyForPlayer()&#160;:&#160;<a class="el" href="group__MultiUserManagement.html#ga44b9a42fa67793f31380b7bd66394361">ULootLockerSDKManager</a></li>
+<li>GetScoreList()&#160;:&#160;<a class="el" href="classULootLockerLeaderboardRequestHandler.html#ab474ad145cd56146701fa6f3328efd88">ULootLockerLeaderboardRequestHandler</a>, <a class="el" href="group__Leaderboard.html#ga7dc7e8ae271b5faca447c52167fd18a2">ULootLockerSDKManager</a></li>
+<li>GetScoreListInitial()&#160;:&#160;<a class="el" href="group__Leaderboard.html#ga2ee5405880ce77e43fadfbfc654c1910">ULootLockerSDKManager</a></li>
+<li>GetSecondsLeftOfRateLimit()&#160;:&#160;<a class="el" href="classFLootLockerRateLimiter.html#a079b0c99f7676ac1fd96ddbcc6005ebd">FLootLockerRateLimiter</a></li>
+<li>GetServerTime()&#160;:&#160;<a class="el" href="classULootLockerMiscellaneousRequestHandler.html#ab1826c7bf32e5e5386ae8c08c87e3e1d">ULootLockerMiscellaneousRequestHandler</a>, <a class="el" href="group__Misc.html#gad9ff8c9bf38534f3a1124c3957029861">ULootLockerSDKManager</a></li>
+<li>GetSingleFile()&#160;:&#160;<a class="el" href="classULLPlayerFilesRequestHandler.html#a7e78075b154efe5bbcc74d41d3f65717">ULLPlayerFilesRequestHandler</a>, <a class="el" href="group__PlayerFiles.html#ga0dd3ee1edb8f0b3dba880b0f24ae9b9b">ULootLockerSDKManager</a></li>
+<li>GetStandardPurchasingAppleAppStoreContextKeyCatalogIdString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a28e5e1ce8340a4fd35f7cbc96cba489c">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetStandardPurchasingAppleAppStoreContextKeyCatalogItemIdString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a02f6a992368b0e9ae934813aed082108">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetStandardPurchasingAppleAppStoreContextKeyTransactionIdString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#aa615e3469d869128f8bea2cb3dbef367">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetStandardPurchasingGooglePlayStoreContextKeyCatalogIdString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a098264ba1a758b9829af2a919096d44c">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetStandardPurchasingGooglePlayStoreContextKeyCatalogItemIdString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#afcad44d02fba8ac3cbdf2b2732425588">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetStandardPurchasingGooglePlayStoreContextKeyProductIdString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#ad5f38dbedcae45e57567c81f693c1f6a">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetStandardPurchasingLootLockerContextKeyCatalogIdString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a2d9f5f04002b1cf6732d06c5babda7fc">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetStandardPurchasingLootLockerContextKeyCatalogItemIdString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#ad8ed3a5beda8a9d233cabc921be38557">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetStandardPurchasingSteamStoreContextKeyCatalogIdString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a68c61180bf04f9e93c84a70abcb201b2">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetStandardPurchasingSteamStoreContextKeyCatalogItemIdString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#ae7f65aadab5b3dc5c5c23f81acdc5f29">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetStandardPurchasingSteamStoreContextKeyCharacterIdString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a07edf81764c0992aff3eba1b36406457">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetStandardPurchasingSteamStoreContextKeyEntitlementIdString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a3e30e8188cdddac9c64b87d4f9320dea">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetStandardTriggersContextKeyIdString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#ad42ad68c2c534ef8db447ff11201fea0">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetStandardTriggersContextKeyKeyString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a4e5cc3f81434e645a60c9168321d5640">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetStandardTriggersContextKeyLimitString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a6c6376700398e1550be1f9a6e9b50c26">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetStandardTwitchDropContextKeyTwitchRewardIdString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#aa0c492c0c81cbbaa4b4f41c27cd9ae09">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetStateForPlayerOrDefaultFromCache()&#160;:&#160;<a class="el" href="classULootLockerStateData.html#a99fd369f04061330e94efc5afa5ec698">ULootLockerStateData</a></li>
+<li>GetStateForPlayerOrDefaultIfActive()&#160;:&#160;<a class="el" href="classULootLockerStateData.html#af534d591ac118700db6882d0a71e36e7">ULootLockerStateData</a></li>
+<li>GetTimeNow()&#160;:&#160;<a class="el" href="classFLootLockerRateLimiter.html#af67da5b15196cea674f41ee5b6e277e7">FLootLockerRateLimiter</a></li>
+<li>GetTypePullRewardAcquiredString()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#ab59fe8dce8b1da74f03b83b7db488c8e">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>GetUniversalAssets()&#160;:&#160;<a class="el" href="classULootLockerAssetsRequestHandler.html#a2cc2b34f5b3d1176422da64ef44d6980">ULootLockerAssetsRequestHandler</a>, <a class="el" href="group__Assets.html#ga1ffb1d2285503617ee1cd3f11d5af1e0">ULootLockerSDKManager</a></li>
+<li>GetWalletByHolderID()&#160;:&#160;<a class="el" href="classULootLockerBalanceRequestHandler.html#acf4b21b87544b1f1347f6c6dd305e1a5">ULootLockerBalanceRequestHandler</a>, <a class="el" href="group__Balances.html#gaa7bf1a5222fb6e248eb3f966afa9143b">ULootLockerSDKManager</a></li>
+<li>GetWalletByWalletID()&#160;:&#160;<a class="el" href="classULootLockerBalanceRequestHandler.html#a4620ebb6bedfb172e348265d2ded527f">ULootLockerBalanceRequestHandler</a>, <a class="el" href="group__Balances.html#ga11929e79c00125948a06a49f07aa4228">ULootLockerSDKManager</a></li>
+<li>GetXboxServiceTicket()&#160;:&#160;<a class="el" href="classULootLockerPurchasesRequestHandler.html#abed67b58c0564b27f03dcae12248fa52">ULootLockerPurchasesRequestHandler</a>, <a class="el" href="group__Purchasing.html#ga326fc53dff17457e2a17db4d995d4cf6">ULootLockerSDKManager</a></li>
+<li>GracefullyShutdown()&#160;:&#160;<a class="el" href="classULootLockerPresenceManager.html#ae3720bd84f2f446cdc9569b93b8c13a7">ULootLockerPresenceManager</a></li>
+<li>GrantAssetToPlayerInventory()&#160;:&#160;<a class="el" href="classULootLockerAssetsRequestHandler.html#a612859fed92cf8645fa6ac6809392ca0">ULootLockerAssetsRequestHandler</a>, <a class="el" href="group__Assets.html#ga1c1a0281c4a1d9af9236f50bff28ece1">ULootLockerSDKManager</a></li>
+<li>GuestLogin()&#160;:&#160;<a class="el" href="classULootLockerAuthenticationRequestHandler.html#abd9a45febc61a57f534a091238ae9ce4">ULootLockerAuthenticationRequestHandler</a>, <a class="el" href="group__Authentication.html#ga5f4c1eb0f2d8215a897e951b5231adb4">ULootLockerSDKManager</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

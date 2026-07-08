@@ -1,0 +1,1318 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: Friends</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('group__Friends.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">Friends</div></div>
+</div><!--header-->
+<div class="contents">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Cross-platform friend list — send, accept, and manage friend requests. </p>
+<p>C++ response delegate for listing friends.</p>
+<p>Players can add each other using any supported identifier (player ID, ULID, public UID, display name, or first-party IDs such as Steam/PSN) regardless of platform. Friend requests require mutual acceptance. Players can also block others. The Friends and <a class="el" href="group__Followers.html">Followers</a> systems are independent and can be used separately.</p>
+<p>See the <a href="https://docs.lootlocker.com/players/friends-and-followers">LootLocker documentation</a>. </p>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="gad6b34954c6adeec08555e79cd0c0ae6e" name="gad6b34954c6adeec08555e79cd0c0ae6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad6b34954c6adeec08555e79cd0c0ae6e">&#9670;&#160;</a></span>FLootLockerFriendActionResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerFriendActionResponseDelegate) (<a class="el" href="structFLootLockerFriendActionResponse.html">FLootLockerFriendActionResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for actions taken towards the friends list. </p>
+
+</div>
+</div>
+<a id="ga861eb51a4e4e4a11e4d496a17a97b50a" name="ga861eb51a4e4e4a11e4d496a17a97b50a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga861eb51a4e4e4a11e4d496a17a97b50a">&#9670;&#160;</a></span>FLootLockerGetFriendResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerGetFriendResponseDelegate) (<a class="el" href="structFLootLockerGetFriendResponse.html">FLootLockerGetFriendResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for getting a friend. </p>
+
+</div>
+</div>
+<a id="ga0e41cc7eee6f1a4f3f678fd82d0714e7" name="ga0e41cc7eee6f1a4f3f678fd82d0714e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0e41cc7eee6f1a4f3f678fd82d0714e7">&#9670;&#160;</a></span>FLootLockerListBlockedPlayersResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerListBlockedPlayersResponseDelegate) (<a class="el" href="structFLootLockerListBlockedPlayersResponse.html">FLootLockerListBlockedPlayersResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for listing blocked players. </p>
+
+</div>
+</div>
+<a id="ga5a482bbddb3330e0a1860f7952dab12d" name="ga5a482bbddb3330e0a1860f7952dab12d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5a482bbddb3330e0a1860f7952dab12d">&#9670;&#160;</a></span>FLootLockerListFriendsResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerListFriendsResponseDelegate) (<a class="el" href="structFLootLockerListFriendsResponse.html">FLootLockerListFriendsResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ga4f40e98a153601be9fdd56ec5624b8bc" name="ga4f40e98a153601be9fdd56ec5624b8bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4f40e98a153601be9fdd56ec5624b8bc">&#9670;&#160;</a></span>FLootLockerListIncomingFriendRequestsResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerListIncomingFriendRequestsResponseDelegate) (<a class="el" href="structFLootLockerListIncomingFriendRequestsResponse.html">FLootLockerListIncomingFriendRequestsResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for listing incoming friend requests. </p>
+
+</div>
+</div>
+<a id="ga0f945e610d7d725308e37133631c9f13" name="ga0f945e610d7d725308e37133631c9f13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0f945e610d7d725308e37133631c9f13">&#9670;&#160;</a></span>FLootLockerListOutgoingFriendRequestsResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerListOutgoingFriendRequestsResponseDelegate) (<a class="el" href="structFLootLockerListOutgoingFriendRequestsResponse.html">FLootLockerListOutgoingFriendRequestsResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for listing outgoing friend requests. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="gac3330169353bc2fd82a80b359e78da74" name="gac3330169353bc2fd82a80b359e78da74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac3330169353bc2fd82a80b359e78da74">&#9670;&#160;</a></span>AcceptIncomingFriendRequest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::AcceptIncomingFriendRequest </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>PlayerULID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnResponseCompleted</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Accept an incoming friend request. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">PlayerULID</td><td>ULID of the player whose request to accept </td></tr>
+    <tr><td class="paramname">OnResponseCompleted</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga5f601fd22792e84b139779bdbdd25fa6" name="ga5f601fd22792e84b139779bdbdd25fa6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5f601fd22792e84b139779bdbdd25fa6">&#9670;&#160;</a></span>BlockPlayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::BlockPlayer </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>PlayerULID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnResponseCompleted</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Block a player. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">PlayerULID</td><td>ULID of the player to block </td></tr>
+    <tr><td class="paramname">OnResponseCompleted</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga0897d52b807b27db808d4988f7994584" name="ga0897d52b807b27db808d4988f7994584"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0897d52b807b27db808d4988f7994584">&#9670;&#160;</a></span>CancelOutgoingFriendRequest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::CancelOutgoingFriendRequest </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>PlayerULID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnResponseCompleted</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cancel an outgoing friend request. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">PlayerULID</td><td>ULID of the player whose request to cancel </td></tr>
+    <tr><td class="paramname">OnResponseCompleted</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga30d1e9a849f5695c4e4474ba180993c0" name="ga30d1e9a849f5695c4e4474ba180993c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga30d1e9a849f5695c4e4474ba180993c0">&#9670;&#160;</a></span>DeclineIncomingFriendRequest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::DeclineIncomingFriendRequest </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>PlayerULID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnResponseCompleted</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Decline an incoming friend request. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">PlayerULID</td><td>ULID of the player whose request to decline </td></tr>
+    <tr><td class="paramname">OnResponseCompleted</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gab22e4ebd33ae3486aca8f87c1c6ba4e0" name="gab22e4ebd33ae3486aca8f87c1c6ba4e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab22e4ebd33ae3486aca8f87c1c6ba4e0">&#9670;&#160;</a></span>DeleteFriend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::DeleteFriend </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>PlayerULID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnResponseCompleted</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Delete a friend. </p>
+<p>Removes the friend relationship for both players.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">PlayerULID</td><td>Friend's ULID </td></tr>
+    <tr><td class="paramname">OnResponseCompleted</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gafc7d5e27f9399fa6eab3e9b455976fa6" name="gafc7d5e27f9399fa6eab3e9b455976fa6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafc7d5e27f9399fa6eab3e9b455976fa6">&#9670;&#160;</a></span>GetFriend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetFriend </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>FriendUlid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Friends.html#ga861eb51a4e4e4a11e4d496a17a97b50a">FLootLockerGetFriendResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnResponseCompleted</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a friend by ULID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">FriendUlid</td><td>Friend ULID </td></tr>
+    <tr><td class="paramname">OnResponseCompleted</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gafc109e49b7698c0e231c905e9902407d" name="gafc109e49b7698c0e231c905e9902407d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafc109e49b7698c0e231c905e9902407d">&#9670;&#160;</a></span>ListBlockedPlayers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListBlockedPlayers </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Friends.html#ga0e41cc7eee6f1a4f3f678fd82d0714e7">FLootLockerListBlockedPlayersResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnResponseCompleted</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List blocked players. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnResponseCompleted</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga367d88f3734474a29d637e905e0aeba4" name="ga367d88f3734474a29d637e905e0aeba4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga367d88f3734474a29d637e905e0aeba4">&#9670;&#160;</a></span>ListBlockedPlayersPaginated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListBlockedPlayersPaginated </td>
+          <td>(</td>
+          <td class="paramtype">int32&#160;</td>
+          <td class="paramname"><em>Page</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32&#160;</td>
+          <td class="paramname"><em>PerPage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Friends.html#ga0e41cc7eee6f1a4f3f678fd82d0714e7">FLootLockerListBlockedPlayersResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnResponseCompleted</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List blocked players (page paginated). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Page</td><td>Optional: 1-based page index (&lt;=0 uses 1) </td></tr>
+    <tr><td class="paramname">PerPage</td><td>Optional: Items per page (&lt;=0 uses default) </td></tr>
+    <tr><td class="paramname">OnResponseCompleted</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gaf614282dd5b8243b2fc4cb8668d9d56d" name="gaf614282dd5b8243b2fc4cb8668d9d56d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf614282dd5b8243b2fc4cb8668d9d56d">&#9670;&#160;</a></span>ListFriends()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListFriends </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Friends.html#ga5a482bbddb3330e0a1860f7952dab12d">FLootLockerListFriendsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnResponseCompleted</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List friends for the requesting player. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnResponseCompleted</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gaa8dbe0d6fc85ca5f6626c552fae08325" name="gaa8dbe0d6fc85ca5f6626c552fae08325"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa8dbe0d6fc85ca5f6626c552fae08325">&#9670;&#160;</a></span>ListFriendsByPlatform()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListFriendsByPlatform </td>
+          <td>(</td>
+          <td class="paramtype">const ELootLockerPlatform&#160;</td>
+          <td class="paramname"><em>Platform</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32&#160;</td>
+          <td class="paramname"><em>Page</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32&#160;</td>
+          <td class="paramname"><em>PerPage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Friends.html#ga5a482bbddb3330e0a1860f7952dab12d">FLootLockerListFriendsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnResponseCompleted</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List friends by platform for the requesting player. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Platform</td><td>Platform to filter by </td></tr>
+    <tr><td class="paramname">Page</td><td>Optional: The page to retrieve (&lt;=0 uses 1) </td></tr>
+    <tr><td class="paramname">PerPage</td><td>Optional: Items per page (&lt;=0 uses default) </td></tr>
+    <tr><td class="paramname">OnResponseCompleted</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga44ee6591426c3803210d5383b63cbcd5" name="ga44ee6591426c3803210d5383b63cbcd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga44ee6591426c3803210d5383b63cbcd5">&#9670;&#160;</a></span>ListFriendsPaginated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListFriendsPaginated </td>
+          <td>(</td>
+          <td class="paramtype">int32&#160;</td>
+          <td class="paramname"><em>Page</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32&#160;</td>
+          <td class="paramname"><em>PerPage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Friends.html#ga5a482bbddb3330e0a1860f7952dab12d">FLootLockerListFriendsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnResponseCompleted</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List friends (page paginated). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Page</td><td>Optional: The page to retrieve (&lt;=0 uses 1) </td></tr>
+    <tr><td class="paramname">PerPage</td><td>Optional: Items per page (&lt;=0 uses default) </td></tr>
+    <tr><td class="paramname">OnResponseCompleted</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga45d7033bf8963a605902c87e99ea3046" name="ga45d7033bf8963a605902c87e99ea3046"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga45d7033bf8963a605902c87e99ea3046">&#9670;&#160;</a></span>ListIncomingFriendRequests()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListIncomingFriendRequests </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Friends.html#ga4f40e98a153601be9fdd56ec5624b8bc">FLootLockerListIncomingFriendRequestsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnResponseCompleted</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List incoming friend requests. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnResponseCompleted</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga27541aa9d3d61ece5bed7be0f8ac7ae1" name="ga27541aa9d3d61ece5bed7be0f8ac7ae1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga27541aa9d3d61ece5bed7be0f8ac7ae1">&#9670;&#160;</a></span>ListIncomingFriendRequestsPaginated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListIncomingFriendRequestsPaginated </td>
+          <td>(</td>
+          <td class="paramtype">int32&#160;</td>
+          <td class="paramname"><em>Page</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32&#160;</td>
+          <td class="paramname"><em>PerPage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Friends.html#ga4f40e98a153601be9fdd56ec5624b8bc">FLootLockerListIncomingFriendRequestsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnResponseCompleted</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List incoming friend requests (page paginated). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Page</td><td>Optional: 1-based page index (&lt;=0 uses 1) </td></tr>
+    <tr><td class="paramname">PerPage</td><td>Optional: Items per page (&lt;=0 uses default) </td></tr>
+    <tr><td class="paramname">OnResponseCompleted</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga696f5be348122ffa5fbdc2a9c3ca5439" name="ga696f5be348122ffa5fbdc2a9c3ca5439"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga696f5be348122ffa5fbdc2a9c3ca5439">&#9670;&#160;</a></span>ListOutgoingFriendRequests()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListOutgoingFriendRequests </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Friends.html#ga0f945e610d7d725308e37133631c9f13">FLootLockerListOutgoingFriendRequestsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnResponseCompleted</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List outgoing friend requests. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnResponseCompleted</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga1d85c336cef159868603632a7284c4d7" name="ga1d85c336cef159868603632a7284c4d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1d85c336cef159868603632a7284c4d7">&#9670;&#160;</a></span>ListOutgoingFriendRequestsPaginated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListOutgoingFriendRequestsPaginated </td>
+          <td>(</td>
+          <td class="paramtype">int32&#160;</td>
+          <td class="paramname"><em>Page</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32&#160;</td>
+          <td class="paramname"><em>PerPage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Friends.html#ga0f945e610d7d725308e37133631c9f13">FLootLockerListOutgoingFriendRequestsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnResponseCompleted</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List outgoing friend requests (page paginated). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Page</td><td>Optional: 1-based page index (&lt;=0 uses 1) </td></tr>
+    <tr><td class="paramname">PerPage</td><td>Optional: Items per page (&lt;=0 uses default) </td></tr>
+    <tr><td class="paramname">OnResponseCompleted</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga4b6e1356a08f6e02ce061a11d9a1b661" name="ga4b6e1356a08f6e02ce061a11d9a1b661"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4b6e1356a08f6e02ce061a11d9a1b661">&#9670;&#160;</a></span>SendFriendRequest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::SendFriendRequest </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>PlayerULID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnResponseCompleted</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Send a friend request. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">PlayerULID</td><td>ULID of the player to request </td></tr>
+    <tr><td class="paramname">OnResponseCompleted</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gacfdc207a132575521718d90feb2fc15e" name="gacfdc207a132575521718d90feb2fc15e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacfdc207a132575521718d90feb2fc15e">&#9670;&#160;</a></span>UnblockPlayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::UnblockPlayer </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>PlayerULID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnResponseCompleted</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Unblock a player. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">PlayerULID</td><td>ULID of the player to unblock </td></tr>
+    <tr><td class="paramname">OnResponseCompleted</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga5a482bbddb3330e0a1860f7952dab12d" id="r_ga5a482bbddb3330e0a1860f7952dab12d"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#ga5a482bbddb3330e0a1860f7952dab12d">FLootLockerListFriendsResponseDelegate</a>) (<a class="el" href="structFLootLockerListFriendsResponse.html">FLootLockerListFriendsResponse</a>)</td></tr>
+<tr class="separator:ga5a482bbddb3330e0a1860f7952dab12d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4f40e98a153601be9fdd56ec5624b8bc" id="r_ga4f40e98a153601be9fdd56ec5624b8bc"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#ga4f40e98a153601be9fdd56ec5624b8bc">FLootLockerListIncomingFriendRequestsResponseDelegate</a>) (<a class="el" href="structFLootLockerListIncomingFriendRequestsResponse.html">FLootLockerListIncomingFriendRequestsResponse</a>)</td></tr>
+<tr class="memdesc:ga4f40e98a153601be9fdd56ec5624b8bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for listing incoming friend requests.  <br /></td></tr>
+<tr class="separator:ga4f40e98a153601be9fdd56ec5624b8bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0f945e610d7d725308e37133631c9f13" id="r_ga0f945e610d7d725308e37133631c9f13"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#ga0f945e610d7d725308e37133631c9f13">FLootLockerListOutgoingFriendRequestsResponseDelegate</a>) (<a class="el" href="structFLootLockerListOutgoingFriendRequestsResponse.html">FLootLockerListOutgoingFriendRequestsResponse</a>)</td></tr>
+<tr class="memdesc:ga0f945e610d7d725308e37133631c9f13"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for listing outgoing friend requests.  <br /></td></tr>
+<tr class="separator:ga0f945e610d7d725308e37133631c9f13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad6b34954c6adeec08555e79cd0c0ae6e" id="r_gad6b34954c6adeec08555e79cd0c0ae6e"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a>) (<a class="el" href="structFLootLockerFriendActionResponse.html">FLootLockerFriendActionResponse</a>)</td></tr>
+<tr class="memdesc:gad6b34954c6adeec08555e79cd0c0ae6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for actions taken towards the friends list.  <br /></td></tr>
+<tr class="separator:gad6b34954c6adeec08555e79cd0c0ae6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e41cc7eee6f1a4f3f678fd82d0714e7" id="r_ga0e41cc7eee6f1a4f3f678fd82d0714e7"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#ga0e41cc7eee6f1a4f3f678fd82d0714e7">FLootLockerListBlockedPlayersResponseDelegate</a>) (<a class="el" href="structFLootLockerListBlockedPlayersResponse.html">FLootLockerListBlockedPlayersResponse</a>)</td></tr>
+<tr class="memdesc:ga0e41cc7eee6f1a4f3f678fd82d0714e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for listing blocked players.  <br /></td></tr>
+<tr class="separator:ga0e41cc7eee6f1a4f3f678fd82d0714e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga861eb51a4e4e4a11e4d496a17a97b50a" id="r_ga861eb51a4e4e4a11e4d496a17a97b50a"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#ga861eb51a4e4e4a11e4d496a17a97b50a">FLootLockerGetFriendResponseDelegate</a>) (<a class="el" href="structFLootLockerGetFriendResponse.html">FLootLockerGetFriendResponse</a>)</td></tr>
+<tr class="memdesc:ga861eb51a4e4e4a11e4d496a17a97b50a"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for getting a friend.  <br /></td></tr>
+<tr class="separator:ga861eb51a4e4e4a11e4d496a17a97b50a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gaf614282dd5b8243b2fc4cb8668d9d56d" id="r_gaf614282dd5b8243b2fc4cb8668d9d56d"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#gaf614282dd5b8243b2fc4cb8668d9d56d">ULootLockerSDKManager::ListFriends</a> (const <a class="el" href="group__Friends.html#ga5a482bbddb3330e0a1860f7952dab12d">FLootLockerListFriendsResponseDelegate</a> &amp;OnResponseCompleted, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gaf614282dd5b8243b2fc4cb8668d9d56d"><td class="mdescLeft">&#160;</td><td class="mdescRight">List friends for the requesting player.  <br /></td></tr>
+<tr class="separator:gaf614282dd5b8243b2fc4cb8668d9d56d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga44ee6591426c3803210d5383b63cbcd5" id="r_ga44ee6591426c3803210d5383b63cbcd5"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#ga44ee6591426c3803210d5383b63cbcd5">ULootLockerSDKManager::ListFriendsPaginated</a> (int32 Page, int32 PerPage, const <a class="el" href="group__Friends.html#ga5a482bbddb3330e0a1860f7952dab12d">FLootLockerListFriendsResponseDelegate</a> &amp;OnResponseCompleted, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga44ee6591426c3803210d5383b63cbcd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">List friends (page paginated).  <br /></td></tr>
+<tr class="separator:ga44ee6591426c3803210d5383b63cbcd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa8dbe0d6fc85ca5f6626c552fae08325" id="r_gaa8dbe0d6fc85ca5f6626c552fae08325"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#gaa8dbe0d6fc85ca5f6626c552fae08325">ULootLockerSDKManager::ListFriendsByPlatform</a> (const ELootLockerPlatform Platform, int32 Page, int32 PerPage, const <a class="el" href="group__Friends.html#ga5a482bbddb3330e0a1860f7952dab12d">FLootLockerListFriendsResponseDelegate</a> &amp;OnResponseCompleted, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gaa8dbe0d6fc85ca5f6626c552fae08325"><td class="mdescLeft">&#160;</td><td class="mdescRight">List friends by platform for the requesting player.  <br /></td></tr>
+<tr class="separator:gaa8dbe0d6fc85ca5f6626c552fae08325"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga45d7033bf8963a605902c87e99ea3046" id="r_ga45d7033bf8963a605902c87e99ea3046"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#ga45d7033bf8963a605902c87e99ea3046">ULootLockerSDKManager::ListIncomingFriendRequests</a> (const <a class="el" href="group__Friends.html#ga4f40e98a153601be9fdd56ec5624b8bc">FLootLockerListIncomingFriendRequestsResponseDelegate</a> &amp;OnResponseCompleted, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga45d7033bf8963a605902c87e99ea3046"><td class="mdescLeft">&#160;</td><td class="mdescRight">List incoming friend requests.  <br /></td></tr>
+<tr class="separator:ga45d7033bf8963a605902c87e99ea3046"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga27541aa9d3d61ece5bed7be0f8ac7ae1" id="r_ga27541aa9d3d61ece5bed7be0f8ac7ae1"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#ga27541aa9d3d61ece5bed7be0f8ac7ae1">ULootLockerSDKManager::ListIncomingFriendRequestsPaginated</a> (int32 Page, int32 PerPage, const <a class="el" href="group__Friends.html#ga4f40e98a153601be9fdd56ec5624b8bc">FLootLockerListIncomingFriendRequestsResponseDelegate</a> &amp;OnResponseCompleted, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga27541aa9d3d61ece5bed7be0f8ac7ae1"><td class="mdescLeft">&#160;</td><td class="mdescRight">List incoming friend requests (page paginated).  <br /></td></tr>
+<tr class="separator:ga27541aa9d3d61ece5bed7be0f8ac7ae1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga696f5be348122ffa5fbdc2a9c3ca5439" id="r_ga696f5be348122ffa5fbdc2a9c3ca5439"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#ga696f5be348122ffa5fbdc2a9c3ca5439">ULootLockerSDKManager::ListOutgoingFriendRequests</a> (const <a class="el" href="group__Friends.html#ga0f945e610d7d725308e37133631c9f13">FLootLockerListOutgoingFriendRequestsResponseDelegate</a> &amp;OnResponseCompleted, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga696f5be348122ffa5fbdc2a9c3ca5439"><td class="mdescLeft">&#160;</td><td class="mdescRight">List outgoing friend requests.  <br /></td></tr>
+<tr class="separator:ga696f5be348122ffa5fbdc2a9c3ca5439"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1d85c336cef159868603632a7284c4d7" id="r_ga1d85c336cef159868603632a7284c4d7"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#ga1d85c336cef159868603632a7284c4d7">ULootLockerSDKManager::ListOutgoingFriendRequestsPaginated</a> (int32 Page, int32 PerPage, const <a class="el" href="group__Friends.html#ga0f945e610d7d725308e37133631c9f13">FLootLockerListOutgoingFriendRequestsResponseDelegate</a> &amp;OnResponseCompleted, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga1d85c336cef159868603632a7284c4d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">List outgoing friend requests (page paginated).  <br /></td></tr>
+<tr class="separator:ga1d85c336cef159868603632a7284c4d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4b6e1356a08f6e02ce061a11d9a1b661" id="r_ga4b6e1356a08f6e02ce061a11d9a1b661"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#ga4b6e1356a08f6e02ce061a11d9a1b661">ULootLockerSDKManager::SendFriendRequest</a> (const FString &amp;PlayerULID, const <a class="el" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a> &amp;OnResponseCompleted, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga4b6e1356a08f6e02ce061a11d9a1b661"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a friend request.  <br /></td></tr>
+<tr class="separator:ga4b6e1356a08f6e02ce061a11d9a1b661"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab22e4ebd33ae3486aca8f87c1c6ba4e0" id="r_gab22e4ebd33ae3486aca8f87c1c6ba4e0"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#gab22e4ebd33ae3486aca8f87c1c6ba4e0">ULootLockerSDKManager::DeleteFriend</a> (const FString &amp;PlayerULID, const <a class="el" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a> &amp;OnResponseCompleted, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gab22e4ebd33ae3486aca8f87c1c6ba4e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a friend.  <br /></td></tr>
+<tr class="separator:gab22e4ebd33ae3486aca8f87c1c6ba4e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0897d52b807b27db808d4988f7994584" id="r_ga0897d52b807b27db808d4988f7994584"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#ga0897d52b807b27db808d4988f7994584">ULootLockerSDKManager::CancelOutgoingFriendRequest</a> (const FString &amp;PlayerULID, const <a class="el" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a> &amp;OnResponseCompleted, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga0897d52b807b27db808d4988f7994584"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel an outgoing friend request.  <br /></td></tr>
+<tr class="separator:ga0897d52b807b27db808d4988f7994584"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac3330169353bc2fd82a80b359e78da74" id="r_gac3330169353bc2fd82a80b359e78da74"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#gac3330169353bc2fd82a80b359e78da74">ULootLockerSDKManager::AcceptIncomingFriendRequest</a> (const FString &amp;PlayerULID, const <a class="el" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a> &amp;OnResponseCompleted, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gac3330169353bc2fd82a80b359e78da74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accept an incoming friend request.  <br /></td></tr>
+<tr class="separator:gac3330169353bc2fd82a80b359e78da74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga30d1e9a849f5695c4e4474ba180993c0" id="r_ga30d1e9a849f5695c4e4474ba180993c0"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#ga30d1e9a849f5695c4e4474ba180993c0">ULootLockerSDKManager::DeclineIncomingFriendRequest</a> (const FString &amp;PlayerULID, const <a class="el" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a> &amp;OnResponseCompleted, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga30d1e9a849f5695c4e4474ba180993c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decline an incoming friend request.  <br /></td></tr>
+<tr class="separator:ga30d1e9a849f5695c4e4474ba180993c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafc109e49b7698c0e231c905e9902407d" id="r_gafc109e49b7698c0e231c905e9902407d"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#gafc109e49b7698c0e231c905e9902407d">ULootLockerSDKManager::ListBlockedPlayers</a> (const <a class="el" href="group__Friends.html#ga0e41cc7eee6f1a4f3f678fd82d0714e7">FLootLockerListBlockedPlayersResponseDelegate</a> &amp;OnResponseCompleted, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gafc109e49b7698c0e231c905e9902407d"><td class="mdescLeft">&#160;</td><td class="mdescRight">List blocked players.  <br /></td></tr>
+<tr class="separator:gafc109e49b7698c0e231c905e9902407d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga367d88f3734474a29d637e905e0aeba4" id="r_ga367d88f3734474a29d637e905e0aeba4"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#ga367d88f3734474a29d637e905e0aeba4">ULootLockerSDKManager::ListBlockedPlayersPaginated</a> (int32 Page, int32 PerPage, const <a class="el" href="group__Friends.html#ga0e41cc7eee6f1a4f3f678fd82d0714e7">FLootLockerListBlockedPlayersResponseDelegate</a> &amp;OnResponseCompleted, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga367d88f3734474a29d637e905e0aeba4"><td class="mdescLeft">&#160;</td><td class="mdescRight">List blocked players (page paginated).  <br /></td></tr>
+<tr class="separator:ga367d88f3734474a29d637e905e0aeba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafc7d5e27f9399fa6eab3e9b455976fa6" id="r_gafc7d5e27f9399fa6eab3e9b455976fa6"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#gafc7d5e27f9399fa6eab3e9b455976fa6">ULootLockerSDKManager::GetFriend</a> (const FString &amp;FriendUlid, const <a class="el" href="group__Friends.html#ga861eb51a4e4e4a11e4d496a17a97b50a">FLootLockerGetFriendResponseDelegate</a> &amp;OnResponseCompleted, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gafc7d5e27f9399fa6eab3e9b455976fa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a friend by ULID.  <br /></td></tr>
+<tr class="separator:gafc7d5e27f9399fa6eab3e9b455976fa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5f601fd22792e84b139779bdbdd25fa6" id="r_ga5f601fd22792e84b139779bdbdd25fa6"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#ga5f601fd22792e84b139779bdbdd25fa6">ULootLockerSDKManager::BlockPlayer</a> (const FString &amp;PlayerULID, const <a class="el" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a> &amp;OnResponseCompleted, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga5f601fd22792e84b139779bdbdd25fa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Block a player.  <br /></td></tr>
+<tr class="separator:ga5f601fd22792e84b139779bdbdd25fa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacfdc207a132575521718d90feb2fc15e" id="r_gacfdc207a132575521718d90feb2fc15e"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Friends.html#gacfdc207a132575521718d90feb2fc15e">ULootLockerSDKManager::UnblockPlayer</a> (const FString &amp;PlayerULID, const <a class="el" href="group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e">FLootLockerFriendActionResponseDelegate</a> &amp;OnResponseCompleted, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gacfdc207a132575521718d90feb2fc15e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unblock a player.  <br /></td></tr>
+<tr class="separator:gacfdc207a132575521718d90feb2fc15e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: Data Fields</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('functions_d.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="contents">
+<div class="textblock">Here is a list of all struct and union fields with links to the structures/unions they belong to:</div>
+
+<h3><a id="index_d" name="index_d"></a>- d -</h3><ul>
+<li>data&#160;:&#160;<a class="el" href="structFLootLockerAssetDataEntity.html#ad8852b5630e89dcc5083b376cd2f9618">FLootLockerAssetDataEntity</a>, <a class="el" href="structFLootLockerCreateAssetCandidateData.html#a0714e32fbfdc628fc0ded27b85628a19">FLootLockerCreateAssetCandidateData</a></li>
+<li>Data&#160;:&#160;<a class="el" href="structFLootLockerResponseAssetCandidate.html#a22f07ea837996721437ca656101443b2">FLootLockerResponseAssetCandidate</a></li>
+<li>data&#160;:&#160;<a class="el" href="structFLootLockerSimpleAssetDataEntity.html#a278256f5783e63fd3d3055f705c350a6">FLootLockerSimpleAssetDataEntity</a>, <a class="el" href="structFLootLockerUpdateAssetCandidateData.html#aecb1ed3bb0c5de2c638c290cb15ac486">FLootLockerUpdateAssetCandidateData</a></li>
+<li>data_entities&#160;:&#160;<a class="el" href="structFLootLockerAsset.html#a02b317b4ff615daf70f2655aee5f2e68">FLootLockerAsset</a>, <a class="el" href="structFLootLockerAssetCandidateData.html#a0281a1d7172b4424f510005cc41e2690">FLootLockerAssetCandidateData</a>, <a class="el" href="structFLootLockerSimpleAsset.html#a118dd95520e65bc0bbc4fac333504bbc">FLootLockerSimpleAsset</a>, <a class="el" href="structFLootLockerSimpleAssetIncludes.html#ac639c64549b56e068786b55f727cb1cc">FLootLockerSimpleAssetIncludes</a></li>
+<li>date&#160;:&#160;<a class="el" href="structFLootLockerTimeResponse.html#a16e4249577604d3a4de4ce178809e5b2">FLootLockerTimeResponse</a></li>
+<li>DebitBalanceToWallet()&#160;:&#160;<a class="el" href="classULootLockerBalanceRequestHandler.html#af5f019b3dde7284c2d833ca3baa23866">ULootLockerBalanceRequestHandler</a>, <a class="el" href="group__Balances.html#ga494a2b07c0b99ec7b57d78f0aa5216e3">ULootLockerSDKManager</a></li>
+<li>DeclineIncomingFriendRequest()&#160;:&#160;<a class="el" href="classULootLockerFriendsRequestHandler.html#aca80240325bf9f74b8d7f6ae3342ee56">ULootLockerFriendsRequestHandler</a>, <a class="el" href="group__Friends.html#ga30d1e9a849f5695c4e4474ba180993c0">ULootLockerSDKManager</a></li>
+<li>default_loadout&#160;:&#160;<a class="el" href="structFLootLockerCharacterTypes.html#a9f2209f7cd3b7aabcf20241d54b80c92">FLootLockerCharacterTypes</a></li>
+<li>default_loadouts&#160;:&#160;<a class="el" href="structFLootLockerAsset.html#a9bac8841da116bdfdc54c9c50ff01cdb">FLootLockerAsset</a></li>
+<li>default_variation_id&#160;:&#160;<a class="el" href="structFLootLockerAsset.html#a142ce77de9c293c617d37151e00b8e6b">FLootLockerAsset</a></li>
+<li>DefaultPlayer&#160;:&#160;<a class="el" href="structFLootLockerStateMetaData.html#a933297117018f64aa9d22712ae4d58eb">FLootLockerStateMetaData</a>, <a class="el" href="classULootLockerStateMetaDataSaveGame.html#aec6c3bc16892d76482e8bbf8ea8fcf0f">ULootLockerStateMetaDataSaveGame</a></li>
+<li>DeleteAKeyValuePairByIdForAssetInstance()&#160;:&#160;<a class="el" href="classULootLockerAssetInstancesRequestHandler.html#a1e056f072061ca1d05f26c6d8c373b17">ULootLockerAssetInstancesRequestHandler</a>, <a class="el" href="group__AssetInstance.html#gae5c01fbd6c4505de48eac24fa4501a0e">ULootLockerSDKManager</a></li>
+<li>DeleteAssetCandidate()&#160;:&#160;<a class="el" href="group__UserGeneratedContent.html#gabb8d93f7ec2281603caa8fad69ae5d85">ULootLockerSDKManager</a>, <a class="el" href="classULootLockerUserGeneratedContentRequestHandler.html#a0a19e721dc6246c3a0cdcd5f16962894">ULootLockerUserGeneratedContentRequestHandler</a></li>
+<li>DeleteAssetInstanceFromPlayerInventory()&#160;:&#160;<a class="el" href="classULootLockerAssetInstancesRequestHandler.html#ae69ff0675f8602129264a7c0923883ef">ULootLockerAssetInstancesRequestHandler</a>, <a class="el" href="group__AssetInstance.html#gabd30258c86c0e70f6f4e726aa99fdb9e">ULootLockerSDKManager</a></li>
+<li>DeleteCharacter()&#160;:&#160;<a class="el" href="classULootLockerCharacterRequestHandler.html#a0f7029ad9c7bc5969bdcc12282850548">ULootLockerCharacterRequestHandler</a>, <a class="el" href="group__Hero.html#ga2e87c5a9ded7b10b9c22d17c2540b042">ULootLockerSDKManager</a></li>
+<li>DeleteCharacterProgression()&#160;:&#160;<a class="el" href="classULootLockerProgressionsRequestHandler.html#a442fc49f03f4d635e4affe0be3b4866d">ULootLockerProgressionsRequestHandler</a>, <a class="el" href="group__CharacterProgressions.html#gac6958f6cc09b8746cad10cc17628328d">ULootLockerSDKManager</a></li>
+<li>Deleted_at&#160;:&#160;<a class="el" href="structFLootLockerCatalog.html#a2ea6a7caba2af6201712406206566275">FLootLockerCatalog</a></li>
+<li>deleted_at&#160;:&#160;<a class="el" href="structFLootLockerLoginResponse.html#a038f84ed3ed4d1697c032e3e4a8a25e6">FLootLockerLoginResponse</a></li>
+<li>DeleteFileFromAssetCandidate()&#160;:&#160;<a class="el" href="group__UserGeneratedContent.html#gaf612032c9a08cc4094544c58f2ac8149">ULootLockerSDKManager</a>, <a class="el" href="classULootLockerUserGeneratedContentRequestHandler.html#a53da831246f9278a4042ce1adaaa8067">ULootLockerUserGeneratedContentRequestHandler</a></li>
+<li>DeleteFriend()&#160;:&#160;<a class="el" href="classULootLockerFriendsRequestHandler.html#a85c8e7403207326a056ab0833aaf6c8f">ULootLockerFriendsRequestHandler</a>, <a class="el" href="group__Friends.html#gab22e4ebd33ae3486aca8f87c1c6ba4e0">ULootLockerSDKManager</a></li>
+<li>DeleteHero()&#160;:&#160;<a class="el" href="classULootLockerHeroRequestHandler.html#a3efc08ae67681a4b0c5fa748b11581da">ULootLockerHeroRequestHandler</a>, <a class="el" href="group__Hero.html#gac8346ca2a21ebdf9af7536a962728a64">ULootLockerSDKManager</a></li>
+<li>DeleteInstanceProgression()&#160;:&#160;<a class="el" href="classULootLockerProgressionsRequestHandler.html#aa25cbc582260950fcd8b4bd3f54c7c55">ULootLockerProgressionsRequestHandler</a>, <a class="el" href="group__AssetInstanceProgressions.html#ga5582f1259db63d28b5e2e08291d52999">ULootLockerSDKManager</a></li>
+<li>DeleteItemFromPersistentStorage()&#160;:&#160;<a class="el" href="classULootLockerPersistentStorageRequestHandler.html#ab0b5c517f9bdc7c911e98ecb06e2532d">ULootLockerPersistentStorageRequestHandler</a>, <a class="el" href="group__PlayerStorage.html#ga4116801c4d262b35b06c908ccefa8d38">ULootLockerSDKManager</a></li>
+<li>DeletePlayer()&#160;:&#160;<a class="el" href="classULootLockerPlayerRequestHandler.html#a3d383c81d56b7c817466f9e80959f98a">ULootLockerPlayerRequestHandler</a>, <a class="el" href="group__Player.html#gaef55997de080a36ddc9d2b61a1f5b70b">ULootLockerSDKManager</a></li>
+<li>DeletePlayerFile()&#160;:&#160;<a class="el" href="classULLPlayerFilesRequestHandler.html#a48c59261238a9b94d1ddb36b7d22afdc">ULLPlayerFilesRequestHandler</a>, <a class="el" href="group__PlayerFiles.html#gadd11e380f4327d8a888146d76b39e711">ULootLockerSDKManager</a></li>
+<li>DeletePlayerProgression()&#160;:&#160;<a class="el" href="classULootLockerProgressionsRequestHandler.html#a8479580e25cb6e4b2b1959c90ec175f3">ULootLockerProgressionsRequestHandler</a>, <a class="el" href="group__PlayerProgressions.html#ga4ea57a40b09a3b45f3a351d245c6feb5">ULootLockerSDKManager</a></li>
+<li>Denominations&#160;:&#160;<a class="el" href="structFLootLockerListDenominationsResponse.html#a072909ee1fc0a6350b2e7884dbb96639">FLootLockerListDenominationsResponse</a></li>
+<li>DenyIncomingRequestsWhenBackedUp&#160;:&#160;<a class="el" href="structFLootLockerHTTPClientConfiguration.html#ace37215b4de5b9c7ee34a39c42a0646c">FLootLockerHTTPClientConfiguration</a></li>
+<li>dependent_asset_id&#160;:&#160;<a class="el" href="structFLootLockerContext.html#a170b9b319260a4090abf79c6453e383d">FLootLockerContext</a></li>
+<li>description&#160;:&#160;<a class="el" href="structFLootLockerAsset.html#a665505e9d8a3aef100c53a7858ff0325">FLootLockerAsset</a></li>
+<li>Description&#160;:&#160;<a class="el" href="structFLootLockerCatalogSteamStoreListing.html#a52cab276725af1b180f1a2b609efc972">FLootLockerCatalogSteamStoreListing</a></li>
+<li>description&#160;:&#160;<a class="el" href="structFLootLockerFeedbackCategory.html#af983e8af3932e95639ba2810b268583c">FLootLockerFeedbackCategory</a>, <a class="el" href="structFLootLockerFeedbackRequest.html#a2c86ebf7d92243ed6ed327ecda7bf8df">FLootLockerFeedbackRequest</a></li>
+<li>Description&#160;:&#160;<a class="el" href="structFLootLockerGroupDetails.html#a6cc4db1f039ca9f84a7ddb33a1d59423">FLootLockerGroupDetails</a>, <a class="el" href="structFLootLockerInlinedGroupDetailsWithAssociations.html#a9063d8dd9705f7e91c5a70028ccba17e">FLootLockerInlinedGroupDetailsWithAssociations</a></li>
+<li>description&#160;:&#160;<a class="el" href="structFLootLockerLeaderboardGroupReward.html#a883ad55336d57df61bbe2cc345fb0a4f">FLootLockerLeaderboardGroupReward</a></li>
+<li>Description&#160;:&#160;<a class="el" href="structFLootLockerNotificationRewardGroup.html#a764d64a9e62ac7b499b1e0bdfbe5ed02">FLootLockerNotificationRewardGroup</a></li>
+<li>detachable&#160;:&#160;<a class="el" href="structFLootLockerAsset.html#ae55d6d4b201cb4cf1f975a14ff982711">FLootLockerAsset</a>, <a class="el" href="structFLootLockerContext.html#a3c096cd422fbec5dae4d2f7fcedb0c34">FLootLockerContext</a></li>
+<li>details&#160;:&#160;<a class="el" href="structFLootLockerLeaderboardAssetReward.html#aa4c97745623fbecd755fa37cc6c1986e">FLootLockerLeaderboardAssetReward</a>, <a class="el" href="structFLootLockerLeaderboardCurrencyReward.html#add222ecbead16a3216cbde1800f51154">FLootLockerLeaderboardCurrencyReward</a>, <a class="el" href="structFLootLockerLeaderboardProgressionPointsReward.html#a86df5814829e13be510f0fcbcda6bee0">FLootLockerLeaderboardProgressionPointsReward</a>, <a class="el" href="structFLootLockerLeaderboardProgressionResetReward.html#ad9baeba156120c7684f91a9de736fde8">FLootLockerLeaderboardProgressionResetReward</a></li>
+<li>Details&#160;:&#160;<a class="el" href="structFLootLockerNotificationRewardAsset.html#a0e30c957295061ec443375bb77ad6ddb">FLootLockerNotificationRewardAsset</a>, <a class="el" href="structFLootLockerNotificationRewardCurrency.html#a17aa8f826e6bb9b2b372c53fce8e9866">FLootLockerNotificationRewardCurrency</a>, <a class="el" href="structFLootLockerNotificationRewardProgression.html#adc0133026dd6aba8f9831b1e15796bd4">FLootLockerNotificationRewardProgression</a>, <a class="el" href="structFLootLockerNotificationRewardProgressionReset.html#a481c637d707ecd4b93d09715b6092770">FLootLockerNotificationRewardProgressionReset</a></li>
+<li>details&#160;:&#160;<a class="el" href="structFLootLockerRefundWarning.html#a57e8c550b9ba5b67ba525e2e39550506">FLootLockerRefundWarning</a></li>
+<li>direction&#160;:&#160;<a class="el" href="structFLootLockerLeaderboardRewardArgs.html#a3e2e7e3549a886d8e6594c8f751b0347">FLootLockerLeaderboardRewardArgs</a></li>
+<li>Direction_method&#160;:&#160;<a class="el" href="structFLootLockerLeaderboardDetails.html#a6e9bebfd7717bced557258520778180f">FLootLockerLeaderboardDetails</a>, <a class="el" href="structFLootLockerLeaderboardDetailsResponse.html#a0296f9f9b09f5ca9f7e72278f55cb7b8">FLootLockerLeaderboardDetailsResponse</a></li>
+<li>DisableFileLogging()&#160;:&#160;<a class="el" href="classULootLockerConfig.html#a85fd117e721e4c16882df311db88d6ed">ULootLockerConfig</a></li>
+<li>DisconnectAccount()&#160;:&#160;<a class="el" href="classULootLockerConnectedAccountsRequestHandler.html#adf0c5526240aef03625c17bc05724297">ULootLockerConnectedAccountsRequestHandler</a>, <a class="el" href="group__ConnectedAccounts.html#gaea18f9deae72eacfedebd6b18c029367">ULootLockerSDKManager</a></li>
+<li>DisconnectAll()&#160;:&#160;<a class="el" href="classULootLockerPresenceManager.html#aee95047432d01d440f907692e4b09f7a">ULootLockerPresenceManager</a></li>
+<li>DisconnectPresence()&#160;:&#160;<a class="el" href="classULootLockerPresenceManager.html#affc507ae88501ffdc13fef334f0e96b8">ULootLockerPresenceManager</a></li>
+<li>Display_amount&#160;:&#160;<a class="el" href="structFLootLockerCatalogEntryPrice.html#af6a444412db8cfc4e83e0bb394473421">FLootLockerCatalogEntryPrice</a></li>
+<li>display_price&#160;:&#160;<a class="el" href="structFLootLockerAsset.html#a7d3339fa2ad0272eae67727a94a65051">FLootLockerAsset</a></li>
+<li>Display_url&#160;:&#160;<a class="el" href="structFLootLockerLeaseRemoteSessionResponse.html#ae6c2f3eb548d77d230e0b20881a6b12d">FLootLockerLeaseRemoteSessionResponse</a>, <a class="el" href="structFLootLockerRemoteSessionLeaseData.html#a2e7a64637c493262d3bebd563c10e60a">FLootLockerRemoteSessionLeaseData</a></li>
+<li>dlcs&#160;:&#160;<a class="el" href="structFLootLockerDlcResponse.html#a8c853c552bc6b751a6ea6af1a7dbdeff">FLootLockerDlcResponse</a></li>
+<li>Doc_url&#160;:&#160;<a class="el" href="structFLootLockerErrorData.html#ab1f71de118ae8abd82a50d068dd7a3ed">FLootLockerErrorData</a></li>
+<li>domain_key&#160;:&#160;<a class="el" href="structFLootLockerFileConfig.html#ad6534efd67f54b66fc318e8ae0fbd6ce">FLootLockerFileConfig</a></li>
+<li>DomainKey&#160;:&#160;<a class="el" href="classULootLockerConfig.html#ae7999a895b54756160e9d334f96d08e6">ULootLockerConfig</a></li>
+<li>drop_table_max_picks&#160;:&#160;<a class="el" href="structFLootLockerAsset.html#a9fb119947142259816375d521de33609">FLootLockerAsset</a></li>
+<li>duration&#160;:&#160;<a class="el" href="structFLootLockerCharacterRental.html#ab52cecd2f5b4bef34ce3697007f1d5db">FLootLockerCharacterRental</a>, <a class="el" href="structFLootLockerRental.html#ab93f3fd2c58706361f72d4c83cc30f21">FLootLockerRental</a>, <a class="el" href="structFLootLockerRentalOption.html#aad94804eff3b11de20ac084af0866154">FLootLockerRentalOption</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>
