@@ -2,12 +2,6 @@ name: Generate Docs
 run-name: "Generate Docs on ${{ github.ref_name }}"
 
 on:
-  pull_request:
-    branches:
-      - main
-    types:
-      - opened
-      - synchronize
   release:
     types: [published]
   workflow_dispatch: {}
