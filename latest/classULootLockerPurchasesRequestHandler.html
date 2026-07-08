@@ -60,7 +60,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.4.0</span>
+      <span id="ll-topnav-version">v10.5.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -255,6 +255,12 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a5b1d9e1d9485a84dd3ee093ae9883f37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bdaeca582fbb2bae326ba42402ce707" id="r_a5bdaeca582fbb2bae326ba42402ce707"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerPurchasesRequestHandler.html#a5bdaeca582fbb2bae326ba42402ce707">RedeemEpicStorePurchaseForCharacter</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const FString &amp;CharacterId, const FString &amp;AccountId, const FString &amp;BearerToken, const TArray&lt; FString &gt; &amp;EntitlementIds, const FString &amp;SandboxId, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompleted)</td></tr>
 <tr class="separator:a5bdaeca582fbb2bae326ba42402ce707"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abed67b58c0564b27f03dcae12248fa52" id="r_abed67b58c0564b27f03dcae12248fa52"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerPurchasesRequestHandler.html#abed67b58c0564b27f03dcae12248fa52">GetXboxServiceTicket</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const <a class="el" href="group__Purchasing.html#ga6c03fe1ec418a56e869bc8d8942ab7d4">FLootLockerXboxServiceTicketDelegate</a> &amp;OnCompleted)</td></tr>
+<tr class="separator:abed67b58c0564b27f03dcae12248fa52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae120202c673c8eb68670640d09e03774" id="r_ae120202c673c8eb68670640d09e03774"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerPurchasesRequestHandler.html#ae120202c673c8eb68670640d09e03774">RedeemXboxStorePurchaseForPlayer</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const FString &amp;UserCollectionsId, const FString &amp;ProductId, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompleted)</td></tr>
+<tr class="separator:ae120202c673c8eb68670640d09e03774"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7beb47210d12ce0b737d8f7991dd465d" id="r_a7beb47210d12ce0b737d8f7991dd465d"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerPurchasesRequestHandler.html#a7beb47210d12ce0b737d8f7991dd465d">RedeemXboxStorePurchaseForClass</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int ClassId, const FString &amp;UserCollectionsId, const FString &amp;ProductId, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompleted)</td></tr>
+<tr class="separator:a7beb47210d12ce0b737d8f7991dd465d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07a782096d8cf385926d6643ceecf196" id="r_a07a782096d8cf385926d6643ceecf196"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerPurchasesRequestHandler.html#a07a782096d8cf385926d6643ceecf196">RedeemPlayStationStorePurchaseForPlayer</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const FString &amp;TransactionId, const FString &amp;AuthCode, const FString &amp;EntitlementLabel, const FString &amp;ServiceLabel=&quot;&quot;, const FString &amp;ServiceName=&quot;&quot;, const int Environment=-1, const int UseCount=-1, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompleted=<a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a>())</td></tr>
 <tr class="separator:a07a782096d8cf385926d6643ceecf196"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e9a27427f06f25b69736a71aff9452e" id="r_a3e9a27427f06f25b69736a71aff9452e"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerPurchasesRequestHandler.html#a3e9a27427f06f25b69736a71aff9452e">RedeemPlayStationStorePurchaseForCharacter</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const FString &amp;CharacterId, const FString &amp;TransactionId, const FString &amp;AuthCode, const FString &amp;EntitlementLabel, const FString &amp;ServiceLabel=&quot;&quot;, const FString &amp;ServiceName=&quot;&quot;, const int Environment=-1, const int UseCount=-1, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompleted=<a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a>())</td></tr>
@@ -746,6 +752,42 @@ Static Protected Member Functions</h2></td></tr>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abed67b58c0564b27f03dcae12248fa52" name="abed67b58c0564b27f03dcae12248fa52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abed67b58c0564b27f03dcae12248fa52">&#9670;&#160;</a></span>GetXboxServiceTicket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerPurchasesRequestHandler::GetXboxServiceTicket </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Purchasing.html#ga6c03fe1ec418a56e869bc8d8942ab7d4">FLootLockerXboxServiceTicketDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompleted</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1392,6 +1434,108 @@ Static Protected Member Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
           <td class="paramname"><em>OnCompleted</em> = <code><a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7beb47210d12ce0b737d8f7991dd465d" name="a7beb47210d12ce0b737d8f7991dd465d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7beb47210d12ce0b737d8f7991dd465d">&#9670;&#160;</a></span>RedeemXboxStorePurchaseForClass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerPurchasesRequestHandler::RedeemXboxStorePurchaseForClass </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>ClassId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>UserCollectionsId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProductId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompleted</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae120202c673c8eb68670640d09e03774" name="ae120202c673c8eb68670640d09e03774"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae120202c673c8eb68670640d09e03774">&#9670;&#160;</a></span>RedeemXboxStorePurchaseForPlayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerPurchasesRequestHandler::RedeemXboxStorePurchaseForPlayer </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>UserCollectionsId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProductId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompleted</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

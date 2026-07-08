@@ -60,7 +60,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.4.0</span>
+      <span id="ll-topnav-version">v10.5.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -324,6 +324,22 @@ $(document).ready(function(){initNavTree('group__Purchasing.html',''); initResiz
 </div><div class="memdoc">
 
 <p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerRefundByEntitlementIdsResponse.html">FLootLockerRefundByEntitlementIdsResponse</a> result. </p>
+
+</div>
+</div>
+<a id="ga6c03fe1ec418a56e869bc8d8942ab7d4" name="ga6c03fe1ec418a56e869bc8d8942ab7d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6c03fe1ec418a56e869bc8d8942ab7d4">&#9670;&#160;</a></span>FLootLockerXboxServiceTicketDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerXboxServiceTicketDelegate) (<a class="el" href="structFLootLockerXboxServiceTicketResponse.html">FLootLockerXboxServiceTicketResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerXboxServiceTicketResponse.html">FLootLockerXboxServiceTicketResponse</a> result. </p>
 
 </div>
 </div>
@@ -883,6 +899,52 @@ $(document).ready(function(){initNavTree('group__Purchasing.html',''); initResiz
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga326fc53dff17457e2a17db4d995d4cf6" name="ga326fc53dff17457e2a17db4d995d4cf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga326fc53dff17457e2a17db4d995d4cf6">&#9670;&#160;</a></span>GetXboxServiceTicket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetXboxServiceTicket </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Purchasing.html#ga6c03fe1ec418a56e869bc8d8942ab7d4">FLootLockerXboxServiceTicketDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get an Xbox service ticket that can be used to redeem an Xbox Store purchase. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request </dd></dl>
 
 </div>
 </div>
@@ -1528,6 +1590,133 @@ $(document).ready(function(){initNavTree('group__Purchasing.html',''); initResiz
 
 </div>
 </div>
+<a id="ga083065581f504cbfb0c3df18569ca723" name="ga083065581f504cbfb0c3df18569ca723"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga083065581f504cbfb0c3df18569ca723">&#9670;&#160;</a></span>RedeemXboxStorePurchaseForClass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RedeemXboxStorePurchaseForClass </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ClassId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>UserCollectionsId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProductId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Redeem a purchase made towards the Xbox Store for a class owned by the player. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ClassId</td><td>The id of the class to redeem this purchase for </td></tr>
+    <tr><td class="paramname">UserCollectionsId</td><td>The Xbox user collections ID (JWT) identifying the user </td></tr>
+    <tr><td class="paramname">ProductId</td><td>The Xbox Store product id to redeem </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request </dd></dl>
+
+</div>
+</div>
+<a id="gab163812d5b938bf35fa5fc1dabfcc006" name="gab163812d5b938bf35fa5fc1dabfcc006"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab163812d5b938bf35fa5fc1dabfcc006">&#9670;&#160;</a></span>RedeemXboxStorePurchaseForPlayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::RedeemXboxStorePurchaseForPlayer </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>UserCollectionsId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ProductId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Redeem a purchase made towards the Xbox Store for the current player. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">UserCollectionsId</td><td>The Xbox user collections ID (JWT) identifying the user </td></tr>
+    <tr><td class="paramname">ProductId</td><td>The Xbox Store product id to redeem </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request </dd></dl>
+
+</div>
+</div>
 <a id="gaa9d0d98404ca9c25d9b64bd5ae9e1cff" name="gaa9d0d98404ca9c25d9b64bd5ae9e1cff"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaa9d0d98404ca9c25d9b64bd5ae9e1cff">&#9670;&#160;</a></span>RefundByEntitlementIds()</h2>
 
@@ -1766,6 +1955,9 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga43b6f430a7b313b9030fdf2ce1c29a70" id="r_ga43b6f430a7b313b9030fdf2ce1c29a70"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga43b6f430a7b313b9030fdf2ce1c29a70">FLootLockerCreateStripeCheckoutSessionDelegate</a>) (<a class="el" href="structFLootLockerCreateStripeCheckoutSessionResponse.html">FLootLockerCreateStripeCheckoutSessionResponse</a>)</td></tr>
 <tr class="memdesc:ga43b6f430a7b313b9030fdf2ce1c29a70"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerCreateStripeCheckoutSessionResponse.html">FLootLockerCreateStripeCheckoutSessionResponse</a> result.  <br /></td></tr>
 <tr class="separator:ga43b6f430a7b313b9030fdf2ce1c29a70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6c03fe1ec418a56e869bc8d8942ab7d4" id="r_ga6c03fe1ec418a56e869bc8d8942ab7d4"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga6c03fe1ec418a56e869bc8d8942ab7d4">FLootLockerXboxServiceTicketDelegate</a>) (<a class="el" href="structFLootLockerXboxServiceTicketResponse.html">FLootLockerXboxServiceTicketResponse</a>)</td></tr>
+<tr class="memdesc:ga6c03fe1ec418a56e869bc8d8942ab7d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerXboxServiceTicketResponse.html">FLootLockerXboxServiceTicketResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga6c03fe1ec418a56e869bc8d8942ab7d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -1843,6 +2035,15 @@ Functions</h2></td></tr>
 <tr class="memitem:ga8fee13f7bb0c27420cea084b03669935" id="r_ga8fee13f7bb0c27420cea084b03669935"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga8fee13f7bb0c27420cea084b03669935">ULootLockerSDKManager::RedeemEpicStorePurchaseForCharacter</a> (const FString &amp;CharacterId, const FString &amp;AccountId, const FString &amp;BearerToken, const TArray&lt; FString &gt; &amp;EntitlementIds, const FString &amp;SandboxId, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:ga8fee13f7bb0c27420cea084b03669935"><td class="mdescLeft">&#160;</td><td class="mdescRight">Redeem Epic Games Store entitlements for a character.  <br /></td></tr>
 <tr class="separator:ga8fee13f7bb0c27420cea084b03669935"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga326fc53dff17457e2a17db4d995d4cf6" id="r_ga326fc53dff17457e2a17db4d995d4cf6"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga326fc53dff17457e2a17db4d995d4cf6">ULootLockerSDKManager::GetXboxServiceTicket</a> (const <a class="el" href="group__Purchasing.html#ga6c03fe1ec418a56e869bc8d8942ab7d4">FLootLockerXboxServiceTicketDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga326fc53dff17457e2a17db4d995d4cf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get an Xbox service ticket that can be used to redeem an Xbox Store purchase.  <br /></td></tr>
+<tr class="separator:ga326fc53dff17457e2a17db4d995d4cf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab163812d5b938bf35fa5fc1dabfcc006" id="r_gab163812d5b938bf35fa5fc1dabfcc006"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#gab163812d5b938bf35fa5fc1dabfcc006">ULootLockerSDKManager::RedeemXboxStorePurchaseForPlayer</a> (const FString &amp;UserCollectionsId, const FString &amp;ProductId, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gab163812d5b938bf35fa5fc1dabfcc006"><td class="mdescLeft">&#160;</td><td class="mdescRight">Redeem a purchase made towards the Xbox Store for the current player.  <br /></td></tr>
+<tr class="separator:gab163812d5b938bf35fa5fc1dabfcc006"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga083065581f504cbfb0c3df18569ca723" id="r_ga083065581f504cbfb0c3df18569ca723"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#ga083065581f504cbfb0c3df18569ca723">ULootLockerSDKManager::RedeemXboxStorePurchaseForClass</a> (int ClassId, const FString &amp;UserCollectionsId, const FString &amp;ProductId, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga083065581f504cbfb0c3df18569ca723"><td class="mdescLeft">&#160;</td><td class="mdescRight">Redeem a purchase made towards the Xbox Store for a class owned by the player.  <br /></td></tr>
+<tr class="separator:ga083065581f504cbfb0c3df18569ca723"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab09c8a7827abb75a69d0665b0a5e3c49" id="r_gab09c8a7827abb75a69d0665b0a5e3c49"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Purchasing.html#gab09c8a7827abb75a69d0665b0a5e3c49">ULootLockerSDKManager::BeginSteamPurchaseRedemption</a> (const FString &amp;SteamId, const FString &amp;<a class="el" href="group__Catalog.html#gga577a31dc9665d687667d28b20f1a3742a386c339d37e737a436499d423a77df0c">Currency</a>, const FString &amp;Language, const FString &amp;CatalogItemId, const <a class="el" href="group__Purchasing.html#gadd0ca10c3190c3ba08b2f60818b7f5aa">FLootLockerBeginSteamPurchaseRedemptionDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:gab09c8a7827abb75a69d0665b0a5e3c49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begin a Steam purchase (player) that can later be finalized and redeemed.  <br /></td></tr>
 <tr class="separator:gab09c8a7827abb75a69d0665b0a5e3c49"><td class="memSeparator" colspan="2">&#160;</td></tr>

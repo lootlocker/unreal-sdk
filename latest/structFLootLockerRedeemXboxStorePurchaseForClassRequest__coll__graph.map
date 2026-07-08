@@ -1,0 +1,5 @@
+<map id="FLootLockerRedeemXboxStorePurchaseForClassRequest" name="FLootLockerRedeemXboxStorePurchaseForClassRequest">
+<area shape="rect" id="Node000001" title="Request to redeem an Xbox Store purchase for a class." alt="" coords="5,93,227,133"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerRedeemXboxStorePurchaseForPlayerRequest.html" title="Request to redeem an Xbox Store purchase for the current player." alt="" coords="5,5,227,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,59,119,93,113,93,113,59"/>
+</map>

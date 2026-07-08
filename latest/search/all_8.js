@@ -13,6 +13,7 @@ var searchData=
   ['high_10',['high',['../group__Notifications.html#ggae525a3b5a85f7b2814f2a1582144eaaea8d966b2253a917086c8604959e152243',1,'LootLockerNotificationsRequestHandler.h']]],
   ['holder_5fid_11',['holder_id',['../structFLootLockerCreateWalletRequest.html#a97b3212f8dcee26803f8a36654276b75',1,'FLootLockerCreateWalletRequest::Holder_id'],['../structFLootLockerGetWalletResponse.html#ab27213a1b900436ead960ccf45bdd5fa',1,'FLootLockerGetWalletResponse::Holder_id']]],
   ['holder_5ftype_12',['Holder_type',['../structFLootLockerCreateWalletRequest.html#acc0e0941ee9d5245a53fa7ec1310c548',1,'FLootLockerCreateWalletRequest']]],
-  ['http_5fmethod_13',['http_method',['../structFLootLockerErrorReportRequest.html#a20fd8ed1094887530660133cba6688ed',1,'FLootLockerErrorReportRequest::http_method'],['../structFLootLockerFailedRequestReport.html#a019f03ea66e548ae1bea9d40559ae4bc',1,'FLootLockerFailedRequestReport::http_method']]],
-  ['httprequest_14',['HttpRequest',['../structFLootLockerHTTPExecutionQueueItem.html#a92bf775e47ddb6f1e93370cb17b5220a',1,'FLootLockerHTTPExecutionQueueItem']]]
+  ['hotseat_13',['Hotseat',['../group__Init.html#ggab6cbfe9c0c8733469624132e5afda1a5aaca41c16b1e459f6897b49bc9e212d8e',1,'LootLockerConfig.h']]],
+  ['http_5fmethod_14',['http_method',['../structFLootLockerErrorReportRequest.html#a20fd8ed1094887530660133cba6688ed',1,'FLootLockerErrorReportRequest::http_method'],['../structFLootLockerFailedRequestReport.html#a019f03ea66e548ae1bea9d40559ae4bc',1,'FLootLockerFailedRequestReport::http_method']]],
+  ['httprequest_15',['HttpRequest',['../structFLootLockerHTTPExecutionQueueItem.html#a92bf775e47ddb6f1e93370cb17b5220a',1,'FLootLockerHTTPExecutionQueueItem']]]
 ];

@@ -44,19 +44,19 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"classULootLockerFollowersRequestHandler.html#a54ef020c7f4458a07e1b34d4233540d6",
-"classULootLockerStaticNotificationStringBlueprintCallables.html#a28e5e1ce8340a4fd35f7cbc96cba489c",
-"group__Catalog.html#ga906cfa3c6c1014c69898047d8af3214d",
-"group__Metadata.html#gaf750c7c243afcfc541292c5a902cc4fd",
-"group__Purchasing.html#gga946691c7987a353ff57418eba974893ea66d02c2f8a582446f8dd8752366002b5",
-"structFLootLockerAsyncPurchaseProcess.html#aed64ff738c680058a96aac5b53f25dc0",
-"structFLootLockerCreateHeroWithVariationRequest.html#ab7a5a83e38ebf516da2c019146a6dccf",
-"structFLootLockerGetCurrencyDetailsResponse.html#ac97d0c489adc946f50fd0cf552fe72a8",
-"structFLootLockerLeaderboardCurrencyReward.html#add222ecbead16a3216cbde1800f51154",
-"structFLootLockerMessagesResponse.html#a46fffa39c383f1dc2eebf497ea01d5b5",
-"structFLootLockerPlayerData.html#a2e791b855ec5f7352e10a50d3454c744",
-"structFLootLockerRental.html#ae37299fdea1497bef77409670fbbedd5",
-"structLootLockerStaticRequestErrorStatusCodes.html#a35e0aa0134f07369523b1a251d28905c"
+"classULootLockerFeedbackRequestHandler.html#a437379c71ae3290faa19d7926fa5a574",
+"classULootLockerStateData.html#aeaec87e78cef78955c47f87d9cf63a6a",
+"group__Balances.html#gafc2119b704cb639aad10bf0a03f5d052",
+"group__Messages.html",
+"group__Purchasing.html#ga57e5191903070588eca97b4bca57d354",
+"structFLootLockerAssetItemDetailsKey.html#af9ca0e658f447624b7b3c7ebe2edbf46",
+"structFLootLockerConnectGoogleProviderToAccountRequest.html#a6f1ef3993021b677aad6e07f2d664099",
+"structFLootLockerFileUploadRequest.html#a7e53b16254e367664ba21a46ccae1bd6",
+"structFLootLockerInternalBroadcast.html#ae9d019eb16aa8cfd32399fb53c9cb7e7",
+"structFLootLockerListFriendsResponse.html#ad47d4eef215eccc1c3185cd42eae3771",
+"structFLootLockerNotificationRewardAssetDetails.html#a91dad847aae2e440f09ef94ccabe8ebf",
+"structFLootLockerReadNotificationsResponse.html",
+"structFLootLockerSuccessfulKey.html#af321cd20b883c7d5402de4e84c6094ad"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

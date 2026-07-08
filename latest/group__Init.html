@@ -60,7 +60,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.4.0</span>
+      <span id="ll-topnav-version">v10.5.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -204,7 +204,8 @@ $(document).ready(function(){initNavTree('group__Init.html',''); initResizable()
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle"><div class="title">Initialization</div></div>
 </div><!--header-->
 <div class="contents">
@@ -229,10 +230,56 @@ $(document).ready(function(){initNavTree('group__Init.html',''); initResizable()
 
 </div>
 </div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="gab6cbfe9c0c8733469624132e5afda1a5" name="gab6cbfe9c0c8733469624132e5afda1a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab6cbfe9c0c8733469624132e5afda1a5">&#9670;&#160;</a></span>ELootLockerMultiUserSessionMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="group__Init.html#gab6cbfe9c0c8733469624132e5afda1a5">ELootLockerMultiUserSessionMode</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Controls how the SDK handles multiple player sessions when a new authentication succeeds. </p>
+<p>Determines which player is considered the "default" for API calls that do not specify a player ULID. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggab6cbfe9c0c8733469624132e5afda1a5afaf396cbd83927b72a84d2616fac76ff" name="ggab6cbfe9c0c8733469624132e5afda1a5afaf396cbd83927b72a84d2616fac76ff"></a>NotSet&#160;</td><td class="fielddoc"><p>[Not yet configured] The SDK will automatically set the correct mode the first time the project is loaded with this version of the SDK: new installs (no API key) get SingleSession, existing projects get Hotseat for backwards compatibility. </p>
+<p>This value should never be set manually. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggab6cbfe9c0c8733469624132e5afda1a5aaca41c16b1e459f6897b49bc9e212d8e" name="ggab6cbfe9c0c8733469624132e5afda1a5aaca41c16b1e459f6897b49bc9e212d8e"></a>Hotseat&#160;</td><td class="fielddoc"><p>Multiple active sessions are allowed simultaneously. </p>
+<p>The first player to authenticate in a game session becomes the default. Subsequent authentications are additive — they join the active pool but do not change the default. All player data is retained in persistent cache between sessions.</p>
+<p>Best for: local multiplayer, couch co-op, or any game where multiple players share a device at the same time. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggab6cbfe9c0c8733469624132e5afda1a5a7f38d7b441417b213701c616f7641745" name="ggab6cbfe9c0c8733469624132e5afda1a5a7f38d7b441417b213701c616f7641745"></a>SingleSession&#160;</td><td class="fielddoc"><p>Only one player session exists at any given time. </p>
+<p>Each new authentication completely wipes all previous session data before saving the new player as the sole active default. There is always exactly one player in the system; no historical data is kept.</p>
+<p>Best for: standard single-player games where only one account should ever exist on the device. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggab6cbfe9c0c8733469624132e5afda1a5a3546c7aab79502bed91131c4ca4df08c" name="ggab6cbfe9c0c8733469624132e5afda1a5a3546c7aab79502bed91131c4ca4df08c"></a>ProfileSwitching&#160;</td><td class="fielddoc"><p>Only one player is active at a time, but historical player sessions are retained in a cold cache. </p>
+<p>Each new authentication makes that player the sole active and default while all previously active players are deactivated — but their session data remains on-device. You can switch back to a previously-authenticated player without re-authenticating.</p>
+<p>Best for: games with an account selection screen, or games where players switch between accounts. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html">ULootLockerConfig</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerFileConfig.html">FLootLockerFileConfig</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data struct for the pre-configured file config, loaded at startup from the "&lt;PackageName&gt;PreConfig[-&lt;identifier&gt;].bytes" file in the plugin's Config directory.  <a href="structFLootLockerFileConfig.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
@@ -240,6 +287,16 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga3cb6baf0f1ed97c7d982b37ed121e0c7" id="r_ga3cb6baf0f1ed97c7d982b37ed121e0c7"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Init.html#ga3cb6baf0f1ed97c7d982b37ed121e0c7">FLootLockerConfigurationUpdateDelegate</a>) (const FString &amp;)</td></tr>
 <tr class="memdesc:ga3cb6baf0f1ed97c7d982b37ed121e0c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delegate type for configuration update events.  <br /></td></tr>
 <tr class="separator:ga3cb6baf0f1ed97c7d982b37ed121e0c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:gab6cbfe9c0c8733469624132e5afda1a5" id="r_gab6cbfe9c0c8733469624132e5afda1a5"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Init.html#gab6cbfe9c0c8733469624132e5afda1a5">ELootLockerMultiUserSessionMode</a> : uint8 { <a class="el" href="group__Init.html#ggab6cbfe9c0c8733469624132e5afda1a5afaf396cbd83927b72a84d2616fac76ff">ELootLockerMultiUserSessionMode::NotSet</a>
+, <a class="el" href="group__Init.html#ggab6cbfe9c0c8733469624132e5afda1a5aaca41c16b1e459f6897b49bc9e212d8e">ELootLockerMultiUserSessionMode::Hotseat</a>
+, <a class="el" href="group__Init.html#ggab6cbfe9c0c8733469624132e5afda1a5a7f38d7b441417b213701c616f7641745">ELootLockerMultiUserSessionMode::SingleSession</a>
+, <a class="el" href="group__Init.html#ggab6cbfe9c0c8733469624132e5afda1a5a3546c7aab79502bed91131c4ca4df08c">ELootLockerMultiUserSessionMode::ProfileSwitching</a>
+ }</td></tr>
+<tr class="memdesc:gab6cbfe9c0c8733469624132e5afda1a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls how the SDK handles multiple player sessions when a new authentication succeeds.  <a href="group__Init.html#gab6cbfe9c0c8733469624132e5afda1a5">More...</a><br /></td></tr>
+<tr class="separator:gab6cbfe9c0c8733469624132e5afda1a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

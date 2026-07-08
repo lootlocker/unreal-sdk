@@ -60,7 +60,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.4.0</span>
+      <span id="ll-topnav-version">v10.5.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -203,6 +203,7 @@ $(document).ready(function(){initNavTree('group__Authentication.html',''); initR
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
@@ -467,6 +468,53 @@ $(document).ready(function(){initNavTree('group__Authentication.html',''); initR
   <table class="params">
     <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
     <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gaed3bd811dfdcf8d6ac6d78474a8566e2" name="gaed3bd811dfdcf8d6ac6d78474a8566e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaed3bd811dfdcf8d6ac6d78474a8566e2">&#9670;&#160;</a></span>GetPlayerBanStatus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetPlayerBanStatus </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>PlayerUlid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerBanRequestHandler_8h.html#afccc1600abaafc007f57830704e67704">FLootLockerBanStatusDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the ban status for a player. </p>
+<p>Use this after a session start fails with error code <code>player_banned</code> to retrieve the ban reason and duration so the game client can surface it to the player. This endpoint authenticates with a game API key and does not require an active player session.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">PlayerUlid</td><td>The ULID of the player to query </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
   </table>
   </dd>
 </dl>
@@ -2321,6 +2369,13 @@ $(document).ready(function(){initNavTree('group__Authentication.html',''); initR
 </div>
 </div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerBanStatusRequest.html">FLootLockerBanStatusRequest</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerBanStatusResponse.html">FLootLockerBanStatusResponse</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:ga98fc9b8d0305aab7f5668a0658b9ae1c" id="r_ga98fc9b8d0305aab7f5668a0658b9ae1c"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a>) (<a class="el" href="structFLootLockerAuthenticationResponse.html">FLootLockerAuthenticationResponse</a>)</td></tr>
@@ -2471,6 +2526,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaba10707e433a9a049488864639935180" id="r_gaba10707e433a9a049488864639935180"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gaba10707e433a9a049488864639935180">ULootLockerSDKManager::EndSession</a> (const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:gaba10707e433a9a049488864639935180"><td class="mdescLeft">&#160;</td><td class="mdescRight">End the active session (if any).  <br /></td></tr>
 <tr class="separator:gaba10707e433a9a049488864639935180"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaed3bd811dfdcf8d6ac6d78474a8566e2" id="r_gaed3bd811dfdcf8d6ac6d78474a8566e2"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gaed3bd811dfdcf8d6ac6d78474a8566e2">ULootLockerSDKManager::GetPlayerBanStatus</a> (const FString &amp;PlayerUlid, const <a class="el" href="LootLockerBanRequestHandler_8h.html#afccc1600abaafc007f57830704e67704">FLootLockerBanStatusDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="memdesc:gaed3bd811dfdcf8d6ac6d78474a8566e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the ban status for a player.  <br /></td></tr>
+<tr class="separator:gaed3bd811dfdcf8d6ac6d78474a8566e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -60,7 +60,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.4.0</span>
+      <span id="ll-topnav-version">v10.5.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -224,15 +224,17 @@ Collaboration diagram for FLootLockerLeaderboardDetailsResponse:</div>
 <div class="dyncontent">
 <div class="center"><img src="structFLootLockerLeaderboardDetailsResponse__coll__graph.png" border="0" usemap="#aFLootLockerLeaderboardDetailsResponse_coll__map" alt="Collaboration graph"/></div>
 <map name="aFLootLockerLeaderboardDetailsResponse_coll__map" id="aFLootLockerLeaderboardDetailsResponse_coll__map">
-<area shape="rect" title=" " alt="" coords="189,181,416,221"/>
-<area shape="rect" href="structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="109,93,272,119"/>
-<area shape="poly" title=" " alt="" coords="216,125,282,179,278,183,213,129"/>
-<area shape="rect" href="structFLootLockerErrorData.html" title=" " alt="" coords="5,5,168,31"/>
-<area shape="poly" title=" " alt="" coords="113,37,178,91,175,95,109,41"/>
-<area shape="rect" href="structFLootLockerRequestContext.html" title=" " alt="" coords="193,5,397,31"/>
-<area shape="poly" title=" " alt="" coords="272,41,206,95,203,91,269,37"/>
-<area shape="rect" href="structFLootLockerLeaderboardSchedule.html" title=" " alt="" coords="296,93,536,119"/>
-<area shape="poly" title=" " alt="" coords="393,129,327,183,324,179,390,125"/>
+<area shape="rect" title=" " alt="" coords="189,269,416,309"/>
+<area shape="rect" href="structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="109,181,272,207"/>
+<area shape="poly" title=" " alt="" coords="216,213,282,267,278,271,213,217"/>
+<area shape="rect" href="structFLootLockerErrorData.html" title=" " alt="" coords="5,93,168,119"/>
+<area shape="poly" title=" " alt="" coords="113,125,178,179,175,183,109,129"/>
+<area shape="rect" href="structFLootLockerBanInfo.html" title="Details about a player&#39;s active ban." alt="" coords="11,5,162,31"/>
+<area shape="poly" title=" " alt="" coords="89,45,89,93,84,93,84,45"/>
+<area shape="rect" href="structFLootLockerRequestContext.html" title=" " alt="" coords="193,93,397,119"/>
+<area shape="poly" title=" " alt="" coords="272,129,206,183,203,179,269,125"/>
+<area shape="rect" href="structFLootLockerLeaderboardSchedule.html" title=" " alt="" coords="296,181,536,207"/>
+<area shape="poly" title=" " alt="" coords="393,217,327,271,324,267,390,213"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -271,6 +273,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a7d350d23fa96a29c2ccc45a24c582617" id="r_a7d350d23fa96a29c2ccc45a24c582617"><td class="memItemLeft" align="right" valign="top">TArray&lt; <a class="el" href="structFLootLockerLeaderboardReward.html">FLootLockerLeaderboardReward</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerLeaderboardDetailsResponse.html#a7d350d23fa96a29c2ccc45a24c582617">Rewards</a></td></tr>
 <tr class="memdesc:a7d350d23fa96a29c2ccc45a24c582617"><td class="mdescLeft">&#160;</td><td class="mdescRight">A List of rewards tied to the Leaderboard.  <br /></td></tr>
 <tr class="separator:a7d350d23fa96a29c2ccc45a24c582617"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fa835d0344cdc6e8c97ca048d89b9ae" id="r_a7fa835d0344cdc6e8c97ca048d89b9ae"><td class="memItemLeft" align="right" valign="top">TArray&lt; <a class="el" href="structFLootLockerLeaderboardUpcomingReset.html">FLootLockerLeaderboardUpcomingReset</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerLeaderboardDetailsResponse.html#a7fa835d0344cdc6e8c97ca048d89b9ae">Upcoming_resets</a></td></tr>
+<tr class="memdesc:a7fa835d0344cdc6e8c97ca048d89b9ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pending manual resets that have been requested but not yet processed, ordered by scheduled_for ascending.  <br /></td></tr>
+<tr class="separator:a7fa835d0344cdc6e8c97ca048d89b9ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_structFLootLockerResponse"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_structFLootLockerResponse')"><img src="closed.png" alt="-"/>&#160;Data Fields inherited from <a class="el" href="structFLootLockerResponse.html">FLootLockerResponse</a></td></tr>
 <tr class="memitem:a36e1bee90e730f572837ea0da0f4fc60 inherit pub_attribs_structFLootLockerResponse" id="r_a36e1bee90e730f572837ea0da0f4fc60"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerResponse.html#a36e1bee90e730f572837ea0da0f4fc60">success</a> = false</td></tr>
 <tr class="memdesc:a36e1bee90e730f572837ea0da0f4fc60 inherit pub_attribs_structFLootLockerResponse"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether this request was a success.  <br /></td></tr>
@@ -446,6 +451,22 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The type of the Leaderboard (Player / Generic). </p>
+
+</div>
+</div>
+<a id="a7fa835d0344cdc6e8c97ca048d89b9ae" name="a7fa835d0344cdc6e8c97ca048d89b9ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fa835d0344cdc6e8c97ca048d89b9ae">&#9670;&#160;</a></span>Upcoming_resets</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TArray&lt;<a class="el" href="structFLootLockerLeaderboardUpcomingReset.html">FLootLockerLeaderboardUpcomingReset</a>&gt; FLootLockerLeaderboardDetailsResponse::Upcoming_resets</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pending manual resets that have been requested but not yet processed, ordered by scheduled_for ascending. </p>
 
 </div>
 </div>

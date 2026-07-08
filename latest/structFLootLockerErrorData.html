@@ -60,7 +60,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.4.0</span>
+      <span id="ll-topnav-version">v10.5.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -209,6 +209,16 @@ $(document).ready(function(){initNavTree('structFLootLockerErrorData.html',''); 
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="LootLockerErrorData_8h_source.html">LootLockerErrorData.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for FLootLockerErrorData:</div>
+<div class="dyncontent">
+<div class="center"><img src="structFLootLockerErrorData__coll__graph.png" border="0" usemap="#aFLootLockerErrorData_coll__map" alt="Collaboration graph"/></div>
+<map name="aFLootLockerErrorData_coll__map" id="aFLootLockerErrorData_coll__map">
+<area shape="rect" title=" " alt="" coords="5,93,168,119"/>
+<area shape="rect" href="structFLootLockerBanInfo.html" title="Details about a player&#39;s active ban." alt="" coords="11,5,162,31"/>
+<area shape="poly" title=" " alt="" coords="89,45,89,93,84,93,84,45"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
@@ -230,8 +240,28 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a38d4fcf1306e778aebe40805095588b9" id="r_a38d4fcf1306e778aebe40805095588b9"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerErrorData.html#a38d4fcf1306e778aebe40805095588b9">Message</a> = &quot;&quot;</td></tr>
 <tr class="memdesc:a38d4fcf1306e778aebe40805095588b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">A free text description of the problem and potential suggestions for fixing it.  <br /></td></tr>
 <tr class="separator:a38d4fcf1306e778aebe40805095588b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75834c8d5a844594d8a0c75cca64ca16" id="r_a75834c8d5a844594d8a0c75cca64ca16"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structFLootLockerBanInfo.html">FLootLockerBanInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerErrorData.html#a75834c8d5a844594d8a0c75cca64ca16">ban</a></td></tr>
+<tr class="memdesc:a75834c8d5a844594d8a0c75cca64ca16"><td class="mdescLeft">&#160;</td><td class="mdescRight">When Code is "player_banned", contains sanitized details about the active ban.  <br /></td></tr>
+<tr class="separator:a75834c8d5a844594d8a0c75cca64ca16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
+<a id="a75834c8d5a844594d8a0c75cca64ca16" name="a75834c8d5a844594d8a0c75cca64ca16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75834c8d5a844594d8a0c75cca64ca16">&#9670;&#160;</a></span>ban</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structFLootLockerBanInfo.html">FLootLockerBanInfo</a> FLootLockerErrorData::ban</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>When Code is "player_banned", contains sanitized details about the active ban. </p>
+<p>Fields will have default (empty/false) values for all other error codes. </p>
+
+</div>
+</div>
 <a id="a29cb98dcf2448bc74d1ef680a4f4a5a1" name="a29cb98dcf2448bc74d1ef680a4f4a5a1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a29cb98dcf2448bc74d1ef680a4f4a5a1">&#9670;&#160;</a></span>Code</h2>
 

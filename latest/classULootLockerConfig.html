@@ -60,7 +60,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.4.0</span>
+      <span id="ll-topnav-version">v10.5.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -205,7 +205,8 @@ $(document).ready(function(){initNavTree('classULootLockerConfig.html',''); init
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-attribs">Data Fields</a>  </div>
+<a href="#pub-attribs">Data Fields</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a>  </div>
   <div class="headertitle"><div class="title">ULootLockerConfig Class Reference<div class="ingroups"><a class="el" href="group__Init.html">Initialization</a></div></div></div>
 </div><!--header-->
 <div class="contents">
@@ -236,13 +237,17 @@ Collaboration diagram for ULootLockerConfig:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ac8af1f7a54df6c599f91448c9938bb70" id="r_ac8af1f7a54df6c599f91448c9938bb70"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#ac8af1f7a54df6c599f91448c9938bb70">PostInitProperties</a> () override</td></tr>
 <tr class="separator:ac8af1f7a54df6c599f91448c9938bb70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa6737a6b4d88b0c0f6474788d19e172" id="r_aaa6737a6b4d88b0c0f6474788d19e172"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#aaa6737a6b4d88b0c0f6474788d19e172">ULootLockerConfig</a> ()</td></tr>
-<tr class="separator:aaa6737a6b4d88b0c0f6474788d19e172"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:abd9be5bc62ff63170f0af26008dc71f0" id="r_abd9be5bc62ff63170f0af26008dc71f0"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#abd9be5bc62ff63170f0af26008dc71f0">IsSemverString</a> (const FString &amp;str)</td></tr>
 <tr class="separator:abd9be5bc62ff63170f0af26008dc71f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a323c6318bcdd47eb3a41dc026dc142f9" id="r_a323c6318bcdd47eb3a41dc026dc142f9"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a323c6318bcdd47eb3a41dc026dc142f9">IsFileConfigActive</a> ()</td></tr>
+<tr class="memdesc:a323c6318bcdd47eb3a41dc026dc142f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true when a pre-configured file config is active and governing settings.  <br /></td></tr>
+<tr class="separator:a323c6318bcdd47eb3a41dc026dc142f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8ca1c1a7dd87075d43ca7461a304917" id="r_af8ca1c1a7dd87075d43ca7461a304917"><td class="memItemLeft" align="right" valign="top">static TOptional&lt; <a class="el" href="structFLootLockerFileConfig.html">FLootLockerFileConfig</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#af8ca1c1a7dd87075d43ca7461a304917">ParseFileConfigContent</a> (const FString &amp;Content)</td></tr>
+<tr class="memdesc:af8ca1c1a7dd87075d43ca7461a304917"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a pre-config file's raw content (plain JSON or encrypted) into an <a class="el" href="structFLootLockerFileConfig.html" title="Data struct for the pre-configured file config, loaded at startup from the &quot;&lt;PackageName&gt;PreConfig[-&lt;...">FLootLockerFileConfig</a>.  <br /></td></tr>
+<tr class="separator:af8ca1c1a7dd87075d43ca7461a304917"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae516abed33880e1ce16d0011718ae701" id="r_ae516abed33880e1ce16d0011718ae701"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#ae516abed33880e1ce16d0011718ae701">ShouldLog</a> ()</td></tr>
 <tr class="separator:ae516abed33880e1ce16d0011718ae701"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0fb91c52842e9b0d770abc9855e9252c" id="r_a0fb91c52842e9b0d770abc9855e9252c"><td class="memItemLeft" align="right" valign="top">static ELootLockerLogLevel&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a0fb91c52842e9b0d770abc9855e9252c">GetConfiguredLogLevel</a> ()</td></tr>
@@ -284,6 +289,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:a09f93db3c149a80eed8a9572196d0d51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62af31abfcd811136f0139e7b2f30e32" id="r_a62af31abfcd811136f0139e7b2f30e32"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a62af31abfcd811136f0139e7b2f30e32">OutdatedSDKWarning</a> = &quot;This version of LootLocker is no longer updated through fab because of fab guidelines. Please use GitHub releases to update: https://github.com/lootlocker/unreal-sdk/releases&quot;</td></tr>
 <tr class="separator:a62af31abfcd811136f0139e7b2f30e32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba3a4fbb76c774c1a19b4a0c23ee7b66" id="r_aba3a4fbb76c774c1a19b4a0c23ee7b66"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#aba3a4fbb76c774c1a19b4a0c23ee7b66">FileConfigActiveNotice</a> = &quot;Settings are governed by the pre-configured file config shipped with the plugin and cannot be changed from the editor.&quot;</td></tr>
+<tr class="separator:aba3a4fbb76c774c1a19b4a0c23ee7b66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a047747a83d7fa148689bfd6dd39e60ea" id="r_a047747a83d7fa148689bfd6dd39e60ea"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a047747a83d7fa148689bfd6dd39e60ea">LootLockerGameKey</a> = &quot;&quot;</td></tr>
 <tr class="memdesc:a047747a83d7fa148689bfd6dd39e60ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">API Key used to talk to LootLocker. The API key can be found in <code>Settings &gt; API Keys</code> in the Web Console: <a href="https://console.lootlocker.com/settings/api-keys">https://console.lootlocker.com/settings/api-keys</a>.  <br /></td></tr>
 <tr class="separator:a047747a83d7fa148689bfd6dd39e60ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -302,7 +309,7 @@ Data Fields</h2></td></tr>
 <tr class="memitem:ac5488f96da83cbf2389127b8ed519ffc" id="r_ac5488f96da83cbf2389127b8ed519ffc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#ac5488f96da83cbf2389127b8ed519ffc">LogOutsideOfEditor</a> = false</td></tr>
 <tr class="memdesc:ac5488f96da83cbf2389127b8ed519ffc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allow LootLocker to log non error logs outside the editor. This is false by default to avoid log spamming and unintentional logging of data (as LootLocker logs requests and responses vs LootLocker).  <br /></td></tr>
 <tr class="separator:ac5488f96da83cbf2389127b8ed519ffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af947cdbfe3a34de73a9eb53b102d5a48" id="r_af947cdbfe3a34de73a9eb53b102d5a48"><td class="memItemLeft" align="right" valign="top">ELootLockerLogLevel&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#af947cdbfe3a34de73a9eb53b102d5a48">LootLockerLogLevel</a></td></tr>
+<tr class="memitem:af947cdbfe3a34de73a9eb53b102d5a48" id="r_af947cdbfe3a34de73a9eb53b102d5a48"><td class="memItemLeft" align="right" valign="top">ELootLockerLogLevel&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#af947cdbfe3a34de73a9eb53b102d5a48">LootLockerLogLevel</a> = ELootLockerLogLevel::Warning</td></tr>
 <tr class="separator:af947cdbfe3a34de73a9eb53b102d5a48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a273123063a65a05cc0a2b3b50bd77c14" id="r_a273123063a65a05cc0a2b3b50bd77c14"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a273123063a65a05cc0a2b3b50bd77c14">bEnableFileLogging</a> = false</td></tr>
 <tr class="separator:a273123063a65a05cc0a2b3b50bd77c14"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -322,25 +329,16 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a9179071e3b30e35e3eb086d52ff392ac" id="r_a9179071e3b30e35e3eb086d52ff392ac"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a9179071e3b30e35e3eb086d52ff392ac">bEnablePresenceInEditor</a> = true</td></tr>
 <tr class="memdesc:a9179071e3b30e35e3eb086d52ff392ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable presence features in the editor (for testing purposes)  <br /></td></tr>
 <tr class="separator:a9179071e3b30e35e3eb086d52ff392ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae457bcd11400ddd49e2414dc1c8008e3" id="r_ae457bcd11400ddd49e2414dc1c8008e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__Init.html#gab6cbfe9c0c8733469624132e5afda1a5">ELootLockerMultiUserSessionMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#ae457bcd11400ddd49e2414dc1c8008e3">MultiUserSessionMode</a> = <a class="el" href="group__Init.html#ggab6cbfe9c0c8733469624132e5afda1a5afaf396cbd83927b72a84d2616fac76ff">ELootLockerMultiUserSessionMode::NotSet</a></td></tr>
+<tr class="memdesc:ae457bcd11400ddd49e2414dc1c8008e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls how the SDK handles multiple player sessions when a new authentication succeeds.  <br /></td></tr>
+<tr class="separator:ae457bcd11400ddd49e2414dc1c8008e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a022833e0adc3140254ac50ca8d72613a" id="r_a022833e0adc3140254ac50ca8d72613a"><td class="memItemLeft" align="right" valign="top">static const FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConfig.html#a022833e0adc3140254ac50ca8d72613a">PreConfigFileName</a></td></tr>
+<tr class="memdesc:a022833e0adc3140254ac50ca8d72613a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filename of the pre-config file that the SDK looks for in the plugin's Config directory.  <br /></td></tr>
+<tr class="separator:a022833e0adc3140254ac50ca8d72613a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aaa6737a6b4d88b0c0f6474788d19e172" name="aaa6737a6b4d88b0c0f6474788d19e172"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa6737a6b4d88b0c0f6474788d19e172">&#9670;&#160;</a></span>ULootLockerConfig()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">ULootLockerConfig::ULootLockerConfig </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a85fd117e721e4c16882df311db88d6ed" name="a85fd117e721e4c16882df311db88d6ed"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a85fd117e721e4c16882df311db88d6ed">&#9670;&#160;</a></span>DisableFileLogging()</h2>
@@ -479,6 +477,34 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Gets the current runtime log level (runtime override or config). </p>
+
+</div>
+</div>
+<a id="a323c6318bcdd47eb3a41dc026dc142f9" name="a323c6318bcdd47eb3a41dc026dc142f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a323c6318bcdd47eb3a41dc026dc142f9">&#9670;&#160;</a></span>IsFileConfigActive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool ULootLockerConfig::IsFileConfigActive </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true when a pre-configured file config is active and governing settings. </p>
+<p>When true, the Project Settings panel is locked to prevent drift from the file config. </p>
 
 </div>
 </div>
@@ -640,6 +666,35 @@ Data Fields</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="af8ca1c1a7dd87075d43ca7461a304917" name="af8ca1c1a7dd87075d43ca7461a304917"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8ca1c1a7dd87075d43ca7461a304917">&#9670;&#160;</a></span>ParseFileConfigContent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static TOptional&lt; <a class="el" href="structFLootLockerFileConfig.html">FLootLockerFileConfig</a> &gt; ULootLockerConfig::ParseFileConfigContent </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Content</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Parses a pre-config file's raw content (plain JSON or encrypted) into an <a class="el" href="structFLootLockerFileConfig.html" title="Data struct for the pre-configured file config, loaded at startup from the &quot;&lt;PackageName&gt;PreConfig[-&lt;...">FLootLockerFileConfig</a>. </p>
+<p>Returns an empty TOptional when content is invalid or api_key is missing/empty. Exposed publicly so unit tests can call it without needing a real plugin on disk. </p>
 
 </div>
 </div>
@@ -853,6 +908,20 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="aba3a4fbb76c774c1a19b4a0c23ee7b66" name="aba3a4fbb76c774c1a19b4a0c23ee7b66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba3a4fbb76c774c1a19b4a0c23ee7b66">&#9670;&#160;</a></span>FileConfigActiveNotice</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerConfig::FileConfigActiveNotice = &quot;Settings are governed by the pre-configured file config shipped with the plugin and cannot be changed from the editor.&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac918cdc049beaacfa57e89ab00018f7c" name="ac918cdc049beaacfa57e89ab00018f7c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac918cdc049beaacfa57e89ab00018f7c">&#9670;&#160;</a></span>GameVersion</h2>
 
@@ -948,10 +1017,29 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">ELootLockerLogLevel ULootLockerConfig::LootLockerLogLevel</td>
+          <td class="memname">ELootLockerLogLevel ULootLockerConfig::LootLockerLogLevel = ELootLockerLogLevel::Warning</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae457bcd11400ddd49e2414dc1c8008e3" name="ae457bcd11400ddd49e2414dc1c8008e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae457bcd11400ddd49e2414dc1c8008e3">&#9670;&#160;</a></span>MultiUserSessionMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__Init.html#gab6cbfe9c0c8733469624132e5afda1a5">ELootLockerMultiUserSessionMode</a> ULootLockerConfig::MultiUserSessionMode = <a class="el" href="group__Init.html#ggab6cbfe9c0c8733469624132e5afda1a5afaf396cbd83927b72a84d2616fac76ff">ELootLockerMultiUserSessionMode::NotSet</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Controls how the SDK handles multiple player sessions when a new authentication succeeds. </p>
+<p>Hotseat: Multiple active sessions allowed. The first authenticated player is default; subsequent authentications are additive. Best for local multiplayer / couch co-op.</p>
+<p>Single Session: Only one player session exists at a time. New authentications wipe all previous session data. Best for standard single-player games.</p>
+<p>Profile Switching: Only one player active at a time, but historical players kept in cold cache. Each new authentication deactivates all others and becomes the sole active default. Best for games with account selection screens. </p>
 
 </div>
 </div>
@@ -980,6 +1068,31 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a022833e0adc3140254ac50ca8d72613a" name="a022833e0adc3140254ac50ca8d72613a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a022833e0adc3140254ac50ca8d72613a">&#9670;&#160;</a></span>PreConfigFileName</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const FString ULootLockerConfig::PreConfigFileName</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Filename of the pre-config file that the SDK looks for in the plugin's Config directory. </p>
+<p>Default: "LootLockerPreConfig.bytes" </p>
 
 </div>
 </div>

@@ -21,6 +21,8 @@ var hierarchy =
     [ "FLootLockerAwardedTier", "structFLootLockerAwardedTier.html", null ],
     [ "FLootLockerBalance", "structFLootLockerBalance.html", null ],
     [ "FLootLockerBalanceModifiers", "structFLootLockerBalanceModifiers.html", null ],
+    [ "FLootLockerBanInfo", "structFLootLockerBanInfo.html", null ],
+    [ "FLootLockerBanStatusRequest", "structFLootLockerBanStatusRequest.html", null ],
     [ "FLootLockerBaseAuthRequest", "structFLootLockerBaseAuthRequest.html", [
       [ "FLootLockerAppleGameCenterSessionRequest", "structFLootLockerAppleGameCenterSessionRequest.html", null ],
       [ "FLootLockerAppleSessionRequest", "structFLootLockerAppleSessionRequest.html", null ],
@@ -59,7 +61,8 @@ var hierarchy =
     [ "FLootLockerCatalog", "structFLootLockerCatalog.html", null ],
     [ "FLootLockerCatalogAppleAppStoreListing", "structFLootLockerCatalogAppleAppStoreListing.html", null ],
     [ "FLootLockerCatalogEntry", "structFLootLockerCatalogEntry.html", [
-      [ "FLootLockerInlinedCatalogEntry", "structFLootLockerInlinedCatalogEntry.html", null ]
+      [ "FLootLockerInlinedCatalogEntry", "structFLootLockerInlinedCatalogEntry.html", null ],
+      [ "FLootLockerListCatalogItemsByIdEntry", "structFLootLockerListCatalogItemsByIdEntry.html", null ]
     ] ],
     [ "FLootLockerCatalogEntryListings", "structFLootLockerCatalogEntryListings.html", null ],
     [ "FLootLockerCatalogEntryPrice", "structFLootLockerCatalogEntryPrice.html", null ],
@@ -68,10 +71,12 @@ var hierarchy =
     [ "FLootLockerCatalogGroupAssociation", "structFLootLockerCatalogGroupAssociation.html", null ],
     [ "FLootLockerCatalogGroupMetadata", "structFLootLockerCatalogGroupMetadata.html", null ],
     [ "FLootLockerCatalogItemAndQuantityPair", "structFLootLockerCatalogItemAndQuantityPair.html", null ],
+    [ "FLootLockerCatalogItemsIncludes", "structFLootLockerCatalogItemsIncludes.html", null ],
     [ "FLootLockerCatalogPlaystationStoreListing", "structFLootLockerCatalogPlaystationStoreListing.html", null ],
     [ "FLootLockerCatalogSteamStoreListing", "structFLootLockerCatalogSteamStoreListing.html", null ],
     [ "FLootLockerCatalogSteamStoreListingPrice", "structFLootLockerCatalogSteamStoreListingPrice.html", null ],
     [ "FLootLockerCatalogStripeStoreListing", "structFLootLockerCatalogStripeStoreListing.html", null ],
+    [ "FLootLockerCatalogXboxStoreListing", "structFLootLockerCatalogXboxStoreListing.html", null ],
     [ "FLootLockerCharacter", "structFLootLockerCharacter.html", null ],
     [ "FLootLockerCharacterLoadout", "structFLootLockerCharacterLoadout.html", null ],
     [ "FLootLockerCharacterLoadoutArray", "structFLootLockerCharacterLoadoutArray.html", null ],
@@ -121,6 +126,7 @@ var hierarchy =
     [ "FLootLockerFeedbackCategory", "structFLootLockerFeedbackCategory.html", null ],
     [ "FLootLockerFeedbackRequest", "structFLootLockerFeedbackRequest.html", null ],
     [ "FLootLockerFile", "structFLootLockerFile.html", null ],
+    [ "FLootLockerFileConfig", "structFLootLockerFileConfig.html", null ],
     [ "FLootLockerFileUpdateRequest", "structFLootLockerFileUpdateRequest.html", null ],
     [ "FLootLockerFileUploadRequest", "structFLootLockerFileUploadRequest.html", null ],
     [ "FLootLockerFilter", "structFLootLockerFilter.html", null ],
@@ -158,6 +164,8 @@ var hierarchy =
     [ "FLootLockerHTTPRequestData", "structFLootLockerHTTPRequestData.html", null ],
     [ "FLootLockerIncrementScoreRequest", "structFLootLockerIncrementScoreRequest.html", null ],
     [ "FLootLockerIndexBasedPagination", "structFLootLockerIndexBasedPagination.html", null ],
+    [ "FLootLockerInlinedGroupAssociation", "structFLootLockerInlinedGroupAssociation.html", null ],
+    [ "FLootLockerInlinedGroupDetailsWithAssociations", "structFLootLockerInlinedGroupDetailsWithAssociations.html", null ],
     [ "FLootLockerInternalBroadcast", "structFLootLockerInternalBroadcast.html", null ],
     [ "FLootLockerInternalBroadcastLanguage", "structFLootLockerInternalBroadcastLanguage.html", null ],
     [ "FLootLockerInternalBroadcastLocalizationEntry", "structFLootLockerInternalBroadcastLocalizationEntry.html", null ],
@@ -182,8 +190,11 @@ var hierarchy =
     [ "FLootLockerLeaderboardReward", "structFLootLockerLeaderboardReward.html", null ],
     [ "FLootLockerLeaderboardRewardArgs", "structFLootLockerLeaderboardRewardArgs.html", null ],
     [ "FLootLockerLeaderboardSchedule", "structFLootLockerLeaderboardSchedule.html", null ],
+    [ "FLootLockerLeaderboardUpcomingReset", "structFLootLockerLeaderboardUpcomingReset.html", null ],
     [ "FLootLockerLeaseRemoteSessionRequest", "structFLootLockerLeaseRemoteSessionRequest.html", null ],
     [ "FLootLockerLevelThresholds", "structFLootLockerLevelThresholds.html", null ],
+    [ "FLootLockerListCatalogItemsByIdError", "structFLootLockerListCatalogItemsByIdError.html", null ],
+    [ "FLootLockerListCatalogItemsByIdRequest", "structFLootLockerListCatalogItemsByIdRequest.html", null ],
     [ "FLootLockerListCharacterResponseItem", "structFLootLockerListCharacterResponseItem.html", null ],
     [ "FLootLockerListPlayerInfoRequest", "structFLootLockerListPlayerInfoRequest.html", null ],
     [ "FLootLockerListSimpleAssetsRequest", "structFLootLockerListSimpleAssetsRequest.html", null ],
@@ -203,6 +214,7 @@ var hierarchy =
     [ "FLootLockerMessage", "structFLootLockerMessage.html", null ],
     [ "FLootLockerMetadataBase64Value", "structFLootLockerMetadataBase64Value.html", null ],
     [ "FLootLockerMetadataEntry", "structFLootLockerMetadataEntry.html", null ],
+    [ "FLootLockerMetadataInclude", "structFLootLockerMetadataInclude.html", null ],
     [ "FLootLockerMetadataSourceAndEntries", "structFLootLockerMetadataSourceAndEntries.html", null ],
     [ "FLootLockerMetadataSourceAndKeys", "structFLootLockerMetadataSourceAndKeys.html", null ],
     [ "FLootLockerModifyScoreRequest", "structFLootLockerModifyScoreRequest.html", null ],
@@ -270,6 +282,9 @@ var hierarchy =
     [ "FLootLockerRedeemGooglePlayStorePurchaseForPlayerRequest", "structFLootLockerRedeemGooglePlayStorePurchaseForPlayerRequest.html", [
       [ "FLootLockerRedeemGooglePlayStorePurchaseForClassRequest", "structFLootLockerRedeemGooglePlayStorePurchaseForClassRequest.html", null ]
     ] ],
+    [ "FLootLockerRedeemXboxStorePurchaseForPlayerRequest", "structFLootLockerRedeemXboxStorePurchaseForPlayerRequest.html", [
+      [ "FLootLockerRedeemXboxStorePurchaseForClassRequest", "structFLootLockerRedeemXboxStorePurchaseForClassRequest.html", null ]
+    ] ],
     [ "FLootLockerRefundByEntitlementIdsRequest", "structFLootLockerRefundByEntitlementIdsRequest.html", null ],
     [ "FLootLockerRefundCurrencyEntry", "structFLootLockerRefundCurrencyEntry.html", null ],
     [ "FLootLockerRefundNonReversibleReward", "structFLootLockerRefundNonReversibleReward.html", null ],
@@ -309,9 +324,11 @@ var hierarchy =
         [ "FLootLockerWhiteLabelLoginAndSessionResponse", "structFLootLockerWhiteLabelLoginAndSessionResponse.html", null ]
       ] ],
       [ "FLootLockerBalanceResponse", "structFLootLockerBalanceResponse.html", null ],
+      [ "FLootLockerBanStatusResponse", "structFLootLockerBanStatusResponse.html", null ],
       [ "FLootLockerBeginSteamPurchaseRedemptionResponse", "structFLootLockerBeginSteamPurchaseRedemptionResponse.html", null ],
       [ "FLootLockerCharacterLoadoutResponse", "structFLootLockerCharacterLoadoutResponse.html", null ],
       [ "FLootLockerComputeAndLockDropTableResponse", "structFLootLockerComputeAndLockDropTableResponse.html", null ],
+      [ "FLootLockerConnectionStateResponse", "structFLootLockerConnectionStateResponse.html", null ],
       [ "FLootLockerCreateAssetCandidateResponse", "structFLootLockerCreateAssetCandidateResponse.html", null ],
       [ "FLootLockerCreateStripeCheckoutSessionResponse", "structFLootLockerCreateStripeCheckoutSessionResponse.html", null ],
       [ "FLootLockerCreateWalletResponse", "structFLootLockerCreateWalletResponse.html", null ],
@@ -365,6 +382,7 @@ var hierarchy =
       [ "FLootLockerListBalancesForWalletResponse", "structFLootLockerListBalancesForWalletResponse.html", null ],
       [ "FLootLockerListBlockedPlayersResponse", "structFLootLockerListBlockedPlayersResponse.html", null ],
       [ "FLootLockerListBroadcastsResponse", "structFLootLockerListBroadcastsResponse.html", null ],
+      [ "FLootLockerListCatalogItemsByIdResponse", "structFLootLockerListCatalogItemsByIdResponse.html", null ],
       [ "FLootLockerListCatalogPricesResponse", "structFLootLockerListCatalogPricesResponse.html", null ],
       [ "FLootLockerListCatalogPricesV2Response", "structFLootLockerListCatalogPricesV2Response.html", null ],
       [ "FLootLockerListCatalogsResponse", "structFLootLockerListCatalogsResponse.html", null ],
@@ -412,7 +430,8 @@ var hierarchy =
       [ "FLootLockerSubmitScoreResponse", "structFLootLockerSubmitScoreResponse.html", null ],
       [ "FLootLockerTimeResponse", "structFLootLockerTimeResponse.html", null ],
       [ "FLootLockerUniversalAssetsResponse", "structFLootLockerUniversalAssetsResponse.html", null ],
-      [ "FLootLockerWhiteLabelVerifySessionResponse", "structFLootLockerWhiteLabelVerifySessionResponse.html", null ]
+      [ "FLootLockerWhiteLabelVerifySessionResponse", "structFLootLockerWhiteLabelVerifySessionResponse.html", null ],
+      [ "FLootLockerXboxServiceTicketResponse", "structFLootLockerXboxServiceTicketResponse.html", null ]
     ] ],
     [ "FLootLockerResponseAssetCandidate", "structFLootLockerResponseAssetCandidate.html", null ],
     [ "FLootLockerRewards", "structFLootLockerRewards.html", null ],
@@ -471,6 +490,7 @@ var hierarchy =
       [ "ULootLockerAssetsRequestHandler", "classULootLockerAssetsRequestHandler.html", null ],
       [ "ULootLockerAuthenticationRequestHandler", "classULootLockerAuthenticationRequestHandler.html", null ],
       [ "ULootLockerBalanceRequestHandler", "classULootLockerBalanceRequestHandler.html", null ],
+      [ "ULootLockerBanRequestHandler", "classULootLockerBanRequestHandler.html", null ],
       [ "ULootLockerBroadcastRequestHandler", "classULootLockerBroadcastRequestHandler.html", null ],
       [ "ULootLockerCatalogRequestHandler", "classULootLockerCatalogRequestHandler.html", null ],
       [ "ULootLockerCharacterRequestHandler", "classULootLockerCharacterRequestHandler.html", null ],

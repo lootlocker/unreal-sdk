@@ -60,7 +60,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.4.0</span>
+      <span id="ll-topnav-version">v10.5.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -908,6 +908,7 @@ $(document).ready(function(){initNavTree('group__ConnectedAccounts.html',''); in
 
 <p>Transfer identity providers between two authenticated players. </p>
 <p>Destructive: providers move from source to target player. Entire operation fails if any provider cannot be transferred.</p>
+<p>NOTE: Requires <a class="el" href="group__Init.html#ggab6cbfe9c0c8733469624132e5afda1a5aaca41c16b1e459f6897b49bc9e212d8e" title="Multiple active sessions are allowed simultaneously.">ELootLockerMultiUserSessionMode::Hotseat</a> to be configured (<a class="el" href="classULootLockerConfig.html#ae457bcd11400ddd49e2414dc1c8008e3" title="Controls how the SDK handles multiple player sessions when a new authentication succeeds.">ULootLockerConfig::MultiUserSessionMode</a>), because this method needs two simultaneously active local sessions. It returns an error if the current mode is SingleSession or ProfileSwitching.</p>
 <p>Limitations:</p><ul>
 <li>Source must own each provider</li>
 <li>Target must not already have provider</li>

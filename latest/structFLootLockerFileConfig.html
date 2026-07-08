@@ -1,0 +1,458 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: FLootLockerFileConfig Struct Reference</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.5.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('structFLootLockerFileConfig.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
+  <div class="headertitle"><div class="title">FLootLockerFileConfig Struct Reference<div class="ingroups"><a class="el" href="group__Init.html">Initialization</a></div></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Data struct for the pre-configured file config, loaded at startup from the "&lt;PackageName&gt;PreConfig[-&lt;identifier&gt;].bytes" file in the plugin's Config directory.  
+ <a href="structFLootLockerFileConfig.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="LootLockerFileConfig_8h_source.html">LootLockerFileConfig.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a4f69a2f2aa1f58724c1b910666b733fa" id="r_a4f69a2f2aa1f58724c1b910666b733fa"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerFileConfig.html#a4f69a2f2aa1f58724c1b910666b733fa">api_key</a></td></tr>
+<tr class="separator:a4f69a2f2aa1f58724c1b910666b733fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6534efd67f54b66fc318e8ae0fbd6ce" id="r_ad6534efd67f54b66fc318e8ae0fbd6ce"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerFileConfig.html#ad6534efd67f54b66fc318e8ae0fbd6ce">domain_key</a></td></tr>
+<tr class="separator:ad6534efd67f54b66fc318e8ae0fbd6ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6190b0485a436b7e0c5a0fbd2ddc757c" id="r_a6190b0485a436b7e0c5a0fbd2ddc757c"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerFileConfig.html#a6190b0485a436b7e0c5a0fbd2ddc757c">game_version</a> = TEXT(&quot;1.0.0.0&quot;)</td></tr>
+<tr class="separator:a6190b0485a436b7e0c5a0fbd2ddc757c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a811de4fdd46212380d0c96e262120288" id="r_a811de4fdd46212380d0c96e262120288"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerFileConfig.html#a811de4fdd46212380d0c96e262120288">allow_token_refresh</a> = true</td></tr>
+<tr class="separator:a811de4fdd46212380d0c96e262120288"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5606a5cd4870b80b6a41841bd9597053" id="r_a5606a5cd4870b80b6a41841bd9597053"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerFileConfig.html#a5606a5cd4870b80b6a41841bd9597053">log_outside_of_editor</a> = false</td></tr>
+<tr class="separator:a5606a5cd4870b80b6a41841bd9597053"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bc147b2c8c0de403e1ac4c883af0c7b" id="r_a8bc147b2c8c0de403e1ac4c883af0c7b"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerFileConfig.html#a8bc147b2c8c0de403e1ac4c883af0c7b">log_level</a> = TEXT(&quot;Warning&quot;)</td></tr>
+<tr class="memdesc:a8bc147b2c8c0de403e1ac4c883af0c7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum name string: "Error"|"Warning"|"Display"|"Verbose"|"VeryVerbose"|"NoLogging".  <br /></td></tr>
+<tr class="separator:a8bc147b2c8c0de403e1ac4c883af0c7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97f5d478940b6d4ef5a29a5b9193c5fc" id="r_a97f5d478940b6d4ef5a29a5b9193c5fc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerFileConfig.html#a97f5d478940b6d4ef5a29a5b9193c5fc">enable_file_logging</a> = false</td></tr>
+<tr class="separator:a97f5d478940b6d4ef5a29a5b9193c5fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3eb1643b36e88953b00681a37cd3d751" id="r_a3eb1643b36e88953b00681a37cd3d751"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerFileConfig.html#a3eb1643b36e88953b00681a37cd3d751">enable_presence</a> = false</td></tr>
+<tr class="separator:a3eb1643b36e88953b00681a37cd3d751"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74aa7102d4c256c945e5fc1cad5859a1" id="r_a74aa7102d4c256c945e5fc1cad5859a1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerFileConfig.html#a74aa7102d4c256c945e5fc1cad5859a1">enable_presence_auto_connect</a> = true</td></tr>
+<tr class="separator:a74aa7102d4c256c945e5fc1cad5859a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5ed08460058fc1f431acdb159bba698" id="r_ac5ed08460058fc1f431acdb159bba698"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerFileConfig.html#ac5ed08460058fc1f431acdb159bba698">enable_presence_auto_disconnect_on_focus_change</a> = true</td></tr>
+<tr class="separator:ac5ed08460058fc1f431acdb159bba698"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0b06142aa6db6eb328b9be1c6552621" id="r_aa0b06142aa6db6eb328b9be1c6552621"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerFileConfig.html#aa0b06142aa6db6eb328b9be1c6552621">enable_presence_in_editor</a> = true</td></tr>
+<tr class="separator:aa0b06142aa6db6eb328b9be1c6552621"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85ca0f7fe6f6651fa15bf31353053d8a" id="r_a85ca0f7fe6f6651fa15bf31353053d8a"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerFileConfig.html#a85ca0f7fe6f6651fa15bf31353053d8a">multi_user_session_mode</a> = TEXT(&quot;NotSet&quot;)</td></tr>
+<tr class="memdesc:a85ca0f7fe6f6651fa15bf31353053d8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum name string: "Hotseat"|"SingleSession"|"ProfileSwitching".  <br /></td></tr>
+<tr class="separator:a85ca0f7fe6f6651fa15bf31353053d8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d6caed5dc63ac5890ac0195f9d170f6" id="r_a8d6caed5dc63ac5890ac0195f9d170f6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerFileConfig.html#a8d6caed5dc63ac5890ac0195f9d170f6">use_legacy_http_stack</a> = false</td></tr>
+<tr class="separator:a8d6caed5dc63ac5890ac0195f9d170f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Data struct for the pre-configured file config, loaded at startup from the "&lt;PackageName&gt;PreConfig[-&lt;identifier&gt;].bytes" file in the plugin's Config directory. </p>
+<p>When present and containing a non-empty api_key, it overrides DefaultGame.ini settings and locks the editor UI to prevent drift.</p>
+<p>The file supports plain JSON or AES-256-ECB + PKCS7 + Base64 encrypted content. Plain JSON is recommended during development; encrypted files should be used for distribution.</p>
+<p>Build-time flags (enable_google_subsystem_helper, etc.) live in the optional "build_flags" JSON section and are consumed only by Build.cs at compile time — not at runtime.</p>
+<p>Supported JSON fields: api_key (string, required — empty or missing means "inactive") domain_key (string) game_version (string, default "1.0.0.0") allow_token_refresh (bool, default true) log_outside_of_editor (bool, default false) log_level (string: "Error"|"Warning"|"Display"|"Verbose"|"VeryVerbose"|"NoLogging", default "Warning") enable_file_logging (bool, default false) enable_presence (bool, default false) enable_presence_auto_connect (bool, default true) enable_presence_auto_disconnect_on_focus_change (bool, default true) enable_presence_in_editor (bool, default true) multi_user_session_mode (string: "Hotseat"|"SingleSession"|"ProfileSwitching"|"NotSet", default "NotSet" is internal and will be resolved at first launch") use_legacy_http_stack (bool, default false)</p>
+<p>Build-time only (parsed by Build.cs, ignored at runtime): build_flags.enable_google_subsystem_helper (bool) build_flags.show_outdated_sdk_message (bool) build_flags.enable_beta_error_reporting (bool) build_flags.force_legacy_http_stack (bool) </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a id="a811de4fdd46212380d0c96e262120288" name="a811de4fdd46212380d0c96e262120288"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a811de4fdd46212380d0c96e262120288">&#9670;&#160;</a></span>allow_token_refresh</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerFileConfig::allow_token_refresh = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4f69a2f2aa1f58724c1b910666b733fa" name="a4f69a2f2aa1f58724c1b910666b733fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f69a2f2aa1f58724c1b910666b733fa">&#9670;&#160;</a></span>api_key</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerFileConfig::api_key</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad6534efd67f54b66fc318e8ae0fbd6ce" name="ad6534efd67f54b66fc318e8ae0fbd6ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6534efd67f54b66fc318e8ae0fbd6ce">&#9670;&#160;</a></span>domain_key</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerFileConfig::domain_key</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a97f5d478940b6d4ef5a29a5b9193c5fc" name="a97f5d478940b6d4ef5a29a5b9193c5fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97f5d478940b6d4ef5a29a5b9193c5fc">&#9670;&#160;</a></span>enable_file_logging</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerFileConfig::enable_file_logging = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3eb1643b36e88953b00681a37cd3d751" name="a3eb1643b36e88953b00681a37cd3d751"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3eb1643b36e88953b00681a37cd3d751">&#9670;&#160;</a></span>enable_presence</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerFileConfig::enable_presence = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a74aa7102d4c256c945e5fc1cad5859a1" name="a74aa7102d4c256c945e5fc1cad5859a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74aa7102d4c256c945e5fc1cad5859a1">&#9670;&#160;</a></span>enable_presence_auto_connect</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerFileConfig::enable_presence_auto_connect = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac5ed08460058fc1f431acdb159bba698" name="ac5ed08460058fc1f431acdb159bba698"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5ed08460058fc1f431acdb159bba698">&#9670;&#160;</a></span>enable_presence_auto_disconnect_on_focus_change</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerFileConfig::enable_presence_auto_disconnect_on_focus_change = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa0b06142aa6db6eb328b9be1c6552621" name="aa0b06142aa6db6eb328b9be1c6552621"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0b06142aa6db6eb328b9be1c6552621">&#9670;&#160;</a></span>enable_presence_in_editor</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerFileConfig::enable_presence_in_editor = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6190b0485a436b7e0c5a0fbd2ddc757c" name="a6190b0485a436b7e0c5a0fbd2ddc757c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6190b0485a436b7e0c5a0fbd2ddc757c">&#9670;&#160;</a></span>game_version</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerFileConfig::game_version = TEXT(&quot;1.0.0.0&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8bc147b2c8c0de403e1ac4c883af0c7b" name="a8bc147b2c8c0de403e1ac4c883af0c7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bc147b2c8c0de403e1ac4c883af0c7b">&#9670;&#160;</a></span>log_level</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerFileConfig::log_level = TEXT(&quot;Warning&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enum name string: "Error"|"Warning"|"Display"|"Verbose"|"VeryVerbose"|"NoLogging". </p>
+
+</div>
+</div>
+<a id="a5606a5cd4870b80b6a41841bd9597053" name="a5606a5cd4870b80b6a41841bd9597053"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5606a5cd4870b80b6a41841bd9597053">&#9670;&#160;</a></span>log_outside_of_editor</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerFileConfig::log_outside_of_editor = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a85ca0f7fe6f6651fa15bf31353053d8a" name="a85ca0f7fe6f6651fa15bf31353053d8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85ca0f7fe6f6651fa15bf31353053d8a">&#9670;&#160;</a></span>multi_user_session_mode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerFileConfig::multi_user_session_mode = TEXT(&quot;NotSet&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enum name string: "Hotseat"|"SingleSession"|"ProfileSwitching". </p>
+<p>Default "NotSet" means "do not override". </p>
+
+</div>
+</div>
+<a id="a8d6caed5dc63ac5890ac0195f9d170f6" name="a8d6caed5dc63ac5890ac0195f9d170f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d6caed5dc63ac5890ac0195f9d170f6">&#9670;&#160;</a></span>use_legacy_http_stack</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerFileConfig::use_legacy_http_stack = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structFLootLockerFileConfig.html">FLootLockerFileConfig</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

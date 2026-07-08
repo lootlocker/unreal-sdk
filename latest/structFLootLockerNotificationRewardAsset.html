@@ -60,7 +60,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.4.0</span>
+      <span id="ll-topnav-version">v10.5.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -249,6 +249,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:aec884f596ad1fdeb4247dcf2110ca57f" id="r_aec884f596ad1fdeb4247dcf2110ca57f"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationRewardAsset.html#aec884f596ad1fdeb4247dcf2110ca57f">Asset_ulid</a> = &quot;&quot;</td></tr>
 <tr class="memdesc:aec884f596ad1fdeb4247dcf2110ca57f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The ULID of the Asset.  <br /></td></tr>
 <tr class="separator:aec884f596ad1fdeb4247dcf2110ca57f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9bf053b6cfe3c0fc80f41de6fc26f71" id="r_ad9bf053b6cfe3c0fc80f41de6fc26f71"><td class="memItemLeft" align="right" valign="top">TArray&lt; int64 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNotificationRewardAsset.html#ad9bf053b6cfe3c0fc80f41de6fc26f71">Asset_instance_ids</a></td></tr>
+<tr class="memdesc:ad9bf053b6cfe3c0fc80f41de6fc26f71"><td class="mdescLeft">&#160;</td><td class="mdescRight">The IDs of the Asset Instances that were granted.  <br /></td></tr>
+<tr class="separator:ad9bf053b6cfe3c0fc80f41de6fc26f71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents an asset reward in a notification, linking the reward to an asset and its optional variation or rental option. </p>
@@ -266,6 +269,23 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The ID of the Asset. </p>
+
+</div>
+</div>
+<a id="ad9bf053b6cfe3c0fc80f41de6fc26f71" name="ad9bf053b6cfe3c0fc80f41de6fc26f71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9bf053b6cfe3c0fc80f41de6fc26f71">&#9670;&#160;</a></span>Asset_instance_ids</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TArray&lt;int64&gt; FLootLockerNotificationRewardAsset::Asset_instance_ids</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The IDs of the Asset Instances that were granted. </p>
+<p>Will be empty if the reward did not result in any asset instance grants. For multi-quantity purchases all granted instance IDs are listed. For group rewards each nested asset entry carries its own Asset_instance_ids. </p>
 
 </div>
 </div>

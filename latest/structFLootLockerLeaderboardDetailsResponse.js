@@ -10,5 +10,6 @@ var structFLootLockerLeaderboardDetailsResponse =
     [ "Rewards", "structFLootLockerLeaderboardDetailsResponse.html#a7d350d23fa96a29c2ccc45a24c582617", null ],
     [ "Schedule", "structFLootLockerLeaderboardDetailsResponse.html#a49f70a7123c53fee64d33bd0cdfc2f12", null ],
     [ "Type", "structFLootLockerLeaderboardDetailsResponse.html#a8c6f470bfd1b0baac649e78d0f745d01", null ],
+    [ "Upcoming_resets", "structFLootLockerLeaderboardDetailsResponse.html#a7fa835d0344cdc6e8c97ca048d89b9ae", null ],
     [ "Updated_at", "structFLootLockerLeaderboardDetailsResponse.html#a8fd5e6455206159376077b2ecc04eced", null ]
 ];

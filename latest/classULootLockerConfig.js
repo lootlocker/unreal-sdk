@@ -1,17 +1,18 @@
 var classULootLockerConfig =
 [
-    [ "ULootLockerConfig", "classULootLockerConfig.html#aaa6737a6b4d88b0c0f6474788d19e172", null ],
     [ "DisableFileLogging", "classULootLockerConfig.html#a85fd117e721e4c16882df311db88d6ed", null ],
     [ "EnableFileLogging", "classULootLockerConfig.html#aebe068653a78444e25c0eb591b489012", null ],
     [ "GetConfiguredLogLevel", "classULootLockerConfig.html#a0fb91c52842e9b0d770abc9855e9252c", null ],
     [ "GetLogFilePath", "classULootLockerConfig.html#ac3e7582228a3cc5402a2963939f42e34", null ],
     [ "GetRuntimeLogLevel", "classULootLockerConfig.html#a8637bec2c9ce545b8f5d8f6c87939b3a", null ],
+    [ "IsFileConfigActive", "classULootLockerConfig.html#a323c6318bcdd47eb3a41dc026dc142f9", null ],
     [ "IsFileLoggingEnabled", "classULootLockerConfig.html#a62eac1ffaaf77b4ad74bbab77c90560a", null ],
     [ "IsPresenceAutoConnectEnabled", "classULootLockerConfig.html#af922baffa17bf450ab29c9540a20e3de", null ],
     [ "IsPresenceAutoDisconnectOnFocusChangeEnabled", "classULootLockerConfig.html#aef6e08fc9071780410cf53405bb6c691", null ],
     [ "IsPresenceEnabled", "classULootLockerConfig.html#aed9f653112d6d5463b35f18bf816ad99", null ],
     [ "IsPresenceEnabledInEditor", "classULootLockerConfig.html#a50b6e612c5213b4dcffed6cf828663a0", null ],
     [ "IsSemverString", "classULootLockerConfig.html#abd9be5bc62ff63170f0af26008dc71f0", null ],
+    [ "ParseFileConfigContent", "classULootLockerConfig.html#af8ca1c1a7dd87075d43ca7461a304917", null ],
     [ "PostInitProperties", "classULootLockerConfig.html#ac8af1f7a54df6c599f91448c9938bb70", null ],
     [ "SetRuntimeLogLevel", "classULootLockerConfig.html#a9ed13d6cbc4ee46f5e33a97c2dc8c035", null ],
     [ "ShouldLog", "classULootLockerConfig.html#ae516abed33880e1ce16d0011718ae701", null ],
@@ -23,6 +24,7 @@ var classULootLockerConfig =
     [ "bEnablePresenceInEditor", "classULootLockerConfig.html#a9179071e3b30e35e3eb086d52ff392ac", null ],
     [ "bUseLegacyHTTPStack", "classULootLockerConfig.html#a017e406e3d3b618fe2ac3184d69a83da", null ],
     [ "DomainKey", "classULootLockerConfig.html#ae7999a895b54756160e9d334f96d08e6", null ],
+    [ "FileConfigActiveNotice", "classULootLockerConfig.html#aba3a4fbb76c774c1a19b4a0c23ee7b66", null ],
     [ "GameVersion", "classULootLockerConfig.html#ac918cdc049beaacfa57e89ab00018f7c", null ],
     [ "InvalidGameVersionWarning", "classULootLockerConfig.html#aaa206b19f318a915a44c881e82f25b09", null ],
     [ "LogFileName", "classULootLockerConfig.html#af3b8e7f6259f806965daba463a3f8996", null ],
@@ -30,6 +32,8 @@ var classULootLockerConfig =
     [ "LongLogFilePath", "classULootLockerConfig.html#a3a09c98c00b26282cf7bc5846cf8efb7", null ],
     [ "LootLockerGameKey", "classULootLockerConfig.html#a047747a83d7fa148689bfd6dd39e60ea", null ],
     [ "LootLockerLogLevel", "classULootLockerConfig.html#af947cdbfe3a34de73a9eb53b102d5a48", null ],
+    [ "MultiUserSessionMode", "classULootLockerConfig.html#ae457bcd11400ddd49e2414dc1c8008e3", null ],
     [ "OnConfigurationUpdated", "classULootLockerConfig.html#a09f93db3c149a80eed8a9572196d0d51", null ],
-    [ "OutdatedSDKWarning", "classULootLockerConfig.html#a62af31abfcd811136f0139e7b2f30e32", null ]
+    [ "OutdatedSDKWarning", "classULootLockerConfig.html#a62af31abfcd811136f0139e7b2f30e32", null ],
+    [ "PreConfigFileName", "classULootLockerConfig.html#a022833e0adc3140254ac50ca8d72613a", null ]
 ];

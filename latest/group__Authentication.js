@@ -18,6 +18,7 @@ var group__Authentication =
       [ "ELootLockerGoogleClientPlatform::Desktop", "group__Authentication.html#ggae4ebc57a876c42d49c752c3af6c1f611a2310408a63388fe57e3a4177168a8798", null ]
     ] ],
     [ "ULootLockerSDKManager::EndSession", "group__Authentication.html#gaba10707e433a9a049488864639935180", null ],
+    [ "ULootLockerSDKManager::GetPlayerBanStatus", "group__Authentication.html#gaed3bd811dfdcf8d6ac6d78474a8566e2", null ],
     [ "ULootLockerSDKManager::GuestLogin", "group__Authentication.html#ga5f4c1eb0f2d8215a897e951b5231adb4", null ],
     [ "ULootLockerSDKManager::RefreshAppleGameCenterSession", "group__Authentication.html#ga2e129c10499dd7c16bfa4d87de01c01d", null ],
     [ "ULootLockerSDKManager::RefreshAppleGameCenterSession", "group__Authentication.html#ga75ab3b6e7ef1e0ae622190ddb943e3c8", null ],
@@ -50,5 +51,13 @@ var group__Authentication =
     [ "ULootLockerSDKManager::StartXboxSession", "group__Authentication.html#gab1479486719c925962dcb061c9d27ddf", null ],
     [ "ULootLockerSDKManager::VerifyPlayer", "group__Authentication.html#gaec4ec052796e3454b842aaf03e7e00a7", null ],
     [ "ULootLockerSDKManager::VerifyPlayerAndStartPlaystationNetworkSession", "group__Authentication.html#gacfd99e287b47541cd95012e1511dda6b", null ],
-    [ "ULootLockerSDKManager::VerifyPlayerAndStartPlaystationNetworkV3Session", "group__Authentication.html#gaa0616c935713a0e0cc31a225933f2b69", null ]
+    [ "ULootLockerSDKManager::VerifyPlayerAndStartPlaystationNetworkV3Session", "group__Authentication.html#gaa0616c935713a0e0cc31a225933f2b69", null ],
+    [ "FLootLockerBanStatusRequest", "structFLootLockerBanStatusRequest.html", [
+      [ "game_api_key", "structFLootLockerBanStatusRequest.html#af63f7e0d60cb1433bf5792508e7ca4c9", null ],
+      [ "player_id", "structFLootLockerBanStatusRequest.html#ac297a5f2c8273ee0b56b46558e719077", null ]
+    ] ],
+    [ "FLootLockerBanStatusResponse", "structFLootLockerBanStatusResponse.html", [
+      [ "ban", "structFLootLockerBanStatusResponse.html#ae6ff805a204cf47325c02e170e5199ca", null ],
+      [ "is_banned", "structFLootLockerBanStatusResponse.html#a86fa5a237d42ed84544901b5837db5b1", null ]
+    ] ]
 ];

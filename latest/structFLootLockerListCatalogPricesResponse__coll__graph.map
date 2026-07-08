@@ -1,13 +1,15 @@
 <map id="FLootLockerListCatalogPricesResponse" name="FLootLockerListCatalogPricesResponse">
-<area shape="rect" id="Node000001" title="Response containing catalog entries with entity&#45;typed lookup maps for asset, progression,..." alt="" coords="266,181,478,221"/>
-<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="109,93,272,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="226,123,337,179,334,184,224,127"/>
-<area shape="rect" id="Node000003" href="$structFLootLockerErrorData.html" title=" " alt="" coords="5,5,168,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="113,37,178,91,175,95,109,41"/>
-<area shape="rect" id="Node000004" href="$structFLootLockerRequestContext.html" title=" " alt="" coords="193,5,397,31"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="272,41,206,95,203,91,269,37"/>
-<area shape="rect" id="Node000005" href="$structFLootLockerCatalog.html" title="Represents a catalog with its name, unique key, identifier, and creation and deletion timestamps." alt="" coords="297,93,447,119"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="375,132,375,181,369,181,369,132"/>
-<area shape="rect" id="Node000006" href="$structFLootLockerKeyBasedPagination.html" title=" " alt="" coords="472,93,704,119"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="550,126,417,184,414,179,548,122"/>
+<area shape="rect" id="Node000001" title="Response containing catalog entries with entity&#45;typed lookup maps for asset, progression,..." alt="" coords="266,269,478,309"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="109,181,272,207"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="226,211,337,267,334,272,224,215"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerErrorData.html" title=" " alt="" coords="5,93,168,119"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="113,125,178,179,175,183,109,129"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerBanInfo.html" title="Details about a player&#39;s active ban." alt="" coords="11,5,162,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="89,45,89,93,84,93,84,45"/>
+<area shape="rect" id="Node000005" href="$structFLootLockerRequestContext.html" title=" " alt="" coords="193,93,397,119"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="272,129,206,183,203,179,269,125"/>
+<area shape="rect" id="Node000006" href="$structFLootLockerCatalog.html" title="Represents a catalog with its name, unique key, identifier, and creation and deletion timestamps." alt="" coords="297,181,447,207"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="375,220,375,269,369,269,369,220"/>
+<area shape="rect" id="Node000007" href="$structFLootLockerKeyBasedPagination.html" title=" " alt="" coords="472,181,704,207"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="550,214,417,272,414,267,548,210"/>
 </map>

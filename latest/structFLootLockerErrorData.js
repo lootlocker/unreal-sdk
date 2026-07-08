@@ -1,5 +1,6 @@
 var structFLootLockerErrorData =
 [
+    [ "ban", "structFLootLockerErrorData.html#a75834c8d5a844594d8a0c75cca64ca16", null ],
     [ "Code", "structFLootLockerErrorData.html#a29cb98dcf2448bc74d1ef680a4f4a5a1", null ],
     [ "Doc_url", "structFLootLockerErrorData.html#ab1f71de118ae8abd82a50d068dd7a3ed", null ],
     [ "Message", "structFLootLockerErrorData.html#a38d4fcf1306e778aebe40805095588b9", null ],

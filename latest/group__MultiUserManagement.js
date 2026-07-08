@@ -10,5 +10,6 @@ var group__MultiUserManagement =
     [ "ULootLockerSDKManager::SetAllPlayersToInactive", "group__MultiUserManagement.html#ga317d49bd50745f232fca1e491e9c6209", null ],
     [ "ULootLockerSDKManager::SetAllPlayersToInactiveExceptForPlayer", "group__MultiUserManagement.html#ga957538dfbb3b64119bbeca9298f696e5", null ],
     [ "ULootLockerSDKManager::SetDefaultPlayer", "group__MultiUserManagement.html#ga0b81ef36af62ab369f70aae2938820fb", null ],
+    [ "ULootLockerSDKManager::SetPlayerUlidToActive", "group__MultiUserManagement.html#ga5069be7a6030e652d85ace3f9cc5079b", null ],
     [ "ULootLockerSDKManager::SetPlayerUlidToInactive", "group__MultiUserManagement.html#gae2f25b72b32e7e1ad7f1c25afb0fc89d", null ]
 ];

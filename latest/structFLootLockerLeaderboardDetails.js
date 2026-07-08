@@ -11,5 +11,6 @@ var structFLootLockerLeaderboardDetails =
     [ "Schedule", "structFLootLockerLeaderboardDetails.html#a2edc3081cdb846c2864801cdc8c7811e", null ],
     [ "Type", "structFLootLockerLeaderboardDetails.html#a47bc95f565407b331ea15da53708aed5", null ],
     [ "ulid", "structFLootLockerLeaderboardDetails.html#a342cb37f5990d66a6f2bc96974a20479", null ],
+    [ "Upcoming_resets", "structFLootLockerLeaderboardDetails.html#a7946b00a7236e1bd9a661c2cb3c27310", null ],
     [ "Updated_at", "structFLootLockerLeaderboardDetails.html#a90b8cca8618c3dc3e256a7e2107ad77c", null ]
 ];

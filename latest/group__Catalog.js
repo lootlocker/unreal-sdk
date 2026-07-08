@@ -2,6 +2,7 @@ var group__Catalog =
 [
     [ "FInternalLootLockerListCatalogPricesResponseDelegate", "group__Catalog.html#gadcce8577df866441ece20ab02fe9eade", null ],
     [ "FInternalLootLockerListCatalogPricesV2ResponseDelegate", "group__Catalog.html#gaa273d60937d3152db9c8f3cd199d573d", null ],
+    [ "FLootLockerListCatalogItemsByIdResponseDelegate", "group__Catalog.html#ga8c6555da390633462a2f1f6a4be04a4d", null ],
     [ "FLootLockerListCatalogPricesResponseDelegate", "group__Catalog.html#gab16fbaa646fabe0cbbab0a87ea37daf5", null ],
     [ "FLootLockerListCatalogPricesV2ResponseDelegate", "group__Catalog.html#ga6156b113a08c8ea224b6c67f255bcc68", null ],
     [ "FLootLockerListCatalogsResponseDelegate", "group__Catalog.html#gac0b13f629c53f9051ab862a48bae1e07", null ],
@@ -16,5 +17,6 @@ var group__Catalog =
     [ "ULootLockerSDKManager::ListCatalogItems", "group__Catalog.html#ga62b50081fb773a403c3fdb9352d2c9ce", null ],
     [ "ULootLockerSDKManager::ListCatalogItems", "group__Catalog.html#gaac33873067bab0defe0e1bb241f27076", null ],
     [ "ULootLockerSDKManager::ListCatalogItems", "group__Catalog.html#ga906cfa3c6c1014c69898047d8af3214d", null ],
+    [ "ULootLockerSDKManager::ListCatalogItemsById", "group__Catalog.html#ga7e324de22d3e90267c89dde2bee61a7d", null ],
     [ "ULootLockerSDKManager::ListCatalogs", "group__Catalog.html#gab10ec45bafb64bbb76b4b75fa3f94ead", null ]
 ];

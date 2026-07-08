@@ -60,7 +60,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.4.0</span>
+      <span id="ll-topnav-version">v10.5.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.4.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -227,6 +227,22 @@ $(document).ready(function(){initNavTree('group__Misc.html',''); initResizable()
 
 </div>
 </div>
+<a id="gabc7fbd32831f6c8ba68e43f67918d216" name="gabc7fbd32831f6c8ba68e43f67918d216"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabc7fbd32831f6c8ba68e43f67918d216">&#9670;&#160;</a></span>FLootLockerConnectionStateDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerConnectionStateDelegate) (<a class="el" href="structFLootLockerConnectionStateResponse.html">FLootLockerConnectionStateResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for CheckConnectionStatus. </p>
+
+</div>
+</div>
 <a id="ga9aae5fd164c4606640a4216beb803128" name="ga9aae5fd164c4606640a4216beb803128"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga9aae5fd164c4606640a4216beb803128">&#9670;&#160;</a></span>FTimeResponseDelegate</h2>
 
@@ -244,6 +260,63 @@ $(document).ready(function(){initNavTree('group__Misc.html',''); initResizable()
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga9c0602ad952064d0d116d5929c7a20f4" name="ga9c0602ad952064d0d116d5929c7a20f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9c0602ad952064d0d116d5929c7a20f4">&#9670;&#160;</a></span>CheckConnectionStatus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::CheckConnectionStatus </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Misc.html#gabc7fbd32831f6c8ba68e43f67918d216">FLootLockerConnectionStateDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check the current connection and session state for a player. </p>
+<p>Performs fast local checks first, then a lightweight ping to the LootLocker servers. Returns one of the following states:</p><ul>
+<li>NotInitialized — the SDK has not been configured (game API key is not set).</li>
+<li>NotSignedIn — no saved credentials exist for the specified player.</li>
+<li>SavedButInactive — the player has saved credentials but is not currently active in the multi-player session. Call SetPlayerUlidToActive or start a new session first.</li>
+<li>NoConnection — the server could not be reached (no network, timeout, or status 0).</li>
+<li>SignedInAndConnected — the session is valid and the server is reachable.</li>
+<li>SessionExpired — a session exists but the token is no longer valid (401 or non-ban 403).</li>
+<li>Banned — the player is currently banned; BanDetails is populated.</li>
+<li>ServerError — the server returned a 5xx or other unexpected error.</li>
+</ul>
+<p>Note: if automatic token refresh is enabled in the SDK config (AllowTokenRefresh), the underlying HTTP client may attempt a refresh when the ping returns 401 or 403. This method reports the resulting state after any such automatic behavior — it does not explicitly request a refresh.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate called when the check is complete </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
 <a id="ga9a5753659a7b1157a30d19338becf79d" name="ga9a5753659a7b1157a30d19338becf79d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga9a5753659a7b1157a30d19338becf79d">&#9670;&#160;</a></span>GetGameInfo()</h2>
 
@@ -371,6 +444,9 @@ Typedefs</h2></td></tr>
 <tr class="memitem:gaf95865c2f71ca69211d45544119d4cda" id="r_gaf95865c2f71ca69211d45544119d4cda"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Misc.html#gaf95865c2f71ca69211d45544119d4cda">FGameInfoResponseDelegate</a>) (<a class="el" href="structFLootLockerGameInfoResponse.html">FLootLockerGameInfoResponse</a>)</td></tr>
 <tr class="memdesc:gaf95865c2f71ca69211d45544119d4cda"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for fetching game info.  <br /></td></tr>
 <tr class="separator:gaf95865c2f71ca69211d45544119d4cda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabc7fbd32831f6c8ba68e43f67918d216" id="r_gabc7fbd32831f6c8ba68e43f67918d216"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Misc.html#gabc7fbd32831f6c8ba68e43f67918d216">FLootLockerConnectionStateDelegate</a>) (<a class="el" href="structFLootLockerConnectionStateResponse.html">FLootLockerConnectionStateResponse</a>)</td></tr>
+<tr class="memdesc:gabc7fbd32831f6c8ba68e43f67918d216"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for CheckConnectionStatus.  <br /></td></tr>
+<tr class="separator:gabc7fbd32831f6c8ba68e43f67918d216"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -383,6 +459,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga9a5753659a7b1157a30d19338becf79d" id="r_ga9a5753659a7b1157a30d19338becf79d"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Misc.html#ga9a5753659a7b1157a30d19338becf79d">ULootLockerSDKManager::GetGameInfo</a> (const <a class="el" href="group__Misc.html#gaf95865c2f71ca69211d45544119d4cda">FGameInfoResponseDelegate</a> &amp;OnComplete)</td></tr>
 <tr class="memdesc:ga9a5753659a7b1157a30d19338becf79d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get game meta information.  <br /></td></tr>
 <tr class="separator:ga9a5753659a7b1157a30d19338becf79d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9c0602ad952064d0d116d5929c7a20f4" id="r_ga9c0602ad952064d0d116d5929c7a20f4"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Misc.html#ga9c0602ad952064d0d116d5929c7a20f4">ULootLockerSDKManager::CheckConnectionStatus</a> (const <a class="el" href="group__Misc.html#gabc7fbd32831f6c8ba68e43f67918d216">FLootLockerConnectionStateDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga9c0602ad952064d0d116d5929c7a20f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the current connection and session state for a player.  <br /></td></tr>
+<tr class="separator:ga9c0602ad952064d0d116d5929c7a20f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
