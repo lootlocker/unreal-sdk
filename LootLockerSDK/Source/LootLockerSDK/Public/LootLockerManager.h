@@ -70,6 +70,8 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerLoginResponseDelegateBP, FLootLocke
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerVerifySessionResponseBP, FLootLockerWhiteLabelVerifySessionResponse, Response);
 /** Blueprint response delegate for white label login and session responses */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP, FLootLockerWhiteLabelLoginAndSessionResponse, Var);
+/** Blueprint response delegate for white label sign up fields responses */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerSignUpFieldsResponseDelegateBP, FLootLockerWhiteLabelSignUpFieldsResponse, Response);
 /** Blueprint response delegate for Apple Game Center authentication session responses */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAppleGameCenterSessionResponseBP, FLootLockerAppleGameCenterSessionResponse, Response);
 /** Blueprint response delegate for Meta authentication session responses */
@@ -882,6 +884,33 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
     static UPARAM(DisplayName = "RequestId") FString WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelAccountCreationRequestCompleted);
+
+    /**
+     Create a new White Label user account including answers to custom sign-up fields.
+
+     Call @ref GetWhiteLabelSignUpFields first to retrieve the fields configured for this game,
+     then pass the player's answers.
+
+     @param Email Email for the new user
+     @param Password Password for the new user
+     @param CustomFields Answers to custom sign-up fields configured in the web console
+     @param OnWhiteLabelAccountCreationRequestCompleted Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    static UPARAM(DisplayName = "RequestId") FString WhiteLabelCreateAccountWithCustomFields(const FString& Email, const FString& Password, const TArray<FLootLockerWhiteLabelCustomSignUpFieldValue>& CustomFields, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelAccountCreationRequestCompleted);
+
+    /**
+     Retrieve the list of custom sign-up fields configured for this game.
+
+     Use the returned fields to build a sign-up form, then pass the player's answers
+     to @ref WhiteLabelCreateAccountWithCustomFields.
+
+     @param OnGetWhiteLabelSignUpFieldsRequestCompleted Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    static UPARAM(DisplayName = "RequestId") FString GetWhiteLabelSignUpFields(const FLootLockerSignUpFieldsResponseDelegateBP& OnGetWhiteLabelSignUpFieldsRequestCompleted);
 
     /**
      Log in a White Label user (email + password) and verify credentials without starting a LootLocker session.

@@ -82,6 +82,16 @@ FString ULootLockerSDKManager::WhiteLabelCreateAccount(const FString &Email, con
     return ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(Email, Password, OnCompletedRequest);
 }
 
+FString ULootLockerSDKManager::WhiteLabelCreateAccount(const FString& Email, const FString& Password, const TArray<FLootLockerWhiteLabelCustomSignUpFieldValue>& CustomFields, const FLootLockerLoginResponseDelegate& OnCompletedRequest)
+{
+    return ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(Email, Password, CustomFields, OnCompletedRequest);
+}
+
+FString ULootLockerSDKManager::GetWhiteLabelSignUpFields(const FLootLockerWhiteLabelSignUpFieldsResponseDelegate& OnCompletedRequest)
+{
+    return ULootLockerAuthenticationRequestHandler::GetWhiteLabelSignUpFields(OnCompletedRequest);
+}
+
 FString ULootLockerSDKManager::WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegate &OnCompletedRequest, const bool Remember /* = false */)
 {
     return ULootLockerAuthenticationRequestHandler::WhiteLabelLogin(Email, Password, Remember, OnCompletedRequest);

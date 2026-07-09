@@ -285,6 +285,20 @@ FString ULootLockerManager::WhiteLabelCreateAccount(const FString& Email, const 
     }));
 }
 
+FString ULootLockerManager::WhiteLabelCreateAccountWithCustomFields(const FString& Email, const FString& Password, const TArray<FLootLockerWhiteLabelCustomSignUpFieldValue>& CustomFields, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelAccountCreationRequestCompleted)
+{
+    return ULootLockerSDKManager::WhiteLabelCreateAccount(Email, Password, CustomFields, FLootLockerLoginResponseDelegate::CreateLambda([OnWhiteLabelAccountCreationRequestCompleted](const FLootLockerLoginResponse& Response) {
+        OnWhiteLabelAccountCreationRequestCompleted.ExecuteIfBound(Response);
+    }));
+}
+
+FString ULootLockerManager::GetWhiteLabelSignUpFields(const FLootLockerSignUpFieldsResponseDelegateBP& OnGetWhiteLabelSignUpFieldsRequestCompleted)
+{
+    return ULootLockerSDKManager::GetWhiteLabelSignUpFields(FLootLockerWhiteLabelSignUpFieldsResponseDelegate::CreateLambda([OnGetWhiteLabelSignUpFieldsRequestCompleted](const FLootLockerWhiteLabelSignUpFieldsResponse& Response) {
+        OnGetWhiteLabelSignUpFieldsRequestCompleted.ExecuteIfBound(Response);
+    }));
+}
+
 FString ULootLockerManager::GuestLogin(const FAuthResponseBP& OnCompletedRequestBP, const FString& PlayerIdentifier, const FLootLockerSessionOptionals& Optionals)
 {
     return ULootLockerSDKManager::GuestLogin(FLootLockerSessionResponse::CreateLambda([OnCompletedRequestBP](const FLootLockerAuthenticationResponse& Response) {
