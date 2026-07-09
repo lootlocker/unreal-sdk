@@ -785,6 +785,31 @@ public:
     static FString WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegate& OnCompletedRequest);
 
     /**
+     Create a new White Label user account including answers to custom sign-up fields.
+
+     Call @ref GetWhiteLabelSignUpFields first to retrieve the fields configured for this game,
+     then pass the player's answers.
+
+     @param Email User email
+     @param Password User password
+     @param CustomFields Answers to custom sign-up fields configured in the web console
+     @param OnCompletedRequest Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString WhiteLabelCreateAccount(const FString& Email, const FString& Password, const TArray<FLootLockerWhiteLabelCustomSignUpFieldValue>& CustomFields, const FLootLockerLoginResponseDelegate& OnCompletedRequest);
+
+    /**
+     Retrieve the list of custom sign-up fields configured for this game.
+
+     Use the returned fields to build a sign-up form, then pass the player's answers
+     to @ref WhiteLabelCreateAccount.
+
+     @param OnCompletedRequest Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString GetWhiteLabelSignUpFields(const FLootLockerWhiteLabelSignUpFieldsResponseDelegate& OnCompletedRequest);
+
+    /**
      Log in a White Label user (without starting session).
 
      Use WhiteLabelLoginAndStartSession unless you need manual control. Set Remember=true to prolong lifetime.

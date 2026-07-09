@@ -36,6 +36,36 @@ struct FLootLockerAuthResponse : public FLootLockerResponse
 };
 
 USTRUCT(BlueprintType)
+struct FLootLockerWhiteLabelCustomSignUpFieldValue
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FString metadata_key = "";
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FString value_json = "";
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerWhiteLabelCustomSignUpField
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FString question_text = "";
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FString metadata_key = "";
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FString field_type = "";
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FString params = "";
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	bool required = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	bool sensitive = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	int32 sort_order = 0;
+};
+
+USTRUCT(BlueprintType)
 struct FLootLockerLoginRequest
 {
 	GENERATED_BODY()
@@ -43,6 +73,8 @@ struct FLootLockerLoginRequest
 	FString email = "";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login")
 	FString password = "";
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login")
+	TArray<FLootLockerWhiteLabelCustomSignUpFieldValue> custom_fields;
 };
 
 USTRUCT(BlueprintType)
@@ -510,6 +542,14 @@ struct FLootLockerWhiteLabelVerifySessionResponse : public FLootLockerResponse
 };
 
 USTRUCT(BlueprintType)
+struct FLootLockerWhiteLabelSignUpFieldsResponse : public FLootLockerResponse
+{
+	GENERATED_BODY()
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	TArray<FLootLockerWhiteLabelCustomSignUpField> fields;
+};
+
+USTRUCT(BlueprintType)
 struct FLootLockerWhiteLabelLoginAndSessionResponse : public FLootLockerAuthResponse
 {
 	GENERATED_BODY()
@@ -584,6 +624,8 @@ DECLARE_DELEGATE_OneParam(FLootLockerAppleGameCenterSessionResponseDelegate, FLo
 DECLARE_DELEGATE_OneParam(FLootLockerMetaSessionResponseDelegate, FLootLockerMetaSessionResponse);
 /** C++ response callback delegate; receives an @ref FLootLockerDiscordSessionResponse result. */
 DECLARE_DELEGATE_OneParam(FLootLockerDiscordSessionResponseDelegate, FLootLockerDiscordSessionResponse);
+/** C++ response callback delegate; receives an @ref FLootLockerWhiteLabelSignUpFieldsResponse result. */
+DECLARE_DELEGATE_OneParam(FLootLockerWhiteLabelSignUpFieldsResponseDelegate, FLootLockerWhiteLabelSignUpFieldsResponse);
 
 
 /// @}
@@ -595,7 +637,9 @@ public:
 	ULootLockerAuthenticationRequestHandler() {};
 
 	static FString WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegate& OnCompletedRequest);
+	static FString WhiteLabelCreateAccount(const FString& Email, const FString& Password, const TArray<FLootLockerWhiteLabelCustomSignUpFieldValue>& CustomFields, const FLootLockerLoginResponseDelegate& OnCompletedRequest);
 	static FString WhiteLabelLogin(const FString& Email, const FString& Password, const bool Remember, const FLootLockerLoginResponseDelegate& OnCompletedRequest);
+	static FString GetWhiteLabelSignUpFields(const FLootLockerWhiteLabelSignUpFieldsResponseDelegate& OnCompletedRequest);
 	static FString GuestLogin(const FString& playerIdentifier, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& OnCompletedRequest);
 	static FString WhiteLabelStartSessionManual(const FString& Email, const FString& WhiteLabelToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& OnCompletedRequest);
 	static FString WhiteLabelStartSession(const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& OnCompletedRequest);

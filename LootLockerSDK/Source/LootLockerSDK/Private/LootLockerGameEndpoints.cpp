@@ -69,6 +69,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::RefreshRemoteSessionEndpoint = In
 // White Label
 FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelAuthEndpoint = InitEndpoint("v2/session/white-label", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelSignupEndpoint = InitEndpoint("white-label-login/sign-up", ELootLockerHTTPMethod::POST, ELootLockerApiType::LL_WHITELABEL);
+FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelSignupFieldsEndpoint = InitEndpoint("white-label-login/sign-up/fields", ELootLockerHTTPMethod::GET, ELootLockerApiType::LL_WHITELABEL);
 FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelLoginEndpoint = InitEndpoint("white-label-login/login", ELootLockerHTTPMethod::POST, ELootLockerApiType::LL_WHITELABEL);
 FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelVerifySessionEndpoint = InitEndpoint("white-label-login/verify-session", ELootLockerHTTPMethod::POST, ELootLockerApiType::LL_WHITELABEL);
 FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelRequestPasswordResetEndpoint = InitEndpoint("white-label-login/request-reset-password", ELootLockerHTTPMethod::POST, ELootLockerApiType::LL_WHITELABEL);

@@ -29,6 +29,24 @@ FString ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(const F
 		}), DomainKeyHeaders());
 }
 
+FString ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(const FString& Email, const FString& Password, const TArray<FLootLockerWhiteLabelCustomSignUpFieldValue>& CustomFields, const FLootLockerLoginResponseDelegate& OnCompletedRequest)
+{
+	FLootLockerLoginRequest SignupRequest;
+	SignupRequest.email = Email;
+	SignupRequest.password = Password;
+	SignupRequest.custom_fields = CustomFields;
+
+	_TempWhiteLabelEmailHolder = Email;
+
+	return LLAPI<FLootLockerLoginResponse>::CallAPI(SignupRequest, ULootLockerGameEndpoints::WhiteLabelSignupEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerLoginResponse>::FResponseInspectorCallback::CreateLambda([Email](const FLootLockerLoginResponse& Response)
+		{
+			if (!Response.success)
+			{
+				_TempWhiteLabelEmailHolder = "";
+			}
+		}), DomainKeyHeaders());
+}
+
 FString ULootLockerAuthenticationRequestHandler::GuestLogin(const FString& PlayerIdentifier, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& OnCompletedRequest)
 {
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
@@ -171,6 +189,12 @@ FString ULootLockerAuthenticationRequestHandler::WhiteLabelRequestPasswordReset(
 	ResetPasswordRequest.email = Email;
 
 	return LLAPI<FLootLockerResponse>::CallAPI(ResetPasswordRequest, ULootLockerGameEndpoints::WhiteLabelRequestPasswordResetEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback(), DomainKeyHeaders());
+}
+
+FString ULootLockerAuthenticationRequestHandler::GetWhiteLabelSignUpFields(const FLootLockerWhiteLabelSignUpFieldsResponseDelegate& OnCompletedRequest)
+{
+	FString EmptyBody;
+	return LLAPI<FLootLockerWhiteLabelSignUpFieldsResponse>::CallAPIUsingRawJSON(EmptyBody, ULootLockerGameEndpoints::WhiteLabelSignupFieldsEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerWhiteLabelSignUpFieldsResponse>::FResponseInspectorCallback(), DomainKeyHeaders());
 }
 
 FString ULootLockerAuthenticationRequestHandler::StartPlaystationNetworkSession(const FString& PsnOnlineId, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& OnCompletedRequest)
