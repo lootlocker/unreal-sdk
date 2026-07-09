@@ -101,6 +101,7 @@ public:
 
     // White Label
     static FLootLockerEndPoints WhiteLabelSignupEndpoint;
+    static FLootLockerEndPoints WhiteLabelSignupFieldsEndpoint;
     static FLootLockerEndPoints WhiteLabelLoginEndpoint;
     static FLootLockerEndPoints WhiteLabelAuthEndpoint;
     static FLootLockerEndPoints WhiteLabelVerifySessionEndpoint;
