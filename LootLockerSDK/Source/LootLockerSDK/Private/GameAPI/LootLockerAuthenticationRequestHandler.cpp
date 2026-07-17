@@ -14,7 +14,7 @@ FString ULootLockerAuthenticationRequestHandler::_TempWhiteLabelTokenHolder = ""
 
 FString ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegate& OnCompletedRequest)
 {
-	FLootLockerLoginRequest SignupRequest;
+	FLootLockerWhiteLabelCreateAccountRequest SignupRequest;
 	SignupRequest.email = Email;
 	SignupRequest.password = Password;
 
@@ -31,7 +31,7 @@ FString ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(const F
 
 FString ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(const FString& Email, const FString& Password, const TArray<FLootLockerWhiteLabelCustomSignUpFieldValue>& CustomFields, const FLootLockerLoginResponseDelegate& OnCompletedRequest)
 {
-	FLootLockerLoginRequest SignupRequest;
+	FLootLockerWhiteLabelCreateAccountRequest SignupRequest;
 	SignupRequest.email = Email;
 	SignupRequest.password = Password;
 	SignupRequest.custom_fields = CustomFields;

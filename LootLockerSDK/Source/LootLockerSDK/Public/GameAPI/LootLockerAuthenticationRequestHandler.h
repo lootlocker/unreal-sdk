@@ -73,6 +73,12 @@ struct FLootLockerLoginRequest
 	FString email = "";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login")
 	FString password = "";
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerWhiteLabelCreateAccountRequest : public FLootLockerLoginRequest
+{
+	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker Login")
 	TArray<FLootLockerWhiteLabelCustomSignUpFieldValue> custom_fields;
 };
