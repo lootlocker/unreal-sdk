@@ -1847,6 +1847,15 @@ FString ULootLockerManager::GetCurrencyDetails(const FString& ForPlayerWithUlid,
     }), ForPlayerWithUlid);
 }
 
+// Platform Keys
+FString ULootLockerManager::ListPlatformKeys(const FString& ForPlayerWithUlid, const FLootLockerListPlatformKeysResponseBP& OnCompletedRequest)
+{
+    return ULootLockerSDKManager::ListPlatformKeys(FLootLockerListPlatformKeysResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerListPlatformKeysResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
 FString ULootLockerManager::GetCurrencyDenominationsByCode(const FString& ForPlayerWithUlid, const FString& CurrencyCode, const FLootLockerListDenominationsResponseBP& OnCompletedRequest)
 {
     return ULootLockerSDKManager::GetCurrencyDenominationsByCode(CurrencyCode, FLootLockerListDenominationsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerListDenominationsResponse& Response)

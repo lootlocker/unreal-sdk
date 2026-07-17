@@ -269,6 +269,9 @@ FLootLockerEndPoints ULootLockerGameEndpoints::ListCurrencies = InitEndpoint("cu
 FLootLockerEndPoints ULootLockerGameEndpoints::GetCurrencyDetails = InitEndpoint("currency/code/{0}", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetCurrencyDenominationsByCode = InitEndpoint("currency/code/{0}/denominations", ELootLockerHTTPMethod::GET);
 
+// Platform Keys
+FLootLockerEndPoints ULootLockerGameEndpoints::ListPlatformKeys = InitEndpoint("platform-keys/v1", ELootLockerHTTPMethod::GET);
+
 // Balances
 FLootLockerEndPoints ULootLockerGameEndpoints::ListBalancesInWallet = InitEndpoint("balances/wallet/{0}", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetWalletByWalletId = InitEndpoint("wallet/{0}", ELootLockerHTTPMethod::GET);

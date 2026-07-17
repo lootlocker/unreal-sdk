@@ -13,6 +13,7 @@
 #include "GameAPI/LootLockerCharacterRequestHandler.h"
 #include "GameAPI/LootLockerConnectedAccountsRequestHandler.h"
 #include "GameAPI/LootLockerCurrencyRequestHandler.h"
+#include "GameAPI/LootLockerPlatformKeyRequestHandler.h"
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
 #include "GameAPI/LootLockerEntitlementRequestHandler.h"
 #include "GameAPI/LootLockerErrorReportRequestHandler.h"
@@ -3066,6 +3067,23 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetCurrencyDenominationsByCode(const FString & CurrencyCode, const FLootLockerListDenominationsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /// @}
+
+    //==================================================
+    // Platform Keys
+    //==================================================
+    /// @addtogroup PlatformKeys
+    /// @{
+
+    /**
+     List platform keys redeemed by the authenticated player.
+
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ListPlatformKeys(const FLootLockerListPlatformKeysResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     /// @}
 
