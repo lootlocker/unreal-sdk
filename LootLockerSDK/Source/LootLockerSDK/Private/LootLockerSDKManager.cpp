@@ -1357,6 +1357,13 @@ FString ULootLockerSDKManager::GetCurrencyDenominationsByCode(const FString& Cur
     return ULootLockerCurrencyRequestHandler::GetCurrencyDenominationsByCode(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CurrencyCode, OnCompletedRequest);
 }
 
+// Platform Keys
+
+FString ULootLockerSDKManager::ListPlatformKeys(const FLootLockerListPlatformKeysResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerPlatformKeyRequestHandler::ListPlatformKeys(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
+}
+
 // Balances
 
 FString ULootLockerSDKManager::ListBalancesInWallet(const FString& WalletID, const FLootLockerListBalancesForWalletResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)

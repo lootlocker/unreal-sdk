@@ -304,6 +304,9 @@ public:
     static FLootLockerEndPoints GetCurrencyDetails;
     static FLootLockerEndPoints GetCurrencyDenominationsByCode;
 
+    // Platform Keys
+    static FLootLockerEndPoints ListPlatformKeys;
+
     // Balances
     static FLootLockerEndPoints ListBalancesInWallet;
     static FLootLockerEndPoints GetWalletByWalletId;

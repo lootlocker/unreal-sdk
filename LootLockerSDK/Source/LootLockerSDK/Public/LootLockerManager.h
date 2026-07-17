@@ -14,6 +14,7 @@
 #include "GameAPI/LootLockerCharacterRequestHandler.h"
 #include "GameAPI/LootLockerConnectedAccountsRequestHandler.h"
 #include "GameAPI/LootLockerCurrencyRequestHandler.h"
+#include "GameAPI/LootLockerPlatformKeyRequestHandler.h"
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
 #include "GameAPI/LootLockerEntitlementRequestHandler.h"
 #include "GameAPI/LootLockerFollowersRequestHandler.h"
@@ -355,6 +356,12 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListCurrenciesResponseBP, FLootLock
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetCurrencyDetailsResponseBP, FLootLockerGetCurrencyDetailsResponse, Response);
 /** Blueprint response delegate for listing denominations responses */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListDenominationsResponseBP, FLootLockerListDenominationsResponse, Response);
+
+//==================================================
+// Platform Key Delegates
+//==================================================
+/** Blueprint response delegate for listing platform keys responses */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListPlatformKeysResponseBP, FLootLockerListPlatformKeysResponse, Response);
 
 //==================================================
 // Balance Delegates
@@ -3426,6 +3433,20 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Currency", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static UPARAM(DisplayName = "RequestId") FString GetCurrencyDenominationsByCode(const FString& ForPlayerWithUlid, const FString& CurrencyCode, const FLootLockerListDenominationsResponseBP& OnCompletedRequest);
+
+    //==================================================
+    // Platform Keys
+    //==================================================
+
+    /**
+     List platform keys redeemed by the authenticated player.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param OnCompletedRequest Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Platform Keys", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString ListPlatformKeys(const FString& ForPlayerWithUlid, const FLootLockerListPlatformKeysResponseBP& OnCompletedRequest);
 
     //==================================================
     // Balances
