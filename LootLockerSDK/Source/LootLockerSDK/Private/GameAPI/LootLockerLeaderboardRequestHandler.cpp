@@ -26,7 +26,11 @@ FString ULootLockerLeaderboardRequestHandler::GetByListOfMembers(const FLootLock
 FString ULootLockerLeaderboardRequestHandler::GetScoreList(const FLootLockerPlayerData& PlayerData, const FLootLockerGetScoreListRequest& GetScoreListRequests, const FLootLockerGetScoreListResponseDelegate& OnCompletedRequest)
 {
 	int32 after = GetScoreListRequests.after < 0 ? 0 : GetScoreListRequests.after;
-	return LLAPI<FLootLockerGetScoreListResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetScoreList, { GetScoreListRequests.leaderboard_key, GetScoreListRequests.count, after }, EmptyQueryParams, PlayerData, OnCompletedRequest);
+	if (after > 0)
+	{
+		return LLAPI<FLootLockerGetScoreListResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetScoreListAfter, { GetScoreListRequests.leaderboard_key, GetScoreListRequests.count, after }, EmptyQueryParams, PlayerData, OnCompletedRequest);
+	}
+	return LLAPI<FLootLockerGetScoreListResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetScoreList, { GetScoreListRequests.leaderboard_key, GetScoreListRequests.count }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
 FString ULootLockerLeaderboardRequestHandler::SubmitScore(const FLootLockerPlayerData& PlayerData, const FLootLockerSubmitScoreRequest& SubmitScoreRequests, FString LeaderboardKey, const FLootLockerSubmitScoreResponseDelegate& OnCompletedRequest)
