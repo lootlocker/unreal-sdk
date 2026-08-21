@@ -398,6 +398,38 @@ FString ULootLockerManager::ConnectTwitchAccount(const FString& ForPlayerWithUli
     }), ForPlayerWithUlid);
 }
 
+FString ULootLockerManager::ConnectSteamAccount(const FString& ForPlayerWithUlid, const FString& SteamTicket, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+{
+    return ULootLockerSDKManager::ConnectSteamAccount(SteamTicket, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::ConnectXboxAccount(const FString& ForPlayerWithUlid, const FString& XboxUserToken, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+{
+    return ULootLockerSDKManager::ConnectXboxAccount(XboxUserToken, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::ConnectNintendoAccount(const FString& ForPlayerWithUlid, const FString& NSAIdToken, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+{
+    return ULootLockerSDKManager::ConnectNintendoAccount(NSAIdToken, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::ConnectGooglePlayGamesAccount(const FString& ForPlayerWithUlid, const FString& AuthCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+{
+    return ULootLockerSDKManager::ConnectGooglePlayGamesAccount(AuthCode, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
 FString ULootLockerManager::ConnectEpicAccount(const FString& ForPlayerWithUlid, const FString& Token, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
 {
     return ULootLockerSDKManager::ConnectEpicAccount(Token, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
