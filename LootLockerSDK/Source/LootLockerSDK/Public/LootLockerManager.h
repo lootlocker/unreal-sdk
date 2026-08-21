@@ -1147,6 +1147,54 @@ public:
     static UPARAM(DisplayName = "RequestId") FString ConnectTwitchAccount(const FString& ForPlayerWithUlid, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
 
     /**
+     Connect a Steam account to this LootLocker player enabling Steam-based session starts.
+     IMPORTANT: When using multiple players ensure you supply the correct ForPlayerWithUlid.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param SteamTicket The Steam session ticket (hex-encoded)
+     @param OnCompleteBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString ConnectSteamAccount(const FString& ForPlayerWithUlid, const FString& SteamTicket, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+
+    /**
+     Connect an Xbox account to this LootLocker player enabling Xbox-based session starts.
+     IMPORTANT: When using multiple players ensure you supply the correct ForPlayerWithUlid.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param XboxUserToken The Xbox user token
+     @param OnCompleteBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString ConnectXboxAccount(const FString& ForPlayerWithUlid, const FString& XboxUserToken, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+
+    /**
+     Connect a Nintendo Switch account to this LootLocker player enabling Nintendo Switch-based session starts.
+     IMPORTANT: When using multiple players ensure you supply the correct ForPlayerWithUlid.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param NSAIdToken The NSA ID token from Nintendo Switch sign in
+     @param OnCompleteBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString ConnectNintendoAccount(const FString& ForPlayerWithUlid, const FString& NSAIdToken, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+
+    /**
+     Connect a Google Play Games account to this LootLocker player enabling Google Play Games-based session starts.
+     IMPORTANT: When using multiple players ensure you supply the correct ForPlayerWithUlid.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AuthCode The auth code from Google Play Games sign in
+     @param OnCompleteBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString ConnectGooglePlayGamesAccount(const FString& ForPlayerWithUlid, const FString& AuthCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+
+    /**
      Connect an Epic account to this LootLocker player enabling Epic-based session starts.
      IMPORTANT: When using multiple players ensure you supply the correct ForPlayerWithUlid.
 

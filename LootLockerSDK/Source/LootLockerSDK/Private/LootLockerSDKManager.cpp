@@ -300,6 +300,26 @@ FString ULootLockerSDKManager::ConnectTwitchAccount(const FString& Authorization
     return ULootLockerConnectedAccountsRequestHandler::ConnectTwitchAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AuthorizationCode, OnComplete);
 }
 
+FString ULootLockerSDKManager::ConnectSteamAccount(const FString& SteamTicket, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid)
+{
+    return ULootLockerConnectedAccountsRequestHandler::ConnectSteamAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), SteamTicket, OnComplete);
+}
+
+FString ULootLockerSDKManager::ConnectXboxAccount(const FString& XboxUserToken, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid)
+{
+    return ULootLockerConnectedAccountsRequestHandler::ConnectXboxAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), XboxUserToken, OnComplete);
+}
+
+FString ULootLockerSDKManager::ConnectNintendoAccount(const FString& NSAIdToken, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid)
+{
+    return ULootLockerConnectedAccountsRequestHandler::ConnectNintendoAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), NSAIdToken, OnComplete);
+}
+
+FString ULootLockerSDKManager::ConnectGooglePlayGamesAccount(const FString& AuthCode, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid)
+{
+    return ULootLockerConnectedAccountsRequestHandler::ConnectGooglePlayGamesAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AuthCode, OnComplete);
+}
+
 FString ULootLockerSDKManager::ConnectEpicAccount(const FString& Token, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid)
 {
     return ULootLockerConnectedAccountsRequestHandler::ConnectEpicAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Token, OnComplete);

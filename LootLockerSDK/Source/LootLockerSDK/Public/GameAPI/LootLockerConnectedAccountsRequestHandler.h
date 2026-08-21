@@ -180,6 +180,62 @@ struct FLootLockerConnectTwitchProviderToAccountRequest
 };
 
 /**
+ * Request to connect a Steam account to the current player account using a Steam session ticket.
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerConnectSteamProviderToAccountRequest
+{
+    GENERATED_BODY()
+    /**
+     * The Steam session ticket (hex-encoded)
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Steam_ticket = "";
+};
+
+/**
+ * Request to connect an Xbox account to the current player account using an Xbox user token.
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerConnectXboxProviderToAccountRequest
+{
+    GENERATED_BODY()
+    /**
+     * The Xbox user token
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Xbox_user_token = "";
+};
+
+/**
+ * Request to connect a Nintendo Switch account to the current player account using an NSA ID token.
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerConnectNintendoProviderToAccountRequest
+{
+    GENERATED_BODY()
+    /**
+     * The NSA ID token from Nintendo Switch sign in
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Nsa_id_token = "";
+};
+
+/**
+ * Request to connect a Google Play Games account to the current player account using an auth code.
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerConnectGooglePlayGamesProviderToAccountRequest
+{
+    GENERATED_BODY()
+    /**
+     * The auth code from Google Play Games sign in
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Auth_code = "";
+};
+
+/**
  * Request to connect a remote session lease to the current player account using the lease code and its nonce.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
@@ -308,6 +364,10 @@ public:
     static FString ConnectPlaystationAccount(const FLootLockerPlayerData& PlayerData, const FString& Environment, const FString& Code, const FLootLockerAccountConnectedResponseDelegate& OnComplete);
     static FString ConnectDiscordAccount(const FLootLockerPlayerData& PlayerData, const FString& Token, const FLootLockerAccountConnectedResponseDelegate& OnComplete);
     static FString ConnectTwitchAccount(const FLootLockerPlayerData& PlayerData, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseDelegate& OnComplete);
+    static FString ConnectSteamAccount(const FLootLockerPlayerData& PlayerData, const FString& SteamTicket, const FLootLockerAccountConnectedResponseDelegate& OnComplete);
+    static FString ConnectXboxAccount(const FLootLockerPlayerData& PlayerData, const FString& XboxUserToken, const FLootLockerAccountConnectedResponseDelegate& OnComplete);
+    static FString ConnectNintendoAccount(const FLootLockerPlayerData& PlayerData, const FString& NSAIdToken, const FLootLockerAccountConnectedResponseDelegate& OnComplete);
+    static FString ConnectGooglePlayGamesAccount(const FLootLockerPlayerData& PlayerData, const FString& AuthCode, const FLootLockerAccountConnectedResponseDelegate& OnComplete);
     static FString ConnectRemoteSessionAccount(const FLootLockerPlayerData& PlayerData, const FString& Code, const FString& Nonce, const FLootLockerAccountConnectedResponseDelegate& OnComplete);
     static FString TransferIdentityProvidersBetweenAccounts(const FLootLockerPlayerData& SourcePlayerData, const FLootLockerPlayerData& TargetPlayerData, TArray<ELootLockerAccountProvider> ProvidersToTransfer, const FLootLockerListConnectedAccountsResponseDelegate& OnComplete);
 };
