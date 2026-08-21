@@ -289,16 +289,11 @@ FString ULootLockerRemoteSessionRequestHandler::LeaseRemoteSession(
 	const ULootLockerConfig* config = GetDefault<ULootLockerConfig>();
 	RequestBody.Game_version = config ? config->GameVersion : TEXT("");
 	const FString ProviderStr = GetProviderUrlParam(Provider);
-	if (ProviderStr.IsEmpty())
+	if (!ProviderStr.IsEmpty())
 	{
-		return LLAPI<FLootLockerLeaseRemoteSessionResponse>::CallAPI(RequestBody, Endpoint, {}, {}, UserData, OnCompleteCallback);
+		RequestBody.Providers.Add(ProviderStr);
 	}
-    return LLAPI<FLootLockerLeaseRemoteSessionResponse>::CallAPI(RequestBody, Endpoint, {}, {}, UserData, OnCompleteCallback,
-        LLAPI<FLootLockerLeaseRemoteSessionResponse>::FResponseInspectorCallback::CreateLambda(
-            [ProviderStr](FLootLockerLeaseRemoteSessionResponse& LeaseResponse)
-            {
-                LeaseResponse.Redirect_url = LootLockerUtilities::AppendParameterToUrl(LeaseResponse.Redirect_url, TEXT("provider=") + ProviderStr);
-            }));
+	return LLAPI<FLootLockerLeaseRemoteSessionResponse>::CallAPI(RequestBody, Endpoint, {}, {}, UserData, OnCompleteCallback);
 }
 
 FString ULootLockerRemoteSessionRequestHandler::StartRemoteSession(const FString& LeaseCode, const FString& LeaseNonce, const LLAPI<FLootLockerStartRemoteSessionResponse>::FResponseInspectorCallback& OnCompleteCallback)
