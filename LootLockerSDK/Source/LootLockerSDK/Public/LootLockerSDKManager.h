@@ -620,6 +620,46 @@ public:
     static FString ConnectTwitchAccount(const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
     /**
+     Link a Steam account.
+
+     @param SteamTicket The Steam session ticket (hex-encoded)
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ConnectSteamAccount(const FString& SteamTicket, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Link an Xbox account.
+
+     @param XboxUserToken The Xbox user token
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ConnectXboxAccount(const FString& XboxUserToken, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Link a Nintendo Switch account.
+
+     @param NSAIdToken The NSA ID token from Nintendo Switch sign in
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ConnectNintendoAccount(const FString& NSAIdToken, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Link a Google Play Games account.
+
+     @param AuthCode The auth code from Google Play Games sign in
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ConnectGooglePlayGamesAccount(const FString& AuthCode, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
      Link an Epic account.
 
      @param Token Token from Epic sign-in
