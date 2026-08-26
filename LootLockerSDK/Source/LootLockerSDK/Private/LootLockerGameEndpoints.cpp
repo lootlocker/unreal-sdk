@@ -82,6 +82,14 @@ FLootLockerEndPoints ULootLockerGameEndpoints::ListFilesEndpoint = InitEndpoint(
 FLootLockerEndPoints ULootLockerGameEndpoints::GetSingleFileEndpoint = InitEndpoint("player/files/{0}", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::DeleteFileEndpoint = InitEndpoint("player/files/{0}", ELootLockerHTTPMethod::DELETE);
 FLootLockerEndPoints ULootLockerGameEndpoints::ListOtherPlayersFilesEndpoint = InitEndpoint("player/{0}/files", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::ListFileRevisionsEndpoint = InitEndpoint("player/files/{0}/revisions", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetFileRevisionEndpoint = InitEndpoint("player/files/{0}/revisions/{1}", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::PromoteFileRevisionEndpoint = InitEndpoint("player/files/{0}/revisions/{1}/current", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetFileByKeyEndpoint = InitEndpoint("player/files/key/{0}", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::ListFileRevisionsByKeyEndpoint = InitEndpoint("player/files/key/{0}/revisions", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetFileRevisionByKeyEndpoint = InitEndpoint("player/files/key/{0}/revisions/{1}", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::PromoteFileRevisionByKeyEndpoint = InitEndpoint("player/files/key/{0}/revisions/{1}/current", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::DeleteFileByKeyEndpoint = InitEndpoint("player/files/key/{0}", ELootLockerHTTPMethod::DELETE);
 
 //Player
 FLootLockerEndPoints ULootLockerGameEndpoints::GetInfoFromSession = InitEndpoint("player/hazy-hammock/v1/info", ELootLockerHTTPMethod::GET);

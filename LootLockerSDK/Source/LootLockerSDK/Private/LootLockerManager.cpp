@@ -694,6 +694,70 @@ FString ULootLockerManager::DeletePlayerFile(const FString& ForPlayerWithUlid, c
     }), ForPlayerWithUlid);
 }
 
+FString ULootLockerManager::ListFileRevisions(const FString& ForPlayerWithUlid, const int32 FileID, const FLootLockerFileRevisionsBP& OnComplete)
+{
+    return ULootLockerSDKManager::ListFileRevisions(FileID, FLootLockerFileRevisionsDelegate::CreateLambda([OnComplete](FLootLockerPlayerFileRevisionsResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::GetFileRevision(const FString& ForPlayerWithUlid, const int32 FileID, const FString& RevisionID, const FLootLockerFileContentBP& OnComplete)
+{
+    return ULootLockerSDKManager::GetFileRevision(FileID, RevisionID, FLootLockerFileContentDelegate::CreateLambda([OnComplete](FLootLockerPlayerFileContentResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::PromoteFileRevision(const FString& ForPlayerWithUlid, const int32 FileID, const FString& RevisionID, const FLootLockerDefaultResponseBP& OnComplete)
+{
+    return ULootLockerSDKManager::PromoteFileRevision(FileID, RevisionID, FLootLockerDefaultDelegate::CreateLambda([OnComplete](FLootLockerResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::GetFileByKey(const FString& ForPlayerWithUlid, const FString& Key, const FLootLockerUploadFileBP& OnComplete)
+{
+    return ULootLockerSDKManager::GetFileByKey(Key, FLootLockerUploadFileDelegate::CreateLambda([OnComplete](FLootLockerPlayerFileResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::ListFileRevisionsByKey(const FString& ForPlayerWithUlid, const FString& Key, const FLootLockerFileRevisionsBP& OnComplete)
+{
+    return ULootLockerSDKManager::ListFileRevisionsByKey(Key, FLootLockerFileRevisionsDelegate::CreateLambda([OnComplete](FLootLockerPlayerFileRevisionsResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::GetFileRevisionByKey(const FString& ForPlayerWithUlid, const FString& Key, const FString& RevisionID, const FLootLockerFileContentBP& OnComplete)
+{
+    return ULootLockerSDKManager::GetFileRevisionByKey(Key, RevisionID, FLootLockerFileContentDelegate::CreateLambda([OnComplete](FLootLockerPlayerFileContentResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::PromoteFileRevisionByKey(const FString& ForPlayerWithUlid, const FString& Key, const FString& RevisionID, const FLootLockerDefaultResponseBP& OnComplete)
+{
+    return ULootLockerSDKManager::PromoteFileRevisionByKey(Key, RevisionID, FLootLockerDefaultDelegate::CreateLambda([OnComplete](FLootLockerResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::DeletePlayerFileByKey(const FString& ForPlayerWithUlid, const FString& Key, const FLootLockerFileDeletedBP& OnComplete)
+{
+    return ULootLockerSDKManager::DeletePlayerFileByKey(Key, FLootLockerFileDeletedDelegate::CreateLambda([OnComplete](FLootLockerResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
 // Player Progressions
 FString ULootLockerManager::GetPlayerProgressions(const FString& ForPlayerWithUlid, const int32 Count /*= -1*/, const FString& After /*= ""*/, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest)
 {
