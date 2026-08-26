@@ -9,6 +9,10 @@ FString ULLPlayerFilesRequestHandler::UploadFile(const FLootLockerPlayerData& Pl
 	TMap<FString, FString> AdditionalData;
 	AdditionalData.Add(TEXT("purpose"), *Request.purpose);
 	AdditionalData.Add(TEXT("public"), Request.IsPublic ? TEXT("true") : TEXT("false"));
+	if (!Request.key.IsEmpty())
+	{
+		AdditionalData.Add(TEXT("key"), *Request.key);
+	}
 
 	return LLAPI<FLootLockerPlayerFileResponse>::UploadFileAPI(Request.file, ULootLockerGameEndpoints::FileUploadEndpoint, { }, AdditionalData, PlayerData, OnComplete, LLAPI<FLootLockerPlayerFileResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerPlayerFileResponse& Response)
 		{
@@ -102,4 +106,51 @@ void ULLPlayerFilesRequestHandler::ParsePublicFlagOnFileList(TArray<FLootLockerP
 			}
 		}
 	}
+}
+
+FString ULLPlayerFilesRequestHandler::ListFileRevisions(const FLootLockerPlayerData& PlayerData, const int32 FileID, const FLootLockerFileRevisionsDelegate& OnComplete)
+{
+	return LLAPI<FLootLockerPlayerFileRevisionsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::ListFileRevisionsEndpoint, { FileID }, EmptyQueryParams, PlayerData, OnComplete);
+}
+
+FString ULLPlayerFilesRequestHandler::GetFileRevision(const FLootLockerPlayerData& PlayerData, const int32 FileID, const FString& RevisionID, const FLootLockerFileContentDelegate& OnComplete)
+{
+	return LLAPI<FLootLockerPlayerFileContentResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetFileRevisionEndpoint, { FileID, RevisionID }, EmptyQueryParams, PlayerData, OnComplete);
+}
+
+FString ULLPlayerFilesRequestHandler::PromoteFileRevision(const FLootLockerPlayerData& PlayerData, const int32 FileID, const FString& RevisionID, const FLootLockerDefaultDelegate& OnComplete)
+{
+	return LLAPI<FLootLockerResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::PromoteFileRevisionEndpoint, { FileID, RevisionID }, EmptyQueryParams, PlayerData, OnComplete);
+}
+
+FString ULLPlayerFilesRequestHandler::GetFileByKey(const FLootLockerPlayerData& PlayerData, const FString& Key, const FLootLockerUploadFileDelegate& OnComplete)
+{
+	return LLAPI<FLootLockerPlayerFileResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetFileByKeyEndpoint, { Key }, EmptyQueryParams, PlayerData, OnComplete, LLAPI<FLootLockerPlayerFileResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerPlayerFileResponse& Response)
+		{
+			if (Response.success)
+			{
+				const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
+				Response.IsPublic = JsonObject->GetBoolField(TEXT("public"));
+			}
+		}));
+}
+
+FString ULLPlayerFilesRequestHandler::ListFileRevisionsByKey(const FLootLockerPlayerData& PlayerData, const FString& Key, const FLootLockerFileRevisionsDelegate& OnComplete)
+{
+	return LLAPI<FLootLockerPlayerFileRevisionsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::ListFileRevisionsByKeyEndpoint, { Key }, EmptyQueryParams, PlayerData, OnComplete);
+}
+
+FString ULLPlayerFilesRequestHandler::GetFileRevisionByKey(const FLootLockerPlayerData& PlayerData, const FString& Key, const FString& RevisionID, const FLootLockerFileContentDelegate& OnComplete)
+{
+	return LLAPI<FLootLockerPlayerFileContentResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetFileRevisionByKeyEndpoint, { Key, RevisionID }, EmptyQueryParams, PlayerData, OnComplete);
+}
+
+FString ULLPlayerFilesRequestHandler::PromoteFileRevisionByKey(const FLootLockerPlayerData& PlayerData, const FString& Key, const FString& RevisionID, const FLootLockerDefaultDelegate& OnComplete)
+{
+	return LLAPI<FLootLockerResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::PromoteFileRevisionByKeyEndpoint, { Key, RevisionID }, EmptyQueryParams, PlayerData, OnComplete);
+}
+
+FString ULLPlayerFilesRequestHandler::DeletePlayerFileByKey(const FLootLockerPlayerData& PlayerData, const FString& Key, const FLootLockerFileDeletedDelegate& OnComplete)
+{
+	return LLAPI<FLootLockerResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteFileByKeyEndpoint, { Key }, EmptyQueryParams, PlayerData, OnComplete);
 }
