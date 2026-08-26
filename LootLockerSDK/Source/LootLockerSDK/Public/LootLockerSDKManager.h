@@ -1170,6 +1170,90 @@ public:
      */
     static FString DeletePlayerFile(const int32 FileID, const FLootLockerFileDeletedDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
+    /**
+     List all revisions for a player file.
+
+     @param FileID File id (retrieved from upload response or ListFiles)
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ListFileRevisions(const int32 FileID, const FLootLockerFileRevisionsDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Get a specific revision of a player file by its revision ULID.
+
+     @param FileID File id (retrieved from upload response or ListFiles)
+     @param RevisionID The ULID of the revision to retrieve
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString GetFileRevision(const int32 FileID, const FString& RevisionID, const FLootLockerFileContentDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Promote a specific revision to be the current (active) revision of a player file.
+
+     @param FileID File id (retrieved from upload response or ListFiles)
+     @param RevisionID The ULID of the revision to promote
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString PromoteFileRevision(const int32 FileID, const FString& RevisionID, const FLootLockerDefaultDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Get a player file by its key (upsert key).
+
+     @param Key The key of the file
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString GetFileByKey(const FString& Key, const FLootLockerUploadFileDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     List all revisions for a player file identified by its key.
+
+     @param Key The key of the file
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ListFileRevisionsByKey(const FString& Key, const FLootLockerFileRevisionsDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Get a specific revision of a player file by its key and revision ULID.
+
+     @param Key The key of the file
+     @param RevisionID The ULID of the revision to retrieve
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString GetFileRevisionByKey(const FString& Key, const FString& RevisionID, const FLootLockerFileContentDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Promote a specific revision to be the current (active) revision of a player file identified by its key.
+
+     @param Key The key of the file
+     @param RevisionID The ULID of the revision to promote
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString PromoteFileRevisionByKey(const FString& Key, const FString& RevisionID, const FLootLockerDefaultDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Delete a player file by its key.
+
+     @param Key The key of the file to delete
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString DeletePlayerFileByKey(const FString& Key, const FLootLockerFileDeletedDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
+
     /// @}
 
     //==================================================

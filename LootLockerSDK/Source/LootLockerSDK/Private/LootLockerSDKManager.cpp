@@ -507,6 +507,46 @@ FString ULootLockerSDKManager::DeletePlayerFile(const int32 FileID, const FLootL
     return ULLPlayerFilesRequestHandler::DeletePlayerFile(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FileID, OnComplete);
 }
 
+FString ULootLockerSDKManager::ListFileRevisions(const int32 FileID, const FLootLockerFileRevisionsDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLPlayerFilesRequestHandler::ListFileRevisions(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FileID, OnComplete);
+}
+
+FString ULootLockerSDKManager::GetFileRevision(const int32 FileID, const FString& RevisionID, const FLootLockerFileContentDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLPlayerFilesRequestHandler::GetFileRevision(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FileID, RevisionID, OnComplete);
+}
+
+FString ULootLockerSDKManager::PromoteFileRevision(const int32 FileID, const FString& RevisionID, const FLootLockerDefaultDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLPlayerFilesRequestHandler::PromoteFileRevision(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FileID, RevisionID, OnComplete);
+}
+
+FString ULootLockerSDKManager::GetFileByKey(const FString& Key, const FLootLockerUploadFileDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLPlayerFilesRequestHandler::GetFileByKey(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Key, OnComplete);
+}
+
+FString ULootLockerSDKManager::ListFileRevisionsByKey(const FString& Key, const FLootLockerFileRevisionsDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLPlayerFilesRequestHandler::ListFileRevisionsByKey(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Key, OnComplete);
+}
+
+FString ULootLockerSDKManager::GetFileRevisionByKey(const FString& Key, const FString& RevisionID, const FLootLockerFileContentDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLPlayerFilesRequestHandler::GetFileRevisionByKey(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Key, RevisionID, OnComplete);
+}
+
+FString ULootLockerSDKManager::PromoteFileRevisionByKey(const FString& Key, const FString& RevisionID, const FLootLockerDefaultDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLPlayerFilesRequestHandler::PromoteFileRevisionByKey(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Key, RevisionID, OnComplete);
+}
+
+FString ULootLockerSDKManager::DeletePlayerFileByKey(const FString& Key, const FLootLockerFileDeletedDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLPlayerFilesRequestHandler::DeletePlayerFileByKey(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Key, OnComplete);
+}
+
 FString ULootLockerSDKManager::GetDLCsMigration(const FPDlcResponse& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
     return ULootLockerPlayerRequestHandler::GetDLCsMigration(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);

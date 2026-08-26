@@ -115,6 +115,14 @@ public:
     static FLootLockerEndPoints GetSingleFileEndpoint;
     static FLootLockerEndPoints DeleteFileEndpoint;
     static FLootLockerEndPoints ListOtherPlayersFilesEndpoint;
+    static FLootLockerEndPoints ListFileRevisionsEndpoint;
+    static FLootLockerEndPoints GetFileRevisionEndpoint;
+    static FLootLockerEndPoints PromoteFileRevisionEndpoint;
+    static FLootLockerEndPoints GetFileByKeyEndpoint;
+    static FLootLockerEndPoints ListFileRevisionsByKeyEndpoint;
+    static FLootLockerEndPoints GetFileRevisionByKeyEndpoint;
+    static FLootLockerEndPoints PromoteFileRevisionByKeyEndpoint;
+    static FLootLockerEndPoints DeleteFileByKeyEndpoint;
 
     //Player
     static FLootLockerEndPoints GetInfoFromSession;
