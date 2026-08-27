@@ -20,6 +20,7 @@ FString ULLPlayerFilesRequestHandler::UploadFile(const FLootLockerPlayerData& Pl
 			{
 				// Add "public" to is_public field manually if it exists
 				const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
+				if (!JsonObject.IsValid()) return;
 				Response.IsPublic = JsonObject->GetBoolField(TEXT("public"));
 			}
 		}));
@@ -33,6 +34,7 @@ FString ULLPlayerFilesRequestHandler::UpdateFile(const FLootLockerPlayerData& Pl
 			{
 				// Add "public" to is_public field manually if it exists
 				const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
+				if (!JsonObject.IsValid()) return;
 				Response.IsPublic = JsonObject->GetBoolField(TEXT("public"));
 			}
 		}));
@@ -46,6 +48,7 @@ FString ULLPlayerFilesRequestHandler::ListFiles(const FLootLockerPlayerData& Pla
 			{
 				// Add "public" to IsPublic field manually if it exists
 				const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
+				if (!JsonObject.IsValid()) return;
 				ParsePublicFlagOnFileList(Response.items, JsonObject->GetArrayField(TEXT("items")));
 			}
 		}));
@@ -59,6 +62,7 @@ FString ULLPlayerFilesRequestHandler::ListOtherPlayersPublicFiles(const FLootLoc
 			{
 				// Add "public" to IsPublic field manually if it exists
 				const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
+				if (!JsonObject.IsValid()) return;
 				ParsePublicFlagOnFileList(Response.items, JsonObject->GetArrayField(TEXT("items")));
 			}
 		}));
@@ -72,6 +76,7 @@ FString ULLPlayerFilesRequestHandler::GetSingleFile(const FLootLockerPlayerData&
 			{
 				// Add "public" to IsPublic field manually if it exists
 				const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
+				if (!JsonObject.IsValid()) return;
 				Response.IsPublic = JsonObject->GetBoolField(TEXT("public"));
 			}
 		}));
@@ -110,7 +115,19 @@ void ULLPlayerFilesRequestHandler::ParsePublicFlagOnFileList(TArray<FLootLockerP
 
 FString ULLPlayerFilesRequestHandler::ListFileRevisions(const FLootLockerPlayerData& PlayerData, const int32 FileID, const FLootLockerFileRevisionsDelegate& OnComplete)
 {
-	return LLAPI<FLootLockerPlayerFileRevisionsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::ListFileRevisionsEndpoint, { FileID }, EmptyQueryParams, PlayerData, OnComplete);
+	return LLAPI<FLootLockerPlayerFileRevisionsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::ListFileRevisionsEndpoint, { FileID }, EmptyQueryParams, PlayerData, OnComplete, LLAPI<FLootLockerPlayerFileRevisionsResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerPlayerFileRevisionsResponse& Response)
+		{
+			if (Response.success)
+			{
+				const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
+				if (!JsonObject.IsValid()) return;
+				const TSharedPtr<FJsonObject>* FileObject;
+				if (JsonObject->TryGetObjectField(TEXT("file"), FileObject) && FileObject && FileObject->IsValid())
+				{
+					Response.file.IsPublic = FileObject->Get()->GetBoolField(TEXT("public"));
+				}
+			}
+		}));
 }
 
 FString ULLPlayerFilesRequestHandler::GetFileRevision(const FLootLockerPlayerData& PlayerData, const int32 FileID, const FString& RevisionID, const FLootLockerFileContentDelegate& OnComplete)
@@ -130,6 +147,7 @@ FString ULLPlayerFilesRequestHandler::GetFileByKey(const FLootLockerPlayerData& 
 			if (Response.success)
 			{
 				const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
+				if (!JsonObject.IsValid()) return;
 				Response.IsPublic = JsonObject->GetBoolField(TEXT("public"));
 			}
 		}));
@@ -137,7 +155,19 @@ FString ULLPlayerFilesRequestHandler::GetFileByKey(const FLootLockerPlayerData& 
 
 FString ULLPlayerFilesRequestHandler::ListFileRevisionsByKey(const FLootLockerPlayerData& PlayerData, const FString& Key, const FLootLockerFileRevisionsDelegate& OnComplete)
 {
-	return LLAPI<FLootLockerPlayerFileRevisionsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::ListFileRevisionsByKeyEndpoint, { Key }, EmptyQueryParams, PlayerData, OnComplete);
+	return LLAPI<FLootLockerPlayerFileRevisionsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::ListFileRevisionsByKeyEndpoint, { Key }, EmptyQueryParams, PlayerData, OnComplete, LLAPI<FLootLockerPlayerFileRevisionsResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerPlayerFileRevisionsResponse& Response)
+		{
+			if (Response.success)
+			{
+				const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
+				if (!JsonObject.IsValid()) return;
+				const TSharedPtr<FJsonObject>* FileObject;
+				if (JsonObject->TryGetObjectField(TEXT("file"), FileObject) && FileObject && FileObject->IsValid())
+				{
+					Response.file.IsPublic = FileObject->Get()->GetBoolField(TEXT("public"));
+				}
+			}
+		}));
 }
 
 FString ULLPlayerFilesRequestHandler::GetFileRevisionByKey(const FLootLockerPlayerData& PlayerData, const FString& Key, const FString& RevisionID, const FLootLockerFileContentDelegate& OnComplete)
