@@ -681,6 +681,13 @@ public:
 	static FString StartDiscordSession(const FString& AccessToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest);
 	static FString RefreshDiscordSession(const FString& RefreshToken, const FLootLockerSessionOptionals& Optionals, const FLootLockerDiscordSessionResponseDelegate& OnCompletedRequest);
 	
+/**
+	 * Post-process a JSON object that may contain a "custom_fields" array with
+	 * "value_json" string fields, replacing each with the corresponding raw JSON
+	 * primitive (true, 42, "text") so the backend receives the correct type.
+	 */
+	static void PrepareCustomFieldsJson(TSharedRef<FJsonObject> JsonObject);
+
 private:
 	template<typename RequestType>
 	static FString AuthRequestToJsonStringWithOptionals(const RequestType& AuthRequest, const FLootLockerSessionOptionals& Optionals);
