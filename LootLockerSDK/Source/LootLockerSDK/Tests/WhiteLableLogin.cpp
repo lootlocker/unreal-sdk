@@ -4,6 +4,10 @@
 #include "GameAPI/LootLockerAuthenticationRequestHandler.h"
 #include "Misc/AutomationTest.h"
 #include "TestUtils.h"
+#include "Dom/JsonObject.h"
+#include "Dom/JsonValue.h"
+#include "Serialization/JsonWriter.h"
+#include "Serialization/JsonSerializer.h"
 
 #if ENGINE_MAJOR_VERSION > 4
 BEGIN_DEFINE_SPEC(FWhiteLabelLogin, "LootLocker.WhiteLabel", EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
@@ -62,6 +66,101 @@ void FWhiteLabelLogin::Define()
 			}
 
 			TestDone.Execute();
+		});
+	});
+
+	Describe("PrepareCustomFieldsJson", [this]()
+	{
+		It("converts boolean value_json from string to raw JSON boolean", [this]()
+		{
+			// Given
+			FLootLockerWhiteLabelCreateAccountRequest SignupRequest;
+			SignupRequest.email = "email@email.com";
+			SignupRequest.password = "password";
+			SignupRequest.custom_fields.Add(FLootLockerWhiteLabelCustomSignUpFieldValue{ "tos_agree", "true" });
+
+			TSharedRef<FJsonObject> JsonObject = LootLockerUtilities::UStructToJsonObject(SignupRequest);
+
+			// When
+			ULootLockerAuthenticationRequestHandler::PrepareCustomFieldsJson(JsonObject);
+
+			// Then
+			TArray<TSharedPtr<FJsonValue>> ResultFields = JsonObject->GetArrayField(TEXT("custom_fields"));
+			TestEqual("custom_fields count", ResultFields.Num(), 1);
+
+			TSharedPtr<FJsonObject> ResultField = ResultFields[0]->AsObject();
+			TestTrue("metadata_key preserved", ResultField->GetStringField(TEXT("metadata_key")) == TEXT("tos_agree"));
+			TestTrue("value_json is now a bool", ResultField->TryGetField(TEXT("value_json"))->Type == EJson::Boolean);
+			TestTrue("value_json is true", ResultField->GetBoolField(TEXT("value_json")) == true);
+		});
+
+		It("converts number value_json from string to raw JSON number", [this]()
+		{
+			// Given
+			FLootLockerWhiteLabelCreateAccountRequest SignupRequest;
+			SignupRequest.email = "email@email.com";
+			SignupRequest.password = "password";
+			SignupRequest.custom_fields.Add(FLootLockerWhiteLabelCustomSignUpFieldValue{ "age", "42" });
+
+			TSharedRef<FJsonObject> JsonObject = LootLockerUtilities::UStructToJsonObject(SignupRequest);
+
+			// When
+			ULootLockerAuthenticationRequestHandler::PrepareCustomFieldsJson(JsonObject);
+
+			// Then
+			TArray<TSharedPtr<FJsonValue>> ResultFields = JsonObject->GetArrayField(TEXT("custom_fields"));
+			TSharedPtr<FJsonObject> ResultField = ResultFields[0]->AsObject();
+			TestTrue("value_json is now a number", ResultField->TryGetField(TEXT("value_json"))->Type == EJson::Number);
+			TestEqual("value_json is 42", (int)ResultField->GetNumberField(TEXT("value_json")), 42);
+		});
+
+		It("preserves string value_json as a JSON string", [this]()
+		{
+			// Given
+			FLootLockerWhiteLabelCreateAccountRequest SignupRequest;
+			SignupRequest.email = "email@email.com";
+			SignupRequest.password = "password";
+			SignupRequest.custom_fields.Add(FLootLockerWhiteLabelCustomSignUpFieldValue{ "birth_date", "2000-01-15" });
+
+			TSharedRef<FJsonObject> JsonObject = LootLockerUtilities::UStructToJsonObject(SignupRequest);
+
+			// When
+			ULootLockerAuthenticationRequestHandler::PrepareCustomFieldsJson(JsonObject);
+
+			// Then
+			TArray<TSharedPtr<FJsonValue>> ResultFields = JsonObject->GetArrayField(TEXT("custom_fields"));
+			TestEqual("custom_fields count", ResultFields.Num(), 1);
+
+			TSharedPtr<FJsonObject> ResultField = ResultFields[0]->AsObject();
+			TestTrue("value_json is still a string", ResultField->TryGetField(TEXT("value_json"))->Type == EJson::String);
+			TestEqual("value_json is 2000-01-15", ResultField->GetStringField(TEXT("value_json")), TEXT("2000-01-15"));
+		});
+
+		It("handles empty custom_fields array gracefully", [this]()
+		{
+			// Given
+			TSharedPtr<FJsonObject> Root = MakeShareable(new FJsonObject());
+			TArray<TSharedPtr<FJsonValue>> EmptyArray;
+			Root->SetArrayField(TEXT("custom_fields"), EmptyArray);
+
+			// When
+			ULootLockerAuthenticationRequestHandler::PrepareCustomFieldsJson(Root.ToSharedRef());
+
+			// Then — no crash, array is still empty
+			TestEqual("custom_fields is empty", Root->GetArrayField(TEXT("custom_fields")).Num(), 0);
+		});
+
+		It("handles JsonObject with no custom_fields field", [this]()
+		{
+			// Given
+			TSharedPtr<FJsonObject> Root = MakeShareable(new FJsonObject());
+			Root->SetStringField(TEXT("some_other_field"), TEXT("hello"));
+
+			// When — should not crash
+			ULootLockerAuthenticationRequestHandler::PrepareCustomFieldsJson(Root.ToSharedRef());
+
+			// Then
+			TestFalse("custom_fields not added", Root->HasField(TEXT("custom_fields")));
 		});
 	});
 }
