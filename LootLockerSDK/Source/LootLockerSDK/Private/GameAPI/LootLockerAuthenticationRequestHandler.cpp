@@ -38,7 +38,12 @@ FString ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(const F
 
 	_TempWhiteLabelEmailHolder = Email;
 
-	return LLAPI<FLootLockerLoginResponse>::CallAPI(SignupRequest, ULootLockerGameEndpoints::WhiteLabelSignupEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerLoginResponse>::FResponseInspectorCallback::CreateLambda([Email](const FLootLockerLoginResponse& Response)
+	// Serialize to a JSON object so we can post-process value_json fields
+	TSharedRef<FJsonObject> JsonObject = LootLockerUtilities::UStructToJsonObject(SignupRequest);
+	PrepareCustomFieldsJson(JsonObject);
+	FString ContentString = LootLockerUtilities::JsonObjectToString(JsonObject);
+
+	return LLAPI<FLootLockerLoginResponse>::CallAPIUsingRawJSON(ContentString, ULootLockerGameEndpoints::WhiteLabelSignupEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerLoginResponse>::FResponseInspectorCallback::CreateLambda([Email](const FLootLockerLoginResponse& Response)
 		{
 			if (!Response.success)
 			{
@@ -735,6 +740,31 @@ FString ULootLockerAuthenticationRequestHandler::EndSession(const FLootLockerPla
 				ULootLockerStateData::ClearSavedStateForPlayer(Response.Context.PlayerUlid);
 			}
 		}), CustomHeaders);
+}
+
+void ULootLockerAuthenticationRequestHandler::PrepareCustomFieldsJson(TSharedRef<FJsonObject> JsonObject)
+{
+	// Replace value_json strings with raw JSON primitives so the backend
+	// receives e.g. true instead of "true", 42 instead of "42"
+	if (!JsonObject->HasField(TEXT("custom_fields")))
+	{
+		return;
+	}
+
+	TArray<TSharedPtr<FJsonValue>> FieldsArray = JsonObject->GetArrayField(TEXT("custom_fields"));
+	for (TSharedPtr<FJsonValue>& FieldValue : FieldsArray)
+	{
+		TSharedPtr<FJsonObject> FieldObj = FieldValue->AsObject();
+		if (FieldObj.IsValid() && FieldObj->HasField(TEXT("value_json")))
+		{
+			FString RawValue = FieldObj->GetStringField(TEXT("value_json"));
+			TSharedPtr<FJsonValue> ParsedValue = LootLockerUtilities::JsonValueFromFString(RawValue);
+			if (ParsedValue.IsValid() && !ParsedValue->IsNull())
+			{
+				FieldObj->SetField(TEXT("value_json"), ParsedValue);
+			}
+		}
+	}
 }
 
 template<typename RequestType>

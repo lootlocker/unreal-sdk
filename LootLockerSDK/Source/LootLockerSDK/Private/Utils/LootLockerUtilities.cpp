@@ -71,13 +71,47 @@ namespace LootLockerUtilities
 
     TSharedPtr<FJsonValue> JsonValueFromFString(const FString& JsonString)
     {
-        TSharedPtr<FJsonValue> JsonValue = MakeShareable(new FJsonValueNull());
-        const TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(JsonString);
-        if (!FJsonSerializer::Deserialize(JsonReader, JsonValue))
+        // Trim to ensure spaces don't break primitive evaluation
+        const FString TrimmedString = JsonString.TrimStartAndEnd();
+
+        // 1. Attempt to parse as JSON Array or Object
+        if (TrimmedString.StartsWith(TEXT("[")) || TrimmedString.StartsWith(TEXT("{")))
         {
-            JsonValue = nullptr;
-        };
-        return JsonValue;
+            TSharedRef<TJsonReader<TCHAR>> Reader = TJsonReaderFactory<TCHAR>::Create(TrimmedString);
+            TSharedPtr<FJsonValue> ParsedValue;
+            
+            if (FJsonSerializer::Deserialize(Reader, ParsedValue) && ParsedValue.IsValid())
+            {
+                return ParsedValue;
+            }
+            // If it starts with [ or { but fails JSON parsing, it falls through to String
+        }
+
+        // 2. Evaluate Boolean
+        if (TrimmedString.Equals(TEXT("true"), ESearchCase::IgnoreCase))
+        {
+            return MakeShared<FJsonValueBoolean>(true);
+        }
+        if (TrimmedString.Equals(TEXT("false"), ESearchCase::IgnoreCase))
+        {
+            return MakeShared<FJsonValueBoolean>(false);
+        }
+
+        // 3. Evaluate Null
+        if (TrimmedString.Equals(TEXT("null"), ESearchCase::IgnoreCase))
+        {
+            return MakeShared<FJsonValueNull>();
+        }
+
+        // 4. Evaluate Number
+        if (TrimmedString.IsNumeric())
+        {
+            return MakeShared<FJsonValueNumber>(FCString::Atod(*TrimmedString));
+        }
+
+        // 5. Fallback to String
+        // Uses the original InputString to preserve any intentionally placed whitespace
+        return MakeShared<FJsonValueString>(JsonString);
     }
 
     bool JsonArrayFromFString(const FString& JsonString, TArray<TSharedPtr<FJsonValue>>& JsonArrayOutput)
