@@ -69,6 +69,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::RefreshRemoteSessionEndpoint = In
 // White Label
 FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelAuthEndpoint = InitEndpoint("v2/session/white-label", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelSignupEndpoint = InitEndpoint("white-label-login/sign-up", ELootLockerHTTPMethod::POST, ELootLockerApiType::LL_WHITELABEL);
+FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelSignupFieldsEndpoint = InitEndpoint("white-label-login/sign-up/fields", ELootLockerHTTPMethod::GET, ELootLockerApiType::LL_WHITELABEL);
 FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelLoginEndpoint = InitEndpoint("white-label-login/login", ELootLockerHTTPMethod::POST, ELootLockerApiType::LL_WHITELABEL);
 FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelVerifySessionEndpoint = InitEndpoint("white-label-login/verify-session", ELootLockerHTTPMethod::POST, ELootLockerApiType::LL_WHITELABEL);
 FLootLockerEndPoints ULootLockerGameEndpoints::WhiteLabelRequestPasswordResetEndpoint = InitEndpoint("white-label-login/request-reset-password", ELootLockerHTTPMethod::POST, ELootLockerApiType::LL_WHITELABEL);
@@ -81,6 +82,14 @@ FLootLockerEndPoints ULootLockerGameEndpoints::ListFilesEndpoint = InitEndpoint(
 FLootLockerEndPoints ULootLockerGameEndpoints::GetSingleFileEndpoint = InitEndpoint("player/files/{0}", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::DeleteFileEndpoint = InitEndpoint("player/files/{0}", ELootLockerHTTPMethod::DELETE);
 FLootLockerEndPoints ULootLockerGameEndpoints::ListOtherPlayersFilesEndpoint = InitEndpoint("player/{0}/files", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::ListFileRevisionsEndpoint = InitEndpoint("player/files/{0}/revisions", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetFileRevisionEndpoint = InitEndpoint("player/files/{0}/revisions/{1}", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::PromoteFileRevisionEndpoint = InitEndpoint("player/files/{0}/revisions/{1}/current", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetFileByKeyEndpoint = InitEndpoint("player/files/key/{0}", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::ListFileRevisionsByKeyEndpoint = InitEndpoint("player/files/key/{0}/revisions", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetFileRevisionByKeyEndpoint = InitEndpoint("player/files/key/{0}/revisions/{1}", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::PromoteFileRevisionByKeyEndpoint = InitEndpoint("player/files/key/{0}/revisions/{1}/current", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::DeleteFileByKeyEndpoint = InitEndpoint("player/files/key/{0}", ELootLockerHTTPMethod::DELETE);
 
 //Player
 FLootLockerEndPoints ULootLockerGameEndpoints::GetInfoFromSession = InitEndpoint("player/hazy-hammock/v1/info", ELootLockerHTTPMethod::GET);
@@ -268,6 +277,9 @@ FLootLockerEndPoints ULootLockerGameEndpoints::PickDropsFromDropTable = InitEndp
 FLootLockerEndPoints ULootLockerGameEndpoints::ListCurrencies = InitEndpoint("currencies", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetCurrencyDetails = InitEndpoint("currency/code/{0}", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetCurrencyDenominationsByCode = InitEndpoint("currency/code/{0}/denominations", ELootLockerHTTPMethod::GET);
+
+// Platform Keys
+FLootLockerEndPoints ULootLockerGameEndpoints::ListPlatformKeys = InitEndpoint("platform-keys/v1", ELootLockerHTTPMethod::GET);
 
 // Balances
 FLootLockerEndPoints ULootLockerGameEndpoints::ListBalancesInWallet = InitEndpoint("balances/wallet/{0}", ELootLockerHTTPMethod::GET);

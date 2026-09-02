@@ -82,6 +82,16 @@ FString ULootLockerSDKManager::WhiteLabelCreateAccount(const FString &Email, con
     return ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(Email, Password, OnCompletedRequest);
 }
 
+FString ULootLockerSDKManager::WhiteLabelCreateAccount(const FString& Email, const FString& Password, const TArray<FLootLockerWhiteLabelCustomSignUpFieldValue>& CustomFields, const FLootLockerLoginResponseDelegate& OnCompletedRequest)
+{
+    return ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(Email, Password, CustomFields, OnCompletedRequest);
+}
+
+FString ULootLockerSDKManager::GetWhiteLabelSignUpFields(const FLootLockerWhiteLabelSignUpFieldsResponseDelegate& OnCompletedRequest)
+{
+    return ULootLockerAuthenticationRequestHandler::GetWhiteLabelSignUpFields(OnCompletedRequest);
+}
+
 FString ULootLockerSDKManager::WhiteLabelLogin(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegate &OnCompletedRequest, const bool Remember /* = false */)
 {
     return ULootLockerAuthenticationRequestHandler::WhiteLabelLogin(Email, Password, Remember, OnCompletedRequest);
@@ -290,6 +300,26 @@ FString ULootLockerSDKManager::ConnectTwitchAccount(const FString& Authorization
     return ULootLockerConnectedAccountsRequestHandler::ConnectTwitchAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AuthorizationCode, OnComplete);
 }
 
+FString ULootLockerSDKManager::ConnectSteamAccount(const FString& SteamTicket, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid)
+{
+    return ULootLockerConnectedAccountsRequestHandler::ConnectSteamAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), SteamTicket, OnComplete);
+}
+
+FString ULootLockerSDKManager::ConnectXboxAccount(const FString& XboxUserToken, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid)
+{
+    return ULootLockerConnectedAccountsRequestHandler::ConnectXboxAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), XboxUserToken, OnComplete);
+}
+
+FString ULootLockerSDKManager::ConnectNintendoAccount(const FString& NSAIdToken, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid)
+{
+    return ULootLockerConnectedAccountsRequestHandler::ConnectNintendoAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), NSAIdToken, OnComplete);
+}
+
+FString ULootLockerSDKManager::ConnectGooglePlayGamesAccount(const FString& AuthCode, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid)
+{
+    return ULootLockerConnectedAccountsRequestHandler::ConnectGooglePlayGamesAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AuthCode, OnComplete);
+}
+
 FString ULootLockerSDKManager::ConnectEpicAccount(const FString& Token, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid)
 {
     return ULootLockerConnectedAccountsRequestHandler::ConnectEpicAccount(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Token, OnComplete);
@@ -495,6 +525,46 @@ FString ULootLockerSDKManager::GetSingleFile(const int32 FileID, const FLootLock
 FString ULootLockerSDKManager::DeletePlayerFile(const int32 FileID, const FLootLockerFileDeletedDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
     return ULLPlayerFilesRequestHandler::DeletePlayerFile(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FileID, OnComplete);
+}
+
+FString ULootLockerSDKManager::ListFileRevisions(const int32 FileID, const FLootLockerFileRevisionsDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLPlayerFilesRequestHandler::ListFileRevisions(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FileID, OnComplete);
+}
+
+FString ULootLockerSDKManager::GetFileRevision(const int32 FileID, const FString& RevisionID, const FLootLockerFileContentDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLPlayerFilesRequestHandler::GetFileRevision(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FileID, RevisionID, OnComplete);
+}
+
+FString ULootLockerSDKManager::PromoteFileRevision(const int32 FileID, const FString& RevisionID, const FLootLockerDefaultDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLPlayerFilesRequestHandler::PromoteFileRevision(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FileID, RevisionID, OnComplete);
+}
+
+FString ULootLockerSDKManager::GetFileByKey(const FString& Key, const FLootLockerUploadFileDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLPlayerFilesRequestHandler::GetFileByKey(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Key, OnComplete);
+}
+
+FString ULootLockerSDKManager::ListFileRevisionsByKey(const FString& Key, const FLootLockerFileRevisionsDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLPlayerFilesRequestHandler::ListFileRevisionsByKey(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Key, OnComplete);
+}
+
+FString ULootLockerSDKManager::GetFileRevisionByKey(const FString& Key, const FString& RevisionID, const FLootLockerFileContentDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLPlayerFilesRequestHandler::GetFileRevisionByKey(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Key, RevisionID, OnComplete);
+}
+
+FString ULootLockerSDKManager::PromoteFileRevisionByKey(const FString& Key, const FString& RevisionID, const FLootLockerDefaultDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLPlayerFilesRequestHandler::PromoteFileRevisionByKey(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Key, RevisionID, OnComplete);
+}
+
+FString ULootLockerSDKManager::DeletePlayerFileByKey(const FString& Key, const FLootLockerFileDeletedDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLPlayerFilesRequestHandler::DeletePlayerFileByKey(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Key, OnComplete);
 }
 
 FString ULootLockerSDKManager::GetDLCsMigration(const FPDlcResponse& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
@@ -1355,6 +1425,13 @@ FString ULootLockerSDKManager::GetCurrencyDetails(const FString& CurrencyCode, c
 FString ULootLockerSDKManager::GetCurrencyDenominationsByCode(const FString& CurrencyCode, const FLootLockerListDenominationsResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
     return ULootLockerCurrencyRequestHandler::GetCurrencyDenominationsByCode(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CurrencyCode, OnCompletedRequest);
+}
+
+// Platform Keys
+
+FString ULootLockerSDKManager::ListPlatformKeys(const FLootLockerListPlatformKeysResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerPlatformKeyRequestHandler::ListPlatformKeys(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
 }
 
 // Balances

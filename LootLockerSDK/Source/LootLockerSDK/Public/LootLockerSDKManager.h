@@ -13,6 +13,7 @@
 #include "GameAPI/LootLockerCharacterRequestHandler.h"
 #include "GameAPI/LootLockerConnectedAccountsRequestHandler.h"
 #include "GameAPI/LootLockerCurrencyRequestHandler.h"
+#include "GameAPI/LootLockerPlatformKeyRequestHandler.h"
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
 #include "GameAPI/LootLockerEntitlementRequestHandler.h"
 #include "GameAPI/LootLockerErrorReportRequestHandler.h"
@@ -619,6 +620,46 @@ public:
     static FString ConnectTwitchAccount(const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
     /**
+     Link a Steam account.
+
+     @param SteamTicket The Steam session ticket (hex-encoded)
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ConnectSteamAccount(const FString& SteamTicket, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Link an Xbox account.
+
+     @param XboxUserToken The Xbox user token
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ConnectXboxAccount(const FString& XboxUserToken, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Link a Nintendo Switch account.
+
+     @param NSAIdToken The NSA ID token from Nintendo Switch sign in
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ConnectNintendoAccount(const FString& NSAIdToken, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Link a Google Play Games account.
+
+     @param AuthCode The auth code from Google Play Games sign in
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ConnectGooglePlayGamesAccount(const FString& AuthCode, const FLootLockerAccountConnectedResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
      Link an Epic account.
 
      @param Token Token from Epic sign-in
@@ -782,6 +823,31 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegate& OnCompletedRequest);
+
+    /**
+     Create a new White Label user account including answers to custom sign-up fields.
+
+     Call @ref GetWhiteLabelSignUpFields first to retrieve the fields configured for this game,
+     then pass the player's answers.
+
+     @param Email User email
+     @param Password User password
+     @param CustomFields Answers to custom sign-up fields configured in the web console
+     @param OnCompletedRequest Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString WhiteLabelCreateAccount(const FString& Email, const FString& Password, const TArray<FLootLockerWhiteLabelCustomSignUpFieldValue>& CustomFields, const FLootLockerLoginResponseDelegate& OnCompletedRequest);
+
+    /**
+     Retrieve the list of custom sign-up fields configured for this game.
+
+     Use the returned fields to build a sign-up form, then pass the player's answers
+     to @ref WhiteLabelCreateAccount.
+
+     @param OnCompletedRequest Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString GetWhiteLabelSignUpFields(const FLootLockerWhiteLabelSignUpFieldsResponseDelegate& OnCompletedRequest);
 
     /**
      Log in a White Label user (without starting session).
@@ -1143,6 +1209,90 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString DeletePlayerFile(const int32 FileID, const FLootLockerFileDeletedDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     List all revisions for a player file.
+
+     @param FileID File id (retrieved from upload response or ListFiles)
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ListFileRevisions(const int32 FileID, const FLootLockerFileRevisionsDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Get a specific revision of a player file by its revision ULID.
+
+     @param FileID File id (retrieved from upload response or ListFiles)
+     @param RevisionID The ULID of the revision to retrieve
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString GetFileRevision(const int32 FileID, const FString& RevisionID, const FLootLockerFileContentDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Promote a specific revision to be the current (active) revision of a player file.
+
+     @param FileID File id (retrieved from upload response or ListFiles)
+     @param RevisionID The ULID of the revision to promote
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString PromoteFileRevision(const int32 FileID, const FString& RevisionID, const FLootLockerDefaultDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Get a player file by its key (upsert key).
+
+     @param Key The key of the file
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString GetFileByKey(const FString& Key, const FLootLockerUploadFileDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     List all revisions for a player file identified by its key.
+
+     @param Key The key of the file
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ListFileRevisionsByKey(const FString& Key, const FLootLockerFileRevisionsDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Get a specific revision of a player file by its key and revision ULID.
+
+     @param Key The key of the file
+     @param RevisionID The ULID of the revision to retrieve
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString GetFileRevisionByKey(const FString& Key, const FString& RevisionID, const FLootLockerFileContentDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Promote a specific revision to be the current (active) revision of a player file identified by its key.
+
+     @param Key The key of the file
+     @param RevisionID The ULID of the revision to promote
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString PromoteFileRevisionByKey(const FString& Key, const FString& RevisionID, const FLootLockerDefaultDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Delete a player file by its key.
+
+     @param Key The key of the file to delete
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString DeletePlayerFileByKey(const FString& Key, const FLootLockerFileDeletedDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
     /// @}
 
@@ -3066,6 +3216,23 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString GetCurrencyDenominationsByCode(const FString & CurrencyCode, const FLootLockerListDenominationsResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /// @}
+
+    //==================================================
+    // Platform Keys
+    //==================================================
+    /// @addtogroup PlatformKeys
+    /// @{
+
+    /**
+     List platform keys redeemed by the authenticated player.
+
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ListPlatformKeys(const FLootLockerListPlatformKeysResponseDelegate & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     /// @}
 

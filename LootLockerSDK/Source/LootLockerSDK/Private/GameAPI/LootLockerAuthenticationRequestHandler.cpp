@@ -14,13 +14,36 @@ FString ULootLockerAuthenticationRequestHandler::_TempWhiteLabelTokenHolder = ""
 
 FString ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegate& OnCompletedRequest)
 {
-	FLootLockerLoginRequest SignupRequest;
+	FLootLockerWhiteLabelCreateAccountRequest SignupRequest;
 	SignupRequest.email = Email;
 	SignupRequest.password = Password;
 
 	_TempWhiteLabelEmailHolder = Email;
 
 	return LLAPI<FLootLockerLoginResponse>::CallAPI(SignupRequest, ULootLockerGameEndpoints::WhiteLabelSignupEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerLoginResponse>::FResponseInspectorCallback::CreateLambda([Email](const FLootLockerLoginResponse& Response)
+		{
+			if (!Response.success)
+			{
+				_TempWhiteLabelEmailHolder = "";
+			}
+		}), DomainKeyHeaders());
+}
+
+FString ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount(const FString& Email, const FString& Password, const TArray<FLootLockerWhiteLabelCustomSignUpFieldValue>& CustomFields, const FLootLockerLoginResponseDelegate& OnCompletedRequest)
+{
+	FLootLockerWhiteLabelCreateAccountRequest SignupRequest;
+	SignupRequest.email = Email;
+	SignupRequest.password = Password;
+	SignupRequest.custom_fields = CustomFields;
+
+	_TempWhiteLabelEmailHolder = Email;
+
+	// Serialize to a JSON object so we can post-process value_json fields
+	TSharedRef<FJsonObject> JsonObject = LootLockerUtilities::UStructToJsonObject(SignupRequest);
+	PrepareCustomFieldsJson(JsonObject);
+	FString ContentString = LootLockerUtilities::JsonObjectToString(JsonObject);
+
+	return LLAPI<FLootLockerLoginResponse>::CallAPIUsingRawJSON(ContentString, ULootLockerGameEndpoints::WhiteLabelSignupEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerLoginResponse>::FResponseInspectorCallback::CreateLambda([Email](const FLootLockerLoginResponse& Response)
 		{
 			if (!Response.success)
 			{
@@ -171,6 +194,12 @@ FString ULootLockerAuthenticationRequestHandler::WhiteLabelRequestPasswordReset(
 	ResetPasswordRequest.email = Email;
 
 	return LLAPI<FLootLockerResponse>::CallAPI(ResetPasswordRequest, ULootLockerGameEndpoints::WhiteLabelRequestPasswordResetEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerResponse>::FResponseInspectorCallback(), DomainKeyHeaders());
+}
+
+FString ULootLockerAuthenticationRequestHandler::GetWhiteLabelSignUpFields(const FLootLockerWhiteLabelSignUpFieldsResponseDelegate& OnCompletedRequest)
+{
+	FString EmptyBody;
+	return LLAPI<FLootLockerWhiteLabelSignUpFieldsResponse>::CallAPIUsingRawJSON(EmptyBody, ULootLockerGameEndpoints::WhiteLabelSignupFieldsEndpoint, { }, EmptyQueryParams, FLootLockerPlayerData(), OnCompletedRequest, LLAPI<FLootLockerWhiteLabelSignUpFieldsResponse>::FResponseInspectorCallback(), DomainKeyHeaders());
 }
 
 FString ULootLockerAuthenticationRequestHandler::StartPlaystationNetworkSession(const FString& PsnOnlineId, const FLootLockerSessionOptionals& Optionals, const FLootLockerSessionResponse& OnCompletedRequest)
@@ -711,6 +740,31 @@ FString ULootLockerAuthenticationRequestHandler::EndSession(const FLootLockerPla
 				ULootLockerStateData::ClearSavedStateForPlayer(Response.Context.PlayerUlid);
 			}
 		}), CustomHeaders);
+}
+
+void ULootLockerAuthenticationRequestHandler::PrepareCustomFieldsJson(TSharedRef<FJsonObject> JsonObject)
+{
+	// Replace value_json strings with raw JSON primitives so the backend
+	// receives e.g. true instead of "true", 42 instead of "42"
+	if (!JsonObject->HasField(TEXT("custom_fields")))
+	{
+		return;
+	}
+
+	TArray<TSharedPtr<FJsonValue>> FieldsArray = JsonObject->GetArrayField(TEXT("custom_fields"));
+	for (TSharedPtr<FJsonValue>& FieldValue : FieldsArray)
+	{
+		TSharedPtr<FJsonObject> FieldObj = FieldValue->AsObject();
+		if (FieldObj.IsValid() && FieldObj->HasField(TEXT("value_json")))
+		{
+			FString RawValue = FieldObj->GetStringField(TEXT("value_json"));
+			TSharedPtr<FJsonValue> ParsedValue = LootLockerUtilities::JsonValueFromFString(RawValue);
+			if (ParsedValue.IsValid() && !ParsedValue->IsNull())
+			{
+				FieldObj->SetField(TEXT("value_json"), ParsedValue);
+			}
+		}
+	}
 }
 
 template<typename RequestType>

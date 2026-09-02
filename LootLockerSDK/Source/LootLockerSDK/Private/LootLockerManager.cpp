@@ -285,6 +285,20 @@ FString ULootLockerManager::WhiteLabelCreateAccount(const FString& Email, const 
     }));
 }
 
+FString ULootLockerManager::WhiteLabelCreateAccountWithCustomFields(const FString& Email, const FString& Password, const TArray<FLootLockerWhiteLabelCustomSignUpFieldValue>& CustomFields, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelAccountCreationRequestCompleted)
+{
+    return ULootLockerSDKManager::WhiteLabelCreateAccount(Email, Password, CustomFields, FLootLockerLoginResponseDelegate::CreateLambda([OnWhiteLabelAccountCreationRequestCompleted](const FLootLockerLoginResponse& Response) {
+        OnWhiteLabelAccountCreationRequestCompleted.ExecuteIfBound(Response);
+    }));
+}
+
+FString ULootLockerManager::GetWhiteLabelSignUpFields(const FLootLockerSignUpFieldsResponseDelegateBP& OnGetWhiteLabelSignUpFieldsRequestCompleted)
+{
+    return ULootLockerSDKManager::GetWhiteLabelSignUpFields(FLootLockerWhiteLabelSignUpFieldsResponseDelegate::CreateLambda([OnGetWhiteLabelSignUpFieldsRequestCompleted](const FLootLockerWhiteLabelSignUpFieldsResponse& Response) {
+        OnGetWhiteLabelSignUpFieldsRequestCompleted.ExecuteIfBound(Response);
+    }));
+}
+
 FString ULootLockerManager::GuestLogin(const FAuthResponseBP& OnCompletedRequestBP, const FString& PlayerIdentifier, const FLootLockerSessionOptionals& Optionals)
 {
     return ULootLockerSDKManager::GuestLogin(FLootLockerSessionResponse::CreateLambda([OnCompletedRequestBP](const FLootLockerAuthenticationResponse& Response) {
@@ -379,6 +393,38 @@ FString ULootLockerManager::ConnectAppleAccountByRestSignIn(const FString& ForPl
 FString ULootLockerManager::ConnectTwitchAccount(const FString& ForPlayerWithUlid, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
 {
     return ULootLockerSDKManager::ConnectTwitchAccount(AuthorizationCode, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::ConnectSteamAccount(const FString& ForPlayerWithUlid, const FString& SteamTicket, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+{
+    return ULootLockerSDKManager::ConnectSteamAccount(SteamTicket, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::ConnectXboxAccount(const FString& ForPlayerWithUlid, const FString& XboxUserToken, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+{
+    return ULootLockerSDKManager::ConnectXboxAccount(XboxUserToken, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::ConnectNintendoAccount(const FString& ForPlayerWithUlid, const FString& NSAIdToken, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+{
+    return ULootLockerSDKManager::ConnectNintendoAccount(NSAIdToken, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::ConnectGooglePlayGamesAccount(const FString& ForPlayerWithUlid, const FString& AuthCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP)
+{
+    return ULootLockerSDKManager::ConnectGooglePlayGamesAccount(AuthCode, FLootLockerAccountConnectedResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAccountConnectedResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
@@ -675,6 +721,70 @@ FString ULootLockerManager::GetSingleFile(const FString& ForPlayerWithUlid, cons
 FString ULootLockerManager::DeletePlayerFile(const FString& ForPlayerWithUlid, const int32 FileID, const FLootLockerFileDeletedBP& OnComplete)
 {
     return ULootLockerSDKManager::DeletePlayerFile(FileID, FLootLockerFileDeletedDelegate::CreateLambda([OnComplete](FLootLockerResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::ListFileRevisions(const FString& ForPlayerWithUlid, const int32 FileID, const FLootLockerFileRevisionsBP& OnComplete)
+{
+    return ULootLockerSDKManager::ListFileRevisions(FileID, FLootLockerFileRevisionsDelegate::CreateLambda([OnComplete](FLootLockerPlayerFileRevisionsResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::GetFileRevision(const FString& ForPlayerWithUlid, const int32 FileID, const FString& RevisionID, const FLootLockerFileContentBP& OnComplete)
+{
+    return ULootLockerSDKManager::GetFileRevision(FileID, RevisionID, FLootLockerFileContentDelegate::CreateLambda([OnComplete](FLootLockerPlayerFileContentResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::PromoteFileRevision(const FString& ForPlayerWithUlid, const int32 FileID, const FString& RevisionID, const FLootLockerDefaultResponseBP& OnComplete)
+{
+    return ULootLockerSDKManager::PromoteFileRevision(FileID, RevisionID, FLootLockerDefaultDelegate::CreateLambda([OnComplete](FLootLockerResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::GetFileByKey(const FString& ForPlayerWithUlid, const FString& Key, const FLootLockerUploadFileBP& OnComplete)
+{
+    return ULootLockerSDKManager::GetFileByKey(Key, FLootLockerUploadFileDelegate::CreateLambda([OnComplete](FLootLockerPlayerFileResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::ListFileRevisionsByKey(const FString& ForPlayerWithUlid, const FString& Key, const FLootLockerFileRevisionsBP& OnComplete)
+{
+    return ULootLockerSDKManager::ListFileRevisionsByKey(Key, FLootLockerFileRevisionsDelegate::CreateLambda([OnComplete](FLootLockerPlayerFileRevisionsResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::GetFileRevisionByKey(const FString& ForPlayerWithUlid, const FString& Key, const FString& RevisionID, const FLootLockerFileContentBP& OnComplete)
+{
+    return ULootLockerSDKManager::GetFileRevisionByKey(Key, RevisionID, FLootLockerFileContentDelegate::CreateLambda([OnComplete](FLootLockerPlayerFileContentResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::PromoteFileRevisionByKey(const FString& ForPlayerWithUlid, const FString& Key, const FString& RevisionID, const FLootLockerDefaultResponseBP& OnComplete)
+{
+    return ULootLockerSDKManager::PromoteFileRevisionByKey(Key, RevisionID, FLootLockerDefaultDelegate::CreateLambda([OnComplete](FLootLockerResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::DeletePlayerFileByKey(const FString& ForPlayerWithUlid, const FString& Key, const FLootLockerFileDeletedBP& OnComplete)
+{
+    return ULootLockerSDKManager::DeletePlayerFileByKey(Key, FLootLockerFileDeletedDelegate::CreateLambda([OnComplete](FLootLockerResponse Response)
     {
         OnComplete.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
@@ -1842,6 +1952,15 @@ FString ULootLockerManager::ListCurrencies(const FString& ForPlayerWithUlid, con
 FString ULootLockerManager::GetCurrencyDetails(const FString& ForPlayerWithUlid, const FString& CurrencyCode, const FLootLockerGetCurrencyDetailsResponseBP& OnCompletedRequest)
 {
     return ULootLockerSDKManager::GetCurrencyDetails(CurrencyCode, FLootLockerGetCurrencyDetailsResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerGetCurrencyDetailsResponse& Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+// Platform Keys
+FString ULootLockerManager::ListPlatformKeys(const FString& ForPlayerWithUlid, const FLootLockerListPlatformKeysResponseBP& OnCompletedRequest)
+{
+    return ULootLockerSDKManager::ListPlatformKeys(FLootLockerListPlatformKeysResponseDelegate::CreateLambda([OnCompletedRequest](const FLootLockerListPlatformKeysResponse& Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);

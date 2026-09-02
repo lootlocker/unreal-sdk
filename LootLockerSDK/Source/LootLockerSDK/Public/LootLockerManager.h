@@ -14,6 +14,7 @@
 #include "GameAPI/LootLockerCharacterRequestHandler.h"
 #include "GameAPI/LootLockerConnectedAccountsRequestHandler.h"
 #include "GameAPI/LootLockerCurrencyRequestHandler.h"
+#include "GameAPI/LootLockerPlatformKeyRequestHandler.h"
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
 #include "GameAPI/LootLockerEntitlementRequestHandler.h"
 #include "GameAPI/LootLockerFollowersRequestHandler.h"
@@ -69,6 +70,8 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerLoginResponseDelegateBP, FLootLocke
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerVerifySessionResponseBP, FLootLockerWhiteLabelVerifySessionResponse, Response);
 /** Blueprint response delegate for white label login and session responses */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerWhiteLabelLoginAndSessionResponseDelegateBP, FLootLockerWhiteLabelLoginAndSessionResponse, Var);
+/** Blueprint response delegate for white label sign up fields responses */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerSignUpFieldsResponseDelegateBP, FLootLockerWhiteLabelSignUpFieldsResponse, Response);
 /** Blueprint response delegate for Apple Game Center authentication session responses */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAppleGameCenterSessionResponseBP, FLootLockerAppleGameCenterSessionResponse, Response);
 /** Blueprint response delegate for Meta authentication session responses */
@@ -143,6 +146,10 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerUploadFileBP, FLootLockerPlayerFile
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerFileListBP, FLootLockerFileListResponse, Response);
 /** Blueprint response delegate for deleting player files */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerFileDeletedBP, FLootLockerResponse, Response);
+/** Blueprint response delegate for listing file revisions */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerFileRevisionsBP, FLootLockerPlayerFileRevisionsResponse, Response);
+/** Blueprint response delegate for getting a single file revision */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerFileContentBP, FLootLockerPlayerFileContentResponse, Response);
 
 //==================================================
 // Player Progression Delegates
@@ -355,6 +362,12 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListCurrenciesResponseBP, FLootLock
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetCurrencyDetailsResponseBP, FLootLockerGetCurrencyDetailsResponse, Response);
 /** Blueprint response delegate for listing denominations responses */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListDenominationsResponseBP, FLootLockerListDenominationsResponse, Response);
+
+//==================================================
+// Platform Key Delegates
+//==================================================
+/** Blueprint response delegate for listing platform keys responses */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListPlatformKeysResponseBP, FLootLockerListPlatformKeysResponse, Response);
 
 //==================================================
 // Balance Delegates
@@ -877,6 +890,33 @@ public:
     static UPARAM(DisplayName = "RequestId") FString WhiteLabelCreateAccount(const FString& Email, const FString& Password, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelAccountCreationRequestCompleted);
 
     /**
+     Create a new White Label user account including answers to custom sign-up fields.
+
+     Call @ref GetWhiteLabelSignUpFields first to retrieve the fields configured for this game,
+     then pass the player's answers.
+
+     @param Email Email for the new user
+     @param Password Password for the new user
+     @param CustomFields Answers to custom sign-up fields configured in the web console
+     @param OnWhiteLabelAccountCreationRequestCompleted Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    static UPARAM(DisplayName = "RequestId") FString WhiteLabelCreateAccountWithCustomFields(const FString& Email, const FString& Password, const TArray<FLootLockerWhiteLabelCustomSignUpFieldValue>& CustomFields, const FLootLockerLoginResponseDelegateBP& OnWhiteLabelAccountCreationRequestCompleted);
+
+    /**
+     Retrieve the list of custom sign-up fields configured for this game.
+
+     Use the returned fields to build a sign-up form, then pass the player's answers
+     to @ref WhiteLabelCreateAccountWithCustomFields.
+
+     @param OnGetWhiteLabelSignUpFieldsRequestCompleted Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Authentication")
+    static UPARAM(DisplayName = "RequestId") FString GetWhiteLabelSignUpFields(const FLootLockerSignUpFieldsResponseDelegateBP& OnGetWhiteLabelSignUpFieldsRequestCompleted);
+
+    /**
      Log in a White Label user (email + password) and verify credentials without starting a LootLocker session.
      Prefer WhiteLabelLoginAndStartSession unless you intentionally need a separated flow.
      Set Remember=true to prolong session lifetime.
@@ -1105,6 +1145,54 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static UPARAM(DisplayName = "RequestId") FString ConnectTwitchAccount(const FString& ForPlayerWithUlid, const FString& AuthorizationCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+
+    /**
+     Connect a Steam account to this LootLocker player enabling Steam-based session starts.
+     IMPORTANT: When using multiple players ensure you supply the correct ForPlayerWithUlid.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param SteamTicket The Steam session ticket (hex-encoded)
+     @param OnCompleteBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString ConnectSteamAccount(const FString& ForPlayerWithUlid, const FString& SteamTicket, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+
+    /**
+     Connect an Xbox account to this LootLocker player enabling Xbox-based session starts.
+     IMPORTANT: When using multiple players ensure you supply the correct ForPlayerWithUlid.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param XboxUserToken The Xbox user token
+     @param OnCompleteBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString ConnectXboxAccount(const FString& ForPlayerWithUlid, const FString& XboxUserToken, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+
+    /**
+     Connect a Nintendo Switch account to this LootLocker player enabling Nintendo Switch-based session starts.
+     IMPORTANT: When using multiple players ensure you supply the correct ForPlayerWithUlid.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param NSAIdToken The NSA ID token from Nintendo Switch sign in
+     @param OnCompleteBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString ConnectNintendoAccount(const FString& ForPlayerWithUlid, const FString& NSAIdToken, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
+
+    /**
+     Connect a Google Play Games account to this LootLocker player enabling Google Play Games-based session starts.
+     IMPORTANT: When using multiple players ensure you supply the correct ForPlayerWithUlid.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param AuthCode The auth code from Google Play Games sign in
+     @param OnCompleteBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Connected Accounts", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString ConnectGooglePlayGamesAccount(const FString& ForPlayerWithUlid, const FString& AuthCode, const FLootLockerAccountConnectedResponseBP& OnCompleteBP);
 
     /**
      Connect an Epic account to this LootLocker player enabling Epic-based session starts.
@@ -1507,6 +1595,98 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static UPARAM(DisplayName = "RequestId") FString DeletePlayerFile(const FString& ForPlayerWithUlid, const int32 FileID, const FLootLockerFileDeletedBP& OnComplete);
+
+    /**
+     List all revisions for a player file.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param FileID File id (retrieved from upload response or ListFiles)
+     @param OnComplete Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString ListFileRevisions(const FString& ForPlayerWithUlid, const int32 FileID, const FLootLockerFileRevisionsBP& OnComplete);
+
+    /**
+     Get a specific revision of a player file by its revision ULID.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param FileID File id (retrieved from upload response or ListFiles)
+     @param RevisionID The ULID of the revision to retrieve
+     @param OnComplete Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString GetFileRevision(const FString& ForPlayerWithUlid, const int32 FileID, const FString& RevisionID, const FLootLockerFileContentBP& OnComplete);
+
+    /**
+     Promote a specific revision to be the current (active) revision of a player file.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param FileID File id (retrieved from upload response or ListFiles)
+     @param RevisionID The ULID of the revision to promote
+     @param OnComplete Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString PromoteFileRevision(const FString& ForPlayerWithUlid, const int32 FileID, const FString& RevisionID, const FLootLockerDefaultResponseBP& OnComplete);
+
+    /**
+     Get a player file by its key (upsert key).
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Key The key of the file
+     @param OnComplete Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString GetFileByKey(const FString& ForPlayerWithUlid, const FString& Key, const FLootLockerUploadFileBP& OnComplete);
+
+    /**
+     List all revisions for a player file identified by its key.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Key The key of the file
+     @param OnComplete Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString ListFileRevisionsByKey(const FString& ForPlayerWithUlid, const FString& Key, const FLootLockerFileRevisionsBP& OnComplete);
+
+    /**
+     Get a specific revision of a player file by its key and revision ULID.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Key The key of the file
+     @param RevisionID The ULID of the revision to retrieve
+     @param OnComplete Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString GetFileRevisionByKey(const FString& ForPlayerWithUlid, const FString& Key, const FString& RevisionID, const FLootLockerFileContentBP& OnComplete);
+
+    /**
+     Promote a specific revision to be the current (active) revision of a player file identified by its key.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Key The key of the file
+     @param RevisionID The ULID of the revision to promote
+     @param OnComplete Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString PromoteFileRevisionByKey(const FString& ForPlayerWithUlid, const FString& Key, const FString& RevisionID, const FLootLockerDefaultResponseBP& OnComplete);
+
+    /**
+     Delete a player file by its key.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param Key The key of the file to delete
+     @param OnComplete Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString DeletePlayerFileByKey(const FString& ForPlayerWithUlid, const FString& Key, const FLootLockerFileDeletedBP& OnComplete);
 
     //==================================================
     // Player Progressions
@@ -3426,6 +3606,20 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Currency", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static UPARAM(DisplayName = "RequestId") FString GetCurrencyDenominationsByCode(const FString& ForPlayerWithUlid, const FString& CurrencyCode, const FLootLockerListDenominationsResponseBP& OnCompletedRequest);
+
+    //==================================================
+    // Platform Keys
+    //==================================================
+
+    /**
+     List platform keys redeemed by the authenticated player.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+     @param OnCompletedRequest Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Platform Keys", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString ListPlatformKeys(const FString& ForPlayerWithUlid, const FLootLockerListPlatformKeysResponseBP& OnCompletedRequest);
 
     //==================================================
     // Balances
