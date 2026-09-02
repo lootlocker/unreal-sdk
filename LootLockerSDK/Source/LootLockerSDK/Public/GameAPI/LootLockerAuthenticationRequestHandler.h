@@ -4,6 +4,7 @@
 
 
 #include "CoreMinimal.h"
+#include "Dom/JsonObject.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
 #include "LootLockerSessionOptionals.h"
