@@ -4143,3 +4143,38 @@ public:
     /// @}
 
 };
+
+    //==================================================
+    // Utilities | Timezones
+    //==================================================
+    /**
+     Get the player's current local IANA timezone as reported by the operating system.
+     Prefer this over GetCurrentUTCOffsetAsIanaTimezone, since OS-reported timezones
+     correctly handle daylight saving time.
+
+     NOTE: On Windows the OS reports Windows timezone names (eg "Romance Standard Time"),
+     which are automatically converted to the matching IANA name (eg "Europe/Paris").
+
+    @return IANA timezone string for the local system, eg "Europe/Paris" or "Etc/UTC"
+    */
+    static FString GetLocalIanaTimezone();
+
+    /**
+     Convert a UTC offset in hours to an IANA timezone string.
+
+     NOTE: The IANA Etc/GMT sign convention is inverted: Etc/GMT+X means UTC-X.
+
+    @param UTCOffsetHours UTC offset in hours (eg -5 for UTC-5)
+    @return IANA timezone string, eg "Etc/GMT+5", "Etc/GMT-2" or "Etc/UTC"
+    */
+    static FString GetCurrentUTCOffsetAsIanaTimezone(int32 UTCOffsetHours);
+
+    /**
+     Check whether a timezone string is a valid IANA timezone that LootLocker accepts.
+     Note that IANA names are case-sensitive, eg "ETC/GMT" is invalid while "Etc/GMT" is valid.
+
+    @param Timezone Timezone string to validate
+    @return True if the string is a supported IANA timezone
+    */
+    static bool IsValidIanaTimezone(const FString& Timezone);
+    /// @}

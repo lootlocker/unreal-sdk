@@ -2692,3 +2692,18 @@ bool ULootLockerManager::IsPresenceAutoDisconnectOnFocusChangeEnabled()
 {
     return ULootLockerSDKManager::IsPresenceAutoDisconnectOnFocusChangeEnabled();
 }
+
+FString ULootLockerManager::GetLocalIanaTimezone()
+{
+    return ULootLockerSDKManager::GetLocalIanaTimezone();
+}
+
+FString ULootLockerManager::GetCurrentUTCOffsetAsIanaTimezone(int32 UTCOffsetHours)
+{
+    return ULootLockerSDKManager::GetCurrentUTCOffsetAsIanaTimezone(UTCOffsetHours);
+}
+
+bool ULootLockerManager::IsValidIanaTimezone(const FString& Timezone)
+{
+    return ULootLockerSDKManager::IsValidIanaTimezone(Timezone);
+}
