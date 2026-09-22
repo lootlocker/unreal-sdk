@@ -37,7 +37,6 @@
  * Build-time only (parsed by Build.cs, ignored at runtime):
  *   build_flags.enable_google_subsystem_helper    (bool)
  *   build_flags.show_outdated_sdk_message         (bool)
- *   build_flags.enable_beta_error_reporting       (bool)
  *   build_flags.force_legacy_http_stack           (bool)
  */
 USTRUCT()
