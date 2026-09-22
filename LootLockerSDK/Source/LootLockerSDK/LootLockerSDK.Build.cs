@@ -10,7 +10,6 @@ public class LootLockerSDK : ModuleRules
     // Leave false (the default) so the env var LOOTLOCKER_USE_LOCAL_DEVENV controls it at build time.
     public static bool bForceLocalDevEnv = false;
     public static bool bTargetLocalDevEnv = bForceLocalDevEnv || !string.IsNullOrEmpty(System.Environment.GetEnvironmentVariable("LOOTLOCKER_USE_LOCAL_DEVENV"));
-    public static bool bEnableBetaErrorReporting = false;
     /// <summary>
     /// Set to true to opt out of the new HTTP execution queue and keep using the
     /// legacy ULootLockerHttpClient stack.  Intended as a temporary escape hatch
@@ -91,10 +90,6 @@ public class LootLockerSDK : ModuleRules
         if (bTargetLocalDevEnv)
         {
             PublicDefinitions.Add("LOOTLOCKER_USE_LOCAL_DEVENV=1");
-        }
-        if (bEnableBetaErrorReporting)
-        {
-            PublicDefinitions.Add("LOOTLOCKER_BETA_ENABLE_ERROR_REPORTING=1");
         }
         if (bForceLegacyHTTPStack)
         {
