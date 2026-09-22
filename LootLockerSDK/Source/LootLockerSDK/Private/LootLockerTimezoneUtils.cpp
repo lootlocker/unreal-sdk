@@ -147,7 +147,24 @@ namespace
 		};
 		return WindowsToIana;
 	}
-}
+
+				/**
+				 * Case-insensitive lookup of a Windows timezone display name in the map.
+				 * Windows SKUs can return differently cased spellings, so we can't rely on
+				 * TMap's case-sensitive FString key comparison.
+				 */
+				const FString* FindWindowsToIanaIgnoreCase(const TMap<FString, FString>& Map, const FString& Key)
+				{
+					for (const auto& Pair : Map)
+					{
+						if (Pair.Key.Equals(Key, ESearchCase::IgnoreCase))
+						{
+							return &Pair.Value;
+						}
+					}
+					return nullptr;
+				}
+			}
 
 namespace LootLockerTimezoneUtils
 {
@@ -158,7 +175,7 @@ namespace LootLockerTimezoneUtils
 		if (!WindowsTz.IsEmpty())
 		{
 			const TMap<FString, FString>& Map = GetWindowsToIanaMap();
-			const FString* Found = Map.Find(WindowsTz);
+					const FString* Found = FindWindowsToIanaIgnoreCase(Map, WindowsTz);
 			if (Found)
 			{
 				return *Found;
