@@ -8,6 +8,7 @@
 #include "LootLockerHttpClient.h"
 #include "GameAPI/LootLockerFriendsRequestHandler.h"
 #include "Utils/LootLockerUtilities.h"
+#include "LootLockerTimezoneUtils.h"
 
 // Player State
 TArray<FString> ULootLockerSDKManager::GetActivePlayerUlids()
@@ -1981,4 +1982,19 @@ void ULootLockerSDKManager::SetPresenceAutoDisconnectOnFocusChangeEnabled(bool b
 bool ULootLockerSDKManager::IsPresenceAutoDisconnectOnFocusChangeEnabled()
 {
     return ULootLockerPresenceManager::IsPauseOnBackgroundEnabled();
+}
+
+FString ULootLockerSDKManager::GetLocalIanaTimezone()
+{
+    return LootLockerTimezoneUtils::GetLocalIanaTimezone();
+}
+
+FString ULootLockerSDKManager::GetCurrentUTCOffsetAsIanaTimezone(int32 UTCOffsetHours)
+{
+    return LootLockerTimezoneUtils::UTCOffsetToIanaTimezone(UTCOffsetHours);
+}
+
+bool ULootLockerSDKManager::IsValidIanaTimezone(const FString& Timezone)
+{
+    return LootLockerTimezoneUtils::IsValidIanaTimezone(Timezone);
 }
