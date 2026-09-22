@@ -101,6 +101,7 @@ public:
 
     // White Label
     static FLootLockerEndPoints WhiteLabelSignupEndpoint;
+    static FLootLockerEndPoints WhiteLabelSignupFieldsEndpoint;
     static FLootLockerEndPoints WhiteLabelLoginEndpoint;
     static FLootLockerEndPoints WhiteLabelAuthEndpoint;
     static FLootLockerEndPoints WhiteLabelVerifySessionEndpoint;
@@ -114,6 +115,14 @@ public:
     static FLootLockerEndPoints GetSingleFileEndpoint;
     static FLootLockerEndPoints DeleteFileEndpoint;
     static FLootLockerEndPoints ListOtherPlayersFilesEndpoint;
+    static FLootLockerEndPoints ListFileRevisionsEndpoint;
+    static FLootLockerEndPoints GetFileRevisionEndpoint;
+    static FLootLockerEndPoints PromoteFileRevisionEndpoint;
+    static FLootLockerEndPoints GetFileByKeyEndpoint;
+    static FLootLockerEndPoints ListFileRevisionsByKeyEndpoint;
+    static FLootLockerEndPoints GetFileRevisionByKeyEndpoint;
+    static FLootLockerEndPoints PromoteFileRevisionByKeyEndpoint;
+    static FLootLockerEndPoints DeleteFileByKeyEndpoint;
 
     //Player
     static FLootLockerEndPoints GetInfoFromSession;
@@ -303,6 +312,9 @@ public:
     static FLootLockerEndPoints ListCurrencies;
     static FLootLockerEndPoints GetCurrencyDetails;
     static FLootLockerEndPoints GetCurrencyDenominationsByCode;
+
+    // Platform Keys
+    static FLootLockerEndPoints ListPlatformKeys;
 
     // Balances
     static FLootLockerEndPoints ListBalancesInWallet;

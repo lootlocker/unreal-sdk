@@ -198,6 +198,11 @@ struct FLootLockerLeaseRemoteSessionRequest
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Game_version = "";
+    /**
+     * Optional list of identity providers to restrict the remote session to (e.g., "steam", "apple")
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FString> Providers;
 };
 
 /**

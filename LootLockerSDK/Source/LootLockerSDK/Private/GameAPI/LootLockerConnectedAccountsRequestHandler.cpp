@@ -50,6 +50,26 @@ FString ULootLockerConnectedAccountsRequestHandler::ConnectTwitchAccount(const F
     return LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(FLootLockerConnectTwitchProviderToAccountRequest{ AuthorizationCode }, ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint, { FString("twitch") }, {}, PlayerData, OnComplete);
 }
 
+FString ULootLockerConnectedAccountsRequestHandler::ConnectSteamAccount(const FLootLockerPlayerData& PlayerData, const FString& SteamTicket, const FLootLockerAccountConnectedResponseDelegate& OnComplete)
+{
+    return LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(FLootLockerConnectSteamProviderToAccountRequest{ SteamTicket }, ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint, { FString("steam") }, {}, PlayerData, OnComplete);
+}
+
+FString ULootLockerConnectedAccountsRequestHandler::ConnectXboxAccount(const FLootLockerPlayerData& PlayerData, const FString& XboxUserToken, const FLootLockerAccountConnectedResponseDelegate& OnComplete)
+{
+    return LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(FLootLockerConnectXboxProviderToAccountRequest{ XboxUserToken }, ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint, { FString("xbox") }, {}, PlayerData, OnComplete);
+}
+
+FString ULootLockerConnectedAccountsRequestHandler::ConnectNintendoAccount(const FLootLockerPlayerData& PlayerData, const FString& NSAIdToken, const FLootLockerAccountConnectedResponseDelegate& OnComplete)
+{
+    return LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(FLootLockerConnectNintendoProviderToAccountRequest{ NSAIdToken }, ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint, { FString("nintendo") }, {}, PlayerData, OnComplete);
+}
+
+FString ULootLockerConnectedAccountsRequestHandler::ConnectGooglePlayGamesAccount(const FLootLockerPlayerData& PlayerData, const FString& AuthCode, const FLootLockerAccountConnectedResponseDelegate& OnComplete)
+{
+    return LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(FLootLockerConnectGooglePlayGamesProviderToAccountRequest{ AuthCode }, ULootLockerGameEndpoints::ConnectProviderToAccountEndpoint, { FString("google-play-games") }, {}, PlayerData, OnComplete);
+}
+
 FString ULootLockerConnectedAccountsRequestHandler::ConnectRemoteSessionAccount(const FLootLockerPlayerData& PlayerData, const FString& Code, const FString& Nonce, const FLootLockerAccountConnectedResponseDelegate& OnComplete)
 {
     return LLAPI<FLootLockerAccountConnectedResponse>::CallAPI(FLootLockerConnectRemoteSessionToAccountRequest{ Code, Nonce }, ULootLockerGameEndpoints::AttachRemoteSessionToAccountEndpoint, {}, {}, PlayerData, OnComplete);
