@@ -4142,8 +4142,6 @@ public:
     static bool IsPresenceAutoDisconnectOnFocusChangeEnabled();
     /// @}
 
-};
-
     //==================================================
     // Utilities | Timezones
     //==================================================
@@ -4178,3 +4176,5 @@ public:
     */
     static bool IsValidIanaTimezone(const FString& Timezone);
     /// @}
+
+};
