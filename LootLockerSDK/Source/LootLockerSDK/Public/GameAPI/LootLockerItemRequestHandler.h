@@ -180,7 +180,10 @@ struct FLootLockerConsumeItemRequest
 {
     GENERATED_BODY()
 
-    /** The number of items to consume. Defaults to 1 when omitted/unset. */
+    /**
+     The number of items to consume. Defaults to 1 when omitted/unset. To consume an entire stack,
+     pass the item's current count.
+     */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 Count = 1;
 };
