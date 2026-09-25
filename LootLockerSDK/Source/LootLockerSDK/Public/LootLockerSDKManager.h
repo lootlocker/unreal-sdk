@@ -21,6 +21,7 @@
 #include "GameAPI/LootLockerFollowersRequestHandler.h"
 #include "GameAPI/LootLockerFriendsRequestHandler.h"
 #include "GameAPI/LootLockerHeroRequestHandler.h"
+#include "GameAPI/LootLockerItemRequestHandler.h"
 #include "GameAPI/LootLockerLeaderboardArchiveRequestHandler.h"
 #include "GameAPI/LootLockerLeaderboardRequestHandler.h"
 #include "GameAPI/LootLockerMapsRequestHandler.h"
@@ -1013,6 +1014,91 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString ListPlayerInventory(const FLootLockerListSimplifiedInventoryRequest& Request, int PerPage, int Page, const FLootLockerSimpleInventoryResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    //==================================================
+    // Items & Item Templates (Assets 2.0)
+    //==================================================
+    /// @addtogroup Items
+    /// @{
+    /**
+     List all item templates available in the game.
+
+     @param PerPage Number of item templates to return per page
+     @param Page Page number to retrieve
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ListItemTemplates(int PerPage, int Page, const FLootLockerListItemTemplatesResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     List all items owned by the player, with optional filtering.
+
+     @param PerPage Number of items to return per page
+     @param Page Page number to retrieve
+     @param Name Optional prefix filter on the item template name
+     @param ItemType Optional filter on item type ("instanced" or "stackable")
+     @param ConsumableFilter Optional filter on whether the item is consumable (All, Consumable, Not_consumable)
+     @param Sort Optional field to sort by ("created_at" or "updated_at")
+     @param Order Optional sort order ("ASC" or "DESC")
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ListPlayerItems(int PerPage, int Page, const FString& Name, const FString& ItemType, ELootLockerItemConsumableFilter ConsumableFilter, const FString& Sort, const FString& Order, const FLootLockerListPlayerItemsResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Get a single item owned by the player.
+
+     @param InventoryId The ULID of the inventory item to fetch
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString GetPlayerItem(const FString& InventoryId, const FLootLockerGetPlayerItemResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Delete a single item owned by the player.
+
+     @param InventoryId The ULID of the inventory item to delete
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString DeletePlayerItem(const FString& InventoryId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Consume one or more of an item owned by the player.
+
+     @param InventoryId The ULID of the inventory item to consume
+     @param Request Request object containing the number of items to consume
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ConsumePlayerItem(const FString& InventoryId, const FLootLockerConsumeItemRequest& Request, const FLootLockerConsumePlayerItemResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Split a stackable item into a separate stack.
+
+     @param InventoryId The ULID of the item stack to split
+     @param Request Request object containing the number of items to move to the new stack
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString SplitPlayerItemStack(const FString& InventoryId, const FLootLockerSplitItemStackRequest& Request, const FLootLockerSplitItemStackResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Merge two item stacks into one.
+
+     @param Request Request object containing the source and target inventory ids
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString MergePlayerItemStacks(const FLootLockerMergeItemStacksRequest& Request, const FLootLockerMergeItemStacksResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+    /// @}
 
     /**
      Get a simplified list of the character's inventory with default parameters.
