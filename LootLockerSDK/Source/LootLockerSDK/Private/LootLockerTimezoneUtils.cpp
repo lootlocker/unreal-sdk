@@ -4,6 +4,12 @@
 #include "HAL/PlatformMisc.h"
 #include "Misc/DateTime.h"
 
+#if PLATFORM_WINDOWS
+#include "Windows/AllowWindowsPlatformTypes.h"
+#include <timezoneapi.h>
+#include "Windows/HideWindowsPlatformTypes.h"
+#endif
+
 namespace
 {
 	/**
@@ -148,34 +154,50 @@ namespace
 		return WindowsToIana;
 	}
 
-				/**
-				 * Case-insensitive lookup of a Windows timezone display name in the map.
-				 * Windows SKUs can return differently cased spellings, so we can't rely on
-				 * TMap's case-sensitive FString key comparison.
-				 */
-				const FString* FindWindowsToIanaIgnoreCase(const TMap<FString, FString>& Map, const FString& Key)
-				{
-					for (const auto& Pair : Map)
-					{
-						if (Pair.Key.Equals(Key, ESearchCase::IgnoreCase))
-						{
-							return &Pair.Value;
-						}
-					}
-					return nullptr;
-				}
+	/**
+	 * Case-insensitive lookup of a Windows timezone display name in the map.
+	 * Windows SKUs can return differently cased spellings, so we can't rely on
+	 * TMap's case-sensitive FString key comparison.
+	 */
+	const FString* FindWindowsToIanaIgnoreCase(const TMap<FString, FString>& Map, const FString& Key)
+	{
+		for (const auto& Pair : Map)
+		{
+			if (Pair.Key.Equals(Key, ESearchCase::IgnoreCase))
+			{
+				return &Pair.Value;
 			}
+		}
+		return nullptr;
+	}
+
+#if PLATFORM_WINDOWS
+	/**
+	 * Read the Windows timezone key name (eg "Fiji Standard Time") from the OS.
+	 * Returns an empty string if the OS does not report a dynamic timezone.
+	 */
+	FString GetWindowsTimeZoneKeyName()
+	{
+		DYNAMIC_TIME_ZONE_INFORMATION TimeZoneInfo = {};
+		if (GetDynamicTimeZoneInformation(&TimeZoneInfo) == TIME_ZONE_ID_INVALID)
+		{
+			return FString();
+		}
+		return FString(TimeZoneInfo.TimeZoneKeyName);
+	}
+#endif
+}
 
 namespace LootLockerTimezoneUtils
 {
 	FString GetLocalIanaTimezone()
 	{
 #if PLATFORM_WINDOWS
-		const FString WindowsTz = FPlatformMisc::GetTimeZoneSetting();
+		const FString WindowsTz = GetWindowsTimeZoneKeyName();
 		if (!WindowsTz.IsEmpty())
 		{
 			const TMap<FString, FString>& Map = GetWindowsToIanaMap();
-					const FString* Found = FindWindowsToIanaIgnoreCase(Map, WindowsTz);
+			const FString* Found = FindWindowsToIanaIgnoreCase(Map, WindowsTz);
 			if (Found)
 			{
 				return *Found;

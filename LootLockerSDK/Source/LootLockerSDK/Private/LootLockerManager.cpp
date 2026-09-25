@@ -563,6 +563,62 @@ FString ULootLockerManager::ListPlayerInventory(const FString& ForPlayerWithUlid
     }), ForPlayerWithUlid);
 }
 
+FString ULootLockerManager::ListItemTemplates(const FString& ForPlayerWithUlid, int PerPage, int Page, const FLootLockerListItemTemplatesResponseBP& OnCompletedRequest)
+{
+    return ULootLockerSDKManager::ListItemTemplates(PerPage, Page, FLootLockerListItemTemplatesResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerListItemTemplatesResponse Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::ListPlayerItems(const FString& ForPlayerWithUlid, int PerPage, int Page, const FString& Name, const FString& ItemType, ELootLockerItemConsumableFilter ConsumableFilter, const FString& Sort, const FString& Order, const FLootLockerListPlayerItemsResponseBP& OnCompletedRequest)
+{
+    return ULootLockerSDKManager::ListPlayerItems(PerPage, Page, Name, ItemType, ConsumableFilter, Sort, Order, FLootLockerListPlayerItemsResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerListPlayerItemsResponse Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::GetPlayerItem(const FString& ForPlayerWithUlid, const FString& InventoryId, const FLootLockerGetPlayerItemResponseBP& OnCompletedRequest)
+{
+    return ULootLockerSDKManager::GetPlayerItem(InventoryId, FLootLockerGetPlayerItemResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerGetPlayerItemResponse Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::DeletePlayerItem(const FString& ForPlayerWithUlid, const FString& InventoryId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+{
+    return ULootLockerSDKManager::DeletePlayerItem(InventoryId, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::ConsumePlayerItem(const FString& ForPlayerWithUlid, const FString& InventoryId, const FLootLockerConsumeItemRequest& Request, const FLootLockerConsumePlayerItemResponseBP& OnCompletedRequest)
+{
+    return ULootLockerSDKManager::ConsumePlayerItem(InventoryId, Request, FLootLockerConsumePlayerItemResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerConsumePlayerItemResponse Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::SplitPlayerItemStack(const FString& ForPlayerWithUlid, const FString& InventoryId, const FLootLockerSplitItemStackRequest& Request, const FLootLockerSplitItemStackResponseBP& OnCompletedRequest)
+{
+    return ULootLockerSDKManager::SplitPlayerItemStack(InventoryId, Request, FLootLockerSplitItemStackResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerSplitItemStackResponse Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::MergePlayerItemStacks(const FString& ForPlayerWithUlid, const FLootLockerMergeItemStacksRequest& Request, const FLootLockerMergeItemStacksResponseBP& OnCompletedRequest)
+{
+    return ULootLockerSDKManager::MergePlayerItemStacks(Request, FLootLockerMergeItemStacksResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerMergeItemStacksResponse Response)
+    {
+        OnCompletedRequest.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
 FString ULootLockerManager::ListCharacterInventory(const FString& ForPlayerWithUlid, int CharacterId, const FLootLockerListSimplifiedInventoryRequest& Request, int PerPage, int Page, const FLootLockerSimpleInventoryResponseBP& OnCompletedRequest)
 {
     return ULootLockerSDKManager::ListCharacterInventory(CharacterId, Request, PerPage, Page, FLootLockerSimpleInventoryResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerSimpleInventoryResponse Response)

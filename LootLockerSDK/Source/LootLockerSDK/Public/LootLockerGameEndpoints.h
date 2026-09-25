@@ -142,6 +142,15 @@ public:
     static FLootLockerEndPoints LookupMultiplePlayer1stPlatformID;
     static FLootLockerEndPoints DeletePlayer;
 
+    //Items & Item Templates (Assets 2.0)
+    static FLootLockerEndPoints ListItemTemplatesEndpoint;
+    static FLootLockerEndPoints ListPlayerItemsEndpoint;
+    static FLootLockerEndPoints GetPlayerItemEndpoint;
+    static FLootLockerEndPoints DeletePlayerItemEndpoint;
+    static FLootLockerEndPoints ConsumePlayerItemEndpoint;
+    static FLootLockerEndPoints SplitPlayerItemStackEndpoint;
+    static FLootLockerEndPoints MergePlayerItemStacksEndpoint;
+
     //Heroes
     static FLootLockerEndPoints GetGameHeroes;
     static FLootLockerEndPoints ListPlayerHeroes;
