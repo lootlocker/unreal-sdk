@@ -109,6 +109,15 @@ FLootLockerEndPoints ULootLockerGameEndpoints::LookupMultiplePlayer1stPlatformID
 FLootLockerEndPoints ULootLockerGameEndpoints::DeletePlayer = InitEndpoint("player", ELootLockerHTTPMethod::DELETE);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetUniversalAssetsEndpoint = InitEndpoint("v1/player/inventory/universal", ELootLockerHTTPMethod::GET);
 
+//Items & Item Templates (Assets 2.0)
+FLootLockerEndPoints ULootLockerGameEndpoints::ListItemTemplatesEndpoint = InitEndpoint("player/inventory/v1", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::ListPlayerItemsEndpoint = InitEndpoint("player/inventory/v1/my", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetPlayerItemEndpoint = InitEndpoint("player/inventory/v1/{0}", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::DeletePlayerItemEndpoint = InitEndpoint("player/inventory/v1/{0}", ELootLockerHTTPMethod::DELETE);
+FLootLockerEndPoints ULootLockerGameEndpoints::ConsumePlayerItemEndpoint = InitEndpoint("player/inventory/v1/{0}/consume", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::SplitPlayerItemStackEndpoint = InitEndpoint("player/inventory/v1/{0}/split", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::MergePlayerItemStacksEndpoint = InitEndpoint("player/inventory/v1/merge", ELootLockerHTTPMethod::POST);
+
 //Heroes
 FLootLockerEndPoints ULootLockerGameEndpoints::GetGameHeroes = InitEndpoint("v1/heroes", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::ListPlayerHeroes = InitEndpoint("v1/player/heroes", ELootLockerHTTPMethod::GET);
