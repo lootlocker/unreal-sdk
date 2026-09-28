@@ -168,7 +168,14 @@ FString ULootLockerItemRequestHandler::ListPlayerItems(const FLootLockerPlayerDa
     if (!Name.IsEmpty()) QueryParams.Add("name", Name);
     if (ItemType != ELootLockerItemType::None) QueryParams.Add("item_type", ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerItemType"), static_cast<int32>(ItemType)).ToLower());
     if (ConsumableFilter != ELootLockerItemConsumableFilter::All) QueryParams.Add("consumable", ConsumableFilter == ELootLockerItemConsumableFilter::Consumable ? "true" : "false");
-    if (Sort != ELootLockerItemSortField::None) QueryParams.Add("sort", ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerItemSortField"), static_cast<int32>(Sort)).ToLower());
+    if (Sort != ELootLockerItemSortField::None)
+    {
+        // GetEnum returns the enum display text, which uses spaces ("created at"), so normalize to
+        // the backend's snake_case query values.
+        FString SortAsString = ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerItemSortField"), static_cast<int32>(Sort)).ToLower();
+        SortAsString.ReplaceCharInline(' ', '_');
+        QueryParams.Add("sort", SortAsString);
+    }
     if (Order != ELootLockerItemSortOrder::None) QueryParams.Add("order", ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerItemSortOrder"), static_cast<int32>(Order)).ToUpper());
 
     return LLAPI<FLootLockerListPlayerItemsResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListPlayerItemsEndpoint, { }, QueryParams, PlayerData, FLootLockerListPlayerItemsResponseDelegate(), LLAPI<FLootLockerListPlayerItemsResponse>::FResponseInspectorCallback::CreateLambda([OnCompletedRequest](FLootLockerListPlayerItemsResponse& Response)
