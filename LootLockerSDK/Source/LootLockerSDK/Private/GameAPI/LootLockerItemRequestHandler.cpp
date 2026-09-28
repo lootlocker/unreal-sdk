@@ -160,16 +160,16 @@ FString ULootLockerItemRequestHandler::ListItemTemplates(const FLootLockerPlayer
     return LLAPI<FLootLockerListItemTemplatesResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::ListItemTemplatesEndpoint, { }, QueryParams, PlayerData, OnCompletedRequest);
 }
 
-FString ULootLockerItemRequestHandler::ListPlayerItems(const FLootLockerPlayerData& PlayerData, int32 PerPage, int32 Page, const FString& Name, const FString& ItemType, ELootLockerItemConsumableFilter ConsumableFilter, const FString& Sort, const FString& Order, const FLootLockerListPlayerItemsResponseDelegate& OnCompletedRequest)
+FString ULootLockerItemRequestHandler::ListPlayerItems(const FLootLockerPlayerData& PlayerData, int32 PerPage, int32 Page, const FString& Name, ELootLockerItemType ItemType, ELootLockerItemConsumableFilter ConsumableFilter, ELootLockerItemSortField Sort, ELootLockerItemSortOrder Order, const FLootLockerListPlayerItemsResponseDelegate& OnCompletedRequest)
 {
     TMultiMap<FString, FString> QueryParams;
     if (Page > 0) QueryParams.Add("page", FString::FromInt(Page));
     if (PerPage > 0) QueryParams.Add("per_page", FString::FromInt(PerPage));
     if (!Name.IsEmpty()) QueryParams.Add("name", Name);
-    if (!ItemType.IsEmpty()) QueryParams.Add("item_type", ItemType);
+    if (ItemType != ELootLockerItemType::None) QueryParams.Add("item_type", ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerItemType"), static_cast<int32>(ItemType)).ToLower());
     if (ConsumableFilter != ELootLockerItemConsumableFilter::All) QueryParams.Add("consumable", ConsumableFilter == ELootLockerItemConsumableFilter::Consumable ? "true" : "false");
-    if (!Sort.IsEmpty()) QueryParams.Add("sort", Sort);
-    if (!Order.IsEmpty()) QueryParams.Add("order", Order);
+    if (Sort != ELootLockerItemSortField::None) QueryParams.Add("sort", ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerItemSortField"), static_cast<int32>(Sort)).ToLower());
+    if (Order != ELootLockerItemSortOrder::None) QueryParams.Add("order", ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerItemSortOrder"), static_cast<int32>(Order)).ToUpper());
 
     return LLAPI<FLootLockerListPlayerItemsResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListPlayerItemsEndpoint, { }, QueryParams, PlayerData, FLootLockerListPlayerItemsResponseDelegate(), LLAPI<FLootLockerListPlayerItemsResponse>::FResponseInspectorCallback::CreateLambda([OnCompletedRequest](FLootLockerListPlayerItemsResponse& Response)
     {

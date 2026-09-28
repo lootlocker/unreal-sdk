@@ -1409,15 +1409,15 @@ public:
      @param PerPage Number of items to return per page
      @param Page Page number to retrieve
      @param Name Optional prefix filter on the item template name
-     @param ItemType Optional filter on item type ("instanced" or "stackable")
+     @param ItemType Optional filter on item type (None, Instanced, Stackable)
      @param ConsumableFilter Optional filter on whether the item is consumable (All, Consumable, Not_consumable)
-     @param Sort Optional field to sort by ("created_at" or "updated_at")
-     @param Order Optional sort order ("ASC" or "DESC")
+     @param Sort Optional field to sort by (None, Created_at, Updated_at, Source)
+     @param Order Optional sort order (None, Asc, Desc)
      @param OnCompletedRequest Delegate for handling the server response
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid,PerPage,Page,Name,ItemType,ConsumableFilter,Sort,Order", ForPlayerWithUlid="", PerPage="25", Page="1"))
-    static UPARAM(DisplayName = "RequestId") FString ListPlayerItems(const FString& ForPlayerWithUlid, int PerPage, int Page, const FString& Name, const FString& ItemType, ELootLockerItemConsumableFilter ConsumableFilter, const FString& Sort, const FString& Order, const FLootLockerListPlayerItemsResponseBP& OnCompletedRequest);
+    static UPARAM(DisplayName = "RequestId") FString ListPlayerItems(const FString& ForPlayerWithUlid, int PerPage, int Page, const FString& Name, ELootLockerItemType ItemType, ELootLockerItemConsumableFilter ConsumableFilter, ELootLockerItemSortField Sort, ELootLockerItemSortOrder Order, const FLootLockerListPlayerItemsResponseBP& OnCompletedRequest);
 
     /**
      Get a single item owned by the player.
