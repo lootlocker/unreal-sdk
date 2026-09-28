@@ -29,6 +29,98 @@ enum class ELootLockerItemConsumableFilter : uint8
 };
 /// @}
 
+/// @addtogroup Items
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
+/**
+ * The type of an item, determining whether item instances are stackable or individually tracked.
+ */
+enum class ELootLockerItemType : uint8
+{
+    /** No filter. Only used when passing an item type to a request. */
+    None = 0,
+    /** Each granted item is a separate, individually tracked instance. */
+    Instanced = 1,
+    /** The item is stored as a single entry with a count that can be incremented or decremented. */
+    Stackable = 2,
+};
+/// @}
+
+/// @addtogroup Items
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
+/**
+ * The field by which to order a player item list response.
+ */
+enum class ELootLockerItemSortField : uint8
+{
+    /** No sorting. The backend defaults to created_at. */
+    None = 0,
+    /** Order by when the item was created. */
+    Created_at = 1,
+    /** Order by when the item was last updated. */
+    Updated_at = 2,
+    /** Order by the source that granted the item. */
+    Source = 3,
+};
+/// @}
+
+/// @addtogroup Items
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
+/**
+ * The direction in which to order a player item list response.
+ */
+enum class ELootLockerItemSortOrder : uint8
+{
+    /** No explicit order. The backend defaults to descending. */
+    None = 0,
+    /** Order ascending. */
+    Asc = 1,
+    /** Order descending. */
+    Desc = 2,
+};
+/// @}
+
+/// @addtogroup Items
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
+/**
+ * The kind of reward that was granted as a result of a behaviour.
+ */
+enum class ELootLockerRewardKind : uint8
+{
+    /** The reward kind could not be determined. */
+    Unknown = 0,
+    /** An asset. */
+    Asset = 1,
+    /** Progression points. */
+    Progression_points = 2,
+    /** A progression reset. */
+    Progression_reset = 3,
+    /** A currency. */
+    Currency = 4,
+    /** A group. */
+    Group = 5,
+    /** A reward. */
+    Reward = 6,
+    /** A platform key. */
+    Platform_key = 7,
+    /** A publisher currency. */
+    Publisher_currency = 8,
+    /** Publisher progression points. */
+    Publisher_progression_points = 9,
+    /** Player metadata. */
+    Player_metadata = 10,
+    /** A file. */
+    File = 11,
+    /** A Discord role. */
+    Discord_role = 12,
+    /** An item template. */
+    Item_template = 13,
+};
+/// @}
+
 
 //==================================================
 // Data Type Definitions
@@ -51,17 +143,13 @@ struct FLootLockerItemTemplate
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Name = "";
 
-    /** The legacy integer id of the game this template belongs to. */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int32 Game_id = 0;
-
     /** Whether this template is limited (0 for not limited, otherwise the limit). */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 Limited = 0;
 
-    /** The type of the item, either "instanced" or "stackable". */
+    /** The type of the item (instanced or stackable). */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Item_type = "";
+    ELootLockerItemType Item_type = ELootLockerItemType::None;
 
     /** Whether this item can be consumed. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -73,11 +161,11 @@ struct FLootLockerItemTemplate
 
     /** When this item template was created. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Created_at = "";
+    FDateTime Created_at = FDateTime(0);
 
-    /** When this item template was last updated. */
+    /** When this item template was last updated. Unset (FDateTime(0)) when the template has never been updated. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Updated_at = "";
+    FDateTime Updated_at = FDateTime(0);
 };
 
 /**
@@ -100,9 +188,9 @@ struct FLootLockerItem
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Item_template_id = "";
 
-    /** The type of the item, either "instanced" or "stackable". */
+    /** The type of the item (instanced or stackable). */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Item_type = "";
+    ELootLockerItemType Item_type = ELootLockerItemType::None;
 
     /** Whether this item can be consumed. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -126,11 +214,11 @@ struct FLootLockerItem
 
     /** When this item was acquired. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Created_at = "";
+    FDateTime Created_at = FDateTime(0);
 
-    /** When this item was last updated. */
+    /** When this item was last updated. Unset (FDateTime(0)) when the item has never been updated. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Updated_at = "";
+    FDateTime Updated_at = FDateTime(0);
 
     /** The free-form metadata for this item. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -155,7 +243,7 @@ struct FLootLockerGrantedItem
 
     /** The kind of reward that was granted. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Type = "";
+    ELootLockerRewardKind Type = ELootLockerRewardKind::Unknown;
 
     /** The name of the granted reward. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -283,9 +371,9 @@ struct FLootLockerGetPlayerItemResponse : public FLootLockerResponse
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Item_template_id = "";
 
-    /** The type of the item, either "instanced" or "stackable". */
+    /** The type of the item (instanced or stackable). */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Item_type = "";
+    ELootLockerItemType Item_type = ELootLockerItemType::None;
 
     /** Whether this item can be consumed. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -305,11 +393,11 @@ struct FLootLockerGetPlayerItemResponse : public FLootLockerResponse
 
     /** When this item was acquired. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Created_at = "";
+    FDateTime Created_at = FDateTime(0);
 
-    /** When this item was last updated. */
+    /** When this item was last updated. Unset (FDateTime(0)) when the item has never been updated. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Updated_at = "";
+    FDateTime Updated_at = FDateTime(0);
 
     /** The item template that this item is based on. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -416,7 +504,7 @@ public:
 
     static FString ListItemTemplates(const FLootLockerPlayerData& PlayerData, int32 PerPage, int32 Page, const FLootLockerListItemTemplatesResponseDelegate& OnCompletedRequest);
 
-    static FString ListPlayerItems(const FLootLockerPlayerData& PlayerData, int32 PerPage, int32 Page, const FString& Name, const FString& ItemType, ELootLockerItemConsumableFilter ConsumableFilter, const FString& Sort, const FString& Order, const FLootLockerListPlayerItemsResponseDelegate& OnCompletedRequest);
+    static FString ListPlayerItems(const FLootLockerPlayerData& PlayerData, int32 PerPage, int32 Page, const FString& Name, ELootLockerItemType ItemType, ELootLockerItemConsumableFilter ConsumableFilter, ELootLockerItemSortField Sort, ELootLockerItemSortOrder Order, const FLootLockerListPlayerItemsResponseDelegate& OnCompletedRequest);
 
     static FString GetPlayerItem(const FLootLockerPlayerData& PlayerData, const FString& InventoryId, const FLootLockerGetPlayerItemResponseDelegate& OnCompletedRequest);
 

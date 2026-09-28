@@ -1016,7 +1016,7 @@ public:
     static FString ListPlayerInventory(const FLootLockerListSimplifiedInventoryRequest& Request, int PerPage, int Page, const FLootLockerSimpleInventoryResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     //==================================================
-    // Items & Item Templates (Assets 2.0)
+    // Items & Item Templates
     //==================================================
     /// @addtogroup Items
     /// @{
@@ -1037,15 +1037,15 @@ public:
      @param PerPage Number of items to return per page
      @param Page Page number to retrieve
      @param Name Optional prefix filter on the item template name
-     @param ItemType Optional filter on item type ("instanced" or "stackable")
+     @param ItemType Optional filter on item type (None to not filter)
      @param ConsumableFilter Optional filter on whether the item is consumable (All, Consumable, Not_consumable)
-     @param Sort Optional field to sort by ("created_at" or "updated_at")
-     @param Order Optional sort order ("ASC" or "DESC")
+     @param Sort Optional field to sort by (None to not filter)
+     @param Order Optional sort order (None to not filter)
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
-    static FString ListPlayerItems(int PerPage, int Page, const FString& Name, const FString& ItemType, ELootLockerItemConsumableFilter ConsumableFilter, const FString& Sort, const FString& Order, const FLootLockerListPlayerItemsResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+    static FString ListPlayerItems(int PerPage, int Page, const FString& Name, ELootLockerItemType ItemType, ELootLockerItemConsumableFilter ConsumableFilter, ELootLockerItemSortField Sort, ELootLockerItemSortOrder Order, const FLootLockerListPlayerItemsResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     /**
      Get a single item owned by the player.

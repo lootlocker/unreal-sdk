@@ -447,7 +447,7 @@ FString ULootLockerSDKManager::ListItemTemplates(int PerPage, int Page, const FL
     return ULootLockerItemRequestHandler::ListItemTemplates(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PerPage, Page, OnCompletedRequest);
 }
 
-FString ULootLockerSDKManager::ListPlayerItems(int PerPage, int Page, const FString& Name, const FString& ItemType, ELootLockerItemConsumableFilter ConsumableFilter, const FString& Sort, const FString& Order, const FLootLockerListPlayerItemsResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+FString ULootLockerSDKManager::ListPlayerItems(int PerPage, int Page, const FString& Name, ELootLockerItemType ItemType, ELootLockerItemConsumableFilter ConsumableFilter, ELootLockerItemSortField Sort, ELootLockerItemSortOrder Order, const FLootLockerListPlayerItemsResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
     return ULootLockerItemRequestHandler::ListPlayerItems(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PerPage, Page, Name, ItemType, ConsumableFilter, Sort, Order, OnCompletedRequest);
 }

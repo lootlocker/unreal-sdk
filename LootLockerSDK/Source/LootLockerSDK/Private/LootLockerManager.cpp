@@ -571,7 +571,7 @@ FString ULootLockerManager::ListItemTemplates(const FString& ForPlayerWithUlid, 
     }), ForPlayerWithUlid);
 }
 
-FString ULootLockerManager::ListPlayerItems(const FString& ForPlayerWithUlid, int PerPage, int Page, const FString& Name, const FString& ItemType, ELootLockerItemConsumableFilter ConsumableFilter, const FString& Sort, const FString& Order, const FLootLockerListPlayerItemsResponseBP& OnCompletedRequest)
+FString ULootLockerManager::ListPlayerItems(const FString& ForPlayerWithUlid, int PerPage, int Page, const FString& Name, ELootLockerItemType ItemType, ELootLockerItemConsumableFilter ConsumableFilter, ELootLockerItemSortField Sort, ELootLockerItemSortOrder Order, const FLootLockerListPlayerItemsResponseBP& OnCompletedRequest)
 {
     return ULootLockerSDKManager::ListPlayerItems(PerPage, Page, Name, ItemType, ConsumableFilter, Sort, Order, FLootLockerListPlayerItemsResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerListPlayerItemsResponse Response)
     {

@@ -142,7 +142,7 @@ public:
     static FLootLockerEndPoints LookupMultiplePlayer1stPlatformID;
     static FLootLockerEndPoints DeletePlayer;
 
-    //Items & Item Templates (Assets 2.0)
+    // Items & Item Templates
     static FLootLockerEndPoints ListItemTemplatesEndpoint;
     static FLootLockerEndPoints ListPlayerItemsEndpoint;
     static FLootLockerEndPoints GetPlayerItemEndpoint;

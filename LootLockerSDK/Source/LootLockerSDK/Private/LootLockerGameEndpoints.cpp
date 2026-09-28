@@ -109,7 +109,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::LookupMultiplePlayer1stPlatformID
 FLootLockerEndPoints ULootLockerGameEndpoints::DeletePlayer = InitEndpoint("player", ELootLockerHTTPMethod::DELETE);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetUniversalAssetsEndpoint = InitEndpoint("v1/player/inventory/universal", ELootLockerHTTPMethod::GET);
 
-//Items & Item Templates (Assets 2.0)
+// Items & Item Templates
 FLootLockerEndPoints ULootLockerGameEndpoints::ListItemTemplatesEndpoint = InitEndpoint("player/inventory/v1", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::ListPlayerItemsEndpoint = InitEndpoint("player/inventory/v1/my", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetPlayerItemEndpoint = InitEndpoint("player/inventory/v1/{0}", ELootLockerHTTPMethod::GET);
