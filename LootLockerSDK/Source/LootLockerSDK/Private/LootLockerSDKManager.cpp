@@ -447,34 +447,34 @@ FString ULootLockerSDKManager::ListItemTemplates(int PerPage, int Page, const FL
     return ULootLockerItemRequestHandler::ListItemTemplates(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PerPage, Page, OnCompletedRequest);
 }
 
-FString ULootLockerSDKManager::ListPlayerItems(int PerPage, int Page, const FString& Name, ELootLockerItemType ItemType, ELootLockerItemConsumableFilter ConsumableFilter, ELootLockerItemSortField Sort, ELootLockerItemSortOrder Order, const FLootLockerListPlayerItemsResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+FString ULootLockerSDKManager::ListPlayerInventoryItems(int PerPage, int Page, const FString& Name, ELootLockerItemType ItemType, ELootLockerItemConsumableFilter ConsumableFilter, ELootLockerItemSortField Sort, ELootLockerItemSortOrder Order, const FLootLockerListPlayerInventoryItemsResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    return ULootLockerItemRequestHandler::ListPlayerItems(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PerPage, Page, Name, ItemType, ConsumableFilter, Sort, Order, OnCompletedRequest);
+    return ULootLockerItemRequestHandler::ListPlayerInventoryItems(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PerPage, Page, Name, ItemType, ConsumableFilter, Sort, Order, OnCompletedRequest);
 }
 
-FString ULootLockerSDKManager::GetPlayerItem(const FString& InventoryId, const FLootLockerGetPlayerItemResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+FString ULootLockerSDKManager::GetPlayerInventoryItem(const FString& InventoryId, const FLootLockerGetPlayerInventoryItemResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    return ULootLockerItemRequestHandler::GetPlayerItem(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), InventoryId, OnCompletedRequest);
+    return ULootLockerItemRequestHandler::GetPlayerInventoryItem(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), InventoryId, OnCompletedRequest);
 }
 
-FString ULootLockerSDKManager::DeletePlayerItem(const FString& InventoryId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+FString ULootLockerSDKManager::DeletePlayerInventoryItem(const FString& InventoryId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    return ULootLockerItemRequestHandler::DeletePlayerItem(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), InventoryId, OnCompletedRequest);
+    return ULootLockerItemRequestHandler::DeletePlayerInventoryItem(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), InventoryId, OnCompletedRequest);
 }
 
-FString ULootLockerSDKManager::ConsumePlayerItem(const FString& InventoryId, const FLootLockerConsumeItemRequest& Request, const FLootLockerConsumePlayerItemResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+FString ULootLockerSDKManager::ConsumePlayerInventoryItem(const FString& InventoryId, const FLootLockerConsumeInventoryItemRequest& Request, const FLootLockerConsumePlayerInventoryItemResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    return ULootLockerItemRequestHandler::ConsumePlayerItem(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), InventoryId, Request, OnCompletedRequest);
+    return ULootLockerItemRequestHandler::ConsumePlayerInventoryItem(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), InventoryId, Request, OnCompletedRequest);
 }
 
-FString ULootLockerSDKManager::SplitPlayerItemStack(const FString& InventoryId, const FLootLockerSplitItemStackRequest& Request, const FLootLockerSplitItemStackResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+FString ULootLockerSDKManager::SplitPlayerInventoryItemStack(const FString& InventoryId, const FLootLockerSplitInventoryItemStackRequest& Request, const FLootLockerSplitInventoryItemStackResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    return ULootLockerItemRequestHandler::SplitPlayerItemStack(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), InventoryId, Request, OnCompletedRequest);
+    return ULootLockerItemRequestHandler::SplitPlayerInventoryItemStack(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), InventoryId, Request, OnCompletedRequest);
 }
 
-FString ULootLockerSDKManager::MergePlayerItemStacks(const FLootLockerMergeItemStacksRequest& Request, const FLootLockerMergeItemStacksResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+FString ULootLockerSDKManager::MergePlayerInventoryItemStacks(const FLootLockerMergeInventoryItemStacksRequest& Request, const FLootLockerMergeInventoryItemStacksResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
-    return ULootLockerItemRequestHandler::MergePlayerItemStacks(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, OnCompletedRequest);
+    return ULootLockerItemRequestHandler::MergePlayerInventoryItemStacks(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, OnCompletedRequest);
 }
 
 FString ULootLockerSDKManager::ListCharacterInventoryWithDefaultParameters(int CharacterId, const FLootLockerSimpleInventoryResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)

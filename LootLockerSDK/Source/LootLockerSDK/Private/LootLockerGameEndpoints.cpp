@@ -111,12 +111,12 @@ FLootLockerEndPoints ULootLockerGameEndpoints::GetUniversalAssetsEndpoint = Init
 
 // Items & Item Templates
 FLootLockerEndPoints ULootLockerGameEndpoints::ListItemTemplatesEndpoint = InitEndpoint("player/inventory/v1", ELootLockerHTTPMethod::GET);
-FLootLockerEndPoints ULootLockerGameEndpoints::ListPlayerItemsEndpoint = InitEndpoint("player/inventory/v1/my", ELootLockerHTTPMethod::GET);
-FLootLockerEndPoints ULootLockerGameEndpoints::GetPlayerItemEndpoint = InitEndpoint("player/inventory/v1/{0}", ELootLockerHTTPMethod::GET);
-FLootLockerEndPoints ULootLockerGameEndpoints::DeletePlayerItemEndpoint = InitEndpoint("player/inventory/v1/{0}", ELootLockerHTTPMethod::DELETE);
-FLootLockerEndPoints ULootLockerGameEndpoints::ConsumePlayerItemEndpoint = InitEndpoint("player/inventory/v1/{0}/consume", ELootLockerHTTPMethod::POST);
-FLootLockerEndPoints ULootLockerGameEndpoints::SplitPlayerItemStackEndpoint = InitEndpoint("player/inventory/v1/{0}/split", ELootLockerHTTPMethod::POST);
-FLootLockerEndPoints ULootLockerGameEndpoints::MergePlayerItemStacksEndpoint = InitEndpoint("player/inventory/v1/merge", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::ListPlayerInventoryItemsEndpoint = InitEndpoint("player/inventory/v1/my", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetPlayerInventoryItemEndpoint = InitEndpoint("player/inventory/v1/{0}", ELootLockerHTTPMethod::GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::DeletePlayerInventoryItemEndpoint = InitEndpoint("player/inventory/v1/{0}", ELootLockerHTTPMethod::DELETE);
+FLootLockerEndPoints ULootLockerGameEndpoints::ConsumePlayerInventoryItemEndpoint = InitEndpoint("player/inventory/v1/{0}/consume", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::SplitPlayerInventoryItemStackEndpoint = InitEndpoint("player/inventory/v1/{0}/split", ELootLockerHTTPMethod::POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::MergePlayerInventoryItemStacksEndpoint = InitEndpoint("player/inventory/v1/merge", ELootLockerHTTPMethod::POST);
 
 //Heroes
 FLootLockerEndPoints ULootLockerGameEndpoints::GetGameHeroes = InitEndpoint("v1/heroes", ELootLockerHTTPMethod::GET);

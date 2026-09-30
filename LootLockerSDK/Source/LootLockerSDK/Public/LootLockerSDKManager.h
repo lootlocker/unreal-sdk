@@ -969,6 +969,10 @@ public:
     /**
      Get all inventory asset instances owned by the player.
 
+     Operates on assets and asset instances. For the item-based inventory, see
+     ListPlayerInventoryItems and friends, which deal with items and item templates and are a
+     separate system.
+
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
@@ -997,6 +1001,10 @@ public:
     /**
      Get a simplified list of the player's inventory with default parameters.
 
+     Operates on assets and asset instances. For the item-based inventory, see
+     ListPlayerInventoryItems and friends, which deal with items and item templates and are a
+     separate system.
+
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
@@ -1005,6 +1013,10 @@ public:
 
     /**
      Get a simplified list of the player's inventory.
+
+     Operates on assets and asset instances. For the item-based inventory, see
+     ListPlayerInventoryItems and friends, which deal with items and item templates and are a
+     separate system.
 
      @param Request Request object containing filters and optional includes.
      @param PerPage Number of items to return per page
@@ -1020,6 +1032,11 @@ public:
     //==================================================
     /// @addtogroup Items
     /// @{
+    ///
+    /// These methods operate on items and item templates. They are unrelated to the asset-based
+    /// inventory API above (GetInventory, ListPlayerInventory, ...), which deals with assets and
+    /// asset instances. The two share a URL prefix but are separate systems.
+
     /**
      List all item templates available in the game.
 
@@ -1045,7 +1062,7 @@ public:
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
-    static FString ListPlayerItems(int PerPage, int Page, const FString& Name, ELootLockerItemType ItemType, ELootLockerItemConsumableFilter ConsumableFilter, ELootLockerItemSortField Sort, ELootLockerItemSortOrder Order, const FLootLockerListPlayerItemsResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+    static FString ListPlayerInventoryItems(int PerPage, int Page, const FString& Name, ELootLockerItemType ItemType, ELootLockerItemConsumableFilter ConsumableFilter, ELootLockerItemSortField Sort, ELootLockerItemSortOrder Order, const FLootLockerListPlayerInventoryItemsResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     /**
      Get a single item owned by the player.
@@ -1055,7 +1072,7 @@ public:
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
-    static FString GetPlayerItem(const FString& InventoryId, const FLootLockerGetPlayerItemResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+    static FString GetPlayerInventoryItem(const FString& InventoryId, const FLootLockerGetPlayerInventoryItemResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     /**
      Delete a single item owned by the player.
@@ -1065,7 +1082,7 @@ public:
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
-    static FString DeletePlayerItem(const FString& InventoryId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+    static FString DeletePlayerInventoryItem(const FString& InventoryId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     /**
      Consume one or more of an item owned by the player.
@@ -1076,7 +1093,7 @@ public:
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
-    static FString ConsumePlayerItem(const FString& InventoryId, const FLootLockerConsumeItemRequest& Request, const FLootLockerConsumePlayerItemResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+    static FString ConsumePlayerInventoryItem(const FString& InventoryId, const FLootLockerConsumeInventoryItemRequest& Request, const FLootLockerConsumePlayerInventoryItemResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     /**
      Split a stackable item into a separate stack.
@@ -1087,7 +1104,7 @@ public:
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
-    static FString SplitPlayerItemStack(const FString& InventoryId, const FLootLockerSplitItemStackRequest& Request, const FLootLockerSplitItemStackResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+    static FString SplitPlayerInventoryItemStack(const FString& InventoryId, const FLootLockerSplitInventoryItemStackRequest& Request, const FLootLockerSplitInventoryItemStackResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     /**
      Merge two item stacks into one.
@@ -1097,7 +1114,7 @@ public:
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
-    static FString MergePlayerItemStacks(const FLootLockerMergeItemStacksRequest& Request, const FLootLockerMergeItemStacksResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+    static FString MergePlayerInventoryItemStacks(const FLootLockerMergeInventoryItemStacksRequest& Request, const FLootLockerMergeInventoryItemStacksResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
     /// @}
 
     /**

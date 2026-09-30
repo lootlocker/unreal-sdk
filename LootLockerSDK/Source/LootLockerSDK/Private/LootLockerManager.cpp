@@ -571,49 +571,49 @@ FString ULootLockerManager::ListItemTemplates(const FString& ForPlayerWithUlid, 
     }), ForPlayerWithUlid);
 }
 
-FString ULootLockerManager::ListPlayerItems(const FString& ForPlayerWithUlid, int PerPage, int Page, const FString& Name, ELootLockerItemType ItemType, ELootLockerItemConsumableFilter ConsumableFilter, ELootLockerItemSortField Sort, ELootLockerItemSortOrder Order, const FLootLockerListPlayerItemsResponseBP& OnCompletedRequest)
+FString ULootLockerManager::ListPlayerInventoryItems(const FString& ForPlayerWithUlid, int PerPage, int Page, const FString& Name, ELootLockerItemType ItemType, ELootLockerItemConsumableFilter ConsumableFilter, ELootLockerItemSortField Sort, ELootLockerItemSortOrder Order, const FLootLockerListPlayerInventoryItemsResponseBP& OnCompletedRequest)
 {
-    return ULootLockerSDKManager::ListPlayerItems(PerPage, Page, Name, ItemType, ConsumableFilter, Sort, Order, FLootLockerListPlayerItemsResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerListPlayerItemsResponse Response)
+    return ULootLockerSDKManager::ListPlayerInventoryItems(PerPage, Page, Name, ItemType, ConsumableFilter, Sort, Order, FLootLockerListPlayerInventoryItemsResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerListPlayerInventoryItemsResponse Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-FString ULootLockerManager::GetPlayerItem(const FString& ForPlayerWithUlid, const FString& InventoryId, const FLootLockerGetPlayerItemResponseBP& OnCompletedRequest)
+FString ULootLockerManager::GetPlayerInventoryItem(const FString& ForPlayerWithUlid, const FString& InventoryId, const FLootLockerGetPlayerInventoryItemResponseBP& OnCompletedRequest)
 {
-    return ULootLockerSDKManager::GetPlayerItem(InventoryId, FLootLockerGetPlayerItemResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerGetPlayerItemResponse Response)
+    return ULootLockerSDKManager::GetPlayerInventoryItem(InventoryId, FLootLockerGetPlayerInventoryItemResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerGetPlayerInventoryItemResponse Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-FString ULootLockerManager::DeletePlayerItem(const FString& ForPlayerWithUlid, const FString& InventoryId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
+FString ULootLockerManager::DeletePlayerInventoryItem(const FString& ForPlayerWithUlid, const FString& InventoryId, const FLootLockerDefaultResponseBP& OnCompletedRequest)
 {
-    return ULootLockerSDKManager::DeletePlayerItem(InventoryId, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
+    return ULootLockerSDKManager::DeletePlayerInventoryItem(InventoryId, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequest](FLootLockerResponse Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-FString ULootLockerManager::ConsumePlayerItem(const FString& ForPlayerWithUlid, const FString& InventoryId, const FLootLockerConsumeItemRequest& Request, const FLootLockerConsumePlayerItemResponseBP& OnCompletedRequest)
+FString ULootLockerManager::ConsumePlayerInventoryItem(const FString& ForPlayerWithUlid, const FString& InventoryId, const FLootLockerConsumeInventoryItemRequest& Request, const FLootLockerConsumePlayerInventoryItemResponseBP& OnCompletedRequest)
 {
-    return ULootLockerSDKManager::ConsumePlayerItem(InventoryId, Request, FLootLockerConsumePlayerItemResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerConsumePlayerItemResponse Response)
+    return ULootLockerSDKManager::ConsumePlayerInventoryItem(InventoryId, Request, FLootLockerConsumePlayerInventoryItemResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerConsumePlayerInventoryItemResponse Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-FString ULootLockerManager::SplitPlayerItemStack(const FString& ForPlayerWithUlid, const FString& InventoryId, const FLootLockerSplitItemStackRequest& Request, const FLootLockerSplitItemStackResponseBP& OnCompletedRequest)
+FString ULootLockerManager::SplitPlayerInventoryItemStack(const FString& ForPlayerWithUlid, const FString& InventoryId, const FLootLockerSplitInventoryItemStackRequest& Request, const FLootLockerSplitInventoryItemStackResponseBP& OnCompletedRequest)
 {
-    return ULootLockerSDKManager::SplitPlayerItemStack(InventoryId, Request, FLootLockerSplitItemStackResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerSplitItemStackResponse Response)
+    return ULootLockerSDKManager::SplitPlayerInventoryItemStack(InventoryId, Request, FLootLockerSplitInventoryItemStackResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerSplitInventoryItemStackResponse Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
 }
 
-FString ULootLockerManager::MergePlayerItemStacks(const FString& ForPlayerWithUlid, const FLootLockerMergeItemStacksRequest& Request, const FLootLockerMergeItemStacksResponseBP& OnCompletedRequest)
+FString ULootLockerManager::MergePlayerInventoryItemStacks(const FString& ForPlayerWithUlid, const FLootLockerMergeInventoryItemStacksRequest& Request, const FLootLockerMergeInventoryItemStacksResponseBP& OnCompletedRequest)
 {
-    return ULootLockerSDKManager::MergePlayerItemStacks(Request, FLootLockerMergeItemStacksResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerMergeItemStacksResponse Response)
+    return ULootLockerSDKManager::MergePlayerInventoryItemStacks(Request, FLootLockerMergeInventoryItemStacksResponseDelegate::CreateLambda([OnCompletedRequest](FLootLockerMergeInventoryItemStacksResponse Response)
     {
         OnCompletedRequest.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
