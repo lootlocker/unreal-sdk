@@ -18,6 +18,7 @@ jobs:
   build-sdk:
     name: Build SDK with ${{ matrix.UE_IMAGE }}
     runs-on: ubuntu-22.04-4-core
+    timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
@@ -56,7 +57,14 @@ jobs:
           mkdir build
           chmod 777 build
           chmod 777 tmp
-          docker run --rm -v "$(pwd):/mnt/source" ghcr.io/epicgames/unreal-engine:${{ matrix.UE_IMAGE }} sh -c "/home/ue4/UnrealEngine/Engine/Build/BatchFiles/RunUAT.sh BuildPlugin -TargetPlatforms=\"Linux\" -Plugin=\"/mnt/source/${SDK_NAME}/${SDK_NAME}.uplugin\" -Package=\"/mnt/source/build\" -Rocket -enablecodeanalysis" 2>&1 | tee tmp/logs/UAT.log
+          # UBA's local executor can segfault in UbaSessionServer (opendir/directory_iterator)
+          # before compiling anything, which hangs the build indefinitely. Disable it so UBT
+          # falls back to its standard parallel local executor. Same workaround as
+          # .github/scripts/verify-compilation.sh and run-tests.ps1.
+          docker run --rm \
+            -e UnrealBuildTool_BuildConfiguration__bAllowUBAExecutor=false \
+            -e UnrealBuildTool_BuildConfiguration__bAllowUBALocalExecutor=false \
+            -v "$(pwd):/mnt/source" ghcr.io/epicgames/unreal-engine:${{ matrix.UE_IMAGE }} sh -c "/home/ue4/UnrealEngine/Engine/Build/BatchFiles/RunUAT.sh BuildPlugin -TargetPlatforms=\"Linux\" -Plugin=\"/mnt/source/${SDK_NAME}/${SDK_NAME}.uplugin\" -Package=\"/mnt/source/build\" -Rocket -enablecodeanalysis" 2>&1 | tee tmp/logs/UAT.log
           
       - name: Expose log as artifact
         uses: actions/upload-artifact@v4
