@@ -170,9 +170,13 @@ struct FLootLockerItemTemplate
 
 /**
  * Represents a single item (inventory entry) owned by a player.
+ *
+ * This represents an item granted from an item template. It is unrelated to the asset-based
+ * inventory API (FLootLockerInventory, GetInventory, ListPlayerInventory), which deals with
+ * assets and asset instances.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
-struct FLootLockerItem
+struct FLootLockerInventoryItem
 {
     GENERATED_BODY()
 
@@ -264,7 +268,7 @@ struct FLootLockerGrantedItem
  * Request to consume one or more of an item.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
-struct FLootLockerConsumeItemRequest
+struct FLootLockerConsumeInventoryItemRequest
 {
     GENERATED_BODY()
 
@@ -280,7 +284,7 @@ struct FLootLockerConsumeItemRequest
  * Request to split a stackable item into two stacks.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
-struct FLootLockerSplitItemStackRequest
+struct FLootLockerSplitInventoryItemStackRequest
 {
     GENERATED_BODY()
 
@@ -293,7 +297,7 @@ struct FLootLockerSplitItemStackRequest
  * Request to merge two item stacks into one.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
-struct FLootLockerMergeItemStacksRequest
+struct FLootLockerMergeInventoryItemStacksRequest
 {
     GENERATED_BODY()
 
@@ -330,16 +334,19 @@ struct FLootLockerListItemTemplatesResponse : public FLootLockerResponse
 };
 
 /**
- * Response for listing a player's items.
+ * Response for listing a player's inventory items.
+ *
+ * Operates on items and item templates. This is unrelated to the asset-based inventory API
+ * (GetInventory, ListPlayerInventory), which deals with assets and asset instances.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
-struct FLootLockerListPlayerItemsResponse : public FLootLockerResponse
+struct FLootLockerListPlayerInventoryItemsResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
 
     /** List of the player's items according to the requested filters and pagination. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    TArray<FLootLockerItem> Items;
+    TArray<FLootLockerInventoryItem> Items;
 
     /** Pagination information for the items returned. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -352,10 +359,10 @@ struct FLootLockerListPlayerItemsResponse : public FLootLockerResponse
 };
 
 /**
- * Response for getting a single player item.
+ * Response for getting a single player inventory item.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
-struct FLootLockerGetPlayerItemResponse : public FLootLockerResponse
+struct FLootLockerGetPlayerInventoryItemResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
 
@@ -417,7 +424,7 @@ struct FLootLockerGetPlayerItemResponse : public FLootLockerResponse
  * Response for consuming one or more of an item.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
-struct FLootLockerConsumePlayerItemResponse : public FLootLockerResponse
+struct FLootLockerConsumePlayerInventoryItemResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
 
@@ -434,7 +441,7 @@ struct FLootLockerConsumePlayerItemResponse : public FLootLockerResponse
  * Response for splitting an item stack.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
-struct FLootLockerSplitItemStackResponse : public FLootLockerResponse
+struct FLootLockerSplitInventoryItemStackResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
 
@@ -447,7 +454,7 @@ struct FLootLockerSplitItemStackResponse : public FLootLockerResponse
  * Response for merging two item stacks. Empty unless the request failed.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
-struct FLootLockerMergeItemStacksResponse : public FLootLockerResponse
+struct FLootLockerMergeInventoryItemStacksResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
 };
@@ -467,27 +474,27 @@ DECLARE_DELEGATE_OneParam(FLootLockerListItemTemplatesResponseDelegate, FLootLoc
 /**
  * C++ response delegate for listing player items.
  */
-DECLARE_DELEGATE_OneParam(FLootLockerListPlayerItemsResponseDelegate, FLootLockerListPlayerItemsResponse);
+DECLARE_DELEGATE_OneParam(FLootLockerListPlayerInventoryItemsResponseDelegate, FLootLockerListPlayerInventoryItemsResponse);
 
 /**
  * C++ response delegate for getting a player item.
  */
-DECLARE_DELEGATE_OneParam(FLootLockerGetPlayerItemResponseDelegate, FLootLockerGetPlayerItemResponse);
+DECLARE_DELEGATE_OneParam(FLootLockerGetPlayerInventoryItemResponseDelegate, FLootLockerGetPlayerInventoryItemResponse);
 
 /**
  * C++ response delegate for consuming a player item.
  */
-DECLARE_DELEGATE_OneParam(FLootLockerConsumePlayerItemResponseDelegate, FLootLockerConsumePlayerItemResponse);
+DECLARE_DELEGATE_OneParam(FLootLockerConsumePlayerInventoryItemResponseDelegate, FLootLockerConsumePlayerInventoryItemResponse);
 
 /**
  * C++ response delegate for splitting an item stack.
  */
-DECLARE_DELEGATE_OneParam(FLootLockerSplitItemStackResponseDelegate, FLootLockerSplitItemStackResponse);
+DECLARE_DELEGATE_OneParam(FLootLockerSplitInventoryItemStackResponseDelegate, FLootLockerSplitInventoryItemStackResponse);
 
 /**
  * C++ response delegate for merging item stacks.
  */
-DECLARE_DELEGATE_OneParam(FLootLockerMergeItemStacksResponseDelegate, FLootLockerMergeItemStacksResponse);
+DECLARE_DELEGATE_OneParam(FLootLockerMergeInventoryItemStacksResponseDelegate, FLootLockerMergeInventoryItemStacksResponse);
 
 
 //==================================================
@@ -504,15 +511,15 @@ public:
 
     static FString ListItemTemplates(const FLootLockerPlayerData& PlayerData, int32 PerPage, int32 Page, const FLootLockerListItemTemplatesResponseDelegate& OnCompletedRequest);
 
-    static FString ListPlayerItems(const FLootLockerPlayerData& PlayerData, int32 PerPage, int32 Page, const FString& Name, ELootLockerItemType ItemType, ELootLockerItemConsumableFilter ConsumableFilter, ELootLockerItemSortField Sort, ELootLockerItemSortOrder Order, const FLootLockerListPlayerItemsResponseDelegate& OnCompletedRequest);
+    static FString ListPlayerInventoryItems(const FLootLockerPlayerData& PlayerData, int32 PerPage, int32 Page, const FString& Name, ELootLockerItemType ItemType, ELootLockerItemConsumableFilter ConsumableFilter, ELootLockerItemSortField Sort, ELootLockerItemSortOrder Order, const FLootLockerListPlayerInventoryItemsResponseDelegate& OnCompletedRequest);
 
-    static FString GetPlayerItem(const FLootLockerPlayerData& PlayerData, const FString& InventoryId, const FLootLockerGetPlayerItemResponseDelegate& OnCompletedRequest);
+    static FString GetPlayerInventoryItem(const FLootLockerPlayerData& PlayerData, const FString& InventoryId, const FLootLockerGetPlayerInventoryItemResponseDelegate& OnCompletedRequest);
 
-    static FString DeletePlayerItem(const FLootLockerPlayerData& PlayerData, const FString& InventoryId, const FLootLockerDefaultDelegate& OnCompletedRequest);
+    static FString DeletePlayerInventoryItem(const FLootLockerPlayerData& PlayerData, const FString& InventoryId, const FLootLockerDefaultDelegate& OnCompletedRequest);
 
-    static FString ConsumePlayerItem(const FLootLockerPlayerData& PlayerData, const FString& InventoryId, const FLootLockerConsumeItemRequest& Request, const FLootLockerConsumePlayerItemResponseDelegate& OnCompletedRequest);
+    static FString ConsumePlayerInventoryItem(const FLootLockerPlayerData& PlayerData, const FString& InventoryId, const FLootLockerConsumeInventoryItemRequest& Request, const FLootLockerConsumePlayerInventoryItemResponseDelegate& OnCompletedRequest);
 
-    static FString SplitPlayerItemStack(const FLootLockerPlayerData& PlayerData, const FString& InventoryId, const FLootLockerSplitItemStackRequest& Request, const FLootLockerSplitItemStackResponseDelegate& OnCompletedRequest);
+    static FString SplitPlayerInventoryItemStack(const FLootLockerPlayerData& PlayerData, const FString& InventoryId, const FLootLockerSplitInventoryItemStackRequest& Request, const FLootLockerSplitInventoryItemStackResponseDelegate& OnCompletedRequest);
 
-    static FString MergePlayerItemStacks(const FLootLockerPlayerData& PlayerData, const FLootLockerMergeItemStacksRequest& Request, const FLootLockerMergeItemStacksResponseDelegate& OnCompletedRequest);
+    static FString MergePlayerInventoryItemStacks(const FLootLockerPlayerData& PlayerData, const FLootLockerMergeInventoryItemStacksRequest& Request, const FLootLockerMergeInventoryItemStacksResponseDelegate& OnCompletedRequest);
 };

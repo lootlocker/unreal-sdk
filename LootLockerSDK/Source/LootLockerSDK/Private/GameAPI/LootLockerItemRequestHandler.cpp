@@ -6,7 +6,7 @@
 #include "Utils/LootLockerUtilities.h"
 #include "LootLockerLogger.h"
 
-void FLootLockerGetPlayerItemResponse::PopulateConvenienceStructures()
+void FLootLockerGetPlayerInventoryItemResponse::PopulateConvenienceStructures()
 {
     TSharedPtr<FJsonObject> ResponseAsJson = LootLockerUtilities::JsonObjectFromFString(FullTextFromServer);
     if (!ResponseAsJson.IsValid() || !ResponseAsJson->HasField(TEXT("metadata")))
@@ -56,7 +56,7 @@ void FLootLockerGetPlayerItemResponse::PopulateConvenienceStructures()
     }
 }
 
-void FLootLockerListPlayerItemsResponse::PopulateConvenienceStructures()
+void FLootLockerListPlayerInventoryItemsResponse::PopulateConvenienceStructures()
 {
     if (Items.Num() == 0)
     {
@@ -98,8 +98,8 @@ void FLootLockerListPlayerItemsResponse::PopulateConvenienceStructures()
             continue;
         }
 
-        FLootLockerItem* MatchedItem = nullptr;
-        for (FLootLockerItem& Item : Items)
+        FLootLockerInventoryItem* MatchedItem = nullptr;
+        for (FLootLockerInventoryItem& Item : Items)
         {
             if (Item.Id.Equals(JsonItemId, ESearchCase::IgnoreCase))
             {
@@ -160,7 +160,7 @@ FString ULootLockerItemRequestHandler::ListItemTemplates(const FLootLockerPlayer
     return LLAPI<FLootLockerListItemTemplatesResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::ListItemTemplatesEndpoint, { }, QueryParams, PlayerData, OnCompletedRequest);
 }
 
-FString ULootLockerItemRequestHandler::ListPlayerItems(const FLootLockerPlayerData& PlayerData, int32 PerPage, int32 Page, const FString& Name, ELootLockerItemType ItemType, ELootLockerItemConsumableFilter ConsumableFilter, ELootLockerItemSortField Sort, ELootLockerItemSortOrder Order, const FLootLockerListPlayerItemsResponseDelegate& OnCompletedRequest)
+FString ULootLockerItemRequestHandler::ListPlayerInventoryItems(const FLootLockerPlayerData& PlayerData, int32 PerPage, int32 Page, const FString& Name, ELootLockerItemType ItemType, ELootLockerItemConsumableFilter ConsumableFilter, ELootLockerItemSortField Sort, ELootLockerItemSortOrder Order, const FLootLockerListPlayerInventoryItemsResponseDelegate& OnCompletedRequest)
 {
     TMultiMap<FString, FString> QueryParams;
     if (Page > 0) QueryParams.Add("page", FString::FromInt(Page));
@@ -178,7 +178,7 @@ FString ULootLockerItemRequestHandler::ListPlayerItems(const FLootLockerPlayerDa
     }
     if (Order != ELootLockerItemSortOrder::None) QueryParams.Add("order", ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerItemSortOrder"), static_cast<int32>(Order)).ToUpper());
 
-    return LLAPI<FLootLockerListPlayerItemsResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListPlayerItemsEndpoint, { }, QueryParams, PlayerData, FLootLockerListPlayerItemsResponseDelegate(), LLAPI<FLootLockerListPlayerItemsResponse>::FResponseInspectorCallback::CreateLambda([OnCompletedRequest](FLootLockerListPlayerItemsResponse& Response)
+    return LLAPI<FLootLockerListPlayerInventoryItemsResponse>::CallAPI(FLootLockerEmptyRequest{}, ULootLockerGameEndpoints::ListPlayerInventoryItemsEndpoint, { }, QueryParams, PlayerData, FLootLockerListPlayerInventoryItemsResponseDelegate(), LLAPI<FLootLockerListPlayerInventoryItemsResponse>::FResponseInspectorCallback::CreateLambda([OnCompletedRequest](FLootLockerListPlayerInventoryItemsResponse& Response)
     {
         if (Response.success && Response.Items.Num() > 0)
         {
@@ -189,9 +189,9 @@ FString ULootLockerItemRequestHandler::ListPlayerItems(const FLootLockerPlayerDa
     }));
 }
 
-FString ULootLockerItemRequestHandler::GetPlayerItem(const FLootLockerPlayerData& PlayerData, const FString& InventoryId, const FLootLockerGetPlayerItemResponseDelegate& OnCompletedRequest)
+FString ULootLockerItemRequestHandler::GetPlayerInventoryItem(const FLootLockerPlayerData& PlayerData, const FString& InventoryId, const FLootLockerGetPlayerInventoryItemResponseDelegate& OnCompletedRequest)
 {
-    return LLAPI<FLootLockerGetPlayerItemResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetPlayerItemEndpoint, { InventoryId }, EmptyQueryParams, PlayerData, FLootLockerGetPlayerItemResponseDelegate(), LLAPI<FLootLockerGetPlayerItemResponse>::FResponseInspectorCallback::CreateLambda([OnCompletedRequest](FLootLockerGetPlayerItemResponse& Response)
+    return LLAPI<FLootLockerGetPlayerInventoryItemResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetPlayerInventoryItemEndpoint, { InventoryId }, EmptyQueryParams, PlayerData, FLootLockerGetPlayerInventoryItemResponseDelegate(), LLAPI<FLootLockerGetPlayerInventoryItemResponse>::FResponseInspectorCallback::CreateLambda([OnCompletedRequest](FLootLockerGetPlayerInventoryItemResponse& Response)
     {
         if (Response.success)
         {
@@ -202,22 +202,22 @@ FString ULootLockerItemRequestHandler::GetPlayerItem(const FLootLockerPlayerData
     }));
 }
 
-FString ULootLockerItemRequestHandler::DeletePlayerItem(const FLootLockerPlayerData& PlayerData, const FString& InventoryId, const FLootLockerDefaultDelegate& OnCompletedRequest)
+FString ULootLockerItemRequestHandler::DeletePlayerInventoryItem(const FLootLockerPlayerData& PlayerData, const FString& InventoryId, const FLootLockerDefaultDelegate& OnCompletedRequest)
 {
-    return LLAPI<FLootLockerResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::DeletePlayerItemEndpoint, { InventoryId }, EmptyQueryParams, PlayerData, OnCompletedRequest);
+    return LLAPI<FLootLockerResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::DeletePlayerInventoryItemEndpoint, { InventoryId }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
-FString ULootLockerItemRequestHandler::ConsumePlayerItem(const FLootLockerPlayerData& PlayerData, const FString& InventoryId, const FLootLockerConsumeItemRequest& Request, const FLootLockerConsumePlayerItemResponseDelegate& OnCompletedRequest)
+FString ULootLockerItemRequestHandler::ConsumePlayerInventoryItem(const FLootLockerPlayerData& PlayerData, const FString& InventoryId, const FLootLockerConsumeInventoryItemRequest& Request, const FLootLockerConsumePlayerInventoryItemResponseDelegate& OnCompletedRequest)
 {
-    return LLAPI<FLootLockerConsumePlayerItemResponse>::CallAPI(Request, ULootLockerGameEndpoints::ConsumePlayerItemEndpoint, { InventoryId }, EmptyQueryParams, PlayerData, OnCompletedRequest);
+    return LLAPI<FLootLockerConsumePlayerInventoryItemResponse>::CallAPI(Request, ULootLockerGameEndpoints::ConsumePlayerInventoryItemEndpoint, { InventoryId }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
-FString ULootLockerItemRequestHandler::SplitPlayerItemStack(const FLootLockerPlayerData& PlayerData, const FString& InventoryId, const FLootLockerSplitItemStackRequest& Request, const FLootLockerSplitItemStackResponseDelegate& OnCompletedRequest)
+FString ULootLockerItemRequestHandler::SplitPlayerInventoryItemStack(const FLootLockerPlayerData& PlayerData, const FString& InventoryId, const FLootLockerSplitInventoryItemStackRequest& Request, const FLootLockerSplitInventoryItemStackResponseDelegate& OnCompletedRequest)
 {
-    return LLAPI<FLootLockerSplitItemStackResponse>::CallAPI(Request, ULootLockerGameEndpoints::SplitPlayerItemStackEndpoint, { InventoryId }, EmptyQueryParams, PlayerData, OnCompletedRequest);
+    return LLAPI<FLootLockerSplitInventoryItemStackResponse>::CallAPI(Request, ULootLockerGameEndpoints::SplitPlayerInventoryItemStackEndpoint, { InventoryId }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
-FString ULootLockerItemRequestHandler::MergePlayerItemStacks(const FLootLockerPlayerData& PlayerData, const FLootLockerMergeItemStacksRequest& Request, const FLootLockerMergeItemStacksResponseDelegate& OnCompletedRequest)
+FString ULootLockerItemRequestHandler::MergePlayerInventoryItemStacks(const FLootLockerPlayerData& PlayerData, const FLootLockerMergeInventoryItemStacksRequest& Request, const FLootLockerMergeInventoryItemStacksResponseDelegate& OnCompletedRequest)
 {
-    return LLAPI<FLootLockerMergeItemStacksResponse>::CallAPI(Request, ULootLockerGameEndpoints::MergePlayerItemStacksEndpoint, { }, EmptyQueryParams, PlayerData, OnCompletedRequest);
+    return LLAPI<FLootLockerMergeInventoryItemStacksResponse>::CallAPI(Request, ULootLockerGameEndpoints::MergePlayerInventoryItemStacksEndpoint, { }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }

@@ -144,12 +144,12 @@ public:
 
     // Items & Item Templates
     static FLootLockerEndPoints ListItemTemplatesEndpoint;
-    static FLootLockerEndPoints ListPlayerItemsEndpoint;
-    static FLootLockerEndPoints GetPlayerItemEndpoint;
-    static FLootLockerEndPoints DeletePlayerItemEndpoint;
-    static FLootLockerEndPoints ConsumePlayerItemEndpoint;
-    static FLootLockerEndPoints SplitPlayerItemStackEndpoint;
-    static FLootLockerEndPoints MergePlayerItemStacksEndpoint;
+    static FLootLockerEndPoints ListPlayerInventoryItemsEndpoint;
+    static FLootLockerEndPoints GetPlayerInventoryItemEndpoint;
+    static FLootLockerEndPoints DeletePlayerInventoryItemEndpoint;
+    static FLootLockerEndPoints ConsumePlayerInventoryItemEndpoint;
+    static FLootLockerEndPoints SplitPlayerInventoryItemStackEndpoint;
+    static FLootLockerEndPoints MergePlayerInventoryItemStacksEndpoint;
 
     //Heroes
     static FLootLockerEndPoints GetGameHeroes;
