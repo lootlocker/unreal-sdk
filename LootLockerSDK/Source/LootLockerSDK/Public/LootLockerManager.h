@@ -128,15 +128,15 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerSimpleInventoryResponseBP, FLootLoc
 /** Blueprint response delegate for listing item templates */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListItemTemplatesResponseBP, FLootLockerListItemTemplatesResponse, Value);
 /** Blueprint response delegate for listing a player's items */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListPlayerItemsResponseBP, FLootLockerListPlayerItemsResponse, Value);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListPlayerInventoryItemsResponseBP, FLootLockerListPlayerInventoryItemsResponse, Value);
 /** Blueprint response delegate for getting a single player item */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetPlayerItemResponseBP, FLootLockerGetPlayerItemResponse, Value);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerGetPlayerInventoryItemResponseBP, FLootLockerGetPlayerInventoryItemResponse, Value);
 /** Blueprint response delegate for consuming a player item */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerConsumePlayerItemResponseBP, FLootLockerConsumePlayerItemResponse, Value);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerConsumePlayerInventoryItemResponseBP, FLootLockerConsumePlayerInventoryItemResponse, Value);
 /** Blueprint response delegate for splitting a player item stack */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerSplitItemStackResponseBP, FLootLockerSplitItemStackResponse, Value);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerSplitInventoryItemStackResponseBP, FLootLockerSplitInventoryItemStackResponse, Value);
 /** Blueprint response delegate for merging player item stacks */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerMergeItemStacksResponseBP, FLootLockerMergeItemStacksResponse, Value);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerMergeInventoryItemStacksResponseBP, FLootLockerMergeInventoryItemStacksResponse, Value);
 /** Blueprint response delegate for player asset notification responses */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPAssetNotificationResponseBP, FLootLockerPlayerAssetNotificationResponse, Value);
 /** Blueprint response delegate for player balance responses */
@@ -1417,7 +1417,7 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid,PerPage,Page,Name,ItemType,ConsumableFilter,Sort,Order", ForPlayerWithUlid="", PerPage="25", Page="1"))
-    static UPARAM(DisplayName = "RequestId") FString ListPlayerItems(const FString& ForPlayerWithUlid, int PerPage, int Page, const FString& Name, ELootLockerItemType ItemType, ELootLockerItemConsumableFilter ConsumableFilter, ELootLockerItemSortField Sort, ELootLockerItemSortOrder Order, const FLootLockerListPlayerItemsResponseBP& OnCompletedRequest);
+    static UPARAM(DisplayName = "RequestId") FString ListPlayerInventoryItems(const FString& ForPlayerWithUlid, int PerPage, int Page, const FString& Name, ELootLockerItemType ItemType, ELootLockerItemConsumableFilter ConsumableFilter, ELootLockerItemSortField Sort, ELootLockerItemSortOrder Order, const FLootLockerListPlayerInventoryItemsResponseBP& OnCompletedRequest);
 
     /**
      Get a single item owned by the player.
@@ -1428,7 +1428,7 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static UPARAM(DisplayName = "RequestId") FString GetPlayerItem(const FString& ForPlayerWithUlid, const FString& InventoryId, const FLootLockerGetPlayerItemResponseBP& OnCompletedRequest);
+    static UPARAM(DisplayName = "RequestId") FString GetPlayerInventoryItem(const FString& ForPlayerWithUlid, const FString& InventoryId, const FLootLockerGetPlayerInventoryItemResponseBP& OnCompletedRequest);
 
     /**
      Delete a single item owned by the player.
@@ -1439,7 +1439,7 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static UPARAM(DisplayName = "RequestId") FString DeletePlayerItem(const FString& ForPlayerWithUlid, const FString& InventoryId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
+    static UPARAM(DisplayName = "RequestId") FString DeletePlayerInventoryItem(const FString& ForPlayerWithUlid, const FString& InventoryId, const FLootLockerDefaultResponseBP& OnCompletedRequest);
 
     /**
      Consume one or more of an item owned by the player.
@@ -1451,7 +1451,7 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid,Request", ForPlayerWithUlid="", AutoCreateRefTerm = "Request"))
-    static UPARAM(DisplayName = "RequestId") FString ConsumePlayerItem(const FString& ForPlayerWithUlid, const FString& InventoryId, const FLootLockerConsumeItemRequest& Request, const FLootLockerConsumePlayerItemResponseBP& OnCompletedRequest);
+    static UPARAM(DisplayName = "RequestId") FString ConsumePlayerInventoryItem(const FString& ForPlayerWithUlid, const FString& InventoryId, const FLootLockerConsumeInventoryItemRequest& Request, const FLootLockerConsumePlayerInventoryItemResponseBP& OnCompletedRequest);
 
     /**
      Split a stackable item into a separate stack.
@@ -1463,7 +1463,7 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid,Request", ForPlayerWithUlid="", AutoCreateRefTerm = "Request"))
-    static UPARAM(DisplayName = "RequestId") FString SplitPlayerItemStack(const FString& ForPlayerWithUlid, const FString& InventoryId, const FLootLockerSplitItemStackRequest& Request, const FLootLockerSplitItemStackResponseBP& OnCompletedRequest);
+    static UPARAM(DisplayName = "RequestId") FString SplitPlayerInventoryItemStack(const FString& ForPlayerWithUlid, const FString& InventoryId, const FLootLockerSplitInventoryItemStackRequest& Request, const FLootLockerSplitInventoryItemStackResponseBP& OnCompletedRequest);
 
     /**
      Merge two item stacks into one.
@@ -1474,7 +1474,7 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid,Request", ForPlayerWithUlid="", AutoCreateRefTerm = "Request"))
-    static UPARAM(DisplayName = "RequestId") FString MergePlayerItemStacks(const FString& ForPlayerWithUlid, const FLootLockerMergeItemStacksRequest& Request, const FLootLockerMergeItemStacksResponseBP& OnCompletedRequest);
+    static UPARAM(DisplayName = "RequestId") FString MergePlayerInventoryItemStacks(const FString& ForPlayerWithUlid, const FLootLockerMergeInventoryItemStacksRequest& Request, const FLootLockerMergeInventoryItemStacksResponseBP& OnCompletedRequest);
 
     /**
      Get a simplified list of the character's inventory.
