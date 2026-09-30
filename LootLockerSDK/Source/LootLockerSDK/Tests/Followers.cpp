@@ -56,9 +56,13 @@ void FTestLootLockerFollowers::Define()
 		LatentIt("FollowPlayer_AppearsInFollowing", EAsyncExecution::ThreadPool, [this](const FDoneDelegate TestDone)
 		{
 			// TODO: go-backend returns 500 on GET /game/player/{public_uid}/following — backend bug, skip until fixed
-			UE_LOG(LogTemp, Warning, TEXT("SKIPPED: FollowPlayer_AppearsInFollowing — backend returns 500 on GET /game/player/.../following"));
-			TestDone.Execute();
-			return;
+			bool bSkip = true;
+			if (bSkip)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("SKIPPED: FollowPlayer_AppearsInFollowing — backend returns 500 on GET /game/player/.../following"));
+				TestDone.Execute();
+				return;
+			}
 
 			if (!Game.IsValid() || Player1Ulid.IsEmpty() || Player2Ulid.IsEmpty())
 			{

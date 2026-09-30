@@ -545,7 +545,7 @@ void ULootLockerPresenceClient::OnMessage(const FString& Message)
     }
     else if (Message.Contains(TEXT("presence is not enabled")))
     {
-        FString ErrorMessage = FString::Printf(TEXT("Presence is not enabled for this game. Please have an administrator enable this feature."), *PlayerUlid);
+        FString ErrorMessage = FString::Printf(TEXT("Presence is not enabled for this game. Please have an administrator enable this feature."));
         FLootLockerLogger::LogWarning(ErrorMessage);
         Disconnect(FLootLockerPresenceCallbackDelegate::CreateLambda([this, ErrorMessage](bool bSuccess, const FString& Message)
         {
