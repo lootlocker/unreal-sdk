@@ -51,9 +51,13 @@ void FTestLootLockerFriends::Define()
 		LatentIt("SendFriendRequest_AppearInOutgoing", EAsyncExecution::ThreadPool, [this](const FDoneDelegate TestDone)
 		{
 			// TODO: go-backend returns 500 on GET /game/player/friends/outgoing — backend bug, skip until fixed
-			UE_LOG(LogTemp, Warning, TEXT("SKIPPED: SendFriendRequest_AppearInOutgoing — backend returns 500 on GET /game/player/friends/outgoing"));
-			TestDone.Execute();
-			return;
+			bool bSkip = true;
+			if (bSkip)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("SKIPPED: SendFriendRequest_AppearInOutgoing — backend returns 500 on GET /game/player/friends/outgoing"));
+				TestDone.Execute();
+				return;
+			}
 
 			if (!Game.IsValid() || Player1Ulid.IsEmpty() || Player2Ulid.IsEmpty())
 			{
@@ -88,9 +92,13 @@ void FTestLootLockerFriends::Define()
 		LatentIt("SendFriendRequest_AppearInIncoming", EAsyncExecution::ThreadPool, [this](const FDoneDelegate TestDone)
 		{
 			// TODO: go-backend returns 500 on GET /game/player/friends/incoming — backend bug, skip until fixed
-			UE_LOG(LogTemp, Warning, TEXT("SKIPPED: SendFriendRequest_AppearInIncoming — backend returns 500 on GET /game/player/friends/incoming"));
-			TestDone.Execute();
-			return;
+			bool bSkip = true;
+			if (bSkip)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("SKIPPED: SendFriendRequest_AppearInIncoming — backend returns 500 on GET /game/player/friends/incoming"));
+				TestDone.Execute();
+				return;
+			}
 
 			if (!Game.IsValid() || Player1Ulid.IsEmpty() || Player2Ulid.IsEmpty())
 			{
@@ -125,9 +133,13 @@ void FTestLootLockerFriends::Define()
 		LatentIt("AcceptFriendRequest_AppearInFriendsList", EAsyncExecution::ThreadPool, [this](const FDoneDelegate TestDone)
 		{
 			// TODO: go-backend returns 500 on GET /game/player/friends — backend bug, skip until fixed
-			UE_LOG(LogTemp, Warning, TEXT("SKIPPED: AcceptFriendRequest_AppearInFriendsList — backend returns 500 on GET /game/player/friends"));
-			TestDone.Execute();
-			return;
+			bool bSkip = true;
+			if (bSkip)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("SKIPPED: AcceptFriendRequest_AppearInFriendsList — backend returns 500 on GET /game/player/friends"));
+				TestDone.Execute();
+				return;
+			}
 
 			if (!Game.IsValid() || Player1Ulid.IsEmpty() || Player2Ulid.IsEmpty())
 			{

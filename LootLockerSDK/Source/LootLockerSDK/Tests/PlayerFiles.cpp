@@ -20,9 +20,13 @@ void FLootLockerTestPlayerFiles::Define()
 		LatentIt("When PlayerFiles", EAsyncExecution::ThreadPool, [this](const FDoneDelegate TestDone)
 		{
 			// TODO: requires LOOTLOCKER_GAME_API_KEY env var and admin-provisioned game — not available in standard CI
-			UE_LOG(LogTemp, Warning, TEXT("SKIPPED: When PlayerFiles — requires LOOTLOCKER_GAME_API_KEY env var"));
-			TestDone.Execute();
-			return;
+			bool bSkip = true;
+			if (bSkip)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("SKIPPED: When PlayerFiles — requires LOOTLOCKER_GAME_API_KEY env var"));
+				TestDone.Execute();
+				return;
+			}
 
 			test_util::StartSession();
 
