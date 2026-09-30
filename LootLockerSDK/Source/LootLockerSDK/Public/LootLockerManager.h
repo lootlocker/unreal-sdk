@@ -1405,6 +1405,8 @@ public:
     /**
      List all items owned by the player, with optional filtering.
 
+     These items come from item templates, not the legacy asset/asset-instance player inventory.
+
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @param PerPage Number of items to return per page
      @param Page Page number to retrieve
@@ -1422,6 +1424,8 @@ public:
     /**
      Get a single item owned by the player.
 
+     These items come from item templates, not the legacy asset/asset-instance player inventory.
+
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @param InventoryId The ULID of the inventory item to fetch
      @param OnCompletedRequest Delegate for handling the server response
@@ -1433,6 +1437,8 @@ public:
     /**
      Delete a single item owned by the player.
 
+     These items come from item templates, not the legacy asset/asset-instance player inventory.
+
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @param InventoryId The ULID of the inventory item to delete
      @param OnCompletedRequest Delegate for handling the server response
@@ -1443,6 +1449,8 @@ public:
 
     /**
      Consume one or more of an item owned by the player.
+
+     These items come from item templates, not the legacy asset/asset-instance player inventory.
 
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @param InventoryId The ULID of the inventory item to consume
@@ -1456,6 +1464,8 @@ public:
     /**
      Split a stackable item into a separate stack.
 
+     These items come from item templates, not the legacy asset/asset-instance player inventory.
+
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @param InventoryId The ULID of the item stack to split
      @param Request Request object containing the number of items to move to the new stack
@@ -1467,6 +1477,8 @@ public:
 
     /**
      Merge two item stacks into one.
+
+     These items come from item templates, not the legacy asset/asset-instance player inventory.
 
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @param Request Request object containing the source and target inventory ids
