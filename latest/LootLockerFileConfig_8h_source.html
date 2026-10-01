@@ -60,7 +60,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.5.0</span>
+      <span id="ll-topnav-version">v10.6.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.6.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -218,55 +218,55 @@ $(document).ready(function(){initNavTree('LootLockerFileConfig_8h_source.html','
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;LootLockerFileConfig.generated.h&quot;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>USTRUCT()</div>
-<div class="foldopen" id="foldopen00044" data-start="{" data-end="};">
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html">   44</a></span>struct LOOTLOCKERSDK_API <a class="code hl_struct" href="structFLootLockerFileConfig.html">FLootLockerFileConfig</a></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>{</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    GENERATED_BODY()</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    UPROPERTY()</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#a4f69a2f2aa1f58724c1b910666b733fa">   49</a></span>    FString api_key;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    UPROPERTY()</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#ad6534efd67f54b66fc318e8ae0fbd6ce">   52</a></span>    FString domain_key;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    UPROPERTY()</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#a6190b0485a436b7e0c5a0fbd2ddc757c">   55</a></span>    FString game_version = TEXT(&quot;1.0.0.0&quot;);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    UPROPERTY()</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#a811de4fdd46212380d0c96e262120288">   58</a></span>    <span class="keywordtype">bool</span> allow_token_refresh = true;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    UPROPERTY()</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#a5606a5cd4870b80b6a41841bd9597053">   61</a></span>    <span class="keywordtype">bool</span> log_outside_of_editor = false;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    UPROPERTY()</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#a8bc147b2c8c0de403e1ac4c883af0c7b">   65</a></span>    FString log_level = TEXT(&quot;Warning&quot;);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    UPROPERTY()</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#a97f5d478940b6d4ef5a29a5b9193c5fc">   68</a></span>    <span class="keywordtype">bool</span> enable_file_logging = false;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    UPROPERTY()</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#a3eb1643b36e88953b00681a37cd3d751">   71</a></span>    <span class="keywordtype">bool</span> enable_presence = false;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    UPROPERTY()</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#a74aa7102d4c256c945e5fc1cad5859a1">   74</a></span>    <span class="keywordtype">bool</span> enable_presence_auto_connect = true;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    UPROPERTY()</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#ac5ed08460058fc1f431acdb159bba698">   77</a></span>    <span class="keywordtype">bool</span> enable_presence_auto_disconnect_on_focus_change = true;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    UPROPERTY()</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#aa0b06142aa6db6eb328b9be1c6552621">   80</a></span>    <span class="keywordtype">bool</span> enable_presence_in_editor = true;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    UPROPERTY()</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#a85ca0f7fe6f6651fa15bf31353053d8a">   84</a></span>    FString multi_user_session_mode = TEXT(&quot;<a class="code hl_enumvalue" href="group__Init.html#ggab6cbfe9c0c8733469624132e5afda1a5afaf396cbd83927b72a84d2616fac76ff">NotSet</a>&quot;);</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    UPROPERTY()</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#a8d6caed5dc63ac5890ac0195f9d170f6">   87</a></span>    <span class="keywordtype">bool</span> use_legacy_http_stack = false;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>};</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>USTRUCT()</div>
+<div class="foldopen" id="foldopen00043" data-start="{" data-end="};">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html">   43</a></span>struct LOOTLOCKERSDK_API <a class="code hl_struct" href="structFLootLockerFileConfig.html">FLootLockerFileConfig</a></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>{</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    UPROPERTY()</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#a4f69a2f2aa1f58724c1b910666b733fa">   48</a></span>    FString api_key;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    UPROPERTY()</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#ad6534efd67f54b66fc318e8ae0fbd6ce">   51</a></span>    FString domain_key;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    UPROPERTY()</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#a6190b0485a436b7e0c5a0fbd2ddc757c">   54</a></span>    FString game_version = TEXT(&quot;1.0.0.0&quot;);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    UPROPERTY()</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#a811de4fdd46212380d0c96e262120288">   57</a></span>    <span class="keywordtype">bool</span> allow_token_refresh = true;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    UPROPERTY()</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#a5606a5cd4870b80b6a41841bd9597053">   60</a></span>    <span class="keywordtype">bool</span> log_outside_of_editor = false;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    UPROPERTY()</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#a8bc147b2c8c0de403e1ac4c883af0c7b">   64</a></span>    FString log_level = TEXT(&quot;Warning&quot;);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    UPROPERTY()</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#a97f5d478940b6d4ef5a29a5b9193c5fc">   67</a></span>    <span class="keywordtype">bool</span> enable_file_logging = false;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    UPROPERTY()</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#a3eb1643b36e88953b00681a37cd3d751">   70</a></span>    <span class="keywordtype">bool</span> enable_presence = false;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    UPROPERTY()</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#a74aa7102d4c256c945e5fc1cad5859a1">   73</a></span>    <span class="keywordtype">bool</span> enable_presence_auto_connect = true;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    UPROPERTY()</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#ac5ed08460058fc1f431acdb159bba698">   76</a></span>    <span class="keywordtype">bool</span> enable_presence_auto_disconnect_on_focus_change = true;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    UPROPERTY()</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#aa0b06142aa6db6eb328b9be1c6552621">   79</a></span>    <span class="keywordtype">bool</span> enable_presence_in_editor = true;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    UPROPERTY()</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#a85ca0f7fe6f6651fa15bf31353053d8a">   83</a></span>    FString multi_user_session_mode = TEXT(&quot;<a class="code hl_enumvalue" href="group__Init.html#ggab6cbfe9c0c8733469624132e5afda1a5afaf396cbd83927b72a84d2616fac76ff">NotSet</a>&quot;);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    UPROPERTY()</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="structFLootLockerFileConfig.html#a8d6caed5dc63ac5890ac0195f9d170f6">   86</a></span>    <span class="keywordtype">bool</span> use_legacy_http_stack = false;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>};</div>
 </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
 <div class="ttc" id="agroup__Init_html_ggab6cbfe9c0c8733469624132e5afda1a5afaf396cbd83927b72a84d2616fac76ff"><div class="ttname"><a href="group__Init.html#ggab6cbfe9c0c8733469624132e5afda1a5afaf396cbd83927b72a84d2616fac76ff">ELootLockerMultiUserSessionMode::NotSet</a></div><div class="ttdeci">@ NotSet</div><div class="ttdoc">[Not yet configured] The SDK will automatically set the correct mode the first time the project is lo...</div></div>
-<div class="ttc" id="astructFLootLockerFileConfig_html"><div class="ttname"><a href="structFLootLockerFileConfig.html">FLootLockerFileConfig</a></div><div class="ttdoc">Data struct for the pre-configured file config, loaded at startup from the &quot;&lt;PackageName&gt;PreConfig[-&lt;...</div><div class="ttdef"><b>Definition</b> LootLockerFileConfig.h:45</div></div>
+<div class="ttc" id="astructFLootLockerFileConfig_html"><div class="ttname"><a href="structFLootLockerFileConfig.html">FLootLockerFileConfig</a></div><div class="ttdoc">Data struct for the pre-configured file config, loaded at startup from the &quot;&lt;PackageName&gt;PreConfig[-&lt;...</div><div class="ttdef"><b>Definition</b> LootLockerFileConfig.h:44</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.8-->

@@ -60,7 +60,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.5.0</span>
+      <span id="ll-topnav-version">v10.6.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.6.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -213,6 +213,22 @@ $(document).ready(function(){initNavTree('group__PlayerFiles.html',''); initResi
 <p>Best suited for large files such as screenshots, cloud saves, or profile pictures that benefit from CDN delivery. For small key-value data prefer <a class="el" href="group__Metadata.html">Metadata</a>. Each file upload requires a declared purpose; files can be marked private to restrict visibility. Up to five revisions per file are retained, with revert capability in the Web Console.</p>
 <p>See the <a href="https://docs.lootlocker.com/players/files">LootLocker documentation</a>. </p>
 <h2 class="groupheader">Typedef Documentation</h2>
+<a id="ga63e7017578b0dac692206b8ba926e65d" name="ga63e7017578b0dac692206b8ba926e65d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga63e7017578b0dac692206b8ba926e65d">&#9670;&#160;</a></span>FLootLockerFileContentDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerFileContentDelegate) (<a class="el" href="structFLootLockerPlayerFileContentResponse.html">FLootLockerPlayerFileContentResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerPlayerFileContentResponse.html">FLootLockerPlayerFileContentResponse</a> result. </p>
+
+</div>
+</div>
 <a id="gad1108763b0f9cfa2b586aeda213a3f72" name="gad1108763b0f9cfa2b586aeda213a3f72"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gad1108763b0f9cfa2b586aeda213a3f72">&#9670;&#160;</a></span>FLootLockerFileDeletedDelegate</h2>
 
@@ -242,6 +258,22 @@ $(document).ready(function(){initNavTree('group__PlayerFiles.html',''); initResi
 </div><div class="memdoc">
 
 <p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerFileListResponse.html">FLootLockerFileListResponse</a> result. </p>
+
+</div>
+</div>
+<a id="gabedde157d15328f4828f71b442c65d49" name="gabedde157d15328f4828f71b442c65d49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabedde157d15328f4828f71b442c65d49">&#9670;&#160;</a></span>FLootLockerFileRevisionsDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerFileRevisionsDelegate) (<a class="el" href="structFLootLockerPlayerFileRevisionsResponse.html">FLootLockerPlayerFileRevisionsResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerPlayerFileRevisionsResponse.html">FLootLockerPlayerFileRevisionsResponse</a> result. </p>
 
 </div>
 </div>
@@ -315,6 +347,232 @@ $(document).ready(function(){initNavTree('group__PlayerFiles.html',''); initResi
 
 </div>
 </div>
+<a id="ga462615abfb79e6099f7755e16d5d7d2b" name="ga462615abfb79e6099f7755e16d5d7d2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga462615abfb79e6099f7755e16d5d7d2b">&#9670;&#160;</a></span>DeletePlayerFileByKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::DeletePlayerFileByKey </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__PlayerFiles.html#gad1108763b0f9cfa2b586aeda213a3f72">FLootLockerFileDeletedDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Delete a player file by its key. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Key</td><td>The key of the file to delete </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gafb62e5ef95e48d85c684d466e28d08f0" name="gafb62e5ef95e48d85c684d466e28d08f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafb62e5ef95e48d85c684d466e28d08f0">&#9670;&#160;</a></span>GetFileByKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetFileByKey </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__PlayerFiles.html#ga38079ed6dcabfca7847c0fd7c6e80541">FLootLockerUploadFileDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a player file by its key (upsert key). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Key</td><td>The key of the file </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gadcca8694a80d8560fde3d948a33b3d82" name="gadcca8694a80d8560fde3d948a33b3d82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadcca8694a80d8560fde3d948a33b3d82">&#9670;&#160;</a></span>GetFileRevision()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetFileRevision </td>
+          <td>(</td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>FileID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>RevisionID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__PlayerFiles.html#ga63e7017578b0dac692206b8ba926e65d">FLootLockerFileContentDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a specific revision of a player file by its revision ULID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">FileID</td><td>File id (retrieved from upload response or ListFiles) </td></tr>
+    <tr><td class="paramname">RevisionID</td><td>The ULID of the revision to retrieve </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga8defa538215e7537a54a01c3f184ec76" name="ga8defa538215e7537a54a01c3f184ec76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8defa538215e7537a54a01c3f184ec76">&#9670;&#160;</a></span>GetFileRevisionByKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetFileRevisionByKey </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>RevisionID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__PlayerFiles.html#ga63e7017578b0dac692206b8ba926e65d">FLootLockerFileContentDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a specific revision of a player file by its key and revision ULID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Key</td><td>The key of the file </td></tr>
+    <tr><td class="paramname">RevisionID</td><td>The ULID of the revision to retrieve </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
 <a id="ga0dd3ee1edb8f0b3dba880b0f24ae9b9b" name="ga0dd3ee1edb8f0b3dba880b0f24ae9b9b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga0dd3ee1edb8f0b3dba880b0f24ae9b9b">&#9670;&#160;</a></span>GetSingleFile()</h2>
 
@@ -359,6 +617,112 @@ $(document).ready(function(){initNavTree('group__PlayerFiles.html',''); initResi
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">FileID</td><td>File id (retrieved from upload response or ListFiles) </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga6f6a10927f258bfee732ab26fc7eadb4" name="ga6f6a10927f258bfee732ab26fc7eadb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6f6a10927f258bfee732ab26fc7eadb4">&#9670;&#160;</a></span>ListFileRevisions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListFileRevisions </td>
+          <td>(</td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>FileID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__PlayerFiles.html#gabedde157d15328f4828f71b442c65d49">FLootLockerFileRevisionsDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List all revisions for a player file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">FileID</td><td>File id (retrieved from upload response or ListFiles) </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga959faa43b6a4de13f228921044b7197c" name="ga959faa43b6a4de13f228921044b7197c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga959faa43b6a4de13f228921044b7197c">&#9670;&#160;</a></span>ListFileRevisionsByKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ListFileRevisionsByKey </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__PlayerFiles.html#gabedde157d15328f4828f71b442c65d49">FLootLockerFileRevisionsDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List all revisions for a player file identified by its key. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Key</td><td>The key of the file </td></tr>
     <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
     <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
   </table>
@@ -458,6 +822,126 @@ $(document).ready(function(){initNavTree('group__PlayerFiles.html',''); initResi
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">PlayerID</td><td>Legacy player id of the target player </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga641264b5f8045d143950ba9971d5ef01" name="ga641264b5f8045d143950ba9971d5ef01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga641264b5f8045d143950ba9971d5ef01">&#9670;&#160;</a></span>PromoteFileRevision()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::PromoteFileRevision </td>
+          <td>(</td>
+          <td class="paramtype">const int32&#160;</td>
+          <td class="paramname"><em>FileID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>RevisionID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Promote a specific revision to be the current (active) revision of a player file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">FileID</td><td>File id (retrieved from upload response or ListFiles) </td></tr>
+    <tr><td class="paramname">RevisionID</td><td>The ULID of the revision to promote </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga54de3323609b4737e9bd19f78067b301" name="ga54de3323609b4737e9bd19f78067b301"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga54de3323609b4737e9bd19f78067b301">&#9670;&#160;</a></span>PromoteFileRevisionByKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::PromoteFileRevisionByKey </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>RevisionID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Promote a specific revision to be the current (active) revision of a player file identified by its key. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Key</td><td>The key of the file </td></tr>
+    <tr><td class="paramname">RevisionID</td><td>The ULID of the revision to promote </td></tr>
     <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
     <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
   </table>
@@ -593,6 +1077,12 @@ Typedefs</h2></td></tr>
 <tr class="memitem:gad1108763b0f9cfa2b586aeda213a3f72" id="r_gad1108763b0f9cfa2b586aeda213a3f72"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#gad1108763b0f9cfa2b586aeda213a3f72">FLootLockerFileDeletedDelegate</a>) (<a class="el" href="structFLootLockerResponse.html">FLootLockerResponse</a>)</td></tr>
 <tr class="memdesc:gad1108763b0f9cfa2b586aeda213a3f72"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerResponse.html">FLootLockerResponse</a> result.  <br /></td></tr>
 <tr class="separator:gad1108763b0f9cfa2b586aeda213a3f72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabedde157d15328f4828f71b442c65d49" id="r_gabedde157d15328f4828f71b442c65d49"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#gabedde157d15328f4828f71b442c65d49">FLootLockerFileRevisionsDelegate</a>) (<a class="el" href="structFLootLockerPlayerFileRevisionsResponse.html">FLootLockerPlayerFileRevisionsResponse</a>)</td></tr>
+<tr class="memdesc:gabedde157d15328f4828f71b442c65d49"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerPlayerFileRevisionsResponse.html">FLootLockerPlayerFileRevisionsResponse</a> result.  <br /></td></tr>
+<tr class="separator:gabedde157d15328f4828f71b442c65d49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga63e7017578b0dac692206b8ba926e65d" id="r_ga63e7017578b0dac692206b8ba926e65d"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#ga63e7017578b0dac692206b8ba926e65d">FLootLockerFileContentDelegate</a>) (<a class="el" href="structFLootLockerPlayerFileContentResponse.html">FLootLockerPlayerFileContentResponse</a>)</td></tr>
+<tr class="memdesc:ga63e7017578b0dac692206b8ba926e65d"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerPlayerFileContentResponse.html">FLootLockerPlayerFileContentResponse</a> result.  <br /></td></tr>
+<tr class="separator:ga63e7017578b0dac692206b8ba926e65d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -614,6 +1104,30 @@ Functions</h2></td></tr>
 <tr class="memitem:gadd11e380f4327d8a888146d76b39e711" id="r_gadd11e380f4327d8a888146d76b39e711"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#gadd11e380f4327d8a888146d76b39e711">ULootLockerSDKManager::DeletePlayerFile</a> (const int32 FileID, const <a class="el" href="group__PlayerFiles.html#gad1108763b0f9cfa2b586aeda213a3f72">FLootLockerFileDeletedDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:gadd11e380f4327d8a888146d76b39e711"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permanently delete a player-owned file (irreversible).  <br /></td></tr>
 <tr class="separator:gadd11e380f4327d8a888146d76b39e711"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6f6a10927f258bfee732ab26fc7eadb4" id="r_ga6f6a10927f258bfee732ab26fc7eadb4"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#ga6f6a10927f258bfee732ab26fc7eadb4">ULootLockerSDKManager::ListFileRevisions</a> (const int32 FileID, const <a class="el" href="group__PlayerFiles.html#gabedde157d15328f4828f71b442c65d49">FLootLockerFileRevisionsDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga6f6a10927f258bfee732ab26fc7eadb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">List all revisions for a player file.  <br /></td></tr>
+<tr class="separator:ga6f6a10927f258bfee732ab26fc7eadb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadcca8694a80d8560fde3d948a33b3d82" id="r_gadcca8694a80d8560fde3d948a33b3d82"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#gadcca8694a80d8560fde3d948a33b3d82">ULootLockerSDKManager::GetFileRevision</a> (const int32 FileID, const FString &amp;RevisionID, const <a class="el" href="group__PlayerFiles.html#ga63e7017578b0dac692206b8ba926e65d">FLootLockerFileContentDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gadcca8694a80d8560fde3d948a33b3d82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a specific revision of a player file by its revision ULID.  <br /></td></tr>
+<tr class="separator:gadcca8694a80d8560fde3d948a33b3d82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga641264b5f8045d143950ba9971d5ef01" id="r_ga641264b5f8045d143950ba9971d5ef01"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#ga641264b5f8045d143950ba9971d5ef01">ULootLockerSDKManager::PromoteFileRevision</a> (const int32 FileID, const FString &amp;RevisionID, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga641264b5f8045d143950ba9971d5ef01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Promote a specific revision to be the current (active) revision of a player file.  <br /></td></tr>
+<tr class="separator:ga641264b5f8045d143950ba9971d5ef01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafb62e5ef95e48d85c684d466e28d08f0" id="r_gafb62e5ef95e48d85c684d466e28d08f0"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#gafb62e5ef95e48d85c684d466e28d08f0">ULootLockerSDKManager::GetFileByKey</a> (const FString &amp;Key, const <a class="el" href="group__PlayerFiles.html#ga38079ed6dcabfca7847c0fd7c6e80541">FLootLockerUploadFileDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gafb62e5ef95e48d85c684d466e28d08f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a player file by its key (upsert key).  <br /></td></tr>
+<tr class="separator:gafb62e5ef95e48d85c684d466e28d08f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga959faa43b6a4de13f228921044b7197c" id="r_ga959faa43b6a4de13f228921044b7197c"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#ga959faa43b6a4de13f228921044b7197c">ULootLockerSDKManager::ListFileRevisionsByKey</a> (const FString &amp;Key, const <a class="el" href="group__PlayerFiles.html#gabedde157d15328f4828f71b442c65d49">FLootLockerFileRevisionsDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga959faa43b6a4de13f228921044b7197c"><td class="mdescLeft">&#160;</td><td class="mdescRight">List all revisions for a player file identified by its key.  <br /></td></tr>
+<tr class="separator:ga959faa43b6a4de13f228921044b7197c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8defa538215e7537a54a01c3f184ec76" id="r_ga8defa538215e7537a54a01c3f184ec76"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#ga8defa538215e7537a54a01c3f184ec76">ULootLockerSDKManager::GetFileRevisionByKey</a> (const FString &amp;Key, const FString &amp;RevisionID, const <a class="el" href="group__PlayerFiles.html#ga63e7017578b0dac692206b8ba926e65d">FLootLockerFileContentDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga8defa538215e7537a54a01c3f184ec76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a specific revision of a player file by its key and revision ULID.  <br /></td></tr>
+<tr class="separator:ga8defa538215e7537a54a01c3f184ec76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga54de3323609b4737e9bd19f78067b301" id="r_ga54de3323609b4737e9bd19f78067b301"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#ga54de3323609b4737e9bd19f78067b301">ULootLockerSDKManager::PromoteFileRevisionByKey</a> (const FString &amp;Key, const FString &amp;RevisionID, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga54de3323609b4737e9bd19f78067b301"><td class="mdescLeft">&#160;</td><td class="mdescRight">Promote a specific revision to be the current (active) revision of a player file identified by its key.  <br /></td></tr>
+<tr class="separator:ga54de3323609b4737e9bd19f78067b301"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga462615abfb79e6099f7755e16d5d7d2b" id="r_ga462615abfb79e6099f7755e16d5d7d2b"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#ga462615abfb79e6099f7755e16d5d7d2b">ULootLockerSDKManager::DeletePlayerFileByKey</a> (const FString &amp;Key, const <a class="el" href="group__PlayerFiles.html#gad1108763b0f9cfa2b586aeda213a3f72">FLootLockerFileDeletedDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga462615abfb79e6099f7755e16d5d7d2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a player file by its key.  <br /></td></tr>
+<tr class="separator:ga462615abfb79e6099f7755e16d5d7d2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

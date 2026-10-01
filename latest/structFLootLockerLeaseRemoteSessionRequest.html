@@ -60,7 +60,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.5.0</span>
+      <span id="ll-topnav-version">v10.6.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.6.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -224,6 +224,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:aecb3fb07b7a33544713a355229db5b99" id="r_aecb3fb07b7a33544713a355229db5b99"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerLeaseRemoteSessionRequest.html#aecb3fb07b7a33544713a355229db5b99">Game_version</a> = &quot;&quot;</td></tr>
 <tr class="memdesc:aecb3fb07b7a33544713a355229db5b99"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Game Version configured for the game.  <br /></td></tr>
 <tr class="separator:aecb3fb07b7a33544713a355229db5b99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1330adc7525af7742c96239c9ce3ecf" id="r_af1330adc7525af7742c96239c9ce3ecf"><td class="memItemLeft" align="right" valign="top">TArray&lt; FString &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerLeaseRemoteSessionRequest.html#af1330adc7525af7742c96239c9ce3ecf">Providers</a></td></tr>
+<tr class="memdesc:af1330adc7525af7742c96239c9ce3ecf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional list of identity providers to restrict the remote session to (e.g., "steam", "apple")  <br /></td></tr>
+<tr class="separator:af1330adc7525af7742c96239c9ce3ecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Request body for remote session lease (now required fields) </p>
@@ -257,6 +260,22 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The Game Version configured for the game. </p>
+
+</div>
+</div>
+<a id="af1330adc7525af7742c96239c9ce3ecf" name="af1330adc7525af7742c96239c9ce3ecf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1330adc7525af7742c96239c9ce3ecf">&#9670;&#160;</a></span>Providers</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TArray&lt;FString&gt; FLootLockerLeaseRemoteSessionRequest::Providers</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Optional list of identity providers to restrict the remote session to (e.g., "steam", "apple") </p>
 
 </div>
 </div>

@@ -60,7 +60,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.5.0</span>
+      <span id="ll-topnav-version">v10.6.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.6.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -240,8 +240,12 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ae15b082d07d063ef265f18fd867e2a1f" id="r_ae15b082d07d063ef265f18fd867e2a1f"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#ae15b082d07d063ef265f18fd867e2a1f">WhiteLabelCreateAccount</a> (const FString &amp;Email, const FString &amp;Password, const <a class="el" href="group__Authentication.html#gad43a851209a55414955265c14f9d4e60">FLootLockerLoginResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
 <tr class="separator:ae15b082d07d063ef265f18fd867e2a1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa73ae169c0b4ebdcaa8278206b0afea8" id="r_aa73ae169c0b4ebdcaa8278206b0afea8"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#aa73ae169c0b4ebdcaa8278206b0afea8">WhiteLabelCreateAccount</a> (const FString &amp;Email, const FString &amp;Password, const TArray&lt; <a class="el" href="structFLootLockerWhiteLabelCustomSignUpFieldValue.html">FLootLockerWhiteLabelCustomSignUpFieldValue</a> &gt; &amp;CustomFields, const <a class="el" href="group__Authentication.html#gad43a851209a55414955265c14f9d4e60">FLootLockerLoginResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:aa73ae169c0b4ebdcaa8278206b0afea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ebb53ddbf37a567588eacd23c8b3a9f" id="r_a1ebb53ddbf37a567588eacd23c8b3a9f"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#a1ebb53ddbf37a567588eacd23c8b3a9f">WhiteLabelLogin</a> (const FString &amp;Email, const FString &amp;Password, const bool Remember, const <a class="el" href="group__Authentication.html#gad43a851209a55414955265c14f9d4e60">FLootLockerLoginResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
 <tr class="separator:a1ebb53ddbf37a567588eacd23c8b3a9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0883db41a3d1ea8a9f1dab330b931cfa" id="r_a0883db41a3d1ea8a9f1dab330b931cfa"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#a0883db41a3d1ea8a9f1dab330b931cfa">GetWhiteLabelSignUpFields</a> (const <a class="el" href="group__Authentication.html#ga25600c9748d3aff59589abc68918477d">FLootLockerWhiteLabelSignUpFieldsResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:a0883db41a3d1ea8a9f1dab330b931cfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd9a45febc61a57f534a091238ae9ce4" id="r_abd9a45febc61a57f534a091238ae9ce4"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#abd9a45febc61a57f534a091238ae9ce4">GuestLogin</a> (const FString &amp;playerIdentifier, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;OnCompletedRequest)</td></tr>
 <tr class="separator:abd9a45febc61a57f534a091238ae9ce4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a066ff5de14e706d8126ffb31955a6a17" id="r_a066ff5de14e706d8126ffb31955a6a17"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#a066ff5de14e706d8126ffb31955a6a17">WhiteLabelStartSessionManual</a> (const FString &amp;Email, const FString &amp;WhiteLabelToken, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a> &amp;OnCompletedRequest)</td></tr>
@@ -310,6 +314,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:ab9b1213aa3558fb7ade5d8ee977ac40c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab21c75e49c68b42a077af304a2eb121f" id="r_ab21c75e49c68b42a077af304a2eb121f"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#ab21c75e49c68b42a077af304a2eb121f">RefreshDiscordSession</a> (const FString &amp;RefreshToken, const <a class="el" href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a> &amp;Optionals, const <a class="el" href="group__Authentication.html#ga4782fbc582fb13b704dce53fd213cf16">FLootLockerDiscordSessionResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
 <tr class="separator:ab21c75e49c68b42a077af304a2eb121f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adda7d926a288edd9bec7c9ac03406561" id="r_adda7d926a288edd9bec7c9ac03406561"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html#adda7d926a288edd9bec7c9ac03406561">PrepareCustomFieldsJson</a> (TSharedRef&lt; FJsonObject &gt; JsonObject)</td></tr>
+<tr class="memdesc:adda7d926a288edd9bec7c9ac03406561"><td class="mdescLeft">&#160;</td><td class="mdescRight">Post-process a JSON object that may contain a "custom_fields" array with "value_json" string fields, replacing each with the corresponding raw JSON primitive (true, 42, "text") so the backend receives the correct type.  <br /></td></tr>
+<tr class="separator:adda7d926a288edd9bec7c9ac03406561"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a365fce7bddb4ca6025ce1ad7ee1a2261" name="a365fce7bddb4ca6025ce1ad7ee1a2261"></a>
@@ -374,6 +381,32 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a0883db41a3d1ea8a9f1dab330b931cfa" name="a0883db41a3d1ea8a9f1dab330b931cfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0883db41a3d1ea8a9f1dab330b931cfa">&#9670;&#160;</a></span>GetWhiteLabelSignUpFields()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::GetWhiteLabelSignUpFields </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga25600c9748d3aff59589abc68918477d">FLootLockerWhiteLabelSignUpFieldsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="abd9a45febc61a57f534a091238ae9ce4" name="abd9a45febc61a57f534a091238ae9ce4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abd9a45febc61a57f534a091238ae9ce4">&#9670;&#160;</a></span>GuestLogin()</h2>
 
@@ -413,6 +446,34 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="adda7d926a288edd9bec7c9ac03406561" name="adda7d926a288edd9bec7c9ac03406561"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adda7d926a288edd9bec7c9ac03406561">&#9670;&#160;</a></span>PrepareCustomFieldsJson()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void ULootLockerAuthenticationRequestHandler::PrepareCustomFieldsJson </td>
+          <td>(</td>
+          <td class="paramtype">TSharedRef&lt; FJsonObject &gt;&#160;</td>
+          <td class="paramname"><em>JsonObject</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Post-process a JSON object that may contain a "custom_fields" array with "value_json" string fields, replacing each with the corresponding raw JSON primitive (true, 42, "text") so the backend receives the correct type. </p>
 
 </div>
 </div>
@@ -1545,7 +1606,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae15b082d07d063ef265f18fd867e2a1f" name="ae15b082d07d063ef265f18fd867e2a1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae15b082d07d063ef265f18fd867e2a1f">&#9670;&#160;</a></span>WhiteLabelCreateAccount()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae15b082d07d063ef265f18fd867e2a1f">&#9670;&#160;</a></span>WhiteLabelCreateAccount() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1564,6 +1625,54 @@ Static Public Member Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">const FString &amp;&#160;</td>
           <td class="paramname"><em>Password</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#gad43a851209a55414955265c14f9d4e60">FLootLockerLoginResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa73ae169c0b4ebdcaa8278206b0afea8" name="aa73ae169c0b4ebdcaa8278206b0afea8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa73ae169c0b4ebdcaa8278206b0afea8">&#9670;&#160;</a></span>WhiteLabelCreateAccount() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerAuthenticationRequestHandler::WhiteLabelCreateAccount </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Email</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Password</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; <a class="el" href="structFLootLockerWhiteLabelCustomSignUpFieldValue.html">FLootLockerWhiteLabelCustomSignUpFieldValue</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>CustomFields</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

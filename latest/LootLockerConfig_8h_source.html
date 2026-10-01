@@ -60,7 +60,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.5.0</span>
+      <span id="ll-topnav-version">v10.6.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.6.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -388,11 +388,11 @@ $(document).ready(function(){initNavTree('LootLockerConfig_8h_source.html',''); 
 <div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    UFUNCTION(BlueprintCallable, Category = &quot;LootLocker|Presence&quot;)</div>
 <div class="line"><a id="l00256" name="l00256"></a><span class="lineno"><a class="line" href="classULootLockerConfig.html#a50b6e612c5213b4dcffed6cf828663a0">  256</a></span>    static <span class="keywordtype">bool</span> IsPresenceEnabledInEditor();</div>
 <div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = &quot;LootLocker|Logging&quot;, Meta = (DisplayName = &quot;Enable File Logging&quot;, EditCondition = &quot;!bIsFileConfigLocked&quot;))</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = &quot;LootLocker|Logging&quot;, Meta = (DisplayName = &quot;Enable <a class="code hl_enumvalue" href="group__Items.html#gga0a21699e235f76f96727af3d9947f0a9a0b27918290ff5323bea1e3b78a9cf04e">File</a> Logging&quot;, EditCondition = &quot;!bIsFileConfigLocked&quot;))</div>
 <div class="line"><a id="l00259" name="l00259"></a><span class="lineno"><a class="line" href="classULootLockerConfig.html#a273123063a65a05cc0a2b3b50bd77c14">  259</a></span>    <span class="keywordtype">bool</span> bEnableFileLogging = false;</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = &quot;LootLocker|Logging&quot;, Meta = (DisplayName = &quot;<a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987">Name</a> of LootLocker Log File&quot;, EditCondition = &quot;bEnableFileLogging &amp;&amp; !bIsFileConfigLocked&quot;, EditConditionHides))</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = &quot;LootLocker|Logging&quot;, Meta = (DisplayName = &quot;<a class="code hl_enumvalue" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987">Name</a> of LootLocker Log <a class="code hl_enumvalue" href="group__Items.html#gga0a21699e235f76f96727af3d9947f0a9a0b27918290ff5323bea1e3b78a9cf04e">File</a>&quot;, EditCondition = &quot;bEnableFileLogging &amp;&amp; !bIsFileConfigLocked&quot;, EditConditionHides))</div>
 <div class="line"><a id="l00261" name="l00261"></a><span class="lineno"><a class="line" href="classULootLockerConfig.html#af3b8e7f6259f806965daba463a3f8996">  261</a></span>    FString LogFileName = TEXT(&quot;LootLockerLog&quot;);</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    UPROPERTY(Config, VisibleAnywhere, BlueprintReadOnly, Category = &quot;LootLocker|Logging&quot;, Meta = (EditCondition = &quot;bEnableFileLogging&quot;, EditConditionHides), Meta = (MultiLine = true), Meta = (DisplayName = &quot;Actual Log File (on current device)&quot;), Transient)</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    UPROPERTY(Config, VisibleAnywhere, BlueprintReadOnly, Category = &quot;LootLocker|Logging&quot;, Meta = (EditCondition = &quot;bEnableFileLogging&quot;, EditConditionHides), Meta = (MultiLine = true), Meta = (DisplayName = &quot;Actual Log <a class="code hl_enumvalue" href="group__Items.html#gga0a21699e235f76f96727af3d9947f0a9a0b27918290ff5323bea1e3b78a9cf04e">File</a> (on current device)&quot;), Transient)</div>
 <div class="line"><a id="l00263" name="l00263"></a><span class="lineno"><a class="line" href="classULootLockerConfig.html#a3a09c98c00b26282cf7bc5846cf8efb7">  263</a></span>    FString LongLogFilePath = &quot;&quot;;</div>
 <div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span> </div>
 <div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    <span class="comment">// ========================================================================</span></div>
@@ -465,6 +465,7 @@ $(document).ready(function(){initNavTree('LootLockerConfig_8h_source.html',''); 
 <div class="ttc" id="agroup__Init_html_ggab6cbfe9c0c8733469624132e5afda1a5a7f38d7b441417b213701c616f7641745"><div class="ttname"><a href="group__Init.html#ggab6cbfe9c0c8733469624132e5afda1a5a7f38d7b441417b213701c616f7641745">ELootLockerMultiUserSessionMode::SingleSession</a></div><div class="ttdeci">@ SingleSession</div><div class="ttdoc">Only one player session exists at any given time.</div></div>
 <div class="ttc" id="agroup__Init_html_ggab6cbfe9c0c8733469624132e5afda1a5aaca41c16b1e459f6897b49bc9e212d8e"><div class="ttname"><a href="group__Init.html#ggab6cbfe9c0c8733469624132e5afda1a5aaca41c16b1e459f6897b49bc9e212d8e">ELootLockerMultiUserSessionMode::Hotseat</a></div><div class="ttdeci">@ Hotseat</div><div class="ttdoc">Multiple active sessions are allowed simultaneously.</div></div>
 <div class="ttc" id="agroup__Init_html_ggab6cbfe9c0c8733469624132e5afda1a5afaf396cbd83927b72a84d2616fac76ff"><div class="ttname"><a href="group__Init.html#ggab6cbfe9c0c8733469624132e5afda1a5afaf396cbd83927b72a84d2616fac76ff">ELootLockerMultiUserSessionMode::NotSet</a></div><div class="ttdeci">@ NotSet</div><div class="ttdoc">[Not yet configured] The SDK will automatically set the correct mode the first time the project is lo...</div></div>
+<div class="ttc" id="agroup__Items_html_gga0a21699e235f76f96727af3d9947f0a9a0b27918290ff5323bea1e3b78a9cf04e"><div class="ttname"><a href="group__Items.html#gga0a21699e235f76f96727af3d9947f0a9a0b27918290ff5323bea1e3b78a9cf04e">ELootLockerRewardKind::File</a></div><div class="ttdeci">@ File</div><div class="ttdoc">A file.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.8-->

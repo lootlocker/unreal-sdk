@@ -26,7 +26,7 @@ var searchData=
   ['biswaitingforsessionrefresh_23',['bIsWaitingForSessionRefresh',['../structFLootLockerHTTPExecutionQueueItem.html#a841446fe9f212464a0df336e31a49e0c',1,'FLootLockerHTTPExecutionQueueItem']]],
   ['blocked_24',['Blocked',['../structFLootLockerListBlockedPlayersResponse.html#ac386a094a36ad1c3694c6612d19e610a',1,'FLootLockerListBlockedPlayersResponse']]],
   ['blocked_5fat_25',['Blocked_at',['../structFLootLockerBlockedPlayer.html#aec7fa2aa8dc34adf5546473641d5003b',1,'FLootLockerBlockedPlayer']]],
-  ['body_26',['body',['../structFLootLockerHTTPRequestData.html#a0df52ef5a56a08139a372270a9c98d42',1,'FLootLockerHTTPRequestData::Body'],['../structFLootLockerBroadcastLanguage.html#a84f0e6b54df3b5d14a6e1b7941aa1b0d',1,'FLootLockerBroadcastLanguage::body'],['../structFLootLockerMessage.html#adf829abfe1e730b6c12b5ee9d0d68603',1,'FLootLockerMessage::body']]],
+  ['body_26',['body',['../structFLootLockerBroadcastLanguage.html#a84f0e6b54df3b5d14a6e1b7941aa1b0d',1,'FLootLockerBroadcastLanguage::body'],['../structFLootLockerMessage.html#adf829abfe1e730b6c12b5ee9d0d68603',1,'FLootLockerMessage::body'],['../structFLootLockerHTTPRequestData.html#a0df52ef5a56a08139a372270a9c98d42',1,'FLootLockerHTTPRequestData::Body']]],
   ['bodyasjsonstring_27',['BodyAsJsonString',['../structFLootLockerNotificationContent.html#ac7cfc4a25d5786b900fc972b8629c023',1,'FLootLockerNotificationContent']]],
   ['bodyasjsonvalue_28',['BodyAsJsonValue',['../structFLootLockerNotificationContent.html#a9c07f27d8e8825f71084d901468a1bb0',1,'FLootLockerNotificationContent']]],
   ['bodytype_29',['BodyType',['../structFLootLockerNotificationContent.html#a0116134bdfaa50cb377b1daf1b9f2a52',1,'FLootLockerNotificationContent']]],

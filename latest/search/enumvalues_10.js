@@ -6,6 +6,6 @@ var searchData=
   ['refundedsuspectedfraud_3',['RefundedSuspectedFraud',['../group__Purchasing.html#gga946691c7987a353ff57418eba974893ea3b63d4d0647bef2bdb0533cfd11dda92',1,'LootLockerPurchasesRequestHandler.h']]],
   ['removed_4',['removed',['../group__Purchasing.html#gga0c28d2d074ad7998a1d90dd37980acd4ab07286ebbb5bc7aa91cc3eaa8bc19711',1,'LootLockerPurchasesRequestHandler.h']]],
   ['rentable_5',['Rentable',['../group__Assets.html#gga8ae3c9c1e8732f482e668772d87be798ab5f534543c4f3f2c7ec06476eff80187',1,'LootLockerAssetsRequestHandler.h']]],
-  ['reward_6',['reward',['../group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804af9b11ed03ce21394fd0e5b19ae2d3873',1,'reward:&#160;LootLockerMetadataRequestHandler.h'],['../group__Notifications.html#gga9f4e18af9784e0fa371ee72a21ab31d2af9b11ed03ce21394fd0e5b19ae2d3873',1,'reward:&#160;LootLockerNotificationsRequestHandler.h']]],
+  ['reward_6',['reward',['../group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804af9b11ed03ce21394fd0e5b19ae2d3873',1,'reward:&#160;LootLockerMetadataRequestHandler.h'],['../group__Notifications.html#gga9f4e18af9784e0fa371ee72a21ab31d2af9b11ed03ce21394fd0e5b19ae2d3873',1,'reward:&#160;LootLockerNotificationsRequestHandler.h'],['../group__Items.html#gga0a21699e235f76f96727af3d9947f0a9a35281ac0e8d77e142fdcd41c07ce47dd',1,'Reward:&#160;LootLockerItemRequestHandler.h']]],
   ['reward_5fnot_5ffound_7',['Reward_not_found',['../group__Triggers.html#gga12edce0037bfffa3fb1c89165cf7777fa3ba9c248f0537d69bc8f68734ea1062e',1,'LootLockerTriggersRequestHandler.h']]]
 ];

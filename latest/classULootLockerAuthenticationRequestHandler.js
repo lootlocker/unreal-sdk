@@ -2,7 +2,9 @@ var classULootLockerAuthenticationRequestHandler =
 [
     [ "ULootLockerAuthenticationRequestHandler", "classULootLockerAuthenticationRequestHandler.html#a365fce7bddb4ca6025ce1ad7ee1a2261", null ],
     [ "EndSession", "classULootLockerAuthenticationRequestHandler.html#ad87032ef34a4603f3ba79223fae3e095", null ],
+    [ "GetWhiteLabelSignUpFields", "classULootLockerAuthenticationRequestHandler.html#a0883db41a3d1ea8a9f1dab330b931cfa", null ],
     [ "GuestLogin", "classULootLockerAuthenticationRequestHandler.html#abd9a45febc61a57f534a091238ae9ce4", null ],
+    [ "PrepareCustomFieldsJson", "classULootLockerAuthenticationRequestHandler.html#adda7d926a288edd9bec7c9ac03406561", null ],
     [ "RefreshAppleGameCenterSession", "classULootLockerAuthenticationRequestHandler.html#acdbe8eb436870361a2d8a1e1958d888f", null ],
     [ "RefreshAppleSession", "classULootLockerAuthenticationRequestHandler.html#ab3dea746c54cffe089ccedfb8462e28e", null ],
     [ "RefreshDiscordSession", "classULootLockerAuthenticationRequestHandler.html#ab21c75e49c68b42a077af304a2eb121f", null ],
@@ -29,6 +31,7 @@ var classULootLockerAuthenticationRequestHandler =
     [ "VerifyPlayerAndStartPlaystationNetworkSession", "classULootLockerAuthenticationRequestHandler.html#a647756e7d20389ed58b2ede58ef9bd7f", null ],
     [ "VerifyPlayerAndStartPlaystationNetworkV3Session", "classULootLockerAuthenticationRequestHandler.html#a23a74c7112e25f838b510f200e71db20", null ],
     [ "WhiteLabelCreateAccount", "classULootLockerAuthenticationRequestHandler.html#ae15b082d07d063ef265f18fd867e2a1f", null ],
+    [ "WhiteLabelCreateAccount", "classULootLockerAuthenticationRequestHandler.html#aa73ae169c0b4ebdcaa8278206b0afea8", null ],
     [ "WhiteLabelLogin", "classULootLockerAuthenticationRequestHandler.html#a1ebb53ddbf37a567588eacd23c8b3a9f", null ],
     [ "WhiteLabelLoginAndStartSession", "classULootLockerAuthenticationRequestHandler.html#af3238c834c0dda01633b9be4e3a2a425", null ],
     [ "WhiteLabelRequestPasswordReset", "classULootLockerAuthenticationRequestHandler.html#a7fafe0b49bc08b41ee8aca17b6008654", null ],

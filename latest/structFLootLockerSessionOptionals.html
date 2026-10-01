@@ -60,7 +60,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.5.0</span>
+      <span id="ll-topnav-version">v10.6.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.6.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -227,6 +227,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:ad8dac19641b86f5e20666ed6238b513a" id="r_ad8dac19641b86f5e20666ed6238b513a"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerSessionOptionals.html#ad8dac19641b86f5e20666ed6238b513a">Player_name</a> = &quot;&quot;</td></tr>
 <tr class="memdesc:ad8dac19641b86f5e20666ed6238b513a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the player (same as set by SetPlayerName).  <br /></td></tr>
 <tr class="separator:ad8dac19641b86f5e20666ed6238b513a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99268ffe0c40fafa2a6b830d5cfe588b" id="r_a99268ffe0c40fafa2a6b830d5cfe588b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerSessionOptionals.html#a99268ffe0c40fafa2a6b830d5cfe588b">Auto_create_profile</a> = true</td></tr>
+<tr class="memdesc:a99268ffe0c40fafa2a6b830d5cfe588b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to automatically create a profile for the player if one does not exist.  <br /></td></tr>
+<tr class="separator:a99268ffe0c40fafa2a6b830d5cfe588b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Optional parameters that can be sent when starting a session. </p>
@@ -258,6 +261,24 @@ Data Fields</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Field Documentation</h2>
+<a id="a99268ffe0c40fafa2a6b830d5cfe588b" name="a99268ffe0c40fafa2a6b830d5cfe588b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99268ffe0c40fafa2a6b830d5cfe588b">&#9670;&#160;</a></span>Auto_create_profile</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerSessionOptionals::Auto_create_profile = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Whether to automatically create a profile for the player if one does not exist. </p>
+<p>Defaults to true.</p>
+<p>Set to false if you want to ensure that a profile is not created for the player if one does not exist. In this case, the session will fail with a 404 Player Not Found error if the player does not have a profile. </p>
+
+</div>
+</div>
 <a id="ad8dac19641b86f5e20666ed6238b513a" name="ad8dac19641b86f5e20666ed6238b513a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad8dac19641b86f5e20666ed6238b513a">&#9670;&#160;</a></span>Player_name</h2>
 

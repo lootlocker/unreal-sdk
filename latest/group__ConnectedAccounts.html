@@ -60,7 +60,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.5.0</span>
+      <span id="ll-topnav-version">v10.6.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.6.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -588,6 +588,112 @@ $(document).ready(function(){initNavTree('group__ConnectedAccounts.html',''); in
 
 </div>
 </div>
+<a id="ga59580e004ff763f34f977cef5883ad92" name="ga59580e004ff763f34f977cef5883ad92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga59580e004ff763f34f977cef5883ad92">&#9670;&#160;</a></span>ConnectGooglePlayGamesAccount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ConnectGooglePlayGamesAccount </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>AuthCode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Link a Google Play Games account. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AuthCode</td><td>The auth code from Google Play Games sign in </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga4960e0b30ba99f34adb0ea2b2c994445" name="ga4960e0b30ba99f34adb0ea2b2c994445"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4960e0b30ba99f34adb0ea2b2c994445">&#9670;&#160;</a></span>ConnectNintendoAccount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ConnectNintendoAccount </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>NSAIdToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Link a Nintendo Switch account. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">NSAIdToken</td><td>The NSA ID token from Nintendo Switch sign in </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
 <a id="ga41e5669729c5ef1dd505d5770b1ea4fe" name="ga41e5669729c5ef1dd505d5770b1ea4fe"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga41e5669729c5ef1dd505d5770b1ea4fe">&#9670;&#160;</a></span>ConnectPlaystationAccount()</h2>
 
@@ -708,6 +814,59 @@ $(document).ready(function(){initNavTree('group__ConnectedAccounts.html',''); in
 
 </div>
 </div>
+<a id="ga0e396fd02ddba8354902c709baecae64" name="ga0e396fd02ddba8354902c709baecae64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0e396fd02ddba8354902c709baecae64">&#9670;&#160;</a></span>ConnectSteamAccount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ConnectSteamAccount </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>SteamTicket</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Link a Steam account. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SteamTicket</td><td>The Steam session ticket (hex-encoded) </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
 <a id="ga73978ccbfff6c3890d3b597687a8c429" name="ga73978ccbfff6c3890d3b597687a8c429"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga73978ccbfff6c3890d3b597687a8c429">&#9670;&#160;</a></span>ConnectTwitchAccount()</h2>
 
@@ -752,6 +911,59 @@ $(document).ready(function(){initNavTree('group__ConnectedAccounts.html',''); in
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">AuthorizationCode</td><td>Authorization code from Twitch sign-in </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga9266b198928323f0336446dad4b6cc12" name="ga9266b198928323f0336446dad4b6cc12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9266b198928323f0336446dad4b6cc12">&#9670;&#160;</a></span>ConnectXboxAccount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::ConnectXboxAccount </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>XboxUserToken</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnComplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ForPlayerWithUlid</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Link an Xbox account. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">XboxUserToken</td><td>The Xbox user token </td></tr>
     <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
     <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
   </table>
@@ -986,6 +1198,18 @@ Functions</h2></td></tr>
 <tr class="memitem:ga73978ccbfff6c3890d3b597687a8c429" id="r_ga73978ccbfff6c3890d3b597687a8c429"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga73978ccbfff6c3890d3b597687a8c429">ULootLockerSDKManager::ConnectTwitchAccount</a> (const FString &amp;AuthorizationCode, const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:ga73978ccbfff6c3890d3b597687a8c429"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link a Twitch account.  <br /></td></tr>
 <tr class="separator:ga73978ccbfff6c3890d3b597687a8c429"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e396fd02ddba8354902c709baecae64" id="r_ga0e396fd02ddba8354902c709baecae64"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga0e396fd02ddba8354902c709baecae64">ULootLockerSDKManager::ConnectSteamAccount</a> (const FString &amp;SteamTicket, const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga0e396fd02ddba8354902c709baecae64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link a Steam account.  <br /></td></tr>
+<tr class="separator:ga0e396fd02ddba8354902c709baecae64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9266b198928323f0336446dad4b6cc12" id="r_ga9266b198928323f0336446dad4b6cc12"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga9266b198928323f0336446dad4b6cc12">ULootLockerSDKManager::ConnectXboxAccount</a> (const FString &amp;XboxUserToken, const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga9266b198928323f0336446dad4b6cc12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link an Xbox account.  <br /></td></tr>
+<tr class="separator:ga9266b198928323f0336446dad4b6cc12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4960e0b30ba99f34adb0ea2b2c994445" id="r_ga4960e0b30ba99f34adb0ea2b2c994445"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga4960e0b30ba99f34adb0ea2b2c994445">ULootLockerSDKManager::ConnectNintendoAccount</a> (const FString &amp;NSAIdToken, const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga4960e0b30ba99f34adb0ea2b2c994445"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link a Nintendo Switch account.  <br /></td></tr>
+<tr class="separator:ga4960e0b30ba99f34adb0ea2b2c994445"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga59580e004ff763f34f977cef5883ad92" id="r_ga59580e004ff763f34f977cef5883ad92"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga59580e004ff763f34f977cef5883ad92">ULootLockerSDKManager::ConnectGooglePlayGamesAccount</a> (const FString &amp;AuthCode, const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga59580e004ff763f34f977cef5883ad92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link a Google Play Games account.  <br /></td></tr>
+<tr class="separator:ga59580e004ff763f34f977cef5883ad92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae38a534f15a8d8a224c44e68cd704e69" id="r_gae38a534f15a8d8a224c44e68cd704e69"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#gae38a534f15a8d8a224c44e68cd704e69">ULootLockerSDKManager::ConnectEpicAccount</a> (const FString &amp;Token, const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:gae38a534f15a8d8a224c44e68cd704e69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link an Epic account.  <br /></td></tr>
 <tr class="separator:gae38a534f15a8d8a224c44e68cd704e69"><td class="memSeparator" colspan="2">&#160;</td></tr>

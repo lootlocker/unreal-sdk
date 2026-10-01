@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['tables_0',['Drop Tables',['../group__DropTables.html',1,'']]],
-  ['triggers_1',['Triggers',['../group__Triggers.html',1,'']]]
+  ['sessions_0',['Remote Sessions',['../group__RemoteSessions.html',1,'']]],
+  ['storage_1',['Player Storage',['../group__PlayerStorage.html',1,'']]]
 ];

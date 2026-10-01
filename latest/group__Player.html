@@ -60,7 +60,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.5.0</span>
+      <span id="ll-topnav-version">v10.6.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.6.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -203,6 +203,7 @@ $(document).ready(function(){initNavTree('group__Player.html',''); initResizable
 
 <div class="header">
   <div class="summary">
+<a href="#groups">Modules</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
@@ -728,6 +729,7 @@ $(document).ready(function(){initNavTree('group__Player.html',''); initResizable
 </div><div class="memdoc">
 
 <p>Get all inventory asset instances owned by the player. </p>
+<p>Operates on assets and asset instances. For the item-based inventory, see ListPlayerInventoryItems and friends, which deal with items and item templates and are a separate system.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
@@ -1079,6 +1081,7 @@ $(document).ready(function(){initNavTree('group__Player.html',''); initResizable
 </div><div class="memdoc">
 
 <p>Get a simplified list of the player's inventory. </p>
+<p>Operates on assets and asset instances. For the item-based inventory, see ListPlayerInventoryItems and friends, which deal with items and item templates and are a separate system.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">Request</td><td>Request object containing filters and optional includes. </td></tr>
@@ -1128,6 +1131,7 @@ $(document).ready(function(){initNavTree('group__Player.html',''); initResizable
 </div><div class="memdoc">
 
 <p>Get a simplified list of the player's inventory with default parameters. </p>
+<p>Operates on assets and asset instances. For the item-based inventory, see ListPlayerInventoryItems and friends, which deal with items and item templates and are a separate system.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
@@ -1443,7 +1447,22 @@ $(document).ready(function(){initNavTree('group__Player.html',''); initResizable
 
 </div>
 </div>
+<div class="dynheader">
+Collaboration diagram for Player:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__Player.png" border="0" usemap="#agroup____Player" alt=""/></div>
+<map name="agroup____Player" id="agroup____Player">
+<area shape="rect" href="group__Items.html" title="These methods operate on items and item templates." alt="" coords="116,5,175,31"/>
+<area shape="rect" title="Retrieve and manage the current player&#39;s profile, name, and identifiers." alt="" coords="5,5,68,31"/>
+</map>
+</div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="groups" name="groups"></a>
+Modules</h2></td></tr>
+<tr class="memitem:group__Items" id="r_group__Items"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Items.html">Items</a></td></tr>
+<tr class="memdesc:group__Items"><td class="mdescLeft">&#160;</td><td class="mdescRight">These methods operate on items and item templates. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:ga2c516e0a4f4943125c26622c4d150bb5" id="r_ga2c516e0a4f4943125c26622c4d150bb5"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Player.html#ga2c516e0a4f4943125c26622c4d150bb5">FLootLockerGetCurrentPlayerInfoResponseDelegate</a>) (<a class="el" href="structFLootLockerGetCurrentPlayerInfoResponse.html">FLootLockerGetCurrentPlayerInfoResponse</a>)</td></tr>

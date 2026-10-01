@@ -21,5 +21,6 @@ var searchData=
   ['ispresenceenabled_18',['ispresenceenabled',['../classULootLockerConfig.html#aed9f653112d6d5463b35f18bf816ad99',1,'ULootLockerConfig::IsPresenceEnabled()'],['../group__Presence.html#ga99e4f30a0a04a273c0b38d4caf3a2728',1,'ULootLockerSDKManager::IsPresenceEnabled()']]],
   ['ispresenceenabledineditor_19',['IsPresenceEnabledInEditor',['../classULootLockerConfig.html#a50b6e612c5213b4dcffed6cf828663a0',1,'ULootLockerConfig']]],
   ['issemverstring_20',['IsSemverString',['../classULootLockerConfig.html#abd9be5bc62ff63170f0af26008dc71f0',1,'ULootLockerConfig']]],
-  ['isset_21',['IsSet',['../structFLootLockerSessionOptionals.html#a784f399e548153d01a93c4cc30af03e1',1,'FLootLockerSessionOptionals']]]
+  ['isset_21',['IsSet',['../structFLootLockerSessionOptionals.html#a784f399e548153d01a93c4cc30af03e1',1,'FLootLockerSessionOptionals']]],
+  ['isvalidianatimezone_22',['IsValidIanaTimezone',['../classULootLockerSDKManager.html#ace14f3cef78d5fbab93e121d97ae7805',1,'ULootLockerSDKManager']]]
 ];

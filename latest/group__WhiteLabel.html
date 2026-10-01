@@ -60,7 +60,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.5.0</span>
+      <span id="ll-topnav-version">v10.6.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.6.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -212,8 +212,44 @@ $(document).ready(function(){initNavTree('group__WhiteLabel.html',''); initResiz
 <p>Players sign in with an email address and password unique to your game. Includes customizable reset-password and confirm-account pages that match your game's branding. Integrates with <a class="el" href="group__ConnectedAccounts.html">Connected Accounts</a> so that guest players can 'upgrade' to a fully registered account at any time, preserving their existing progress.</p>
 <p>See the <a href="https://docs.lootlocker.com/players/white-label-login">LootLocker documentation</a>. </p>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga777e823aebe6eeffbf6dfcefd230428a" name="ga777e823aebe6eeffbf6dfcefd230428a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga777e823aebe6eeffbf6dfcefd230428a">&#9670;&#160;</a></span>GetWhiteLabelSignUpFields()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetWhiteLabelSignUpFields </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#ga25600c9748d3aff59589abc68918477d">FLootLockerWhiteLabelSignUpFieldsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieve the list of custom sign-up fields configured for this game. </p>
+<p>Use the returned fields to build a sign-up form, then pass the player's answers to <a class="el" href="group__WhiteLabel.html#ga2cd248de06703dfe6a45d55de812373e">WhiteLabelCreateAccount</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
 <a id="ga2cd248de06703dfe6a45d55de812373e" name="ga2cd248de06703dfe6a45d55de812373e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2cd248de06703dfe6a45d55de812373e">&#9670;&#160;</a></span>WhiteLabelCreateAccount()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2cd248de06703dfe6a45d55de812373e">&#9670;&#160;</a></span>WhiteLabelCreateAccount() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,6 +294,67 @@ $(document).ready(function(){initNavTree('group__WhiteLabel.html',''); initResiz
   <table class="params">
     <tr><td class="paramname">Email</td><td>User email </td></tr>
     <tr><td class="paramname">Password</td><td>User password </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga7173a0f2ba2622cf4250bbb7bcf21683" name="ga7173a0f2ba2622cf4250bbb7bcf21683"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7173a0f2ba2622cf4250bbb7bcf21683">&#9670;&#160;</a></span>WhiteLabelCreateAccount() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::WhiteLabelCreateAccount </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Email</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Password</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; <a class="el" href="structFLootLockerWhiteLabelCustomSignUpFieldValue.html">FLootLockerWhiteLabelCustomSignUpFieldValue</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>CustomFields</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Authentication.html#gad43a851209a55414955265c14f9d4e60">FLootLockerLoginResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a new White Label user account including answers to custom sign-up fields. </p>
+<p>Call <a class="el" href="group__WhiteLabel.html#ga777e823aebe6eeffbf6dfcefd230428a">GetWhiteLabelSignUpFields</a> first to retrieve the fields configured for this game, then pass the player's answers.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Email</td><td>User email </td></tr>
+    <tr><td class="paramname">Password</td><td>User password </td></tr>
+    <tr><td class="paramname">CustomFields</td><td>Answers to custom sign-up fields configured in the web console </td></tr>
     <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
   </table>
   </dd>
@@ -693,6 +790,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga2cd248de06703dfe6a45d55de812373e" id="r_ga2cd248de06703dfe6a45d55de812373e"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__WhiteLabel.html#ga2cd248de06703dfe6a45d55de812373e">ULootLockerSDKManager::WhiteLabelCreateAccount</a> (const FString &amp;Email, const FString &amp;Password, const <a class="el" href="group__Authentication.html#gad43a851209a55414955265c14f9d4e60">FLootLockerLoginResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
 <tr class="memdesc:ga2cd248de06703dfe6a45d55de812373e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a White Label user.  <br /></td></tr>
 <tr class="separator:ga2cd248de06703dfe6a45d55de812373e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7173a0f2ba2622cf4250bbb7bcf21683" id="r_ga7173a0f2ba2622cf4250bbb7bcf21683"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__WhiteLabel.html#ga7173a0f2ba2622cf4250bbb7bcf21683">ULootLockerSDKManager::WhiteLabelCreateAccount</a> (const FString &amp;Email, const FString &amp;Password, const TArray&lt; <a class="el" href="structFLootLockerWhiteLabelCustomSignUpFieldValue.html">FLootLockerWhiteLabelCustomSignUpFieldValue</a> &gt; &amp;CustomFields, const <a class="el" href="group__Authentication.html#gad43a851209a55414955265c14f9d4e60">FLootLockerLoginResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="memdesc:ga7173a0f2ba2622cf4250bbb7bcf21683"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new White Label user account including answers to custom sign-up fields.  <br /></td></tr>
+<tr class="separator:ga7173a0f2ba2622cf4250bbb7bcf21683"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga777e823aebe6eeffbf6dfcefd230428a" id="r_ga777e823aebe6eeffbf6dfcefd230428a"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__WhiteLabel.html#ga777e823aebe6eeffbf6dfcefd230428a">ULootLockerSDKManager::GetWhiteLabelSignUpFields</a> (const <a class="el" href="group__Authentication.html#ga25600c9748d3aff59589abc68918477d">FLootLockerWhiteLabelSignUpFieldsResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="memdesc:ga777e823aebe6eeffbf6dfcefd230428a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the list of custom sign-up fields configured for this game.  <br /></td></tr>
+<tr class="separator:ga777e823aebe6eeffbf6dfcefd230428a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga22f13bd3150a2333fe6d55b20d57ef53" id="r_ga22f13bd3150a2333fe6d55b20d57ef53"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__WhiteLabel.html#ga22f13bd3150a2333fe6d55b20d57ef53">ULootLockerSDKManager::WhiteLabelLogin</a> (const FString &amp;Email, const FString &amp;Password, const <a class="el" href="group__Authentication.html#gad43a851209a55414955265c14f9d4e60">FLootLockerLoginResponseDelegate</a> &amp;OnCompletedRequest, const bool Remember=false)</td></tr>
 <tr class="memdesc:ga22f13bd3150a2333fe6d55b20d57ef53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log in a White Label user (without starting session).  <br /></td></tr>
 <tr class="separator:ga22f13bd3150a2333fe6d55b20d57ef53"><td class="memSeparator" colspan="2">&#160;</td></tr>

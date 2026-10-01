@@ -44,19 +44,20 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"classULootLockerFeedbackRequestHandler.html#a437379c71ae3290faa19d7926fa5a574",
-"classULootLockerStateData.html#aeaec87e78cef78955c47f87d9cf63a6a",
-"group__Balances.html#gafc2119b704cb639aad10bf0a03f5d052",
-"group__Messages.html",
-"group__Purchasing.html#ga57e5191903070588eca97b4bca57d354",
-"structFLootLockerAssetItemDetailsKey.html#af9ca0e658f447624b7b3c7ebe2edbf46",
-"structFLootLockerConnectGoogleProviderToAccountRequest.html#a6f1ef3993021b677aad6e07f2d664099",
-"structFLootLockerFileUploadRequest.html#a7e53b16254e367664ba21a46ccae1bd6",
-"structFLootLockerInternalBroadcast.html#ae9d019eb16aa8cfd32399fb53c9cb7e7",
-"structFLootLockerListFriendsResponse.html#ad47d4eef215eccc1c3185cd42eae3771",
-"structFLootLockerNotificationRewardAssetDetails.html#a91dad847aae2e440f09ef94ccabe8ebf",
-"structFLootLockerReadNotificationsResponse.html",
-"structFLootLockerSuccessfulKey.html#af321cd20b883c7d5402de4e84c6094ad"
+"classULootLockerCurrencyRequestHandler.html#a0784da7d849aa516f7deeb0b0a643ed3",
+"classULootLockerRemoteSessionRequestHandler.html#a27b618c8fdd348373b3b44a04ff3ef64",
+"group__Authentication.html#gab1479486719c925962dcb061c9d27ddf",
+"group__Init.html#ggab6cbfe9c0c8733469624132e5afda1a5aaca41c16b1e459f6897b49bc9e212d8e",
+"group__PlayerFiles.html#ga0dd3ee1edb8f0b3dba880b0f24ae9b9b",
+"structFLootLockerAsset.html#a3c842c6e44825ae43bc9bf7561fefccb",
+"structFLootLockerCatalogEntryListings.html#a47634d95da251896040f69e6e643b6f0",
+"structFLootLockerEntitlementListing.html#aeb675659c0b4ccbef9906ad588258b35",
+"structFLootLockerGrantAssetResponse.html#a9c6720c63bd37e47233e23e5d64526e2",
+"structFLootLockerLeaderboardDetailsResponse.html#a0296f9f9b09f5ca9f7e72278f55cb7b8",
+"structFLootLockerMember.html#a8d8f1cb52f6331605284579f29479406",
+"structFLootLockerPickDropsFromDropTableItem.html#ab281c8173e638576bb8aa810f997f017",
+"structFLootLockerRefundPlayerInventoryEvent.html#a3108bd9c19dfd65940a80d4f6dcfef34",
+"structFLootLockerWhiteLabelCustomSignUpField.html#aec62cedeba8a11f48a280b0533973cf0"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

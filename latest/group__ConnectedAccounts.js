@@ -27,9 +27,13 @@ var group__ConnectedAccounts =
     [ "ULootLockerSDKManager::ConnectEpicAccount", "group__ConnectedAccounts.html#gae38a534f15a8d8a224c44e68cd704e69", null ],
     [ "ULootLockerSDKManager::ConnectGoogleAccount", "group__ConnectedAccounts.html#gaa152a34038b8ec048bc19c371228748e", null ],
     [ "ULootLockerSDKManager::ConnectGoogleAccount", "group__ConnectedAccounts.html#ga5fa56a8afdfef063ef6b01ca41a42df5", null ],
+    [ "ULootLockerSDKManager::ConnectGooglePlayGamesAccount", "group__ConnectedAccounts.html#ga59580e004ff763f34f977cef5883ad92", null ],
+    [ "ULootLockerSDKManager::ConnectNintendoAccount", "group__ConnectedAccounts.html#ga4960e0b30ba99f34adb0ea2b2c994445", null ],
     [ "ULootLockerSDKManager::ConnectPlaystationAccount", "group__ConnectedAccounts.html#ga41e5669729c5ef1dd505d5770b1ea4fe", null ],
     [ "ULootLockerSDKManager::ConnectRemoteSessionAccount", "group__ConnectedAccounts.html#ga53a176f3e124ca57d76973574e65f50e", null ],
+    [ "ULootLockerSDKManager::ConnectSteamAccount", "group__ConnectedAccounts.html#ga0e396fd02ddba8354902c709baecae64", null ],
     [ "ULootLockerSDKManager::ConnectTwitchAccount", "group__ConnectedAccounts.html#ga73978ccbfff6c3890d3b597687a8c429", null ],
+    [ "ULootLockerSDKManager::ConnectXboxAccount", "group__ConnectedAccounts.html#ga9266b198928323f0336446dad4b6cc12", null ],
     [ "ULootLockerSDKManager::DisconnectAccount", "group__ConnectedAccounts.html#gaea18f9deae72eacfedebd6b18c029367", null ],
     [ "ULootLockerSDKManager::ListConnectedAccounts", "group__ConnectedAccounts.html#ga77f0d46d5768ef57076049851d37313d", null ],
     [ "ULootLockerSDKManager::TransferIdentityProvidersBetweenAccounts", "group__ConnectedAccounts.html#gaee9e93405649b901e27a170d341a2c81", null ]

@@ -10,6 +10,7 @@ var group__Authentication =
     [ "FLootLockerMetaSessionResponseDelegate", "group__Authentication.html#ga44f69d575358bb105b10f581c1043801", null ],
     [ "FLootLockerSessionResponse", "group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c", null ],
     [ "FLootLockerWhiteLabelLoginAndSessionResponseDelegate", "group__Authentication.html#ga002968d0fa32442e9759ab0526cc5e2e", null ],
+    [ "FLootLockerWhiteLabelSignUpFieldsResponseDelegate", "group__Authentication.html#ga25600c9748d3aff59589abc68918477d", null ],
     [ "FLootLockerWhiteLabelVerifySessionDelegate", "group__Authentication.html#ga5272aace2f494fc0cb15fc4a828594bf", null ],
     [ "ELootLockerGoogleClientPlatform", "group__Authentication.html#gae4ebc57a876c42d49c752c3af6c1f611", [
       [ "ELootLockerGoogleClientPlatform::Web", "group__Authentication.html#ggae4ebc57a876c42d49c752c3af6c1f611ac6e190b284633c48e39e55049da3cce8", null ],

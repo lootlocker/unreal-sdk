@@ -60,7 +60,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.5.0</span>
+      <span id="ll-topnav-version">v10.6.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.6.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -391,6 +391,18 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ga73978ccbfff6c3890d3b597687a8c429" id="r_ga73978ccbfff6c3890d3b597687a8c429"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga73978ccbfff6c3890d3b597687a8c429">ConnectTwitchAccount</a> (const FString &amp;AuthorizationCode, const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:ga73978ccbfff6c3890d3b597687a8c429"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link a Twitch account.  <br /></td></tr>
 <tr class="separator:ga73978ccbfff6c3890d3b597687a8c429"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e396fd02ddba8354902c709baecae64" id="r_ga0e396fd02ddba8354902c709baecae64"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga0e396fd02ddba8354902c709baecae64">ConnectSteamAccount</a> (const FString &amp;SteamTicket, const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga0e396fd02ddba8354902c709baecae64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link a Steam account.  <br /></td></tr>
+<tr class="separator:ga0e396fd02ddba8354902c709baecae64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9266b198928323f0336446dad4b6cc12" id="r_ga9266b198928323f0336446dad4b6cc12"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga9266b198928323f0336446dad4b6cc12">ConnectXboxAccount</a> (const FString &amp;XboxUserToken, const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga9266b198928323f0336446dad4b6cc12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link an Xbox account.  <br /></td></tr>
+<tr class="separator:ga9266b198928323f0336446dad4b6cc12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4960e0b30ba99f34adb0ea2b2c994445" id="r_ga4960e0b30ba99f34adb0ea2b2c994445"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga4960e0b30ba99f34adb0ea2b2c994445">ConnectNintendoAccount</a> (const FString &amp;NSAIdToken, const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga4960e0b30ba99f34adb0ea2b2c994445"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link a Nintendo Switch account.  <br /></td></tr>
+<tr class="separator:ga4960e0b30ba99f34adb0ea2b2c994445"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga59580e004ff763f34f977cef5883ad92" id="r_ga59580e004ff763f34f977cef5883ad92"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga59580e004ff763f34f977cef5883ad92">ConnectGooglePlayGamesAccount</a> (const FString &amp;AuthCode, const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga59580e004ff763f34f977cef5883ad92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link a Google Play Games account.  <br /></td></tr>
+<tr class="separator:ga59580e004ff763f34f977cef5883ad92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae38a534f15a8d8a224c44e68cd704e69" id="r_gae38a534f15a8d8a224c44e68cd704e69"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#gae38a534f15a8d8a224c44e68cd704e69">ConnectEpicAccount</a> (const FString &amp;Token, const <a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:gae38a534f15a8d8a224c44e68cd704e69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link an Epic account.  <br /></td></tr>
 <tr class="separator:gae38a534f15a8d8a224c44e68cd704e69"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -424,6 +436,12 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ga2cd248de06703dfe6a45d55de812373e" id="r_ga2cd248de06703dfe6a45d55de812373e"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__WhiteLabel.html#ga2cd248de06703dfe6a45d55de812373e">WhiteLabelCreateAccount</a> (const FString &amp;Email, const FString &amp;Password, const <a class="el" href="group__Authentication.html#gad43a851209a55414955265c14f9d4e60">FLootLockerLoginResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
 <tr class="memdesc:ga2cd248de06703dfe6a45d55de812373e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a White Label user.  <br /></td></tr>
 <tr class="separator:ga2cd248de06703dfe6a45d55de812373e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7173a0f2ba2622cf4250bbb7bcf21683" id="r_ga7173a0f2ba2622cf4250bbb7bcf21683"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__WhiteLabel.html#ga7173a0f2ba2622cf4250bbb7bcf21683">WhiteLabelCreateAccount</a> (const FString &amp;Email, const FString &amp;Password, const TArray&lt; <a class="el" href="structFLootLockerWhiteLabelCustomSignUpFieldValue.html">FLootLockerWhiteLabelCustomSignUpFieldValue</a> &gt; &amp;CustomFields, const <a class="el" href="group__Authentication.html#gad43a851209a55414955265c14f9d4e60">FLootLockerLoginResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="memdesc:ga7173a0f2ba2622cf4250bbb7bcf21683"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new White Label user account including answers to custom sign-up fields.  <br /></td></tr>
+<tr class="separator:ga7173a0f2ba2622cf4250bbb7bcf21683"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga777e823aebe6eeffbf6dfcefd230428a" id="r_ga777e823aebe6eeffbf6dfcefd230428a"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__WhiteLabel.html#ga777e823aebe6eeffbf6dfcefd230428a">GetWhiteLabelSignUpFields</a> (const <a class="el" href="group__Authentication.html#ga25600c9748d3aff59589abc68918477d">FLootLockerWhiteLabelSignUpFieldsResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="memdesc:ga777e823aebe6eeffbf6dfcefd230428a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the list of custom sign-up fields configured for this game.  <br /></td></tr>
+<tr class="separator:ga777e823aebe6eeffbf6dfcefd230428a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga22f13bd3150a2333fe6d55b20d57ef53" id="r_ga22f13bd3150a2333fe6d55b20d57ef53"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__WhiteLabel.html#ga22f13bd3150a2333fe6d55b20d57ef53">WhiteLabelLogin</a> (const FString &amp;Email, const FString &amp;Password, const <a class="el" href="group__Authentication.html#gad43a851209a55414955265c14f9d4e60">FLootLockerLoginResponseDelegate</a> &amp;OnCompletedRequest, const bool Remember=false)</td></tr>
 <tr class="memdesc:ga22f13bd3150a2333fe6d55b20d57ef53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log in a White Label user (without starting session).  <br /></td></tr>
 <tr class="separator:ga22f13bd3150a2333fe6d55b20d57ef53"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -469,6 +487,27 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:gaeed9e781b08beeec82cf10ef471c4683" id="r_gaeed9e781b08beeec82cf10ef471c4683"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Player.html#gaeed9e781b08beeec82cf10ef471c4683">ListPlayerInventory</a> (const <a class="el" href="structFLootLockerListSimplifiedInventoryRequest.html">FLootLockerListSimplifiedInventoryRequest</a> &amp;Request, int PerPage, int Page, const <a class="el" href="group__Player.html#gab586bc5bffe3498e3059f213cdd977ba">FLootLockerSimpleInventoryResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:gaeed9e781b08beeec82cf10ef471c4683"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a simplified list of the player's inventory.  <br /></td></tr>
 <tr class="separator:gaeed9e781b08beeec82cf10ef471c4683"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5d9143e2d2fb8edf747739efb5c0ee7a" id="r_ga5d9143e2d2fb8edf747739efb5c0ee7a"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Items.html#ga5d9143e2d2fb8edf747739efb5c0ee7a">ListItemTemplates</a> (int PerPage, int Page, const <a class="el" href="group__Items.html#ga9037e1ccb577b046fcc6ef298f16c101">FLootLockerListItemTemplatesResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga5d9143e2d2fb8edf747739efb5c0ee7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">List all item templates available in the game.  <br /></td></tr>
+<tr class="separator:ga5d9143e2d2fb8edf747739efb5c0ee7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga923bd36a7709eea1685e903aefe1bdfb" id="r_ga923bd36a7709eea1685e903aefe1bdfb"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Items.html#ga923bd36a7709eea1685e903aefe1bdfb">ListPlayerInventoryItems</a> (int PerPage, int Page, const FString &amp;<a class="el" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987">Name</a>, <a class="el" href="group__Items.html#ga91186242c3669fe383f2b6745a19d26c">ELootLockerItemType</a> ItemType, <a class="el" href="group__Items.html#gad56b3240e1e384190c17a489a62de948">ELootLockerItemConsumableFilter</a> ConsumableFilter, <a class="el" href="group__Items.html#gacd59d9a537eb07ea7a6d091b57e95d32">ELootLockerItemSortField</a> Sort, <a class="el" href="group__Items.html#ga99eeb3e3ba7a3b62da9912a2aeb442f7">ELootLockerItemSortOrder</a> Order, const <a class="el" href="group__Items.html#ga46577e7ccad9b6170b5a4a184ba72aad">FLootLockerListPlayerInventoryItemsResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga923bd36a7709eea1685e903aefe1bdfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">List all items owned by the player, with optional filtering.  <br /></td></tr>
+<tr class="separator:ga923bd36a7709eea1685e903aefe1bdfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa4ad00c7db70bdca7951443c586094a3" id="r_gaa4ad00c7db70bdca7951443c586094a3"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Items.html#gaa4ad00c7db70bdca7951443c586094a3">GetPlayerInventoryItem</a> (const FString &amp;InventoryId, const <a class="el" href="group__Items.html#ga5d360db17f465e8d4249191f1981b029">FLootLockerGetPlayerInventoryItemResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gaa4ad00c7db70bdca7951443c586094a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a single item owned by the player.  <br /></td></tr>
+<tr class="separator:gaa4ad00c7db70bdca7951443c586094a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga941b9478a55143e394af1dd28b623fe2" id="r_ga941b9478a55143e394af1dd28b623fe2"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Items.html#ga941b9478a55143e394af1dd28b623fe2">DeletePlayerInventoryItem</a> (const FString &amp;InventoryId, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga941b9478a55143e394af1dd28b623fe2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a single item owned by the player.  <br /></td></tr>
+<tr class="separator:ga941b9478a55143e394af1dd28b623fe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafef4fca466776a49cd5c3084f88fb052" id="r_gafef4fca466776a49cd5c3084f88fb052"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Items.html#gafef4fca466776a49cd5c3084f88fb052">ConsumePlayerInventoryItem</a> (const FString &amp;InventoryId, const <a class="el" href="structFLootLockerConsumeInventoryItemRequest.html">FLootLockerConsumeInventoryItemRequest</a> &amp;Request, const <a class="el" href="group__Items.html#gabb5bb060ab2ff28a29c2066c2e112c75">FLootLockerConsumePlayerInventoryItemResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gafef4fca466776a49cd5c3084f88fb052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Consume one or more of an item owned by the player.  <br /></td></tr>
+<tr class="separator:gafef4fca466776a49cd5c3084f88fb052"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac83d30c9f86c63e42ce69240f5f96c38" id="r_gac83d30c9f86c63e42ce69240f5f96c38"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Items.html#gac83d30c9f86c63e42ce69240f5f96c38">SplitPlayerInventoryItemStack</a> (const FString &amp;InventoryId, const <a class="el" href="structFLootLockerSplitInventoryItemStackRequest.html">FLootLockerSplitInventoryItemStackRequest</a> &amp;Request, const <a class="el" href="group__Items.html#ga12bc86d48d4249f33b4002a949dae043">FLootLockerSplitInventoryItemStackResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gac83d30c9f86c63e42ce69240f5f96c38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Split a stackable item into a separate stack.  <br /></td></tr>
+<tr class="separator:gac83d30c9f86c63e42ce69240f5f96c38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1cb9e96ef484388c3b5bc947f97f2cd3" id="r_ga1cb9e96ef484388c3b5bc947f97f2cd3"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Items.html#ga1cb9e96ef484388c3b5bc947f97f2cd3">MergePlayerInventoryItemStacks</a> (const <a class="el" href="structFLootLockerMergeInventoryItemStacksRequest.html">FLootLockerMergeInventoryItemStacksRequest</a> &amp;Request, const <a class="el" href="group__Items.html#gac678ec9230c0d73487dc11ad7b8d9501">FLootLockerMergeInventoryItemStacksResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga1cb9e96ef484388c3b5bc947f97f2cd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merge two item stacks into one.  <br /></td></tr>
+<tr class="separator:ga1cb9e96ef484388c3b5bc947f97f2cd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga964068370748cbe640b6fcc589cc9d0a" id="r_ga964068370748cbe640b6fcc589cc9d0a"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Player.html#ga964068370748cbe640b6fcc589cc9d0a">ListCharacterInventoryWithDefaultParameters</a> (int CharacterId, const <a class="el" href="group__Player.html#gab586bc5bffe3498e3059f213cdd977ba">FLootLockerSimpleInventoryResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:ga964068370748cbe640b6fcc589cc9d0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a simplified list of the character's inventory with default parameters.  <br /></td></tr>
 <tr class="separator:ga964068370748cbe640b6fcc589cc9d0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -526,6 +565,30 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:gadd11e380f4327d8a888146d76b39e711" id="r_gadd11e380f4327d8a888146d76b39e711"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#gadd11e380f4327d8a888146d76b39e711">DeletePlayerFile</a> (const int32 FileID, const <a class="el" href="group__PlayerFiles.html#gad1108763b0f9cfa2b586aeda213a3f72">FLootLockerFileDeletedDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:gadd11e380f4327d8a888146d76b39e711"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permanently delete a player-owned file (irreversible).  <br /></td></tr>
 <tr class="separator:gadd11e380f4327d8a888146d76b39e711"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6f6a10927f258bfee732ab26fc7eadb4" id="r_ga6f6a10927f258bfee732ab26fc7eadb4"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#ga6f6a10927f258bfee732ab26fc7eadb4">ListFileRevisions</a> (const int32 FileID, const <a class="el" href="group__PlayerFiles.html#gabedde157d15328f4828f71b442c65d49">FLootLockerFileRevisionsDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga6f6a10927f258bfee732ab26fc7eadb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">List all revisions for a player file.  <br /></td></tr>
+<tr class="separator:ga6f6a10927f258bfee732ab26fc7eadb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadcca8694a80d8560fde3d948a33b3d82" id="r_gadcca8694a80d8560fde3d948a33b3d82"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#gadcca8694a80d8560fde3d948a33b3d82">GetFileRevision</a> (const int32 FileID, const FString &amp;RevisionID, const <a class="el" href="group__PlayerFiles.html#ga63e7017578b0dac692206b8ba926e65d">FLootLockerFileContentDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gadcca8694a80d8560fde3d948a33b3d82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a specific revision of a player file by its revision ULID.  <br /></td></tr>
+<tr class="separator:gadcca8694a80d8560fde3d948a33b3d82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga641264b5f8045d143950ba9971d5ef01" id="r_ga641264b5f8045d143950ba9971d5ef01"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#ga641264b5f8045d143950ba9971d5ef01">PromoteFileRevision</a> (const int32 FileID, const FString &amp;RevisionID, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga641264b5f8045d143950ba9971d5ef01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Promote a specific revision to be the current (active) revision of a player file.  <br /></td></tr>
+<tr class="separator:ga641264b5f8045d143950ba9971d5ef01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafb62e5ef95e48d85c684d466e28d08f0" id="r_gafb62e5ef95e48d85c684d466e28d08f0"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#gafb62e5ef95e48d85c684d466e28d08f0">GetFileByKey</a> (const FString &amp;Key, const <a class="el" href="group__PlayerFiles.html#ga38079ed6dcabfca7847c0fd7c6e80541">FLootLockerUploadFileDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gafb62e5ef95e48d85c684d466e28d08f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a player file by its key (upsert key).  <br /></td></tr>
+<tr class="separator:gafb62e5ef95e48d85c684d466e28d08f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga959faa43b6a4de13f228921044b7197c" id="r_ga959faa43b6a4de13f228921044b7197c"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#ga959faa43b6a4de13f228921044b7197c">ListFileRevisionsByKey</a> (const FString &amp;Key, const <a class="el" href="group__PlayerFiles.html#gabedde157d15328f4828f71b442c65d49">FLootLockerFileRevisionsDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga959faa43b6a4de13f228921044b7197c"><td class="mdescLeft">&#160;</td><td class="mdescRight">List all revisions for a player file identified by its key.  <br /></td></tr>
+<tr class="separator:ga959faa43b6a4de13f228921044b7197c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8defa538215e7537a54a01c3f184ec76" id="r_ga8defa538215e7537a54a01c3f184ec76"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#ga8defa538215e7537a54a01c3f184ec76">GetFileRevisionByKey</a> (const FString &amp;Key, const FString &amp;RevisionID, const <a class="el" href="group__PlayerFiles.html#ga63e7017578b0dac692206b8ba926e65d">FLootLockerFileContentDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga8defa538215e7537a54a01c3f184ec76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a specific revision of a player file by its key and revision ULID.  <br /></td></tr>
+<tr class="separator:ga8defa538215e7537a54a01c3f184ec76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga54de3323609b4737e9bd19f78067b301" id="r_ga54de3323609b4737e9bd19f78067b301"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#ga54de3323609b4737e9bd19f78067b301">PromoteFileRevisionByKey</a> (const FString &amp;Key, const FString &amp;RevisionID, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga54de3323609b4737e9bd19f78067b301"><td class="mdescLeft">&#160;</td><td class="mdescRight">Promote a specific revision to be the current (active) revision of a player file identified by its key.  <br /></td></tr>
+<tr class="separator:ga54de3323609b4737e9bd19f78067b301"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga462615abfb79e6099f7755e16d5d7d2b" id="r_ga462615abfb79e6099f7755e16d5d7d2b"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#ga462615abfb79e6099f7755e16d5d7d2b">DeletePlayerFileByKey</a> (const FString &amp;Key, const <a class="el" href="group__PlayerFiles.html#gad1108763b0f9cfa2b586aeda213a3f72">FLootLockerFileDeletedDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga462615abfb79e6099f7755e16d5d7d2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a player file by its key.  <br /></td></tr>
+<tr class="separator:ga462615abfb79e6099f7755e16d5d7d2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac9f805512487dc0c906484ea78a834e1" id="r_gac9f805512487dc0c906484ea78a834e1"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerProgressions.html#gac9f805512487dc0c906484ea78a834e1">GetPlayerProgressions</a> (const int32 &amp;Count, const FString &amp;After, const <a class="el" href="group__Progressions.html#ga2a0f789dfea31de2099202028ef5e26b">FLootLockerPaginatedPlayerProgressionsResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:gac9f805512487dc0c906484ea78a834e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">List player progressions (paginated).  <br /></td></tr>
 <tr class="separator:gac9f805512487dc0c906484ea78a834e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -996,6 +1059,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ga5543e6fd06dffa5556f922fe5533d8c2" id="r_ga5543e6fd06dffa5556f922fe5533d8c2"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Currency.html#ga5543e6fd06dffa5556f922fe5533d8c2">GetCurrencyDenominationsByCode</a> (const FString &amp;CurrencyCode, const <a class="el" href="group__Currency.html#ga000636af438327c3b92bf83edf0e1c04">FLootLockerListDenominationsResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:ga5543e6fd06dffa5556f922fe5533d8c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">List available denominations for a currency.  <br /></td></tr>
 <tr class="separator:ga5543e6fd06dffa5556f922fe5533d8c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae69ad4a0f531a303ba840f154a27ccb1" id="r_gae69ad4a0f531a303ba840f154a27ccb1"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlatformKeys.html#gae69ad4a0f531a303ba840f154a27ccb1">ListPlatformKeys</a> (const <a class="el" href="group__PlatformKeys.html#gafedaee50a4fac10fc5ac97a256910be8">FLootLockerListPlatformKeysResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gae69ad4a0f531a303ba840f154a27ccb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">List platform keys redeemed by the authenticated player.  <br /></td></tr>
+<tr class="separator:gae69ad4a0f531a303ba840f154a27ccb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8fbe6761fcbdd17281f55c32757eeb99" id="r_ga8fbe6761fcbdd17281f55c32757eeb99"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Balances.html#ga8fbe6761fcbdd17281f55c32757eeb99">ListBalancesInWallet</a> (const FString &amp;WalletID, const <a class="el" href="group__Balances.html#gad084060794d6f7eec9dc3e18e4f347a8">FLootLockerListBalancesForWalletResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:ga8fbe6761fcbdd17281f55c32757eeb99"><td class="mdescLeft">&#160;</td><td class="mdescRight">List balances in a wallet.  <br /></td></tr>
 <tr class="separator:ga8fbe6761fcbdd17281f55c32757eeb99"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1059,25 +1125,25 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ga0c4f5be441564ba123a56508ef6440cd" id="r_ga0c4f5be441564ba123a56508ef6440cd"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Feedback.html#ga0c4f5be441564ba123a56508ef6440cd">SendLootLockerErrorReport</a> (const FString &amp;UserDescription, const <a class="el" href="structFLootLockerResponse.html">FLootLockerResponse</a> &amp;FailedResponse, const <a class="el" href="LootLockerErrorReportRequestHandler_8h.html#a80c2fe0355e34bed4635278965824d19">FLootLockerSendErrorReportDelegate</a> &amp;OnComplete)</td></tr>
 <tr class="memdesc:ga0c4f5be441564ba123a56508ef6440cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a report about a failed LootLocker request to be viewable in the LootLocker dashboard.  <br /></td></tr>
 <tr class="separator:ga0c4f5be441564ba123a56508ef6440cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga16202061e9bc82c5dcc37167b09fdec5" id="r_ga16202061e9bc82c5dcc37167b09fdec5"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#ga16202061e9bc82c5dcc37167b09fdec5">ListMetadata</a> (const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a> Source, const FString &amp;SourceID, const <a class="el" href="group__Metadata.html#gacf296901bb69f3a4bb4ca5744ba091da">FLootLockerListMetadataResponseDelegate</a> &amp;OnComplete, const bool IgnoreFiles=false, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memitem:ga16202061e9bc82c5dcc37167b09fdec5" id="r_ga16202061e9bc82c5dcc37167b09fdec5"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#ga16202061e9bc82c5dcc37167b09fdec5">ListMetadata</a> (const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a> <a class="el" href="group__Items.html#ggacd59d9a537eb07ea7a6d091b57e95d32af31bbdd1b3e85bccd652680e16935819">Source</a>, const FString &amp;SourceID, const <a class="el" href="group__Metadata.html#gacf296901bb69f3a4bb4ca5744ba091da">FLootLockerListMetadataResponseDelegate</a> &amp;OnComplete, const bool IgnoreFiles=false, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:ga16202061e9bc82c5dcc37167b09fdec5"><td class="mdescLeft">&#160;</td><td class="mdescRight">List metadata (default pagination) for a source.  <br /></td></tr>
 <tr class="separator:ga16202061e9bc82c5dcc37167b09fdec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf750c7c243afcfc541292c5a902cc4fd" id="r_gaf750c7c243afcfc541292c5a902cc4fd"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#gaf750c7c243afcfc541292c5a902cc4fd">ListMetadata</a> (const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a> Source, const FString &amp;SourceID, const int Page, const int PerPage, const <a class="el" href="group__Metadata.html#gacf296901bb69f3a4bb4ca5744ba091da">FLootLockerListMetadataResponseDelegate</a> &amp;OnComplete, const bool IgnoreFiles=false, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memitem:gaf750c7c243afcfc541292c5a902cc4fd" id="r_gaf750c7c243afcfc541292c5a902cc4fd"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#gaf750c7c243afcfc541292c5a902cc4fd">ListMetadata</a> (const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a> <a class="el" href="group__Items.html#ggacd59d9a537eb07ea7a6d091b57e95d32af31bbdd1b3e85bccd652680e16935819">Source</a>, const FString &amp;SourceID, const int Page, const int PerPage, const <a class="el" href="group__Metadata.html#gacf296901bb69f3a4bb4ca5744ba091da">FLootLockerListMetadataResponseDelegate</a> &amp;OnComplete, const bool IgnoreFiles=false, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:gaf750c7c243afcfc541292c5a902cc4fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">List metadata (paginated) for a source.  <br /></td></tr>
 <tr class="separator:gaf750c7c243afcfc541292c5a902cc4fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae9bb3a6e8781ada4bdb7ac35c3b9cf89" id="r_gae9bb3a6e8781ada4bdb7ac35c3b9cf89"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#gae9bb3a6e8781ada4bdb7ac35c3b9cf89">ListMetadataWithTags</a> (const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a> Source, const FString &amp;SourceID, const TArray&lt; FString &gt; &amp;Tags, const <a class="el" href="group__Metadata.html#gacf296901bb69f3a4bb4ca5744ba091da">FLootLockerListMetadataResponseDelegate</a> &amp;OnComplete, const bool IgnoreFiles=false, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memitem:gae9bb3a6e8781ada4bdb7ac35c3b9cf89" id="r_gae9bb3a6e8781ada4bdb7ac35c3b9cf89"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#gae9bb3a6e8781ada4bdb7ac35c3b9cf89">ListMetadataWithTags</a> (const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a> <a class="el" href="group__Items.html#ggacd59d9a537eb07ea7a6d091b57e95d32af31bbdd1b3e85bccd652680e16935819">Source</a>, const FString &amp;SourceID, const TArray&lt; FString &gt; &amp;Tags, const <a class="el" href="group__Metadata.html#gacf296901bb69f3a4bb4ca5744ba091da">FLootLockerListMetadataResponseDelegate</a> &amp;OnComplete, const bool IgnoreFiles=false, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:gae9bb3a6e8781ada4bdb7ac35c3b9cf89"><td class="mdescLeft">&#160;</td><td class="mdescRight">List metadata with tags (default pagination).  <br /></td></tr>
 <tr class="separator:gae9bb3a6e8781ada4bdb7ac35c3b9cf89"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1b26e9247507760ae3a7a8ed08f5d777" id="r_ga1b26e9247507760ae3a7a8ed08f5d777"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#ga1b26e9247507760ae3a7a8ed08f5d777">ListMetadataWithTags</a> (const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a> Source, const FString &amp;SourceID, const TArray&lt; FString &gt; &amp;Tags, const int Page, const int PerPage, const <a class="el" href="group__Metadata.html#gacf296901bb69f3a4bb4ca5744ba091da">FLootLockerListMetadataResponseDelegate</a> &amp;OnComplete, const bool IgnoreFiles=false, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memitem:ga1b26e9247507760ae3a7a8ed08f5d777" id="r_ga1b26e9247507760ae3a7a8ed08f5d777"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#ga1b26e9247507760ae3a7a8ed08f5d777">ListMetadataWithTags</a> (const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a> <a class="el" href="group__Items.html#ggacd59d9a537eb07ea7a6d091b57e95d32af31bbdd1b3e85bccd652680e16935819">Source</a>, const FString &amp;SourceID, const TArray&lt; FString &gt; &amp;Tags, const int Page, const int PerPage, const <a class="el" href="group__Metadata.html#gacf296901bb69f3a4bb4ca5744ba091da">FLootLockerListMetadataResponseDelegate</a> &amp;OnComplete, const bool IgnoreFiles=false, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:ga1b26e9247507760ae3a7a8ed08f5d777"><td class="mdescLeft">&#160;</td><td class="mdescRight">List metadata with tags (paginated).  <br /></td></tr>
 <tr class="separator:ga1b26e9247507760ae3a7a8ed08f5d777"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9744f2e2b76af14e0b036749c9fb1a4a" id="r_ga9744f2e2b76af14e0b036749c9fb1a4a"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#ga9744f2e2b76af14e0b036749c9fb1a4a">GetMetadata</a> (const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a> Source, const FString &amp;SourceID, const FString &amp;Key, const <a class="el" href="group__Metadata.html#gae1dd4f7c29e87bf7aeaf5c97badc824e">FLootLockerGetMetadataResponseDelegate</a> &amp;OnComplete, const bool IgnoreFiles=false, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memitem:ga9744f2e2b76af14e0b036749c9fb1a4a" id="r_ga9744f2e2b76af14e0b036749c9fb1a4a"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#ga9744f2e2b76af14e0b036749c9fb1a4a">GetMetadata</a> (const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a> <a class="el" href="group__Items.html#ggacd59d9a537eb07ea7a6d091b57e95d32af31bbdd1b3e85bccd652680e16935819">Source</a>, const FString &amp;SourceID, const FString &amp;Key, const <a class="el" href="group__Metadata.html#gae1dd4f7c29e87bf7aeaf5c97badc824e">FLootLockerGetMetadataResponseDelegate</a> &amp;OnComplete, const bool IgnoreFiles=false, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:ga9744f2e2b76af14e0b036749c9fb1a4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get metadata by key.  <br /></td></tr>
 <tr class="separator:ga9744f2e2b76af14e0b036749c9fb1a4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga09b8ee2e188aeed2da4c4c541236ec2e" id="r_ga09b8ee2e188aeed2da4c4c541236ec2e"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#ga09b8ee2e188aeed2da4c4c541236ec2e">GetMultisourceMetadata</a> (const TArray&lt; <a class="el" href="structFLootLockerMetadataSourceAndKeys.html">FLootLockerMetadataSourceAndKeys</a> &gt; &amp;SourcesAndKeysToGet, const <a class="el" href="group__Metadata.html#ga27cd1fc35c6ea5f01acfa7757912e88c">FLootLockerGetMultisourceMetadataResponseDelegate</a> &amp;OnComplete, const bool IgnoreFiles=false, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:ga09b8ee2e188aeed2da4c4c541236ec2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get metadata for multiple sources/keys.  <br /></td></tr>
 <tr class="separator:ga09b8ee2e188aeed2da4c4c541236ec2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga45eb3bba1b127ef1404b32a6be82052e" id="r_ga45eb3bba1b127ef1404b32a6be82052e"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#ga45eb3bba1b127ef1404b32a6be82052e">SetMetadata</a> (const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a> Source, const FString &amp;SourceID, const TArray&lt; <a class="el" href="structFLootLockerSetMetadataAction.html">FLootLockerSetMetadataAction</a> &gt; &amp;MetadataToActionsToPerform, const <a class="el" href="group__Metadata.html#gaa806513179fb9125a52ab8da09260630">FLootLockerSetMetadataResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memitem:ga45eb3bba1b127ef1404b32a6be82052e" id="r_ga45eb3bba1b127ef1404b32a6be82052e"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Metadata.html#ga45eb3bba1b127ef1404b32a6be82052e">SetMetadata</a> (const <a class="el" href="group__Metadata.html#ga3d86f36677809018b3cb5db0418ac804">ELootLockerMetadataSources</a> <a class="el" href="group__Items.html#ggacd59d9a537eb07ea7a6d091b57e95d32af31bbdd1b3e85bccd652680e16935819">Source</a>, const FString &amp;SourceID, const TArray&lt; <a class="el" href="structFLootLockerSetMetadataAction.html">FLootLockerSetMetadataAction</a> &gt; &amp;MetadataToActionsToPerform, const <a class="el" href="group__Metadata.html#gaa806513179fb9125a52ab8da09260630">FLootLockerSetMetadataResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:ga45eb3bba1b127ef1404b32a6be82052e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set metadata for a source.  <br /></td></tr>
 <tr class="separator:ga45eb3bba1b127ef1404b32a6be82052e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab0be1e18881f191524a7ed44f7ab5677" id="r_gab0be1e18881f191524a7ed44f7ab5677"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
@@ -1226,7 +1292,119 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:gad13a20e2b752bef77e1db9536f71de10" id="r_gad13a20e2b752bef77e1db9536f71de10"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Presence.html#gad13a20e2b752bef77e1db9536f71de10">IsPresenceAutoDisconnectOnFocusChangeEnabled</a> ()</td></tr>
 <tr class="memdesc:gad13a20e2b752bef77e1db9536f71de10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if automatic presence disconnection on focus change is enabled.  <br /></td></tr>
 <tr class="separator:gad13a20e2b752bef77e1db9536f71de10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d6a0546410839f34a1b23e2a8b3e691" id="r_a8d6a0546410839f34a1b23e2a8b3e691"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerSDKManager.html#a8d6a0546410839f34a1b23e2a8b3e691">GetLocalIanaTimezone</a> ()</td></tr>
+<tr class="memdesc:a8d6a0546410839f34a1b23e2a8b3e691"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the player's current local IANA timezone as reported by the operating system.  <br /></td></tr>
+<tr class="separator:a8d6a0546410839f34a1b23e2a8b3e691"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a2f462acc1dedd017102e6f39571e3c" id="r_a1a2f462acc1dedd017102e6f39571e3c"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerSDKManager.html#a1a2f462acc1dedd017102e6f39571e3c">GetCurrentUTCOffsetAsIanaTimezone</a> (int32 UTCOffsetHours)</td></tr>
+<tr class="memdesc:a1a2f462acc1dedd017102e6f39571e3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a UTC offset in hours to an IANA timezone string.  <br /></td></tr>
+<tr class="separator:a1a2f462acc1dedd017102e6f39571e3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace14f3cef78d5fbab93e121d97ae7805" id="r_ace14f3cef78d5fbab93e121d97ae7805"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerSDKManager.html#ace14f3cef78d5fbab93e121d97ae7805">IsValidIanaTimezone</a> (const FString &amp;Timezone)</td></tr>
+<tr class="memdesc:ace14f3cef78d5fbab93e121d97ae7805"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether a timezone string is a valid IANA timezone that LootLocker accepts.  <br /></td></tr>
+<tr class="separator:ace14f3cef78d5fbab93e121d97ae7805"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1a2f462acc1dedd017102e6f39571e3c" name="a1a2f462acc1dedd017102e6f39571e3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a2f462acc1dedd017102e6f39571e3c">&#9670;&#160;</a></span>GetCurrentUTCOffsetAsIanaTimezone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetCurrentUTCOffsetAsIanaTimezone </td>
+          <td>(</td>
+          <td class="paramtype">int32&#160;</td>
+          <td class="paramname"><em>UTCOffsetHours</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convert a UTC offset in hours to an IANA timezone string. </p>
+<p>NOTE: The IANA Etc/GMT sign convention is inverted: Etc/GMT+X means UTC-X.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">UTCOffsetHours</td><td>UTC offset in hours (eg -5 for UTC-5) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>IANA timezone string, eg "Etc/GMT+5", "Etc/GMT-2" or "Etc/UTC" </dd></dl>
+
+</div>
+</div>
+<a id="a8d6a0546410839f34a1b23e2a8b3e691" name="a8d6a0546410839f34a1b23e2a8b3e691"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d6a0546410839f34a1b23e2a8b3e691">&#9670;&#160;</a></span>GetLocalIanaTimezone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerSDKManager::GetLocalIanaTimezone </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the player's current local IANA timezone as reported by the operating system. </p>
+<p>Prefer this over GetCurrentUTCOffsetAsIanaTimezone, since OS-reported timezones correctly handle daylight saving time.</p>
+<p>NOTE: On Windows the OS reports Windows timezone names (eg "Romance Standard Time"), which are automatically converted to the matching IANA name (eg "Europe/Paris").</p>
+<dl class="section return"><dt>Returns</dt><dd>IANA timezone string for the local system, eg "Europe/Paris" or "Etc/UTC" </dd></dl>
+
+</div>
+</div>
+<a id="ace14f3cef78d5fbab93e121d97ae7805" name="ace14f3cef78d5fbab93e121d97ae7805"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace14f3cef78d5fbab93e121d97ae7805">&#9670;&#160;</a></span>IsValidIanaTimezone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool ULootLockerSDKManager::IsValidIanaTimezone </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Timezone</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check whether a timezone string is a valid IANA timezone that LootLocker accepts. </p>
+<p>Note that IANA names are case-sensitive, eg "ETC/GMT" is invalid while "Etc/GMT" is valid.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Timezone</td><td>Timezone string to validate </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the string is a supported IANA timezone </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.8-->

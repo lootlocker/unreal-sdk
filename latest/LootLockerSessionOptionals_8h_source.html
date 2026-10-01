@@ -60,7 +60,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.5.0</span>
+      <span id="ll-topnav-version">v10.6.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.5.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.6.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -224,14 +224,16 @@ $(document).ready(function(){initNavTree('LootLockerSessionOptionals_8h_source.h
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="structFLootLockerSessionOptionals.html#a0272037467968c03b8defbd64dddf1ca">   18</a></span>    FString Timezone = &quot;&quot;;</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = &quot;LootLocker&quot;)</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="structFLootLockerSessionOptionals.html#ad8dac19641b86f5e20666ed6238b513a">   23</a></span>    FString <a class="code hl_enumvalue" href="group__Player.html#gga3ddeac62fd1e00996ae918cf2f732625a82d6915ffcb1d25a3eb03a4ed7a377c1">Player_name</a> = &quot;&quot;;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="structFLootLockerSessionOptionals.html#a784f399e548153d01a93c4cc30af03e1">   25</a></span>    <span class="keywordtype">bool</span> IsSet()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordflow">return</span> !Timezone.IsEmpty() || !<a class="code hl_enumvalue" href="group__Player.html#gga3ddeac62fd1e00996ae918cf2f732625a82d6915ffcb1d25a3eb03a4ed7a377c1">Player_name</a>.IsEmpty();</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    }</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = &quot;LootLocker&quot;)</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="structFLootLockerSessionOptionals.html#a99268ffe0c40fafa2a6b830d5cfe588b">   30</a></span>    <span class="keywordtype">bool</span> Auto_create_profile = true;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="foldopen" id="foldopen00032" data-start="{" data-end="}">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="structFLootLockerSessionOptionals.html#a784f399e548153d01a93c4cc30af03e1">   32</a></span>    <span class="keywordtype">bool</span> IsSet()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">return</span> !Timezone.IsEmpty() || !<a class="code hl_enumvalue" href="group__Player.html#gga3ddeac62fd1e00996ae918cf2f732625a82d6915ffcb1d25a3eb03a4ed7a377c1">Player_name</a>.IsEmpty() || Auto_create_profile != <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
 </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>};</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>};</div>
 </div>
 <div class="ttc" id="agroup__Player_html_gga3ddeac62fd1e00996ae918cf2f732625a82d6915ffcb1d25a3eb03a4ed7a377c1"><div class="ttname"><a href="group__Player.html#gga3ddeac62fd1e00996ae918cf2f732625a82d6915ffcb1d25a3eb03a4ed7a377c1">ELootLockerPlayerDataLookupIdType::Player_name</a></div><div class="ttdeci">@ Player_name</div></div>
 <div class="ttc" id="astructFLootLockerSessionOptionals_html"><div class="ttname"><a href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a></div><div class="ttdoc">Optional parameters that can be sent when starting a session.</div><div class="ttdef"><b>Definition</b> LootLockerSessionOptionals.h:12</div></div>

@@ -1,0 +1,5 @@
+<map id="FLootLockerPlatformKey" name="FLootLockerPlatformKey">
+<area shape="rect" id="Node000001" title="A platform key redeemed by the player." alt="" coords="39,93,219,119"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerPlatformKeyCampaign.html" title="Information about the campaign associated with a platform key." alt="" coords="5,5,252,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="131,45,131,93,126,93,126,45"/>
+</map>

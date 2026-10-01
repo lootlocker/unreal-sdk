@@ -30,7 +30,9 @@ var group__Metadata =
       [ "ELootLockerMetadataSources::player", "group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804a912af0dff974604f1321254ca8ff38b6", null ],
       [ "ELootLockerMetadataSources::self", "group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804a590f53e8699817c6fa498cc11a4cbe63", null ],
       [ "ELootLockerMetadataSources::asset", "group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804ac04e34d445e31a2159c1bfeb882ba212", null ],
-      [ "ELootLockerMetadataSources::item", "group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804a447b7147e84be512208dcc0995d67ebc", null ]
+      [ "ELootLockerMetadataSources::item", "group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804a447b7147e84be512208dcc0995d67ebc", null ],
+      [ "ELootLockerMetadataSources::inventory_item", "group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804a0c365084e7ba17d1274fd8cea2bb44f3", null ],
+      [ "ELootLockerMetadataSources::item_template", "group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804a919e14fd14d7143e0bac1742bde98b3b", null ]
     ] ],
     [ "ELootLockerMetadataTypes", "group__Metadata.html#ga7ae3db614872bb456a6b01bee377ec3e", [
       [ "ELootLockerMetadataTypes::String", "group__Metadata.html#gga7ae3db614872bb456a6b01bee377ec3ea27118326006d3829667a400ad23d5d98", null ],

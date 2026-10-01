@@ -1,6 +1,8 @@
 var group__WhiteLabel =
 [
+    [ "ULootLockerSDKManager::GetWhiteLabelSignUpFields", "group__WhiteLabel.html#ga777e823aebe6eeffbf6dfcefd230428a", null ],
     [ "ULootLockerSDKManager::WhiteLabelCreateAccount", "group__WhiteLabel.html#ga2cd248de06703dfe6a45d55de812373e", null ],
+    [ "ULootLockerSDKManager::WhiteLabelCreateAccount", "group__WhiteLabel.html#ga7173a0f2ba2622cf4250bbb7bcf21683", null ],
     [ "ULootLockerSDKManager::WhiteLabelLogin", "group__WhiteLabel.html#ga22f13bd3150a2333fe6d55b20d57ef53", null ],
     [ "ULootLockerSDKManager::WhiteLabelLoginAndStartSession", "group__WhiteLabel.html#ga9a1972c4252da8aed73d88d63ca0f854", null ],
     [ "ULootLockerSDKManager::WhiteLabelRequestPasswordReset", "group__WhiteLabel.html#ga17f1b9b4a97a6a04fef83ce878b71b48", null ],

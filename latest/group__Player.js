@@ -41,5 +41,6 @@ var group__Player =
     [ "ULootLockerSDKManager::LookupMultiplePlayersDataUsingIDs", "group__Player.html#gab6ccbdd76e62f6784fa4afd4f36b32d3", null ],
     [ "ULootLockerSDKManager::SetPlayerName", "group__Player.html#ga64b3918a6ae7bda0a3f20cf2870991d9", null ],
     [ "ULootLockerSDKManager::SetProfilePrivate", "group__Player.html#gab6f7c34bf641c683d80caa04a30a9023", null ],
-    [ "ULootLockerSDKManager::SetProfilePublic", "group__Player.html#ga701dff515a1a3fe0b67c4c2e665a542c", null ]
+    [ "ULootLockerSDKManager::SetProfilePublic", "group__Player.html#ga701dff515a1a3fe0b67c4c2e665a542c", null ],
+    [ "Items", "group__Items.html", "group__Items" ]
 ];
