@@ -1,0 +1,5 @@
+<map id="FLootLockerSimpleInventoryResponse" name="FLootLockerSimpleInventoryResponse">
+<area shape="rect" id="Node000001" title="Response for simplified inventory listing." alt="" coords="5,79,212,119"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="27,5,190,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,44,111,79,106,79,106,44"/>
+</map>

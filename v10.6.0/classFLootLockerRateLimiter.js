@@ -1,0 +1,26 @@
+var classFLootLockerRateLimiter =
+[
+    [ "FLootLockerRateLimiter", "classFLootLockerRateLimiter.html#a0f7bd8b1dd5448aa3827ab6ce3f06199", null ],
+    [ "~FLootLockerRateLimiter", "classFLootLockerRateLimiter.html#ac06adb43053785f58fbf9adfe97a423e", null ],
+    [ "AddRequestAndCheckIfRateLimitHit", "classFLootLockerRateLimiter.html#ad98eb45d95dceb175ac5f5ccc20da963", null ],
+    [ "GetSecondsLeftOfRateLimit", "classFLootLockerRateLimiter.html#a079b0c99f7676ac1fd96ddbcc6005ebd", null ],
+    [ "GetTimeNow", "classFLootLockerRateLimiter.html#af67da5b15196cea674f41ee5b6e277e7", null ],
+    [ "Reset", "classFLootLockerRateLimiter.html#a998d55822355ca347acb4fd12f69b9bc", null ],
+    [ "AllowXPercentOfTripWireMaxForMovingAverage", "classFLootLockerRateLimiter.html#a0457f95ba3748aeafaa3041927708b90", null ],
+    [ "bEnableRateLimiter", "classFLootLockerRateLimiter.html#a14adcec7a219a7b2ecfb5a0aaff41139", null ],
+    [ "bFirstRequestSent", "classFLootLockerRateLimiter.html#a839ab8827fb764a85bb489468880a2c5", null ],
+    [ "bIsRateLimited", "classFLootLockerRateLimiter.html#a7c73d092d5a87fbcd98f15b9c2abd6cf", null ],
+    [ "Buckets", "classFLootLockerRateLimiter.html#af7d3338fd7d3bac1fdab7f7af9211620", null ],
+    [ "BucketsPerTimeFrame", "classFLootLockerRateLimiter.html#a378779c0fa84ad609d84f4864640d0c8", null ],
+    [ "CountMovingAverageAcrossNTripWireTimeFrames", "classFLootLockerRateLimiter.html#a2f1717ce7523e0ae1d04e02afab38a49", null ],
+    [ "LastBucket", "classFLootLockerRateLimiter.html#ad8fe2aad6335aa42e2bb3d0d7904345d", null ],
+    [ "LastBucketChangeTime", "classFLootLockerRateLimiter.html#aba12320f9f1f62adff53736e23562535", null ],
+    [ "MaxRequestsPerBucketOnMovingAverage", "classFLootLockerRateLimiter.html#ac450781c42f33b0ed8e507cc075a6913", null ],
+    [ "MaxRequestsPerTripWireTimeFrame", "classFLootLockerRateLimiter.html#abea4577e9f92e52a9489ded901bc9e85", null ],
+    [ "RateLimitMovingAverageBucketCount", "classFLootLockerRateLimiter.html#a863702025699d8c8bfe5d19c79b1b840", null ],
+    [ "RateLimitResolvesAt", "classFLootLockerRateLimiter.html#aa57f876cff7ffd3857598ec1870d183d", null ],
+    [ "SecondsPerBucket", "classFLootLockerRateLimiter.html#ab163d0661a3e8c5010c80398724257e8", null ],
+    [ "TotalRequestsInBuckets", "classFLootLockerRateLimiter.html#acfb761931fca396755dfe2f19f2eccbd", null ],
+    [ "TotalRequestsInBucketsInTripWireTimeFrame", "classFLootLockerRateLimiter.html#a3985aed695f36cb6b75f84a3f17ca776", null ],
+    [ "TripWireTimeFrameSeconds", "classFLootLockerRateLimiter.html#a27f4e5fc96b8c03327cc6357d86a0f80", null ]
+];

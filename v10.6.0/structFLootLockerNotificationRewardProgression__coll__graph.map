@@ -1,0 +1,5 @@
+<map id="FLootLockerNotificationRewardProgression" name="FLootLockerNotificationRewardProgression">
+<area shape="rect" id="Node000001" title="Represents a progression&#45;points reward in a notification, linking the reward to a progression and the..." alt="" coords="5,108,229,148"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerNotificationRewardProgressionDetails.html" title="Holds the display details of a progression referenced in a progression&#45;points notification reward,..." alt="" coords="5,5,229,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,59,120,108,115,108,115,59"/>
+</map>

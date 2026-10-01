@@ -1,0 +1,7 @@
+<map id="ULootLockerAsyncStartRemoteSession" name="ULootLockerAsyncStartRemoteSession">
+<area shape="rect" id="Node000001" title=" " alt="" coords="109,108,331,148"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,13,208,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,45,200,106,197,110,128,49"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerRemoteSessionLeaseData.html" title="Holds the lease codes, redirect URL, Base64 QR code, and display URL needed to drive the remote sessi..." alt="" coords="233,5,434,45"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="304,56,243,110,239,106,300,52"/>
+</map>

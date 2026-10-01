@@ -1,0 +1,5 @@
+<map id="FLootLockerXboxServiceTicketResponse" name="FLootLockerXboxServiceTicketResponse">
+<area shape="rect" id="Node000001" title="Response from a request to get an Xbox service ticket." alt="" coords="5,79,225,119"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="34,5,197,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,44,118,79,113,79,113,44"/>
+</map>

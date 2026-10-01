@@ -1,0 +1,19 @@
+<map id="FLootLockerGenericProgressionResponse" name="FLootLockerGenericProgressionResponse">
+<area shape="rect" id="Node000001" title=" " alt="" coords="216,101,443,141"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerCharacterProgressionResponse.html" title=" " alt="" coords="491,5,729,45"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="388,94,490,55,529,43,530,48,492,60,390,99"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerGenericProgressionWithRewardsResponse.html" title=" " alt="" coords="497,69,723,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="456,104,496,100,497,105,457,110"/>
+<area shape="rect" id="Node000008" href="$structFLootLockerInstanceProgressionResponse.html" title=" " alt="" coords="495,133,725,173"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="457,133,495,138,494,143,456,138"/>
+<area shape="rect" id="Node000009" href="$structFLootLockerPlayerProgressionResponse.html" title=" " alt="" coords="501,197,719,237"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="390,144,492,183,530,195,529,200,490,188,388,149"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="5,109,168,134"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,119,216,119,216,124,182,124"/>
+<area shape="rect" id="Node000005" href="$structFLootLockerCharacterProgressionWithRewardsResponse.html" title=" " alt="" coords="777,5,1016,45"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="713,64,806,43,807,48,714,69"/>
+<area shape="rect" id="Node000006" href="$structFLootLockerInstanceProgressionWithRewardsResponse.html" title=" " alt="" coords="781,69,1012,109"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="737,87,781,87,781,92,737,92"/>
+<area shape="rect" id="Node000007" href="$structFLootLockerPlayerProgressionWithRewardsResponse.html" title=" " alt="" coords="788,133,1005,173"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="714,110,807,131,806,136,713,115"/>
+</map>

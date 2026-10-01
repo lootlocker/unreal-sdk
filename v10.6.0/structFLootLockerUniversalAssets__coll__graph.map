@@ -1,0 +1,21 @@
+<map id="FLootLockerUniversalAssets" name="FLootLockerUniversalAssets">
+<area shape="rect" id="Node000001" title=" " alt="" coords="1001,107,1207,132"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerAsset.html" title=" " alt="" coords="750,80,886,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="900,98,1001,107,1001,112,899,103"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerHasKeyValueStorage.html" title=" " alt="" coords="312,5,547,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="556,30,702,55,780,77,778,82,701,61,555,35"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerRarity.html" title=" " alt="" coords="360,55,499,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="513,70,750,86,750,91,512,75"/>
+<area shape="rect" id="Node000005" href="$structFLootLockerAssetCandidate.html" title=" " alt="" coords="328,104,531,129"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="544,115,701,109,749,102,750,108,702,114,545,121"/>
+<area shape="rect" id="Node000006" href="$structFLootLockerExternalIdentifiers.html" title=" " alt="" coords="320,153,539,179"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="552,167,627,158,665,149,700,136,712,126,724,114,751,103,753,108,727,119,715,130,703,140,666,154,628,163,553,172"/>
+<area shape="rect" id="Node000007" href="$structFLootLockerPsn.html" title=" " alt="" coords="17,104,140,129"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="154,124,288,143,340,151,339,156,288,149,153,130"/>
+<area shape="rect" id="Node000008" href="$structFLootLockerApple.html" title=" " alt="" coords="10,153,147,179"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="161,163,320,163,320,169,161,169"/>
+<area shape="rect" id="Node000009" href="$structFLootLockerGoogle.html" title=" " alt="" coords="5,203,152,228"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="165,201,288,183,339,176,340,181,288,189,166,206"/>
+<area shape="rect" id="Node000010" href="$structFLootLockerRentalOption.html" title=" " alt="" coords="725,129,911,155"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="924,140,977,137,1034,129,1034,135,978,142,925,145"/>
+</map>

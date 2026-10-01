@@ -1,0 +1,647 @@
+<!-- HTML header for doxygen 1.9.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: ULootLockerItemRequestHandler Class Reference</title>
+<!--BEGIN PROJECT_ICON-->
+<link rel="icon" href="$projecticon" type="image/x-icon" />
+<!--END PROJECT_ICON-->
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<!--BEGIN COPY_CLIPBOARD-->
+<script type="text/javascript" src="clipboard.js"></script>
+<!--END COPY_CLIPBOARD-->
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.6.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"$logosize/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.6.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('classULootLockerItemRequestHandler.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a>  </div>
+  <div class="headertitle"><div class="title">ULootLockerItemRequestHandler Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="LootLockerItemRequestHandler_8h_source.html">LootLockerItemRequestHandler.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for ULootLockerItemRequestHandler:</div>
+<div class="dyncontent">
+<div class="center"><img src="classULootLockerItemRequestHandler__inherit__graph.png" border="0" usemap="#aULootLockerItemRequestHandler_inherit__map" alt="Inheritance graph"/></div>
+<map name="aULootLockerItemRequestHandler_inherit__map" id="aULootLockerItemRequestHandler_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,79,241,104"/>
+<area shape="rect" title=" " alt="" coords="86,5,161,31"/>
+<area shape="poly" title=" " alt="" coords="126,44,126,79,121,79,121,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for ULootLockerItemRequestHandler:</div>
+<div class="dyncontent">
+<div class="center"><img src="classULootLockerItemRequestHandler__coll__graph.png" border="0" usemap="#aULootLockerItemRequestHandler_coll__map" alt="Collaboration graph"/></div>
+<map name="aULootLockerItemRequestHandler_coll__map" id="aULootLockerItemRequestHandler_coll__map">
+<area shape="rect" title=" " alt="" coords="5,79,241,104"/>
+<area shape="rect" title=" " alt="" coords="86,5,161,31"/>
+<area shape="poly" title=" " alt="" coords="126,44,126,79,121,79,121,44"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aa5c560295fc236dc06a8a84a2ab386eb" id="r_aa5c560295fc236dc06a8a84a2ab386eb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerItemRequestHandler.html#aa5c560295fc236dc06a8a84a2ab386eb">ULootLockerItemRequestHandler</a> ()</td></tr>
+<tr class="separator:aa5c560295fc236dc06a8a84a2ab386eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a67fe09ba984599dbb8322c4630608d8f" id="r_a67fe09ba984599dbb8322c4630608d8f"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerItemRequestHandler.html#a67fe09ba984599dbb8322c4630608d8f">ListItemTemplates</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, int32 PerPage, int32 Page, const <a class="el" href="group__Items.html#ga9037e1ccb577b046fcc6ef298f16c101">FLootLockerListItemTemplatesResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:a67fe09ba984599dbb8322c4630608d8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09cffd85740842813283f7425203b335" id="r_a09cffd85740842813283f7425203b335"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerItemRequestHandler.html#a09cffd85740842813283f7425203b335">ListPlayerInventoryItems</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, int32 PerPage, int32 Page, const FString &amp;<a class="el" href="group__Assets.html#gga2b2f1454f93df8f92665e355ce9b179ea49ee3087348e8d44e1feda1917443987">Name</a>, <a class="el" href="group__Items.html#ga91186242c3669fe383f2b6745a19d26c">ELootLockerItemType</a> ItemType, <a class="el" href="group__Items.html#gad56b3240e1e384190c17a489a62de948">ELootLockerItemConsumableFilter</a> ConsumableFilter, <a class="el" href="group__Items.html#gacd59d9a537eb07ea7a6d091b57e95d32">ELootLockerItemSortField</a> Sort, <a class="el" href="group__Items.html#ga99eeb3e3ba7a3b62da9912a2aeb442f7">ELootLockerItemSortOrder</a> Order, const <a class="el" href="group__Items.html#ga46577e7ccad9b6170b5a4a184ba72aad">FLootLockerListPlayerInventoryItemsResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:a09cffd85740842813283f7425203b335"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4aaaca6d7943644bb1b4445565625aed" id="r_a4aaaca6d7943644bb1b4445565625aed"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerItemRequestHandler.html#a4aaaca6d7943644bb1b4445565625aed">GetPlayerInventoryItem</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const FString &amp;InventoryId, const <a class="el" href="group__Items.html#ga5d360db17f465e8d4249191f1981b029">FLootLockerGetPlayerInventoryItemResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:a4aaaca6d7943644bb1b4445565625aed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c594fa28908b10bd7c7e8eeab7c858b" id="r_a9c594fa28908b10bd7c7e8eeab7c858b"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerItemRequestHandler.html#a9c594fa28908b10bd7c7e8eeab7c858b">DeletePlayerInventoryItem</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const FString &amp;InventoryId, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:a9c594fa28908b10bd7c7e8eeab7c858b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0c3fa3e34fcda2d84fa28a5c83157f1" id="r_ad0c3fa3e34fcda2d84fa28a5c83157f1"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerItemRequestHandler.html#ad0c3fa3e34fcda2d84fa28a5c83157f1">ConsumePlayerInventoryItem</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const FString &amp;InventoryId, const <a class="el" href="structFLootLockerConsumeInventoryItemRequest.html">FLootLockerConsumeInventoryItemRequest</a> &amp;Request, const <a class="el" href="group__Items.html#gabb5bb060ab2ff28a29c2066c2e112c75">FLootLockerConsumePlayerInventoryItemResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:ad0c3fa3e34fcda2d84fa28a5c83157f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a105c2a94d3a03a942afcc48feaa60f" id="r_a2a105c2a94d3a03a942afcc48feaa60f"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerItemRequestHandler.html#a2a105c2a94d3a03a942afcc48feaa60f">SplitPlayerInventoryItemStack</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const FString &amp;InventoryId, const <a class="el" href="structFLootLockerSplitInventoryItemStackRequest.html">FLootLockerSplitInventoryItemStackRequest</a> &amp;Request, const <a class="el" href="group__Items.html#ga12bc86d48d4249f33b4002a949dae043">FLootLockerSplitInventoryItemStackResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:a2a105c2a94d3a03a942afcc48feaa60f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a703029001b6805b19d2914af2fc509b2" id="r_a703029001b6805b19d2914af2fc509b2"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerItemRequestHandler.html#a703029001b6805b19d2914af2fc509b2">MergePlayerInventoryItemStacks</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const <a class="el" href="structFLootLockerMergeInventoryItemStacksRequest.html">FLootLockerMergeInventoryItemStacksRequest</a> &amp;Request, const <a class="el" href="group__Items.html#gac678ec9230c0d73487dc11ad7b8d9501">FLootLockerMergeInventoryItemStacksResponseDelegate</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="separator:a703029001b6805b19d2914af2fc509b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aa5c560295fc236dc06a8a84a2ab386eb" name="aa5c560295fc236dc06a8a84a2ab386eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5c560295fc236dc06a8a84a2ab386eb">&#9670;&#160;</a></span>ULootLockerItemRequestHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ULootLockerItemRequestHandler::ULootLockerItemRequestHandler </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad0c3fa3e34fcda2d84fa28a5c83157f1" name="ad0c3fa3e34fcda2d84fa28a5c83157f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0c3fa3e34fcda2d84fa28a5c83157f1">&#9670;&#160;</a></span>ConsumePlayerInventoryItem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerItemRequestHandler::ConsumePlayerInventoryItem </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>InventoryId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerConsumeInventoryItemRequest.html">FLootLockerConsumeInventoryItemRequest</a> &amp;&#160;</td>
+          <td class="paramname"><em>Request</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Items.html#gabb5bb060ab2ff28a29c2066c2e112c75">FLootLockerConsumePlayerInventoryItemResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9c594fa28908b10bd7c7e8eeab7c858b" name="a9c594fa28908b10bd7c7e8eeab7c858b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c594fa28908b10bd7c7e8eeab7c858b">&#9670;&#160;</a></span>DeletePlayerInventoryItem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerItemRequestHandler::DeletePlayerInventoryItem </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>InventoryId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4aaaca6d7943644bb1b4445565625aed" name="a4aaaca6d7943644bb1b4445565625aed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4aaaca6d7943644bb1b4445565625aed">&#9670;&#160;</a></span>GetPlayerInventoryItem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerItemRequestHandler::GetPlayerInventoryItem </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>InventoryId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Items.html#ga5d360db17f465e8d4249191f1981b029">FLootLockerGetPlayerInventoryItemResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a67fe09ba984599dbb8322c4630608d8f" name="a67fe09ba984599dbb8322c4630608d8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67fe09ba984599dbb8322c4630608d8f">&#9670;&#160;</a></span>ListItemTemplates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerItemRequestHandler::ListItemTemplates </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32&#160;</td>
+          <td class="paramname"><em>PerPage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32&#160;</td>
+          <td class="paramname"><em>Page</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Items.html#ga9037e1ccb577b046fcc6ef298f16c101">FLootLockerListItemTemplatesResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a09cffd85740842813283f7425203b335" name="a09cffd85740842813283f7425203b335"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09cffd85740842813283f7425203b335">&#9670;&#160;</a></span>ListPlayerInventoryItems()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerItemRequestHandler::ListPlayerInventoryItems </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32&#160;</td>
+          <td class="paramname"><em>PerPage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32&#160;</td>
+          <td class="paramname"><em>Page</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__Items.html#ga91186242c3669fe383f2b6745a19d26c">ELootLockerItemType</a>&#160;</td>
+          <td class="paramname"><em>ItemType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__Items.html#gad56b3240e1e384190c17a489a62de948">ELootLockerItemConsumableFilter</a>&#160;</td>
+          <td class="paramname"><em>ConsumableFilter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__Items.html#gacd59d9a537eb07ea7a6d091b57e95d32">ELootLockerItemSortField</a>&#160;</td>
+          <td class="paramname"><em>Sort</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__Items.html#ga99eeb3e3ba7a3b62da9912a2aeb442f7">ELootLockerItemSortOrder</a>&#160;</td>
+          <td class="paramname"><em>Order</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Items.html#ga46577e7ccad9b6170b5a4a184ba72aad">FLootLockerListPlayerInventoryItemsResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a703029001b6805b19d2914af2fc509b2" name="a703029001b6805b19d2914af2fc509b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a703029001b6805b19d2914af2fc509b2">&#9670;&#160;</a></span>MergePlayerInventoryItemStacks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerItemRequestHandler::MergePlayerInventoryItemStacks </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerMergeInventoryItemStacksRequest.html">FLootLockerMergeInventoryItemStacksRequest</a> &amp;&#160;</td>
+          <td class="paramname"><em>Request</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Items.html#gac678ec9230c0d73487dc11ad7b8d9501">FLootLockerMergeInventoryItemStacksResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2a105c2a94d3a03a942afcc48feaa60f" name="a2a105c2a94d3a03a942afcc48feaa60f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a105c2a94d3a03a942afcc48feaa60f">&#9670;&#160;</a></span>SplitPlayerInventoryItemStack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FString ULootLockerItemRequestHandler::SplitPlayerInventoryItemStack </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>PlayerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>InventoryId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerSplitInventoryItemStackRequest.html">FLootLockerSplitInventoryItemStackRequest</a> &amp;&#160;</td>
+          <td class="paramname"><em>Request</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Items.html#ga12bc86d48d4249f33b4002a949dae043">FLootLockerSplitInventoryItemStackResponseDelegate</a> &amp;&#160;</td>
+          <td class="paramname"><em>OnCompletedRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.8-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="classULootLockerItemRequestHandler.html">ULootLockerItemRequestHandler</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.9.8
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

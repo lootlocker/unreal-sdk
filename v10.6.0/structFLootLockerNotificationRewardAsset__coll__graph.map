@@ -1,0 +1,5 @@
+<map id="FLootLockerNotificationRewardAsset" name="FLootLockerNotificationRewardAsset">
+<area shape="rect" id="Node000001" title="Represents an asset reward in a notification, linking the reward to an asset and its optional variati..." alt="" coords="5,108,229,148"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerNotificationRewardAssetDetails.html" title="Holds the display details of an asset referenced in a notification reward, including its name,..." alt="" coords="5,5,229,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,59,120,108,115,108,115,59"/>
+</map>

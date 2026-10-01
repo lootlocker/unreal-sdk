@@ -1,0 +1,5 @@
+<map id="FLootLockerReadNotificationsResponse" name="FLootLockerReadNotificationsResponse">
+<area shape="rect" id="Node000001" title="Response from marking notifications as read, containing only base response status unless errors occur..." alt="" coords="5,79,220,119"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="31,5,194,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,44,115,79,110,79,110,44"/>
+</map>
