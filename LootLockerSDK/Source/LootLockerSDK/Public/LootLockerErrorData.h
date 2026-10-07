@@ -13,6 +13,9 @@ struct FLootLockerBanInfo
     /// The reason for the ban. One of "manual" or "chargeback".
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString ban_reason = "";
+    /// A player-facing message describing the ban. Empty when no detail was provided.
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString ban_detail = "";
     /// The time the ban was issued, as an ISO 8601 timestamp.
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString banned_on = "";
