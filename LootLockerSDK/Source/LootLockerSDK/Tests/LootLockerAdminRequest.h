@@ -38,7 +38,7 @@ public:
 	/** Admin bearer token obtained after Login(). Stored statically for the whole test run. */
 	static FString AdminToken;
 
-	/** Organisation ID extracted from the login response. Required when creating games. */
+	/** Organisation ID extracted from the login response. Sent as x-org-id on admin requests. */
 	static int32 OrganisationId;
 
 	/** The currently active game ID. Substituted for #GAMEID# in all endpoint paths. */
@@ -93,7 +93,8 @@ private:
 	static FLootLockerAdminResponse SendOnce(
 		const FString& FullUrl,
 		const FString& Method,
-		const FString& JsonBody);
+		const FString& JsonBody,
+		bool bIncludeOrganisationHeader = true);
 };
 
 #endif // ENGINE_MAJOR_VERSION > 4
