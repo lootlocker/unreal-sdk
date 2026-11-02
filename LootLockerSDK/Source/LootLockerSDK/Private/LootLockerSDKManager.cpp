@@ -603,6 +603,11 @@ FString ULootLockerSDKManager::DeletePlayerFileByKey(const FString& Key, const F
     return ULLPlayerFilesRequestHandler::DeletePlayerFileByKey(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Key, OnComplete);
 }
 
+FString ULootLockerSDKManager::CreateFileDownloadLink(const int32 FileID, const FLootLockerUploadFileDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLPlayerFilesRequestHandler::CreateFileDownloadLink(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), FileID, OnComplete);
+}
+
 FString ULootLockerSDKManager::GetDLCsMigration(const FPDlcResponse& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
     return ULootLockerPlayerRequestHandler::GetDLCsMigration(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);

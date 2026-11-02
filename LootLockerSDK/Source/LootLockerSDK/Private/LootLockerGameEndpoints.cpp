@@ -90,6 +90,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::ListFileRevisionsByKeyEndpoint = 
 FLootLockerEndPoints ULootLockerGameEndpoints::GetFileRevisionByKeyEndpoint = InitEndpoint("player/files/key/{0}/revisions/{1}", ELootLockerHTTPMethod::GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::PromoteFileRevisionByKeyEndpoint = InitEndpoint("player/files/key/{0}/revisions/{1}/current", ELootLockerHTTPMethod::POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::DeleteFileByKeyEndpoint = InitEndpoint("player/files/key/{0}", ELootLockerHTTPMethod::DELETE);
+FLootLockerEndPoints ULootLockerGameEndpoints::CreateFileDownloadLinkEndpoint = InitEndpoint("player/files/{0}/download-link/v1", ELootLockerHTTPMethod::POST);
 
 //Player
 FLootLockerEndPoints ULootLockerGameEndpoints::GetInfoFromSession = InitEndpoint("player/hazy-hammock/v1/info", ELootLockerHTTPMethod::GET);

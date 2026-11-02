@@ -58,6 +58,9 @@ struct FLootLockerPlayerFileResponse : public FLootLockerResponse
 	FString created_at = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	bool IsPublic = false;
+	/// True for a gated file (such as a private file reward): url is intentionally empty and the client must call CreateFileDownloadLink to obtain a short-lived link.
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	bool requires_download_link = false;
 };
 
 USTRUCT(BlueprintType)
@@ -84,6 +87,9 @@ struct FLootLockerPlayerFile
 	FString created_at = "";
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	bool IsPublic = false;
+	/// True for a gated file (such as a private file reward): url is intentionally empty and the client must call CreateFileDownloadLink to obtain a short-lived link.
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	bool requires_download_link = false;
 };
 
 USTRUCT(BlueprintType)
@@ -110,6 +116,9 @@ struct FLootLockerPlayerFileMetadata
 	int32 id = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	bool IsPublic = false;
+	/// True for a gated file (such as a private file reward): the file's download url is intentionally empty and must be minted with CreateFileDownloadLink.
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	bool requires_download_link = false;
 };
 
 USTRUCT(BlueprintType)
@@ -124,6 +133,9 @@ struct FLootLockerPlayerFileContentResponse : public FLootLockerResponse
 	int32 size = 0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString created_at = "";
+	/// True for a gated file (such as a private file reward): url is intentionally empty and must be minted with CreateFileDownloadLink.
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	bool requires_download_link = false;
 };
 
 USTRUCT(BlueprintType)
@@ -177,6 +189,8 @@ public:
 	static FString GetFileRevisionByKey(const FLootLockerPlayerData& PlayerData, const FString& Key, const FString& RevisionID, const FLootLockerFileContentDelegate& OnComplete);
 	static FString PromoteFileRevisionByKey(const FLootLockerPlayerData& PlayerData, const FString& Key, const FString& RevisionID, const FLootLockerDefaultDelegate& OnComplete);
 	static FString DeletePlayerFileByKey(const FLootLockerPlayerData& PlayerData, const FString& Key, const FLootLockerFileDeletedDelegate& OnComplete);
+	/// Mints a short-lived (60 second) signed download URL for a file the player owns. This is the only way to obtain a link for a gated file (one whose listing reports requires_download_link as true).
+	static FString CreateFileDownloadLink(const FLootLockerPlayerData& PlayerData, const int32 FileID, const FLootLockerUploadFileDelegate& OnComplete);
 private:
 	static void ParsePublicFlagOnFileList(TArray<FLootLockerPlayerFile>& ParsedFilesList, const TArray<TSharedPtr<FJsonValue>>& JsonFilesList);
 };

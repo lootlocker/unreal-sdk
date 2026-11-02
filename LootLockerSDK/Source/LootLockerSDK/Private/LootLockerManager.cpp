@@ -846,6 +846,14 @@ FString ULootLockerManager::DeletePlayerFileByKey(const FString& ForPlayerWithUl
     }), ForPlayerWithUlid);
 }
 
+FString ULootLockerManager::CreateFileDownloadLink(const FString& ForPlayerWithUlid, const int32 FileID, const FLootLockerUploadFileBP& OnComplete)
+{
+    return ULootLockerSDKManager::CreateFileDownloadLink(FileID, FLootLockerUploadFileDelegate::CreateLambda([OnComplete](FLootLockerPlayerFileResponse Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
 // Player Progressions
 FString ULootLockerManager::GetPlayerProgressions(const FString& ForPlayerWithUlid, const int32 Count /*= -1*/, const FString& After /*= ""*/, const FLootLockerPaginatedPlayerProgressionsResponseBP& OnCompletedRequest)
 {

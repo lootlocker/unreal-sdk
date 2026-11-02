@@ -184,3 +184,17 @@ FString ULLPlayerFilesRequestHandler::DeletePlayerFileByKey(const FLootLockerPla
 {
 	return LLAPI<FLootLockerResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::DeleteFileByKeyEndpoint, { Key }, EmptyQueryParams, PlayerData, OnComplete);
 }
+
+FString ULLPlayerFilesRequestHandler::CreateFileDownloadLink(const FLootLockerPlayerData& PlayerData, const int32 FileID, const FLootLockerUploadFileDelegate& OnComplete)
+{
+	return LLAPI<FLootLockerPlayerFileResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::CreateFileDownloadLinkEndpoint, { FileID }, EmptyQueryParams, PlayerData, OnComplete, LLAPI<FLootLockerPlayerFileResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerPlayerFileResponse& Response)
+		{
+			if (Response.success)
+			{
+				// Add "public" to IsPublic field manually if it exists
+				const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
+				if (!JsonObject.IsValid()) return;
+				Response.IsPublic = JsonObject->GetBoolField(TEXT("public"));
+			}
+		}));
+}

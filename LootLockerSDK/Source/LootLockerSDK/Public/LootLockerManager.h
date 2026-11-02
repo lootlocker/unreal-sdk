@@ -1799,6 +1799,25 @@ public:
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static UPARAM(DisplayName = "RequestId") FString DeletePlayerFileByKey(const FString& ForPlayerWithUlid, const FString& Key, const FLootLockerFileDeletedBP& OnComplete);
 
+    /**
+     Mints a short-lived signed download URL for a file the player owns.
+
+     This is the only way to obtain a link for a gated file - one whose listing reports
+     requires_download_link as true, which is how a private file reward is granted. The endpoint
+     is not restricted to gated files: any file the player owns can be minted, so you can always
+     ask for a fresh link instead of caching one.
+
+     The link lives for 60 seconds and is a bearer credential: anyone holding it can download until
+     it expires. Re-mint rather than cache or forward it. The link is not single-use.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param FileID File id (retrieved from upload response or ListFiles)
+     @param OnComplete Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Files", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString CreateFileDownloadLink(const FString& ForPlayerWithUlid, const int32 FileID, const FLootLockerUploadFileBP& OnComplete);
+
     //==================================================
     // Player Progressions
     //==================================================
