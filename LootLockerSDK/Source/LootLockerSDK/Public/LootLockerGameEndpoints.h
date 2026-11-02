@@ -123,6 +123,7 @@ public:
     static FLootLockerEndPoints GetFileRevisionByKeyEndpoint;
     static FLootLockerEndPoints PromoteFileRevisionByKeyEndpoint;
     static FLootLockerEndPoints DeleteFileByKeyEndpoint;
+    static FLootLockerEndPoints CreateFileDownloadLinkEndpoint;
 
     //Player
     static FLootLockerEndPoints GetInfoFromSession;
