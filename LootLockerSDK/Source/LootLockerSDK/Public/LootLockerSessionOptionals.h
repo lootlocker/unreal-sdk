@@ -28,9 +28,15 @@ struct FLootLockerSessionOptionals
 	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	bool Auto_create_profile = true;
+	/**
+	 * Whether the client reports owning DLC for this player. Set to true to have LootLocker reconcile DLC ownership when the session starts.
+	 * Defaults to false, in which case DLC ownership is only reconciled if the player already has DLC entitlements.
+	 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	bool Check_dlc = false;
 
 	bool IsSet() const
 	{
-		return !Timezone.IsEmpty() || !Player_name.IsEmpty() || Auto_create_profile != true;
+		return !Timezone.IsEmpty() || !Player_name.IsEmpty() || Auto_create_profile != true || Check_dlc;
 	}
 };
