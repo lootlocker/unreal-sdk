@@ -1,0 +1,5 @@
+<map id="FLootLockerInlinedCatalogEntry" name="FLootLockerInlinedCatalogEntry">
+<area shape="rect" id="Node000001" title="A Convenience type to use when you need inlined catalog items." alt="" coords="5,81,199,126"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerCatalogEntry.html" title="Represents a single purchasable item in a catalog, including its entity type, prices,..." alt="" coords="10,5,194,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,47,104,81,100,79,100,51"/>
+</map>

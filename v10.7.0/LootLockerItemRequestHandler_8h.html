@@ -1,0 +1,397 @@
+<!-- HTML header for doxygen 1.15.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.15.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: LootLockerSDK/Source/LootLockerSDK/Public/GameAPI/LootLockerItemRequestHandler.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">var page_layout=1;</script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.7.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="side-nav" class="ui-resizable side-nav-resizable"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.7.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+   <tr><td colspan="2">        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td></tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.15.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('LootLockerItemRequestHandler_8h.html','',''); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',false,false,'search.php','Search',true);
+});
+</script>
+<div id="main-nav"></div>
+<div id="container"><div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LootLockerItemRequestHandler.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;CoreMinimal.h&quot;</code><br />
+<code>#include &quot;Dom/JsonObject.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="LootLockerResponse_8h_source.html">LootLockerResponse.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LootLockerPlayerData_8h_source.html">LootLockerPlayerData.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LootLockerMetadataRequestHandler_8h_source.html">GameAPI/LootLockerMetadataRequestHandler.h</a>&quot;</code><br />
+<code>#include &quot;LootLockerItemRequestHandler.generated.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for LootLockerItemRequestHandler.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="LootLockerItemRequestHandler_8h__incl.png" border="0" usemap="#aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerItemRequestHandler_8h" loading="lazy" alt=""/></div>
+<map name="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerItemRequestHandler_8h" id="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerItemRequestHandler_8h">
+<area shape="rect" title=" " alt="" coords="1348,5,1590,84"/>
+<area shape="rect" title=" " alt="" coords="994,393,1110,421"/>
+<area shape="poly" title=" " alt="" coords="1520,82,1580,137,1610,170,1635,205,1654,242,1663,278,1659,314,1651,331,1639,347,1613,361,1565,372,1425,389,1264,400,1126,406,1125,401,1264,395,1425,384,1564,367,1611,356,1636,343,1647,328,1654,312,1657,279,1649,244,1631,208,1606,174,1577,141,1518,87"/>
+<area shape="rect" title=" " alt="" coords="1289,233,1426,261"/>
+<area shape="poly" title=" " alt="" coords="1450,83,1373,222,1370,218,1445,86"/>
+<area shape="rect" href="LootLockerResponse_8h.html" title=" " alt="" coords="790,233,956,261"/>
+<area shape="poly" title=" " alt="" coords="1345,66,1222,95,1154,113,1089,134,1038,156,988,181,907,227,905,222,986,176,1036,151,1087,130,1153,108,1220,89,1350,64"/>
+<area shape="rect" href="LootLockerPlayerData_8h.html" title=" " alt="" coords="1450,233,1625,261"/>
+<area shape="poly" title=" " alt="" coords="1484,82,1530,220,1526,217,1481,87"/>
+<area shape="rect" href="LootLockerMetadataRequestHandler_8h.html" title=" " alt="" coords="1101,132,1318,177"/>
+<area shape="poly" title=" " alt="" coords="1378,84,1277,128,1275,123,1373,85"/>
+<area shape="rect" title=" " alt="" coords="1700,140,2006,168"/>
+<area shape="poly" title=" " alt="" coords="1591,77,1795,136,1789,136,1591,83"/>
+<area shape="poly" title=" " alt="" coords="897,259,936,284,978,315,1009,347,1036,381,1031,379,1005,351,974,319,933,288,896,264"/>
+<area shape="rect" href="LootLockerErrorData_8h.html" title=" " alt="" coords="537,317,703,345"/>
+<area shape="poly" title=" " alt="" coords="835,261,675,315,674,310,830,262"/>
+<area shape="rect" href="LootLockerRequestContext_8h.html" title=" " alt="" coords="306,317,513,345"/>
+<area shape="poly" title=" " alt="" coords="796,262,499,317,498,312,801,261"/>
+<area shape="rect" title=" " alt="" coords="727,317,964,345"/>
+<area shape="poly" title=" " alt="" coords="871,260,856,305,853,301,867,263"/>
+<area shape="poly" title=" " alt="" coords="698,343,981,393,976,393,697,348"/>
+<area shape="rect" title=" " alt="" coords="537,393,772,421"/>
+<area shape="poly" title=" " alt="" coords="628,343,644,380,640,378,625,348"/>
+<area shape="poly" title=" " alt="" coords="514,342,981,396,976,399,513,347"/>
+<area shape="rect" title=" " alt="" coords="306,393,512,421"/>
+<area shape="poly" title=" " alt="" coords="411,344,411,379,407,376,407,347"/>
+<area shape="rect" title=" " alt="" coords="5,393,283,421"/>
+<area shape="poly" title=" " alt="" coords="365,346,206,391,205,386,359,346"/>
+<area shape="poly" title=" " alt="" coords="1481,261,1439,272,1391,279,1349,281,1278,280,1244,282,1209,287,1172,299,1129,320,1111,332,1094,348,1068,382,1066,378,1090,345,1107,328,1127,315,1170,294,1208,282,1243,276,1278,275,1349,275,1391,273,1438,267,1476,262"/>
+<area shape="rect" title=" " alt="" coords="1410,317,1625,345"/>
+<area shape="poly" title=" " alt="" coords="1536,260,1526,304,1522,300,1532,263"/>
+<area shape="rect" href="LootLockerSessionOptionals_8h.html" title=" " alt="" coords="1700,317,1916,345"/>
+<area shape="poly" title=" " alt="" coords="1581,259,1753,313,1748,312,1580,264"/>
+<area shape="rect" title=" " alt="" coords="1140,317,1385,345"/>
+<area shape="poly" title=" " alt="" coords="1496,261,1322,315,1321,310,1491,262"/>
+<area shape="poly" title=" " alt="" coords="1703,343,1682,348,1126,401,1125,396,1681,342,1697,343"/>
+<area shape="rect" title=" " alt="" coords="1665,393,1951,421"/>
+<area shape="poly" title=" " alt="" coords="1810,344,1810,379,1806,375,1806,347"/>
+<area shape="poly" title=" " alt="" coords="1112,176,1076,199,1049,226,1040,244,1034,264,1031,305,1036,345,1045,380,1040,377,1031,346,1026,305,1029,263,1035,242,1045,223,1073,194,1107,178"/>
+<area shape="poly" title=" " alt="" coords="1245,175,1326,225,1320,224,1244,180"/>
+<area shape="poly" title=" " alt="" coords="1131,177,938,231,937,226,1126,178"/>
+<area shape="poly" title=" " alt="" coords="1288,175,1477,228,1472,228,1288,180"/>
+<area shape="rect" title=" " alt="" coords="1058,225,1264,269"/>
+<area shape="poly" title=" " alt="" coords="1200,175,1181,213,1178,209,1196,179"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="LootLockerItemRequestHandler_8h__dep__incl.png" border="0" usemap="#aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerItemRequestHandler_8hdep" loading="lazy" alt=""/></div>
+<map name="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerItemRequestHandler_8hdep" id="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerItemRequestHandler_8hdep">
+<area shape="rect" title=" " alt="" coords="5,5,248,84"/>
+<area shape="rect" href="LootLockerSDKManager_8h.html" title=" " alt="" coords="31,132,222,194"/>
+<area shape="poly" title=" " alt="" coords="128,98,129,133,124,131,125,102"/>
+</map>
+</div>
+</div>
+<p><a href="LootLockerItemRequestHandler_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:FLootLockerItemTemplate" id="r_FLootLockerItemTemplate"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerItemTemplate.html">FLootLockerItemTemplate</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an item template that can be granted to players.  <a href="structFLootLockerItemTemplate.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerInventoryItem" id="r_FLootLockerInventoryItem"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerInventoryItem.html">FLootLockerInventoryItem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a single item (inventory entry) owned by a player.  <a href="structFLootLockerInventoryItem.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerGrantedItem" id="r_FLootLockerGrantedItem"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerGrantedItem.html">FLootLockerGrantedItem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an item that was granted as a result of consuming an item.  <a href="structFLootLockerGrantedItem.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerConsumeInventoryItemRequest" id="r_FLootLockerConsumeInventoryItemRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerConsumeInventoryItemRequest.html">FLootLockerConsumeInventoryItemRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request to consume one or more of an item.  <a href="structFLootLockerConsumeInventoryItemRequest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerSplitInventoryItemStackRequest" id="r_FLootLockerSplitInventoryItemStackRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerSplitInventoryItemStackRequest.html">FLootLockerSplitInventoryItemStackRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request to split a stackable item into two stacks.  <a href="structFLootLockerSplitInventoryItemStackRequest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerMergeInventoryItemStacksRequest" id="r_FLootLockerMergeInventoryItemStacksRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMergeInventoryItemStacksRequest.html">FLootLockerMergeInventoryItemStacksRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request to merge two item stacks into one.  <a href="structFLootLockerMergeInventoryItemStacksRequest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerListItemTemplatesResponse" id="r_FLootLockerListItemTemplatesResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerListItemTemplatesResponse.html">FLootLockerListItemTemplatesResponse</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Response for listing item templates.  <a href="structFLootLockerListItemTemplatesResponse.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerListPlayerInventoryItemsResponse" id="r_FLootLockerListPlayerInventoryItemsResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerListPlayerInventoryItemsResponse.html">FLootLockerListPlayerInventoryItemsResponse</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Response for listing a player's inventory items.  <a href="structFLootLockerListPlayerInventoryItemsResponse.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerGetPlayerInventoryItemResponse" id="r_FLootLockerGetPlayerInventoryItemResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerGetPlayerInventoryItemResponse.html">FLootLockerGetPlayerInventoryItemResponse</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Response for getting a single player inventory item.  <a href="structFLootLockerGetPlayerInventoryItemResponse.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerConsumePlayerInventoryItemResponse" id="r_FLootLockerConsumePlayerInventoryItemResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerConsumePlayerInventoryItemResponse.html">FLootLockerConsumePlayerInventoryItemResponse</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Response for consuming one or more of an item.  <a href="structFLootLockerConsumePlayerInventoryItemResponse.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerSplitInventoryItemStackResponse" id="r_FLootLockerSplitInventoryItemStackResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerSplitInventoryItemStackResponse.html">FLootLockerSplitInventoryItemStackResponse</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Response for splitting an item stack.  <a href="structFLootLockerSplitInventoryItemStackResponse.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerMergeInventoryItemStacksResponse" id="r_FLootLockerMergeInventoryItemStacksResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMergeInventoryItemStacksResponse.html">FLootLockerMergeInventoryItemStacksResponse</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Response for merging two item stacks.  <a href="structFLootLockerMergeInventoryItemStacksResponse.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ULootLockerItemRequestHandler" id="r_ULootLockerItemRequestHandler"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerItemRequestHandler.html">ULootLockerItemRequestHandler</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga9037e1ccb577b046fcc6ef298f16c101" id="r_ga9037e1ccb577b046fcc6ef298f16c101"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Items.html#ga9037e1ccb577b046fcc6ef298f16c101">FLootLockerListItemTemplatesResponseDelegate</a>) (<a class="el" href="structFLootLockerListItemTemplatesResponse.html">FLootLockerListItemTemplatesResponse</a>)</td></tr>
+<tr class="memdesc:ga9037e1ccb577b046fcc6ef298f16c101"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for listing item templates.  <br /></td></tr>
+<tr class="memitem:ga46577e7ccad9b6170b5a4a184ba72aad" id="r_ga46577e7ccad9b6170b5a4a184ba72aad"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Items.html#ga46577e7ccad9b6170b5a4a184ba72aad">FLootLockerListPlayerInventoryItemsResponseDelegate</a>) (<a class="el" href="structFLootLockerListPlayerInventoryItemsResponse.html">FLootLockerListPlayerInventoryItemsResponse</a>)</td></tr>
+<tr class="memdesc:ga46577e7ccad9b6170b5a4a184ba72aad"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for listing player items.  <br /></td></tr>
+<tr class="memitem:ga5d360db17f465e8d4249191f1981b029" id="r_ga5d360db17f465e8d4249191f1981b029"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Items.html#ga5d360db17f465e8d4249191f1981b029">FLootLockerGetPlayerInventoryItemResponseDelegate</a>) (<a class="el" href="structFLootLockerGetPlayerInventoryItemResponse.html">FLootLockerGetPlayerInventoryItemResponse</a>)</td></tr>
+<tr class="memdesc:ga5d360db17f465e8d4249191f1981b029"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for getting a player item.  <br /></td></tr>
+<tr class="memitem:gabb5bb060ab2ff28a29c2066c2e112c75" id="r_gabb5bb060ab2ff28a29c2066c2e112c75"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Items.html#gabb5bb060ab2ff28a29c2066c2e112c75">FLootLockerConsumePlayerInventoryItemResponseDelegate</a>) (<a class="el" href="structFLootLockerConsumePlayerInventoryItemResponse.html">FLootLockerConsumePlayerInventoryItemResponse</a>)</td></tr>
+<tr class="memdesc:gabb5bb060ab2ff28a29c2066c2e112c75"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for consuming a player item.  <br /></td></tr>
+<tr class="memitem:ga12bc86d48d4249f33b4002a949dae043" id="r_ga12bc86d48d4249f33b4002a949dae043"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Items.html#ga12bc86d48d4249f33b4002a949dae043">FLootLockerSplitInventoryItemStackResponseDelegate</a>) (<a class="el" href="structFLootLockerSplitInventoryItemStackResponse.html">FLootLockerSplitInventoryItemStackResponse</a>)</td></tr>
+<tr class="memdesc:ga12bc86d48d4249f33b4002a949dae043"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for splitting an item stack.  <br /></td></tr>
+<tr class="memitem:gac678ec9230c0d73487dc11ad7b8d9501" id="r_gac678ec9230c0d73487dc11ad7b8d9501"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Items.html#gac678ec9230c0d73487dc11ad7b8d9501">FLootLockerMergeInventoryItemStacksResponseDelegate</a>) (<a class="el" href="structFLootLockerMergeInventoryItemStacksResponse.html">FLootLockerMergeInventoryItemStacksResponse</a>)</td></tr>
+<tr class="memdesc:gac678ec9230c0d73487dc11ad7b8d9501"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for merging item stacks.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:gad56b3240e1e384190c17a489a62de948" id="r_gad56b3240e1e384190c17a489a62de948"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Items.html#gad56b3240e1e384190c17a489a62de948">ELootLockerItemConsumableFilter</a> : uint8 { <a class="el" href="group__Items.html#ggad56b3240e1e384190c17a489a62de948ab1c94ca2fbc3e78fc30069c8d0f01680">ELootLockerItemConsumableFilter::All</a> = 0
+, <a class="el" href="group__Items.html#ggad56b3240e1e384190c17a489a62de948a56fed3bd1057fee3027e20901d42f19e">ELootLockerItemConsumableFilter::Consumable</a> = 1
+, <a class="el" href="group__Items.html#ggad56b3240e1e384190c17a489a62de948a539c2a28785f4e639eb6d22022c39da6">ELootLockerItemConsumableFilter::Not_consumable</a> = 2
+ }</td></tr>
+<tr class="memdesc:gad56b3240e1e384190c17a489a62de948"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum for filtering player items on whether they are consumable.  <a href="group__Items.html#gad56b3240e1e384190c17a489a62de948">More...</a><br /></td></tr>
+<tr class="memitem:ga91186242c3669fe383f2b6745a19d26c" id="r_ga91186242c3669fe383f2b6745a19d26c"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Items.html#ga91186242c3669fe383f2b6745a19d26c">ELootLockerItemType</a> : uint8 { <a class="el" href="group__Items.html#gga91186242c3669fe383f2b6745a19d26ca6adf97f83acf6453d4a6a4b1070f3754">ELootLockerItemType::None</a> = 0
+, <a class="el" href="group__Items.html#gga91186242c3669fe383f2b6745a19d26ca70a496ea5ca54bbdb405d64ec244c4c7">ELootLockerItemType::Instanced</a> = 1
+, <a class="el" href="group__Items.html#gga91186242c3669fe383f2b6745a19d26ca2f926bb2101ec30b73983332ddb9f661">ELootLockerItemType::Stackable</a> = 2
+ }</td></tr>
+<tr class="memdesc:ga91186242c3669fe383f2b6745a19d26c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of an item, determining whether item instances are stackable or individually tracked.  <a href="group__Items.html#ga91186242c3669fe383f2b6745a19d26c">More...</a><br /></td></tr>
+<tr class="memitem:gacd59d9a537eb07ea7a6d091b57e95d32" id="r_gacd59d9a537eb07ea7a6d091b57e95d32"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Items.html#gacd59d9a537eb07ea7a6d091b57e95d32">ELootLockerItemSortField</a> : uint8 { <a class="el" href="group__Items.html#ggacd59d9a537eb07ea7a6d091b57e95d32a6adf97f83acf6453d4a6a4b1070f3754">ELootLockerItemSortField::None</a> = 0
+, <a class="el" href="group__Items.html#ggacd59d9a537eb07ea7a6d091b57e95d32a4e0b5c2418b622cb71664c2a3b615d77">ELootLockerItemSortField::Created_at</a> = 1
+, <a class="el" href="group__Items.html#ggacd59d9a537eb07ea7a6d091b57e95d32a96436d7e279bd89d1c47c17ef0d5050a">ELootLockerItemSortField::Updated_at</a> = 2
+, <a class="el" href="group__Items.html#ggacd59d9a537eb07ea7a6d091b57e95d32af31bbdd1b3e85bccd652680e16935819">ELootLockerItemSortField::Source</a> = 3
+ }</td></tr>
+<tr class="memdesc:gacd59d9a537eb07ea7a6d091b57e95d32"><td class="mdescLeft">&#160;</td><td class="mdescRight">The field by which to order a player item list response.  <a href="group__Items.html#gacd59d9a537eb07ea7a6d091b57e95d32">More...</a><br /></td></tr>
+<tr class="memitem:ga99eeb3e3ba7a3b62da9912a2aeb442f7" id="r_ga99eeb3e3ba7a3b62da9912a2aeb442f7"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Items.html#ga99eeb3e3ba7a3b62da9912a2aeb442f7">ELootLockerItemSortOrder</a> : uint8 { <a class="el" href="group__Items.html#gga99eeb3e3ba7a3b62da9912a2aeb442f7a6adf97f83acf6453d4a6a4b1070f3754">ELootLockerItemSortOrder::None</a> = 0
+, <a class="el" href="group__Items.html#gga99eeb3e3ba7a3b62da9912a2aeb442f7ae8338cca05b6a68b1b516f4f0d6b0a0f">ELootLockerItemSortOrder::Asc</a> = 1
+, <a class="el" href="group__Items.html#gga99eeb3e3ba7a3b62da9912a2aeb442f7a5fc8b9a31666e95fddf7fdc19ba6070c">ELootLockerItemSortOrder::Desc</a> = 2
+ }</td></tr>
+<tr class="memdesc:ga99eeb3e3ba7a3b62da9912a2aeb442f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The direction in which to order a player item list response.  <a href="group__Items.html#ga99eeb3e3ba7a3b62da9912a2aeb442f7">More...</a><br /></td></tr>
+<tr class="memitem:ga0a21699e235f76f96727af3d9947f0a9" id="r_ga0a21699e235f76f96727af3d9947f0a9"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Items.html#ga0a21699e235f76f96727af3d9947f0a9">ELootLockerRewardKind</a> : uint8 { <br />
+&#160;&#160;<a class="el" href="group__Items.html#gga0a21699e235f76f96727af3d9947f0a9a88183b946cc5f0e8c96b2e66e1c74a7e">ELootLockerRewardKind::Unknown</a> = 0
+, <a class="el" href="group__Items.html#gga0a21699e235f76f96727af3d9947f0a9a26e9054be7f40079575582b7ad3f7363">ELootLockerRewardKind::Asset</a> = 1
+, <a class="el" href="group__Items.html#gga0a21699e235f76f96727af3d9947f0a9a583c48eab03259a2a15bb1e10553a9df">ELootLockerRewardKind::Progression_points</a> = 2
+, <a class="el" href="group__Items.html#gga0a21699e235f76f96727af3d9947f0a9a8641ab8562e5691c447c32cd0926502e">ELootLockerRewardKind::Progression_reset</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="group__Items.html#gga0a21699e235f76f96727af3d9947f0a9a386c339d37e737a436499d423a77df0c">ELootLockerRewardKind::Currency</a> = 4
+, <a class="el" href="group__Items.html#gga0a21699e235f76f96727af3d9947f0a9a03937134cedab9078be39a77ee3a48a0">ELootLockerRewardKind::Group</a> = 5
+, <a class="el" href="group__Items.html#gga0a21699e235f76f96727af3d9947f0a9a35281ac0e8d77e142fdcd41c07ce47dd">ELootLockerRewardKind::Reward</a> = 6
+, <a class="el" href="group__Items.html#gga0a21699e235f76f96727af3d9947f0a9ac397792ccd915a8a37900cd5db34af09">ELootLockerRewardKind::Platform_key</a> = 7
+, <br />
+&#160;&#160;<a class="el" href="group__Items.html#gga0a21699e235f76f96727af3d9947f0a9ac225ba5a30cfd3b7b9c399df495e874d">ELootLockerRewardKind::Publisher_currency</a> = 8
+, <a class="el" href="group__Items.html#gga0a21699e235f76f96727af3d9947f0a9a3594695e99a5b6504c9f8d4f2d586c1e">ELootLockerRewardKind::Publisher_progression_points</a> = 9
+, <a class="el" href="group__Items.html#gga0a21699e235f76f96727af3d9947f0a9ab2b473971709f34baa86655222ec9b0d">ELootLockerRewardKind::Player_metadata</a> = 10
+, <a class="el" href="group__Items.html#gga0a21699e235f76f96727af3d9947f0a9a0b27918290ff5323bea1e3b78a9cf04e">ELootLockerRewardKind::File</a> = 11
+, <br />
+&#160;&#160;<a class="el" href="group__Items.html#gga0a21699e235f76f96727af3d9947f0a9a4a0efe97cf9209a366b659be38cd185b">ELootLockerRewardKind::Discord_role</a> = 12
+, <a class="el" href="group__Items.html#gga0a21699e235f76f96727af3d9947f0a9a271ca37295919d62d0fba074ee10b886">ELootLockerRewardKind::Item_template</a> = 13
+<br />
+ }</td></tr>
+<tr class="memdesc:ga0a21699e235f76f96727af3d9947f0a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">The kind of reward that was granted as a result of a behaviour.  <a href="group__Items.html#ga0a21699e235f76f96727af3d9947f0a9">More...</a><br /></td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- HTML footer for doxygen 1.15.0-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_426131f2e7e3782155028ac49ab5e11c.html">LootLockerSDK</a></li><li class="navelem"><a href="dir_63662f8d869795fbcfe09e29de292894.html">Source</a></li><li class="navelem"><a href="dir_529bffb88e47999e071ca27db50fed71.html">LootLockerSDK</a></li><li class="navelem"><a href="dir_6800d9c9fc95b443eb5325340bc06d03.html">Public</a></li><li class="navelem"><a href="dir_c4276055a6e8dd41429ac8d6d68c790b.html">GameAPI</a></li><li class="navelem"><a href="LootLockerItemRequestHandler_8h.html">LootLockerItemRequestHandler.h</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.15.0
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

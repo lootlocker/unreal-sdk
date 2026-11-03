@@ -1,0 +1,5 @@
+<map id="FLootLockerEntitlementHistoryResponse" name="FLootLockerEntitlementHistoryResponse">
+<area shape="rect" id="Node000001" title="Response containing a paginated list of entitlement history entries for the player." alt="" coords="5,81,228,126"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="35,5,198,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,47,119,81,114,79,115,51"/>
+</map>

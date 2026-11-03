@@ -1,0 +1,372 @@
+<!-- HTML header for doxygen 1.15.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.15.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: LootLockerSDK/Source/LootLockerSDK/Public/GameAPI/LootLockerConnectedAccountsRequestHandler.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">var page_layout=1;</script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.7.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="side-nav" class="ui-resizable side-nav-resizable"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.7.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+   <tr><td colspan="2">        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td></tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.15.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('LootLockerConnectedAccountsRequestHandler_8h.html','',''); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',false,false,'search.php','Search',true);
+});
+</script>
+<div id="main-nav"></div>
+<div id="container"><div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LootLockerConnectedAccountsRequestHandler.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;CoreMinimal.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="LootLockerResponse_8h_source.html">LootLockerResponse.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LootLockerPlayerData_8h_source.html">LootLockerPlayerData.h</a>&quot;</code><br />
+<code>#include &quot;LootLockerConnectedAccountsRequestHandler.generated.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for LootLockerConnectedAccountsRequestHandler.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="LootLockerConnectedAccountsRequestHandler_8h__incl.png" border="0" usemap="#aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerConnectedAccountsRequestHandler_8h" loading="lazy" alt=""/></div>
+<map name="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerConnectedAccountsRequestHandler_8h" id="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerConnectedAccountsRequestHandler_8h">
+<area shape="rect" title=" " alt="" coords="790,5,1019,84"/>
+<area shape="rect" title=" " alt="" coords="796,300,912,328"/>
+<area shape="poly" title=" " alt="" coords="891,83,870,150,852,225,852,252,854,287,850,283,847,252,847,224,865,149,887,86"/>
+<area shape="rect" href="LootLockerResponse_8h.html" title=" " alt="" coords="571,140,737,168"/>
+<area shape="poly" title=" " alt="" coords="817,84,699,137,697,132,811,85"/>
+<area shape="rect" href="LootLockerPlayerData_8h.html" title=" " alt="" coords="977,140,1152,168"/>
+<area shape="poly" title=" " alt="" coords="963,82,1035,132,1030,131,962,87"/>
+<area shape="rect" title=" " alt="" coords="1176,132,1396,177"/>
+<area shape="poly" title=" " alt="" coords="1019,75,1197,127,1192,127,1019,81"/>
+<area shape="poly" title=" " alt="" coords="673,166,750,223,830,291,825,290,747,227,672,171"/>
+<area shape="rect" href="LootLockerErrorData_8h.html" title=" " alt="" coords="571,225,736,252"/>
+<area shape="poly" title=" " alt="" coords="656,167,656,211,652,208,652,171"/>
+<area shape="rect" href="LootLockerRequestContext_8h.html" title=" " alt="" coords="340,225,547,252"/>
+<area shape="poly" title=" " alt="" coords="623,168,492,221,490,216,617,169"/>
+<area shape="rect" title=" " alt="" coords="80,225,316,252"/>
+<area shape="poly" title=" " alt="" coords="579,171,287,224,286,219,582,167"/>
+<area shape="poly" title=" " alt="" coords="690,250,807,295,801,294,689,256"/>
+<area shape="rect" title=" " alt="" coords="536,300,772,328"/>
+<area shape="poly" title=" " alt="" coords="656,251,656,286,652,283,652,255"/>
+<area shape="poly" title=" " alt="" coords="517,250,783,299,778,300,517,256"/>
+<area shape="rect" title=" " alt="" coords="5,300,212,328"/>
+<area shape="poly" title=" " alt="" coords="384,255,184,299,183,294,382,250"/>
+<area shape="rect" title=" " alt="" coords="235,300,512,328"/>
+<area shape="poly" title=" " alt="" coords="433,252,398,291,395,287,428,254"/>
+<area shape="poly" title=" " alt="" coords="1082,166,1102,184,1119,206,1128,230,1127,242,1121,254,1109,265,1090,275,1041,290,984,301,928,309,927,304,983,296,1040,285,1088,270,1106,261,1117,251,1122,241,1123,231,1115,209,1098,188,1081,171"/>
+<area shape="rect" title=" " alt="" coords="1422,225,1638,252"/>
+<area shape="poly" title=" " alt="" coords="1125,166,1165,174,1432,222,1427,222,1164,179,1125,171"/>
+<area shape="rect" href="LootLockerSessionOptionals_8h.html" title=" " alt="" coords="1182,225,1398,252"/>
+<area shape="poly" title=" " alt="" coords="1101,166,1242,219,1237,219,1100,171"/>
+<area shape="rect" title=" " alt="" coords="862,225,1107,252"/>
+<area shape="poly" title=" " alt="" coords="1054,168,1009,216,1006,211,1049,170"/>
+<area shape="poly" title=" " alt="" coords="1214,253,928,303,927,298,1209,253"/>
+<area shape="rect" title=" " alt="" coords="1147,300,1432,328"/>
+<area shape="poly" title=" " alt="" coords="1292,251,1292,286,1288,283,1288,255"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="LootLockerConnectedAccountsRequestHandler_8h__dep__incl.png" border="0" usemap="#aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerConnectedAccountsRequestHandler_8hdep" loading="lazy" alt=""/></div>
+<map name="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerConnectedAccountsRequestHandler_8hdep" id="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerConnectedAccountsRequestHandler_8hdep">
+<area shape="rect" title=" " alt="" coords="105,5,334,84"/>
+<area shape="rect" href="LootLockerRemoteSessionRequestHandler_8h.html" title=" " alt="" coords="5,132,266,211"/>
+<area shape="poly" title=" " alt="" coords="186,95,164,133,159,130,183,99"/>
+<area shape="rect" href="LootLockerSDKManager_8h.html" title=" " alt="" coords="124,259,315,320"/>
+<area shape="poly" title=" " alt="" coords="262,94,281,131,289,171,281,212,268,237,251,260,248,256,264,235,276,210,284,171,276,133,261,99"/>
+<area shape="poly" title=" " alt="" coords="173,221,200,259,195,258,171,226"/>
+</map>
+</div>
+</div>
+<p><a href="LootLockerConnectedAccountsRequestHandler_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:FLootLockerConnectedAccountProvider" id="r_FLootLockerConnectedAccountProvider"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerConnectedAccountProvider.html">FLootLockerConnectedAccountProvider</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an account provider that can be connected to a LootLocker account, identified by provider type and display name.  <a href="structFLootLockerConnectedAccountProvider.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerConnectGoogleProviderToAccountRequest" id="r_FLootLockerConnectGoogleProviderToAccountRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerConnectGoogleProviderToAccountRequest.html">FLootLockerConnectGoogleProviderToAccountRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request to connect a Google account to the current player account using a Google sign-in ID token.  <a href="structFLootLockerConnectGoogleProviderToAccountRequest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerConnectGoogleProviderToAccountWithPlatformRequest" id="r_FLootLockerConnectGoogleProviderToAccountWithPlatformRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerConnectGoogleProviderToAccountWithPlatformRequest.html">FLootLockerConnectGoogleProviderToAccountWithPlatformRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request to connect a Google account to the current player account using an ID token and a specific OAuth2 client platform.  <a href="structFLootLockerConnectGoogleProviderToAccountWithPlatformRequest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerConnectAppleRestProviderToAccountRequest" id="r_FLootLockerConnectAppleRestProviderToAccountRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerConnectAppleRestProviderToAccountRequest.html">FLootLockerConnectAppleRestProviderToAccountRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request to connect an Apple account to the current player account using an Apple REST Sign In authorization code.  <a href="structFLootLockerConnectAppleRestProviderToAccountRequest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerConnectEpicProviderToAccountRequest" id="r_FLootLockerConnectEpicProviderToAccountRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerConnectEpicProviderToAccountRequest.html">FLootLockerConnectEpicProviderToAccountRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request to connect an Epic Games account to the current player account using an Epic sign-in token.  <a href="structFLootLockerConnectEpicProviderToAccountRequest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerConnectPlaystationProviderToAccountRequest" id="r_FLootLockerConnectPlaystationProviderToAccountRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerConnectPlaystationProviderToAccountRequest.html">FLootLockerConnectPlaystationProviderToAccountRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request to connect a PlayStation account to the current player account using a sign-in code and environment identifier.  <a href="structFLootLockerConnectPlaystationProviderToAccountRequest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerConnectDiscordProviderToAccountRequest" id="r_FLootLockerConnectDiscordProviderToAccountRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerConnectDiscordProviderToAccountRequest.html">FLootLockerConnectDiscordProviderToAccountRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request to connect a Discord account to the current player account using a Discord sign-in token.  <a href="structFLootLockerConnectDiscordProviderToAccountRequest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerConnectTwitchProviderToAccountRequest" id="r_FLootLockerConnectTwitchProviderToAccountRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerConnectTwitchProviderToAccountRequest.html">FLootLockerConnectTwitchProviderToAccountRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request to connect a Twitch account to the current player account using a Twitch authorization code.  <a href="structFLootLockerConnectTwitchProviderToAccountRequest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerConnectSteamProviderToAccountRequest" id="r_FLootLockerConnectSteamProviderToAccountRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerConnectSteamProviderToAccountRequest.html">FLootLockerConnectSteamProviderToAccountRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request to connect a Steam account to the current player account using a Steam session ticket.  <a href="structFLootLockerConnectSteamProviderToAccountRequest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerConnectXboxProviderToAccountRequest" id="r_FLootLockerConnectXboxProviderToAccountRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerConnectXboxProviderToAccountRequest.html">FLootLockerConnectXboxProviderToAccountRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request to connect an Xbox account to the current player account using an Xbox user token.  <a href="structFLootLockerConnectXboxProviderToAccountRequest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerConnectNintendoProviderToAccountRequest" id="r_FLootLockerConnectNintendoProviderToAccountRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerConnectNintendoProviderToAccountRequest.html">FLootLockerConnectNintendoProviderToAccountRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request to connect a Nintendo Switch account to the current player account using an NSA ID token.  <a href="structFLootLockerConnectNintendoProviderToAccountRequest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerConnectGooglePlayGamesProviderToAccountRequest" id="r_FLootLockerConnectGooglePlayGamesProviderToAccountRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerConnectGooglePlayGamesProviderToAccountRequest.html">FLootLockerConnectGooglePlayGamesProviderToAccountRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request to connect a Google Play Games account to the current player account using an auth code.  <a href="structFLootLockerConnectGooglePlayGamesProviderToAccountRequest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerConnectRemoteSessionToAccountRequest" id="r_FLootLockerConnectRemoteSessionToAccountRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerConnectRemoteSessionToAccountRequest.html">FLootLockerConnectRemoteSessionToAccountRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request to connect a remote session lease to the current player account using the lease code and its nonce.  <a href="structFLootLockerConnectRemoteSessionToAccountRequest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerTransferProvidersBetweenAccountsRequest" id="r_FLootLockerTransferProvidersBetweenAccountsRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerTransferProvidersBetweenAccountsRequest.html">FLootLockerTransferProvidersBetweenAccountsRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request to transfer one or more identity providers from a source player account to a target player account using their respective session tokens.  <a href="structFLootLockerTransferProvidersBetweenAccountsRequest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerAccountConnectedStruct" id="r_FLootLockerAccountConnectedStruct"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAccountConnectedStruct.html">FLootLockerAccountConnectedStruct</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the provider type and display name of an account that was successfully connected to a player account.  <a href="structFLootLockerAccountConnectedStruct.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerAccountConnectedResponse" id="r_FLootLockerAccountConnectedResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAccountConnectedResponse.html">FLootLockerAccountConnectedResponse</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Response returned after connecting a provider to a player account, containing the details of the newly connected account.  <a href="structFLootLockerAccountConnectedResponse.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerListConnectedAccountsResponse" id="r_FLootLockerListConnectedAccountsResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerListConnectedAccountsResponse.html">FLootLockerListConnectedAccountsResponse</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Response containing the list of account providers currently connected to the player's LootLocker account.  <a href="structFLootLockerListConnectedAccountsResponse.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ULootLockerConnectedAccountsRequestHandler" id="r_ULootLockerConnectedAccountsRequestHandler"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerConnectedAccountsRequestHandler.html">ULootLockerConnectedAccountsRequestHandler</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga667242bda8f3874f4472d351e30307e5" id="r_ga667242bda8f3874f4472d351e30307e5"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga667242bda8f3874f4472d351e30307e5">FLootLockerAccountConnectedResponseDelegate</a>) (<a class="el" href="structFLootLockerAccountConnectedResponse.html">FLootLockerAccountConnectedResponse</a>)</td></tr>
+<tr class="memdesc:ga667242bda8f3874f4472d351e30307e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for connecting a provider to an account.  <br /></td></tr>
+<tr class="memitem:ga5af86cd4a77617973db4a3f165d5b3f3" id="r_ga5af86cd4a77617973db4a3f165d5b3f3"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga5af86cd4a77617973db4a3f165d5b3f3">FLootLockerListConnectedAccountsResponseDelegate</a>) (<a class="el" href="structFLootLockerListConnectedAccountsResponse.html">FLootLockerListConnectedAccountsResponse</a>)</td></tr>
+<tr class="memdesc:ga5af86cd4a77617973db4a3f165d5b3f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for listing connected accounts.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga52ca2d9826a43c89fc5913c416e0894d" id="r_ga52ca2d9826a43c89fc5913c416e0894d"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#ga52ca2d9826a43c89fc5913c416e0894d">ELootLockerAccountProvider</a> : uint8 { <br />
+&#160;&#160;<a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894daadb831a7fdd83dd1e2a309ce7591dff8">ELootLockerAccountProvider::Guest</a> = 0
+, <a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da8b36e9207c24c76e6719268e49201d94">ELootLockerAccountProvider::Google</a> = 1
+, <a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da9f6290f4436e5a2351f12e03b6433c3c">ELootLockerAccountProvider::Apple</a> = 2
+, <a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da4db4563826bad0eb2f60ee6e42d0ea4b">ELootLockerAccountProvider::Steam</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da54c97686ee5f90f5da86d03c84be7015">ELootLockerAccountProvider::Epic_games</a> = 4
+, <a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da2daf1cb573c2c61422faf64610cf9402">ELootLockerAccountProvider::Credentials</a> = 5
+, <a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da073b7e4ff1d153a52b07eadb5898cb92">ELootLockerAccountProvider::Nintendo</a> = 6
+, <a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da183709ebe3a1d675014d32b94ad7ed94">ELootLockerAccountProvider::Xbox</a> = 7
+, <br />
+&#160;&#160;<a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894daab7048c58ea2afa826c06bf8d756e8d1">ELootLockerAccountProvider::Playstation</a> = 8
+, <a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da6a057ee64a34177e388abe7304fd3d78">ELootLockerAccountProvider::Twitch</a> = 9
+, <a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da8f5cc6430613f1c12f36965050bb7197">ELootLockerAccountProvider::Discord</a> = 10
+, <a class="el" href="group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da15b8772f2d06a15fee9f32b6477660b8">ELootLockerAccountProvider::Google_play_games</a> = 11
+<br />
+ }</td></tr>
+<tr class="memdesc:ga52ca2d9826a43c89fc5913c416e0894d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Account providers possible to use for connected accounts.  <a href="group__ConnectedAccounts.html#ga52ca2d9826a43c89fc5913c416e0894d">More...</a><br /></td></tr>
+<tr class="memitem:gaa4f10f240f9352981514d0af1bff8e11" id="r_gaa4f10f240f9352981514d0af1bff8e11"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ConnectedAccounts.html#gaa4f10f240f9352981514d0af1bff8e11">EGoogleAccountProviderPlatform</a> : uint8 { <a class="el" href="group__ConnectedAccounts.html#ggaa4f10f240f9352981514d0af1bff8e11a2567a5ec9705eb7ac2c984033e06189d">EGoogleAccountProviderPlatform::web</a> = 0
+, <a class="el" href="group__ConnectedAccounts.html#ggaa4f10f240f9352981514d0af1bff8e11ac31b32364ce19ca8fcd150a417ecce58">EGoogleAccountProviderPlatform::android</a> = 1
+, <a class="el" href="group__ConnectedAccounts.html#ggaa4f10f240f9352981514d0af1bff8e11a9e304d4e8df1b74cfa009913198428ab">EGoogleAccountProviderPlatform::ios</a> = 2
+, <a class="el" href="group__ConnectedAccounts.html#ggaa4f10f240f9352981514d0af1bff8e11ab2c79ad7dcf03ba266dc0885e1266675">EGoogleAccountProviderPlatform::desktop</a> = 4
+ }</td></tr>
+<tr class="memdesc:gaa4f10f240f9352981514d0af1bff8e11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Google OAuth2 Client platform.  <a href="group__ConnectedAccounts.html#gaa4f10f240f9352981514d0af1bff8e11">More...</a><br /></td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- HTML footer for doxygen 1.15.0-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_426131f2e7e3782155028ac49ab5e11c.html">LootLockerSDK</a></li><li class="navelem"><a href="dir_63662f8d869795fbcfe09e29de292894.html">Source</a></li><li class="navelem"><a href="dir_529bffb88e47999e071ca27db50fed71.html">LootLockerSDK</a></li><li class="navelem"><a href="dir_6800d9c9fc95b443eb5325340bc06d03.html">Public</a></li><li class="navelem"><a href="dir_c4276055a6e8dd41429ac8d6d68c790b.html">GameAPI</a></li><li class="navelem"><a href="LootLockerConnectedAccountsRequestHandler_8h.html">LootLockerConnectedAccountsRequestHandler.h</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.15.0
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

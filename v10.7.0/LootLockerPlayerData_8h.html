@@ -1,0 +1,402 @@
+<!-- HTML header for doxygen 1.15.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.15.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: LootLockerSDK/Source/LootLockerSDK/Public/LootLockerPlayerData.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">var page_layout=1;</script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v10.7.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="side-nav" class="ui-resizable side-nav-resizable"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.7.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+   <tr><td colspan="2">        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td></tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.15.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('LootLockerPlayerData_8h.html','',''); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',false,false,'search.php','Search',true);
+});
+</script>
+<div id="main-nav"></div>
+<div id="container"><div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LootLockerPlayerData.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;CoreMinimal.h&quot;</code><br />
+<code>#include &quot;LootLockerPlatformManager.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="LootLockerSessionOptionals_8h_source.html">LootLockerSessionOptionals.h</a>&quot;</code><br />
+<code>#include &quot;LootLockerPlayerData.generated.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for LootLockerPlayerData.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="LootLockerPlayerData_8h__incl.png" border="0" usemap="#aLootLockerSDK_2Source_2LootLockerSDK_2Public_2LootLockerPlayerData_8h" loading="lazy" alt=""/></div>
+<map name="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2LootLockerPlayerData_8h" id="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2LootLockerPlayerData_8h">
+<area shape="rect" title=" " alt="" coords="161,5,341,67"/>
+<area shape="rect" title=" " alt="" coords="7,191,124,218"/>
+<area shape="poly" title=" " alt="" coords="159,43,121,52,80,66,43,87,13,116,8,132,12,148,23,164,38,180,33,181,19,167,8,150,3,132,9,114,40,83,78,61,119,47,163,40"/>
+<area shape="rect" title=" " alt="" coords="23,115,239,143"/>
+<area shape="poly" title=" " alt="" coords="213,66,162,108,158,103,209,69"/>
+<area shape="rect" href="LootLockerSessionOptionals_8h.html" title=" " alt="" coords="263,115,479,143"/>
+<area shape="poly" title=" " alt="" coords="291,65,344,106,339,106,290,70"/>
+<area shape="rect" title=" " alt="" coords="503,115,748,143"/>
+<area shape="poly" title=" " alt="" coords="341,57,559,110,554,112,341,62"/>
+<area shape="poly" title=" " alt="" coords="317,146,136,189,135,184,315,141"/>
+<area shape="rect" title=" " alt="" coords="228,191,514,218"/>
+<area shape="poly" title=" " alt="" coords="373,141,373,177,369,173,369,145"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="LootLockerPlayerData_8h__dep__incl.png" border="0" usemap="#aLootLockerSDK_2Source_2LootLockerSDK_2Public_2LootLockerPlayerData_8hdep" loading="lazy" alt=""/></div>
+<map name="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2LootLockerPlayerData_8hdep" id="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2LootLockerPlayerData_8hdep">
+<area shape="rect" title=" " alt="" coords="2579,5,2758,67"/>
+<area shape="rect" href="LootLockerAssetInstancesRequestHandler_8h.html" title=" " alt="" coords="5,495,263,574"/>
+<area shape="poly" title=" " alt="" coords="2561,39,2059,47,1362,61,1022,71,729,84,516,99,450,108,415,117,361,154,314,200,272,251,236,306,206,360,181,412,149,496,144,493,177,410,201,358,232,303,268,248,310,196,358,150,413,113,449,103,516,94,729,79,1022,66,1362,56,2058,42,2566,38"/>
+<area shape="rect" href="LootLockerAssetsRequestHandler_8h.html" title=" " alt="" coords="776,242,1031,320"/>
+<area shape="poly" title=" " alt="" coords="2561,38,2205,45,1735,56,1505,66,1302,79,1147,96,1093,106,1058,117,1017,143,981,175,952,210,928,243,924,239,947,207,978,171,1014,138,1056,113,1092,101,1146,91,1302,74,1504,61,1735,51,2205,39,2566,38"/>
+<area shape="rect" href="LootLockerCharacterRequestHandler_8h.html" title=" " alt="" coords="338,368,560,447"/>
+<area shape="poly" title=" " alt="" coords="2561,38,2156,45,1605,56,1334,66,1094,79,909,96,844,106,802,118,750,141,701,170,654,203,610,239,536,310,481,370,478,366,532,306,607,235,651,199,698,166,748,136,800,112,843,101,908,91,1093,74,1333,61,1605,51,2156,39,2566,37"/>
+<area shape="rect" href="LootLockerDropTablesRequestHandler_8h.html" title=" " alt="" coords="584,368,815,447"/>
+<area shape="poly" title=" " alt="" coords="2561,40,2187,49,1687,63,1224,86,1057,101,998,109,959,118,896,139,850,162,809,194,765,243,745,273,730,306,709,370,705,366,725,304,741,271,761,240,806,191,847,158,894,134,957,112,997,104,1056,95,1224,81,1687,58,2187,44,2566,39"/>
+<area shape="rect" href="LootLockerHeroRequestHandler_8h.html" title=" " alt="" coords="1002,495,1245,574"/>
+<area shape="poly" title=" " alt="" coords="2561,40,2218,50,1776,64,1565,74,1386,87,1258,101,1219,109,1200,117,1180,140,1169,162,1164,184,1164,208,1175,259,1190,320,1199,343,1209,368,1216,408,1215,426,1208,448,1194,474,1174,497,1171,492,1189,471,1204,446,1210,425,1211,409,1203,369,1194,345,1185,321,1170,260,1159,208,1159,184,1164,160,1176,137,1196,113,1217,104,1257,96,1386,81,1565,69,1776,59,2218,44,2566,39"/>
+<area shape="rect" href="LootLockerPlayerRequestHandler_8h.html" title=" " alt="" coords="941,368,1194,447"/>
+<area shape="poly" title=" " alt="" coords="2561,40,2200,49,1729,64,1504,74,1312,86,1174,101,1132,109,1112,117,1089,143,1073,174,1063,207,1057,242,1056,310,1062,369,1057,366,1050,311,1052,241,1058,206,1068,172,1085,140,1108,113,1131,104,1174,95,1312,81,1503,68,1729,58,2200,44,2566,39"/>
+<area shape="rect" href="LootLockerAuthenticationRequestHandler_8h.html" title=" " alt="" coords="1420,368,1674,447"/>
+<area shape="poly" title=" " alt="" coords="2561,41,2368,52,2140,67,1940,89,1871,102,1833,117,1811,140,1799,163,1794,188,1793,214,1788,268,1778,295,1758,322,1721,346,1665,370,1663,365,1719,342,1755,318,1774,293,1783,266,1788,213,1789,187,1794,161,1807,136,1830,113,1870,97,1940,83,2139,62,2368,47,2566,41"/>
+<area shape="rect" href="LootLockerBalanceRequestHandler_8h.html" title=" " alt="" coords="1870,242,2134,320"/>
+<area shape="poly" title=" " alt="" coords="2561,41,2384,51,2178,65,2083,75,2002,87,1942,101,1922,109,1911,117,1899,135,1897,152,1902,171,1911,192,1927,218,1948,242,1943,241,1923,221,1906,195,1897,172,1892,152,1894,133,1907,113,1920,104,1940,96,2001,82,2082,70,2178,60,2383,46,2566,40"/>
+<area shape="rect" href="LootLockerBanRequestHandler_8h.html" title=" " alt="" coords="1909,495,2146,574"/>
+<area shape="poly" title=" " alt="" coords="2561,43,2507,53,2447,67,2387,88,2332,117,2312,136,2282,173,2204,279,2054,497,2051,492,2199,276,2278,170,2308,133,2328,113,2385,83,2445,62,2506,48,2566,42"/>
+<area shape="rect" href="LootLockerBroadcastRequestHandler_8h.html" title=" " alt="" coords="2170,495,2394,574"/>
+<area shape="poly" title=" " alt="" coords="2566,62,2494,91,2420,128,2385,152,2352,178,2324,209,2300,243,2286,274,2276,307,2268,376,2270,441,2276,496,2272,493,2264,442,2262,376,2271,306,2281,272,2296,240,2320,205,2349,174,2382,147,2417,124,2492,86,2561,63"/>
+<area shape="rect" href="LootLockerCatalogRequestHandler_8h.html" title=" " alt="" coords="1216,242,1478,320"/>
+<area shape="poly" title=" " alt="" coords="2561,41,2354,51,2097,66,1850,87,1749,101,1672,118,1622,137,1555,169,1416,244,1414,239,1552,165,1620,132,1671,112,1748,96,1849,82,2096,60,2354,46,2566,40"/>
+<area shape="rect" href="LootLockerConnectedAccountsRequestHandler_8h.html" title=" " alt="" coords="1698,368,1927,447"/>
+<area shape="poly" title=" " alt="" coords="2561,42,2380,53,2170,68,1987,89,1925,102,1890,117,1866,143,1847,174,1833,207,1823,242,1814,311,1812,370,1808,366,1808,311,1818,241,1828,205,1842,171,1862,140,1887,113,1923,97,1987,84,2169,63,2380,48,2566,41"/>
+<area shape="rect" href="LootLockerCurrencyRequestHandler_8h.html" title=" " alt="" coords="1920,115,2190,194"/>
+<area shape="poly" title=" " alt="" coords="2561,53,2397,83,2209,118,2192,121,2190,116,2208,112,2396,77,2566,52"/>
+<area shape="rect" href="LootLockerEntitlementRequestHandler_8h.html" title=" " alt="" coords="2310,242,2545,320"/>
+<area shape="poly" title=" " alt="" coords="2613,75,2565,117,2505,181,2456,243,2453,239,2501,178,2562,113,2608,78"/>
+<area shape="rect" href="LootLockerErrorReportRequestHandler_8h.html" title=" " alt="" coords="2469,495,2703,574"/>
+<area shape="poly" title=" " alt="" coords="2654,80,2631,156,2610,242,2600,311,2594,381,2588,496,2584,493,2588,380,2595,311,2605,241,2626,155,2650,83"/>
+<area shape="rect" href="LootLockerFeedbackRequestHandler_8h.html" title=" " alt="" coords="2620,242,2894,320"/>
+<area shape="poly" title=" " alt="" coords="2686,79,2745,243,2740,240,2683,83"/>
+<area shape="rect" href="LootLockerFollowersRequestHandler_8h.html" title=" " alt="" coords="2729,368,2950,447"/>
+<area shape="poly" title=" " alt="" coords="2740,73,2786,103,2833,142,2876,188,2908,240,2916,262,2918,281,2909,321,2896,347,2879,370,2876,366,2892,344,2903,319,2913,280,2911,263,2904,243,2871,191,2829,146,2783,108,2739,78"/>
+<area shape="rect" href="LootLockerFriendsRequestHandler_8h.html" title=" " alt="" coords="2828,495,3088,574"/>
+<area shape="poly" title=" " alt="" coords="2773,65,2817,86,2856,113,2887,142,2910,170,2927,197,2940,225,2954,288,2965,368,2968,435,2964,496,2960,493,2962,435,2959,369,2949,289,2935,227,2923,200,2906,173,2883,146,2852,117,2814,90,2773,70"/>
+<area shape="rect" href="LootLockerItemRequestHandler_8h.html" title=" " alt="" coords="1502,242,1744,320"/>
+<area shape="poly" title=" " alt="" coords="2561,37,2370,42,2137,52,2022,62,1917,76,1829,94,1765,117,1727,143,1694,176,1667,211,1645,243,1642,239,1662,207,1690,172,1723,139,1762,113,1828,89,1916,70,2022,56,2137,47,2370,36,2566,36"/>
+<area shape="rect" href="LootLockerLeaderboardArchiveRequestHandler_8h.html" title=" " alt="" coords="3019,242,3260,320"/>
+<area shape="poly" title=" " alt="" coords="2774,42,2829,51,2888,65,2947,85,3002,113,3039,141,3071,174,3120,242,3115,240,3067,177,3035,145,2999,117,2945,90,2887,70,2828,56,2774,48"/>
+<area shape="rect" href="LootLockerLeaderboardRequestHandler_8h.html" title=" " alt="" coords="3107,368,3348,447"/>
+<area shape="poly" title=" " alt="" coords="2774,46,2912,70,2987,88,3060,112,3129,135,3185,155,3209,168,3232,185,3253,209,3274,241,3283,273,3281,307,3270,340,3255,370,3252,366,3265,338,3276,306,3278,274,3269,243,3249,212,3228,189,3206,172,3182,160,3127,141,3058,118,2986,94,2911,75,2774,51"/>
+<area shape="rect" href="LootLockerMapsRequestHandler_8h.html" title=" " alt="" coords="3213,495,3460,574"/>
+<area shape="poly" title=" " alt="" coords="2774,44,2992,70,3095,89,3136,100,3167,113,3211,136,3247,160,3276,185,3300,212,3319,243,3336,279,3362,368,3366,401,3365,435,3352,496,3348,492,3359,434,3361,401,3357,369,3331,280,3315,246,3296,215,3272,189,3243,164,3208,141,3165,117,3134,105,3093,94,2991,75,2774,49"/>
+<area shape="rect" href="LootLockerMessagesRequestHandler_8h.html" title=" " alt="" coords="3385,242,3662,320"/>
+<area shape="poly" title=" " alt="" coords="2774,38,2923,45,3095,59,3255,80,3319,95,3367,113,3409,139,3446,172,3477,207,3501,242,3496,240,3473,211,3442,176,3406,143,3365,117,3318,100,3254,86,3095,64,2923,50,2774,43"/>
+<area shape="rect" href="LootLockerMetadataRequestHandler_8h.html" title=" " alt="" coords="1210,115,1484,194"/>
+<area shape="poly" title=" " alt="" coords="2561,42,2134,69,1860,90,1582,118,1485,131,1484,126,1582,112,1859,85,2134,63,2566,41"/>
+<area shape="rect" href="LootLockerMiscellaneousRequestHandler_8h.html" title=" " alt="" coords="3485,368,3738,447"/>
+<area shape="poly" title=" " alt="" coords="2774,41,3125,67,3303,87,3376,99,3432,112,3510,132,3574,150,3602,163,3628,181,3652,206,3676,240,3686,261,3688,280,3677,321,3665,347,3649,370,3646,365,3660,344,3671,319,3682,280,3681,263,3672,243,3648,209,3624,185,3599,167,3572,155,3509,137,3431,118,3375,105,3303,93,3125,72,2774,46"/>
+<area shape="rect" href="LootLockerNotificationsRequestHandler_8h.html" title=" " alt="" coords="3587,495,3828,574"/>
+<area shape="poly" title=" " alt="" coords="2773,36,2962,41,3188,53,3299,63,3402,76,3489,92,3554,113,3599,134,3637,156,3667,181,3692,208,3712,240,3728,277,3753,368,3758,408,3753,448,3733,497,3730,492,3747,446,3753,408,3747,369,3723,278,3708,243,3688,212,3664,185,3634,161,3596,139,3552,117,3487,98,3401,81,3299,69,3187,59,2962,46,2774,41"/>
+<area shape="rect" href="LootLockerPersistentStorageRequestHandler_8h.html" title=" " alt="" coords="426,115,650,194"/>
+<area shape="poly" title=" " alt="" coords="2561,39,2169,46,1621,58,1337,68,1071,81,842,97,669,118,652,121,649,116,668,112,841,92,1070,75,1336,62,1621,52,2169,40,2566,38"/>
+<area shape="rect" href="LootLockerPlatformKeyRequestHandler_8h.html" title=" " alt="" coords="3788,242,4027,320"/>
+<area shape="poly" title=" " alt="" coords="2774,38,3026,46,3336,61,3613,83,3712,97,3770,113,3793,129,3807,148,3818,168,3835,192,3876,242,3871,240,3831,195,3814,171,3803,151,3790,133,3768,117,3711,102,3613,88,3335,66,3026,51,2774,43"/>
+<area shape="rect" href="LootLockerPlayerFilesRequestHandler_8h.html" title=" " alt="" coords="3890,368,4120,447"/>
+<area shape="poly" title=" " alt="" coords="2773,37,3037,45,3362,59,3655,82,3760,96,3796,104,3821,113,3843,131,3855,151,3865,172,3885,192,3906,202,3927,207,3968,208,3987,209,4006,213,4024,222,4041,240,4050,255,4054,271,4054,305,4045,339,4030,370,4027,366,4040,337,4049,305,4049,272,4045,257,4037,243,4021,227,4004,218,3987,214,3968,214,3927,213,3905,207,3882,196,3861,175,3850,154,3839,134,3818,117,3795,109,3759,101,3655,87,3362,65,3036,50,2774,42"/>
+<area shape="rect" href="LootLockerProgressionsRequestHandler_8h.html" title=" " alt="" coords="3954,495,4196,574"/>
+<area shape="poly" title=" " alt="" coords="2774,37,3048,43,3390,57,3554,67,3698,80,3807,95,3846,103,3871,113,3892,131,3903,151,3912,172,3930,192,3948,203,3966,209,3998,214,4031,219,4048,227,4066,240,4095,269,4113,296,4124,328,4134,368,4141,408,4134,448,4123,473,4108,497,4106,492,4119,471,4129,446,4136,408,4129,369,4119,329,4108,299,4091,272,4063,244,4046,231,4029,224,3997,219,3964,214,3946,207,3927,196,3908,175,3898,154,3888,134,3869,117,3844,108,3806,100,3697,85,3554,72,3389,62,3048,49,2774,42"/>
+<area shape="rect" href="LootLockerPurchasesRequestHandler_8h.html" title=" " alt="" coords="3940,115,4165,194"/>
+<area shape="poly" title=" " alt="" coords="2773,34,2985,35,3271,45,3430,55,3595,69,3760,88,3921,112,3942,119,3937,119,3920,118,3759,93,3594,75,3430,61,3271,51,2985,41,2774,39"/>
+<area shape="rect" href="LootLockerTriggersRequestHandler_8h.html" title=" " alt="" coords="4189,115,4452,194"/>
+<area shape="poly" title=" " alt="" coords="2773,37,3080,46,3485,62,3886,84,4052,97,4178,112,4191,117,4186,117,4178,118,4052,103,3886,89,3485,67,3080,52,2774,43"/>
+<area shape="rect" href="LootLockerUserGeneratedContentRequestHandler_8h.html" title=" " alt="" coords="4476,115,4733,194"/>
+<area shape="poly" title=" " alt="" coords="2774,36,3133,43,3621,57,4109,80,4311,95,4465,112,4478,117,4473,117,4464,118,4311,100,4108,85,3621,62,3133,49,2774,42"/>
+<area shape="rect" href="LootLockerHTTPRequestData_8h.html" title=" " alt="" coords="5004,124,5229,185"/>
+<area shape="poly" title=" " alt="" coords="2774,35,3225,37,3867,47,4202,56,4517,70,4787,88,4992,112,5030,123,5025,123,4991,118,4787,94,4516,75,4202,61,3867,52,3225,42,2774,40"/>
+<area shape="rect" href="LootLockerPresenceManager_8h.html" title=" " alt="" coords="4758,124,4980,185"/>
+<area shape="poly" title=" " alt="" coords="2774,35,3183,39,3753,50,4050,59,4327,73,4566,90,4746,112,4784,123,4779,123,4746,118,4565,96,4327,78,4050,65,3753,55,3183,44,2774,40"/>
+<area shape="rect" href="LootLockerStateData_8h.html" title=" " alt="" coords="5253,124,5426,185"/>
+<area shape="poly" title=" " alt="" coords="2774,36,3316,43,4086,57,4817,80,5085,95,5179,103,5243,112,5273,123,5268,123,5241,118,5179,109,5084,100,4817,85,4086,63,3316,48,2774,41"/>
+<area shape="rect" href="LootLockerSDKManager_8h.html" title=" " alt="" coords="2336,622,2526,683"/>
+<area shape="poly" title=" " alt="" coords="278,570,282,571,472,591,723,607,1014,620,1325,630,1919,643,2338,650,2333,650,1919,648,1325,636,1014,626,723,613,471,596,282,576,278,576"/>
+<area shape="poly" title=" " alt="" coords="899,334,898,368,896,434,902,488,911,511,925,532,945,552,971,571,1002,584,1050,595,1190,613,1373,626,1582,636,2009,646,2338,651,2333,651,2009,652,1581,641,1372,632,1189,618,1049,600,1000,589,969,576,941,556,921,536,906,513,897,489,891,434,893,368,896,338"/>
+<area shape="poly" title=" " alt="" coords="758,319,572,371,561,374,559,369,571,366,763,317"/>
+<area shape="poly" title=" " alt="" coords="829,328,764,370,761,365,825,330"/>
+<area shape="poly" title=" " alt="" coords="901,334,907,392,916,420,931,445,963,476,1004,502,999,501,960,480,927,449,911,422,902,394,898,338"/>
+<area shape="poly" title=" " alt="" coords="967,327,1019,368,1014,367,966,332"/>
+<area shape="poly" title=" " alt="" coords="513,453,619,518,681,548,745,571,844,586,1011,600,1472,623,1968,638,2339,649,2333,649,1968,643,1472,628,1011,606,843,592,744,576,679,553,616,523,512,459"/>
+<area shape="poly" title=" " alt="" coords="727,458,748,489,772,521,802,549,835,571,870,583,924,594,1080,611,1283,625,1514,635,1983,645,2338,651,2333,651,1983,651,1513,640,1282,630,1079,617,923,599,869,588,833,576,798,553,768,524,743,493,725,463"/>
+<area shape="poly" title=" " alt="" coords="1261,571,1264,571,1415,593,1569,611,1872,634,2139,645,2338,651,2333,651,2139,651,1872,639,1569,616,1414,599,1263,576,1260,576"/>
+<area shape="poly" title=" " alt="" coords="1014,457,992,496,979,537,981,554,992,572,1010,580,1049,588,1176,603,1353,615,1563,625,2000,640,2338,650,2333,650,1999,645,1562,631,1353,620,1175,608,1048,593,1008,585,988,576,976,556,974,537,988,494,1010,460"/>
+<area shape="poly" title=" " alt="" coords="1092,459,1108,496,1104,493,1090,464"/>
+<area shape="poly" title=" " alt="" coords="1486,457,1472,477,1462,496,1453,518,1448,537,1450,554,1461,572,1477,583,1505,593,1589,610,1701,623,1832,633,2109,644,2339,651,2333,651,2109,649,1832,638,1701,628,1588,615,1504,598,1475,587,1457,576,1445,556,1443,537,1448,516,1457,494,1468,474,1482,460"/>
+<area shape="rect" href="LootLockerRemoteSessionRequestHandler_8h.html" title=" " alt="" coords="1472,495,1732,574"/>
+<area shape="poly" title=" " alt="" coords="1572,459,1587,496,1583,493,1569,464"/>
+<area shape="poly" title=" " alt="" coords="1747,570,1752,571,1912,597,2072,617,2338,644,2333,644,2071,622,1911,602,1751,576,1747,576"/>
+<area shape="poly" title=" " alt="" coords="1994,334,1975,394,1960,423,1941,449,1918,466,1894,472,1873,479,1863,485,1855,496,1844,517,1840,536,1843,554,1854,572,1877,584,1920,596,2048,616,2199,632,2339,645,2333,645,2199,637,2047,621,1919,601,1875,589,1851,576,1838,555,1835,536,1839,515,1850,494,1860,481,1870,474,1893,467,1916,461,1937,445,1956,420,1970,392,1990,337"/>
+<area shape="poly" title=" " alt="" coords="2161,572,2338,625,2333,624,2161,577"/>
+<area shape="poly" title=" " alt="" coords="2344,581,2395,622,2390,620,2343,586"/>
+<area shape="poly" title=" " alt="" coords="1337,333,1330,392,1331,456,1336,488,1345,519,1360,547,1380,572,1398,583,1429,593,1522,611,1646,624,1790,634,2092,645,2338,651,2333,651,2091,650,1790,639,1646,629,1521,616,1428,598,1396,588,1376,576,1355,550,1341,521,1331,489,1326,457,1325,392,1333,337"/>
+<area shape="poly" title=" " alt="" coords="1794,460,1788,491,1786,520,1790,548,1804,572,1829,585,1877,598,2019,618,2187,634,2338,646,2333,646,2186,639,2019,624,1876,603,1827,590,1800,576,1785,550,1780,520,1782,490,1790,464"/>
+<area shape="poly" title=" " alt="" coords="1737,454,1668,497,1667,492,1732,456"/>
+<area shape="poly" title=" " alt="" coords="2122,202,2137,221,2148,241,2157,262,2160,281,2157,300,2148,322,2132,349,2115,370,2078,398,2033,420,1981,449,1955,462,1934,469,1915,477,1899,496,1889,517,1884,536,1887,554,1899,572,1927,593,1970,610,2024,624,2086,634,2217,645,2339,652,2333,652,2217,651,2085,639,2023,629,1969,615,1925,598,1895,575,1882,555,1879,536,1884,515,1894,494,1912,473,1932,464,1953,457,1978,445,2031,415,2075,393,2112,366,2128,346,2144,319,2152,299,2154,281,2151,264,2144,243,2133,224,2120,207"/>
+<area shape="poly" title=" " alt="" coords="2035,206,2020,243,2017,239,2031,210"/>
+<area shape="poly" title=" " alt="" coords="2430,334,2433,623,2429,620,2426,338"/>
+<area shape="poly" title=" " alt="" coords="2525,582,2472,624,2470,619,2520,584"/>
+<area shape="poly" title=" " alt="" coords="2730,333,2719,369,2718,575,2705,587,2688,597,2641,615,2585,629,2527,640,2527,635,2583,624,2639,610,2685,592,2702,582,2713,573,2714,368,2726,336"/>
+<area shape="poly" title=" " alt="" coords="2829,460,2804,522,2785,551,2761,576,2706,609,2646,632,2584,646,2527,653,2527,647,2584,640,2644,627,2704,605,2758,572,2781,548,2799,520,2824,463"/>
+<area shape="poly" title=" " alt="" coords="2816,573,2811,576,2527,636,2527,630,2809,571,2811,573"/>
+<area shape="poly" title=" " alt="" coords="1490,322,1440,347,1422,359,1411,370,1395,398,1384,425,1380,451,1381,477,1388,502,1400,526,1418,549,1441,572,1459,581,1488,591,1575,607,1691,619,1825,629,2106,642,2338,650,2333,650,2106,647,1824,635,1690,625,1574,612,1487,596,1457,586,1438,576,1414,553,1395,529,1383,504,1376,478,1374,451,1379,424,1390,395,1407,367,1419,354,1437,343,1485,324"/>
+<area shape="poly" title=" " alt="" coords="3110,332,3098,369,3093,403,3094,431,3102,495,3106,518,3111,537,3112,556,3101,576,3072,591,3019,604,2865,625,2685,640,2527,650,2527,644,2685,635,2865,620,3018,599,3070,586,3097,572,3107,555,3106,538,3101,519,3097,495,3089,431,3087,403,3093,368,3106,336"/>
+<area shape="poly" title=" " alt="" coords="3209,460,3178,530,3161,558,3145,576,3097,599,3030,617,2951,630,2863,640,2682,651,2527,654,2527,649,2682,646,2862,635,2950,625,3029,612,3095,594,3142,572,3157,555,3174,527,3205,463"/>
+<area shape="poly" title=" " alt="" coords="3200,573,3194,576,3010,605,2826,626,2527,649,2527,644,2826,620,3010,600,3194,571,3195,573"/>
+<area shape="poly" title=" " alt="" coords="3489,332,3475,369,3475,575,3455,588,3425,599,3333,617,3210,631,3068,641,2769,651,2527,654,2527,649,2769,646,3068,635,3210,625,3332,612,3423,594,3453,583,3470,572,3470,368,3485,335"/>
+<area shape="poly" title=" " alt="" coords="1242,201,1222,222,1207,243,1198,263,1196,280,1199,298,1207,319,1216,334,1227,343,1240,352,1252,367,1268,398,1276,427,1283,480,1286,504,1294,528,1308,550,1332,571,1353,582,1386,591,1486,607,1617,620,1768,630,2083,642,2339,650,2333,650,2083,648,1768,635,1617,626,1485,613,1385,596,1351,587,1328,576,1304,553,1289,530,1281,506,1277,481,1271,428,1263,400,1248,370,1236,356,1224,347,1212,338,1202,321,1194,299,1191,280,1193,262,1202,240,1218,219,1238,204"/>
+<area shape="poly" title=" " alt="" coords="1193,199,1032,246,1031,241,1198,197"/>
+<area shape="poly" title=" " alt="" coords="1349,207,1350,243,1345,240,1346,212"/>
+<area shape="poly" title=" " alt="" coords="1447,198,1540,241,1535,241,1447,203"/>
+<area shape="poly" title=" " alt="" coords="3590,460,3555,530,3536,558,3518,576,3495,586,3461,594,3362,609,3233,622,3084,632,2775,645,2527,652,2527,647,2775,640,3084,626,3233,616,3362,604,3460,589,3494,580,3515,571,3532,555,3550,527,3586,462"/>
+<area shape="poly" title=" " alt="" coords="3574,573,3568,576,3421,598,3272,615,2978,638,2719,650,2527,654,2527,648,2719,644,2978,633,3271,610,3421,593,3567,571,3569,573"/>
+<area shape="poly" title=" " alt="" coords="460,204,400,254,371,283,345,314,326,346,315,379,315,412,328,446,352,480,377,505,402,523,430,535,494,553,573,571,683,587,870,601,1385,624,1934,639,2338,650,2333,650,1934,644,1385,629,870,606,683,592,572,576,492,558,428,540,400,527,373,509,348,483,324,448,310,413,310,378,321,344,341,311,367,279,397,250,464,201"/>
+<area shape="poly" title=" " alt="" coords="665,196,792,241,787,242,665,201"/>
+<area shape="poly" title=" " alt="" coords="3890,334,3881,369,3875,401,3875,430,3879,482,3880,506,3875,529,3863,552,3842,576,3822,584,3783,592,3658,605,3282,628,2856,643,2527,652,2527,646,2856,638,3281,622,3658,600,3782,586,3820,579,3839,571,3859,549,3870,527,3874,505,3874,482,3869,430,3870,400,3875,368,3886,337"/>
+<area shape="poly" title=" " alt="" coords="3970,458,3886,576,3854,588,3805,598,3665,615,3483,629,3275,638,2851,650,2527,653,2527,648,2851,644,3275,633,3483,623,3665,610,3804,593,3852,583,3883,572,3965,461"/>
+<area shape="poly" title=" " alt="" coords="3941,573,3936,576,3808,592,3641,605,3236,628,2830,643,2527,652,2527,646,2830,638,3236,622,3640,600,3808,586,3935,571,3936,573"/>
+<area shape="poly" title=" " alt="" coords="4101,202,4166,282,4197,330,4223,381,4242,432,4248,483,4245,508,4239,532,4227,554,4210,576,4185,587,4135,597,3972,614,3746,627,3481,637,2934,649,2527,653,2527,648,2934,643,3481,631,3746,622,3972,608,4134,592,4183,582,4207,572,4223,552,4234,530,4240,507,4243,483,4236,434,4219,383,4192,333,4161,285,4099,207"/>
+<area shape="poly" title=" " alt="" coords="4331,207,4339,291,4338,340,4333,392,4323,443,4306,492,4281,537,4246,576,4219,586,4167,596,4000,612,3769,625,3498,635,2940,648,2527,653,2527,648,2940,642,3498,629,3769,619,4000,606,4167,590,4218,581,4243,571,4277,534,4301,490,4318,441,4328,391,4333,340,4333,291,4328,211"/>
+<area shape="poly" title=" " alt="" coords="4586,207,4545,295,4482,397,4442,449,4398,498,4348,541,4292,576,4263,584,4208,591,4034,605,3518,627,2947,643,2527,652,2527,647,2947,638,3518,622,4034,599,4208,586,4262,579,4290,571,4344,537,4394,494,4438,446,4477,394,4540,292,4581,210"/>
+<area shape="rect" href="LootLockerHTTPExecutionQueueItem_8h.html" title=" " alt="" coords="5000,242,5234,320"/>
+<area shape="poly" title=" " alt="" coords="5118,199,5119,243,5115,239,5115,203"/>
+<area shape="rect" href="LootLockerHTTPExecutionQueue_8h.html" title=" " alt="" coords="4994,377,5240,438"/>
+<area shape="poly" title=" " alt="" coords="5119,334,5119,378,5115,375,5115,338"/>
+<area shape="poly" title=" " alt="" coords="4838,196,4762,284,4652,390,4586,444,4515,495,4440,540,4362,576,4316,588,4248,598,4053,616,3801,629,3516,639,2943,650,2527,654,2527,648,2943,645,3516,634,3801,624,4053,611,4247,593,4315,583,4360,571,4438,536,4512,491,4583,440,4648,386,4758,280,4833,198"/>
+</map>
+</div>
+</div>
+<p><a href="LootLockerPlayerData_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:FLootLockerPlayerData" id="r_FLootLockerPlayerData"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a></td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- HTML footer for doxygen 1.15.0-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_426131f2e7e3782155028ac49ab5e11c.html">LootLockerSDK</a></li><li class="navelem"><a href="dir_63662f8d869795fbcfe09e29de292894.html">Source</a></li><li class="navelem"><a href="dir_529bffb88e47999e071ca27db50fed71.html">LootLockerSDK</a></li><li class="navelem"><a href="dir_6800d9c9fc95b443eb5325340bc06d03.html">Public</a></li><li class="navelem"><a href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.15.0
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>
