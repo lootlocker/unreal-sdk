@@ -1,11 +1,11 @@
 <map id="FLootLockerGameHeroListResponse" name="FLootLockerGameHeroListResponse">
-<area shape="rect" id="Node000001" title=" " alt="" coords="63,256,319,281"/>
-<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="109,181,272,207"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,221,193,256,188,256,188,221"/>
-<area shape="rect" id="Node000003" href="$structFLootLockerErrorData.html" title=" " alt="" coords="5,93,168,119"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="113,125,178,179,175,183,109,129"/>
-<area shape="rect" id="Node000004" href="$structFLootLockerBanInfo.html" title="Details about a player&#39;s active ban." alt="" coords="11,5,162,31"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="89,45,89,93,84,93,84,45"/>
-<area shape="rect" id="Node000005" href="$structFLootLockerRequestContext.html" title=" " alt="" coords="193,93,397,119"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="272,129,206,183,203,179,269,125"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="62,284,318,311"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="109,207,271,234"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,248,192,285,188,282,188,252"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerErrorData.html" title=" " alt="" coords="5,106,167,134"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="111,142,179,205,174,207,110,147"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerBanInfo.html" title="Details about a player&#39;s active ban." alt="" coords="11,5,161,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="87,46,89,106,83,105,85,51"/>
+<area shape="rect" id="Node000005" href="$structFLootLockerRequestContext.html" title=" " alt="" coords="191,106,394,134"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="271,143,205,208,202,204,266,146"/>
 </map>

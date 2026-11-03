@@ -1,5 +1,6 @@
 var NAVTREEINDEX13 =
 {
+"structFLootLockerRefundPlayerInventoryEvent.html":[1,0,404],
 "structFLootLockerRefundPlayerInventoryEvent.html#a3108bd9c19dfd65940a80d4f6dcfef34":[1,0,404,1],
 "structFLootLockerRefundPlayerInventoryEvent.html#ac7f68aa19a27c4dc81a0f1ab0e43fd4f":[1,0,404,2],
 "structFLootLockerRefundPlayerInventoryEvent.html#afede0a51e7a1133ef63f505c56bc9a51":[1,0,404,0],
@@ -86,10 +87,11 @@ var NAVTREEINDEX13 =
 "structFLootLockerRewards.html#ae881b5cbde015deee278e167adc43ef9":[1,0,416,1],
 "structFLootLockerRewards.html#ae98a5a4a8cc46c1a66f5b4f1ca7a381a":[1,0,416,3],
 "structFLootLockerSessionOptionals.html":[1,0,418],
-"structFLootLockerSessionOptionals.html#a0272037467968c03b8defbd64dddf1ca":[1,0,418,3],
+"structFLootLockerSessionOptionals.html#a0272037467968c03b8defbd64dddf1ca":[1,0,418,4],
+"structFLootLockerSessionOptionals.html#a55146eef128e3f09754a28b0ce3c8792":[1,0,418,2],
 "structFLootLockerSessionOptionals.html#a784f399e548153d01a93c4cc30af03e1":[1,0,418,0],
 "structFLootLockerSessionOptionals.html#a99268ffe0c40fafa2a6b830d5cfe588b":[1,0,418,1],
-"structFLootLockerSessionOptionals.html#ad8dac19641b86f5e20666ed6238b513a":[1,0,418,2],
+"structFLootLockerSessionOptionals.html#ad8dac19641b86f5e20666ed6238b513a":[1,0,418,3],
 "structFLootLockerSetMetadataAction.html":[1,0,419],
 "structFLootLockerSetMetadataAction.html#a2aed994abfd32a76d8e2a4581059fc91":[1,0,419,1],
 "structFLootLockerSetMetadataAction.html#a6ef958025c217b7322e16d9144bba5c8":[1,0,419,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX13 =
 "structFLootLockerWhiteLabelCustomSignUpField.html":[1,0,458],
 "structFLootLockerWhiteLabelCustomSignUpField.html#a03be7618fc330ada8467f6e525d794ec":[1,0,458,0],
 "structFLootLockerWhiteLabelCustomSignUpField.html#a3810ae385514ac40d5d38e9a5ca027a7":[1,0,458,5],
-"structFLootLockerWhiteLabelCustomSignUpField.html#aa18683b6f03044df15f233b263497c7f":[1,0,458,4],
-"structFLootLockerWhiteLabelCustomSignUpField.html#aaa61f55137f6e004b50e3f11226e32db":[1,0,458,3],
-"structFLootLockerWhiteLabelCustomSignUpField.html#adabef55e85ac93e617ae502daa10b1eb":[1,0,458,2]
+"structFLootLockerWhiteLabelCustomSignUpField.html#aa18683b6f03044df15f233b263497c7f":[1,0,458,4]
 };

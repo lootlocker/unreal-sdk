@@ -171,10 +171,11 @@ var NAVTREEINDEX6 =
 "structFLootLockerBalanceResponse.html":[1,0,38],
 "structFLootLockerBalanceResponse.html#a52cfce1c4386c5630db4fe36bfe86572":[1,0,38,0],
 "structFLootLockerBanInfo.html":[1,0,39],
-"structFLootLockerBanInfo.html#a7f2d3b85375780fe462a5976d9bf970a":[1,0,39,2],
-"structFLootLockerBanInfo.html#abc7c314e631e6d02e6410a3d7bc8f5af":[1,0,39,1],
-"structFLootLockerBanInfo.html#ae792d3ac0961d330927db8d34d9a6bac":[1,0,39,0],
-"structFLootLockerBanInfo.html#afa69ca2c8403064df8e8512b4d45b008":[1,0,39,3],
+"structFLootLockerBanInfo.html#a34c51adfe21b4fe65954e81da43ed7c2":[1,0,39,0],
+"structFLootLockerBanInfo.html#a7f2d3b85375780fe462a5976d9bf970a":[1,0,39,3],
+"structFLootLockerBanInfo.html#abc7c314e631e6d02e6410a3d7bc8f5af":[1,0,39,2],
+"structFLootLockerBanInfo.html#ae792d3ac0961d330927db8d34d9a6bac":[1,0,39,1],
+"structFLootLockerBanInfo.html#afa69ca2c8403064df8e8512b4d45b008":[1,0,39,4],
 "structFLootLockerBanStatusRequest.html":[2,2,48],
 "structFLootLockerBanStatusRequest.html#ac297a5f2c8273ee0b56b46558e719077":[2,2,48,1],
 "structFLootLockerBanStatusRequest.html#af63f7e0d60cb1433bf5792508e7ca4c9":[2,2,48,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX6 =
 "structFLootLockerCatalogEntry.html#acb843c007f3b5e80c0cb994e4eda3c4a":[1,0,55,6],
 "structFLootLockerCatalogEntry.html#aeb725f832c927b9c86e79d1283bd45a7":[1,0,55,4],
 "structFLootLockerCatalogEntryListings.html":[1,0,56],
-"structFLootLockerCatalogEntryListings.html#a0a71fa15c788df499fbb233d8eb9cb9c":[1,0,56,0],
-"structFLootLockerCatalogEntryListings.html#a36cf1d3b7449b4fcee11a7145c9d3c11":[1,0,56,1]
+"structFLootLockerCatalogEntryListings.html#a0a71fa15c788df499fbb233d8eb9cb9c":[1,0,56,0]
 };

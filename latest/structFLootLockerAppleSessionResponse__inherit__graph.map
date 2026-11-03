@@ -1,9 +1,9 @@
 <map id="FLootLockerAppleSessionResponse" name="FLootLockerAppleSessionResponse">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,240,256,265"/>
-<area shape="rect" id="Node000002" href="$structFLootLockerAuthenticationResponse.html" title=" " alt="" coords="33,152,228,192"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,206,133,240,128,240,128,206"/>
-<area shape="rect" id="Node000003" href="$structFLootLockerAuthResponse.html" title=" " alt="" coords="34,79,227,104"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="133,118,133,152,128,152,128,118"/>
-<area shape="rect" id="Node000004" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="49,5,212,31"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="133,44,133,79,128,79,128,44"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,249,255,277"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerAuthenticationResponse.html" title=" " alt="" coords="33,157,227,201"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,215,132,250,128,248,128,219"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerAuthResponse.html" title=" " alt="" coords="34,81,226,109"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="131,122,133,157,127,155,129,127"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="49,5,211,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="131,46,133,81,127,80,129,51"/>
 </map>

@@ -1,5 +1,5 @@
 <map id="FLootLockerSimpleAsset" name="FLootLockerSimpleAsset">
-<area shape="rect" id="Node000001" title="Simplified asset object." alt="" coords="27,93,208,119"/>
-<area shape="rect" id="Node000002" href="$structFLootLockerSimpleAssetAuthor.html" title=" " alt="" coords="5,5,229,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,45,120,93,115,93,115,45"/>
+<area shape="rect" id="Node000001" title="Simplified asset object." alt="" coords="27,106,207,134"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerSimpleAssetAuthor.html" title=" " alt="" coords="5,5,229,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,47,120,106,114,104,115,50"/>
 </map>

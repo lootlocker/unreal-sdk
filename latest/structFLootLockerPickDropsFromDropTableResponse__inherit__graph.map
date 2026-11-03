@@ -1,5 +1,5 @@
 <map id="FLootLockerPickDropsFromDropTableResponse" name="FLootLockerPickDropsFromDropTableResponse">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,79,204,119"/>
-<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="23,5,186,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,44,107,79,102,79,102,44"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,81,203,126"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="23,5,185,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,47,106,81,102,79,102,51"/>
 </map>

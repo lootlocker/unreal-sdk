@@ -1,5 +1,5 @@
 <map id="FLootLockerAwardedTier" name="FLootLockerAwardedTier">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,93,188,119"/>
-<area shape="rect" id="Node000002" href="$structFLootLockerRewards.html" title=" " alt="" coords="19,5,175,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,45,99,93,94,93,94,45"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,106,187,134"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerRewards.html" title=" " alt="" coords="18,5,174,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,47,99,106,93,105,94,50"/>
 </map>

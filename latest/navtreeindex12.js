@@ -1,5 +1,6 @@
 var NAVTREEINDEX12 =
 {
+"structFLootLockerPickDropsFromDropTableItem.html#aa90f087009d7a2bfb823b04f93b76ee1":[1,0,338,0],
 "structFLootLockerPickDropsFromDropTableItem.html#ab281c8173e638576bb8aa810f997f017":[1,0,338,4],
 "structFLootLockerPickDropsFromDropTableItem.html#af1f14597a16a11e20c56c8a9472e0146":[1,0,338,2],
 "structFLootLockerPickDropsFromDropTableRequest.html":[1,0,339],
@@ -248,6 +249,5 @@ var NAVTREEINDEX12 =
 "structFLootLockerRefundNonReversibleReward.html#a4606cac9e969821922594a36f1c3ee80":[1,0,403,2],
 "structFLootLockerRefundNonReversibleReward.html#a747db8fc1cb6a7ddb5f74459abd90cd6":[1,0,403,0],
 "structFLootLockerRefundNonReversibleReward.html#ab01a4c1e25ac38bb4e9aceba8a013487":[1,0,403,3],
-"structFLootLockerRefundNonReversibleReward.html#ab09fb360d197c54238b1d73427403cbb":[1,0,403,1],
-"structFLootLockerRefundPlayerInventoryEvent.html":[1,0,404]
+"structFLootLockerRefundNonReversibleReward.html#ab09fb360d197c54238b1d73427403cbb":[1,0,403,1]
 };

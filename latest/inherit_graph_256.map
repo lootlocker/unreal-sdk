@@ -1,281 +1,281 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="5,3386,168,3411"/>
-<area shape="rect" id="Node000001" href="$structFInternalLootLockerListCatalogPricesResponse.html" title="This is what the response looks like, but we want to expose the Mapped variant." alt="" coords="233,5,455,45"/>
-<area shape="poly" id="edge39_Node000000_Node000001" title=" " alt="" coords="85,3372,90,2744,108,1651,125,1085,147,590,161,387,176,226,194,113,203,77,214,56,231,41,234,45,218,59,208,79,199,114,181,227,166,388,152,590,130,1085,114,1651,96,2744,91,3372"/>
-<area shape="rect" id="Node000002" href="$structFInternalLootLockerListCatalogPricesV2Response.html" title="This is what the response looks like, but we want to expose the Mapped variant." alt="" coords="233,69,455,109"/>
-<area shape="poly" id="edge40_Node000000_Node000002" title=" " alt="" coords="85,3372,91,2753,109,1682,126,1128,148,642,161,445,177,287,194,176,204,141,214,120,231,105,234,109,218,123,209,142,199,177,182,287,167,445,153,643,131,1128,115,1682,96,2754,91,3372"/>
-<area shape="rect" id="Node000003" href="$structFLootLockerAccountConnectedResponse.html" title="Response returned after connecting a provider to a player account, containing the details of the newl..." alt="" coords="233,133,455,173"/>
-<area shape="poly" id="edge41_Node000000_Node000003" title=" " alt="" coords="85,3372,91,2766,110,1715,127,1172,149,696,162,502,177,347,194,239,204,204,214,184,231,168,235,172,218,187,209,206,200,240,183,348,167,503,154,697,132,1172,116,1715,97,2766,91,3372"/>
-<area shape="rect" id="Node000004" href="$structFLootLockerActivateRentalAssetResponse.html" title=" " alt="" coords="246,197,442,237"/>
-<area shape="poly" id="edge42_Node000000_Node000004" title=" " alt="" coords="86,3372,92,2777,111,1748,128,1216,150,750,163,560,178,408,195,302,204,268,214,248,228,235,244,225,247,230,231,239,218,251,209,270,200,303,183,409,168,560,155,750,133,1216,116,1748,97,2777,91,3372"/>
-<area shape="rect" id="Node000005" href="$structFLootLockerAssetCandidateResponse.html" title=" " alt="" coords="243,261,445,301"/>
-<area shape="poly" id="edge43_Node000000_Node000005" title=" " alt="" coords="86,3372,92,2787,112,1779,129,1258,151,803,164,617,179,468,195,365,204,331,214,312,241,291,244,295,218,315,209,333,200,366,184,469,169,617,156,803,134,1259,117,1779,97,2787,91,3372"/>
-<area shape="rect" id="Node000006" href="$structFLootLockerAssetCandidatesResponse.html" title=" " alt="" coords="239,325,449,365"/>
-<area shape="poly" id="edge44_Node000000_Node000006" title=" " alt="" coords="86,3372,93,2799,113,1812,130,1302,152,856,165,674,179,529,196,427,204,395,214,376,237,357,241,361,218,379,209,397,201,429,185,530,170,675,157,856,135,1302,118,1812,98,2799,91,3372"/>
-<area shape="rect" id="Node000007" href="$structFLootLockerAssetInstanceStorageItemResponse.html" title=" " alt="" coords="249,389,439,429"/>
-<area shape="poly" id="edge45_Node000000_Node000007" title=" " alt="" coords="86,3372,93,2809,114,1843,131,1345,152,909,165,731,180,590,196,490,205,459,214,440,229,426,247,416,249,421,232,430,218,443,210,460,201,491,185,590,171,732,158,909,136,1345,119,1843,98,2809,91,3372"/>
-<area shape="rect" id="Node000008" href="$structFLootLockerAssetInstanceStorageItemsResponse.html" title=" " alt="" coords="249,453,439,493"/>
-<area shape="poly" id="edge46_Node000000_Node000008" title=" " alt="" coords="86,3372,93,2822,115,1877,132,1389,153,963,166,789,180,650,196,553,205,522,214,504,229,490,247,480,249,485,232,494,218,507,210,524,201,554,186,651,172,790,159,963,137,1390,120,1877,99,2822,91,3372"/>
-<area shape="rect" id="Node000009" href="$structFLootLockerAsyncPurchaseInitiatedResponse.html" title="Response from initiating an async purchase." alt="" coords="245,517,443,557"/>
-<area shape="poly" id="edge47_Node000000_Node000009" title=" " alt="" coords="86,3372,94,2833,116,1910,133,1433,154,1016,167,847,181,711,197,616,205,586,214,568,227,555,243,546,246,551,231,559,218,571,210,588,202,617,186,712,172,847,160,1017,138,1433,121,1910,99,2833,91,3373"/>
-<area shape="rect" id="Node000010" href="$structFLootLockerAsyncPurchaseStatusResponse.html" title="Response from polling the status of an async purchase." alt="" coords="245,581,443,621"/>
-<area shape="poly" id="edge48_Node000000_Node000010" title=" " alt="" coords="86,3372,94,2844,116,1941,134,1476,155,1070,168,904,182,772,197,679,205,649,214,632,227,619,243,610,246,615,231,623,218,635,210,651,202,680,187,772,173,904,161,1070,139,1477,122,1941,100,2844,91,3372"/>
-<area shape="rect" id="Node000011" href="$structFLootLockerAuthResponse.html" title=" " alt="" coords="247,646,441,671"/>
-<area shape="poly" id="edge49_Node000000_Node000011" title=" " alt="" coords="86,3372,94,2852,116,1965,133,1509,155,1110,167,947,181,817,197,727,205,698,214,681,229,668,246,660,248,665,232,673,218,684,210,700,202,728,187,818,173,948,160,1110,138,1509,121,1965,99,2852,91,3372"/>
-<area shape="rect" id="Node000024" href="$structFLootLockerBalanceResponse.html" title=" " alt="" coords="237,695,451,721"/>
-<area shape="poly" id="edge62_Node000000_Node000024" title=" " alt="" coords="86,3372,94,2859,117,1989,134,1542,155,1150,168,991,182,864,197,775,205,747,214,730,235,714,238,718,218,734,210,749,202,777,187,865,173,992,161,1151,139,1542,122,1989,100,2859,91,3372"/>
-<area shape="rect" id="Node000025" href="$structFLootLockerBanStatusResponse.html" title=" " alt="" coords="229,745,459,770"/>
-<area shape="poly" id="edge63_Node000000_Node000025" title=" " alt="" coords="86,3372,95,2869,118,2015,135,1576,156,1193,169,1037,182,912,197,825,205,797,214,781,229,768,232,772,218,784,210,799,203,826,188,913,174,1037,162,1193,140,1577,123,2015,100,2869,91,3372"/>
-<area shape="rect" id="Node000026" href="$structFLootLockerBeginSteamPurchaseRedemptionResponse.html" title="Response indicating whether the Steam purchase redemption process started successfully,..." alt="" coords="225,795,463,835"/>
-<area shape="poly" id="edge64_Node000000_Node000026" title=" " alt="" coords="86,3372,96,2880,120,2048,137,1621,158,1247,171,1095,184,973,198,889,206,861,214,845,227,833,231,837,218,848,211,863,203,890,189,974,176,1095,164,1248,142,1621,125,2048,101,2880,91,3372"/>
-<area shape="rect" id="Node000027" href="$structFLootLockerCharacterLoadoutResponse.html" title=" " alt="" coords="237,859,451,899"/>
-<area shape="poly" id="edge65_Node000000_Node000027" title=" " alt="" coords="86,3372,96,2892,120,2081,138,1665,159,1301,184,1034,198,951,206,925,214,909,235,892,238,896,218,912,211,927,204,953,190,1035,165,1301,143,1665,126,2081,101,2892,91,3372"/>
-<area shape="rect" id="Node000028" href="$structFLootLockerComputeAndLockDropTableResponse.html" title=" " alt="" coords="237,923,451,963"/>
-<area shape="poly" id="edge66_Node000000_Node000028" title=" " alt="" coords="86,3372,97,2903,121,2113,139,1708,160,1354,185,1095,199,1014,214,973,235,956,238,960,218,976,204,1016,190,1096,166,1354,144,1708,127,2114,102,2903,91,3372"/>
-<area shape="rect" id="Node000029" href="$structFLootLockerConnectionStateResponse.html" title=" " alt="" coords="241,987,447,1027"/>
-<area shape="poly" id="edge67_Node000000_Node000029" title=" " alt="" coords="86,3372,97,2915,122,2146,140,1752,161,1408,186,1156,199,1077,214,1037,239,1018,242,1022,218,1040,204,1078,191,1156,167,1408,145,1752,128,2147,102,2915,91,3372"/>
-<area shape="rect" id="Node000030" href="$structFLootLockerConsumePlayerInventoryItemResponse.html" title="Response for consuming one or more of an item." alt="" coords="243,1051,445,1091"/>
-<area shape="poly" id="edge68_Node000000_Node000030" title=" " alt="" coords="86,3372,97,2926,123,2179,141,1796,162,1461,186,1216,200,1140,214,1101,241,1080,244,1085,218,1104,205,1141,192,1217,167,1461,146,1796,129,2179,103,2926,91,3372"/>
-<area shape="rect" id="Node000031" href="$structFLootLockerCreateAssetCandidateResponse.html" title=" " alt="" coords="221,1115,467,1155"/>
-<area shape="poly" id="edge69_Node000000_Node000031" title=" " alt="" coords="86,3372,98,2936,124,2210,142,1839,163,1514,187,1277,200,1203,214,1165,227,1153,231,1157,218,1168,205,1204,192,1277,168,1515,147,1839,130,2211,103,2936,91,3372"/>
-<area shape="rect" id="Node000032" href="$structFLootLockerCreateStripeCheckoutSessionResponse.html" title="Response from creating a Stripe Checkout session." alt="" coords="223,1179,465,1219"/>
-<area shape="poly" id="edge70_Node000000_Node000032" title=" " alt="" coords="86,3372,98,2948,125,2244,143,1883,164,1568,188,1337,200,1266,214,1229,227,1217,231,1221,218,1232,205,1267,193,1338,169,1568,148,1883,130,2244,104,2949,91,3372"/>
-<area shape="rect" id="Node000033" href="$structFLootLockerCreateWalletResponse.html" title="Response containing the unique identifier of the newly created wallet." alt="" coords="221,1243,467,1269"/>
-<area shape="poly" id="edge71_Node000000_Node000033" title=" " alt="" coords="86,3372,98,2956,125,2268,143,1915,164,1608,187,1383,200,1314,214,1278,227,1267,231,1271,218,1282,205,1315,193,1384,169,1608,148,1916,130,2268,104,2957,91,3372"/>
-<area shape="rect" id="Node000034" href="$structFLootLockerCreditWalletResponse.html" title="Response containing the resulting balance entry after crediting currency to a wallet." alt="" coords="223,1293,465,1318"/>
-<area shape="poly" id="edge72_Node000000_Node000034" title=" " alt="" coords="86,3372,99,2966,125,2293,144,1949,164,1649,188,1430,200,1362,214,1328,227,1316,231,1320,218,1331,206,1364,193,1431,170,1650,149,1950,131,2293,104,2966,91,3373"/>
-<area shape="rect" id="Node000035" href="$structFLootLockerDebitWalletResponse.html" title="Response containing the resulting balance entry after debiting currency from a wallet." alt="" coords="225,1342,463,1367"/>
-<area shape="poly" id="edge73_Node000000_Node000035" title=" " alt="" coords="85,3372,85,2987,89,2684,97,2350,112,2020,135,1726,150,1602,168,1501,189,1425,201,1398,214,1378,229,1366,232,1370,218,1382,206,1400,194,1427,174,1502,156,1603,140,1726,117,2020,102,2350,94,2684,90,2987,90,3372"/>
-<area shape="rect" id="Node000036" href="$structFLootLockerDeleteAssetInstanceResponse.html" title=" " alt="" coords="227,1392,461,1432"/>
-<area shape="poly" id="edge74_Node000000_Node000036" title=" " alt="" coords="85,3372,87,2999,91,2705,101,2383,116,2063,139,1779,153,1660,171,1562,191,1488,202,1461,214,1442,227,1430,231,1434,218,1446,207,1464,196,1490,176,1563,159,1661,144,1780,121,2064,106,2383,97,2705,92,2999,91,3372"/>
-<area shape="rect" id="Node000037" href="$structFLootLockerDlcResponse.html" title=" " alt="" coords="252,1457,436,1482"/>
-<area shape="poly" id="edge75_Node000000_Node000037" title=" " alt="" coords="85,3372,87,3007,91,2720,100,2406,116,2095,139,1819,153,1704,171,1608,191,1537,202,1511,214,1493,231,1479,251,1470,253,1475,234,1483,218,1496,207,1514,196,1539,176,1609,159,1704,144,1820,121,2096,106,2406,97,2720,92,3007,91,3372"/>
-<area shape="rect" id="Node000038" href="$structFLootLockerEntitlementHistoryResponse.html" title="Response containing a paginated list of entitlement history entries for the player." alt="" coords="233,1507,455,1547"/>
-<area shape="poly" id="edge76_Node000000_Node000038" title=" " alt="" coords="85,3372,88,3017,94,2741,104,2438,119,2139,142,1873,156,1761,173,1669,192,1600,214,1557,230,1542,234,1547,218,1560,197,1602,178,1670,162,1762,147,1873,125,2139,109,2439,99,2741,94,3018,91,3372"/>
-<area shape="rect" id="Node000039" href="$structFLootLockerFeedbackCategoryResponse.html" title=" " alt="" coords="233,1571,455,1611"/>
-<area shape="poly" id="edge77_Node000000_Node000039" title=" " alt="" coords="85,3372,89,3029,95,2762,106,2471,121,2182,144,1925,158,1818,174,1729,193,1662,214,1621,232,1606,235,1610,218,1624,198,1664,179,1730,163,1818,149,1926,127,2182,111,2471,101,2763,95,3029,91,3372"/>
-<area shape="rect" id="Node000040" href="$structFLootLockerFileListResponse.html" title=" " alt="" coords="239,1635,449,1661"/>
-<area shape="poly" id="edge78_Node000000_Node000040" title=" " alt="" coords="85,3372,89,3037,95,2778,105,2494,121,2213,144,1964,158,1860,174,1774,193,1710,214,1670,237,1653,240,1657,218,1674,198,1712,179,1775,163,1861,149,1965,126,2213,111,2494,100,2778,94,3037,91,3372"/>
-<area shape="rect" id="Node000041" href="$structFLootLockerFollowActionResponse.html" title="Response struct for follow/unfollow actions." alt="" coords="221,1685,467,1710"/>
-<area shape="poly" id="edge79_Node000000_Node000041" title=" " alt="" coords="85,3372,90,3046,96,2794,107,2518,123,2246,145,2004,159,1903,175,1820,193,1758,214,1720,227,1708,231,1712,218,1723,198,1760,180,1821,164,1904,150,2005,128,2246,112,2518,101,2794,95,3046,91,3372"/>
-<area shape="rect" id="Node000042" href="$structFLootLockerFriendActionResponse.html" title=" " alt="" coords="222,1734,466,1759"/>
-<area shape="poly" id="edge80_Node000000_Node000042" title=" " alt="" coords="86,3372,90,3055,97,2810,108,2543,124,2279,147,2045,160,1947,176,1866,194,1806,214,1769,227,1757,231,1762,218,1772,199,1808,181,1868,166,1948,152,2046,130,2280,114,2543,103,2810,96,3055,91,3372"/>
-<area shape="rect" id="Node000043" href="$structFLootLockerGameHeroListResponse.html" title=" " alt="" coords="216,1783,472,1809"/>
-<area shape="poly" id="edge81_Node000000_Node000043" title=" " alt="" coords="86,3372,91,3063,110,2567,126,2312,148,2085,162,1990,177,1912,194,1854,214,1818,227,1807,231,1811,218,1822,199,1856,182,1914,167,1991,153,2086,131,2312,115,2567,97,3063,91,3372"/>
-<area shape="rect" id="Node000044" href="$structFLootLockerGameInfoResponse.html" title=" " alt="" coords="231,1833,457,1858"/>
-<area shape="poly" id="edge82_Node000000_Node000044" title=" " alt="" coords="86,3372,92,3072,111,2593,128,2346,150,2127,163,2036,178,1960,195,1904,214,1869,229,1856,232,1860,218,1872,200,1906,183,1961,168,2036,155,2128,133,2346,117,2593,97,3072,91,3372"/>
-<area shape="rect" id="Node000045" href="$structFLootLockerGenericProgressionResponse.html" title=" " alt="" coords="231,1883,457,1923"/>
-<area shape="poly" id="edge83_Node000000_Node000045" title=" " alt="" coords="86,3372,94,3084,115,2625,131,2390,153,2181,166,2093,180,2021,196,1967,214,1933,229,1920,232,1924,218,1936,201,1969,185,2022,171,2094,158,2181,137,2390,120,2626,99,3084,91,3372"/>
-<area shape="rect" id="Node000053" href="$structFLootLockerGetAllMemberRanksResponse.html" title=" " alt="" coords="227,1947,461,1987"/>
-<area shape="poly" id="edge91_Node000000_Node000053" title=" " alt="" coords="86,3372,95,3095,116,2657,133,2432,155,2233,181,2081,197,2029,214,1997,227,1985,231,1989,218,2000,202,2031,187,2082,160,2234,139,2433,122,2658,100,3096,91,3372"/>
-<area shape="rect" id="Node000054" href="$structFLootLockerGetAssetBonesResponse.html" title=" " alt="" coords="245,2011,443,2051"/>
-<area shape="poly" id="edge92_Node000000_Node000054" title=" " alt="" coords="86,3372,96,3107,118,2689,135,2475,157,2285,183,2141,198,2091,214,2061,227,2049,243,2040,246,2045,231,2053,218,2064,202,2093,188,2142,162,2286,141,2476,124,2690,101,3107,91,3372"/>
-<area shape="rect" id="Node000055" href="$structFLootLockerGetAssetsResponse.html" title=" " alt="" coords="229,2075,459,2101"/>
-<area shape="poly" id="edge93_Node000000_Node000055" title=" " alt="" coords="86,3372,96,3115,119,2713,136,2508,157,2326,183,2187,198,2140,214,2112,230,2099,233,2103,218,2115,203,2143,188,2189,162,2327,141,2508,124,2714,101,3115,91,3372"/>
-<area shape="rect" id="Node000056" href="$structFLootLockerGetByListOfMembersResponse.html" title=" " alt="" coords="225,2125,463,2165"/>
-<area shape="poly" id="edge94_Node000000_Node000056" title=" " alt="" coords="86,3372,98,3127,122,2746,139,2551,160,2379,185,2248,199,2203,214,2176,227,2164,231,2168,218,2179,204,2205,190,2249,165,2380,145,2552,127,2746,103,3127,92,3372"/>
-<area shape="rect" id="Node000057" href="$structFLootLockerGetContextResponse.html" title=" " alt="" coords="225,2190,463,2215"/>
-<area shape="poly" id="edge95_Node000000_Node000057" title=" " alt="" coords="86,3372,98,3135,122,2770,140,2584,161,2420,185,2295,199,2252,214,2226,230,2213,233,2218,218,2230,204,2255,190,2296,166,2421,145,2585,128,2771,103,3136,92,3372"/>
-<area shape="rect" id="Node000058" href="$structFLootLockerGetCurrencyDetailsResponse.html" title="Response with details about a particular currency." alt="" coords="231,2240,457,2280"/>
-<area shape="poly" id="edge96_Node000000_Node000058" title=" " alt="" coords="87,3372,99,3147,125,2803,143,2628,164,2473,187,2355,200,2315,214,2290,228,2278,232,2282,218,2294,205,2317,192,2357,169,2474,148,2629,131,2804,105,3148,92,3372"/>
-<area shape="rect" id="Node000059" href="$structFLootLockerGetCurrentPlayerInfoResponse.html" title=" " alt="" coords="238,2304,450,2344"/>
-<area shape="poly" id="edge97_Node000000_Node000059" title=" " alt="" coords="87,3372,101,3159,127,2835,145,2671,166,2526,188,2415,201,2378,214,2354,236,2337,239,2341,218,2358,206,2380,194,2417,171,2527,150,2672,133,2836,106,3159,92,3372"/>
-<area shape="rect" id="Node000060" href="$structFLootLockerGetFavouriteAssetIndicesResponse.html" title=" " alt="" coords="235,2368,453,2408"/>
-<area shape="poly" id="edge98_Node000000_Node000060" title=" " alt="" coords="85,3372,86,3184,91,3047,100,2898,115,2748,138,2610,153,2549,171,2496,191,2452,214,2418,233,2403,236,2407,218,2422,195,2455,176,2498,158,2551,143,2611,120,2749,105,2898,96,3047,91,3184,90,3372"/>
-<area shape="rect" id="Node000061" href="$structFLootLockerGetFriendResponse.html" title="Response struct for getting a single friend." alt="" coords="231,2433,457,2458"/>
-<area shape="poly" id="edge99_Node000000_Node000061" title=" " alt="" coords="85,3372,87,3192,91,3061,101,2919,116,2777,139,2647,154,2590,171,2540,191,2499,214,2467,229,2456,232,2460,218,2471,196,2501,176,2542,159,2592,144,2648,122,2778,106,2920,97,3062,92,3192,90,3372"/>
-<area shape="rect" id="Node000062" href="$structFLootLockerGetMapsResponse.html" title=" " alt="" coords="233,2482,455,2507"/>
-<area shape="poly" id="edge100_Node000000_Node000062" title=" " alt="" coords="85,3372,88,3201,94,3078,104,2944,120,2810,143,2687,157,2634,173,2587,192,2548,214,2518,231,2505,234,2509,218,2522,197,2550,178,2589,162,2635,148,2689,125,2811,110,2944,99,3078,94,3201,91,3372"/>
-<area shape="rect" id="Node000063" href="$structFLootLockerGetMemberRankResponse.html" title=" " alt="" coords="239,2532,449,2572"/>
-<area shape="poly" id="edge101_Node000000_Node000063" title=" " alt="" coords="86,3372,91,3212,110,2975,126,2852,148,2739,177,2646,194,2610,214,2582,237,2565,240,2569,218,2586,199,2612,182,2648,153,2740,131,2853,115,2975,97,3212,91,3372"/>
-<area shape="rect" id="Node000064" href="$structFLootLockerGetMetadataResponse.html" title="Response containing the single requested metadata entry." alt="" coords="220,2597,468,2622"/>
-<area shape="poly" id="edge102_Node000000_Node000064" title=" " alt="" coords="86,3372,92,3221,111,2998,128,2883,150,2778,178,2692,195,2658,214,2633,231,2620,234,2624,218,2637,200,2661,183,2694,155,2779,133,2884,117,2999,98,3221,91,3372"/>
-<area shape="rect" id="Node000065" href="$structFLootLockerGetMultisourceMetadataResponse.html" title="Response containing the requested metadata entries grouped by their source from a multisource get ope..." alt="" coords="245,2647,443,2687"/>
-<area shape="poly" id="edge103_Node000000_Node000065" title=" " alt="" coords="86,3372,95,3233,117,3030,133,2925,155,2830,181,2751,197,2720,214,2697,243,2677,246,2681,218,2701,201,2723,186,2753,160,2831,138,2926,122,3031,101,3233,92,3373"/>
-<area shape="rect" id="Node000066" href="$structFLootLockerGetPlayerInventoryItemResponse.html" title="Response for getting a single player inventory item." alt="" coords="231,2711,457,2751"/>
-<area shape="poly" id="edge104_Node000000_Node000066" title=" " alt="" coords="87,3372,98,3244,121,3060,138,2966,158,2880,184,2809,198,2782,214,2761,229,2749,232,2753,218,2765,203,2785,189,2811,164,2882,143,2967,126,3061,103,3244,92,3372"/>
-<area shape="rect" id="Node000067" href="$structFLootLockerGetScoreListResponse.html" title=" " alt="" coords="221,2775,467,2801"/>
-<area shape="poly" id="edge105_Node000000_Node000067" title=" " alt="" coords="87,3372,99,3252,123,3083,140,2996,160,2918,185,2854,199,2829,214,2810,229,2799,233,2803,218,2814,203,2832,190,2856,165,2920,145,2998,128,3084,104,3252,93,3372"/>
-<area shape="rect" id="Node000068" href="$structFLootLockerGetWalletResponse.html" title="Response containing a wallet&#39;s holder identifier, holder type, and active balance modifiers." alt="" coords="231,2825,457,2850"/>
-<area shape="poly" id="edge106_Node000000_Node000068" title=" " alt="" coords="88,3372,101,3260,126,3106,143,3028,163,2957,187,2899,214,2859,229,2848,233,2852,218,2863,192,2901,168,2959,148,3029,131,3107,106,3261,93,3372"/>
-<area shape="rect" id="Node000069" href="$structFLootLockerGrantAssetResponse.html" title=" " alt="" coords="227,2874,461,2899"/>
-<area shape="poly" id="edge107_Node000000_Node000069" title=" " alt="" coords="89,3372,103,3270,129,3131,146,3060,166,2996,189,2944,214,2909,230,2897,233,2902,218,2913,193,2947,171,2998,152,3062,135,3132,108,3271,94,3373"/>
-<area shape="rect" id="Node000070" href="$structFLootLockerHeroListResponse.html" title=" " alt="" coords="235,2923,453,2949"/>
-<area shape="poly" id="edge108_Node000000_Node000070" title=" " alt="" coords="84,3372,87,3291,92,3237,102,3179,118,3119,141,3060,173,3005,214,2958,233,2945,236,2950,218,2962,177,3008,146,3062,123,3120,107,3180,97,3238,92,3291,90,3372"/>
-<area shape="rect" id="Node000071" href="$structFLootLockerHeroLoadoutResponse.html" title=" " alt="" coords="221,2973,467,2998"/>
-<area shape="poly" id="edge109_Node000000_Node000071" title=" " alt="" coords="85,3372,91,3299,109,3200,125,3147,147,3096,177,3048,214,3007,231,2996,234,3000,218,3011,181,3052,152,3098,130,3149,114,3201,96,3300,91,3372"/>
-<area shape="rect" id="Node000072" href="$structFLootLockerHeroResponse.html" title=" " alt="" coords="247,3022,441,3047"/>
-<area shape="poly" id="edge110_Node000000_Node000072" title=" " alt="" coords="87,3372,95,3308,116,3222,132,3177,154,3133,181,3093,214,3058,245,3041,248,3045,218,3062,185,3096,158,3136,137,3179,121,3224,101,3309,92,3373"/>
-<area shape="rect" id="Node000073" href="$structFLootLockerInternalListBroadcastsResponse.html" title="Internal response structure as received from API." alt="" coords="221,3072,467,3112"/>
-<area shape="poly" id="edge111_Node000000_Node000073" title=" " alt="" coords="90,3372,102,3319,126,3251,162,3182,186,3150,214,3122,232,3110,235,3115,218,3126,190,3153,167,3184,131,3254,108,3321,95,3373"/>
-<area shape="rect" id="Node000074" href="$structFLootLockerInventoryResponse.html" title=" " alt="" coords="231,3137,457,3162"/>
-<area shape="poly" id="edge112_Node000000_Node000074" title=" " alt="" coords="93,3372,108,3328,133,3273,168,3218,190,3194,214,3172,238,3160,240,3164,218,3177,193,3198,172,3222,137,3276,113,3330,98,3373"/>
-<area shape="rect" id="Node000075" href="$structFLootLockerInvokeTriggersByKeyResponse.html" title="The result of the invoked triggers." alt="" coords="247,3187,441,3227"/>
-<area shape="poly" id="edge113_Node000000_Node000075" title=" " alt="" coords="99,3372,144,3304,176,3267,215,3236,245,3221,248,3226,217,3241,180,3271,148,3308,103,3375"/>
-<area shape="rect" id="Node000076" href="$structFLootLockerLeaderboardArchiveDetailsResponse.html" title=" " alt="" coords="229,3251,459,3291"/>
-<area shape="poly" id="edge114_Node000000_Node000076" title=" " alt="" coords="110,3374,156,3336,215,3300,245,3288,247,3293,217,3305,159,3341,113,3379"/>
-<area shape="rect" id="Node000077" href="$structFLootLockerLeaderboardArchiveResponse.html" title=" " alt="" coords="229,3315,459,3355"/>
-<area shape="poly" id="edge115_Node000000_Node000077" title=" " alt="" coords="151,3380,262,3352,263,3357,153,3385"/>
-<area shape="rect" id="Node000078" href="$structFLootLockerLeaderboardDetailsResponse.html" title=" " alt="" coords="231,3379,457,3419"/>
-<area shape="poly" id="edge116_Node000000_Node000078" title=" " alt="" coords="182,3396,230,3396,230,3401,182,3401"/>
-<area shape="rect" id="Node000079" href="$structFLootLockerLeaseRemoteSessionResponse.html" title="Response containing the lease codes, redirect URLs, current lease status, and intent returned when st..." alt="" coords="225,3443,463,3483"/>
-<area shape="poly" id="edge117_Node000000_Node000079" title=" " alt="" coords="153,3412,263,3440,262,3445,151,3417"/>
-<area shape="rect" id="Node000080" href="$structFLootLockerListBalancesForWalletResponse.html" title="Response containing the list of currency balances held in a specific wallet." alt="" coords="243,3507,445,3547"/>
-<area shape="poly" id="edge118_Node000000_Node000080" title=" " alt="" coords="113,3419,159,3457,217,3492,247,3504,245,3509,215,3497,156,3461,110,3423"/>
-<area shape="rect" id="Node000081" href="$structFLootLockerListBlockedPlayersResponse.html" title=" " alt="" coords="233,3571,455,3611"/>
-<area shape="poly" id="edge119_Node000000_Node000081" title=" " alt="" coords="103,3422,148,3490,180,3526,217,3556,240,3568,237,3573,215,3561,176,3530,144,3493,99,3425"/>
-<area shape="rect" id="Node000082" href="$structFLootLockerListBroadcastsResponse.html" title="Response for listing broadcasts." alt="" coords="247,3635,441,3675"/>
-<area shape="poly" id="edge120_Node000000_Node000082" title=" " alt="" coords="98,3424,113,3467,138,3520,173,3575,194,3599,218,3620,247,3637,245,3642,214,3625,190,3603,168,3578,133,3523,108,3469,93,3425"/>
-<area shape="rect" id="Node000083" href="$structFLootLockerListCatalogItemsByIdResponse.html" title="Response for the ListCatalogItemsById endpoint." alt="" coords="239,3699,449,3739"/>
-<area shape="poly" id="edge121_Node000000_Node000083" title=" " alt="" coords="94,3424,106,3479,129,3550,145,3587,165,3623,189,3656,218,3685,240,3699,237,3703,214,3689,185,3659,161,3625,140,3589,124,3551,101,3480,89,3425"/>
-<area shape="rect" id="Node000084" href="$structFLootLockerListCatalogPricesResponse.html" title="Response containing catalog entries with entity&#45;typed lookup maps for asset, progression,..." alt="" coords="238,3763,450,3803"/>
-<area shape="poly" id="edge122_Node000000_Node000084" title=" " alt="" coords="92,3425,100,3491,120,3578,137,3625,158,3670,185,3712,218,3749,239,3763,236,3767,214,3753,180,3715,153,3673,132,3627,115,3580,95,3492,87,3426"/>
-<area shape="rect" id="Node000085" href="$structFLootLockerListCatalogPricesV2Response.html" title="Response containing catalog entries with entity&#45;typed lookup maps for asset, progression,..." alt="" coords="238,3827,450,3867"/>
-<area shape="poly" id="edge123_Node000000_Node000085" title=" " alt="" coords="90,3425,95,3501,112,3606,128,3662,150,3717,180,3768,218,3813,239,3828,236,3832,214,3817,176,3771,145,3719,123,3664,107,3607,89,3502,85,3425"/>
-<area shape="rect" id="Node000086" href="$structFLootLockerListCatalogsResponse.html" title="N/A." alt="" coords="223,3891,465,3917"/>
-<area shape="poly" id="edge124_Node000000_Node000086" title=" " alt="" coords="94,3425,109,3525,135,3662,153,3731,172,3793,194,3843,218,3877,235,3889,232,3893,214,3881,189,3846,167,3795,147,3732,130,3663,104,3526,89,3426"/>
-<area shape="rect" id="Node000087" href="$structFLootLockerListCharacterTypesResponse.html" title=" " alt="" coords="251,3941,437,3981"/>
-<area shape="poly" id="edge125_Node000000_Node000087" title=" " alt="" coords="93,3425,107,3533,133,3684,150,3761,170,3831,193,3888,218,3926,233,3938,252,3947,249,3952,231,3943,214,3930,188,3890,165,3833,145,3763,128,3685,102,3534,88,3425"/>
-<area shape="rect" id="Node000088" href="$structFLootLockerListConnectedAccountsResponse.html" title="Response containing the list of account providers currently connected to the player&#39;s LootLocker acco..." alt="" coords="248,4005,440,4045"/>
-<area shape="poly" id="edge126_Node000000_Node000088" title=" " alt="" coords="93,3425,105,3546,129,3717,146,3804,166,3883,190,3948,204,3973,218,3991,232,4003,249,4012,246,4016,229,4008,214,3995,199,3976,185,3950,161,3885,140,3805,123,3718,99,3547,87,3426"/>
-<area shape="rect" id="Node000089" href="$structFLootLockerListCurrenciesResponse.html" title="Response containing the list of all currencies available in the game." alt="" coords="248,4069,440,4109"/>
-<area shape="poly" id="edge127_Node000000_Node000089" title=" " alt="" coords="92,3425,102,3558,125,3748,141,3845,162,3934,188,4007,202,4035,218,4055,232,4067,249,4076,246,4081,229,4072,214,4059,198,4037,183,4009,157,3935,136,3846,119,3748,97,3558,87,3426"/>
-<area shape="rect" id="Node000090" href="$structFLootLockerListDenominationsResponse.html" title="Response containing the list of denominations defined for a specific currency." alt="" coords="233,4133,455,4173"/>
-<area shape="poly" id="edge128_Node000000_Node000090" title=" " alt="" coords="92,3425,100,3568,120,3778,137,3886,158,3984,185,4065,201,4096,218,4119,234,4132,231,4137,214,4123,196,4099,180,4067,153,3986,132,3886,115,3778,94,3569,86,3425"/>
-<area shape="rect" id="Node000091" href="$structFLootLockerListFollowersResponse.html" title="Response struct for listing followers or following players." alt="" coords="251,4197,437,4237"/>
-<area shape="poly" id="edge129_Node000000_Node000091" title=" " alt="" coords="91,3425,98,3580,117,3809,133,3927,155,4035,183,4124,200,4158,218,4184,234,4196,252,4206,250,4210,231,4201,214,4187,195,4161,178,4126,150,4036,128,3928,111,3809,92,3580,86,3425"/>
-<area shape="rect" id="Node000092" href="$structFLootLockerListFriendsResponse.html" title="Response struct for listing friends." alt="" coords="227,4262,461,4287"/>
-<area shape="poly" id="edge130_Node000000_Node000092" title=" " alt="" coords="91,3425,95,3592,101,3711,111,3840,127,3969,150,4087,164,4138,180,4183,198,4220,218,4247,233,4260,230,4264,214,4251,193,4223,175,4185,158,4140,144,4088,122,3970,106,3841,96,3712,89,3592,85,3425"/>
-<area shape="rect" id="Node000093" href="$structFLootLockerListIncomingFriendRequestsResponse.html" title="Response struct for listing incoming friend requests." alt="" coords="233,4312,455,4352"/>
-<area shape="poly" id="edge131_Node000000_Node000093" title=" " alt="" coords="91,3425,94,3599,100,3725,110,3862,126,3998,148,4124,162,4179,179,4227,197,4267,218,4297,234,4311,231,4315,214,4300,193,4270,174,4229,157,4181,143,4125,121,3999,105,3862,95,3725,89,3600,85,3425"/>
-<area shape="rect" id="Node000094" href="$structFLootLockerListItemTemplatesResponse.html" title="Response for listing item templates." alt="" coords="234,4376,454,4416"/>
-<area shape="poly" id="edge132_Node000000_Node000094" title=" " alt="" coords="90,3425,92,3610,97,3745,106,3892,121,4040,144,4175,159,4235,176,4287,196,4330,218,4362,235,4376,232,4381,214,4366,191,4333,171,4289,154,4236,139,4177,116,4041,101,3893,91,3745,86,3610,85,3425"/>
-<area shape="rect" id="Node000095" href="$structFLootLockerListLeaderboardsResponse.html" title=" " alt="" coords="239,4440,449,4480"/>
-<area shape="poly" id="edge133_Node000000_Node000095" title=" " alt="" coords="92,3425,106,3636,133,3955,151,4117,171,4260,194,4368,206,4405,218,4426,240,4443,237,4447,214,4430,201,4407,189,4370,166,4261,146,4117,128,3955,101,3636,87,3425"/>
-<area shape="rect" id="Node000096" href="$structFLootLockerListMetadataResponse.html" title="Response containing a paginated page of metadata entries for a given source." alt="" coords="220,4505,468,4530"/>
-<area shape="poly" id="edge134_Node000000_Node000096" title=" " alt="" coords="92,3425,104,3647,130,3987,148,4160,168,4313,192,4429,205,4467,218,4490,233,4502,230,4507,214,4494,200,4469,187,4430,163,4314,142,4161,125,3988,99,3647,87,3425"/>
-<area shape="rect" id="Node000097" href="$structFLootLockerListNotificationsResponse.html" title="Response containing a paginated list of notifications for the player, with a lookup helper for findin..." alt="" coords="241,4555,447,4595"/>
-<area shape="poly" id="edge135_Node000000_Node000097" title=" " alt="" coords="92,3425,104,3656,130,4011,147,4192,168,4352,192,4474,205,4515,218,4540,243,4558,240,4563,214,4543,200,4517,187,4476,163,4353,142,4193,124,4012,99,3656,87,3425"/>
-<area shape="rect" id="Node000098" href="$structFLootLockerListOutgoingFriendRequestsResponse.html" title="Response struct for listing outgoing friend requests." alt="" coords="233,4619,455,4659"/>
-<area shape="poly" id="edge136_Node000000_Node000098" title=" " alt="" coords="92,3425,103,3667,128,4044,145,4236,166,4406,190,4536,204,4579,218,4605,234,4619,231,4623,214,4608,199,4581,185,4537,161,4407,140,4237,122,4044,98,3668,86,3425"/>
-<area shape="rect" id="Node000099" href="$structFLootLockerListPlatformKeysResponse.html" title="Response containing the list of platform keys redeemed by the authenticated player." alt="" coords="239,4683,449,4723"/>
-<area shape="poly" id="edge137_Node000000_Node000099" title=" " alt="" coords="92,3425,102,3678,126,4076,143,4279,164,4459,189,4595,203,4641,218,4669,240,4686,237,4690,214,4672,198,4643,184,4597,159,4459,138,4279,120,4076,97,3679,86,3425"/>
-<area shape="rect" id="Node000100" href="$structFLootLockerListPlayerCharactersResponse.html" title=" " alt="" coords="227,4747,461,4787"/>
-<area shape="poly" id="edge138_Node000000_Node000100" title=" " alt="" coords="91,3425,101,3690,124,4108,141,4322,162,4511,188,4655,202,4704,218,4733,231,4744,227,4748,214,4736,198,4706,183,4657,157,4512,135,4322,118,4108,96,3690,86,3425"/>
-<area shape="rect" id="Node000101" href="$structFLootLockerListPlayerInfoResponse.html" title=" " alt="" coords="249,4811,439,4851"/>
-<area shape="poly" id="edge139_Node000000_Node000101" title=" " alt="" coords="91,3425,100,3702,122,4140,139,4364,160,4564,187,4715,202,4766,218,4797,233,4810,250,4819,248,4824,230,4814,214,4800,197,4768,181,4717,155,4564,133,4365,116,4140,95,3702,86,3425"/>
-<area shape="rect" id="Node000102" href="$structFLootLockerListPlayerInventoryItemsResponse.html" title="Response for listing a player&#39;s inventory items." alt="" coords="231,4875,457,4915"/>
-<area shape="poly" id="edge140_Node000000_Node000102" title=" " alt="" coords="91,3425,99,3713,120,4172,137,4407,158,4616,171,4703,185,4775,201,4829,218,4861,232,4874,229,4878,214,4864,196,4831,180,4777,166,4704,153,4617,131,4408,115,4172,94,3713,86,3425"/>
-<area shape="rect" id="Node000103" href="$structFLootLockerListSimpleAssetsResponse.html" title="Response payload for simple asset listing." alt="" coords="239,4939,449,4979"/>
-<area shape="poly" id="edge141_Node000000_Node000103" title=" " alt="" coords="91,3425,98,3724,118,4203,135,4450,156,4669,170,4760,184,4835,200,4891,218,4925,240,4942,237,4947,214,4928,195,4893,179,4836,164,4761,151,4669,129,4450,113,4204,93,3724,86,3425"/>
-<area shape="rect" id="Node000104" href="$structFLootLockerLootBoxContentResponse.html" title=" " alt="" coords="242,5003,446,5043"/>
-<area shape="poly" id="edge142_Node000000_Node000104" title=" " alt="" coords="91,3426,97,3737,116,4236,133,4493,155,4721,168,4817,183,4895,200,4954,218,4989,243,5008,240,5012,214,4992,195,4956,178,4896,163,4817,149,4722,127,4493,111,4236,92,3737,86,3426"/>
-<area shape="rect" id="Node000105" href="$structFLootLockerMergeInventoryItemStacksResponse.html" title="Response for merging two item stacks." alt="" coords="243,5067,445,5107"/>
-<area shape="poly" id="edge143_Node000000_Node000105" title=" " alt="" coords="91,3425,96,3747,114,4267,131,4535,153,4774,166,4873,182,4955,199,5016,218,5053,244,5072,241,5077,214,5056,194,5018,177,4956,161,4874,147,4774,125,4536,109,4268,91,3747,86,3425"/>
-<area shape="rect" id="Node000106" href="$structFLootLockerMessagesResponse.html" title=" " alt="" coords="230,5131,458,5157"/>
-<area shape="poly" id="edge144_Node000000_Node000106" title=" " alt="" coords="91,3425,95,3758,101,4017,111,4300,127,4579,149,4827,163,4930,179,5016,198,5079,218,5117,232,5129,229,5133,214,5120,193,5081,174,5017,158,4931,144,4828,122,4579,106,4300,95,4017,89,3759,85,3425"/>
-<area shape="rect" id="Node000107" href="$structFLootLockerMultiplePlayersNamesResponse.html" title=" " alt="" coords="243,5181,445,5221"/>
-<area shape="poly" id="edge145_Node000000_Node000107" title=" " alt="" coords="91,3425,95,3767,101,4032,111,4323,127,4610,150,4866,164,4973,180,5061,198,5127,218,5166,245,5186,242,5191,214,5170,193,5129,175,5062,158,4974,144,4866,122,4611,106,4323,96,4032,89,3767,85,3425"/>
-<area shape="rect" id="Node000108" href="$structFLootLockerMultiplePlayersPlatformIdsResponse.html" title=" " alt="" coords="243,5245,445,5285"/>
-<area shape="poly" id="edge146_Node000000_Node000108" title=" " alt="" coords="91,3426,94,3779,99,4054,109,4356,125,4654,148,4920,162,5031,178,5122,197,5191,218,5232,244,5251,241,5256,214,5235,192,5192,173,5123,157,5032,142,4920,120,4655,104,4356,94,4054,88,3779,85,3426"/>
-<area shape="rect" id="Node000109" href="$structFLootLockerNameResponse.html" title=" " alt="" coords="243,5310,445,5335"/>
-<area shape="poly" id="edge147_Node000000_Node000109" title=" " alt="" coords="91,3425,92,3789,97,4075,106,4388,121,4698,144,4973,159,5088,176,5183,196,5254,207,5278,218,5295,244,5314,241,5318,214,5299,202,5281,191,5255,171,5184,153,5089,139,4974,116,4698,101,4388,91,4075,87,3789,85,3425"/>
-<area shape="rect" id="Node000110" href="$structFLootLockerOpenLootBoxResponse.html" title=" " alt="" coords="219,5359,469,5385"/>
-<area shape="poly" id="edge148_Node000000_Node000110" title=" " alt="" coords="90,3425,91,3798,96,4091,104,4412,120,4731,143,5014,157,5132,175,5229,195,5302,206,5327,218,5345,232,5357,229,5361,214,5348,202,5330,190,5303,170,5230,152,5133,137,5014,114,4731,99,4413,90,4091,86,3798,85,3425"/>
-<area shape="rect" id="Node000111" href="$structFLootLockerPaginatedGenericProgressionResponse.html" title=" " alt="" coords="237,5409,451,5449"/>
-<area shape="poly" id="edge149_Node000000_Node000111" title=" " alt="" coords="91,3425,92,3807,96,4107,105,4437,120,4763,143,5054,158,5175,175,5276,195,5351,206,5377,218,5396,238,5412,234,5416,214,5399,202,5380,190,5352,170,5277,152,5176,137,5054,114,4763,99,4437,90,4107,86,3807,85,3426"/>
-<area shape="rect" id="Node000115" href="$structFLootLockerPaginatedProgressionTiersResponse.html" title=" " alt="" coords="224,5473,464,5513"/>
-<area shape="poly" id="edge153_Node000000_Node000115" title=" " alt="" coords="90,3425,91,3817,94,4127,103,4468,118,4805,141,5106,156,5232,174,5336,195,5413,206,5440,218,5460,231,5471,227,5475,214,5463,201,5443,190,5415,169,5337,151,5232,136,5106,112,4806,98,4468,89,4127,85,3817,85,3425"/>
-<area shape="rect" id="Node000116" href="$structFLootLockerPaginatedProgressionsResponse.html" title=" " alt="" coords="221,5537,467,5577"/>
-<area shape="poly" id="edge154_Node000000_Node000116" title=" " alt="" coords="90,3425,90,3828,93,4147,101,4499,116,4847,139,5158,154,5288,173,5395,194,5475,206,5504,218,5524,231,5535,227,5539,214,5527,201,5506,189,5477,167,5396,149,5289,134,5159,110,4848,96,4499,88,4147,84,3828,85,3425"/>
-<area shape="rect" id="Node000117" href="$structFLootLockerPersistentStorageItemResponse.html" title=" " alt="" coords="237,5601,451,5641"/>
-<area shape="poly" id="edge155_Node000000_Node000117" title=" " alt="" coords="91,3425,104,3853,130,4565,148,4930,169,5248,193,5481,205,5553,218,5588,238,5604,235,5608,214,5591,200,5554,187,5481,164,5249,143,4930,125,4566,98,3854,86,3425"/>
-<area shape="rect" id="Node000118" href="$structFLootLockerPersistentStorageItemsResponse.html" title=" " alt="" coords="237,5665,451,5705"/>
-<area shape="poly" id="edge156_Node000000_Node000118" title=" " alt="" coords="91,3425,103,3864,129,4597,147,4973,168,5301,192,5541,205,5615,218,5652,238,5668,235,5672,214,5655,200,5617,187,5542,163,5302,142,4973,124,4597,98,3864,86,3425"/>
-<area shape="rect" id="Node000119" href="$structFLootLockerPickDropsFromDropTableResponse.html" title=" " alt="" coords="245,5729,443,5769"/>
-<area shape="poly" id="edge157_Node000000_Node000119" title=" " alt="" coords="91,3425,103,3876,128,4630,146,5017,167,5355,191,5602,205,5678,218,5716,231,5727,246,5736,243,5741,227,5732,214,5719,199,5680,186,5603,162,5355,141,5017,123,4631,97,3876,86,3425"/>
-<area shape="rect" id="Node000120" href="$structFLootLockerPlayerAssetNotificationResponse.html" title=" " alt="" coords="218,5793,470,5833"/>
-<area shape="poly" id="edge158_Node000000_Node000120" title=" " alt="" coords="91,3425,102,3887,127,4663,145,5061,166,5408,191,5663,204,5741,218,5780,231,5791,227,5795,214,5783,199,5743,185,5663,161,5409,140,5061,122,4663,97,3887,86,3425"/>
-<area shape="rect" id="Node000121" href="$structFLootLockerPlayerFileContentResponse.html" title=" " alt="" coords="237,5857,451,5897"/>
-<area shape="poly" id="edge159_Node000000_Node000121" title=" " alt="" coords="91,3425,102,3899,126,4696,144,5105,165,5462,190,5723,204,5804,218,5844,238,5860,235,5864,214,5847,199,5805,185,5724,160,5462,139,5105,121,4696,96,3899,86,3426"/>
-<area shape="rect" id="Node000122" href="$structFLootLockerPlayerFileResponse.html" title=" " alt="" coords="231,5922,457,5947"/>
-<area shape="poly" id="edge160_Node000000_Node000122" title=" " alt="" coords="91,3425,101,3909,124,4728,142,5149,163,5516,175,5665,189,5784,203,5867,211,5893,218,5908,232,5920,229,5924,214,5911,206,5895,198,5869,183,5785,170,5666,158,5516,136,5149,119,4728,95,3910,86,3425"/>
-<area shape="rect" id="Node000123" href="$structFLootLockerPlayerFileRevisionsResponse.html" title=" " alt="" coords="231,5972,457,6012"/>
-<area shape="poly" id="edge161_Node000000_Node000123" title=" " alt="" coords="91,3425,101,3919,125,4754,142,5183,164,5558,176,5710,189,5832,203,5917,211,5943,218,5958,232,5971,229,5975,214,5962,206,5945,198,5918,184,5833,170,5711,158,5558,137,5183,119,4754,96,3919,86,3426"/>
-<area shape="rect" id="Node000124" href="$structFLootLockerPlayerHeroResponse.html" title=" " alt="" coords="227,6037,461,6062"/>
-<area shape="poly" id="edge162_Node000000_Node000124" title=" " alt="" coords="91,3425,100,3929,123,4786,140,5226,161,5612,174,5768,188,5893,202,5980,210,6007,218,6022,232,6035,229,6039,214,6026,205,6009,197,5981,182,5894,169,5769,156,5612,135,5227,117,4786,95,3930,86,3425"/>
-<area shape="rect" id="Node000125" href="$structFLootLockerProgressionResponse.html" title="RESPONSE STRUCTS." alt="" coords="225,6086,463,6111"/>
-<area shape="poly" id="edge163_Node000000_Node000125" title=" " alt="" coords="91,3425,100,3940,122,4813,139,5262,160,5654,173,5814,187,5941,202,6030,210,6058,218,6073,231,6084,227,6088,214,6076,205,6060,197,6031,182,5942,168,5815,155,5655,134,5262,116,4813,94,3940,86,3426"/>
-<area shape="rect" id="Node000126" href="$structFLootLockerQuerySteamPurchaseRedemptionStatusResponse.html" title="Response containing the current redemption status of a Steam purchase." alt="" coords="224,6136,464,6176"/>
-<area shape="poly" id="edge164_Node000000_Node000126" title=" " alt="" coords="91,3425,100,3947,122,4836,140,5294,161,5694,174,5857,187,5987,202,6078,210,6106,218,6122,231,6134,227,6138,214,6126,205,6108,197,6079,182,5988,168,5858,156,5694,134,5294,117,4836,94,3947,86,3425"/>
-<area shape="rect" id="Node000127" href="$structFLootLockerReadNotificationsResponse.html" title="Response from marking notifications as read, containing only base response status unless errors occur..." alt="" coords="237,6200,451,6240"/>
-<area shape="poly" id="edge165_Node000000_Node000127" title=" " alt="" coords="91,3425,99,3959,121,4869,139,5337,160,5748,173,5915,187,6048,202,6141,210,6170,218,6186,238,6203,235,6207,214,6190,205,6172,197,6142,182,6049,168,5915,155,5748,133,5338,116,4869,94,3959,86,3425"/>
-<area shape="rect" id="Node000128" href="$structFLootLockerRefundByEntitlementIdsResponse.html" title=" " alt="" coords="225,6264,463,6304"/>
-<area shape="poly" id="edge166_Node000000_Node000128" title=" " alt="" coords="91,3425,99,3969,121,4900,138,5381,159,5801,172,5972,186,6108,202,6204,210,6234,218,6250,231,6262,227,6266,214,6254,205,6235,196,6205,181,6109,167,5972,154,5801,132,5381,115,4900,94,3969,86,3425"/>
-<area shape="rect" id="Node000129" href="$structFLootLockerRemoteSessionStatusPollingResponse.html" title="Response containing the current lease status of a remote session when polled during the authorization..." alt="" coords="243,6328,445,6368"/>
-<area shape="poly" id="edge167_Node000000_Node000129" title=" " alt="" coords="91,3425,99,3980,120,4933,137,5424,158,5854,171,6029,186,6169,201,6267,210,6297,218,6314,230,6326,244,6334,242,6339,227,6330,214,6318,205,6299,196,6268,180,6170,166,6030,153,5855,131,5425,114,4933,93,3981,86,3425"/>
-<area shape="rect" id="Node000130" href="$structFLootLockerSetMetadataResponse.html" title="Response from a set&#45;metadata operation, containing any per&#45;entry errors alongside the source identifi..." alt="" coords="221,6393,467,6418"/>
-<area shape="poly" id="edge168_Node000000_Node000130" title=" " alt="" coords="91,3425,98,3991,117,4966,134,5468,156,5908,169,6088,184,6230,200,6330,209,6361,218,6378,232,6391,229,6395,214,6382,204,6363,195,6331,179,6231,164,6088,151,5909,129,5469,112,4966,92,3991,86,3425"/>
-<area shape="rect" id="Node000131" href="$structFLootLockerSimpleInventoryResponse.html" title="Response for simplified inventory listing." alt="" coords="241,6443,447,6483"/>
-<area shape="poly" id="edge169_Node000000_Node000131" title=" " alt="" coords="91,3425,98,4001,118,4991,135,5502,157,5950,170,6132,184,6278,201,6379,209,6411,218,6429,242,6448,238,6452,214,6432,204,6413,195,6380,179,6278,164,6133,151,5950,129,5503,113,4991,92,4001,86,3425"/>
-<area shape="rect" id="Node000132" href="$structFLootLockerSingleEntitlementResponse.html" title=" " alt="" coords="236,6507,452,6547"/>
-<area shape="poly" id="edge170_Node000000_Node000132" title=" " alt="" coords="91,3425,97,4012,117,5024,134,5546,156,6003,169,6190,184,6338,200,6442,209,6475,218,6493,238,6509,234,6514,214,6496,204,6477,195,6443,179,6339,164,6190,150,6004,128,5546,112,5024,92,4012,86,3426"/>
-<area shape="rect" id="Node000133" href="$structFLootLockerSplitInventoryItemStackResponse.html" title="Response for splitting an item stack." alt="" coords="249,6571,439,6611"/>
-<area shape="poly" id="edge171_Node000000_Node000133" title=" " alt="" coords="91,3425,97,4022,116,5055,133,5589,155,6056,168,6247,183,6399,200,6505,209,6538,218,6557,232,6570,249,6579,247,6584,229,6574,214,6560,204,6540,195,6506,178,6400,163,6247,149,6057,127,5589,111,5055,92,4022,86,3425"/>
-<area shape="rect" id="Node000134" href="$structFLootLockerSubmitScoreResponse.html" title=" " alt="" coords="221,6635,467,6661"/>
-<area shape="poly" id="edge172_Node000000_Node000134" title=" " alt="" coords="91,3425,96,4034,114,5089,130,5634,152,6111,166,6305,182,6460,199,6568,208,6602,218,6621,232,6633,229,6637,214,6624,203,6604,194,6569,176,6461,161,6306,147,6111,125,5634,109,5089,91,4034,85,3425"/>
-<area shape="rect" id="Node000135" href="$structFLootLockerTimeResponse.html" title=" " alt="" coords="246,6685,442,6710"/>
-<area shape="poly" id="edge173_Node000000_Node000135" title=" " alt="" coords="91,3426,95,4044,102,4553,113,5115,129,5669,151,6154,165,6351,181,6509,199,6618,208,6652,218,6672,231,6683,247,6691,245,6696,228,6687,214,6675,203,6654,193,6619,176,6509,160,6352,146,6154,124,5669,108,5115,97,4553,90,4044,85,3426"/>
-<area shape="rect" id="Node000136" href="$structFLootLockerUniversalAssetsResponse.html" title=" " alt="" coords="241,6735,447,6775"/>
-<area shape="poly" id="edge174_Node000000_Node000136" title=" " alt="" coords="91,3425,96,4050,114,5137,130,5700,152,6193,166,6394,182,6554,199,6666,208,6701,218,6721,243,6740,240,6744,214,6724,203,6703,194,6667,176,6555,161,6394,147,6193,125,5700,109,5138,91,4050,85,3425"/>
-<area shape="rect" id="Node000137" href="$structFLootLockerWhiteLabelSignUpFieldsResponse.html" title=" " alt="" coords="243,6799,445,6839"/>
-<area shape="poly" id="edge175_Node000000_Node000137" title=" " alt="" coords="91,3425,95,4061,102,4588,113,5170,129,5744,152,6246,165,6451,181,6615,199,6729,208,6765,218,6785,230,6796,244,6805,242,6810,227,6801,214,6788,203,6767,193,6730,176,6615,160,6452,146,6247,124,5744,108,5170,97,4588,90,4061,85,3425"/>
-<area shape="rect" id="Node000138" href="$structFLootLockerWhiteLabelVerifySessionResponse.html" title=" " alt="" coords="239,6863,449,6903"/>
-<area shape="poly" id="edge176_Node000000_Node000138" title=" " alt="" coords="91,3425,95,4072,102,4609,112,5202,128,5787,151,6300,164,6509,180,6675,198,6792,208,6828,218,6849,240,6867,237,6871,214,6852,203,6830,193,6793,175,6676,159,6509,145,6300,123,5787,107,5202,96,4609,90,4072,85,3425"/>
-<area shape="rect" id="Node000139" href="$structFLootLockerXboxServiceTicketResponse.html" title="Response from a request to get an Xbox service ticket." alt="" coords="234,6927,454,6967"/>
-<area shape="poly" id="edge177_Node000000_Node000139" title=" " alt="" coords="91,3425,95,4083,101,4630,111,5234,127,5830,150,6353,164,6566,180,6736,198,6855,208,6892,218,6913,235,6928,232,6932,214,6916,203,6894,193,6856,174,6737,158,6566,144,6353,122,5831,106,5234,96,4630,89,4083,85,3425"/>
-<area shape="rect" id="Node000012" href="$structFLootLockerAuthenticationResponse.html" title=" " alt="" coords="542,581,737,621"/>
-<area shape="poly" id="edge50_Node000011_Node000012" title=" " alt="" coords="423,641,541,618,542,623,424,646"/>
-<area shape="rect" id="Node000022" href="$structFLootLockerLoginResponse.html" title=" " alt="" coords="540,646,739,671"/>
-<area shape="poly" id="edge60_Node000011_Node000022" title=" " alt="" coords="454,656,540,656,540,661,454,661"/>
-<area shape="rect" id="Node000023" href="$structFLootLockerWhiteLabelLoginAndSessionResponse.html" title=" " alt="" coords="535,696,743,736"/>
-<area shape="poly" id="edge61_Node000011_Node000023" title=" " alt="" coords="427,671,473,680,540,693,539,699,471,685,426,676"/>
-<area shape="rect" id="Node000013" href="$structFLootLockerAppleGameCenterSessionResponse.html" title=" " alt="" coords="823,352,1041,392"/>
-<area shape="poly" id="edge51_Node000012_Node000013" title=" " alt="" coords="657,568,682,529,716,484,757,439,805,402,829,390,831,394,808,406,761,443,720,488,686,532,661,570"/>
-<area shape="rect" id="Node000014" href="$structFLootLockerAppleSessionResponse.html" title=" " alt="" coords="807,417,1057,442"/>
-<area shape="poly" id="edge52_Node000012_Node000014" title=" " alt="" coords="664,569,724,509,763,478,805,452,839,440,841,445,808,457,766,482,728,513,668,573"/>
-<area shape="rect" id="Node000015" href="$structFLootLockerDiscordSessionResponse.html" title=" " alt="" coords="833,467,1031,507"/>
-<area shape="poly" id="edge53_Node000012_Node000015" title=" " alt="" coords="687,572,743,543,806,516,842,504,844,509,808,521,745,548,689,577"/>
-<area shape="rect" id="Node000016" href="$structFLootLockerEpicSessionResponse.html" title=" " alt="" coords="812,531,1052,557"/>
-<area shape="poly" id="edge54_Node000012_Node000016" title=" " alt="" coords="749,577,866,554,867,559,750,582"/>
-<area shape="rect" id="Node000017" href="$structFLootLockerGooglePlayGamesSessionResponse.html" title=" " alt="" coords="822,581,1042,621"/>
-<area shape="poly" id="edge55_Node000012_Node000017" title=" " alt="" coords="750,599,822,599,822,604,750,604"/>
-<area shape="rect" id="Node000018" href="$structFLootLockerGoogleSessionResponse.html" title=" " alt="" coords="834,645,1030,685"/>
-<area shape="poly" id="edge56_Node000012_Node000018" title=" " alt="" coords="745,622,841,643,839,648,744,627"/>
-<area shape="rect" id="Node000019" href="$structFLootLockerMetaSessionResponse.html" title=" " alt="" coords="809,710,1055,735"/>
-<area shape="poly" id="edge57_Node000012_Node000019" title=" " alt="" coords="751,625,760,631,777,648,785,665,793,681,808,695,834,708,832,712,805,700,788,684,780,667,772,651,757,635,748,630"/>
-<area shape="rect" id="Node000020" href="$structFLootLockerRefreshRemoteSessionResponse.html" title="Response containing the refreshed authentication data and a new refresh token for an existing remote ..." alt="" coords="831,760,1033,800"/>
-<area shape="poly" id="edge58_Node000012_Node000020" title=" " alt="" coords="750,624,760,631,773,646,780,660,785,690,790,718,797,731,808,745,832,760,830,764,805,749,792,734,785,720,780,690,775,662,769,649,757,635,747,628"/>
-<area shape="rect" id="Node000021" href="$structFLootLockerStartRemoteSessionResponse.html" title="Response returned when remote session polling completes, containing the lease status and,..." alt="" coords="816,824,1048,864"/>
-<area shape="poly" id="edge59_Node000012_Node000021" title=" " alt="" coords="750,623,761,632,777,654,785,677,785,723,785,767,793,789,809,810,824,822,820,826,805,814,788,791,780,768,780,723,780,678,773,657,757,635,747,627"/>
-<area shape="rect" id="Node000046" href="$structFLootLockerCharacterProgressionResponse.html" title=" " alt="" coords="520,1787,759,1827"/>
-<area shape="poly" id="edge84_Node000045_Node000046" title=" " alt="" coords="448,1876,471,1867,495,1852,519,1836,551,1824,553,1829,521,1841,497,1856,473,1872,449,1881"/>
-<area shape="rect" id="Node000047" href="$structFLootLockerGenericProgressionWithRewardsResponse.html" title=" " alt="" coords="526,1851,753,1891"/>
-<area shape="poly" id="edge85_Node000045_Node000047" title=" " alt="" coords="471,1886,526,1880,526,1886,472,1892"/>
-<area shape="rect" id="Node000051" href="$structFLootLockerInstanceProgressionResponse.html" title=" " alt="" coords="524,1915,755,1955"/>
-<area shape="poly" id="edge89_Node000045_Node000051" title=" " alt="" coords="471,1914,524,1920,523,1925,471,1919"/>
-<area shape="rect" id="Node000052" href="$structFLootLockerPlayerProgressionResponse.html" title=" " alt="" coords="531,1979,748,2019"/>
-<area shape="poly" id="edge90_Node000045_Node000052" title=" " alt="" coords="454,1925,473,1932,498,1948,521,1964,552,1976,550,1981,519,1969,495,1953,471,1937,452,1930"/>
-<area shape="rect" id="Node000048" href="$structFLootLockerCharacterProgressionWithRewardsResponse.html" title=" " alt="" coords="813,1787,1051,1827"/>
-<area shape="poly" id="edge86_Node000047_Node000048" title=" " alt="" coords="744,1845,839,1824,841,1829,745,1850"/>
-<area shape="rect" id="Node000049" href="$structFLootLockerInstanceProgressionWithRewardsResponse.html" title=" " alt="" coords="817,1851,1047,1891"/>
-<area shape="poly" id="edge87_Node000047_Node000049" title=" " alt="" coords="767,1868,816,1868,816,1873,767,1873"/>
-<area shape="rect" id="Node000050" href="$structFLootLockerPlayerProgressionWithRewardsResponse.html" title=" " alt="" coords="823,1915,1041,1955"/>
-<area shape="poly" id="edge88_Node000047_Node000050" title=" " alt="" coords="745,1891,841,1912,839,1917,744,1896"/>
-<area shape="rect" id="Node000112" href="$structFLootLockerPaginatedCharacterProgressionResponse.html" title=" " alt="" coords="526,5345,753,5385"/>
-<area shape="poly" id="edge150_Node000111_Node000112" title=" " alt="" coords="450,5404,546,5383,547,5388,451,5409"/>
-<area shape="rect" id="Node000113" href="$structFLootLockerPaginatedInstanceProgressionResponse.html" title=" " alt="" coords="530,5409,749,5449"/>
-<area shape="poly" id="edge151_Node000111_Node000113" title=" " alt="" coords="465,5427,530,5427,530,5432,465,5432"/>
-<area shape="rect" id="Node000114" href="$structFLootLockerPaginatedPlayerProgressionResponse.html" title=" " alt="" coords="537,5473,742,5513"/>
-<area shape="poly" id="edge152_Node000111_Node000114" title=" " alt="" coords="451,5450,547,5471,546,5476,450,5455"/>
+<area shape="rect" id="Node000000" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="5,3606,168,3634"/>
+<area shape="rect" id="Node000001" href="$structFInternalLootLockerListCatalogPricesResponse.html" title="This is what the response looks like, but we want to expose the Mapped variant." alt="" coords="232,5,454,50"/>
+<area shape="poly" id="edge39_Node000000_Node000001" title=" " alt="" coords="85,3590,89,2918,95,2365,106,1756,122,1155,144,628,158,413,174,242,193,122,203,83,214,61,233,45,231,50,218,64,208,85,198,123,180,243,164,414,150,628,127,1155,111,1756,101,2365,95,2918,91,3590"/>
+<area shape="rect" id="Node000002" href="$structFInternalLootLockerListCatalogPricesV2Response.html" title="This is what the response looks like, but we want to expose the Mapped variant." alt="" coords="232,75,454,119"/>
+<area shape="poly" id="edge40_Node000000_Node000002" title=" " alt="" coords="85,3590,90,2932,96,2390,107,1792,123,1203,145,686,159,476,175,308,193,190,203,152,214,130,233,114,231,119,218,133,208,154,198,191,180,308,164,476,151,687,128,1203,112,1792,101,2390,95,2932,91,3591"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerAccountConnectedResponse.html" title="Response returned after connecting a provider to a player account, containing the details of the newl..." alt="" coords="233,144,454,189"/>
+<area shape="poly" id="edge41_Node000000_Node000003" title=" " alt="" coords="85,3591,90,2944,108,1827,124,1250,146,744,160,538,176,373,193,258,203,221,214,199,234,183,231,188,218,203,208,223,198,259,181,374,165,538,152,745,129,1250,113,1827,95,2944,91,3591"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerActivateRentalAssetResponse.html" title=" " alt="" coords="246,213,441,258"/>
+<area shape="poly" id="edge42_Node000000_Node000004" title=" " alt="" coords="85,3590,91,2955,109,1861,125,1296,147,802,161,600,176,439,194,326,203,290,214,269,227,255,246,246,244,250,231,260,218,272,208,292,199,327,182,440,166,600,153,802,130,1296,114,1861,96,2955,91,3590"/>
+<area shape="rect" id="Node000005" href="$structFLootLockerAssetCandidateResponse.html" title=" " alt="" coords="243,283,444,327"/>
+<area shape="poly" id="edge43_Node000000_Node000005" title=" " alt="" coords="85,3590,91,2967,110,1896,126,1343,148,860,162,662,177,505,194,394,203,359,214,338,226,326,244,316,241,321,230,330,218,341,208,361,199,395,182,505,167,663,154,860,131,1344,115,1896,96,2967,91,3590"/>
+<area shape="rect" id="Node000006" href="$structFLootLockerAssetCandidatesResponse.html" title=" " alt="" coords="239,352,448,397"/>
+<area shape="poly" id="edge44_Node000000_Node000006" title=" " alt="" coords="85,3590,91,2978,111,1930,127,1390,149,917,163,724,178,570,194,462,204,428,214,407,240,387,238,392,218,411,209,430,200,464,183,571,168,725,155,917,133,1390,116,1931,97,2978,91,3590"/>
+<area shape="rect" id="Node000007" href="$structFLootLockerAssetInstanceStorageItemResponse.html" title=" " alt="" coords="248,421,438,466"/>
+<area shape="poly" id="edge45_Node000000_Node000007" title=" " alt="" coords="85,3590,92,2991,112,1966,128,1437,150,975,163,786,178,636,195,531,204,497,214,477,229,463,249,453,246,457,232,467,218,480,209,499,200,532,184,637,169,787,156,975,134,1438,117,1966,97,2991,91,3590"/>
+<area shape="rect" id="Node000008" href="$structFLootLockerAssetInstanceStorageItemsResponse.html" title=" " alt="" coords="248,491,438,535"/>
+<area shape="poly" id="edge46_Node000000_Node000008" title=" " alt="" coords="85,3590,92,3002,113,2000,129,1484,151,1032,164,848,179,701,195,599,204,566,214,546,229,532,249,522,246,527,232,536,218,549,209,568,200,600,184,702,170,849,157,1033,135,1484,118,2000,98,3002,91,3590"/>
+<area shape="rect" id="Node000009" href="$structFLootLockerAsyncPurchaseInitiatedResponse.html" title="Response from initiating an async purchase." alt="" coords="245,560,442,605"/>
+<area shape="poly" id="edge47_Node000000_Node000009" title=" " alt="" coords="85,3590,93,3015,114,2036,130,1531,152,1090,165,911,180,767,196,667,204,635,214,615,227,602,246,593,243,597,230,607,218,619,209,636,201,668,185,768,170,911,158,1091,136,1532,119,2036,98,3015,91,3590"/>
+<area shape="rect" id="Node000010" href="$structFLootLockerAsyncPurchaseStatusResponse.html" title="Response from polling the status of an async purchase." alt="" coords="245,629,442,674"/>
+<area shape="poly" id="edge48_Node000000_Node000010" title=" " alt="" coords="85,3590,93,3027,115,2071,131,1579,153,1148,166,973,180,833,196,735,204,703,214,685,227,672,246,662,243,667,230,676,218,688,209,705,201,736,186,834,171,973,159,1149,137,1579,120,2071,99,3027,91,3590"/>
+<area shape="rect" id="Node000011" href="$structFLootLockerAuthResponse.html" title=" " alt="" coords="247,698,440,726"/>
+<area shape="poly" id="edge49_Node000000_Node000011" title=" " alt="" coords="85,3590,93,3036,114,2096,131,1613,152,1191,165,1019,180,881,196,785,204,755,214,737,228,724,248,715,245,720,231,728,218,740,209,757,201,787,185,882,171,1019,158,1191,136,1613,119,2096,98,3036,91,3590"/>
+<area shape="rect" id="Node000024" href="$structFLootLockerBalanceResponse.html" title=" " alt="" coords="236,750,450,778"/>
+<area shape="poly" id="edge62_Node000000_Node000024" title=" " alt="" coords="85,3590,93,3045,115,2123,131,1649,153,1234,166,1065,180,931,196,837,204,806,214,789,237,772,235,777,218,792,209,808,201,838,186,931,171,1066,159,1234,137,1649,120,2123,99,3045,91,3591"/>
+<area shape="rect" id="Node000025" href="$structFLootLockerBanStatusResponse.html" title=" " alt="" coords="229,802,458,830"/>
+<area shape="poly" id="edge63_Node000000_Node000025" title=" " alt="" coords="85,3590,94,3053,115,2147,132,1682,154,1276,166,1110,181,978,196,886,205,857,214,839,230,827,228,832,218,843,209,859,201,887,186,979,172,1111,159,1276,137,1682,120,2148,99,3053,91,3590"/>
+<area shape="rect" id="Node000026" href="$structFLootLockerBeginSteamPurchaseRedemptionResponse.html" title="Response indicating whether the Steam purchase redemption process started successfully,..." alt="" coords="225,853,462,898"/>
+<area shape="poly" id="edge64_Node000000_Node000026" title=" " alt="" coords="86,3590,95,3067,118,2185,135,1731,156,1335,169,1174,182,1045,197,955,205,926,214,909,229,896,227,901,218,912,210,928,202,956,188,1046,174,1174,162,1336,140,1732,123,2185,100,3067,91,3590"/>
+<area shape="rect" id="Node000027" href="$structFLootLockerCharacterLoadoutResponse.html" title=" " alt="" coords="236,923,450,967"/>
+<area shape="poly" id="edge65_Node000000_Node000027" title=" " alt="" coords="86,3590,95,3079,119,2219,136,1778,157,1393,170,1236,183,1111,198,1023,205,995,214,978,237,960,234,965,218,981,210,997,203,1024,188,1111,175,1237,163,1393,141,1779,124,2220,101,3079,91,3590"/>
+<area shape="rect" id="Node000028" href="$structFLootLockerComputeAndLockDropTableResponse.html" title=" " alt="" coords="237,992,450,1037"/>
+<area shape="poly" id="edge66_Node000000_Node000028" title=" " alt="" coords="86,3590,96,3090,120,2254,137,1825,158,1451,171,1298,184,1176,198,1091,205,1064,214,1047,237,1029,235,1034,218,1051,210,1066,203,1092,189,1177,176,1299,164,1451,142,1826,125,2255,101,3091,91,3590"/>
+<area shape="rect" id="Node000029" href="$structFLootLockerConnectionStateResponse.html" title=" " alt="" coords="240,1061,446,1106"/>
+<area shape="poly" id="edge67_Node000000_Node000029" title=" " alt="" coords="86,3591,96,3104,121,2290,138,1873,159,1509,184,1242,198,1159,206,1133,214,1117,241,1097,238,1101,218,1120,211,1135,203,1160,190,1243,165,1509,144,1873,126,2291,102,3104,91,3591"/>
+<area shape="rect" id="Node000030" href="$structFLootLockerConsumePlayerInventoryItemResponse.html" title="Response for consuming one or more of an item." alt="" coords="243,1131,444,1175"/>
+<area shape="poly" id="edge68_Node000000_Node000030" title=" " alt="" coords="86,3590,97,3115,122,2325,139,1920,160,1566,185,1308,199,1227,214,1186,243,1165,241,1169,218,1189,204,1229,190,1308,166,1567,145,1920,127,2325,102,3115,91,3590"/>
+<area shape="rect" id="Node000031" href="$structFLootLockerCreateAssetCandidateResponse.html" title=" " alt="" coords="221,1200,466,1245"/>
+<area shape="poly" id="edge69_Node000000_Node000031" title=" " alt="" coords="86,3590,97,3127,123,2360,140,1967,161,1624,186,1373,199,1295,213,1256,229,1243,227,1248,218,1258,204,1297,191,1374,167,1625,146,1967,128,2360,103,3127,91,3590"/>
+<area shape="rect" id="Node000032" href="$structFLootLockerCreateStripeCheckoutSessionResponse.html" title="Response from creating a Stripe Checkout session." alt="" coords="223,1269,464,1314"/>
+<area shape="poly" id="edge70_Node000000_Node000032" title=" " alt="" coords="86,3590,98,3140,124,2395,142,2014,162,1682,186,1439,199,1363,213,1325,229,1312,227,1317,218,1328,205,1365,192,1440,168,1683,147,2015,129,2395,103,3140,91,3590"/>
+<area shape="rect" id="Node000033" href="$structFLootLockerCreateWalletResponse.html" title="Response containing the unique identifier of the newly created wallet." alt="" coords="220,1338,466,1366"/>
+<area shape="poly" id="edge71_Node000000_Node000033" title=" " alt="" coords="86,3590,98,3148,123,2420,141,2049,162,1725,186,1488,199,1414,213,1377,231,1364,228,1369,218,1380,204,1416,191,1488,167,1725,146,2049,129,2421,103,3148,91,3590"/>
+<area shape="rect" id="Node000034" href="$structFLootLockerCreditWalletResponse.html" title="Response containing the resulting balance entry after crediting currency to a wallet." alt="" coords="222,1390,464,1418"/>
+<area shape="poly" id="edge72_Node000000_Node000034" title=" " alt="" coords="86,3590,98,3158,124,2447,142,2085,163,1768,187,1537,200,1465,213,1429,231,1416,228,1421,218,1432,205,1467,192,1538,168,1769,147,2085,129,2448,103,3158,91,3591"/>
+<area shape="rect" id="Node000035" href="$structFLootLockerDebitWalletResponse.html" title="Response containing the resulting balance entry after debiting currency from a wallet." alt="" coords="224,1442,462,1470"/>
+<area shape="poly" id="edge73_Node000000_Node000035" title=" " alt="" coords="86,3590,98,3167,125,2473,143,2119,163,1810,187,1585,200,1515,213,1479,229,1468,227,1472,218,1483,205,1516,192,1586,169,1811,148,2119,130,2473,104,3167,91,3590"/>
+<area shape="rect" id="Node000036" href="$structFLootLockerDeleteAssetInstanceResponse.html" title=" " alt="" coords="227,1493,460,1538"/>
+<area shape="poly" id="edge74_Node000000_Node000036" title=" " alt="" coords="85,3590,85,3194,89,2883,98,2543,113,2205,136,1905,151,1779,169,1675,190,1597,201,1569,214,1549,229,1536,227,1541,218,1552,206,1571,195,1599,174,1676,156,1780,141,1906,118,2206,103,2543,95,2883,91,3194,90,3590"/>
+<area shape="rect" id="Node000037" href="$structFLootLockerDlcResponse.html" title=" " alt="" coords="252,1562,435,1590"/>
+<area shape="poly" id="edge75_Node000000_Node000037" title=" " alt="" coords="85,3590,85,3201,89,2897,97,2565,112,2236,135,1944,150,1822,168,1721,189,1646,201,1619,214,1599,231,1585,253,1577,250,1581,233,1590,218,1603,206,1621,194,1647,173,1722,156,1823,140,1945,117,2237,102,2565,94,2897,90,3201,90,3590"/>
+<area shape="rect" id="Node000038" href="$structFLootLockerEntitlementHistoryResponse.html" title="Response containing a paginated list of entitlement history entries for the player." alt="" coords="232,1613,454,1658"/>
+<area shape="poly" id="edge76_Node000000_Node000038" title=" " alt="" coords="85,3590,87,3214,92,2921,101,2601,117,2284,139,2003,154,1885,171,1787,191,1714,202,1688,214,1669,233,1653,231,1658,218,1672,207,1690,196,1716,176,1788,159,1886,145,2003,122,2285,107,2601,97,2921,92,3214,90,3590"/>
+<area shape="rect" id="Node000039" href="$structFLootLockerFeedbackCategoryResponse.html" title=" " alt="" coords="233,1683,454,1727"/>
+<area shape="poly" id="edge77_Node000000_Node000039" title=" " alt="" coords="85,3590,88,3226,93,2944,103,2635,119,2331,141,2060,156,1946,172,1852,192,1782,214,1738,234,1722,232,1727,218,1741,197,1784,178,1853,161,1947,147,2060,124,2331,109,2635,99,2944,93,3226,90,3590"/>
+<area shape="rect" id="Node000040" href="$structFLootLockerFileListResponse.html" title=" " alt="" coords="239,1751,448,1779"/>
+<area shape="poly" id="edge78_Node000000_Node000040" title=" " alt="" coords="85,3590,88,3235,93,2960,103,2660,118,2364,141,2101,155,1991,172,1900,191,1832,202,1807,214,1790,240,1772,238,1777,218,1793,207,1810,196,1834,177,1901,161,1992,146,2101,124,2364,108,2660,98,2961,93,3235,90,3591"/>
+<area shape="rect" id="Node000041" href="$structFLootLockerFollowActionResponse.html" title="Response struct for follow/unfollow actions." alt="" coords="221,1803,466,1831"/>
+<area shape="poly" id="edge79_Node000000_Node000041" title=" " alt="" coords="85,3590,89,3244,94,2977,104,2686,120,2398,143,2143,157,2037,173,1948,192,1882,214,1842,231,1829,229,1834,218,1845,197,1884,178,1950,162,2037,148,2144,125,2399,110,2686,100,2977,94,3244,91,3590"/>
+<area shape="rect" id="Node000042" href="$structFLootLockerFriendActionResponse.html" title=" " alt="" coords="222,1855,465,1883"/>
+<area shape="poly" id="edge80_Node000000_Node000042" title=" " alt="" coords="85,3590,89,3253,95,2994,106,2712,122,2433,144,2186,158,2083,174,1997,193,1933,214,1894,231,1881,229,1886,218,1897,198,1935,179,1998,163,2083,149,2187,127,2434,111,2712,101,2994,95,3253,91,3591"/>
+<area shape="rect" id="Node000043" href="$structFLootLockerGameHeroListResponse.html" title=" " alt="" coords="216,1907,471,1935"/>
+<area shape="poly" id="edge81_Node000000_Node000043" title=" " alt="" coords="85,3591,90,3263,97,3012,107,2738,123,2468,146,2229,159,2129,175,2046,193,1984,214,1946,231,1933,229,1938,218,1949,198,1986,180,2047,165,2129,151,2229,129,2469,113,2738,102,3012,95,3263,91,3591"/>
+<area shape="rect" id="Node000044" href="$structFLootLockerGameInfoResponse.html" title=" " alt="" coords="230,1959,456,1987"/>
+<area shape="poly" id="edge82_Node000000_Node000044" title=" " alt="" coords="85,3590,91,3271,109,2762,125,2501,147,2270,161,2173,176,2093,194,2033,214,1997,231,1984,229,1989,218,2000,199,2035,181,2094,166,2174,152,2270,130,2502,114,2762,96,3271,91,3590"/>
+<area shape="rect" id="Node000045" href="$structFLootLockerGenericProgressionResponse.html" title=" " alt="" coords="231,2011,456,2055"/>
+<area shape="poly" id="edge83_Node000000_Node000045" title=" " alt="" coords="86,3590,93,3284,113,2798,129,2549,151,2328,164,2236,179,2159,195,2102,214,2066,231,2052,229,2057,218,2069,200,2104,184,2160,169,2236,156,2329,134,2550,118,2799,98,3284,91,3590"/>
+<area shape="rect" id="Node000053" href="$structFLootLockerGetAllMemberRanksResponse.html" title=" " alt="" coords="227,2080,460,2125"/>
+<area shape="poly" id="edge91_Node000000_Node000053" title=" " alt="" coords="86,3590,94,3296,115,2833,131,2595,153,2385,166,2297,180,2224,196,2169,214,2135,230,2123,227,2127,218,2139,201,2171,185,2225,171,2298,158,2386,137,2596,120,2833,99,3296,91,3591"/>
+<area shape="rect" id="Node000054" href="$structFLootLockerGetAssetBonesResponse.html" title=" " alt="" coords="244,2149,442,2194"/>
+<area shape="poly" id="edge92_Node000000_Node000054" title=" " alt="" coords="86,3591,95,3309,117,2868,134,2642,155,2442,181,2289,197,2237,214,2205,227,2192,245,2183,242,2188,230,2196,218,2208,202,2239,187,2290,160,2443,139,2642,122,2868,100,3309,91,3591"/>
+<area shape="rect" id="Node000055" href="$structFLootLockerGetAssetsResponse.html" title=" " alt="" coords="229,2218,458,2246"/>
+<area shape="poly" id="edge93_Node000000_Node000055" title=" " alt="" coords="86,3590,95,3316,117,2890,133,2673,155,2481,181,2335,197,2286,214,2255,230,2243,228,2248,218,2259,202,2288,186,2337,160,2482,139,2674,122,2891,100,3316,91,3590"/>
+<area shape="rect" id="Node000056" href="$structFLootLockerGetByListOfMembersResponse.html" title=" " alt="" coords="224,2269,462,2314"/>
+<area shape="poly" id="edge94_Node000000_Node000056" title=" " alt="" coords="86,3590,97,3330,120,2927,137,2722,158,2540,184,2401,198,2354,214,2325,230,2312,227,2317,218,2328,203,2356,189,2402,164,2541,143,2722,126,2927,102,3330,91,3590"/>
+<area shape="rect" id="Node000057" href="$structFLootLockerGetContextResponse.html" title=" " alt="" coords="225,2338,462,2366"/>
+<area shape="poly" id="edge95_Node000000_Node000057" title=" " alt="" coords="86,3590,97,3338,120,2951,137,2754,158,2580,184,2448,198,2403,214,2375,230,2363,228,2368,218,2379,203,2405,189,2449,164,2581,143,2755,126,2952,102,3338,91,3590"/>
+<area shape="rect" id="Node000058" href="$structFLootLockerGetCurrencyDetailsResponse.html" title="Response with details about a particular currency." alt="" coords="230,2389,456,2434"/>
+<area shape="poly" id="edge96_Node000000_Node000058" title=" " alt="" coords="86,3590,99,3351,124,2987,141,2802,162,2638,186,2514,199,2471,214,2445,231,2431,229,2436,218,2448,204,2473,191,2515,167,2639,147,2803,129,2988,104,3352,92,3591"/>
+<area shape="rect" id="Node000059" href="$structFLootLockerGetCurrentPlayerInfoResponse.html" title=" " alt="" coords="238,2459,449,2503"/>
+<area shape="poly" id="edge97_Node000000_Node000059" title=" " alt="" coords="87,3590,100,3363,126,3022,144,2848,164,2695,187,2578,200,2539,214,2514,238,2496,236,2501,218,2517,205,2541,192,2580,169,2696,149,2849,131,3022,105,3364,92,3590"/>
+<area shape="rect" id="Node000060" href="$structFLootLockerGetFavouriteAssetIndicesResponse.html" title=" " alt="" coords="234,2528,452,2573"/>
+<area shape="poly" id="edge98_Node000000_Node000060" title=" " alt="" coords="87,3590,101,3377,128,3057,146,2895,166,2752,189,2643,201,2606,214,2583,235,2567,233,2572,218,2587,206,2609,194,2645,171,2753,151,2896,133,3057,106,3377,92,3591"/>
+<area shape="rect" id="Node000061" href="$structFLootLockerGetFriendResponse.html" title="Response struct for getting a single friend." alt="" coords="231,2596,456,2624"/>
+<area shape="poly" id="edge99_Node000000_Node000061" title=" " alt="" coords="85,3590,85,3399,89,3261,98,3112,114,2962,137,2825,152,2765,170,2712,190,2668,214,2635,232,2622,229,2627,218,2639,195,2671,174,2714,157,2766,142,2826,119,2963,104,3112,95,3262,90,3399,90,3590"/>
+<area shape="rect" id="Node000062" href="$structFLootLockerGetMapsResponse.html" title=" " alt="" coords="233,2648,454,2676"/>
+<area shape="poly" id="edge100_Node000000_Node000062" title=" " alt="" coords="85,3590,87,3408,92,3277,101,3136,117,2994,139,2865,154,2808,171,2758,191,2717,214,2686,234,2672,232,2677,218,2690,196,2720,176,2760,159,2809,145,2866,122,2995,106,3136,97,3277,92,3408,90,3590"/>
+<area shape="rect" id="Node000063" href="$structFLootLockerGetMemberRankResponse.html" title=" " alt="" coords="239,2700,448,2745"/>
+<area shape="poly" id="edge101_Node000000_Node000063" title=" " alt="" coords="85,3590,90,3420,97,3300,107,3170,123,3040,146,2921,175,2823,193,2785,214,2755,239,2737,237,2742,218,2759,198,2787,180,2825,151,2922,129,3041,113,3170,102,3300,95,3420,91,3590"/>
+<area shape="rect" id="Node000064" href="$structFLootLockerGetMetadataResponse.html" title="Response containing the single requested metadata entry." alt="" coords="220,2768,467,2796"/>
+<area shape="poly" id="edge102_Node000000_Node000064" title=" " alt="" coords="85,3590,91,3428,98,3315,109,3192,125,3071,147,2959,176,2868,194,2833,214,2806,230,2794,228,2799,218,2810,198,2835,181,2870,152,2961,130,3071,114,3193,103,3315,96,3428,91,3590"/>
+<area shape="rect" id="Node000065" href="$structFLootLockerGetMultisourceMetadataResponse.html" title="Response containing the requested metadata entries grouped by their source from a multisource get ope..." alt="" coords="244,2820,442,2865"/>
+<area shape="poly" id="edge103_Node000000_Node000065" title=" " alt="" coords="86,3590,94,3442,115,3227,131,3117,153,3016,180,2933,196,2900,214,2875,245,2855,242,2859,218,2879,200,2903,185,2935,158,3017,136,3118,120,3228,100,3442,91,3591"/>
+<area shape="rect" id="Node000066" href="$structFLootLockerGetPlayerInventoryItemResponse.html" title="Response for getting a single player inventory item." alt="" coords="231,2889,456,2934"/>
+<area shape="poly" id="edge104_Node000000_Node000066" title=" " alt="" coords="87,3590,97,3454,119,3261,136,3161,157,3071,182,2996,197,2967,214,2945,231,2932,229,2936,218,2948,202,2970,187,2998,162,3072,141,3162,124,3261,102,3455,92,3591"/>
+<area shape="rect" id="Node000067" href="$structFLootLockerGetScoreListResponse.html" title=" " alt="" coords="221,2958,466,2986"/>
+<area shape="poly" id="edge105_Node000000_Node000067" title=" " alt="" coords="87,3590,98,3463,121,3285,138,3194,159,3111,184,3043,198,3016,214,2996,233,2983,231,2988,218,3000,203,3019,189,3045,164,3112,143,3195,126,3285,103,3464,92,3591"/>
+<area shape="rect" id="Node000068" href="$structFLootLockerGetWalletResponse.html" title="Response containing a wallet&#39;s holder identifier, holder type, and active balance modifiers." alt="" coords="230,3010,456,3038"/>
+<area shape="poly" id="edge106_Node000000_Node000068" title=" " alt="" coords="88,3590,100,3472,125,3309,141,3227,162,3152,186,3090,199,3066,214,3048,233,3036,231,3040,218,3052,204,3069,191,3093,167,3153,147,3228,130,3310,106,3472,93,3590"/>
+<area shape="rect" id="Node000069" href="$structFLootLockerGrantAssetResponse.html" title=" " alt="" coords="226,3062,460,3090"/>
+<area shape="poly" id="edge107_Node000000_Node000069" title=" " alt="" coords="88,3591,102,3482,128,3335,145,3261,165,3193,188,3138,214,3100,234,3088,231,3092,218,3104,192,3140,170,3195,150,3262,133,3336,108,3483,94,3591"/>
+<area shape="rect" id="Node000070" href="$structFLootLockerHeroListResponse.html" title=" " alt="" coords="235,3114,452,3142"/>
+<area shape="poly" id="edge108_Node000000_Node000070" title=" " alt="" coords="89,3591,105,3492,132,3361,149,3294,168,3235,190,3186,214,3152,236,3139,234,3143,218,3156,194,3188,173,3236,154,3296,137,3362,110,3493,94,3591"/>
+<area shape="rect" id="Node000071" href="$structFLootLockerHeroLoadoutResponse.html" title=" " alt="" coords="221,3166,466,3194"/>
+<area shape="poly" id="edge109_Node000000_Node000071" title=" " alt="" coords="85,3590,89,3513,96,3463,106,3408,123,3353,145,3298,175,3248,214,3204,235,3192,232,3196,217,3208,180,3251,150,3301,128,3355,112,3410,101,3463,94,3513,90,3590"/>
+<area shape="rect" id="Node000072" href="$structFLootLockerHeroResponse.html" title=" " alt="" coords="247,3218,440,3246"/>
+<area shape="poly" id="edge110_Node000000_Node000072" title=" " alt="" coords="86,3590,93,3521,113,3430,129,3382,151,3335,179,3292,214,3255,248,3237,245,3242,217,3259,183,3296,156,3338,134,3384,118,3431,99,3522,92,3590"/>
+<area shape="rect" id="Node000073" href="$structFLootLockerInternalListBroadcastsResponse.html" title="Internal response structure as received from API." alt="" coords="221,3269,466,3314"/>
+<area shape="poly" id="edge111_Node000000_Node000073" title=" " alt="" coords="89,3590,101,3534,124,3462,141,3425,161,3388,185,3354,214,3324,234,3312,231,3317,217,3328,189,3357,165,3391,145,3427,129,3464,107,3535,95,3591"/>
+<area shape="rect" id="Node000074" href="$structFLootLockerInventoryResponse.html" title=" " alt="" coords="231,3338,456,3366"/>
+<area shape="poly" id="edge112_Node000000_Node000074" title=" " alt="" coords="92,3590,106,3542,130,3484,166,3424,188,3398,214,3375,236,3364,233,3368,217,3379,192,3402,170,3428,135,3486,111,3544,97,3591"/>
+<area shape="rect" id="Node000075" href="$structFLootLockerInvokeTriggersByKeyResponse.html" title="The result of the invoked triggers." alt="" coords="247,3389,440,3434"/>
+<area shape="poly" id="edge113_Node000000_Node000075" title=" " alt="" coords="98,3591,117,3557,143,3517,175,3478,214,3444,248,3428,245,3433,217,3449,179,3481,147,3520,122,3560,103,3593"/>
+<area shape="rect" id="Node000076" href="$structFLootLockerLeaderboardArchiveDetailsResponse.html" title=" " alt="" coords="229,3459,458,3503"/>
+<area shape="poly" id="edge114_Node000000_Node000076" title=" " alt="" coords="110,3594,156,3552,214,3513,245,3502,242,3506,217,3518,159,3556,114,3596"/>
+<area shape="rect" id="Node000077" href="$structFLootLockerLeaderboardArchiveResponse.html" title=" " alt="" coords="229,3528,458,3573"/>
+<area shape="poly" id="edge115_Node000000_Node000077" title=" " alt="" coords="153,3600,260,3571,256,3575,157,3603"/>
+<area shape="rect" id="Node000078" href="$structFLootLockerLeaderboardDetailsResponse.html" title=" " alt="" coords="230,3597,456,3642"/>
+<area shape="poly" id="edge116_Node000000_Node000078" title=" " alt="" coords="181,3618,232,3618,228,3622,185,3622"/>
+<area shape="rect" id="Node000079" href="$structFLootLockerLeaseRemoteSessionResponse.html" title="Response containing the lease codes, redirect URLs, current lease status, and intent returned when st..." alt="" coords="224,3667,462,3711"/>
+<area shape="poly" id="edge117_Node000000_Node000079" title=" " alt="" coords="153,3636,260,3664,256,3668,156,3640"/>
+<area shape="rect" id="Node000080" href="$structFLootLockerListBalancesForWalletResponse.html" title="Response containing the list of currency balances held in a specific wallet." alt="" coords="243,3736,444,3781"/>
+<area shape="poly" id="edge118_Node000000_Node000080" title=" " alt="" coords="111,3642,159,3683,217,3721,245,3734,241,3737,214,3726,156,3687,113,3647"/>
+<area shape="rect" id="Node000081" href="$structFLootLockerListBlockedPlayersResponse.html" title=" " alt="" coords="233,3805,454,3850"/>
+<area shape="poly" id="edge119_Node000000_Node000081" title=" " alt="" coords="100,3645,122,3680,147,3719,179,3758,217,3791,239,3804,234,3806,214,3795,175,3762,143,3722,117,3683,101,3650"/>
+<area shape="rect" id="Node000082" href="$structFLootLockerListBroadcastsResponse.html" title="Response for listing broadcasts." alt="" coords="246,3875,440,3919"/>
+<area shape="poly" id="edge120_Node000000_Node000082" title=" " alt="" coords="94,3645,112,3694,136,3752,171,3811,193,3837,217,3860,248,3879,244,3881,214,3864,189,3841,167,3814,132,3754,107,3696,95,3651"/>
+<area shape="rect" id="Node000083" href="$structFLootLockerListCatalogItemsByIdResponse.html" title="Response for the ListCatalogItemsById endpoint." alt="" coords="239,3944,448,3989"/>
+<area shape="poly" id="edge121_Node000000_Node000083" title=" " alt="" coords="91,3646,105,3708,127,3784,143,3824,163,3863,188,3898,217,3930,241,3946,236,3948,214,3934,184,3902,159,3865,138,3826,122,3786,100,3709,91,3652"/>
+<area shape="rect" id="Node000084" href="$structFLootLockerListCatalogPricesResponse.html" title="Response containing catalog entries with entity&#45;typed lookup maps for asset, progression,..." alt="" coords="238,4013,449,4058"/>
+<area shape="poly" id="edge122_Node000000_Node000084" title=" " alt="" coords="89,3646,98,3720,118,3815,134,3865,155,3914,183,3959,217,3999,240,4015,235,4017,214,4003,179,3962,151,3916,129,3867,112,3816,93,3721,89,3652"/>
+<area shape="rect" id="Node000085" href="$structFLootLockerListCatalogPricesV2Response.html" title="Response containing catalog entries with entity&#45;typed lookup maps for asset, progression,..." alt="" coords="238,4083,449,4127"/>
+<area shape="poly" id="edge123_Node000000_Node000085" title=" " alt="" coords="87,3646,93,3732,98,3786,109,3844,125,3905,147,3964,178,4020,217,4068,240,4085,235,4087,214,4072,173,4023,142,3967,119,3907,103,3846,93,3786,87,3732,87,3652"/>
+<area shape="rect" id="Node000086" href="$structFLootLockerListCatalogsResponse.html" title="N/A." alt="" coords="222,4151,464,4179"/>
+<area shape="poly" id="edge124_Node000000_Node000086" title=" " alt="" coords="91,3646,108,3757,133,3905,150,3979,170,4047,192,4101,218,4138,233,4150,228,4152,214,4142,188,4104,165,4048,145,3981,128,3906,102,3758,91,3651"/>
+<area shape="rect" id="Node000087" href="$structFLootLockerListCharacterTypesResponse.html" title=" " alt="" coords="251,4203,436,4247"/>
+<area shape="poly" id="edge125_Node000000_Node000087" title=" " alt="" coords="90,3647,106,3767,131,3929,148,4011,168,4086,191,4147,218,4189,233,4201,253,4211,248,4214,230,4206,214,4192,186,4150,163,4088,143,4012,126,3930,101,3767,91,3652"/>
+<area shape="rect" id="Node000088" href="$structFLootLockerListConnectedAccountsResponse.html" title="Response containing the list of account providers currently connected to the player&#39;s LootLocker acco..." alt="" coords="248,4272,439,4317"/>
+<area shape="poly" id="edge126_Node000000_Node000088" title=" " alt="" coords="90,3646,103,3779,126,3962,143,4056,164,4141,189,4211,203,4238,218,4258,232,4270,249,4280,245,4282,229,4274,214,4261,198,4240,184,4213,159,4143,138,4057,121,3963,98,3780,90,3652"/>
+<area shape="rect" id="Node000089" href="$structFLootLockerListCurrenciesResponse.html" title="Response containing the list of all currencies available in the game." alt="" coords="248,4341,439,4386"/>
+<area shape="poly" id="edge127_Node000000_Node000089" title=" " alt="" coords="89,3646,101,3792,122,3996,139,4100,160,4196,186,4274,201,4304,218,4327,232,4339,250,4349,245,4352,229,4344,214,4331,197,4307,181,4276,155,4197,133,4101,117,3996,95,3792,89,3652"/>
+<area shape="rect" id="Node000090" href="$structFLootLockerListDenominationsResponse.html" title="Response containing the list of denominations defined for a specific currency." alt="" coords="233,4411,454,4455"/>
+<area shape="poly" id="edge128_Node000000_Node000090" title=" " alt="" coords="89,3646,98,3804,118,4029,134,4145,156,4251,183,4338,200,4371,218,4397,235,4411,230,4413,214,4400,195,4374,179,4340,151,4252,129,4146,112,4029,93,3804,89,3652"/>
+<area shape="rect" id="Node000091" href="$structFLootLockerListFollowersResponse.html" title="Response struct for listing followers or following players." alt="" coords="251,4480,436,4525"/>
+<area shape="poly" id="edge129_Node000000_Node000091" title=" " alt="" coords="88,3646,96,3816,103,3934,114,4062,130,4189,152,4305,181,4401,198,4438,218,4466,233,4479,253,4490,249,4493,230,4484,214,4469,194,4441,176,4403,147,4307,124,4190,108,4062,97,3935,91,3816,88,3652"/>
+<area shape="rect" id="Node000092" href="$structFLootLockerListFriendsResponse.html" title="Response struct for listing friends." alt="" coords="227,4548,460,4576"/>
+<area shape="poly" id="edge130_Node000000_Node000092" title=" " alt="" coords="88,3647,92,3830,98,3958,107,4097,123,4235,146,4362,160,4417,177,4466,196,4505,218,4535,231,4547,227,4549,214,4539,191,4508,172,4468,155,4419,140,4363,118,4236,102,4097,92,3958,87,3830,88,3652"/>
+<area shape="rect" id="Node000093" href="$structFLootLockerListIncomingFriendRequestsResponse.html" title="Response struct for listing incoming friend requests." alt="" coords="232,4600,454,4645"/>
+<area shape="poly" id="edge131_Node000000_Node000093" title=" " alt="" coords="88,3646,92,3837,97,3972,106,4119,122,4265,145,4400,159,4459,176,4511,196,4554,218,4586,234,4600,229,4602,214,4589,191,4556,171,4513,154,4460,140,4401,117,4266,101,4119,92,3972,87,3837,87,3652"/>
+<area shape="rect" id="Node000094" href="$structFLootLockerListItemTemplatesResponse.html" title="Response for listing item templates." alt="" coords="234,4669,453,4714"/>
+<area shape="poly" id="edge132_Node000000_Node000094" title=" " alt="" coords="89,3646,106,3863,133,4183,151,4345,171,4488,194,4597,206,4633,218,4655,236,4671,231,4673,214,4659,201,4636,189,4598,166,4489,146,4346,128,4184,101,3863,90,3652"/>
+<area shape="rect" id="Node000095" href="$structFLootLockerListLeaderboardsResponse.html" title=" " alt="" coords="238,4739,448,4783"/>
+<area shape="poly" id="edge133_Node000000_Node000095" title=" " alt="" coords="89,3647,105,3876,131,4219,149,4392,169,4546,192,4662,205,4701,218,4725,240,4743,235,4745,214,4728,200,4703,187,4663,164,4546,143,4393,126,4219,100,3877,89,3652"/>
+<area shape="rect" id="Node000096" href="$structFLootLockerListMetadataResponse.html" title="Response containing a paginated page of metadata entries for a given source." alt="" coords="220,4807,467,4835"/>
+<area shape="poly" id="edge134_Node000000_Node000096" title=" " alt="" coords="89,3646,103,3889,128,4254,145,4440,166,4604,190,4728,204,4769,218,4794,231,4806,226,4808,214,4797,199,4771,185,4729,160,4604,140,4440,122,4255,98,3889,89,3652"/>
+<area shape="rect" id="Node000097" href="$structFLootLockerListNotificationsResponse.html" title="Response containing a paginated list of notifications for the player, with a lookup helper for findin..." alt="" coords="241,4859,446,4903"/>
+<area shape="poly" id="edge135_Node000000_Node000097" title=" " alt="" coords="89,3646,103,3898,128,4279,145,4473,166,4644,190,4774,204,4818,218,4845,243,4865,238,4867,214,4848,199,4820,185,4776,160,4645,140,4473,122,4279,98,3898,89,3652"/>
+<area shape="rect" id="Node000098" href="$structFLootLockerListOutgoingFriendRequestsResponse.html" title="Response struct for listing outgoing friend requests." alt="" coords="233,4928,454,4973"/>
+<area shape="poly" id="edge136_Node000000_Node000098" title=" " alt="" coords="89,3646,102,3910,125,4313,143,4519,164,4701,189,4839,203,4886,218,4914,235,4929,230,4931,214,4917,198,4888,184,4841,158,4702,137,4519,120,4314,97,3910,89,3652"/>
+<area shape="rect" id="Node000099" href="$structFLootLockerListPlatformKeysResponse.html" title="Response containing the list of platform keys redeemed by the authenticated player." alt="" coords="239,4997,448,5042"/>
+<area shape="poly" id="edge137_Node000000_Node000099" title=" " alt="" coords="89,3647,101,3923,123,4349,140,4566,162,4758,187,4904,202,4954,218,4983,241,5002,236,5004,214,4987,197,4956,182,4906,156,4759,135,4566,118,4349,96,3923,89,3652"/>
+<area shape="rect" id="Node000100" href="$structFLootLockerListPlayerCharactersResponse.html" title=" " alt="" coords="227,5067,460,5111"/>
+<area shape="poly" id="edge138_Node000000_Node000100" title=" " alt="" coords="88,3646,100,3935,121,4383,138,4612,160,4815,186,4969,201,5021,218,5053,231,5065,226,5067,214,5056,196,5023,181,4970,154,4815,133,4612,116,4383,94,3935,88,3652"/>
+<area shape="rect" id="Node000101" href="$structFLootLockerListPlayerInfoResponse.html" title=" " alt="" coords="249,5136,438,5181"/>
+<area shape="poly" id="edge139_Node000000_Node000101" title=" " alt="" coords="88,3646,99,3946,119,4416,136,4657,158,4871,170,4960,185,5034,201,5089,218,5122,232,5135,251,5146,246,5148,229,5139,214,5125,196,5091,180,5035,165,4961,152,4872,131,4658,114,4417,93,3947,88,3651"/>
+<area shape="rect" id="Node000102" href="$structFLootLockerListPlayerInventoryItemsResponse.html" title="Response for listing a player&#39;s inventory items." alt="" coords="231,5205,456,5250"/>
+<area shape="poly" id="edge140_Node000000_Node000102" title=" " alt="" coords="88,3646,98,3959,117,4451,134,4704,156,4928,169,5022,183,5099,200,5157,218,5191,233,5205,228,5207,214,5195,195,5159,178,5100,163,5023,150,4929,128,4704,112,4451,92,3959,88,3651"/>
+<area shape="rect" id="Node000103" href="$structFLootLockerListSimpleAssetsResponse.html" title="Response payload for simple asset listing." alt="" coords="238,5275,448,5319"/>
+<area shape="poly" id="edge141_Node000000_Node000103" title=" " alt="" coords="88,3647,97,3972,115,4486,132,4751,154,4985,167,5083,182,5164,199,5224,218,5261,240,5279,235,5281,214,5264,194,5226,177,5165,162,5084,148,4986,126,4751,110,4487,91,3972,88,3652"/>
+<area shape="rect" id="Node000104" href="$structFLootLockerLootBoxContentResponse.html" title=" " alt="" coords="242,5344,445,5389"/>
+<area shape="poly" id="edge142_Node000000_Node000104" title=" " alt="" coords="88,3646,96,3983,102,4239,113,4519,129,4796,152,5041,165,5144,181,5229,198,5292,218,5330,244,5350,239,5353,214,5333,193,5294,176,5230,160,5145,146,5042,124,4796,108,4520,97,4240,90,3983,88,3651"/>
+<area shape="rect" id="Node000105" href="$structFLootLockerMergeInventoryItemStacksResponse.html" title="Response for merging two item stacks." alt="" coords="242,5413,444,5458"/>
+<area shape="poly" id="edge143_Node000000_Node000105" title=" " alt="" coords="88,3646,95,3996,101,4263,111,4555,127,4843,150,5098,164,5205,180,5294,198,5360,218,5399,244,5420,239,5422,214,5403,193,5361,174,5295,158,5206,144,5099,122,4843,106,4555,96,4263,89,3996,88,3652"/>
+<area shape="rect" id="Node000106" href="$structFLootLockerMessagesResponse.html" title=" " alt="" coords="230,5482,457,5510"/>
+<area shape="poly" id="edge144_Node000000_Node000106" title=" " alt="" coords="88,3646,93,4008,98,4286,107,4590,123,4890,145,5157,160,5268,177,5360,196,5428,207,5452,218,5469,232,5481,227,5483,214,5472,202,5454,191,5430,172,5361,155,5269,140,5157,117,4891,102,4591,92,4287,87,4008,88,3652"/>
+<area shape="rect" id="Node000107" href="$structFLootLockerMultiplePlayersNamesResponse.html" title=" " alt="" coords="243,5533,444,5578"/>
+<area shape="poly" id="edge145_Node000000_Node000107" title=" " alt="" coords="88,3646,93,4016,98,4302,108,4614,123,4922,146,5196,161,5311,177,5406,196,5477,218,5519,245,5541,240,5543,214,5523,191,5478,172,5407,155,5312,141,5197,118,4923,103,4614,93,4302,88,4016,88,3652"/>
+<area shape="rect" id="Node000108" href="$structFLootLockerMultiplePlayersPlatformIdsResponse.html" title=" " alt="" coords="243,5603,444,5647"/>
+<area shape="poly" id="edge146_Node000000_Node000108" title=" " alt="" coords="88,3646,92,4028,97,4324,106,4648,121,4968,144,5253,159,5372,176,5471,196,5544,206,5570,218,5589,245,5610,240,5612,214,5592,202,5573,191,5546,171,5472,154,5373,139,5254,116,4969,101,4648,91,4324,87,4028,88,3652"/>
+<area shape="rect" id="Node000109" href="$structFLootLockerNameResponse.html" title=" " alt="" coords="243,5671,444,5699"/>
+<area shape="poly" id="edge147_Node000000_Node000109" title=" " alt="" coords="88,3646,90,4041,93,4348,102,4684,116,5016,140,5312,155,5435,173,5537,194,5613,205,5639,218,5658,245,5677,240,5680,214,5662,201,5642,189,5614,168,5538,150,5436,134,5312,111,5017,96,4684,88,4348,85,4041,88,3652"/>
+<area shape="rect" id="Node000110" href="$structFLootLockerOpenLootBoxResponse.html" title=" " alt="" coords="219,5723,468,5751"/>
+<area shape="poly" id="edge148_Node000000_Node000110" title=" " alt="" coords="89,3647,104,4065,131,4742,149,5088,170,5389,193,5608,205,5676,218,5709,232,5722,227,5723,213,5712,200,5677,188,5609,164,5389,144,5088,126,4743,99,4065,89,3652"/>
+<area shape="rect" id="Node000111" href="$structFLootLockerPaginatedGenericProgressionResponse.html" title=" " alt="" coords="237,5775,450,5819"/>
+<area shape="poly" id="edge149_Node000000_Node000111" title=" " alt="" coords="88,3646,90,4058,93,4379,101,4732,116,5082,139,5394,155,5524,173,5632,194,5712,205,5741,218,5761,239,5779,234,5781,214,5764,201,5743,189,5714,167,5633,149,5525,134,5394,111,5082,96,4733,88,4379,84,4058,88,3651"/>
+<area shape="rect" id="Node000115" href="$structFLootLockerPaginatedProgressionTiersResponse.html" title=" " alt="" coords="224,5844,463,5889"/>
+<area shape="poly" id="edge153_Node000000_Node000115" title=" " alt="" coords="89,3646,104,4084,130,4802,148,5169,169,5489,192,5722,205,5795,218,5830,230,5843,225,5844,213,5833,200,5796,187,5723,164,5489,143,5169,125,4802,98,4085,89,3651"/>
+<area shape="rect" id="Node000116" href="$structFLootLockerPaginatedProgressionsResponse.html" title=" " alt="" coords="220,5913,466,5958"/>
+<area shape="poly" id="edge154_Node000000_Node000116" title=" " alt="" coords="89,3646,103,4097,129,4838,147,5216,168,5547,192,5788,205,5863,218,5900,230,5912,225,5914,213,5902,199,5864,186,5789,163,5547,142,5216,124,4838,98,4097,88,3652"/>
+<area shape="rect" id="Node000117" href="$structFLootLockerPersistentStorageItemResponse.html" title=" " alt="" coords="236,5983,450,6027"/>
+<area shape="poly" id="edge155_Node000000_Node000117" title=" " alt="" coords="88,3647,103,4111,128,4874,146,5264,167,5605,191,5854,204,5931,218,5969,238,5986,233,5988,213,5972,199,5932,186,5855,162,5605,141,5264,123,4874,97,4111,88,3652"/>
+<area shape="rect" id="Node000118" href="$structFLootLockerPersistentStorageItemsResponse.html" title=" " alt="" coords="236,6052,450,6097"/>
+<area shape="poly" id="edge156_Node000000_Node000118" title=" " alt="" coords="88,3646,102,4122,127,4908,145,5311,166,5662,190,5919,204,5999,218,6038,238,6056,233,6058,213,6041,199,6000,185,5920,161,5663,140,5311,122,4908,97,4122,88,3652"/>
+<area shape="rect" id="Node000119" href="$structFLootLockerPickDropsFromDropTableResponse.html" title=" " alt="" coords="245,6121,442,6166"/>
+<area shape="poly" id="edge157_Node000000_Node000119" title=" " alt="" coords="88,3646,102,4134,126,4943,144,5358,165,5720,190,5985,204,6067,218,6108,230,6119,247,6130,242,6132,227,6124,213,6110,198,6068,184,5986,160,5721,138,5358,121,4943,96,4134,88,3652"/>
+<area shape="rect" id="Node000120" href="$structFLootLockerPlayerAssetNotificationResponse.html" title=" " alt="" coords="218,6191,469,6235"/>
+<area shape="poly" id="edge158_Node000000_Node000120" title=" " alt="" coords="88,3647,101,4147,125,4979,143,5406,164,5778,189,6051,203,6135,210,6162,218,6177,230,6189,225,6191,214,6180,205,6164,198,6136,184,6052,159,5779,137,5406,120,4979,96,4147,88,3652"/>
+<area shape="rect" id="Node000121" href="$structFLootLockerPlayerFileContentResponse.html" title=" " alt="" coords="236,6260,450,6305"/>
+<area shape="poly" id="edge159_Node000000_Node000121" title=" " alt="" coords="88,3646,101,4158,124,5013,142,5452,163,5836,175,5992,188,6116,203,6203,210,6231,218,6246,238,6264,233,6266,214,6249,205,6233,198,6205,183,6117,170,5992,158,5836,136,5453,119,5014,95,4158,88,3652"/>
+<area shape="rect" id="Node000122" href="$structFLootLockerPlayerFileResponse.html" title=" " alt="" coords="230,6328,456,6356"/>
+<area shape="poly" id="edge160_Node000000_Node000122" title=" " alt="" coords="88,3646,99,4171,122,5050,139,5501,160,5895,173,6055,187,6183,202,6272,210,6300,218,6315,232,6328,227,6330,214,6319,205,6302,197,6273,181,6184,168,6056,155,5895,133,5501,116,5050,94,4171,88,3651"/>
+<area shape="rect" id="Node000123" href="$structFLootLockerPlayerFileRevisionsResponse.html" title=" " alt="" coords="230,6380,456,6425"/>
+<area shape="poly" id="edge161_Node000000_Node000123" title=" " alt="" coords="88,3646,100,4179,122,5074,140,5534,161,5936,174,6100,187,6230,202,6321,210,6350,218,6366,232,6380,227,6382,214,6369,205,6352,197,6322,182,6231,168,6100,156,5936,134,5534,117,5074,95,4179,88,3652"/>
+<area shape="rect" id="Node000124" href="$structFLootLockerPlayerHeroResponse.html" title=" " alt="" coords="226,6448,460,6476"/>
+<area shape="poly" id="edge162_Node000000_Node000124" title=" " alt="" coords="88,3646,99,4192,120,5110,137,5582,158,5995,171,6163,185,6297,201,6390,209,6419,218,6435,230,6447,225,6449,214,6439,204,6421,196,6391,180,6297,166,6163,153,5995,131,5583,114,5110,93,4192,88,3651"/>
+<area shape="rect" id="Node000125" href="$structFLootLockerProgressionResponse.html" title="RESPONSE STRUCTS." alt="" coords="224,6500,462,6528"/>
+<area shape="poly" id="edge163_Node000000_Node000125" title=" " alt="" coords="88,3646,98,4201,119,5136,136,5617,158,6037,171,6208,185,6345,201,6440,209,6469,218,6486,232,6499,227,6501,214,6489,204,6471,196,6441,180,6345,166,6209,153,6038,131,5617,114,5136,93,4201,88,3651"/>
+<area shape="rect" id="Node000126" href="$structFLootLockerQuerySteamPurchaseRedemptionStatusResponse.html" title="Response containing the current redemption status of a Steam purchase." alt="" coords="224,6552,463,6597"/>
+<area shape="poly" id="edge164_Node000000_Node000126" title=" " alt="" coords="88,3647,99,4211,120,5162,137,5652,159,6080,172,6254,186,6393,201,6490,209,6521,218,6538,230,6551,225,6552,214,6541,204,6523,196,6491,180,6394,166,6255,153,6080,132,5652,115,5162,93,4211,88,3652"/>
+<area shape="rect" id="Node000127" href="$structFLootLockerReadNotificationsResponse.html" title="Response from marking notifications as read, containing only base response status unless errors occur..." alt="" coords="236,6621,450,6666"/>
+<area shape="poly" id="edge165_Node000000_Node000127" title=" " alt="" coords="88,3646,98,4222,119,5197,136,5698,158,6137,171,6316,185,6459,201,6558,209,6590,218,6607,239,6626,234,6627,214,6611,204,6592,196,6559,180,6459,165,6317,152,6138,131,5699,114,5197,93,4222,88,3652"/>
+<area shape="rect" id="Node000128" href="$structFLootLockerRefundByEntitlementIdsResponse.html" title=" " alt="" coords="224,6691,462,6735"/>
+<area shape="poly" id="edge166_Node000000_Node000128" title=" " alt="" coords="88,3647,98,4235,118,5232,135,5746,157,6195,170,6378,184,6525,200,6627,209,6659,218,6677,230,6689,225,6691,214,6680,204,6660,195,6628,179,6525,164,6379,151,6196,130,5746,113,5232,92,4235,88,3652"/>
+<area shape="rect" id="Node000129" href="$structFLootLockerRemoteSessionStatusPollingResponse.html" title="Response containing the current lease status of a remote session when polled during the authorization..." alt="" coords="243,6760,444,6805"/>
+<area shape="poly" id="edge167_Node000000_Node000129" title=" " alt="" coords="88,3646,97,4246,117,5266,134,5793,156,6253,169,6440,184,6590,200,6695,209,6727,218,6746,230,6758,245,6768,240,6770,226,6762,214,6749,204,6729,195,6696,178,6591,164,6441,150,6253,128,5793,112,5267,92,4246,88,3652"/>
+<area shape="rect" id="Node000130" href="$structFLootLockerSetMetadataResponse.html" title="Response from a set&#45;metadata operation, containing any per&#45;entry errors alongside the source identifi..." alt="" coords="221,6828,466,6856"/>
+<area shape="poly" id="edge168_Node000000_Node000130" title=" " alt="" coords="88,3647,96,4259,114,5303,131,5842,153,6312,166,6504,182,6657,199,6763,208,6797,218,6815,230,6827,225,6829,214,6819,203,6799,194,6764,176,6658,161,6505,147,6313,125,5842,109,5304,91,4259,88,3652"/>
+<area shape="rect" id="Node000131" href="$structFLootLockerSimpleInventoryResponse.html" title="Response for simplified inventory listing." alt="" coords="240,6880,446,6925"/>
+<area shape="poly" id="edge169_Node000000_Node000131" title=" " alt="" coords="88,3647,97,4267,116,5327,132,5874,154,6353,167,6548,183,6704,199,6812,208,6847,218,6866,242,6886,237,6888,214,6869,203,6849,194,6814,177,6704,162,6549,149,6353,127,5874,110,5327,91,4267,88,3652"/>
+<area shape="rect" id="Node000132" href="$structFLootLockerSingleEntitlementResponse.html" title=" " alt="" coords="236,6949,451,6994"/>
+<area shape="poly" id="edge170_Node000000_Node000132" title=" " alt="" coords="88,3646,96,4278,115,5361,131,5921,153,6410,167,6610,182,6769,199,6881,208,6916,218,6935,238,6953,233,6955,214,6939,203,6917,194,6882,177,6770,161,6611,148,6411,126,5921,109,5362,91,4278,88,3652"/>
+<area shape="rect" id="Node000133" href="$structFLootLockerSplitInventoryItemStackResponse.html" title="Response for splitting an item stack." alt="" coords="248,7019,438,7063"/>
+<area shape="poly" id="edge171_Node000000_Node000133" title=" " alt="" coords="88,3647,96,4292,114,5398,130,5969,152,6469,166,6673,181,6835,199,6949,208,6984,218,7005,232,7018,250,7029,245,7030,229,7022,214,7008,203,6986,193,6950,176,6836,160,6673,147,6469,124,5969,108,5398,90,4292,88,3652"/>
+<area shape="rect" id="Node000134" href="$structFLootLockerSubmitScoreResponse.html" title=" " alt="" coords="221,7087,466,7115"/>
+<area shape="poly" id="edge172_Node000000_Node000134" title=" " alt="" coords="88,3646,94,4303,100,4841,111,5434,126,6017,149,6528,163,6736,179,6902,197,7017,207,7054,218,7074,231,7086,225,7087,214,7077,202,7056,192,7019,174,6903,158,6736,144,6528,121,6017,105,5434,95,4841,89,4303,88,3652"/>
+<area shape="rect" id="Node000135" href="$structFLootLockerTimeResponse.html" title=" " alt="" coords="246,7139,441,7167"/>
+<area shape="poly" id="edge173_Node000000_Node000135" title=" " alt="" coords="88,3646,94,4312,100,4857,110,5459,126,6051,148,6570,163,6781,179,6950,197,7067,207,7104,218,7125,231,7136,248,7146,243,7148,228,7141,214,7128,202,7106,192,7068,173,6950,157,6782,143,6570,121,6051,105,5459,95,4857,89,4312,88,3652"/>
+<area shape="rect" id="Node000136" href="$structFLootLockerUniversalAssetsResponse.html" title=" " alt="" coords="241,7191,446,7235"/>
+<area shape="poly" id="edge174_Node000000_Node000136" title=" " alt="" coords="88,3647,95,4321,101,4874,111,5484,127,6086,150,6612,164,6827,180,6998,198,7118,208,7155,218,7177,243,7198,238,7199,214,7180,203,7157,193,7119,174,6999,158,6827,144,6612,122,6086,106,5485,95,4874,89,4321,88,3652"/>
+<area shape="rect" id="Node000137" href="$structFLootLockerWhiteLabelSignUpFieldsResponse.html" title=" " alt="" coords="243,7260,444,7305"/>
+<area shape="poly" id="edge175_Node000000_Node000137" title=" " alt="" coords="88,3646,94,4332,100,4896,110,5518,126,6132,149,6669,163,6889,179,7064,197,7186,207,7224,218,7246,230,7258,245,7268,240,7269,226,7262,213,7249,202,7226,192,7187,174,7064,157,6889,143,6670,121,6132,105,5518,95,4896,89,4332,88,3652"/>
+<area shape="rect" id="Node000138" href="$structFLootLockerWhiteLabelVerifySessionResponse.html" title=" " alt="" coords="239,7329,448,7374"/>
+<area shape="poly" id="edge176_Node000000_Node000138" title=" " alt="" coords="88,3646,94,4344,99,4919,109,5553,125,6179,148,6727,162,6951,178,7129,197,7254,207,7293,218,7315,241,7336,236,7336,214,7319,202,7295,192,7255,173,7130,156,6951,142,6727,120,6179,104,5553,94,4919,88,4344,88,3652"/>
+<area shape="rect" id="Node000139" href="$structFLootLockerXboxServiceTicketResponse.html" title="Response from a request to get an Xbox service ticket." alt="" coords="234,7399,453,7443"/>
+<area shape="poly" id="edge177_Node000000_Node000139" title=" " alt="" coords="88,3646,93,4356,99,4941,108,5588,124,6226,147,6785,161,7013,178,7195,197,7322,207,7362,218,7385,236,7403,231,7402,214,7388,202,7364,191,7323,172,7195,156,7013,141,6785,119,6226,103,5588,93,4941,88,4356,88,3652"/>
+<area shape="rect" id="Node000012" href="$structFLootLockerAuthenticationResponse.html" title=" " alt="" coords="541,629,735,674"/>
+<area shape="poly" id="edge50_Node000011_Node000012" title=" " alt="" coords="430,693,470,684,542,670,539,674,472,689,434,696"/>
+<area shape="rect" id="Node000022" href="$structFLootLockerLoginResponse.html" title=" " alt="" coords="540,698,737,726"/>
+<area shape="poly" id="edge60_Node000011_Node000022" title=" " alt="" coords="453,710,541,710,537,714,457,714"/>
+<area shape="rect" id="Node000023" href="$structFLootLockerWhiteLabelLoginAndSessionResponse.html" title=" " alt="" coords="534,749,742,794"/>
+<area shape="poly" id="edge61_Node000011_Node000023" title=" " alt="" coords="428,727,536,749,532,752,431,731"/>
+<area shape="rect" id="Node000013" href="$structFLootLockerAppleGameCenterSessionResponse.html" title=" " alt="" coords="821,389,1039,434"/>
+<area shape="poly" id="edge51_Node000012_Node000013" title=" " alt="" coords="656,615,681,575,715,529,756,483,804,444,829,432,826,437,807,449,760,487,719,532,686,578,661,617"/>
+<area shape="rect" id="Node000014" href="$structFLootLockerAppleSessionResponse.html" title=" " alt="" coords="805,458,1055,486"/>
+<area shape="poly" id="edge52_Node000012_Node000014" title=" " alt="" coords="664,616,724,553,762,521,804,495,834,484,830,488,807,499,765,525,727,557,669,619"/>
+<area shape="rect" id="Node000015" href="$structFLootLockerDiscordSessionResponse.html" title=" " alt="" coords="831,509,1029,554"/>
+<area shape="poly" id="edge53_Node000012_Node000015" title=" " alt="" coords="689,620,744,591,804,564,841,552,837,557,806,569,747,596,693,623"/>
+<area shape="rect" id="Node000016" href="$structFLootLockerEpicSessionResponse.html" title=" " alt="" coords="810,578,1050,606"/>
+<area shape="poly" id="edge54_Node000012_Node000016" title=" " alt="" coords="749,627,805,614,860,604,856,608,806,620,752,630"/>
+<area shape="rect" id="Node000017" href="$structFLootLockerGooglePlayGamesSessionResponse.html" title=" " alt="" coords="820,629,1040,674"/>
+<area shape="poly" id="edge55_Node000012_Node000017" title=" " alt="" coords="749,650,822,650,818,653,752,654"/>
+<area shape="rect" id="Node000018" href="$structFLootLockerGoogleSessionResponse.html" title=" " alt="" coords="832,699,1028,743"/>
+<area shape="poly" id="edge56_Node000012_Node000018" title=" " alt="" coords="748,676,835,697,831,700,751,680"/>
+<area shape="rect" id="Node000019" href="$structFLootLockerMetaSessionResponse.html" title=" " alt="" coords="807,767,1053,795"/>
+<area shape="poly" id="edge57_Node000012_Node000019" title=" " alt="" coords="748,678,759,684,775,702,783,720,791,738,807,754,829,765,824,768,804,758,787,741,779,723,771,705,756,688,750,683"/>
+<area shape="rect" id="Node000020" href="$structFLootLockerRefreshRemoteSessionResponse.html" title="Response containing the refreshed authentication data and a new refresh token for an existing remote ..." alt="" coords="830,819,1030,863"/>
+<area shape="poly" id="edge58_Node000012_Node000020" title=" " alt="" coords="748,677,759,684,772,700,779,715,784,746,788,776,795,790,807,804,832,821,827,823,804,808,791,793,783,778,779,747,774,717,768,702,755,688,750,682"/>
+<area shape="rect" id="Node000021" href="$structFLootLockerStartRemoteSessionResponse.html" title="Response returned when remote session polling completes, containing the lease status and,..." alt="" coords="814,888,1046,933"/>
+<area shape="poly" id="edge59_Node000012_Node000021" title=" " alt="" coords="748,676,759,685,777,709,784,733,786,757,784,781,782,805,783,828,791,851,807,874,822,886,817,888,803,877,786,853,778,829,777,805,779,781,780,757,779,734,772,711,755,688,750,681"/>
+<area shape="rect" id="Node000046" href="$structFLootLockerCharacterProgressionResponse.html" title=" " alt="" coords="519,1907,757,1951"/>
+<area shape="poly" id="edge84_Node000045_Node000046" title=" " alt="" coords="454,2003,470,1996,493,1979,518,1961,548,1950,545,1954,520,1966,497,1983,472,2001,459,2006"/>
+<area shape="rect" id="Node000047" href="$structFLootLockerGenericProgressionWithRewardsResponse.html" title=" " alt="" coords="526,1976,751,2021"/>
+<area shape="poly" id="edge85_Node000045_Node000047" title=" " alt="" coords="469,2016,527,2010,523,2014,473,2020"/>
+<area shape="rect" id="Node000051" href="$structFLootLockerInstanceProgressionResponse.html" title=" " alt="" coords="523,2045,753,2090"/>
+<area shape="poly" id="edge89_Node000045_Node000051" title=" " alt="" coords="470,2046,525,2052,521,2056,473,2050"/>
+<area shape="rect" id="Node000052" href="$structFLootLockerPlayerProgressionResponse.html" title=" " alt="" coords="530,2115,746,2159"/>
+<area shape="poly" id="edge90_Node000045_Node000052" title=" " alt="" coords="455,2059,472,2065,497,2083,520,2100,549,2113,545,2115,518,2105,493,2087,470,2070,458,2064"/>
+<area shape="rect" id="Node000048" href="$structFLootLockerCharacterProgressionWithRewardsResponse.html" title=" " alt="" coords="811,1907,1049,1951"/>
+<area shape="poly" id="edge86_Node000047_Node000048" title=" " alt="" coords="748,1970,835,1950,831,1954,752,1974"/>
+<area shape="rect" id="Node000049" href="$structFLootLockerInstanceProgressionWithRewardsResponse.html" title=" " alt="" coords="815,1976,1045,2021"/>
+<area shape="poly" id="edge87_Node000047_Node000049" title=" " alt="" coords="765,1996,816,1997,812,2000,768,2000"/>
+<area shape="rect" id="Node000050" href="$structFLootLockerPlayerProgressionWithRewardsResponse.html" title=" " alt="" coords="822,2045,1038,2090"/>
+<area shape="poly" id="edge88_Node000047_Node000050" title=" " alt="" coords="748,2023,835,2043,831,2046,751,2027"/>
+<area shape="rect" id="Node000112" href="$structFLootLockerPaginatedCharacterProgressionResponse.html" title=" " alt="" coords="525,5705,751,5750"/>
+<area shape="poly" id="edge150_Node000111_Node000112" title=" " alt="" coords="454,5769,542,5749,538,5752,458,5773"/>
+<area shape="rect" id="Node000113" href="$structFLootLockerPaginatedInstanceProgressionResponse.html" title=" " alt="" coords="529,5775,747,5819"/>
+<area shape="poly" id="edge151_Node000111_Node000113" title=" " alt="" coords="464,5795,530,5795,526,5799,467,5799"/>
+<area shape="rect" id="Node000114" href="$structFLootLockerPaginatedPlayerProgressionResponse.html" title=" " alt="" coords="536,5844,740,5889"/>
+<area shape="poly" id="edge152_Node000111_Node000114" title=" " alt="" coords="455,5821,542,5842,538,5845,458,5826"/>
 </map>

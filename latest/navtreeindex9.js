@@ -1,5 +1,6 @@
 var NAVTREEINDEX9 =
 {
+"structFLootLockerGrantAssetResponse.html#a92960d2a400406efdfbc80e37984b738":[1,0,187,1],
 "structFLootLockerGrantAssetResponse.html#a9c6720c63bd37e47233e23e5d64526e2":[1,0,187,2],
 "structFLootLockerGrantAssetResponse.html#a9ea38c025b4b89875688ff85314ee78d":[1,0,187,0],
 "structFLootLockerGrantAssetResponse.html#abd0a5cd0be851ef51cf3eb6a19eb842d":[1,0,187,3],
@@ -248,6 +249,5 @@ var NAVTREEINDEX9 =
 "structFLootLockerLeaderboardDetails.html#a92c29907d1cbdf4c1d689d0bd1f701da":[1,0,233,0],
 "structFLootLockerLeaderboardDetails.html#ab8016b4c4721f11f75b7b848b33a84b5":[1,0,233,4],
 "structFLootLockerLeaderboardDetails.html#ab90a2a1ee3affdb463e81ca5309ed048":[1,0,233,5],
-"structFLootLockerLeaderboardDetails.html#aef64bbdc9fe259d057c06617577bf75f":[1,0,233,2],
-"structFLootLockerLeaderboardDetailsResponse.html":[1,0,234]
+"structFLootLockerLeaderboardDetails.html#aef64bbdc9fe259d057c06617577bf75f":[1,0,233,2]
 };

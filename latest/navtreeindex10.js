@@ -1,5 +1,6 @@
 var NAVTREEINDEX10 =
 {
+"structFLootLockerLeaderboardDetailsResponse.html":[1,0,234],
 "structFLootLockerLeaderboardDetailsResponse.html#a0296f9f9b09f5ca9f7e72278f55cb7b8":[1,0,234,1],
 "structFLootLockerLeaderboardDetailsResponse.html#a25a9939a9b98231291d147c1ef1f9874":[1,0,234,4],
 "structFLootLockerLeaderboardDetailsResponse.html#a49f70a7123c53fee64d33bd0cdfc2f12":[1,0,234,8],
@@ -248,6 +249,5 @@ var NAVTREEINDEX10 =
 "structFLootLockerMapSpawnPoint.html#aa488c9127ac4e725fed5ba88f1e28226":[1,0,288,2],
 "structFLootLockerMember.html":[1,0,289],
 "structFLootLockerMember.html#a02511d64cba7d732d7a66c3591998a78":[1,0,289,0],
-"structFLootLockerMember.html#a1369a16fdbbdcf9e26cf2e48235f8da5":[1,0,289,2],
-"structFLootLockerMember.html#a29288b211e24b8846f0cebdbe16d7375":[1,0,289,3]
+"structFLootLockerMember.html#a1369a16fdbbdcf9e26cf2e48235f8da5":[1,0,289,2]
 };

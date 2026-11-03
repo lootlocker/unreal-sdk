@@ -1,7 +1,7 @@
 <map id="FLootLockerSteamSessionRequest" name="FLootLockerSteamSessionRequest">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,79,251,104"/>
-<area shape="rect" id="Node000003" href="$structFLootLockerSteamSessionWithAppIdRequest.html" title=" " alt="" coords="17,152,239,192"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="131,118,131,152,125,152,125,118"/>
-<area shape="rect" id="Node000002" href="$structFLootLockerBaseAuthRequest.html" title=" " alt="" coords="21,5,235,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="131,44,131,79,125,79,125,44"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,81,250,109"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerSteamSessionWithAppIdRequest.html" title=" " alt="" coords="17,157,238,201"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="129,123,130,157,125,155,126,127"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerBaseAuthRequest.html" title=" " alt="" coords="20,5,235,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="129,46,130,81,125,80,126,51"/>
 </map>

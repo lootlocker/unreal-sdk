@@ -1,5 +1,6 @@
 var NAVTREEINDEX11 =
 {
+"structFLootLockerMember.html#a29288b211e24b8846f0cebdbe16d7375":[1,0,289,3],
 "structFLootLockerMember.html#a8d8f1cb52f6331605284579f29479406":[1,0,289,4],
 "structFLootLockerMember.html#aee3b62ca75459b29d3ad53342b48e715":[1,0,289,1],
 "structFLootLockerMergeInventoryItemStacksRequest.html":[1,0,290],
@@ -248,6 +249,5 @@ var NAVTREEINDEX11 =
 "structFLootLockerPersistentStorageItemsResponse.html#a74919ea114838e69430b9d1812db21c8":[1,0,337,1],
 "structFLootLockerPickDropsFromDropTableItem.html":[1,0,338],
 "structFLootLockerPickDropsFromDropTableItem.html#a0fce97cb6705f021c8ac0b82f3b4bdbd":[1,0,338,1],
-"structFLootLockerPickDropsFromDropTableItem.html#a3bec545edff81a65401371ae0dc700f7":[1,0,338,3],
-"structFLootLockerPickDropsFromDropTableItem.html#aa90f087009d7a2bfb823b04f93b76ee1":[1,0,338,0]
+"structFLootLockerPickDropsFromDropTableItem.html#a3bec545edff81a65401371ae0dc700f7":[1,0,338,3]
 };

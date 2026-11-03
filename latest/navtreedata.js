@@ -50,15 +50,16 @@ var NAVTREEINDEX =
 "group__Init.html#ggab6cbfe9c0c8733469624132e5afda1a5aaca41c16b1e459f6897b49bc9e212d8e",
 "group__PlayerFiles.html#ga0dd3ee1edb8f0b3dba880b0f24ae9b9b",
 "structFLootLockerAsset.html#a3c842c6e44825ae43bc9bf7561fefccb",
-"structFLootLockerCatalogEntryListings.html#a47634d95da251896040f69e6e643b6f0",
-"structFLootLockerEntitlementListing.html#aeb675659c0b4ccbef9906ad588258b35",
-"structFLootLockerGrantAssetResponse.html#a9c6720c63bd37e47233e23e5d64526e2",
-"structFLootLockerLeaderboardDetailsResponse.html#a0296f9f9b09f5ca9f7e72278f55cb7b8",
-"structFLootLockerMember.html#a8d8f1cb52f6331605284579f29479406",
-"structFLootLockerPickDropsFromDropTableItem.html#ab281c8173e638576bb8aa810f997f017",
-"structFLootLockerRefundPlayerInventoryEvent.html#a3108bd9c19dfd65940a80d4f6dcfef34",
-"structFLootLockerWhiteLabelCustomSignUpField.html#aec62cedeba8a11f48a280b0533973cf0"
+"structFLootLockerCatalogEntryListings.html#a36cf1d3b7449b4fcee11a7145c9d3c11",
+"structFLootLockerEntitlementListing.html#ac90aa4e65bbda0d8b45e74ddc4a51e7a",
+"structFLootLockerGrantAssetResponse.html#a92960d2a400406efdfbc80e37984b738",
+"structFLootLockerLeaderboardDetailsResponse.html",
+"structFLootLockerMember.html#a29288b211e24b8846f0cebdbe16d7375",
+"structFLootLockerPickDropsFromDropTableItem.html#aa90f087009d7a2bfb823b04f93b76ee1",
+"structFLootLockerRefundPlayerInventoryEvent.html",
+"structFLootLockerWhiteLabelCustomSignUpField.html#aaa61f55137f6e004b50e3f11226e32db"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronisation';
-var SYNCOFFMSG = 'click to enable panel synchronisation';
+var SYNCONMSG = 'click to disable panel synchronization';
+var SYNCOFFMSG = 'click to enable panel synchronization';
+var LISTOFALLMEMBERS = 'List of all members';

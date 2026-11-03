@@ -1,5 +1,5 @@
 <map id="FLootLockerSetMetadataAction" name="FLootLockerSetMetadataAction">
-<area shape="rect" id="Node000001" title="Describes a single metadata mutation operation (create, update, delete, or upsert) together with the ..." alt="" coords="5,93,229,119"/>
-<area shape="rect" id="Node000002" href="$structFLootLockerMetadataEntry.html" title="Represents a single typed metadata entry with a key, value type, tags, and access level,..." alt="" coords="19,5,215,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,45,120,93,115,93,115,45"/>
+<area shape="rect" id="Node000001" title="Describes a single metadata mutation operation (create, update, delete, or upsert) together with the ..." alt="" coords="5,106,229,134"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerMetadataEntry.html" title="Represents a single typed metadata entry with a key, value type, tags, and access level,..." alt="" coords="19,5,215,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,47,120,106,114,104,115,50"/>
 </map>

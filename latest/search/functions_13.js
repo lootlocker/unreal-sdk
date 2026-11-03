@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['transferidentityprovidersbetweenaccounts_0',['transferidentityprovidersbetweenaccounts',['../group__ConnectedAccounts.html#gaee9e93405649b901e27a170d341a2c81',1,'ULootLockerSDKManager::TransferIdentityProvidersBetweenAccounts()'],['../classULootLockerConnectedAccountsRequestHandler.html#adf02854c1e0d6f9ce4fd90ac9131b45f',1,'ULootLockerConnectedAccountsRequestHandler::TransferIdentityProvidersBetweenAccounts()']]],
+  ['transferidentityprovidersbetweenaccounts_0',['TransferIdentityProvidersBetweenAccounts',['../classULootLockerConnectedAccountsRequestHandler.html#adf02854c1e0d6f9ce4fd90ac9131b45f',1,'ULootLockerConnectedAccountsRequestHandler::TransferIdentityProvidersBetweenAccounts()'],['../group__ConnectedAccounts.html#gaee9e93405649b901e27a170d341a2c81',1,'ULootLockerSDKManager::TransferIdentityProvidersBetweenAccounts()']]],
   ['trygetcontentbodyasbool_1',['TryGetContentBodyAsBool',['../structFLootLockerNotificationContent.html#a2aa4b608e25f27a943836cb5ba6033cc',1,'FLootLockerNotificationContent']]],
   ['trygetcontentbodyasboolarray_2',['TryGetContentBodyAsBoolArray',['../structFLootLockerNotificationContent.html#a65c3c70f2e675a19b840ec4ce3e380e7',1,'FLootLockerNotificationContent']]],
   ['trygetcontentbodyasfloat_3',['TryGetContentBodyAsFloat',['../structFLootLockerNotificationContent.html#af29263dd908200a40bd22a5ed3906044',1,'FLootLockerNotificationContent']]],
@@ -16,7 +16,7 @@ var searchData=
   ['trygetnotificationcontentbodyasustruct_13',['TryGetNotificationContentBodyAsUStruct',['../group__Notifications.html#gadc272dadd75bb97155e613c217f55974',1,'ULootLockerSDKManager']]],
   ['trygetnotificationsbyidentifyingvalue_14',['TryGetNotificationsByIdentifyingValue',['../structFLootLockerListNotificationsResponse.html#a3060d090897b8be4f65e966add9aac6d',1,'FLootLockerListNotificationsResponse']]],
   ['trygetpurchasedata_15',['TryGetPurchaseData',['../structFLootLockerSimpleInventoryItem.html#a1f57091f6e1a129efcc3967f1df0a53a',1,'FLootLockerSimpleInventoryItem']]],
-  ['trygetrawvalue_16',['trygetrawvalue',['../structFLootLockerMetadataEntry.html#a76a47cd312b66900cf7eca7766992739',1,'FLootLockerMetadataEntry::TryGetRawValue()'],['../structFLootLockerNotificationContent.html#ae282e363075a59742450f0a0b8238c7b',1,'FLootLockerNotificationContent::TryGetRawValue()']]],
+  ['trygetrawvalue_16',['TryGetRawValue',['../structFLootLockerMetadataEntry.html#a76a47cd312b66900cf7eca7766992739',1,'FLootLockerMetadataEntry::TryGetRawValue()'],['../structFLootLockerNotificationContent.html#ae282e363075a59742450f0a0b8238c7b',1,'FLootLockerNotificationContent::TryGetRawValue()']]],
   ['trygetserializedvalue_17',['TryGetSerializedValue',['../structFLootLockerMetadataEntry.html#a90eb265b1844188dd18f780106620e38',1,'FLootLockerMetadataEntry']]],
   ['trygetvalueasbase64_18',['TryGetValueAsBase64',['../structFLootLockerMetadataEntry.html#af5b9ec3cc478583aca434200879bc379',1,'FLootLockerMetadataEntry']]],
   ['trygetvalueasbool_19',['TryGetValueAsBool',['../structFLootLockerMetadataEntry.html#a07a3f1f1c38533592933d1b02aa438a9',1,'FLootLockerMetadataEntry']]],
