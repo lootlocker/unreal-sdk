@@ -191,10 +191,11 @@ namespace LootLockerUtilities
         }
 
         // A signed download URL is always accompanied by its expiry, so only redact "url" where
-        // "url_expires_at" is present. This leaves ordinary URLs in other responses intact.
-        FString ExpiresAt;
+        // "url_expires_at" or the player file marker "requires_download_link" is present. This
+        // leaves ordinary URLs in other responses intact.
         FString Url;
-        if (Object->TryGetStringField(TEXT("url_expires_at"), ExpiresAt) && Object->TryGetStringField(TEXT("url"), Url) && !Url.IsEmpty())
+        const bool bCarriesSignedDownloadUrl = Object->HasField(TEXT("url_expires_at")) || Object->HasField(TEXT("requires_download_link"));
+        if (bCarriesSignedDownloadUrl && Object->TryGetStringField(TEXT("url"), Url) && !Url.IsEmpty())
         {
             Object->SetStringField(TEXT("url"), TEXT("[REDACTED]"));
             bRedacted = true;

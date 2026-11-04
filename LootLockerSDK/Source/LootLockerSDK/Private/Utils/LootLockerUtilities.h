@@ -84,10 +84,12 @@ namespace LootLockerUtilities
     /**
      * Redacts signed download URLs from a JSON body before it is logged.
      *
-     * Player file responses carry a short-lived signed URL in "url" next to "url_expires_at".
-     * That URL is a bearer credential: anyone holding it can download the file until it expires,
-     * so it must never reach logs or the log UI. Only objects that carry "url_expires_at" are
-     * redacted, which leaves ordinary (non-signed) URLs in other responses intact.
+     * Player file responses carry a short-lived signed URL in "url". That URL is a bearer
+     * credential: anyone holding it can download the file until it expires, so it must never reach
+     * logs or the log UI. An object is treated as carrying a signed download URL when it has
+     * "url_expires_at" or the player file marker "requires_download_link". The marker is needed
+     * because the file revision payload carries a signed "url" without an expiry field. Scoping on
+     * those markers leaves ordinary URLs in other responses intact.
      */
     FString RedactSignedDownloadUrlsForLogging(const FString& JsonBody);
 
