@@ -120,7 +120,9 @@ void FLootLockerLogger::LogHttpRequest(const FLootLockerResponse& Response, cons
     FDateTime::Parse(Response.Context.RequestTime, requestTime);
     Entry.Duration = (FDateTime::Now() - requestTime).GetTotalSeconds();
     Entry.RequestData = Response.Context.RequestParametersJsonString;
-    Entry.ResponseData = Response.FullTextFromServer;
+    // Redact signed download URLs here so both the log line and the OnHttpLogEntry broadcast
+    // (which feeds the in-editor log UI) never carry a usable bearer credential.
+    Entry.ResponseData = LootLockerUtilities::RedactSignedDownloadUrlsForLogging(Response.FullTextFromServer);
     Entry.RequestHeaders = AllHeadersDelimited;
     Entry.bSuccess = Response.success;
     Entry.Timestamp = FDateTime::Now();
