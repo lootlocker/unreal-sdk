@@ -169,6 +169,80 @@ namespace LootLockerUtilities
         return FStringFromJsonObject(jsonObject);
     }
 
+    static void RedactSignedDownloadUrlsInValue(const TSharedPtr<FJsonValue>& Value, bool& bRedacted);
+
+    static void RedactSignedDownloadUrlsInObject(const TSharedPtr<FJsonObject>& Object, bool& bRedacted)
+    {
+        if (!Object.IsValid())
+        {
+            return;
+        }
+
+        // Recurse into children first, over a copy so redacting this object cannot invalidate iteration.
+        TArray<TSharedPtr<FJsonValue>> ChildValues;
+        ChildValues.Reserve(Object->Values.Num());
+        for (const auto& Field : Object->Values)
+        {
+            ChildValues.Add(Field.Value);
+        }
+        for (const TSharedPtr<FJsonValue>& Child : ChildValues)
+        {
+            RedactSignedDownloadUrlsInValue(Child, bRedacted);
+        }
+
+        // A signed download URL is always accompanied by its expiry, so only redact "url" where
+        // "url_expires_at" is present. This leaves ordinary URLs in other responses intact.
+        FString ExpiresAt;
+        FString Url;
+        if (Object->TryGetStringField(TEXT("url_expires_at"), ExpiresAt) && Object->TryGetStringField(TEXT("url"), Url) && !Url.IsEmpty())
+        {
+            Object->SetStringField(TEXT("url"), TEXT("[REDACTED]"));
+            bRedacted = true;
+        }
+    }
+
+    static void RedactSignedDownloadUrlsInValue(const TSharedPtr<FJsonValue>& Value, bool& bRedacted)
+    {
+        if (!Value.IsValid())
+        {
+            return;
+        }
+
+        const TSharedPtr<FJsonObject>* ObjectValue = nullptr;
+        if (Value->TryGetObject(ObjectValue) && ObjectValue != nullptr && ObjectValue->IsValid())
+        {
+            RedactSignedDownloadUrlsInObject(*ObjectValue, bRedacted);
+            return;
+        }
+
+        const TArray<TSharedPtr<FJsonValue>>* ArrayValue = nullptr;
+        if (Value->TryGetArray(ArrayValue) && ArrayValue != nullptr)
+        {
+            for (const TSharedPtr<FJsonValue>& Element : *ArrayValue)
+            {
+                RedactSignedDownloadUrlsInValue(Element, bRedacted);
+            }
+        }
+    }
+
+    FString RedactSignedDownloadUrlsForLogging(const FString& JsonBody)
+    {
+        if (JsonBody.IsEmpty())
+        {
+            return JsonBody;
+        }
+
+        const TSharedPtr<FJsonObject> JsonObject = JsonObjectFromFString(JsonBody);
+        if (!JsonObject.IsValid())
+        {
+            return JsonBody;
+        }
+
+        bool bRedacted = false;
+        RedactSignedDownloadUrlsInObject(JsonObject, bRedacted);
+        return bRedacted ? FStringFromJsonObject(JsonObject) : JsonBody;
+    }
+
     FString ObfuscateString(const FObfuscationDetails& ObfuscationDetail, const FString& StringToObfuscate)
     {
         if (!ObfuscationDetail.hideCharactersForShortStrings && (StringToObfuscate.Len() <= (ObfuscationDetail.visibleCharsFromBeginning + ObfuscationDetail.visibleCharsFromEnd)))

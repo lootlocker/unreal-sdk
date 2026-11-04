@@ -81,6 +81,16 @@ namespace LootLockerUtilities
 
     FString ObfuscateString(const FObfuscationDetails& ObfuscationDetail, const FString& StringToObfuscate);
 
+    /**
+     * Redacts signed download URLs from a JSON body before it is logged.
+     *
+     * Player file responses carry a short-lived signed URL in "url" next to "url_expires_at".
+     * That URL is a bearer credential: anyone holding it can download the file until it expires,
+     * so it must never reach logs or the log UI. Only objects that carry "url_expires_at" are
+     * redacted, which leaves ordinary (non-signed) URLs in other responses intact.
+     */
+    FString RedactSignedDownloadUrlsForLogging(const FString& JsonBody);
+
     static bool IsEmptyJsonString(const FString& JsonString)
     {
         return JsonString.Equals(FString("{}")) ||
