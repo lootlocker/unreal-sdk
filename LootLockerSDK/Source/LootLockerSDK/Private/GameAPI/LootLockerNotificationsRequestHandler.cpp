@@ -270,6 +270,8 @@ void FLootLockerListNotificationsResponse::PopulateConvenienceStructures()
         else
         {
             Notification.SourceEnum = ELootLockerNotificationSource::unknown;
+            // Unknown sources are not registered for lookup, so clear any key left over from a previous population pass
+            Notification.Content.IdentifyingContextKey = "";
         }
 
         if (!Notification.Content.IdentifyingContextKey.IsEmpty())
