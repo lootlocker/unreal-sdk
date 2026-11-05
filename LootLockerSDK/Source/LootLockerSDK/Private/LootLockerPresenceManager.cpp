@@ -130,11 +130,18 @@ void ULootLockerPresenceManager::Initialize()
     }
 }
 
-void ULootLockerPresenceManager::Shutdown()
+void ULootLockerPresenceManager::Shutdown(ULootLockerPresenceManager* InstanceToShutDown /* = nullptr */)
 {
     FScopeLock Lock(&InstanceLock);
     if (Instance)
     {
+        // A replaced instance may be destroyed after its successor has been registered. Only
+        // shut down when the caller is still the registered instance.
+        if (InstanceToShutDown != nullptr && Instance != InstanceToShutDown)
+        {
+            return;
+        }
+
         ULootLockerLifeCycleManager* LifeCycleManager = ULootLockerLifeCycleManager::GetInstance();
         if (LifeCycleManager)
         {
@@ -669,7 +676,18 @@ void ULootLockerPresenceManager::SetEnabledInEditor(bool bEnabled)
 
 void ULootLockerPresenceManager::BeginDestroy()
 {
-    GracefullyShutdown();
+    // Only the registered instance may tear down the presence subsystem. A replaced instance's
+    // deferred BeginDestroy must not shut down its successor's connections.
+    bool bIsRegisteredInstance = false;
+    {
+        FScopeLock Lock(&InstanceLock);
+        bIsRegisteredInstance = (Instance == this);
+    }
+
+    if (bIsRegisteredInstance)
+    {
+        GracefullyShutdown();
+    }
 
     {
         FScopeLock Lock(&InstanceLock);

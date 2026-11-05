@@ -37,7 +37,16 @@ ULootLockerLifeCycleManager::ULootLockerLifeCycleManager()
 
 void ULootLockerLifeCycleManager::BeginDestroy()
 {
-    if (bIsInitialized && !bIsShuttingDown)
+    // Destruction is deferred, so a replaced instance's BeginDestroy can run after its successor
+    // has already been created. Only the instance that is still registered may tear down the SDK,
+    // otherwise a stale instance would destroy its successor and silently kill in-flight requests.
+    bool bIsRegisteredInstance = false;
+    {
+        FScopeLock Lock(&InstanceLock);
+        bIsRegisteredInstance = (Instance == this);
+    }
+
+    if (bIsRegisteredInstance && bIsInitialized && !bIsShuttingDown)
     {
         UnbindLifeCycleDelegates();
 
@@ -93,8 +102,10 @@ void ULootLockerLifeCycleManager::Shutdown()
     FScopeLock Lock(&InstanceLock);
     if (Instance)
     {
-        Instance->bIsShuttingDown = true;
+        // Unbind before latching bIsShuttingDown: UnbindLifeCycleDelegates() early-returns once
+        // that flag is set, which would leave this instance bound to the engine delegates.
         Instance->UnbindLifeCycleDelegates();
+        Instance->bIsShuttingDown = true;
         Instance->RemoveFromRoot();
         Instance = nullptr;
         FLootLockerLogger::LogVeryVerbose(TEXT("LootLocker LifeCycle Manager shutdown completed"));
