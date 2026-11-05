@@ -16,6 +16,14 @@ const FString LootLockerNotificationsStaticStrings::NotificationSources::TwitchD
 const FString LootLockerNotificationsStaticStrings::NotificationSources::LootLockerConsole = "lootlocker.console";
 const FString LootLockerNotificationsStaticStrings::NotificationSources::LootLockerServerApi = "lootlocker.server_api";
 const FString LootLockerNotificationsStaticStrings::NotificationSources::LootLockerAdminApi = "lootlocker.admin_api";
+const FString LootLockerNotificationsStaticStrings::NotificationSources::MagicTriggers = "magic_triggers";
+const FString LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::PlaystationStore = "purchasing.playstation_store";
+const FString LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::StripeStore = "purchasing.stripe_store";
+const FString LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::EpicGamesStore = "purchasing.epic_games_store";
+const FString LootLockerNotificationsStaticStrings::NotificationSources::LeaderboardReward = "leaderboard.reward";
+const FString LootLockerNotificationsStaticStrings::NotificationSources::RewardCampaign = "reward_campaign";
+const FString LootLockerNotificationsStaticStrings::NotificationSources::RewardsGrant = "rewards.grant";
+const FString LootLockerNotificationsStaticStrings::NotificationSources::Unknown = "unknown";
 const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Triggers::Id = "trigger_id";
 const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Triggers::Key = "trigger_key";
 const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Triggers::Limit = "trigger_limit";
@@ -31,6 +39,24 @@ const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchas
 const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::GooglePlayStore::ProductId = "product_id";
 const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::LootLocker::CatalogId = "catalog_id";
 const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::LootLocker::CatalogItemId = "catalog_item_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::PlaystationStore::CatalogId = "catalog_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::PlaystationStore::CatalogItemId = "catalog_item_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::PlaystationStore::TransactionId = "transaction_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::PlaystationStore::EntitlementLabel = "entitlement_label";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::StripeStore::CatalogItemId = "catalog_item_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::StripeStore::EntitlementId = "entitlement_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::EpicGamesStore::CatalogId = "catalog_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::EpicGamesStore::CatalogItemId = "catalog_item_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::EpicGamesStore::EpicEntitlementId = "epic_entitlement_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::LeaderboardReward::LeaderboardId = "leaderboard_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::LeaderboardReward::PlayerPublicId = "player_public_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::RewardCampaign::GiveawayId = "giveaway_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::RewardCampaign::RewardId = "reward_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::RewardsGrant::ItemTemplateId = "item_template_id";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::RewardsGrant::TemplateName = "template_name";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::RewardsGrant::RequestedCount = "requested_count";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::RewardsGrant::GrantedCount = "granted_count";
+const FString LootLockerNotificationsStaticStrings::StandardContextKeys::RewardsGrant::Source = "source";
 const FString LootLockerNotificationsStaticStrings::StandardContextKeys::TwitchDrop::TwitchRewardId = "twitch_reward_id";
 
 void FLootLockerListNotificationsResponse::PopulateConvenienceStructures()
@@ -205,6 +231,45 @@ void FLootLockerListNotificationsResponse::PopulateConvenienceStructures()
         {
             Notification.SourceEnum = ELootLockerNotificationSource::lootlocker_admin_api;
             Notification.Content.IdentifyingContextKey = Notification.Notification_type;
+        }
+        else if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::MagicTriggers, ESearchCase::IgnoreCase))
+        {
+            Notification.SourceEnum = ELootLockerNotificationSource::magic_triggers;
+            Notification.Content.IdentifyingContextKey = Notification.Notification_type;
+        }
+        else if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::PlaystationStore, ESearchCase::IgnoreCase))
+        {
+            Notification.SourceEnum = ELootLockerNotificationSource::purchasing_playstation_store;
+            Notification.Content.IdentifyingContextKey = LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::PlaystationStore::TransactionId;
+        }
+        else if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::StripeStore, ESearchCase::IgnoreCase))
+        {
+            Notification.SourceEnum = ELootLockerNotificationSource::purchasing_stripe_store;
+            Notification.Content.IdentifyingContextKey = LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::StripeStore::EntitlementId;
+        }
+        else if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::EpicGamesStore, ESearchCase::IgnoreCase))
+        {
+            Notification.SourceEnum = ELootLockerNotificationSource::purchasing_epic_games_store;
+            Notification.Content.IdentifyingContextKey = LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::EpicGamesStore::EpicEntitlementId;
+        }
+        else if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::LeaderboardReward, ESearchCase::IgnoreCase))
+        {
+            Notification.SourceEnum = ELootLockerNotificationSource::leaderboard_reward;
+            Notification.Content.IdentifyingContextKey = LootLockerNotificationsStaticStrings::StandardContextKeys::LeaderboardReward::LeaderboardId;
+        }
+        else if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::RewardCampaign, ESearchCase::IgnoreCase))
+        {
+            Notification.SourceEnum = ELootLockerNotificationSource::reward_campaign;
+            Notification.Content.IdentifyingContextKey = LootLockerNotificationsStaticStrings::StandardContextKeys::RewardCampaign::GiveawayId;
+        }
+        else if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::RewardsGrant, ESearchCase::IgnoreCase))
+        {
+            Notification.SourceEnum = ELootLockerNotificationSource::rewards_grant;
+            Notification.Content.IdentifyingContextKey = LootLockerNotificationsStaticStrings::StandardContextKeys::RewardsGrant::ItemTemplateId;
+        }
+        else
+        {
+            Notification.SourceEnum = ELootLockerNotificationSource::unknown;
         }
 
         if (!Notification.Content.IdentifyingContextKey.IsEmpty())

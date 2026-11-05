@@ -45,6 +45,14 @@ enum class ELootLockerNotificationSource : uint8
     lootlocker_console = 6,
     lootlocker_server_api = 7,
     lootlocker_admin_api = 8,
+    magic_triggers = 9,
+    purchasing_playstation_store = 10,
+    purchasing_stripe_store = 11,
+    purchasing_epic_games_store = 12,
+    leaderboard_reward = 13,
+    reward_campaign = 14,
+    rewards_grant = 15,
+    unknown = 16,
 };
 /// @}
 
@@ -133,11 +141,22 @@ struct LOOTLOCKERSDK_API LootLockerNotificationsStaticStrings
             static const FString AppleAppStore;
             static const FString GooglePlayStore;
             static const FString LootLocker;
+            static const FString PlaystationStore;
+            static const FString StripeStore;
+            static const FString EpicGamesStore;
         };
         static const FString TwitchDrop;
         static const FString LootLockerConsole;
         static const FString LootLockerServerApi;
         static const FString LootLockerAdminApi;
+        static const FString MagicTriggers;
+        static const FString LeaderboardReward;
+        static const FString RewardCampaign;
+        static const FString RewardsGrant;
+        /**
+         * Not a source emitted by the backend. Used as the SourceEnum value for notifications whose source string the SDK does not recognise.
+         */
+        static const FString Unknown;
     };
 
     /**
@@ -196,6 +215,60 @@ struct LOOTLOCKERSDK_API LootLockerNotificationsStaticStrings
                 static const FString CatalogId;
                 static const FString CatalogItemId;
             };
+            /**
+             * Standard context keys to expect when source is purchasing from the PlayStation store
+             */
+            struct LOOTLOCKERSDK_API PlaystationStore
+            {
+                static const FString CatalogId;
+                static const FString CatalogItemId;
+                static const FString TransactionId;
+                static const FString EntitlementLabel;
+            };
+            /**
+             * Standard context keys to expect when source is purchasing from the Stripe store
+             */
+            struct LOOTLOCKERSDK_API StripeStore
+            {
+                static const FString CatalogItemId;
+                static const FString EntitlementId;
+            };
+            /**
+             * Standard context keys to expect when source is purchasing from the Epic Games store
+             */
+            struct LOOTLOCKERSDK_API EpicGamesStore
+            {
+                static const FString CatalogId;
+                static const FString CatalogItemId;
+                static const FString EpicEntitlementId;
+            };
+        };
+        /**
+         * Standard context keys to expect when source is a leaderboard reward
+         */
+        struct LOOTLOCKERSDK_API LeaderboardReward
+        {
+            static const FString LeaderboardId;
+            static const FString PlayerPublicId;
+        };
+        /**
+         * Standard context keys to expect when source is a reward campaign
+         */
+        struct LOOTLOCKERSDK_API RewardCampaign
+        {
+            static const FString GiveawayId;
+            static const FString RewardId;
+        };
+        /**
+         * Standard context keys to expect when source is a rewards grant
+         */
+        struct LOOTLOCKERSDK_API RewardsGrant
+        {
+            static const FString ItemTemplateId;
+            static const FString TemplateName;
+            static const FString RequestedCount;
+            static const FString GrantedCount;
+            static const FString Source;
         };
         /**
          * Standard context keys to expect when source is a Twitch Drop
@@ -262,6 +335,46 @@ public:
      */
     UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Sources | LootLocker Server API")
     static FString GetNotificationsSourceLootLockerServerAPIString() { return LootLockerNotificationsStaticStrings::NotificationSources::LootLockerServerApi; };
+    /**
+     * Static String for use in Notifications -- Matching Notification source Magic Triggers
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Sources | Magic Triggers")
+    static FString GetNotificationsSourceMagicTriggersString() { return LootLockerNotificationsStaticStrings::NotificationSources::MagicTriggers; };
+    /**
+     * Static String for use in Notifications -- Matching Notification source Purchasing PlaystationStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Sources | Purchasing")
+    static FString GetNotificationsSourcePurchasingPlaystationStoreString() { return LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::PlaystationStore; };
+    /**
+     * Static String for use in Notifications -- Matching Notification source Purchasing StripeStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Sources | Purchasing")
+    static FString GetNotificationsSourcePurchasingStripeStoreString() { return LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::StripeStore; };
+    /**
+     * Static String for use in Notifications -- Matching Notification source Purchasing EpicGamesStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Sources | Purchasing")
+    static FString GetNotificationsSourcePurchasingEpicGamesStoreString() { return LootLockerNotificationsStaticStrings::NotificationSources::Purchasing::EpicGamesStore; };
+    /**
+     * Static String for use in Notifications -- Matching Notification source Leaderboard Reward
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Sources | Leaderboard Reward")
+    static FString GetNotificationsSourceLeaderboardRewardString() { return LootLockerNotificationsStaticStrings::NotificationSources::LeaderboardReward; };
+    /**
+     * Static String for use in Notifications -- Matching Notification source Reward Campaign
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Sources | Reward Campaign")
+    static FString GetNotificationsSourceRewardCampaignString() { return LootLockerNotificationsStaticStrings::NotificationSources::RewardCampaign; };
+    /**
+     * Static String for use in Notifications -- Matching Notification source Rewards Grant
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Sources | Rewards Grant")
+    static FString GetNotificationsSourceRewardsGrantString() { return LootLockerNotificationsStaticStrings::NotificationSources::RewardsGrant; };
+    /**
+     * Static String for use in Notifications -- Matching Notification source Unknown
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Sources | Unknown")
+    static FString GetNotificationsSourceUnknownString() { return LootLockerNotificationsStaticStrings::NotificationSources::Unknown; };
     /**
      * Static String for use in Notification contexts -- Standard Context Key for Triggers
      */
@@ -337,6 +450,96 @@ public:
      */
     UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | LootLocker")
     static FString GetStandardPurchasingLootLockerContextKeyCatalogItemIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::LootLocker::CatalogItemId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Purchasing.PlaystationStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | PlaystationStore")
+    static FString GetStandardPurchasingPlaystationStoreContextKeyCatalogIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::PlaystationStore::CatalogId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Purchasing.PlaystationStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | PlaystationStore")
+    static FString GetStandardPurchasingPlaystationStoreContextKeyCatalogItemIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::PlaystationStore::CatalogItemId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Purchasing.PlaystationStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | PlaystationStore")
+    static FString GetStandardPurchasingPlaystationStoreContextKeyTransactionIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::PlaystationStore::TransactionId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Purchasing.PlaystationStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | PlaystationStore")
+    static FString GetStandardPurchasingPlaystationStoreContextKeyEntitlementLabelString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::PlaystationStore::EntitlementLabel; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Purchasing.StripeStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | StripeStore")
+    static FString GetStandardPurchasingStripeStoreContextKeyCatalogItemIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::StripeStore::CatalogItemId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Purchasing.StripeStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | StripeStore")
+    static FString GetStandardPurchasingStripeStoreContextKeyEntitlementIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::StripeStore::EntitlementId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Purchasing.EpicGamesStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | EpicGamesStore")
+    static FString GetStandardPurchasingEpicGamesStoreContextKeyCatalogIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::EpicGamesStore::CatalogId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Purchasing.EpicGamesStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | EpicGamesStore")
+    static FString GetStandardPurchasingEpicGamesStoreContextKeyCatalogItemIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::EpicGamesStore::CatalogItemId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Purchasing.EpicGamesStore
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Purchasing | EpicGamesStore")
+    static FString GetStandardPurchasingEpicGamesStoreContextKeyEpicEntitlementIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing::EpicGamesStore::EpicEntitlementId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Leaderboard Reward
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Leaderboard Reward")
+    static FString GetStandardLeaderboardRewardContextKeyLeaderboardIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::LeaderboardReward::LeaderboardId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Leaderboard Reward
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Leaderboard Reward")
+    static FString GetStandardLeaderboardRewardContextKeyPlayerPublicIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::LeaderboardReward::PlayerPublicId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Reward Campaign
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Reward Campaign")
+    static FString GetStandardRewardCampaignContextKeyGiveawayIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::RewardCampaign::GiveawayId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Reward Campaign
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Reward Campaign")
+    static FString GetStandardRewardCampaignContextKeyRewardIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::RewardCampaign::RewardId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Rewards Grant
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Rewards Grant")
+    static FString GetStandardRewardsGrantContextKeyItemTemplateIdString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::RewardsGrant::ItemTemplateId; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Rewards Grant
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Rewards Grant")
+    static FString GetStandardRewardsGrantContextKeyTemplateNameString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::RewardsGrant::TemplateName; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Rewards Grant
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Rewards Grant")
+    static FString GetStandardRewardsGrantContextKeyRequestedCountString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::RewardsGrant::RequestedCount; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Rewards Grant
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Rewards Grant")
+    static FString GetStandardRewardsGrantContextKeyGrantedCountString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::RewardsGrant::GrantedCount; };
+    /**
+     * Static String for use in Notification contexts -- Standard Context Key for Rewards Grant
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Standard Context Keys | Rewards Grant")
+    static FString GetStandardRewardsGrantContextKeySourceString() { return LootLockerNotificationsStaticStrings::StandardContextKeys::RewardsGrant::Source; };
     /**
      * Static String for use in Notification contexts -- Standard Context Key for Twitch Drops
      */
@@ -999,7 +1202,15 @@ struct FLootLockerListNotificationsResponse : public FLootLockerResponse
     * For Apple App Store purchases it is the transaction id
     * For LootLocker virtual purchases it is the catalog item id
     * For Twitch Drops it is the Twitch reward id
+    * For PlayStation Store purchases it is the transaction id
+    * For Stripe Store purchases it is the entitlement id
+    * For Epic Games Store purchases it is the Epic entitlement id
+    * For Leaderboard rewards it is the leaderboard id
+    * For Reward Campaigns it is the giveaway id
+    * For Rewards grants it is the item template id
+    * For Magic Triggers there is no source specific identifying context key, so the identifying value is the Notification type
     * For custom notifications (notifications with the field Custom = true and with the source being either LootLocker Console or LootLocker Server API) the content of the notification is defined by the sender, so the identifying value is simply the Notification type matching the pattern ^[a-z0-9_-]+\.[a-z0-9_-]+\.[a-z0-9_-]+$
+    * For notifications whose source is not recognised by the SDK the SourceEnum is set to unknown and no identifying value is registered
     * 
     * @param IdentifyingValue The identifying value of the notification you want to fetch.
     * @param OutNotifications A list of notifications that were found for the given identifying value or null if none were found.
