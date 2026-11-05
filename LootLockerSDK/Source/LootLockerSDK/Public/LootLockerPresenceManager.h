@@ -350,8 +350,12 @@ public:
     static void Initialize();
     /**
      * Shutdown and cleanup the presence manager subsystem
+     *
+     * @param InstanceToShutDown Optional: the exact instance to shut down. When supplied, the
+     *        request is ignored unless that instance is still the registered one, so a replaced
+     *        instance cannot tear down its successor.
      */
-    static void Shutdown();
+    static void Shutdown(ULootLockerPresenceManager* InstanceToShutDown = nullptr);
 
     // ====================================================================
     // PUBLIC API - EVENTS
