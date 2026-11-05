@@ -430,6 +430,9 @@ void FTestLootLockerNotifications::Define()
                 TestTrue("The unknown source notification source enum was not as expected", unknownSourceNotification->SourceEnum == ELootLockerNotificationSource::unknown);
             }
 
+            TArray<FLootLockerNotification> unknownSourceLookupNotifications;
+            TestFalse("The unknown source notification should not be registered in the lookup table", fakeResponse.TryGetNotificationsByIdentifyingValue("some_identifying_value", unknownSourceLookupNotifications));
+
             TestDone.ExecuteIfBound();
         });
     });
