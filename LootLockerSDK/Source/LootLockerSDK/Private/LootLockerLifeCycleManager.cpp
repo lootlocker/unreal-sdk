@@ -55,7 +55,8 @@ void ULootLockerLifeCycleManager::BeginDestroy()
         // Broadcast to listeners
         OnApplicationShutdown.Broadcast();
 
-        Shutdown();
+        // Revalidate against `this`: a listener above may have replaced the registered instance.
+        ShutdownInstance(this);
     }
 
     {
@@ -99,17 +100,32 @@ void ULootLockerLifeCycleManager::Initialize()
 
 void ULootLockerLifeCycleManager::Shutdown()
 {
+    ShutdownInstance(nullptr);
+}
+
+void ULootLockerLifeCycleManager::ShutdownInstance(ULootLockerLifeCycleManager* InstanceToShutDown)
+{
     FScopeLock Lock(&InstanceLock);
-    if (Instance)
+    if (!Instance)
     {
-        // Unbind before latching bIsShuttingDown: UnbindLifeCycleDelegates() early-returns once
-        // that flag is set, which would leave this instance bound to the engine delegates.
-        Instance->UnbindLifeCycleDelegates();
-        Instance->bIsShuttingDown = true;
-        Instance->RemoveFromRoot();
-        Instance = nullptr;
-        FLootLockerLogger::LogVeryVerbose(TEXT("LootLocker LifeCycle Manager shutdown completed"));
+        return;
     }
+
+    // The identity check and the teardown are not atomic. A caller that already checked identity
+    // (BeginDestroy, or a handler that broadcast OnApplicationShutdown) must revalidate here, under
+    // the lock, or it could tear down a successor installed in between.
+    if (InstanceToShutDown != nullptr && Instance != InstanceToShutDown)
+    {
+        return;
+    }
+
+    // Unbind before latching bIsShuttingDown: UnbindLifeCycleDelegates() early-returns once
+    // that flag is set, which would leave this instance bound to the engine delegates.
+    Instance->UnbindLifeCycleDelegates();
+    Instance->bIsShuttingDown = true;
+    Instance->RemoveFromRoot();
+    Instance = nullptr;
+    FLootLockerLogger::LogVeryVerbose(TEXT("LootLocker LifeCycle Manager shutdown completed"));
 }
 
 // ========================================================================
@@ -269,7 +285,8 @@ void ULootLockerLifeCycleManager::HandleApplicationWillTerminate()
     // Broadcast to listeners
     OnApplicationShutdown.Broadcast();
 
-    Shutdown();
+    // Revalidate against `this`: a listener above may have replaced the registered instance.
+    ShutdownInstance(this);
 }
 
 void ULootLockerLifeCycleManager::HandleEnginePreExit()
@@ -281,8 +298,8 @@ void ULootLockerLifeCycleManager::HandleEnginePreExit()
     // Broadcast to listeners
     OnApplicationShutdown.Broadcast();
     
-    // Final cleanup
-    Shutdown();
+    // Final cleanup. Revalidate against `this`: a listener above may have replaced the instance.
+    ShutdownInstance(this);
 }
 
 // ========================================================================

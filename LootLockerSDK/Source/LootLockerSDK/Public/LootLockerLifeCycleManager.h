@@ -42,6 +42,19 @@ public:
     UFUNCTION(Category="LootLocker")
     static void Shutdown();
 
+    /**
+     * Shutdown the given lifecycle manager instance, but only if it is still the registered one.
+     *
+     * Teardown paths that already know which instance they are acting for must use this instead of
+     * Shutdown(): the identity check and the teardown are not atomic, so a replacement instance can
+     * be installed in between (for example by an OnApplicationShutdown listener). Passing the
+     * expected instance lets the check be revalidated under the lock immediately before clearing.
+     *
+     * @param InstanceToShutDown The instance the caller believes is registered. Pass nullptr to
+     *        shut down whatever is currently registered.
+     */
+    static void ShutdownInstance(ULootLockerLifeCycleManager* InstanceToShutDown);
+
     // ========================================================================
     // LIFECYCLE EVENT DELEGATES
     // ========================================================================
