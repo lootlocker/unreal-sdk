@@ -4,6 +4,21 @@
 
 #include "LootLockerGameEndpoints.generated.h"
 
+/**
+ * The HTTP method used by an endpoint.
+ *
+ * IMPORTANT: the enumerator names are C++ identifiers, NOT the value sent over the wire.
+ * Do not build a request verb from the enumerator name (or from UEnum metadata) - use
+ * LootLockerHttpMethodUtils::GetVerbString(), which is the single supported conversion.
+ *
+ * Two reasons the identifier cannot be used as the wire value:
+ *  - The members are prefixed with LL_ so that they cannot be rewritten by platform macros
+ *    (winnt.h defines an access-rights macro named DELETE, which used to break this enum in
+ *    any translation unit that had included <windows.h>).
+ *  - UMETA(DisplayName=...) is editor-only data. UEnum::GetDisplayNameTextByValue() silently
+ *    returns the raw enumerator name in a packaged build, so anything derived from display
+ *    metadata differs between editor and shipping.
+ */
 UENUM(BlueprintType)
 enum class ELootLockerHTTPMethod : uint8
 {
