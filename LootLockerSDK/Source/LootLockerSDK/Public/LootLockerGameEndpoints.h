@@ -7,16 +7,48 @@
 UENUM(BlueprintType)
 enum class ELootLockerHTTPMethod : uint8
 {
-    LL_GET = 0         UMETA(DisplayName = "GET"),
-    LL_POST = 1        UMETA(DisplayName = "POST"),
-    LL_DELETE = 2      UMETA(DisplayName = "DELETE"),
-    LL_PUT = 3         UMETA(DisplayName = "PUT"),
-    LL_HEAD = 4        UMETA(DisplayName = "HEAD"),
-    LL_CREATE = 5      UMETA(DisplayName = "CREATE"),
-    LL_OPTIONS = 6     UMETA(DisplayName = "OPTIONS"),
-    LL_PATCH = 7       UMETA(DisplayName = "PATCH"),
-    LL_UPLOAD = 8      UMETA(DisplayName = "UPLOAD")
+    LL_GET = 0          UMETA(DisplayName = "GET"),
+    LL_POST = 1         UMETA(DisplayName = "POST"),
+    LL_DELETE = 2       UMETA(DisplayName = "DELETE"),
+    LL_PUT = 3          UMETA(DisplayName = "PUT"),
+    LL_HEAD = 4         UMETA(DisplayName = "HEAD"),
+    LL_CREATE = 5       UMETA(DisplayName = "CREATE"),
+    LL_OPTIONS = 6      UMETA(DisplayName = "OPTIONS"),
+    LL_PATCH = 7        UMETA(DisplayName = "PATCH"),
+    LL_UPLOAD = 8       UMETA(DisplayName = "UPLOAD")
 };
+
+/**
+ * Maps ELootLockerHTTPMethod to the verb sent in the HTTP request line.
+ *
+ * The mapping is written out explicitly rather than read back from the enum's DisplayName
+ * metadata: UEnum::GetDisplayNameTextByValue() only honours UMETA(DisplayName=...) when
+ * WITH_EDITOR is set (WITH_METADATA is WITH_EDITORONLY_DATA, so the metadata is stripped at
+ * cook time) and silently falls back to the C++ enumerator name in a packaged build. Deriving
+ * the verb from metadata therefore works in the editor and breaks in a shipped game.
+ *
+ * Keep this switch exhaustive; it has no default so that adding a member to the enum produces
+ * a -Wswitch build error rather than a silently wrong verb.
+ */
+namespace LootLockerHttpMethodUtils
+{
+    inline FString GetVerbString(ELootLockerHTTPMethod Method)
+    {
+        switch (Method)
+        {
+        case ELootLockerHTTPMethod::LL_GET:     return TEXT("GET");
+        case ELootLockerHTTPMethod::LL_POST:    return TEXT("POST");
+        case ELootLockerHTTPMethod::LL_DELETE:  return TEXT("DELETE");
+        case ELootLockerHTTPMethod::LL_PUT:     return TEXT("PUT");
+        case ELootLockerHTTPMethod::LL_HEAD:    return TEXT("HEAD");
+        case ELootLockerHTTPMethod::LL_CREATE:  return TEXT("CREATE");
+        case ELootLockerHTTPMethod::LL_OPTIONS: return TEXT("OPTIONS");
+        case ELootLockerHTTPMethod::LL_PATCH:   return TEXT("PATCH");
+        case ELootLockerHTTPMethod::LL_UPLOAD:  return TEXT("UPLOAD");
+        }
+        return TEXT("");
+    }
+}
 
 UENUM(BlueprintType)
 enum class ELootLockerApiType : uint8
