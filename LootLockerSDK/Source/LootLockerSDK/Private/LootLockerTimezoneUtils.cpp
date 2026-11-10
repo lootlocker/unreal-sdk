@@ -4,6 +4,12 @@
 #include "HAL/PlatformMisc.h"
 #include "Misc/DateTime.h"
 
+// NOTE: <timezoneapi.h> pulls in winnt.h, which defines access-rights macros such as DELETE,
+// READ_CONTROL and SYNCHRONIZE. UE's HideWindowsPlatformTypes.h does not undefine those, so
+// any identifier spelled exactly like one of them breaks in a translation unit that also
+// includes this file (unity builds merge sources into a single TU). Rather than undefining the
+// macros here - which would silently remove definitions that downstream game code may rely on -
+// the SDK avoids the clash by prefixing the affected enumerators (ELootLockerHTTPMethod::LL_DELETE).
 #if PLATFORM_WINDOWS
 #include "Windows/AllowWindowsPlatformTypes.h"
 #include <timezoneapi.h>
