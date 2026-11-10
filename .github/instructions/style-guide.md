@@ -139,6 +139,9 @@ They are initialized in the runtime module’s private implementation (`LootLock
 Guideline:
 
 - Add/declare new endpoints in the endpoints catalog rather than hard-coding URLs in handlers.
+- The HTTP method is an `ELootLockerHTTPMethod`; convert it with
+  `LootLockerHttpMethodUtils::GetVerbString(...)`. Never derive the verb from the enumerator name
+  or from `UEnum` display metadata — see "Enum values that cross a build boundary" below.
 
 ## 4) Logging, secrets, and safe diagnostics
 

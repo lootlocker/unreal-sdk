@@ -135,6 +135,20 @@ Common conversion points:
 - **Reflection gotchas**: if a type is used in Blueprint/UE reflection, it must be declared with `UCLASS`/`USTRUCT` and members need `UPROPERTY` / functions need `UFUNCTION`.
 - **Async/callback lifetime**: most API calls complete via delegates/lambdas; ensure captured data remains valid and avoid capturing UObjects without considering lifetime.
 - **Sensitive logging**: request bodies can contain secrets; use existing obfuscation helpers (see `LootLockerSDK/Source/LootLockerSDK/Private/Utils/LootLockerUtilities.*`).
+- **Enum values that cross a build boundary**: never produce an API value, saved value, or
+  caller-facing string from `UEnum` display metadata. `UEnum::GetDisplayNameTextByValue()` only
+  honours `UMETA(DisplayName=...)` when `WITH_EDITOR` is set (`WITH_METADATA` is
+  `WITH_EDITORONLY_DATA`, stripped at cook time) and otherwise returns the raw C++ enumerator name,
+  so such values differ between the editor and a packaged build. Note also that
+  `GetAuthoredNameStringByValue()` is *not* an alternative: for a native `UEnum` it returns the
+  native name too (only `UUserDefinedEnum` overrides it).
+  Use one of these instead, chosen by what the value is:
+  - **JSON/request bodies** — `FJsonObjectConverter` serialises a native enum as its C++
+    identifier, in both editor and packaged builds. The identifier therefore *is* the wire
+    contract: renaming an enumerator in a serialised DTO is a breaking API change.
+  - **Anything else** — write an explicit `switch` (or lookup table) that has no `default`, so
+    adding an enum member fails the build rather than silently changing the value. See
+    `LootLockerHttpMethodUtils::GetVerbString` in `LootLockerGameEndpoints.h` for the pattern.
 
 ## Links
 
