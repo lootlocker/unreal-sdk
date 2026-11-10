@@ -237,7 +237,7 @@ struct LLAPI
                 Delimiter = "&";
             }
         }
-        const FString RequestMethod = ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+        const FString RequestMethod = LootLockerHttpMethodUtils::GetVerbString(Endpoint.requestMethod);
 
         // create callback lambda
         const FResponseCallback SessionResponse = CreateLambda<CppDelegate>(OnCompletedRequest, ResponseInspectorCallback);
@@ -292,7 +292,7 @@ struct LLAPI
         }
         EndpointWithArguments = FString::Format(*EndpointWithArguments, UrlEncodedPathParams);
         
-        const FString RequestMethod = ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerHTTPMethod"), static_cast<int32>(Endpoint.requestMethod));
+        const FString RequestMethod = LootLockerHttpMethodUtils::GetVerbString(Endpoint.requestMethod);
 
         // create callback lambda
         const FResponseCallback SessionResponse = CreateLambda<CppDelegate>(OnCompletedRequest, ResponseInspectorCallback);
