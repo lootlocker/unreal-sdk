@@ -34,6 +34,15 @@ public:
     UFUNCTION(Category="LootLocker")
     static ULootLockerLifeCycleManager* GetInstance();
 
+    /**
+     * Get the singleton instance without creating one.
+     *
+     * Teardown paths (BeginDestroy, cook/GC shutdown) must use this instead of GetInstance():
+     * GetInstance() calls NewObject() when no instance exists, which is illegal once the engine
+     * has started tearing objects down and aborts the cook with "Object is not packaged".
+     */
+    static ULootLockerLifeCycleManager* GetInstanceIfExists();
+
     /** Manually initialize the lifecycle manager (called automatically on first GetInstance) */
     UFUNCTION(Category="LootLocker")
     static void Initialize();

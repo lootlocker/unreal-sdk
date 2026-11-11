@@ -85,6 +85,12 @@ ULootLockerLifeCycleManager* ULootLockerLifeCycleManager::GetInstance()
     return Instance;
 }
 
+ULootLockerLifeCycleManager* ULootLockerLifeCycleManager::GetInstanceIfExists()
+{
+    FScopeLock Lock(&InstanceLock);
+    return Instance;
+}
+
 void ULootLockerLifeCycleManager::Initialize()
 {
     ULootLockerLifeCycleManager* Manager = GetInstance();
