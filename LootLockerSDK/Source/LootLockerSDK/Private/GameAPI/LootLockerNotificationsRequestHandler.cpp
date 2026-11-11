@@ -93,6 +93,9 @@ void FLootLockerListNotificationsResponse::PopulateConvenienceStructures()
     int i = 0;
     for(FLootLockerNotification& Notification : Notifications)
     {
+        // Rebuild from scratch: a second population pass would otherwise keep entries whose
+        // context has since changed, and they could satisfy a later identifying key.
+        Notification.Content.ContextAsDictionary.Empty();
         for (const FLootLockerNotificationContextEntry& ContextEntry : Notification.Content.Context)
         {
             Notification.Content.ContextAsDictionary.Add(ContextEntry.Key, ContextEntry.Value);
