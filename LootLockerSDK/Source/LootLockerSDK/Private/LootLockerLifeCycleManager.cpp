@@ -40,13 +40,19 @@ void ULootLockerLifeCycleManager::BeginDestroy()
     // Destruction is deferred, so a replaced instance's BeginDestroy can run after its successor
     // has already been created. Only the instance that is still registered may tear down the SDK,
     // otherwise a stale instance would destroy its successor and silently kill in-flight requests.
+    // Latch the shutdown decision under the same lock as the identity check, so a replacement
+    // installed between the check and the broadcast cannot be notified by this stale instance.
     bool bIsRegisteredInstance = false;
     {
         FScopeLock Lock(&InstanceLock);
         bIsRegisteredInstance = (Instance == this);
+        if (bIsRegisteredInstance)
+        {
+            bIsShuttingDown = true;
+        }
     }
 
-    if (bIsRegisteredInstance && bIsInitialized && !bIsShuttingDown)
+    if (bIsRegisteredInstance && bIsInitialized)
     {
         UnbindLifeCycleDelegates();
 
