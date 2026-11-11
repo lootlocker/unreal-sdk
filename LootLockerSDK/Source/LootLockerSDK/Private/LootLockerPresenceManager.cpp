@@ -142,7 +142,9 @@ void ULootLockerPresenceManager::Shutdown(ULootLockerPresenceManager* InstanceTo
             return;
         }
 
-        ULootLockerLifeCycleManager* LifeCycleManager = ULootLockerLifeCycleManager::GetInstance();
+        // GetInstanceIfExists, not GetInstance: this runs from BeginDestroy, where creating a new
+        // UObject is illegal and aborts the cook with "Object is not packaged".
+        ULootLockerLifeCycleManager* LifeCycleManager = ULootLockerLifeCycleManager::GetInstanceIfExists();
         if (LifeCycleManager)
         {
             LifeCycleManager->OnApplicationStart.RemoveDynamic(Instance, &ULootLockerPresenceManager::HandleStartup);
