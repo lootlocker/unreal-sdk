@@ -61,6 +61,10 @@ const FString LootLockerNotificationsStaticStrings::StandardContextKeys::TwitchD
 
 void FLootLockerListNotificationsResponse::PopulateConvenienceStructures()
 {
+    // Rebuild from scratch: a previous population pass (or a reused response) would otherwise
+    // leave stale identifying values queryable and append duplicate lookup records.
+    NotificationLookupTable.Empty();
+
     if (Notifications.Num() == 0)
     {
         return;

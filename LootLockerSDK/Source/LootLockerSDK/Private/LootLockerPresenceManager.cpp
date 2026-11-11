@@ -677,26 +677,10 @@ void ULootLockerPresenceManager::SetEnabledInEditor(bool bEnabled)
 void ULootLockerPresenceManager::BeginDestroy()
 {
     // Only the registered instance may tear down the presence subsystem. A replaced instance's
-    // deferred BeginDestroy must not shut down its successor's connections.
-    bool bIsRegisteredInstance = false;
-    {
-        FScopeLock Lock(&InstanceLock);
-        bIsRegisteredInstance = (Instance == this);
-    }
-
-    if (bIsRegisteredInstance)
-    {
-        GracefullyShutdown();
-    }
-
-    {
-        FScopeLock Lock(&InstanceLock);
-        if (Instance == this)
-        {
-            Instance->RemoveFromRoot();
-            Instance = nullptr;
-        }
-    }
+    // deferred BeginDestroy must not shut down its successor's connections. Shutdown() revalidates
+    // the identity while holding InstanceLock, so a replacement registered between the check and
+    // the teardown cannot be disconnected by this stale instance.
+    Shutdown(this);
 
     Super::BeginDestroy();
 }

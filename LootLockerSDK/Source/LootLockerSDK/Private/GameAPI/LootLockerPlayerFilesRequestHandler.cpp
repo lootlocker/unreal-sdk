@@ -191,10 +191,15 @@ FString ULLPlayerFilesRequestHandler::CreateFileDownloadLink(const FLootLockerPl
 		{
 			if (Response.success)
 			{
-				// Add "public" to IsPublic field manually if it exists
-				const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
-				if (!JsonObject.IsValid()) return;
-				Response.IsPublic = JsonObject->GetBoolField(TEXT("public"));
-			}
-		}));
+					// The download-link endpoint mints a url and expiry; it is not guaranteed to echo
+					// "public", so treat the field as optional rather than tripping the missing-field check.
+					const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
+					if (!JsonObject.IsValid()) return;
+					bool bIsPublic = false;
+					if (JsonObject->TryGetBoolField(TEXT("public"), bIsPublic))
+					{
+						Response.IsPublic = bIsPublic;
+					}
+				}
+			}));
 }
