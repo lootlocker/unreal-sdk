@@ -93,6 +93,18 @@ namespace LootLockerUtilities
      */
     FString RedactSignedDownloadUrlsForLogging(const FString& JsonBody);
 
+    /**
+     * Whether a request to this endpoint can return a signed download URL.
+     *
+     * Only the player-file endpoints mint signed URLs, so every other response can skip the
+     * redaction entirely. This is a single substring check on the request URL, which keeps the
+     * cost off the path every request walks.
+     */
+    static bool CanReturnSignedDownloadUrl(const FString& RequestUrl)
+    {
+        return RequestUrl.Contains(TEXT("files"));
+    }
+
     static bool IsEmptyJsonString(const FString& JsonString)
     {
         return JsonString.Equals(FString("{}")) ||

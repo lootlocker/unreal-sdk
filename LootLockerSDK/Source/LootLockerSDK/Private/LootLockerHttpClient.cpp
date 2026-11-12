@@ -707,7 +707,9 @@ void ULootLockerHttpClient::StoreFailedRequestReport(const FLootLockerResponse& 
     Report.message = FailedResponse.ErrorData.Message;
     Report.endpoint = FailedResponse.Context.RequestURL;
     Report.http_method = FailedResponse.Context.RequestMethod;
-    Report.response_json_body = LootLockerUtilities::RedactSignedDownloadUrlsForLogging(LootLockerUtilities::ObfuscateJsonStringForLogging(FailedResponse.FullTextFromServer));
+    Report.response_json_body = LootLockerUtilities::CanReturnSignedDownloadUrl(FailedResponse.Context.RequestURL)
+        ? LootLockerUtilities::RedactSignedDownloadUrlsForLogging(LootLockerUtilities::ObfuscateJsonStringForLogging(FailedResponse.FullTextFromServer))
+        : LootLockerUtilities::ObfuscateJsonStringForLogging(FailedResponse.FullTextFromServer);
     Report.request_body = LootLockerUtilities::ObfuscateJsonStringForLogging(RequestBody);
     Report.retry_attempts = RetryAttempts;
     Report.player_ulid = FailedResponse.Context.PlayerUlid;

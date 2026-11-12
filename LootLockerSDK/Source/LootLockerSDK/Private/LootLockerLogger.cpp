@@ -120,9 +120,12 @@ void FLootLockerLogger::LogHttpRequest(const FLootLockerResponse& Response, cons
     FDateTime::Parse(Response.Context.RequestTime, requestTime);
     Entry.Duration = (FDateTime::Now() - requestTime).GetTotalSeconds();
     Entry.RequestData = Response.Context.RequestParametersJsonString;
-    // Redact signed download URLs here so both the log line and the OnHttpLogEntry broadcast
-    // (which feeds the in-editor log UI) never carry a usable bearer credential.
-    Entry.ResponseData = LootLockerUtilities::RedactSignedDownloadUrlsForLogging(Response.FullTextFromServer);
+    // Only player-file endpoints can return a signed download URL, so every other response skips
+    // the redaction entirely. When it does apply, redact here so both the log line and the
+    // OnHttpLogEntry broadcast (which feeds the in-editor log UI) never carry a bearer credential.
+    Entry.ResponseData = LootLockerUtilities::CanReturnSignedDownloadUrl(Response.Context.RequestURL)
+        ? LootLockerUtilities::RedactSignedDownloadUrlsForLogging(Response.FullTextFromServer)
+        : Response.FullTextFromServer;
     Entry.RequestHeaders = AllHeadersDelimited;
     Entry.bSuccess = Response.success;
     Entry.Timestamp = FDateTime::Now();
