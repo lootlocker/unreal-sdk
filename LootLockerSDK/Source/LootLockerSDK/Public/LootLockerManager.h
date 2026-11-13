@@ -17,6 +17,7 @@
 #include "GameAPI/LootLockerPlatformKeyRequestHandler.h"
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
 #include "GameAPI/LootLockerEntitlementRequestHandler.h"
+#include "GameAPI/LootLockerEquipmentRequestHandler.h"
 #include "GameAPI/LootLockerFollowersRequestHandler.h"
 #include "GameAPI/LootLockerFriendsRequestHandler.h"
 #include "GameAPI/LootLockerHeroRequestHandler.h"
@@ -419,6 +420,16 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FInternalLootLockerListCatalogPricesV2Response
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListEntitlementsResponseBP, FLootLockerEntitlementHistoryResponse, Response);
 /** Blueprint response delegate for single entitlement responses */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerSingleEntitlementResponseBP, FLootLockerSingleEntitlementResponse, Response);
+
+//==================================================
+// Equipment Delegates
+//==================================================
+/** Blueprint response delegate for equipment loadout responses */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerEquipmentLoadoutResponseBP, FLootLockerEquipmentLoadoutResponse, Response);
+/** Blueprint response delegate for equipment slot candidates responses */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerEquipmentSlotCandidatesResponseBP, FLootLockerEquipmentSlotCandidatesResponse, Response);
+/** Blueprint response delegate for equip responses */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerEquipmentEquipResponseBP, FLootLockerEquipmentEquipResponse, Response);
 
 //==================================================
 // Feedback Delegates
@@ -4433,6 +4444,87 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static UPARAM(DisplayName = "RequestId") FString UnblockPlayer(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
+
+    //==================================================
+    // Equipment
+    //==================================================
+
+    /**
+     Get the calling player's loadout: every equipment slot the game defines for the player entity, each
+     with the stack attached to it.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+     @param Page Optional: 1-based page of equipment groups (server default when 0)
+     @param PerPage Optional: Number of equipment groups per page (server default when 0)
+     @param OnCompletedRequestBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Equipment", meta = (AdvancedDisplay = "ForPlayerWithUlid,Page,PerPage", ForPlayerWithUlid="", Page="1", PerPage="10"))
+    static UPARAM(DisplayName = "RequestId") FString GetEquipmentLoadout(const FString& ForPlayerWithUlid, int Page, int PerPage, const FLootLockerEquipmentLoadoutResponseBP& OnCompletedRequestBP);
+
+    /**
+     Get the loadout attached to one entity. Only the "player" entity type is supported, and a player may
+     only read their own entity.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+     @param EntityType The entity type to read the loadout for. Only "player" is supported
+     @param SourceId The ULID of the entity. For the "player" entity type this is the player ULID
+     @param Page Optional: 1-based page of equipment groups (server default when 0)
+     @param PerPage Optional: Number of equipment groups per page (server default when 0)
+     @param OnCompletedRequestBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Equipment", meta = (AdvancedDisplay = "ForPlayerWithUlid,Page,PerPage", ForPlayerWithUlid="", Page="1", PerPage="10"))
+    static UPARAM(DisplayName = "RequestId") FString GetEntityEquipmentLoadout(const FString& ForPlayerWithUlid, const FString& EntityType, const FString& SourceId, int Page, int PerPage, const FLootLockerEquipmentLoadoutResponseBP& OnCompletedRequestBP);
+
+    /**
+     Get another player's loadout by their public UID, addressed within the caller's game.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+     @param PlayerPublicUid The public UID of the player whose loadout to read
+     @param Page Optional: 1-based page of equipment groups (server default when 0)
+     @param PerPage Optional: Number of equipment groups per page (server default when 0)
+     @param OnCompletedRequestBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Equipment", meta = (AdvancedDisplay = "ForPlayerWithUlid,Page,PerPage", ForPlayerWithUlid="", Page="1", PerPage="10"))
+    static UPARAM(DisplayName = "RequestId") FString GetOtherPlayersEquipmentLoadout(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, int Page, int PerPage, const FLootLockerEquipmentLoadoutResponseBP& OnCompletedRequestBP);
+
+    /**
+     List the calling player's unequipped inventory stacks that a slot would accept.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+     @param SlotId The ULID of the equipment slot to list candidates for
+     @param Page Optional: 1-based page of candidates (server default when 0)
+     @param PerPage Optional: Number of candidates per page (server default when 0)
+     @param OnCompletedRequestBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Equipment", meta = (AdvancedDisplay = "ForPlayerWithUlid,Page,PerPage", ForPlayerWithUlid="", Page="1", PerPage="10"))
+    static UPARAM(DisplayName = "RequestId") FString ListEquipmentSlotCandidates(const FString& ForPlayerWithUlid, const FString& SlotId, int Page, int PerPage, const FLootLockerEquipmentSlotCandidatesResponseBP& OnCompletedRequestBP);
+
+    /**
+     Equip an inventory stack into an equipment slot. Equipping more than the slot accepts splits the stack,
+     leaving the remainder in the inventory.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+     @param Request The equip request
+     @param OnCompletedRequestBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Equipment", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid="", AutoCreateRefTerm = "Request"))
+    static UPARAM(DisplayName = "RequestId") FString EquipStack(const FString& ForPlayerWithUlid, const FLootLockerEquipmentEquipRequest& Request, const FLootLockerEquipmentEquipResponseBP& OnCompletedRequestBP);
+
+    /**
+     Detach an equipment entry, returning its stack to the inventory.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+     @param EntryId The equipment entry ULID
+     @param OnCompletedRequestBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Equipment", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString UnequipStack(const FString& ForPlayerWithUlid, const FString& EntryId, const FLootLockerDefaultResponseBP& OnCompletedRequestBP);
 
     //==================================================
     // Miscellaneous

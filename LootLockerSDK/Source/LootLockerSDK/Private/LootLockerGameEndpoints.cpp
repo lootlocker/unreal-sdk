@@ -328,6 +328,14 @@ FLootLockerEndPoints ULootLockerGameEndpoints::ListMetadata = InitEndpoint("meta
 FLootLockerEndPoints ULootLockerGameEndpoints::GetMultisourceMetadata = InitEndpoint("metadata/multisource", ELootLockerHTTPMethod::LL_POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::MetadataActions = InitEndpoint("metadata", ELootLockerHTTPMethod::LL_POST);
 
+// Equipment
+FLootLockerEndPoints ULootLockerGameEndpoints::GetEquipmentLoadoutEndpoint = InitEndpoint("player/equipment/v1", ELootLockerHTTPMethod::LL_GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetEntityEquipmentLoadoutEndpoint = InitEndpoint("player/equipment/v1/{0}/{1}", ELootLockerHTTPMethod::LL_GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetOtherPlayersEquipmentLoadoutEndpoint = InitEndpoint("player/equipment/v1/players/{0}", ELootLockerHTTPMethod::LL_GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::ListEquipmentSlotCandidatesEndpoint = InitEndpoint("player/equipment/v1/slots/{0}/candidates", ELootLockerHTTPMethod::LL_GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::EquipToEquipmentSlotEndpoint = InitEndpoint("player/equipment/v1/equip", ELootLockerHTTPMethod::LL_POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::UnequipFromEquipmentSlotEndpoint = InitEndpoint("player/equipment/v1/equip/{0}", ELootLockerHTTPMethod::LL_DELETE);
+
 // Presence (WebSocket)
 FLootLockerEndPoints ULootLockerGameEndpoints::PresenceWebSocketEndpoint = InitEndpoint("presence/v1", ELootLockerHTTPMethod::LL_GET, ELootLockerApiType::LL_WEBSOCKET);
 

@@ -410,6 +410,14 @@ public:
     static FLootLockerEndPoints GetMultisourceMetadata;
     static FLootLockerEndPoints MetadataActions;
 
+    // Equipment
+    static FLootLockerEndPoints GetEquipmentLoadoutEndpoint;
+    static FLootLockerEndPoints GetEntityEquipmentLoadoutEndpoint;
+    static FLootLockerEndPoints GetOtherPlayersEquipmentLoadoutEndpoint;
+    static FLootLockerEndPoints ListEquipmentSlotCandidatesEndpoint;
+    static FLootLockerEndPoints EquipToEquipmentSlotEndpoint;
+    static FLootLockerEndPoints UnequipFromEquipmentSlotEndpoint;
+
     // Presence (WebSocket)
     static FLootLockerEndPoints PresenceWebSocketEndpoint;
 
