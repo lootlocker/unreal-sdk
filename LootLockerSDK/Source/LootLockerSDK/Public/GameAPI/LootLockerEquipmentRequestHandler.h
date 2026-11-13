@@ -35,7 +35,7 @@ struct FLootLockerEquipmentEquipRequest
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString inventory_id = "";
 
-    /** Optional: The amount to equip. Left at 0 the whole stack is used, capped by the slot's max_items. */
+    /** Optional: The amount to equip. Left at 0 the whole stack is used, capped by the slot's max_items. Must not be negative. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 count = 0;
 
