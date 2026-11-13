@@ -140,6 +140,15 @@ FString ULLEquipmentRequestHandler::EquipStack(const FLootLockerPlayerData& Play
         return FString();
     }
 
+    // count is omitted when 0 (equip the whole stack), so a negative value must be rejected here
+    // rather than silently falling through to the same "whole stack" path.
+    if (Request.count < 0)
+    {
+        const FLootLockerEquipmentEquipResponse ErrorResponse = LootLockerResponseFactory::Error<FLootLockerEquipmentEquipResponse>(TEXT("count must be greater than 0"), 0, PlayerData.PlayerUlid);
+        OnCompletedRequest.ExecuteIfBound(ErrorResponse);
+        return FString();
+    }
+
     FString ContentString = EquipRequestToJsonString(Request);
     return LLAPI<FLootLockerEquipmentEquipResponse>::CallAPIUsingRawJSON(ContentString, ULootLockerGameEndpoints::EquipToEquipmentSlotEndpoint, { }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
