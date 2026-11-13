@@ -2398,6 +2398,55 @@ FLootLockerSetMetadataAction ULootLockerManager::MakeMetadataActionBase64(ELootL
     return FLootLockerSetMetadataAction{ Action, FLootLockerMetadataEntry::MakeBase64Entry(Key, Tags, Access, Value) };
 }
 
+// Equipment
+FString ULootLockerManager::GetEquipmentLoadout(const FString& ForPlayerWithUlid, int Page, int PerPage, const FLootLockerEquipmentLoadoutResponseBP& OnCompletedRequestBP)
+{
+    return ULootLockerSDKManager::GetEquipmentLoadout(Page, PerPage, FLootLockerEquipmentLoadoutResponseDelegate::CreateLambda([OnCompletedRequestBP](const FLootLockerEquipmentLoadoutResponse& Response)
+    {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::GetEntityEquipmentLoadout(const FString& ForPlayerWithUlid, const FString& EntityType, const FString& SourceId, int Page, int PerPage, const FLootLockerEquipmentLoadoutResponseBP& OnCompletedRequestBP)
+{
+    return ULootLockerSDKManager::GetEntityEquipmentLoadout(EntityType, SourceId, Page, PerPage, FLootLockerEquipmentLoadoutResponseDelegate::CreateLambda([OnCompletedRequestBP](const FLootLockerEquipmentLoadoutResponse& Response)
+    {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::GetOtherPlayersEquipmentLoadout(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, int Page, int PerPage, const FLootLockerEquipmentLoadoutResponseBP& OnCompletedRequestBP)
+{
+    return ULootLockerSDKManager::GetOtherPlayersEquipmentLoadout(PlayerPublicUid, Page, PerPage, FLootLockerEquipmentLoadoutResponseDelegate::CreateLambda([OnCompletedRequestBP](const FLootLockerEquipmentLoadoutResponse& Response)
+    {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::ListEquipmentSlotCandidates(const FString& ForPlayerWithUlid, const FString& SlotId, int Page, int PerPage, const FLootLockerEquipmentSlotCandidatesResponseBP& OnCompletedRequestBP)
+{
+    return ULootLockerSDKManager::ListEquipmentSlotCandidates(SlotId, Page, PerPage, FLootLockerEquipmentSlotCandidatesResponseDelegate::CreateLambda([OnCompletedRequestBP](const FLootLockerEquipmentSlotCandidatesResponse& Response)
+    {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::EquipStack(const FString& ForPlayerWithUlid, const FLootLockerEquipmentEquipRequest& Request, const FLootLockerEquipmentEquipResponseBP& OnCompletedRequestBP)
+{
+    return ULootLockerSDKManager::EquipStack(Request, FLootLockerEquipmentEquipResponseDelegate::CreateLambda([OnCompletedRequestBP](const FLootLockerEquipmentEquipResponse& Response)
+    {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::UnequipStack(const FString& ForPlayerWithUlid, const FString& EntryId, const FLootLockerDefaultResponseBP& OnCompletedRequestBP)
+{
+    return ULootLockerSDKManager::UnequipStack(EntryId, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequestBP](const FLootLockerResponse& Response)
+    {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
 // Miscellaneous
 FString ULootLockerManager::GetServerTime(const FString& ForPlayerWithUlid, const FTimeResponseDelegateBP& OnCompletedRequestBP)
 {

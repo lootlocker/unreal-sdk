@@ -16,6 +16,7 @@
 #include "GameAPI/LootLockerPlatformKeyRequestHandler.h"
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
 #include "GameAPI/LootLockerEntitlementRequestHandler.h"
+#include "GameAPI/LootLockerEquipmentRequestHandler.h"
 #include "GameAPI/LootLockerErrorReportRequestHandler.h"
 #include "GameAPI/LootLockerFeedbackRequestHandler.h"
 #include "GameAPI/LootLockerFollowersRequestHandler.h"
@@ -4044,6 +4045,88 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString UnblockPlayer(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+
+    /// @}
+
+    //==================================================
+    // Equipment
+    //==================================================
+    /// @addtogroup Equipment
+    /// @{
+
+    /**
+     Get the calling player's loadout: every equipment slot the game defines for the player entity, each
+     with the stack attached to it (or a null stack for empty slots). Paged over equipment groups.
+
+     @param Page Optional: 1-based page of equipment groups (server default when 0)
+     @param PerPage Optional: Number of equipment groups per page (server default when 0)
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString GetEquipmentLoadout(int Page, int PerPage, const FLootLockerEquipmentLoadoutResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Get the loadout attached to one entity. Only the "player" entity type is supported, and a player may
+     only read their own entity. Paged over equipment groups.
+
+     @param EntityType The entity type to read the loadout for. Only "player" is supported
+     @param SourceId The ULID of the entity. For the "player" entity type this is the player ULID
+     @param Page Optional: 1-based page of equipment groups (server default when 0)
+     @param PerPage Optional: Number of equipment groups per page (server default when 0)
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString GetEntityEquipmentLoadout(const FString& EntityType, const FString& SourceId, int Page, int PerPage, const FLootLockerEquipmentLoadoutResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Get another player's loadout by their public UID, addressed within the caller's game. A public UID
+     from another game is reported as not found. Paged over equipment groups.
+
+     @param PlayerPublicUid The public UID of the player whose loadout to read
+     @param Page Optional: 1-based page of equipment groups (server default when 0)
+     @param PerPage Optional: Number of equipment groups per page (server default when 0)
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString GetOtherPlayersEquipmentLoadout(const FString& PlayerPublicUid, int Page, int PerPage, const FLootLockerEquipmentLoadoutResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     List the calling player's unequipped inventory stacks that a slot would accept, meaning the item
+     template shares at least one tag with the slot. Equipped stacks are excluded.
+
+     @param SlotId The ULID of the equipment slot to list candidates for
+     @param Page Optional: 1-based page of candidates (server default when 0)
+     @param PerPage Optional: Number of candidates per page (server default when 0)
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ListEquipmentSlotCandidates(const FString& SlotId, int Page, int PerPage, const FLootLockerEquipmentSlotCandidatesResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Equip an inventory stack into an equipment slot. When the stack holds more than the slot accepts the
+     equipped amount splits off and the remainder stays in the inventory. An occupied slot is
+     auto-unequipped first unless the request's replace flag is false.
+
+     @param Request The equip request
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString EquipStack(const FLootLockerEquipmentEquipRequest& Request, const FLootLockerEquipmentEquipResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Detach an equipment entry. The stack returns to the player's inventory with its count unchanged.
+
+     @param EntryId The equipment entry ULID, as reported by the loadout read or the equip response
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString UnequipStack(const FString& EntryId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     /// @}
 
