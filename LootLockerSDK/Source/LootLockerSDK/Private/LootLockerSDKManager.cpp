@@ -1819,6 +1819,37 @@ FString ULootLockerSDKManager::UnblockPlayer(const FString& PlayerULID, const FL
     return ULootLockerFriendsRequestHandler::UnblockPlayer(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlayerULID, OnResponseCompleted);
 }
 
+// Equipment
+FString ULootLockerSDKManager::GetEquipmentLoadout(int Page, int PerPage, const FLootLockerEquipmentLoadoutResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLEquipmentRequestHandler::GetLoadout(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Page, PerPage, OnCompletedRequest);
+}
+
+FString ULootLockerSDKManager::GetEntityEquipmentLoadout(const FString& EntityType, const FString& SourceId, int Page, int PerPage, const FLootLockerEquipmentLoadoutResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLEquipmentRequestHandler::GetEntityLoadout(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), EntityType, SourceId, Page, PerPage, OnCompletedRequest);
+}
+
+FString ULootLockerSDKManager::GetOtherPlayersEquipmentLoadout(const FString& PlayerPublicUid, int Page, int PerPage, const FLootLockerEquipmentLoadoutResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLEquipmentRequestHandler::GetOtherPlayerLoadout(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlayerPublicUid, Page, PerPage, OnCompletedRequest);
+}
+
+FString ULootLockerSDKManager::ListEquipmentSlotCandidates(const FString& SlotId, int Page, int PerPage, const FLootLockerEquipmentSlotCandidatesResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLEquipmentRequestHandler::ListSlotCandidates(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), SlotId, Page, PerPage, OnCompletedRequest);
+}
+
+FString ULootLockerSDKManager::EquipStack(const FLootLockerEquipmentEquipRequest& Request, const FLootLockerEquipmentEquipResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLEquipmentRequestHandler::EquipStack(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, OnCompletedRequest);
+}
+
+FString ULootLockerSDKManager::UnequipStack(const FString& EntryId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLEquipmentRequestHandler::UnequipStack(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), EntryId, OnCompletedRequest);
+}
+
 // Miscellaneous
 FString ULootLockerSDKManager::GetServerTime(const FTimeResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
