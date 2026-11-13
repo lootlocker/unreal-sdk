@@ -1,0 +1,58 @@
+<map id="LootLockerSDK/Source/LootLockerSDK/Public/GameAPI/LootLockerRemoteSessionRequestHandler.h" name="LootLockerSDK/Source/LootLockerSDK/Public/GameAPI/LootLockerRemoteSessionRequestHandler.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="979,5,1240,84"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="796,393,913,421"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="981,81,945,106,915,134,896,163,881,194,863,262,856,327,855,379,851,376,850,327,857,261,876,193,891,160,911,130,942,102,976,84"/>
+<area shape="rect" id="Node000003" href="$LootLockerAuthenticationRequestHandler_8h.html" title=" " alt="" coords="926,132,1112,177"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1079,83,1048,122,1045,118,1074,86"/>
+<area shape="rect" id="Node000005" href="$LootLockerResponse_8h.html" title=" " alt="" coords="357,233,523,261"/>
+<area shape="poly" id="edge24_Node000001_Node000005" title=" " alt="" coords="976,49,888,59,787,74,682,99,582,134,548,154,515,177,464,224,461,219,512,173,545,149,580,130,681,93,786,69,888,54,981,48"/>
+<area shape="rect" id="Node000018" title=" " alt="" coords="1136,140,1264,168"/>
+<area shape="poly" id="edge25_Node000001_Node000018" title=" " alt="" coords="1143,82,1182,129,1176,128,1141,87"/>
+<area shape="rect" id="Node000019" title=" " alt="" coords="1288,132,1498,177"/>
+<area shape="poly" id="edge26_Node000001_Node000019" title=" " alt="" coords="1212,82,1324,126,1319,126,1212,87"/>
+<area shape="rect" id="Node000020" title=" " alt="" coords="1522,132,1715,177"/>
+<area shape="poly" id="edge27_Node000001_Node000020" title=" " alt="" coords="1240,71,1510,129,1504,130,1240,76"/>
+<area shape="rect" id="Node000021" href="$LootLockerConnectedAccountsRequestHandler_8h.html" title=" " alt="" coords="593,132,818,177"/>
+<area shape="poly" id="edge28_Node000001_Node000021" title=" " alt="" coords="976,81,802,130,801,125,981,80"/>
+<area shape="rect" id="Node000023" title=" " alt="" coords="1739,132,1984,177"/>
+<area shape="poly" id="edge33_Node000001_Node000023" title=" " alt="" coords="1240,61,1726,131,1721,132,1240,66"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="1112,171,1196,193,1281,222,1349,246,1414,270,1439,285,1454,302,1456,323,1442,347,1415,361,1367,372,1228,389,1067,400,928,406,928,401,1066,395,1227,384,1366,367,1414,356,1438,343,1451,322,1449,304,1436,289,1412,275,1347,251,1279,227,1194,198,1112,177"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="1130,233,1267,261"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="1062,175,1162,226,1156,226,1061,180"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="922,168,745,194,536,227,512,232,511,227,536,222,744,189,927,166"/>
+<area shape="rect" id="Node000012" href="$LootLockerPlayerData_8h.html" title=" " alt="" coords="931,233,1106,261"/>
+<area shape="poly" id="edge15_Node000003_Node000012" title=" " alt="" coords="1020,175,1021,219,1017,216,1017,179"/>
+<area shape="rect" id="Node000014" href="$LootLockerSessionOptionals_8h.html" title=" " alt="" coords="1503,317,1718,345"/>
+<area shape="poly" id="edge22_Node000003_Node000014" title=" " alt="" coords="1112,172,1124,174,1179,181,1227,184,1308,184,1347,185,1388,191,1433,203,1485,222,1528,255,1587,308,1582,306,1524,259,1483,227,1432,208,1387,196,1347,191,1308,189,1227,189,1179,186,1124,179,1112,177"/>
+<area shape="rect" id="Node000017" title=" " alt="" coords="1553,225,1759,269"/>
+<area shape="poly" id="edge23_Node000003_Node000017" title=" " alt="" coords="1112,172,1124,174,1239,190,1329,199,1420,207,1535,222,1541,225,1535,225,1534,227,1419,213,1329,204,1239,195,1124,179,1112,177"/>
+<area shape="poly" id="edge6_Node000005_Node000002" title=" " alt="" coords="500,259,636,290,729,315,785,347,831,383,826,382,782,351,727,320,635,295,500,264"/>
+<area shape="rect" id="Node000006" href="$LootLockerErrorData_8h.html" title=" " alt="" coords="551,317,716,345"/>
+<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="471,259,591,311,586,311,471,264"/>
+<area shape="rect" id="Node000008" href="$LootLockerRequestContext_8h.html" title=" " alt="" coords="319,317,526,345"/>
+<area shape="poly" id="edge10_Node000005_Node000008" title=" " alt="" coords="439,260,431,304,426,301,435,263"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="59,317,296,345"/>
+<area shape="poly" id="edge14_Node000005_Node000011" title=" " alt="" coords="395,263,235,315,233,310,400,260"/>
+<area shape="poly" id="edge8_Node000006_Node000002" title=" " alt="" coords="673,343,803,388,798,388,672,348"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="537,393,772,421"/>
+<area shape="poly" id="edge9_Node000006_Node000007" title=" " alt="" coords="639,343,649,379,644,377,636,348"/>
+<area shape="poly" id="edge11_Node000008_Node000002" title=" " alt="" coords="503,343,784,392,779,393,502,348"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="306,393,512,421"/>
+<area shape="poly" id="edge12_Node000008_Node000009" title=" " alt="" coords="422,344,416,380,412,376,418,347"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="5,393,283,421"/>
+<area shape="poly" id="edge13_Node000008_Node000010" title=" " alt="" coords="376,346,209,391,207,386,370,346"/>
+<area shape="poly" id="edge16_Node000012_Node000002" title=" " alt="" coords="1002,260,933,319,875,383,872,379,929,315,997,262"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="943,317,1158,345"/>
+<area shape="poly" id="edge17_Node000012_Node000013" title=" " alt="" coords="1025,259,1042,304,1038,301,1022,264"/>
+<area shape="poly" id="edge18_Node000012_Node000014" title=" " alt="" coords="1077,259,1119,267,1313,295,1490,318,1485,318,1312,300,1118,272,1077,264"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="1183,317,1428,345"/>
+<area shape="poly" id="edge21_Node000012_Node000016" title=" " alt="" coords="1065,259,1248,313,1242,313,1064,264"/>
+<area shape="poly" id="edge19_Node000014_Node000002" title=" " alt="" coords="1505,343,1484,348,929,401,928,396,1484,342,1500,343"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="1468,393,1753,421"/>
+<area shape="poly" id="edge20_Node000014_Node000015" title=" " alt="" coords="1613,344,1613,379,1609,375,1609,347"/>
+<area shape="poly" id="edge29_Node000021_Node000002" title=" " alt="" coords="734,175,759,197,781,223,815,294,847,379,842,377,810,296,776,226,755,201,733,180"/>
+<area shape="poly" id="edge30_Node000021_Node000005" title=" " alt="" coords="639,178,494,230,492,225,644,176"/>
+<area shape="poly" id="edge31_Node000021_Node000012" title=" " alt="" coords="781,175,961,228,956,229,780,180"/>
+<area shape="rect" id="Node000022" title=" " alt="" coords="548,225,767,269"/>
+<area shape="poly" id="edge32_Node000021_Node000022" title=" " alt="" coords="696,175,678,213,674,209,692,179"/>
+</map>

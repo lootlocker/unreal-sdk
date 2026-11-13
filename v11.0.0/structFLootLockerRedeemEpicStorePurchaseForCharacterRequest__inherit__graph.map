@@ -1,0 +1,5 @@
+<map id="FLootLockerRedeemEpicStorePurchaseForCharacterRequest" name="FLootLockerRedeemEpicStorePurchaseForCharacterRequest">
+<area shape="rect" id="Node000001" title="Request to redeem one or more Epic Games Store entitlements for a specific character,..." alt="" coords="5,98,222,143"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerRedeemEpicStorePurchaseForPlayerRequest.html" title="Request to redeem one or more Epic Games Store entitlements for the current player using an Epic acco..." alt="" coords="6,5,221,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,64,116,99,111,97,112,68"/>
+</map>

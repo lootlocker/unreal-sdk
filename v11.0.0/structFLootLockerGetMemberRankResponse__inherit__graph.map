@@ -1,0 +1,5 @@
+<map id="FLootLockerGetMemberRankResponse" name="FLootLockerGetMemberRankResponse">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,81,215,126"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="29,5,191,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,47,112,81,108,79,108,51"/>
+</map>

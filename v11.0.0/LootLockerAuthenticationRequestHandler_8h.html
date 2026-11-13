@@ -1,0 +1,394 @@
+<!-- HTML header for doxygen 1.15.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.15.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: LootLockerSDK/Source/LootLockerSDK/Public/GameAPI/LootLockerAuthenticationRequestHandler.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">var page_layout=1;</script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v11.0.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="side-nav" class="ui-resizable side-nav-resizable"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.0.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+   <tr><td colspan="2">        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td></tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.15.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('LootLockerAuthenticationRequestHandler_8h.html','',''); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',false,false,'search.php','Search',true);
+});
+</script>
+<div id="main-nav"></div>
+<div id="container"><div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LootLockerAuthenticationRequestHandler.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;CoreMinimal.h&quot;</code><br />
+<code>#include &quot;Dom/JsonObject.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="LootLockerResponse_8h_source.html">LootLockerResponse.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LootLockerPlayerData_8h_source.html">LootLockerPlayerData.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LootLockerSessionOptionals_8h_source.html">LootLockerSessionOptionals.h</a>&quot;</code><br />
+<code>#include &quot;LootLockerAuthenticationRequestHandler.generated.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for LootLockerAuthenticationRequestHandler.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="LootLockerAuthenticationRequestHandler_8h__incl.png" border="0" usemap="#aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerAuthenticationRequestHandler_8h" loading="lazy" alt=""/></div>
+<map name="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerAuthenticationRequestHandler_8h" id="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerAuthenticationRequestHandler_8h">
+<area shape="rect" title=" " alt="" coords="760,5,1014,84"/>
+<area shape="rect" title=" " alt="" coords="796,300,912,328"/>
+<area shape="poly" title=" " alt="" coords="885,83,859,287,855,284,880,86"/>
+<area shape="rect" title=" " alt="" coords="649,140,786,168"/>
+<area shape="poly" title=" " alt="" coords="828,84,752,134,750,129,824,86"/>
+<area shape="rect" href="LootLockerResponse_8h.html" title=" " alt="" coords="459,140,625,168"/>
+<area shape="poly" title=" " alt="" coords="760,85,599,138,597,133,765,84"/>
+<area shape="rect" href="LootLockerPlayerData_8h.html" title=" " alt="" coords="897,140,1072,168"/>
+<area shape="poly" title=" " alt="" coords="923,82,965,129,960,128,921,87"/>
+<area shape="rect" href="LootLockerSessionOptionals_8h.html" title=" " alt="" coords="1422,225,1638,252"/>
+<area shape="poly" title=" " alt="" coords="993,82,1040,104,1086,130,1101,142,1111,154,1121,165,1136,174,1174,184,1242,196,1411,222,1406,222,1241,201,1173,189,1134,179,1118,169,1107,157,1097,146,1083,134,1038,109,992,87"/>
+<area shape="rect" title=" " alt="" coords="1147,132,1353,177"/>
+<area shape="poly" title=" " alt="" coords="1015,81,1165,127,1159,127,1014,86"/>
+<area shape="poly" title=" " alt="" coords="600,166,674,189,750,222,796,254,833,290,828,288,792,258,747,227,672,194,600,171"/>
+<area shape="rect" href="LootLockerErrorData_8h.html" title=" " alt="" coords="571,225,736,252"/>
+<area shape="poly" title=" " alt="" coords="561,166,626,215,621,215,559,171"/>
+<area shape="rect" href="LootLockerRequestContext_8h.html" title=" " alt="" coords="340,225,547,252"/>
+<area shape="poly" title=" " alt="" coords="528,168,471,217,469,213,524,170"/>
+<area shape="rect" title=" " alt="" coords="80,225,316,252"/>
+<area shape="poly" title=" " alt="" coords="484,170,269,223,267,218,489,167"/>
+<area shape="poly" title=" " alt="" coords="690,250,807,295,801,294,689,256"/>
+<area shape="rect" title=" " alt="" coords="536,300,772,328"/>
+<area shape="poly" title=" " alt="" coords="656,251,656,286,652,283,652,255"/>
+<area shape="poly" title=" " alt="" coords="517,250,783,299,778,300,517,256"/>
+<area shape="rect" title=" " alt="" coords="5,300,212,328"/>
+<area shape="poly" title=" " alt="" coords="384,255,184,299,183,294,382,250"/>
+<area shape="rect" title=" " alt="" coords="235,300,512,328"/>
+<area shape="poly" title=" " alt="" coords="433,252,398,291,395,287,428,254"/>
+<area shape="poly" title=" " alt="" coords="967,168,934,195,903,226,882,257,866,288,863,284,878,254,898,223,931,191,962,170"/>
+<area shape="rect" title=" " alt="" coords="913,225,1128,252"/>
+<area shape="poly" title=" " alt="" coords="992,166,1011,212,1006,209,989,171"/>
+<area shape="poly" title=" " alt="" coords="1048,166,1092,174,1410,222,1404,222,1091,179,1048,171"/>
+<area shape="rect" title=" " alt="" coords="1152,225,1398,252"/>
+<area shape="poly" title=" " alt="" coords="1032,166,1217,220,1211,220,1031,171"/>
+<area shape="poly" title=" " alt="" coords="1424,251,928,308,927,302,1419,252"/>
+<area shape="rect" title=" " alt="" coords="1387,300,1672,328"/>
+<area shape="poly" title=" " alt="" coords="1532,251,1532,286,1528,283,1528,255"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="LootLockerAuthenticationRequestHandler_8h__dep__incl.png" border="0" usemap="#aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerAuthenticationRequestHandler_8hdep" loading="lazy" alt=""/></div>
+<map name="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerAuthenticationRequestHandler_8hdep" id="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerAuthenticationRequestHandler_8hdep">
+<area shape="rect" title=" " alt="" coords="92,5,347,84"/>
+<area shape="rect" href="LootLockerRemoteSessionRequestHandler_8h.html" title=" " alt="" coords="5,132,266,211"/>
+<area shape="poly" title=" " alt="" coords="186,95,164,133,159,130,183,99"/>
+<area shape="rect" href="LootLockerSDKManager_8h.html" title=" " alt="" coords="124,259,315,320"/>
+<area shape="poly" title=" " alt="" coords="262,94,281,131,289,171,281,212,268,237,251,260,248,256,264,235,276,210,284,171,276,133,261,99"/>
+<area shape="poly" title=" " alt="" coords="173,221,200,259,195,258,171,226"/>
+</map>
+</div>
+</div>
+<p><a href="LootLockerAuthenticationRequestHandler_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:FLootLockerAuthResponse" id="r_FLootLockerAuthResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAuthResponse.html">FLootLockerAuthResponse</a></td></tr>
+<tr class="memitem:FLootLockerWhiteLabelCustomSignUpFieldValue" id="r_FLootLockerWhiteLabelCustomSignUpFieldValue"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerWhiteLabelCustomSignUpFieldValue.html">FLootLockerWhiteLabelCustomSignUpFieldValue</a></td></tr>
+<tr class="memitem:FLootLockerWhiteLabelCustomSignUpField" id="r_FLootLockerWhiteLabelCustomSignUpField"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerWhiteLabelCustomSignUpField.html">FLootLockerWhiteLabelCustomSignUpField</a></td></tr>
+<tr class="memitem:FLootLockerLoginRequest" id="r_FLootLockerLoginRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerLoginRequest.html">FLootLockerLoginRequest</a></td></tr>
+<tr class="memitem:FLootLockerWhiteLabelCreateAccountRequest" id="r_FLootLockerWhiteLabelCreateAccountRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerWhiteLabelCreateAccountRequest.html">FLootLockerWhiteLabelCreateAccountRequest</a></td></tr>
+<tr class="memitem:FLootLockerWhiteLabelLoginRequest" id="r_FLootLockerWhiteLabelLoginRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerWhiteLabelLoginRequest.html">FLootLockerWhiteLabelLoginRequest</a></td></tr>
+<tr class="memitem:FLootLockerLoginResponse" id="r_FLootLockerLoginResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerLoginResponse.html">FLootLockerLoginResponse</a></td></tr>
+<tr class="memitem:FLootLockerBaseAuthRequest" id="r_FLootLockerBaseAuthRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerBaseAuthRequest.html">FLootLockerBaseAuthRequest</a></td></tr>
+<tr class="memitem:FLootLockerAuthenticationRequest" id="r_FLootLockerAuthenticationRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAuthenticationRequest.html">FLootLockerAuthenticationRequest</a></td></tr>
+<tr class="memitem:FLootLockerWhiteLabelAuthRequest" id="r_FLootLockerWhiteLabelAuthRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerWhiteLabelAuthRequest.html">FLootLockerWhiteLabelAuthRequest</a></td></tr>
+<tr class="memitem:FLootLockerWhiteLabelVerifySessionRequest" id="r_FLootLockerWhiteLabelVerifySessionRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerWhiteLabelVerifySessionRequest.html">FLootLockerWhiteLabelVerifySessionRequest</a></td></tr>
+<tr class="memitem:FLootLockerWhiteLabelResetPasswordRequest" id="r_FLootLockerWhiteLabelResetPasswordRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerWhiteLabelResetPasswordRequest.html">FLootLockerWhiteLabelResetPasswordRequest</a></td></tr>
+<tr class="memitem:FLootLockerNintendoSwitchSessionRequest" id="r_FLootLockerNintendoSwitchSessionRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerNintendoSwitchSessionRequest.html">FLootLockerNintendoSwitchSessionRequest</a></td></tr>
+<tr class="memitem:FLootLockerStartMetaSessionRequest" id="r_FLootLockerStartMetaSessionRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerStartMetaSessionRequest.html">FLootLockerStartMetaSessionRequest</a></td></tr>
+<tr class="memitem:FLootLockerRefreshMetaSessionRequest" id="r_FLootLockerRefreshMetaSessionRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRefreshMetaSessionRequest.html">FLootLockerRefreshMetaSessionRequest</a></td></tr>
+<tr class="memitem:FLootLockerXboxSessionRequest" id="r_FLootLockerXboxSessionRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerXboxSessionRequest.html">FLootLockerXboxSessionRequest</a></td></tr>
+<tr class="memitem:FLootLockerAppleGameCenterSessionRequest" id="r_FLootLockerAppleGameCenterSessionRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAppleGameCenterSessionRequest.html">FLootLockerAppleGameCenterSessionRequest</a></td></tr>
+<tr class="memitem:FLootLockerRefreshAppleGameCenterSessionRequest" id="r_FLootLockerRefreshAppleGameCenterSessionRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRefreshAppleGameCenterSessionRequest.html">FLootLockerRefreshAppleGameCenterSessionRequest</a></td></tr>
+<tr class="memitem:FLootLockerAppleSessionRequest" id="r_FLootLockerAppleSessionRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAppleSessionRequest.html">FLootLockerAppleSessionRequest</a></td></tr>
+<tr class="memitem:FLootLockerRefreshAppleSessionRequest" id="r_FLootLockerRefreshAppleSessionRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRefreshAppleSessionRequest.html">FLootLockerRefreshAppleSessionRequest</a></td></tr>
+<tr class="memitem:FLootLockerGoogleSessionRequest" id="r_FLootLockerGoogleSessionRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerGoogleSessionRequest.html">FLootLockerGoogleSessionRequest</a></td></tr>
+<tr class="memitem:FLootLockerGoogleSessionRequestWithPlatform" id="r_FLootLockerGoogleSessionRequestWithPlatform"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerGoogleSessionRequestWithPlatform.html">FLootLockerGoogleSessionRequestWithPlatform</a></td></tr>
+<tr class="memitem:FLootLockerRefreshGoogleSessionRequest" id="r_FLootLockerRefreshGoogleSessionRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRefreshGoogleSessionRequest.html">FLootLockerRefreshGoogleSessionRequest</a></td></tr>
+<tr class="memitem:FLootLockerGooglePlayGamesSessionRequest" id="r_FLootLockerGooglePlayGamesSessionRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerGooglePlayGamesSessionRequest.html">FLootLockerGooglePlayGamesSessionRequest</a></td></tr>
+<tr class="memitem:FLootLockerRefreshGooglePlayGamesSessionRequest" id="r_FLootLockerRefreshGooglePlayGamesSessionRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRefreshGooglePlayGamesSessionRequest.html">FLootLockerRefreshGooglePlayGamesSessionRequest</a></td></tr>
+<tr class="memitem:FLootLockerEpicSessionRequest" id="r_FLootLockerEpicSessionRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerEpicSessionRequest.html">FLootLockerEpicSessionRequest</a></td></tr>
+<tr class="memitem:FLootLockerRefreshEpicSessionRequest" id="r_FLootLockerRefreshEpicSessionRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRefreshEpicSessionRequest.html">FLootLockerRefreshEpicSessionRequest</a></td></tr>
+<tr class="memitem:FLootLockerVerificationRequest" id="r_FLootLockerVerificationRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerVerificationRequest.html">FLootLockerVerificationRequest</a></td></tr>
+<tr class="memitem:FLootLockerPlaystationNetworkVerificationRequest" id="r_FLootLockerPlaystationNetworkVerificationRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerPlaystationNetworkVerificationRequest.html">FLootLockerPlaystationNetworkVerificationRequest</a></td></tr>
+<tr class="memitem:FLootLockerPlaystationNetworkV3SessionRequest" id="r_FLootLockerPlaystationNetworkV3SessionRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerPlaystationNetworkV3SessionRequest.html">FLootLockerPlaystationNetworkV3SessionRequest</a></td></tr>
+<tr class="memitem:FLootLockerSteamSessionRequest" id="r_FLootLockerSteamSessionRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerSteamSessionRequest.html">FLootLockerSteamSessionRequest</a></td></tr>
+<tr class="memitem:FLootLockerDiscordSessionRequest" id="r_FLootLockerDiscordSessionRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerDiscordSessionRequest.html">FLootLockerDiscordSessionRequest</a></td></tr>
+<tr class="memitem:FLootLockerRefreshDiscordSessionRequest" id="r_FLootLockerRefreshDiscordSessionRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRefreshDiscordSessionRequest.html">FLootLockerRefreshDiscordSessionRequest</a></td></tr>
+<tr class="memitem:FLootLockerSteamSessionWithAppIdRequest" id="r_FLootLockerSteamSessionWithAppIdRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerSteamSessionWithAppIdRequest.html">FLootLockerSteamSessionWithAppIdRequest</a></td></tr>
+<tr class="memitem:FLootLockerVerificationWithSteamAppIdRequest" id="r_FLootLockerVerificationWithSteamAppIdRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerVerificationWithSteamAppIdRequest.html">FLootLockerVerificationWithSteamAppIdRequest</a></td></tr>
+<tr class="memitem:FLootLockerUserIdRequest" id="r_FLootLockerUserIdRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerUserIdRequest.html">FLootLockerUserIdRequest</a></td></tr>
+<tr class="memitem:FLootLockerEmailRequest" id="r_FLootLockerEmailRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerEmailRequest.html">FLootLockerEmailRequest</a></td></tr>
+<tr class="memitem:FLootLockerLevelThresholds" id="r_FLootLockerLevelThresholds"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerLevelThresholds.html">FLootLockerLevelThresholds</a></td></tr>
+<tr class="memitem:FLootLockerAuthenticationResponse" id="r_FLootLockerAuthenticationResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAuthenticationResponse.html">FLootLockerAuthenticationResponse</a></td></tr>
+<tr class="memitem:FLootLockerAppleSessionResponse" id="r_FLootLockerAppleSessionResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAppleSessionResponse.html">FLootLockerAppleSessionResponse</a></td></tr>
+<tr class="memitem:FLootLockerAppleGameCenterSessionResponse" id="r_FLootLockerAppleGameCenterSessionResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAppleGameCenterSessionResponse.html">FLootLockerAppleGameCenterSessionResponse</a></td></tr>
+<tr class="memitem:FLootLockerGoogleSessionResponse" id="r_FLootLockerGoogleSessionResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerGoogleSessionResponse.html">FLootLockerGoogleSessionResponse</a></td></tr>
+<tr class="memitem:FLootLockerGooglePlayGamesSessionResponse" id="r_FLootLockerGooglePlayGamesSessionResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerGooglePlayGamesSessionResponse.html">FLootLockerGooglePlayGamesSessionResponse</a></td></tr>
+<tr class="memitem:FLootLockerEpicSessionResponse" id="r_FLootLockerEpicSessionResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerEpicSessionResponse.html">FLootLockerEpicSessionResponse</a></td></tr>
+<tr class="memitem:FLootLockerWhiteLabelVerifySessionResponse" id="r_FLootLockerWhiteLabelVerifySessionResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerWhiteLabelVerifySessionResponse.html">FLootLockerWhiteLabelVerifySessionResponse</a></td></tr>
+<tr class="memitem:FLootLockerWhiteLabelSignUpFieldsResponse" id="r_FLootLockerWhiteLabelSignUpFieldsResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerWhiteLabelSignUpFieldsResponse.html">FLootLockerWhiteLabelSignUpFieldsResponse</a></td></tr>
+<tr class="memitem:FLootLockerWhiteLabelLoginAndSessionResponse" id="r_FLootLockerWhiteLabelLoginAndSessionResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerWhiteLabelLoginAndSessionResponse.html">FLootLockerWhiteLabelLoginAndSessionResponse</a></td></tr>
+<tr class="memitem:FLootLockerMetaSessionResponse" id="r_FLootLockerMetaSessionResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetaSessionResponse.html">FLootLockerMetaSessionResponse</a></td></tr>
+<tr class="memitem:FLootLockerDiscordSessionResponse" id="r_FLootLockerDiscordSessionResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerDiscordSessionResponse.html">FLootLockerDiscordSessionResponse</a></td></tr>
+<tr class="memitem:ULootLockerAuthenticationRequestHandler" id="r_ULootLockerAuthenticationRequestHandler"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerAuthenticationRequestHandler.html">ULootLockerAuthenticationRequestHandler</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga98fc9b8d0305aab7f5668a0658b9ae1c" id="r_ga98fc9b8d0305aab7f5668a0658b9ae1c"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga98fc9b8d0305aab7f5668a0658b9ae1c">FLootLockerSessionResponse</a>) (<a class="el" href="structFLootLockerAuthenticationResponse.html">FLootLockerAuthenticationResponse</a>)</td></tr>
+<tr class="memdesc:ga98fc9b8d0305aab7f5668a0658b9ae1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerAuthenticationResponse.html">FLootLockerAuthenticationResponse</a> result.  <br /></td></tr>
+<tr class="memitem:ga46f76cb254b70075a987f49689f03f28" id="r_ga46f76cb254b70075a987f49689f03f28"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga46f76cb254b70075a987f49689f03f28">FLootLockerAppleSessionResponseDelegate</a>) (<a class="el" href="structFLootLockerAppleSessionResponse.html">FLootLockerAppleSessionResponse</a>)</td></tr>
+<tr class="memdesc:ga46f76cb254b70075a987f49689f03f28"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerAppleSessionResponse.html">FLootLockerAppleSessionResponse</a> result.  <br /></td></tr>
+<tr class="memitem:ga3ed6a7c06292389a33e89491f44fa728" id="r_ga3ed6a7c06292389a33e89491f44fa728"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga3ed6a7c06292389a33e89491f44fa728">FLootLockerGoogleSessionResponseDelegate</a>) (<a class="el" href="structFLootLockerGoogleSessionResponse.html">FLootLockerGoogleSessionResponse</a>)</td></tr>
+<tr class="memdesc:ga3ed6a7c06292389a33e89491f44fa728"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerGoogleSessionResponse.html">FLootLockerGoogleSessionResponse</a> result.  <br /></td></tr>
+<tr class="memitem:gafc2aca24c5c95ef834d7b681d599df03" id="r_gafc2aca24c5c95ef834d7b681d599df03"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gafc2aca24c5c95ef834d7b681d599df03">FLootLockerGooglePlayGamesSessionResponseDelegate</a>) (<a class="el" href="structFLootLockerGooglePlayGamesSessionResponse.html">FLootLockerGooglePlayGamesSessionResponse</a>)</td></tr>
+<tr class="memdesc:gafc2aca24c5c95ef834d7b681d599df03"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerGooglePlayGamesSessionResponse.html">FLootLockerGooglePlayGamesSessionResponse</a> result.  <br /></td></tr>
+<tr class="memitem:ga9ee445ddb3e563ae75788edc576de91b" id="r_ga9ee445ddb3e563ae75788edc576de91b"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga9ee445ddb3e563ae75788edc576de91b">FLootLockerEpicSessionResponseDelegate</a>) (<a class="el" href="structFLootLockerEpicSessionResponse.html">FLootLockerEpicSessionResponse</a>)</td></tr>
+<tr class="memdesc:ga9ee445ddb3e563ae75788edc576de91b"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerEpicSessionResponse.html">FLootLockerEpicSessionResponse</a> result.  <br /></td></tr>
+<tr class="memitem:gad43a851209a55414955265c14f9d4e60" id="r_gad43a851209a55414955265c14f9d4e60"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gad43a851209a55414955265c14f9d4e60">FLootLockerLoginResponseDelegate</a>) (<a class="el" href="structFLootLockerLoginResponse.html">FLootLockerLoginResponse</a>)</td></tr>
+<tr class="memdesc:gad43a851209a55414955265c14f9d4e60"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerLoginResponse.html">FLootLockerLoginResponse</a> result.  <br /></td></tr>
+<tr class="memitem:ga5272aace2f494fc0cb15fc4a828594bf" id="r_ga5272aace2f494fc0cb15fc4a828594bf"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga5272aace2f494fc0cb15fc4a828594bf">FLootLockerWhiteLabelVerifySessionDelegate</a>) (<a class="el" href="structFLootLockerWhiteLabelVerifySessionResponse.html">FLootLockerWhiteLabelVerifySessionResponse</a>)</td></tr>
+<tr class="memdesc:ga5272aace2f494fc0cb15fc4a828594bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerWhiteLabelVerifySessionResponse.html">FLootLockerWhiteLabelVerifySessionResponse</a> result.  <br /></td></tr>
+<tr class="memitem:ga002968d0fa32442e9759ab0526cc5e2e" id="r_ga002968d0fa32442e9759ab0526cc5e2e"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga002968d0fa32442e9759ab0526cc5e2e">FLootLockerWhiteLabelLoginAndSessionResponseDelegate</a>) (<a class="el" href="structFLootLockerWhiteLabelLoginAndSessionResponse.html">FLootLockerWhiteLabelLoginAndSessionResponse</a>)</td></tr>
+<tr class="memdesc:ga002968d0fa32442e9759ab0526cc5e2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerWhiteLabelLoginAndSessionResponse.html">FLootLockerWhiteLabelLoginAndSessionResponse</a> result.  <br /></td></tr>
+<tr class="memitem:ga74df43aa1fbde2acb479a271270bb97a" id="r_ga74df43aa1fbde2acb479a271270bb97a"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga74df43aa1fbde2acb479a271270bb97a">FLootLockerAppleGameCenterSessionResponseDelegate</a>) (<a class="el" href="structFLootLockerAppleGameCenterSessionResponse.html">FLootLockerAppleGameCenterSessionResponse</a>)</td></tr>
+<tr class="memdesc:ga74df43aa1fbde2acb479a271270bb97a"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerAppleGameCenterSessionResponse.html">FLootLockerAppleGameCenterSessionResponse</a> result.  <br /></td></tr>
+<tr class="memitem:ga44f69d575358bb105b10f581c1043801" id="r_ga44f69d575358bb105b10f581c1043801"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga44f69d575358bb105b10f581c1043801">FLootLockerMetaSessionResponseDelegate</a>) (<a class="el" href="structFLootLockerMetaSessionResponse.html">FLootLockerMetaSessionResponse</a>)</td></tr>
+<tr class="memdesc:ga44f69d575358bb105b10f581c1043801"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerMetaSessionResponse.html">FLootLockerMetaSessionResponse</a> result.  <br /></td></tr>
+<tr class="memitem:ga4782fbc582fb13b704dce53fd213cf16" id="r_ga4782fbc582fb13b704dce53fd213cf16"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga4782fbc582fb13b704dce53fd213cf16">FLootLockerDiscordSessionResponseDelegate</a>) (<a class="el" href="structFLootLockerDiscordSessionResponse.html">FLootLockerDiscordSessionResponse</a>)</td></tr>
+<tr class="memdesc:ga4782fbc582fb13b704dce53fd213cf16"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerDiscordSessionResponse.html">FLootLockerDiscordSessionResponse</a> result.  <br /></td></tr>
+<tr class="memitem:ga25600c9748d3aff59589abc68918477d" id="r_ga25600c9748d3aff59589abc68918477d"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#ga25600c9748d3aff59589abc68918477d">FLootLockerWhiteLabelSignUpFieldsResponseDelegate</a>) (<a class="el" href="structFLootLockerWhiteLabelSignUpFieldsResponse.html">FLootLockerWhiteLabelSignUpFieldsResponse</a>)</td></tr>
+<tr class="memdesc:ga25600c9748d3aff59589abc68918477d"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerWhiteLabelSignUpFieldsResponse.html">FLootLockerWhiteLabelSignUpFieldsResponse</a> result.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:gae4ebc57a876c42d49c752c3af6c1f611" id="r_gae4ebc57a876c42d49c752c3af6c1f611"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Authentication.html#gae4ebc57a876c42d49c752c3af6c1f611">ELootLockerGoogleClientPlatform</a> : uint8 { <a class="el" href="group__Authentication.html#ggae4ebc57a876c42d49c752c3af6c1f611ac6e190b284633c48e39e55049da3cce8">ELootLockerGoogleClientPlatform::Web</a> = 0
+, <a class="el" href="group__Authentication.html#ggae4ebc57a876c42d49c752c3af6c1f611ae84e30b9390cdb64db6db2c9ab87846d">ELootLockerGoogleClientPlatform::Android</a> = 1
+, <a class="el" href="group__Authentication.html#ggae4ebc57a876c42d49c752c3af6c1f611aa756d26ca5161ae6fcc2bde4b2bcf169">ELootLockerGoogleClientPlatform::Ios</a> = 2
+, <a class="el" href="group__Authentication.html#ggae4ebc57a876c42d49c752c3af6c1f611a2310408a63388fe57e3a4177168a8798">ELootLockerGoogleClientPlatform::Desktop</a> = 3
+ }</td></tr>
+<tr class="memdesc:gae4ebc57a876c42d49c752c3af6c1f611"><td class="mdescLeft">&#160;</td><td class="mdescRight">Google OAuth2 Client platform.  <a href="group__Authentication.html#gae4ebc57a876c42d49c752c3af6c1f611">More...</a><br /></td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- HTML footer for doxygen 1.15.0-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_426131f2e7e3782155028ac49ab5e11c.html">LootLockerSDK</a></li><li class="navelem"><a href="dir_63662f8d869795fbcfe09e29de292894.html">Source</a></li><li class="navelem"><a href="dir_529bffb88e47999e071ca27db50fed71.html">LootLockerSDK</a></li><li class="navelem"><a href="dir_6800d9c9fc95b443eb5325340bc06d03.html">Public</a></li><li class="navelem"><a href="dir_c4276055a6e8dd41429ac8d6d68c790b.html">GameAPI</a></li><li class="navelem"><a href="LootLockerAuthenticationRequestHandler_8h.html">LootLockerAuthenticationRequestHandler.h</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.15.0
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

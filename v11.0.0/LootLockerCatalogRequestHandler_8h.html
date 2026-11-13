@@ -1,0 +1,405 @@
+<!-- HTML header for doxygen 1.15.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.15.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: LootLockerSDK/Source/LootLockerSDK/Public/GameAPI/LootLockerCatalogRequestHandler.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">var page_layout=1;</script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v11.0.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="side-nav" class="ui-resizable side-nav-resizable"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.0.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+   <tr><td colspan="2">        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td></tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.15.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('LootLockerCatalogRequestHandler_8h.html','',''); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',false,false,'search.php','Search',true);
+});
+</script>
+<div id="main-nav"></div>
+<div id="container"><div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LootLockerCatalogRequestHandler.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;CoreMinimal.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="LootLockerPlayerData_8h_source.html">LootLockerPlayerData.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LootLockerResponse_8h_source.html">LootLockerResponse.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LootLockerMetadataRequestHandler_8h_source.html">GameAPI/LootLockerMetadataRequestHandler.h</a>&quot;</code><br />
+<code>#include &quot;LootLockerCatalogRequestHandler.generated.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for LootLockerCatalogRequestHandler.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="LootLockerCatalogRequestHandler_8h__incl.png" border="0" usemap="#aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerCatalogRequestHandler_8h" loading="lazy" alt=""/></div>
+<map name="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerCatalogRequestHandler_8h" id="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerCatalogRequestHandler_8h">
+<area shape="rect" title=" " alt="" coords="840,5,1102,84"/>
+<area shape="rect" title=" " alt="" coords="796,393,913,421"/>
+<area shape="poly" title=" " alt="" coords="897,83,872,108,853,133,840,165,833,198,830,266,838,329,848,380,844,377,833,330,825,266,828,197,835,163,848,131,868,104,892,86"/>
+<area shape="rect" href="LootLockerPlayerData_8h.html" title=" " alt="" coords="571,233,746,261"/>
+<area shape="poly" title=" " alt="" coords="888,84,801,134,738,181,685,225,683,220,734,177,799,130,883,86"/>
+<area shape="rect" href="LootLockerResponse_8h.html" title=" " alt="" coords="1300,233,1466,261"/>
+<area shape="poly" title=" " alt="" coords="1028,82,1094,130,1118,154,1144,174,1217,201,1315,229,1309,229,1215,206,1141,179,1115,158,1090,134,1027,87"/>
+<area shape="rect" href="LootLockerMetadataRequestHandler_8h.html" title=" " alt="" coords="862,132,1079,177"/>
+<area shape="poly" title=" " alt="" coords="972,83,973,118,968,115,969,87"/>
+<area shape="rect" title=" " alt="" coords="1155,132,1349,177"/>
+<area shape="poly" title=" " alt="" coords="1072,82,1184,126,1178,126,1072,87"/>
+<area shape="poly" title=" " alt="" coords="676,259,829,383,824,383,674,264"/>
+<area shape="rect" title=" " alt="" coords="515,317,730,345"/>
+<area shape="poly" title=" " alt="" coords="655,260,636,305,633,301,651,263"/>
+<area shape="rect" href="LootLockerSessionOptionals_8h.html" title=" " alt="" coords="275,317,490,345"/>
+<area shape="poly" title=" " alt="" coords="617,261,442,315,441,310,612,262"/>
+<area shape="rect" title=" " alt="" coords="5,317,251,345"/>
+<area shape="poly" title=" " alt="" coords="573,264,229,317,228,312,574,259"/>
+<area shape="poly" title=" " alt="" coords="468,343,784,393,779,395,467,348"/>
+<area shape="rect" title=" " alt="" coords="240,393,525,421"/>
+<area shape="poly" title=" " alt="" coords="385,344,385,379,381,376,381,347"/>
+<area shape="poly" title=" " alt="" coords="1329,261,1287,272,1194,282,1120,283,1048,291,1007,302,961,320,914,350,877,384,875,379,911,345,959,315,1006,297,1047,286,1119,278,1193,277,1286,267,1323,262"/>
+<area shape="rect" href="LootLockerErrorData_8h.html" title=" " alt="" coords="972,317,1137,345"/>
+<area shape="poly" title=" " alt="" coords="1333,261,1122,316,1121,311,1327,262"/>
+<area shape="rect" href="LootLockerRequestContext_8h.html" title=" " alt="" coords="1231,317,1438,345"/>
+<area shape="poly" title=" " alt="" coords="1377,260,1351,306,1348,302,1373,263"/>
+<area shape="rect" title=" " alt="" coords="1462,317,1698,345"/>
+<area shape="poly" title=" " alt="" coords="1415,259,1537,311,1532,311,1414,264"/>
+<area shape="poly" title=" " alt="" coords="1022,345,905,390,904,385,1016,346"/>
+<area shape="rect" title=" " alt="" coords="937,393,1172,421"/>
+<area shape="poly" title=" " alt="" coords="1057,344,1057,379,1053,376,1053,347"/>
+<area shape="poly" title=" " alt="" coords="1243,345,929,395,928,390,1238,346"/>
+<area shape="rect" title=" " alt="" coords="1497,393,1703,421"/>
+<area shape="poly" title=" " alt="" coords="1382,343,1541,389,1536,388,1382,348"/>
+<area shape="rect" title=" " alt="" coords="1196,393,1473,421"/>
+<area shape="poly" title=" " alt="" coords="1337,344,1337,379,1333,376,1333,347"/>
+<area shape="poly" title=" " alt="" coords="942,176,918,200,898,226,881,265,869,306,858,379,854,376,864,305,876,263,894,223,914,197,937,179"/>
+<area shape="poly" title=" " alt="" coords="899,177,719,231,718,226,893,178"/>
+<area shape="poly" title=" " alt="" coords="1070,175,1287,222,1311,229,1305,229,1286,227,1069,180"/>
+<area shape="rect" title=" " alt="" coords="907,233,1045,261"/>
+<area shape="poly" title=" " alt="" coords="974,175,977,219,972,216,970,179"/>
+<area shape="rect" title=" " alt="" coords="1069,225,1275,269"/>
+<area shape="poly" title=" " alt="" coords="1019,175,1113,218,1107,218,1019,180"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="LootLockerCatalogRequestHandler_8h__dep__incl.png" border="0" usemap="#aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerCatalogRequestHandler_8hdep" loading="lazy" alt=""/></div>
+<map name="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerCatalogRequestHandler_8hdep" id="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerCatalogRequestHandler_8hdep">
+<area shape="rect" title=" " alt="" coords="5,5,268,84"/>
+<area shape="rect" href="LootLockerSDKManager_8h.html" title=" " alt="" coords="41,132,232,194"/>
+<area shape="poly" title=" " alt="" coords="138,98,139,133,134,131,135,102"/>
+</map>
+</div>
+</div>
+<p><a href="LootLockerCatalogRequestHandler_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:FLootLockerItemDetailsKey" id="r_FLootLockerItemDetailsKey"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerItemDetailsKey.html">FLootLockerItemDetailsKey</a></td></tr>
+<tr class="memitem:FLootLockerAssetItemDetailsKey" id="r_FLootLockerAssetItemDetailsKey"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAssetItemDetailsKey.html">FLootLockerAssetItemDetailsKey</a></td></tr>
+<tr class="memitem:FLootLockerCatalog" id="r_FLootLockerCatalog"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerCatalog.html">FLootLockerCatalog</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a catalog with its name, unique key, identifier, and creation and deletion timestamps.  <a href="structFLootLockerCatalog.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerCatalogEntryPrice" id="r_FLootLockerCatalogEntryPrice"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerCatalogEntryPrice.html">FLootLockerCatalogEntryPrice</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a price for a catalog entry in a specific currency, including the numeric amount, display-friendly string, and unique price identifier.  <a href="structFLootLockerCatalogEntryPrice.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerCatalogAppleAppStoreListing" id="r_FLootLockerCatalogAppleAppStoreListing"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerCatalogAppleAppStoreListing.html">FLootLockerCatalogAppleAppStoreListing</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the Apple App Store product identifier for a catalog entry that can be purchased through that store.  <a href="structFLootLockerCatalogAppleAppStoreListing.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerCatalogGooglePlayStoreListing" id="r_FLootLockerCatalogGooglePlayStoreListing"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerCatalogGooglePlayStoreListing.html">FLootLockerCatalogGooglePlayStoreListing</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the Google Play Store product identifier for a catalog entry that can be purchased through that store.  <a href="structFLootLockerCatalogGooglePlayStoreListing.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerCatalogSteamStoreListingPrice" id="r_FLootLockerCatalogSteamStoreListingPrice"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerCatalogSteamStoreListingPrice.html">FLootLockerCatalogSteamStoreListingPrice</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a single price point for a Steam Store listing, specifying the currency code and amount.  <a href="structFLootLockerCatalogSteamStoreListingPrice.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerCatalogSteamStoreListing" id="r_FLootLockerCatalogSteamStoreListing"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerCatalogSteamStoreListing.html">FLootLockerCatalogSteamStoreListing</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the Steam Store listing for a catalog entry, including a description and the available prices.  <a href="structFLootLockerCatalogSteamStoreListing.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerCatalogStripeStoreListing" id="r_FLootLockerCatalogStripeStoreListing"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerCatalogStripeStoreListing.html">FLootLockerCatalogStripeStoreListing</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the Stripe payment details for a catalog entry, including the currency and charge amount in the smallest currency unit.  <a href="structFLootLockerCatalogStripeStoreListing.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerCatalogEpicGamesStoreListing" id="r_FLootLockerCatalogEpicGamesStoreListing"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerCatalogEpicGamesStoreListing.html">FLootLockerCatalogEpicGamesStoreListing</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the Epic Games Store audience item identifier associated with a catalog entry listing.  <a href="structFLootLockerCatalogEpicGamesStoreListing.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerCatalogPlaystationStoreListing" id="r_FLootLockerCatalogPlaystationStoreListing"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerCatalogPlaystationStoreListing.html">FLootLockerCatalogPlaystationStoreListing</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the PlayStation Store entitlement label associated with a catalog entry listing.  <a href="structFLootLockerCatalogPlaystationStoreListing.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerCatalogXboxStoreListing" id="r_FLootLockerCatalogXboxStoreListing"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerCatalogXboxStoreListing.html">FLootLockerCatalogXboxStoreListing</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the Xbox Store product identifier associated with a catalog entry listing.  <a href="structFLootLockerCatalogXboxStoreListing.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerCatalogEntryListings" id="r_FLootLockerCatalogEntryListings"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerCatalogEntryListings.html">FLootLockerCatalogEntryListings</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aggregates the platform-specific store listing information configured for a catalog entry across all supported storefronts.  <a href="structFLootLockerCatalogEntryListings.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerCatalogEntry" id="r_FLootLockerCatalogEntry"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerCatalogEntry.html">FLootLockerCatalogEntry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a single purchasable item in a catalog, including its entity type, prices, platform store listings, purchasability flag, and unique catalog listing identifier.  <a href="structFLootLockerCatalogEntry.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerAssetDetails" id="r_FLootLockerAssetDetails"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerAssetDetails.html">FLootLockerAssetDetails</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds detail information about an asset catalog entity, including its name, ULID, legacy numeric id, thumbnail, and optional variation or rental option identifiers.  <a href="structFLootLockerAssetDetails.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerProgressionPointDetails" id="r_FLootLockerProgressionPointDetails"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerProgressionPointDetails.html">FLootLockerProgressionPointDetails</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds details about a progression-points catalog entity, including the target progression key, name, ULID, and the number of points to be awarded.  <a href="structFLootLockerProgressionPointDetails.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerProgressionResetDetails" id="r_FLootLockerProgressionResetDetails"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerProgressionResetDetails.html">FLootLockerProgressionResetDetails</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds details about a progression-reset catalog entity, identifying the progression to be reset by key, name, and ULID.  <a href="structFLootLockerProgressionResetDetails.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerCurrencyDetails" id="r_FLootLockerCurrencyDetails"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerCurrencyDetails.html">FLootLockerCurrencyDetails</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds details about a currency catalog entity, including the currency name, short code, amount to be awarded, and ULID.  <a href="structFLootLockerCurrencyDetails.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerCatalogGroupMetadata" id="r_FLootLockerCatalogGroupMetadata"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerCatalogGroupMetadata.html">FLootLockerCatalogGroupMetadata</a></td></tr>
+<tr class="memitem:FLootLockerCatalogGroupAssociation" id="r_FLootLockerCatalogGroupAssociation"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerCatalogGroupAssociation.html">FLootLockerCatalogGroupAssociation</a></td></tr>
+<tr class="memitem:FLootLockerGroupDetails" id="r_FLootLockerGroupDetails"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerGroupDetails.html">FLootLockerGroupDetails</a></td></tr>
+<tr class="memitem:FLootLockerListCatalogsResponse" id="r_FLootLockerListCatalogsResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerListCatalogsResponse.html">FLootLockerListCatalogsResponse</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">N/A.  <a href="structFLootLockerListCatalogsResponse.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FInternalLootLockerListCatalogPricesResponse" id="r_FInternalLootLockerListCatalogPricesResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFInternalLootLockerListCatalogPricesResponse.html">FInternalLootLockerListCatalogPricesResponse</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is what the response looks like, but we want to expose the Mapped variant.  <a href="structFInternalLootLockerListCatalogPricesResponse.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FInternalLootLockerListCatalogPricesV2Response" id="r_FInternalLootLockerListCatalogPricesV2Response"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFInternalLootLockerListCatalogPricesV2Response.html">FInternalLootLockerListCatalogPricesV2Response</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is what the response looks like, but we want to expose the Mapped variant.  <a href="structFInternalLootLockerListCatalogPricesV2Response.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerInlinedGroupDetails" id="r_FLootLockerInlinedGroupDetails"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerInlinedGroupDetails.html">FLootLockerInlinedGroupDetails</a></td></tr>
+<tr class="memitem:FLootLockerInlinedCatalogEntry" id="r_FLootLockerInlinedCatalogEntry"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerInlinedCatalogEntry.html">FLootLockerInlinedCatalogEntry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A Convenience type to use when you need inlined catalog items.  <a href="structFLootLockerInlinedCatalogEntry.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerListCatalogPricesResponse" id="r_FLootLockerListCatalogPricesResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerListCatalogPricesResponse.html">FLootLockerListCatalogPricesResponse</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Response containing catalog entries with entity-typed lookup maps for asset, progression, currency, and group details, plus key-based pagination.  <a href="structFLootLockerListCatalogPricesResponse.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerListCatalogPricesV2Response" id="r_FLootLockerListCatalogPricesV2Response"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerListCatalogPricesV2Response.html">FLootLockerListCatalogPricesV2Response</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Response containing catalog entries with entity-typed lookup maps for asset, progression, currency, and group details, plus extended index-based pagination for the v2 catalog endpoint.  <a href="structFLootLockerListCatalogPricesV2Response.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerMetadataInclude" id="r_FLootLockerMetadataInclude"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerMetadataInclude.html">FLootLockerMetadataInclude</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metadata include configuration for catalog items lookup.  <a href="structFLootLockerMetadataInclude.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerCatalogItemsIncludes" id="r_FLootLockerCatalogItemsIncludes"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerCatalogItemsIncludes.html">FLootLockerCatalogItemsIncludes</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional includes configuration for catalog items lookup.  <a href="structFLootLockerCatalogItemsIncludes.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerListCatalogItemsByIdRequest" id="r_FLootLockerListCatalogItemsByIdRequest"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerListCatalogItemsByIdRequest.html">FLootLockerListCatalogItemsByIdRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request body for looking up catalog items by their catalog_listing_ids.  <a href="structFLootLockerListCatalogItemsByIdRequest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerInlinedGroupAssociation" id="r_FLootLockerInlinedGroupAssociation"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerInlinedGroupAssociation.html">FLootLockerInlinedGroupAssociation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A group association with the entity detail inlined directly.  <a href="structFLootLockerInlinedGroupAssociation.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerInlinedGroupDetailsWithAssociations" id="r_FLootLockerInlinedGroupDetailsWithAssociations"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerInlinedGroupDetailsWithAssociations.html">FLootLockerInlinedGroupDetailsWithAssociations</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Group detail used by the ListCatalogItemsById endpoint, where association details are inlined directly into each association entry by the backend.  <a href="structFLootLockerInlinedGroupDetailsWithAssociations.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerListCatalogItemsByIdEntry" id="r_FLootLockerListCatalogItemsByIdEntry"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerListCatalogItemsByIdEntry.html">FLootLockerListCatalogItemsByIdEntry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A catalog entry with entity details inlined directly.  <a href="structFLootLockerListCatalogItemsByIdEntry.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerListCatalogItemsByIdError" id="r_FLootLockerListCatalogItemsByIdError"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerListCatalogItemsByIdError.html">FLootLockerListCatalogItemsByIdError</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Describes why a specific catalog_listing_id could not be resolved.  <a href="structFLootLockerListCatalogItemsByIdError.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerListCatalogItemsByIdResponse" id="r_FLootLockerListCatalogItemsByIdResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerListCatalogItemsByIdResponse.html">FLootLockerListCatalogItemsByIdResponse</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Response for the ListCatalogItemsById endpoint.  <a href="structFLootLockerListCatalogItemsByIdResponse.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ULootLockerCatalogRequestHandler" id="r_ULootLockerCatalogRequestHandler"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerCatalogRequestHandler.html">ULootLockerCatalogRequestHandler</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:gac0b13f629c53f9051ab862a48bae1e07" id="r_gac0b13f629c53f9051ab862a48bae1e07"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Catalog.html#gac0b13f629c53f9051ab862a48bae1e07">FLootLockerListCatalogsResponseDelegate</a>) (<a class="el" href="structFLootLockerListCatalogsResponse.html">FLootLockerListCatalogsResponse</a>)</td></tr>
+<tr class="memdesc:gac0b13f629c53f9051ab862a48bae1e07"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for listing catalogs.  <br /></td></tr>
+<tr class="memitem:gab16fbaa646fabe0cbbab0a87ea37daf5" id="r_gab16fbaa646fabe0cbbab0a87ea37daf5"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Catalog.html#gab16fbaa646fabe0cbbab0a87ea37daf5">FLootLockerListCatalogPricesResponseDelegate</a>) (<a class="el" href="structFLootLockerListCatalogPricesResponse.html">FLootLockerListCatalogPricesResponse</a>)</td></tr>
+<tr class="memdesc:gab16fbaa646fabe0cbbab0a87ea37daf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for listing items and prices in a catalog.  <br /></td></tr>
+<tr class="memitem:ga6156b113a08c8ea224b6c67f255bcc68" id="r_ga6156b113a08c8ea224b6c67f255bcc68"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Catalog.html#ga6156b113a08c8ea224b6c67f255bcc68">FLootLockerListCatalogPricesV2ResponseDelegate</a>) (<a class="el" href="structFLootLockerListCatalogPricesV2Response.html">FLootLockerListCatalogPricesV2Response</a>)</td></tr>
+<tr class="memdesc:ga6156b113a08c8ea224b6c67f255bcc68"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for listing items and prices in a catalog.  <br /></td></tr>
+<tr class="memitem:gadcce8577df866441ece20ab02fe9eade" id="r_gadcce8577df866441ece20ab02fe9eade"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Catalog.html#gadcce8577df866441ece20ab02fe9eade">FInternalLootLockerListCatalogPricesResponseDelegate</a>) (<a class="el" href="structFInternalLootLockerListCatalogPricesResponse.html">FInternalLootLockerListCatalogPricesResponse</a>)</td></tr>
+<tr class="memdesc:gadcce8577df866441ece20ab02fe9eade"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal C++ response delegate for listing items and prices in a catalog with details as arrays.  <br /></td></tr>
+<tr class="memitem:gaa273d60937d3152db9c8f3cd199d573d" id="r_gaa273d60937d3152db9c8f3cd199d573d"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Catalog.html#gaa273d60937d3152db9c8f3cd199d573d">FInternalLootLockerListCatalogPricesV2ResponseDelegate</a>) (<a class="el" href="structFInternalLootLockerListCatalogPricesV2Response.html">FInternalLootLockerListCatalogPricesV2Response</a>)</td></tr>
+<tr class="memdesc:gaa273d60937d3152db9c8f3cd199d573d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal C++ response delegate for listing items and prices in a catalog with details as arrays.  <br /></td></tr>
+<tr class="memitem:ga8c6555da390633462a2f1f6a4be04a4d" id="r_ga8c6555da390633462a2f1f6a4be04a4d"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Catalog.html#ga8c6555da390633462a2f1f6a4be04a4d">FLootLockerListCatalogItemsByIdResponseDelegate</a>) (<a class="el" href="structFLootLockerListCatalogItemsByIdResponse.html">FLootLockerListCatalogItemsByIdResponse</a>)</td></tr>
+<tr class="memdesc:ga8c6555da390633462a2f1f6a4be04a4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delegate for ListCatalogItemsById response.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga577a31dc9665d687667d28b20f1a3742" id="r_ga577a31dc9665d687667d28b20f1a3742"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Catalog.html#ga577a31dc9665d687667d28b20f1a3742">ELootLockerCatalogEntryEntityKind</a> : uint8 { <br />
+&#160;&#160;<a class="el" href="group__Catalog.html#gga577a31dc9665d687667d28b20f1a3742a26e9054be7f40079575582b7ad3f7363">ELootLockerCatalogEntryEntityKind::Asset</a> = 0
+, <a class="el" href="group__Catalog.html#gga577a31dc9665d687667d28b20f1a3742a386c339d37e737a436499d423a77df0c">ELootLockerCatalogEntryEntityKind::Currency</a> = 1
+, <a class="el" href="group__Catalog.html#gga577a31dc9665d687667d28b20f1a3742a57110c4e7cd03218864bf9155573e1dd">ELootLockerCatalogEntryEntityKind::Progression_Points</a> = 2
+, <a class="el" href="group__Catalog.html#gga577a31dc9665d687667d28b20f1a3742a6b177f161f23a5b58f59f1784891f575">ELootLockerCatalogEntryEntityKind::Progression_Reset</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="group__Catalog.html#gga577a31dc9665d687667d28b20f1a3742a03937134cedab9078be39a77ee3a48a0">ELootLockerCatalogEntryEntityKind::Group</a> = 4
+<br />
+ }</td></tr>
+<tr class="memdesc:ga577a31dc9665d687667d28b20f1a3742"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible entity kinds that catalog entries can have.  <a href="group__Catalog.html#ga577a31dc9665d687667d28b20f1a3742">More...</a><br /></td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- HTML footer for doxygen 1.15.0-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_426131f2e7e3782155028ac49ab5e11c.html">LootLockerSDK</a></li><li class="navelem"><a href="dir_63662f8d869795fbcfe09e29de292894.html">Source</a></li><li class="navelem"><a href="dir_529bffb88e47999e071ca27db50fed71.html">LootLockerSDK</a></li><li class="navelem"><a href="dir_6800d9c9fc95b443eb5325340bc06d03.html">Public</a></li><li class="navelem"><a href="dir_c4276055a6e8dd41429ac8d6d68c790b.html">GameAPI</a></li><li class="navelem"><a href="LootLockerCatalogRequestHandler_8h.html">LootLockerCatalogRequestHandler.h</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.15.0
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

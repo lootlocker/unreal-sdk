@@ -1,0 +1,25 @@
+<map id="LootLockerSDK/Source/LootLockerSDK/Public/LootLockerPresenceManager.h" name="LootLockerSDK/Source/LootLockerSDK/Public/LootLockerPresenceManager.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="288,5,510,67"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="261,266,377,294"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="285,47,209,57,130,71,63,91,39,103,23,117,13,132,9,145,9,158,14,170,35,193,68,213,109,230,156,244,248,267,243,268,154,250,108,235,65,218,31,197,9,173,4,159,3,145,8,129,19,113,36,98,61,86,129,66,208,52,290,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="33,115,219,143"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="306,69,181,112,179,107,310,66"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="243,115,369,143"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="370,66,332,106,329,102,366,69"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="392,115,593,143"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="431,65,471,104,465,104,430,70"/>
+<area shape="rect" id="Node000006" href="$LootLockerPlayerData_8h.html" title=" " alt="" coords="617,115,792,143"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="501,65,648,110,643,111,501,70"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="816,115,1105,143"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="511,53,866,111,862,113,511,58"/>
+<area shape="poly" id="edge6_Node000006_Node000002" title=" " alt="" coords="614,143,446,171,377,184,346,193,336,205,329,220,322,253,318,249,324,218,332,202,343,188,376,179,445,166,619,142"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="357,191,572,218"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="664,143,523,188,521,183,659,144"/>
+<area shape="rect" id="Node000008" href="$LootLockerSessionOptionals_8h.html" title=" " alt="" coords="597,191,812,218"/>
+<area shape="poly" id="edge8_Node000006_Node000008" title=" " alt="" coords="706,141,707,177,702,173,703,145"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="837,191,1082,218"/>
+<area shape="poly" id="edge11_Node000006_Node000010" title=" " alt="" coords="750,141,902,186,897,186,750,146"/>
+<area shape="poly" id="edge9_Node000008_Node000002" title=" " alt="" coords="638,219,393,268,392,262,633,219"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="562,266,847,294"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="706,217,707,252,703,249,703,221"/>
+</map>

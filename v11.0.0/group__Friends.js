@@ -1,0 +1,26 @@
+var group__Friends =
+[
+    [ "FLootLockerFriendActionResponseDelegate", "group__Friends.html#gad6b34954c6adeec08555e79cd0c0ae6e", null ],
+    [ "FLootLockerGetFriendResponseDelegate", "group__Friends.html#ga861eb51a4e4e4a11e4d496a17a97b50a", null ],
+    [ "FLootLockerListBlockedPlayersResponseDelegate", "group__Friends.html#ga0e41cc7eee6f1a4f3f678fd82d0714e7", null ],
+    [ "FLootLockerListFriendsResponseDelegate", "group__Friends.html#ga5a482bbddb3330e0a1860f7952dab12d", null ],
+    [ "FLootLockerListIncomingFriendRequestsResponseDelegate", "group__Friends.html#ga4f40e98a153601be9fdd56ec5624b8bc", null ],
+    [ "FLootLockerListOutgoingFriendRequestsResponseDelegate", "group__Friends.html#ga0f945e610d7d725308e37133631c9f13", null ],
+    [ "ULootLockerSDKManager::AcceptIncomingFriendRequest", "group__Friends.html#gac3330169353bc2fd82a80b359e78da74", null ],
+    [ "ULootLockerSDKManager::BlockPlayer", "group__Friends.html#ga5f601fd22792e84b139779bdbdd25fa6", null ],
+    [ "ULootLockerSDKManager::CancelOutgoingFriendRequest", "group__Friends.html#ga0897d52b807b27db808d4988f7994584", null ],
+    [ "ULootLockerSDKManager::DeclineIncomingFriendRequest", "group__Friends.html#ga30d1e9a849f5695c4e4474ba180993c0", null ],
+    [ "ULootLockerSDKManager::DeleteFriend", "group__Friends.html#gab22e4ebd33ae3486aca8f87c1c6ba4e0", null ],
+    [ "ULootLockerSDKManager::GetFriend", "group__Friends.html#gafc7d5e27f9399fa6eab3e9b455976fa6", null ],
+    [ "ULootLockerSDKManager::ListBlockedPlayers", "group__Friends.html#gafc109e49b7698c0e231c905e9902407d", null ],
+    [ "ULootLockerSDKManager::ListBlockedPlayersPaginated", "group__Friends.html#ga367d88f3734474a29d637e905e0aeba4", null ],
+    [ "ULootLockerSDKManager::ListFriends", "group__Friends.html#gaf614282dd5b8243b2fc4cb8668d9d56d", null ],
+    [ "ULootLockerSDKManager::ListFriendsByPlatform", "group__Friends.html#gaa8dbe0d6fc85ca5f6626c552fae08325", null ],
+    [ "ULootLockerSDKManager::ListFriendsPaginated", "group__Friends.html#ga44ee6591426c3803210d5383b63cbcd5", null ],
+    [ "ULootLockerSDKManager::ListIncomingFriendRequests", "group__Friends.html#ga45d7033bf8963a605902c87e99ea3046", null ],
+    [ "ULootLockerSDKManager::ListIncomingFriendRequestsPaginated", "group__Friends.html#ga27541aa9d3d61ece5bed7be0f8ac7ae1", null ],
+    [ "ULootLockerSDKManager::ListOutgoingFriendRequests", "group__Friends.html#ga696f5be348122ffa5fbdc2a9c3ca5439", null ],
+    [ "ULootLockerSDKManager::ListOutgoingFriendRequestsPaginated", "group__Friends.html#ga1d85c336cef159868603632a7284c4d7", null ],
+    [ "ULootLockerSDKManager::SendFriendRequest", "group__Friends.html#ga4b6e1356a08f6e02ce061a11d9a1b661", null ],
+    [ "ULootLockerSDKManager::UnblockPlayer", "group__Friends.html#gacfdc207a132575521718d90feb2fc15e", null ]
+];

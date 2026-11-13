@@ -1,0 +1,5 @@
+<map id="FLootLockerSetMetadataError" name="FLootLockerSetMetadataError">
+<area shape="rect" id="Node000001" title="Describes a failure that occurred while applying a metadata action, including the action type,..." alt="" coords="5,123,219,151"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerSetMetadataErrorEntry.html" title="Identifies a metadata entry that caused an error during a set operation, by key and value type." alt="" coords="5,5,219,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,64,115,124,109,122,110,67"/>
+</map>

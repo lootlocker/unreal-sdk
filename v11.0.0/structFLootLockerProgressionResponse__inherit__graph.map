@@ -1,0 +1,5 @@
+<map id="FLootLockerProgressionResponse" name="FLootLockerProgressionResponse">
+<area shape="rect" id="Node000001" title="RESPONSE STRUCTS." alt="" coords="5,81,244,109"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="43,5,206,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="126,47,127,82,122,79,123,51"/>
+</map>

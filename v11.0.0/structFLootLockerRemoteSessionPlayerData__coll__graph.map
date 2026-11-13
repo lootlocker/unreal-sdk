@@ -1,0 +1,5 @@
+<map id="FLootLockerRemoteSessionPlayerData" name="FLootLockerRemoteSessionPlayerData">
+<area shape="rect" id="Node000001" title="Holds the player data returned when a remote session lease is successfully authorized,..." alt="" coords="8,106,208,151"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerLevelThresholds.html" title=" " alt="" coords="5,5,211,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,47,111,106,105,105,106,51"/>
+</map>

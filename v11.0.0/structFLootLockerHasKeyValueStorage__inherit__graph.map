@@ -1,0 +1,7 @@
+<map id="FLootLockerHasKeyValueStorage" name="FLootLockerHasKeyValueStorage">
+<area shape="rect" id="Node000001" title=" " alt="" coords="52,5,286,33"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerAsset.html" title=" " alt="" coords="5,81,141,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,42,91,83,89,78,137,43"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerCharacterTypes.html" title=" " alt="" coords="165,81,365,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="199,40,251,81,245,81,197,45"/>
+</map>

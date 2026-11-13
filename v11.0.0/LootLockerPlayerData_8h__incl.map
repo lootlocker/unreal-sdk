@@ -1,0 +1,14 @@
+<map id="LootLockerSDK/Source/LootLockerSDK/Public/LootLockerPlayerData.h" name="LootLockerSDK/Source/LootLockerSDK/Public/LootLockerPlayerData.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="161,5,341,67"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="7,191,124,218"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,43,121,52,80,66,43,87,13,116,8,132,12,148,23,164,38,180,33,181,19,167,8,150,3,132,9,114,40,83,78,61,119,47,163,40"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="23,115,239,143"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="213,66,162,108,158,103,209,69"/>
+<area shape="rect" id="Node000004" href="$LootLockerSessionOptionals_8h.html" title=" " alt="" coords="263,115,479,143"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="291,65,344,106,339,106,290,70"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="503,115,748,143"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="341,57,559,110,554,112,341,62"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="317,146,136,189,135,184,315,141"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="228,191,514,218"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="373,141,373,177,369,173,369,145"/>
+</map>

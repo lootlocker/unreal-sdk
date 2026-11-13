@@ -1,0 +1,5 @@
+<map id="FLootLockerListFriendsResponse" name="FLootLockerListFriendsResponse">
+<area shape="rect" id="Node000001" title="Response struct for listing friends." alt="" coords="5,81,238,109"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="40,5,203,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="123,47,124,82,119,79,120,51"/>
+</map>

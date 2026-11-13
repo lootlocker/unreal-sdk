@@ -1,0 +1,29 @@
+<map id="FLootLockerAuthResponse" name="FLootLockerAuthResponse">
+<area shape="rect" id="Node000001" title=" " alt="" coords="216,314,408,342"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerAuthenticationResponse.html" title=" " alt="" coords="462,245,657,290"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="386,307,467,289,462,292,388,312"/>
+<area shape="rect" id="Node000013" href="$structFLootLockerLoginResponse.html" title=" " alt="" coords="461,314,658,342"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="423,325,463,327,458,328,424,330"/>
+<area shape="rect" id="Node000014" href="$structFLootLockerWhiteLabelLoginAndSessionResponse.html" title=" " alt="" coords="456,365,663,410"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="387,343,467,364,462,365,387,348"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="5,314,168,342"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,325,217,326,213,329,184,330"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerAppleGameCenterSessionResponse.html" title=" " alt="" coords="727,5,945,50"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="576,230,597,190,628,144,665,99,710,60,734,49,730,52,713,65,669,103,632,148,602,193,580,233"/>
+<area shape="rect" id="Node000005" href="$structFLootLockerAppleSessionResponse.html" title=" " alt="" coords="711,74,961,102"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="583,231,636,169,671,137,710,111,739,101,734,103,713,115,674,141,640,172,587,235"/>
+<area shape="rect" id="Node000006" href="$structFLootLockerDiscordSessionResponse.html" title=" " alt="" coords="737,125,935,170"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="607,234,656,206,710,180,746,169,741,172,712,185,659,211,610,239"/>
+<area shape="rect" id="Node000007" href="$structFLootLockerEpicSessionResponse.html" title=" " alt="" coords="716,194,956,222"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="671,239,711,230,765,221,760,223,712,236,673,244"/>
+<area shape="rect" id="Node000008" href="$structFLootLockerGooglePlayGamesSessionResponse.html" title=" " alt="" coords="726,245,946,290"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="672,265,729,267,723,268,673,270"/>
+<area shape="rect" id="Node000009" href="$structFLootLockerGoogleSessionResponse.html" title=" " alt="" coords="738,315,934,359"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="667,292,747,314,742,314,667,297"/>
+<area shape="rect" id="Node000010" href="$structFLootLockerMetaSessionResponse.html" title=" " alt="" coords="713,383,959,411"/>
+<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="657,295,665,300,681,318,689,337,697,354,713,370,735,383,730,382,710,374,693,357,684,339,677,321,662,304,657,301"/>
+<area shape="rect" id="Node000011" href="$structFLootLockerRefreshRemoteSessionResponse.html" title="Response containing the refreshed authentication data and a new refresh token for an existing remote ..." alt="" coords="736,435,936,479"/>
+<area shape="poly" id="edge10_Node000003_Node000011" title=" " alt="" coords="660,296,665,300,678,316,685,332,690,362,694,392,701,406,713,420,738,439,733,438,710,424,696,409,689,394,684,363,680,333,673,319,661,304,659,302"/>
+<area shape="rect" id="Node000012" href="$structFLootLockerStartRemoteSessionResponse.html" title="Response returned when remote session polling completes, containing the lease status and,..." alt="" coords="720,504,952,549"/>
+<area shape="poly" id="edge11_Node000003_Node000012" title=" " alt="" coords="661,297,665,301,682,325,690,350,691,374,689,398,688,421,689,444,697,467,713,490,728,504,723,503,709,494,692,470,684,445,682,421,684,397,686,374,685,351,677,327,661,304,660,302"/>
+</map>
