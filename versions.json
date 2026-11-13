@@ -4,6 +4,10 @@
     "path": "latest/"
   },
   {
+    "version": "v11.0.0",
+    "path": "v11.0.0/"
+  },
+  {
     "version": "v10.7.0",
     "path": "v10.7.0/"
   },
