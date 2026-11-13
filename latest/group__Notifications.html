@@ -59,7 +59,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.7.0</span>
+      <span id="ll-topnav-version">v11.0.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.7.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.0.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -413,6 +413,14 @@ $(function() {
 <tr><td class="fieldname"><a id="gga8a987ae78696b2456052a824e546c7f8aef073c0340734d168105e41b6e1b149e" name="gga8a987ae78696b2456052a824e546c7f8aef073c0340734d168105e41b6e1b149e"></a>lootlocker_console&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="gga8a987ae78696b2456052a824e546c7f8a281e71b5970c406b0ceb0765786411d6" name="gga8a987ae78696b2456052a824e546c7f8a281e71b5970c406b0ceb0765786411d6"></a>lootlocker_server_api&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="gga8a987ae78696b2456052a824e546c7f8a0d57a7ee7dd392100c6186e668b0628a" name="gga8a987ae78696b2456052a824e546c7f8a0d57a7ee7dd392100c6186e668b0628a"></a>lootlocker_admin_api&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga8a987ae78696b2456052a824e546c7f8a20b3bc177ad1683a69650ab80a526690" name="gga8a987ae78696b2456052a824e546c7f8a20b3bc177ad1683a69650ab80a526690"></a>magic_triggers&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga8a987ae78696b2456052a824e546c7f8a2e5d03896213ff618220debb83de3b48" name="gga8a987ae78696b2456052a824e546c7f8a2e5d03896213ff618220debb83de3b48"></a>purchasing_playstation_store&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga8a987ae78696b2456052a824e546c7f8a3b1ffaaba2845cd6471ae16d3a002faa" name="gga8a987ae78696b2456052a824e546c7f8a3b1ffaaba2845cd6471ae16d3a002faa"></a>purchasing_stripe_store&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga8a987ae78696b2456052a824e546c7f8ab3c155736c63e5e122cbc3b2f87270d7" name="gga8a987ae78696b2456052a824e546c7f8ab3c155736c63e5e122cbc3b2f87270d7"></a>purchasing_epic_games_store&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga8a987ae78696b2456052a824e546c7f8ae4fd0a530a2d917b507c05ef0c2bdcca" name="gga8a987ae78696b2456052a824e546c7f8ae4fd0a530a2d917b507c05ef0c2bdcca"></a>leaderboard_reward&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga8a987ae78696b2456052a824e546c7f8a4eced99af8559e12eea2429269008050" name="gga8a987ae78696b2456052a824e546c7f8a4eced99af8559e12eea2429269008050"></a>reward_campaign&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga8a987ae78696b2456052a824e546c7f8ae37ff0a6172a4fecb162cbd85bf2e44e" name="gga8a987ae78696b2456052a824e546c7f8ae37ff0a6172a4fecb162cbd85bf2e44e"></a>rewards_grant&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga8a987ae78696b2456052a824e546c7f8aad921d60486366258809553a3db49a4a" name="gga8a987ae78696b2456052a824e546c7f8aad921d60486366258809553a3db49a4a"></a>unknown&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -813,6 +821,16 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#gga8a987ae78696b2456052a824e546c7f8a281e71b5970c406b0ceb0765786411d6">ELootLockerNotificationSource::lootlocker_server_api</a> = 7
 , <br />
 &#160;&#160;<a class="el" href="#gga8a987ae78696b2456052a824e546c7f8a0d57a7ee7dd392100c6186e668b0628a">ELootLockerNotificationSource::lootlocker_admin_api</a> = 8
+, <a class="el" href="#gga8a987ae78696b2456052a824e546c7f8a20b3bc177ad1683a69650ab80a526690">ELootLockerNotificationSource::magic_triggers</a> = 9
+, <a class="el" href="#gga8a987ae78696b2456052a824e546c7f8a2e5d03896213ff618220debb83de3b48">ELootLockerNotificationSource::purchasing_playstation_store</a> = 10
+, <a class="el" href="#gga8a987ae78696b2456052a824e546c7f8a3b1ffaaba2845cd6471ae16d3a002faa">ELootLockerNotificationSource::purchasing_stripe_store</a> = 11
+, <br />
+&#160;&#160;<a class="el" href="#gga8a987ae78696b2456052a824e546c7f8ab3c155736c63e5e122cbc3b2f87270d7">ELootLockerNotificationSource::purchasing_epic_games_store</a> = 12
+, <a class="el" href="#gga8a987ae78696b2456052a824e546c7f8ae4fd0a530a2d917b507c05ef0c2bdcca">ELootLockerNotificationSource::leaderboard_reward</a> = 13
+, <a class="el" href="#gga8a987ae78696b2456052a824e546c7f8a4eced99af8559e12eea2429269008050">ELootLockerNotificationSource::reward_campaign</a> = 14
+, <a class="el" href="#gga8a987ae78696b2456052a824e546c7f8ae37ff0a6172a4fecb162cbd85bf2e44e">ELootLockerNotificationSource::rewards_grant</a> = 15
+, <br />
+&#160;&#160;<a class="el" href="#gga8a987ae78696b2456052a824e546c7f8aad921d60486366258809553a3db49a4a">ELootLockerNotificationSource::unknown</a> = 16
 <br />
  }</td></tr>
 <tr class="memdesc:ga8a987ae78696b2456052a824e546c7f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum of the different available sources for notifications.  <a href="#ga8a987ae78696b2456052a824e546c7f8">More...</a><br /></td></tr>

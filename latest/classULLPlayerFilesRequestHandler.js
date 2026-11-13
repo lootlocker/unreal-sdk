@@ -1,6 +1,7 @@
 var classULLPlayerFilesRequestHandler =
 [
     [ "ULLPlayerFilesRequestHandler", "classULLPlayerFilesRequestHandler.html#a12b2c413a9a45e0398831726450b279d", null ],
+    [ "CreateFileDownloadLink", "classULLPlayerFilesRequestHandler.html#a4c72458afd3e8ceaf19d3692d1052bbb", null ],
     [ "DeletePlayerFile", "classULLPlayerFilesRequestHandler.html#a48c59261238a9b94d1ddb36b7d22afdc", null ],
     [ "DeletePlayerFileByKey", "classULLPlayerFilesRequestHandler.html#a0b707f2ebb22c8cefdded4e7373e6c97", null ],
     [ "GetFileByKey", "classULLPlayerFilesRequestHandler.html#addbd885224be1b6faabfb79ac8418180", null ],

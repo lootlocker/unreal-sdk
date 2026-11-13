@@ -59,7 +59,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.7.0</span>
+      <span id="ll-topnav-version">v11.0.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.7.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.0.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -247,6 +247,8 @@ Data Fields</h2></td></tr>
 <tr class="memitem:ae132fce37ffac18a06ae40196b543e28" id="r_ae132fce37ffac18a06ae40196b543e28"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae132fce37ffac18a06ae40196b543e28">url</a> = &quot;&quot;</td></tr>
 <tr class="memitem:a06b9e3b2862f81dd3f2913939b064a8a" id="r_a06b9e3b2862f81dd3f2913939b064a8a"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a06b9e3b2862f81dd3f2913939b064a8a">size</a> = 0</td></tr>
 <tr class="memitem:ae83625d6e26d6a3ce05c0544a544857e" id="r_ae83625d6e26d6a3ce05c0544a544857e"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae83625d6e26d6a3ce05c0544a544857e">created_at</a> = &quot;&quot;</td></tr>
+<tr class="memitem:acaba92d7c9b143452d45571e695643b7" id="r_acaba92d7c9b143452d45571e695643b7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acaba92d7c9b143452d45571e695643b7">requires_download_link</a> = false</td></tr>
+<tr class="memdesc:acaba92d7c9b143452d45571e695643b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">True for a gated file (such as a private file reward): url is intentionally empty and must be minted with CreateFileDownloadLink.  <br /></td></tr>
 <tr class="inherit_header pub_attribs_structFLootLockerResponse"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_attribs_structFLootLockerResponse')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Data Fields inherited from <a class="el" href="structFLootLockerResponse.html">FLootLockerResponse</a></td></tr>
 <tr class="memitem:a36e1bee90e730f572837ea0da0f4fc60 inherit pub_attribs_structFLootLockerResponse" id="r_a36e1bee90e730f572837ea0da0f4fc60"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerResponse.html#a36e1bee90e730f572837ea0da0f4fc60">success</a> = false</td></tr>
 <tr class="memdesc:a36e1bee90e730f572837ea0da0f4fc60 inherit pub_attribs_structFLootLockerResponse"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether this request was a success.  <br /></td></tr>
@@ -285,6 +287,22 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="acaba92d7c9b143452d45571e695643b7" name="acaba92d7c9b143452d45571e695643b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acaba92d7c9b143452d45571e695643b7">&#9670;&#160;</a></span>requires_download_link</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerPlayerFileContentResponse::requires_download_link = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>True for a gated file (such as a private file reward): url is intentionally empty and must be minted with CreateFileDownloadLink. </p>
 
 </div>
 </div>

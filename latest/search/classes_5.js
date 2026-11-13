@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['purchasing_0',['Purchasing',['../structLootLockerNotificationsStaticStrings_1_1NotificationSources_1_1Purchasing.html',1,'LootLockerNotificationsStaticStrings::NotificationSources::Purchasing'],['../structLootLockerNotificationsStaticStrings_1_1StandardContextKeys_1_1Purchasing.html',1,'LootLockerNotificationsStaticStrings::StandardContextKeys::Purchasing']]]
+  ['notificationsources_0',['NotificationSources',['../structLootLockerNotificationsStaticStrings_1_1NotificationSources.html',1,'LootLockerNotificationsStaticStrings']]],
+  ['notificationtypes_1',['NotificationTypes',['../structLootLockerNotificationsStaticStrings_1_1NotificationTypes.html',1,'LootLockerNotificationsStaticStrings']]]
 ];

@@ -7,6 +7,7 @@ var structFLootLockerPlayerFileResponse =
     [ "message", "structFLootLockerPlayerFileResponse.html#af553c97e82d925e71b15e4d81f2d1674", null ],
     [ "name", "structFLootLockerPlayerFileResponse.html#ae1ce882b54bd9e6211e95643fafdb45d", null ],
     [ "purpose", "structFLootLockerPlayerFileResponse.html#a35ee1b27077beb278ead354208a517a1", null ],
+    [ "requires_download_link", "structFLootLockerPlayerFileResponse.html#a0ec7ac215bac9fbe86e90732a16242b5", null ],
     [ "revision_id", "structFLootLockerPlayerFileResponse.html#a15f54bc49b5628338181bd2b5596a115", null ],
     [ "size", "structFLootLockerPlayerFileResponse.html#a39c6ac0ce41ffea2661a186a362660cf", null ],
     [ "url", "structFLootLockerPlayerFileResponse.html#af9209733e6b2e8f1aed55499af97b9dd", null ],

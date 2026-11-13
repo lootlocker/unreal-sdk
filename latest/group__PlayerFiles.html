@@ -59,7 +59,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.7.0</span>
+      <span id="ll-topnav-version">v11.0.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.7.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.0.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -298,6 +298,53 @@ $(function() {
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ga53e5b5317781156fd2509accb6ae0116" name="ga53e5b5317781156fd2509accb6ae0116"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga53e5b5317781156fd2509accb6ae0116">&#9670;&#160;</a></span>CreateFileDownloadLink()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerSDKManager::CreateFileDownloadLink </td>
+          <td>(</td>
+          <td class="paramtype">const int32</td>          <td class="paramname"><span class="paramname"><em>FileID</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#ga38079ed6dcabfca7847c0fd7c6e80541">FLootLockerUploadFileDelegate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>OnComplete</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ForPlayerWithUlid</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&quot;</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Mints a short-lived signed download URL for a file the player owns. </p>
+<p>This is the only way to obtain a link for a gated file - one whose listing reports requires_download_link as true, which is how a private file reward is granted. The endpoint is not restricted to gated files: any file the player owns can be minted, so you can always ask for a fresh link instead of caching one.</p>
+<p>The link lives for 60 seconds and is a bearer credential: anyone holding it can download until it expires. Re-mint rather than cache or forward it. The link is not single-use.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">FileID</td><td>File id (retrieved from upload response or ListFiles) </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
 <a id="gadd11e380f4327d8a888146d76b39e711" name="gadd11e380f4327d8a888146d76b39e711"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gadd11e380f4327d8a888146d76b39e711">&#9670;&#160;</a></span>DeletePlayerFile()</h2>
 
@@ -997,6 +1044,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga54de3323609b4737e9bd19f78067b301"><td class="mdescLeft">&#160;</td><td class="mdescRight">Promote a specific revision to be the current (active) revision of a player file identified by its key.  <br /></td></tr>
 <tr class="memitem:ga462615abfb79e6099f7755e16d5d7d2b" id="r_ga462615abfb79e6099f7755e16d5d7d2b"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga462615abfb79e6099f7755e16d5d7d2b">ULootLockerSDKManager::DeletePlayerFileByKey</a> (const FString &amp;Key, const <a class="el" href="#gad1108763b0f9cfa2b586aeda213a3f72">FLootLockerFileDeletedDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:ga462615abfb79e6099f7755e16d5d7d2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a player file by its key.  <br /></td></tr>
+<tr class="memitem:ga53e5b5317781156fd2509accb6ae0116" id="r_ga53e5b5317781156fd2509accb6ae0116"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga53e5b5317781156fd2509accb6ae0116">ULootLockerSDKManager::CreateFileDownloadLink</a> (const int32 FileID, const <a class="el" href="#ga38079ed6dcabfca7847c0fd7c6e80541">FLootLockerUploadFileDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga53e5b5317781156fd2509accb6ae0116"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mints a short-lived signed download URL for a file the player owns.  <br /></td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

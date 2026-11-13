@@ -59,7 +59,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.7.0</span>
+      <span id="ll-topnav-version">v11.0.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.7.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.0.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -255,6 +255,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a13a641d765629c875f4ab5859aeb3a90" id="r_a13a641d765629c875f4ab5859aeb3a90"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a13a641d765629c875f4ab5859aeb3a90">GetFileRevisionByKey</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const FString &amp;Key, const FString &amp;RevisionID, const <a class="el" href="group__PlayerFiles.html#ga63e7017578b0dac692206b8ba926e65d">FLootLockerFileContentDelegate</a> &amp;OnComplete)</td></tr>
 <tr class="memitem:afb7987a86dec1ba1cbccd159e48dd835" id="r_afb7987a86dec1ba1cbccd159e48dd835"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afb7987a86dec1ba1cbccd159e48dd835">PromoteFileRevisionByKey</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const FString &amp;Key, const FString &amp;RevisionID, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnComplete)</td></tr>
 <tr class="memitem:a0b707f2ebb22c8cefdded4e7373e6c97" id="r_a0b707f2ebb22c8cefdded4e7373e6c97"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0b707f2ebb22c8cefdded4e7373e6c97">DeletePlayerFileByKey</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const FString &amp;Key, const <a class="el" href="group__PlayerFiles.html#gad1108763b0f9cfa2b586aeda213a3f72">FLootLockerFileDeletedDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="memitem:a4c72458afd3e8ceaf19d3692d1052bbb" id="r_a4c72458afd3e8ceaf19d3692d1052bbb"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c72458afd3e8ceaf19d3692d1052bbb">CreateFileDownloadLink</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const int32 FileID, const <a class="el" href="group__PlayerFiles.html#ga38079ed6dcabfca7847c0fd7c6e80541">FLootLockerUploadFileDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="memdesc:a4c72458afd3e8ceaf19d3692d1052bbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mints a short-lived (60 second) signed download URL for a file the player owns. This is the only way to obtain a link for a gated file (one whose listing reports requires_download_link as true).  <br /></td></tr>
 </table>
 <a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a12b2c413a9a45e0398831726450b279d" name="a12b2c413a9a45e0398831726450b279d"></a>
@@ -283,6 +285,42 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a4c72458afd3e8ceaf19d3692d1052bbb" name="a4c72458afd3e8ceaf19d3692d1052bbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c72458afd3e8ceaf19d3692d1052bbb">&#9670;&#160;</a></span>CreateFileDownloadLink()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULLPlayerFilesRequestHandler::CreateFileDownloadLink </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>PlayerData</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32</td>          <td class="paramname"><span class="paramname"><em>FileID</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__PlayerFiles.html#ga38079ed6dcabfca7847c0fd7c6e80541">FLootLockerUploadFileDelegate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>OnComplete</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Mints a short-lived (60 second) signed download URL for a file the player owns. This is the only way to obtain a link for a gated file (one whose listing reports requires_download_link as true). </p>
+
+</div>
+</div>
 <a id="a48c59261238a9b94d1ddb36b7d22afdc" name="a48c59261238a9b94d1ddb36b7d22afdc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a48c59261238a9b94d1ddb36b7d22afdc">&#9670;&#160;</a></span>DeletePlayerFile()</h2>
 

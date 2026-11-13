@@ -29,7 +29,10 @@ var searchData=
   ['publisher_5fprogression_5fpoints_26',['Publisher_progression_points',['../group__Items.html#gga0a21699e235f76f96727af3d9947f0a9a3594695e99a5b6504c9f8d4f2d586c1e',1,'LootLockerItemRequestHandler.h']]],
   ['purchasable_27',['Purchasable',['../group__Assets.html#gga8ae3c9c1e8732f482e668772d87be798aec210d41bd962f9c46784fd48b69a1d6',1,'LootLockerAssetsRequestHandler.h']]],
   ['purchasing_5fapple_5fapp_5fstore_28',['purchasing_apple_app_store',['../group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8a6f0f9b4397a6224eb49e1def6937fbe6',1,'LootLockerNotificationsRequestHandler.h']]],
-  ['purchasing_5fgoogle_5fplay_5fstore_29',['purchasing_google_play_store',['../group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8a4ee3f3ca78bd3620a72aa7d3a839a956',1,'LootLockerNotificationsRequestHandler.h']]],
-  ['purchasing_5flootlocker_5fstore_30',['purchasing_lootlocker_store',['../group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8add5b27d4f9719a7917b7338ac813aa3a',1,'LootLockerNotificationsRequestHandler.h']]],
-  ['purchasing_5fsteam_5fstore_31',['purchasing_steam_store',['../group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8a9dd7a2b6aa309b5a8f36dcd40fe6f12c',1,'LootLockerNotificationsRequestHandler.h']]]
+  ['purchasing_5fepic_5fgames_5fstore_29',['purchasing_epic_games_store',['../group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8ab3c155736c63e5e122cbc3b2f87270d7',1,'LootLockerNotificationsRequestHandler.h']]],
+  ['purchasing_5fgoogle_5fplay_5fstore_30',['purchasing_google_play_store',['../group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8a4ee3f3ca78bd3620a72aa7d3a839a956',1,'LootLockerNotificationsRequestHandler.h']]],
+  ['purchasing_5flootlocker_5fstore_31',['purchasing_lootlocker_store',['../group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8add5b27d4f9719a7917b7338ac813aa3a',1,'LootLockerNotificationsRequestHandler.h']]],
+  ['purchasing_5fplaystation_5fstore_32',['purchasing_playstation_store',['../group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8a2e5d03896213ff618220debb83de3b48',1,'LootLockerNotificationsRequestHandler.h']]],
+  ['purchasing_5fsteam_5fstore_33',['purchasing_steam_store',['../group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8a9dd7a2b6aa309b5a8f36dcd40fe6f12c',1,'LootLockerNotificationsRequestHandler.h']]],
+  ['purchasing_5fstripe_5fstore_34',['purchasing_stripe_store',['../group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8a3b1ffaaba2845cd6471ae16d3a002faa',1,'LootLockerNotificationsRequestHandler.h']]]
 ];

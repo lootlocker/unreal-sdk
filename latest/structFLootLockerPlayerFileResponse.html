@@ -59,7 +59,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.7.0</span>
+      <span id="ll-topnav-version">v11.0.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.7.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.0.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -254,6 +254,8 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a07edfb6ad09fdde9821f230696a4a568" id="r_a07edfb6ad09fdde9821f230696a4a568"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a07edfb6ad09fdde9821f230696a4a568">url_expires_at</a> = &quot;&quot;</td></tr>
 <tr class="memitem:a8b64bc235a725153de7df4f6484f826c" id="r_a8b64bc235a725153de7df4f6484f826c"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b64bc235a725153de7df4f6484f826c">created_at</a> = &quot;&quot;</td></tr>
 <tr class="memitem:a0c59342940dadbad66548b29724c1478" id="r_a0c59342940dadbad66548b29724c1478"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c59342940dadbad66548b29724c1478">IsPublic</a> = false</td></tr>
+<tr class="memitem:a0ec7ac215bac9fbe86e90732a16242b5" id="r_a0ec7ac215bac9fbe86e90732a16242b5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0ec7ac215bac9fbe86e90732a16242b5">requires_download_link</a> = false</td></tr>
+<tr class="memdesc:a0ec7ac215bac9fbe86e90732a16242b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">True for a gated file (such as a private file reward): url is intentionally empty and the client must call CreateFileDownloadLink to obtain a short-lived link.  <br /></td></tr>
 <tr class="inherit_header pub_attribs_structFLootLockerResponse"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_attribs_structFLootLockerResponse')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Data Fields inherited from <a class="el" href="structFLootLockerResponse.html">FLootLockerResponse</a></td></tr>
 <tr class="memitem:a36e1bee90e730f572837ea0da0f4fc60 inherit pub_attribs_structFLootLockerResponse" id="r_a36e1bee90e730f572837ea0da0f4fc60"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerResponse.html#a36e1bee90e730f572837ea0da0f4fc60">success</a> = false</td></tr>
 <tr class="memdesc:a36e1bee90e730f572837ea0da0f4fc60 inherit pub_attribs_structFLootLockerResponse"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether this request was a success.  <br /></td></tr>
@@ -362,6 +364,22 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0ec7ac215bac9fbe86e90732a16242b5" name="a0ec7ac215bac9fbe86e90732a16242b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ec7ac215bac9fbe86e90732a16242b5">&#9670;&#160;</a></span>requires_download_link</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerPlayerFileResponse::requires_download_link = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>True for a gated file (such as a private file reward): url is intentionally empty and the client must call CreateFileDownloadLink to obtain a short-lived link. </p>
 
 </div>
 </div>

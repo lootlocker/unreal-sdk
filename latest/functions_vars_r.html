@@ -59,7 +59,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.7.0</span>
+      <span id="ll-topnav-version">v11.0.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.7.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.0.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -239,6 +239,7 @@ $(function() {
 <li>request_headers&#160;:&#160;<a class="el" href="structFLootLockerErrorReportRequest.html#a0af8c2e3ee513f18de5bf46f6f54a157">FLootLockerErrorReportRequest</a>, <a class="el" href="structFLootLockerFailedRequestReport.html#ac7d6416528eae4a6311b20439f67e0a5">FLootLockerFailedRequestReport</a></li>
 <li>Request_id&#160;:&#160;<a class="el" href="structFLootLockerErrorData.html#a79bbbc7b1b5f935ac8e5cbad1079b595">FLootLockerErrorData</a></li>
 <li>RequestData&#160;:&#160;<a class="el" href="structFLootLockerHTTPExecutionQueueItem.html#acf10ff034fdd50a1b240c2be22657a36">FLootLockerHTTPExecutionQueueItem</a></li>
+<li>RequestedCount&#160;:&#160;<a class="el" href="structLootLockerNotificationsStaticStrings_1_1StandardContextKeys_1_1RewardsGrant.html#aa6a284dfeb277f29cf6fb400ad2c71ac">LootLockerNotificationsStaticStrings::StandardContextKeys::RewardsGrant</a></li>
 <li>RequestId&#160;:&#160;<a class="el" href="structFLootLockerHTTPRequestData.html#a9f499a0f3ee22186b0b599148befa60c">FLootLockerHTTPRequestData</a>, <a class="el" href="structFLootLockerRequestContext.html#a870f417b46fe7028a1fb5aa67c6e42c2">FLootLockerRequestContext</a></li>
 <li>RequestMethod&#160;:&#160;<a class="el" href="structFLootLockerRequestContext.html#ac54523f4f447f9e95349a5b1e8317fc8">FLootLockerRequestContext</a></li>
 <li>RequestParametersJsonString&#160;:&#160;<a class="el" href="structFLootLockerRequestContext.html#ae47338ea04dcae248fe3b747d7065cdd">FLootLockerRequestContext</a></li>
@@ -248,6 +249,7 @@ $(function() {
 <li>RequestTimeoutSeconds&#160;:&#160;<a class="el" href="structFLootLockerHTTPClientConfiguration.html#a2ab7ea9ed12f807b454eb9cc65b53945">FLootLockerHTTPClientConfiguration</a></li>
 <li>RequestURL&#160;:&#160;<a class="el" href="structFLootLockerRequestContext.html#a696d87aacdce2bbeb9d15253c060aed2">FLootLockerRequestContext</a></li>
 <li>required&#160;:&#160;<a class="el" href="structFLootLockerWhiteLabelCustomSignUpField.html#aa18683b6f03044df15f233b263497c7f">FLootLockerWhiteLabelCustomSignUpField</a></li>
+<li>requires_download_link&#160;:&#160;<a class="el" href="structFLootLockerPlayerFile.html#a4df23aaae1137fd5f79c86321a582faf">FLootLockerPlayerFile</a>, <a class="el" href="structFLootLockerPlayerFileContentResponse.html#acaba92d7c9b143452d45571e695643b7">FLootLockerPlayerFileContentResponse</a>, <a class="el" href="structFLootLockerPlayerFileMetadata.html#a1102dcf7b79161cd9c3fd2618e967245">FLootLockerPlayerFileMetadata</a>, <a class="el" href="structFLootLockerPlayerFileResponse.html#a0ec7ac215bac9fbe86e90732a16242b5">FLootLockerPlayerFileResponse</a></li>
 <li>Response&#160;:&#160;<a class="el" href="structFLootLockerHTTPExecutionQueueItem.html#a85d3f3119343d7607006df9f526486cf">FLootLockerHTTPExecutionQueueItem</a></li>
 <li>response_headers&#160;:&#160;<a class="el" href="structFLootLockerErrorReportRequest.html#a68a178f1290e69e7abf034bb599a5b8d">FLootLockerErrorReportRequest</a>, <a class="el" href="structFLootLockerFailedRequestReport.html#a5568efd81daf754fccdec1e20a89a41a">FLootLockerFailedRequestReport</a></li>
 <li>response_json_body&#160;:&#160;<a class="el" href="structFLootLockerErrorReportRequest.html#a3a9308c35b9e2e625927761807a2fe3b">FLootLockerErrorReportRequest</a>, <a class="el" href="structFLootLockerFailedRequestReport.html#a4de67e1c7876e2327e033e41ab9003ec">FLootLockerFailedRequestReport</a></li>
@@ -263,8 +265,11 @@ $(function() {
 <li>reward_id&#160;:&#160;<a class="el" href="structFLootLockerLeaderboardAssetReward.html#a0e5deb85528324ad859672335da2775f">FLootLockerLeaderboardAssetReward</a>, <a class="el" href="structFLootLockerLeaderboardCurrencyReward.html#a64abb3d452459d1e7a46cd5464f99899">FLootLockerLeaderboardCurrencyReward</a>, <a class="el" href="structFLootLockerLeaderboardGroupReward.html#a2ad13fd3b7e7c7d190297985416a5035">FLootLockerLeaderboardGroupReward</a>, <a class="el" href="structFLootLockerLeaderboardProgressionPointsReward.html#ac197275ebaa9d8ad2aec2e3787d3c9ab">FLootLockerLeaderboardProgressionPointsReward</a>, <a class="el" href="structFLootLockerLeaderboardProgressionResetReward.html#ac73bde41eb8211e76e4e0cbd39decc41">FLootLockerLeaderboardProgressionResetReward</a>, <a class="el" href="structFLootLockerLeaderboardReward.html#aed6fa5f369d7c88ec372acbdf4e6682e">FLootLockerLeaderboardReward</a></li>
 <li>Reward_kind&#160;:&#160;<a class="el" href="structFLootLockerEntitlementHistoryItem.html#a52eb93b5963022bfa2c539d648f5b090">FLootLockerEntitlementHistoryItem</a></li>
 <li>reward_kind&#160;:&#160;<a class="el" href="structFLootLockerLeaderboardReward.html#aede772e2b9868b10b51ee2cb3a2295a1">FLootLockerLeaderboardReward</a></li>
+<li>RewardCampaign&#160;:&#160;<a class="el" href="structLootLockerNotificationsStaticStrings_1_1NotificationSources.html#af26a0283abe6879117977b892294a684">LootLockerNotificationsStaticStrings::NotificationSources</a></li>
+<li>RewardId&#160;:&#160;<a class="el" href="structLootLockerNotificationsStaticStrings_1_1StandardContextKeys_1_1RewardCampaign.html#afa363cc20fee5ed7438f182397ec422c">LootLockerNotificationsStaticStrings::StandardContextKeys::RewardCampaign</a></li>
 <li>Rewards&#160;:&#160;<a class="el" href="structFLootLockerAwardedTier.html#a26344357a829efc4dd7786447b0f1605">FLootLockerAwardedTier</a>, <a class="el" href="structFLootLockerEntitlementListing.html#a132dca3d3c6defc569037542a2329984">FLootLockerEntitlementListing</a>, <a class="el" href="structFLootLockerLeaderboardDetails.html#a70316f975d8b2a5ec8af8bccc2a44861">FLootLockerLeaderboardDetails</a>, <a class="el" href="structFLootLockerLeaderboardDetailsResponse.html#a7d350d23fa96a29c2ccc45a24c582617">FLootLockerLeaderboardDetailsResponse</a>, <a class="el" href="structFLootLockerProgressionTier.html#a44dec207d83cbecea1833cd4b7d1d6e9">FLootLockerProgressionTier</a></li>
 <li>rewards&#160;:&#160;<a class="el" href="structFLootLockerRefundWarningDetail.html#a1a951db50fbdda385643292c4c95efb7">FLootLockerRefundWarningDetail</a></li>
+<li>RewardsGrant&#160;:&#160;<a class="el" href="structLootLockerNotificationsStaticStrings_1_1NotificationSources.html#ae916d8c16d5c32cdafe588b933f74b66">LootLockerNotificationsStaticStrings::NotificationSources</a></li>
 <li>rotation&#160;:&#160;<a class="el" href="structFLootLockerAssetBoneParameters.html#a35dade97cdf1638b8419cb223954b010">FLootLockerAssetBoneParameters</a>, <a class="el" href="structFLootLockerMapCamera.html#ad3a5c2cedf87bc2cb846e021de8b5340">FLootLockerMapCamera</a>, <a class="el" href="structFLootLockerMapSpawnPoint.html#a05d4f439e9aef25d22a9316b1384aa69">FLootLockerMapSpawnPoint</a></li>
 </ul>
 </div><!-- contents -->

@@ -59,7 +59,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.7.0</span>
+      <span id="ll-topnav-version">v11.0.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.7.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.0.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -296,8 +296,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memdesc:a6ab2370d0a8229f0d71659fac5aa6cec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the singleton instance of the presence manager.  <br /></td></tr>
 <tr class="memitem:a23a1f853aa8f3388a4b97f7d369198f4" id="r_a23a1f853aa8f3388a4b97f7d369198f4"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23a1f853aa8f3388a4b97f7d369198f4">Initialize</a> ()</td></tr>
 <tr class="memdesc:a23a1f853aa8f3388a4b97f7d369198f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the presence manager subsystem.  <br /></td></tr>
-<tr class="memitem:a58d80bdd02556068dd22322414cbf8c4" id="r_a58d80bdd02556068dd22322414cbf8c4"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a58d80bdd02556068dd22322414cbf8c4">Shutdown</a> ()</td></tr>
-<tr class="memdesc:a58d80bdd02556068dd22322414cbf8c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shutdown and cleanup the presence manager subsystem.  <br /></td></tr>
+<tr class="memitem:a8073d47eaf33f256ae363f51e32fdb29" id="r_a8073d47eaf33f256ae363f51e32fdb29"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8073d47eaf33f256ae363f51e32fdb29">Shutdown</a> (<a class="el" href="classULootLockerPresenceManager.html">ULootLockerPresenceManager</a> *InstanceToShutDown=nullptr)</td></tr>
+<tr class="memdesc:a8073d47eaf33f256ae363f51e32fdb29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shutdown and cleanup the presence manager subsystem.  <br /></td></tr>
 <tr class="memitem:a3f09b338385d237776779c8c74f3138c" id="r_a3f09b338385d237776779c8c74f3138c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3f09b338385d237776779c8c74f3138c">NotifyPlayerActivated</a> (const FString &amp;PlayerUlid)</td></tr>
 <tr class="memdesc:a3f09b338385d237776779c8c74f3138c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notify manager that a player has been activated (e.g., logged in).  <br /></td></tr>
 <tr class="memitem:aef4af47601f226bbeb1f89d02f464aa2" id="r_aef4af47601f226bbeb1f89d02f464aa2"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef4af47601f226bbeb1f89d02f464aa2">NotifyPlayerDeactivated</a> (const FString &amp;PlayerUlid)</td></tr>
@@ -1052,8 +1052,8 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a58d80bdd02556068dd22322414cbf8c4" name="a58d80bdd02556068dd22322414cbf8c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58d80bdd02556068dd22322414cbf8c4">&#9670;&#160;</a></span>Shutdown()</h2>
+<a id="a8073d47eaf33f256ae363f51e32fdb29" name="a8073d47eaf33f256ae363f51e32fdb29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8073d47eaf33f256ae363f51e32fdb29">&#9670;&#160;</a></span>Shutdown()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1064,7 +1064,7 @@ Protected Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void ULootLockerPresenceManager::Shutdown </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classULootLockerPresenceManager.html">ULootLockerPresenceManager</a> *</td>          <td class="paramname"><span class="paramname"><em>InstanceToShutDown</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1076,6 +1076,12 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Shutdown and cleanup the presence manager subsystem. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstanceToShutDown</td><td>Optional: the exact instance to shut down. When supplied, the request is ignored unless that instance is still the registered one, so a replaced instance cannot tear down its successor. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

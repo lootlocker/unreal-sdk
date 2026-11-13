@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"classULootLockerCurrencyRequestHandler.html":[1,0,485],
 "classULootLockerCurrencyRequestHandler.html#a0784da7d849aa516f7deeb0b0a643ed3":[1,0,485,1],
 "classULootLockerCurrencyRequestHandler.html#a547a5d2f006f945e756226269ddefa85":[1,0,485,0],
 "classULootLockerCurrencyRequestHandler.html#a7bc65d295e49d85787c0cb3de5431ec8":[1,0,485,3],
@@ -171,10 +172,10 @@ var NAVTREEINDEX1 =
 "classULootLockerPresenceManager.html#a3f09b338385d237776779c8c74f3138c":[2,6,19,18],
 "classULootLockerPresenceManager.html#a4947df8ab73899457f86bcfa084a3057":[2,6,19,29],
 "classULootLockerPresenceManager.html#a4bf3ca2ad60c3fadd2c433bf42bb76b4":[2,6,19,21],
-"classULootLockerPresenceManager.html#a58d80bdd02556068dd22322414cbf8c4":[2,6,19,28],
 "classULootLockerPresenceManager.html#a5a63c97bdbc7d2689bcfa27db4f21006":[2,6,19,1],
 "classULootLockerPresenceManager.html#a63228fa2e91679f02f93d36ad4d10282":[2,6,19,20],
 "classULootLockerPresenceManager.html#a6ab2370d0a8229f0d71659fac5aa6cec":[2,6,19,9],
+"classULootLockerPresenceManager.html#a8073d47eaf33f256ae363f51e32fdb29":[2,6,19,28],
 "classULootLockerPresenceManager.html#a83b3043a698e36425da3d50e05773c15":[2,6,19,23],
 "classULootLockerPresenceManager.html#a845dc0151b8c33747058d50576ae0b9b":[2,6,19,8],
 "classULootLockerPresenceManager.html#a90fbae353f8bf21b16f31faa8c545cb8":[2,6,19,10],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "classULootLockerPurchasesRequestHandler.html#ae53a62c6e864f03f957bb1db55550959":[1,0,507,6],
 "classULootLockerPurchasesRequestHandler.html#aebc3d2aa77c40ae8d56534aff6fba2c1":[1,0,507,8],
 "classULootLockerPurchasesRequestHandler.html#af81945a765eb328c272dddc2f10c43b7":[1,0,507,17],
-"classULootLockerPurchasesRequestHandler.html#afe0187855bd4feb6c7dff4783bfee054":[1,0,507,14],
-"classULootLockerRemoteSessionRequestHandler.html":[1,0,508]
+"classULootLockerPurchasesRequestHandler.html#afe0187855bd4feb6c7dff4783bfee054":[1,0,507,14]
 };

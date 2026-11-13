@@ -59,7 +59,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.7.0</span>
+      <span id="ll-topnav-version">v11.0.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.7.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.0.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -310,7 +310,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get notifications by their identifying value. </p>
-<p>The out is an array because many notifications are not unique. For example triggers that can be triggered multiple times. For Triggers the identifying value is the key of the trigger For Google Play Store purchases it is the product id For Apple App Store purchases it is the transaction id For LootLocker virtual purchases it is the catalog item id For Twitch Drops it is the Twitch reward id For custom notifications (notifications with the field Custom = true and with the source being either LootLocker Console or LootLocker Server API) the content of the notification is defined by the sender, so the identifying value is simply the Notification type matching the pattern ^[a-z0-9_-]+.[a-z0-9_-]+.[a-z0-9_-]+$</p>
+<p>The out is an array because many notifications are not unique. For example triggers that can be triggered multiple times. For Triggers the identifying value is the key of the trigger For Google Play Store purchases it is the product id For Apple App Store purchases it is the transaction id For LootLocker virtual purchases it is the catalog item id For Twitch Drops it is the Twitch reward id For PlayStation Store purchases it is the transaction id For Stripe Store purchases it is the entitlement id For Epic Games Store purchases it is the Epic entitlement id For Leaderboard rewards it is the leaderboard id For Reward Campaigns it is the giveaway id For Rewards grants it is the item template id For Magic Triggers there is no source specific identifying context key, so the identifying value is the Notification type For custom notifications (notifications with the field Custom = true and with the source being either LootLocker Console or LootLocker Server API) the content of the notification is defined by the sender, so the identifying value is simply the Notification type matching the pattern ^[a-z0-9_-]+.[a-z0-9_-]+.[a-z0-9_-]+$ For notifications whose source is not recognised by the SDK the SourceEnum is set to unknown and no identifying value is registered</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">IdentifyingValue</td><td>The identifying value of the notification you want to fetch. </td></tr>

@@ -44,20 +44,20 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"classULootLockerCurrencyRequestHandler.html#a0784da7d849aa516f7deeb0b0a643ed3",
-"classULootLockerRemoteSessionRequestHandler.html#a27b618c8fdd348373b3b44a04ff3ef64",
-"group__Authentication.html#gab1479486719c925962dcb061c9d27ddf",
-"group__Init.html#ggab6cbfe9c0c8733469624132e5afda1a5aaca41c16b1e459f6897b49bc9e212d8e",
-"group__PlayerFiles.html#ga0dd3ee1edb8f0b3dba880b0f24ae9b9b",
-"structFLootLockerAsset.html#a3c842c6e44825ae43bc9bf7561fefccb",
-"structFLootLockerCatalogEntryListings.html#a36cf1d3b7449b4fcee11a7145c9d3c11",
-"structFLootLockerEntitlementListing.html#ac90aa4e65bbda0d8b45e74ddc4a51e7a",
-"structFLootLockerGrantAssetResponse.html#a92960d2a400406efdfbc80e37984b738",
-"structFLootLockerLeaderboardDetailsResponse.html",
-"structFLootLockerMember.html#a29288b211e24b8846f0cebdbe16d7375",
-"structFLootLockerPickDropsFromDropTableItem.html#aa90f087009d7a2bfb823b04f93b76ee1",
-"structFLootLockerRefundPlayerInventoryEvent.html",
-"structFLootLockerWhiteLabelCustomSignUpField.html#aaa61f55137f6e004b50e3f11226e32db"
+"classULootLockerCurrencyRequestHandler.html",
+"classULootLockerRemoteSessionRequestHandler.html",
+"group__Authentication.html#ga121eef2e1cdebecea4cf18c4a5af3e8c",
+"group__Hero.html#ga6d592fbaf40d0b3cae586d7384a2d4c0",
+"group__Player.html#ga61a5b3a1266d77a1871a201c57d5cb58",
+"structFInternalLootLockerListCatalogPricesV2Response.html#a4d214dd88d58489fa1a6434c4ff72593",
+"structFLootLockerBroadcastLanguage.html#a686a46a1830d1be01fc9ea7ca2f58844",
+"structFLootLockerDenomination.html#a32eb11c9cb4659f77795518980d1dc0e",
+"structFLootLockerGetPlayerInventoryItemResponse.html#ac120f99205e6297a2ade53a3d27267f7",
+"structFLootLockerLeaderboardArchiveResponse.html",
+"structFLootLockerLoginResponse.html",
+"structFLootLockerObjects.html#a2ccf6c9ea5612b2ee5e44922b54ec2fa",
+"structFLootLockerRedeemGooglePlayStorePurchaseForPlayerRequest.html#ada8af382357028700036efa7b3cbfae4",
+"structFLootLockerUniversalAssets.html#a877c30a16c9452a3a67279883da20c07"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

@@ -59,7 +59,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.7.0</span>
+      <span id="ll-topnav-version">v11.0.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.7.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.0.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -475,6 +475,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memdesc:ga54de3323609b4737e9bd19f78067b301"><td class="mdescLeft">&#160;</td><td class="mdescRight">Promote a specific revision to be the current (active) revision of a player file identified by its key.  <br /></td></tr>
 <tr class="memitem:ga462615abfb79e6099f7755e16d5d7d2b" id="r_ga462615abfb79e6099f7755e16d5d7d2b"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#ga462615abfb79e6099f7755e16d5d7d2b">DeletePlayerFileByKey</a> (const FString &amp;Key, const <a class="el" href="group__PlayerFiles.html#gad1108763b0f9cfa2b586aeda213a3f72">FLootLockerFileDeletedDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:ga462615abfb79e6099f7755e16d5d7d2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a player file by its key.  <br /></td></tr>
+<tr class="memitem:ga53e5b5317781156fd2509accb6ae0116" id="r_ga53e5b5317781156fd2509accb6ae0116"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerFiles.html#ga53e5b5317781156fd2509accb6ae0116">CreateFileDownloadLink</a> (const int32 FileID, const <a class="el" href="group__PlayerFiles.html#ga38079ed6dcabfca7847c0fd7c6e80541">FLootLockerUploadFileDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga53e5b5317781156fd2509accb6ae0116"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mints a short-lived signed download URL for a file the player owns.  <br /></td></tr>
 <tr class="memitem:gac9f805512487dc0c906484ea78a834e1" id="r_gac9f805512487dc0c906484ea78a834e1"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerProgressions.html#gac9f805512487dc0c906484ea78a834e1">GetPlayerProgressions</a> (const int32 &amp;Count, const FString &amp;After, const <a class="el" href="group__Progressions.html#ga2a0f789dfea31de2099202028ef5e26b">FLootLockerPaginatedPlayerProgressionsResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:gac9f805512487dc0c906484ea78a834e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">List player progressions (paginated).  <br /></td></tr>
 <tr class="memitem:gaa087503ccd29d19c245c322e14f549db" id="r_gaa087503ccd29d19c245c322e14f549db"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__PlayerProgressions.html#gaa087503ccd29d19c245c322e14f549db">GetPlayerProgressions</a> (const int32 &amp;Count, const <a class="el" href="group__Progressions.html#ga2a0f789dfea31de2099202028ef5e26b">FLootLockerPaginatedPlayerProgressionsResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>

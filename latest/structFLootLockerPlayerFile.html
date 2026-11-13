@@ -59,7 +59,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.7.0</span>
+      <span id="ll-topnav-version">v11.0.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.7.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.0.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -227,6 +227,8 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a29a2e45c97e250e6e0011354052c135e" id="r_a29a2e45c97e250e6e0011354052c135e"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a29a2e45c97e250e6e0011354052c135e">url_expires_at</a> = &quot;&quot;</td></tr>
 <tr class="memitem:a2a62b510cf5c68bbe521f298c692ea3d" id="r_a2a62b510cf5c68bbe521f298c692ea3d"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a62b510cf5c68bbe521f298c692ea3d">created_at</a> = &quot;&quot;</td></tr>
 <tr class="memitem:a4e918c54d1bee1a5354bf8dc455da69a" id="r_a4e918c54d1bee1a5354bf8dc455da69a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e918c54d1bee1a5354bf8dc455da69a">IsPublic</a> = false</td></tr>
+<tr class="memitem:a4df23aaae1137fd5f79c86321a582faf" id="r_a4df23aaae1137fd5f79c86321a582faf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4df23aaae1137fd5f79c86321a582faf">requires_download_link</a> = false</td></tr>
+<tr class="memdesc:a4df23aaae1137fd5f79c86321a582faf"><td class="mdescLeft">&#160;</td><td class="mdescRight">True for a gated file (such as a private file reward): url is intentionally empty and the client must call CreateFileDownloadLink to obtain a short-lived link.  <br /></td></tr>
 </table>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
 <a id="a2a62b510cf5c68bbe521f298c692ea3d" name="a2a62b510cf5c68bbe521f298c692ea3d"></a>
@@ -310,6 +312,22 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4df23aaae1137fd5f79c86321a582faf" name="a4df23aaae1137fd5f79c86321a582faf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4df23aaae1137fd5f79c86321a582faf">&#9670;&#160;</a></span>requires_download_link</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FLootLockerPlayerFile::requires_download_link = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>True for a gated file (such as a private file reward): url is intentionally empty and the client must call CreateFileDownloadLink to obtain a short-lived link. </p>
 
 </div>
 </div>

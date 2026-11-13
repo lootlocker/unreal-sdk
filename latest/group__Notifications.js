@@ -46,7 +46,15 @@ var group__Notifications =
       [ "ELootLockerNotificationSource::twitch_drop", "group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8aeb03041c0df2f32cdd0ca2649a16fc5c", null ],
       [ "ELootLockerNotificationSource::lootlocker_console", "group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8aef073c0340734d168105e41b6e1b149e", null ],
       [ "ELootLockerNotificationSource::lootlocker_server_api", "group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8a281e71b5970c406b0ceb0765786411d6", null ],
-      [ "ELootLockerNotificationSource::lootlocker_admin_api", "group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8a0d57a7ee7dd392100c6186e668b0628a", null ]
+      [ "ELootLockerNotificationSource::lootlocker_admin_api", "group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8a0d57a7ee7dd392100c6186e668b0628a", null ],
+      [ "ELootLockerNotificationSource::magic_triggers", "group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8a20b3bc177ad1683a69650ab80a526690", null ],
+      [ "ELootLockerNotificationSource::purchasing_playstation_store", "group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8a2e5d03896213ff618220debb83de3b48", null ],
+      [ "ELootLockerNotificationSource::purchasing_stripe_store", "group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8a3b1ffaaba2845cd6471ae16d3a002faa", null ],
+      [ "ELootLockerNotificationSource::purchasing_epic_games_store", "group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8ab3c155736c63e5e122cbc3b2f87270d7", null ],
+      [ "ELootLockerNotificationSource::leaderboard_reward", "group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8ae4fd0a530a2d917b507c05ef0c2bdcca", null ],
+      [ "ELootLockerNotificationSource::reward_campaign", "group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8a4eced99af8559e12eea2429269008050", null ],
+      [ "ELootLockerNotificationSource::rewards_grant", "group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8ae37ff0a6172a4fecb162cbd85bf2e44e", null ],
+      [ "ELootLockerNotificationSource::unknown", "group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8aad921d60486366258809553a3db49a4a", null ]
     ] ],
     [ "ULootLockerSDKManager::ListNotifications", "group__Notifications.html#ga3daab7a9746e98c663edfa234d396009", null ],
     [ "ULootLockerSDKManager::ListNotificationsWithDefaultParameters", "group__Notifications.html#ga53124749d88ef1582953c2250cc73adb", null ],

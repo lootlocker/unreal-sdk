@@ -28,7 +28,7 @@ var classULootLockerPresenceManager =
     [ "SetEnabled", "classULootLockerPresenceManager.html#aa1a71ef96bb7a6387ebe681b3833c9c3", null ],
     [ "SetEnabledInEditor", "classULootLockerPresenceManager.html#a3bf498bdb2db654b2e7c5e035f1e8c21", null ],
     [ "SetPauseOnBackgroundEnabled", "classULootLockerPresenceManager.html#a3cbbb7d3043b902aec22abea1dfd9090", null ],
-    [ "Shutdown", "classULootLockerPresenceManager.html#a58d80bdd02556068dd22322414cbf8c4", null ],
+    [ "Shutdown", "classULootLockerPresenceManager.html#a8073d47eaf33f256ae363f51e32fdb29", null ],
     [ "UpdateSessionToken", "classULootLockerPresenceManager.html#a4947df8ab73899457f86bcfa084a3057", null ],
     [ "UpdateStatus", "classULootLockerPresenceManager.html#ab5480095b93942da9766119214027798", null ]
 ];

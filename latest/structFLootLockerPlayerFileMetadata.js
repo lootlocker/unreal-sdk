@@ -5,5 +5,6 @@ var structFLootLockerPlayerFileMetadata =
     [ "IsPublic", "structFLootLockerPlayerFileMetadata.html#a5ff0e87add148574262d7adfbba2bdd8", null ],
     [ "key", "structFLootLockerPlayerFileMetadata.html#a673447d23b82ed0c46ec2008901dd603", null ],
     [ "name", "structFLootLockerPlayerFileMetadata.html#a66614c56700e6b3c7f7eb7e7dc580392", null ],
-    [ "purpose", "structFLootLockerPlayerFileMetadata.html#a5585e67e30996bd18ae368d19278d463", null ]
+    [ "purpose", "structFLootLockerPlayerFileMetadata.html#a5585e67e30996bd18ae368d19278d463", null ],
+    [ "requires_download_link", "structFLootLockerPlayerFileMetadata.html#a1102dcf7b79161cd9c3fd2618e967245", null ]
 ];

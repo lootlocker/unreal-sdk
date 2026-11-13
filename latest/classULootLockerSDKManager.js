@@ -42,6 +42,7 @@ var classULootLockerSDKManager =
     [ "CreateAssetCandidateAndMarkComplete", "group__UserGeneratedContent.html#ga8b12c8afd9fd35763e5abd2065466778", null ],
     [ "CreateCharacter", "group__Hero.html#gaddaeb437eed9cfc6fb043c122c3917aa", null ],
     [ "CreateCharacter", "group__Hero.html#gaf7d11c1303ad4e85076a668b6dfc32a5", null ],
+    [ "CreateFileDownloadLink", "group__PlayerFiles.html#ga53e5b5317781156fd2509accb6ae0116", null ],
     [ "CreateHero", "group__Hero.html#ga898b201d5d57d967aa247f90edc4f1e9", null ],
     [ "CreateHeroWithVariation", "group__Hero.html#ga3aefed643c43e27e13d8816367f53c09", null ],
     [ "CreateStripeCheckoutSession", "group__Purchasing.html#ga3ddadd29b2da142f5c94e3c4b202dbac", null ],

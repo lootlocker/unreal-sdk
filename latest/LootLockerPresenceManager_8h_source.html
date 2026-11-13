@@ -59,7 +59,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v10.7.0</span>
+      <span id="ll-topnav-version">v11.0.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;10.7.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.0.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -414,22 +414,22 @@ $(function() {
 <div class="line"><a id="l00345" name="l00345"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a6ab2370d0a8229f0d71659fac5aa6cec">  345</a></span>    static <a class="code hl_function" href="classULootLockerPresenceManager.html#af74c8a8bbcd01736a8c02acfca1acb81">ULootLockerPresenceManager</a>* <a class="code hl_function" href="classULootLockerPresenceManager.html#a6ab2370d0a8229f0d71659fac5aa6cec">GetInstance</a>();</div>
 <div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span></div>
 <div class="line"><a id="l00350" name="l00350"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a23a1f853aa8f3388a4b97f7d369198f4">  350</a></span>    static <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#a23a1f853aa8f3388a4b97f7d369198f4">Initialize</a>();</div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a58d80bdd02556068dd22322414cbf8c4">  354</a></span>    static <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#a58d80bdd02556068dd22322414cbf8c4">Shutdown</a>();</div>
-<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span> </div>
-<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>    <span class="comment">// ====================================================================</span></div>
-<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>    <span class="comment">// PUBLIC API - EVENTS</span></div>
-<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>    <span class="comment">// ====================================================================</span></div>
-<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span></div>
-<div class="line"><a id="l00365" name="l00365"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a3f09b338385d237776779c8c74f3138c">  365</a></span>    static <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#a3f09b338385d237776779c8c74f3138c">NotifyPlayerActivated</a>(const FString&amp; PlayerUlid);</div>
-<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span></div>
-<div class="line"><a id="l00372" name="l00372"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#aef4af47601f226bbeb1f89d02f464aa2">  372</a></span>    static <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#aef4af47601f226bbeb1f89d02f464aa2">NotifyPlayerDeactivated</a>(const FString&amp; PlayerUlid);</div>
-<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>private:</div>
-<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>    static <a class="code hl_function" href="classULootLockerPresenceManager.html#af74c8a8bbcd01736a8c02acfca1acb81">ULootLockerPresenceManager</a>* Instance;</div>
-<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span></div>
-<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>    static FCriticalSection InstanceLock;</div>
-<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>};</div>
-</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a8073d47eaf33f256ae363f51e32fdb29">  358</a></span>    static <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#a8073d47eaf33f256ae363f51e32fdb29">Shutdown</a>(<a class="code hl_function" href="classULootLockerPresenceManager.html#af74c8a8bbcd01736a8c02acfca1acb81">ULootLockerPresenceManager</a>* InstanceToShutDown = <span class="keywordtype">nullptr</span>);</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span> </div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>    <span class="comment">// PUBLIC API - EVENTS</span></div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>    <span class="comment">// ====================================================================</span></div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span></div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#a3f09b338385d237776779c8c74f3138c">  369</a></span>    static <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#a3f09b338385d237776779c8c74f3138c">NotifyPlayerActivated</a>(const FString&amp; PlayerUlid);</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span></div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno"><a class="line" href="classULootLockerPresenceManager.html#aef4af47601f226bbeb1f89d02f464aa2">  376</a></span>    static <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerPresenceManager.html#aef4af47601f226bbeb1f89d02f464aa2">NotifyPlayerDeactivated</a>(const FString&amp; PlayerUlid);</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>private:</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>    static <a class="code hl_function" href="classULootLockerPresenceManager.html#af74c8a8bbcd01736a8c02acfca1acb81">ULootLockerPresenceManager</a>* Instance;</div>
 <div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span></div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>    static FCriticalSection InstanceLock;</div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>};</div>
+</div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span></div>
 <div class="ttc" id="aLootLockerPlayerData_8h_html"><div class="ttname"><a href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a></div></div>
 <div class="ttc" id="aclassULootLockerPresenceManager_html_a0bd7095af0f9eb799c62c214c1fd2415"><div class="ttname"><a href="classULootLockerPresenceManager.html#a0bd7095af0f9eb799c62c214c1fd2415">ULootLockerPresenceManager::IsAutoConnectEnabled</a></div><div class="ttdeci">static bool IsAutoConnectEnabled()</div><div class="ttdoc">Check if auto-connect is enabled.</div></div>
 <div class="ttc" id="aclassULootLockerPresenceManager_html_a23a1f853aa8f3388a4b97f7d369198f4"><div class="ttname"><a href="classULootLockerPresenceManager.html#a23a1f853aa8f3388a4b97f7d369198f4">ULootLockerPresenceManager::Initialize</a></div><div class="ttdeci">static void Initialize()</div><div class="ttdoc">Initialize the presence manager subsystem.</div></div>
@@ -440,10 +440,10 @@ $(function() {
 <div class="ttc" id="aclassULootLockerPresenceManager_html_a3f09b338385d237776779c8c74f3138c"><div class="ttname"><a href="classULootLockerPresenceManager.html#a3f09b338385d237776779c8c74f3138c">ULootLockerPresenceManager::NotifyPlayerActivated</a></div><div class="ttdeci">static void NotifyPlayerActivated(const FString &amp;PlayerUlid)</div><div class="ttdoc">Notify manager that a player has been activated (e.g., logged in).</div></div>
 <div class="ttc" id="aclassULootLockerPresenceManager_html_a4947df8ab73899457f86bcfa084a3057"><div class="ttname"><a href="classULootLockerPresenceManager.html#a4947df8ab73899457f86bcfa084a3057">ULootLockerPresenceManager::UpdateSessionToken</a></div><div class="ttdeci">void UpdateSessionToken(const FString &amp;PlayerUlid, const FString &amp;NewToken)</div><div class="ttdoc">Update session token for an existing presence connection.</div></div>
 <div class="ttc" id="aclassULootLockerPresenceManager_html_a4bf3ca2ad60c3fadd2c433bf42bb76b4"><div class="ttname"><a href="classULootLockerPresenceManager.html#a4bf3ca2ad60c3fadd2c433bf42bb76b4">ULootLockerPresenceManager::PauseConnection</a></div><div class="ttdeci">void PauseConnection(const FString &amp;PlayerUlid)</div><div class="ttdoc">Pause presence connection for a specific player.</div></div>
-<div class="ttc" id="aclassULootLockerPresenceManager_html_a58d80bdd02556068dd22322414cbf8c4"><div class="ttname"><a href="classULootLockerPresenceManager.html#a58d80bdd02556068dd22322414cbf8c4">ULootLockerPresenceManager::Shutdown</a></div><div class="ttdeci">static void Shutdown()</div><div class="ttdoc">Shutdown and cleanup the presence manager subsystem.</div></div>
 <div class="ttc" id="aclassULootLockerPresenceManager_html_a5a63c97bdbc7d2689bcfa27db4f21006"><div class="ttname"><a href="classULootLockerPresenceManager.html#a5a63c97bdbc7d2689bcfa27db4f21006">ULootLockerPresenceManager::BeginDestroy</a></div><div class="ttdeci">virtual void BeginDestroy() override</div></div>
 <div class="ttc" id="aclassULootLockerPresenceManager_html_a63228fa2e91679f02f93d36ad4d10282"><div class="ttname"><a href="classULootLockerPresenceManager.html#a63228fa2e91679f02f93d36ad4d10282">ULootLockerPresenceManager::PauseAllConnections</a></div><div class="ttdeci">void PauseAllConnections()</div><div class="ttdoc">Pause all active presence connections (keeps connections alive but stops activity) Called when app go...</div></div>
 <div class="ttc" id="aclassULootLockerPresenceManager_html_a6ab2370d0a8229f0d71659fac5aa6cec"><div class="ttname"><a href="classULootLockerPresenceManager.html#a6ab2370d0a8229f0d71659fac5aa6cec">ULootLockerPresenceManager::GetInstance</a></div><div class="ttdeci">static ULootLockerPresenceManager * GetInstance()</div><div class="ttdoc">Get the singleton instance of the presence manager.</div></div>
+<div class="ttc" id="aclassULootLockerPresenceManager_html_a8073d47eaf33f256ae363f51e32fdb29"><div class="ttname"><a href="classULootLockerPresenceManager.html#a8073d47eaf33f256ae363f51e32fdb29">ULootLockerPresenceManager::Shutdown</a></div><div class="ttdeci">static void Shutdown(ULootLockerPresenceManager *InstanceToShutDown=nullptr)</div><div class="ttdoc">Shutdown and cleanup the presence manager subsystem.</div></div>
 <div class="ttc" id="aclassULootLockerPresenceManager_html_a83b3043a698e36425da3d50e05773c15"><div class="ttname"><a href="classULootLockerPresenceManager.html#a83b3043a698e36425da3d50e05773c15">ULootLockerPresenceManager::ResumeConnection</a></div><div class="ttdeci">void ResumeConnection(const FString &amp;PlayerUlid)</div><div class="ttdoc">Resume presence connection for a specific player.</div></div>
 <div class="ttc" id="aclassULootLockerPresenceManager_html_a845dc0151b8c33747058d50576ae0b9b"><div class="ttname"><a href="classULootLockerPresenceManager.html#a845dc0151b8c33747058d50576ae0b9b">ULootLockerPresenceManager::GetConnectionStatsForPlayer</a></div><div class="ttdeci">FLootLockerPresenceConnectionStats GetConnectionStatsForPlayer(const FString &amp;PlayerUlid) const</div><div class="ttdoc">Get connection statistics for a specific player.</div></div>
 <div class="ttc" id="aclassULootLockerPresenceManager_html_a90fbae353f8bf21b16f31faa8c545cb8"><div class="ttname"><a href="classULootLockerPresenceManager.html#a90fbae353f8bf21b16f31faa8c545cb8">ULootLockerPresenceManager::GetPresenceStateForPlayer</a></div><div class="ttdeci">ELootLockerPresenceConnectionState GetPresenceStateForPlayer(const FString &amp;PlayerUlid) const</div><div class="ttdoc">Get connection state for a specific player.</div></div>

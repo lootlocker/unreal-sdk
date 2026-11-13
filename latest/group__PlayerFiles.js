@@ -5,6 +5,7 @@ var group__PlayerFiles =
     [ "FLootLockerFileListDelegate", "group__PlayerFiles.html#gab2d5a84be67a16e4c0a210c710f71dd6", null ],
     [ "FLootLockerFileRevisionsDelegate", "group__PlayerFiles.html#gabedde157d15328f4828f71b442c65d49", null ],
     [ "FLootLockerUploadFileDelegate", "group__PlayerFiles.html#ga38079ed6dcabfca7847c0fd7c6e80541", null ],
+    [ "ULootLockerSDKManager::CreateFileDownloadLink", "group__PlayerFiles.html#ga53e5b5317781156fd2509accb6ae0116", null ],
     [ "ULootLockerSDKManager::DeletePlayerFile", "group__PlayerFiles.html#gadd11e380f4327d8a888146d76b39e711", null ],
     [ "ULootLockerSDKManager::DeletePlayerFileByKey", "group__PlayerFiles.html#ga462615abfb79e6099f7755e16d5d7d2b", null ],
     [ "ULootLockerSDKManager::GetFileByKey", "group__PlayerFiles.html#gafb62e5ef95e48d85c684d466e28d08f0", null ],
